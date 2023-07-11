@@ -85,13 +85,13 @@ void SamusInBlueShipShakeScreen(struct CutsceneGraphicsData* pGraphics)
         return;
 
     pGraphics->timer++;
-    if (pGraphics->timer & 1)
+    if (MOD_AND(pGraphics->timer, 2))
         return;
 
     if (pGraphics->timer & 2)
-        *CutsceneGetBGHOFSPointer(sSamusInBlueShipPageData[0].bg) += 4;
+        *CutsceneGetBgHorizontalPointer(sSamusInBlueShipPageData[0].bg) += PIXEL_SIZE;
     else
-        *CutsceneGetBGHOFSPointer(sSamusInBlueShipPageData[0].bg) -= 4;
+        *CutsceneGetBgHorizontalPointer(sSamusInBlueShipPageData[0].bg) -= PIXEL_SIZE;
 }
 
 /**
@@ -155,30 +155,28 @@ u8 SamusInBlueShipInit(void)
 {
     unk_61f0c();
 
-    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 0x10);
-    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 0x10);
+    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 16);
+    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 16);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sSamusInBlueShipSamusGfx, VRAM_BASE + sSamusInBlueShipPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sSamusInBlueShipSamusTileTable, VRAM_BASE + sSamusInBlueShipPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sSamusInBlueShipControlsGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sSamusInBlueShipSamusGfx, BGCNT_TO_VRAM_CHAR_BASE(sSamusInBlueShipPageData[0].graphicsPage));
+    CallLZ77UncompVRAM(sSamusInBlueShipSamusTileTable, BGCNT_TO_VRAM_TILE_BASE(sSamusInBlueShipPageData[0].tiletablePage));
+    CallLZ77UncompVRAM(sSamusInBlueShipControlsGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
 
-    CutsceneSetBGCNTPageData(sSamusInBlueShipPageData[0]);
+    CutsceneSetBgcntPageData(sSamusInBlueShipPageData[0]);
     CutsceneReset();
 
-    CUTSCENE_DATA.bldcnt = BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL |
-        BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
-        BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+    CUTSCENE_DATA.bldcnt = BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
     gWrittenToBLDALPHA_L = 16;
     gWrittenToBLDALPHA_H = 0;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sSamusInBlueShipPageData[0].bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sSamusInBlueShipPageData[0].bg, BLOCK_SIZE * 32);
 
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], 1);
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 39 + HALF_BLOCK_SIZE;
-    CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 37 - 4;
+    CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 37 - PIXEL_SIZE;
     CUTSCENE_DATA.oam[0].priority = 0;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
 

@@ -2,8 +2,8 @@
 #include "macros.h"
 #include "constants/menus/erase_sram.h"
 
-const u16 sEraseSramMenuObjectsPAL[7 * 16] = INCBIN_U16("data/menus/EraseSram/Objects.pal");
-const u16 sEraseSramMenuBackgroundPAL[15 * 16 - 1] = INCBIN_U16("data/menus/EraseSram/Background.pal");
+const u16 sEraseSramMenuObjectsPal[7 * 16] = INCBIN_U16("data/menus/EraseSram/Objects.pal");
+const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1] = INCBIN_U16("data/menus/EraseSram/Background.pal");
 
 static const u16 sEraseSramOAM_ConfirmWindowNoSelected_Frame0[52] = {
     0x11,

@@ -30,7 +30,7 @@ struct TitleScreenPageData {
 struct TitleScreenData {
     u16 timer;
     u16 demoTimer;
-    u16 unk_4;
+    u16 effectsTimer;
     u8 cometsStage;
     u16 cometsTimer;
     u8 activeAnimatedPalettes;

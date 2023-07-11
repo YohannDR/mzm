@@ -50,13 +50,13 @@ extern const struct FrameData sKraidRisingOAM_SmallPuff[5];
 
 extern const struct FrameData sKraidRisingOAM_BigPuff[5];
 
-extern const u16 sKraidRisingCloseUpPAL[5 * 16];
-extern const u16 sKraidRisingSamusPAL[1 * 16];
-extern const u16 sKraidRisingParticlesPAL[1 * 16];
-extern const u16 sKraidRisingSamusVariaPAL[1 * 16];
+extern const u16 sKraidRisingCloseUpPal[5 * 16];
+extern const u16 sKraidRisingSamusPal[1 * 16];
+extern const u16 sKraidRisingParticlesPal[1 * 16];
+extern const u16 sKraidRisingSamusVariaPal[1 * 16];
 extern const u16 sKraidRisingRisingPAL[7 * 16];
 extern const u32 sKraidRisingKraidCloseUpGfx[3087];
-extern const u32 sKraidRisingOAMGfx[753];
+extern const u32 sKraidRisingOamGfx[753];
 extern const u32 sKraidRisingKraidRisingGfx[1609];
 extern const u32 sKraidRisingCaveBackroundGfx[1327];
 extern const u32 sKraidRisingKraidCloseUpEyesClosedTileTable[368];

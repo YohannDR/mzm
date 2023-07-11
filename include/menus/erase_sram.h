@@ -9,7 +9,7 @@ u32 EraseSramProcessInput(void);
 void EraseSramApplyInput(void);
 u32 EraseSramCheckForInput(void);
 void EraseSramInit(void);
-void EraseSramResetOAM(void);
+void EraseSramResetOam(void);
 void EraseSramUpdateCursorPosition(void);
 void EraseSramVBlank(void);
 void EraseSramVBlank_Empty(void);

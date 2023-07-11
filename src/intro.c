@@ -22,7 +22,7 @@
  */
 void IntroVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / 4));
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     write16(REG_DISPCNT, INTRO_DATA.dispcnt);
     write16(REG_BLDCNT, INTRO_DATA.bldcnt);
@@ -39,7 +39,7 @@ void IntroVBlank(void)
  */
 void IntroFuzzVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / 4));
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     write16(REG_DISPCNT, INTRO_DATA.dispcnt);
     write16(REG_BLDCNT, INTRO_DATA.bldcnt);
@@ -86,8 +86,8 @@ void IntroInit(void)
     DMA_SET(3, sIntroTextAndShipPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPAL)));
     DMA_SET(3, sIntroPAL_45f9d4, PALRAM_BASE + 0x1E0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroPAL_45f9d4)));
 
-    write16(REG_BG0CNT, BGCNT_CREATE(0, 16, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
-    write16(REG_BG1CNT, BGCNT_CREATE(0, 18, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG0CNT, CREATE_BGCNT(0, 16, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG1CNT, CREATE_BGCNT(0, 18, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
 
     gNextOamSlot = 0;
     ResetFreeOam();

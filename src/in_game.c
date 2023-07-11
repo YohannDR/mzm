@@ -224,7 +224,7 @@ void VBlankCodeInGameLoad(void)
 {
     vu8 buffer;
 
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     if (gHazeInfo.active)
     {
@@ -279,7 +279,7 @@ void VBlankCodeInGameLoad(void)
  */
 void unk_c9ec(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
     TransferSamusGraphics(FALSE, &gSamusPhysics);
 
     write16(REG_BG0HOFS, gBackgroundPositions.bg[0].x);
@@ -303,7 +303,7 @@ void VBlankCodeInGame(void)
 {
     vu8 buffer;
 
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     if (gHazeInfo.active)
     {

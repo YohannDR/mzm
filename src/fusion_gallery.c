@@ -25,7 +25,7 @@ gBg1YPosition = 0;            \
  */
 void FusionGalleryVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, FUSION_GALLERY_DATA.dispcnt);
     write16(REG_BLDCNT, FUSION_GALLERY_DATA.bldcnt);

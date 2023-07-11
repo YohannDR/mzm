@@ -13,7 +13,7 @@ const struct CutscenePageData sMechaRidleySeesSamusPagesData[1] = {
     }
 };
 
-const struct OamArray sMechaSeesSamusCutsceneOAM[5] = {
+const struct OamArray sMechaSeesSamusCutsceneOam[5] = {
     [0] = {
         .pOam = sMechaSeesSamusOAM_FocusingEye,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -265,5 +265,5 @@ const struct FrameData sMechaSeesSamusOAM_OpeningEye[4] = {
 
 const u32 sMechaSeesSamusMetalGfx[2382] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.gfx.lz");
 const u32 sMechaSeesSamusCoverEyeGfx[2671] = INCBIN_U32("data/cutscenes/MechaSeesSamus/EyeCover.gfx.lz");
-const u16 sMechaSeesSamusPAL[10 * 16] = INCBIN_U16("data/cutscenes/MechaSeesSamus/Palette.pal");
+const u16 sMechaSeesSamusPal[10 * 16] = INCBIN_U16("data/cutscenes/MechaSeesSamus/Palette.pal");
 const u32 sMechaSeesSamusCoverMetalTileTable[368] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.tt");

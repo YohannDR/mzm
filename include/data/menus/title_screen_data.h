@@ -6,7 +6,7 @@
 #include "structs/menus/title_screen.h"
 #include "structs/menu.h"
 
-extern const u16 sTitleScreenPAL[15 * 16];
+extern const u16 sTitleScreenPal[15 * 16];
 extern const u16 sTitleScreenPromptPAL[5 * 16];
 
 extern const u32 sTitleScreenTitleGfx[1095];

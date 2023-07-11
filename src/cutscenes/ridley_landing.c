@@ -32,7 +32,7 @@ u8 RidleyLandingRidleyFlying(void)
 			CallLZ77UncompVRAM(sRidleyLandingRidleyAndRockShadowGfx, VRAM_BASE + 4 * 0x4000);
 			CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[4].tiletablePage * 0x800);
 			
-            CutsceneSetBGCNTPageData(sRidleyLandingPageData[4]);
+            CutsceneSetBgcntPageData(sRidleyLandingPageData[4]);
 			CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[4].bg, 0x800);
 			CutsceneReset();
             
@@ -134,9 +134,9 @@ u8 RidleyLandingShipLanding(void)
             CallLZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + sRidleyLandingPageData[2].tiletablePage * 0x800);
             CallLZ77UncompVRAM(sCutsceneZebesGroundTileTable, VRAM_BASE + sRidleyLandingPageData[3].tiletablePage * 0x800);
 
-            CutsceneSetBGCNTPageData(sRidleyLandingPageData[1]);
-            CutsceneSetBGCNTPageData(sRidleyLandingPageData[2]);
-            CutsceneSetBGCNTPageData(sRidleyLandingPageData[3]);
+            CutsceneSetBgcntPageData(sRidleyLandingPageData[1]);
+            CutsceneSetBgcntPageData(sRidleyLandingPageData[2]);
+            CutsceneSetBgcntPageData(sRidleyLandingPageData[3]);
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[1].bg, 0x800);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[2].bg, 0x800);
@@ -181,7 +181,7 @@ u8 RidleyLandingShipLanding(void)
             break;
 
         case 2:
-            movement = *CutsceneGetBGVOFSPointer(sRidleyLandingPageData[1].bg);
+            movement = *CutsceneGetBgVerticalPointer(sRidleyLandingPageData[1].bg);
 
             if (!(CUTSCENE_DATA.dispcnt & sRidleyLandingPageData[2].bg))
             {
@@ -373,8 +373,8 @@ u8 RidleyLandingShipInSpace(void)
     if (CUTSCENE_DATA.timeInfo.subStage >= 3)
         return FALSE;
 
-    if ((gFrameCounter8Bit & 7) == 6)
-        (*CutsceneGetBGHOFSPointer(sRidleyLandingPageData[0].bg))++;
+    if (MOD_AND(gFrameCounter8Bit, 8) == 6)
+        (*CutsceneGetBgHorizontalPointer(sRidleyLandingPageData[0].bg))++;
 
     if (gFrameCounter8Bit & 1)
     {
@@ -382,11 +382,11 @@ u8 RidleyLandingShipInSpace(void)
         return FALSE;
     }
 
-    if (!(gFrameCounter8Bit & 3))
+    if (MOD_AND(gFrameCounter8Bit, 4) == 0)
         CUTSCENE_DATA.oam[0].yPosition++;
 
-    if (!(gFrameCounter8Bit & 15))
-        gCurrentOamScaling -= 8;
+    if (MOD_AND(gFrameCounter8Bit, 16) == 0)
+        gCurrentOamScaling -= Q_8_8(.035f);
 
     return FALSE;
 }
@@ -417,7 +417,7 @@ u8 RidleyLandingInit(void)
     CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_8, VRAM_BASE + 0x11C00);
     CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_9, VRAM_BASE + 0x12000);
 
-    CutsceneSetBGCNTPageData(sRidleyLandingPageData[0]);
+    CutsceneSetBgcntPageData(sRidleyLandingPageData[0]);
     CutsceneReset();
 
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |

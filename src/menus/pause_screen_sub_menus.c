@@ -266,7 +266,7 @@ void ChozoStatueHintMovement(void)
 
             if (PAUSE_SCREEN_DATA.unk_40 < MAX_AMOUNT_OF_AREAS)
             {
-                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = TRUE << 1;
+                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.unk_47++;
             }
             else
@@ -277,7 +277,7 @@ void ChozoStatueHintMovement(void)
                     break;
                 }
 
-                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = TRUE << 1;
+                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.unk_47++;
             }
 
@@ -322,7 +322,7 @@ void ChozoStatueHintMovement(void)
                 if (PAUSE_SCREEN_DATA.unk_40 < MAX_AMOUNT_OF_AREAS)
                 {
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].oamID = 0x7;
-                    PAUSE_SCREEN_DATA.chozoHintOam[norm].exists = TRUE << 1;
+                    PAUSE_SCREEN_DATA.chozoHintOam[norm].exists = OAM_ID_CHANGED_FLAG;
                 }
                 else
                 {
@@ -364,7 +364,7 @@ void ChozoStatueHintMovement(void)
             PAUSE_SCREEN_DATA.unk_48++;
             if (PAUSE_SCREEN_DATA.unk_48 > 20)
             {
-                PAUSE_SCREEN_DATA.targetsOam[1].exists = TRUE << 1;
+                PAUSE_SCREEN_DATA.targetsOam[1].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = FALSE;
                 PAUSE_SCREEN_DATA.unk_48 = 0;
                 PAUSE_SCREEN_DATA.unk_47++;
@@ -385,7 +385,7 @@ void ChozoStatueHintMovement(void)
             PAUSE_SCREEN_DATA.unk_48++;
             if (PAUSE_SCREEN_DATA.unk_48 > 60)
             {
-                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = TRUE << 1;
+                PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.unk_48 = 0;
                 PAUSE_SCREEN_DATA.unk_47 = 2;
             }

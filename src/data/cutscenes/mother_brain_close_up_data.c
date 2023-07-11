@@ -329,11 +329,11 @@ const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4] = {
 };
 
 const u16 sMotherBrainCloseUpPAL[6 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Palette.pal");
-const u16 sMotherBrainCloseUpBackgroundPAL[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Background.pal");
-const u16 sMotherBrainCloseUpSamusPAL[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Samus.pal");
-const u16 sMotherBrainCloseUpSamusVariaPAL[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/SamusVaria.pal");
-const u16 sMotherBrainCloseUpEyePAL[2 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Eye.pal");
-const u16 sMotherBrainCloseUpBigEyePAL[2 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/BigEye.pal");
+const u16 sMotherBrainCloseUpBackgroundPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Background.pal");
+const u16 sMotherBrainCloseUpSamusPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Samus.pal");
+const u16 sMotherBrainCloseUpSamusVariaPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/SamusVaria.pal");
+const u16 sMotherBrainCloseUpEyePal[2 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Eye.pal");
+const u16 sMotherBrainCloseUpBigEyePal[2 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/BigEye.pal");
 
 const u32 sMotherBrainCloseUpMotherBrainGfx[2722] = INCBIN_U32("data/cutscenes/MotherBrainCloseUp/MotherBrain.gfx.lz");
 const u32 sMotherBrainCloseUpBackgroundGfx[2422] = INCBIN_U32("data/cutscenes/MotherBrainCloseUp/Background.gfx.lz");
@@ -348,4 +348,4 @@ const u32 sMotherBrainCloseUpGlassTileTable[67] = INCBIN_U32("data/cutscenes/Mot
 
 const u32 sMotherBrainCloseUpTankViewGfx[3944] = INCBIN_U32("data/cutscenes/MotherBrainCloseUp/TankView.gfx.lz");
 const u32 sMotherBrainCloseUpTankViewTileTable[368] = INCBIN_U32("data/cutscenes/MotherBrainCloseUp/TankView.tt");
-const u16 sMotherBrainCloseUpTankViewPAL[8 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/TankView.pal");
+const u16 sMotherBrainCloseUpTankViewPal[8 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/TankView.pal");

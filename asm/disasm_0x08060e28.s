@@ -710,8 +710,8 @@ lbl_08061410: .4byte gBG2VOFS_NonGameplay
 lbl_08061414: .4byte gBG3HOFS_NonGameplay
 lbl_08061418: .4byte gBG3VOFS_NonGameplay
 
-    thumb_func_start CutsceneSetBGCNTPageData
-CutsceneSetBGCNTPageData: @ 0x0806141c
+    thumb_func_start CutsceneSetBgcntPageData
+CutsceneSetBgcntPageData: @ 0x0806141c
     push {r4, lr}
     adds r4, r1, #0
     adds r3, r0, #0
@@ -909,8 +909,8 @@ lbl_08061570:
     .align 2, 0
 lbl_08061574: .4byte gBG3VOFS_NonGameplay
 
-    thumb_func_start CutsceneGetBGHOFSPointer
-CutsceneGetBGHOFSPointer: @ 0x08061578
+    thumb_func_start CutsceneGetBgHorizontalPointer
+CutsceneGetBgHorizontalPointer: @ 0x08061578
     push {lr}
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10
@@ -955,8 +955,8 @@ lbl_080615be:
     .align 2, 0
 lbl_080615c4: .4byte gBG3HOFS_NonGameplay
 
-    thumb_func_start CutsceneGetBGVOFSPointer
-CutsceneGetBGVOFSPointer: @ 0x080615c8
+    thumb_func_start CutsceneGetBgVerticalPointer
+CutsceneGetBgVerticalPointer: @ 0x080615c8
     push {lr}
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10

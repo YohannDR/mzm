@@ -68,9 +68,7 @@ u32 EraseSramSubroutine(void)
             if (ERASE_SRAM_DATA.timer <= 40)
                 break;
 
-            ERASE_SRAM_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-                BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ERASE_SRAM_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             ERASE_SRAM_DATA.timer = 0;
             gGameModeSub1++;
@@ -91,9 +89,7 @@ u32 EraseSramSubroutine(void)
             if (ERASE_SRAM_DATA.timer <= 40)
                 break;
 
-            ERASE_SRAM_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-                BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ERASE_SRAM_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             ERASE_SRAM_DATA.timer = 0;
             gGameModeSub1++;
@@ -185,10 +181,11 @@ void EraseSramApplyInput(void)
             break;
     }
 
-    ERASE_SRAM_DATA.oam[1].exists = TRUE << 1;
-    ERASE_SRAM_DATA.oam[2].exists = TRUE << 1;
+    ERASE_SRAM_DATA.oam[1].exists = OAM_ID_CHANGED_FLAG;
+    ERASE_SRAM_DATA.oam[2].exists = OAM_ID_CHANGED_FLAG;
+
     ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_IDLE;
-    ERASE_SRAM_DATA.oam[0].exists = TRUE << 1;
+    ERASE_SRAM_DATA.oam[0].exists = OAM_ID_CHANGED_FLAG;
 }
 
 /**
@@ -282,7 +279,7 @@ u32 EraseSramCheckForInput(void)
     if (exiting)
     {
         ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_SELECTING;
-        ERASE_SRAM_DATA.oam[0].exists = TRUE << 1;
+        ERASE_SRAM_DATA.oam[0].exists = OAM_ID_CHANGED_FLAG;
         sound = 1;
     }
 
@@ -314,7 +311,7 @@ void EraseSramInit(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
 
     ClearGfxRam();
     gNextOamSlot = 0;
@@ -324,10 +321,10 @@ void EraseSramInit(void)
     if ((u8)(ERASE_SRAM_DATA.language - 2) > LANGUAGE_SPANISH - 2)
         ERASE_SRAM_DATA.language = LANGUAGE_ENGLISH;
 
-    while ((u16)(read16(REG_VCOUNT) - 0x15) < 0x8C);
+    while ((u16)(read16(REG_VCOUNT) - 21) < 140);
 
-    DMA_SET(3, sEraseSramMenuBackgroundPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0xD0);
-    DMA_SET(3, sEraseSramMenuObjectsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
+    DMA_SET(3, sEraseSramMenuBackgroundPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, 0xD0));
+    DMA_SET(3, sEraseSramMenuObjectsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, sizeof(sEraseSramMenuObjectsPal) / 2));
     write16(PALRAM_BASE, 0);
 
     LZ77UncompVRAM(sEraseSramMenuFirstBoxGfx, VRAM_BASE + 0x1000);
@@ -345,8 +342,8 @@ void EraseSramInit(void)
     write16(REG_BG0CNT, 0);
     write16(REG_BG2CNT, 0);
     
-    write16(REG_BG1CNT, 0x1A01);
-    write16(REG_BG3CNT, 0x1E03);
+    write16(REG_BG1CNT, CREATE_BGCNT(0, 26, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG3CNT, CREATE_BGCNT(0, 30, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x256));
 
     gWrittenToBLDALPHA_H = 0;
     write16(REG_BLDALPHA, 0);
@@ -358,7 +355,7 @@ void EraseSramInit(void)
     gBG3HOFS_NonGameplay = 0;
     gBG3VOFS_NonGameplay = 0;
 
-    EraseSramResetOAM();
+    EraseSramResetOam();
     EraseSramUpdateCursorPosition();
     EraseSramProcessOAM();
     EraseSramVBlank();
@@ -374,7 +371,7 @@ void EraseSramInit(void)
  * @brief 761d4 | c4 | Initializes the OAM for the erase sram menu
  * 
  */
-void EraseSramResetOAM(void)
+void EraseSramResetOam(void)
 {
     s32 i;
     
@@ -408,8 +405,11 @@ void EraseSramResetOAM(void)
 void EraseSramUpdateCursorPosition(void)
 {
     // Panel position + option position
-    ERASE_SRAM_DATA.oam[0].yPosition = sEraseSramMenuCursorPosition[ERASE_SRAM_DATA.currentOption >> 1][1] + sEraseSramMenuCursorPositionOffset[ERASE_SRAM_DATA.currentOption][1];
-    ERASE_SRAM_DATA.oam[0].xPosition = sEraseSramMenuCursorPosition[ERASE_SRAM_DATA.currentOption >> 1][0] + sEraseSramMenuCursorPositionOffset[ERASE_SRAM_DATA.currentOption][0];
+    ERASE_SRAM_DATA.oam[0].yPosition = sEraseSramMenuCursorPosition[DIV_SHIFT(ERASE_SRAM_DATA.currentOption, 2)][1] +
+        sEraseSramMenuCursorPositionOffset[ERASE_SRAM_DATA.currentOption][1];
+
+    ERASE_SRAM_DATA.oam[0].xPosition = sEraseSramMenuCursorPosition[DIV_SHIFT(ERASE_SRAM_DATA.currentOption, 2)][0] +
+        sEraseSramMenuCursorPositionOffset[ERASE_SRAM_DATA.currentOption][0];
 }
 
 /**
@@ -418,15 +418,15 @@ void EraseSramUpdateCursorPosition(void)
  */
 void EraseSramVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG1HOFS, gBG1HOFS_NonGameplay / 4);
-    write16(REG_BG1VOFS, gBG1VOFS_NonGameplay / 4);
+    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBG1HOFS_NonGameplay));
+    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBG1VOFS_NonGameplay));
 
-    write16(REG_BG3HOFS, gBG3HOFS_NonGameplay / 4);
-    write16(REG_BG3VOFS, gBG3VOFS_NonGameplay / 4);
+    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBG3HOFS_NonGameplay));
+    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBG3VOFS_NonGameplay));
 
     write16(REG_BLDCNT, ERASE_SRAM_DATA.bldcnt);
     write16(REG_DISPCNT, ERASE_SRAM_DATA.dispcnt);
@@ -448,7 +448,7 @@ void EraseSramVBlank_Empty(void)
 void EraseSramProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_menu_oam(ARRAY_SIZE(ERASE_SRAM_DATA.oam), ERASE_SRAM_DATA.oam, sEraseSramMenuOam);
+    ProcessMenuOam(ARRAY_SIZE(ERASE_SRAM_DATA.oam), ERASE_SRAM_DATA.oam, sEraseSramMenuOam);
     ResetFreeOam();
 }
 

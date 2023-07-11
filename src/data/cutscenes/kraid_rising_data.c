@@ -188,13 +188,13 @@ const struct FrameData sKraidRisingOAM_BigPuff[5] = {
     0
 };
 
-const u16 sKraidRisingCloseUpPAL[5 * 16] = INCBIN_U16("data/cutscenes/KraidRising/CloseUp.pal");
-const u16 sKraidRisingSamusPAL[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/Samus.pal");
-const u16 sKraidRisingParticlesPAL[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/Particles.pal");
-const u16 sKraidRisingSamusVariaPAL[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/SamusVaria.pal");
+const u16 sKraidRisingCloseUpPal[5 * 16] = INCBIN_U16("data/cutscenes/KraidRising/CloseUp.pal");
+const u16 sKraidRisingSamusPal[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/Samus.pal");
+const u16 sKraidRisingParticlesPal[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/Particles.pal");
+const u16 sKraidRisingSamusVariaPal[1 * 16] = INCBIN_U16("data/cutscenes/KraidRising/SamusVaria.pal");
 const u16 sKraidRisingRisingPAL[7 * 16] = INCBIN_U16("data/cutscenes/KraidRising/Rising.pal");
 const u32 sKraidRisingKraidCloseUpGfx[3087] = INCBIN_U32("data/cutscenes/KraidRising/CloseUp.gfx.lz");
-const u32 sKraidRisingOAMGfx[753] = INCBIN_U32("data/cutscenes/KraidRising/OAM.gfx.lz");
+const u32 sKraidRisingOamGfx[753] = INCBIN_U32("data/cutscenes/KraidRising/OAM.gfx.lz");
 const u32 sKraidRisingKraidRisingGfx[1609] = INCBIN_U32("data/cutscenes/KraidRising/KraidRising.gfx.lz");
 const u32 sKraidRisingCaveBackroundGfx[1327] = INCBIN_U32("data/cutscenes/KraidRising/CaveBackround.gfx.lz");
 const u32 sKraidRisingKraidCloseUpEyesClosedTileTable[368] = INCBIN_U32("data/cutscenes/KraidRising/KraidCloseUpEyesClosed.tt");

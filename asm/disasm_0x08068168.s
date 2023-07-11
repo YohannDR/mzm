@@ -2648,7 +2648,7 @@ sub_080695bc: @ 0x080695bc
     adds r1, r1, r0
     ldr r2, lbl_080695f8 @ =0x0840d3ec
     movs r0, #4
-    bl process_menu_oam
+    bl ProcessMenuOam
     ldr r1, [r4]
     ldrb r0, [r1, #0x11]
     cmp r0, #0
@@ -2658,7 +2658,7 @@ sub_080695bc: @ 0x080695bc
     adds r1, r1, r0
     ldr r2, lbl_080695fc @ =0x0840d5dc
     movs r0, #0x18
-    bl process_menu_oam
+    bl ProcessMenuOam
     b lbl_0806960e
     .align 2, 0
 lbl_080695f0: .4byte gNextOamSlot
@@ -2671,7 +2671,7 @@ lbl_08069600:
     adds r1, r1, r0
     ldr r2, lbl_08069690 @ =0x0840d4f4
     movs r0, #4
-    bl process_menu_oam
+    bl ProcessMenuOam
 lbl_0806960e:
     ldr r4, lbl_08069694 @ =sNonGameplayRamPointer
     ldr r1, [r4]
@@ -2680,7 +2680,7 @@ lbl_0806960e:
     adds r1, r1, r0
     ldr r2, lbl_08069698 @ =0x0840d22c
     movs r0, #0x17
-    bl process_menu_oam
+    bl ProcessMenuOam
     ldr r2, [r4]
     ldrh r1, [r2]
     movs r0, #0x10
@@ -2692,7 +2692,7 @@ lbl_0806960e:
     adds r1, r2, r0
     ldr r2, lbl_0806969c @ =0x0840d55c
     movs r0, #5
-    bl process_menu_oam
+    bl ProcessMenuOam
 lbl_0806963a:
     ldr r2, [r4]
     ldrb r0, [r2, #0x11]
@@ -2713,7 +2713,7 @@ lbl_0806963a:
     adds r1, r2, r0
     ldr r2, lbl_080696a4 @ =0x0840d51c
     movs r0, #1
-    bl process_menu_oam
+    bl ProcessMenuOam
 lbl_08069664:
     ldr r1, [r4]
     movs r0, #0xba
@@ -2721,14 +2721,14 @@ lbl_08069664:
     adds r1, r1, r0
     ldr r2, lbl_0806969c @ =0x0840d55c
     movs r0, #0xc
-    bl process_menu_oam
+    bl ProcessMenuOam
     ldr r1, [r4]
     movs r0, #0x81
     lsls r0, r0, #3
     adds r1, r1, r0
     ldr r2, lbl_080696a8 @ =0x0840d534
     movs r0, #1
-    bl process_menu_oam
+    bl ProcessMenuOam
 lbl_08069684:
     bl ResetFreeOam
     pop {r4}
@@ -2743,8 +2743,8 @@ lbl_080696a0: .4byte gCurrentArea
 lbl_080696a4: .4byte 0x0840d51c
 lbl_080696a8: .4byte 0x0840d534
 
-    thumb_func_start process_menu_oam
-process_menu_oam: @ 0x080696ac
+    thumb_func_start ProcessMenuOam
+ProcessMenuOam: @ 0x080696ac
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

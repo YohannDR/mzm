@@ -279,7 +279,7 @@ void GalleryVBlank(void)
     u32 buffer;
     u32 bgPos;
 
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     if (ENDING_DATA.unk_6 == 1)
     {
@@ -328,7 +328,7 @@ void GalleryVBlank(void)
  */
 void EndScreenVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, ENDING_DATA.dispcnt);
     write16(REG_BLDCNT, ENDING_DATA.bldcnt);
@@ -347,7 +347,7 @@ void EndScreenVBlank(void)
  */
 void UnlockedOptionsVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, ENDING_DATA.dispcnt);
     write16(REG_BLDCNT, ENDING_DATA.bldcnt);
@@ -897,7 +897,7 @@ void EndScreenInit(void)
     
     gNextOamSlot = 0;
     ResetFreeOam();
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     gBg0XPosition = 0;
     gBg0YPosition = 0;

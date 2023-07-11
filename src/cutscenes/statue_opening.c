@@ -44,10 +44,10 @@ u8 StatueOpeningOpening(void)
 
         case 2:
             // Scroll to the statues
-            pPosition = CutsceneGetBGVOFSPointer(sStatueOpeningPageData[0].bg);
+            pPosition = CutsceneGetBgVerticalPointer(sStatueOpeningPageData[0].bg);
 
             if (*pPosition > BLOCK_SIZE * 32)
-                (*pPosition) -= 2;
+                (*pPosition) -= PIXEL_SIZE / 2;
 
             if (*pPosition <= BLOCK_SIZE * 32)
             {
@@ -96,8 +96,8 @@ u8 StatueOpeningOpening(void)
             break;
     }
 
-    *CutsceneGetBGVOFSPointer(sStatueOpeningPageData[1].bg) = *CutsceneGetBGVOFSPointer(sStatueOpeningPageData[0].bg);
-    *CutsceneGetBGVOFSPointer(sStatueOpeningPageData[2].bg) = *CutsceneGetBGVOFSPointer(sStatueOpeningPageData[0].bg) / 2;
+    *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[1].bg) = *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[0].bg);
+    *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[2].bg) = *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[0].bg) / 2;
 
     return FALSE;
 }
@@ -113,8 +113,8 @@ u8 StatueOpeningInit(void)
     u8* ptr;
     
     unk_61f0c();
-    DmaTransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 0x10);
-    DmaTransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 0x10);
+    DmaTransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 16);
+    DmaTransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 16);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);
@@ -122,17 +122,17 @@ u8 StatueOpeningInit(void)
     // TODO : TIleset 65 Background Gfx
     ptr = (u8*)0x85fe4c8;
     CallLZ77UncompVRAM(ptr, VRAM_BASE + 0xFDE0 - (ptr[2] << 8 | ptr[1])); 
-    CallLZ77UncompVRAM(sStatueOpeningRoomTileTable, VRAM_BASE + sStatueOpeningPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sStatueOpening_3effc8, VRAM_BASE + sStatueOpeningPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sStatueOpeningRoomTileTable, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[0].tiletablePage));
+    CallLZ77UncompVRAM(sStatueOpening_3effc8, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[1].tiletablePage));
     // TODO : Brinstar Room 10 BG3 tiletable
-    CallLZ77UncompVRAM(0x861ac50, VRAM_BASE + sStatueOpeningPageData[2].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(0x861ac50, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[2].tiletablePage));
 
-    CallLZ77UncompVRAM(sBossStatuesGfx, VRAM_BASE + 0x14000);
-    BitFill(3, 0, VRAM_BASE + 0x800, 0x20, 0x20);
+    CallLZ77UncompVRAM(sBossStatuesGfx, BGCNT_TO_VRAM_CHAR_BASE(5));
+    BitFill(3, 0, BGCNT_TO_VRAM_TILE_BASE(1), 32, 32);
 
-    CutsceneSetBGCNTPageData(sStatueOpeningPageData[0]);
-    CutsceneSetBGCNTPageData(sStatueOpeningPageData[1]);
-    CutsceneSetBGCNTPageData(sStatueOpeningPageData[2]);
+    CutsceneSetBgcntPageData(sStatueOpeningPageData[0]);
+    CutsceneSetBgcntPageData(sStatueOpeningPageData[1]);
+    CutsceneSetBgcntPageData(sStatueOpeningPageData[2]);
 
     CutsceneReset();
 
@@ -140,12 +140,14 @@ u8 StatueOpeningInit(void)
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
     gWrittenToBLDY_NonGameplay = 16;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[0].bg, 0x840);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[1].bg, 0x840);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[0].bg, 0x980);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[1].bg, 0x980);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[2].bg, 0x420);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[2].bg, 0x400);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[0].bg, BLOCK_SIZE * 33);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[1].bg, BLOCK_SIZE * 33);
+
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[0].bg, BLOCK_SIZE * 38);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[1].bg, BLOCK_SIZE * 38);
+
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sStatueOpeningPageData[2].bg, BLOCK_SIZE * 16 + HALF_BLOCK_SIZE);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStatueOpeningPageData[2].bg, BLOCK_SIZE * 16);
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 8;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 7;

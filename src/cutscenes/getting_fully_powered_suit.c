@@ -50,7 +50,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
             break;
 
         case 3:
-            bgPosition = CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[0].bg);
+            bgPosition = CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
             if (*bgPosition - 4 > BLOCK_SIZE * 32)
                 (*bgPosition) -= 4;
             else
@@ -92,7 +92,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
     }
 
     GettingFullyPoweredSuitUpdateRingPalette(&CUTSCENE_DATA.paletteData[0]);
-    *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[1].bg) = *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[0].bg);
+    *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[1].bg) = *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
 
     GettingFullyPoweredSuitUpdateRing(&CUTSCENE_DATA.oam[6]);
 
@@ -101,7 +101,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
 
     // ...
 
-    i = -0x800 + *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[0].bg);
+    i = -0x800 + *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
     i = (CUTSCENE_DATA.oam[6].yPosition - i >> 2) + 8;
     if (i < 0)
         i = 0;
@@ -272,8 +272,8 @@ u8 GettingFullyPoweredSuitInit(void)
 
     CallLZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGfx, VRAM_BASE + 0x10000);
 
-    CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[0]);
-    CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[1]);
+    CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[0]);
+    CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[1]);
 
     CutsceneReset();
 

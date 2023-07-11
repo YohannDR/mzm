@@ -206,41 +206,28 @@ u32 GameOverProcessInput(void)
 void GameOverUpdateTextGfx(void)
 {
     u8 palette;
-    u32 palVal;
     u16* dst;
-    u32 mask;
     s32 i;
 
     dst = VRAM_BASE + 0x340;
+
+    // Get palette
     if (GAME_OVER_DATA.optionSelected == 0)
         palette = 2;
     else
         palette = 3;
 
-    mask = 0xFFF;
-    palVal = palette << 12;
-    i = 0x3F;
-    while (i >= 0)
-    {
-        *dst = (*dst & mask) | palVal;
+    // Top
+    for (i = 0; i < 64; i++, dst++)
+        *dst = (*dst & 0xFFF) | palette << 12;
 
-        i--;
-        dst++;
-    }
-
+    // Toggle palette
     palette ^= 1;
-    dst += 0x20;
-    mask = 0xFFF;
-    palVal = palette << 12;
-    i = 0x3F;
+    dst += 32;
 
-    while (i >= 0)
-    {
-        *dst = (*dst & mask) | palVal;
-
-        i--;
-        dst++;
-    }
+    // Bottom
+    for (i = 0; i < 64; i++, dst++)
+        *dst = (*dst & 0xFFF) | palette << 12;
 }
 
 /**
@@ -253,11 +240,9 @@ void GameOverInit(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
 
-    write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
     write16(REG_DISPCNT, 0);
@@ -271,26 +256,26 @@ void GameOverInit(void)
     DoSoundAction(0x80);
     StopAllMusicsAndSounds();
 
-    DmaTransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
+    DmaTransfer(3, sGameOverMenuPal, PALRAM_BASE, sizeof(sGameOverMenuPal), 16);
     write16(PALRAM_BASE, 0);
-    DMA_SET(3, sFileSelectIconsPal, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPal) / 2);
+    DMA_SET(3, sFileSelectIconsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sFileSelectIconsPal)));
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
-    DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
+    DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 32);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGfx, VRAM_BASE + 0x4000);
     LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
-    write16(REG_BG0CNT, 0x4);
-    write16(REG_BG1CNT, 0x105);
-    write16(REG_BG2CNT, 0x206);
-    write16(REG_BG3CNT, 0x307);
+    write16(REG_BG0CNT, CREATE_BGCNT(1, 0, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG1CNT, CREATE_BGCNT(1, 1, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG2CNT, CREATE_BGCNT(1, 2, BGCNT_LOW_MID_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG3CNT, CREATE_BGCNT(1, 3, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x256));
 
     GAME_OVER_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
-    write8(REG_WINOUT, 0x1F);
-    write8(REG_WININ + 1, 0x3F);
+    write8(REG_WINOUT, WIN0_ALL_NO_COLOR_EFFECT);
+    write8(REG_WININ + 1, HIGH_BYTE(WIN1_ALL));
 
     GAME_OVER_DATA.dynamicPalette = sGameOverDynamicPalette_Empty;
 
@@ -321,11 +306,9 @@ void GameOverInit_Unused(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
 
-    write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
     write16(REG_DISPCNT, GAME_OVER_DATA.dispcnt = 0);
@@ -353,9 +336,7 @@ void GameOverInit_Unused(void)
     gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
     gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
 
-    GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     gWrittenToBLDY_NonGameplay = 0;
     GAME_OVER_DATA.optionSelected = GAME_OVER_DATA.unk_35 = 0;
@@ -375,22 +356,22 @@ void GameOverVBlank(void)
 {
     DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
 
-    write16(REG_BG0HOFS, gBG0HOFS_NonGameplay / 4);
-    write16(REG_BG0VOFS, gBG0VOFS_NonGameplay / 4);
+    write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBG0HOFS_NonGameplay));
+    write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBG0VOFS_NonGameplay));
 
-    write16(REG_BG1HOFS, gBG1HOFS_NonGameplay / 4);
-    write16(REG_BG1VOFS, gBG1VOFS_NonGameplay / 4);
+    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBG1HOFS_NonGameplay));
+    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBG1VOFS_NonGameplay));
 
-    write16(REG_BG2HOFS, gBG2HOFS_NonGameplay / 4);
-    write16(REG_BG2VOFS, gBG2VOFS_NonGameplay / 4);
+    write16(REG_BG2HOFS, SUB_PIXEL_TO_PIXEL(gBG2HOFS_NonGameplay));
+    write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBG2VOFS_NonGameplay));
 
-    write16(REG_BG3HOFS, gBG3HOFS_NonGameplay / 4);
-    write16(REG_BG3VOFS, gBG3VOFS_NonGameplay / 4);
+    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBG3HOFS_NonGameplay));
+    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBG3VOFS_NonGameplay));
 
     write16(REG_DISPCNT, GAME_OVER_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
 
     write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt);
     write16(REG_WIN1H, GAME_OVER_DATA.win1H);
@@ -423,9 +404,9 @@ void GameOverUpdateLettersPalette(void)
 
     if (GAME_OVER_DATA.dynamicPalette.enableFlags & 0x80)
     {
-        if ((GAME_OVER_DATA.dynamicPalette.enableFlags & 0x7F) != GAME_OVER_DATA.dynamicPalette.unk_4)
+        if (MOD_AND(GAME_OVER_DATA.dynamicPalette.enableFlags, 128) != GAME_OVER_DATA.dynamicPalette.unk_4)
         {
-            GAME_OVER_DATA.dynamicPalette.unk_4 = GAME_OVER_DATA.dynamicPalette.enableFlags & 0x7F;
+            GAME_OVER_DATA.dynamicPalette.unk_4 = MOD_AND(GAME_OVER_DATA.dynamicPalette.enableFlags, 128);
             GAME_OVER_DATA.dynamicPalette.timer = 0;
             GAME_OVER_DATA.dynamicPalette.currentPaletteRow = 0;
             GAME_OVER_DATA.dynamicPalette.unk_13 = 0;
@@ -440,7 +421,7 @@ void GameOverUpdateLettersPalette(void)
     if (GAME_OVER_DATA.dynamicPalette.timerLimit > GAME_OVER_DATA.dynamicPalette.timer)
         return;
 
-    src = &sGameOverMenuPAL[4];
+    src = &sGameOverMenuPal[4];
     switch (GAME_OVER_DATA.dynamicPalette.unk_4)
     {
         case 0:
@@ -450,9 +431,9 @@ void GameOverUpdateLettersPalette(void)
 
             row = GAME_OVER_DATA.dynamicPalette.currentPaletteRow;
             i = 0;
-            while (i < (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+            while (i < (s32)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
             {
-                if (row >= (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+                if (row >= (s32)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                     row = 0;
 
                 GAME_OVER_DATA.dynamicPalette.palette[i] = src[row];
@@ -470,43 +451,25 @@ void GameOverUpdateLettersPalette(void)
             j = sGameOver_760b0f[GAME_OVER_DATA.dynamicPalette.currentPaletteRow];
             if (j >= 0)
             {
-                i = 0;
-                while (i < j)
-                {
-                    GAME_OVER_DATA.dynamicPalette.palette[i++] = *src;
-                }
+                for (i = 0; i < j; i++)
+                    GAME_OVER_DATA.dynamicPalette.palette[i] = *src;
 
-                k = 0;
-                while (i < 6)
-                {
+                for (k = 0; i < 6; i++, k++)
                     GAME_OVER_DATA.dynamicPalette.palette[i] = src[k];
-                    i++;
-                    k++;
-                }
             }
             else
             {
-                i = 5;
-                while (j < 0)
-                {
+                for (i = 5; j < 0; j++, i--)
                     GAME_OVER_DATA.dynamicPalette.palette[i] = src[5];
-                    j++;
-                    i--;
-                }
 
-                k = 4;
-                while (i >= 0)
-                {
+                for (k = 4; i >= 0; i--, k--)
                     GAME_OVER_DATA.dynamicPalette.palette[i] = src[k];
-                    i--;
-                    k--;
-                }
             }
             break;
     }
 
     GAME_OVER_DATA.dynamicPalette.timer = 0;
-    DmaTransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 8,sizeof(GAME_OVER_DATA.dynamicPalette.palette), 0x10);
+    DmaTransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 8, sizeof(GAME_OVER_DATA.dynamicPalette.palette), 16);
 }
 
 /**
@@ -516,16 +479,17 @@ void GameOverUpdateLettersPalette(void)
  */
 void GameOverUpdateSamusHead(u8 action)
 {
-    UpdateMenuOamDataID(&GAME_OVER_DATA.oam[0], sGameOverSamusHeadOAMIds[gEquipment.suitType][action]);
+    UpdateMenuOamDataID(&GAME_OVER_DATA.oam[0], sGameOverSamusHeadOamIds[gEquipment.suitType][action]);
+
     GAME_OVER_DATA.oam[0].xPosition = sGameOverSamusHeadXPositions[gLanguage];
     GAME_OVER_DATA.oam[0].yPosition = sGameOverSamusHeadYPositions[GAME_OVER_DATA.optionSelected];
 
     if (GAME_OVER_DATA.optionSelected != 0)
-        GAME_OVER_DATA.win1V = 0x7E92;
+        GAME_OVER_DATA.win1V = C_16_2_8(0x7E, 0x91 + 1);
     else
-        GAME_OVER_DATA.win1V = 0x667A;
+        GAME_OVER_DATA.win1V = C_16_2_8(0x66, 0x79 + 1);
 
-    GAME_OVER_DATA.win1H = 0xF0;
+    GAME_OVER_DATA.win1H = C_16_2_8(0, 0xEF + 1);
 }
 
 /**

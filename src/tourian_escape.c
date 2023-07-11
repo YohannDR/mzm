@@ -26,7 +26,7 @@
  */
 void TourianEscapeVBLank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, TOURIAN_ESCAPE_DATA.dispcnt);
     write16(REG_BLDCNT, TOURIAN_ESCAPE_DATA.bldcnt);
@@ -55,7 +55,7 @@ void TourianEscapeVBLank(void)
  */
 void TourianEscapeVBLankZebesExploding(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, TOURIAN_ESCAPE_DATA.dispcnt);
     write16(REG_BLDCNT, TOURIAN_ESCAPE_DATA.bldcnt);
@@ -1471,7 +1471,7 @@ u8 TourianEscapeSamusChasedByPirates(void)
         else
             TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a5ae;
 
-        TOURIAN_ESCAPE_DATA.oamTimers[0] = (TOURIAN_ESCAPE_DATA.oamTimers[0] + 1) & 7;
+        TOURIAN_ESCAPE_DATA.oamTimers[0] = MOD_AND(TOURIAN_ESCAPE_DATA.oamTimers[0] + 1, 8);
     }
 
     TourianEscapeProcessOam();
@@ -1511,7 +1511,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
             TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
             TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x78;
             TOURIAN_ESCAPE_DATA.oamYPositions[1] = HALF_BLOCK_SIZE;
-            TOURIAN_ESCAPE_DATA.oamScaling = 0x100;
+            TOURIAN_ESCAPE_DATA.oamScaling = Q_8_8(1.f);
 
             TOURIAN_ESCAPE_DATA.unk_8[4] = TRUE;
             TOURIAN_ESCAPE_DATA.unk_8[5] = 2;
@@ -1681,7 +1681,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
     if (TOURIAN_ESCAPE_DATA.unk_8[1])
     {
         var_1 = 0;
-        if (TOURIAN_ESCAPE_DATA.oamScaling > 0xA0)
+        if (TOURIAN_ESCAPE_DATA.oamScaling > Q_8_8(.625f))
         {
             if (TOURIAN_ESCAPE_DATA.oamFrames[1] > 26)
                 TOURIAN_ESCAPE_DATA.oamFrames[1] = 0;
@@ -1692,11 +1692,11 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
         TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47cf88[var_1];
 
         if (TOURIAN_ESCAPE_DATA.unk_8[1] == 1)
-            TOURIAN_ESCAPE_DATA.oamScaling -= 1;
+            TOURIAN_ESCAPE_DATA.oamScaling -= Q_8_8(.005f);
         else
-            TOURIAN_ESCAPE_DATA.oamScaling -= 2;
+            TOURIAN_ESCAPE_DATA.oamScaling -= Q_8_8(.01f);
 
-        if (TOURIAN_ESCAPE_DATA.oamScaling < 8 )
+        if (TOURIAN_ESCAPE_DATA.oamScaling < Q_8_8(.035f))
             TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
 
         TOURIAN_ESCAPE_DATA.oamFrames[1]++;

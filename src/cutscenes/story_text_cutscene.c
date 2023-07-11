@@ -22,21 +22,21 @@
 u8 StoryTextCutsceneInit(void)
 {
     // Reset message
-    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 0x20);
+    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
 
     // Set message ID
     gCurrentMessage.messageID = sCutsceneData[gCurrentCutscene].storyText - 1;
     unk_61f0c();
 
     // Load palette
-    DmaTransfer(3, sStoryTextCutscenePAL, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePAL), 0x10);
+    DmaTransfer(3, sStoryTextCutscenePAL, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePAL), 16);
     write16(PALRAM_BASE, 0);
 
     // Load tiletable and clear graphics
     CallLZ77UncompVRAM(sStoryTextCutsceneTileTable, VRAM_BASE + sStoryTextCutscenePagesData[0].tiletablePage * 0x800);
     BitFill(3, 0, VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000, 0x5000, 0x20);
 
-    CutsceneSetBGCNTPageData(sStoryTextCutscenePagesData[0]);
+    CutsceneSetBgcntPageData(sStoryTextCutscenePagesData[0]);
     
     gWrittenToBLDY_NonGameplay = 16;
     gWrittenToBLDALPHA_L = 16;
@@ -156,7 +156,7 @@ u8 StoryTextCutsceneSetVerticalOffset(void)
 
     // Weird maths, produces the following values (0 to 10) : 1728, 1760, 1792, 1824, 1856, 1888, 1920, 1952, 1984, 2016, 2048
     bgPosition -= (10 - gCurrentMessage.line) / 2 * 64;
-    if (gCurrentMessage.line & 1)
+    if (MOD_AND(gCurrentMessage.line,2))
         bgPosition -= HALF_BLOCK_SIZE;
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sStoryTextCutscenePagesData[0].bg, bgPosition);

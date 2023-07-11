@@ -9,6 +9,11 @@
 
 #include "constants/cutscene.h"
 
+/**
+ * @brief 65924 | 100 | Handles the eye part of the mecha sees samus cutscene
+ * 
+ * @return u8 FALSE
+ */
 u8 MechaRidleySeesSamusEyeOpen(void)
 {
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -87,19 +92,19 @@ u8 MechaRidleySeesSamusInit(void)
     u32 priority;
 
     unk_61f0c();
-    DmaTransfer(3, sMechaSeesSamusPAL, PALRAM_BASE, sizeof(sMechaSeesSamusPAL), 0x10);
-    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
+    DmaTransfer(3, sMechaSeesSamusPal, PALRAM_BASE, sizeof(sMechaSeesSamusPal), 16);
+    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, PALRAM_SIZE / 2, 32);
 
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sMechaSeesSamusMetalGfx, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sMechaSeesSamusCoverMetalTileTable, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sMechaSeesSamusMetalGfx, BGCNT_TO_VRAM_CHAR_BASE(sMechaRidleySeesSamusPagesData[0].graphicsPage));
+    CallLZ77UncompVRAM(sMechaSeesSamusCoverMetalTileTable, BGCNT_TO_VRAM_TILE_BASE(sMechaRidleySeesSamusPagesData[0].tiletablePage));
+    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
 
-    CutsceneSetBGCNTPageData(sMechaRidleySeesSamusPagesData[0]);
+    CutsceneSetBgcntPageData(sMechaRidleySeesSamusPagesData[0]);
 
     bg = sMechaRidleySeesSamusPagesData[0].bg;
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, BLOCK_SIZE * 32);
     CutsceneReset();
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;
@@ -126,7 +131,7 @@ u8 MechaRidleySeesSamusInit(void)
 /**
  * @brief 65b6c | 34 | Mecha ridley sees Samus cutscene subroutine
  * 
- * @return u8 1 if ended, 0 otherwise
+ * @return u8 bool, ended
  */
 u8 MechaRidleySeesSamusSubroutine(void)
 {
@@ -146,6 +151,6 @@ u8 MechaRidleySeesSamusSubroutine(void)
 void MechaRidleySeesSamusProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
+    ProcessCutsceneOam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOam);
     ResetFreeOam();
 }

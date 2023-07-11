@@ -12,19 +12,19 @@ const u16 sMotherBrainCloseUpEyeOpeningTimers[4] = {
 
 const struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {
     [0] = {
-        .pFunction = (CutsceneFunc_T)0x8063585,//MotherBrainCloseUpInit,
+        .pFunction = MotherBrainCloseUpInit,
         .oamLength = 0
     },
     [1] = {
-        .pFunction = (CutsceneFunc_T)0x80634C1,//MotherBrainCloseUpTankView,
+        .pFunction = MotherBrainCloseUpTankView,
         .oamLength = 0
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8063285,//MotherBrainCloseUpEyeOpening,
+        .pFunction = MotherBrainCloseUpEyeOpening,
         .oamLength = 8
     },
     [3] = {
-        .pFunction = (CutsceneFunc_T)0x8063009,//MotherBrainCloseUpLookingAtSamus,
+        .pFunction = MotherBrainCloseUpLookingAtSamus,
         .oamLength = 2
     },
     [4] = {
@@ -35,9 +35,9 @@ const struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {
 
 const u16 sMotherBrainCloseUpBubblesSpawnPositions[2][2] = {
     [0] = {
-        BLOCK_SIZE * 11 + 8, BLOCK_SIZE * 10 + 56
+        BLOCK_SIZE * 11 + PIXEL_SIZE * 2, BLOCK_SIZE * 10 + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 2
     },
     [1] = {
-        BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE, BLOCK_SIZE * 10 + 28
+        BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE, BLOCK_SIZE * 10 + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3
     }
 };

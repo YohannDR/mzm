@@ -44,7 +44,7 @@ lbl_08078266:
     adds r1, #0x74
     ldr r2, lbl_08078284 @ =0x0845f1dc
     movs r0, #0xf
-    bl process_menu_oam
+    bl ProcessMenuOam
     b lbl_0807829a
     .align 2, 0
 lbl_08078278: .4byte gNextOamSlot
@@ -59,7 +59,7 @@ lbl_08078288:
     adds r1, r1, r0
     ldr r2, lbl_080782a8 @ =0x0845f31c
     movs r0, #0xb
-    bl process_menu_oam
+    bl ProcessMenuOam
 lbl_0807829a:
     bl ResetFreeOam
     pop {r0}

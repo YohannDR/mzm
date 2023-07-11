@@ -26,7 +26,8 @@ void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageDa
 {
     u16 value;
 
-    value = pPageData->priority | pPageData->screenSize | pPageData->tiletablePage << 8 | pPageData->graphicsPage << 2;
+    value = pPageData->priority | pPageData->screenSize | pPageData->tiletablePage << BGCNT_SCREEN_BASE_BLOCK_SHIFT |
+        pPageData->graphicsPage << BGCNT_CHAR_BASE_BLOCK_SHIFT;
 
     if (pPageData->bg == DCNT_BG0)
         write16(REG_BG0CNT, value);
@@ -64,7 +65,7 @@ void TitleScreenLoadPageData_Copy(const struct TitleScreenPageData* const pPageD
  * @param offset OAM offset
  * @param oamId OAM id
  */
-void TitleScreenUpdateOAMId(u8 offset, u8 oamId)
+void TitleScreenUpdateOamId(u8 offset, u8 oamId)
 {
     TITLE_SCREEN_DATA.oam[offset].oamID = oamId;
     TITLE_SCREEN_DATA.oam[offset].animationDurationCounter = 0;
@@ -78,7 +79,7 @@ void TitleScreenUpdateOAMId(u8 offset, u8 oamId)
 void TitleScreenCallProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_menu_oam(ARRAY_SIZE(TITLE_SCREEN_DATA.oam), TITLE_SCREEN_DATA.oam, sTitleScreenOam);
+    ProcessMenuOam(ARRAY_SIZE(TITLE_SCREEN_DATA.oam), TITLE_SCREEN_DATA.oam, sTitleScreenOam);
     ResetFreeOam();
 }
 
@@ -91,18 +92,10 @@ void TitleScreenResetOAM(void)
     s32 i;
     struct MenuOamData* pOam;
 
-    pOam = TITLE_SCREEN_DATA.oam;
-    i = 0;
-
-    while (i < ARRAY_SIZE(TITLE_SCREEN_DATA.oam))
-    {
+    for (pOam = TITLE_SCREEN_DATA.oam, i = 0; i < (s32)ARRAY_SIZE(TITLE_SCREEN_DATA.oam); i++, pOam++)
         *pOam = sMenuOamData_Empty;
 
-        i++;
-        pOam++;
-    }
-
-    TitleScreenUpdateOAMId(0, 0);
+    TitleScreenUpdateOamId(0, 0);
 
     TITLE_SCREEN_DATA.oam[0].yPosition = sTitleScreenRomInfoPosition[0];
     TITLE_SCREEN_DATA.oam[0].xPosition = sTitleScreenRomInfoPosition[1];
@@ -138,11 +131,11 @@ u32 TitleScreenFadingIn(void)
             {
                 src = (void*)sEwramPointer + 0x8000;
                 dst = (void*)sEwramPointer + 0x8400;
-                ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
+                ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = (void*)sEwramPointer + 0x8200;
                 dst = (void*)sEwramPointer + 0x8600;
-                ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
+                ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 TITLE_SCREEN_DATA.unk_12 = TRUE;
                 if (TITLE_SCREEN_DATA.colorToApply == 31)
@@ -159,7 +152,7 @@ u32 TitleScreenFadingIn(void)
                 break;
             }
             
-            DmaTransfer(3, (void*)sEwramPointer + 0x8000, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
+            DmaTransfer(3, (void*)sEwramPointer + 0x8000, (void*)sEwramPointer + 0x8400, 0x400, 16);
             TITLE_SCREEN_DATA.unk_12 = TRUE;
             TITLE_SCREEN_DATA.unk_10++;
             break;
@@ -213,11 +206,11 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
             {
                 src = (void*)sEwramPointer + 0x8000;
                 dst = (void*)sEwramPointer + 0x8400;
-                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
+                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = (void*)sEwramPointer + 0x8200;
                 dst = (void*)sEwramPointer + 0x8600;
-                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
+                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 TITLE_SCREEN_DATA.unk_12 = TRUE;
                 if (TITLE_SCREEN_DATA.colorToApply == 31)
@@ -234,7 +227,7 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
                 break;
             }
             
-            BitFill(3, 0, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
+            BitFill(3, 0, (void*)sEwramPointer + 0x8400, 0x400, 16);
             TITLE_SCREEN_DATA.unk_12 = TRUE;
             TITLE_SCREEN_DATA.unk_10++;
             break;
@@ -260,12 +253,12 @@ void unk_76710(u8 param_1)
 {
     if (!param_1)
     {
-        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 0x10);
-        BitFill(3, 0, PALRAM_BASE, 0x400, 0x10);
-        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
+        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 16);
+        BitFill(3, 0, PALRAM_BASE, 0x400, 16);
+        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8400, 0x400, 16);
     }
     else
-        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 0x10);
+        DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 16);
 
     TITLE_SCREEN_DATA.unk_10 = 0;
 }
@@ -278,7 +271,7 @@ void unk_767a4(void)
 {
     if (TITLE_SCREEN_DATA.unk_12)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x8400, PALRAM_BASE, 0x400, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x8400, PALRAM_BASE, 0x400, 16);
         TITLE_SCREEN_DATA.unk_12 = FALSE;
     }
 }
@@ -303,7 +296,7 @@ void TitleScreenUpdateAnimatedPalette(void)
             if (pAnim->paletteRow >= ARRAY_SIZE(sTitleScreenSkyDecorationsPaletteRows))
                 pAnim->paletteRow = 0;
 
-            DmaTransfer(3, &sTitleScreenPAL[sTitleScreenSkyDecorationsPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x100, 0x20, 0x10);
+            DmaTransfer(3, &sTitleScreenPal[sTitleScreenSkyDecorationsPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x100, 0x20, 16);
         }
     }
 
@@ -329,7 +322,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                     pAnim->unk_4--;
                 }
 
-                DmaTransfer(3, &sTitleScreenPAL[sTitleScreenTitlePaletteRows[pAnim->paletteRow] * 16 + 1], PALRAM_BASE + 0x2, 0x1E, 0x10);
+                DmaTransfer(3, &sTitleScreenPal[sTitleScreenTitlePaletteRows[pAnim->paletteRow] * 16 + 1], PALRAM_BASE + 0x2, 0x1E, 16);
             }
         }
     }
@@ -351,7 +344,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                 pAnim->paletteRow *= 4;
             }
 
-            DmaTransfer(3, &sTitleScreenPromptPAL[pAnim->paletteRow * 16], PALRAM_BASE + 0x1A0, 0x18, 0x10);
+            DmaTransfer(3, &sTitleScreenPromptPAL[pAnim->paletteRow * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
         }
         else
         {
@@ -365,7 +358,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                     pAnim->paletteRow = 0;
             }
             
-            DmaTransfer(3, &sTitleScreenPromptPAL[sTitleScreenPromptPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x1A0, 0x18, 0x10);
+            DmaTransfer(3, &sTitleScreenPromptPAL[sTitleScreenPromptPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
         }
     }
 }
@@ -378,25 +371,25 @@ void unk_76978(u8 param_1)
 {
     if (param_1 & 1)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x4000, VRAM_BASE + 0x4000, 0x800, 0x10);
-        DmaTransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0x4800, 0x800, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x4000, VRAM_BASE + 0x4000, 0x800, 16);
+        DmaTransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0x4800, 0x800, 16);
     }
 
     if (param_1 & 2)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x5000, VRAM_BASE + 0x5000, 0x800, 0x10);
-        DmaTransfer(3, (void*)sEwramPointer + 0x5800, VRAM_BASE + 0x5800, 0x800, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x5000, VRAM_BASE + 0x5000, 0x800, 16);
+        DmaTransfer(3, (void*)sEwramPointer + 0x5800, VRAM_BASE + 0x5800, 0x800, 16);
     }
 
     if (param_1 & 4)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x6000, VRAM_BASE + 0x6000, 0x800, 0x10);
-        DmaTransfer(3, (void*)sEwramPointer + 0x6800, VRAM_BASE + 0x6800, 0x800, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x6000, VRAM_BASE + 0x6000, 0x800, 16);
+        DmaTransfer(3, (void*)sEwramPointer + 0x6800, VRAM_BASE + 0x6800, 0x800, 16);
     }
 
     if (param_1 & 8)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x7000, VRAM_BASE + 0x7000, 0x400, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x7000, VRAM_BASE + 0x7000, 0x400, 16);
         TITLE_SCREEN_DATA.unk_24 = gBG3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
     }
 }
@@ -421,9 +414,7 @@ u32 unk_76a98(void)
             TITLE_SCREEN_DATA.oamTimings[1].stage = 16;
 
             TITLE_SCREEN_DATA.dispcnt &= ~sTitleScreenPageData[0].bg;
-            TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            TITLE_SCREEN_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             TITLE_SCREEN_DATA.unk_E++;
             break;
@@ -535,9 +526,9 @@ u32 TitleScreenCometsView(void)
             }
 
             if (BLOCK_SIZE * 12 + HALF_BLOCK_SIZE - gBG3VOFS_NonGameplay < 9)
-                screenOffset += 2;
+                screenOffset += PIXEL_SIZE / 2;
             else
-                screenOffset += 4;
+                screenOffset += PIXEL_SIZE;
             break;
 
         default:
@@ -580,19 +571,19 @@ void TitleScreenTransferGroundGraphics(void)
     {
         if (TITLE_SCREEN_DATA.unk_24 < gBG3VOFS_NonGameplay)
         {
-            if (gBG3VOFS_NonGameplay >= 0x160)
+            if (gBG3VOFS_NonGameplay >= (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE))
             {
-                var_0 = (gBG3VOFS_NonGameplay - 0x160) >> 5;
-                var_1 = (TITLE_SCREEN_DATA.unk_24 - 0x160) >> 5;
+                var_0 = (gBG3VOFS_NonGameplay - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE)) >> 5;
+                var_1 = (TITLE_SCREEN_DATA.unk_24 - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE)) >> 5;
                 src = (void*)sEwramPointer + 0x4000;
             }
         }
         else
         {
-            if (gBG3VOFS_NonGameplay <= 0x1E0)
+            if (gBG3VOFS_NonGameplay <= (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
             {
-                var_0 = 13 - ((0x1E0 - gBG3VOFS_NonGameplay) >> 5);
-                var_1 = 13 - ((0x1E0 - TITLE_SCREEN_DATA.unk_24) >> 5);
+                var_0 = 13 - (((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) - gBG3VOFS_NonGameplay) >> 5);
+                var_1 = 13 - (((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) - TITLE_SCREEN_DATA.unk_24) >> 5);
                 src = (void*)sEwramPointer;
             }
         }
@@ -601,7 +592,7 @@ void TitleScreenTransferGroundGraphics(void)
     if (var_0 < 14u && var_0 != var_1)
     {
         var_0 *= 0x400;
-        DmaTransfer(3, src + var_0, VRAM_BASE + 0x4000 + var_0, 0x400, 0x10);
+        DmaTransfer(3, src + var_0, VRAM_BASE + 0x4000 + var_0, 0x400, 16);
     }
 }
 
@@ -742,7 +733,7 @@ void TitleScreenProcessTopSparkle(struct TitleScrenOamTiming* pTiming, struct Me
     {
         case 0:
             // Initialize OAM
-            DmaTransfer(3, &sTitleScreenTopSparkleBaseOam, pOam, sizeof(sTitleScreenTopSparkleBaseOam), 0x10);
+            DmaTransfer(3, &sTitleScreenTopSparkleBaseOam, pOam, sizeof(sTitleScreenTopSparkleBaseOam), 16);
             pTiming->stage++;
             pTiming->timer = 0;
             break;
@@ -809,8 +800,8 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
         
         case 2:
             // Move to the left
-            pOam->xPosition -= 12;
-            if (pOam->xPosition <= 736)
+            pOam->xPosition -= PIXEL_SIZE * 3;
+            if (pOam->xPosition <= BLOCK_SIZE * 11 + HALF_BLOCK_SIZE)
             {
                 pTiming->stage++;
                 pTiming->timer = 0;
@@ -819,8 +810,8 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
 
         case 3:
             // Move down
-            pOam->yPosition += 8;
-            if (pOam->yPosition >= 368)
+            pOam->yPosition += PIXEL_SIZE * 2;
+            if (pOam->yPosition >= BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE * 3)
             {
                 pTiming->stage++;
                 pTiming->timer = 0;
@@ -829,8 +820,8 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
 
         case 4:
             // Move to the left
-            pOam->xPosition -= 12;
-            if (pOam->xPosition <= 640)
+            pOam->xPosition -= PIXEL_SIZE * 3;
+            if (pOam->xPosition <= BLOCK_SIZE * 10)
             {
                 // Flag an OAM id update for both sparkles 
                 idUpdate = TRUE;
@@ -841,7 +832,7 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
 
         case 5:
             // Move to the left
-            pOam->xPosition -= 12;
+            pOam->xPosition -= PIXEL_SIZE * 3;
             // Check animation has ended
             if (pOam->oamID == 0)
             {
@@ -864,26 +855,28 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
  * 
  * @return s8 0 = Nothing, 1 = Input, 2 = Demo start
  */
-s8 TitleScreenCheckPlayDemo(void)
+s8 TitleScreenCheckPlayEffects(void)
 {
     TITLE_SCREEN_DATA.demoTimer++;
     if (TITLE_SCREEN_DATA.demoTimer > 60 * 17)
         return 2;
 
-    TITLE_SCREEN_DATA.unk_4++;
-    if ((TITLE_SCREEN_DATA.type & (TITLE_SCREEN_TYPE_TOP_SPARKLE_ENDED | TITLE_SCREEN_TYPE_BOTTOM_SPARKLE_ENDED)) == (TITLE_SCREEN_TYPE_TOP_SPARKLE_ENDED | TITLE_SCREEN_TYPE_BOTTOM_SPARKLE_ENDED))
+    TITLE_SCREEN_DATA.effectsTimer++;
+    if ((TITLE_SCREEN_DATA.type & TITLE_SCREEN_TYPE_ALL_SPARKLES_ENDED) == TITLE_SCREEN_TYPE_ALL_SPARKLES_ENDED)
     {
-        TITLE_SCREEN_DATA.unk_4 = 0;
-        TITLE_SCREEN_DATA.type ^= (TITLE_SCREEN_TYPE_TOP_SPARKLE_ENDED | TITLE_SCREEN_TYPE_BOTTOM_SPARKLE_ENDED);
+        // Restart timer
+        TITLE_SCREEN_DATA.effectsTimer = 0;
+        TITLE_SCREEN_DATA.type ^= TITLE_SCREEN_TYPE_ALL_SPARKLES_ENDED;
     }
-    else if (TITLE_SCREEN_DATA.unk_4 == 60 * 4)
+    else if (TITLE_SCREEN_DATA.effectsTimer == 60 * 4)
     {
         // Start title animated palette
         TITLE_SCREEN_DATA.activeAnimatedPalettes |= TITLE_SCREEN_ANIMATED_PALETTE_TITLE;
     }
-    else if (TITLE_SCREEN_DATA.unk_4 == 60 * 6)
+    else if (TITLE_SCREEN_DATA.effectsTimer == 60 * 6)
     {
-        TITLE_SCREEN_DATA.type |= (TITLE_SCREEN_TYPE_TOP_SPARKLE_ACTIVE | TITLE_SCREEN_TYPE_BOTTOM_SPARKLE_ACTIVE);
+        // Start sparkles
+        TITLE_SCREEN_DATA.type |= TITLE_SCREEN_TYPE_TOP_SPARKLE_ACTIVE | TITLE_SCREEN_TYPE_BOTTOM_SPARKLE_ACTIVE;
         TITLE_SCREEN_DATA.oamTimings[0].stage = 0;
         TITLE_SCREEN_DATA.oamTimings[0].timer = 0;
         TITLE_SCREEN_DATA.oamTimings[1].stage = 0;
@@ -1035,7 +1028,7 @@ u32 TitleScreenIdle(void)
             break;
 
         case TITLE_SCREEN_IDLE_STAGE_IDLE:
-            ret = TitleScreenCheckPlayDemo();
+            ret = TitleScreenCheckPlayEffects();
     }
 
     return ret;
@@ -1073,8 +1066,8 @@ void TitleScreenSetIdleStage(u8 stage)
 
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
-            TITLE_SCREEN_DATA.unk_4 = 0xD2;
-            TITLE_SCREEN_DATA.unk_F = 0;
+            TITLE_SCREEN_DATA.effectsTimer = 210;
+            TITLE_SCREEN_DATA.unk_F = FALSE;
             TITLE_SCREEN_DATA.timer = 0;
             break;
     }
@@ -1110,15 +1103,15 @@ void TitleScreenInit(void)
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
     zero = 0;
-    DMA_SET(3, &zero, &gSamusPhysics, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gSamusPhysics) / 4);
+    DMA_SET(3, &zero, &gSamusPhysics, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gSamusPhysics) / sizeof(u32)));
 
     gSramErrorFlag = FALSE;
     gDebugFlag = FALSE;
 
     StopAllMusicsAndSounds();
 
-    DmaTransfer(3, sTitleScreenPAL, PALRAM_BASE, 0x1E0, 0x10);
-    DmaTransfer(3, sTitleScreenPAL, PALRAM_OBJ, 0x1E0, 0x10);
+    DmaTransfer(3, sTitleScreenPal, PALRAM_BASE, sizeof(sTitleScreenPal), 16);
+    DmaTransfer(3, sTitleScreenPal, PALRAM_OBJ, sizeof(sTitleScreenPal), 16);
 
     write16(PALRAM_BASE, 0);
 
@@ -1132,7 +1125,7 @@ void TitleScreenInit(void)
     CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGfx, VRAM_BASE + 0xA400);
     CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGfx, (void*)sEwramPointer + 0x4000);
 
-    DmaTransfer(3, VRAM_BASE + 0x4000, (void*)sEwramPointer, 0x4000, 0x10);
+    DmaTransfer(3, VRAM_BASE + 0x4000, (void*)sEwramPointer, 0x4000, 16);
 
     CallLZ77UncompVRAM(sTitleScreenSparklesGfx, VRAM_BASE + 0x10000);
 
@@ -1149,9 +1142,7 @@ void TitleScreenInit(void)
     gWrittenToBLDALPHA_H = 16;
     gWrittenToBLDALPHA_L = 0;
 
-    TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-        BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
-        BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+    TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
     TITLE_SCREEN_DATA.demoTimer = 0;
 
@@ -1161,18 +1152,16 @@ void TitleScreenInit(void)
     }
     else
     {
-        unk_76978(0xFF);
+        unk_76978(UCHAR_MAX);
         TITLE_SCREEN_DATA.oamTimings[2].stage = TITLE_SCREEN_IDLE_STAGE_IDLE;
 
-        TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-            BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
-            BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+        TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
         
         gWrittenToBLDALPHA_L = 16;
         gWrittenToBLDALPHA_H = 0;
 
-        TITLE_SCREEN_DATA.unk_4 = 0xD2;
-        TITLE_SCREEN_DATA.unk_F = 0;
+        TITLE_SCREEN_DATA.effectsTimer = 210;
+        TITLE_SCREEN_DATA.unk_F = FALSE;
         TITLE_SCREEN_DATA.timer = 0;
     }
 
@@ -1199,23 +1188,23 @@ void TitleScreenInit(void)
  */
 void TitleScreenVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
-    write16(REG_BG0HOFS, gBG0HOFS_NonGameplay / 4);
-    write16(REG_BG0VOFS, gBG0VOFS_NonGameplay / 4);
+    write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBG0HOFS_NonGameplay));
+    write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBG0VOFS_NonGameplay));
 
-    write16(REG_BG1HOFS, gBG1HOFS_NonGameplay / 4);
-    write16(REG_BG1VOFS, gBG1VOFS_NonGameplay / 4);
+    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBG1HOFS_NonGameplay));
+    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBG1VOFS_NonGameplay));
 
-    write16(REG_BG2HOFS, gBG2HOFS_NonGameplay / 4);
-    write16(REG_BG2VOFS, gBG2VOFS_NonGameplay / 4);
+    write16(REG_BG2HOFS, SUB_PIXEL_TO_PIXEL(gBG2HOFS_NonGameplay));
+    write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBG2VOFS_NonGameplay));
 
-    write16(REG_BG3HOFS, gBG3HOFS_NonGameplay / 4);
-    write16(REG_BG3VOFS, gBG3VOFS_NonGameplay / 4);
+    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBG3HOFS_NonGameplay));
+    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBG3VOFS_NonGameplay));
 
     write16(REG_DISPCNT, TITLE_SCREEN_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
     write16(REG_BLDCNT, TITLE_SCREEN_DATA.bldcnt);
 }
 
@@ -1272,7 +1261,7 @@ void unk_777d8(u8 param_1)
  * @param param_2 Destination pointer
  * @param param_3 Palette?
  */
-void unk_77824(u8* param_1, u16* param_2, u8 param_3)
+void unk_77824(u8* param_1, u16* dst, u8 palette)
 {
     u16 var_0;
 
@@ -1300,10 +1289,10 @@ void unk_77824(u8* param_1, u16* param_2, u8 param_3)
 
         if (var_0 != 0x8000)
         {
-            *param_2 = (param_3 << 0xC) | (var_0 + 0x1C0);
+            *dst = (palette << 12) | (var_0 + 0x1C0);
         }
 
-        param_2++;
+        dst++;
         param_1++;
     }
 }

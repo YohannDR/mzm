@@ -763,7 +763,7 @@ void MetroidSamusGrabbed(void)
         if (gCurrentSprite.workVariable >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
             gCurrentSprite.workVariable = 0;
 
-        DMA_SET(3, &sMetroidPAL_SamusGrabbed[gCurrentSprite.workVariable * 16], PALRAM_BASE + 0x380, (DMA_ENABLE << 16) | 8);
+        DMA_SET(3, &sMetroidPAL_SamusGrabbed[gCurrentSprite.workVariable * 16], PALRAM_BASE + 0x380, C_32_2_16(DMA_ENABLE, 8));
     }
 
     // Synchronises position

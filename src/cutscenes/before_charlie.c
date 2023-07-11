@@ -33,10 +33,10 @@ u8 BeforeCharlieSamusCloseUp(void)
             CallLZ77UncompVRAM(sBeforeCharlieSamusCloseUpEyesOpenedTileTable, VRAM_BASE + sBeforeCharliePageData[7].tiletablePage * 0x800);
             CallLZ77UncompVRAM(sBeforeCharlieSamusCloseUpOutlineTileTable, VRAM_BASE + sBeforeCharliePageData[6].tiletablePage * 0x800);
 
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[5]);
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[8]);
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[7]);
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[6]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[5]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[8]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[7]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[6]);
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[5].bg, 0x800);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[8].bg, 0x800);
@@ -159,8 +159,8 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundTileTable, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800);
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceTileTable, VRAM_BASE + sBeforeCharliePageData[3].tiletablePage * 0x800);
 
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[2]);
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[3]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[2]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[3]);
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[2].bg, 0x800);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[3].bg, 0x800);
@@ -168,7 +168,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[4].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceCloseuUpTileTable, VRAM_BASE + sBeforeCharliePageData[4].tiletablePage * 0x800);
 
-            CutsceneSetBGCNTPageData(sBeforeCharliePageData[4]);
+            CutsceneSetBgcntPageData(sBeforeCharliePageData[4]);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sBeforeCharliePageData[4].bg, 0x940);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[4].bg, 0x800);
             CutsceneReset();
@@ -235,7 +235,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
     BeforeCharlieWallAndGreyVoiceApplyMonochrome(&CUTSCENE_DATA.graphicsData[1]);
     BeforeCharlieWallAndGreyScrollCloseUp(&CUTSCENE_DATA.graphicsData[2]);
 
-    *CutsceneGetBGVOFSPointer(sBeforeCharliePageData[3].bg) = *CutsceneGetBGVOFSPointer(sBeforeCharliePageData[2].bg);
+    *CutsceneGetBgVerticalPointer(sBeforeCharliePageData[3].bg) = *CutsceneGetBgVerticalPointer(sBeforeCharliePageData[2].bg);
 
     return FALSE;
 }
@@ -252,7 +252,7 @@ void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(struct CutsceneGrap
     if (!(pGraphics->active & TRUE))
         return;
 
-    pPosition = CutsceneGetBGVOFSPointer(sBeforeCharliePageData[2].bg);
+    pPosition = CutsceneGetBgVerticalPointer(sBeforeCharliePageData[2].bg);
     (*pPosition)++;
 
     if (*pPosition >= BLOCK_SIZE * 42)
@@ -306,7 +306,7 @@ void BeforeCharlieWallAndGreyScrollCloseUp(struct CutsceneGraphicsData* pGraphic
     if (!(pGraphics->active & TRUE))
         return;
 
-    pPosition = CutsceneGetBGHOFSPointer(sBeforeCharliePageData[4].bg);
+    pPosition = CutsceneGetBgHorizontalPointer(sBeforeCharliePageData[4].bg);
     (*pPosition) -= 2;
 
     if (*pPosition <= BLOCK_SIZE * 32)
@@ -378,8 +378,8 @@ u8 BeforeCharlieInit(void)
     CallLZ77UncompVRAM(sBeforeCharlieLeftSideOfChozoWallTileTable, VRAM_BASE + sBeforeCharliePageData[0].tiletablePage * 0x800);
     CallLZ77UncompVRAM(sBeforeCharlieRightSideOfChozoWallTileTable, VRAM_BASE + 0x800 + sBeforeCharliePageData[1].tiletablePage * 0x800);
 
-    CutsceneSetBGCNTPageData(sBeforeCharliePageData[0]);
-    CutsceneSetBGCNTPageData(sBeforeCharliePageData[1]);
+    CutsceneSetBgcntPageData(sBeforeCharliePageData[0]);
+    CutsceneSetBgcntPageData(sBeforeCharliePageData[1]);
     CutsceneReset();
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[0].bg, 0x800);

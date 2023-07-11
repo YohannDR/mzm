@@ -3,7 +3,7 @@
 #include "gba.h"
 #include "macros.h"
 
-const u16 sTitleScreenPAL[15 * 16] = INCBIN_U16("data/menus/TitleScreen/Palette.pal");
+const u16 sTitleScreenPal[15 * 16] = INCBIN_U16("data/menus/TitleScreen/Palette.pal");
 const u16 sTitleScreenPromptPAL[5 * 16] = INCBIN_U16("data/menus/TitleScreen/Prompt.pal");
 
 static const u16 sTitleScreenOAM_Comet_Frame0[4] = {

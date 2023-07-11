@@ -4,8 +4,8 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
-extern const u16 sEraseSramMenuObjectsPAL[7 * 16];
-extern const u16 sEraseSramMenuBackgroundPAL[15 * 16 - 1];
+extern const u16 sEraseSramMenuObjectsPal[7 * 16];
+extern const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1];
 
 // ...
 

@@ -604,7 +604,7 @@ u8 PauseScreenUpdateStatusScreenOam(u8 param_1)
             PAUSE_SCREEN_DATA.miscOam[8].exists = FALSE;
             PAUSE_SCREEN_DATA.miscOam[9].exists = FALSE;
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_WINOBJ;
-            PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE << 1;
+            PAUSE_SCREEN_DATA.samusIconOam[0].exists = OAM_ID_CHANGED_FLAG;
             break;
     }
 
@@ -643,7 +643,7 @@ void PauseScreenUpdateWireframeSamus(u8 param_1)
         oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
 
     PAUSE_SCREEN_DATA.miscOam[8].oamID = oamId;
-    PAUSE_SCREEN_DATA.miscOam[8].exists = TRUE << 1;
+    PAUSE_SCREEN_DATA.miscOam[8].exists = OAM_ID_CHANGED_FLAG;
 
     PAUSE_SCREEN_DATA.miscOam[9] = PAUSE_SCREEN_DATA.miscOam[8];
     PAUSE_SCREEN_DATA.miscOam[9].objMode = 2;
@@ -1966,7 +1966,7 @@ u32 PauseScreenSubroutine(void)
  */
 void PauseScreenVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     write16(REG_DISPCNT, PAUSE_SCREEN_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
@@ -2018,7 +2018,7 @@ void PauseScreenInit(void)
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
     ResetFreeOam();
     
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
@@ -2356,7 +2356,7 @@ void PauseScreenInit(void)
     }
 
     PauseScreenProcessOam();
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
     PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_IN_INIT);
     

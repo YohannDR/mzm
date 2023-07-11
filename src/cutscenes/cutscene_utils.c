@@ -120,12 +120,12 @@ void CutsceneEnd(void)
             if (gCurrentArea == AREA_KRAID)
             {
                 SoundStop(0x1C);
-                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, 0x3C);
+                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, 60);
             }
             else if (gCurrentArea == AREA_RIDLEY)
             {
                 SoundStop(0x1C);
-                unk_3bd0(MUSIC_RIDLEY_BATTLE, 0x3C);
+                unk_3bd0(MUSIC_RIDLEY_BATTLE, 60);
             }
     }
 
@@ -321,7 +321,7 @@ void CutsceneInit(void)
  * 
  * @param pageData Page Data Info
  */
-void CutsceneSetBGCNTPageData(struct CutscenePageData pageData)
+void CutsceneSetBgcntPageData(struct CutscenePageData pageData)
 {
     u8 offset;
 
@@ -403,7 +403,7 @@ void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value)
  * @param bg Background (DISPCNT flags)
  * @return u16* Pointer
  */
-u16* CutsceneGetBGHOFSPointer(u16 bg)
+u16* CutsceneGetBgHorizontalPointer(u16 bg)
 {
     u16* pBg;
 
@@ -426,7 +426,7 @@ u16* CutsceneGetBGHOFSPointer(u16 bg)
  * @param bg Background (DISPCNT flags)
  * @return u16* Pointer
  */
-u16* CutsceneGetBGVOFSPointer(u16 bg)
+u16* CutsceneGetBgVerticalPointer(u16 bg)
 {
     u16* pBg;
 
@@ -974,7 +974,7 @@ void CutsceneReset(void)
 
     // Set default rotation and scaling
     gCurrentOamRotation = 0;
-    gCurrentOamScaling = 0x100;
+    gCurrentOamScaling = Q_8_8(1.f);
 
     // Clear structs
     BitFill(3, 0, &CUTSCENE_DATA.unk_8, 4, 32); // This should be a struct
@@ -990,9 +990,8 @@ void CutsceneReset(void)
 void unk_61f0c(void)
 {
     CUTSCENE_DATA.dispcnt = 0;
-    gWrittenToBLDY_NonGameplay = 0x10;
-    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    gWrittenToBLDY_NonGameplay = 16;
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 
 /**
@@ -1002,9 +1001,8 @@ void unk_61f0c(void)
 void unk_61f28(void)
 {
     CUTSCENE_DATA.dispcnt = 0;
-    gWrittenToBLDY_NonGameplay = 0x10;
-    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    gWrittenToBLDY_NonGameplay = 16;
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 
 /**

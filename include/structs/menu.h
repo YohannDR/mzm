@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#define OAM_ID_CHANGED_FLAG (TRUE << 1)
+
 struct MenuOamData {
     s16 yPosition;
     s16 xPosition;

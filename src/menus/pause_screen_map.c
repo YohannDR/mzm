@@ -1167,7 +1167,7 @@ void MapScreenChangeMap(void)
             // Arrows related probably
             unk_6db58(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
 
-            PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE << 1;
+            PAUSE_SCREEN_DATA.samusIconOam[0].exists = OAM_ID_CHANGED_FLAG;
             
             // Update highlight
             PauseScreenUpdateWorldMapHighlight(PAUSE_SCREEN_DATA.currentArea);

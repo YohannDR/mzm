@@ -26,16 +26,16 @@ u8 RidleyInSpaceShipLeaving(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPAL, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPAL), 0x10);
+            DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 0x10);
             write16(PALRAM_BASE, 0);
 
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGfx, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
 
-            DmaTransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
+            DmaTransfer(3, sRidleyInSpace_39dc70_Pal, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_Pal), 0x10);
             CallLZ77UncompVRAM(sRidleyInSpaceMotherShipLeavingGfx, VRAM_BASE + 0x10000);
 
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[0]);
             CutsceneReset();
 
             CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipLeavingPosition.x;
@@ -48,16 +48,16 @@ u8 RidleyInSpaceShipLeaving(void)
             for (i = 3; i < 13; i++)
             {
                 CUTSCENE_DATA.oam[i].actions = 0;
-                CUTSCENE_DATA.oam[i].xPosition = sRandomNumberTable[gFrameCounter8Bit & i] * 4;
-                CUTSCENE_DATA.oam[i].yPosition = sRandomNumberTable[(gFrameCounter8Bit + i) & 0xFF] * 4;
+                CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit & i]);
+                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + i)]);
 
                 if (CUTSCENE_DATA.oam[i].yPosition >= BLOCK_SIZE * 10)
                     continue;
 
                 CUTSCENE_DATA.oam[i].timer = 0;
-                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(gFrameCounter8Bit * i) & 0xFF];
+                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit * i)];
 
-                if (CUTSCENE_DATA.oam[i].unk_12 & 1)
+                if (MOD_AND(CUTSCENE_DATA.oam[i].unk_12, 2))
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE);
                 else
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2);
@@ -118,7 +118,7 @@ u8 RidleyInSpaceShipLeaving(void)
     }
 
     RidleyInSpaceShipLeavingParticles();
-    (*CutsceneGetBGHOFSPointer(sRidleyInSpacePageData[0].bg)) += 2;
+    *CutsceneGetBgHorizontalPointer(sRidleyInSpacePageData[0].bg) += PIXEL_SIZE / 2;
     RidleyInSpaceUpdateShipLeaving(&CUTSCENE_DATA.oam[2]);
 
     return FALSE;
@@ -131,11 +131,11 @@ u8 RidleyInSpaceShipLeaving(void)
  */
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 {
-    if (pOam->actions & 3)
+    if (MOD_AND(pOam->actions, 4))
     {
-        if (pOam->actions & 1)
+        if (MOD_AND(pOam->actions, 2))
         {
-            pOam->xPosition += 8;
+            pOam->xPosition += PIXEL_SIZE * 2;
             if (pOam->xPosition > 0x4E0)
                 pOam->actions = 0;
         }
@@ -154,7 +154,9 @@ void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
         if (pOam->actions == 0)
         {
             pOam->oamID = RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_FRONT;
-            gCurrentOamScaling = 0x100;
+
+            gCurrentOamScaling = Q_8_8(1.f);
+
             pOam->xPosition = 0x4C0;
             pOam->yPosition = 0x78;
         }
@@ -162,17 +164,17 @@ void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
     else if (pOam->actions & 0xC)
     {
         if (pOam->actions & 4)
-            pOam->xPosition -= 16;
+            pOam->xPosition -= QUARTER_BLOCK_SIZE;
 
         pOam->unk_10 = 0;
-        if (gCurrentOamScaling < 0x200)
+        if (gCurrentOamScaling < Q_8_8(2.f))
         {
-            gCurrentOamScaling += 8;
-            if (gCurrentOamScaling < 0x200)
+            gCurrentOamScaling += Q_8_8(.035f);
+            if (gCurrentOamScaling < Q_8_8(2.f))
                 return;
         }
         
-        gCurrentOamScaling = 0x200;
+        gCurrentOamScaling = Q_8_8(2.f);
         pOam->actions = 0;
     }
 }
@@ -187,23 +189,27 @@ u8 RidleyInSpaceRidleySuspicious(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleyInSpaceShipInteriorPAL, PALRAM_BASE, sizeof(sRidleyInSpaceShipInteriorPAL), 0x10);
+            DmaTransfer(3, sRidleyInSpaceShipInteriorPal, PALRAM_BASE, sizeof(sRidleyInSpaceShipInteriorPal), 16);
             write16(PALRAM_BASE, 0);
 
-            CallLZ77UncompVRAM(sRidleyInSpaceShipInterior2Gfx, VRAM_BASE + sRidleyInSpacePageData[3].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousGfx, VRAM_BASE + sRidleyInSpacePageData[4].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sRidleyInSpaceShipInterior2Gfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[3].graphicsPage));
+            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[4].graphicsPage));
 
-            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousEyesOpenTileTable, VRAM_BASE + sRidleyInSpacePageData[4].tiletablePage * 0x800);
-            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousEyesSquintedTileTable, VRAM_BASE + sRidleyInSpacePageData[5].tiletablePage * 0x800);
-            CallLZ77UncompVRAM(sRidleyInSpaceShipInteriorTileTable2, VRAM_BASE + sRidleyInSpacePageData[3].tiletablePage * 0x800);
+            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousEyesOpenTileTable,
+                BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[4].tiletablePage));
 
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[3]);
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[4]);
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[5]);
+            CallLZ77UncompVRAM(sRidleyInSpaceRidleySuspiciousEyesSquintedTileTable,
+                BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[5].tiletablePage));
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[3].bg, 0x800);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[4].bg, 0x800);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[5].bg, 0x800);
+            CallLZ77UncompVRAM(sRidleyInSpaceShipInteriorTileTable2, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[3].tiletablePage));
+
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[3]);
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[4]);
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[5]);
+
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[3].bg, BLOCK_SIZE * 32);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[4].bg, BLOCK_SIZE * 32);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[5].bg, BLOCK_SIZE * 32);
             CutsceneReset();
 
             CUTSCENE_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
@@ -262,7 +268,7 @@ u8 RidleyInSpaceRedAlert(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleyInSpace_39d910_PAL, PALRAM_BASE, sizeof(sRidleyInSpace_39d910_PAL), 0x10);
+            DmaTransfer(3, sRidleyInSpace_39d910_Pal, PALRAM_BASE, sizeof(sRidleyInSpace_39d910_Pal), 16);
             write16(PALRAM_BASE, 0);
 
             CallLZ77UncompVRAM(sRidleyInSpaceShipInteriorTileTable, VRAM_BASE + sRidleyInSpacePageData[1].tiletablePage * 0x800);
@@ -271,8 +277,8 @@ u8 RidleyInSpaceRedAlert(void)
             CallLZ77UncompVRAM(sRidleyInSpaceRidleySittingGfx, VRAM_BASE + sRidleyInSpacePageData[2].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sRidleyInSpaceRidleySittingTileTable, VRAM_BASE + sRidleyInSpacePageData[2].tiletablePage * 0x800);
 
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[1]);
-            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[2]);
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[1]);
+            CutsceneSetBgcntPageData(sRidleyInSpacePageData[2]);
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[1].bg, 0x800);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[1].bg, 0xA80);
@@ -406,8 +412,8 @@ u8 RidleyInSpaceViewOfShip(void)
         case 4:
             if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
             {
-                CUTSCENE_DATA.oam[0].objMode = TRUE;
-                CUTSCENE_DATA.oam[1].objMode = TRUE;
+                CUTSCENE_DATA.oam[0].objMode = 1;
+                CUTSCENE_DATA.oam[1].objMode = 1;
 
                 CutsceneStartBackgroundEffect(BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                     BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL, 14, 0, 32, 1);
@@ -442,7 +448,7 @@ u8 RidleyInSpaceViewOfShip(void)
     RidleyInSpaceViewOfShipParticles();
 
     if (!(gFrameCounter8Bit & 7))
-        (*CutsceneGetBGVOFSPointer(sRidleyInSpacePageData[0].bg))--;
+        (*CutsceneGetBgVerticalPointer(sRidleyInSpacePageData[0].bg))--;
 
     return FALSE;
 }
@@ -541,7 +547,7 @@ void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
 u8 RidleyInSpaceInit(void)
 {
     unk_61f0c();
-    DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPAL, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPAL), 0x10);
+    DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 0x10);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGfx, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
@@ -550,7 +556,7 @@ u8 RidleyInSpaceInit(void)
     DmaTransfer(3, sRidleyInSpaceShipsPAL, PALRAM_OBJ, sizeof(sRidleyInSpaceShipsPAL), 0x10);
     CallLZ77UncompVRAM(sRidleyInSpaceShipsGfx, VRAM_BASE + 0x10000);
 
-    CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
+    CutsceneSetBgcntPageData(sRidleyInSpacePageData[0]);
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[0].bg, 0x800);
     CutsceneReset();
 
@@ -620,7 +626,7 @@ void RidleyInSpaceViewOfShipParticles(void)
     s32 i;
     u32 oamId;
 
-    if (!(CUTSCENE_DATA.timeInfo.timer & 1))
+    if (MOD_AND(CUTSCENE_DATA.timeInfo.timer, 2) == 0)
     {
         for (i = 3; i < 29; i++)
         {
@@ -629,8 +635,8 @@ void RidleyInSpaceViewOfShipParticles(void)
 
             CUTSCENE_DATA.oam[i].actions = 0;
 
-            CUTSCENE_DATA.oam[i].xPosition = (sRandomNumberTable[gFrameCounter8Bit + i & 0xFF] & 0x53) * 4;
-            CUTSCENE_DATA.oam[i].yPosition = (sRandomNumberTable[CUTSCENE_DATA.oam[i].timer + i & 0xFF] & 0x53) * 4;
+            CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit + i & 0xFF] & 0x53);
+            CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[CUTSCENE_DATA.oam[i].timer + i & 0xFF] & 0x53);
 
             CUTSCENE_DATA.oam[i].timer = 0;
             if (CUTSCENE_DATA.timeInfo.unk_6 & 1)
@@ -729,12 +735,12 @@ void RidleyInSpaceShipLeavingParticles(void)
 
             CUTSCENE_DATA.oam[i].xPosition = -0x58;
 
-            newY = sRandomNumberTable[(gFrameCounter8Bit + i) & 0xFF];
+            newY = sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + i)];
             if (newY < 0xA0)
             {
                 CUTSCENE_DATA.oam[i].yPosition = newY * 4;
                 CUTSCENE_DATA.oam[i].timer = 0;
-                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[i * gFrameCounter8Bit & 0xFF];
+                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[LOW_BYTE(i * gFrameCounter8Bit)];
 
                 if (CUTSCENE_DATA.oam[i].unk_12 & 1)
                     newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE;
