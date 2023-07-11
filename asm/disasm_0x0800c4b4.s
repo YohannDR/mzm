@@ -823,7 +823,7 @@ lbl_0800d576:
     mov r8, r1
     ldrh r1, [r7, #2]
     lsrs r1, r1, #2
-    ldr r0, lbl_0800d75c @ =gBG1YPosition
+    ldr r0, lbl_0800d75c @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -832,7 +832,7 @@ lbl_0800d576:
     str r1, [sp, #0x38]
     ldrh r1, [r7, #4]
     lsrs r1, r1, #2
-    ldr r0, lbl_0800d760 @ =gBG1XPosition
+    ldr r0, lbl_0800d760 @ =gBg1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -1065,8 +1065,8 @@ lbl_0800d73e:
     .align 2, 0
 lbl_0800d754: .4byte gNextOamSlot
 lbl_0800d758: .4byte gOamData
-lbl_0800d75c: .4byte gBG1YPosition
-lbl_0800d760: .4byte gBG1XPosition
+lbl_0800d75c: .4byte gBg1YPosition
+lbl_0800d760: .4byte gBg1XPosition
 lbl_0800d764: .4byte gSamusOnTopOfBackgrounds
 lbl_0800d768: .4byte 0x000001ff
 lbl_0800d76c: .4byte 0xfffffe00
@@ -1862,10 +1862,10 @@ check_sprite_is_on_screen: @ 0x0800ddd4
     beq lbl_0800ddf0
     b lbl_0800df0c
 lbl_0800ddf0:
-    ldr r0, lbl_0800de88 @ =gBG1YPosition
+    ldr r0, lbl_0800de88 @ =gBg1YPosition
     ldrh r0, [r0]
     mov r8, r0
-    ldr r0, lbl_0800de8c @ =gBG1XPosition
+    ldr r0, lbl_0800de8c @ =gBg1XPosition
     ldrh r0, [r0]
     mov sl, r0
     mov r0, ip
@@ -1939,8 +1939,8 @@ lbl_0800ddf0:
     strh r0, [r2]
     b lbl_0800df0c
     .align 2, 0
-lbl_0800de88: .4byte gBG1YPosition
-lbl_0800de8c: .4byte gBG1XPosition
+lbl_0800de88: .4byte gBg1YPosition
+lbl_0800de8c: .4byte gBg1XPosition
 lbl_0800de90:
     mov r3, ip
     ldrh r1, [r3]

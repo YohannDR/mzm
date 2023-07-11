@@ -2811,7 +2811,7 @@ void MechaRidleyMissile(void)
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.oamRotation = 0xA0;
-            gCurrentSprite.oamScaling = 0x100;
+            gCurrentSprite.oamScaling = Q_8_8(1.f);
             
             gCurrentSprite.timer = 30;
             gCurrentSprite.pose = 9;
@@ -2921,7 +2921,7 @@ void MechaRidleyFireball(void)
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.drawOrder = 2;
-            gCurrentSprite.oamScaling = 0x100;
+            gCurrentSprite.oamScaling = Q_8_8(1.f);
 
             if (gCurrentSprite.roomSlot != FIREBALL_LOW)
                 gCurrentSprite.oamRotation = 0x28;

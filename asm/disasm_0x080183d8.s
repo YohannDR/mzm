@@ -883,7 +883,7 @@ lbl_08018a84: .4byte gSubSpriteData1
 lbl_08018a88: .4byte gSamusData
 lbl_08018a8c: .4byte 0xfffffe40
 lbl_08018a90:
-    ldr r0, lbl_08018ae8 @ =gBG1YPosition
+    ldr r0, lbl_08018ae8 @ =gBg1YPosition
     ldrh r0, [r0]
     subs r0, #0x3c
     lsls r0, r0, #0x10
@@ -927,7 +927,7 @@ lbl_08018aa2:
     lsls r6, r0, #4
     b lbl_08018b22
     .align 2, 0
-lbl_08018ae8: .4byte gBG1YPosition
+lbl_08018ae8: .4byte gBg1YPosition
 lbl_08018aec: .4byte gSpriteRng
 lbl_08018af0: .4byte gFrameCounter8Bit
 lbl_08018af4: .4byte 0xfffffed4

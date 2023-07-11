@@ -200,7 +200,7 @@ void ImagoCocoonInit(void)
 
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
-            gCurrentSprite.oamScaling = 0x100;
+            gCurrentSprite.oamScaling = Q_8_8(1.f);
             gCurrentSprite.oamRotation = 0x0;
             gCurrentSprite.roomSlot = IMAGO_COCOON_PART_IMAGO_COCOON;
 
@@ -236,7 +236,7 @@ void ImagoCocoonInit(void)
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
 
-        gCurrentSprite.oamScaling = 0x100;
+        gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0x0;
         gCurrentSprite.workVariable2 = FALSE;
 
@@ -411,7 +411,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
                 gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
         }
 
-        yPosition = gBG1YPosition - BLOCK_SIZE;
+        yPosition = gBg1YPosition - BLOCK_SIZE;
         xPosition = gSubSpriteData1.xPosition;
         rng = gSpriteRng;
         
@@ -489,7 +489,7 @@ void ImagoCocoonFallingAfterBlocks(void)
         ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x1A5);
 
-        gCurrentSprite.oamScaling = 0x100;
+        gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.workVariable2 = FALSE;
 
         FadeMusic(0x55);

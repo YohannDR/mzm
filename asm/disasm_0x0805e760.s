@@ -702,7 +702,7 @@ lbl_0805ecc2:
     cmp r0, #2
     bls lbl_0805ece4
     ldrb r1, [r4, #2]
-    ldr r0, lbl_0805ed54 @ =gBG1XPosition
+    ldr r0, lbl_0805ed54 @ =gBg1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #6
     adds r0, #8
@@ -769,7 +769,7 @@ lbl_0805ed20:
     movs r5, #1
     b lbl_0805ed82
     .align 2, 0
-lbl_0805ed54: .4byte gBG1XPosition
+lbl_0805ed54: .4byte gBg1XPosition
 lbl_0805ed58: .4byte gDoorPositionStart
 lbl_0805ed5c: .4byte gSamusDoorPositionOffset
 lbl_0805ed60: .4byte gSamusData

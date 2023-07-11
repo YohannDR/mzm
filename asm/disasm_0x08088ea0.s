@@ -277,7 +277,7 @@ lbl_080890e4:
     movs r0, #2
     strb r0, [r1, #8]
 lbl_080890ea:
-    bl init_sound
+    bl InitializeAudio
     bl sub_08078228
     ldr r4, lbl_0808910c @ =gIoTransferInfo
     ldrh r0, [r4, #0x12]

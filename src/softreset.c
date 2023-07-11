@@ -65,7 +65,7 @@ void SoftresetInit(void)
 
     gNextOamSlot = 0;
     ClearGfxRam();
-    ResetFreeOAM();
+    ResetFreeOam();
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
     write16(PALRAM_BASE, 0);

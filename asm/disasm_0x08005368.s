@@ -3576,7 +3576,7 @@ lbl_08006fe0:
     strb r1, [r0]
     movs r0, #0x33
     strb r0, [r4]
-    ldr r1, lbl_0800703c @ =gBG1XPosition
+    ldr r1, lbl_0800703c @ =gBg1XPosition
     movs r2, #0xf0
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -3587,7 +3587,7 @@ lbl_08006fe0:
     lsls r0, r0, #0x10
     asrs r0, r0, #0x11
     strh r0, [r4, #0x16]
-    ldr r1, lbl_08007040 @ =gBG1YPosition
+    ldr r1, lbl_08007040 @ =gBg1YPosition
     subs r2, #0x50
     adds r0, r2, #0
     ldrh r1, [r1]
@@ -3615,8 +3615,8 @@ lbl_0800701e:
     .align 2, 0
 lbl_08007034: .4byte gDisableScrolling
 lbl_08007038: .4byte gMonochromeBgFading
-lbl_0800703c: .4byte gBG1XPosition
-lbl_08007040: .4byte gBG1YPosition
+lbl_0800703c: .4byte gBg1XPosition
+lbl_08007040: .4byte gBg1YPosition
 lbl_08007044: .4byte gGameModeSub1
 
     thumb_func_start SamusChangeToKnockbackPose
@@ -10027,12 +10027,12 @@ lbl_0800a100:
     cmp r0, #0
     beq lbl_0800a172
 lbl_0800a116:
-    ldr r0, lbl_0800a138 @ =gBG1XPosition
+    ldr r0, lbl_0800a138 @ =gBg1XPosition
     ldrh r0, [r0]
     movs r3, #0xf0
     lsls r3, r3, #1
     adds r2, r0, r3
-    ldr r0, lbl_0800a13c @ =gBG1YPosition
+    ldr r0, lbl_0800a13c @ =gBg1YPosition
     ldrh r0, [r0]
     movs r6, #0xc8
     lsls r6, r6, #1
@@ -10044,8 +10044,8 @@ lbl_0800a116:
     blo lbl_0800a14c
     b lbl_0800a14a
     .align 2, 0
-lbl_0800a138: .4byte gBG1XPosition
-lbl_0800a13c: .4byte gBG1YPosition
+lbl_0800a138: .4byte gBg1XPosition
+lbl_0800a13c: .4byte gBg1YPosition
 lbl_0800a140:
     cmp r1, #0
     bge lbl_0800a14c
@@ -13658,14 +13658,14 @@ lbl_0800be58:
     lsrs r7, r0, #0x10
     ldrh r1, [r3, #4]
     lsrs r1, r1, #2
-    ldr r2, lbl_0800c1c8 @ =gBG1XPosition
+    ldr r2, lbl_0800c1c8 @ =gBg1XPosition
     ldrh r0, [r2]
     lsrs r0, r0, #2
     subs r0, r1, r0
     mov sb, r0
     ldrh r1, [r3, #6]
     lsrs r1, r1, #2
-    ldr r3, lbl_0800c1cc @ =gBG1YPosition
+    ldr r3, lbl_0800c1cc @ =gBg1YPosition
     ldrh r0, [r3]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -13728,14 +13728,14 @@ lbl_0800befe:
     ldr r3, lbl_0800c1d8 @ =gSamusData
     ldrh r1, [r3, #0x12]
     lsrs r1, r1, #2
-    ldr r2, lbl_0800c1c8 @ =gBG1XPosition
+    ldr r2, lbl_0800c1c8 @ =gBg1XPosition
     ldrh r0, [r2]
     lsrs r0, r0, #2
     subs r0, r1, r0
     mov sb, r0
     ldrh r0, [r3, #0x14]
     lsrs r0, r0, #2
-    ldr r3, lbl_0800c1cc @ =gBG1YPosition
+    ldr r3, lbl_0800c1cc @ =gBg1YPosition
     ldrh r1, [r3]
     lsrs r1, r1, #2
     subs r0, r0, r1
@@ -14086,8 +14086,8 @@ lbl_0800c1b8: .4byte gSamusOnTopOfBackgrounds
 lbl_0800c1bc: .4byte gOamData
 lbl_0800c1c0: .4byte gNextOamSlot
 lbl_0800c1c4: .4byte gSamusEnvironmentalEffects
-lbl_0800c1c8: .4byte gBG1XPosition
-lbl_0800c1cc: .4byte gBG1YPosition
+lbl_0800c1c8: .4byte gBg1XPosition
+lbl_0800c1cc: .4byte gBg1YPosition
 lbl_0800c1d0: .4byte 0x000001ff
 lbl_0800c1d4: .4byte 0xfffffe00
 lbl_0800c1d8: .4byte gSamusData
@@ -14122,7 +14122,7 @@ lbl_0800c208:
     adds r0, r2, r0
     ldrh r1, [r0]
     lsrs r1, r1, #2
-    ldr r3, lbl_0800c2c0 @ =gBG1XPosition
+    ldr r3, lbl_0800c2c0 @ =gBg1XPosition
     ldrh r0, [r3]
     lsrs r0, r0, #2
     subs r0, r1, r0
@@ -14132,7 +14132,7 @@ lbl_0800c208:
     adds r2, r2, r0
     ldrh r0, [r2]
     lsrs r0, r0, #2
-    ldr r2, lbl_0800c2c4 @ =gBG1YPosition
+    ldr r2, lbl_0800c2c4 @ =gBg1YPosition
     ldrh r1, [r2]
     lsrs r1, r1, #2
     subs r0, r0, r1
@@ -14208,8 +14208,8 @@ lbl_0800c2ae:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800c2c0: .4byte gBG1XPosition
-lbl_0800c2c4: .4byte gBG1YPosition
+lbl_0800c2c0: .4byte gBg1XPosition
+lbl_0800c2c4: .4byte gBg1YPosition
 lbl_0800c2c8: .4byte gOamData
 lbl_0800c2cc: .4byte 0x000001ff
 lbl_0800c2d0: .4byte 0xfffffe00

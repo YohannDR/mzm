@@ -303,6 +303,6 @@ void RidleySpawnProcessOAM(void)
 {
     gNextOamSlot = 0;
     ProcessCutsceneOam(sRidleySpawnSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleySpawnOam);
-    ResetFreeOAM();
+    ResetFreeOam();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

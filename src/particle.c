@@ -39,12 +39,12 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
         pParticle->status |= PARTICLE_STATUS_ONSCREEN;
     else
     {
-        bgBaseY = gBG1YPosition + BLOCK_SIZE * 8;
+        bgBaseY = gBg1YPosition + BLOCK_SIZE * 8;
         particleY = pParticle->yPosition + BLOCK_SIZE * 8;
         bgBottomBoundry = bgBaseY - BLOCK_SIZE * 2;
         bgTopBoundry = bgBaseY + BLOCK_SIZE * 12;
 
-        bgBaseX = gBG1XPosition + BLOCK_SIZE * 8;
+        bgBaseX = gBg1XPosition + BLOCK_SIZE * 8;
         particleX = pParticle->xPosition + BLOCK_SIZE * 8;
         bgLeftBoundry = bgBaseX - BLOCK_SIZE * 2;
         bgRightBoundry = bgBaseX + (BLOCK_SIZE * 17);
@@ -103,8 +103,8 @@ void ParticleDraw(struct ParticleEffect* pParticle)
         }
         else
         {
-            yPosition = (pParticle->yPosition / 4) - gBG1YPosition / 4;
-            xPosition = (pParticle->xPosition / 4) - gBG1XPosition / 4;
+            yPosition = (pParticle->yPosition / 4) - gBg1YPosition / 4;
+            xPosition = (pParticle->xPosition / 4) - gBg1XPosition / 4;
         }
 
         if (pParticle->status & PARTICLE_STATUS_LOW_PRIORITY)

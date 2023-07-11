@@ -925,11 +925,11 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
         pBlock->xPosition] = value;
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
-    offset = gBG1YPosition / BLOCK_SIZE;
+    offset = gBg1YPosition / BLOCK_SIZE;
     if (offset - 4 > pBlock->yPosition || pBlock->yPosition > offset + 13)
         return;
 
-    offset = gBG1XPosition / BLOCK_SIZE;
+    offset = gBg1XPosition / BLOCK_SIZE;
     if (offset - 4 > pBlock->xPosition || pBlock->xPosition > offset + 18)
         return;
 
@@ -1404,16 +1404,16 @@ void BlockBrokenBlockRemoveCollision(u16 yPosition, u16 xPosition)
     gBgPointersAndDimensions.pClipDecomp[position] = 0;
     gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
 
-    if (gBG1YPosition / BLOCK_SIZE - 4 > yPosition)
+    if (gBg1YPosition / BLOCK_SIZE - 4 > yPosition)
         return;
     
-    if (yPosition > gBG1YPosition / BLOCK_SIZE + 13)
+    if (yPosition > gBg1YPosition / BLOCK_SIZE + 13)
         return;
 
-    if (gBG1XPosition / BLOCK_SIZE - 4 > xPosition)
+    if (gBg1XPosition / BLOCK_SIZE - 4 > xPosition)
         return;
         
-    if (xPosition > gBG1XPosition / BLOCK_SIZE + 18)
+    if (xPosition > gBg1XPosition / BLOCK_SIZE + 18)
         return;
 
     dst = VRAM_BASE + 0x1000;

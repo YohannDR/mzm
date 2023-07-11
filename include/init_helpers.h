@@ -3,6 +3,6 @@
 
 void ClearGfxRam(void);
 void LoadInterruptCode(void);
-void ResetFreeOAM(void);
+void ResetFreeOam(void);
 
 #endif /* INIT_HELPERS_H */

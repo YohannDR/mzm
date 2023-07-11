@@ -1,5 +1,6 @@
-#include "gba.h"
 #include "location_text.h"
+#include "gba.h"
+#include "macros.h"
 
 #include "data/sprites/area_banner.h"
 
@@ -22,19 +23,21 @@ u8 LocationTextGetBrinstar(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x0: // Spawn room
-        case 0x8: // Elevator to kraid room
-        case 0xB: // Elevator to tourian room
-        case 0x1A: // Elevator to norfair room
+        case 0: // Spawn room
+        case 8: // Elevator to kraid room
+        case 11: // Elevator to tourian room
+        case 26: // Elevator to norfair room
         // Useless cases, since the spriteset is checked before and those rooms have a spriteset that result in the save room text
         // Thus this function isn't even called
-        case 0x21: // Save room 1 
-        case 0x22: // Save room 2
+        case 33: // Save room 1 
+        case 34: // Save room 2
             lt = LT_BRINSTAR;
             break;
-        case 0x20: // Map room
+
+        case 32: // Map room
             lt = LT_MAP_ROOM;
     }
+
     return lt;
 }
 
@@ -50,19 +53,22 @@ u8 LocationTextGetKraid(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x0: // Main shaft/elevator to brinstar room
+        case 0: // Main shaft/elevator to brinstar room
             lt = LT_KRAID;
             break;
-        case 0x14: // Save room 1
-        case 0x1F: // Save room 2
-        case 0x20: // Save room 3
-        case 0x24: // Save room 4
-        case 0x27: // Save room 5
+
+        case 20: // Save room 1
+        case 31: // Save room 2
+        case 32: // Save room 3
+        case 36: // Save room 4
+        case 39: // Save room 5
             lt = LT_SAVE_ROOM;
             break;
-        case 0x23: // Map room
+
+        case 35: // Map room
             lt = LT_MAP_ROOM;
     }
+
     return lt;
 }
 
@@ -78,28 +84,29 @@ u8 LocationTextGetCrateria(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x3: // Elevator to brinstar room
-        case 0x4: // Elevator to tourian (escape) room
-        case 0x6: // Elevator to norfair room
-        case 0xA:
-        case 0xB:
-        case 0xC:
-        case 0xD:
-        case 0x12: // Elevator to tourian room
+        case 3: // Elevator to brinstar room
+        case 4: // Elevator to tourian (escape) room
+        case 6: // Elevator to norfair room
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 18: // Elevator to tourian room
             lt = LT_CRATERIA;
             break;
 
-        case 0x8: // Chozo pillar (non extended) room
-        case 0x9: // Surface after water cavern room
-        case 0xF: // Surface after plasma beam room
-        case 0x10: // Chozo pillar (going to extend) room
-        case 0x11: // Chozo pillar (extended) room
+        case 8: // Chozo pillar (non extended) room
+        case 9: // Surface after water cavern room
+        case 15: // Surface after plasma beam room
+        case 16: // Chozo pillar (going to extend) room
+        case 17: // Chozo pillar (extended) room
             lt = LT_CHOZO_RUINS;
             break;
 
-        case 0x0: // Surface (with ship) room
+        case 0: // Surface (with ship) room
             lt = LT_PLANET_ZEBES;
     }
+
     return lt;
 }
 
@@ -115,22 +122,25 @@ u8 LocationTextGetNorfair(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x24: // Save room 1
-        case 0x27: // Save room 2
-        case 0x29: // Save room 3
-        case 0x2C: // Save room 4
-        case 0x2D: // Save room 5
+        case 36: // Save room 1
+        case 39: // Save room 2
+        case 41: // Save room 3
+        case 44: // Save room 4
+        case 45: // Save room 5
             lt = LT_SAVE_ROOM;
             break;
-        case 0x0: // Elevator to brinstar room
-        case 0x2: // Elevator to crateria room
-        case 0x23: // Elevator to ridley room
-        case 0x2B: // Imago cocoon (with tunnel) room
+
+        case 0: // Elevator to brinstar room
+        case 2: // Elevator to crateria room
+        case 35: // Elevator to ridley room
+        case 43: // Imago cocoon (with tunnel) room
             lt = LT_NORFAIR;
             break;
-        case 0x28: // Map room
+
+        case 40: // Map room
             lt = LT_MAP_ROOM;
     }
+
     return lt;
 }
 
@@ -146,19 +156,22 @@ u8 LocationTextGetRidley(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x1: // Save room 1
-        case 0x14: // Save room 2
-        case 0x18: // Save room 3
-        case 0x19: // Save room 4
+        case 1: // Save room 1
+        case 20: // Save room 2
+        case 24: // Save room 3
+        case 25: // Save room 4
             lt = LT_SAVE_ROOM;
             break;
-        case 0x15: // Map room
+
+        case 21: // Map room
             lt = LT_MAP_ROOM;
             break; 
-        case 0x0: // Elevator to norfair room
-        case 0x2: // Imago cocoon tunnel room
+
+        case 0: // Elevator to norfair room
+        case 2: // Imago cocoon tunnel room
             lt = LT_RIDLEY;
     }
+
     return lt;
 }
 
@@ -174,23 +187,26 @@ u8 LocationTextGetChozodia(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {        
-        case 0x0: // Suitless spawn room
-        case 0x22: // Crateria passage with missile tank room
-        case 0x44: // Crateria passage without missile tank room
+        case 0: // Suitless spawn room
+        case 34: // Crateria passage with missile tank room
+        case 68: // Crateria passage without missile tank room
             lt = LT_CHOZODIA;
             break;
-        case 0xA: // Entry of mothership from crash room
-        case 0x14: // Entry of mothership from glass tube room (no pirates)
-        case 0x32: // Entry of mothership from hidden passage room
-        case 0x4E: // Entry of mothership from shinespark puzzle room
-        case 0x5D: // Entry of mothership from glass tube room (with pirates)
+
+        case 10: // Entry of mothership from crash room
+        case 20: // Entry of mothership from glass tube room (no pirates)
+        case 50: // Entry of mothership from hidden passage room
+        case 78: // Entry of mothership from shinespark puzzle room
+        case 93: // Entry of mothership from glass tube room (with pirates)
             lt = LT_MOTHERSHIP;
             break;
-        case 0x19: // Entry of chozo ruins from glass tube room (during suitless)
-        case 0x39: // Entry of chozo ruins from shinespark puzzle room
-        case 0x43: // Entry of chozo ruins from glass tube room (after suitless)
+
+        case 25: // Entry of chozo ruins from glass tube room (during suitless)
+        case 57: // Entry of chozo ruins from shinespark puzzle room
+        case 67: // Entry of chozo ruins from glass tube room (after suitless)
             lt = LT_CHOZO_RUINS;
     }
+
     return lt;
 }
 
@@ -206,16 +222,18 @@ u8 LocationTextGetTourian(void)
     lt = LT_INVALID;
     switch (gCurrentRoom)
     {
-        case 0x6: // Save room 1
-        case 0xB: // Save room 2
-        case 0x14: // This room doesn't exists, very likely it's just a removed save room
+        case 6: // Save room 1
+        case 11: // Save room 2
+        case 20: // This room doesn't exists, very likely it's just a removed save room
             lt = LT_SAVE_ROOM;
             break;
-        case 0x0: // Elevator to brinstar room
-        case 0x5: // Elevator to crateria (escape) room
-        case 0x8: // Elevator to crateria (destroyed) room
+
+        case 0: // Elevator to brinstar room
+        case 5: // Elevator to crateria (escape) room
+        case 8: // Elevator to crateria (destroyed) room
             lt = LT_TOURIAN;
     }
+
     return lt;
 }
 
@@ -232,7 +250,7 @@ u8 LocationTextLoadAreaBannerGfx(void)
     gfxSlot = 0x80; // Default
 
     // Loop through sprites to try and find if an area banner is in the spriteset
-    for (count = 0x0; count < 0xF; count++)
+    for (count = 0; count < 0xF; count++)
     {
         if (gSpritesetSpritesID[count] == PSPRITE_AREA_BANNER)
         {
@@ -246,9 +264,9 @@ u8 LocationTextLoadAreaBannerGfx(void)
     if (gfxSlot > 0x7)
     {
         // Use 7 as default and load Gfx/PAL
-        gfxSlot = 0x7;
-        SpriteLoadGfx(PSPRITE_AREA_BANNER, 0x7);
-        SpriteLoadPAL(PSPRITE_AREA_BANNER, 0x7, 0x1);
+        gfxSlot = 7;
+        SpriteLoadGfx(PSPRITE_AREA_BANNER, 7);
+        SpriteLoadPAL(PSPRITE_AREA_BANNER, 7, 1);
     }
 
     return gfxSlot;
@@ -266,18 +284,18 @@ u8 LocationTextGetGfxSlot(void)
     u8 lt;
 
     lt = LT_INVALID;
-    gfxSlot = 0xFF;
+    gfxSlot = UCHAR_MAX;
 
     switch (gSpriteset)
     {
-        case 0x21: // Normal save platform spriteset
-        case 0x3B: // Chozodia save platform spriteset
-        case 0x58: // Chozodia save platform with pirates spriteset
+        case 33: // Normal save platform spriteset
+        case 59: // Chozodia save platform spriteset
+        case 88: // Chozodia save platform with pirates spriteset
             lt = LT_SAVE_ROOM;
             break;
 
-        case 0x1B: // Map station spriteset
-        case 0x67: // Map station with pirates spriteset
+        case 27: // Map station spriteset
+        case 103: // Map station with pirates spriteset
             lt = LT_MAP_ROOM;
     }
 
@@ -287,7 +305,7 @@ u8 LocationTextGetGfxSlot(void)
         gSpriteData[0].roomSlot = lt;
         gfxSlot = LocationTextLoadAreaBannerGfx();
         // Draw location text
-        draw_location_text(lt, gfxSlot);
+        TextDrawLocationText(lt, gfxSlot);
     }
     else
     {
@@ -330,11 +348,13 @@ u8 LocationTextGetGfxSlot(void)
                 // If found
                 gSpriteData[0].roomSlot = lt;
                 gfxSlot = LocationTextLoadAreaBannerGfx();
+
                 // Draw location text
-                draw_location_text(lt, gfxSlot);
+                TextDrawLocationText(lt, gfxSlot);
+
                 // Load different palette for some reason
                 if (lt < LT_SAVE_ROOM)
-                    DMA_SET(3, sAreaBannerLocationTextPAL, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), DMA_ENABLE << 16 | 0x10);
+                    DMA_SET(3, sAreaBannerLocationTextPAL, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), C_32_2_16(DMA_ENABLE, 16));
             }
         }
     }

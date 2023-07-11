@@ -3,8 +3,6 @@
 
 #include "types.h"
 
-void init_sound(void);
-
 void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */
 void StopOrFadeSound(u16 id, u32 unk); /* TODO: unk type */

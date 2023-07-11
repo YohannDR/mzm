@@ -1855,7 +1855,7 @@ void SpacePirateInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteID);
-    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.oamRotation = 0x0;
 

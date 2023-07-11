@@ -264,7 +264,7 @@ void GameOverInit(void)
 
     gNextOamSlot = 0;
     ClearGfxRam();
-    ResetFreeOAM();
+    ResetFreeOam();
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
@@ -332,7 +332,7 @@ void GameOverInit_Unused(void)
 
     gNextOamSlot = 0;
     ClearGfxRam();
-    ResetFreeOAM();
+    ResetFreeOam();
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
@@ -536,5 +536,5 @@ void GameOverProcessOAM(void)
 {
     gNextOamSlot = 0;
     ProcessComplexMenuOam(ARRAY_SIZE(GAME_OVER_DATA.oam), GAME_OVER_DATA.oam, sGameOverOam);
-    ResetFreeOAM();
+    ResetFreeOam();
 }

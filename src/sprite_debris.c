@@ -289,8 +289,8 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     u16 part2;
     u32 currSlot;
 
-    if (gBG1YPosition + BLOCK_SIZE * 3 > (pDebris->yPosition + BLOCK_SIZE * 4) ||
-        gBG1YPosition + BLOCK_SIZE * 15 < (pDebris->yPosition + BLOCK_SIZE * 4))
+    if (gBg1YPosition + BLOCK_SIZE * 3 > (pDebris->yPosition + BLOCK_SIZE * 4) ||
+        gBg1YPosition + BLOCK_SIZE * 15 < (pDebris->yPosition + BLOCK_SIZE * 4))
     {
         pDebris->exists = FALSE;
         return;
@@ -304,8 +304,8 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     {
         dst = (u16*)(gOamData + prevSlot);
 
-        xPosition = (pDebris->xPosition >> 2) - (gBG1XPosition >> 2);
-        yPosition = (pDebris->yPosition >> 2) - (gBG1YPosition >> 2);
+        xPosition = (pDebris->xPosition >> 2) - (gBg1XPosition >> 2);
+        yPosition = (pDebris->yPosition >> 2) - (gBg1YPosition >> 2);
 
         if (gSamusOnTopOfBackgrounds)
             bgPriority = 0x1;

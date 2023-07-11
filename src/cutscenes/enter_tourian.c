@@ -603,6 +603,6 @@ void EnterTourianProcessOAM(void)
     gNextOamSlot = 0;
     ProcessCutsceneOam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength,
         CUTSCENE_DATA.oam, sEnterTourianOam);
-    ResetFreeOAM();
+    ResetFreeOam();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

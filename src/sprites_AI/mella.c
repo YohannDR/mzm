@@ -26,11 +26,11 @@ u8 MellaYMovement(u16 movement)
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
         
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - (QUARTER_BLOCK_SIZE * 3));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
             
@@ -38,24 +38,33 @@ u8 MellaYMovement(u16 movement)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+            gCurrentSprite.xPosition - (QUARTER_BLOCK_SIZE * 3));
+
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x70);        
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+                gCurrentSprite.xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3));
+
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+            gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3));
+
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x70);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+                gCurrentSprite.xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3));
+
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
             
         gCurrentSprite.yPosition -= movement;
     }
+
     return FALSE;
 }
 
@@ -69,11 +78,11 @@ u8 MellaXMovement(u16 movement)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition + BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition + BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
@@ -81,11 +90,11 @@ u8 MellaXMovement(u16 movement)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
@@ -101,18 +110,18 @@ u8 MellaXMovement(u16 movement)
  */
 void MellaInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0x10;
-    gCurrentSprite.hitboxBottomOffset = 0x10;
-    gCurrentSprite.hitboxLeftOffset = -0x20;
-    gCurrentSprite.hitboxRightOffset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sMellaOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
@@ -129,8 +138,8 @@ void MellaIdleInit(void)
     
     gCurrentSprite.pose = MELLA_POSE_IDLE;
     gCurrentSprite.pOam = sMellaOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     rng = gSpriteRng;
     gCurrentSprite.arrayOffset = rng * 4;
@@ -153,9 +162,10 @@ void MellaIdle(void)
     if (movement == SHORT_MAX)
     {
         movement = sMellaIdleYMovement[0]; // 0
-        offset = 0x0;
+        offset = 0;
     }
-    gCurrentSprite.arrayOffset = offset + 0x1;
+
+    gCurrentSprite.arrayOffset = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     // X movement
@@ -164,12 +174,13 @@ void MellaIdle(void)
     if (movement == SHORT_MAX)
     {
         movement = sMellaIdleXMovement[0]; // 0
-        offset = 0x0;
+        offset = 0;
     }
-    gCurrentSprite.workVariable2 = offset + 0x1;
+
+    gCurrentSprite.workVariable2 = offset + 1;
     gCurrentSprite.xPosition += movement;
 
-    if (gSamusData.yPosition - 0x48 >= gCurrentSprite.yPosition)
+    if (gSamusData.yPosition - (BLOCK_SIZE + PIXEL_SIZE * 2) >= gCurrentSprite.yPosition)
     {
         // Detect samus
         nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 8, BLOCK_SIZE * 3);
@@ -185,10 +196,12 @@ void MellaIdle(void)
 void MellaMovingInit(void)
 {
     gCurrentSprite.pose = MELLA_POSE_DELAY_BEOFRE_GOING_DOWN;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sMelloOAM_Moving;
-    gCurrentSprite.timer = 0x7;
+
+    gCurrentSprite.timer = 7;
 }
 
 /**
@@ -198,18 +211,20 @@ void MellaMovingInit(void)
 void MellaDelayBeforeGoingDown(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1)
+        gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
         SoundPlayNotAlreadyPlaying(0x189);
 
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         // Set going down behavior
         gCurrentSprite.pose = MELLA_POSE_GOING_DOWN;
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
+
         SpriteUtilMakeSpriteFaceSamusDirection();
-        gCurrentSprite.workVariable2 = 0x0;
-        gCurrentSprite.arrayOffset = 0x0;
+
+        gCurrentSprite.workVariable2 = 0;
+        gCurrentSprite.arrayOffset = 0;
     }
 }
 
@@ -220,27 +235,31 @@ void MellaDelayBeforeGoingDown(void)
 void MellaGoingDown(void)
 {
     u16 yMovement;
+    u16 xMovement;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1)
+        gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
         SoundPlayNotAlreadyPlaying(0x189);
 
     // Check increase offsets
-    if (gCurrentSprite.arrayOffset < 0x2F)
+    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sMellaGoingDownYMovement) * 8 - 1)
         gCurrentSprite.arrayOffset++;
 
-    if (gCurrentSprite.workVariable2 < 0x37)
+    if (gCurrentSprite.workVariable2 < ARRAY_SIZE(sMellaMovingXMovement) * 8 - 1)
         gCurrentSprite.workVariable2++;
 
     // Move
     yMovement = sMellaGoingDownYMovement[gCurrentSprite.arrayOffset / 8];
-    MellaXMovement(sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8]);
+    xMovement = sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8];
+
+    MellaXMovement(xMovement);
+
     if (MellaYMovement(yMovement))
     {
         // Touched floor, set going up behavior
         gCurrentSprite.pose = MELLA_POSE_GOING_UP;
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.arrayOffset = 0;
     }
 }
 
@@ -251,25 +270,30 @@ void MellaGoingDown(void)
 void MellaGoingUp(void)
 {
     u16 yMovement;
+    u16 xMovement;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1)
+        gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
         SoundPlayNotAlreadyPlaying(0x189);
 
     // Check increase offsets
-    if (gCurrentSprite.arrayOffset < 0x37)
+    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sMellaGoingUpYMovement) * 8 - 1)
         gCurrentSprite.arrayOffset++;
 
+    // Odd arbitrary number
     if (gCurrentSprite.workVariable2 > 0x18)
         gCurrentSprite.workVariable2--;
 
     // Move
     yMovement = sMellaGoingUpYMovement[gCurrentSprite.arrayOffset / 8];
-    MellaXMovement(sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8]);
+    xMovement = sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8];
+
+    MellaXMovement(xMovement);
+
     if (MellaYMovement(yMovement))
     {
         // Touched ceiling, set idle behavior
-        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + (HALF_BLOCK_SIZE);
+        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + HALF_BLOCK_SIZE;
         gCurrentSprite.pose = MELLA_POSE_IDLE_INIT;
     }
 }
@@ -287,44 +311,45 @@ void Mella(void)
             SoundPlayNotAlreadyPlaying(0x18B);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        if (SpriteUtilIsSpriteStunned())
-            return;
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                MellaInit();
-                break;
+    if (SpriteUtilIsSpriteStunned())
+        return;
 
-            case MELLA_POSE_IDLE_INIT:
-                MellaIdleInit();
-                break;
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            MellaInit();
+            break;
 
-            case MELLA_POSE_IDLE:
-                MellaIdle();
-                break;
+        case MELLA_POSE_IDLE_INIT:
+            MellaIdleInit();
+            break;
 
-            case MELLA_POSE_MOVING_INIT:
-                MellaMovingInit();
-            
-            case MELLA_POSE_DELAY_BEOFRE_GOING_DOWN:
-                MellaDelayBeforeGoingDown();
-                break;
+        case MELLA_POSE_IDLE:
+            MellaIdle();
+            break;
 
-            case MELLA_POSE_GOING_DOWN:
-                MellaGoingDown();
-                break;
+        case MELLA_POSE_MOVING_INIT:
+            MellaMovingInit();
+        
+        case MELLA_POSE_DELAY_BEOFRE_GOING_DOWN:
+            MellaDelayBeforeGoingDown();
+            break;
 
-            case MELLA_POSE_GOING_UP:
-                MellaGoingUp();
-                break;
+        case MELLA_POSE_GOING_DOWN:
+            MellaGoingDown();
+            break;
 
-            default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
-        }
+        case MELLA_POSE_GOING_UP:
+            MellaGoingUp();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
     }
 }

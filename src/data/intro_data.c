@@ -146,7 +146,7 @@ const u16 sIntroTextMarkerOAM[10] = {
     0xf8, 0x8, 0x1022
 };
 
-const u16 sIntroShipFlyingTowardsCameraOAM_1[19] = {
+const u16 sIntroShipFlyingTowardsCameraOam_1[19] = {
     0x6,
     0xd8, OBJ_SIZE_64x64 | 0x1c0, 0x3041,
     0xd8, OBJ_SIZE_64x64 | 0x0, 0x3049,
@@ -156,7 +156,7 @@ const u16 sIntroShipFlyingTowardsCameraOAM_1[19] = {
     OBJ_MODE_SEMI_TRANSPARENT | 0xd8, OBJ_X_FLIP | OBJ_SIZE_64x64 | 0x1f8, 0x4052
 };
 
-const u16 sIntroShipFlyingTowardsCameraOAM_2[28] = {
+const u16 sIntroShipFlyingTowardsCameraOam_2[28] = {
     0x9,
     0xd8, OBJ_SIZE_64x64 | 0x1c0, 0x3041,
     0xd8, OBJ_SIZE_64x64 | 0x0, 0x3049,

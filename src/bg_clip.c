@@ -39,14 +39,14 @@ void BgClipSetBgBlockValue(u8 bg, u16 value, u16 yPosition, u16 xPosition)
     gBgPointersAndDimensions.backgrounds[bg].pDecomp[yPosition * gBgPointersAndDimensions.backgrounds[bg].width + xPosition] = value;
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
-    offset = gBG1YPosition / BLOCK_SIZE;
+    offset = gBg1YPosition / BLOCK_SIZE;
     if (offset - 4 > yPosition)
         return;
     
     if (yPosition > offset + 13)
         return;
 
-    offset = gBG1XPosition / BLOCK_SIZE;
+    offset = gBg1XPosition / BLOCK_SIZE;
     if (offset - 4 > xPosition)
         return;
 
@@ -84,14 +84,14 @@ void BgClipSetBg1BlockValue(u16 value, u16 yPosition, u16 xPosition)
     gBgPointersAndDimensions.backgrounds[1].pDecomp[yPosition * gBgPointersAndDimensions.backgrounds[1].width + xPosition] = value;
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
-    offset = gBG1YPosition / BLOCK_SIZE;
+    offset = gBg1YPosition / BLOCK_SIZE;
     if (offset - 4 > yPosition)
         return;
     
     if (yPosition > offset + 13)
         return;
 
-    offset = gBG1XPosition / BLOCK_SIZE;
+    offset = gBg1XPosition / BLOCK_SIZE;
     if (offset - 4 > xPosition)
         return;
 

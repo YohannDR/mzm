@@ -1,4 +1,5 @@
 #include "fixed_point.h"
+#include "macros.h"
 
 /**
  * @brief a4c | 1c | Fixed point multiplication
@@ -11,9 +12,13 @@ s16 FixedMultiplication(s16 a, s16 b)
 {
     s32 x = a;
     s32 y = b;
-    s32 res = x;
+    s32 res;
+
+    res = x;
     res *= y;
-    res /= 0x100;
+
+    res = Q_8_8_TO_INT(res);
+
     return res;
 }
 
@@ -29,7 +34,7 @@ s16 FixedDivision(s16 a, s16 b)
     s32 x = a;
     s32 y = b;
 
-    return (x << 8) / y;
+    return Q_24_8(x) / y;
 }
 
 /**
@@ -40,5 +45,5 @@ s16 FixedDivision(s16 a, s16 b)
  */
 s16 FixedInverse(s16 a)
 {
-    return 0x10000 / a;
+    return Q_16_16(1.f) / a;
 }

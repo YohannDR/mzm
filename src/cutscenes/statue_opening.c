@@ -136,8 +136,7 @@ u8 StatueOpeningInit(void)
 
     CutsceneReset();
 
-    CUTSCENE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
     gWrittenToBLDY_NonGameplay = 16;
 
@@ -222,5 +221,5 @@ void StatueOpeningProcessOAM(void)
 {
     gNextOamSlot = 0;
     ProcessCutsceneOam(sStatueOpeningSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);
-    ResetFreeOAM();
+    ResetFreeOam();
 }

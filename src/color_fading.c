@@ -530,7 +530,7 @@ u32 ColorFadingProcess(void)
     gNextOamSlot = 0;
     HudDraw();
     ParticleProcessAll();
-    ResetFreeOAM();
+    ResetFreeOam();
 
     gColorFading.stage = 0;
     return TRUE;
@@ -592,7 +592,7 @@ u8 ColorFading_DoorTransition(void)
                 gBackgroundPositions.doorTransition.x = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE;
 
             gBackgroundPositions.doorTransition.y = ((BLOCK_SIZE * 16 -
-                (gDoorPositionStart.y * BLOCK_SIZE - gBG1YPosition)) >> 2);
+                (gDoorPositionStart.y * BLOCK_SIZE - gBg1YPosition)) >> 2);
 
             write16(REG_BG3HOFS, gBackgroundPositions.doorTransition.x);
             write16(REG_BG3VOFS, gBackgroundPositions.doorTransition.y);
@@ -1145,7 +1145,7 @@ u8 ColorFading_UpdateDoorTransition(void)
             else
                 gDoorPositionStart.x = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE;
 
-            gDoorPositionStart.y = BLOCK_SIZE * 4 - ((gDoorPositionStart.y * BLOCK_SIZE - gBG1YPosition) >> 2);
+            gDoorPositionStart.y = BLOCK_SIZE * 4 - ((gDoorPositionStart.y * BLOCK_SIZE - gBg1YPosition) >> 2);
 
             if (gDoorUnlockTimer == 1)
                 ConnectionLockHatchesWithTimer();

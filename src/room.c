@@ -106,8 +106,8 @@ void RoomLoad(void)
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
     {
         ScrollProcessGeneral();
-        gBG1YPosition = gCamera.yPosition;
-        gBG1XPosition = gCamera.xPosition;
+        gBg1YPosition = gCamera.yPosition;
+        gBg1XPosition = gCamera.xPosition;
         ScrollBG3Related();
         ScrollProcessGeneral();
     }
@@ -537,10 +537,10 @@ void RoomReset(void)
     if (gSamusData.standingStatus == STANDING_ENEMY)
         gSamusData.standingStatus = STANDING_MIDAIR;
 
-    gBG1XPosition = 0;
-    gBG1YPosition = 0;
-    gBG0XPosition = 0;
-    gBG0YPosition = 0;
+    gBg1XPosition = 0;
+    gBg1YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0;
 }
 
 /**
@@ -598,20 +598,20 @@ void RoomSetInitialTilemap(u8 bgNumber)
     if (bgNumber == 0)
     {
         properties = gCurrentRoomEntry.BG0Prop;
-        yPosition = gBG0YPosition / BLOCK_SIZE;
-        xPosition = gBG0XPosition / BLOCK_SIZE;
+        yPosition = gBg0YPosition / BLOCK_SIZE;
+        xPosition = gBg0XPosition / BLOCK_SIZE;
     }
     else if (bgNumber == 1)
     {
         properties = gCurrentRoomEntry.BG1Prop;
-        yPosition = gBG1YPosition / BLOCK_SIZE;
-        xPosition = gBG1XPosition / BLOCK_SIZE;
+        yPosition = gBg1YPosition / BLOCK_SIZE;
+        xPosition = gBg1XPosition / BLOCK_SIZE;
     }
     else
     {
         properties = gCurrentRoomEntry.BG2Prop;
-        yPosition = gBG2YPosition / BLOCK_SIZE;
-        xPosition = gBG2XPosition / BLOCK_SIZE;
+        yPosition = gBg2YPosition / BLOCK_SIZE;
+        xPosition = gBg2XPosition / BLOCK_SIZE;
     }
 
     if (properties & BG_PROP_RLE_COMPRESSED)
@@ -1000,28 +1000,28 @@ void RoomUpdateBackgroundsPosition(void)
     yOffset = ScreenShakeUpdateVertical();
     xOffset = ScreenShakeUpdateHorizontal();
 
-    xPosition = gBG1XPosition >> 0x2 & 0x1FF;
-    yPosition = gBG1YPosition >> 0x2 & 0x1FF;
+    xPosition = gBg1XPosition >> 0x2 & 0x1FF;
+    yPosition = gBg1YPosition >> 0x2 & 0x1FF;
     gBackgroundPositions.bg[1].x = xPosition + xOffset;
     gBackgroundPositions.bg[1].y = yPosition + yOffset;
-    xPosition = gBG2XPosition >> 0x2 & 0x1FF;
+    xPosition = gBg2XPosition >> 0x2 & 0x1FF;
     gBackgroundPositions.bg[2].x = xPosition + xOffset;
-    yPosition = gBG2YPosition >> 0x2 & 0x1FF;
+    yPosition = gBg2YPosition >> 0x2 & 0x1FF;
     gBackgroundPositions.bg[2].y = yPosition + yOffset;
 
     if (gScreenShakeRelated & 0x100)
     {
-        gBackgroundPositions.bg[0].x = (gBG0XPosition >> 0x2) + gBG0Movement.yOffset & 0x1FF;
-        gBackgroundPositions.bg[0].y = (gBG0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF;
+        gBackgroundPositions.bg[0].x = (gBg0XPosition >> 0x2) + gBG0Movement.yOffset & 0x1FF;
+        gBackgroundPositions.bg[0].y = (gBg0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF;
     }
     else
     {
-        gBackgroundPositions.bg[0].x = ((gBG0XPosition >> 0x2) + gBG0Movement.yOffset & 0x1FF) + xOffset;
-        gBackgroundPositions.bg[0].y = ((gBG0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF) + xOffset;
+        gBackgroundPositions.bg[0].x = ((gBg0XPosition >> 0x2) + gBG0Movement.yOffset & 0x1FF) + xOffset;
+        gBackgroundPositions.bg[0].y = ((gBg0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF) + xOffset;
     }
 
-    bg3X = (gBG3XPosition >> 0x2) + gBG3Movement.xOffset & 0x1FF;
-    bbg3Y = gBG3YPosition >> 0x2 & 0x1FF;
+    bg3X = (gBg3XPosition >> 0x2) + gBG3Movement.xOffset & 0x1FF;
+    bbg3Y = gBg3YPosition >> 0x2 & 0x1FF;
 
     if (gScreenShakeRelated & 0x800)
     {
@@ -1059,20 +1059,20 @@ void RoomUpdateVerticalTilemap(s32 offset)
         if (i == 0)
         {
             properties = gCurrentRoomEntry.BG0Prop;
-            yPosition = gBG0YPosition / BLOCK_SIZE;
-            xPosition = gBG0XPosition / BLOCK_SIZE;
+            yPosition = gBg0YPosition / BLOCK_SIZE;
+            xPosition = gBg0XPosition / BLOCK_SIZE;
         }
         else if (i == 1)
         {
             properties = gCurrentRoomEntry.BG1Prop;
-            yPosition = gBG1YPosition / BLOCK_SIZE;
-            xPosition = gBG1XPosition / BLOCK_SIZE;
+            yPosition = gBg1YPosition / BLOCK_SIZE;
+            xPosition = gBg1XPosition / BLOCK_SIZE;
         }
         else
         {
             properties = gCurrentRoomEntry.BG2Prop;
-            yPosition = gBG2YPosition / BLOCK_SIZE;
-            xPosition = gBG2XPosition / BLOCK_SIZE;
+            yPosition = gBg2YPosition / BLOCK_SIZE;
+            xPosition = gBg2XPosition / BLOCK_SIZE;
         }
 
         if (!(properties & BG_PROP_RLE_COMPRESSED))
@@ -1140,20 +1140,20 @@ void RoomUpdateHorizontalTilemap(s32 offset)
         if (i == 0)
         {
             properties = gCurrentRoomEntry.BG0Prop;
-            yPosition = gBG0YPosition / BLOCK_SIZE;
-            xPosition = gBG0XPosition / BLOCK_SIZE;
+            yPosition = gBg0YPosition / BLOCK_SIZE;
+            xPosition = gBg0XPosition / BLOCK_SIZE;
         }
         else if (i == 1)
         {
             properties = gCurrentRoomEntry.BG1Prop;
-            yPosition = gBG1YPosition / BLOCK_SIZE;
-            xPosition = gBG1XPosition / BLOCK_SIZE;
+            yPosition = gBg1YPosition / BLOCK_SIZE;
+            xPosition = gBg1XPosition / BLOCK_SIZE;
         }
         else
         {
             properties = gCurrentRoomEntry.BG2Prop;
-            yPosition = gBG2YPosition / BLOCK_SIZE;
-            xPosition = gBG2XPosition / BLOCK_SIZE;
+            yPosition = gBg2YPosition / BLOCK_SIZE;
+            xPosition = gBg2XPosition / BLOCK_SIZE;
         }
 
         if (!(properties & BG_PROP_RLE_COMPRESSED))

@@ -919,7 +919,7 @@ void ZeelaEyesInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
 
-    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
     gCurrentSprite.drawDistanceTopOffset = 0x8;

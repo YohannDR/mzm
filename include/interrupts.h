@@ -1,6 +1,6 @@
 #ifndef INTERRUPTS_H
 #define INTERRUPTS_H
 
-void intr_main(void);
+void IntrMain(void);
 
 #endif /* INTERRUPTS_H */

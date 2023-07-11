@@ -595,7 +595,7 @@ sub_080612e0: @ 0x080612e0
     strb r0, [r2]
     ldr r1, lbl_080613d0 @ =gNextOamSlot
     strb r0, [r1]
-    bl ResetFreeOAM
+    bl ResetFreeOam
     ldr r1, lbl_080613d4 @ =0x04000050
     ldr r0, lbl_080613d8 @ =sNonGameplayRamPointer
     ldr r3, [r0]

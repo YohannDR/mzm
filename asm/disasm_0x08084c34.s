@@ -845,7 +845,7 @@ lbl_08085284:
     ldrh r0, [r0]
     strh r0, [r1]
     subs r1, #0x42
-    ldr r0, lbl_0808530c @ =gBG0YPosition
+    ldr r0, lbl_0808530c @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #4
     subs r3, #0xc1
@@ -855,13 +855,13 @@ lbl_08085284:
     adds r1, #4
     strh r0, [r1]
     adds r1, #4
-    ldr r0, lbl_08085310 @ =gBG2YPosition
+    ldr r0, lbl_08085310 @ =gBg2YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #4
     ands r0, r2
     strh r0, [r1]
     adds r1, #4
-    ldr r0, lbl_08085314 @ =gBG3YPosition
+    ldr r0, lbl_08085314 @ =gBg3YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #4
     ands r0, r2
@@ -879,9 +879,9 @@ lbl_080852fc: .4byte gWrittenToBLDALPHA_H
 lbl_08085300: .4byte gWrittenToBLDALPHA_L
 lbl_08085304: .4byte 0x04000054
 lbl_08085308: .4byte gWrittenToBLDY_NonGameplay
-lbl_0808530c: .4byte gBG0YPosition
-lbl_08085310: .4byte gBG2YPosition
-lbl_08085314: .4byte gBG3YPosition
+lbl_0808530c: .4byte gBg0YPosition
+lbl_08085310: .4byte gBg2YPosition
+lbl_08085314: .4byte gBg3YPosition
 
     thumb_func_start vblank_code_during_end_screen
 vblank_code_during_end_screen: @ 0x08085318
@@ -921,20 +921,20 @@ vblank_code_during_end_screen: @ 0x08085318
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r3, lbl_080853a8 @ =0x04000014
-    ldr r0, lbl_080853ac @ =gBG1XPosition
+    ldr r0, lbl_080853ac @ =gBg1XPosition
     ldrh r2, [r0]
     ldr r1, lbl_080853b0 @ =0x000001ff
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     adds r3, #4
-    ldr r0, lbl_080853b4 @ =gBG2XPosition
+    ldr r0, lbl_080853b4 @ =gBg2XPosition
     ldrh r2, [r0]
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     ldr r2, lbl_080853b8 @ =0x0400001c
-    ldr r0, lbl_080853bc @ =gBG3XPosition
+    ldr r0, lbl_080853bc @ =gBg3XPosition
     ldrh r0, [r0]
     ands r1, r0
     strh r1, [r2]
@@ -950,11 +950,11 @@ lbl_0808539c: .4byte gWrittenToBLDALPHA_L
 lbl_080853a0: .4byte 0x04000054
 lbl_080853a4: .4byte gWrittenToBLDY_NonGameplay
 lbl_080853a8: .4byte 0x04000014
-lbl_080853ac: .4byte gBG1XPosition
+lbl_080853ac: .4byte gBg1XPosition
 lbl_080853b0: .4byte 0x000001ff
-lbl_080853b4: .4byte gBG2XPosition
+lbl_080853b4: .4byte gBg2XPosition
 lbl_080853b8: .4byte 0x0400001c
-lbl_080853bc: .4byte gBG3XPosition
+lbl_080853bc: .4byte gBg3XPosition
 
     thumb_func_start vblank_code_during_unlocked_options
 vblank_code_during_unlocked_options: @ 0x080853c0
@@ -1120,25 +1120,25 @@ credits_init: @ 0x08085464
     strh r0, [r1]
     ldr r0, lbl_08085618 @ =gNextOamSlot
     strb r6, [r0]
-    bl ResetFreeOAM
-    ldr r0, lbl_0808561c @ =gBG0XPosition
+    bl ResetFreeOam
+    ldr r0, lbl_0808561c @ =gBg0XPosition
     strh r5, [r0]
-    ldr r0, lbl_08085620 @ =gBG0YPosition
+    ldr r0, lbl_08085620 @ =gBg0YPosition
     movs r1, #0x80
     lsls r1, r1, #5
     adds r2, r1, #0
     strh r2, [r0]
-    ldr r0, lbl_08085624 @ =gBG1XPosition
+    ldr r0, lbl_08085624 @ =gBg1XPosition
     strh r5, [r0]
-    ldr r0, lbl_08085628 @ =gBG1YPosition
+    ldr r0, lbl_08085628 @ =gBg1YPosition
     strh r2, [r0]
-    ldr r0, lbl_0808562c @ =gBG2XPosition
+    ldr r0, lbl_0808562c @ =gBg2XPosition
     strh r5, [r0]
-    ldr r0, lbl_08085630 @ =gBG2YPosition
+    ldr r0, lbl_08085630 @ =gBg2YPosition
     strh r5, [r0]
-    ldr r0, lbl_08085634 @ =gBG3XPosition
+    ldr r0, lbl_08085634 @ =gBg3XPosition
     strh r5, [r0]
-    ldr r0, lbl_08085638 @ =gBG3YPosition
+    ldr r0, lbl_08085638 @ =gBg3YPosition
     strh r5, [r0]
     ldr r0, lbl_0808563c @ =0x04000010
     strh r5, [r0]
@@ -1217,14 +1217,14 @@ lbl_0808560c: .4byte 0x00001f09
 lbl_08085610: .4byte 0x00009c02
 lbl_08085614: .4byte 0x00009a0b
 lbl_08085618: .4byte gNextOamSlot
-lbl_0808561c: .4byte gBG0XPosition
-lbl_08085620: .4byte gBG0YPosition
-lbl_08085624: .4byte gBG1XPosition
-lbl_08085628: .4byte gBG1YPosition
-lbl_0808562c: .4byte gBG2XPosition
-lbl_08085630: .4byte gBG2YPosition
-lbl_08085634: .4byte gBG3XPosition
-lbl_08085638: .4byte gBG3YPosition
+lbl_0808561c: .4byte gBg0XPosition
+lbl_08085620: .4byte gBg0YPosition
+lbl_08085624: .4byte gBg1XPosition
+lbl_08085628: .4byte gBg1YPosition
+lbl_0808562c: .4byte gBg2XPosition
+lbl_08085630: .4byte gBg2YPosition
+lbl_08085634: .4byte gBg3XPosition
+lbl_08085638: .4byte gBg3YPosition
 lbl_0808563c: .4byte 0x04000010
 lbl_08085640: .4byte 0x04000014
 lbl_08085644: .4byte 0x04000016
@@ -1908,7 +1908,7 @@ lbl_08085b60:
     ldrh r0, [r1, #0xe]
     adds r0, #7
     strh r0, [r1, #0xe]
-    ldr r1, lbl_08085b7c @ =gBG0YPosition
+    ldr r1, lbl_08085b7c @ =gBg0YPosition
     ldrh r0, [r1]
     adds r0, #7
     strh r0, [r1]
@@ -1919,7 +1919,7 @@ lbl_08085b72:
     bx r1
     .align 2, 0
 lbl_08085b78: .4byte 0x000007ff
-lbl_08085b7c: .4byte gBG0YPosition
+lbl_08085b7c: .4byte gBg0YPosition
 
     thumb_func_start CreditsChozoWallMovement
 CreditsChozoWallMovement: @ 0x08085b80
@@ -1970,11 +1970,11 @@ lbl_08085bce:
     ldrb r0, [r3, #1]
     cmp r0, #0
     beq lbl_08085bf6
-    ldr r0, lbl_08085c08 @ =gBG2YPosition
+    ldr r0, lbl_08085c08 @ =gBg2YPosition
     ldrh r1, [r0]
     adds r1, #8
     strh r1, [r0]
-    ldr r2, lbl_08085c0c @ =gBG3YPosition
+    ldr r2, lbl_08085c0c @ =gBg3YPosition
     ldrh r0, [r2]
     adds r0, #8
     strh r0, [r2]
@@ -1993,8 +1993,8 @@ lbl_08085bf6:
     .align 2, 0
 lbl_08085c00: .4byte 0x04000014
 lbl_08085c04: .4byte sNonGameplayRamPointer
-lbl_08085c08: .4byte gBG2YPosition
-lbl_08085c0c: .4byte gBG3YPosition
+lbl_08085c08: .4byte gBg2YPosition
+lbl_08085c0c: .4byte gBg3YPosition
 
     thumb_func_start CreditsChozoWallZoom
 CreditsChozoWallZoom: @ 0x08085c10
@@ -2060,7 +2060,7 @@ lbl_08085c66:
     ldr r0, lbl_08085ca0 @ =0x800000f0
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r0, lbl_08085ca4 @ =gBG0YPosition
+    ldr r0, lbl_08085ca4 @ =gBg0YPosition
     strh r5, [r0]
     ldr r0, lbl_08085ca8 @ =gWrittenToBLDALPHA_L
     strh r5, [r0]
@@ -2073,7 +2073,7 @@ lbl_08085c94: .4byte 0x085bed94
 lbl_08085c98: .4byte 0x040000d4
 lbl_08085c9c: .4byte 0x0854a734
 lbl_08085ca0: .4byte 0x800000f0
-lbl_08085ca4: .4byte gBG0YPosition
+lbl_08085ca4: .4byte gBg0YPosition
 lbl_08085ca8: .4byte gWrittenToBLDALPHA_L
 lbl_08085cac: .4byte gWrittenToBLDALPHA_H
 lbl_08085cb0:
@@ -2115,7 +2115,7 @@ lbl_08085cec:
     ldrb r0, [r2, #1]
     adds r0, #1
     strb r0, [r2, #1]
-    ldr r0, lbl_08085d18 @ =gBG1YPosition
+    ldr r0, lbl_08085d18 @ =gBg1YPosition
     strh r5, [r0]
     ldr r1, lbl_08085d1c @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
@@ -2125,7 +2125,7 @@ lbl_08085cec:
     b lbl_08085d80
     .align 2, 0
 lbl_08085d14: .4byte 0x000002c2
-lbl_08085d18: .4byte gBG1YPosition
+lbl_08085d18: .4byte gBg1YPosition
 lbl_08085d1c: .4byte gWrittenToBLDALPHA_L
 lbl_08085d20: .4byte gWrittenToBLDALPHA_H
 lbl_08085d24:
@@ -2345,7 +2345,7 @@ end_screen_init: @ 0x08085e08
     strh r0, [r1]
     ldr r0, lbl_08086008 @ =gNextOamSlot
     strb r5, [r0]
-    bl ResetFreeOAM
+    bl ResetFreeOam
     ldr r0, lbl_0808600c @ =gOamData
     str r0, [r4]
     movs r0, #0xe0
@@ -2354,24 +2354,24 @@ end_screen_init: @ 0x08085e08
     ldr r0, lbl_08086010 @ =0x84000100
     str r0, [r4, #8]
     ldr r0, [r4, #8]
-    ldr r0, lbl_08086014 @ =gBG0XPosition
+    ldr r0, lbl_08086014 @ =gBg0XPosition
     strh r5, [r0]
-    ldr r0, lbl_08086018 @ =gBG0YPosition
+    ldr r0, lbl_08086018 @ =gBg0YPosition
     strh r5, [r0]
-    ldr r0, lbl_0808601c @ =gBG1XPosition
+    ldr r0, lbl_0808601c @ =gBg1XPosition
     movs r2, #0x80
     lsls r2, r2, #1
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_08086020 @ =gBG1YPosition
+    ldr r0, lbl_08086020 @ =gBg1YPosition
     strh r5, [r0]
-    ldr r0, lbl_08086024 @ =gBG2XPosition
+    ldr r0, lbl_08086024 @ =gBg2XPosition
     strh r1, [r0]
-    ldr r0, lbl_08086028 @ =gBG2YPosition
+    ldr r0, lbl_08086028 @ =gBg2YPosition
     strh r5, [r0]
-    ldr r0, lbl_0808602c @ =gBG3XPosition
+    ldr r0, lbl_0808602c @ =gBg3XPosition
     strh r5, [r0]
-    ldr r0, lbl_08086030 @ =gBG3YPosition
+    ldr r0, lbl_08086030 @ =gBg3YPosition
     strh r5, [r0]
     ldr r0, lbl_08086034 @ =0x04000010
     strh r5, [r0]
@@ -2462,14 +2462,14 @@ lbl_08086004: .4byte 0x00001f03
 lbl_08086008: .4byte gNextOamSlot
 lbl_0808600c: .4byte gOamData
 lbl_08086010: .4byte 0x84000100
-lbl_08086014: .4byte gBG0XPosition
-lbl_08086018: .4byte gBG0YPosition
-lbl_0808601c: .4byte gBG1XPosition
-lbl_08086020: .4byte gBG1YPosition
-lbl_08086024: .4byte gBG2XPosition
-lbl_08086028: .4byte gBG2YPosition
-lbl_0808602c: .4byte gBG3XPosition
-lbl_08086030: .4byte gBG3YPosition
+lbl_08086014: .4byte gBg0XPosition
+lbl_08086018: .4byte gBg0YPosition
+lbl_0808601c: .4byte gBg1XPosition
+lbl_08086020: .4byte gBg1YPosition
+lbl_08086024: .4byte gBg2XPosition
+lbl_08086028: .4byte gBg2YPosition
+lbl_0808602c: .4byte gBg3XPosition
+lbl_08086030: .4byte gBg3YPosition
 lbl_08086034: .4byte 0x04000010
 lbl_08086038: .4byte gNonGameplayRAM
 lbl_0808603c: .4byte 0x8500018a
@@ -2525,7 +2525,7 @@ lbl_080860a8:
     bhi lbl_080860ba
     b lbl_0808622a
 lbl_080860ba:
-    ldr r2, lbl_080860e0 @ =gBG1XPosition
+    ldr r2, lbl_080860e0 @ =gBg1XPosition
     ldrh r0, [r2]
     adds r0, #8
     strh r0, [r2]
@@ -2546,7 +2546,7 @@ lbl_080860cc:
     strh r3, [r1, #4]
     b lbl_08086200
     .align 2, 0
-lbl_080860e0: .4byte gBG1XPosition
+lbl_080860e0: .4byte gBg1XPosition
 lbl_080860e4: .4byte 0x01ff0000
 lbl_080860e8: .4byte 0x000002c2
 lbl_080860ec: .4byte 0x00000c42
@@ -2581,7 +2581,7 @@ lbl_08086114:
     bhi lbl_08086126
     b lbl_0808622a
 lbl_08086126:
-    ldr r2, lbl_08086154 @ =gBG2XPosition
+    ldr r2, lbl_08086154 @ =gBg2XPosition
     ldrh r0, [r2]
     adds r0, #8
     strh r0, [r2]
@@ -2604,7 +2604,7 @@ lbl_08086126:
     strb r0, [r3, #1]
     b lbl_0808622a
     .align 2, 0
-lbl_08086154: .4byte gBG2XPosition
+lbl_08086154: .4byte gBg2XPosition
 lbl_08086158: .4byte 0x01ff0000
 lbl_0808615c: .4byte 0x000002c2
 lbl_08086160: .4byte 0x00000a44
@@ -2635,7 +2635,7 @@ lbl_08086186:
     lsrs r0, r0, #0x10
     cmp r0, #0x17
     bls lbl_0808622a
-    ldr r1, lbl_080861a4 @ =gBG1XPosition
+    ldr r1, lbl_080861a4 @ =gBg1XPosition
     ldrh r0, [r1]
     cmp r0, #9
     bls lbl_080861a8
@@ -2643,7 +2643,7 @@ lbl_08086186:
     strh r0, [r1]
     b lbl_0808622a
     .align 2, 0
-lbl_080861a4: .4byte gBG1XPosition
+lbl_080861a4: .4byte gBg1XPosition
 lbl_080861a8:
     movs r0, #0
     strh r0, [r1]
@@ -2969,7 +2969,7 @@ lbl_0808642c:
     strh r0, [r1]
     ldr r0, lbl_08086498 @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
-    ldr r1, lbl_0808649c @ =gBG1XPosition
+    ldr r1, lbl_0808649c @ =gBg1XPosition
     movs r2, #0x80
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -2988,7 +2988,7 @@ lbl_0808648c: .4byte sNonGameplayRamPointer
 lbl_08086490: .4byte 0x000002c2
 lbl_08086494: .4byte gWrittenToBLDALPHA_L
 lbl_08086498: .4byte gWrittenToBLDALPHA_H
-lbl_0808649c: .4byte gBG1XPosition
+lbl_0808649c: .4byte gBg1XPosition
 lbl_080864a0: .4byte 0x00000125
 lbl_080864a4:
     ldr r1, lbl_080864ec @ =0x0400000a
@@ -3016,7 +3016,7 @@ lbl_080864a4:
     strh r0, [r1]
     ldr r0, lbl_08086514 @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
-    ldr r1, lbl_08086518 @ =gBG2XPosition
+    ldr r1, lbl_08086518 @ =gBg2XPosition
     movs r2, #0x80
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -3036,7 +3036,7 @@ lbl_08086508: .4byte sNonGameplayRamPointer
 lbl_0808650c: .4byte 0x000002c2
 lbl_08086510: .4byte gWrittenToBLDALPHA_L
 lbl_08086514: .4byte gWrittenToBLDALPHA_H
-lbl_08086518: .4byte gBG2XPosition
+lbl_08086518: .4byte gBg2XPosition
 lbl_0808651c: .4byte 0x00000125
 lbl_08086520:
     ldr r1, lbl_08086568 @ =0x0400000a
@@ -3065,7 +3065,7 @@ lbl_08086520:
     strh r0, [r1]
     ldr r0, lbl_0808658c @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
-    ldr r1, lbl_08086590 @ =gBG1XPosition
+    ldr r1, lbl_08086590 @ =gBg1XPosition
     movs r2, #0x80
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -3084,7 +3084,7 @@ lbl_08086580: .4byte sNonGameplayRamPointer
 lbl_08086584: .4byte 0x000002c2
 lbl_08086588: .4byte gWrittenToBLDALPHA_L
 lbl_0808658c: .4byte gWrittenToBLDALPHA_H
-lbl_08086590: .4byte gBG1XPosition
+lbl_08086590: .4byte gBg1XPosition
 lbl_08086594: .4byte 0x00000125
 lbl_08086598:
     ldr r1, lbl_080865c0 @ =0x0400000a
@@ -3155,7 +3155,7 @@ lbl_08086614:
     strh r0, [r1]
     ldr r0, lbl_0808665c @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
-    ldr r0, lbl_08086660 @ =gBG2XPosition
+    ldr r0, lbl_08086660 @ =gBg2XPosition
     strh r2, [r0]
     ldr r2, lbl_08086664 @ =0x00000125
     adds r1, r3, r2
@@ -3169,7 +3169,7 @@ lbl_08086650: .4byte sNonGameplayRamPointer
 lbl_08086654: .4byte 0x000002c2
 lbl_08086658: .4byte gWrittenToBLDALPHA_L
 lbl_0808665c: .4byte gWrittenToBLDALPHA_H
-lbl_08086660: .4byte gBG2XPosition
+lbl_08086660: .4byte gBg2XPosition
 lbl_08086664: .4byte 0x00000125
 lbl_08086668:
     ldr r4, lbl_0808669c @ =sNonGameplayRamPointer
@@ -3313,7 +3313,7 @@ lbl_08086782:
     ands r0, r1
     cmp r0, #0
     bne lbl_08086798
-    ldr r1, lbl_080867b0 @ =gBG3XPosition
+    ldr r1, lbl_080867b0 @ =gBg3XPosition
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
@@ -3327,7 +3327,7 @@ lbl_080867a0: .4byte sNonGameplayRamPointer
 lbl_080867a4: .4byte 0x000002c2
 lbl_080867a8: .4byte gWrittenToBLDALPHA_L
 lbl_080867ac: .4byte gWrittenToBLDALPHA_H
-lbl_080867b0: .4byte gBG3XPosition
+lbl_080867b0: .4byte gBg3XPosition
 
     thumb_func_start ending_image_init
 ending_image_init: @ 0x080867b4
@@ -3517,26 +3517,26 @@ lbl_08086940:
     ldr r1, lbl_08086a14 @ =gNextOamSlot
     movs r0, #0
     strb r0, [r1]
-    bl ResetFreeOAM
-    ldr r0, lbl_08086a18 @ =gBG0XPosition
+    bl ResetFreeOam
+    ldr r0, lbl_08086a18 @ =gBg0XPosition
     movs r1, #0
     strh r1, [r0]
-    ldr r0, lbl_08086a1c @ =gBG0YPosition
+    ldr r0, lbl_08086a1c @ =gBg0YPosition
     movs r3, #0x80
     lsls r3, r3, #5
     adds r2, r3, #0
     strh r2, [r0]
-    ldr r0, lbl_08086a20 @ =gBG1XPosition
+    ldr r0, lbl_08086a20 @ =gBg1XPosition
     strh r1, [r0]
-    ldr r0, lbl_08086a24 @ =gBG1YPosition
+    ldr r0, lbl_08086a24 @ =gBg1YPosition
     strh r2, [r0]
-    ldr r0, lbl_08086a28 @ =gBG2XPosition
+    ldr r0, lbl_08086a28 @ =gBg2XPosition
     strh r1, [r0]
-    ldr r0, lbl_08086a2c @ =gBG2YPosition
+    ldr r0, lbl_08086a2c @ =gBg2YPosition
     strh r1, [r0]
-    ldr r0, lbl_08086a30 @ =gBG3XPosition
+    ldr r0, lbl_08086a30 @ =gBg3XPosition
     strh r1, [r0]
-    ldr r0, lbl_08086a34 @ =gBG3YPosition
+    ldr r0, lbl_08086a34 @ =gBg3YPosition
     strh r1, [r0]
     ldr r0, lbl_08086a38 @ =0x04000010
     strh r1, [r0]
@@ -3593,14 +3593,14 @@ lbl_08086a08: .4byte 0x800000e0
 lbl_08086a0c: .4byte 0x04000008
 lbl_08086a10: .4byte 0x00009e09
 lbl_08086a14: .4byte gNextOamSlot
-lbl_08086a18: .4byte gBG0XPosition
-lbl_08086a1c: .4byte gBG0YPosition
-lbl_08086a20: .4byte gBG1XPosition
-lbl_08086a24: .4byte gBG1YPosition
-lbl_08086a28: .4byte gBG2XPosition
-lbl_08086a2c: .4byte gBG2YPosition
-lbl_08086a30: .4byte gBG3XPosition
-lbl_08086a34: .4byte gBG3YPosition
+lbl_08086a18: .4byte gBg0XPosition
+lbl_08086a1c: .4byte gBg0YPosition
+lbl_08086a20: .4byte gBg1XPosition
+lbl_08086a24: .4byte gBg1YPosition
+lbl_08086a28: .4byte gBg2XPosition
+lbl_08086a2c: .4byte gBg2YPosition
+lbl_08086a30: .4byte gBg3XPosition
+lbl_08086a34: .4byte gBg3YPosition
 lbl_08086a38: .4byte 0x04000010
 lbl_08086a3c: .4byte sNonGameplayRamPointer
 lbl_08086a40: .4byte 0x000002c2
@@ -4076,25 +4076,25 @@ lbl_08086dd6:
     adds r3, r0, #0
     cmp r1, #0
     beq lbl_08086e10
-    ldr r1, lbl_08086dfc @ =gBG0YPosition
+    ldr r1, lbl_08086dfc @ =gBg0YPosition
     ldrh r0, [r1]
     cmp r0, #6
     bls lbl_08086e04
     subs r0, #6
     strh r0, [r1]
-    ldr r1, lbl_08086e00 @ =gBG1YPosition
+    ldr r1, lbl_08086e00 @ =gBg1YPosition
     ldrh r0, [r1]
     subs r0, #6
     strh r0, [r1]
     b lbl_08086e10
     .align 2, 0
 lbl_08086df8: .4byte sNonGameplayRamPointer
-lbl_08086dfc: .4byte gBG0YPosition
-lbl_08086e00: .4byte gBG1YPosition
+lbl_08086dfc: .4byte gBg0YPosition
+lbl_08086e00: .4byte gBg1YPosition
 lbl_08086e04:
     movs r0, #0
     strh r0, [r1]
-    ldr r1, lbl_08086e68 @ =gBG1YPosition
+    ldr r1, lbl_08086e68 @ =gBg1YPosition
     strh r0, [r1]
     movs r0, #0
     strh r0, [r2, #8]
@@ -4145,7 +4145,7 @@ lbl_08086e5e:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08086e68: .4byte gBG1YPosition
+lbl_08086e68: .4byte gBg1YPosition
 lbl_08086e6c: .4byte 0x00000564
 lbl_08086e70: .4byte 0x00000329
 lbl_08086e74: .4byte gButtonInput
@@ -4234,7 +4234,7 @@ unlocked_options_init: @ 0x08086e78
     ldr r0, lbl_08086fb4 @ =gNextOamSlot
     mov r1, r8
     strb r1, [r0]
-    bl ResetFreeOAM
+    bl ResetFreeOam
     ldr r0, lbl_08086fb8 @ =0x04000010
     strh r6, [r0]
     adds r0, #2
@@ -4730,7 +4730,7 @@ lbl_08087344:
     strb r1, [r0]
     adds r5, #1
 lbl_0808734a:
-    bl ResetFreeOAM
+    bl ResetFreeOam
     b lbl_080873d0
     .align 2, 0
 lbl_08087350: .4byte gDisableSoftreset
@@ -4799,7 +4799,7 @@ lbl_0808738c:
     adds r0, #1
     strh r0, [r1]
 lbl_080873cc:
-    bl ResetFreeOAM
+    bl ResetFreeOam
 lbl_080873d0:
     adds r0, r5, #0
     pop {r4, r5}
@@ -4978,25 +4978,25 @@ lbl_080874d0:
     strh r0, [r1]
     ldr r0, lbl_080875f0 @ =gNextOamSlot
     strb r5, [r0]
-    bl ResetFreeOAM
-    ldr r0, lbl_080875f4 @ =gBG0XPosition
+    bl ResetFreeOam
+    ldr r0, lbl_080875f4 @ =gBg0XPosition
     strh r5, [r0]
-    ldr r0, lbl_080875f8 @ =gBG0YPosition
+    ldr r0, lbl_080875f8 @ =gBg0YPosition
     movs r2, #0x80
     lsls r2, r2, #5
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_080875fc @ =gBG1XPosition
+    ldr r0, lbl_080875fc @ =gBg1XPosition
     strh r5, [r0]
-    ldr r0, lbl_08087600 @ =gBG1YPosition
+    ldr r0, lbl_08087600 @ =gBg1YPosition
     strh r1, [r0]
-    ldr r0, lbl_08087604 @ =gBG2XPosition
+    ldr r0, lbl_08087604 @ =gBg2XPosition
     strh r5, [r0]
-    ldr r0, lbl_08087608 @ =gBG2YPosition
+    ldr r0, lbl_08087608 @ =gBg2YPosition
     strh r5, [r0]
-    ldr r0, lbl_0808760c @ =gBG3XPosition
+    ldr r0, lbl_0808760c @ =gBg3XPosition
     strh r5, [r0]
-    ldr r0, lbl_08087610 @ =gBG3YPosition
+    ldr r0, lbl_08087610 @ =gBg3YPosition
     strh r5, [r0]
     ldr r0, lbl_08087614 @ =0x04000010
     strh r5, [r0]
@@ -5048,14 +5048,14 @@ lbl_080875e4: .4byte 0x0854c0ec
 lbl_080875e8: .4byte 0x80000100
 lbl_080875ec: .4byte 0x00009e09
 lbl_080875f0: .4byte gNextOamSlot
-lbl_080875f4: .4byte gBG0XPosition
-lbl_080875f8: .4byte gBG0YPosition
-lbl_080875fc: .4byte gBG1XPosition
-lbl_08087600: .4byte gBG1YPosition
-lbl_08087604: .4byte gBG2XPosition
-lbl_08087608: .4byte gBG2YPosition
-lbl_0808760c: .4byte gBG3XPosition
-lbl_08087610: .4byte gBG3YPosition
+lbl_080875f4: .4byte gBg0XPosition
+lbl_080875f8: .4byte gBg0YPosition
+lbl_080875fc: .4byte gBg1XPosition
+lbl_08087600: .4byte gBg1YPosition
+lbl_08087604: .4byte gBg2XPosition
+lbl_08087608: .4byte gBg2YPosition
+lbl_0808760c: .4byte gBg3XPosition
+lbl_08087610: .4byte gBg3YPosition
 lbl_08087614: .4byte 0x04000010
 lbl_08087618: .4byte 0x000002c2
 
@@ -5178,13 +5178,13 @@ lbl_080876da:
 lbl_080876f8:
     cmp r4, #0
     bne lbl_08087744
-    ldr r1, lbl_08087728 @ =gBG0YPosition
+    ldr r1, lbl_08087728 @ =gBg0YPosition
     ldrh r0, [r1]
     cmp r0, r3
     ble lbl_08087730
     subs r0, r0, r3
     strh r0, [r1]
-    ldr r1, lbl_0808772c @ =gBG1YPosition
+    ldr r1, lbl_0808772c @ =gBg1YPosition
     ldrh r0, [r1]
     subs r0, r0, r3
     strh r0, [r1]
@@ -5195,24 +5195,24 @@ lbl_08087718: .4byte 0x000002c2
 lbl_0808771c: .4byte gWrittenToBLDY_NonGameplay
 lbl_08087720: .4byte gGameModeSub1
 lbl_08087724: .4byte gButtonInput
-lbl_08087728: .4byte gBG0YPosition
-lbl_0808772c: .4byte gBG1YPosition
+lbl_08087728: .4byte gBg0YPosition
+lbl_0808772c: .4byte gBg1YPosition
 lbl_08087730:
     strh r4, [r1]
-    ldr r0, lbl_08087740 @ =gBG1YPosition
+    ldr r0, lbl_08087740 @ =gBg1YPosition
     strh r4, [r0]
     ldr r1, [r7]
     movs r0, #1
     strh r0, [r1, #8]
     b lbl_08087764
     .align 2, 0
-lbl_08087740: .4byte gBG1YPosition
+lbl_08087740: .4byte gBg1YPosition
 lbl_08087744:
-    ldr r4, lbl_08087770 @ =gBG0YPosition
+    ldr r4, lbl_08087770 @ =gBg0YPosition
     ldrh r1, [r4]
     adds r1, r1, r3
     strh r1, [r4]
-    ldr r2, lbl_08087774 @ =gBG1YPosition
+    ldr r2, lbl_08087774 @ =gBg1YPosition
     ldrh r0, [r2]
     adds r0, r0, r3
     strh r0, [r2]
@@ -5232,8 +5232,8 @@ lbl_08087764:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08087770: .4byte gBG0YPosition
-lbl_08087774: .4byte gBG1YPosition
+lbl_08087770: .4byte gBg0YPosition
+lbl_08087774: .4byte gBg1YPosition
 
     thumb_func_start GallerySubroutine
 GallerySubroutine: @ 0x08087778

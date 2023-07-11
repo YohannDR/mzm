@@ -71,6 +71,10 @@ union OamData {
 };
 
 extern u8 gNextOamSlot;
-extern union OamData gOamData[160];
+
+#define OAM_BUFFER_DATA_SIZE 128
+#define OAM_BUFFER_AFFINE_SIZE 32
+
+extern union OamData gOamData[OAM_BUFFER_DATA_SIZE + OAM_BUFFER_AFFINE_SIZE];
 
 #endif /* OAM_H */

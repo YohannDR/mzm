@@ -26,7 +26,7 @@ void EscapeShipSpacePirateInit(void)
     gCurrentSprite.hitboxBottomOffset = 0x0;
 
     gCurrentSprite.health = 0x0;
-    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.oamRotation = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;

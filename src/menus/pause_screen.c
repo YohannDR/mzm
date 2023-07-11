@@ -3391,7 +3391,7 @@ void CheckForMaintainedInput(void)
 {
     gUnk_3005804 = gChangedInput;
 
-    if (gButtonInput & MAINTAINED_INPUT_KEYS)
+    if (gButtonInput & KEY_ALL_DIRECTIONS)
     {
         // Pressing any concerned key
         gMaintainedInputData.delay++;
@@ -3407,7 +3407,7 @@ void CheckForMaintainedInput(void)
     if (gMaintainedInputData.delay >= sMaintainedInputDelays[gMaintainedInputData.set])
     {
         // Apply to changed input
-        gChangedInput |= gButtonInput & MAINTAINED_INPUT_KEYS;
+        gChangedInput |= gButtonInput & KEY_ALL_DIRECTIONS;
 
         // Reset delay
         gMaintainedInputData.delay = 0;

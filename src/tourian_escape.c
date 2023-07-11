@@ -34,17 +34,17 @@ void TourianEscapeVBLank(void)
     write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0HOFS, gBG0XPosition / 4);
-    write16(REG_BG0VOFS, gBG0YPosition / 4);
+    write16(REG_BG0HOFS, gBg0XPosition / 4);
+    write16(REG_BG0VOFS, gBg0YPosition / 4);
 
-    write16(REG_BG1HOFS, gBG1XPosition / 4);
-    write16(REG_BG1VOFS, gBG1YPosition / 4);
+    write16(REG_BG1HOFS, gBg1XPosition / 4);
+    write16(REG_BG1VOFS, gBg1YPosition / 4);
 
-    write16(REG_BG2HOFS, gBG2XPosition / 4);
-    write16(REG_BG2VOFS, gBG2YPosition / 4);
+    write16(REG_BG2HOFS, gBg2XPosition / 4);
+    write16(REG_BG2VOFS, gBg2YPosition / 4);
 
-    write16(REG_BG3HOFS, gBG3XPosition / 4);
-    write16(REG_BG3VOFS, gBG3YPosition / 4);
+    write16(REG_BG3HOFS, gBg3XPosition / 4);
+    write16(REG_BG3VOFS, gBg3YPosition / 4);
 
     AnimatedGraphicsTransfer();
 }
@@ -63,14 +63,14 @@ void TourianEscapeVBLankZebesExploding(void)
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0HOFS, gBG0XPosition & 0x1FF);
-    write16(REG_BG0VOFS, gBG0YPosition & 0xFF);
+    write16(REG_BG0HOFS, gBg0XPosition & 0x1FF);
+    write16(REG_BG0VOFS, gBg0YPosition & 0xFF);
 
-    write16(REG_BG1HOFS, gBG1XPosition & 0x1FF);
-    write16(REG_BG1VOFS, gBG1YPosition & 0xFF);
+    write16(REG_BG1HOFS, gBg1XPosition & 0x1FF);
+    write16(REG_BG1VOFS, gBg1YPosition & 0xFF);
 
-    write16(REG_BG2HOFS, gBG2XPosition & 0x1FF);
-    write16(REG_BG2VOFS, gBG2YPosition & 0xFF);
+    write16(REG_BG2HOFS, gBg2XPosition & 0x1FF);
+    write16(REG_BG2VOFS, gBg2YPosition & 0xFF);
 
     write16(REG_WIN0H, TOURIAN_ESCAPE_DATA.win0h_H << 8 | TOURIAN_ESCAPE_DATA.win0h_L);
     write16(REG_WIN0V, TOURIAN_ESCAPE_DATA.win0v_H << 8 | TOURIAN_ESCAPE_DATA.win0v_L);
@@ -97,14 +97,14 @@ void TourianEscapeVBLankSamusSurrounded(void)
     write16(REG_BG2Y, gWrittenToBG2Y);
     write16(REG_BG2Y + 2, (gWrittenToBG2Y & (0xFFF << 16)) >> 16);
 
-    write16(REG_BG0HOFS, gBG0XPosition & 0x1FF);
-    write16(REG_BG0VOFS, gBG0YPosition & 0xFF);
+    write16(REG_BG0HOFS, gBg0XPosition & 0x1FF);
+    write16(REG_BG0VOFS, gBg0YPosition & 0xFF);
 
-    write16(REG_BG1HOFS, gBG1XPosition & 0x1FF);
-    write16(REG_BG1VOFS, gBG1YPosition & 0xFF);
+    write16(REG_BG1HOFS, gBg1XPosition & 0x1FF);
+    write16(REG_BG1VOFS, gBg1YPosition & 0xFF);
 
-    write16(REG_BG2HOFS, gBG2XPosition & 0x1FF);
-    write16(REG_BG2VOFS, gBG2YPosition & 0xFF);
+    write16(REG_BG2HOFS, gBg2XPosition & 0x1FF);
+    write16(REG_BG2VOFS, gBg2YPosition & 0xFF);
 }
 
 /**
@@ -653,12 +653,12 @@ u8 TourianEscapeZebesExploding(void)
                 TOURIAN_ESCAPE_DATA.oamTimers[i] = 0;
             }
 
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
-            gBG1XPosition = 0;
-            gBG1YPosition = 0;
-            gBG2XPosition = 0;
-            gBG2YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
+            gBg1XPosition = 0;
+            gBg1YPosition = 0;
+            gBg2XPosition = 0;
+            gBg2YPosition = 0;
             FadeCurrentMusicAndQueueNextMusic(0, MUSIC_ESCAPING_ZEBES_CUTSCENE, 0);
             break;
 
@@ -678,8 +678,8 @@ u8 TourianEscapeZebesExploding(void)
             break;
 
         case 512:
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
             ended = TRUE;
             break;
     }
@@ -733,7 +733,7 @@ u8 TourianEscapeZebesExploding(void)
 
         if (TOURIAN_ESCAPE_DATA.oamTimers[1] > 11)
         {
-            gBG0XPosition++;
+            gBg0XPosition++;
             TOURIAN_ESCAPE_DATA.oamXPositions[1]--;
             TOURIAN_ESCAPE_DATA.oamTimers[1] = 0;
         }
@@ -832,34 +832,34 @@ u8 TourianEscapeZebesExploding(void)
 
         if (i == 1)
         {
-            gBG0XPosition += 8;
-            gBG0YPosition -= 8;
-            gBG1XPosition += 8;
-            gBG1YPosition -= 8;
-            gBG2XPosition += 8;
-            gBG2YPosition -= 8;
+            gBg0XPosition += 8;
+            gBg0YPosition -= 8;
+            gBg1XPosition += 8;
+            gBg1YPosition -= 8;
+            gBg2XPosition += 8;
+            gBg2YPosition -= 8;
         }
         
         if (i == 3)
         {
-            gBG3XPosition += 8;
-            gBG3YPosition -= 8;
+            gBg3XPosition += 8;
+            gBg3YPosition -= 8;
         }
         
         if (i == 4)
         {
-            gBG0XPosition -= 8;
-            gBG0YPosition += 8;
-            gBG1XPosition -= 8;
-            gBG1YPosition += 8;
-            gBG2XPosition -= 8;
-            gBG2YPosition += 8;
+            gBg0XPosition -= 8;
+            gBg0YPosition += 8;
+            gBg1XPosition -= 8;
+            gBg1YPosition += 8;
+            gBg2XPosition -= 8;
+            gBg2YPosition += 8;
         }
         
         if (i == 6)
         {
-            gBG3XPosition -= 8;
-            gBG3YPosition += 8;
+            gBg3XPosition -= 8;
+            gBg3YPosition += 8;
         }
     }
 
@@ -1144,8 +1144,8 @@ u8 TourianEscapeSamusSurrounded(void)
 
             DMA_SET(3, sTourianEscapeSamusSurroundedPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusSurroundedPal));
 
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
 
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
@@ -1269,9 +1269,9 @@ u8 TourianEscapeSamusFlyingIn(void)
             TOURIAN_ESCAPE_DATA.unk_82 += 32;
 
         if ((TOURIAN_ESCAPE_DATA.oamTimers[0]++ & 7) < 4)
-            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOAM_1;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOam_1;
         else
-            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOAM_2;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOam_2;
     }
 
     unk_818cc();
@@ -1358,8 +1358,8 @@ u8 TourianEscapeSamusChasedByPirates(void)
                 TOURIAN_ESCAPE_DATA.unk_96[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][2];
             }
 
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
             break;
 
         case 3:
@@ -1445,7 +1445,7 @@ u8 TourianEscapeSamusChasedByPirates(void)
     }
 
     if (!(TOURIAN_ESCAPE_DATA.timer & 7))
-        gBG0XPosition--;
+        gBg0XPosition--;
 
     for (i = 0; i < 4; i++)
     {
@@ -1528,8 +1528,8 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
             TOURIAN_ESCAPE_DATA.unk_96[3] = sTourianEscape_47cfc4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
             TOURIAN_ESCAPE_DATA.unk_B0 = sTourianEscape_47cfd4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
 
-            gBG0XPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
-            gBG0YPosition = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+            gBg0XPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+            gBg0YPosition = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
             break;
 
         case 2:
@@ -1563,7 +1563,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
     }
 
     if (!(TOURIAN_ESCAPE_DATA.timer & 7))
-        gBG0YPosition--;
+        gBg0YPosition--;
 
     if (TOURIAN_ESCAPE_DATA.unk_8[0])
     {
@@ -1739,8 +1739,8 @@ u8 TourianEscapeSamusGettingShot(void)
             LZ77UncompVRAM(sTourianEscapeSamusGettingShotTileTable, VRAM_BASE + 0xF000);
             DMA_SET(3, sTourianEscapeSamusGettingShotPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusGettingShotPal));
 
-            gBG0XPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
-            gBG0YPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+            gBg0XPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            gBg0YPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
             TOURIAN_ESCAPE_DATA.unk_1++;
             break;
 
@@ -1805,7 +1805,7 @@ u8 TourianEscapeSamusGettingShot(void)
     }
 
     if (!(TOURIAN_ESCAPE_DATA.timer & 7))
-        gBG0XPosition--;
+        gBg0XPosition--;
 
     if (TOURIAN_ESCAPE_DATA.unk_8[4])
         unk_81788(FALSE);
@@ -1951,8 +1951,8 @@ u8 TourianEscapeSamusGoingToCrash(void)
 
         case 1:
             LZ77UncompVRAM(sTourianEscapeShipGoingToCrashGfx, VRAM_BASE + 0x10000);
-            gBG0XPosition = 16;
-            gBG0YPosition = 0;
+            gBg0XPosition = 16;
+            gBg0YPosition = 0;
 
             gWrittenToBLDALPHA_L = 9;
             gWrittenToBLDALPHA_H = 7;
@@ -2003,7 +2003,7 @@ u8 TourianEscapeSamusGoingToCrash(void)
     if (TOURIAN_ESCAPE_DATA.unk_5++ > 4)
     {
         TOURIAN_ESCAPE_DATA.unk_5 = 0;
-        gBG0XPosition--;
+        gBg0XPosition--;
     }
 
     unk_81ad8();
@@ -2054,8 +2054,8 @@ u8 TourianEscapeSamusCrashing(void)
             TOURIAN_ESCAPE_DATA.oamYPositions[1] = 0x68;
             TOURIAN_ESCAPE_DATA.oamPriorities[1] = 2;
 
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
 
             SoundPlay(0x249);
             break;
@@ -2154,9 +2154,9 @@ u8 TourianEscapeSamusLookingAtSky(void)
             DMA_SET(3, sTourianEscapeSamusLookingAtSkyPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusLookingAtSkyPal));
             DMA_SET(3, sTourianEscapeSamusLookingAtSkyPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusLookingAtSkyPal));
 
-            gBG0YPosition = 0;
-            gBG1YPosition = 0;
-            gBG2YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            gBg0YPosition = 0;
+            gBg1YPosition = 0;
+            gBg2YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
             break;
 
         case 4:
@@ -2198,8 +2198,8 @@ u8 TourianEscapeSamusLookingAtSky(void)
         case 432:
             write16(PALRAM_BASE, COLOR_BLACK);
             TOURIAN_ESCAPE_DATA.dispcnt = 0;
-            gBG0YPosition = 0;
-            gBG1YPosition = 0;
+            gBg0YPosition = 0;
+            gBg1YPosition = 0;
             ended = TRUE;
     }
 
@@ -2215,13 +2215,13 @@ u8 TourianEscapeSamusLookingAtSky(void)
     }
     else if (TOURIAN_ESCAPE_DATA.unk_2 == 2)
     {
-        gBG0YPosition++;
-        gBG1YPosition++;
+        gBg0YPosition++;
+        gBg1YPosition++;
 
-        if (gBG0YPosition >= 96)
-            gBG2YPosition++;
+        if (gBg0YPosition >= 96)
+            gBg2YPosition++;
 
-        if ((gBG2YPosition & 0xFF) == 160)
+        if ((gBg2YPosition & 0xFF) == 160)
             TOURIAN_ESCAPE_DATA.unk_2 = 0;
     }
 
@@ -2269,8 +2269,8 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
             DMA_SET(3, sTourianEscapeSamusLookingAtMotherShipPal, PALRAM_BASE,
                 DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusLookingAtMotherShipPal));
 
-            gBG0XPosition = 16;
-            gBG1XPosition = 0;
+            gBg0XPosition = 16;
+            gBg1XPosition = 0;
             break;
 
         case 3:
@@ -2347,12 +2347,12 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
         i = TOURIAN_ESCAPE_DATA.unk_5++ & 15;
         if (i == 0)
         {
-            gBG0XPosition--;
-            gBG1XPosition++;
+            gBg0XPosition--;
+            gBg1XPosition++;
         }
         
         if (i == 8)
-            gBG1XPosition++;
+            gBg1XPosition++;
     }
 
     if (TOURIAN_ESCAPE_DATA.unk_2 == 3 && TOURIAN_ESCAPE_DATA.timer & 1)

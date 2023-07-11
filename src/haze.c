@@ -428,7 +428,7 @@ void Haze_Bg3(void)
 
     gUnk_3005728 += gHazeLoops[0].unk_3;
 
-    position = (gEffectYPosition / 4) - (gBG1YPosition / 4) - 1;
+    position = (gEffectYPosition / 4) - (gBg1YPosition / 4) - 1;
 
     CLAMP(position, 0, 0xA0);
 
@@ -497,7 +497,7 @@ void Haze_Bg3StrongWeak(void)
     gUnk_3005728 += gHazeLoops[0].unk_3;
     gUnk_3005729 += gHazeLoops[1].unk_3;
 
-    position = (gEffectYPosition / 4) - (gBG1YPosition / 4) - 1;
+    position = (gEffectYPosition / 4) - (gBg1YPosition / 4) - 1;
 
     CLAMP(position, 0, 0xA0);
 
@@ -680,8 +680,8 @@ u32 Haze_PowerBombExpanding(void)
 
     src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
     size = gCurrentPowerBomb.semiMinorAxis;
-    xPosition = (gCurrentPowerBomb.xPosition - gBG1XPosition) >> 2;
-    yPosition = (gCurrentPowerBomb.yPosition - gBG1YPosition) >> 2;
+    xPosition = (gCurrentPowerBomb.xPosition - gBg1XPosition) >> 2;
+    yPosition = (gCurrentPowerBomb.yPosition - gBg1YPosition) >> 2;
 
     dst = (u16*)0x2026d00;
     for (i = 0; i <= 53 * 3; i++, dst++)
@@ -755,8 +755,8 @@ u32 Haze_PowerBombRetracting(void)
 
     src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
     size = gCurrentPowerBomb.semiMinorAxis;
-    xPosition = (gCurrentPowerBomb.xPosition - gBG1XPosition) >> 2;
-    yPosition = (gCurrentPowerBomb.yPosition - gBG1YPosition) >> 2;
+    xPosition = (gCurrentPowerBomb.xPosition - gBg1XPosition) >> 2;
+    yPosition = (gCurrentPowerBomb.yPosition - gBg1YPosition) >> 2;
 
     dst = (u16*)0x2026d00;
     for (i = 0; i <= 53 * 3; i++, dst++)

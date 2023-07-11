@@ -484,7 +484,7 @@ void KraidRandomSpriteDebrisOnCeiling(u8 timer)
     }
     else
     {
-        yPosition = gBG1YPosition - 0x3C;
+        yPosition = gBg1YPosition - 0x3C;
         xPosition = gSubSpriteData1.xPosition + BLOCK_SIZE * 3;
     }
 
@@ -2885,7 +2885,7 @@ void KraidNail(void)
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = 0x1;
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-            gCurrentSprite.oamScaling = 0x100;
+            gCurrentSprite.oamScaling = Q_8_8(1.f);
             gCurrentSprite.workVariable = 0x0;
 
             gCurrentSprite.arrayOffset = gCurrentSprite.yPosition >> 0x6;

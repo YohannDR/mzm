@@ -34,8 +34,7 @@ extern u16 gInterruptCode[0x100];
 extern void *sp_sys;
 extern void *sp_irq;
 extern Func_T intr_vector[13];
-extern u16 (*intr_code_ptr)[0x100];
-extern u16 (*intr_code_ptr)[0x100];
+extern u16 (*gIntrCodePointer)[0x100];
 
 extern u16 gInterruptCheckFlag;
 

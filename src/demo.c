@@ -32,14 +32,15 @@ void DemoStart(void)
 
     gCurrentDemo.noDemoShuffle = FALSE;
 
-    if (!gCurrentDemo.unk_2_0)
+    if (!gCurrentDemo.hasBeenInit)
     {
-        gCurrentDemo.unk_2_0 = TRUE;
+        gCurrentDemo.hasBeenInit = TRUE;
 
         fc8 = gFrameCounter8Bit;
-        demoNbr = (gFrameCounter16Bit >> 8) + gFrameCounter8Bit;
+        demoNbr = (gFrameCounter16Bit / 256) + gFrameCounter8Bit;
 
-        gCurrentDemo.number = demoNbr & 1 ? 8 : 0;
+        // Randomly choose to start at either the first or middle demo
+        gCurrentDemo.number = MOD_AND(demoNbr, 2) ? MAX_AMOUNT_OF_DEMOS / 2 : 0;
     }
 
     gDemoState = DEMO_STATE_STARTING;
@@ -58,7 +59,9 @@ void DemoInit(void)
 
     // Get demo number
     if (gCurrentDemo.noDemoShuffle)
+    {
         demoNbr = gCurrentDemo.number;
+    }
     else
     {
         if (gCurrentDemo.number >= MAX_AMOUNT_OF_DEMOS)
@@ -99,7 +102,6 @@ void DemoInit(void)
             break;
 
         case 11:
-            // FIXME, another way to write this maybe?
             write32(&gMinimapTilesWithObtainedItems[AREA_BRINSTAR * MINIMAP_SIZE + 15], 1);
             break;
     }
@@ -212,8 +214,8 @@ void DemoEnd(void)
         }
         else
         {
-            // Check end naturally after 8 demos played
-            if (gCurrentDemo.number == 8)
+            // Check end naturally after half of the demo played
+            if (gCurrentDemo.number == MAX_AMOUNT_OF_DEMOS / 2)
             {
                 // End, go back to intro
                 gDemoState = DEMO_STATE_NONE;

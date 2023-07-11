@@ -2339,7 +2339,7 @@ void DeoremThornInit(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     
-    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.oamRotation = 0;
     
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;

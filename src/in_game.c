@@ -115,7 +115,7 @@ u32 InGameMainLoop(void)
     {
         SamusCallGfxFunctions();
         SamusDraw();
-        ResetFreeOAM();
+        ResetFreeOam();
         RoomUpdate();
     }
     else if (gGameModeSub1 != 0)
@@ -147,7 +147,7 @@ u32 InGameMainLoop(void)
         SpriteDrawAll_Upper();
         ProjectileDrawAllStatusTrue();
         
-        ResetFreeOAM();
+        ResetFreeOam();
         RoomUpdate();
     
         if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)

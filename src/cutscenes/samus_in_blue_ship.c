@@ -216,5 +216,5 @@ void SamusInBlueShipProcessOAM(void)
 {
     gNextOamSlot = 0;
     ProcessCutsceneOam(sSamusInBlueShipSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sSamusInBlueShipOam);
-    ResetFreeOAM();
+    ResetFreeOam();
 }

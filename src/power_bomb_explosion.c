@@ -22,14 +22,14 @@
  */
 void PowerBombExplosionProcess(void)
 {
-    if (gCurrentPowerBomb.animationState > 0x1)
+    if (gCurrentPowerBomb.animationState > 1)
     {
         PowerBombExplosionSet0x12To0();
-        if (gCurrentPowerBomb.unk_12 == 0x0) // Most likely a cancelled feature
+        if (gCurrentPowerBomb.unk_12 == 0) // Most likely a cancelled feature
         {
-            if (gCurrentPowerBomb.animationState == 0x2)
+            if (gCurrentPowerBomb.animationState == 2)
                 PowerBombExplosionBegin();
-            else if (gCurrentPowerBomb.animationState == 0x5)
+            else if (gCurrentPowerBomb.animationState == 5)
                 PowerBombExplosionEnd();
             else if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
                 PowerBombExplosion();
@@ -51,15 +51,14 @@ void PowerBombExplosion(void)
     s32 hitboxRight;
     s32 xLoop;
     s32 yLoop;
-    u32 xPositionLeft;
-    u32 xPositionRight;
-    u32 yPositionTop;
-    u32 yPositionBottom;
+    s32 xPositionLeft;
+    s32 xPositionRight;
+    s32 yPositionTop;
+    s32 yPositionBottom;
     u16 clipdata;
-    s32 loopTemp;
     
-    verticalAxis = gCurrentPowerBomb.semiMinorAxis * 0x4;
-    horizontalAxis = gCurrentPowerBomb.semiMinorAxis * 0x8;
+    verticalAxis = gCurrentPowerBomb.semiMinorAxis * 4;
+    horizontalAxis = gCurrentPowerBomb.semiMinorAxis * 8;
     verticalAxis *= 0.95;
     horizontalAxis *= 0.95;
 
@@ -69,59 +68,57 @@ void PowerBombExplosion(void)
     hitboxBottom = (s16)verticalAxis;
 
     horizontalAxis = hitboxLeft;
-    if ((s32)(gCurrentPowerBomb.xPosition + horizontalAxis) < 0x0)
+    if (gCurrentPowerBomb.xPosition + horizontalAxis < 0)
         hitboxLeft = (s16)-gCurrentPowerBomb.xPosition;
 
     verticalAxis = hitboxTop;    
-    if ((s32)(gCurrentPowerBomb.yPosition + verticalAxis) < 0x0)
+    if (gCurrentPowerBomb.yPosition + verticalAxis < 0)
         hitboxTop = (s16)-gCurrentPowerBomb.yPosition;
 
     horizontalAxis = hitboxRight;
-    if ((s32)(gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE) < (gCurrentPowerBomb.xPosition + horizontalAxis))
-        hitboxRight = (s16)((gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE) - gCurrentPowerBomb.xPosition);
+    if (gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE < (gCurrentPowerBomb.xPosition + horizontalAxis))
+        hitboxRight = (s16)(gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE - gCurrentPowerBomb.xPosition);
 
     verticalAxis = hitboxBottom;
-    if ((s32)(gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) < (gCurrentPowerBomb.yPosition + verticalAxis))
-        hitboxBottom = (s16)((gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) - gCurrentPowerBomb.yPosition);
+    if (gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE < (gCurrentPowerBomb.yPosition + verticalAxis))
+        hitboxBottom = (s16)(gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - gCurrentPowerBomb.yPosition);
 
     gCurrentPowerBomb.hitboxLeftOffset = hitboxLeft;
     gCurrentPowerBomb.hitboxRightOffset = hitboxRight;
     gCurrentPowerBomb.hitboxTopOffset = hitboxTop;
     gCurrentPowerBomb.hitboxBottomOffset = hitboxBottom;
 
-    if (gCurrentPowerBomb.animationState < 0x4)
+    if (gCurrentPowerBomb.animationState < 4)
     {
-        hitboxLeft = (hitboxLeft + gCurrentPowerBomb.xPosition) >> 0x6;
-        hitboxRight = (hitboxRight + gCurrentPowerBomb.xPosition) >> 0x6;
-        hitboxTop = (hitboxTop + gCurrentPowerBomb.yPosition) >> 0x6;
-        hitboxBottom = (hitboxBottom + gCurrentPowerBomb.yPosition) >> 0x6;
+        hitboxLeft = DIV_SHIFT(hitboxLeft + gCurrentPowerBomb.xPosition, BLOCK_SIZE);
+        hitboxRight = DIV_SHIFT(hitboxRight + gCurrentPowerBomb.xPosition, BLOCK_SIZE);
+        hitboxTop = DIV_SHIFT(hitboxTop + gCurrentPowerBomb.yPosition, BLOCK_SIZE);
+        hitboxBottom = DIV_SHIFT(hitboxBottom + gCurrentPowerBomb.yPosition, BLOCK_SIZE);
 
-        if (!(gFrameCounter8Bit & 0x1))
+        if (MOD_AND(gFrameCounter8Bit, 2) == 0)
         {
             gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
-            for (xLoop = 0x0; xLoop < 0x2;)
+            for (xLoop = 0; xLoop < 2; xLoop++)
             {
-                if (xLoop == 0x0)
+                if (xLoop == 0)
                     horizontalAxis = hitboxLeft;
                 else
                     horizontalAxis = hitboxRight;
 
                 yPositionTop = gCurrentPowerBomb.yPosition / BLOCK_SIZE;
                 yPositionBottom = yPositionTop;
-                xLoop++;
-                loopTemp = xLoop;
 
-                for (yLoop = 0x0; yLoop != 0x2;)
+                for (yLoop = 0; yLoop != 2;)
                 {
-                    yLoop = 0x0;
-                    if ((s32)yPositionTop >= hitboxTop)
+                    yLoop = 0;
+                    if (yPositionTop >= hitboxTop)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionTop * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
-                        if (clipdata != 0x0)
+                        if (clipdata != 0)
                             BlockApplyCCAA(yPositionTop, horizontalAxis, clipdata);
 
-                        yPositionTop = (s16)(yPositionTop - 0x1);
+                        yPositionTop = (s16)(yPositionTop - 1);
                     }
                     else
                         yLoop = 0x1;
@@ -129,62 +126,55 @@ void PowerBombExplosion(void)
                     if ((s32)yPositionBottom <= hitboxBottom)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionBottom * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
-                        if (clipdata != 0x0)
+                        if (clipdata != 0)
                             BlockApplyCCAA(yPositionBottom, horizontalAxis, clipdata);
 
-                        yPositionBottom = (s16)(yPositionBottom + 0x1);
+                        yPositionBottom = (s16)(yPositionBottom + 1);
                     }
                     else
                         yLoop++;
                 }
-
-                xLoop = loopTemp;
             }
         }
         else
         {
             gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
-            
-            for (xLoop = 0x0; xLoop < 0x2;)
+            for (xLoop = 0; xLoop < 2; xLoop++)
             {
-                if (xLoop == 0x0)
+                if (xLoop == 0)
                     verticalAxis = hitboxTop;
                 else
                     verticalAxis = hitboxBottom;
 
                 xPositionRight = gCurrentPowerBomb.xPosition / BLOCK_SIZE;
                 xPositionLeft = xPositionRight;
-                xLoop++;
-                loopTemp = xLoop;
 
-                for (yLoop = 0x0; yLoop != 0x2;)
+                for (yLoop = 0; yLoop != 2; )
                 {
-                    yLoop = 0x0;
-                    if ((s32)xPositionLeft >= hitboxLeft)
+                    yLoop = 0;
+                    if (xPositionLeft >= hitboxLeft)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
-                        if (clipdata != 0x0)
+                        if (clipdata != 0)
                             BlockApplyCCAA(verticalAxis, xPositionLeft, clipdata);
                         
-                        xPositionLeft = (s16)(xPositionLeft - 0x1);
+                        xPositionLeft = (s16)(xPositionLeft - 1);
                     }
                     else
                         yLoop++;
                     
-                    if ((s32)xPositionRight <= hitboxRight)
+                    if (xPositionRight <= hitboxRight)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionRight];
-                        if (clipdata != 0x0)
+                        if (clipdata != 0)
                             BlockApplyCCAA(verticalAxis, xPositionRight, clipdata);
 
-                        xPositionRight = (s16)(xPositionRight + 0x1);
+                        xPositionRight = (s16)(xPositionRight + 1);
                     }
                     else
                         yLoop++;
                 }
-
-                xLoop = loopTemp;
             }
         }
         gCurrentClipdataAffectingAction = CAA_NONE;
@@ -200,19 +190,20 @@ void PowerBombExplosion(void)
  */
 void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
 {
-    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+        return;
+
+    PowerBombExplosionSet0x12To0();
+    if (gCurrentPowerBomb.animationState == 0) // Check if there isn't already an explosion
     {
-        PowerBombExplosionSet0x12To0();
-        if (gCurrentPowerBomb.animationState == 0x0) // Check if there isn't already an explosion
-        {
-            gCurrentPowerBomb.xPosition = xPosition;
-            gCurrentPowerBomb.yPosition = yPosition;
-            gCurrentPowerBomb.owner = owner;
-            if (gCurrentPowerBomb.unk_12 != 0x0)
-                gCurrentPowerBomb.animationState = 0x2;
-            else
-                PowerBombExplosionBegin();
-        }
+        gCurrentPowerBomb.xPosition = xPosition;
+        gCurrentPowerBomb.yPosition = yPosition;
+        gCurrentPowerBomb.owner = owner;
+
+        if (gCurrentPowerBomb.unk_12 != 0)
+            gCurrentPowerBomb.animationState = 2;
+        else
+            PowerBombExplosionBegin();
     }
 }
 
@@ -222,7 +213,7 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
  */
 void PowerBombExplosionSet0x12To0(void)
 {
-    gCurrentPowerBomb.unk_12 = 0x0;
+    gCurrentPowerBomb.unk_12 = 0;
 }
 
 /**
@@ -231,24 +222,31 @@ void PowerBombExplosionSet0x12To0(void)
  */
 void PowerBombExplosionBegin(void)
 {
-    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
-    {
-        gCurrentPowerBomb.animationState = 0x3;
-        gCurrentPowerBomb.powerBombPlaced = FALSE;
-        DMA_SET(3, PALRAM_BASE, EWRAM_BASE + (0x9000), DMA_ENABLE << 0x10 | 0x100);
-        unk_02035400 = 0x0;
-        HazeSetupCode(HAZE_VALUE_POWER_BOMB_EXPANDING);
-        gCurrentPowerBomb.stage = 0x0;
-        gCurrentPowerBomb.semiMinorAxis = 0x4;
-        gCurrentPowerBomb.hitboxLeftOffset = 0x0;
-        gCurrentPowerBomb.hitboxRightOffset = 0x0;
-        gCurrentPowerBomb.hitboxTopOffset = 0x0;
-        gCurrentPowerBomb.hitboxBottomOffset = 0x0;
-        gCurrentPowerBomb.unk_12 = 0x0;
-        gCurrentPowerBomb.unk_3 = 0x0;
-        ScreenShakeStartHorizontal(0x78, 0x80);
-        SoundPlay(0x101); // Power bomb explosion
-    }
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+        return;
+
+    gCurrentPowerBomb.animationState = 3;
+    gCurrentPowerBomb.powerBombPlaced = FALSE;
+
+    DMA_SET(3, PALRAM_BASE, EWRAM_BASE + 0x9000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4));
+    unk_02035400 = 0;
+
+    HazeSetupCode(HAZE_VALUE_POWER_BOMB_EXPANDING);
+
+    gCurrentPowerBomb.stage = 0;
+    gCurrentPowerBomb.semiMinorAxis = 0x4;
+
+    gCurrentPowerBomb.hitboxLeftOffset = 0;
+    gCurrentPowerBomb.hitboxRightOffset = 0;
+    gCurrentPowerBomb.hitboxTopOffset = 0;
+    gCurrentPowerBomb.hitboxBottomOffset = 0;
+
+    gCurrentPowerBomb.unk_12 = 0;
+    gCurrentPowerBomb.unk_3 = 0;
+
+    ScreenShakeStartHorizontal(120, 0x80);
+
+    SoundPlay(0x101); // Power bomb explosion
 }
 
 /**
@@ -260,7 +258,6 @@ void PowerBombExplosionEnd(void)
     u8 eva;
     u8 evb;
     u8 done;
-    u16* pDispcnt;
 
     if (gCurrentPowerBomb.stage == 0)
     {
@@ -268,16 +265,14 @@ void PowerBombExplosionEnd(void)
         gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 
         if (sHazeData[gCurrentRoomEntry.visualEffect][3] == 2)
-            gWrittenToBLDALPHA = 0x10;
+            gWrittenToBLDALPHA = C_16_2_8(0, 16);
         else
-            gWrittenToBLDALPHA = 0x1000;
+            gWrittenToBLDALPHA = C_16_2_8(16, 0);
 
-        pDispcnt = &gWrittenToDISPCNT;
-        write16(REG_DISPCNT, read16(REG_DISPCNT) | DCNT_WIN1);
-        write16(pDispcnt, read16(REG_DISPCNT));
+        gWrittenToDISPCNT = write16(REG_DISPCNT, read16(REG_DISPCNT) | DCNT_WIN1);
 
-        gWrittenToWIN1H = gSuitFlashEffect.left << 8 | gSuitFlashEffect.right;
-        gWrittenToWIN1V = gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom;
+        gWrittenToWIN1H = C_16_2_8(gSuitFlashEffect.left, gSuitFlashEffect.right);
+        gWrittenToWIN1V = C_16_2_8(gSuitFlashEffect.top, gSuitFlashEffect.bottom);
 
         // Set transparent color
         write16(PALRAM_BASE, 0);
@@ -297,8 +292,8 @@ void PowerBombExplosionEnd(void)
     else if (gCurrentPowerBomb.stage == 1)
     {
         // Fade BLDALPHA until it was the same as before the power bomb
-        eva = read16(REG_BLDALPHA);
-        evb = read16(REG_BLDALPHA) >> 8;
+        eva = LOW_BYTE(read16(REG_BLDALPHA));
+        evb = HIGH_BYTE(read16(REG_BLDALPHA));
         done = TRUE;
 
         if (gIoRegistersBackup.BLDALPHA_NonGameplay_EVB != evb)
@@ -307,6 +302,7 @@ void PowerBombExplosionEnd(void)
                 evb--;
             else
                 evb++;
+
             done = FALSE;
         }
 
@@ -316,10 +312,12 @@ void PowerBombExplosionEnd(void)
                 eva--;
             else
                 eva++;
+
             done = FALSE;
         }
 
-        gWrittenToBLDALPHA = evb << 8 | eva;
+        gWrittenToBLDALPHA = C_16_2_8(evb, eva);
+
         if (done)
             gCurrentPowerBomb.stage = 2;
     }

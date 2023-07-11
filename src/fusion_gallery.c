@@ -15,8 +15,8 @@
 
 #define GALLERY_RESET_BG_POS()\
 do {                          \
-gBG0YPosition = 0;            \
-gBG1YPosition = 0;            \
+gBg0YPosition = 0;            \
+gBg1YPosition = 0;            \
 } while(0);
 
 /**
@@ -32,8 +32,8 @@ void FusionGalleryVBlank(void)
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0VOFS, (gBG0YPosition / 16) & 0x1FF);
-    write16(REG_BG1VOFS, (gBG1YPosition / 16) & 0x1FF);
+    write16(REG_BG0VOFS, (gBg0YPosition / 16) & 0x1FF);
+    write16(REG_BG1VOFS, (gBg1YPosition / 16) & 0x1FF);
 }
 
 void FusionGalleryInit(void)
@@ -73,16 +73,16 @@ void FusionGalleryInit(void)
     write16(REG_BG1CNT, 0x9E09);
 
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
-    gBG0XPosition = 0;
-    gBG0YPosition = 0x1000;
-    gBG1XPosition = 0;
-    gBG1YPosition = 0x1000;
-    gBG2XPosition = 0;
-    gBG2YPosition = 0;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0x1000;
+    gBg1XPosition = 0;
+    gBg1YPosition = 0x1000;
+    gBg2XPosition = 0;
+    gBg2YPosition = 0;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0x1000);
@@ -95,8 +95,7 @@ void FusionGalleryInit(void)
 
     FUSION_GALLERY_DATA.unk_2 = 0;
     FUSION_GALLERY_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
-    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     FusionGalleryVBlank();
@@ -175,10 +174,10 @@ u32 FusionGalleryDisplay(void)
 
     if (!change)
     {
-        if (gBG0YPosition > velocity)
+        if (gBg0YPosition > velocity)
         {
-            gBG0YPosition -= velocity;
-            gBG1YPosition -= velocity;
+            gBg0YPosition -= velocity;
+            gBg1YPosition -= velocity;
         }
         else
         {
@@ -188,13 +187,13 @@ u32 FusionGalleryDisplay(void)
     }
     else
     {
-        gBG0YPosition += velocity;
-        gBG1YPosition += velocity;
+        gBg0YPosition += velocity;
+        gBg1YPosition += velocity;
 
-        if (gBG0YPosition > BLOCK_SIZE * 64)
+        if (gBg0YPosition > BLOCK_SIZE * 64)
         {
-            gBG0YPosition = BLOCK_SIZE * 64;
-            gBG1YPosition = BLOCK_SIZE * 64;
+            gBg0YPosition = BLOCK_SIZE * 64;
+            gBg1YPosition = BLOCK_SIZE * 64;
         }
     }
 

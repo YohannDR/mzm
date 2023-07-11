@@ -66,7 +66,7 @@ const u16 sRinkaMotherBrainOAM_Spawning_Frame5[19] = {
     0xfc, OBJ_X_FLIP | 0x8, OBJ_SPRITE_OAM | 0x1263
 };
 
-const u16 sZebetiteOAM_Phase1_Frame0[19] = {
+const u16 sZebetiteOam_Phase1_Frame0[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
@@ -76,7 +76,7 @@ const u16 sZebetiteOAM_Phase1_Frame0[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase1_Frame1[25] = {
+const u16 sZebetiteOam_Phase1_Frame1[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x215,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x215,
@@ -88,7 +88,7 @@ const u16 sZebetiteOAM_Phase1_Frame1[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase1_Frame2[22] = {
+const u16 sZebetiteOam_Phase1_Frame2[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
@@ -99,7 +99,7 @@ const u16 sZebetiteOAM_Phase1_Frame2[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase1_Frame3[25] = {
+const u16 sZebetiteOam_Phase1_Frame3[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x215,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x215,
@@ -111,7 +111,7 @@ const u16 sZebetiteOAM_Phase1_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase1_Frame4[19] = {
+const u16 sZebetiteOam_Phase1_Frame4[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
@@ -121,7 +121,7 @@ const u16 sZebetiteOAM_Phase1_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase1_Frame5[22] = {
+const u16 sZebetiteOam_Phase1_Frame5[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20c,
@@ -132,7 +132,7 @@ const u16 sZebetiteOAM_Phase1_Frame5[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase2_Frame0[19] = {
+const u16 sZebetiteOam_Phase2_Frame0[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
@@ -142,7 +142,7 @@ const u16 sZebetiteOAM_Phase2_Frame0[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase2_Frame1[25] = {
+const u16 sZebetiteOam_Phase2_Frame1[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x217,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x217,
@@ -154,7 +154,7 @@ const u16 sZebetiteOAM_Phase2_Frame1[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase2_Frame2[22] = {
+const u16 sZebetiteOam_Phase2_Frame2[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
@@ -165,7 +165,7 @@ const u16 sZebetiteOAM_Phase2_Frame2[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase2_Frame3[25] = {
+const u16 sZebetiteOam_Phase2_Frame3[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
@@ -177,7 +177,7 @@ const u16 sZebetiteOAM_Phase2_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase2_Frame4[19] = {
+const u16 sZebetiteOam_Phase2_Frame4[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x217,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x217,
@@ -187,7 +187,7 @@ const u16 sZebetiteOAM_Phase2_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase2_Frame5[22] = {
+const u16 sZebetiteOam_Phase2_Frame5[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
     0xf0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20e,
@@ -198,7 +198,7 @@ const u16 sZebetiteOAM_Phase2_Frame5[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase4_Frame0[19] = {
+const u16 sZebetiteOam_Phase4_Frame0[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x210,
@@ -208,7 +208,7 @@ const u16 sZebetiteOAM_Phase4_Frame0[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase4_Frame1[25] = {
+const u16 sZebetiteOam_Phase4_Frame1[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x219,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x219,
@@ -220,7 +220,7 @@ const u16 sZebetiteOAM_Phase4_Frame1[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase4_Frame2[22] = {
+const u16 sZebetiteOam_Phase4_Frame2[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x210,
@@ -231,7 +231,7 @@ const u16 sZebetiteOAM_Phase4_Frame2[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase4_Frame3[25] = {
+const u16 sZebetiteOam_Phase4_Frame3[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x210,
@@ -243,7 +243,7 @@ const u16 sZebetiteOAM_Phase4_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase4_Frame4[19] = {
+const u16 sZebetiteOam_Phase4_Frame4[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x219,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x219,
@@ -253,7 +253,7 @@ const u16 sZebetiteOAM_Phase4_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase4_Frame5[22] = {
+const u16 sZebetiteOam_Phase4_Frame5[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x210,
@@ -264,7 +264,7 @@ const u16 sZebetiteOAM_Phase4_Frame5[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase6_Frame0[19] = {
+const u16 sZebetiteOam_Phase6_Frame0[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x211,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x211,
@@ -274,7 +274,7 @@ const u16 sZebetiteOAM_Phase6_Frame0[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase6_Frame1[25] = {
+const u16 sZebetiteOam_Phase6_Frame1[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x21a,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x21a,
@@ -286,7 +286,7 @@ const u16 sZebetiteOAM_Phase6_Frame1[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase6_Frame2[22] = {
+const u16 sZebetiteOam_Phase6_Frame2[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x211,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x211,
@@ -297,7 +297,7 @@ const u16 sZebetiteOAM_Phase6_Frame2[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sZebetiteOAM_Phase6_Frame3[25] = {
+const u16 sZebetiteOam_Phase6_Frame3[25] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x211,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x211,
@@ -309,7 +309,7 @@ const u16 sZebetiteOAM_Phase6_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x209
 };
 
-const u16 sZebetiteOAM_Phase6_Frame4[19] = {
+const u16 sZebetiteOam_Phase6_Frame4[19] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x21a,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x21a,
@@ -319,7 +319,7 @@ const u16 sZebetiteOAM_Phase6_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sZebetiteOAM_Phase6_Frame5[22] = {
+const u16 sZebetiteOam_Phase6_Frame5[22] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x211,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x211,
@@ -330,166 +330,166 @@ const u16 sZebetiteOAM_Phase6_Frame5[22] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_Y_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x20b
 };
 
-const u16 sCannonOAM_AimingLeft_Frame0[7] = {
+const u16 sCannonOam_AimingLeft_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     0xfc, 0x1f0, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sCannonOAM_ShootingLeft_Frame1[7] = {
+const u16 sCannonOam_ShootingLeft_Frame1[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     0xfc, 0x1f1, OBJ_SPRITE_OAM | 0x25b
 };
 
-const u16 sCannonOAM_ShootingLeft_Frame2[7] = {
+const u16 sCannonOam_ShootingLeft_Frame2[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25c,
     0xfc, 0x1f2, OBJ_SPRITE_OAM | 0x25b
 };
 
-const u16 sCannonOAM_LeftToDownLeftTransition_Frame0[7] = {
+const u16 sCannonOam_LeftToDownLeftTransition_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     OBJ_SHAPE_HORIZONTAL | 0x1, 0x1f0, OBJ_SPRITE_OAM | 0x267
 };
 
-const u16 sCannonOAM_AimingDownLeft_Frame0[7] = {
+const u16 sCannonOam_AimingDownLeft_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     0x5, 0x1f3, OBJ_SPRITE_OAM | 0x228
 };
 
-const u16 sCannonOAM_ShootingDownLeft_Frame1[7] = {
+const u16 sCannonOam_ShootingDownLeft_Frame1[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     0x4, 0x1f4, OBJ_SPRITE_OAM | 0x248
 };
 
-const u16 sCannonOAM_ShootingDownLeft_Frame2[7] = {
+const u16 sCannonOam_ShootingDownLeft_Frame2[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25c,
     0x3, 0x1f5, OBJ_SPRITE_OAM | 0x248
 };
 
-const u16 sCannonOAM_DownLeftToDownTransition_Frame0[7] = {
+const u16 sCannonOam_DownLeftToDownTransition_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     OBJ_SHAPE_VERTICAL | 0x0, 0x1f9, OBJ_SPRITE_OAM | 0x227
 };
 
-const u16 sCannonOAM_AimingDown_Frame0[7] = {
+const u16 sCannonOam_AimingDown_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     0x8, 0x1fc, OBJ_SPRITE_OAM | 0x208
 };
 
-const u16 sCannonOAM_ShootingDown_Frame1[7] = {
+const u16 sCannonOam_ShootingDown_Frame1[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     0x7, 0x1fc, OBJ_SPRITE_OAM | 0x27b
 };
 
-const u16 sCannonOAM_ShootingDown_Frame2[7] = {
+const u16 sCannonOam_ShootingDown_Frame2[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25c,
     0x6, 0x1fc, OBJ_SPRITE_OAM | 0x27b
 };
 
-const u16 sCannonOAM_DownToDownRightTransition_Frame0[7] = {
+const u16 sCannonOam_DownToDownRightTransition_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_X_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x227
 };
 
-const u16 sCannonOAM_AimingDownRight_Frame0[7] = {
+const u16 sCannonOam_AimingDownRight_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     0x5, OBJ_X_FLIP | 0x5, OBJ_SPRITE_OAM | 0x228
 };
 
-const u16 sCannonOAM_ShootingDownRight_Frame1[7] = {
+const u16 sCannonOam_ShootingDownRight_Frame1[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     0x4, OBJ_X_FLIP | 0x4, OBJ_SPRITE_OAM | 0x248
 };
 
-const u16 sCannonOAM_ShootingDownRight_Frame2[7] = {
+const u16 sCannonOam_ShootingDownRight_Frame2[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25c,
     0x3, OBJ_X_FLIP | 0x3, OBJ_SPRITE_OAM | 0x248
 };
 
-const u16 sCannonOAM_RightToRightTransition_Frame0[7] = {
+const u16 sCannonOam_RightToRightTransition_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     OBJ_SHAPE_HORIZONTAL | 0x1, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x267
 };
 
-const u16 sCannonOAM_AimingRight_Frame0[7] = {
+const u16 sCannonOam_AimingRight_Frame0[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c,
     0xfc, OBJ_X_FLIP | 0x8, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sCannonOAM_ShootingRight_Frame1[7] = {
+const u16 sCannonOam_ShootingRight_Frame1[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     0xfc, OBJ_X_FLIP | 0x7, OBJ_SPRITE_OAM | 0x25b
 };
 
-const u16 sCannonOAM_ShootingRight_Frame2[7] = {
+const u16 sCannonOam_ShootingRight_Frame2[7] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x25c,
     0xfc, OBJ_X_FLIP | 0x6, OBJ_SPRITE_OAM | 0x25b
 };
 
-const u16 sCannonBulletOAM_Left_Frame0[4] = {
+const u16 sCannonBulletOam_Left_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1244
 };
 
-const u16 sCannonBulletOAM_Left_Frame1[4] = {
+const u16 sCannonBulletOam_Left_Frame1[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1264
 };
 
-const u16 sCannonBulletOAM_DownLeft_Frame0[4] = {
+const u16 sCannonBulletOam_DownLeft_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1245
 };
 
-const u16 sCannonBulletOAM_DownLeft_Frame1[4] = {
+const u16 sCannonBulletOam_DownLeft_Frame1[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1265
 };
 
-const u16 sCannonBulletOAM_Down_Frame0[4] = {
+const u16 sCannonBulletOam_Down_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1246
 };
 
-const u16 sCannonBulletOAM_Down_Frame1[4] = {
+const u16 sCannonBulletOam_Down_Frame1[4] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x1266
 };
 
-const u16 sCannonBulletOAM_DownRight_Frame0[4] = {
+const u16 sCannonBulletOam_DownRight_Frame0[4] = {
     0x1,
     0xfc, OBJ_X_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x1245
 };
 
-const u16 sCannonBulletOAM_DownRight_Frame1[4] = {
+const u16 sCannonBulletOam_DownRight_Frame1[4] = {
     0x1,
     0xfc, OBJ_X_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x1265
 };
 
-const u16 sCannonBulletOAM_Right_Frame0[4] = {
+const u16 sCannonBulletOam_Right_Frame0[4] = {
     0x1,
     0xfc, OBJ_X_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x1244
 };
 
-const u16 sCannonBulletOAM_Right_Frame1[4] = {
+const u16 sCannonBulletOam_Right_Frame1[4] = {
     0x1,
     0xfc, OBJ_X_FLIP | 0x1fc, OBJ_SPRITE_OAM | 0x1264
 };
@@ -567,232 +567,232 @@ const struct FrameData sRinkaMotherBrainOAM_Moving[5] = {
     0x0
 };
 
-const struct FrameData sZebetiteOAM_Phase1[7] = {
-    sZebetiteOAM_Phase1_Frame0,
+const struct FrameData sZebetiteOam_Phase1[7] = {
+    sZebetiteOam_Phase1_Frame0,
     3,
-    sZebetiteOAM_Phase1_Frame1,
+    sZebetiteOam_Phase1_Frame1,
     3,
-    sZebetiteOAM_Phase1_Frame2,
+    sZebetiteOam_Phase1_Frame2,
     3,
-    sZebetiteOAM_Phase1_Frame3,
+    sZebetiteOam_Phase1_Frame3,
     3,
-    sZebetiteOAM_Phase1_Frame4,
+    sZebetiteOam_Phase1_Frame4,
     3,
-    sZebetiteOAM_Phase1_Frame5,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sZebetiteOAM_Phase2[7] = {
-    sZebetiteOAM_Phase2_Frame0,
-    3,
-    sZebetiteOAM_Phase2_Frame1,
-    3,
-    sZebetiteOAM_Phase2_Frame2,
-    3,
-    sZebetiteOAM_Phase2_Frame3,
-    3,
-    sZebetiteOAM_Phase2_Frame4,
-    3,
-    sZebetiteOAM_Phase2_Frame5,
+    sZebetiteOam_Phase1_Frame5,
     3,
     NULL,
     0
 };
 
-const struct FrameData sZebetiteOAM_Phase4[7] = {
-    sZebetiteOAM_Phase4_Frame0,
+const struct FrameData sZebetiteOam_Phase2[7] = {
+    sZebetiteOam_Phase2_Frame0,
     3,
-    sZebetiteOAM_Phase4_Frame1,
+    sZebetiteOam_Phase2_Frame1,
     3,
-    sZebetiteOAM_Phase4_Frame2,
+    sZebetiteOam_Phase2_Frame2,
     3,
-    sZebetiteOAM_Phase4_Frame3,
+    sZebetiteOam_Phase2_Frame3,
     3,
-    sZebetiteOAM_Phase4_Frame4,
+    sZebetiteOam_Phase2_Frame4,
     3,
-    sZebetiteOAM_Phase4_Frame5,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sZebetiteOAM_Phase6[7] = {
-    sZebetiteOAM_Phase6_Frame0,
-    3,
-    sZebetiteOAM_Phase6_Frame1,
-    3,
-    sZebetiteOAM_Phase6_Frame2,
-    3,
-    sZebetiteOAM_Phase6_Frame3,
-    3,
-    sZebetiteOAM_Phase6_Frame4,
-    3,
-    sZebetiteOAM_Phase6_Frame5,
+    sZebetiteOam_Phase2_Frame5,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_AimingLeft[2] = {
-    sCannonOAM_AimingLeft_Frame0,
+const struct FrameData sZebetiteOam_Phase4[7] = {
+    sZebetiteOam_Phase4_Frame0,
+    3,
+    sZebetiteOam_Phase4_Frame1,
+    3,
+    sZebetiteOam_Phase4_Frame2,
+    3,
+    sZebetiteOam_Phase4_Frame3,
+    3,
+    sZebetiteOam_Phase4_Frame4,
+    3,
+    sZebetiteOam_Phase4_Frame5,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sZebetiteOam_Phase6[7] = {
+    sZebetiteOam_Phase6_Frame0,
+    3,
+    sZebetiteOam_Phase6_Frame1,
+    3,
+    sZebetiteOam_Phase6_Frame2,
+    3,
+    sZebetiteOam_Phase6_Frame3,
+    3,
+    sZebetiteOam_Phase6_Frame4,
+    3,
+    sZebetiteOam_Phase6_Frame5,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sCannonOam_AimingLeft[2] = {
+    sCannonOam_AimingLeft_Frame0,
     UCHAR_MAX,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_ShootingLeft[4] = {
-    sCannonOAM_AimingLeft_Frame0,
+const struct FrameData sCannonOam_ShootingLeft[4] = {
+    sCannonOam_AimingLeft_Frame0,
     16,
-    sCannonOAM_ShootingLeft_Frame1,
+    sCannonOam_ShootingLeft_Frame1,
     2,
-    sCannonOAM_ShootingLeft_Frame2,
+    sCannonOam_ShootingLeft_Frame2,
     2,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_LeftToDownLeftTransition[2] = {
-    sCannonOAM_LeftToDownLeftTransition_Frame0,
+const struct FrameData sCannonOam_LeftToDownLeftTransition[2] = {
+    sCannonOam_LeftToDownLeftTransition_Frame0,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_AimingDownLeft[2] = {
-    sCannonOAM_AimingDownLeft_Frame0,
+const struct FrameData sCannonOam_AimingDownLeft[2] = {
+    sCannonOam_AimingDownLeft_Frame0,
     UCHAR_MAX,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_ShootingDownLeft[4] = {
-    sCannonOAM_AimingDownLeft_Frame0,
+const struct FrameData sCannonOam_ShootingDownLeft[4] = {
+    sCannonOam_AimingDownLeft_Frame0,
     16,
-    sCannonOAM_ShootingDownLeft_Frame1,
+    sCannonOam_ShootingDownLeft_Frame1,
     2,
-    sCannonOAM_ShootingDownLeft_Frame2,
+    sCannonOam_ShootingDownLeft_Frame2,
     2,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_DownLeftToDownTransition[2] = {
-    sCannonOAM_DownLeftToDownTransition_Frame0,
+const struct FrameData sCannonOam_DownLeftToDownTransition[2] = {
+    sCannonOam_DownLeftToDownTransition_Frame0,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_AimingDown[2] = {
-    sCannonOAM_AimingDown_Frame0,
+const struct FrameData sCannonOam_AimingDown[2] = {
+    sCannonOam_AimingDown_Frame0,
     UCHAR_MAX,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_ShootingDown[4] = {
-    sCannonOAM_AimingDown_Frame0,
+const struct FrameData sCannonOam_ShootingDown[4] = {
+    sCannonOam_AimingDown_Frame0,
     16,
-    sCannonOAM_ShootingDown_Frame1,
+    sCannonOam_ShootingDown_Frame1,
     2,
-    sCannonOAM_ShootingDown_Frame2,
+    sCannonOam_ShootingDown_Frame2,
     2,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_DownToDownRightTransition[2] = {
-    sCannonOAM_DownToDownRightTransition_Frame0,
+const struct FrameData sCannonOam_DownToDownRightTransition[2] = {
+    sCannonOam_DownToDownRightTransition_Frame0,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_AimingDownRight[2] = {
-    sCannonOAM_AimingDownRight_Frame0,
+const struct FrameData sCannonOam_AimingDownRight[2] = {
+    sCannonOam_AimingDownRight_Frame0,
     UCHAR_MAX,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_ShootingDownRight[4] = {
-    sCannonOAM_AimingDownRight_Frame0,
+const struct FrameData sCannonOam_ShootingDownRight[4] = {
+    sCannonOam_AimingDownRight_Frame0,
     16,
-    sCannonOAM_ShootingDownRight_Frame1,
+    sCannonOam_ShootingDownRight_Frame1,
     2,
-    sCannonOAM_ShootingDownRight_Frame2,
+    sCannonOam_ShootingDownRight_Frame2,
     2,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_DownRightToRightTransition[2] = {
-    sCannonOAM_RightToRightTransition_Frame0,
+const struct FrameData sCannonOam_DownRightToRightTransition[2] = {
+    sCannonOam_RightToRightTransition_Frame0,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_AimingRight[2] = {
-    sCannonOAM_AimingRight_Frame0,
+const struct FrameData sCannonOam_AimingRight[2] = {
+    sCannonOam_AimingRight_Frame0,
     UCHAR_MAX,
     NULL,
     0
 };
 
-const struct FrameData sCannonOAM_ShootingRight[4] = {
-    sCannonOAM_AimingRight_Frame0,
+const struct FrameData sCannonOam_ShootingRight[4] = {
+    sCannonOam_AimingRight_Frame0,
     16,
-    sCannonOAM_ShootingRight_Frame1,
+    sCannonOam_ShootingRight_Frame1,
     2,
-    sCannonOAM_ShootingRight_Frame2,
+    sCannonOam_ShootingRight_Frame2,
     2,
     NULL,
     0
 };
 
-const struct FrameData sCannonBulletOAM_Left[3] = {
-    sCannonBulletOAM_Left_Frame0,
+const struct FrameData sCannonBulletOam_Left[3] = {
+    sCannonBulletOam_Left_Frame0,
     3,
-    sCannonBulletOAM_Left_Frame1,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sCannonBulletOAM_DownLeft[3] = {
-    sCannonBulletOAM_DownLeft_Frame0,
-    3,
-    sCannonBulletOAM_DownLeft_Frame1,
+    sCannonBulletOam_Left_Frame1,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonBulletOAM_Down[3] = {
-    sCannonBulletOAM_Down_Frame0,
+const struct FrameData sCannonBulletOam_DownLeft[3] = {
+    sCannonBulletOam_DownLeft_Frame0,
     3,
-    sCannonBulletOAM_Down_Frame1,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sCannonBulletOAM_DownRight[3] = {
-    sCannonBulletOAM_DownRight_Frame0,
-    3,
-    sCannonBulletOAM_DownRight_Frame1,
+    sCannonBulletOam_DownLeft_Frame1,
     3,
     NULL,
     0
 };
 
-const struct FrameData sCannonBulletOAM_Right[3] = {
-    sCannonBulletOAM_Right_Frame0,
+const struct FrameData sCannonBulletOam_Down[3] = {
+    sCannonBulletOam_Down_Frame0,
     3,
-    sCannonBulletOAM_Right_Frame1,
+    sCannonBulletOam_Down_Frame1,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sCannonBulletOam_DownRight[3] = {
+    sCannonBulletOam_DownRight_Frame0,
+    3,
+    sCannonBulletOam_DownRight_Frame1,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sCannonBulletOam_Right[3] = {
+    sCannonBulletOam_Right_Frame0,
+    3,
+    sCannonBulletOam_Right_Frame1,
     3,
     NULL,
     0

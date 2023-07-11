@@ -61,7 +61,7 @@ lbl_08078288:
     movs r0, #0xb
     bl process_menu_oam
 lbl_0807829a:
-    bl ResetFreeOAM
+    bl ResetFreeOam
     pop {r0}
     bx r0
     .align 2, 0
@@ -8562,7 +8562,7 @@ file_select_menu_init: @ 0x0807c5e0
     ldr r0, lbl_0807c7b0 @ =gNextOamSlot
     strb r4, [r0]
     bl ClearGfxRam
-    bl ResetFreeOAM
+    bl ResetFreeOam
     ldr r1, lbl_0807c7b4 @ =gOamXOffset_NonGameplay
     ldr r0, lbl_0807c7b8 @ =gOamYOffset_NonGameplay
     strb r4, [r0]

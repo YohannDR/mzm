@@ -900,7 +900,7 @@ lbl_0804f3f2:
     adds r4, r0, r2
     ldrh r1, [r3, #8]
     lsrs r1, r1, #2
-    ldr r0, lbl_0804f450 @ =gBG1YPosition
+    ldr r0, lbl_0804f450 @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -909,7 +909,7 @@ lbl_0804f3f2:
     str r1, [sp]
     ldrh r1, [r3, #0xa]
     lsrs r1, r1, #2
-    ldr r0, lbl_0804f454 @ =gBG1XPosition
+    ldr r0, lbl_0804f454 @ =gBg1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -940,8 +940,8 @@ lbl_0804f3f2:
     .align 2, 0
 lbl_0804f448: .4byte gNextOamSlot
 lbl_0804f44c: .4byte gOamData
-lbl_0804f450: .4byte gBG1YPosition
-lbl_0804f454: .4byte gBG1XPosition
+lbl_0804f450: .4byte gBg1YPosition
+lbl_0804f454: .4byte gBg1XPosition
 lbl_0804f458: .4byte gIoRegistersBackup
 lbl_0804f45c:
     adds r3, #1
@@ -1104,7 +1104,7 @@ check_despawn_projectile: @ 0x0804f578
     ands r0, r1
     cmp r0, #0
     beq lbl_0804f65e
-    ldr r0, lbl_0804f604 @ =gBG1YPosition
+    ldr r0, lbl_0804f604 @ =gBg1YPosition
     ldrh r7, [r6, #8]
     ldrh r4, [r6, #0xa]
     mov ip, r4
@@ -1130,7 +1130,7 @@ check_despawn_projectile: @ 0x0804f578
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     mov r8, r1
-    ldr r1, lbl_0804f608 @ =gBG1XPosition
+    ldr r1, lbl_0804f608 @ =gBg1XPosition
     ldrh r1, [r1]
     adds r0, r2, r1
     lsls r0, r0, #0x10
@@ -1161,8 +1161,8 @@ check_despawn_projectile: @ 0x0804f578
     orrs r0, r4
     b lbl_0804f65c
     .align 2, 0
-lbl_0804f604: .4byte gBG1YPosition
-lbl_0804f608: .4byte gBG1XPosition
+lbl_0804f604: .4byte gBg1YPosition
+lbl_0804f608: .4byte gBg1XPosition
 lbl_0804f60c:
     ldrb r0, [r6]
     movs r1, #0xfd

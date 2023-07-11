@@ -1581,8 +1581,8 @@ lbl_0806f00a:
     pop {r0}
     bx r0
 
-    thumb_func_start draw_location_text
-draw_location_text: @ 0x0806f018
+    thumb_func_start TextDrawLocationText
+TextDrawLocationText: @ 0x0806f018
     push {r4, r5, r6, lr}
     sub sp, #8
     adds r4, r0, #0
@@ -1864,8 +1864,8 @@ lbl_0806f24e:
     bx r1
     .align 2, 0
 
-    thumb_func_start start_message
-start_message: @ 0x0806f258
+    thumb_func_start TextStartMessage
+TextStartMessage: @ 0x0806f258
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
@@ -1892,8 +1892,8 @@ lbl_0806f278:
 lbl_0806f284: .4byte gCurrentMessage
 lbl_0806f288: .4byte 0x0840dc50
 
-    thumb_func_start process_item_banner_text
-process_item_banner_text: @ 0x0806f28c
+    thumb_func_start TextProcessItemBanner
+TextProcessItemBanner: @ 0x0806f28c
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     ldr r0, lbl_0806f2a8 @ =gCurrentMessage

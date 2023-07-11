@@ -2730,7 +2730,7 @@ lbl_08069664:
     movs r0, #1
     bl process_menu_oam
 lbl_08069684:
-    bl ResetFreeOAM
+    bl ResetFreeOam
     pop {r4}
     pop {r0}
     bx r0
@@ -4509,7 +4509,7 @@ map_screen_init: @ 0x0806a434
     movs r0, #3
     movs r1, #0
     bl BitFill
-    bl ResetFreeOAM
+    bl ResetFreeOam
     ldr r1, lbl_0806a508 @ =0x040000d4
     ldr r0, lbl_0806a50c @ =gOamData
     str r0, [r1]

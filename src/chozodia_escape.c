@@ -33,12 +33,12 @@ void ChozodiaEscapeVBlank(void)
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0HOFS, gBG0XPosition & 0x1FF);
-    write16(REG_BG0VOFS, gBG0YPosition & 0xFF);
-    write16(REG_BG1HOFS, gBG1XPosition & 0x1FF);
-    write16(REG_BG1VOFS, gBG1YPosition & 0xFF);
-    write16(REG_BG2HOFS, gBG2XPosition & 0x1FF);
-    write16(REG_BG2VOFS, gBG2YPosition & 0xFF);
+    write16(REG_BG0HOFS, gBg0XPosition & 0x1FF);
+    write16(REG_BG0VOFS, gBg0YPosition & 0xFF);
+    write16(REG_BG1HOFS, gBg1XPosition & 0x1FF);
+    write16(REG_BG1VOFS, gBg1YPosition & 0xFF);
+    write16(REG_BG2HOFS, gBg2XPosition & 0x1FF);
+    write16(REG_BG2VOFS, gBg2YPosition & 0xFF);
 
     CHOZODIA_ESCAPE_DATA.unk_36f = CHOZODIA_ESCAPE_DATA.unk_36e;
 }
@@ -422,14 +422,14 @@ void ChozodiaEscapeInit(void)
     write16(REG_BG1CNT, 0x1509);
     write16(REG_BG2CNT, 0x9602);
 
-    gBG0XPosition = 0;
-    gBG0YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
-    gBG1XPosition = 0;
-    gBG1YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
-    gBG2XPosition = 0;
-    gBG2YPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 8;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+    gBg1XPosition = 0;
+    gBg1YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+    gBg2XPosition = 0;
+    gBg2YPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 8;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, BLOCK_SIZE + HALF_BLOCK_SIZE);
@@ -464,7 +464,7 @@ void ChozodiaEscapeInit(void)
     CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR] = 0x54;
 
     ChozodiaEscapeProcessOam_2();
-    ResetFreeOAM();
+    ResetFreeOam();
     
     ApplyMonochromeToPalette(sChozodiaEscapeMissionAccomplishedPAL, CHOZODIA_ESCAPE_DATA.monochromePalette, 0);
 
@@ -852,13 +852,13 @@ u8 ChozodiaEscapeShipBlowingUp(void)
     interval = CHOZODIA_ESCAPE_DATA.timer & 3;
     if (interval == 0)
     {
-        gBG1YPosition--;
+        gBg1YPosition--;
         CHOZODIA_ESCAPE_DATA.oamYPositions[3]++;
     }
 
     if (interval == 2)
     {
-        gBG1YPosition++;
+        gBg1YPosition++;
         CHOZODIA_ESCAPE_DATA.oamYPositions[3]--;
     }
 
@@ -979,7 +979,7 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
             write16(REG_BG2CNT, 0x1E02);
 
             CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_OBJ;
-            gBG1XPosition = QUARTER_BLOCK_SIZE;
+            gBg1XPosition = QUARTER_BLOCK_SIZE;
             break;
 
         case 224:
@@ -1072,8 +1072,8 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
     // Slowly scroll background
     if (!(CHOZODIA_ESCAPE_DATA.timer & 0xF))
     {
-        gBG1XPosition--;
-        gBG2XPosition--;
+        gBg1XPosition--;
+        gBg2XPosition--;
     }
 
     return ended;
@@ -1155,7 +1155,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
 
     // Handle slowly scrolling the background
     if (!CHOZODIA_ESCAPE_DATA.unk_1 && !(CHOZODIA_ESCAPE_DATA.timer & 7))
-        gBG2XPosition--;
+        gBg2XPosition--;
 
     return ended;
 }
@@ -1219,12 +1219,12 @@ u32 ChozodiaEscapeSubroutine(void)
                 // Reset backgrounds position
                 if (CHOZODIA_ESCAPE_DATA.stage > 1)
                 {
-                    gBG0XPosition = 0;
-                    gBG0YPosition = 0;
-                    gBG1XPosition = 0;
-                    gBG1YPosition = 0;
-                    gBG2XPosition = 0;
-                    gBG2YPosition = 0;
+                    gBg0XPosition = 0;
+                    gBg0YPosition = 0;
+                    gBg1XPosition = 0;
+                    gBg1YPosition = 0;
+                    gBg2XPosition = 0;
+                    gBg2YPosition = 0;
                 }
             }
 
@@ -1235,7 +1235,7 @@ u32 ChozodiaEscapeSubroutine(void)
                 gGameModeSub2 = 0;
             }
             
-            ResetFreeOAM();
+            ResetFreeOam();
             break;
 
         case 3:

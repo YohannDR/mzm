@@ -550,8 +550,8 @@ void ProjectileDraw(struct ProjectileData* pProj)
     {
         dst = (u16*)(gOamData + prevSlot);
 
-        yPosition = (pProj->yPosition >> 2) - gBG1YPosition / 4;
-        xPosition = (pProj->xPosition >> 2) - gBG1XPosition / 4;
+        yPosition = (pProj->yPosition >> 2) - gBg1YPosition / 4;
+        xPosition = (pProj->xPosition >> 2) - gBg1XPosition / 4;
 
         xFlip = pProj->status & PROJ_STATUS_XFLIP;
         yFlip = pProj->status & PROJ_STATUS_YFLIP;
@@ -631,8 +631,8 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
     if (!(pProj->status & PROJ_STATUS_EXISTS))
         return;
 
-    bgY = gBG1YPosition;
-    bgX = gBG1XPosition;
+    bgY = gBg1YPosition;
+    bgX = gBg1XPosition;
 
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;

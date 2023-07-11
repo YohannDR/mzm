@@ -236,7 +236,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
     ended = FALSE;
     changeStage = FALSE;
 
-    temp = gSamusData.xPosition - gBG1XPosition;
+    temp = gSamusData.xPosition - gBg1XPosition;
     if (temp < 0)
         left = 0;
     else
@@ -249,7 +249,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
     right = left + 2;
 
     bottom = gSamusData.yPosition - 0x60;
-    temp = bottom - gBG1YPosition;
+    temp = bottom - gBg1YPosition;
     if (temp < 0)
         top = 0;
     else
@@ -801,8 +801,8 @@ void InGameCutsceneCheckPlayOnTransition(void)
             gCurrentRoomEntry.BG0Prop = BG_PROP_CLOSE_UP;
             gCurrentRoomEntry.BG0Size = 0;
 
-            gBG0XPosition = 0;
-            gBG0YPosition = 0;
+            gBg0XPosition = 0;
+            gBg0YPosition = 0;
 
             // Setup fade and blending
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gDefaultTransparency.evaCoef = 4;

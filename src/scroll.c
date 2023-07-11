@@ -66,9 +66,9 @@ void ScrollScreen(u16 screenX, u16 screenY)
     if (gGameModeSub1 == 0)
         return;
     
-    if (screenY != gBG1YPosition)
+    if (screenY != gBg1YPosition)
     {
-        velocity = screenY - gBG1YPosition;
+        velocity = screenY - gBg1YPosition;
 
         if (velocity > 0)
         {
@@ -82,14 +82,14 @@ void ScrollScreen(u16 screenX, u16 screenY)
         }
 
         gCamera.yVelocity = velocity;
-        gBG1YPosition += velocity;
+        gBg1YPosition += velocity;
     }
     else
         gCamera.yVelocity = 0;
     
-    if (screenX != gBG1XPosition)
+    if (screenX != gBg1XPosition)
     {
-        velocity = screenX - gBG1XPosition;
+        velocity = screenX - gBg1XPosition;
 
         if (velocity > 0)
         {
@@ -103,7 +103,7 @@ void ScrollScreen(u16 screenX, u16 screenY)
         }
 
         gCamera.xVelocity = velocity;
-        gBG1XPosition += velocity;
+        gBg1XPosition += velocity;
     }
     else
         gCamera.xVelocity = 0;
@@ -465,7 +465,7 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 
     gCamera.yPosition = yOffset;
 
-    yOffset -= gBG1YPosition;
+    yOffset -= gBg1YPosition;
     if (yOffset > 0)
     {
         if (gUnk_3005714.unk6 < yOffset)
@@ -478,7 +478,7 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
     }
 
     gCamera.yVelocity = yOffset;
-    gBG1YPosition += yOffset;
+    gBg1YPosition += yOffset;
 }
 
 /**
@@ -523,7 +523,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 
     gCamera.xPosition = xOffset;
 
-    xOffset -= gBG1XPosition;
+    xOffset -= gBg1XPosition;
     if (xOffset > 0)
     {
         if (gUnk_3005714.unk2 < xOffset)
@@ -536,7 +536,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     }
 
     gCamera.xVelocity = xOffset;
-    gBG1XPosition += xOffset;
+    gBg1XPosition += xOffset;
 }
 
 /**
@@ -556,8 +556,8 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
     {
         if (gCurrentRoomEntry.BG0Prop == 0x11)
         {
-            gBG0XPosition = gBG1XPosition / 2;
-            gBG0YPosition = gBG1YPosition;
+            gBg0XPosition = gBg1XPosition / 2;
+            gBg0YPosition = gBg1YPosition;
             
             var_0 = TRUE;
         }
@@ -566,8 +566,8 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
     {
         if (gCurrentRoomEntry.effectY != USHORT_MAX)
         {
-            gBG0XPosition = gBG1XPosition;
-            position = (gCurrentRoomEntry.effectY + gEffectYPositionOffset - gBG1YPosition) >> 2;
+            gBg0XPosition = gBg1XPosition;
+            position = (gCurrentRoomEntry.effectY + gEffectYPositionOffset - gBg1YPosition) >> 2;
 
             if (gWaterMovement.moving == TRUE)
             {
@@ -612,7 +612,7 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
             if (position > BLOCK_SIZE * 4)
                 position = BLOCK_SIZE * 4;
 
-            gBG0YPosition = -position * 4;
+            gBg0YPosition = -position * 4;
             var_0 = TRUE;
         }
         else
@@ -621,33 +621,33 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
             switch (gCurrentRoomEntry.BG0Prop)
             {
                 case BG_PROP_CLOSE_UP:
-                    gBG0XPosition = 0;
-                    gBG0YPosition = 0;
+                    gBg0XPosition = 0;
+                    gBg0YPosition = 0;
                     break;
 
                 case 0x43:
                 case BG_PROP_DARK_ROOM:
-                    gBG0XPosition = gBG1XPosition - pCoords->x;
-                    gBG0YPosition = gBG1YPosition - pCoords->y + BLOCK_SIZE;
+                    gBg0XPosition = gBg1XPosition - pCoords->x;
+                    gBg0YPosition = gBg1YPosition - pCoords->y + BLOCK_SIZE;
                     break;
 
                 case 0x44:
                     position = FALSE;
 
-                    gBG0XPosition = (gBG1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 32;
-                    gBG0YPosition = (gBG1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 17;
+                    gBg0XPosition = (gBg1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 32;
+                    gBg0YPosition = (gBg1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 17;
 
-                    temp = (gBG1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 20;
+                    temp = (gBg1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 20;
                     if (temp > BLOCK_SIZE * 24)
                         position = TRUE;
 
-                    temp = (gBG1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 13;
+                    temp = (gBg1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 13;
                     if (temp > BLOCK_SIZE * 12)
                         position = TRUE;
 
                     if (position)
                     {
-                        gBG0XPosition = BLOCK_SIZE * 8;
+                        gBg0XPosition = BLOCK_SIZE * 8;
                     }
                     break;
 
@@ -659,8 +659,8 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 
     if (!var_0)
     {
-        gBG0YPosition = gBG1YPosition;
-        gBG0XPosition = gBG1XPosition;
+        gBg0YPosition = gBg1YPosition;
+        gBg0XPosition = gBg1XPosition;
     }
 
     if (gCurrentRoomEntry.effectY == USHORT_MAX)
@@ -789,11 +789,11 @@ void ScrollBG3(void)
     if (xScrolling != 0)
     {
         if (xScrolling == 1)
-            gBG3XPosition = gBG1XPosition - BLOCK_SIZE * 2;
+            gBg3XPosition = gBg1XPosition - BLOCK_SIZE * 2;
         else if (xScrolling == 2)
-            gBG3XPosition = (gBG1XPosition - BLOCK_SIZE * 2) >> 1;
+            gBg3XPosition = (gBg1XPosition - BLOCK_SIZE * 2) >> 1;
         else if (xScrolling == 3)
-            gBG3XPosition = (gBG1XPosition - BLOCK_SIZE * 2) >> 2;
+            gBg3XPosition = (gBg1XPosition - BLOCK_SIZE * 2) >> 2;
     }
 
     if (gCurrentRoomEntry.BG3FromBottomFlag)
@@ -813,25 +813,25 @@ void ScrollBG3(void)
             size = 0;
         }
         else if (yScrolling == 1)
-            size -= gBG1YPosition;
+            size -= gBg1YPosition;
         else
-            size = (size - gBG1YPosition) >> 2;
+            size = (size - gBg1YPosition) >> 2;
         
         if (offset - size > 0)
-            gBG3YPosition = offset - size;
+            gBg3YPosition = offset - size;
         else
-            gBG3YPosition = 0;
+            gBg3YPosition = 0;
     }
     else
     {
         if (yScrolling == 0)
-            gBG3YPosition = 0;
+            gBg3YPosition = 0;
         else if (yScrolling == 1)
-            gBG3YPosition = gBG1YPosition - BLOCK_SIZE * 2;
+            gBg3YPosition = gBg1YPosition - BLOCK_SIZE * 2;
         else if (yScrolling == 2)
-            gBG3YPosition = (gBG1YPosition - BLOCK_SIZE * 2) >> 1;
+            gBg3YPosition = (gBg1YPosition - BLOCK_SIZE * 2) >> 1;
         else
-            gBG3YPosition = (gBG1YPosition - BLOCK_SIZE * 2) >> 2;
+            gBg3YPosition = (gBg1YPosition - BLOCK_SIZE * 2) >> 2;
     }
 }
 
@@ -846,11 +846,11 @@ void ScrollBG3Related(void)
     xScroll = ScrollGetBG3Scroll();
     xScroll &= 0xFF;
     if (xScroll == 0x0)
-        gBG3XPosition = 0x0;
+        gBg3XPosition = 0x0;
     else if (xScroll == 0x2)
-        gBG3XPosition = (gBG1XPosition - 0x80) >> 0x1;
+        gBg3XPosition = (gBg1XPosition - 0x80) >> 0x1;
     else if (xScroll == 0x3)
-        gBG3XPosition = (gBG1XPosition - 0x80) >> 0x2;
+        gBg3XPosition = (gBg1XPosition - 0x80) >> 0x2;
 }
 
 /**
@@ -887,7 +887,7 @@ void ScrollBG2(struct RawCoordsX* pCoords)
         {
             if (gCurrentRoomEntry.BG2Prop == BG_PROP_MOVING)
             {
-                position = gBG1XPosition + gBG2Movement.xOffset;
+                position = gBg1XPosition + gBG2Movement.xOffset;
                 if (position < 0)
                     position = 0;
                 else
@@ -897,9 +897,9 @@ void ScrollBG2(struct RawCoordsX* pCoords)
                         position = size;
                 }
 
-                gBG2XPosition = position;
+                gBg2XPosition = position;
 
-                position = gBG1YPosition + gBG2Movement.yOffset;
+                position = gBg1YPosition + gBG2Movement.yOffset;
                 if (position < 0)
                     position = 0;
                 else
@@ -909,18 +909,18 @@ void ScrollBG2(struct RawCoordsX* pCoords)
                         position = size;
                 }
 
-                gBG2YPosition = position;
+                gBg2YPosition = position;
                 return;
             }
         }
 
-        gBG2XPosition = gBG1XPosition;
-        gBG2YPosition = gBG1YPosition;
+        gBg2XPosition = gBg1XPosition;
+        gBg2YPosition = gBg1YPosition;
     }
     else
     {
-        gBG2XPosition = 0;
-        gBG2YPosition = 0;
+        gBg2XPosition = 0;
+        gBg2YPosition = 0;
     }
 }
 
@@ -933,27 +933,27 @@ void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
 {
     if (pCoords->x < BLOCK_SIZE * 7 + HALF_BLOCK_SIZE)
     {
-        gBG1XPosition = 0;
+        gBg1XPosition = 0;
     }
     else if (pCoords->x > gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
     {
-        gBG1XPosition = gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
+        gBg1XPosition = gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
     }
     else
     {
-        gBG1XPosition = pCoords->x - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+        gBg1XPosition = pCoords->x - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
     }
 
     if (pCoords->y < BLOCK_SIZE * 6)
     {
-        gBG1YPosition = 0;
+        gBg1YPosition = 0;
     }
     else if (pCoords->y > gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 3))
     {
-        gBG1YPosition = gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
+        gBg1YPosition = gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
     }
     else
     {
-        gBG1YPosition = pCoords->y - (BLOCK_SIZE * 6);
+        gBg1YPosition = pCoords->y - (BLOCK_SIZE * 6);
     }
 }

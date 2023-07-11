@@ -27,8 +27,6 @@ struct MenuOamData {
     s16 unk_E;
 };
 
-#define MAINTAINED_INPUT_KEYS (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)
-
 struct MaintainedInput {
     u8 delay;
     u8 set;

@@ -316,10 +316,10 @@ void GalleryVBlank(void)
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0VOFS, bgPos = gBG0YPosition / 16 & 0x1FF);
+    write16(REG_BG0VOFS, bgPos = gBg0YPosition / 16 & 0x1FF);
     write16(REG_BG1VOFS, bgPos);
-    write16(REG_BG2VOFS, gBG2YPosition / 16 & 0x1FF);
-    write16(REG_BG3VOFS, gBG3YPosition / 16 & 0x1FF);
+    write16(REG_BG2VOFS, gBg2YPosition / 16 & 0x1FF);
+    write16(REG_BG3VOFS, gBg3YPosition / 16 & 0x1FF);
 }
 
 /**
@@ -336,9 +336,9 @@ void EndScreenVBlank(void)
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG1HOFS, gBG1XPosition & 0x1FF);
-    write16(REG_BG2HOFS, gBG2XPosition & 0x1FF);
-    write16(REG_BG3HOFS, gBG3XPosition & 0x1FF);
+    write16(REG_BG1HOFS, gBg1XPosition & 0x1FF);
+    write16(REG_BG2HOFS, gBg2XPosition & 0x1FF);
+    write16(REG_BG3HOFS, gBg3XPosition & 0x1FF);
 }
 
 /**
@@ -398,16 +398,16 @@ void CreditsInit(void)
     write16(REG_BG3CNT, 0x9A0B);
 
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
-    gBG0XPosition = 0;
-    gBG0YPosition = 0x1000;
-    gBG1XPosition = 0;
-    gBG1YPosition = 0x1000;
-    gBG2XPosition = 0;
-    gBG2YPosition = 0;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0x1000;
+    gBg1XPosition = 0;
+    gBg1YPosition = 0x1000;
+    gBg2XPosition = 0;
+    gBg2YPosition = 0;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0x1000);
@@ -709,7 +709,7 @@ u8 CreditsDisplay(void)
     }
 
     ENDING_DATA.unk_E += 7;
-    gBG0YPosition += 7;
+    gBg0YPosition += 7;
     return FALSE;
 }
 
@@ -744,11 +744,11 @@ u8 CreditsChozoWallMovement(void)
 
     if (ENDING_DATA.unk_1)
     {
-        gBG2YPosition += 8;
-        gBG3YPosition += 8;
+        gBg2YPosition += 8;
+        gBg3YPosition += 8;
     
         // Check end scrolling
-        if (gBG2YPosition == BLOCK_SIZE * 56)
+        if (gBg2YPosition == BLOCK_SIZE * 56)
             ENDING_DATA.unk_1 = FALSE; // Disable background scrolling
     }
 
@@ -771,7 +771,7 @@ u8 CreditsChozoWallZoom(void)
         case 0:
             LZ77UncompVRAM(sCreditsChozoWallBottomZoomedGfx, VRAM_BASE);
             DMA_SET(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPAL));
-            gBG0YPosition = 0;
+            gBg0YPosition = 0;
             gWrittenToBLDALPHA_L = 0;
             gWrittenToBLDALPHA_H = 16;
             break;
@@ -790,7 +790,7 @@ u8 CreditsChozoWallZoom(void)
             ENDING_DATA.dispcnt = DCNT_BG0;
             ENDING_DATA.bldcnt = 0;
             ENDING_DATA.unk_1++;
-            gBG1YPosition = 0;
+            gBg1YPosition = 0;
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
             break;
@@ -896,17 +896,17 @@ void EndScreenInit(void)
     write16(REG_BG3CNT, 0x1F03);
     
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
     DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
-    gBG0XPosition = 0;
-    gBG0YPosition = 0;
-    gBG1XPosition = 0x100;
-    gBG1YPosition = 0;
-    gBG2XPosition = 0x100;
-    gBG2YPosition = 0;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0;
+    gBg1XPosition = 0x100;
+    gBg1YPosition = 0;
+    gBg2XPosition = 0x100;
+    gBg2YPosition = 0;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0);
@@ -951,10 +951,10 @@ u8 EndScreenSamusPosing(void)
                 break;
 
         case 0:
-            gBG1XPosition += 8;
-            if (gBG1XPosition >= BLOCK_SIZE * 8)
+            gBg1XPosition += 8;
+            if (gBg1XPosition >= BLOCK_SIZE * 8)
             {
-                gBG1XPosition = 0;
+                gBg1XPosition = 0;
                 ENDING_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                     BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
                 ENDING_DATA.timer = 0;
@@ -977,10 +977,10 @@ u8 EndScreenSamusPosing(void)
         case 6:
             if (ENDING_DATA.timer++ > 7)
             {
-                gBG2XPosition += 8;
-                if (gBG2XPosition >= BLOCK_SIZE * 8)
+                gBg2XPosition += 8;
+                if (gBg2XPosition >= BLOCK_SIZE * 8)
                 {
-                    gBG2XPosition = BLOCK_SIZE * 8;
+                    gBg2XPosition = BLOCK_SIZE * 8;
                     ENDING_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                         BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
                     ENDING_DATA.timer = 0;
@@ -1001,13 +1001,13 @@ u8 EndScreenSamusPosing(void)
         case 8:
             if (ENDING_DATA.timer++ > 23)
             {
-                if (gBG1XPosition >= 10)
+                if (gBg1XPosition >= 10)
                 {
-                    gBG1XPosition -= 10;
+                    gBg1XPosition -= 10;
                 }
                 else
                 {
-                    gBG1XPosition = 0;
+                    gBg1XPosition = 0;
                     ENDING_DATA.timer = 0;
                     ENDING_DATA.unk_1++;
                 }
@@ -1120,7 +1120,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.bldcnt = 0;
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
-            gBG1XPosition = BLOCK_SIZE * 4;
+            gBg1XPosition = BLOCK_SIZE * 4;
             ENDING_DATA.unk_124[1]++;
             break;
 
@@ -1134,7 +1134,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.bldcnt = 0;
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
-            gBG2XPosition = BLOCK_SIZE * 4;
+            gBg2XPosition = BLOCK_SIZE * 4;
             ENDING_DATA.unk_124[1]++;
             break;
 
@@ -1148,7 +1148,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.bldcnt = 0;
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
-            gBG1XPosition = BLOCK_SIZE * 4;
+            gBg1XPosition = BLOCK_SIZE * 4;
             ENDING_DATA.unk_124[1]++;
             break;
 
@@ -1176,7 +1176,7 @@ u8 EndScreenSamusPosing(void)
             ENDING_DATA.bldcnt = 0;
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
-            gBG2XPosition = 0;
+            gBg2XPosition = 0;
 
             ENDING_DATA.unk_124[1]++;
             break;
@@ -1230,7 +1230,7 @@ u8 EndScreenSamusPosing(void)
     }
 
     if (!(ENDING_DATA.endScreenTimer & 7))
-        gBG3XPosition++;
+        gBg3XPosition++;
 
     return ended;
 }
@@ -1305,16 +1305,16 @@ void EndingImageInit(void)
     write16(REG_BG1CNT, 0x9E09);
 
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
-    gBG0XPosition = 0;
-    gBG0YPosition = 0x1000;
-    gBG1XPosition = 0;
-    gBG1YPosition = 0x1000;
-    gBG2XPosition = 0;
-    gBG2YPosition = 0;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0x1000;
+    gBg1XPosition = 0;
+    gBg1YPosition = 0x1000;
+    gBg2XPosition = 0;
+    gBg2YPosition = 0;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0);
@@ -1326,8 +1326,7 @@ void EndingImageInit(void)
     write16(REG_BG3VOFS, 0);
 
     ENDING_DATA.dispcnt = DCNT_OBJ | DCNT_BG0 | DCNT_BG1;
-    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     gWrittenToBLDALPHA_L = 16;
@@ -1510,15 +1509,15 @@ u8 EndingImageDisplay(void)
 
     if (ENDING_DATA.unk_8)
     {
-        if (gBG0YPosition > 6)
+        if (gBg0YPosition > 6)
         {
-            gBG0YPosition -= 6;
-            gBG1YPosition -= 6;
+            gBg0YPosition -= 6;
+            gBg1YPosition -= 6;
         }
         else
         {
-            gBG0YPosition = 0;
-            gBG1YPosition = 0;
+            gBg0YPosition = 0;
+            gBg1YPosition = 0;
             ENDING_DATA.unk_8 = FALSE;
         }
     }
@@ -1574,7 +1573,7 @@ void UnlockedOptionsInit(void)
     write16(REG_BG1CNT, 0x1101);
 
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0);
@@ -1726,7 +1725,7 @@ u32 CreditsSubroutine(void)
                     gGameModeSub1++;
             }
 
-            ResetFreeOAM();
+            ResetFreeOam();
             break;
 
         case 7:
@@ -1784,7 +1783,7 @@ u32 CreditsSubroutine(void)
                 }
             }
 
-            ResetFreeOAM();
+            ResetFreeOam();
             break;
 
         case 1:
@@ -1823,7 +1822,7 @@ u32 CreditsSubroutine(void)
                     gGameModeSub1++;
             }
 
-            ResetFreeOAM();
+            ResetFreeOam();
             break;
     }
 
@@ -1900,16 +1899,16 @@ void GalleryInit(void)
     write16(REG_BG1CNT, 0x9E09);
 
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
-    gBG0XPosition = 0;
-    gBG0YPosition = 0x1000;
-    gBG1XPosition = 0;
-    gBG1YPosition = 0x1000;
-    gBG2XPosition = 0;
-    gBG2YPosition = 0;
-    gBG3XPosition = 0;
-    gBG3YPosition = 0;
+    gBg0XPosition = 0;
+    gBg0YPosition = 0x1000;
+    gBg1XPosition = 0;
+    gBg1YPosition = 0x1000;
+    gBg2XPosition = 0;
+    gBg2YPosition = 0;
+    gBg3XPosition = 0;
+    gBg3YPosition = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0x1000);
@@ -1923,8 +1922,7 @@ void GalleryInit(void)
     ENDING_DATA.unk_8 = 0;
 
     ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
-    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     GalleryVBlank();
@@ -2008,10 +2006,10 @@ u32 GalleryDisplay(void)
 
     if (!change)
     {
-        if (gBG0YPosition > velocity)
+        if (gBg0YPosition > velocity)
         {
-            gBG0YPosition -= velocity;
-            gBG1YPosition -= velocity;
+            gBg0YPosition -= velocity;
+            gBg1YPosition -= velocity;
         }
         else
         {
@@ -2021,13 +2019,13 @@ u32 GalleryDisplay(void)
     }
     else
     {
-        gBG0YPosition += velocity;
-        gBG1YPosition += velocity;
+        gBg0YPosition += velocity;
+        gBg1YPosition += velocity;
 
-        if (gBG0YPosition > BLOCK_SIZE * 64)
+        if (gBg0YPosition > BLOCK_SIZE * 64)
         {
-            gBG0YPosition = BLOCK_SIZE * 64;
-            gBG1YPosition = BLOCK_SIZE * 64;
+            gBg0YPosition = BLOCK_SIZE * 64;
+            gBg1YPosition = BLOCK_SIZE * 64;
         }
     }
 

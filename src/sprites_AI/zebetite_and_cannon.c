@@ -26,7 +26,7 @@ void Zebetite(void)
     u16 spawnHealth;
     u32 phase;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         alreadyDead = FALSE;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
@@ -61,11 +61,11 @@ void Zebetite(void)
             return;
         }
 
-        gCurrentSprite.drawDistanceTopOffset = 0x30;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE * 3;
+        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3);
         gCurrentSprite.hitboxBottomOffset = 0;
         gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
         gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
@@ -73,7 +73,7 @@ void Zebetite(void)
         gCurrentSprite.frozenPaletteRowOffset = 1;
         gCurrentSprite.samusCollision = SSC_ZEBETITE;
 
-        gCurrentSprite.pOam = sZebetiteOAM_Phase1;
+        gCurrentSprite.pOam = sZebetiteOam_Phase1;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
 
@@ -85,14 +85,14 @@ void Zebetite(void)
         gCurrentSprite.pose = 9;
 
         if (gDifficulty == DIFF_EASY)
-            gCurrentSprite.timer = 0x3C;
+            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER * 2;
         else
-            gCurrentSprite.timer = 0x1E;
+            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER;
     }
 
     maxHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
-    phase = (maxHealth - gCurrentSprite.health) / 20;
+    phase = (maxHealth - gCurrentSprite.health) / ZEBETITE_HEALTH_THRESHOLD;
 
     if (gCurrentSprite.health == gCurrentSprite.oamScaling)
     {
@@ -100,114 +100,116 @@ void Zebetite(void)
         {
             gCurrentSprite.timer--;
             if (gCurrentSprite.timer == 0)
-                gCurrentSprite.health += 20;
+                gCurrentSprite.health += ZEBETITE_HEALTH_THRESHOLD;
         }
+
+        return;
     }
-    else
+
+    if (gCurrentSprite.health < maxHealth)
     {
-        if (gCurrentSprite.health < maxHealth)
-        {
-            if (gDifficulty == DIFF_EASY)
-                gCurrentSprite.timer = 0x3C;
-            else
-                gCurrentSprite.timer = 0x1E;
-        }
+        if (gDifficulty == DIFF_EASY)
+            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER * 2;
+        else
+            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER;
+    }
 
-        gCurrentSprite.oamScaling = gCurrentSprite.health;
+    gCurrentSprite.oamScaling = gCurrentSprite.health;
 
-        switch (phase)
-        {
-            case 0:
-                if (gCurrentSprite.pOam != sZebetiteOAM_Phase1)
-                {
-                    SoundPlayNotAlreadyPlaying(0x266);
-                    
-                    gCurrentSprite.pOam = sZebetiteOAM_Phase1;
-                    gCurrentSprite.animationDurationCounter = 0;
-                    gCurrentSprite.currentAnimationFrame = 0;
-                }
-                break;
+    switch (phase)
+    {
+        case 0:
+            if (gCurrentSprite.pOam != sZebetiteOam_Phase1)
+            {
+                SoundPlayNotAlreadyPlaying(0x266);
+                
+                gCurrentSprite.pOam = sZebetiteOam_Phase1;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+            }
+            break;
 
-            case 1:
-            case 2:
-                if (gCurrentSprite.pOam != sZebetiteOAM_Phase2)
-                {
-                    if (gCurrentSprite.pOam == sZebetiteOAM_Phase1)
-                        SoundPlayNotAlreadyPlaying(0x265);
-                    else if (gCurrentSprite.pOam == sZebetiteOAM_Phase4)
-                        SoundPlayNotAlreadyPlaying(0x266);
-                    
-                    gCurrentSprite.pOam = sZebetiteOAM_Phase2;
-                    gCurrentSprite.animationDurationCounter = 0;
-                    gCurrentSprite.currentAnimationFrame = 0;
-                }
-                break;
-
-            case 3:
-            case 4:
-                if (gCurrentSprite.pOam != sZebetiteOAM_Phase4)
-                {
-                    if (gCurrentSprite.pOam == sZebetiteOAM_Phase2)
-                        SoundPlayNotAlreadyPlaying(0x265);
-                    else if (gCurrentSprite.pOam == sZebetiteOAM_Phase6)
-                        SoundPlayNotAlreadyPlaying(0x266);
-                    
-                    gCurrentSprite.pOam = sZebetiteOAM_Phase4;
-                    gCurrentSprite.animationDurationCounter = 0;
-                    gCurrentSprite.currentAnimationFrame = 0;
-                }
-                break;
-
-            case 5:
-            case 6:
-                if (gCurrentSprite.pOam != sZebetiteOAM_Phase6)
-                {
+        case 1:
+        case 2:
+            if (gCurrentSprite.pOam != sZebetiteOam_Phase2)
+            {
+                if (gCurrentSprite.pOam == sZebetiteOam_Phase1)
                     SoundPlayNotAlreadyPlaying(0x265);
-                    
-                    gCurrentSprite.pOam = sZebetiteOAM_Phase6;
-                    gCurrentSprite.animationDurationCounter = 0;
-                    gCurrentSprite.currentAnimationFrame = 0;
-                }
-                break;
+                else if (gCurrentSprite.pOam == sZebetiteOam_Phase4)
+                    SoundPlayNotAlreadyPlaying(0x266);
+                
+                gCurrentSprite.pOam = sZebetiteOam_Phase2;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+            }
+            break;
 
-            default:
-                ParticleSet(gCurrentSprite.yPosition - 0x48, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                SoundPlay(0x12F);
+        case 3:
+        case 4:
+            if (gCurrentSprite.pOam != sZebetiteOam_Phase4)
+            {
+                if (gCurrentSprite.pOam == sZebetiteOam_Phase2)
+                    SoundPlayNotAlreadyPlaying(0x265);
+                else if (gCurrentSprite.pOam == sZebetiteOam_Phase6)
+                    SoundPlayNotAlreadyPlaying(0x266);
+                
+                gCurrentSprite.pOam = sZebetiteOam_Phase4;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+            }
+            break;
 
-                switch (gCurrentSprite.spriteID)
-                {
-                    case PSPRITE_ZEBETITE_ONE_AND_THREE:
-                        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_ONE_DESTROYED))
-                        {
-                            gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                            gCurrentSprite.pose = 0;
-                            EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_ONE_DESTROYED);
-                        }
-                        else
-                        {
-                            gCurrentSprite.status = 0;
-                            EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_THREE_DESTROYED);
-                        }
-                        break;
+        case 5:
+        case 6:
+            if (gCurrentSprite.pOam != sZebetiteOam_Phase6)
+            {
+                SoundPlayNotAlreadyPlaying(0x265);
+                
+                gCurrentSprite.pOam = sZebetiteOam_Phase6;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+            }
+            break;
 
-                    case PSPRITE_ZEBETITE_TWO_AND_FOUR:
-                        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_TWO_DESTROYED))
-                        {
-                            gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                            gCurrentSprite.pose = 0;
-                            EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_TWO_DESTROYED);
-                        }
-                        else
-                        {
-                            gCurrentSprite.status = 0;
-                            EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_FOUR_DESTROYED);
-                        }
-                        break;
+        default:
+            ParticleSet(gCurrentSprite.yPosition - (BLOCK_SIZE + PIXEL_SIZE * 2), gCurrentSprite.xPosition,
+                PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 
-                    default:
+            SoundPlay(0x12F);
+
+            switch (gCurrentSprite.spriteID)
+            {
+                case PSPRITE_ZEBETITE_ONE_AND_THREE:
+                    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_ONE_DESTROYED))
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+                        gCurrentSprite.pose = 0;
+                        EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_ONE_DESTROYED);
+                    }
+                    else
+                    {
                         gCurrentSprite.status = 0;
-                }
-        }
+                        EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_THREE_DESTROYED);
+                    }
+                    break;
+
+                case PSPRITE_ZEBETITE_TWO_AND_FOUR:
+                    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_TWO_DESTROYED))
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+                        gCurrentSprite.pose = 0;
+                        EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_TWO_DESTROYED);
+                    }
+                    else
+                    {
+                        gCurrentSprite.status = 0;
+                        EventFunction(EVENT_ACTION_SETTING, EVENT_ZEBETITE_FOUR_DESTROYED);
+                    }
+                    break;
+
+                default:
+                    gCurrentSprite.status = 0;
+            }
     }
 }
 
@@ -240,18 +242,18 @@ void CannonCheckSurroundings(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         gCurrentSprite.workVariable = CANNON_AIM_DOWN_LEFT;
         gCurrentSprite.arrayOffset = CANNON_VIEW_LEFT;
-        gCurrentSprite.pOam = sCannonOAM_AimingDownLeft;
+        gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
     }
     else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - BLOCK_SIZE) != COLLISION_AIR)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
         gCurrentSprite.workVariable = CANNON_AIM_DOWN_RIGHT;
         gCurrentSprite.arrayOffset = CANNON_VIEW_RIGHT;
-        gCurrentSprite.pOam = sCannonOAM_AimingDownRight;
+        gCurrentSprite.pOam = sCannonOam_AimingDownRight;
     }
     else
     {
-        if (rng & 1)
+        if (MOD_AND(rng, 2))
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         else
             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -259,12 +261,12 @@ void CannonCheckSurroundings(void)
         if (rng > 7)
         {
             gCurrentSprite.workVariable = CANNON_AIM_DOWN_RIGHT;
-            gCurrentSprite.pOam = sCannonOAM_AimingDownRight;
+            gCurrentSprite.pOam = sCannonOam_AimingDownRight;
         }
         else
         {
             gCurrentSprite.workVariable = CANNON_AIM_DOWN_LEFT;
-            gCurrentSprite.pOam = sCannonOAM_AimingDownLeft;
+            gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
         }
 
         gCurrentSprite.arrayOffset = CANNON_VIEW_EVERWHERE;
@@ -298,21 +300,21 @@ void Cannon(void)
 
     if (gCurrentSprite.pose == 0)
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x10;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -4;
-        gCurrentSprite.hitboxBottomOffset = 4;
-        gCurrentSprite.hitboxLeftOffset = -4;
-        gCurrentSprite.hitboxRightOffset = 4;
+        gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+        gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+        gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
         gCurrentSprite.frozenPaletteRowOffset = 1;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawOrder = 5;
 
-        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
-        gCurrentSprite.pose = 9;
+        gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT,4);
+        gCurrentSprite.pose = 0x9;
 
         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
         CannonCheckSurroundings();
@@ -329,7 +331,7 @@ void Cannon(void)
     switch (gCurrentSprite.spriteID)
     {
         case PSPRITE_CANNON:
-            range = 0x14;
+            range = QUARTER_BLOCK_SIZE + PIXEL_SIZE;
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
             {
                 spriteX -= BLOCK_SIZE * 20;
@@ -358,7 +360,7 @@ void Cannon(void)
             break;
 
         case PSPRITE_CANNON2:
-            range = 0x18;
+            range = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
             {
                 spriteX -= BLOCK_SIZE * 24;
@@ -387,7 +389,7 @@ void Cannon(void)
             break;
 
         case PSPRITE_CANNON3:
-            range = 0x18;
+            range = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
             {
                 spriteX -= BLOCK_SIZE * 24;
@@ -427,11 +429,11 @@ void Cannon(void)
     switch (gCurrentSprite.workVariable)
     {
         case CANNON_AIM_LEFT:
-            if (gCurrentSprite.pOam == sCannonOAM_ShootingLeft)
+            if (gCurrentSprite.pOam == sCannonOam_ShootingLeft)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = sCannonOAM_AimingLeft;
+                    gCurrentSprite.pOam = sCannonOam_AimingLeft;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
@@ -447,7 +449,7 @@ void Cannon(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.workVariable++;
 
-                gCurrentSprite.pOam = sCannonOAM_LeftToDownLeftTransition;
+                gCurrentSprite.pOam = sCannonOam_LeftToDownLeftTransition;
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             }
             break;
@@ -458,18 +460,18 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     if (rng > 2)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDownLeft;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDownLeft;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDownLeft;
+                        gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
 
                     gCurrentSprite.workVariable++;
                 }
                 else
                 {
                     if (rng > 10)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingLeft;
+                        gCurrentSprite.pOam = sCannonOam_ShootingLeft;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingLeft;
+                        gCurrentSprite.pOam = sCannonOam_AimingLeft;
 
                     gCurrentSprite.workVariable--;
                 }
@@ -480,11 +482,11 @@ void Cannon(void)
             break;
 
         case CANNON_AIM_DOWN_LEFT:
-            if (gCurrentSprite.pOam == sCannonOAM_ShootingDownLeft)
+            if (gCurrentSprite.pOam == sCannonOam_ShootingDownLeft)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = sCannonOAM_AimingDownLeft;
+                    gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
@@ -502,12 +504,12 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     gCurrentSprite.workVariable++;
-                    gCurrentSprite.pOam = sCannonOAM_DownLeftToDownTransition;
+                    gCurrentSprite.pOam = sCannonOam_DownLeftToDownTransition;
                 }
                 else
                 {
                     gCurrentSprite.workVariable--;
-                    gCurrentSprite.pOam = sCannonOAM_LeftToDownLeftTransition;
+                    gCurrentSprite.pOam = sCannonOam_LeftToDownLeftTransition;
                 }
             }
             break;
@@ -518,18 +520,18 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     if (rng > 4)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDown;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDown;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDown;
+                        gCurrentSprite.pOam = sCannonOam_AimingDown;
 
                     gCurrentSprite.workVariable++;
                 }
                 else
                 {
                     if (rng > 2)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDownLeft;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDownLeft;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDownLeft;
+                        gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
 
                     gCurrentSprite.workVariable--;
                 }
@@ -540,11 +542,11 @@ void Cannon(void)
             break;
 
         case CANNON_AIM_DOWN:
-            if (gCurrentSprite.pOam == sCannonOAM_ShootingDown)
+            if (gCurrentSprite.pOam == sCannonOam_ShootingDown)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = sCannonOAM_AimingDown;
+                    gCurrentSprite.pOam = sCannonOam_AimingDown;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
@@ -565,12 +567,12 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     gCurrentSprite.workVariable++;
-                    gCurrentSprite.pOam = sCannonOAM_DownToDownRightTransition;
+                    gCurrentSprite.pOam = sCannonOam_DownToDownRightTransition;
                 }
                 else
                 {
                     gCurrentSprite.workVariable--;
-                    gCurrentSprite.pOam = sCannonOAM_DownLeftToDownTransition;
+                    gCurrentSprite.pOam = sCannonOam_DownLeftToDownTransition;
                 }
             }
             break;
@@ -581,18 +583,18 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     if (rng > 2)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDownRight;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDownRight;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDownRight;
+                        gCurrentSprite.pOam = sCannonOam_AimingDownRight;
 
                     gCurrentSprite.workVariable++;
                 }
                 else
                 {
                     if (rng > 4)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDown;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDown;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDown;
+                        gCurrentSprite.pOam = sCannonOam_AimingDown;
                     gCurrentSprite.workVariable--;
                 }
 
@@ -602,11 +604,11 @@ void Cannon(void)
             break;
 
         case CANNON_AIM_DOWN_RIGHT:
-            if (gCurrentSprite.pOam == sCannonOAM_ShootingDownRight)
+            if (gCurrentSprite.pOam == sCannonOam_ShootingDownRight)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = sCannonOAM_AimingDownRight;
+                    gCurrentSprite.pOam = sCannonOam_AimingDownRight;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
@@ -624,12 +626,12 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     gCurrentSprite.workVariable++;
-                    gCurrentSprite.pOam = sCannonOAM_DownRightToRightTransition;
+                    gCurrentSprite.pOam = sCannonOam_DownRightToRightTransition;
                 }
                 else
                 {
                     gCurrentSprite.workVariable--;
-                    gCurrentSprite.pOam = sCannonOAM_DownToDownRightTransition;
+                    gCurrentSprite.pOam = sCannonOam_DownToDownRightTransition;
                 }
             }
             break;
@@ -640,18 +642,18 @@ void Cannon(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     if (rng > 10)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingRight;
+                        gCurrentSprite.pOam = sCannonOam_ShootingRight;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingRight;
+                        gCurrentSprite.pOam = sCannonOam_AimingRight;
 
                     gCurrentSprite.workVariable++;
                 }
                 else
                 {
                     if (rng > 2)
-                        gCurrentSprite.pOam = sCannonOAM_ShootingDownRight;
+                        gCurrentSprite.pOam = sCannonOam_ShootingDownRight;
                     else
-                        gCurrentSprite.pOam = sCannonOAM_AimingDownRight;
+                        gCurrentSprite.pOam = sCannonOam_AimingDownRight;
 
                     gCurrentSprite.workVariable--;
                 }
@@ -662,11 +664,11 @@ void Cannon(void)
             break;
 
         case CANNON_AIM_RIGHT:
-            if (gCurrentSprite.pOam == sCannonOAM_ShootingRight)
+            if (gCurrentSprite.pOam == sCannonOam_ShootingRight)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = sCannonOAM_AimingRight;
+                    gCurrentSprite.pOam = sCannonOam_AimingRight;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
@@ -682,7 +684,7 @@ void Cannon(void)
                 gCurrentSprite.currentAnimationFrame = 0;
 
                 gCurrentSprite.workVariable--;
-                gCurrentSprite.pOam = sCannonOAM_DownRightToRightTransition;
+                gCurrentSprite.pOam = sCannonOam_DownRightToRightTransition;
 
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
 
@@ -701,20 +703,20 @@ void CannonBullet(void)
     {
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
                 gCurrentSprite.drawOrder = 2,
                 gCurrentSprite.health = 0;
 
-                gCurrentSprite.drawDistanceTopOffset = 8;
-                gCurrentSprite.drawDistanceBottomOffset = 8;
-                gCurrentSprite.drawDistanceHorizontalOffset = 8;
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-                gCurrentSprite.hitboxTopOffset = -4;
-                gCurrentSprite.hitboxBottomOffset = 4;
-                gCurrentSprite.hitboxLeftOffset = -4;
-                gCurrentSprite.hitboxRightOffset = 4;
+                gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+                gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+                gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+                gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
                 gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
                 gCurrentSprite.pose = 9;
@@ -724,40 +726,42 @@ void CannonBullet(void)
                 // Set OAM and base position
                 if (gCurrentSprite.roomSlot == CANNON_AIM_LEFT)
                 {
-                    gCurrentSprite.pOam = sCannonBulletOAM_Left;
+                    gCurrentSprite.pOam = sCannonBulletOam_Left;
                     gCurrentSprite.xPosition -= BLOCK_SIZE;
                 }
                 else if (gCurrentSprite.roomSlot == CANNON_AIM_DOWN_LEFT)
                 {
-                    gCurrentSprite.pOam = sCannonBulletOAM_DownLeft;
-                    gCurrentSprite.yPosition += (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-                    gCurrentSprite.xPosition -= (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+                    gCurrentSprite.pOam = sCannonBulletOam_DownLeft;
+                    gCurrentSprite.yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+                    gCurrentSprite.xPosition -= HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
                 }
                 else if (gCurrentSprite.roomSlot == CANNON_AIM_DOWN)
                 {
-                    gCurrentSprite.pOam = sCannonBulletOAM_Down;
+                    gCurrentSprite.pOam = sCannonBulletOam_Down;
                     gCurrentSprite.yPosition += BLOCK_SIZE;
                 }
                 else if (gCurrentSprite.roomSlot == CANNON_AIM_DOWN_RIGHT)
                 {
-                    gCurrentSprite.pOam = sCannonBulletOAM_DownRight;
-                    gCurrentSprite.yPosition += (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-                    gCurrentSprite.xPosition += (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+                    gCurrentSprite.pOam = sCannonBulletOam_DownRight;
+                    gCurrentSprite.yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+                    gCurrentSprite.xPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
                 }
                 else if (gCurrentSprite.roomSlot == CANNON_AIM_RIGHT)
                 {
-                    gCurrentSprite.pOam = sCannonBulletOAM_Right;
+                    gCurrentSprite.pOam = sCannonBulletOam_Right;
                     gCurrentSprite.xPosition += BLOCK_SIZE;
                 }
                 else
+                {
                     gCurrentSprite.status = 0;
+                }
                 break;
 
             case 9:
                 if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == COLLISION_SOLID)
                 {
                     // Set destroyed
-                    gCurrentSprite.pose = 0x42;
+                    gCurrentSprite.pose = SPRITE_POSE_STOPPED;
                     gCurrentSprite.samusCollision = SSC_NONE;
                     return;
                 }
@@ -792,8 +796,10 @@ void CannonBullet(void)
             default:
                 // Destroy
                 ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
+
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     SoundPlay(0x12C);
+
                 gCurrentSprite.status = 0;
                 break;
 

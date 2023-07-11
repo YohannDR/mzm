@@ -10,7 +10,21 @@
 #define LOW_BYTE(value) ((value) & UCHAR_MAX)
 #define HIGH_BYTE(value) (((value) & UCHAR_MAX << 8) >> 8)
 
-#define CONSTRUCT_UINT_2_USHORTS(high, low) ((high) << 16 | (low))
+/**
+ * @brief Constructs an uint from 2 ushorts (high << 16 | low)
+ * 
+ * @param high High
+ * @param low Low
+ */
+#define C_32_2_16(high, low) ((high) << 16 | (low))
+
+/**
+ * @brief Constructs an ushort from 2 bytes (high << 8 | low)
+ * 
+ * @param high High
+ * @param low Low
+ */
+#define C_16_2_8(high, low) ((high) << 8 | (low))
 
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
@@ -47,6 +61,30 @@
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])
 
+// Converts a number to Q8.8 fixed-point format
+#define Q_8_8(n) ((s16)((n) * 256))
+
+// Converts a number to Q8.8 fixed-point format
+#define Q_8_8_TO_SHORT(n) ((s16)((n) >> 8))
+
+// Converts a number to Q4.12 fixed-point format
+#define Q_4_12(n)  ((s16)((n) * 4096))
+
+// Converts a number to Q16.16 fixed-point format
+#define Q_16_16(n)  ((s32)((n) * 65536))
+
+// Converts a number to Q24.8 fixed-point format
+#define Q_24_8(n)  ((s32)((n) << 8))
+
+// Converts a Q8.8 fixed-point format number to a regular integer
+#define Q_8_8_TO_INT(n) ((s32)((n) / 256))
+
+// Converts a Q4.12 fixed-point format number to a regular integer
+#define Q_4_12_TO_INT(n)  ((s32)((n) / 4096))
+
+// Converts a Q24.8 fixed-point format number to a regular integer
+#define Q_24_8_TO_INT(n) ((s32)((n) >> 8))
+
 /**
  * @brief Performs a modulo (value % mod) operation on a value using the and operation (WARNING only use a value for mod that is divisble by 2)
  * 
@@ -56,15 +94,16 @@
 #define MOD_AND(value, mod) ((value) & ((mod) - 1))
 
 /**
- * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2)
+ * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2 and <= 256)
  * 
  * @param value Value
  * @param div Divisor
  */
-#define DIV_SHIFT(value, div) ((value) >> ((div) / 2))
+#define DIV_SHIFT(value, div) ((value) >> ((div) == 2 ? 1 : ((div) == 4 ? 2 : ((div) == 8 ? 3 : ((div) == 16 ? 4 : ((div) == 32 ? 5 : ((div) == 64 ? 6 : ((div) == 128 ? 7 : ((div) == 256 ? 8 : ((div) == 512 ? 9 : ((div) == 1024 ? 10 : 0)))))))))))
 
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
+
 
 #define SUB_PIXEL_TO_PIXEL(pixel) ((pixel) / SUB_PIXEL_RATIO)
 #define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)

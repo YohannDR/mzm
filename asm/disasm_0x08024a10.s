@@ -1836,7 +1836,7 @@ lbl_080257e8:
     ldr r0, lbl_08025864 @ =gSamusData
     ldrh r1, [r0, #0x12]
     lsrs r1, r1, #2
-    ldr r0, lbl_08025868 @ =gBG1XPosition
+    ldr r0, lbl_08025868 @ =gBg1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -1867,7 +1867,7 @@ lbl_08025858: .4byte 0x00008004
 lbl_0802585c: .4byte 0x0000fffc
 lbl_08025860: .4byte 0x082da88c
 lbl_08025864: .4byte gSamusData
-lbl_08025868: .4byte gBG1XPosition
+lbl_08025868: .4byte gBg1XPosition
 lbl_0802586c: .4byte gEquipment
 lbl_08025870: .4byte 0x0000018f
 lbl_08025874:
@@ -2008,7 +2008,7 @@ lbl_08025960:
     beq lbl_0802596c
     movs r5, #0
 lbl_0802596c:
-    ldr r1, lbl_0802599c @ =gBG1YPosition
+    ldr r1, lbl_0802599c @ =gBg1YPosition
     ldrb r0, [r2]
     lsls r0, r0, #1
     adds r0, #0x10
@@ -2031,4 +2031,4 @@ lbl_0802598c:
     .align 2, 0
 lbl_08025994: .4byte gSamusData
 lbl_08025998: .4byte gSpriteRng
-lbl_0802599c: .4byte gBG1YPosition
+lbl_0802599c: .4byte gBg1YPosition

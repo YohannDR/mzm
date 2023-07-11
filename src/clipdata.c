@@ -363,7 +363,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     gCurrentAffectingClipdata.hazard = specialClip;
 
     // Return formatted clipdata
-    return CONSTRUCT_UINT_2_USHORTS(gCurrentAffectingClipdata.movement,gCurrentAffectingClipdata.hazard);
+    return C_32_2_16(gCurrentAffectingClipdata.movement,gCurrentAffectingClipdata.hazard);
 }
 
 /**

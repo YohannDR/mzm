@@ -20,6 +20,8 @@
 #define KEY_L (1 << 9)
 #define KEY_MASK 0x3ff
 
+#define KEY_ALL_DIRECTIONS (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)
+
 #define KEY_CONTROL_ENABLE (1 << 14)
 #define KEY_CONTROL_ANY_INPUT (0 << 15)
 #define KEY_CONTROL_ALL_INPUTS (1 << 15)

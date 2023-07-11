@@ -6,7 +6,7 @@
 struct Demo {
     u8 number;
     u8 active;
-    u16 unk_2_0:4;
+    u16 hasBeenInit:4;
     u16 loading:4;
     u16 endedWithInput:4;
     u16 noDemoShuffle:4;

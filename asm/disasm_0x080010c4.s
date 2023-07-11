@@ -2910,8 +2910,8 @@ lbl_0800255a:
     .align 2, 0
 lbl_08002560: .4byte 0x04000079
 
-    thumb_func_start init_sound
-init_sound: @ 0x08002564
+    thumb_func_start InitializeAudio
+InitializeAudio: @ 0x08002564
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}

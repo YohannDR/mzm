@@ -367,8 +367,8 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
         return;
 
     dst = (u16*)(gOamData + prevSlot);
-    yPosition = (pSprite->yPosition >> 2) - (gBG1YPosition / 4);
-    xPosition = (pSprite->xPosition >> 2) - (gBG1XPosition / 4);
+    yPosition = (pSprite->yPosition >> 2) - (gBg1YPosition / 4);
+    xPosition = (pSprite->xPosition >> 2) - (gBg1XPosition / 4);
 
     // Shortcuts for status
     xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
@@ -684,8 +684,8 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
     if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
     {
-        bgBaseY = gBG1YPosition;
-        bgBaseX = gBG1XPosition;
+        bgBaseY = gBg1YPosition;
+        bgBaseX = gBg1XPosition;
 
         spriteY = pSprite->yPosition;
         spriteX = pSprite->xPosition;

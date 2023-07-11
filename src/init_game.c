@@ -17,14 +17,14 @@ void InitializeGame(void)
     write16(REG_IME, FALSE);
     write16(REG_DISPSTAT, 0);
 
-    dma_fill32(3, 0, EWRAM_BASE, 0x40000);
-    dma_fill32(3, 0, IWRAM_BASE, 0x7e00);
+    dma_fill32(3, 0, EWRAM_BASE, EWRAM_SIZE);
+    dma_fill32(3, 0, IWRAM_BASE, IWRAM_SIZE - 0x200);
 
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVBlank(SoftresetVBlankCallback);
     SramRead_All();
-    init_sound();
+    InitializeAudio();
 
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
@@ -54,8 +54,8 @@ void InitializeGame(void)
     gChangedInput = 0;
 
     gDisableSoftreset = FALSE;
-    gStereoFlag = 0;
+    gStereoFlag = FALSE;
 
-    write16(REG_IF, 0xffff);
+    write16(REG_IF, USHORT_MAX);
     write16(REG_IME, TRUE);
 }

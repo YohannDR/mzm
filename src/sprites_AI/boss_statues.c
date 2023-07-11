@@ -172,7 +172,7 @@ void KraidStatueCheckBackgroundLocked(void)
     spriteX = gCurrentSprite.xPosition + 0x20;
     spriteX /= 4;
 
-    bgX = gBG1XPosition / 4;
+    bgX = gBg1XPosition / 4;
 
     if ((u16)(spriteX - bgX) == 0x78) // Sprite is 0x78 pixels from lock screen center
     {
@@ -229,8 +229,8 @@ void KraidStatueOpening(void)
         rngParam1 = gCurrentSprite.workVariable;
         rngParam2 = gCurrentSprite.workVariable2;
 
-        yPosition = gBG1YPosition - BLOCK_SIZE;
-        xPosition = gBG1XPosition + (BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE);
+        yPosition = gBg1YPosition - BLOCK_SIZE;
+        xPosition = gBg1XPosition + (BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE);
 
         rngParam3 = gSpriteRng;
 
@@ -380,7 +380,7 @@ void RidleyStatueCheckBackgroundLocked(void)
     spriteX = gCurrentSprite.xPosition + 0x20;
     spriteX /= 4;
 
-    bgX = gBG1XPosition / 4;
+    bgX = gBg1XPosition / 4;
 
     if ((u16)(spriteX - bgX) == 0x78) // Sprite is 0x78 pixels from lock screen center
     {
@@ -448,8 +448,8 @@ void RidleyStatueOpening(void)
             rngParam1 = gCurrentSprite.workVariable;
             rngParam2 = gCurrentSprite.workVariable2;
 
-            yPosition = gBG1YPosition - BLOCK_SIZE;
-            xPosition = gBG1XPosition + 0x190;
+            yPosition = gBg1YPosition - BLOCK_SIZE;
+            xPosition = gBg1XPosition + 0x190;
 
             rngParam3 = gSpriteRng;
 

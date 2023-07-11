@@ -79,7 +79,7 @@ void TitleScreenCallProcessOAM(void)
 {
     gNextOamSlot = 0;
     process_menu_oam(ARRAY_SIZE(TITLE_SCREEN_DATA.oam), TITLE_SCREEN_DATA.oam, sTitleScreenOam);
-    ResetFreeOAM();
+    ResetFreeOam();
 }
 
 /**
@@ -1093,8 +1093,7 @@ void TitleScreenInit(void)
     zero = 0;
     DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
-    TITLE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    TITLE_SCREEN_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     write16(REG_BLDCNT, TITLE_SCREEN_DATA.bldcnt);
@@ -1106,7 +1105,7 @@ void TitleScreenInit(void)
     gNextOamSlot = 0;
 
     ClearGfxRam();
-    ResetFreeOAM();
+    ResetFreeOam();
     
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 

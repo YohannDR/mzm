@@ -308,8 +308,7 @@ void EraseSramInit(void)
     
     CallbackSetVBlank(EraseSramVBlank_Empty);
 
-    write16(REG_BLDCNT, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+    write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET |
         BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
@@ -319,7 +318,7 @@ void EraseSramInit(void)
 
     ClearGfxRam();
     gNextOamSlot = 0;
-    ResetFreeOAM();
+    ResetFreeOam();
 
     ERASE_SRAM_DATA.language = gLanguage;
     if ((u8)(ERASE_SRAM_DATA.language - 2) > LANGUAGE_SPANISH - 2)
@@ -450,6 +449,6 @@ void EraseSramProcessOAM(void)
 {
     gNextOamSlot = 0;
     process_menu_oam(ARRAY_SIZE(ERASE_SRAM_DATA.oam), ERASE_SRAM_DATA.oam, sEraseSramMenuOam);
-    ResetFreeOAM();
+    ResetFreeOam();
 }
 

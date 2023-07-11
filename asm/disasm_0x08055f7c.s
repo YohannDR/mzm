@@ -135,11 +135,11 @@ lbl_08056074:
     cmp r0, #0
     bne lbl_080560c8
     bl ScrollProcessGeneral
-    ldr r1, lbl_0805614c @ =gBG1YPosition
+    ldr r1, lbl_0805614c @ =gBg1YPosition
     ldr r2, lbl_08056150 @ =gCamera
     ldrh r0, [r2, #2]
     strh r0, [r1]
-    ldr r1, lbl_08056154 @ =gBG1XPosition
+    ldr r1, lbl_08056154 @ =gBg1XPosition
     ldrh r0, [r2]
     strh r0, [r1]
     bl sub_08058ec4
@@ -195,9 +195,9 @@ lbl_0805613c: .4byte gSamusData
 lbl_08056140: .4byte gPreviousYPosition
 lbl_08056144: .4byte gPauseScreenFlag
 lbl_08056148: .4byte gIsLoadingFile
-lbl_0805614c: .4byte gBG1YPosition
+lbl_0805614c: .4byte gBg1YPosition
 lbl_08056150: .4byte gCamera
-lbl_08056154: .4byte gBG1XPosition
+lbl_08056154: .4byte gBg1XPosition
 lbl_08056158: .4byte gGameModeSub3
 lbl_0805615c:
     ldrh r0, [r2, #0x14]
@@ -1263,14 +1263,14 @@ lbl_08056a84:
     movs r0, #2
     strb r0, [r2, #1]
 lbl_08056a8e:
-    ldr r0, lbl_08056ab8 @ =gBG1YPosition
+    ldr r0, lbl_08056ab8 @ =gBg1YPosition
     movs r1, #0
     strh r1, [r0]
-    ldr r0, lbl_08056abc @ =gBG1XPosition
+    ldr r0, lbl_08056abc @ =gBg1XPosition
     strh r1, [r0]
-    ldr r0, lbl_08056ac0 @ =gBG0XPosition
+    ldr r0, lbl_08056ac0 @ =gBg0XPosition
     strh r1, [r0]
-    ldr r0, lbl_08056ac4 @ =gBG0YPosition
+    ldr r0, lbl_08056ac4 @ =gBg0YPosition
     strh r1, [r0]
 lbl_08056aa0:
     pop {r3, r4, r5}
@@ -1283,10 +1283,10 @@ lbl_08056aa0:
     .align 2, 0
 lbl_08056ab0: .4byte gSamusPhysics
 lbl_08056ab4: .4byte gSamusData
-lbl_08056ab8: .4byte gBG1YPosition
-lbl_08056abc: .4byte gBG1XPosition
-lbl_08056ac0: .4byte gBG0XPosition
-lbl_08056ac4: .4byte gBG0YPosition
+lbl_08056ab8: .4byte gBg1YPosition
+lbl_08056abc: .4byte gBg1XPosition
+lbl_08056ac0: .4byte gBg0XPosition
+lbl_08056ac4: .4byte gBg0YPosition
 
     thumb_func_start set_automatic_bg_scrolling
 set_automatic_bg_scrolling: @ 0x08056ac8
@@ -1355,37 +1355,37 @@ RoomSetInitialTilemap: @ 0x08056b28
     bne lbl_08056b58
     ldr r1, lbl_08056b4c @ =gCurrentRoomEntry
     ldrb r2, [r1, #1]
-    ldr r0, lbl_08056b50 @ =gBG0YPosition
+    ldr r0, lbl_08056b50 @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r6, r0, #6
-    ldr r0, lbl_08056b54 @ =gBG0XPosition
+    ldr r0, lbl_08056b54 @ =gBg0XPosition
     b lbl_08056b84
     .align 2, 0
 lbl_08056b4c: .4byte gCurrentRoomEntry
-lbl_08056b50: .4byte gBG0YPosition
-lbl_08056b54: .4byte gBG0XPosition
+lbl_08056b50: .4byte gBg0YPosition
+lbl_08056b54: .4byte gBg0XPosition
 lbl_08056b58:
     mov r0, sb
     cmp r0, #1
     bne lbl_08056b78
     ldr r1, lbl_08056b6c @ =gCurrentRoomEntry
     ldrb r2, [r1, #2]
-    ldr r0, lbl_08056b70 @ =gBG1YPosition
+    ldr r0, lbl_08056b70 @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r6, r0, #6
-    ldr r0, lbl_08056b74 @ =gBG1XPosition
+    ldr r0, lbl_08056b74 @ =gBg1XPosition
     b lbl_08056b84
     .align 2, 0
 lbl_08056b6c: .4byte gCurrentRoomEntry
-lbl_08056b70: .4byte gBG1YPosition
-lbl_08056b74: .4byte gBG1XPosition
+lbl_08056b70: .4byte gBg1YPosition
+lbl_08056b74: .4byte gBg1XPosition
 lbl_08056b78:
     ldr r1, lbl_08056c94 @ =gCurrentRoomEntry
     ldrb r2, [r1, #3]
-    ldr r0, lbl_08056c98 @ =gBG2YPosition
+    ldr r0, lbl_08056c98 @ =gBg2YPosition
     ldrh r0, [r0]
     lsrs r6, r0, #6
-    ldr r0, lbl_08056c9c @ =gBG2XPosition
+    ldr r0, lbl_08056c9c @ =gBg2XPosition
 lbl_08056b84:
     ldrh r0, [r0]
     lsrs r3, r0, #6
@@ -1534,8 +1534,8 @@ lbl_08056c82:
     b lbl_08056d02
     .align 2, 0
 lbl_08056c94: .4byte gCurrentRoomEntry
-lbl_08056c98: .4byte gBG2YPosition
-lbl_08056c9c: .4byte gBG2XPosition
+lbl_08056c98: .4byte gBg2YPosition
+lbl_08056c9c: .4byte gBg2XPosition
 lbl_08056ca0: .4byte gBgPointersAndDimensions
 lbl_08056ca4: .4byte 0x06000800
 lbl_08056ca8: .4byte gTilemapAndClipPointers
@@ -2073,13 +2073,13 @@ RoomUpdateBackgroundsPosition: @ 0x080570ac
     adds r5, r0, #0
     bl update_horizontal_screen_shake
     adds r4, r0, #0
-    ldr r0, lbl_0805711c @ =gBG1XPosition
+    ldr r0, lbl_0805711c @ =gBg1XPosition
     ldrh r1, [r0]
     lsrs r1, r1, #2
     ldr r0, lbl_08057120 @ =0x000001ff
     adds r3, r0, #0
     ands r1, r3
-    ldr r0, lbl_08057124 @ =gBG1YPosition
+    ldr r0, lbl_08057124 @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r3
@@ -2088,13 +2088,13 @@ RoomUpdateBackgroundsPosition: @ 0x080570ac
     strh r1, [r2, #4]
     adds r0, r0, r5
     strh r0, [r2, #6]
-    ldr r0, lbl_0805712c @ =gBG2XPosition
+    ldr r0, lbl_0805712c @ =gBg2XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r3
     adds r0, r0, r4
     strh r0, [r2, #8]
-    ldr r0, lbl_08057130 @ =gBG2YPosition
+    ldr r0, lbl_08057130 @ =gBg2YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r3
@@ -2107,7 +2107,7 @@ RoomUpdateBackgroundsPosition: @ 0x080570ac
     ands r0, r1
     cmp r0, #0
     beq lbl_08057144
-    ldr r0, lbl_08057138 @ =gBG0XPosition
+    ldr r0, lbl_08057138 @ =gBg0XPosition
     ldrh r0, [r0]
     ldr r1, lbl_0805713c @ =gBG0Movement
     lsrs r0, r0, #2
@@ -2115,7 +2115,7 @@ RoomUpdateBackgroundsPosition: @ 0x080570ac
     adds r0, r0, r6
     ands r0, r3
     strh r0, [r2]
-    ldr r0, lbl_08057140 @ =gBG0YPosition
+    ldr r0, lbl_08057140 @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ldrh r1, [r1, #6]
@@ -2123,18 +2123,18 @@ RoomUpdateBackgroundsPosition: @ 0x080570ac
     ands r0, r3
     b lbl_08057164
     .align 2, 0
-lbl_0805711c: .4byte gBG1XPosition
+lbl_0805711c: .4byte gBg1XPosition
 lbl_08057120: .4byte 0x000001ff
-lbl_08057124: .4byte gBG1YPosition
+lbl_08057124: .4byte gBg1YPosition
 lbl_08057128: .4byte gBackgroundPositions
-lbl_0805712c: .4byte gBG2XPosition
-lbl_08057130: .4byte gBG2YPosition
+lbl_0805712c: .4byte gBg2XPosition
+lbl_08057130: .4byte gBg2YPosition
 lbl_08057134: .4byte gScreenShakeRelated
-lbl_08057138: .4byte gBG0XPosition
+lbl_08057138: .4byte gBg0XPosition
 lbl_0805713c: .4byte gBG0Movement
-lbl_08057140: .4byte gBG0YPosition
+lbl_08057140: .4byte gBg0YPosition
 lbl_08057144:
-    ldr r0, lbl_08057198 @ =gBG0XPosition
+    ldr r0, lbl_08057198 @ =gBg0XPosition
     ldrh r0, [r0]
     ldr r1, lbl_0805719c @ =gBG0Movement
     lsrs r0, r0, #2
@@ -2143,7 +2143,7 @@ lbl_08057144:
     ands r0, r3
     adds r0, r0, r4
     strh r0, [r2]
-    ldr r0, lbl_080571a0 @ =gBG0YPosition
+    ldr r0, lbl_080571a0 @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ldrh r1, [r1, #6]
@@ -2152,7 +2152,7 @@ lbl_08057144:
     adds r0, r0, r5
 lbl_08057164:
     strh r0, [r2, #2]
-    ldr r0, lbl_080571a4 @ =gBG3XPosition
+    ldr r0, lbl_080571a4 @ =gBg3XPosition
     ldrh r0, [r0]
     ldr r1, lbl_080571a8 @ =gBG3Movement
     lsrs r0, r0, #2
@@ -2161,7 +2161,7 @@ lbl_08057164:
     ldr r0, lbl_080571ac @ =0x000001ff
     adds r1, r0, #0
     ands r3, r1
-    ldr r0, lbl_080571b0 @ =gBG3YPosition
+    ldr r0, lbl_080571b0 @ =gBg3YPosition
     ldrh r0, [r0]
     lsrs r2, r0, #2
     ands r2, r1
@@ -2177,13 +2177,13 @@ lbl_08057164:
     strh r2, [r0, #0xe]
     b lbl_080571ca
     .align 2, 0
-lbl_08057198: .4byte gBG0XPosition
+lbl_08057198: .4byte gBg0XPosition
 lbl_0805719c: .4byte gBG0Movement
-lbl_080571a0: .4byte gBG0YPosition
-lbl_080571a4: .4byte gBG3XPosition
+lbl_080571a0: .4byte gBg0YPosition
+lbl_080571a4: .4byte gBg3XPosition
 lbl_080571a8: .4byte gBG3Movement
 lbl_080571ac: .4byte 0x000001ff
-lbl_080571b0: .4byte gBG3YPosition
+lbl_080571b0: .4byte gBg3YPosition
 lbl_080571b4: .4byte gScreenShakeRelated
 lbl_080571b8: .4byte gBackgroundPositions
 lbl_080571bc:
@@ -2219,35 +2219,35 @@ lbl_080571ea:
     bne lbl_08057208
     mov r1, sb
     ldrb r4, [r1, #1]
-    ldr r0, lbl_08057200 @ =gBG0YPosition
+    ldr r0, lbl_08057200 @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r2, r0, #6
-    ldr r0, lbl_08057204 @ =gBG0XPosition
+    ldr r0, lbl_08057204 @ =gBg0XPosition
     b lbl_08057230
     .align 2, 0
 lbl_080571fc: .4byte gCurrentRoomEntry
-lbl_08057200: .4byte gBG0YPosition
-lbl_08057204: .4byte gBG0XPosition
+lbl_08057200: .4byte gBg0YPosition
+lbl_08057204: .4byte gBg0XPosition
 lbl_08057208:
     cmp r7, #1
     bne lbl_08057224
     mov r2, sb
     ldrb r4, [r2, #2]
-    ldr r0, lbl_0805721c @ =gBG1YPosition
+    ldr r0, lbl_0805721c @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r2, r0, #6
-    ldr r0, lbl_08057220 @ =gBG1XPosition
+    ldr r0, lbl_08057220 @ =gBg1XPosition
     b lbl_08057230
     .align 2, 0
-lbl_0805721c: .4byte gBG1YPosition
-lbl_08057220: .4byte gBG1XPosition
+lbl_0805721c: .4byte gBg1YPosition
+lbl_08057220: .4byte gBg1XPosition
 lbl_08057224:
     mov r0, sb
     ldrb r4, [r0, #3]
-    ldr r0, lbl_080572e8 @ =gBG2YPosition
+    ldr r0, lbl_080572e8 @ =gBg2YPosition
     ldrh r0, [r0]
     lsrs r2, r0, #6
-    ldr r0, lbl_080572ec @ =gBG2XPosition
+    ldr r0, lbl_080572ec @ =gBg2XPosition
 lbl_08057230:
     ldrh r0, [r0]
     lsrs r5, r0, #6
@@ -2347,8 +2347,8 @@ lbl_080572d4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080572e8: .4byte gBG2YPosition
-lbl_080572ec: .4byte gBG2XPosition
+lbl_080572e8: .4byte gBg2YPosition
+lbl_080572ec: .4byte gBg2XPosition
 lbl_080572f0: .4byte gBgPointersAndDimensions
 lbl_080572f4: .4byte gTilemapAndClipPointers
 
@@ -2369,36 +2369,36 @@ lbl_0805730c:
     bne lbl_0805732c
     ldr r0, lbl_08057320 @ =gCurrentRoomEntry
     ldrb r4, [r0, #1]
-    ldr r0, lbl_08057324 @ =gBG0YPosition
+    ldr r0, lbl_08057324 @ =gBg0YPosition
     ldrh r0, [r0]
     lsrs r5, r0, #6
-    ldr r0, lbl_08057328 @ =gBG0XPosition
+    ldr r0, lbl_08057328 @ =gBg0XPosition
     b lbl_08057358
     .align 2, 0
 lbl_08057320: .4byte gCurrentRoomEntry
-lbl_08057324: .4byte gBG0YPosition
-lbl_08057328: .4byte gBG0XPosition
+lbl_08057324: .4byte gBg0YPosition
+lbl_08057328: .4byte gBg0XPosition
 lbl_0805732c:
     cmp r6, #1
     bne lbl_0805734c
     ldr r1, lbl_08057340 @ =gCurrentRoomEntry
     ldrb r4, [r1, #2]
-    ldr r0, lbl_08057344 @ =gBG1YPosition
+    ldr r0, lbl_08057344 @ =gBg1YPosition
     ldrh r0, [r0]
     lsrs r5, r0, #6
-    ldr r0, lbl_08057348 @ =gBG1XPosition
+    ldr r0, lbl_08057348 @ =gBg1XPosition
     b lbl_08057358
     .align 2, 0
 lbl_08057340: .4byte gCurrentRoomEntry
-lbl_08057344: .4byte gBG1YPosition
-lbl_08057348: .4byte gBG1XPosition
+lbl_08057344: .4byte gBg1YPosition
+lbl_08057348: .4byte gBg1XPosition
 lbl_0805734c:
     ldr r7, lbl_08057424 @ =gCurrentRoomEntry
     ldrb r4, [r7, #3]
-    ldr r0, lbl_08057428 @ =gBG2YPosition
+    ldr r0, lbl_08057428 @ =gBg2YPosition
     ldrh r0, [r0]
     lsrs r5, r0, #6
-    ldr r0, lbl_0805742c @ =gBG2XPosition
+    ldr r0, lbl_0805742c @ =gBg2XPosition
 lbl_08057358:
     ldrh r0, [r0]
     lsrs r1, r0, #6
@@ -2509,8 +2509,8 @@ lbl_08057412:
     bx r0
     .align 2, 0
 lbl_08057424: .4byte gCurrentRoomEntry
-lbl_08057428: .4byte gBG2YPosition
-lbl_0805742c: .4byte gBG2XPosition
+lbl_08057428: .4byte gBg2YPosition
+lbl_0805742c: .4byte gBg2XPosition
 lbl_08057430: .4byte gBgPointersAndDimensions
 lbl_08057434: .4byte 0x06000800
 lbl_08057438: .4byte gTilemapAndClipPointers

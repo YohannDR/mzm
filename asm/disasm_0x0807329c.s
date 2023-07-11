@@ -1351,28 +1351,28 @@ write_sram: @ 0x08073ce4
     ldr r0, [r0]
     str r0, [r4, #0x24]
     str r1, [r4, #0x28]
-    ldr r0, lbl_08073fc4 @ =gBG0XPosition
+    ldr r0, lbl_08073fc4 @ =gBg0XPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x2c]
-    ldr r0, lbl_08073fc8 @ =gBG0YPosition
+    ldr r0, lbl_08073fc8 @ =gBg0YPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x2e]
-    ldr r0, lbl_08073fcc @ =gBG1XPosition
+    ldr r0, lbl_08073fcc @ =gBg1XPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x30]
-    ldr r0, lbl_08073fd0 @ =gBG1YPosition
+    ldr r0, lbl_08073fd0 @ =gBg1YPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x32]
-    ldr r0, lbl_08073fd4 @ =gBG2XPosition
+    ldr r0, lbl_08073fd4 @ =gBg2XPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x34]
-    ldr r0, lbl_08073fd8 @ =gBG2YPosition
+    ldr r0, lbl_08073fd8 @ =gBg2YPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x36]
-    ldr r0, lbl_08073fdc @ =gBG3XPosition
+    ldr r0, lbl_08073fdc @ =gBg3XPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x38]
-    ldr r0, lbl_08073fe0 @ =gBG3YPosition
+    ldr r0, lbl_08073fe0 @ =gBg3YPosition
     ldrh r0, [r0]
     strh r0, [r4, #0x3a]
     ldr r0, lbl_08073fe4 @ =gDifficulty
@@ -1621,14 +1621,14 @@ lbl_08073fb4: .4byte gLastDoorUsed
 lbl_08073fb8: .4byte gMinimapX
 lbl_08073fbc: .4byte gMinimapY
 lbl_08073fc0: .4byte gCamera
-lbl_08073fc4: .4byte gBG0XPosition
-lbl_08073fc8: .4byte gBG0YPosition
-lbl_08073fcc: .4byte gBG1XPosition
-lbl_08073fd0: .4byte gBG1YPosition
-lbl_08073fd4: .4byte gBG2XPosition
-lbl_08073fd8: .4byte gBG2YPosition
-lbl_08073fdc: .4byte gBG3XPosition
-lbl_08073fe0: .4byte gBG3YPosition
+lbl_08073fc4: .4byte gBg0XPosition
+lbl_08073fc8: .4byte gBg0YPosition
+lbl_08073fcc: .4byte gBg1XPosition
+lbl_08073fd0: .4byte gBg1YPosition
+lbl_08073fd4: .4byte gBg2XPosition
+lbl_08073fd8: .4byte gBg2YPosition
+lbl_08073fdc: .4byte gBg3XPosition
+lbl_08073fe0: .4byte gBg3YPosition
 lbl_08073fe4: .4byte gDifficulty
 lbl_08073fe8: .4byte gUseMotherShipDoors
 lbl_08073fec: .4byte gTimeAttackFlag
@@ -1699,28 +1699,28 @@ load_sram_data: @ 0x08074034
     ldr r1, [r4, #0x28]
     str r0, [r2]
     str r1, [r2, #4]
-    ldr r1, lbl_08074270 @ =gBG0XPosition
+    ldr r1, lbl_08074270 @ =gBg0XPosition
     ldrh r0, [r4, #0x2c]
     strh r0, [r1]
-    ldr r1, lbl_08074274 @ =gBG0YPosition
+    ldr r1, lbl_08074274 @ =gBg0YPosition
     ldrh r0, [r4, #0x2e]
     strh r0, [r1]
-    ldr r1, lbl_08074278 @ =gBG1XPosition
+    ldr r1, lbl_08074278 @ =gBg1XPosition
     ldrh r0, [r4, #0x30]
     strh r0, [r1]
-    ldr r1, lbl_0807427c @ =gBG1YPosition
+    ldr r1, lbl_0807427c @ =gBg1YPosition
     ldrh r0, [r4, #0x32]
     strh r0, [r1]
-    ldr r1, lbl_08074280 @ =gBG2XPosition
+    ldr r1, lbl_08074280 @ =gBg2XPosition
     ldrh r0, [r4, #0x34]
     strh r0, [r1]
-    ldr r1, lbl_08074284 @ =gBG2YPosition
+    ldr r1, lbl_08074284 @ =gBg2YPosition
     ldrh r0, [r4, #0x36]
     strh r0, [r1]
-    ldr r1, lbl_08074288 @ =gBG3XPosition
+    ldr r1, lbl_08074288 @ =gBg3XPosition
     ldrh r0, [r4, #0x38]
     strh r0, [r1]
-    ldr r1, lbl_0807428c @ =gBG3YPosition
+    ldr r1, lbl_0807428c @ =gBg3YPosition
     ldrh r0, [r4, #0x3a]
     strh r0, [r1]
     ldr r1, lbl_08074290 @ =gDifficulty
@@ -1932,14 +1932,14 @@ lbl_08074260: .4byte gLastDoorUsed
 lbl_08074264: .4byte gMinimapX
 lbl_08074268: .4byte gMinimapY
 lbl_0807426c: .4byte gCamera
-lbl_08074270: .4byte gBG0XPosition
-lbl_08074274: .4byte gBG0YPosition
-lbl_08074278: .4byte gBG1XPosition
-lbl_0807427c: .4byte gBG1YPosition
-lbl_08074280: .4byte gBG2XPosition
-lbl_08074284: .4byte gBG2YPosition
-lbl_08074288: .4byte gBG3XPosition
-lbl_0807428c: .4byte gBG3YPosition
+lbl_08074270: .4byte gBg0XPosition
+lbl_08074274: .4byte gBg0YPosition
+lbl_08074278: .4byte gBg1XPosition
+lbl_0807427c: .4byte gBg1YPosition
+lbl_08074280: .4byte gBg2XPosition
+lbl_08074284: .4byte gBg2YPosition
+lbl_08074288: .4byte gBg3XPosition
+lbl_0807428c: .4byte gBg3YPosition
 lbl_08074290: .4byte gDifficulty
 lbl_08074294: .4byte gUseMotherShipDoors
 lbl_08074298: .4byte gTimeAttackFlag

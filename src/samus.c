@@ -1832,10 +1832,10 @@ void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, str
         gDisableScrolling = 0x1;
         gMonochromeBgFading = 0x1;
         pData->pose = SPOSE_DYING;
-        new_x_velo = ((gBG1XPosition + 0x1E0) - pData->xPosition);
+        new_x_velo = ((gBg1XPosition + 0x1E0) - pData->xPosition);
         new_x_velo >>= 0x1;
         pData->xVelocity = new_x_velo;
-        new_y_velo = ((gBG1YPosition + 0x190) - pData->yPosition);
+        new_y_velo = ((gBg1YPosition + 0x190) - pData->yPosition);
         new_y_velo >>= 0x4;
         pData->yVelocity = new_y_velo;
         gGameModeSub1 = 0x5;
@@ -3700,7 +3700,7 @@ u8 SamusSkidding(struct SamusData* pData)
         return SPOSE_RUNNING;
     else
     {
-        if ((gButtonInput & (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)) == KEY_DOWN)
+        if ((gButtonInput & KEY_ALL_DIRECTIONS) == KEY_DOWN)
         {
             pData->shinesparkTimer = 0xB4;
             gScrewSpeedAnimation.flag = 0x8;
@@ -4178,7 +4178,7 @@ u8 SamusMorphball(struct SamusData* pData)
     if (pData->timer != 0)
     {
         pData->timer--;
-        if ((gButtonInput & (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)) == KEY_DOWN)
+        if ((gButtonInput & KEY_ALL_DIRECTIONS) == KEY_DOWN)
         {
             pData->shinesparkTimer = 0xB4;
             pData->timer = 0;
@@ -5166,8 +5166,8 @@ u8 SamusDying(struct SamusData* pData)
 
     if (pData->xVelocity != 0 || pData->yVelocity != 0)
     {
-        bgX = gBG1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        bgY = gBG1YPosition + BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE;
+        bgX = gBg1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        bgY = gBg1YPosition + BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE;
 
         if (pData->xVelocity > 0)
         {
@@ -6813,8 +6813,8 @@ void SamusDraw(void)
         part1 = *src++;
         nextSlot += part1 & 0xFF;
 
-        xPosition = (s16)(gSamusEnvironmentalEffects[j].xPosition / 4 - gBG1XPosition / 4);
-        yPosition = (s16)(gSamusEnvironmentalEffects[j].yPosition / 4 - gBG1YPosition / 4 + 2);
+        xPosition = (s16)(gSamusEnvironmentalEffects[j].xPosition / 4 - gBg1XPosition / 4);
+        yPosition = (s16)(gSamusEnvironmentalEffects[j].yPosition / 4 - gBg1YPosition / 4 + 2);
 
         for (; currSlot < nextSlot; currSlot++)
         {
@@ -6836,8 +6836,8 @@ void SamusDraw(void)
         }
     }
 
-    xPosition = (s16)(gSamusData.xPosition / 4 - gBG1XPosition / 4);
-    yPosition = (s16)(gSamusData.yPosition / 4 - gBG1YPosition / 4 + 2);
+    xPosition = (s16)(gSamusData.xPosition / 4 - gBg1XPosition / 4);
+    yPosition = (s16)(gSamusData.yPosition / 4 - gBg1YPosition / 4 + 2);
 
     if (gSamusPhysics.unk_36 & 0x20)
     {
@@ -6994,8 +6994,8 @@ void SamusDraw(void)
 
         ppc &= ARRAY_SIZE(gSamusEcho.previous64XPositions) - 1;
         
-        xPosition = (s16)(gSamusEcho.previous64XPositions[ppc] / 4 - gBG1XPosition / 4);
-        yPosition = (s16)(gSamusEcho.previous64YPositions[ppc] / 4 - gBG1YPosition / 4 + 2);
+        xPosition = (s16)(gSamusEcho.previous64XPositions[ppc] / 4 - gBg1XPosition / 4);
+        yPosition = (s16)(gSamusEcho.previous64YPositions[ppc] / 4 - gBg1YPosition / 4 + 2);
 
         for (; currSlot < nextSlot; currSlot++)
         {

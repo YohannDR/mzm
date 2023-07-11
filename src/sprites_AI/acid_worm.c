@@ -437,7 +437,7 @@ void AcidWormSpawnRetracting(void)
         // Enable rotation/scaling
         gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
         // 0x100 = No scaling
-        gCurrentSprite.oamScaling = 0x100;
+        gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0x0;
         gCurrentSprite.timer = 0x3C;
     }
@@ -1177,7 +1177,7 @@ void AcidWormBodyMove(void) {
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-        gCurrentSprite.oamScaling = 0x100;
+        gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0x0;
     }
     if (0x42 < gSpriteData[slot].pose)

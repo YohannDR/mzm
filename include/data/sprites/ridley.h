@@ -153,77 +153,77 @@ extern const u16 sRidleyOAM_TurningAround_Frame0[49];
 
 extern const u16 sRidleyOAM_TurningAround_Frame1[49];
 
-extern const u16 sRidleyPartOAM_HeadIdle_Frame0[13];
+extern const u16 sRidleyPartOam_HeadIdle_Frame0[13];
 
-extern const u16 sRidleyPartOAM_HeadIdle_Frame1[13];
+extern const u16 sRidleyPartOam_HeadIdle_Frame1[13];
 
-extern const u16 sRidleyPartOAM_OpeningMouth_Frame0[13];
+extern const u16 sRidleyPartOam_OpeningMouth_Frame0[13];
 
-extern const u16 sRidleyPartOAM_MouthOpened_Frame0[13];
+extern const u16 sRidleyPartOam_MouthOpened_Frame0[13];
 
-extern const u16 sRidleyPartOAM_MouthOpened_Frame1[13];
+extern const u16 sRidleyPartOam_MouthOpened_Frame1[13];
 
-extern const u16 sRidleyPartOAM_HeadDying_Frame0[16];
+extern const u16 sRidleyPartOam_HeadDying_Frame0[16];
 
-extern const u16 sRidleyPartOAM_HeadDying_Frame1[16];
+extern const u16 sRidleyPartOam_HeadDying_Frame1[16];
 
-extern const u16 sRidleyPartOAM_HeadDying_Frame2[19];
+extern const u16 sRidleyPartOam_HeadDying_Frame2[19];
 
-extern const u16 sRidleyPartOAM_HeadDying_Frame3[16];
+extern const u16 sRidleyPartOam_HeadDying_Frame3[16];
 
-extern const u16 sRidleyPartOAM_HeadTurningAround_Frame0[10];
+extern const u16 sRidleyPartOam_HeadTurningAround_Frame0[10];
 
-extern const u16 sRidleyPartOAM_ClawIdle_Frame0[13];
+extern const u16 sRidleyPartOam_ClawIdle_Frame0[13];
 
-extern const u16 sRidleyPartOAM_ClawIdle_Frame1[13];
+extern const u16 sRidleyPartOam_ClawIdle_Frame1[13];
 
-extern const u16 sRidleyPartOAM_ClawIdle_Frame2[13];
+extern const u16 sRidleyPartOam_ClawIdle_Frame2[13];
 
-extern const u16 sRidleyPartOAM_ClawIdle_Frame3[22];
+extern const u16 sRidleyPartOam_ClawIdle_Frame3[22];
 
-extern const u16 sRidleyPartOAM_ClawSpittingFireballs_Frame1[13];
+extern const u16 sRidleyPartOam_ClawSpittingFireballs_Frame1[13];
 
-extern const u16 sRidleyPartOAM_ClawSpittingFireballs_Frame2[13];
+extern const u16 sRidleyPartOam_ClawSpittingFireballs_Frame2[13];
 
-extern const u16 sRidleyPartOAM_ClawTurningAround_Frame0[13];
+extern const u16 sRidleyPartOam_ClawTurningAround_Frame0[13];
 
-extern const u16 sRidleyPartOAM_ClawTurningAround_Frame1[13];
+extern const u16 sRidleyPartOam_ClawTurningAround_Frame1[13];
 
-extern const u16 sRidleyPartOAM_ClawLiftingSamus_Frame0[16];
+extern const u16 sRidleyPartOam_ClawLiftingSamus_Frame0[16];
 
-extern const u16 sRidleyPartOAM_ClawLiftingSamus_Frame1[16];
+extern const u16 sRidleyPartOam_ClawLiftingSamus_Frame1[16];
 
-extern const u16 sRidleyPartOAM_ClawLiftingSamus_Frame2[16];
+extern const u16 sRidleyPartOam_ClawLiftingSamus_Frame2[16];
 
-extern const u16 sRidleyPartOAM_ClawLiftingSamus_Frame3[13];
+extern const u16 sRidleyPartOam_ClawLiftingSamus_Frame3[13];
 
-extern const u16 sRidleyPartOAM_ClawLiftingSamus_Frame4[13];
+extern const u16 sRidleyPartOam_ClawLiftingSamus_Frame4[13];
 
-extern const u16 sRidleyPartOAM_SamusLifted_Frame0[13];
+extern const u16 sRidleyPartOam_SamusLifted_Frame0[13];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame0[13];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame0[13];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame1[19];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame1[19];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame2[10];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame2[10];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame3[7];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame3[7];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame4[7];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame4[7];
 
-extern const u16 sRidleyPartOAM_LeftWingIdle_Frame5[10];
+extern const u16 sRidleyPartOam_LeftWingIdle_Frame5[10];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame0[16];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame0[16];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame1[16];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame1[16];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame2[25];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame2[25];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame3[7];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame3[7];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame4[7];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame4[7];
 
-extern const u16 sRidleyPartOAM_RightWingIdle_Frame5[25];
+extern const u16 sRidleyPartOam_RightWingIdle_Frame5[25];
 
 extern const u16 sRidleyTailOAM_Part_Frame0[4];
 
@@ -241,9 +241,9 @@ extern const u16 sRidleyTailOAM_TipPointingDiagonallyUpLeft_Frame0[4];
 
 extern const u16 sRidleyOAM_Square_Frame0[4];
 
-extern const u16 sRidleyFireballOAM_Small_Frame0[4];
+extern const u16 sRidleyFireballOam_Small_Frame0[4];
 
-extern const u16 sRidleyFireballOAM_Big_Frame0[4];
+extern const u16 sRidleyFireballOam_Big_Frame0[4];
 
 extern const struct FrameData sRidleyOAM_Idle[7];
 
@@ -253,43 +253,43 @@ extern const struct FrameData sRidleyOAM_TurningAroundFirstPart[3];
 
 extern const struct FrameData sRidleyOAM_TurningAroundSecondPart[3];
 
-extern const struct FrameData sRidleyPartOAM_HeadIdle[3];
+extern const struct FrameData sRidleyPartOam_HeadIdle[3];
 
-extern const struct FrameData sRidleyPartOAM_OpeningMouth[2];
+extern const struct FrameData sRidleyPartOam_OpeningMouth[2];
 
-extern const struct FrameData sRidleyPartOAM_MouthOpened[3];
+extern const struct FrameData sRidleyPartOam_MouthOpened[3];
 
-extern const struct FrameData sRidleyPartOAM_HeadDying[5];
+extern const struct FrameData sRidleyPartOam_HeadDying[5];
 
-extern const struct FrameData sRidleyPartOAM_HeadTurningAround[2];
+extern const struct FrameData sRidleyPartOam_HeadTurningAround[2];
 
-extern const struct FrameData sRidleyPartOAM_ClawIdle[7];
+extern const struct FrameData sRidleyPartOam_ClawIdle[7];
 
-extern const struct FrameData sRidleyPartOAM_ClawSpittingFireballs[5];
+extern const struct FrameData sRidleyPartOam_ClawSpittingFireballs[5];
 
-extern const struct FrameData sRidleyPartOAM_ClawTurningAroundFirstPart[3];
+extern const struct FrameData sRidleyPartOam_ClawTurningAroundFirstPart[3];
 
-extern const struct FrameData sRidleyPartOAM_ClawTurningAroundSecondPart[3];
+extern const struct FrameData sRidleyPartOam_ClawTurningAroundSecondPart[3];
 
-extern const struct FrameData sRidleyPartOAM_ClawCarryingSamus[2];
+extern const struct FrameData sRidleyPartOam_ClawCarryingSamus[2];
 
-extern const struct FrameData sRidleyPartOAM_ClawLiftingSamus[6];
+extern const struct FrameData sRidleyPartOam_ClawLiftingSamus[6];
 
-extern const struct FrameData sRidleyPartOAM_ClawSamusLifted[2];
+extern const struct FrameData sRidleyPartOam_ClawSamusLifted[2];
 
-extern const struct FrameData sRidleyPartOAM_ClawReleasingSamus[6];
+extern const struct FrameData sRidleyPartOam_ClawReleasingSamus[6];
 
-extern const struct FrameData sRidleyPartOAM_LeftWingIdle[11];
+extern const struct FrameData sRidleyPartOam_LeftWingIdle[11];
 
-extern const struct FrameData sRidleyPartOAM_RightWingIdle[11];
+extern const struct FrameData sRidleyPartOam_RightWingIdle[11];
 
-extern const struct FrameData sRidleyPartOAM_LeftWing_Unused[11];
+extern const struct FrameData sRidleyPartOam_LeftWing_Unused[11];
 
-extern const struct FrameData sRidleyPartOAM_RightWing_Unused[11];
+extern const struct FrameData sRidleyPartOam_RightWing_Unused[11];
 
-extern const struct FrameData sRidleyPartOAM_LeftWingSpittingFireballs[7];
+extern const struct FrameData sRidleyPartOam_LeftWingSpittingFireballs[7];
 
-extern const struct FrameData sRidleyPartOAM_RightWingSpittingFireballs[7];
+extern const struct FrameData sRidleyPartOam_RightWingSpittingFireballs[7];
 
 extern const struct FrameData sRidleyTailOAM_Part[2];
 
@@ -307,8 +307,8 @@ extern const struct FrameData sRidleyTailOAM_TipPointingDiagonallyUpLeft[2];
 
 extern const struct FrameData sRidleyOAM_Square[2];
 
-extern const struct FrameData sRidleyFireballOAM_Small[2];
+extern const struct FrameData sRidleyFireballOam_Small[2];
 
-extern const struct FrameData sRidleyFireballOAM_Big[2];
+extern const struct FrameData sRidleyFireballOam_Big[2];
 
 #endif

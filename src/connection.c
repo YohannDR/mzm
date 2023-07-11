@@ -278,7 +278,7 @@ u32 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 
                 if ((pDoor->type & DOOR_TYPE_NO_FLAGS) > DOOR_TYPE_NO_HATCH)
                 {
-                    if (pDoor->xStart > (gBG1XPosition >> 0x6) + 8)
+                    if (pDoor->xStart > (gBg1XPosition >> 0x6) + 8)
                         gDoorPositionStart.x = 1;
                     gDoorPositionStart.y = pDoor->yStart;
                 }

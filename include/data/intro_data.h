@@ -10,8 +10,8 @@ extern const u16 sIntroExterminateAllTextOAM[163];
 extern const u16 sIntroDefeatTheTextOAM[157];
 extern const u16 sIntroTextMarkerOAM[10];
 
-extern const u16 sIntroShipFlyingTowardsCameraOAM_2[28];
-extern const u16 sIntroShipFlyingTowardsCameraOAM_1[19];
+extern const u16 sIntroShipFlyingTowardsCameraOam_2[28];
+extern const u16 sIntroShipFlyingTowardsCameraOam_1[19];
 
 extern const u16 sIntroViewOfZebesShipOAM[13];
 extern const u16 sIntroViewOfZebesHeatOAM_2[37];

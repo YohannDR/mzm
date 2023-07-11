@@ -11,12 +11,12 @@
 
 void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
 {
-    gBG0XPosition = bgX;
-    gBG0YPosition = bgY;
-    gBG1XPosition = bgX;
-    gBG1YPosition = bgY;
-    gBG2XPosition = bgX;
-    gBG2YPosition = bgY;
+    gBg0XPosition = bgX;
+    gBg0YPosition = bgY;
+    gBg1XPosition = bgX;
+    gBg1YPosition = bgY;
+    gBg2XPosition = bgX;
+    gBg2YPosition = bgY;
 
     gCurrentArea = area;
     gCurrentRoom = room - 1;

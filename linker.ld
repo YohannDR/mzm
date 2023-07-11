@@ -209,14 +209,14 @@ SECTIONS {
         . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
         . = 0x000013B0; gWrittenToBLDALPHA_L = .;
         . = 0x000013B2; gWrittenToBLDALPHA_H = .;
-        . = 0x000013B4; gBG0XPosition = .;
-        . = 0x000013B6; gBG0YPosition = .;
-        . = 0x000013B8; gBG1XPosition = .;
-        . = 0x000013BA; gBG1YPosition = .;
-        . = 0x000013BC; gBG2XPosition = .;
-        . = 0x000013BE; gBG2YPosition = .;
-        . = 0x000013C0; gBG3XPosition = .;
-        . = 0x000013C2; gBG3YPosition = .;
+        . = 0x000013B4; gBg0XPosition = .;
+        . = 0x000013B6; gBg0YPosition = .;
+        . = 0x000013B8; gBg1XPosition = .;
+        . = 0x000013BA; gBg1YPosition = .;
+        . = 0x000013BC; gBg2XPosition = .;
+        . = 0x000013BE; gBg2YPosition = .;
+        . = 0x000013C0; gBg3XPosition = .;
+        . = 0x000013C2; gBg3YPosition = .;
         . = 0x000013d2; gDemoState = .;
         . = 0x000013D4; gSamusData = .;
         . = 0x000013F4; gSamusDataCopy = .;
@@ -380,7 +380,7 @@ SECTIONS {
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; gInterruptCheckFlag = .;
-        . = 0x00007ffc; intr_code_ptr = .;
+        . = 0x00007ffc; gIntrCodePointer = .;
         . = 0x00007ffc; intr_vector = .;
     } >iwram
 

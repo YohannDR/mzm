@@ -70,7 +70,7 @@ void FileSelectProcessOAM(void)
             process_menu_oam(ARRAY_SIZE(FILE_SELECT_DATA.optionsOam), FILE_SELECT_DATA.optionsOam, sOptionsOam);
     }
 
-    ResetFreeOAM();
+    ResetFreeOam();
 }
 
 /**
@@ -3531,7 +3531,7 @@ void FileSelectInit(void)
 
     gNextOamSlot = 0;
     ClearGfxRam();
-    ResetFreeOAM();
+    ResetFreeOam();
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 

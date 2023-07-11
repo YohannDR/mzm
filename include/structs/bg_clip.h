@@ -50,14 +50,14 @@ extern struct BG2Movement gBG2Movement;
 extern struct BG3Movement gBG3Movement;
 extern struct BG0Movement gBG0Movement;
 
-extern u16 gBG0XPosition;
-extern u16 gBG0YPosition;
-extern u16 gBG1XPosition;
-extern u16 gBG1YPosition;
-extern u16 gBG2XPosition;
-extern u16 gBG2YPosition;
-extern u16 gBG3XPosition;
-extern u16 gBG3YPosition;
+extern u16 gBg0XPosition;
+extern u16 gBg0YPosition;
+extern u16 gBg1XPosition;
+extern u16 gBg1YPosition;
+extern u16 gBg2XPosition;
+extern u16 gBg2YPosition;
+extern u16 gBg3XPosition;
+extern u16 gBg3YPosition;
 
 extern s8 gCollectingTank;
 extern u8 gDisableDoorAndTanks;

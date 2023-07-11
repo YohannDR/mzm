@@ -689,14 +689,14 @@ void SramWrite_ToEwram(void)
     pFile->mapY = gMinimapY;
 
     pFile->camera = gCamera;
-    pFile->bg0XPosition = gBG0XPosition;
-    pFile->bg0YPosition = gBG0YPosition;
-    pFile->bg1XPosition = gBG1XPosition;
-    pFile->bg1YPosition = gBG1YPosition;
-    pFile->bg2XPosition = gBG2XPosition;
-    pFile->bg2YPosition = gBG2YPosition;
-    pFile->bg3XPosition = gBG3XPosition;
-    pFile->bg3YPosition = gBG3YPosition;
+    pFile->bg0XPosition = gBg0XPosition;
+    pFile->bg0YPosition = gBg0YPosition;
+    pFile->bg1XPosition = gBg1XPosition;
+    pFile->bg1YPosition = gBg1YPosition;
+    pFile->bg2XPosition = gBg2XPosition;
+    pFile->bg2YPosition = gBg2YPosition;
+    pFile->bg3XPosition = gBg3XPosition;
+    pFile->bg3YPosition = gBg3YPosition;
 
     pFile->difficulty = gDifficulty;
     pFile->useMotherShipDoor = gUseMotherShipDoors;
@@ -778,14 +778,14 @@ void SramRead_FromEwram(void)
     gMinimapY = pFile->mapY;
 
     gCamera = pFile->camera;
-    gBG0XPosition = pFile->bg0XPosition;
-    gBG0YPosition = pFile->bg0YPosition;
-    gBG1XPosition = pFile->bg1XPosition;
-    gBG1YPosition = pFile->bg1YPosition;
-    gBG2XPosition = pFile->bg2XPosition;
-    gBG2YPosition = pFile->bg2YPosition;
-    gBG3XPosition = pFile->bg3XPosition;
-    gBG3YPosition = pFile->bg3YPosition;
+    gBg0XPosition = pFile->bg0XPosition;
+    gBg0YPosition = pFile->bg0YPosition;
+    gBg1XPosition = pFile->bg1XPosition;
+    gBg1YPosition = pFile->bg1YPosition;
+    gBg2XPosition = pFile->bg2XPosition;
+    gBg2YPosition = pFile->bg2YPosition;
+    gBg3XPosition = pFile->bg3XPosition;
+    gBg3YPosition = pFile->bg3YPosition;
 
     gDifficulty = pFile->difficulty;
     gUseMotherShipDoors = pFile->useMotherShipDoor;

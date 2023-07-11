@@ -52,7 +52,7 @@ void ExplosionZebesEscape(void)
     }
 
     yPosition = gCurrentSprite.yPositionSpawn;
-    xPosition = gBG1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+    xPosition = gBg1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
 
     rngParam1 = gSpriteRng;
     rngParam2 = rngParam1 & 3;
@@ -136,7 +136,7 @@ void ExplosionZebesEscape(void)
         }
     }
 
-    yPosition = gBG1YPosition - BLOCK_SIZE;
+    yPosition = gBg1YPosition - BLOCK_SIZE;
 
     if (debrisTimer % 32 == 0)
     {

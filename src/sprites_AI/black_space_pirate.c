@@ -277,7 +277,7 @@ void BlackSpacePirateInit(void)
     gCurrentSprite.health = health;
     gCurrentSprite.yPositionSpawn = health;
 
-    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.workVariable2 = 0;
     gCurrentSprite.oamRotation = 0;
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;

@@ -27,7 +27,7 @@ void DragonYMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
-        if (ySpawn - (BLOCK_SIZE * 2 - PIXEL_SIZE / 4) < gCurrentSprite.yPosition)
+        if (ySpawn - (BLOCK_SIZE * 2 - PIXEL_SIZE / SUB_PIXEL_RATIO) < gCurrentSprite.yPosition)
             gCurrentSprite.yPosition -= PIXEL_SIZE / 2;
 
         SpriteUtilCheckOutOfRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
@@ -289,7 +289,7 @@ void DragonFireballInit(void)
         gCurrentSprite.oamRotation = 0;
 
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-    gCurrentSprite.oamScaling = PI * 2;
+    gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.arrayOffset = 0;
 
     SoundPlay(0x14C);
