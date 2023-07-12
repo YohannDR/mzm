@@ -39,6 +39,7 @@ typedef volatile signed int vs32;
 #define PIXEL_SIZE (BLOCK_SIZE / SUB_PIXEL_NUMBER)
 #define BLOCK_POSITION_FLAG ((u16)~BLOCK_SIZE + 1)
 #define SUB_PIXEL_POSITION_FLAG (BLOCK_SIZE - 1)
+#define ONE_SUB_PIXEL (PIXEL_SIZE / PIXEL_SIZE)
 
 struct RawCoordsX {
     u16 x;

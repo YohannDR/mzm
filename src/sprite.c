@@ -142,8 +142,10 @@ void SpriteUpdate(void)
                     else
                         sPrimarySpritesAIPointers[pCurrent->spriteID]();
                 }
+
                 if (pCurrent->status & SPRITE_STATUS_EXISTS)
                     SpriteCheckOnScreen(pCurrent);
+
                 DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
             }
         }
@@ -257,12 +259,10 @@ void SpriteDrawAll(void)
 
     for (drawOrder = 1; drawOrder < 9; drawOrder++)
     {
-        i = 0;
-        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        for (i = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; i++, pSprite++)
         {
             if (gSpriteDrawOrder[i] == drawOrder)
                 SpriteDraw(pSprite, i);
-            i++;
         }
     }
 }
@@ -899,48 +899,49 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
     u8 ramSlot;
     struct SpriteData* pSprite;
 
-    ramSlot = 0x0;
-
-    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+    for (ramSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; ramSlot++, pSprite++)
     {
-        if (!(pSprite->status & SPRITE_STATUS_EXISTS))
+        if (pSprite->status & SPRITE_STATUS_EXISTS)
+            continue;
+
+        pSprite->status = SPRITE_STATUS_EXISTS;
+        spritesetSlot = MOD_AND(spritesetSlot, 128);
+
+        if (spritesetSlot > 0x10)
         {
-            pSprite->status = SPRITE_STATUS_EXISTS;
-            spritesetSlot &= 0x7F;
-            if (spritesetSlot >= 0x11)
-            {
-                spritesetSlot--;
-                spritesetSlot &= 0xF;
+            spritesetSlot--;
+            spritesetSlot = MOD_AND(spritesetSlot, 16);
 
-                pSprite->spritesetGfxSlot = gSpritesetGfxSlots[spritesetSlot];
-                pSprite->spriteID = gSpritesetSpritesID[spritesetSlot];
-            }
-            else
-            {
-                pSprite->spritesetGfxSlot = 0x0;
-                pSprite->spriteID = spritesetSlot - 0x1;
-            }
-
-            pSprite->properties = 0x0;
-            pSprite->yPosition = (yPosition * BLOCK_SIZE) + BLOCK_SIZE;
-            pSprite->xPosition = (xPosition * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
-            pSprite->roomSlot = roomSlot;
-            pSprite->bgPriority = 0x2;
-            pSprite->drawOrder = 0x4;
-            pSprite->pose = SPRITE_POSE_UNINITIALIZED;
-            pSprite->health = 0x0;
-            pSprite->invincibilityStunFlashTimer = 0x0;
-            pSprite->paletteRow = 0x0;
-            pSprite->frozenPaletteRowOffset = 0x0;
-            pSprite->absolutePaletteRow = 0x0;
-            pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRamSlot = ramSlot;
-            pSprite->freezeTimer = 0x0;
-            pSprite->standingOnSprite = FALSE;
-            return;
+            pSprite->spritesetGfxSlot = gSpritesetGfxSlots[spritesetSlot];
+            pSprite->spriteID = gSpritesetSpritesID[spritesetSlot];
+        }
+        else
+        {
+            pSprite->spritesetGfxSlot = 0;
+            pSprite->spriteID = spritesetSlot - 1;
         }
 
-        ramSlot++;
+        pSprite->properties = SP_NONE;
+
+        pSprite->yPosition = yPosition * BLOCK_SIZE + BLOCK_SIZE;
+        pSprite->xPosition = xPosition * BLOCK_SIZE + HALF_BLOCK_SIZE;
+        pSprite->roomSlot = roomSlot;
+
+        pSprite->bgPriority = 2;
+        pSprite->drawOrder = 4;
+        pSprite->pose = SPRITE_POSE_UNINITIALIZED;
+        pSprite->health = 0;
+        pSprite->invincibilityStunFlashTimer = 0;
+
+        pSprite->paletteRow = 0;
+        pSprite->frozenPaletteRowOffset = 0;
+        pSprite->absolutePaletteRow = 0;
+
+        pSprite->ignoreSamusCollisionTimer = 1;
+        pSprite->primarySpriteRamSlot = ramSlot;
+        pSprite->freezeTimer = 0;
+        pSprite->standingOnSprite = FALSE;
+        break;
     }
 }
 

@@ -964,7 +964,7 @@ void RidleyIdleInit(void)
     gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.pose = RIDLEY_POSE_IDLE;
 
-    range = BLOCK_SIZE * 10 - PIXEL_SIZE / PIXEL_SIZE;
+    range = BLOCK_SIZE * 10 - ONE_SUB_PIXEL;
     if (range < gSubSpriteData1.yPosition)
     {
         gCurrentSprite.timer = 0;

@@ -9,7 +9,7 @@
 void UpdateMenuOamDataID(struct MenuOamData* pOam, u8 oamId)
 {
     pOam->oamID = oamId;
-    pOam->exists = oamId ? 2 : 0;
+    pOam->exists = oamId ? OAM_ID_CHANGED_FLAG : FALSE;
 }
 
 /**
@@ -21,5 +21,5 @@ void UpdateMenuOamDataID(struct MenuOamData* pOam, u8 oamId)
 void UpdateCutsceneOamDataID(struct CutsceneOamData* pOam, u8 oamId)
 {
     pOam->oamID = oamId;
-    pOam->exists = oamId ? 2 : 0;
+    pOam->exists = oamId ? OAM_ID_CHANGED_FLAG : FALSE;
 }

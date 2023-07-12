@@ -88,23 +88,23 @@ extern const u16 sSuperMissileOAM_Tumbling_Frame6[4];
 
 extern const u16 sSuperMissileOAM_Tumbling_Frame7[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame0[4];
+extern const u16 sParticleMissileTrailOam_Frame0[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame1[4];
+extern const u16 sParticleMissileTrailOam_Frame1[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame2[4];
+extern const u16 sParticleMissileTrailOam_Frame2[4];
 
-extern const u16 sParticleSuperMissileTrailOAM_Frame3[4];
+extern const u16 sParticleSuperMissileTrailOam_Frame3[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame3[4];
+extern const u16 sParticleMissileTrailOam_Frame3[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame4[4];
+extern const u16 sParticleMissileTrailOam_Frame4[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame5[4];
+extern const u16 sParticleMissileTrailOam_Frame5[4];
 
-extern const u16 sParticleMissileTrailOAM_Frame6[4];
+extern const u16 sParticleMissileTrailOam_Frame6[4];
 
-extern const u16 sParticleSuperMissileTrailOAM_Frame0[4];
+extern const u16 sParticleSuperMissileTrailOam_Frame0[4];
 
 extern const struct FrameData sMissileOAM_Horizontal[3];
 
@@ -122,9 +122,9 @@ extern const struct FrameData sMissileOAM_Tumbling[9];
 
 extern const struct FrameData sSuperMissileOAM_Tumbling[9];
 
-extern const struct FrameData sParticleMissileTrailOAM[8];
+extern const struct FrameData sParticleMissileTrailOam[8];
 
-extern const struct FrameData sParticleSuperMissileTrailOAM[9];
+extern const struct FrameData sParticleSuperMissileTrailOam[9];
 
 extern const u16 sBeamPAL[96];
 
@@ -226,13 +226,13 @@ extern const u16 sChargedLongBeamOAM_Vertical_Frame0[7];
 
 extern const u16 sChargedLongBeamOAM_Vertical_Frame1[10];
 
-extern const u16 sParticleChargedLongBeamTrailOAM_Frame0[4];
+extern const u16 sParticleChargedLongBeamTrailOam_Frame0[4];
 
-extern const u16 sParticleChargedLongBeamTrailOAM_Frame1[4];
+extern const u16 sParticleChargedLongBeamTrailOam_Frame1[4];
 
-extern const u16 sParticleChargedLongBeamTrailOAM_Frame2[4];
+extern const u16 sParticleChargedLongBeamTrailOam_Frame2[4];
 
-extern const u16 sParticleChargedLongBeamTrailOAM_Frame3[4];
+extern const u16 sParticleChargedLongBeamTrailOam_Frame3[4];
 
 extern const struct FrameData sLongBeamOAM_Horizontal[3];
 
@@ -246,7 +246,7 @@ extern const struct FrameData sChargedLongBeamOAM_Diagonal[3];
 
 extern const struct FrameData sChargedLongBeamOAM_Vertical[3];
 
-extern const struct FrameData sParticleChargedLongBeamTrailOAM[5];
+extern const struct FrameData sParticleChargedLongBeamTrailOam[5];
 
 extern const u8 sIceBeamGfx_Top[512];
 extern const u8 sIceBeamGfx_Bottom[512];
@@ -289,15 +289,15 @@ extern const u16 sChargedIceBeamOAM_Vertical_Frame0[13];
 
 extern const u16 sChargedIceBeamOAM_Vertical_Frame1[19];
 
-extern const u16 sParticleChargedIceBeamTrailOAM_Frame0[4];
+extern const u16 sParticleChargedIceBeamTrailOam_Frame0[4];
 
-extern const u16 sParticleChargedIceBeamTrailOAM_Frame1[4];
+extern const u16 sParticleChargedIceBeamTrailOam_Frame1[4];
 
-extern const u16 sParticleChargedIceBeamTrailOAM_Frame2[4];
+extern const u16 sParticleChargedIceBeamTrailOam_Frame2[4];
 
-extern const u16 sParticleChargedIceBeamTrailOAM_Frame3[4];
+extern const u16 sParticleChargedIceBeamTrailOam_Frame3[4];
 
-extern const u16 sParticleChargedIceBeamTrailOAM_Frame4[4];
+extern const u16 sParticleChargedIceBeamTrailOam_Frame4[4];
 
 extern const struct FrameData sIceBeamOAM_Horizontal[3];
 
@@ -317,7 +317,7 @@ extern const struct FrameData sChargedIceBeamOAM_Diagonal[3];
 
 extern const struct FrameData sChargedIceBeamOAM_Vertical[3];
 
-extern const struct FrameData sParticleChargedIceBeamTrailOAM[6];
+extern const struct FrameData sParticleChargedIceBeamTrailOam[6];
 
 extern const u8 sWaveBeamGfx_Top[512];
 extern const u8 sWaveBeamGfx_Bottom[512];
@@ -388,13 +388,13 @@ extern const u16 sChargedWaveBeamOAM_Vertical_Frame5[7];
 
 extern const u16 sChargedWaveBeamOAM_Vertical_Frame6[7];
 
-extern const u16 sParticleChargedWaveBeamTrailOAM_Frame0[4];
+extern const u16 sParticleChargedWaveBeamTrailOam_Frame0[4];
 
-extern const u16 sParticleChargedWaveBeamTrailOAM_Frame1[7];
+extern const u16 sParticleChargedWaveBeamTrailOam_Frame1[7];
 
-extern const u16 sParticleChargedWaveBeamTrailOAM_Frame2[4];
+extern const u16 sParticleChargedWaveBeamTrailOam_Frame2[4];
 
-extern const u16 sParticleChargedWaveBeamTrailOAM_Frame3[7];
+extern const u16 sParticleChargedWaveBeamTrailOam_Frame3[7];
 
 extern const struct FrameData sWaveBeamOAM_Horizontal[8];
 
@@ -414,7 +414,7 @@ extern const struct FrameData sChargedWaveBeamOAM_Diagonal[8];
 
 extern const struct FrameData sChargedWaveBeamOAM_Vertical[8];
 
-extern const struct FrameData sParticleChargedWaveBeamTrailOAM[5];
+extern const struct FrameData sParticleChargedWaveBeamTrailOam[5];
 
 extern const u8 sPlasmaBeamGfx_Top[512];
 extern const u8 sPlasmaBeamGfx_Bottom[512];
@@ -519,13 +519,13 @@ extern const u16 sPlasmaBeamOAM_Diagonal_Wave_Unused_Frame1[19];
 
 extern const u16 sPlasmaBeamOAM_Diagonal_Wave_Unused_Frame2[13];
 
-extern const u16 sParticleChargedPlasmaBeamTrailOAM_Frame0[4];
+extern const u16 sParticleChargedPlasmaBeamTrailOam_Frame0[4];
 
-extern const u16 sParticleChargedFullBeamTrailOAM_Frame5[4];
+extern const u16 sParticleChargedFullBeamTrailOam_Frame5[4];
 
-extern const u16 sParticleChargedFullBeamTrailOAM_Frame6[4];
+extern const u16 sParticleChargedFullBeamTrailOam_Frame6[4];
 
-extern const u16 sParticleChargedPlasmaBeamTrailOAM_Frame3[4];
+extern const u16 sParticleChargedPlasmaBeamTrailOam_Frame3[4];
 
 extern const struct FrameData sPlasmaBeamOAM_Horizontal_NoWave[3];
 
@@ -563,9 +563,9 @@ extern const struct FrameData sChargedPlasmaBeamOAM_Diagonal_Wave[8];
 
 extern const struct FrameData sChargedPlasmaBeamOAM_Vertical_Wave[8];
 
-extern const struct FrameData sParticleChargedPlasmaBeamTrailOAM[5];
+extern const struct FrameData sParticleChargedPlasmaBeamTrailOam[5];
 
-extern const struct FrameData sParticleChargedFullBeamTrailOAM[9];
+extern const struct FrameData sParticleChargedFullBeamTrailOam[9];
 
 extern const u8 sPistolBeamGfx_Top[512];
 extern const u8 sPistolBeamGfx_Bottom[512];
@@ -596,13 +596,13 @@ extern const u16 sChargedPistolOAM_Vertical_Frame0[7];
 
 extern const u16 sChargedPistolOAM_Vertical_Frame1[10];
 
-extern const u16 sParticleChargedPistolTrailOAM_Frame0[4];
+extern const u16 sParticleChargedPistolTrailOam_Frame0[4];
 
-extern const u16 sParticleChargedPistolTrailOAM_Frame1[4];
+extern const u16 sParticleChargedPistolTrailOam_Frame1[4];
 
-extern const u16 sParticleChargedPistolTrailOAM_Frame2[4];
+extern const u16 sParticleChargedPistolTrailOam_Frame2[4];
 
-extern const u16 sParticleChargedPistolTrailOAM_Frame3[4];
+extern const u16 sParticleChargedPistolTrailOam_Frame3[4];
 
 extern const struct FrameData sPistolOAM_Horizontal[3];
 
@@ -616,7 +616,7 @@ extern const struct FrameData sChargedPistolOAM_Diagonal[3];
 
 extern const struct FrameData sChargedPistolOAM_Vertical[3];
 
-extern const struct FrameData sParticleChargedPistolTrailOAM[5];
+extern const struct FrameData sParticleChargedPistolTrailOam[5];
 
 extern const struct FrameData sParticleEscapeOAM_Unused[2];
 

@@ -77,13 +77,13 @@ struct SamusPhysics {
     const u8* pBodyLowerHalfGfx;
     u16 bodyLowerHalfGfxSize;
     u16 unk_22;
-    const u16* pArmCannonOAM;
+    const u16* pArmCannonOam;
     const u8* pArmCannonGfxUpper;
     u16 armCannonGfxUpperSize;
     const u8* pArmCannonGfxLower;
     u16 armCannonGfxLowerSize;
     u8 unk_36;
-    const u16* pScrewSpeedOAM;
+    const u16* pScrewSpeedOam;
     const u8* pScrewSpeedGfx;
     u16 screwSpeedGfxSize;
     const u8* pScrewShinesparkGfx;

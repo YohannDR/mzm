@@ -135,34 +135,38 @@ void ZeelaUpdateHitbox(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            gCurrentSprite.hitboxTopOffset = -0x18;
-            gCurrentSprite.hitboxBottomOffset = 0x18;
-            gCurrentSprite.hitboxLeftOffset = -0x38;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            // On right wall
+            gCurrentSprite.hitboxTopOffset = -ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxBottomOffset = ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxLeftOffset = -ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxRightOffset = ZEELA_LEGS_HITBOX;
         }
         else
         {
-            gCurrentSprite.hitboxTopOffset = -0x18;
-            gCurrentSprite.hitboxBottomOffset = 0x18;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x38;
+            // On left wall
+            gCurrentSprite.hitboxTopOffset = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxBottomOffset = ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxRightOffset = ZEELA_EYES_HITBOX;
         }
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         {
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x38;
-            gCurrentSprite.hitboxLeftOffset = -0x18;
-            gCurrentSprite.hitboxRightOffset = 0x18;
+            // On ceiling
+            gCurrentSprite.hitboxTopOffset = -ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxBottomOffset = ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxRightOffset = ZEELA_RIGHT_HITBOX;
         }
         else
         {
-            gCurrentSprite.hitboxTopOffset = -0x38;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x18;
-            gCurrentSprite.hitboxRightOffset = 0x18;
+            // On ground
+            gCurrentSprite.hitboxTopOffset = -ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxBottomOffset = ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxRightOffset = ZEELA_RIGHT_HITBOX;
         }
     }
 }
@@ -171,10 +175,12 @@ void ZeelaUpdateHitbox(void)
  * @brief 17578 | 48 | Sets the crawling OAM for a zeela
  * 
  */
-void ZeelaSetCrawlingOAM(void)
+void ZeelaSetCrawlingOam(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
-        gCurrentSprite.pOam = sZeelaOAM_OnWall;
+    {
+        gCurrentSprite.pOam = sZeelaOam_OnWall;
+    }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -182,26 +188,26 @@ void ZeelaSetCrawlingOAM(void)
         else
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-        gCurrentSprite.pOam = sZeelaOAM_OnGround;
+        gCurrentSprite.pOam = sZeelaOam_OnGround;
     }
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
  * @brief 175c0 | 30 | Sets the falling OAM for a zeela
  * 
  */
-void ZeelaSetFallingOAM(void)
+void ZeelaSetFallingOam(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
-        gCurrentSprite.pOam = sZeelaOAM_FallingOnWall;
+        gCurrentSprite.pOam = sZeelaOam_FallingOnWall;
     else
-        gCurrentSprite.pOam = sZeelaOAM_FallingOnGround;
+        gCurrentSprite.pOam = sZeelaOam_FallingOnGround;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -215,10 +221,12 @@ void ZeelaInit(void)
 
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousCollisionCheck & 0xF0)
+    {
         gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 0x4), gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + PIXEL_SIZE), gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & 0xF0)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
@@ -228,7 +236,8 @@ void ZeelaInit(void)
         else
         {
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
-                gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + 0x4));
+                gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
+
             if (gPreviousCollisionCheck & 0xF0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
@@ -239,6 +248,7 @@ void ZeelaInit(void)
             {
                 SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
                     gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
+
                 if (gPreviousCollisionCheck & 0xF0)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
@@ -256,18 +266,18 @@ void ZeelaInit(void)
     }
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    ZeelaSetCrawlingOAM();
+    ZeelaSetCrawlingOam();
     ZeelaUpdateHitbox();
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     if (gCurrentSprite.spriteID == PSPRITE_ZEELA_RED)
     {
-        gCurrentSprite.absolutePaletteRow = 0x1;
-        gCurrentSprite.paletteRow = 0x1;
+        gCurrentSprite.absolutePaletteRow = 1;
+        gCurrentSprite.paletteRow = 1;
     }
 }
 
@@ -277,7 +287,7 @@ void ZeelaInit(void)
  */
 void ZeelaIdleInit(void)
 {
-    ZeelaSetCrawlingOAM();
+    ZeelaSetCrawlingOam();
     gCurrentSprite.pose = ZEELA_POSE_IDLE;
 }
 
@@ -290,7 +300,7 @@ void ZeelaMove(void)
     u16 speed;
     u8 turning;
 
-    speed = 0x1;
+    speed = ONE_SUB_PIXEL;
 
     turning = FALSE;
 
@@ -304,6 +314,7 @@ void ZeelaMove(void)
     {
         if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2))
             gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;
+
         return;
     }
 
@@ -322,7 +333,7 @@ void ZeelaMove(void)
                 }
                 else
                 {
-                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE);
                     if (gPreviousCollisionCheck == COLLISION_SOLID)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -335,7 +346,7 @@ void ZeelaMove(void)
             }
             else
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition);
                 if (!(gPreviousCollisionCheck & 0xF0))
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -344,7 +355,7 @@ void ZeelaMove(void)
                 }
                 else
                 {
-                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE);
                     if (gPreviousCollisionCheck == COLLISION_SOLID)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -360,7 +371,7 @@ void ZeelaMove(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - PIXEL_SIZE);
                 if (!(gPreviousCollisionCheck & 0xF0))
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -382,7 +393,7 @@ void ZeelaMove(void)
             }
             else
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE);
                 if (!(gPreviousCollisionCheck & 0xF0))
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -410,7 +421,7 @@ void ZeelaMove(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition);
                 if (!(gPreviousCollisionCheck & 0xF))
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -432,7 +443,7 @@ void ZeelaMove(void)
             }
             else
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE);
                 if (!(gPreviousCollisionCheck & 0xF))
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -459,11 +470,11 @@ void ZeelaMove(void)
 
             if (gPreviousVerticalCollisionCheck == COLLISION_AIR || gPreviousVerticalCollisionCheck & 0xF0)
             {
-                if (gCurrentSprite.pOam != sZeelaOAM_OnGround)
+                if (gCurrentSprite.pOam != sZeelaOam_OnGround)
                 {
-                    gCurrentSprite.pOam = sZeelaOAM_OnGround;
-                    gCurrentSprite.animationDurationCounter = 0x0;
-                    gCurrentSprite.currentAnimationFrame = 0x0;
+                    gCurrentSprite.pOam = sZeelaOam_OnGround;
+                    gCurrentSprite.animationDurationCounter = 0;
+                    gCurrentSprite.currentAnimationFrame = 0;
                 }
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -477,7 +488,7 @@ void ZeelaMove(void)
                     }
                     else
                     {
-                        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
+                        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
                         if (gPreviousCollisionCheck == COLLISION_SOLID)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -490,7 +501,7 @@ void ZeelaMove(void)
                 }
                 else
                 {
-                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - PIXEL_SIZE);
                     if (gPreviousCollisionCheck == COLLISION_AIR)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -499,7 +510,7 @@ void ZeelaMove(void)
                     }
                     else
                     {
-                        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
+                        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
                         if (gPreviousCollisionCheck == COLLISION_SOLID)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -517,24 +528,24 @@ void ZeelaMove(void)
                 {
                     if (gPreviousVerticalCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
                     {
-                        if (gCurrentSprite.pOam != sZeelaOAM_WalkingOnSlope)
+                        if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-                            gCurrentSprite.pOam = sZeelaOAM_WalkingOnSlope;
-                            gCurrentSprite.animationDurationCounter = 0x0;
-                            gCurrentSprite.currentAnimationFrame = 0x0;
+                            gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
+                            gCurrentSprite.animationDurationCounter = 0;
+                            gCurrentSprite.currentAnimationFrame = 0;
                         }
 
                         gCurrentSprite.xPosition += speed;
                     }
                     else
                     {
-                        if (gCurrentSprite.pOam != sZeelaOAM_WalkingOnSlope)
+                        if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
                             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-                            gCurrentSprite.pOam = sZeelaOAM_WalkingOnSlope;
-                            gCurrentSprite.animationDurationCounter = 0x0;
-                            gCurrentSprite.currentAnimationFrame = 0x0;
+                            gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
+                            gCurrentSprite.animationDurationCounter = 0;
+                            gCurrentSprite.currentAnimationFrame = 0;
                         }
 
                         gCurrentSprite.xPosition += speed;
@@ -544,24 +555,24 @@ void ZeelaMove(void)
                 {
                     if (gPreviousVerticalCollisionCheck == COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
                     {
-                        if (gCurrentSprite.pOam != sZeelaOAM_WalkingOnSlope)
+                        if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
                             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-                            gCurrentSprite.pOam = sZeelaOAM_WalkingOnSlope;
-                            gCurrentSprite.animationDurationCounter = 0x0;
-                            gCurrentSprite.currentAnimationFrame = 0x0;
+                            gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
+                            gCurrentSprite.animationDurationCounter = 0;
+                            gCurrentSprite.currentAnimationFrame = 0;
                         }
 
                         gCurrentSprite.xPosition -= speed;
                     }
                     else
                     {
-                        if (gCurrentSprite.pOam != sZeelaOAM_WalkingOnSlope)
+                        if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-                            gCurrentSprite.pOam = sZeelaOAM_WalkingOnSlope;
-                            gCurrentSprite.animationDurationCounter = 0x0;
-                            gCurrentSprite.currentAnimationFrame = 0x0;
+                            gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
+                            gCurrentSprite.animationDurationCounter = 0;
+                            gCurrentSprite.currentAnimationFrame = 0;
                         }
 
                         gCurrentSprite.xPosition -= speed;
@@ -582,16 +593,16 @@ void ZeelaMove(void)
 void ZeelaTurningAroundInit(void)
 {
     gCurrentSprite.pose = ZEELA_POSE_TURNING_AROUND;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     switch (gCurrentSprite.workVariable)
     {
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
@@ -599,9 +610,9 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
@@ -609,9 +620,9 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
@@ -619,9 +630,9 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
@@ -629,9 +640,9 @@ void ZeelaTurningAroundInit(void)
         
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
@@ -639,9 +650,9 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
@@ -649,9 +660,9 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
@@ -659,16 +670,16 @@ void ZeelaTurningAroundInit(void)
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.pOam = sZeelaOAM_TurningEdgeRight;
+                gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
             else
-                gCurrentSprite.pOam = sZeelaOAM_TurningCornerLeft;
+                gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
@@ -782,10 +793,10 @@ void ZeelaTurning(void)
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 
-    ZeelaSetCrawlingOAM();
+    ZeelaSetCrawlingOam();
     ZeelaUpdateHitbox();
 }
 
@@ -796,7 +807,7 @@ void ZeelaTurning(void)
 void ZeelaLandingInit_Unused(void)
 {
     gCurrentSprite.pose = ZEELA_POSE_LANDING;
-    ZeelaSetFallingOAM();
+    ZeelaSetFallingOam();
 }
 
 /**
@@ -805,7 +816,7 @@ void ZeelaLandingInit_Unused(void)
  */
 void ZeelaLanding(void)
 {
-    gCurrentSprite.animationDurationCounter += 0x2;
+    gCurrentSprite.animationDurationCounter += 2;
     
     if (ZeelaCheckCollidingWithAir())
         gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;
@@ -827,14 +838,14 @@ void ZeelaFallingInit(void)
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
     }
     else if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-        gCurrentSprite.yPosition += 0x28;
+        gCurrentSprite.yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
    
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2);
 
     ZeelaUpdateHitbox();
-    ZeelaSetFallingOAM();
+    ZeelaSetFallingOam();
 }
 
 /**
@@ -892,16 +903,16 @@ void ZeelaDeath(void)
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-            xPosition -= 0x28;
+            xPosition -= HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
         else
-            xPosition += 0x28;
+            xPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-            yPosition += 0x28;
+            yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
         else
-            yPosition -= 0x28;
+            yPosition -= HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
     }
 
     if (gCurrentSprite.spriteID == PSPRITE_ZEELA_RED)
@@ -922,33 +933,34 @@ void ZeelaEyesInit(void)
     gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0x8;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x8;
-    gCurrentSprite.hitboxRightOffset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -(PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -(PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRightOffset = (PIXEL_SIZE * 2);
 
     gCurrentSprite.pOam = sZeelaEyesOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.pose = ZEELA_EYES_POSE_MOVING;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
-    gCurrentSprite.drawOrder = 0x3;
+    gCurrentSprite.drawOrder = 3;
 
-    if (gSpriteRng & 0x1)
+    // Setup rotation, choose random direction
+    if (MOD_AND(gSpriteRng, 2))
     {
         gCurrentSprite.workVariable = TRUE;
-        gCurrentSprite.oamRotation = 0x80;
+        gCurrentSprite.oamRotation = PI;
     }
     else
     {
         gCurrentSprite.workVariable = FALSE;
-        gCurrentSprite.oamRotation = 0x0;
+        gCurrentSprite.oamRotation = 0;
     }
 }
 
@@ -965,71 +977,73 @@ void ZeelaEyesMove(void)
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
 
     if (gPreviousCollisionCheck & 0xF0)
-        gCurrentSprite.pose = ZEELA_EYES_POSE_EXPLODING_INIT;
+    {
+        gCurrentSprite.pose = SPRITE_POSE_STOPPED;
+        return;
+    }
+
+    if (gCurrentSprite.roomSlot == 0)
+    {
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sZeelaEyesFallingFromUpSpeed[offset];
+        if (yMovement == SHORT_MAX)
+        {
+            yMovement = sZeelaEyesFallingFromUpSpeed[offset - 1];
+            gCurrentSprite.yPosition += yMovement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
+        }
+
+        xMovement = 1;
+    }
+    else if (gCurrentSprite.roomSlot == 1)
+    {
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sZeelaEyesFallingFromBottomSpeed[offset];
+        if (yMovement == SHORT_MAX)
+        {
+            yMovement = sZeelaEyesFallingFromBottomSpeed[offset - 1];
+            gCurrentSprite.yPosition += yMovement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
+        }
+
+        xMovement = 2;
+    }
     else
     {
-        if (gCurrentSprite.roomSlot == 0)
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sZeelaEyesFallingFromUpSpeed[offset];
+        if (yMovement == SHORT_MAX)
         {
-            offset = gCurrentSprite.arrayOffset;
-            yMovement = sZeelaEyesFallingFromUpSpeed[offset];
-            if (yMovement == SHORT_MAX)
-            {
-                yMovement = sZeelaEyesFallingFromUpSpeed[offset - 1];
-                gCurrentSprite.yPosition += yMovement;
-            }
-            else
-            {
-                gCurrentSprite.arrayOffset++;
-                gCurrentSprite.yPosition += yMovement;
-            }
-
-            xMovement = 1;
-        }
-        else if (gCurrentSprite.roomSlot == 1)
-        {
-            offset = gCurrentSprite.arrayOffset;
-            yMovement = sZeelaEyesFallingFromBottomSpeed[offset];
-            if (yMovement == SHORT_MAX)
-            {
-                yMovement = sZeelaEyesFallingFromBottomSpeed[offset - 1];
-                gCurrentSprite.yPosition += yMovement;
-            }
-            else
-            {
-                gCurrentSprite.arrayOffset++;
-                gCurrentSprite.yPosition += yMovement;
-            }
-
-            xMovement = 2;
+            yMovement = sZeelaEyesFallingFromUpSpeed[offset - 1];
+            gCurrentSprite.yPosition += yMovement;
         }
         else
         {
-            offset = gCurrentSprite.arrayOffset;
-            yMovement = sZeelaEyesFallingFromUpSpeed[offset];
-            if (yMovement == SHORT_MAX)
-            {
-                yMovement = sZeelaEyesFallingFromUpSpeed[offset - 1];
-                gCurrentSprite.yPosition += yMovement;
-            }
-            else
-            {
-                gCurrentSprite.arrayOffset++;
-                gCurrentSprite.yPosition += yMovement;
-            }
-
-            xMovement = 3;
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
         }
 
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-            gCurrentSprite.xPosition += xMovement;
-        else
-            gCurrentSprite.xPosition -= xMovement;
-
-        if (gCurrentSprite.workVariable)
-            gCurrentSprite.oamRotation -= 0x14;
-        else
-            gCurrentSprite.oamRotation += 0x14;
+        xMovement = 3;
     }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition += xMovement;
+    else
+        gCurrentSprite.xPosition -= xMovement;
+
+    // Rotate
+    if (gCurrentSprite.workVariable)
+        gCurrentSprite.oamRotation -= PI / 6 - PI / PI;
+    else
+        gCurrentSprite.oamRotation += PI / 6 - PI / PI;
 }
 
 /**
@@ -1042,10 +1056,10 @@ void ZeelaEyesExplodingInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
 
     gCurrentSprite.pOam = sZeelaEyesOAM_Exploding;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.bgPriority = 0x1;
+    gCurrentSprite.bgPriority = 1;
 }
 
 /**
@@ -1055,6 +1069,7 @@ void ZeelaEyesExplodingInit(void)
 void ZeelaEyesExploding(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0;
 }
@@ -1072,50 +1087,51 @@ void Zeela(void)
             SoundPlayNotAlreadyPlaying(0x148);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        if (SpriteUtilIsSpriteStunned())
-            return;
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                ZeelaInit();
-                break;
+    if (SpriteUtilIsSpriteStunned())
+        return;
 
-            case ZEELA_POSE_IDLE_INIT:
-                ZeelaIdleInit();
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            ZeelaInit();
+            break;
 
-            case ZEELA_POSE_IDLE:
-                ZeelaMove();
-                break;
+        case ZEELA_POSE_IDLE_INIT:
+            ZeelaIdleInit();
 
-            case ZEELA_POSE_TURNING_AROUND_INIT:
-                ZeelaTurningAroundInit();
-                
-            case ZEELA_POSE_TURNING_AROUND:
-                ZeelaTurning();
-                break;
+        case ZEELA_POSE_IDLE:
+            ZeelaMove();
+            break;
 
-            case ZEELA_POSE_LANDING_INIT:
-                ZeelaLandingInit_Unused();
+        case ZEELA_POSE_TURNING_AROUND_INIT:
+            ZeelaTurningAroundInit();
+            
+        case ZEELA_POSE_TURNING_AROUND:
+            ZeelaTurning();
+            break;
 
-            case ZEELA_POSE_LANDING:
-                ZeelaLanding();
-                break;
+        case ZEELA_POSE_LANDING_INIT:
+            ZeelaLandingInit_Unused();
 
-            case ZEELA_POSE_FALLING_INIT:
-                ZeelaFallingInit();
+        case ZEELA_POSE_LANDING:
+            ZeelaLanding();
+            break;
 
-            case ZEELA_POSE_FALLING:
-                ZeelaFalling();
-                break;
+        case ZEELA_POSE_FALLING_INIT:
+            ZeelaFallingInit();
 
-            default:
-                ZeelaDeath();
-        }
+        case ZEELA_POSE_FALLING:
+            ZeelaFalling();
+            break;
+
+        default:
+            ZeelaDeath();
     }
 }
 
@@ -1127,7 +1143,7 @@ void ZeelaEyes(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ZeelaEyesInit();
             
         case ZEELA_EYES_POSE_MOVING:

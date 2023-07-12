@@ -68,12 +68,12 @@ void EscapeUpdateOAM(void)
 
     increment = 0x33C0;
 
-    gParticleEscapeOAMFrames[24] = gEscapeTimerDigits.hundredths + increment;
-    gParticleEscapeOAMFrames[21] = gEscapeTimerDigits.tenths + increment;
-    gParticleEscapeOAMFrames[15] = gEscapeTimerDigits.secondsOnes + increment;
-    gParticleEscapeOAMFrames[12] = gEscapeTimerDigits.secondsTens + increment;
-    gParticleEscapeOAMFrames[6] = gEscapeTimerDigits.minutesOnes + increment;
-    gParticleEscapeOAMFrames[3] = gEscapeTimerDigits.minutesTens + increment;
+    gParticleEscapeOamFrames[24] = gEscapeTimerDigits.hundredths + increment;
+    gParticleEscapeOamFrames[21] = gEscapeTimerDigits.tenths + increment;
+    gParticleEscapeOamFrames[15] = gEscapeTimerDigits.secondsOnes + increment;
+    gParticleEscapeOamFrames[12] = gEscapeTimerDigits.secondsTens + increment;
+    gParticleEscapeOamFrames[6] = gEscapeTimerDigits.minutesOnes + increment;
+    gParticleEscapeOamFrames[3] = gEscapeTimerDigits.minutesTens + increment;
 }
 
 /**
@@ -96,7 +96,7 @@ void EscapeStart(void)
 {
     DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | 0xB0);
     DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, DMA_ENABLE << 16 | 0xB0);
-    DMA_SET(3, sParticleEscapeOAM, gParticleEscapeOAMFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOAMFrames) / 2);
+    DMA_SET(3, sParticleEscapeOAM, gParticleEscapeOamFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOamFrames) / 2);
     ParticleSet(2, 141, PE_ESCAPE);
 }
 

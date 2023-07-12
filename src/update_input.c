@@ -3,6 +3,10 @@
 #include "structs/game_state.h"
 #include "types.h"
 
+/**
+ * @brief 968 | 38 | Updates the input
+ * 
+ */
 void UpdateInput(void)
 {
     u16 keys;

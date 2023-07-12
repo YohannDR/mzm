@@ -5981,8 +5981,8 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
     // Update arm cannon OAM
     pArmCannonAnim = &pArmCannonAnim[pData->currentAnimationFrame];
 
-    pPhysics->pArmCannonOAM = pArmCannonAnim->pOam;
-    pPhysics->unk_22 = *pPhysics->pArmCannonOAM;
+    pPhysics->pArmCannonOam = pArmCannonAnim->pOam;
+    pPhysics->unk_22 = *pPhysics->pArmCannonOam;
 
     // Fetch current arm cannon graphics based on the current pose and arm cannon direction
     switch (pose)
@@ -6155,7 +6155,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
     pEffectAnim = &pEffectAnim[pScrew->currentAnimationFrame];
 
     // Update OAM
-    pPhysics->pScrewSpeedOAM = pEffectAnim->pOam;
+    pPhysics->pScrewSpeedOam = pEffectAnim->pOam;
 
     // Update graphics
     pGraphics = pEffectAnim->pGraphics;
@@ -6841,7 +6841,7 @@ void SamusDraw(void)
 
     if (gSamusPhysics.unk_36 & 0x20)
     {
-        src = gSamusPhysics.pScrewSpeedOAM;
+        src = gSamusPhysics.pScrewSpeedOam;
         nextSlot += *src++;
 
         for (; currSlot < nextSlot; currSlot++)
@@ -6866,7 +6866,7 @@ void SamusDraw(void)
 
     if (gSamusPhysics.unk_22 & 0x2000)
     {
-        src = gSamusPhysics.pArmCannonOAM;
+        src = gSamusPhysics.pArmCannonOam;
         part1 = *src++;
         nextSlot += part1 & 0xFF;
 
@@ -6914,7 +6914,7 @@ void SamusDraw(void)
 
     if (gSamusPhysics.unk_22 & 0x1000)
     {
-        src = gSamusPhysics.pArmCannonOAM;
+        src = gSamusPhysics.pArmCannonOam;
         part1 = *src++;
         nextSlot += part1 & 0xFF;
 
@@ -6940,7 +6940,7 @@ void SamusDraw(void)
 
     if (gSamusPhysics.unk_36 & 0x10)
     {
-        src = gSamusPhysics.pScrewSpeedOAM;
+        src = gSamusPhysics.pScrewSpeedOam;
         part1 = *src++;
         futureSlot = nextSlot + (part1 & 0xFF);
         if (futureSlot > 0x80)

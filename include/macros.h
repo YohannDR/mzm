@@ -55,7 +55,9 @@
 #define COLOR_BLACK COLOR(0x0, 0x0, 0x0)
 #define COLOR_MASK 0x1F
 
-#define OAM_DATA_SIZE(nbrOfParts) (1 + nbrOfParts * 3)
+#define OAM_PART_SIZE 3
+#define OAM_DATA_SIZE(nbrOfParts) (1 + (nbrOfParts) * OAM_PART_SIZE)
+#define GET_OAM_DATA_SIZE(size) (((size) - 1) / OAM_PART_SIZE)
 
 #define PI 128
 #define sin(a) (sSineTable[(a)])
@@ -107,6 +109,8 @@
 
 #define SUB_PIXEL_TO_PIXEL(pixel) ((pixel) / SUB_PIXEL_RATIO)
 #define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)
+#define SUB_PIXEL_TO_BLOCK(pixel) ((pixel) / BLOCK_SIZE)
+#define BLOCK_TO_SUB_PIXEL(block) ((block) * BLOCK_SIZE)
 
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)

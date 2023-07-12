@@ -28,8 +28,7 @@ void SpriteDebrisSetSplash(u16 oldY, u16 yPosition, u16 xPosition)
 }
 
 /**
- * 117b4 | 4d4 | 
- * Processes a sprite debris (handles movement and checks if it should despawn)
+ * 117b4 | 4d4 | Processes a sprite debris (handles movement and checks if it should despawn)
  * 
  * @param pDebris Sprite Debris Pointer
  */
@@ -37,36 +36,37 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 {
     u32 offset;
     u16 oldY;
-    u32 block_top;
+    u32 blockTop;
     s32 movement;
 
     pDebris->frameCounter++;
 
-    if (pDebris->frameCounter == 0x0)
+    if (pDebris->frameCounter == 0)
     {
         pDebris->exists = FALSE;
         return;
     }
 
     offset = pDebris->arrayOffset / 2;
-    if (offset > 0x8)
-        offset = 0x8;
+    if (offset > 8)
+        offset = 8;
 
     oldY = pDebris->yPosition;
 
     switch (pDebris->debrisType)
     {
-        case 0x1:
-            if (pDebris->frameCounter < 0x9)
+        case 1:
+            if (pDebris->frameCounter < 9)
                 return;
-        case 0x11:
+
+        case 17:
             movement = sDebris11YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition -= 0x1;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                pDebris->yPosition = block_top;
+                pDebris->yPosition = blockTop;
                 pDebris->debrisType = 0x81;
                 pDebris->arrayOffset = 0x0;
             }
@@ -89,10 +89,10 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris12YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                pDebris->yPosition = block_top;
+                pDebris->yPosition = blockTop;
                 pDebris->debrisType = 0x82;
                 pDebris->arrayOffset = 0x0;
             }
@@ -115,10 +115,10 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris13YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition += 0x2;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                pDebris->yPosition = block_top;
+                pDebris->yPosition = blockTop;
                 pDebris->debrisType = 0x83;
                 pDebris->arrayOffset = 0x0;
             }
@@ -138,10 +138,10 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris4YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition -= 0x2;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                pDebris->yPosition = block_top;
+                pDebris->yPosition = blockTop;
                 pDebris->debrisType = 0x84;
                 pDebris->arrayOffset = 0x0;
             }
@@ -161,12 +161,12 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris5YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition--;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frameCounter > 0x13)
                 {
-                    pDebris->yPosition = block_top;
+                    pDebris->yPosition = blockTop;
                     pDebris->debrisType = 0x81;
                     pDebris->arrayOffset = 0x0;
                 }
@@ -179,12 +179,12 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris6YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frameCounter > 0x13)
                 {
-                    pDebris->yPosition = block_top;
+                    pDebris->yPosition = blockTop;
                     pDebris->debrisType = 0x82;
                     pDebris->arrayOffset = 0x0;
                 }
@@ -197,12 +197,12 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris7YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frameCounter > 0x13)
                 {
-                    pDebris->yPosition = block_top;
+                    pDebris->yPosition = blockTop;
                     pDebris->debrisType = 0x83;
                     pDebris->arrayOffset = 0x0;
                 }
@@ -215,12 +215,12 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             movement = sDebris8YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition--;
-            block_top = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frameCounter > 0x13)
                 {
-                    pDebris->yPosition = block_top;
+                    pDebris->yPosition = blockTop;
                     pDebris->debrisType = 0x84;
                     pDebris->arrayOffset = 0x0;
                 }
@@ -340,13 +340,13 @@ void SpriteDebrisDrawAll(void)
 {
     struct SpriteDebris* pDebris;
 
-    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+        return;
+
+    for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
     {
-        for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
-        {
-            if (pDebris->exists && pDebris->frameCounter != 0x0)
-                SpriteDebrisDraw(pDebris);
-        }
+        if (pDebris->exists && pDebris->frameCounter != 0)
+            SpriteDebrisDraw(pDebris);
     }
 }
 

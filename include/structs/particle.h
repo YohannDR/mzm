@@ -2,6 +2,7 @@
 #define PARTICLE_STRUCT_H
 
 #include "types.h"
+#include "macros.h"
 
 // Structs
 
@@ -25,8 +26,8 @@ typedef void (*ParticleFunc_T)(struct ParticleEffect*);
 #define MAX_AMOUNT_OF_PARTICLES 16
 
 extern struct ParticleEffect gParticleEffects[MAX_AMOUNT_OF_PARTICLES];
-extern const u16* gCurrentParticleEffectOAMFramePointer;
-extern u16 gParticleEscapeOAMFrames[25];
-extern u16 gParticleSamusReflectionOAMFrames[73];
+extern const u16* gCurrentParticleEffectOamFramePointer;
+extern u16 gParticleEscapeOamFrames[OAM_DATA_SIZE(8)];
+extern u16 gParticleSamusReflectionOamFrames[OAM_DATA_SIZE(24)];
 
-#endif
+#endif /* PARTICLE_STRUCT_H */

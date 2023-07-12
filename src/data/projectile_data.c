@@ -250,47 +250,47 @@ const u16 sSuperMissileOAM_Tumbling_Frame7[4] = {
     0xf8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x405e
 };
 
-const u16 sParticleMissileTrailOAM_Frame0[4] = {
+const u16 sParticleMissileTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x30d5
 };
 
-const u16 sParticleMissileTrailOAM_Frame1[4] = {
+const u16 sParticleMissileTrailOam_Frame1[4] = {
     0x1,
     0xfc, 0x1fc, 0x30f5
 };
 
-const u16 sParticleMissileTrailOAM_Frame2[4] = {
+const u16 sParticleMissileTrailOam_Frame2[4] = {
     0x1,
     0xfc, 0x1fc, 0x30f6
 };
 
-const u16 sParticleSuperMissileTrailOAM_Frame3[4] = {
+const u16 sParticleSuperMissileTrailOam_Frame3[4] = {
     0x1,
     0xfc, 0x1fc, 0x4159
 };
 
-const u16 sParticleMissileTrailOAM_Frame3[4] = {
+const u16 sParticleMissileTrailOam_Frame3[4] = {
     0x1,
     0xf9, 0x1fc, 0x415a
 };
 
-const u16 sParticleMissileTrailOAM_Frame4[4] = {
+const u16 sParticleMissileTrailOam_Frame4[4] = {
     0x1,
     0xf7, 0x1fc, 0x415b
 };
 
-const u16 sParticleMissileTrailOAM_Frame5[4] = {
+const u16 sParticleMissileTrailOam_Frame5[4] = {
     0x1,
     0xf3, 0x1fc, 0x415c
 };
 
-const u16 sParticleMissileTrailOAM_Frame6[4] = {
+const u16 sParticleMissileTrailOam_Frame6[4] = {
     0x1,
     0xf1, 0x1fc, 0x415d
 };
 
-const u16 sParticleSuperMissileTrailOAM_Frame0[4] = {
+const u16 sParticleSuperMissileTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x30d0
 };
@@ -391,41 +391,41 @@ const struct FrameData sSuperMissileOAM_Tumbling[9] = {
     0x0
 };
 
-const struct FrameData sParticleMissileTrailOAM[8] = {
-    sParticleMissileTrailOAM_Frame0,
+const struct FrameData sParticleMissileTrailOam[8] = {
+    sParticleMissileTrailOam_Frame0,
     0x4,
-    sParticleMissileTrailOAM_Frame1,
+    sParticleMissileTrailOam_Frame1,
     0x4,
-    sParticleMissileTrailOAM_Frame2,
+    sParticleMissileTrailOam_Frame2,
     0x4,
-    sParticleMissileTrailOAM_Frame3,
+    sParticleMissileTrailOam_Frame3,
     0x3,
-    sParticleMissileTrailOAM_Frame4,
+    sParticleMissileTrailOam_Frame4,
     0x3,
-    sParticleMissileTrailOAM_Frame5,
+    sParticleMissileTrailOam_Frame5,
     0x3,
-    sParticleMissileTrailOAM_Frame6,
+    sParticleMissileTrailOam_Frame6,
     0x3,
     NULL,
     0x0
 };
 
-const struct FrameData sParticleSuperMissileTrailOAM[9] = {
-    sParticleSuperMissileTrailOAM_Frame0,
+const struct FrameData sParticleSuperMissileTrailOam[9] = {
+    sParticleSuperMissileTrailOam_Frame0,
     0x4,
-    sParticleMissileTrailOAM_Frame1,
+    sParticleMissileTrailOam_Frame1,
     0x4,
-    sParticleMissileTrailOAM_Frame2,
+    sParticleMissileTrailOam_Frame2,
     0x4,
-    sParticleSuperMissileTrailOAM_Frame3,
+    sParticleSuperMissileTrailOam_Frame3,
     0x3,
-    sParticleMissileTrailOAM_Frame3,
+    sParticleMissileTrailOam_Frame3,
     0x3,
-    sParticleMissileTrailOAM_Frame4,
+    sParticleMissileTrailOam_Frame4,
     0x3,
-    sParticleMissileTrailOAM_Frame5,
+    sParticleMissileTrailOam_Frame5,
     0x3,
-    sParticleMissileTrailOAM_Frame6,
+    sParticleMissileTrailOam_Frame6,
     0x3,
     NULL,
     0x0
@@ -725,22 +725,22 @@ const u16 sChargedLongBeamOAM_Vertical_Frame1[10] = {
     OBJ_SHAPE_VERTICAL | 0xb, OBJ_SIZE_16x32 | 0x1f8, 0x208c
 };
 
-const u16 sParticleChargedLongBeamTrailOAM_Frame0[4] = {
+const u16 sParticleChargedLongBeamTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ce
 };
 
-const u16 sParticleChargedLongBeamTrailOAM_Frame1[4] = {
+const u16 sParticleChargedLongBeamTrailOam_Frame1[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x208e
 };
 
-const u16 sParticleChargedLongBeamTrailOAM_Frame2[4] = {
+const u16 sParticleChargedLongBeamTrailOam_Frame2[4] = {
     0x1,
     0xfc, 0x1fc, 0x20cf
 };
 
-const u16 sParticleChargedLongBeamTrailOAM_Frame3[4] = {
+const u16 sParticleChargedLongBeamTrailOam_Frame3[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ef
 };
@@ -799,14 +799,14 @@ const struct FrameData sChargedLongBeamOAM_Vertical[3] = {
     0x0
 };
 
-const struct FrameData sParticleChargedLongBeamTrailOAM[5] = {
-    sParticleChargedLongBeamTrailOAM_Frame0,
+const struct FrameData sParticleChargedLongBeamTrailOam[5] = {
+    sParticleChargedLongBeamTrailOam_Frame0,
     0x4,
-    sParticleChargedLongBeamTrailOAM_Frame1,
+    sParticleChargedLongBeamTrailOam_Frame1,
     0x4,
-    sParticleChargedLongBeamTrailOAM_Frame2,
+    sParticleChargedLongBeamTrailOam_Frame2,
     0x4,
-    sParticleChargedLongBeamTrailOAM_Frame3,
+    sParticleChargedLongBeamTrailOam_Frame3,
     0x4,
     NULL,
     0x0
@@ -926,27 +926,27 @@ const u16 sChargedIceBeamOAM_Vertical_Frame1[19] = {
     0x1a, 0x1fc, 0x20eb
 };
 
-const u16 sParticleChargedIceBeamTrailOAM_Frame0[4] = {
+const u16 sParticleChargedIceBeamTrailOam_Frame0[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x208c
 };
 
-const u16 sParticleChargedIceBeamTrailOAM_Frame1[4] = {
+const u16 sParticleChargedIceBeamTrailOam_Frame1[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x20ce
 };
 
-const u16 sParticleChargedIceBeamTrailOAM_Frame2[4] = {
+const u16 sParticleChargedIceBeamTrailOam_Frame2[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ae
 };
 
-const u16 sParticleChargedIceBeamTrailOAM_Frame3[4] = {
+const u16 sParticleChargedIceBeamTrailOam_Frame3[4] = {
     0x1,
     0xfc, 0x1fc, 0x20af
 };
 
-const u16 sParticleChargedIceBeamTrailOAM_Frame4[4] = {
+const u16 sParticleChargedIceBeamTrailOam_Frame4[4] = {
     0x1,
     0xfc, 0x1fc, 0x208f
 };
@@ -1032,16 +1032,16 @@ const struct FrameData sChargedIceBeamOAM_Vertical[3] = {
     0x0
 };
 
-const struct FrameData sParticleChargedIceBeamTrailOAM[6] = {
-    sParticleChargedIceBeamTrailOAM_Frame0,
+const struct FrameData sParticleChargedIceBeamTrailOam[6] = {
+    sParticleChargedIceBeamTrailOam_Frame0,
     0x4,
-    sParticleChargedIceBeamTrailOAM_Frame1,
+    sParticleChargedIceBeamTrailOam_Frame1,
     0x4,
-    sParticleChargedIceBeamTrailOAM_Frame2,
+    sParticleChargedIceBeamTrailOam_Frame2,
     0x4,
-    sParticleChargedIceBeamTrailOAM_Frame3,
+    sParticleChargedIceBeamTrailOam_Frame3,
     0x4,
-    sParticleChargedIceBeamTrailOAM_Frame4,
+    sParticleChargedIceBeamTrailOam_Frame4,
     0x4,
     NULL,
     0x0
@@ -1498,23 +1498,23 @@ const u16 sChargedWaveBeamOAM_Vertical_Frame6[7] = {
     OBJ_SHAPE_VERTICAL | 0xc, OBJ_SIZE_16x32 | 0x1f1, 0x208c
 };
 
-const u16 sParticleChargedWaveBeamTrailOAM_Frame0[4] = {
+const u16 sParticleChargedWaveBeamTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x20c7
 };
 
-const u16 sParticleChargedWaveBeamTrailOAM_Frame1[7] = {
+const u16 sParticleChargedWaveBeamTrailOam_Frame1[7] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, 0x208e,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_Y_FLIP | 0x1f8, 0x208e
 };
 
-const u16 sParticleChargedWaveBeamTrailOAM_Frame2[4] = {
+const u16 sParticleChargedWaveBeamTrailOam_Frame2[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x20ae
 };
 
-const u16 sParticleChargedWaveBeamTrailOAM_Frame3[7] = {
+const u16 sParticleChargedWaveBeamTrailOam_Frame3[7] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, 0x20ee,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_Y_FLIP | 0x1f8, 0x20ee
@@ -1691,14 +1691,14 @@ const struct FrameData sChargedWaveBeamOAM_Vertical[8] = {
     0x0
 };
 
-const struct FrameData sParticleChargedWaveBeamTrailOAM[5] = {
-    sParticleChargedWaveBeamTrailOAM_Frame0,
+const struct FrameData sParticleChargedWaveBeamTrailOam[5] = {
+    sParticleChargedWaveBeamTrailOam_Frame0,
     0x4,
-    sParticleChargedWaveBeamTrailOAM_Frame1,
+    sParticleChargedWaveBeamTrailOam_Frame1,
     0x4,
-    sParticleChargedWaveBeamTrailOAM_Frame2,
+    sParticleChargedWaveBeamTrailOam_Frame2,
     0x4,
-    sParticleChargedWaveBeamTrailOAM_Frame3,
+    sParticleChargedWaveBeamTrailOam_Frame3,
     0x4,
     NULL,
     0x0
@@ -2164,7 +2164,7 @@ const u16 sPlasmaBeamOAM_Diagonal_Wave_Unused_Frame2[13] = {
     OBJ_SHAPE_VERTICAL | 0xc, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x1ff, 0x2089
 };
 
-const u16 sParticleChargedPlasmaBeamTrailOAM_Frame1[13] = {
+const u16 sParticleChargedPlasmaBeamTrailOam_Frame1[13] = {
     0x4,
     0xf8, 0x1f8, 0x20ea,
     0xf8, OBJ_X_FLIP | 0x0, 0x20ea,
@@ -2172,7 +2172,7 @@ const u16 sParticleChargedPlasmaBeamTrailOAM_Frame1[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x0, 0x20ea
 };
 
-const u16 sParticleChargedFullBeamTrailOAM_Frame1[13] = {
+const u16 sParticleChargedFullBeamTrailOam_Frame1[13] = {
     0x4,
     0xf9, 0x1f9, 0x20ea,
     0xf9, OBJ_X_FLIP | 0x1ff, 0x20ea,
@@ -2180,7 +2180,7 @@ const u16 sParticleChargedFullBeamTrailOAM_Frame1[13] = {
     0xff, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ff, 0x20ea
 };
 
-const u16 sParticleChargedPlasmaBeamTrailOAM_Frame2[13] = {
+const u16 sParticleChargedPlasmaBeamTrailOam_Frame2[13] = {
     0x4,
     0xf8, 0x1f8, 0x20eb,
     0xf8, OBJ_X_FLIP | 0x0, 0x20eb,
@@ -2188,7 +2188,7 @@ const u16 sParticleChargedPlasmaBeamTrailOAM_Frame2[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x0, 0x20eb
 };
 
-const u16 sParticleChargedFullBeamTrailOAM_Frame3[13] = {
+const u16 sParticleChargedFullBeamTrailOam_Frame3[13] = {
     0x4,
     0xf9, 0x1f9, 0x20eb,
     0xf9, OBJ_X_FLIP | 0x1ff, 0x20eb,
@@ -2196,22 +2196,22 @@ const u16 sParticleChargedFullBeamTrailOAM_Frame3[13] = {
     0xff, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ff, 0x20eb
 };
 
-const u16 sParticleChargedPlasmaBeamTrailOAM_Frame0[4] = {
+const u16 sParticleChargedPlasmaBeamTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x20c0
 };
 
-const u16 sParticleChargedFullBeamTrailOAM_Frame5[4] = {
+const u16 sParticleChargedFullBeamTrailOam_Frame5[4] = {
     0x1,
     0xfc, 0x1fc, 0x2082
 };
 
-const u16 sParticleChargedFullBeamTrailOAM_Frame6[4] = {
+const u16 sParticleChargedFullBeamTrailOam_Frame6[4] = {
     0x1,
     0xfc, 0x1fc, 0x20c4
 };
 
-const u16 sParticleChargedPlasmaBeamTrailOAM_Frame3[4] = {
+const u16 sParticleChargedPlasmaBeamTrailOam_Frame3[4] = {
     0x1,
     0xfc, 0x1fc, 0x2086
 };
@@ -2456,35 +2456,35 @@ const struct FrameData sChargedPlasmaBeamOAM_Vertical_Wave[8] = {
     0x0
 };
 
-const struct FrameData sParticleChargedPlasmaBeamTrailOAM[5] = {
-    sParticleChargedPlasmaBeamTrailOAM_Frame0,
+const struct FrameData sParticleChargedPlasmaBeamTrailOam[5] = {
+    sParticleChargedPlasmaBeamTrailOam_Frame0,
     0x4,
-    sParticleChargedPlasmaBeamTrailOAM_Frame1,
+    sParticleChargedPlasmaBeamTrailOam_Frame1,
     0x4,
-    sParticleChargedPlasmaBeamTrailOAM_Frame2,
+    sParticleChargedPlasmaBeamTrailOam_Frame2,
     0x4,
-    sParticleChargedPlasmaBeamTrailOAM_Frame3,
+    sParticleChargedPlasmaBeamTrailOam_Frame3,
     0x4,
     NULL,
     0x0
 };
 
-const struct FrameData sParticleChargedFullBeamTrailOAM[9] = {
-    sParticleChargedPlasmaBeamTrailOAM_Frame1,
+const struct FrameData sParticleChargedFullBeamTrailOam[9] = {
+    sParticleChargedPlasmaBeamTrailOam_Frame1,
     0x3,
-    sParticleChargedFullBeamTrailOAM_Frame1,
+    sParticleChargedFullBeamTrailOam_Frame1,
     0x3,
-    sParticleChargedPlasmaBeamTrailOAM_Frame2,
+    sParticleChargedPlasmaBeamTrailOam_Frame2,
     0x3,
-    sParticleChargedFullBeamTrailOAM_Frame3,
+    sParticleChargedFullBeamTrailOam_Frame3,
     0x3,
-    sParticleChargedPlasmaBeamTrailOAM_Frame0,
+    sParticleChargedPlasmaBeamTrailOam_Frame0,
     0x4,
-    sParticleChargedFullBeamTrailOAM_Frame5,
+    sParticleChargedFullBeamTrailOam_Frame5,
     0x4,
-    sParticleChargedFullBeamTrailOAM_Frame6,
+    sParticleChargedFullBeamTrailOam_Frame6,
     0x4,
-    sParticleChargedPlasmaBeamTrailOAM_Frame3,
+    sParticleChargedPlasmaBeamTrailOam_Frame3,
     0x4,
     NULL,
     0x0
@@ -2564,22 +2564,22 @@ const u16 sChargedPistolOAM_Vertical_Frame1[10] = {
     0x9, OBJ_SIZE_16x16 | 0x1f8, 0x20ca
 };
 
-const u16 sParticleChargedPistolTrailOAM_Frame0[4] = {
+const u16 sParticleChargedPistolTrailOam_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ce
 };
 
-const u16 sParticleChargedPistolTrailOAM_Frame1[4] = {
+const u16 sParticleChargedPistolTrailOam_Frame1[4] = {
     0x1,
     0xfc, 0x1fc, 0x20cf
 };
 
-const u16 sParticleChargedPistolTrailOAM_Frame2[4] = {
+const u16 sParticleChargedPistolTrailOam_Frame2[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ee
 };
 
-const u16 sParticleChargedPistolTrailOAM_Frame3[4] = {
+const u16 sParticleChargedPistolTrailOam_Frame3[4] = {
     0x1,
     0xfc, 0x1fc, 0x20ef
 };
@@ -2638,28 +2638,28 @@ const struct FrameData sChargedPistolOAM_Vertical[3] = {
     0x0
 };
 
-const struct FrameData sParticleChargedPistolTrailOAM[5] = {
-    sParticleChargedPistolTrailOAM_Frame0,
+const struct FrameData sParticleChargedPistolTrailOam[5] = {
+    sParticleChargedPistolTrailOam_Frame0,
     0x4,
-    sParticleChargedPistolTrailOAM_Frame1,
+    sParticleChargedPistolTrailOam_Frame1,
     0x4,
-    sParticleChargedPistolTrailOAM_Frame2,
+    sParticleChargedPistolTrailOam_Frame2,
     0x4,
-    sParticleChargedPistolTrailOAM_Frame3,
+    sParticleChargedPistolTrailOam_Frame3,
     0x4,
     NULL,
     0x0
 };
 
 const struct FrameData sParticleEscapeOAM_Unused[2] = {
-    gParticleEscapeOAMFrames,
+    gParticleEscapeOamFrames,
     UCHAR_MAX,
     NULL,
     0x0
 };
 
 const struct FrameData sParticleSamusReflectionOAM_Unused[2] = {
-    gParticleSamusReflectionOAMFrames,
+    gParticleSamusReflectionOamFrames,
     UCHAR_MAX,
     NULL,
     0x0

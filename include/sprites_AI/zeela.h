@@ -25,11 +25,16 @@
 #define ZEELA_EYES_POSE_EXPLODING_INIT 0x42
 #define ZEELA_EYES_POSE_EXPLODING 0x43
 
+#define ZEELA_LEGS_HITBOX (PIXEL_SIZE)
+#define ZEELA_EYES_HITBOX (QUARTER_BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE / 2)
+#define ZEELA_LEFT_HITBOX (QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2)
+#define ZEELA_RIGHT_HITBOX (QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2)
+
 void ZeelaSpawnEyes(void);
 u8 ZeelaCheckCollidingWithAir(void);
 void ZeelaUpdateHitbox(void);
-void ZeelaSetCrawlingOAM(void);
-void ZeelaSetFallingOAM(void);
+void ZeelaSetCrawlingOam(void);
+void ZeelaSetFallingOam(void);
 void ZeelaInit(void);
 void ZeelaIdleInit(void);
 void ZeelaMove(void);

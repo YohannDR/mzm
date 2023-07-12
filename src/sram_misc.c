@@ -53,7 +53,7 @@ u8* DoSramOperation(u8 operation)
         {
             case SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS:
                 DMA_SET(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileC,
-                    DMA_ENABLE << 16 | sizeof(struct SaveFileScreenOptions) / sizeof(u16));
+                    C_32_2_16(DMA_ENABLE, sizeof(struct SaveFileScreenOptions) / sizeof(u16)));
 
                 diff = SramWriteChecked((u8*)&sSramEwramPointer->fileScreenOptions_fileA,
                     (u8*)&sSramFlashPointer->fileScreenOptions_fileA, sizeof(struct SaveFileScreenOptions));

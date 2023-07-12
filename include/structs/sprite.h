@@ -95,11 +95,12 @@ struct BossWork {
 // Globals
 
 #define MAX_AMOUNT_OF_SPRITES 24
+#define MAX_AMOUNT_OF_SPRITE_TYPES 15
 
 extern u16 gAlarmTimer;
 extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
-extern u8 gSpritesetSpritesID[15];
-extern u8 gSpritesetGfxSlots[15];
+extern u8 gSpritesetSpritesID[MAX_AMOUNT_OF_SPRITE_TYPES];
+extern u8 gSpritesetGfxSlots[MAX_AMOUNT_OF_SPRITE_TYPES];
 extern struct SubSpriteData gSubSpriteData1;
 extern struct SubSpriteData gSubSpriteData2;
 extern u8 gParasiteRelated;

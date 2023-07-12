@@ -1183,14 +1183,14 @@ const struct FrameData sEnvEffectOAM_LandingOnVeryDustyGround[18] = {
     0
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame0[10] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame0[10] = {
     0x3,
     0xfe, OBJ_SIZE_16x16 | 0x1f8, 0x4188,
     OBJ_SHAPE_VERTICAL | 0xfa, 0x1fb, 0x415f,
     OBJ_SHAPE_VERTICAL | 0xfa, OBJ_X_FLIP | 0x1fd, 0x415f
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame1[13] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame1[13] = {
     0x4,
     0xfe, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x4188,
     OBJ_SHAPE_VERTICAL | 0xf7, OBJ_X_FLIP | 0x1fa, 0x415f,
@@ -1198,7 +1198,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame1[13] = {
     0xee, 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame2[19] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame2[19] = {
     0x6,
     0xfa, 0x1f6, 0x409d,
     0xfa, OBJ_X_FLIP | 0x2, 0x409d,
@@ -1208,7 +1208,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame2[19] = {
     0xea, 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame3[19] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame3[19] = {
     0x6,
     0xf9, 0x1f5, 0x409d,
     0xf9, OBJ_X_FLIP | 0x3, 0x409d,
@@ -1218,7 +1218,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame3[19] = {
     0xe7, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame4[22] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame4[22] = {
     0x7,
     0xf9, 0x1f4, 0x409e,
     0xf9, OBJ_X_FLIP | 0x4, 0x409e,
@@ -1229,7 +1229,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame4[22] = {
     0xf8, 0x1fc, 0x409d
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame5[22] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame5[22] = {
     0x7,
     0xfa, 0x1f4, 0x409e,
     0xfa, OBJ_X_FLIP | 0x4, 0x409e,
@@ -1240,7 +1240,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame5[22] = {
     0xf2, OBJ_X_FLIP | 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame6[22] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame6[22] = {
     0x7,
     0x6, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x418e,
     0xfa, 0x1f4, 0x409f,
@@ -1251,7 +1251,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame6[22] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x418f
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame7[19] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame7[19] = {
     0x6,
     0x8, OBJ_SIZE_16x16 | 0x1f8, 0x41d4,
     0xfa, 0x0, 0x415f,
@@ -1261,7 +1261,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame7[19] = {
     0xf8, 0x1fc, 0x40be
 };
 
-const u16 sParticleSpriteSplashWaterBigOAM_Frame8[13] = {
+const u16 sParticleSpriteSplashWaterBigOam_Frame8[13] = {
     0x4,
     0xf8, 0x1f7, 0x40be,
     0xf8, OBJ_X_FLIP | 0x1, 0x40be,
@@ -1269,7 +1269,7 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame8[13] = {
     0xf7, 0x1fc, 0x41a7
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame2[25] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame2[25] = {
     0x8,
     0xf9, 0x1f3, 0x409d,
     0xf9, OBJ_X_FLIP | 0x5, 0x409d,
@@ -1281,7 +1281,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame2[25] = {
     0xea, OBJ_X_FLIP | 0x1ff, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame3[25] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame3[25] = {
     0x8,
     0xf8, 0x1f2, 0x409d,
     0xf8, OBJ_X_FLIP | 0x6, 0x409d,
@@ -1293,7 +1293,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame3[25] = {
     0xe7, OBJ_Y_FLIP | 0x0, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame4[28] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame4[28] = {
     0x9,
     0xf8, 0x1f0, 0x409e,
     0xf8, OBJ_X_FLIP | 0x8, 0x409e,
@@ -1306,7 +1306,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame4[28] = {
     0xea, 0x1, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame5[28] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame5[28] = {
     0x9,
     0xf9, 0x1ef, 0x409e,
     0xf9, OBJ_X_FLIP | 0x9, 0x409e,
@@ -1319,7 +1319,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame5[28] = {
     0xf2, 0x4, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame6[25] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame6[25] = {
     0x8,
     0x6, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ef, 0x418e,
     0x3, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1, 0x418e,
@@ -1331,7 +1331,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame6[25] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x418f
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame7[22] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame7[22] = {
     0x7,
     0x8, OBJ_SIZE_16x16 | 0x1ef, 0x41d4,
     0xfa, 0x1ef, 0x40bd,
@@ -1342,7 +1342,7 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame7[22] = {
     0xf8, 0x1fc, 0x40be
 };
 
-const u16 sParticleSpriteSplashWaterHugeOAM_Frame8[16] = {
+const u16 sParticleSpriteSplashWaterHugeOam_Frame8[16] = {
     0x5,
     0xf8, 0x1f2, 0x40be,
     0xf8, OBJ_X_FLIP | 0x6, 0x40be,
@@ -1351,41 +1351,41 @@ const u16 sParticleSpriteSplashWaterHugeOAM_Frame8[16] = {
     0xf7, 0x1fc, 0x41a7
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame0[7] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame0[7] = {
     0x2,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x409d,
     0xf9, 0x0, 0x409d
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame1[10] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame1[10] = {
     0x3,
     0xf9, OBJ_X_FLIP | 0x1f7, 0x409e,
     0xf9, 0x1, 0x409e,
     0xf6, 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame2[10] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame2[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x409f,
     0xf8, 0x1, 0x409f,
     0xf3, 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame3[10] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame3[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x40bd,
     0xf8, 0x1, 0x40bd,
     0xf1, 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame4[10] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame4[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f8, 0x40be,
     0xf8, 0x0, 0x40be,
     0xf4, OBJ_X_FLIP | 0x1fc, 0x415e
 };
 
-const u16 sParticleSpriteSplashWaterSmallOAM_Frame5[16] = {
+const u16 sParticleSpriteSplashWaterSmallOam_Frame5[16] = {
     0x5,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x40be,
     0xf9, 0x0, 0x40be,
@@ -1394,14 +1394,14 @@ const u16 sParticleSpriteSplashWaterSmallOAM_Frame5[16] = {
     0xf5, OBJ_X_FLIP | 0x0, 0x41a7
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame0[10] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame0[10] = {
     0x3,
     0xfe, OBJ_SIZE_16x16 | 0x1f8, 0x3188,
     OBJ_SHAPE_VERTICAL | 0xfa, 0x1fb, 0x315f,
     OBJ_SHAPE_VERTICAL | 0xfa, OBJ_X_FLIP | 0x1fd, 0x315f
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame1[13] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame1[13] = {
     0x4,
     0xfe, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x3188,
     OBJ_SHAPE_VERTICAL | 0xf7, OBJ_X_FLIP | 0x1fa, 0x315f,
@@ -1409,7 +1409,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame1[13] = {
     0xee, 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame2[19] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame2[19] = {
     0x6,
     0xfa, 0x1f6, 0x309d,
     0xfa, OBJ_X_FLIP | 0x2, 0x309d,
@@ -1419,7 +1419,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame2[19] = {
     0xea, 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame3[19] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame3[19] = {
     0x6,
     0xf9, 0x1f5, 0x309d,
     0xf9, OBJ_X_FLIP | 0x3, 0x309d,
@@ -1429,7 +1429,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame3[19] = {
     0xe7, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame4[22] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame4[22] = {
     0x7,
     0xf9, 0x1f4, 0x309e,
     0xf9, OBJ_X_FLIP | 0x4, 0x309e,
@@ -1440,7 +1440,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame4[22] = {
     0xf8, 0x1fc, 0x309d
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame5[22] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame5[22] = {
     0x7,
     0xfa, 0x1f4, 0x309e,
     0xfa, OBJ_X_FLIP | 0x4, 0x309e,
@@ -1451,7 +1451,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame5[22] = {
     0xf2, OBJ_X_FLIP | 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame6[22] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame6[22] = {
     0x7,
     0x6, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x318e,
     0xfa, 0x1f4, 0x309f,
@@ -1462,7 +1462,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame6[22] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x318f
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame7[19] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame7[19] = {
     0x6,
     0x8, OBJ_SIZE_16x16 | 0x1f8, 0x31d4,
     0xfa, 0x0, 0x315f,
@@ -1472,7 +1472,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame7[19] = {
     0xf8, 0x1fc, 0x30be
 };
 
-const u16 sParticleSpriteSplashLavaBigOAM_Frame8[13] = {
+const u16 sParticleSpriteSplashLavaBigOam_Frame8[13] = {
     0x4,
     0xf8, 0x1f7, 0x30be,
     0xf8, OBJ_X_FLIP | 0x1, 0x30be,
@@ -1480,7 +1480,7 @@ const u16 sParticleSpriteSplashLavaBigOAM_Frame8[13] = {
     0xf7, 0x1fc, 0x31a7
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame2[25] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame2[25] = {
     0x8,
     0xf9, 0x1f3, 0x309d,
     0xf9, OBJ_X_FLIP | 0x5, 0x309d,
@@ -1492,7 +1492,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame2[25] = {
     0xea, OBJ_X_FLIP | 0x1ff, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame3[25] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame3[25] = {
     0x8,
     0xf8, 0x1f2, 0x309d,
     0xf8, OBJ_X_FLIP | 0x6, 0x309d,
@@ -1504,7 +1504,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame3[25] = {
     0xe7, OBJ_Y_FLIP | 0x0, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame4[28] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame4[28] = {
     0x9,
     0xf8, 0x1f0, 0x309e,
     0xf8, OBJ_X_FLIP | 0x8, 0x309e,
@@ -1517,7 +1517,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame4[28] = {
     0xea, 0x1, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame5[28] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame5[28] = {
     0x9,
     0xf9, 0x1ef, 0x309e,
     0xf9, OBJ_X_FLIP | 0x9, 0x309e,
@@ -1530,7 +1530,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame5[28] = {
     0xf2, 0x4, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame6[25] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame6[25] = {
     0x8,
     0x6, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ef, 0x318e,
     0x3, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1, 0x318e,
@@ -1542,7 +1542,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame6[25] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x318f
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame7[22] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame7[22] = {
     0x7,
     0x8, OBJ_SIZE_16x16 | 0x1ef, 0x31d4,
     0xfa, 0x1ef, 0x30bd,
@@ -1553,7 +1553,7 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame7[22] = {
     0xf8, 0x1fc, 0x30be
 };
 
-const u16 sParticleSpriteSplashLavaHugeOAM_Frame8[16] = {
+const u16 sParticleSpriteSplashLavaHugeOam_Frame8[16] = {
     0x5,
     0xf8, 0x1f2, 0x30be,
     0xf8, OBJ_X_FLIP | 0x6, 0x30be,
@@ -1562,41 +1562,41 @@ const u16 sParticleSpriteSplashLavaHugeOAM_Frame8[16] = {
     0xf7, 0x1fc, 0x31a7
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame0[7] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame0[7] = {
     0x2,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x309d,
     0xf9, 0x0, 0x309d
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame1[10] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame1[10] = {
     0x3,
     0xf9, OBJ_X_FLIP | 0x1f7, 0x309e,
     0xf9, 0x1, 0x309e,
     0xf6, 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame2[10] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame2[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x309f,
     0xf8, 0x1, 0x309f,
     0xf3, 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame3[10] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame3[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x30bd,
     0xf8, 0x1, 0x30bd,
     0xf1, 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame4[10] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame4[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f8, 0x30be,
     0xf8, 0x0, 0x30be,
     0xf4, OBJ_X_FLIP | 0x1fc, 0x315e
 };
 
-const u16 sParticleSpriteSplashLavaSmallOAM_Frame5[16] = {
+const u16 sParticleSpriteSplashLavaSmallOam_Frame5[16] = {
     0x5,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x30be,
     0xf9, 0x0, 0x30be,
@@ -1605,14 +1605,14 @@ const u16 sParticleSpriteSplashLavaSmallOAM_Frame5[16] = {
     0xf5, OBJ_X_FLIP | 0x0, 0x31a7
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame0[10] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame0[10] = {
     0x3,
     0xfe, OBJ_SIZE_16x16 | 0x1f8, 0x5188,
     OBJ_SHAPE_VERTICAL | 0xfa, 0x1fb, 0x515f,
     OBJ_SHAPE_VERTICAL | 0xfa, OBJ_X_FLIP | 0x1fd, 0x515f
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame1[13] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame1[13] = {
     0x4,
     0xfe, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x5188,
     OBJ_SHAPE_VERTICAL | 0xf7, OBJ_X_FLIP | 0x1fa, 0x515f,
@@ -1620,7 +1620,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame1[13] = {
     0xee, 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame2[19] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame2[19] = {
     0x6,
     0xfa, 0x1f6, 0x509d,
     0xfa, OBJ_X_FLIP | 0x2, 0x509d,
@@ -1630,7 +1630,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame2[19] = {
     0xea, 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame3[19] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame3[19] = {
     0x6,
     0xf9, 0x1f5, 0x509d,
     0xf9, OBJ_X_FLIP | 0x3, 0x509d,
@@ -1640,7 +1640,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame3[19] = {
     0xe7, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame4[22] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame4[22] = {
     0x7,
     0xf9, 0x1f4, 0x509e,
     0xf9, OBJ_X_FLIP | 0x4, 0x509e,
@@ -1651,7 +1651,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame4[22] = {
     0xf8, 0x1fc, 0x509d
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame5[22] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame5[22] = {
     0x7,
     0xfa, 0x1f4, 0x509e,
     0xfa, OBJ_X_FLIP | 0x4, 0x509e,
@@ -1662,7 +1662,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame5[22] = {
     0xf2, OBJ_X_FLIP | 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame6[22] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame6[22] = {
     0x7,
     0x6, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x518e,
     0xfa, 0x1f4, 0x509f,
@@ -1673,7 +1673,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame6[22] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x518f
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame7[19] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame7[19] = {
     0x6,
     0x8, OBJ_SIZE_16x16 | 0x1f8, 0x51d4,
     0xfa, 0x0, 0x515f,
@@ -1683,7 +1683,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame7[19] = {
     0xf8, 0x1fc, 0x50be
 };
 
-const u16 sParticleSpriteSplashAcidBigOAM_Frame8[13] = {
+const u16 sParticleSpriteSplashAcidBigOam_Frame8[13] = {
     0x4,
     0xf8, 0x1f7, 0x50be,
     0xf8, OBJ_X_FLIP | 0x1, 0x50be,
@@ -1691,7 +1691,7 @@ const u16 sParticleSpriteSplashAcidBigOAM_Frame8[13] = {
     0xf7, 0x1fc, 0x51a7
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame2[25] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame2[25] = {
     0x8,
     0xf9, 0x1f3, 0x509d,
     0xf9, OBJ_X_FLIP | 0x5, 0x509d,
@@ -1703,7 +1703,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame2[25] = {
     0xea, OBJ_X_FLIP | 0x1ff, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame3[25] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame3[25] = {
     0x8,
     0xf8, 0x1f2, 0x509d,
     0xf8, OBJ_X_FLIP | 0x6, 0x509d,
@@ -1715,7 +1715,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame3[25] = {
     0xe7, OBJ_Y_FLIP | 0x0, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame4[28] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame4[28] = {
     0x9,
     0xf8, 0x1f0, 0x509e,
     0xf8, OBJ_X_FLIP | 0x8, 0x509e,
@@ -1728,7 +1728,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame4[28] = {
     0xea, 0x1, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame5[28] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame5[28] = {
     0x9,
     0xf9, 0x1ef, 0x509e,
     0xf9, OBJ_X_FLIP | 0x9, 0x509e,
@@ -1741,7 +1741,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame5[28] = {
     0xf2, 0x4, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame6[25] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame6[25] = {
     0x8,
     0x6, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ef, 0x518e,
     0x3, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1, 0x518e,
@@ -1753,7 +1753,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame6[25] = {
     0xf4, OBJ_X_FLIP | 0x1fb, 0x518f
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame7[22] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame7[22] = {
     0x7,
     0x8, OBJ_SIZE_16x16 | 0x1ef, 0x51d4,
     0xfa, 0x1ef, 0x50bd,
@@ -1764,7 +1764,7 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame7[22] = {
     0xf8, 0x1fc, 0x50be
 };
 
-const u16 sParticleSpriteSplashAcidHugeOAM_Frame8[16] = {
+const u16 sParticleSpriteSplashAcidHugeOam_Frame8[16] = {
     0x5,
     0xf8, 0x1f2, 0x50be,
     0xf8, OBJ_X_FLIP | 0x6, 0x50be,
@@ -1773,41 +1773,41 @@ const u16 sParticleSpriteSplashAcidHugeOAM_Frame8[16] = {
     0xf7, 0x1fc, 0x51a7
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame0[7] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame0[7] = {
     0x2,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x509d,
     0xf9, 0x0, 0x509d
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame1[10] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame1[10] = {
     0x3,
     0xf9, OBJ_X_FLIP | 0x1f7, 0x509e,
     0xf9, 0x1, 0x509e,
     0xf6, 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame2[10] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame2[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x509f,
     0xf8, 0x1, 0x509f,
     0xf3, 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame3[10] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame3[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f7, 0x50bd,
     0xf8, 0x1, 0x50bd,
     0xf1, 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame4[10] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame4[10] = {
     0x3,
     0xf8, OBJ_X_FLIP | 0x1f8, 0x50be,
     0xf8, 0x0, 0x50be,
     0xf4, OBJ_X_FLIP | 0x1fc, 0x515e
 };
 
-const u16 sParticleSpriteSplashAcidSmallOAM_Frame5[16] = {
+const u16 sParticleSpriteSplashAcidSmallOam_Frame5[16] = {
     0x5,
     0xf9, OBJ_X_FLIP | 0x1f8, 0x50be,
     0xf9, 0x0, 0x50be,
@@ -1816,189 +1816,189 @@ const u16 sParticleSpriteSplashAcidSmallOAM_Frame5[16] = {
     0xf5, OBJ_X_FLIP | 0x0, 0x51a7
 };
 
-const struct FrameData sParticleSpriteSplashWaterBigOAM[10] = {
-    sParticleSpriteSplashWaterBigOAM_Frame0,
+const struct FrameData sParticleSpriteSplashWaterBigOam[10] = {
+    sParticleSpriteSplashWaterBigOam_Frame0,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame1,
+    sParticleSpriteSplashWaterBigOam_Frame1,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame2,
+    sParticleSpriteSplashWaterBigOam_Frame2,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame3,
+    sParticleSpriteSplashWaterBigOam_Frame3,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame4,
+    sParticleSpriteSplashWaterBigOam_Frame4,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame5,
+    sParticleSpriteSplashWaterBigOam_Frame5,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame6,
+    sParticleSpriteSplashWaterBigOam_Frame6,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame7,
+    sParticleSpriteSplashWaterBigOam_Frame7,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame8,
+    sParticleSpriteSplashWaterBigOam_Frame8,
     3,
     NULL,
     0
 };
 
-const struct FrameData sParticleSpriteSplashWaterHugeOAM[10] = {
-    sParticleSpriteSplashWaterBigOAM_Frame0,
+const struct FrameData sParticleSpriteSplashWaterHugeOam[10] = {
+    sParticleSpriteSplashWaterBigOam_Frame0,
     3,
-    sParticleSpriteSplashWaterBigOAM_Frame1,
+    sParticleSpriteSplashWaterBigOam_Frame1,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame2,
+    sParticleSpriteSplashWaterHugeOam_Frame2,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame3,
+    sParticleSpriteSplashWaterHugeOam_Frame3,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame4,
+    sParticleSpriteSplashWaterHugeOam_Frame4,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame5,
+    sParticleSpriteSplashWaterHugeOam_Frame5,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame6,
+    sParticleSpriteSplashWaterHugeOam_Frame6,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame7,
+    sParticleSpriteSplashWaterHugeOam_Frame7,
     3,
-    sParticleSpriteSplashWaterHugeOAM_Frame8,
+    sParticleSpriteSplashWaterHugeOam_Frame8,
     3,
     NULL,0
 };
 
-const struct FrameData sParticleSpriteSplashWaterSmallOAM[7] = {
-    sParticleSpriteSplashWaterSmallOAM_Frame0,
+const struct FrameData sParticleSpriteSplashWaterSmallOam[7] = {
+    sParticleSpriteSplashWaterSmallOam_Frame0,
     4,
-    sParticleSpriteSplashWaterSmallOAM_Frame1,
+    sParticleSpriteSplashWaterSmallOam_Frame1,
     4,
-    sParticleSpriteSplashWaterSmallOAM_Frame2,
+    sParticleSpriteSplashWaterSmallOam_Frame2,
     4,
-    sParticleSpriteSplashWaterSmallOAM_Frame3,
+    sParticleSpriteSplashWaterSmallOam_Frame3,
     4,
-    sParticleSpriteSplashWaterSmallOAM_Frame4,
+    sParticleSpriteSplashWaterSmallOam_Frame4,
     4,
-    sParticleSpriteSplashWaterSmallOAM_Frame5,
-    4,
-    NULL,
-    0
-};
-
-const struct FrameData sParticleSpriteSplashLavaBigOAM[10] = {
-    sParticleSpriteSplashLavaBigOAM_Frame0,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame1,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame2,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame3,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame4,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame5,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame6,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame7,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame8,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sParticleSpriteSplashLavaHugeOAM[10] = {
-    sParticleSpriteSplashLavaBigOAM_Frame0,
-    3,
-    sParticleSpriteSplashLavaBigOAM_Frame1,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame2,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame3,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame4,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame5,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame6,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame7,
-    3,
-    sParticleSpriteSplashLavaHugeOAM_Frame8,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sParticleSpriteSplashLavaSmallOAM[7] = {
-    sParticleSpriteSplashLavaSmallOAM_Frame0,
-    4,
-    sParticleSpriteSplashLavaSmallOAM_Frame1,
-    4,
-    sParticleSpriteSplashLavaSmallOAM_Frame2,
-    4,
-    sParticleSpriteSplashLavaSmallOAM_Frame3,
-    4,
-    sParticleSpriteSplashLavaSmallOAM_Frame4,
-    4,
-    sParticleSpriteSplashLavaSmallOAM_Frame5,
+    sParticleSpriteSplashWaterSmallOam_Frame5,
     4,
     NULL,
     0
 };
 
-const struct FrameData sParticleSpriteSplashAcidBigOAM[10] = {
-    sParticleSpriteSplashAcidBigOAM_Frame0,
+const struct FrameData sParticleSpriteSplashLavaBigOam[10] = {
+    sParticleSpriteSplashLavaBigOam_Frame0,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame1,
+    sParticleSpriteSplashLavaBigOam_Frame1,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame2,
+    sParticleSpriteSplashLavaBigOam_Frame2,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame3,
+    sParticleSpriteSplashLavaBigOam_Frame3,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame4,
+    sParticleSpriteSplashLavaBigOam_Frame4,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame5,
+    sParticleSpriteSplashLavaBigOam_Frame5,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame6,
+    sParticleSpriteSplashLavaBigOam_Frame6,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame7,
+    sParticleSpriteSplashLavaBigOam_Frame7,
     3,
-    sParticleSpriteSplashAcidBigOAM_Frame8,
-    3,
-    NULL,
-    0
-};
-
-const struct FrameData sParticleSpriteSplashAcidHugeOAM[10] = {
-    sParticleSpriteSplashAcidBigOAM_Frame0,
-    3,
-    sParticleSpriteSplashAcidBigOAM_Frame1,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame2,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame3,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame4,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame5,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame6,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame7,
-    3,
-    sParticleSpriteSplashAcidHugeOAM_Frame8,
+    sParticleSpriteSplashLavaBigOam_Frame8,
     3,
     NULL,
     0
 };
 
-const struct FrameData sParticleSpriteSplashAcidSmallOAM[7] = {
-    sParticleSpriteSplashAcidSmallOAM_Frame0,
+const struct FrameData sParticleSpriteSplashLavaHugeOam[10] = {
+    sParticleSpriteSplashLavaBigOam_Frame0,
+    3,
+    sParticleSpriteSplashLavaBigOam_Frame1,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame2,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame3,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame4,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame5,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame6,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame7,
+    3,
+    sParticleSpriteSplashLavaHugeOam_Frame8,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sParticleSpriteSplashLavaSmallOam[7] = {
+    sParticleSpriteSplashLavaSmallOam_Frame0,
     4,
-    sParticleSpriteSplashAcidSmallOAM_Frame1,
+    sParticleSpriteSplashLavaSmallOam_Frame1,
     4,
-    sParticleSpriteSplashAcidSmallOAM_Frame2,
+    sParticleSpriteSplashLavaSmallOam_Frame2,
     4,
-    sParticleSpriteSplashAcidSmallOAM_Frame3,
+    sParticleSpriteSplashLavaSmallOam_Frame3,
     4,
-    sParticleSpriteSplashAcidSmallOAM_Frame4,
+    sParticleSpriteSplashLavaSmallOam_Frame4,
     4,
-    sParticleSpriteSplashAcidSmallOAM_Frame5,
+    sParticleSpriteSplashLavaSmallOam_Frame5,
+    4,
+    NULL,
+    0
+};
+
+const struct FrameData sParticleSpriteSplashAcidBigOam[10] = {
+    sParticleSpriteSplashAcidBigOam_Frame0,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame1,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame2,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame3,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame4,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame5,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame6,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame7,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame8,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sParticleSpriteSplashAcidHugeOam[10] = {
+    sParticleSpriteSplashAcidBigOam_Frame0,
+    3,
+    sParticleSpriteSplashAcidBigOam_Frame1,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame2,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame3,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame4,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame5,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame6,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame7,
+    3,
+    sParticleSpriteSplashAcidHugeOam_Frame8,
+    3,
+    NULL,
+    0
+};
+
+const struct FrameData sParticleSpriteSplashAcidSmallOam[7] = {
+    sParticleSpriteSplashAcidSmallOam_Frame0,
+    4,
+    sParticleSpriteSplashAcidSmallOam_Frame1,
+    4,
+    sParticleSpriteSplashAcidSmallOam_Frame2,
+    4,
+    sParticleSpriteSplashAcidSmallOam_Frame3,
+    4,
+    sParticleSpriteSplashAcidSmallOam_Frame4,
+    4,
+    sParticleSpriteSplashAcidSmallOam_Frame5,
     4,
     NULL,
     0

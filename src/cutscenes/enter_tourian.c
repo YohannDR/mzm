@@ -192,7 +192,7 @@ void EnterTourianScrollBackground(void)
         CUTSCENE_DATA.unk_A = FALSE;
 
     pPosition = CutsceneGetBgHorizontalPointer(sEnterTourianPageData[0].bg);
-    *pPosition -= PIXEL_SIZE / PIXEL_SIZE;
+    *pPosition -= ONE_SUB_PIXEL;
 }
 
 /**
