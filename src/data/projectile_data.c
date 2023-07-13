@@ -2651,7 +2651,7 @@ const struct FrameData sParticleChargedPistolTrailOam[5] = {
     0x0
 };
 
-const struct FrameData sParticleEscapeOAM_Unused[2] = {
+const struct FrameData sParticleEscapeOam_Unused[2] = {
     gParticleEscapeOamFrames,
     UCHAR_MAX,
     NULL,

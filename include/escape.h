@@ -7,7 +7,7 @@
 
 u8 EscapeDetermineTimer(void);
 u8 EscapeCheckHasEscaped(void);
-void EscapeUpdateOAM(void);
+void EscapeUpdateOam(void);
 void EscapeCheckReloadGraphics(void);
 void EscapeStart(void);
 void EscapeSetTimer(void);

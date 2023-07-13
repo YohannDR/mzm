@@ -1,5 +1,6 @@
-#include "gba.h"
 #include "hud.h"
+#include "gba.h"
+#include "macros.h"
 #include "oam.h"
 
 #include "data/hud_data.h"
@@ -1208,17 +1209,28 @@ void HUDUpdateGfx(void)
  */
 void HudDrawSuitless(void)
 {
-    u32 chargeCounter;
+    u8 chargeCounter;
+    u8 normalized;
 
     chargeCounter = gSamusWeaponInfo.chargeCounter;
-    if (chargeCounter >= 0x70)
-        chargeCounter = (u8)(gSamusWeaponInfo.chargeCounter - 0x70) / 4 + 0x34;
-    else
-        chargeCounter /= 2;
-
-    if (chargeCounter < 0x38)
+    if (chargeCounter >= SUITLESS_BAR_NBR_ELEMS * 2)
     {
-        DMA_SET(3, sSuitlessHUDChargeBarGfx + chargeCounter * 256, VRAM_BASE + 0x11100, (DMA_ENABLE << 16) | 0x80);
+        // Normalize to 0
+        normalized = gSamusWeaponInfo.chargeCounter - SUITLESS_BAR_NBR_ELEMS * 2;
+
+        // Switch between the last 4 graphics
+        chargeCounter = normalized / 4 + SUITLESS_BAR_NBR_ELEMS - 4;
+    }
+    else
+    {
+        chargeCounter /= 2;
+    }
+
+    // Transfer graphics
+    if (chargeCounter < SUITLESS_BAR_NBR_ELEMS)
+    {
+        DMA_SET(3, &sSuitlessHUDChargeBarGfx[chargeCounter * SUITLESS_BAR_SIZE], VRAM_BASE + 0x11100,
+            C_32_2_16(DMA_ENABLE, SUITLESS_BAR_SIZE / 2));
     }
 }
 
@@ -1228,12 +1240,16 @@ void HudDrawSuitless(void)
  */
 void HudDraw(void)
 {
-    HudDrawEnergy(0x0);
+    HudDrawEnergy(0);
+
     HudDrawMissiles(FALSE);
     HudDrawPowerBomb(FALSE);
     HudDrawSuperMissiles(FALSE);
+
     HUDUpdateGfx();
+
     if (gEquipment.suitType == SUIT_SUITLESS)
         HudDrawSuitless();
+
     HUDUpdateOAM();
 }

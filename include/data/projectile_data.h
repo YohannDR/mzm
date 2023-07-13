@@ -618,7 +618,7 @@ extern const struct FrameData sChargedPistolOAM_Vertical[3];
 
 extern const struct FrameData sParticleChargedPistolTrailOam[5];
 
-extern const struct FrameData sParticleEscapeOAM_Unused[2];
+extern const struct FrameData sParticleEscapeOam_Unused[2];
 
 extern const struct FrameData sParticleSamusReflectionOAM_Unused[2];
 

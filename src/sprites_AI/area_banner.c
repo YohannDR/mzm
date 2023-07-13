@@ -1,8 +1,11 @@
 #include "sprites_AI/area_banner.h"
+#include "macros.h"
+
 #include "data/sprites/area_banner.h"
+
 #include "constants/sprite.h"
+
 #include "structs/sprite.h"
-#include "globals.h"
 
 /**
  * @brief 3c704 | a4 | Initializes an area banner sprite
@@ -13,37 +16,39 @@ void AreaBannerInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10,
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x80;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
 
-    gCurrentSprite.hitboxTopOffset = -0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = AREA_BANNER_POSE_SPAWN;
 
     if (gCurrentSprite.roomSlot < LT_MOTHERSHIP)
     {
         // Area name, spawn at bottom
-        gCurrentSprite.pOam = sAreaBannerOAM_SpawnBottom;
+        gCurrentSprite.pOam = sAreaBannerOam_SpawnBottom;
         gCurrentSprite.workVariable = TRUE;
         gCurrentSprite.yPosition = 0x98;
-        gCurrentSprite.xPosition = 0x78;
+        gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
     }
-    else if ((gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM) && gAlarmTimer != 0x0)
-        gCurrentSprite.status = 0x0; // Don't spawn save/map if alarm is active
+    else if ((gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM) && gAlarmTimer != 0)
+    {
+        gCurrentSprite.status = 0; // Don't spawn save/map if alarm is active
+    }
     else
     {
         // Spawn in middle
-        gCurrentSprite.pOam = sAreaBannerOAM_SpawnMiddle;
+        gCurrentSprite.pOam = sAreaBannerOam_SpawnMiddle;
         gCurrentSprite.workVariable = FALSE;
         gCurrentSprite.yPosition = 0x36;
-        gCurrentSprite.xPosition = 0x78;
+        gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
     }
 }
 
@@ -66,23 +71,23 @@ void AreaBannerScrollingUp(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = AREA_BANNER_POSE_STATIC;
 
         // Set OAM and timer for how long the message stays
         if (gCurrentSprite.workVariable) // Position flag, 1 = on bottom, 0 = in middle
         {
-            gCurrentSprite.pOam = sAreaBannerOAM_StaticBottom;
-            gCurrentSprite.timer = 0x78;
+            gCurrentSprite.pOam = sAreaBannerOam_StaticBottom;
+            gCurrentSprite.timer = 120;
         }
         else
         {
-            gCurrentSprite.pOam = sAreaBannerOAM_StaticMiddle;
+            gCurrentSprite.pOam = sAreaBannerOam_StaticMiddle;
             if (gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM)
-                gCurrentSprite.timer = 0x32;
+                gCurrentSprite.timer = 50;
             else
-                gCurrentSprite.timer = 0x5A;
+                gCurrentSprite.timer = 90;
         }
     }
 }
@@ -94,17 +99,17 @@ void AreaBannerScrollingUp(void)
 void AreaBannerStatic(void)
 {
     gCurrentSprite.timer--; // Timer for how long it stays
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = AREA_BANNER_POSE_REMOVING;
 
         // Set OAM
         if (gCurrentSprite.workVariable)
-            gCurrentSprite.pOam = sAreaBannerOAM_RemovingBottom;
+            gCurrentSprite.pOam = sAreaBannerOam_RemovingBottom;
         else
-            gCurrentSprite.pOam = sAreaBannerOAM_RemovingMiddle;
+            gCurrentSprite.pOam = sAreaBannerOam_RemovingMiddle;
     }
 }
 
@@ -115,7 +120,7 @@ void AreaBannerStatic(void)
 void AreaBannerCheckRemovingAnimEnded(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
-        gCurrentSprite.status = 0x0; // Kill sprite
+        gCurrentSprite.status = 0; // Kill sprite
 }
 
 /**
@@ -124,10 +129,11 @@ void AreaBannerCheckRemovingAnimEnded(void)
  */
 void AreaBanner(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             AreaBannerInit();
             break;
 

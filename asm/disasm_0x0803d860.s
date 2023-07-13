@@ -409,8 +409,8 @@ lbl_0803db78:
 lbl_0803db84: .4byte gCurrentSprite
 lbl_0803db88: .4byte gCurrentClipdataAffectingAction
 
-    thumb_func_start AcidWormPlaySound
-AcidWormPlaySound: @ 0x0803db8c
+    thumb_func_start AcidWormPlayRetractingSound
+AcidWormPlayRetractingSound: @ 0x0803db8c
     push {lr}
     ldr r0, lbl_0803dba0 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
@@ -458,7 +458,7 @@ lbl_0803dbc8:
     adds r1, #0x24
     movs r0, #0x27
     strb r0, [r1]
-    bl AcidWormPlaySound
+    bl AcidWormPlayRetractingSound
     movs r0, #1
 lbl_0803dbe8:
     pop {r1}
@@ -1591,7 +1591,7 @@ lbl_0803e4f6:
     subs r1, #8
     movs r0, #0x27
     strb r0, [r1]
-    bl AcidWormPlaySound
+    bl AcidWormPlayRetractingSound
     b lbl_0803e6a8
     .align 2, 0
 lbl_0803e504: .4byte gSubSpriteData1
@@ -1802,7 +1802,7 @@ lbl_0803e68e:
     adds r1, #0x24
     movs r0, #0x27
     strb r0, [r1]
-    bl AcidWormPlaySound
+    bl AcidWormPlayRetractingSound
 lbl_0803e6a8:
     add sp, #0xc
     pop {r4, r5}

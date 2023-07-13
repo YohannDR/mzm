@@ -32,6 +32,6 @@ extern const struct FrameData sParticleSpriteSplashAcidHugeOam[10];
 extern const struct FrameData sParticleSpriteSplashAcidSmallOam[7];
 
 extern const u8 sEscapeTimerDigitsGfx[1024 * 2];
-extern const u16 sParticleEscapeOAM[34];
+extern const u16 sParticleEscapeOam[34];
 
 #endif /* VISUAL_EFFECTS_DATA_H */

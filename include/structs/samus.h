@@ -2,6 +2,7 @@
 #define SAMUS_STRUCT_H
 
 #include "types.h"
+#include "macros.h"
 
 #define MAX_AMOUNT_OF_SAMUS_POSES 67
 

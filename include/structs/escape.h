@@ -20,4 +20,14 @@ extern u8 gCurrentEscapeStatus;
 extern u8 gEscapeTimerCounter;
 extern struct EscapeDigits gEscapeTimerDigits;
 
-#endif
+#define CREATE_ESCAPE_TIMER(minutes, seconds, milli)\
+{\
+    gEscapeTimerDigits.hundredths = (milli) % 10;\
+    gEscapeTimerDigits.tenths = (milli) / 10;\
+    gEscapeTimerDigits.secondsOnes = (seconds) % 10;\
+    gEscapeTimerDigits.secondsTens = (seconds) / 10;\
+    gEscapeTimerDigits.minutesOnes = (minutes) % 10;\
+    gEscapeTimerDigits.minutesTens = (minutes) / 10;\
+}
+
+#endif /* ESCAPE_STRUCT_H */

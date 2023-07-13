@@ -557,7 +557,7 @@ u32 SramProcessEndingSave_Unused(void)
             // 0 | 0 | Hard hiragana | Normal hiragana | Easy hiragana | Hard english | Normal english | Easy english
             bit = 1;
             if (gLanguage == LANGUAGE_HIRAGANA)
-                bit = 8;
+                bit = 1 << 3;
 
             gGameCompletion.completedGame |= bit << gDifficulty;
 

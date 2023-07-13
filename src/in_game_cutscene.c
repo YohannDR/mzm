@@ -196,11 +196,11 @@ void unk_5fd58(void)
     {
         for (j = 0; j < 10; j++)
         {
-            value = src[i * 0x20 + j] & 0xFFF;
+            value = src[i * 32 + j] & 0xFFF;
 
-            dst[i * 0x20 + j] = (dst[i * 0x20 + j] & 0xF000) | value;
-            dst[i * 0x20 + j + 10] = (dst[i * 0x20 + j + 10] & 0xF000) | value;
-            dst[i * 0x20 + j + 20] = (dst[i * 0x20 + j + 20] & 0xF000) | value;
+            dst[i * 32 + j] = (dst[i * 32 + j] & 0xF000) | value;
+            dst[i * 32 + j + 10] = (dst[i * 32 + j + 10] & 0xF000) | value;
+            dst[i * 32 + j + 20] = (dst[i * 32 + j + 20] & 0xF000) | value;
         }
     }
 }
@@ -284,7 +284,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 2:
-            if (gInGameCutscene.timer & 1)
+            if (MOD_AND(gInGameCutscene.timer, 2))
                 break;
 
             if (gWrittenToBLDALPHA_H != 16)
@@ -307,21 +307,21 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
                 changeStage++;
            
             gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
-            changeStage >>= 1;
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 3:
             // Hide BG0, and backup its tilemap
             gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay & ~DCNT_BG0;
-            DMA_SET(3, VRAM_BASE + 0x800, EWRAM_BASE + 0x1E000, DMA_ENABLE << 16 | 0x400);
+            DMA_SET(3, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), EWRAM_BASE + 0x1E000, C_32_2_16(DMA_ENABLE, BGCNT_VRAM_TILE_SIZE / 2));
 
             changeStage = TRUE;
             break;
 
         case 4:
             // Fill BG0 tilemap with tile 0xC0, palette 9 
-            BitFill(3, (9 << 0xC) | 0xC0, VRAM_BASE + 0x800, 0x800, 16);
-            write16(REG_BG0CNT, 0x104);
+            BitFill(3, (9 << 12) | 0xC0, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), 0x800, 16);
+            write16(REG_BG0CNT, CREATE_BGCNT(1, 1, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
 
             changeStage = TRUE;
             break;
@@ -338,14 +338,14 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay;
             gWrittenToWININ_H = 0x3F;
             gWrittenToWINOUT_L = 0x1E;
-            gWrittenToBLDALPHA = 0x100D;
-            gWrittenToBLDCNT = 0x3F41;
+            gWrittenToBLDALPHA = C_16_2_8(16, 13);
+            gWrittenToBLDCNT = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
             gSuitFlashEffect.left = left;
             gSuitFlashEffect.right = right;
             gSuitFlashEffect.top = top;
             gSuitFlashEffect.bottom = bottom;
-            gSuitFlashEffect.timer = 0x0;
+            gSuitFlashEffect.timer = 0;
 
             if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_VARIA)
                 SoundPlay(0x222); // Varia upgrade sound
@@ -378,7 +378,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             else
                 changeStage++;
 
-            changeStage >>= 1;
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 9:
@@ -404,7 +404,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             else
                 changeStage++;
 
-            changeStage >>= 1;
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 10:
@@ -430,8 +430,8 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
         case 13:
             // Handle suit flash shrinking vertically
             result = InGameCutsceneCalculateSuitFlashOffset(3, top - gSuitFlashEffect.top, gSuitFlashEffect.bottom - bottom);
-            res_1 = result & 0xFF;
-            res_2 = (result & 0xFF00) >> 8;
+            res_1 = LOW_BYTE(result);
+            res_2 = HIGH_BYTE(result);
                 
             if (gSuitFlashEffect.top < top)
             {
@@ -451,14 +451,14 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             else
                 changeStage++;
 
-            changeStage >>= 1;
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 14:
             // Handle suit flash shrinking horizontally
             result = InGameCutsceneCalculateSuitFlashOffset(9, left - gSuitFlashEffect.left, gSuitFlashEffect.right - right);
-            res_1 = result & 0xFF;
-            res_2 = (result & 0xFF00) >> 8;
+            res_1 = LOW_BYTE(result);
+            res_2 = HIGH_BYTE(result);
 
             if (gSuitFlashEffect.left < left)
             {
@@ -478,7 +478,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             else
                 changeStage++;
 
-            changeStage >>= 1;
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 15:
@@ -498,7 +498,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
         case 16:
             // Put BG0 in the state it was before the cutscene
-            DMA_SET(3, EWRAM_BASE + 0x1E000, VRAM_BASE + 0x800, DMA_ENABLE << 16 | 0x400);
+            DMA_SET(3, EWRAM_BASE + 0x1E000, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), C_32_2_16(DMA_ENABLE, BGCNT_VRAM_TILE_SIZE / 2));
             write16(REG_BG0CNT, gIoRegistersBackup.BG0CNT);
 
             changeStage = TRUE;
@@ -533,8 +533,8 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             else
                 changeStage++;
 
-            gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
-            changeStage >>= 1;
+            gWrittenToBLDALPHA = C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L);
+            changeStage = DIV_SHIFT(changeStage, 2);
             break;
 
         case 19:
@@ -559,8 +559,8 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
     }
 
     // Update window 1
-    gWrittenToWIN1H = gSuitFlashEffect.left << 8 | gSuitFlashEffect.right;
-    gWrittenToWIN1V = gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom;
+    gWrittenToWIN1H = C_16_2_8(gSuitFlashEffect.left, gSuitFlashEffect.right);
+    gWrittenToWIN1V = C_16_2_8(gSuitFlashEffect.top, gSuitFlashEffect.bottom);
 
     return ended;
 }
@@ -601,7 +601,7 @@ u16 InGameCutsceneCalculateSuitFlashOffset(u8 intensity, u8 start, u8 end)
         newEnd = intensity;
     }
 
-    return newEnd << 8 | newStart;
+    return C_16_2_8(newEnd, newStart);
 }
 
 /**
@@ -756,7 +756,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
         for (i = 0; i < ARRAY_SIZE(sInGameCutsceneData); i++)
         {
             // ?
-            if (i % 32 == 0 && gInGameCutscenesTriggered[i >> 5] == -1)
+            if (i % 32 == 0 && gInGameCutscenesTriggered[DIV_SHIFT(i, 32)] == -1)
             {
                 i += 32;
                 continue;
@@ -794,7 +794,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             CallLZ77UncompVRAM(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
             CallLZ77UncompWRAM(sSamusCloseUpBackgroundMap, gDecompBG0Map);
             CallLZ77UncompWRAM(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
-            DMA_SET(3, sSamusCloseUpPAL, PALRAM_BASE + 0xE0, DMA_ENABLE << 16 | 0x60);
+            DMA_SET(3, sSamusCloseUpPal, PALRAM_BASE + 0xE0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sSamusCloseUpPal)));
 
             unk_5fd58();
 
@@ -900,13 +900,13 @@ void UpdateAnimatedPaletteAfterTransitionOrReload(void)
     if (gPauseScreenFlag)
     {
         if (gAnimatedGraphicsEntry.palette != 0) // FIXME add symbol for ewram address
-            DMA_SET(3, ANIMATED_PALETTE_EWRAM, ANIMATED_PALETTE_PALRAM, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, ANIMATED_PALETTE_EWRAM, ANIMATED_PALETTE_PALRAM, C_32_2_16(DMA_ENABLE, 16));
     }
     else
     {
         gInGameCutscene.stage = 0;
         gInGameCutscene.timer = 0;
-        AnimatedPaletteCheckDisableOnTransition(); // Undefined
+        AnimatedPaletteCheckDisableOnTransition();
     }
 }
 

@@ -17,786 +17,786 @@
 	.timer = 0,				  		 \
 }
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame4[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame4[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame6[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame6[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame7[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame7[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame9[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Frame9[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame9[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Running_Frame9[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame7[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame7[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame8[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame8[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame9[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Frame9[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame7[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame7[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame8[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame8[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame9[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Frame9[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_Running_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Standing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame6[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame6[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame7[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame7[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame9[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Frame9[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_Running_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Standing_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalUp_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalUp_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalUp_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalUp_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalDown_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalDown_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DiagonalDown_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DiagonalDown_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Up_Standing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Up_Standing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Up_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_Up_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Up_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Up_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Crouching_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Crouching_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_ShootingAndCrouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_ShootingAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_ShootingAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame0[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame0[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame1[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame1[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame2[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Crouching_Frame2[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Crouching_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(11, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(11, 10)] = {
 	11, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_GettingKnockedBack_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(11, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(11, 8)] = {
 	11, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_GettingKnockedBack_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Forward_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Forward_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_Running_Speedboosting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Forward_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Forward_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_Running_Speedboosting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame0[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame0[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame1[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame1[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Skidding_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame0[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame0[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Armed_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame1[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame1[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Armed_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Armed_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Armed_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 12)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame0[SAMUS_GFX_SIZE(14, 12)] = {
 	14, 12,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 12)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame0[SAMUS_GFX_SIZE(14, 12)] = {
 	14, 12,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Armed_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Armed_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Armed_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Armed_Skidding_Frame2.gfx")
 };
@@ -4490,358 +4490,358 @@ const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Armed_Skidding[4] = {
 	[3] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DelayBeforeShinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DelayBeforeShinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DelayBeforeShinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_MidAir_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_Landing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Landing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Landing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_None_Landing_Frame1[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_None_Landing_Frame1[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_None_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_Landing_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_Landing_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_None_Landing_Frame2[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_None_Landing_Frame2[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_None_Landing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_Landing_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_Landing_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_Landing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Landing_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Landing_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Landing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_DelayBeforeShinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_DelayBeforeShinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DelayBeforeShinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_None_Landing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_None_Landing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_None_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_None_Landing_Frame2[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_None_Landing_Frame2[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_None_Landing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_MidAir_Frame0[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_MidAir_Frame0[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Landing_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Landing_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Landing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_MidAir_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Down_MidAir_Frame0[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Down_MidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame0[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame0[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Spinning_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame0[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame0[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Spinning_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_DelayBeforeShinesparking_Frame3[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DelayBeforeShinesparking_Frame3[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DelayBeforeShinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_StartingWallJump_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_StartingWallJump_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_StartingWallJump_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_StartingWallJump_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Shinesparking_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame5[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame5[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Shinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame4[SAMUS_Gfx_SIZE(7, 7)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame4[SAMUS_GFX_SIZE(7, 7)] = {
 	7, 7,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame2[SAMUS_Gfx_SIZE(7, 7)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame2[SAMUS_GFX_SIZE(7, 7)] = {
 	7, 7,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame8[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame8[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame7[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame7[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame6[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Shinesparking_Frame6[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Shinesparking_Frame6.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Sidewards_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Sidewards_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Sidewards_Shinesparking_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Sidewards_Shinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Sidewards_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Sidewards_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame3[SAMUS_Gfx_SIZE(9, 9)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Sidewards_Shinesparking_Frame3[SAMUS_GFX_SIZE(9, 9)] = {
 	9, 9,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Sidewards_Shinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SpaceJumping_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SpaceJumping_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SpaceJumping_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_SpaceJumping_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SpaceJumping_Frame3.gfx")
 };
@@ -6852,332 +6852,332 @@ const struct SamusAnimationData sSamusAnim_PowerSuit_Right_SpaceJumping[9] = {
 	[8] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Morphing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame0[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame0[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame6[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame6[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame5[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame5[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame4[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame4[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame3[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame3[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame2[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame2[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Morphball_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Morphing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_TurningAround_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalUp_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalUp_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalDown_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalDown_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Up_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Up_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningAroundAndCrouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_TurningAroundAndCrouching_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningAroundAndCrouching_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Down_TurningAroundMidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_FacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame1[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_FacingTheForeground_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame2[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_FacingTheForeground_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_UsingAnElevator_Frame1[SAMUS_Gfx_SIZE(12, 9)] = {
+const u8 sSamusGfx_Top_PowerSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)] = {
 	12, 9,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_UsingAnElevator_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_TurningOnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalDown_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DiagonalDown_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Down_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Down_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame0[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame0[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_MorphballMotionless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_MorphballMotionless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame2[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame2[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_MorphballMotionless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame3[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame3[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_MorphballMotionless_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame1[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame1[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame2[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame2[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame3[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame3[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame4[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame4[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame5[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame5[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame6[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame6[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame7[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame7[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame8[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame8[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame9[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame9[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame10[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_SavingLoadingGame_Frame10[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_SavingLoadingGame_Frame10.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame1[SAMUS_Gfx_SIZE(3, 1)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame1[SAMUS_GFX_SIZE(3, 1)] = {
 	3, 1,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame2[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame2[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame3[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame3[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame5[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame5[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame7[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame7[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_DownloadingMapData_Frame7.gfx")
 };
@@ -8758,431 +8758,431 @@ const struct SamusAnimationData sSamusAnim_256484[12] = {
 	[11] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_HangingOnLedge_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_HangingOnLedge_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_HangingOnLedge_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_PullingYourselfUpForwardFromHanging_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Down_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_HangingOnLedge_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_HangingOnLedge_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_HangingOnLedge_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_PullingYourselfForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_PullingYourselfForwardFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Down_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_PowerSuit_ShootingOnZipline_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_ShootingOnZipline_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_ShootingOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Down_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Down_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Down_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_AimingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_AimingWhileHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Right_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Right_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Up_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Up_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Down_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Down_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Down_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_AimingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_AimingWhileHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_PowerSuit_Left_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Bottom_Left_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Up_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Up_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Down_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Down_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Down_AimingWhileHanging_Frame2.gfx")
 };
@@ -10596,168 +10596,168 @@ const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Down_ShootingOnZiplin
 	[3] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Dying_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Dying_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Left_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Left_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Left_Dying_Frame10[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame10[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame10.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame17[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame17[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame17.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame18[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame18[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame18.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame19[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame19[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame19.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame20[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame20[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame20.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame21[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame21[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame21.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame22[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame22[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame22.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame23[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame23[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame23.gfx")
 };
 
-const u8 sSamusGfx_Top_Left_Dying_Frame24[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Left_Dying_Frame24[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Left_Dying_Frame24.gfx")
 };
 
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Dying_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Dying_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_PowerSuit_Right_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_PowerSuit_Right_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Right_Dying_Frame10[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame10[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame10.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame17[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame17[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame17.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame18[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame18[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame18.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame19[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame19[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame19.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame20[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame20[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame20.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame21[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame21[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame21.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame22[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame22[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame22.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame23[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame23[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame23.gfx")
 };
 
-const u8 sSamusGfx_Top_Right_Dying_Frame24[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_Right_Dying_Frame24[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/power_suit/Top_Right_Dying_Frame24.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Dying_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Dying_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Dying_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Dying_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Dying_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Dying_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Dying_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Dying_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Dying_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Dying_Frame2[SAMUS_Gfx_SIZE(9, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Dying_Frame2[SAMUS_GFX_SIZE(9, 8)] = {
 	9, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Dying_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Dying_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Dying_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Dying_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Dying_Frame2[SAMUS_Gfx_SIZE(9, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Dying_Frame2[SAMUS_GFX_SIZE(9, 8)] = {
 	9, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Dying_Frame2.gfx")
 };
@@ -11795,785 +11795,785 @@ const struct SamusAnimationData sSamusAnim_Suitless_Right_Dying[26] = {
 	[25] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame1[SAMUS_Gfx_SIZE(7, 7)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame1[SAMUS_GFX_SIZE(7, 7)] = {
 	7, 7,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame4[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame4[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame6[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame6[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame7[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame7[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame8[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame8[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame9[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Frame9[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Running_Frame9[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Running_Frame9[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame7[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame7[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame8[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame8[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame9[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Frame9[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame7[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame7[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame9[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Frame9[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_Running_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Standing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame9[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Frame9[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_Running_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Standing_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalUp_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalUp_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalUp_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalUp_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalDown_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalDown_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DiagonalDown_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DiagonalDown_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Up_Standing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Up_Standing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_Standing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Up_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_Up_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Up_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Up_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Crouching_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Crouching_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_ShootingAndCrouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_ShootingAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_ShootingAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Crouching_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(12, 11)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(12, 11)] = {
 	12, 11,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_GettingKnockedBack_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(10, 9)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(10, 9)] = {
 	10, 9,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(11, 9)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(11, 9)] = {
 	11, 9,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_GettingKnockedBack_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(7, 7)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(7, 7)] = {
 	7, 7,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Forward_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Forward_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_Running_Speedboosting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame9[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Forward_Running_Speedboosting_Frame9[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Forward_Running_Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_Running_Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_Running_Speedboosting_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_Running_Speedboosting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 10)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame0[SAMUS_GFX_SIZE(14, 10)] = {
 	14, 10,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame1[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame2[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Skidding_Frame2[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Skidding_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 10)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame0[SAMUS_GFX_SIZE(14, 10)] = {
 	14, 10,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Armed_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame1[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Armed_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame2[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Armed_Skidding_Frame2[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Armed_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 12)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame0[SAMUS_GFX_SIZE(14, 12)] = {
 	14, 12,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Skidding_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame0[SAMUS_Gfx_SIZE(14, 12)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame0[SAMUS_GFX_SIZE(14, 12)] = {
 	14, 12,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Armed_Skidding_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame1[SAMUS_Gfx_SIZE(12, 10)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame1[SAMUS_GFX_SIZE(12, 10)] = {
 	12, 10,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Armed_Skidding_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Armed_Skidding_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Armed_Skidding_Frame2.gfx")
 };
@@ -16339,363 +16339,363 @@ const struct SamusAnimationData sSamusAnim_FullSuit_Right_Armed_Skidding[4] = {
 	[3] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DelayBeforeShinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DelayBeforeShinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DelayBeforeShinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_MidAir_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_Landing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Landing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Landing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_None_Landing_Frame1[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_None_Landing_Frame1[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_None_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_Landing_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_Landing_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_None_Landing_Frame2[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_None_Landing_Frame2[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_None_Landing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_Landing_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_Landing_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_Landing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Landing_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Landing_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Landing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_DelayBeforeShinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_DelayBeforeShinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DelayBeforeShinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_None_Landing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_None_Landing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_None_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_None_Landing_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_None_Landing_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_None_Landing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Landing_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Landing_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Landing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Down_MidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame0[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame0[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Spinning_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame0[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame0[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Spinning_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_DelayBeforeShinesparking_Frame3[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DelayBeforeShinesparking_Frame3[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DelayBeforeShinesparking_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_DelayBeforeShinesparking_Frame3[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_DelayBeforeShinesparking_Frame3[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DelayBeforeShinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_StartingWallJump_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_StartingWallJump_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_StartingWallJump_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_StartingWallJump_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Shinesparking_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame5[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame5[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Shinesparking_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame4[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame4[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame8[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame8[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame7[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame7[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame6[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Shinesparking_Frame6[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Shinesparking_Frame6.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Sidewards_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Sidewards_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Sidewards_Shinesparking_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Sidewards_Shinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Sidewards_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Sidewards_Shinesparking_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame3[SAMUS_Gfx_SIZE(9, 9)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Sidewards_Shinesparking_Frame3[SAMUS_GFX_SIZE(9, 9)] = {
 	9, 9,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Sidewards_Shinesparking_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SpaceJumping_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SpaceJumping_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SpaceJumping_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame3[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_SpaceJumping_Frame3[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SpaceJumping_Frame3.gfx")
 };
@@ -18848,332 +18848,332 @@ const struct SamusAnimationData sSamusAnim_FullSuit_Right_SpaceJumping[9] = {
 	[8] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Morphing_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Morphing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphing_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame0[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame0[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphing_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphing_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame6[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame6[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame5[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame5[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame4[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame4[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame3[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame3[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame2[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Morphball_Frame2[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Morphball_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Morphing_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Morphing_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Morphing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_TurningAround_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_FullSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalUp_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalUp_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalUp_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalUp_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalUp_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalUp_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningAround_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningAround_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalDown_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningAround_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalDown_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Up_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Up_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Up_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Up_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_Up_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Up_TurningAround_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_TurningAroundAndCrouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningAroundAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningAroundAndCrouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_TurningAroundAndCrouching_Frame0[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Bottom_FullSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_TurningAroundAndCrouching_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_TurningAroundAndCrouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningAroundAndCrouching_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Down_TurningAroundMidAir_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Down_TurningAroundMidAir_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Down_TurningAroundMidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_FacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame1[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_FacingTheForeground_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame2[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_FacingTheForeground_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_UsingAnElevator_Frame1[SAMUS_Gfx_SIZE(12, 9)] = {
+const u8 sSamusGfx_Top_FullSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)] = {
 	12, 9,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_UsingAnElevator_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_TurningOnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalDown_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_DiagonalDown_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DiagonalDown_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Down_TurningOnZipline_Frame1[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_FullSuit_Down_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Down_TurningOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Down_TurningOnZipline_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Down_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Down_TurningOnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame0[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame0[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_MorphballMotionless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_MorphballMotionless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame2[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame2[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_MorphballMotionless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame3[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Top_FullSuit_MorphballMotionless_Frame3[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_MorphballMotionless_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame1[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame1[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame2[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame2[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame3[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame3[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame4[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame4[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame5[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame5[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame6[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame6[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame7[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame7[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame8[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame8[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame9[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame9[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame10[SAMUS_Gfx_SIZE(12, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_SavingLoadingGame_Frame10[SAMUS_GFX_SIZE(12, 6)] = {
 	12, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_SavingLoadingGame_Frame10.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(10, 8)] = {
+const u8 sSamusGfx_Top_FullSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(10, 8)] = {
 	10, 8,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame1[SAMUS_Gfx_SIZE(3, 1)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame1[SAMUS_GFX_SIZE(3, 1)] = {
 	3, 1,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame2[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame2[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame3[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame3[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame4[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame4[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame5[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame5[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame7[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusGfx_Bottom_FullSuit_DownloadingMapData_Frame7[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_DownloadingMapData_Frame7.gfx")
 };
@@ -20823,431 +20823,431 @@ const struct SamusAnimationData sSamusAnim_27f430[12] = {
 	[11] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_HangingOnLedge_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_HangingOnLedge_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_HangingOnLedge_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(7, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_GFX_SIZE(7, 4)] = {
 	7, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_PullingYourselfUpForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_PullingYourselfUpForwardFromHanging_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_PullingYourselfUpForwardFromHanging_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Down_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_HangingOnLedge_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_HangingOnLedge_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_HangingOnLedge_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_PullingYourselfForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_PullingYourselfForwardFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Down_AimingWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_FullSuit_ShootingOnZipline_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_ShootingOnZipline_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_ShootingOnZipline_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Down_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Down_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_OnZipline_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Down_OnZipline_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Down_OnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Down_OnZipline_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_AimingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_AimingWhileHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Right_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Right_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalUp_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_DiagonalDown_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Up_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Up_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Down_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_FullSuit_Right_Down_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Right_Down_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_AimingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_AimingWhileHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_FullSuit_Left_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/full_suit/Bottom_Left_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalUp_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalUp_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_DiagonalDown_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_DiagonalDown_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Up_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Up_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Down_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_FullSuit_Left_Down_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/full_suit/Top_Left_Down_AimingWhileHanging_Frame2.gfx")
 };
@@ -22664,193 +22664,193 @@ const struct SamusAnimationData sSamusAnim_FullSuit_Right_Down_ShootingOnZipline
 	[3] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame0[SAMUS_Gfx_SIZE(5, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame0[SAMUS_GFX_SIZE(5, 0)] = {
 	5, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame1[SAMUS_Gfx_SIZE(5, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame1[SAMUS_GFX_SIZE(5, 0)] = {
 	5, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame2[SAMUS_Gfx_SIZE(5, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 0)] = {
 	5, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame2.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame3[SAMUS_Gfx_SIZE(6, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame3[SAMUS_GFX_SIZE(6, 0)] = {
 	6, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame3.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame4[SAMUS_Gfx_SIZE(5, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame4[SAMUS_GFX_SIZE(5, 0)] = {
 	5, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame4.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame5[SAMUS_Gfx_SIZE(6, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame5[SAMUS_GFX_SIZE(6, 0)] = {
 	6, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame5.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame6[SAMUS_Gfx_SIZE(6, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 0)] = {
 	6, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame6.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame7[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame7[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame7.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame8[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame8[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame8.gfx")
 };
 
-const u8 sSamusEffectGfx_Speedboosting_Frame9[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusEffectGfx_Speedboosting_Frame9[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/effects/Speedboosting_Frame9.gfx")
 };
 
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame0[SAMUS_Gfx_SIZE(1, 0)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame0[SAMUS_GFX_SIZE(1, 0)] = {
 	1, 0,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame1[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame1[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame2.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame3[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame3[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame3.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame4[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame4[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame4.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame5[SAMUS_Gfx_SIZE(10, 3)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame5[SAMUS_GFX_SIZE(10, 3)] = {
 	10, 3,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame5.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame6[SAMUS_Gfx_SIZE(6, 1)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame6[SAMUS_GFX_SIZE(6, 1)] = {
 	6, 1,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame6.gfx")
 };
 
-const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame7[SAMUS_Gfx_SIZE(3, 1)] = {
+const u8 sSamusEffectGfx_DelayBeforeBallsparking_Frame7[SAMUS_GFX_SIZE(3, 1)] = {
 	3, 1,
 	_INCBIN_U8("data/samus/graphics/effects/DelayBeforeBallsparking_Frame7.gfx")
 };
 
 
-const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/effects/Sidewards_Shinesparking_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/effects/Sidewards_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/effects/Sidewards_Shinesparking_Frame2.gfx")
 };
 
 
-const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame0[SAMUS_Gfx_SIZE(9, 8)] = {
+const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame0[SAMUS_GFX_SIZE(9, 8)] = {
 	9, 8,
 	_INCBIN_U8("data/samus/graphics/effects/Diagonal_Shinesparking_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/effects/Diagonal_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame2[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame2[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/effects/Diagonal_Shinesparking_Frame2.gfx")
 };
 
 
-const u8 sSamusEffectGfx_Up_Shinesparking_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusEffectGfx_Up_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/effects/Up_Shinesparking_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_Up_Shinesparking_Frame1[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusEffectGfx_Up_Shinesparking_Frame1[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/effects/Up_Shinesparking_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_Up_Shinesparking_Frame2[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusEffectGfx_Up_Shinesparking_Frame2[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/effects/Up_Shinesparking_Frame2.gfx")
 };
 
 
-const u8 sSamusEffectGfx_ScrewAttacking_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusEffectGfx_ScrewAttacking_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/effects/ScrewAttacking_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_ScrewAttacking_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusEffectGfx_ScrewAttacking_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/effects/ScrewAttacking_Frame2.gfx")
 };
 
-const u8 sSamusEffectGfx_ScrewAttacking_Frame4[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusEffectGfx_ScrewAttacking_Frame4[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/effects/ScrewAttacking_Frame4.gfx")
 };
 
-const u8 sSamusEffectGfx_ScrewAttacking_Frame6[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusEffectGfx_ScrewAttacking_Frame6[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/effects/ScrewAttacking_Frame6.gfx")
 };
 
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame0[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame0[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame0.gfx")
 };
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame1.gfx")
 };
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame2[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame2[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame2.gfx")
 };
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame3[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame3[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame3.gfx")
 };
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame4[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame4[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame4.gfx")
 };
 
-const u8 sSamusEffectGfx_StoringShinespark_Frame5[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusEffectGfx_StoringShinespark_Frame5[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/effects/StoringShinespark_Frame5.gfx")
 };
@@ -23803,767 +23803,767 @@ const struct SamusEffectAnimationData sSamusEffectAnim_Right_Diagonal_Ballsparki
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame3[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame3[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame4[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame4[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame6[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame6[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame6[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame6[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame7[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame7[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame7[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame7[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame8[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame8[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Running_Frame9[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Running_Frame9[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Running_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Running_Frame9[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Running_Frame9[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame1[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame1[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame2[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame2[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame3[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame3[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame6[SAMUS_Gfx_SIZE(5, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame6[SAMUS_GFX_SIZE(5, 4)] = {
 	5, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame7[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame7[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame8[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame8[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Running_Frame9[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Running_Frame9[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Running_Frame9.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame4[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame4[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Forward_Running_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Forward_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame4[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame4[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Running_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame5[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Running_Frame5[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame0[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame0[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame1[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame1[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame2[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame2[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame3[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame3[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame4[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame4[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame5[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Forward_Running_Frame5[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Forward_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame4[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame4[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame5[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Running_Frame5[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame3[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame3[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame4[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame4[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame5[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Running_Frame5[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Running_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Standing_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Standing_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Shooting_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Shooting_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Shooting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalUp_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalUp_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalUp_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalUp_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Shooting_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Shooting_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_Shooting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalUp_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalUp_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_DiagonalUp_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalDown_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalDown_Standing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_DiagonalDown_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DiagonalDown_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Shooting_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_Shooting_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalDown_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalDown_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_DiagonalDown_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_Standing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_Up_Standing_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Up_Standing_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Up_Standing_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Up_Standing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_Right_Up_Standing_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_Up_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_Up_Standing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_Shooting_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Up_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Up_Shooting_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Up_Shooting_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Standing_Frame0[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Standing_Frame0[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Shooting_Frame0[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Shooting_Frame0[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Shooting_Frame1[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Shooting_Frame1[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Shooting_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Shooting_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Shooting_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_Shooting_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Shooting_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Shooting_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Shooting_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_Shooting_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_Standing_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_Standing_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_Standing_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_Shooting_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_Shooting_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_Shooting_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_Shooting_Frame1[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_Shooting_Frame1[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_Shooting_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crouching_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crouching_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrouchingSuitless_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_Crouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_Crouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_Crouching_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_Crouching_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_Crouching_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_Crouching_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingAndCrouching_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingAndCrouching_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingAndCrouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingAndCrouching_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingAndCrouching_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_ShootingAndCrouching_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_ShootingAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_ShootingAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Crouching_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crouching_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crouching_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingAndCrouching_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingAndCrouching_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingAndCrouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingAndCrouching_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingAndCrouching_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(11, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(11, 8)] = {
 	11, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_GettingKnockedBack_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_GettingKnockedBack_Frame0[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_GettingKnockedBack_Frame0[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_GettingKnockedBack_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_GettingKnockedBack_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_GettingKnockedBack_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_GettingKnockedBack_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingSuitless_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_UncrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_UncrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_UncrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_UncrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_UncrouchingSuitless_Frame4[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_UncrouchingSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingSuitless_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame0[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_UncrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame1[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_UncrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame2[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_UncrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame3[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_UncrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_UncrouchingSuitless_Frame4[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_UncrouchingSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_UncrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_UncrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_UncrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_UncrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_UncrouchingSuitless_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_UncrouchingSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_UncrouchingSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame1[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame1[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_UncrouchingSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_UncrouchingSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame3[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame3[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_UncrouchingSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame4[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_UncrouchingSuitless_Frame4[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_UncrouchingSuitless_Frame4.gfx")
 };
@@ -27490,446 +27490,446 @@ const struct SamusAnimationData sSamusAnim_Suitless_Right_Up_UncrouchingSuitless
 	[5] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_MidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_MidAir_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame3[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame3[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_MidAir_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame4[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_MidAir_Frame4[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_MidAir_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_MidAir_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_Landing_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Landing_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Landing_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame1[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame1[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Landing_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Landing_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Landing_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Landing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Landing_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Landing_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Landing_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_Landing_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Landing_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame4[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame4[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Landing_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame5[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Landing_Frame5[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Landing_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame3[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame3[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame4[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame4[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_MidAir_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalUp_Landing_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalUp_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_DiagonalUp_Landing_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame3[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame3[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame4[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame4[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_MidAir_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalDown_Landing_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalDown_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_DiagonalDown_Landing_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_MidAir_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Up_Landing_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Up_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Up_Landing_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Down_MidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Down_MidAir_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Down_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame3[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame3[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame4[SAMUS_Gfx_SIZE(8, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_MidAir_Frame4[SAMUS_GFX_SIZE(8, 6)] = {
 	8, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame1[SAMUS_Gfx_SIZE(7, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame1[SAMUS_GFX_SIZE(7, 2)] = {
 	7, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Landing_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame2[SAMUS_Gfx_SIZE(5, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame2[SAMUS_GFX_SIZE(5, 2)] = {
 	5, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Landing_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame3[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame3[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Landing_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_Landing_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_Landing_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame4[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame4[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Landing_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame5[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Landing_Frame5[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Landing_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame3[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame3[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame4[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_MidAir_Frame4[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame1[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame1[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame2[SAMUS_Gfx_SIZE(5, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame2[SAMUS_GFX_SIZE(5, 5)] = {
 	5, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame3[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame3[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame4[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_MidAir_Frame4[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame1[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame1[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_MidAir_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame2[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame2[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_MidAir_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame3[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame3[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_MidAir_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame4[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_MidAir_Frame4[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_MidAir_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Down_MidAir_Frame0[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Down_MidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Down_MidAir_Frame1[SAMUS_Gfx_SIZE(4, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Down_MidAir_Frame1[SAMUS_GFX_SIZE(4, 3)] = {
 	4, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Down_MidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Spinning_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingSpinJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingSpinJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingSpinJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Spinning_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Spinning_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Spinning_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Spinning_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Spinning_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingWallJump_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingWallJump_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingWallJump_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingWallJump_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame2[SAMUS_Gfx_SIZE(6, 3)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingWallJump_Frame2[SAMUS_GFX_SIZE(6, 3)] = {
 	6, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingWallJump_Frame2.gfx")
 };
@@ -29710,423 +29710,423 @@ const struct SamusAnimationData sSamusAnim_Suitless_Right_StartingWallJump[4] = 
 	[3] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedgeSuitless_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedgeSuitless_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_HangingOnLedgeSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfForwardFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(5, 3)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame0[SAMUS_GFX_SIZE(5, 3)] = {
 	5, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfForwardFromHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(3, 2)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame1[SAMUS_GFX_SIZE(3, 2)] = {
 	3, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfForwardFromHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfForwardFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame3[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Left_PullingYourselfForwardFromHanging_Frame3[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_PullingYourselfForwardFromHanging_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame3[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_PullingYourselfForwardFromHanging_Frame3[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_PullingYourselfForwardFromHanging_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalUp_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalUp_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_DiagonalDown_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_DiagonalDown_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Up_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Up_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Up_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Down_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Down_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Down_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Down_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Down_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Down_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Down_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedge_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedge_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedge_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedgeSuitless_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedgeSuitless_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_HangingOnLedgeSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedge_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedge_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_HangingOnLedge_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedge_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_HangingOnLedge_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_HangingOnLedge_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfUpFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfUpFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfUpFromHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfUpFromHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfForwardFromHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfForwardFromHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame2[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfForwardFromHanging_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame3[SAMUS_Gfx_SIZE(6, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Right_PullingYourselfForwardFromHanging_Frame3[SAMUS_GFX_SIZE(6, 2)] = {
 	6, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_PullingYourselfForwardFromHanging_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(7, 7)] = {
+const u8 sSamusGfx_Top_Suitless_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(7, 7)] = {
 	7, 7,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_TurningToAimWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_TurningToAimWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_TurningToAimWhileHanging_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_AimingWhileHanging_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_AimingWhileHanging_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_AimingWhileHanging_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalUp_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_DiagonalDown_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Up_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Up_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Up_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Down_AimingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Down_AimingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Down_AimingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Down_ShootingWhileHanging_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Down_ShootingWhileHanging_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Down_ShootingWhileHanging_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_Down_ShootingWhileHanging_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Down_ShootingWhileHanging_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Down_ShootingWhileHanging_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedgeSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedgeSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame2[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame2[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedgeSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame3[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame3[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedgeSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame4[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Left_HangingOnLedgeSuitless_Frame4[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_HangingOnLedgeSuitless_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame0[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame0[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedgeSuitless_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame1[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame1[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedgeSuitless_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame2[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame2[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedgeSuitless_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame3[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame3[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedgeSuitless_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame4[SAMUS_Gfx_SIZE(6, 5)] = {
+const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame4[SAMUS_GFX_SIZE(6, 5)] = {
 	6, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_HangingOnLedgeSuitless_Frame4.gfx")
 };
@@ -31439,509 +31439,509 @@ const struct SamusAnimationData sSamusAnim_Suitless_Right_HangingOnLedgeSuitless
 	[5] = SAMUS_ANIM_TERMINATOR
 };
 
-const u8 sSamusGfx_Top_Suitless_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAround_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_TurningAround_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_TurningAround_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_TurningAround_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAround_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_DiagonalUp_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_DiagonalUp_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_DiagonalUp_TurningAround_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_DiagonalUp_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_DiagonalUp_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_DiagonalUp_TurningAround_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_DiagonalDown_TurningAround_Frame0[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_DiagonalDown_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_DiagonalDown_TurningAround_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_DiagonalDown_TurningAround_Frame1[SAMUS_Gfx_SIZE(6, 4)] = {
+const u8 sSamusGfx_Top_Suitless_DiagonalDown_TurningAround_Frame1[SAMUS_GFX_SIZE(6, 4)] = {
 	6, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_DiagonalDown_TurningAround_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Up_TurningAround_Frame0[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Up_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Up_TurningAround_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Up_TurningAround_Frame1[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Top_Suitless_Up_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Up_TurningAround_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundAndCrouching_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundAndCrouching_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_TurningAroundAndCrouching_Frame1[SAMUS_Gfx_SIZE(3, 3)] = {
+const u8 sSamusGfx_Bottom_Suitless_TurningAroundAndCrouching_Frame1[SAMUS_GFX_SIZE(3, 3)] = {
 	3, 3,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_TurningAroundAndCrouching_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Down_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Down_TurningAroundMidAir_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Down_TurningAroundMidAir_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Top_Suitless_Down_TurningAroundMidAir_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Down_TurningAroundMidAir_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_TurningAroundMidAir_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_TurningAroundMidAir_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_FacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame1[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_FacingTheForeground_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame2[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_FacingTheForeground_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_TurningFromFacingTheForeground_Frame0[SAMUS_Gfx_SIZE(9, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)] = {
 	9, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_TurningFromFacingTheForeground_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame1[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame1[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame2[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame2[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame3[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame3[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame4[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame4[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame5[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame5[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame6[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame6[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame7[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame7[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame7.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame8[SAMUS_Gfx_SIZE(11, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame8[SAMUS_GFX_SIZE(11, 6)] = {
 	11, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame8.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame9[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame9[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame9.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame10[SAMUS_Gfx_SIZE(10, 6)] = {
+const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame10[SAMUS_GFX_SIZE(10, 6)] = {
 	10, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_SavingLoadingGame_Frame10.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingToCrawl_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrouchingToCrawl_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingToCrawl_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrouchingToCrawl_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrouchingToCrawl_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrouchingToCrawl_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrouchingToCrawl_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrouchingToCrawl_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrouchingToCrawl_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_CrawlingStopped_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_CrawlingStopped_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_CrawlingStopped_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrawlingStopped_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrawlingStopped_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_CrawlingStopped_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_CrawlingStopped_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingWhileCrawling_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingWhileCrawling_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Left_ShootingWhileCrawling_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_ShootingWhileCrawling_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_ShootingWhileCrawling_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_ShootingWhileCrawling_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_ShootingWhileCrawling_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crawling_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame1[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame1[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Crawling_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crawling_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame2[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame2[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Crawling_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crawling_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame3[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame3[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Crawling_Frame3.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crawling_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame4[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame4[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Crawling_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame5[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_Crawling_Frame5[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_Crawling_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame5[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_Crawling_Frame5[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_Crawling_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingToCrawl_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingToCrawl_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrouchingToCrawl_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrouchingToCrawl_Frame2.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_CrawlingStopped_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_CrawlingStopped_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_CrawlingStopped_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame2[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame2[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingWhileCrawling_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame0[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame0[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingWhileCrawling_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame1[SAMUS_Gfx_SIZE(8, 8)] = {
+const u8 sSamusGfx_Top_Suitless_Right_ShootingWhileCrawling_Frame1[SAMUS_GFX_SIZE(8, 8)] = {
 	8, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_ShootingWhileCrawling_Frame1.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crawling_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crawling_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crawling_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crawling_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame5[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_Crawling_Frame5[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_Crawling_Frame5.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingToCrawl_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingToCrawl_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingToCrawl_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingToCrawl_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Left_StartingToCrawl_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Left_StartingToCrawl_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundWhileCrawling_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_TurningAroundWhileCrawling_Frame0[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_TurningAroundWhileCrawling_Frame0[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_TurningAroundWhileCrawling_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundWhileCrawling_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundWhileCrawling_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_TurningAroundWhileCrawling_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_TurningAroundWhileCrawling_Frame0.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame0[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame0[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingToCrawl_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame1[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame1[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingToCrawl_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame2[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame2[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingToCrawl_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame3[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame3[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingToCrawl_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame4[SAMUS_Gfx_SIZE(6, 6)] = {
+const u8 sSamusGfx_Top_Suitless_Right_StartingToCrawl_Frame4[SAMUS_GFX_SIZE(6, 6)] = {
 	6, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_Right_StartingToCrawl_Frame4.gfx")
 };
 
 
-const u8 sSamusGfx_Top_Suitless_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(12, 8)] = {
+const u8 sSamusGfx_Top_Suitless_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(12, 8)] = {
 	12, 8,
 	_INCBIN_U8("data/samus/graphics/suitless/Top_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame0[SAMUS_Gfx_SIZE(2, 0)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(2, 0)] = {
 	2, 0,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame1[SAMUS_Gfx_SIZE(3, 1)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame1[SAMUS_GFX_SIZE(3, 1)] = {
 	3, 1,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame1.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame2[SAMUS_Gfx_SIZE(2, 2)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame2[SAMUS_GFX_SIZE(2, 2)] = {
 	2, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame2.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame3[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame3[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame3.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame4[SAMUS_Gfx_SIZE(4, 2)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame4[SAMUS_GFX_SIZE(4, 2)] = {
 	4, 2,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame4.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame5[SAMUS_Gfx_SIZE(8, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame5[SAMUS_GFX_SIZE(8, 4)] = {
 	8, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame5.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame6[SAMUS_Gfx_SIZE(4, 4)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame6[SAMUS_GFX_SIZE(4, 4)] = {
 	4, 4,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame6.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame7[SAMUS_Gfx_SIZE(4, 0)] = {
+const u8 sSamusGfx_Bottom_Suitless_DownloadingMapData_Frame7[SAMUS_GFX_SIZE(4, 0)] = {
 	4, 0,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_DownloadingMapData_Frame7.gfx")
 };
 
 
-const u8 sSamusGfx_Bottom_Suitless_FacingTheBackground_Frame0[SAMUS_Gfx_SIZE(7, 6)] = {
+const u8 sSamusGfx_Bottom_Suitless_FacingTheBackground_Frame0[SAMUS_GFX_SIZE(7, 6)] = {
 	7, 6,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_FacingTheBackground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Left_TurningFromFacingTheBackground_Frame0[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Left_TurningFromFacingTheBackground_Frame0[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Left_TurningFromFacingTheBackground_Frame0.gfx")
 };
 
-const u8 sSamusGfx_Bottom_Suitless_Right_TurningFromFacingTheBackground_Frame0[SAMUS_Gfx_SIZE(7, 5)] = {
+const u8 sSamusGfx_Bottom_Suitless_Right_TurningFromFacingTheBackground_Frame0[SAMUS_GFX_SIZE(7, 5)] = {
 	7, 5,
 	_INCBIN_U8("data/samus/graphics/suitless/Bottom_Right_TurningFromFacingTheBackground_Frame0.gfx")
 };

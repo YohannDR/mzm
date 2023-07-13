@@ -1869,7 +1869,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
                 pParticle->status = 0;
     }
 
-    EscapeUpdateOAM();
+    EscapeUpdateOam();
 
     gCurrentParticleEffectOamFramePointer = gParticleEscapeOamFrames;
 }

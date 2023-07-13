@@ -23,13 +23,18 @@ u8 EscapeDetermineTimer(void)
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES))
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
+        {
+            // Didn't escape zebes, and mother brain killed
             return ESCAPE_MOTHER_BRAIN;
+        }
     }
     else
     {
-        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) &&
-            EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
-        return ESCAPE_MECHA_RIDLEY;
+        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) && EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
+        {
+            // Didn't escape chozodia, and mecha ridley killed
+            return ESCAPE_MECHA_RIDLEY;
+        }
     }
 
     return ESCAPE_NONE;
@@ -62,18 +67,19 @@ u8 EscapeCheckHasEscaped(void)
  * @brief 539e0 | 38 | Updates the OAM of the escape timer
  * 
  */
-void EscapeUpdateOAM(void)
+void EscapeUpdateOam(void)
 {
-    u16 increment;
+    u16 baseTile;
 
-    increment = 0x33C0;
+    // Third palette, base tile of 0x3C0
+    baseTile = 3 << 12 | 0x3C0;
 
-    gParticleEscapeOamFrames[24] = gEscapeTimerDigits.hundredths + increment;
-    gParticleEscapeOamFrames[21] = gEscapeTimerDigits.tenths + increment;
-    gParticleEscapeOamFrames[15] = gEscapeTimerDigits.secondsOnes + increment;
-    gParticleEscapeOamFrames[12] = gEscapeTimerDigits.secondsTens + increment;
-    gParticleEscapeOamFrames[6] = gEscapeTimerDigits.minutesOnes + increment;
-    gParticleEscapeOamFrames[3] = gEscapeTimerDigits.minutesTens + increment;
+    gParticleEscapeOamFrames[24] = baseTile + gEscapeTimerDigits.hundredths;
+    gParticleEscapeOamFrames[21] = baseTile + gEscapeTimerDigits.tenths;
+    gParticleEscapeOamFrames[15] = baseTile + gEscapeTimerDigits.secondsOnes;
+    gParticleEscapeOamFrames[12] = baseTile + gEscapeTimerDigits.secondsTens;
+    gParticleEscapeOamFrames[6]  = baseTile + gEscapeTimerDigits.minutesOnes;
+    gParticleEscapeOamFrames[3]  = baseTile + gEscapeTimerDigits.minutesTens;
 }
 
 /**
@@ -84,7 +90,7 @@ void EscapeCheckReloadGraphics(void)
 {
     if (EscapeDetermineTimer() != ESCAPE_NONE)
     {
-        DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | sizeof(sEscapeTimerDigitsGfx) / 2);
+        DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, C_32_2_16(DMA_ENABLE, sizeof(sEscapeTimerDigitsGfx) / 2));
     }
 }
 
@@ -94,10 +100,16 @@ void EscapeCheckReloadGraphics(void)
  */
 void EscapeStart(void)
 {
-    DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | 0xB0);
-    DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, DMA_ENABLE << 16 | 0xB0);
-    DMA_SET(3, sParticleEscapeOAM, gParticleEscapeOamFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOamFrames) / 2);
-    ParticleSet(2, 141, PE_ESCAPE);
+    DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, C_32_2_16(DMA_ENABLE, 0xB0));
+    DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, C_32_2_16(DMA_ENABLE, 0xB0));
+
+    // Setup oam
+    DMA_SET(3, sParticleEscapeOam, gParticleEscapeOamFrames, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(gParticleEscapeOamFrames)));
+
+    // Escape timer uses absolute position, which isn't converted to pixel coordinates when drawing,
+    // hence pixel coordinates are used when creating it
+    ParticleSet(SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 2),
+        SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE + PIXEL_SIZE), PE_ESCAPE);
 }
 
 /**
@@ -109,66 +121,38 @@ void EscapeSetTimer(void)
     u8 escape;
 
     escape = EscapeDetermineTimer();
-    gEscapeTimerCounter = 0xFF;
+
+    gEscapeTimerCounter = UCHAR_MAX;
+
     if (escape == ESCAPE_MOTHER_BRAIN)
     {
         if (gDifficulty == DIFF_EASY)
         {
-            gEscapeTimerDigits.hundredths = 0x0;
-            gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.secondsOnes = 0x0;
-            gEscapeTimerDigits.secondsTens = 0x0;
-            gEscapeTimerDigits.minutesOnes = 0x3;
-            gEscapeTimerDigits.minutesTens = 0x0;
+            CREATE_ESCAPE_TIMER(3, 0, 0);
         }
         else if (gDifficulty == DIFF_HARD)
         {
-            gEscapeTimerDigits.hundredths = 0x0;
-            gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.secondsOnes = 0x0;
-            gEscapeTimerDigits.secondsTens = 0x0;
-            gEscapeTimerDigits.minutesOnes = 0x1;
-            gEscapeTimerDigits.minutesTens = 0x0;
+            CREATE_ESCAPE_TIMER(1, 0, 0);
         }
         else
         {
-            gEscapeTimerDigits.hundredths = 0x0;
-            gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.secondsOnes = 0x0;
-            gEscapeTimerDigits.secondsTens = 0x0;
-            gEscapeTimerDigits.minutesOnes = 0x2;
-            gEscapeTimerDigits.minutesTens = 0x0;
+            CREATE_ESCAPE_TIMER(2, 0, 0);
         }
     }
     else if (escape == ESCAPE_MECHA_RIDLEY)
     {
         if (gDifficulty == DIFF_HARD)
         {
-            gEscapeTimerDigits.hundredths = 0x0;
-            gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.secondsOnes = 0x0;
-            gEscapeTimerDigits.secondsTens = 0x0;
-            gEscapeTimerDigits.minutesOnes = 0x3;
-            gEscapeTimerDigits.minutesTens = 0x0;
+            CREATE_ESCAPE_TIMER(3, 0, 0);
         }
         else
         {
-            gEscapeTimerDigits.hundredths = 0x0;
-            gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.secondsOnes = 0x0;
-            gEscapeTimerDigits.secondsTens = 0x0;
-            gEscapeTimerDigits.minutesOnes = 0x5;
-            gEscapeTimerDigits.minutesTens = 0x0;
+            CREATE_ESCAPE_TIMER(5, 0, 0);
         }
     }
     else
     {
-        gEscapeTimerDigits.hundredths = 0x9;
-        gEscapeTimerDigits.tenths = 0x9;
-        gEscapeTimerDigits.secondsOnes = 0x9;
-        gEscapeTimerDigits.secondsTens = 0x9;
-        gEscapeTimerDigits.minutesOnes = 0x9;
-        gEscapeTimerDigits.minutesTens = 0x9;
+        CREATE_ESCAPE_TIMER(99, 99, 99);
     }
 }
 
@@ -189,71 +173,78 @@ void EscaepUpdateTimer(void)
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
         return;
 
-    if (gPreventMovementTimer != 0x0)
+    if (gPreventMovementTimer != 0)
         return;
 
     counter = ++gEscapeTimerCounter;
 
-    if (counter & 0x1)
+    if (counter % 2)
     {
-        if (gEscapeTimerDigits.hundredths > 0x1)
-            gEscapeTimerDigits.hundredths -= 0x2;
+        if (gEscapeTimerDigits.hundredths > 1)
+        {
+            gEscapeTimerDigits.hundredths -= 2;
+        }
         else
         {
-            gEscapeTimerDigits.hundredths += 0x8;
-            if (gEscapeTimerDigits.tenths != 0x0)
+            gEscapeTimerDigits.hundredths += 8;
+
+            if (gEscapeTimerDigits.tenths != 0)
                 gEscapeTimerDigits.tenths--;
             else
-                gEscapeTimerDigits.tenths = 0x9;
+                gEscapeTimerDigits.tenths = 9;
         }
     }
     else
     {
-        if (gEscapeTimerDigits.hundredths != 0x0)
+        if (gEscapeTimerDigits.hundredths != 0)
+        {
             gEscapeTimerDigits.hundredths--;
+        }
         else
         {
-            gEscapeTimerDigits.hundredths = 0x9;
-            if (gEscapeTimerDigits.tenths != 0x0)
+            gEscapeTimerDigits.hundredths = 9;
+
+            if (gEscapeTimerDigits.tenths != 0)
                 gEscapeTimerDigits.tenths--;
             else
-                gEscapeTimerDigits.tenths = 0x9;
+                gEscapeTimerDigits.tenths = 9;
         }
     }
 
-    if ((counter & 0x3F) == 0x0)
+    if (counter % 64 == 0)
     {
-        gEscapeTimerDigits.hundredths = 0x9;
-        gEscapeTimerDigits.tenths = 0x9;
-        if (gEscapeTimerDigits.secondsOnes != 0x0)
-            gEscapeTimerDigits.secondsOnes--;
-        else
+        gEscapeTimerDigits.hundredths = 99 / 10;
+        gEscapeTimerDigits.tenths = 99 % 10;
+
+        if (gEscapeTimerDigits.secondsOnes != 0)
         {
-            gEscapeTimerDigits.secondsOnes = 0x9;
-            if (gEscapeTimerDigits.secondsTens != 0x0)
-                gEscapeTimerDigits.secondsTens--;
-            else
-            {
-                gEscapeTimerDigits.secondsTens = 0x5;
-                if (gEscapeTimerDigits.minutesOnes != 0x0)
-                    gEscapeTimerDigits.minutesOnes--;
-                else
-                {
-                    gEscapeTimerDigits.minutesOnes = 0x9;
-                    if (gEscapeTimerDigits.minutesTens != 0x0)
-                        gEscapeTimerDigits.minutesTens--;
-                    else
-                    {
-                        gEscapeTimerDigits.hundredths = 0x0;
-                        gEscapeTimerDigits.tenths = 0x0;
-                        gEscapeTimerDigits.secondsOnes = 0x0;
-                        gEscapeTimerDigits.secondsTens = 0x0;
-                        gEscapeTimerDigits.minutesOnes = 0x0;
-                        gEscapeTimerDigits.minutesTens = 0x0;
-                        gCurrentEscapeStatus = ESCAPE_STATUS_FAILED;
-                    }
-                }
-            }
+            gEscapeTimerDigits.secondsOnes--;
+            return;
         }
+
+        gEscapeTimerDigits.secondsOnes = 9;
+
+        if (gEscapeTimerDigits.secondsTens != 0)
+        {
+            gEscapeTimerDigits.secondsTens--;
+            return;
+        }
+
+        gEscapeTimerDigits.secondsTens = 5;
+        if (gEscapeTimerDigits.minutesOnes != 0)
+        {
+            gEscapeTimerDigits.minutesOnes--;
+            return;
+        }
+
+        gEscapeTimerDigits.minutesOnes = 9;
+        if (gEscapeTimerDigits.minutesTens != 0)
+        {
+            gEscapeTimerDigits.minutesTens--;
+            return;
+        }
+
+        CREATE_ESCAPE_TIMER(0, 0, 0);
+        gCurrentEscapeStatus = ESCAPE_STATUS_FAILED;
     }
 }

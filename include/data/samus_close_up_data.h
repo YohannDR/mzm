@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-extern const u16 sSamusCloseUpPAL[6 * 16];
+extern const u16 sSamusCloseUpPal[6 * 16];
 extern const u32 sSamusCloseUpGfx[2319];
 
 extern const u32 sSamusCloseUpEyesGfx_1[80];

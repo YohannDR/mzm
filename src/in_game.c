@@ -372,7 +372,7 @@ void InitAndLoadGenerics(void)
     if (gGameModeSub3 == 0 || gTourianEscapeCutsceneStage != 0)
     {
         ClearGfxRam();
-        HUDGenericLoadCommonSpriteGfx();
+        HudGenericLoadCommonSpriteGfx();
     }
 
     gWrittenToBLDY_NonGameplay = 0x10;
@@ -408,7 +408,7 @@ void InitAndLoadGenerics(void)
     do {
     } while ((u16)(read16(REG_VCOUNT) - 0x15) < 0x8C);
 
-    HUDGenericResetHUDData();
+    HudGenericResetHUDData();
     SpriteLoadAllData();
     ProjectileCallLoadGraphicsAndClearProjectiles();
 

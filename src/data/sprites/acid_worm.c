@@ -29,7 +29,7 @@ const s16 sAcidWormHeadRandomXVelocity[45] = {
 const u32 sAcidWormGfx[1000] = INCBIN_U32("data/sprites/AcidWorm.gfx.lz");
 const u16 sAcidWormPAL[64] = INCBIN_U16("data/sprites/AcidWorm.pal");
 
-const u16 sAcidWormBodyOAM_Unused2_Frame0[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame0[52] = {
     0x11,
     0xf7, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x206,
     0x9, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x212,
@@ -50,7 +50,7 @@ const u16 sAcidWormBodyOAM_Unused2_Frame0[52] = {
     0x39, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormBodyOAM_Unused2_Frame1[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame1[52] = {
     0x11,
     0xf6, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x206,
     0x8, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x212,
@@ -71,7 +71,7 @@ const u16 sAcidWormBodyOAM_Unused2_Frame1[52] = {
     0x38, OBJ_SIZE_32x32 | 0x1f2, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormBodyOAM_Unused2_Frame2[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame2[52] = {
     0x11,
     0xf6, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x206,
     0x7, OBJ_SIZE_32x32 | 0x1f3, OBJ_SPRITE_OAM | 0x212,
@@ -92,7 +92,7 @@ const u16 sAcidWormBodyOAM_Unused2_Frame2[52] = {
     0x37, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormOAM_Spitting_Frame4[34] = {
+const u16 sAcidWormOam_Spitting_Frame4[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0xa, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x21e,
@@ -107,7 +107,7 @@ const u16 sAcidWormOAM_Spitting_Frame4[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Spitting_Frame3[34] = {
+const u16 sAcidWormOam_Spitting_Frame3[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0xa, OBJ_SPRITE_OAM | 0x25f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x25e,
@@ -122,7 +122,7 @@ const u16 sAcidWormOAM_Spitting_Frame3[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Spitting_Frame2[34] = {
+const u16 sAcidWormOam_Spitting_Frame2[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x9, OBJ_SPRITE_OAM | 0x29f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x29e,
@@ -137,7 +137,7 @@ const u16 sAcidWormOAM_Spitting_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Spitting_Frame0[34] = {
+const u16 sAcidWormOam_Spitting_Frame0[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0x8, OBJ_SPRITE_OAM | 0x29f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1, OBJ_SPRITE_OAM | 0x29e,
@@ -152,7 +152,7 @@ const u16 sAcidWormOAM_Spitting_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_MouthClosed_Frame2[34] = {
+const u16 sAcidWormOam_MouthClosed_Frame2[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1fc, OBJ_SPRITE_OAM | 0x2dd,
     OBJ_SHAPE_VERTICAL | 0xee, 0x1, OBJ_SPRITE_OAM | 0x2de,
@@ -167,7 +167,7 @@ const u16 sAcidWormOAM_MouthClosed_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Idle_Frame0[34] = {
+const u16 sAcidWormOam_Idle_Frame0[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x219,
     0xec, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x258,
@@ -182,7 +182,7 @@ const u16 sAcidWormOAM_Idle_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Idle_Frame1[34] = {
+const u16 sAcidWormOam_Idle_Frame1[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x299,
     0xec, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2d8,
@@ -197,7 +197,7 @@ const u16 sAcidWormOAM_Idle_Frame1[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Idle_Frame2[34] = {
+const u16 sAcidWormOam_Idle_Frame2[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1, OBJ_SPRITE_OAM | 0x299,
     0xec, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x2d8,
@@ -212,7 +212,7 @@ const u16 sAcidWormOAM_Idle_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Moving_Frame0[34] = {
+const u16 sAcidWormOam_Moving_Frame0[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xed, 0xb, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, OBJ_SPRITE_OAM | 0x21e,
@@ -227,7 +227,7 @@ const u16 sAcidWormOAM_Moving_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOAM_Moving_Frame1[34] = {
+const u16 sAcidWormOam_Moving_Frame1[34] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xed, 0xc, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x5, OBJ_SPRITE_OAM | 0x21e,
@@ -242,37 +242,37 @@ const u16 sAcidWormOAM_Moving_Frame1[34] = {
     0xf1, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormBodyOAM_AroundMouth_Frame0[4] = {
+const u16 sAcidWormBodyOam_AroundMouth_Frame0[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x281
 };
 
-const u16 sAcidWormBodyOAM_WeakPoint_Frame0[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame0[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sAcidWormBodyOAM_WeakPoint_Frame1[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame1[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sAcidWormBodyOAM_WeakPoint_Frame2[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame2[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sAcidWormBodyOAM_BelowWeakPoint_Frame0[4] = {
+const u16 sAcidWormBodyOam_BelowWeakPoint_Frame0[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x212
 };
 
-const u16 sAcidWormBodyOAM_AboveSegments_Frame0[4] = {
+const u16 sAcidWormBodyOam_AboveSegments_Frame0[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x28e
 };
 
-const u16 sAcidWormBodyOAM_Segment_Frame0[4] = {
+const u16 sAcidWormBodyOam_Segment_Frame0[4] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x292
 };
@@ -332,144 +332,144 @@ const u16 sAcidWormSpitOAM_Exploding_Frame4[20] = {
 };
 
 
-const struct FrameData sAcidWormOAM_Idle[5] = {
-    sAcidWormOAM_Idle_Frame0,
+const struct FrameData sAcidWormOam_Idle[5] = {
+    sAcidWormOam_Idle_Frame0,
     0xA,
-    sAcidWormOAM_Idle_Frame1,
+    sAcidWormOam_Idle_Frame1,
     0x10,
-    sAcidWormOAM_Idle_Frame2,
+    sAcidWormOam_Idle_Frame2,
     0x1C,
-    sAcidWormOAM_Idle_Frame1,
+    sAcidWormOam_Idle_Frame1,
     0x10,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormOAM_Moving[3] = {
-    sAcidWormOAM_Moving_Frame0,
+const struct FrameData sAcidWormOam_Moving[3] = {
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x3,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormOAM_Spitting[15] = {
-    sAcidWormOAM_Spitting_Frame0,
+const struct FrameData sAcidWormOam_Spitting[15] = {
+    sAcidWormOam_Spitting_Frame0,
     0x1,
-    sAcidWormOAM_Idle_Frame1,
+    sAcidWormOam_Idle_Frame1,
     0x16,
-    sAcidWormOAM_Spitting_Frame2,
+    sAcidWormOam_Spitting_Frame2,
     0x3,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x3,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x1,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormOAM_MouthClosed[5] = {
-    sAcidWormOAM_Spitting_Frame2,
+const struct FrameData sAcidWormOam_MouthClosed[5] = {
+    sAcidWormOam_Spitting_Frame2,
     0x5,
-    sAcidWormOAM_Spitting_Frame0,
+    sAcidWormOam_Spitting_Frame0,
     0x4,
-    sAcidWormOAM_MouthClosed_Frame2,
+    sAcidWormOam_MouthClosed_Frame2,
     0x3,
-    sAcidWormOAM_Spitting_Frame0,
+    sAcidWormOam_Spitting_Frame0,
     0x4,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormBodyOAM_AroundMouth[2] = {
-    sAcidWormBodyOAM_AroundMouth_Frame0,
+const struct FrameData sAcidWormBodyOam_AroundMouth[2] = {
+    sAcidWormBodyOam_AroundMouth_Frame0,
     0x8,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormBodyOAM_WeakPoint[9] = {
-    sAcidWormBodyOAM_WeakPoint_Frame0,
+const struct FrameData sAcidWormBodyOam_WeakPoint[9] = {
+    sAcidWormBodyOam_WeakPoint_Frame0,
     0x14,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0x10,
-    sAcidWormBodyOAM_WeakPoint_Frame2,
+    sAcidWormBodyOam_WeakPoint_Frame2,
     0xC,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0x10,
-    sAcidWormBodyOAM_WeakPoint_Frame0,
+    sAcidWormBodyOam_WeakPoint_Frame0,
     0xA,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0x8,
-    sAcidWormBodyOAM_WeakPoint_Frame2,
+    sAcidWormBodyOam_WeakPoint_Frame2,
     0x8,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0xA,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormBodyOAM_Unused[5] = {
-    sAcidWormBodyOAM_WeakPoint_Frame0,
+const struct FrameData sAcidWormBodyOam_Unused[5] = {
+    sAcidWormBodyOam_WeakPoint_Frame0,
     0x4,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0x4,
-    sAcidWormBodyOAM_WeakPoint_Frame2,
+    sAcidWormBodyOam_WeakPoint_Frame2,
     0x4,
-    sAcidWormBodyOAM_WeakPoint_Frame1,
-    0x4,
-    NULL,
-    0x0
-};
-
-const struct FrameData sAcidWormBodyOAM_BelowWeakPoint[2] = {
-    sAcidWormBodyOAM_BelowWeakPoint_Frame0,
+    sAcidWormBodyOam_WeakPoint_Frame1,
     0x4,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormBodyOAM_AboveSegments[2] = {
-    sAcidWormBodyOAM_AboveSegments_Frame0,
+const struct FrameData sAcidWormBodyOam_BelowWeakPoint[2] = {
+    sAcidWormBodyOam_BelowWeakPoint_Frame0,
+    0x4,
+    NULL,
+    0x0
+};
+
+const struct FrameData sAcidWormBodyOam_AboveSegments[2] = {
+    sAcidWormBodyOam_AboveSegments_Frame0,
     0x4,
     NULL,
     0x0  
 };
 
-const struct FrameData sAcidWormBodyOAM_Segment[2] = {
-    sAcidWormBodyOAM_Segment_Frame0,
+const struct FrameData sAcidWormBodyOam_Segment[2] = {
+    sAcidWormBodyOam_Segment_Frame0,
     0x4,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormBodyOAM_Unused2[5] = {
-    sAcidWormBodyOAM_Unused2_Frame0,
+const struct FrameData sAcidWormBodyOam_Unused2[5] = {
+    sAcidWormBodyOam_Unused2_Frame0,
     0xC,
-    sAcidWormBodyOAM_Unused2_Frame1,
+    sAcidWormBodyOam_Unused2_Frame1,
     0xC,
-    sAcidWormBodyOAM_Unused2_Frame2,
+    sAcidWormBodyOam_Unused2_Frame2,
     0xC,
-    sAcidWormBodyOAM_Unused2_Frame1,
+    sAcidWormBodyOam_Unused2_Frame1,
     0xC,
     NULL,
     0x0
@@ -501,83 +501,83 @@ const struct FrameData sAcidWormSpitOAM_Exploding[6] = {
     0x0
 };
 
-const struct FrameData sAcidWormOAM_Warning[14] = {
-    sAcidWormOAM_Idle_Frame2,
+const struct FrameData sAcidWormOam_Warning[14] = {
+    sAcidWormOam_Idle_Frame2,
     0x1,
-    sAcidWormOAM_Spitting_Frame2,
+    sAcidWormOam_Spitting_Frame2,
     0x1,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x1,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x2,
-    sAcidWormOAM_Idle_Frame2,
+    sAcidWormOam_Idle_Frame2,
     0x4,
-    sAcidWormOAM_Spitting_Frame2,
+    sAcidWormOam_Spitting_Frame2,
     0x1,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x6,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     3,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x1,
     NULL,
     0x0
 };
 
-const struct FrameData sAcidWormOAM_SpawnOnTop[24] = {
-    sAcidWormOAM_Spitting_Frame0,
+const struct FrameData sAcidWormOam_SpawnOnTop[24] = {
+    sAcidWormOam_Spitting_Frame0,
     0x1,
-    sAcidWormOAM_Spitting_Frame2,
+    sAcidWormOam_Spitting_Frame2,
     0x3,
-    sAcidWormOAM_Spitting_Frame3,
+    sAcidWormOam_Spitting_Frame3,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x3,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Moving_Frame0,
+    sAcidWormOam_Moving_Frame0,
     0x3,
-    sAcidWormOAM_Moving_Frame1,
+    sAcidWormOam_Moving_Frame1,
     0x2,
-    sAcidWormOAM_Spitting_Frame4,
+    sAcidWormOam_Spitting_Frame4,
     0x1,
     NULL,
     0x0

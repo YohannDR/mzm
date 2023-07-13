@@ -3,6 +3,9 @@
 
 #include "types.h"
 
+#define SUITLESS_BAR_NBR_ELEMS 56
+#define SUITLESS_BAR_SIZE 256
+
 // 32ba08
 
 extern const u16 sCommonSpritesPAL[96];
@@ -65,7 +68,7 @@ extern const u8 sEnergyTanksRefillGfx_Ten[160 * 3];
 extern const u8 sEnergyTanksRefillGfx_Eleven[160 * 3];
 extern const u8 sEnergyTanksRefillGfx_Twelve[160 * 3];
 
-extern const u8 sSuitlessHUDChargeBarGfx[56 * 256];
+extern const u8 sSuitlessHUDChargeBarGfx[SUITLESS_BAR_NBR_ELEMS * SUITLESS_BAR_SIZE];
 
 // 8339aa8
 

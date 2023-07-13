@@ -103,6 +103,14 @@
  */
 #define DIV_SHIFT(value, div) ((value) >> ((div) == 2 ? 1 : ((div) == 4 ? 2 : ((div) == 8 ? 3 : ((div) == 16 ? 4 : ((div) == 32 ? 5 : ((div) == 64 ? 6 : ((div) == 128 ? 7 : ((div) == 256 ? 8 : ((div) == 512 ? 9 : ((div) == 1024 ? 10 : 0)))))))))))
 
+/**
+ * @brief Performs a multiplaction (value * mul) operation on a value using the left shift operation (WARNING only use a value for div that is divisble by 2 and <= 256)
+ * 
+ * @param value Value
+ * @param mul Multiplier
+ */
+#define MUL_SHIFT(value, mul) ((value) << ((mul) == 2 ? 1 : ((mul) == 4 ? 2 : ((mul) == 8 ? 3 : ((mul) == 16 ? 4 : ((mul) == 32 ? 5 : ((mul) == 64 ? 6 : ((mul) == 128 ? 7 : ((mul) == 256 ? 8 : ((mul) == 512 ? 9 : ((mul) == 1024 ? 10 : 0)))))))))))
+
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
 

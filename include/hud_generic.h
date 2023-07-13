@@ -7,8 +7,8 @@
 
 // Not sure where to put/name those functions, might move them later
 
-void HUDGenericLoadCommonSpriteGfx(void);
-void HUDGenericResetRefillAnimations(void);
-void HUDGenericResetHUDData(void);
+void HudGenericLoadCommonSpriteGfx(void);
+void HudGenericResetRefillAnimations(void);
+void HudGenericResetHUDData(void);
 
 #endif /* HUD_GENERIC_H */

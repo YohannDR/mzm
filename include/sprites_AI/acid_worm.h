@@ -36,13 +36,17 @@
 
 // Acid worm spit
 
+
+
+#define ACID_WORM_SPAWN_RANGE (BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE - PIXEL_SIZE)
+
 void AcidWormHandleRotation(void);
 void AcidWormRandomXMovement(void);
 void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition);
 void AcidWormChangeBigBlockDownCCAA(u8 caa);
 void AcidWormChangeBigBlockMiddleCCAA(u8 caa);
 void AcidWormChangeBigBlockTopCCAA(u8 caa);
-void AcidWormPlaySound(void);
+void AcidWormPlayRetractingSound(void);
 u8 AcidWormCollidingWithSamusWhenExtending(void);
 void AcidWormInit(void);
 void AcidWormCheckSamusOnZipline(void);

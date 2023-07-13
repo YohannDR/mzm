@@ -183,11 +183,12 @@ void WorkerRobotWalkingDetectProjectile(void)
         if (!SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
             continue;
 
-        if (pProj->direction == ACD_FORWARD ||
-            ((pProj->direction == ACD_DIAGONALLY_UP || pProj->direction == ACD_DIAGONALLY_DOWN) &&
-            projY > spriteTop && projY < spriteBottom))
-        {
+        if (pProj->direction == ACD_FORWARD)
             onSide++;
+        else if (pProj->direction == ACD_DIAGONALLY_UP || pProj->direction == ACD_DIAGONALLY_DOWN)
+        {
+            if (projY > spriteTop && projY < spriteBottom)
+                onSide++;
         }
         
         if (onSide)
@@ -196,21 +197,23 @@ void WorkerRobotWalkingDetectProjectile(void)
             {
                 projX = spriteLeft;
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-                if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
-                {
-                    if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
-                        gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
-                }
-                else
+
+                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                 {
                     if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
                         gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
+                }
+                else
+                {
+                    if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
+                        gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
                 }
             }
             else
             {
                 projX = spriteRight;
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+
                 if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                 {
                     if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
@@ -222,6 +225,7 @@ void WorkerRobotWalkingDetectProjectile(void)
                         gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
                 }
             }
+            
             gCurrentSprite.animationDurationCounter = 0;
         }
 
