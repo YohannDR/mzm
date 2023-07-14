@@ -13,6 +13,7 @@
 #include "constants/game_state.h"
 #include "constants/particle.h"
 #include "constants/samus.h"
+#include "constants/projectile.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -1797,7 +1798,7 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
                 break;
             }
 
-            if (gSamusWeaponInfo.chargeCounter >= 64)
+            if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
             {
                 pParticle->stage = 2;
                 pParticle->currentAnimationFrame = 0;

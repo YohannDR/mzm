@@ -129,6 +129,9 @@
 #define GET_PSPRITE_DAMAGE(id) sPrimarySpriteStats[(id)][1]
 #define GET_SSPRITE_DAMAGE(id) sSecondarySpriteStats[(id)][1]
 
+#define GET_PSPRITE_WEAKNESS(id) sPrimarySpriteStats[(id)][2]
+#define GET_SSPRITE_WEAKNESS(id) sSecondarySpriteStats[(id)][2]
+
 #define SUB_PIXEL_TO_PIXEL(pixel) ((pixel) / SUB_PIXEL_RATIO)
 #define SUB_PIXEL_TO_PIXEL_(pixel) (DIV_SHIFT(pixel, SUB_PIXEL_RATIO))
 #define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)

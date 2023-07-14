@@ -12,6 +12,7 @@
 #include "constants/samus.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+#include "constants/projectile.h"
 
 #include "structs/clipdata.h"
 #include "structs/game_state.h"
@@ -2005,7 +2006,7 @@ void SpriteUtilUnfreezeSecondarySprites(u8 spriteID, u8 ramSlot)
 /**
  * @brief 1025c | 44 | Gradual refill of samus' energy
  * 
- * @return u8 1 if didn't end, 0 otherwise
+ * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillEnergy(void)
 {
@@ -2037,7 +2038,7 @@ u8 SpriteUtilRefillEnergy(void)
 /**
  * @brief 102a0 | 44 | Gradual refill of samus' missiles
  * 
- * @return u8 1 if didn't end, 0 otherwise
+ * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillMissiles(void)
 {
@@ -2069,7 +2070,7 @@ u8 SpriteUtilRefillMissiles(void)
 /**
  * @brief 102ea | 44 | Gradual refill of samus' super missiles
  * 
- * @return u8 1 if didn't end, 0 otherwise
+ * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillSuperMissiles(void)
 {
@@ -2101,7 +2102,7 @@ u8 SpriteUtilRefillSuperMissiles(void)
 /**
  * @brief 10328 | 44 | Gradual refill of samus' power bombs
  * 
- * @return u8 1 if didn't end, 0 otherwise
+ * @return u8 bool, ongoing
  */
 u8 SpriteUtilRefillPowerBombs(void)
 {
@@ -2131,6 +2132,11 @@ u8 SpriteUtilRefillPowerBombs(void)
     return FALSE;
 }
 
+/**
+ * @brief 1036c | 110 | Checks if samus is crouching or morphed
+ * 
+ * @return u8 bool, crouching or morphed
+ */
 u8 SpriteUtilCheckCrouchingOrMorphed(void)
 {
     switch (gSamusData.pose)
@@ -2158,6 +2164,11 @@ u8 SpriteUtilCheckCrouchingOrMorphed(void)
     return FALSE;
 }
 
+/**
+ * @brief 1047c | 2c | Checks if samus is crouching or crawling
+ * 
+ * @return u8 bool, crouching or crawling
+ */
 u8 SpriteUtilCheckCrouchingOrCrawling(void)
 {
     switch (gSamusData.pose)
@@ -2179,6 +2190,11 @@ u8 SpriteUtilCheckCrouchingOrCrawling(void)
     return FALSE;
 }
 
+/**
+ * @brief 104a8 | 24 | Checks if samus is morphed
+ * 
+ * @return u32 bool, morphed
+ */
 u32 SpriteUtilCheckMorphed(void)
 {
     switch (gSamusData.pose)
@@ -2195,26 +2211,30 @@ u32 SpriteUtilCheckMorphed(void)
     return FALSE;
 }
 
+/**
+ * @brief 104cc | 2c | Checks if samus is in a state that requires sprite behavior to be stopped
+ * 
+ * @return u32 bool, stop sprites
+ */
 u32 SpriteUtilCheckStopSpritesPose(void)
 {
-    if (gPreventMovementTimer == 0)
-    {
-        switch (gSamusData.pose)
-        {
-            case SPOSE_USING_AN_ELEVATOR:
-            case SPOSE_FACING_THE_FOREGROUND:
-                return TRUE;
-        }
-    }
-    else
+    // Movement is prevented
+    if (gPreventMovementTimer != 0)
         return TRUE;
+
+    // Using an elevator or facing the foreground (after an elevator)
+    switch (gSamusData.pose)
+    {
+        case SPOSE_USING_AN_ELEVATOR:
+        case SPOSE_FACING_THE_FOREGROUND:
+            return TRUE;
+    }
     
     return FALSE;
 }
 
 /**
- * 104f8 | 1b0 | 
- * Handles a sprite taking damage from a contact with samus
+ * 104f8 | 1b0 | Handles a sprite taking damage from a contact with samus
  * 
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @param pData Samus Data Pointer
@@ -2223,7 +2243,6 @@ u32 SpriteUtilCheckStopSpritesPose(void)
 u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struct SamusData* pData)
 {
     u8 dct;
-    u8* pProps;
     struct Equipment* pEquipment;
     u16 weakness;
     u16 bbf;
@@ -2232,18 +2251,22 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
     u8 isft;
 
     dct = DCT_NONE;
+
+    // Abort if suitless
     if (gEquipment.suitType == SUIT_SUITLESS)
         return DCT_NONE;
 
-    pProps = &pSprite->properties;
+    // Not affected by projectiles, abort
     if (pSprite->properties & (SP_SOLID_FOR_PROJECTILES | SP_IMMUNE_TO_PROJECTILES))
         return DCT_NONE;
 
+    // Ignoring projectiles, abort
     if (pSprite->status & SPRITE_STATUS_IGNORE_PROJECTILES)
         return DCT_NONE;
 
     if (pData->speedboostingShinesparking != FALSE)
     {
+        // Check shinesparking or speedboosting
         if (pData->pose == SPOSE_SHINESPARKING || pData->pose == SPOSE_BALLSPARKING)
             dct = DCT_SHINESPARK;
         else
@@ -2254,6 +2277,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
         switch (pData->pose)
         {
             case SPOSE_SCREW_ATTACKING:
+                // Screw attacking
                 dct = DCT_SCREW_ATTACK;
                 break;
             
@@ -2261,61 +2285,81 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             case SPOSE_SPINNING:
             case SPOSE_STARTING_WALL_JUMP:
             case SPOSE_SPACE_JUMPING:
-                if (gSamusWeaponInfo.chargeCounter > 0x3F)
+                // Check beam is charged
+                if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
                     dct = DCT_SUDO_SCREW;
-            
+
             default:
                 if (dct == DCT_NONE)
                     return DCT_NONE;
         }
     }
 
+    // Get weakness
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        weakness = sSecondarySpriteStats[pSprite->spriteID][2];
+        weakness = GET_SSPRITE_WEAKNESS(pSprite->spriteID);
     else
-        weakness = sPrimarySpriteStats[pSprite->spriteID][2];
+        weakness = GET_PSPRITE_WEAKNESS(pSprite->spriteID);
 
     if (dct >= DCT_SUDO_SCREW)
     {
+        // Sudo screw, check is weak
         if (weakness & (WEAKNESS_CHARGE_BEAM_PISTOL | WEAKNESS_BEAM_BOMBS))
         {
-            gSamusWeaponInfo.chargeCounter = 0x0;
-            damage = 0x2;
+            // Destroy charge
+            gSamusWeaponInfo.chargeCounter = 0;
+
+            // Get damage
+            damage = 2;
             bbf = gEquipment.beamBombsActivation;
-            if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
+
+            // Increment by one for each beam
+            if (bbf & BBF_LONG_BEAM)
                 damage++;
-            if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+
+            if (bbf & BBF_ICE_BEAM)
                 damage++;
-            if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
+
+            if (bbf & BBF_WAVE_BEAM)
                 damage++;
+
             if (bbf & BBF_PLASMA_BEAM)
                 damage++;
 
+            // Multiply by 4 and apply
             damage *= 4;
             isDead = ProjectileDealDamage(pSprite, damage);
             if (isDead)
             {
+                // Set dead and abort
                 pSprite->pose = SPRITE_POSE_SUDO_SCREW_DESTROYED;
                 return dct;
             }
+
+            // Reset collision timer, if the enemy wasn't killed by the sudo screw then samus will immediately take damage
             pSprite->ignoreSamusCollisionTimer = 0;
-            dct = DCT_NONE;
         }
+
+        dct = DCT_NONE;
     }
     else
     {
         if (weakness & WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK)
         {
+            // Destroy the sprite
             pSprite->health = 0;
             pSprite->properties |= SP_DESTROYED;
             pSprite->freezeTimer = 0;
             pSprite->paletteRow = 0;
+
+            // Update samus if she was standing on it
             if (pSprite->standingOnSprite && pData->standingStatus == STANDING_ENEMY)
             {
                 pData->standingStatus = STANDING_MIDAIR;
                 pSprite->standingOnSprite = FALSE;
             }
 
+            // Set destructed pose
             if (dct == DCT_SHINESPARK)
                 pSprite->pose = SPRITE_POSE_SHINESPARK_DESTROYED;
             else if (dct == DCT_SPEEDBOOSTER)
@@ -2324,20 +2368,28 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
                 pSprite->pose = SPRITE_POSE_SCREW_ATTACK_DESTROYED;
 
             pSprite->ignoreSamusCollisionTimer = 1;
-            pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x11;
+            SPRITE_CLEAR_AND_SET_ISFT(*pSprite, 17);
             pSprite->properties |= SP_DAMAGED;
-            return dct;
         }
-
-        isft = 0x3;
-        if (SPRITE_HAS_ISFT(*pSprite) < isft)
-            pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x3;
-        dct = DCT_NONE;
+        else
+        {
+            isft = 3;
+            if (SPRITE_HAS_ISFT(*pSprite) < isft)
+            {
+                SPRITE_CLEAR_AND_SET_ISFT(*pSprite, isft);
+            }
+            dct = DCT_NONE;
+        }
     }
-
+    
     return dct;
 }
 
+/**
+ * @brief 106a8 | 20 | Checks if samus is pulling herself up
+ * 
+ * @return u32 bool, pulling self up
+ */
 u32 SpriteUtilCheckPullingSelfUp(void)
 {
     switch (gSamusData.pose)
@@ -2351,6 +2403,11 @@ u32 SpriteUtilCheckPullingSelfUp(void)
     return FALSE;
 }
 
+/**
+ * @brief 106c8 | 20 | Checks if samus is on a zipline
+ * 
+ * @return u32 bool, on zipline
+ */
 u32 SpriteUtilCheckOnZipline(void)
 {
     switch (gSamusData.pose)
@@ -2429,8 +2486,13 @@ u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) &&
-            pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
+        if (!(pSprite->status & SPRITE_STATUS_EXISTS))
+            continue;
+
+        if (pSprite->properties & SP_SECONDARY_SPRITE)
+            continue;
+
+        if (pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
             count++;
     }
 

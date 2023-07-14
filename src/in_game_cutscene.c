@@ -798,8 +798,8 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
             unk_5fd58();
 
-            gCurrentRoomEntry.BG0Prop = BG_PROP_CLOSE_UP;
-            gCurrentRoomEntry.BG0Size = 0;
+            gCurrentRoomEntry.Bg0Prop = BG_PROP_CLOSE_UP;
+            gCurrentRoomEntry.Bg0Size = BGCNT_SIZE_256x256;
 
             gBg0XPosition = 0;
             gBg0YPosition = 0;

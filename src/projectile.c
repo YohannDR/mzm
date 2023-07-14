@@ -172,7 +172,7 @@ void ProjectileUpdate(void)
     gArmCannonY = ((gSamusData.yPosition / 4) + gSamusPhysics.armCannonYPositionOffset) * 0x4;
     gArmCannonX = ((gSamusData.xPosition / 4) + gSamusPhysics.armCannonXPositionOffset) * 0x4;
 
-    if (gSamusWeaponInfo.chargeCounter == 0x10 && gEquipment.suitType != SUIT_SUITLESS)
+    if (gSamusWeaponInfo.chargeCounter == 16 && gEquipment.suitType != SUIT_SUITLESS)
     {
         checks = FALSE;
         count = 0x0;

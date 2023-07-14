@@ -149,5 +149,5 @@ const struct DefaultTransparency sDefaultTransparency_Empty = {
     .unk_1 = 0,
     .evbCoef = 0,
     .evaCoef = 0,
-    .unk_4 = 0
+    .bldcnt = 0
 };

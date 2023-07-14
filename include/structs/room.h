@@ -21,12 +21,12 @@ extern struct TilesetTransparentColor gTilesetTransparentColor;
 
 struct RoomEntry {
     u8 tileset;
-    u8 BG0Prop;
-    u8 BG1Prop;
-    u8 BG2Prop;
-    u8 BG3Prop;
+    u8 Bg0Prop;
+    u8 Bg1Prop;
+    u8 Bg2Prop;
+    u8 Bg3Prop;
     u8 scrollsFlag;
-    u8 BG3Scrolling;
+    u8 Bg3Scrolling;
     u8 transparency;
     const u8* pEnemyRoomData;
     u8 firstSpritesetEvent;
@@ -37,8 +37,8 @@ struct RoomEntry {
     u16 effectY;
     u8 damageEffect;
     u16 musicTrack;
-    u8 BG0Size;
-    u8 BG3Size;
+    u8 Bg0Size;
+    u8 Bg3Size;
     u8 BG3FromBottomFlag;
     u8 animatedTileset;
     u8 animatedPalette;
@@ -46,16 +46,16 @@ struct RoomEntry {
 
 struct RoomEntryROM {
     u8 tileset;
-    u8 BG0Prop;
-    u8 BG1Prop;
-    u8 BG2Prop;
-    u8 BG3Prop;
+    u8 Bg0Prop;
+    u8 Bg1Prop;
+    u8 Bg2Prop;
+    u8 Bg3Prop;
     const u8* pBG0Data;
     const u8* pBG1Data;
     const u8* pBG2Data;
     const u8* pClipData;
     const u8* pBG3Data;
-    u8 BG3Scrolling;
+    u8 Bg3Scrolling;
     u8 transparency;
     const u8* pDefaultSpriteData;
     u8 defaultSpriteset;

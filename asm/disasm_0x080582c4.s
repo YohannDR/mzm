@@ -1367,8 +1367,8 @@ lbl_08058d16:
     pop {r0}
     bx r0
 
-    thumb_func_start get_BG3Scrolling_values
-get_BG3Scrolling_values: @ 0x08058d20
+    thumb_func_start get_Bg3Scrolling_values
+get_Bg3Scrolling_values: @ 0x08058d20
     push {lr}
     movs r3, #0
     movs r2, #0
@@ -1436,7 +1436,7 @@ lbl_08058d96:
     thumb_func_start ScrollBG3
 ScrollBG3: @ 0x08058da0
     push {lr}
-    bl get_BG3Scrolling_values
+    bl get_Bg3Scrolling_values
     adds r3, r0, #0
     movs r0, #0xff
     ands r0, r3
@@ -1586,7 +1586,7 @@ lbl_08058ec0: .4byte gBg1YPosition
     thumb_func_start sub_08058ec4
 sub_08058ec4: @ 0x08058ec4
     push {lr}
-    bl get_BG3Scrolling_values
+    bl get_Bg3Scrolling_values
     adds r1, r0, #0
     movs r0, #0xff
     ands r1, r0

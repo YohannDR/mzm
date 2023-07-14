@@ -532,19 +532,19 @@ void MellowMove(struct SpriteData* pSprite)
         switch (pSprite->xPositionSpawn)
         {
             case 1:
-                spriteY -= BLOCK_SIZE / 2;
+                spriteY -= HALF_BLOCK_SIZE;
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX += BLOCK_SIZE - BLOCK_SIZE / 4;
+                    spriteX += BLOCK_SIZE - QUARTER_BLOCK_SIZE;
                 else
-                    spriteX -= BLOCK_SIZE - BLOCK_SIZE / 4;
+                    spriteX -= BLOCK_SIZE - QUARTER_BLOCK_SIZE;
                 break;
 
             case 3:
-                spriteY += BLOCK_SIZE / 2;
+                spriteY += HALF_BLOCK_SIZE;
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX -= BLOCK_SIZE - BLOCK_SIZE / 4;
+                    spriteX -= BLOCK_SIZE - QUARTER_BLOCK_SIZE;
                 else
-                    spriteX += BLOCK_SIZE - BLOCK_SIZE / 4;
+                    spriteX += BLOCK_SIZE - QUARTER_BLOCK_SIZE;
                 break;
         }
     }
@@ -694,7 +694,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         pSprite->status ^= SPRITE_STATUS_UNKNOWN2;
         ///pSprite->arrayOffset = 1;
-        gCurrentSprite.arrayOffset = 1; // Temp
+        gCurrentSprite.arrayOffset = 1;
     }
 
     pSprite->oamScaling--;

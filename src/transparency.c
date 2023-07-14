@@ -41,13 +41,13 @@ void TransparencySetRoomEffectsTransparency(void)
         write16(REG_BG1CNT, gIoRegistersBackup.BG1CNT);
         write16(REG_BG2CNT, gIoRegistersBackup.BG2CNT);
 
-        write8(0x400004a, gIoRegistersBackup.WINOUT_L);
-        write8(0x4000049, gIoRegistersBackup.WININ_H);
+        write8(REG_WINOUT, gIoRegistersBackup.WINOUT_L);
+        write8(REG_WININ + 1, gIoRegistersBackup.WININ_H);
 
-        write16(0x4000042, gSuitFlashEffect.left << 8 | gSuitFlashEffect.right);
-        write16(0x4000046, gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom);
+        write16(REG_WIN1H, C_16_2_8(gSuitFlashEffect.left, gSuitFlashEffect.right));
+        write16(REG_WIN1V, C_16_2_8(gSuitFlashEffect.top, gSuitFlashEffect.bottom));
 
-        write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
+        write16(REG_BLDALPHA, C_16_2_8(gIoRegistersBackup.BLDALPHA_NonGameplay_EVB, gIoRegistersBackup.BLDALPHA_NonGameplay_EVA));
         return;
     }
 
@@ -64,27 +64,26 @@ void TransparencySetRoomEffectsTransparency(void)
     gBLDYData1 = sBldyData_Empty;
     gBLDYData2 = sBldyData_Empty;
 
-    if (gCurrentRoomEntry.BG0Prop & BG_PROP_LZ77_COMPRESSED)
-        bgCnt[0] = TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG0Size) | 8;
+    if (gCurrentRoomEntry.Bg0Prop & BG_PROP_LZ77_COMPRESSED)
+        bgCnt[0] = TransparencyGetBgSizeFlag(gCurrentRoomEntry.Bg0Size) | 2 << BGCNT_CHAR_BASE_BLOCK_SHIFT;
     else
-        bgCnt[0] = 0x4000 | 0x4;
+        bgCnt[0] = CREATE_BGCNT(1, 0, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_512x256);
 
-    bgCnt[1] = 0x4000 | 0x200 | 4;
-    bgCnt[2] = 0x4000 | 0x400 | 4;
+    bgCnt[1] = CREATE_BGCNT(1, 2, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_512x256);
+    bgCnt[2] = CREATE_BGCNT(1, 4, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_512x256);
+    bgCnt[3] = CREATE_BGCNT(0, 6, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x256);
 
-    bgCnt[3] = 0x200 | 0x400 | 0x2 | 0x1;
-
-    switch (gCurrentRoomEntry.BG3Prop)
+    switch (gCurrentRoomEntry.Bg3Prop)
     {
         case 0: // The value of this case doesn't matter
-            bgCnt[3] |= 8;
+            bgCnt[3] |= 2 << BGCNT_CHAR_BASE_BLOCK_SHIFT;
             break;
 
         default:
-            bgCnt[3] |= 8;
+            bgCnt[3] |= 2 << BGCNT_CHAR_BASE_BLOCK_SHIFT;
     }
 
-    bgCnt[3] = TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG3Size) | bgCnt[3];
+    bgCnt[3] = TransparencyGetBgSizeFlag(gCurrentRoomEntry.Bg3Size) | bgCnt[3];
 
     switch (gCurrentRoomEntry.transparency)
     {
@@ -105,9 +104,9 @@ void TransparencySetRoomEffectsTransparency(void)
         case 0x2C:
         case 0x30:
         default:
-            bgCnt[0] |= 0;
-            bgCnt[1] |= 1;
-            bgCnt[2] |= 2;
+            bgCnt[0] |= BGCNT_HIGH_PRIORITY;
+            bgCnt[1] |= BGCNT_HIGH_MID_PRIORITY;
+            bgCnt[2] |= BGCNT_LOW_MID_PRIORITY;
             break;
      
         case 0x5:
@@ -122,9 +121,9 @@ void TransparencySetRoomEffectsTransparency(void)
         case 0x29:
         case 0x2D:
         case 0x31:
-            bgCnt[0] |= 1;
-            bgCnt[1] |= 0;
-            bgCnt[2] |= 2;
+            bgCnt[0] |= BGCNT_HIGH_MID_PRIORITY;
+            bgCnt[1] |= BGCNT_HIGH_PRIORITY;
+            bgCnt[2] |= BGCNT_LOW_MID_PRIORITY;
             break;
 
         case 0x6:
@@ -139,9 +138,9 @@ void TransparencySetRoomEffectsTransparency(void)
         case 0x2A:
         case 0x2E:
         case 0x32:
-            bgCnt[0] |= 1;
-            bgCnt[1] |= 0;
-            bgCnt[2] |= 2;
+            bgCnt[0] |= BGCNT_HIGH_MID_PRIORITY;
+            bgCnt[1] |= BGCNT_HIGH_PRIORITY;
+            bgCnt[2] |= BGCNT_LOW_MID_PRIORITY;
             gSamusOnTopOfBackgrounds = TRUE;
             break;
 
@@ -157,9 +156,9 @@ void TransparencySetRoomEffectsTransparency(void)
         case 0x2B:
         case 0x2F:
         case 0x33:
-            bgCnt[0] |= 2;
-            bgCnt[1] |= 0;
-            bgCnt[2] |= 1;
+            bgCnt[0] |= BGCNT_LOW_MID_PRIORITY;
+            bgCnt[1] |= BGCNT_HIGH_PRIORITY;
+            bgCnt[2] |= BGCNT_HIGH_MID_PRIORITY;
             gSamusOnTopOfBackgrounds = TRUE;
             break;
     }
@@ -250,13 +249,13 @@ void TransparencySetRoomEffectsTransparency(void)
     if (eva == 0)
     {
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = evb;
-        gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = 0x10 - gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = 16 - gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
 
         gDefaultTransparency.unk_1 = 0;
     }
     else
     {
-        gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = 0x10;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = 16;
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = eva;
 
         gDefaultTransparency.unk_1 = 1;
@@ -268,7 +267,7 @@ void TransparencySetRoomEffectsTransparency(void)
     gBldalphaData1.evaCoef = gDefaultTransparency.evaCoef;
     gBldalphaData1.evbCoef = gDefaultTransparency.evbCoef;
 
-    write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
+    write16(REG_BLDALPHA, C_16_2_8(gIoRegistersBackup.BLDALPHA_NonGameplay_EVB, gIoRegistersBackup.BLDALPHA_NonGameplay_EVA));
 
     gWrittenToBLDALPHA = 0;
     gWrittenToBLDY = -1;
@@ -303,19 +302,24 @@ void TransparencySetRoomEffectsTransparency(void)
     gIoRegistersBackup.BG3CNT = bgCnt[3];
 
     if (gCurrentRoomEntry.transparency < 8)
-        gDefaultTransparency.unk_4 = 0x3f40;
+    {
+        gDefaultTransparency.bldcnt = BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
+    }
     else
-        gDefaultTransparency.unk_4 = 0x3E41;
+    {
+        gDefaultTransparency.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
+        gDefaultTransparency.bldcnt &= ~BLDCNT_BG0_SECOND_TARGET_PIXEL;
+    }
 
     if (gCurrentRoomEntry.visualEffect == EFFECT_BG3_GRADIENT)
-        gDefaultTransparency.unk_4 |= 8;
+        gDefaultTransparency.bldcnt |= BLDCNT_BG3_FIRST_TARGET_PIXEL;
     else if (gCurrentRoomEntry.visualEffect == EFFECT_BG2_GRADIENT)
-        gDefaultTransparency.unk_4 |= 4;
+        gDefaultTransparency.bldcnt |= BLDCNT_BG2_FIRST_TARGET_PIXEL;
 
-    if (gCurrentRoomEntry.BG0Prop == 0x12)
-        gDefaultTransparency.unk_4 &= ~1;
+    if (gCurrentRoomEntry.Bg0Prop == BG_PROP_DISABLE_TRANSPARENCY)
+        gDefaultTransparency.bldcnt &= ~BLDCNT_BG0_FIRST_TARGET_PIXEL;
 
-    TransparencyUpdateBLDCNT(0, gDefaultTransparency.unk_4);
+    TransparencyUpdateBLDCNT(0, gDefaultTransparency.bldcnt);
 
     gWrittenToBLDCNT = 0;
 
@@ -327,25 +331,25 @@ void TransparencySetRoomEffectsTransparency(void)
     gIoRegistersBackup.DISPCNT_NonGameplay = dispcnt;
 }
 
-u16 TransparencyGetBGSizeFlag(u8 size)
+u16 TransparencyGetBgSizeFlag(u8 size)
 {
     u16 flag;
 
-    flag = 0x0;
+    flag = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT;
 
     switch (size)
     {
-        case 0x0:
-            flag = 0x0;
+        case BGCNT_SIZE_256x256:
+            flag = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT;
             break;
             
-        case 0x1:
+        case BGCNT_SIZE_512x256:
         default:
-            flag = 0x4000;
+            flag = BGCNT_SIZE_512x256 << BGCNT_SCREEN_SIZE_SHIFT;
             break;
 
-        case 0x2:
-            flag = 0x8000;
+        case BGCNT_SIZE_256x512:
+            flag = BGCNT_SIZE_256x512 << BGCNT_SCREEN_SIZE_SHIFT;
             break;
         
     }
@@ -357,9 +361,10 @@ u32 TransparencyCheckIsDarkRoom(void)
 {
     u16 flag;
 
-    flag = 0x0;
-    if (gCurrentRoomEntry.BG0Prop == BG_PROP_DARK_ROOM)
-        flag = 0xFFFF;
+    flag = 0;
+    if (gCurrentRoomEntry.Bg0Prop == BG_PROP_DARK_ROOM)
+        flag = USHORT_MAX;
+
     return flag;
 }
 
@@ -371,7 +376,9 @@ u32 TransparencyCheckIsDarkRoom(void)
  */
 void TransparencyUpdateBLDCNT(u8 action, u16 value)
 {
-    u16 effects = value & (BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    u16 effects;
+
+    effects = value & (BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
     gIoRegistersBackup.BLDCNT_NonGameplay = value;
 
@@ -402,7 +409,7 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
             return;
     }
 
-    if (gGameModeSub1 == 2 || effects != BLDCNT_BRIGHTNESS_INCREASE_EFFECT)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || effects != BLDCNT_BRIGHTNESS_INCREASE_EFFECT)
         gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 }
 
@@ -423,7 +430,7 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
     _intensity = (u8)intensity;
     above = FALSE;
     
-    if (value > 0x10)
+    if (value > 16)
         above = TRUE;
 
     if (above)
@@ -745,7 +752,7 @@ void unk_55e60(void)
             gTransparencyRelated.unk_1 = 2;
 
             coef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB + 2;
-            gWrittenToBLDALPHA = coef << 8 | (16 - coef);
+            gWrittenToBLDALPHA = C_16_2_8(coef, 16 - coef);
             break;
 
         case 0:
@@ -786,7 +793,7 @@ void unk_55e60(void)
                 else if (eva > 16)
                     eva = 16;
 
-                gWrittenToBLDALPHA = evb << 8 | eva;
+                gWrittenToBLDALPHA = C_16_2_8(evb, eva);
             }
             else
             {
@@ -820,7 +827,7 @@ void unk_55e60(void)
                 else if (eva > 16)
                     eva = 16;
 
-                gWrittenToBLDALPHA = evb << 8 | eva;
+                gWrittenToBLDALPHA = C_16_2_8(evb, eva);
             }
             break;
     }

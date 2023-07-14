@@ -9,6 +9,7 @@
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/particle.h"
+#include "constants/projectile.h"
 
 #include "structs/game_state.h"
 #include "structs/display.h"
@@ -357,7 +358,7 @@ void AtomicIdle(void)
     u8 offset;
     s32 movement;
 
-    if (gSamusWeaponInfo.chargeCounter >= 0x40)
+    if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
     {
         // Set chasing if samus has a charged beam
         gCurrentSprite.pose = ATOMIC_POSE_CHASING_SAMUS_INIT;
@@ -401,7 +402,7 @@ void AtomicMove(void)
     u16 xPosition;
     u16 movement;
 
-    if (gSamusWeaponInfo.chargeCounter >= 0x40)
+    if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
     {
         // Set chasing if samus has a charged beam
         gCurrentSprite.pose = ATOMIC_POSE_CHASING_SAMUS_INIT;
@@ -478,7 +479,7 @@ void AtomicMaybeMoveBackToIdle(void)
     u16 mask;
     u16 movement;
 
-    if (gSamusWeaponInfo.chargeCounter >= 0x40)
+    if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
     {
         // Set chasing if samus has a charged beam
         gCurrentSprite.pose = ATOMIC_POSE_CHASING_SAMUS_INIT;

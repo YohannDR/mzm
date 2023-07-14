@@ -338,7 +338,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     else
     {
         // Check for hazard behavior (effect based)
-        if (gCurrentRoomEntry.BG0Prop != 0 && gCurrentRoomEntry.damageEffect != 0)
+        if (gCurrentRoomEntry.Bg0Prop != 0 && gCurrentRoomEntry.damageEffect != 0)
         {
             if (gCurrentRoomEntry.damageEffect < ARRAY_SIZE(sHazardsDefinitions))
             {

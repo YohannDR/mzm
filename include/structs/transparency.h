@@ -36,7 +36,7 @@ struct DefaultTransparency {
     u8 unk_1;
     u8 evbCoef;
     u8 evaCoef;
-    u16 unk_4;
+    u16 bldcnt;
 };
 
 // Globals

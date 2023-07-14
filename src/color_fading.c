@@ -598,7 +598,7 @@ u8 ColorFading_DoorTransition(void)
             write16(REG_BG3VOFS, gBackgroundPositions.doorTransition.y);
             gWrittenToBLDCNT = 0x3F48;
 
-            bgProp = gCurrentRoomEntry.BG0Prop;
+            bgProp = gCurrentRoomEntry.Bg0Prop;
             if (bgProp != 0x43 && bgProp != 0x44 && bgProp != 0x45)
             {
                 gWrittenToBLDALPHA_H = 16;

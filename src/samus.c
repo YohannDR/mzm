@@ -2713,14 +2713,14 @@ u8 SamusCheckFireBeamMissile(struct SamusData* pData, struct WeaponInfo* pWeapon
                     if (pWeapon->chargeCounter < 0x4F)
                         pWeapon->chargeCounter++;
                     else
-                        pWeapon->chargeCounter = 0x40;
+                        pWeapon->chargeCounter = CHARGE_BEAM_THRESHOLD;
                 }
                 else
                     pWeapon->chargeCounter = 0;
             }
             else
             {
-                if (pWeapon->chargeCounter > 0x3F)
+                if (pWeapon->chargeCounter >= CHARGE_BEAM_THRESHOLD)
                 {
                     pWeapon->newProjectile = PROJECTILE_CATEGORY_CHARGED_BEAM;
                     hasProj++;
@@ -6448,7 +6448,7 @@ void SamusUpdatePalette(struct SamusData* pData)
     if (pEquipment->suitType != SUIT_SUITLESS)
     {
         chargeCounter = pWeapon->chargeCounter;
-        limit = 64;
+        limit = CHARGE_BEAM_THRESHOLD;
         if (chargeCounter >= limit)
         {
             offset = DIV_SHIFT(chargeCounter - limit, 4);
