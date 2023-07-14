@@ -199,10 +199,14 @@ void SramRead_FileScreenOptionsUnlocked(void)
     SramWrite_FileScreenOptionsUnlocked();
 }
 
+/**
+ * @brief 734e8 | 9c | Checks the validity of the file screen options unlocked for a file
+ * 
+ * @param fileNumber File number
+ * @return u32 Sanity checks
+ */
 u32 SramCheck_FileScreenOptionsUnlocked(u8 fileNumber)
 {
-    // https://decomp.me/scratch/AgVh2
-
     s32 i;
     struct SaveFileScreenOptions* pOptions;
     u32 flags;
@@ -218,9 +222,9 @@ u32 SramCheck_FileScreenOptionsUnlocked(u8 fileNumber)
         pOptions = &sSramEwramPointer->fileScreenOptions_fileA;
 
     checksum = 0;
-
     ptr = (u32*)pOptions;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFileScreenOptions, 4, u32); i >= 0; i--)
+
+    for (i = 0; i < (s32)SRAM_GET_CHECKSUM_SIZE(struct SaveFileScreenOptions, 4, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
