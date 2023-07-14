@@ -983,10 +983,14 @@ void unk_74574(void)
         gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP;
 }
 
+/**
+ * @brief 74624 | 168 | To document
+ * 
+ * @param useCopy Use file copy flag
+ * @return u32 Sanity checks
+ */
 u32 unk_74624(u8 useCopy)
 {
-    // https://decomp.me/scratch/Uzj0U
-
     struct SaveFile* pFile;
     u32* ptr;
     u32 checksum;
@@ -1000,7 +1004,8 @@ u32 unk_74624(u8 useCopy)
 
     ptr = (u32*)pFile;
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i >= 0; i--)
+
+    for (i = 0; i < (s32)SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
