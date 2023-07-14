@@ -811,7 +811,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     if (onWorldMap == FALSE)
         status = TRUE;
     else
-        status = TRUE << 1;
+        status = OAM_ID_CHANGED_FLAG;
  
     pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
     for (i = 0; i < MAX_AMOUNT_OF_AREAS - 1; i++, pOam++)
@@ -829,11 +829,14 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     pOam->yPosition = sWorldMapData[gCurrentArea].yPosition - 0x18;
 }
 
+/**
+ * @brief 6920c | 3b0 | Loads the area name and icons oam
+ * 
+ */
 void PauseScreenLoadAreaNamesAndIcons(void)
 {
-    // https://decomp.me/scratch/w2KOM
-
     s32 i;
+    s32 j;
     struct MenuOamData* pOam;
     const u16* ptr;
 
@@ -927,8 +930,10 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
     PauseScreenDrawCompletionInfo(FALSE);
 
-    for (i = 0; i < ARRAY_SIZE(sMapScreenArrowsData); i++)
+    for (i = ARRAY_SIZE(sMapScreenArrowsData); i > 0; )
     {
+        i--;
+        
         if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
         {
             PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].exists = TRUE;

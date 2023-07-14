@@ -2144,11 +2144,9 @@ void Sram_InitSaveFile(void)
 
     for (i = 0; i < ARRAY_SIZE(gInGameCutscenesTriggered); i++)
     {
-        j = 0;
-        flags = 0;
-        for (; j < ARRAY_SIZE(sInGameCutsceneData); j++)
+        for (j = 0, flags = 0; j < ARRAY_SIZE(sInGameCutsceneData); j++)
         {
-            if (sInGameCutsceneData[i* 32 + j].unk_0)
+            if (sInGameCutsceneData[i * 32 + j].unk_0)
                 flag = TRUE;
             else
                 flag = FALSE;
@@ -2160,8 +2158,8 @@ void Sram_InitSaveFile(void)
 
     gDisableDrawingSamusAndScrolling = FALSE;
     gDifficulty = DIFF_NORMAL;
-    gTimeAttackFlag = FALSE;
-    gIsLoadingFile = FALSE;
+
+    gIsLoadingFile = gTimeAttackFlag = FALSE;
 }
 
 /**
