@@ -808,12 +808,12 @@ void MetroidSamusGrabbed(void)
             SoundPlayNotAlreadyPlaying(0x81);
 
             flags = gEquipment.suitMiscActivation;
-            velocity = (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT);
+            velocity = SMF_ALL_SUITS;
             velocity &= flags;
 
             if (!velocity)
                 SoundPlay(0x16D);
-            else if (velocity == (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT))
+            else if (velocity == SMF_ALL_SUITS)
                 SoundPlay(0x16F);
             else
                 SoundPlay(0x16E);

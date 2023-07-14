@@ -8950,8 +8950,8 @@ lbl_080112b6:
 lbl_080112c0: .4byte gDifficulty
 lbl_080112c4: .4byte gCurrentSprite
 
-    thumb_func_start SpriteUtilIsSpriteOnScreenAndScreenShake
-SpriteUtilIsSpriteOnScreenAndScreenShake: @ 0x080112c8
+    thumb_func_start SpriteUtilIsShouldFall
+SpriteUtilIsShouldFall: @ 0x080112c8
     push {lr}
     ldr r0, lbl_080112ec @ =gCurrentSprite
     ldrh r1, [r0]

@@ -310,7 +310,7 @@ void ZeelaMove(void)
         return;
     }
 
-    if (SpriteUtilIsSpriteOnScreenAndScreenShake())
+    if (SpriteUtilIsShouldFall())
     {
         if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2))
             gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;

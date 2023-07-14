@@ -66,8 +66,11 @@
 // Converts a number to Q8.8 fixed-point format
 #define Q_8_8(n) ((s16)((n) * 256))
 
-// Converts a number to Q8.8 fixed-point format
+// Converts a Q8.8 fixed-point format number to a regular short
 #define Q_8_8_TO_SHORT(n) ((s16)((n) >> 8))
+
+// Converts a Q8.8 fixed-point format number to a regular short
+#define Q_8_8_TO_SHORT_DIV(n) (((n) / 256))
 
 // Converts a number to Q4.12 fixed-point format
 #define Q_4_12(n)  ((s16)((n) * 4096))
@@ -111,11 +114,23 @@
  */
 #define MUL_SHIFT(value, mul) ((value) << ((mul) == 2 ? 1 : ((mul) == 4 ? 2 : ((mul) == 8 ? 3 : ((mul) == 16 ? 4 : ((mul) == 32 ? 5 : ((mul) == 64 ? 6 : ((mul) == 128 ? 7 : ((mul) == 256 ? 8 : ((mul) == 512 ? 9 : ((mul) == 1024 ? 10 : 0)))))))))))
 
+/**
+ * @brief Multiplies a number by a fraction (num/den)
+ * 
+ * @param value Value
+ * @param num Numerator
+ * @param den Denominator
+ */
+#define FRACT_MUL(value, num, den) ((value) * (num) / (den))
+
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
 
+#define GET_PSPRITE_DAMAGE(id) sPrimarySpriteStats[(id)][1]
+#define GET_SSPRITE_DAMAGE(id) sSecondarySpriteStats[(id)][1]
 
 #define SUB_PIXEL_TO_PIXEL(pixel) ((pixel) / SUB_PIXEL_RATIO)
+#define SUB_PIXEL_TO_PIXEL_(pixel) (DIV_SHIFT(pixel, SUB_PIXEL_RATIO))
 #define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)
 #define SUB_PIXEL_TO_BLOCK(pixel) ((pixel) / BLOCK_SIZE)
 #define BLOCK_TO_SUB_PIXEL(block) ((block) * BLOCK_SIZE)
@@ -131,6 +146,13 @@
 
 
 #define HAS_AREA_MAP(area) ((gEquipment.downloadedMapStatus >> (area)) & 1)
+
+#define PEN_GET_ENDING(pen) ((pen) & 0xF)
+#define PEN_GET_ABILITY(pen) ((pen) >> 4 & 0xF)
+#define PEN_GET_POWER_BOMB(pen) ((pen) >> 8 & 0xF)
+#define PEN_GET_SUPER_MISSILE(pen) ((pen) >> 12 & 0xF)
+#define PEN_GET_MISSILE(pen) (LOW_BYTE((pen) >> 16))
+#define PEN_GET_ENERGY(pen) (LOW_BYTE((pen) >> 24))
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN

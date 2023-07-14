@@ -341,8 +341,8 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     s32 i;
     u16 partCount;
     
-    u32 unk_0;
-    u32 unk_1;
+    u32 yOffset;
+    u32 xOffset;
     
     u16 xFlip;
     u16 doubleSize;
@@ -363,12 +363,12 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     src = pSprite->pOam[pSprite->currentAnimationFrame].pFrame;
     partCount = *src++;
 
-    if (partCount + prevSlot >= 0x80)
+    if (partCount + prevSlot >= OAM_BUFFER_DATA_SIZE)
         return;
 
     dst = (u16*)(gOamData + prevSlot);
-    yPosition = (pSprite->yPosition >> 2) - (gBg1YPosition / 4);
-    xPosition = (pSprite->xPosition >> 2) - (gBg1XPosition / 4);
+    yPosition = SUB_PIXEL_TO_PIXEL_(pSprite->yPosition) - SUB_PIXEL_TO_PIXEL(gBg1YPosition);
+    xPosition = SUB_PIXEL_TO_PIXEL_(pSprite->xPosition) - SUB_PIXEL_TO_PIXEL(gBg1XPosition);
 
     // Shortcuts for status
     xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
@@ -525,45 +525,47 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             shape = gOamData[prevSlot + i].split.shape;
             size = gOamData[prevSlot + i].split.size;
         
-            unk_0 = sOamYFlipOffsets[shape][size];
-            unk_0 *= 4;
-            unk_1 = sOamXFlipOffsets[shape][size];
-            unk_1 *= 4;
+            yOffset = sOamYFlipOffsets[shape][size];
+            yOffset = PIXEL_TO_SUBPIXEL(yOffset);
+            xOffset = sOamXFlipOffsets[shape][size];
+            xOffset = PIXEL_TO_SUBPIXEL(xOffset);
         
             // Get current positions
-            y = (s16)(part1 + yPosition) & 0xFF;
-            x = (s16)(part2 + xPosition) & 0x1FF;
+            y = (s16)MOD_AND(part1 + yPosition, 256);
+            x = (s16)MOD_AND(part2 + xPosition, 512);
         
-            tmpY = (s16)(y - yPosition + unk_0);
-            tmpX = (s16)(x - xPosition + unk_1);
-            tmpX = (s16)((tmpX * scaling / 256) - tmpX);
-            tmpY = (s16)((tmpY * scaling / 256) - tmpY);
+            tmpY = (s16)(y - yPosition + yOffset);
+            tmpX = (s16)(x - xPosition + xOffset);
+
+            // Apply scaling
+            tmpX = (s16)(Q_8_8_TO_SHORT_DIV(tmpX * scaling) - tmpX);
+            tmpY = (s16)(Q_8_8_TO_SHORT_DIV(tmpY * scaling) - tmpY);
         
             x = (s16)(x + tmpX);
             y = (s16)(y + tmpY);
         
             // Offset to 0;0 temporarly to apply the rotation
-            unk_2 = (s16)(x - xPosition + unk_1);
-            unk_3 = (s16)(y - yPosition + unk_0);
+            unk_2 = (s16)(x - xPosition + xOffset);
+            unk_3 = (s16)(y - yPosition + yOffset);
         
             // Rotation matrix
-            x = (s16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
-            y = (s16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
+            x = Q_8_8_TO_SHORT(unk_2 * cos(rotation) - unk_3 * sin(rotation));
+            y = Q_8_8_TO_SHORT(unk_2 * sin(rotation) + unk_3 * cos(rotation));
         
             if (doubleSize)
             {
-                x = (s16)(x - unk_1 * 2);
-                y = (s16)(y - unk_0 * 2);
+                x = (s16)(x - xOffset * 2);
+                y = (s16)(y - yOffset * 2);
             }
             else
             {
-                x = (s16)(x - unk_1);
-                y = (s16)(y - unk_0);
+                x = (s16)(x - xOffset);
+                y = (s16)(y - yOffset);
             }
         
             // Rotated position + position
-            gOamData[prevSlot + i].split.y = (y + yPosition - BLOCK_SIZE) & 0xFF;
-            gOamData[prevSlot + i].split.x = (x + xPosition - BLOCK_SIZE) & 0x1FF;
+            gOamData[prevSlot + i].split.y = MOD_AND(y + yPosition - BLOCK_SIZE, 256);
+            gOamData[prevSlot + i].split.x = MOD_AND(x + xPosition - BLOCK_SIZE, 512);
 
             if (doubleSize)
             {

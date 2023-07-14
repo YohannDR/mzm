@@ -73,7 +73,7 @@ u8 SpriteUtilGetAmmoDrop(u8 rng);
 u8 SpriteUtilDetermineEnemyDrop(void);
 void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSound, u8 effect);
 u8 SpriteUtilIsSpriteStunned(void);
-u8 SpriteUtilIsSpriteOnScreenAndScreenShake(void);
+u8 SpriteUtilIsShouldFall(void);
 void SpriteUtilUpdateSubSprite1Timer(void);
 void SpriteUtilUpdateSubSprite1Anim(void);
 void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void);

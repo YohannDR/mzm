@@ -478,7 +478,7 @@ lbl_0801dd92:
     .align 2, 0
 lbl_0801dda8: .4byte gCurrentSprite
 lbl_0801ddac:
-    bl SpriteUtilIsSpriteOnScreenAndScreenShake
+    bl SpriteUtilIsShouldFall
     cmp r0, #0
     beq lbl_0801dddc
     ldr r2, lbl_0801ddd8 @ =gCurrentSprite

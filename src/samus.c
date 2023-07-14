@@ -1006,12 +1006,13 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
 
     if (defaultOffset == 0)
     {
-        for (i = 0; i < 0x3; i++)
+        for (i = 0; i < 3; i++)
         {
             if (gSamusEnvironmentalEffects[i].type == ENV_EFFECT_NONE)
                 break;
         }
-        if (i > 0x2)
+
+        if (i > 2)
             canSpawn--;
     }
     else
@@ -1021,12 +1022,16 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
     {
         case WANTING_RUNNING_EFFECT:
         case WANTING_RUNNING_EFFECT_:
+            // Check forward
             if (pData->direction & KEY_RIGHT)
-                nextX = pData->xPosition + 4;
+                nextX = pData->xPosition + PIXEL_SIZE;
             else
-                nextX = pData->xPosition - 4;
+                nextX = pData->xPosition - PIXEL_SIZE;
 
-            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, nextX);
+            // Analyze block directly below
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + ONE_SUB_PIXEL, nextX);
+
+            // Apply ground effect
             if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
@@ -1073,7 +1078,10 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
             break;
 
         case WANTING_LANDING_EFFECT:
-            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            // Analyze block directly below
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + ONE_SUB_PIXEL, pData->xPosition);
+
+            // Apply ground effect
             if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_WET_GROUND;
@@ -1124,17 +1132,18 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
 
             if (request == WANTING_GOING_OUT_OF_LIQUID_EFFECT)
             {
+                // Offset check slightly up
                 liquidCheckY -= QUARTER_BLOCK_SIZE;
                 previousY -= QUARTER_BLOCK_SIZE;
             }
 
-            affecting = ClipdataCheckCurrentAffectingAtPosition(liquidCheckY, pData->xPosition);
-            affecting &= 0xFF;
-            previousAffecting = ClipdataCheckCurrentAffectingAtPosition(previousY, pData->xPosition);
-            previousAffecting &= 0xFF;
+            // Got current and previous liquid state
+            affecting = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(liquidCheckY, pData->xPosition));
+            previousAffecting = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(previousY, pData->xPosition));
 
             if (liquidCheckY < previousY)
             {
+                // Currently moving up, check if the liquid state changed
                 if (affecting != HAZARD_TYPE_WATER && previousAffecting == HAZARD_TYPE_WATER)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_WATER;
@@ -1158,6 +1167,7 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
             }
             else
             {
+                // Currently moving down, check if the liquid state changed
                 if (affecting == HAZARD_TYPE_WATER && previousAffecting != HAZARD_TYPE_WATER)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_WATER;
@@ -1184,10 +1194,16 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 effect++;
 
             xPosition = pData->xPosition;
+
+            // Get Y position
             if (gEffectYPosition != 0)
+            {
+                // Snap to effect position
                 yPosition = gEffectYPosition;
+            }
             else
             {
+                // Use block position
                 if (liquidCheckY < previousY)
                     yPosition = gPreviousYPosition & BLOCK_POSITION_FLAG;
                 else
@@ -1203,17 +1219,21 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 found++;
 
                 if (pData->direction & KEY_RIGHT)
-                    xPosition = pData->xPosition + 12;
+                    xPosition = pData->xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
                 else
-                    xPosition = pData->xPosition - 12;
+                    xPosition = pData->xPosition - (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
 
+                // Spawn near head
                 yPosition = pData->yPosition + pPhysics->drawDistanceTopOffset + QUARTER_BLOCK_SIZE;
                 SoundPlay(0x91); // Liquid bubbling
             }
             break;
 
         case WANTING_SKIDDING_EFFECT:
-            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            // Analyze block directly below
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + ONE_SUB_PIXEL, pData->xPosition);
+
+            // Apply ground effect
             if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_SKIDDING_ON_WET_GROUND;
@@ -1224,12 +1244,16 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 effect = ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND;
                 found++;
             }
+
             xPosition = pData->xPosition;
             yPosition = pData->yPosition;
             break;
 
         case WANTING_RUNNING_ON_WET_GROUND:
-            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            // Analyze block directly below
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + ONE_SUB_PIXEL, pData->xPosition);
+
+            // Apply ground effect
             if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
@@ -1242,6 +1266,7 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
 
     if (found & canSpawn)
     {
+        // Register effect
         gSamusEnvironmentalEffects[i].type = effect;
         gSamusEnvironmentalEffects[i].currentAnimationFrame = 0;
         gSamusEnvironmentalEffects[i].animationDurationCounter = 0;
@@ -1357,7 +1382,7 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
         }
         else if (affecting == HAZARD_TYPE_WEAK_LAVA && affectingTop != HAZARD_TYPE_WEAK_LAVA)
         {
-            if (!(gEquipment.suitMiscActivation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)))
+            if (!(gEquipment.suitMiscActivation & SMF_ALL_SUITS))
             {
                 effect = ENV_EFFECT_TAKING_DAMAGE_IN_LAVA;
                 subAnimEnded++;
@@ -1391,66 +1416,63 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
     }
 
     pEnv = gSamusEnvironmentalEffects;
-    for (i = 0; i < 5;)
+    for (i = 0; i < 5; i++, pEnv++)
     {
         effect = pEnv->type;
-        if (effect != ENV_EFFECT_NONE)
+        if (effect == ENV_EFFECT_NONE)
+            continue;
+
+        pEnv->animationDurationCounter++;
+
+        pOam = sSamusEnvEffectsFrameDataPointers[effect - 1];
+        pOam += pEnv->currentAnimationFrame;
+        subAnimEnded = FALSE;
+        
+        if (pEnv->animationDurationCounter >= pOam->timer)
         {
-            pEnv->animationDurationCounter++;
-
-            pOam = sSamusEnvEffectsFrameDataPointers[effect - 1];
-            pOam += pEnv->currentAnimationFrame;
-            subAnimEnded = FALSE;
-            
-            if (pEnv->animationDurationCounter >= pOam->timer)
+            pEnv->animationDurationCounter = 0;
+            pEnv->currentAnimationFrame++;
+            pOam++;
+            if (pOam->timer == 0)
             {
-                pEnv->animationDurationCounter = 0;
-                pEnv->currentAnimationFrame++;
-                pOam++;
-                if (pOam->timer == 0)
-                {
-                    pEnv->type = ENV_EFFECT_NONE;
-                    pEnv->currentAnimationFrame = 0;
-                }
-
-                subAnimEnded++;
+                pEnv->type = ENV_EFFECT_NONE;
+                pEnv->currentAnimationFrame = 0;
             }
 
-            pEnv->pOamFrame = pOam->pFrame;
-
-            if (subAnimEnded)
-            {
-                switch (effect)
-                {
-                    case ENV_EFFECT_GOING_OUT_OF_WATER:
-                    case ENV_EFFECT_GOING_OUT_OF_LAVA:
-                    case ENV_EFFECT_GOING_OUT_OF_ACID:
-                        if (pEnv->currentAnimationFrame == 1)
-                            SoundPlay(0x75);
-                        break;
-
-                    case ENV_EFFECT_RUNNING_INTO_WATER:
-                    case ENV_EFFECT_RUNNING_INTO_LAVA:
-                    case ENV_EFFECT_RUNNING_INTO_ACID:
-                        if (pEnv->currentAnimationFrame == 1)
-                            SoundPlay(0x74);
-                        break;
-
-                    case ENV_EFFECT_TAKING_DAMAGE_IN_LAVA:
-                    case ENV_EFFECT_TAKING_DAMAGE_IN_ACID:
-                        pEnv->xPosition = pData->xPosition;
-                        break;
-
-                    case ENV_EFFECT_SKIDDING_ON_WET_GROUND:
-                    case ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND:
-                        if (i == 0 && pEnv->currentAnimationFrame == 3)
-                            SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_SKIDDING_EFFECT);
-                }
-            }
+            subAnimEnded++;
         }
 
-        i++;
-        pEnv++;
+        pEnv->pOamFrame = pOam->pFrame;
+
+        if (subAnimEnded)
+        {
+            switch (effect)
+            {
+                case ENV_EFFECT_GOING_OUT_OF_WATER:
+                case ENV_EFFECT_GOING_OUT_OF_LAVA:
+                case ENV_EFFECT_GOING_OUT_OF_ACID:
+                    if (pEnv->currentAnimationFrame == 1)
+                        SoundPlay(0x75);
+                    break;
+
+                case ENV_EFFECT_RUNNING_INTO_WATER:
+                case ENV_EFFECT_RUNNING_INTO_LAVA:
+                case ENV_EFFECT_RUNNING_INTO_ACID:
+                    if (pEnv->currentAnimationFrame == 1)
+                        SoundPlay(0x74);
+                    break;
+
+                case ENV_EFFECT_TAKING_DAMAGE_IN_LAVA:
+                case ENV_EFFECT_TAKING_DAMAGE_IN_ACID:
+                    pEnv->xPosition = pData->xPosition;
+                    break;
+
+                case ENV_EFFECT_SKIDDING_ON_WET_GROUND:
+                case ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND:
+                    if (i == 0 && pEnv->currentAnimationFrame == 3)
+                        SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_SKIDDING_EFFECT);
+            }
+        }
     }
 }
 
@@ -1496,7 +1518,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
             if (pCopy->forcedMovement == 0x2)
                 pData->yVelocity = pCopy->yVelocity;
 
-            if (SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]) )
+            if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]) )
                 pData->yPosition += 0x20;
             break;
 
@@ -1591,7 +1613,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_CROUCHING:
         case SPOSE_TURNING_AROUND_AND_CROUCHING:
         case SPOSE_SHOOTING_AND_CROUCHING:
-            if (SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]) )
+            if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]) )
                 pData->yPosition += 0x20;
         default:
             pData->pose = SPOSE_MIDAIR;
@@ -1655,7 +1677,7 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
     switch (pCopy->pose)
     {
         case SPOSE_MIDAIR:
-            collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+            collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
             if (collision)
                 // Blocks above, set crouched
                 pData->pose = SPOSE_CROUCHING;
@@ -1679,7 +1701,7 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
             if (gButtonInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
             {
                 // Check bounce from maintained A
-                collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+                collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
                 if (!(collision & (SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT)))
                     pData->forcedMovement = FORCED_MOVEMENT_MORPH_BALL_BOUNCE_BEFORE_JUMP;
             }
@@ -1735,13 +1757,13 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
 
                 // Keep direction
                 pData->forcedMovement = pCopy->forcedMovement;
-                pData->currentAnimationFrame = 0x1;
+                pData->currentAnimationFrame = 1;
                 SoundPlay(0x90);
             }
             break;
 
         default:
-            collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+            collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
             if (collision)
                 pData->pose = SPOSE_CROUCHING;
             else if (pCopy->xVelocity == 0)
@@ -1758,7 +1780,7 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
     {
         case SPOSE_LANDING:
             if (gSamusPhysics.hasNewProjectile)
-                pData->currentAnimationFrame = 0x1;
+                pData->currentAnimationFrame = 1;
             
             if (pCopy->armCannonDirection == ACD_DOWN)
                 pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
@@ -1812,7 +1834,7 @@ void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, str
                 break;
 
             default:
-                y_pos_related = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+                y_pos_related = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
                 pData->pose = SPOSE_GETTING_HURT;
         }
 
@@ -1878,7 +1900,7 @@ void SamusChangeToKnockbackPose(struct SamusData* pData, struct SamusData* pCopy
             break;
 
         default:
-            y_pos_related = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+            y_pos_related = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
             pData->pose = SPOSE_GETTING_KNOCKED_BACK;
     }
     
@@ -3406,7 +3428,7 @@ u8 SamusRunningGfx(struct SamusData* pData)
 u8 SamusStanding(struct SamusData* pData)
 {
     if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A &&
-        pData->shinesparkTimer && !SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2] - HALF_BLOCK_SIZE))
+        pData->shinesparkTimer && !SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2] - HALF_BLOCK_SIZE))
     {
         pData->yPosition -= HALF_BLOCK_SIZE;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -3477,7 +3499,7 @@ u8 SamusStandingGfx(struct SamusData* pData)
 
 u8 SamusTurningAround(struct SamusData* pData)
 {
-    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && !SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2] - HALF_BLOCK_SIZE))
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && !SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2] - HALF_BLOCK_SIZE))
     {
         pData->yPosition -= HALF_BLOCK_SIZE;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -3542,17 +3564,17 @@ u8 SamusCrouching(struct SamusData* pData)
     u8 collision;
 
     if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A &&
-        pData->shinesparkTimer != 0 && !SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2] - HALF_BLOCK_SIZE))
+        pData->shinesparkTimer != 0 && !SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2] - HALF_BLOCK_SIZE))
     {
         pData->yPosition -= HALF_BLOCK_SIZE;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
     
-    collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+    collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
     if (collision == SAMUS_COLLISION_DETECTION_LEFT_MOST)
-        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[0][0];
+        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0];
     else if (collision == SAMUS_COLLISION_DETECTION_RIGHT_MOST)
-        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[0][0] + SUB_PIXEL_POSITION_FLAG;
+        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0] + SUB_PIXEL_POSITION_FLAG;
 
     if (SamusCheckAButtonPressed(pData) && !(collision & (SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT)))
     {
@@ -3619,18 +3641,18 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
     u8 unk;
     u16 xPosition;
 
-    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && SamusCheckCollisionAbove(pData, (s16)((u16)sSamusHitboxData[0][2] - 0x20))  == 0)
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && SamusCheckCollisionAbove(pData, (s16)((u16)sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2] - 0x20))  == 0)
     {
         pData->yPosition -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
     else
     {
-        unk = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+        unk = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
         if (unk == 0x1)
-            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)sSamusHitboxData[0][0];
+            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0];
         else if (unk == 0x8)
-            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)sSamusHitboxData[0][0] + 0x3F;
+            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0] + 0x3F;
 
         if (SamusCheckAButtonPressed(pData)  && (unk & 0x6) == 0)
         {
@@ -4144,13 +4166,13 @@ u8 SamusMorphball(struct SamusData* pData)
 
     if (gChangedInput & KEY_UP)
     {
-        collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]);
+        collision = SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]);
 
         if (collision == SAMUS_COLLISION_DETECTION_LEFT_MOST)
         {
             xPosition = pData->xPosition;
-            xPosition += sSamusHitboxData[0][0];
-            pData->xPosition = (xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[0][0] + BLOCK_SIZE;
+            xPosition += sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0];
+            pData->xPosition = (xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][0] + BLOCK_SIZE;
             gPreviousXPosition = pData->xPosition;
 
             collision = FALSE;
@@ -4158,9 +4180,9 @@ u8 SamusMorphball(struct SamusData* pData)
         else if (collision == SAMUS_COLLISION_DETECTION_RIGHT_MOST)
         {
             xPosition = pData->xPosition;
-            xPosition += sSamusHitboxData[0][1];
+            xPosition += sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][1];
 
-            pData->xPosition = (xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[0][1] - 1;
+            pData->xPosition = (xPosition & BLOCK_POSITION_FLAG) - sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][1] - 1;
             gPreviousXPosition = pData->xPosition;
 
             collision = FALSE;
@@ -4207,7 +4229,7 @@ u8 SamusRolling(struct SamusData* pData)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     }
 
-    if (!SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]) && gChangedInput & KEY_UP)
+    if (!SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]) && gChangedInput & KEY_UP)
     {
         if (gSamusPhysics.slowedByLiquid)
             SoundPlay(0x78);
@@ -4251,7 +4273,7 @@ u8 SamusRollingGfx(struct SamusData* pData)
 
 u8 SamusUnmorphing(struct SamusData* pData)
 {
-    if (SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]) == 0)
+    if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]) == 0)
     {
         if (gChangedInput & KEY_A)
         {
@@ -4284,7 +4306,7 @@ u8 SamusUnmorphingGfx(struct SamusData* pData)
  */
 u8 SamusMorphballMidAir(struct SamusData* pData)
 {
-    if (gChangedInput & KEY_UP && !SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]))
+    if (gChangedInput & KEY_UP && !SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]))
     {
         if (gSamusPhysics.slowedByLiquid == TRUE)
             SoundPlay(0x78);
@@ -5269,7 +5291,7 @@ u8 SamusStartingToCrawlGfx(struct SamusData* pData)
 
 u8 SamusCrawling(struct SamusData* pData)
 {
-    if (SamusCheckCollisionAbove(pData, sSamusHitboxData[0][2]) == 0)
+    if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][2]) == 0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
     else
     {

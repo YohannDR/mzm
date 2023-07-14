@@ -273,7 +273,7 @@ void SovaMove(void)
         return;
     }
 
-    if (SpriteUtilIsSpriteOnScreenAndScreenShake())
+    if (SpriteUtilIsShouldFall())
     {
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 || gCurrentSprite.workVariable2 != 0)
             gCurrentSprite.pose = SOVA_POSE_FALLING_INIT;
