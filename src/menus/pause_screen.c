@@ -905,7 +905,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
         UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[i].nameOamId);
         PAUSE_SCREEN_DATA.overlayOam[0].yPosition = 12;
-        PAUSE_SCREEN_DATA.overlayOam[0].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.overlayOam[0].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
         PAUSE_SCREEN_DATA.overlayOam[0].priority = 0;
     }
     else
