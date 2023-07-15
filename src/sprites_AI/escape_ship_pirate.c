@@ -144,7 +144,7 @@ void EscapeShipSpacePirate(void)
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
             {
                 if (gSpriteDrawOrder[2] == TRUE)
-                    gAlarmTimer = 0x1E0;
+                    gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
                 else if (gAlarmTimer == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
             }

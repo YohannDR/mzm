@@ -136,7 +136,7 @@ void SecurityLaserIdle(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        gAlarmTimer = 0x1E0;
+        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
 
         for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
         {
@@ -259,7 +259,7 @@ void SecurityLaserCheckDespawnAnimEnded(void)
 void SecurityLaserSetAlarm(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    gAlarmTimer = 0x1E0;
+    gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
 }
 
 /**

@@ -97,6 +97,8 @@ struct BossWork {
 #define MAX_AMOUNT_OF_SPRITES 24
 #define MAX_AMOUNT_OF_SPRITE_TYPES 15
 
+#define ALARM_TIMER_ACTIVE_TIMER (60 * 8)
+
 extern u16 gAlarmTimer;
 extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
 extern u8 gSpritesetSpritesID[MAX_AMOUNT_OF_SPRITE_TYPES];

@@ -11,6 +11,8 @@
 #define SEARCHLIGHT_EYE_BEAM_POSE_IDLE 0x9
 #define SEARCHLIGHT_EYE_BEAM_POSE_GETTING_ALERTED 0x23
 
+#define SEARCHLIGHT_EYE_BEAM_SIZE (BLOCK_SIZE * 7)
+
 void SearchlightEyeInit(void);
 void SearchlightEyeMove(void);
 void SearchlightEyeCheckAlarm(void);

@@ -52,7 +52,7 @@ void Searchlight(void)
             gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN; // Flicker
 
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
-                gAlarmTimer = 0x1E0; // Activate alarm
+                gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Activate alarm
 
             if (gAlarmTimer != 0x0)
             {
@@ -115,7 +115,7 @@ void Searchlight(void)
 
 
         case SEARCHLIGHT_POSE_ACTIVATE_ALARM:
-            gAlarmTimer = 0x1E0; // Constantly activate alarm
+            gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Constantly activate alarm
             break;
     }
 }

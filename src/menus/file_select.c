@@ -800,7 +800,7 @@ void FileSelectFileCopyChooseBaseDestinationFile(void)
         file = FILE_SELECT_DATA.currentFile;
         if (file == 0x80 || FILE_SELECT_DATA.copySourceFile == file)
         {
-            // Swap files Aand B
+            // Swap files A and B
             if (FILE_SELECT_DATA.copySourceFile == FILE_SELECT_CURSOR_POSITION_FILE_B)
                 file = FILE_SELECT_CURSOR_POSITION_FILE_A;
             else
@@ -1069,7 +1069,7 @@ u32 FileSelectCopyFileSubroutine(void)
                 FileSelectDisplaySaveFileMiscInfo(&gSaveFilesInfo[FILE_SELECT_DATA.currentFile], FILE_SELECT_DATA.currentFile);
 
                 FILE_SELECT_DATA.fileScreenOam[sFileSelectFileOamOffsets[FILE_SELECT_DATA.currentFile][1]].exists =
-                    gSaveFilesInfo[FILE_SELECT_DATA.currentFile].completedGame ? 2 : 0;
+                    gSaveFilesInfo[FILE_SELECT_DATA.currentFile].completedGame ? OAM_ID_CHANGED_FLAG : FALSE;
             
                 FileScreenSetEnabledMenuFlags();
                 DmaTransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);

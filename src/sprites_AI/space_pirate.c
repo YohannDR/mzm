@@ -29,7 +29,7 @@
 void DisableChozodiaAlarm(void)
 {
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
-        gAlarmTimer = 0x1E0; // Restart alarm if escape
+        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Restart alarm if escape
     else
     {
         gAlarmTimer = 0x0;
@@ -76,7 +76,7 @@ void SpawnWaitingPirates(void)
 
     foundPirate = FALSE;
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
-        gAlarmTimer = 0x1E0;
+        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
     else if (gAlarmTimer == 0x0)
         return;
     
@@ -4353,7 +4353,7 @@ void SpacePirate(void)
         {
             if (gSpriteDrawOrder[2] == TRUE)
             {
-                gAlarmTimer = 0x1E0;
+                gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
                 if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
