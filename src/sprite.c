@@ -762,7 +762,7 @@ void SpriteLoadSpriteset(void)
     s32 ctrl_1;
     s32 ctrl_2;
 
-    for (i = 0; i < 15; i++)
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
         gSpritesetSpritesID[i] = PSPRITE_UNUSED16;
         gSpritesetGfxSlots[i] = 0;
@@ -778,7 +778,7 @@ void SpriteLoadSpriteset(void)
             spriteset = 0;
     }
 
-    for (j = 0, i = 0; i < 15; i++)
+    for (j = 0, i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
         spriteID = sSpritesetPointers[spriteset][j * 2 + 0];
         gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
@@ -789,7 +789,7 @@ void SpriteLoadSpriteset(void)
             break;
 
         gSpritesetSpritesID[i] = spriteID;
-        gSpritesetGfxSlots[i] = gfxSlot & 7;
+        gSpritesetGfxSlots[i] = MOD_AND(gfxSlot, 8);
 
         if (gfxSlot == prevGfxSlot)
             continue;
@@ -800,12 +800,12 @@ void SpriteLoadSpriteset(void)
 
         spriteID -= 0x10;
 
-        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfxSlot * 2048));
+        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + gfxSlot * 2048);
 
         ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
         ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
         DMA_SET(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
-            (DMA_ENABLE << 16) | (ctrl_1 | ctrl_2) / 2048 << 4);
+            C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
     }
 }
 

@@ -3872,14 +3872,17 @@ void FileSelectDisplaySaveFileTimer(u8 file)
     }
 }
 
+/**
+ * @brief 7cf98 | 118 | Displays the misc. info of a file (difficulty, area, time attack)
+ * 
+ * @param pFile Save file info pointer
+ * @param file Save file number
+ */
 void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 {
-    // https://decomp.me/scratch/mFmb0
-
     u16 baseTile;
-    u32 offset;
+    s32 offset;
     u16* dst;
-    u16* tmp;
     u16 tile;
     s32 i;
 
@@ -3893,11 +3896,14 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
         return;
 
     i = pFile->timeAttack;
-    baseTile = i ? 6 << 12 : 5 << 12;
+    if (i)
+        tile = 6 << 12;
+    else
+        tile = 5 << 12;
+    baseTile = tile;
 
-    tmp = (u16*)sEwramPointer;
-    tmp = &tmp[offset];
-    dst = &tmp[(0x800 + 0xCC) / 2];
+    dst = FILE_SELECT_EWRAM.menuTilemap;
+    dst = &dst[offset + 102];
 
     if ((pFile->exists || pFile->introPlayed) && pFile->corruptionFlag == 0)
     {
@@ -3919,9 +3925,8 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
         }
     }
 
-    tmp = (u16*)sEwramPointer;
-    tmp = &tmp[offset];
-    dst = &tmp[(0x800 + 0x12C) / 2];
+    dst = FILE_SELECT_EWRAM.menuTilemap;
+    dst = &dst[offset + 150];
 
     if (pFile->currentArea >= ARRAY_SIZE(sSaveFileAreasId))
         i = -1;
