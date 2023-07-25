@@ -29,17 +29,18 @@
 void DisableChozodiaAlarm(void)
 {
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
-        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Restart alarm if escape
-    else
     {
-        gAlarmTimer = 0x0;
-        // Disable animated palette
-        gDisableAnimatedPalette = -0x1;
-
-        // Check is in stealth
-        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-            UpdateMusicAfterAlarmDisable();
+        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Restart alarm if escape
+        return;
     }
+
+    gAlarmTimer = 0;
+    // Disable animated palette
+    gDisableAnimatedPalette = -1;
+
+    // Check is in stealth
+    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
+        UpdateMusicAfterAlarmDisable();
 }
 
 /**
@@ -69,20 +70,26 @@ void DecrementChozodiaAlarm(void)
 void SpawnWaitingPirates(void)
 {
     u8 foundPirate;
-    u8 count;
+    u8 i;
     u8 spriteID;
     u16 yPosition;
     u16 xPosition;
 
     foundPirate = FALSE;
+
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
-        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
-    else if (gAlarmTimer == 0x0)
-        return;
-    
-    for (count = 0x0; count < 0xF; count++)
     {
-        spriteID = gSpritesetSpritesID[count];
+        gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
+    }
+    else
+    {
+        if (gAlarmTimer == 0)
+            return;
+    }
+    
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
+    {
+        spriteID = gSpritesetSpritesID[i];
         if (spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
         {
             foundPirate++;
@@ -92,11 +99,12 @@ void SpawnWaitingPirates(void)
 
     if (!foundPirate)
     {
-        for (count = 0x0; count < 0xF; count++)
+        for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
         {
-            spriteID = gSpritesetSpritesID[count];
+            spriteID = gSpritesetSpritesID[i];
 
-            if ((u8)(spriteID - PSPRITE_SPACE_PIRATE) < 0x2 || spriteID == PSPRITE_SPACE_PIRATE_WAITING3 || spriteID == PSPRITE_SPACE_PIRATE2)
+            if (spriteID == PSPRITE_SPACE_PIRATE || spriteID == PSPRITE_SPACE_PIRATE_WAITING1 ||
+                spriteID == PSPRITE_SPACE_PIRATE_WAITING3 || spriteID == PSPRITE_SPACE_PIRATE2)
             {
                 foundPirate++;
                 spriteID = PSPRITE_SPACE_PIRATE_WAITING1;
@@ -121,11 +129,11 @@ void SpawnWaitingPirates(void)
         {
             case 0x58: // Save platform + pirates
             case 0x67: // Map station + pirates
-                count = SpriteSpawnPrimary(spriteID, 0x81, 0x5, yPosition, xPosition, 0x0);
+                i = SpriteSpawnPrimary(spriteID, 0x81, 0x5, yPosition, xPosition, 0);
                 break;
 
             default:
-                count = SpriteSpawnPrimary(spriteID, 0x81, 0x0, yPosition, xPosition, 0x0);
+                i = SpriteSpawnPrimary(spriteID, 0x81, 0x0, yPosition, xPosition, 0);
         }
     }
     else
@@ -134,15 +142,15 @@ void SpawnWaitingPirates(void)
         {
             case 0x58: // Save platform + pirates
             case 0x67: // Map station + pirates
-                count = SpriteSpawnPrimary(spriteID, 0x80, 0x5, yPosition, xPosition, 0x0);
+                i = SpriteSpawnPrimary(spriteID, 0x80, 0x5, yPosition, xPosition, 0);
                 break;
 
             default:
-                count = SpriteSpawnPrimary(spriteID, 0x80, 0x0, yPosition, xPosition, 0x0);
+                i = SpriteSpawnPrimary(spriteID, 0x80, 0x0, yPosition, xPosition, 0);
         }
     }
 
-    gSpriteData[count].status |= SPRITE_STATUS_UNKNOWN2;
+    gSpriteData[i].status |= SPRITE_STATUS_UNKNOWN2;
 }
 
 /**

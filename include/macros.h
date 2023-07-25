@@ -10,6 +10,9 @@
 #define LOW_BYTE(value) ((value) & UCHAR_MAX)
 #define HIGH_BYTE(value) (((value) & UCHAR_MAX << 8) >> 8)
 
+#define LOW_SHORT(value) ((value) & USHORT_MAX)
+#define HIGH_SHORT(value) ((value) >> 16)
+
 /**
  * @brief Constructs an uint from 2 ushorts (high << 16 | low)
  * 
@@ -26,7 +29,7 @@
  */
 #define C_16_2_8(high, low) ((high) << 8 | (low))
 
-#define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
+#define OPPOSITE_DIRECTION(dir) ((dir) ^ (KEY_RIGHT | KEY_LEFT))
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
 #define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
 #define CLAMP(value, min, max)\
@@ -99,7 +102,7 @@
 #define MOD_AND(value, mod) ((value) & ((mod) - 1))
 
 /**
- * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2 and <= 256)
+ * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2 and <= 1024)
  * 
  * @param value Value
  * @param div Divisor
@@ -137,6 +140,8 @@
 #define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)
 #define SUB_PIXEL_TO_BLOCK(pixel) ((pixel) / BLOCK_SIZE)
 #define BLOCK_TO_SUB_PIXEL(block) ((block) * BLOCK_SIZE)
+#define VELOCITY_TO_SUB_PIXEL(velocity) (DIV_SHIFT((velocity), 8))
+#define SUB_PIXEL_TO_VELOCITY(velocity) ((velocity) * 8)
 
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)

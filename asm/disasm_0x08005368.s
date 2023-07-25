@@ -9868,8 +9868,8 @@ lbl_0800a000:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusTurningAroundToDownloadMapDataGfx
-SamusTurningAroundToDownloadMapDataGfx: @ 0x0800a008
+    thumb_func_start SamusTurningAroundToDownloadMapDataGfxGfx
+SamusTurningAroundToDownloadMapDataGfxGfx: @ 0x0800a008
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10312,8 +10312,8 @@ lbl_0800a30e:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusDyingGfx
-SamusDyingGfx: @ 0x0800a314
+    thumb_func_start SamusCrawlingGfx
+SamusCrawlingGfx: @ 0x0800a314
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10369,8 +10369,8 @@ lbl_0800a36e:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusCrawlingGfx
-SamusCrawlingGfx: @ 0x0800a374
+    thumb_func_start SamusTurningAroundWhileCrawlingGfx
+SamusTurningAroundWhileCrawlingGfx: @ 0x0800a374
     push {lr}
     movs r1, #0
     bl sub_0800847c

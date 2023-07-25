@@ -1263,18 +1263,18 @@ void ColorFadingApplyMonochrome(void)
     }
     else
     {
-        if (gMonochromeBgFading == 1)
+        if (gMonochromeBgFading == MONOCHROME_FADING_BLACK)
         {
-            ColorFadingStart(0x18);
+            ColorFadingStart(COLOR_FADING_TO_BLACK);
             if (gCurrentHazeValue != 0)
             {
                 gCurrentHazeValue = 0;
                 unk_5d09c();
             }
         }
-        else if (gMonochromeBgFading == 2)
+        else if (gMonochromeBgFading == MONOCHROME_FADING_WHITE)
         {
-            ColorFadingStart(0x17);
+            ColorFadingStart(COLOR_FADING_TO_WHITE);
         }
         else
         {
