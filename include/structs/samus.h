@@ -6,7 +6,7 @@
 
 #define MAX_AMOUNT_OF_SAMUS_POSES 67
 
-#define SAMUS_CARRY_ACD()\
+#define SAMUS_CARRY_ELEVATOR_DIR()\
 do {\
     pData->elevatorDirection = pCopy->elevatorDirection;\
 }while(0);

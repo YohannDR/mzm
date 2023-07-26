@@ -144,7 +144,7 @@ void SavePlatformSecondSamusDetection(void)
             if (gSamusData.invincibilityTimer != 0x0)
                 gSamusData.invincibilityTimer = 0x0;
             SamusSetPose(SPOSE_TURNING_FROM_FACING_THE_FOREGROUND);
-            gSamusData.timer = 0x1;
+            gSamusData.timer = TRUE;
             gDisablePause = TRUE;
         }
     }
@@ -238,7 +238,7 @@ void SavePlatformSavePrompt(void)
                     gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
                 gSpriteData[gCurrentSprite.arrayOffset].pose = SAVE_PLATFORM_PART_POSE_TOP_EXTENDING_INIT;
-                gSamusData.timer = 0x0;
+                gSamusData.timer = FALSE;
                 SoundPlay(0x114);
             }
             else
@@ -449,7 +449,7 @@ void SavePlatformPartTopRetractingInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_TOP_RETRACTING;
-    gSamusData.timer = 0x1;
+    gSamusData.timer = TRUE;
     SoundPlay(0x115);
 }
 

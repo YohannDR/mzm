@@ -3644,16 +3644,24 @@ const s16 sSamusDrawDistanceOffsets[4][4] = {
 
 const s16 sSamusHitboxData[4][3] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
-        -28, 28, -124
+        [SAMUS_HITBOX_LEFT] = -28,
+        [SAMUS_HITBOX_RIGHT] = 28,
+        [SAMUS_HITBOX_TOP] = -124
     },
     [SAMUS_HITBOX_TYPE_CROUCHED] = {
-        -28, 28, -92
+        [SAMUS_HITBOX_LEFT] = -28,
+        [SAMUS_HITBOX_RIGHT] = 28,
+        [SAMUS_HITBOX_TOP] = -92
     },
     [SAMUS_HITBOX_TYPE_MORPHED] = {
-         -28, 28, -60,
+        [SAMUS_HITBOX_LEFT] = -28,
+        [SAMUS_HITBOX_RIGHT] = 28,
+        [SAMUS_HITBOX_TOP] = -60
     },
     [SAMUS_HITBOX_TYPE_ZIPLINE] = {
-        -10, 10, 0
+        [SAMUS_HITBOX_LEFT] = -10,
+        [SAMUS_HITBOX_RIGHT] = 10,
+        [SAMUS_HITBOX_TOP] = 0
     }
 };
 
@@ -3679,5 +3687,5 @@ const struct FrameData* const sSamusEnvEffectsFrameDataPointers[18] = {
 };
 
 const u16 sSamusPullingSelfUpVelocity[4] = {
-    14, 8, 4, 0
+    PIXEL_SIZE * 3 + PIXEL_SIZE / 2, PIXEL_SIZE * 2, PIXEL_SIZE, 0
 };
