@@ -157,12 +157,11 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
  */
 void ProjectileUpdate(void)
 {
-    s32 count;
+    s32 i;
     u8 checks;
     u8 projType;
     u16 beamSound;
     u16 beams;
-    struct ParticleEffect* pParticle;
     struct ProjectileData* pProj;
 
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
@@ -175,19 +174,15 @@ void ProjectileUpdate(void)
     if (gSamusWeaponInfo.chargeCounter == 16 && gEquipment.suitType != SUIT_SUITLESS)
     {
         checks = FALSE;
-        count = 0x0;
 
-        do
+        for (i = 0; i < MAX_AMOUNT_OF_PARTICLES; i++)
         {
-            pParticle = &gParticleEffects[count];
-            if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_CHARGING_BEAM)
+            if (gParticleEffects[i].status & PARTICLE_STATUS_EXISTS && gParticleEffects[i].effect == PE_CHARGING_BEAM)
             {
                 checks++;
                 break;
             }
-
-            count++;
-        } while (count < MAX_AMOUNT_OF_PARTICLES);
+        }
 
         if (!checks)
             ParticleSet(gArmCannonY, gArmCannonX, PE_CHARGING_BEAM);

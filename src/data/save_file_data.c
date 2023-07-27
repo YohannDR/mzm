@@ -45,7 +45,7 @@ const u8 sTimeAttackSave_Text[2][SRAM_TEXT_SIZE] = {
 const u8 sATRUNED_Text[8] = "ATRUNEND";
 
 const struct ButtonAssignments sDefaultButtonAssignments = {
-    .armMissiles = KEY_R,
+    .armWeapon = KEY_R,
     .diagonalAim = KEY_L,
     .pause = KEY_START,
     .swapMissiles = KEY_SELECT

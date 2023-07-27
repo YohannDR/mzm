@@ -99,7 +99,7 @@ u32 InGameMainLoop(void)
             }
             break;
 
-        case 5:
+        case SUB_GAME_MODE_DYING:
             IoWriteRegisters();
             SamusUpdate();
             RoomUpdateGfxInfo();
@@ -111,7 +111,7 @@ u32 InGameMainLoop(void)
             break;
     }
 
-    if (gGameModeSub1 == 5)
+    if (gGameModeSub1 == SUB_GAME_MODE_DYING)
     {
         SamusCallGfxFunctions();
         SamusDraw();

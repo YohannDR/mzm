@@ -4,7 +4,7 @@
 #include "types.h"
 
 struct ButtonAssignments {
-    u16 armMissiles;
+    u16 armWeapon;
     u16 diagonalAim;
     u16 pause;
     u16 swapMissiles;

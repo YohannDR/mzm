@@ -233,7 +233,7 @@ u8 RuinsTestProjectileCollision(void)
                 else
                     gEquipment.currentEnergy = 0;
 
-                gSamusData.forcedMovement = 0xFF;
+                gSamusData.forcedMovement = FORCED_MOVEMENT_DAMAGED_BY_RUINS_TEST;
                 SamusSetPose(SPOSE_HURT_REQUEST);
                 return TRUE;
             }

@@ -100,7 +100,7 @@ struct SamusPhysics {
     u8 hitboxType;
     u8 touchingSideBlock;
     u8 touchingTopBlock;
-    u8 unknown;
+    u8 unk_5A;
     u8 slowedByLiquid;
     u8 hasNewProjectile;
     s16 xAcceleration;

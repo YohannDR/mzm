@@ -103,7 +103,7 @@ u8 ZiplineMoving(void)
 
         gCurrentSprite.ignoreSamusCollisionTimer = 15;
 
-        SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+        SamusSetPose(SPOSE_MID_AIR_REQUEST);
     }
 
     return releasing;

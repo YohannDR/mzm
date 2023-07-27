@@ -2808,8 +2808,8 @@ lbl_08006940:
     pop {r0}
     bx r0
 
-    thumb_func_start SamusUpdateJumpVelocity
-SamusUpdateJumpVelocity: @ 0x08006950
+    thumb_func_start SamusSetMidAir
+SamusSetMidAir: @ 0x08006950
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -4225,7 +4225,7 @@ lbl_08007570:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl SamusUpdateJumpVelocity
+    bl SamusSetMidAir
     b lbl_080075b4
 lbl_08007584:
     adds r0, r5, #0
@@ -4701,7 +4701,7 @@ lbl_080078f4:
     movs r1, #0
 lbl_08007902:
     adds r0, r4, #0
-    bl SamusUpdateGraphicsOAM
+    bl SamusUpdateGraphicsOam
     adds r0, r4, #0
     bl samus_update_anim_timers_and_palette
     pop {r4}
@@ -10750,8 +10750,8 @@ lbl_0800a67c:
     pop {r0}
     bx r0
 
-    thumb_func_start SamusUpdateGraphicsOAM
-SamusUpdateGraphicsOAM: @ 0x0800a688
+    thumb_func_start SamusUpdateGraphicsOam
+SamusUpdateGraphicsOam: @ 0x0800a688
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

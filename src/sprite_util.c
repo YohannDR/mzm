@@ -314,7 +314,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
             if (!SpriteUtilCheckPullingSeftUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
             {
                 if (SpriteUtilCheckOnZipline())
-                    SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+                    SamusSetPose(SPOSE_MID_AIR_REQUEST);
                 else
                 {
                     if ((samusY - 0x18) < spriteTop)
@@ -2237,7 +2237,7 @@ u32 SpriteUtilCheckStopSpritesPose(void)
  * 104f8 | 1b0 | Handles a sprite taking damage from a contact with samus
  * 
  * @param pSprite Sprite Data Pointer to the sprite concerned
- * @param pData Samus Data Pointer
+ * @param pData Samus data pointer
  * @return The damage contact type
  */
 u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struct SamusData* pData)

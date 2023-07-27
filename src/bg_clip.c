@@ -676,7 +676,7 @@ void BgClipCheckGrabbingCrumbleBlock(u8 dontDestroy)
 
     // Set 
     if (setPose)
-        SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+        SamusSetPose(SPOSE_MID_AIR_REQUEST);
 }
 
 /**
