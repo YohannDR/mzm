@@ -3726,7 +3726,7 @@ sub_08079fb8: @ 0x08079fb8
     movs r2, #0xa2
     lsls r2, r2, #7
     adds r1, r1, r2
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     movs r5, #0
     ldr r1, lbl_0807a010 @ =sNonGameplayRamPointer
     movs r2, #0
@@ -8637,13 +8637,13 @@ file_select_menu_init: @ 0x0807c5e0
     ldr r0, lbl_0807c7e0 @ =0x08458e14
     ldr r4, lbl_0807c7e4 @ =0x06000400
     adds r1, r4, #0
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0807c7e8 @ =0x08455f70
     ldr r1, lbl_0807c7ec @ =0x06008000
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0807c7f0 @ =0x0845c0f4
     ldr r1, lbl_0807c7f4 @ =0x06010000
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     str r5, [sp]
     movs r0, #3
     movs r1, #0
@@ -8660,32 +8660,32 @@ file_select_menu_init: @ 0x0807c5e0
     adds r0, r0, r1
     ldr r0, [r0]
     ldr r1, lbl_0807c800 @ =0x06000c00
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0807c804 @ =0x0845dbdc
     ldr r1, lbl_0807c808 @ =0x0600f800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0807c80c @ =0x0845e19c
     ldr r1, [r6]
     add r1, sb
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0807c810 @ =0x0845e6dc
     ldr r1, [r6]
     movs r2, #0xa0
     lsls r2, r2, #6
     adds r1, r1, r2
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0807c814 @ =0x0845ea80
     ldr r1, [r6]
     movs r3, #0xc0
     lsls r3, r3, #5
     adds r1, r1, r3
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0807c818 @ =0x0845ee24
     ldr r1, [r6]
     movs r2, #0x80
     lsls r2, r2, #6
     adds r1, r1, r2
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     bl sub_08079fb8
     bl copy_time_attack_time
     bl display_save_file_info

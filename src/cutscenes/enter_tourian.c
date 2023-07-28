@@ -502,21 +502,21 @@ u8 EnterTourianInit(void)
 
     unk_61f0c();
     DmaTransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
     DmaTransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
     DmaTransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompVRAM(sMetroidGfx, VRAM_BASE + 0x14000);
+    CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_1, VRAM_OBJ);
+    CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVram(sMetroidGfx, VRAM_BASE + 0x14000);
     
-    CallLZ77UncompVRAM(sEnterTourianBackgroundGfx, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sEnterTourianForegroundGfx, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sEnterTourianBackgroundGfx, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sEnterTourianForegroundGfx, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
 
-    CallLZ77UncompVRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVram(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVram(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
 
     CutsceneSetBgcntPageData(sEnterTourianPageData[0]);
     CutsceneSetBgcntPageData(sEnterTourianPageData[1]);

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "macros.h"
 
 #include "constants/connection.h"
 
@@ -36,9 +37,13 @@ u32 GadoraHatchUpdate(u16 xPosition, u16 yPosition, u8 action)
             continue;
         
         // Try find door at position
-        if (gHatchData[i].xPosition + xOffset >= xPosition / BLOCK_SIZE && gHatchData[i].xPosition - xOffset <= xPosition / BLOCK_SIZE &&
-            gHatchData[i].yPosition + 3 >= yPosition / BLOCK_SIZE && gHatchData[i].yPosition - yOffset <= yPosition / BLOCK_SIZE)
+        if (gHatchData[i].xPosition + xOffset >= SUB_PIXEL_TO_BLOCK(xPosition) &&
+            gHatchData[i].xPosition - xOffset <= SUB_PIXEL_TO_BLOCK(xPosition) &&
+            gHatchData[i].yPosition + 3 >= SUB_PIXEL_TO_BLOCK(yPosition) &&
+            gHatchData[i].yPosition - yOffset <= SUB_PIXEL_TO_BLOCK(yPosition))
+        {
             found = TRUE;
+        }
 
         if (found)
         {

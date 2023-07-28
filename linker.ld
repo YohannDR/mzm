@@ -44,7 +44,7 @@ SECTIONS {
         . = 0x0000000a; gWrittenToDISPCNT = .;
         . = 0x0000000e; gWrittenToWININ_H = .;
         . = 0x0000000f; gWrittenToWINOUT_L = .;
-        . = 0x00000010; gWrittenTo0x05000000 = .;
+        . = 0x00000010; gBackdropColor = .;
         . = 0x00000012; gWrittenToBLDY = .;
         . = 0x00000014; gFileScreenOptionsUnlocked = .;
         . = 0x00000020; gLanguage = .;

@@ -30,10 +30,10 @@ u8 StoryTextCutsceneInit(void)
 
     // Load palette
     DmaTransfer(3, sStoryTextCutscenePAL, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePAL), 16);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
     // Load tiletable and clear graphics
-    CallLZ77UncompVRAM(sStoryTextCutsceneTileTable, VRAM_BASE + sStoryTextCutscenePagesData[0].tiletablePage * 0x800);
+    CallLZ77UncompVram(sStoryTextCutsceneTileTable, VRAM_BASE + sStoryTextCutscenePagesData[0].tiletablePage * 0x800);
     BitFill(3, 0, VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000, 0x5000, 0x20);
 
     CutsceneSetBgcntPageData(sStoryTextCutscenePagesData[0]);

@@ -43,7 +43,7 @@ u8 TourianEscapeSubroutine(void)
     ended = FALSE;
     if (sTourianEscapeFunctionPointers[gTourianEscapeCutsceneStage]())
     {
-        write16(PALRAM_BASE, 0);
+        SET_BACKDROP_COLOR(COLOR_BLACK);
         gSubGameModeStage = 0;
         gGameModeSub1 = 0;
         gGameModeSub2 = 4;
@@ -203,7 +203,7 @@ u8 CutsceneSubroutine(void)
                 BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 0x10);
 
             BitFill(3, 0x40, VRAM_BASE, 0x10000, 0x10);
-            BitFill(3, 0, VRAM_BASE + 0x10000, 0x8000, 0x10);
+            BitFill(3, 0, VRAM_OBJ, 0x8000, 0x10);
             BitFill(3, 0xFF, OAM_BASE, OAM_SIZE, 0x20);
 
             CutsceneEnd();
@@ -298,7 +298,7 @@ void CutsceneInit(void)
             gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
 
         if (unk < 3)
-            DmaTransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
+            DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
     }
 
     if (gCutsceneToSkip != gCurrentCutscene)

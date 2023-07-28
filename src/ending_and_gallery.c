@@ -211,7 +211,7 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (hoursTens != 0)
     {
         offset = hoursTens * 64;
-        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ, DMA_ENABLE << 16 | 32);
         DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
     }
 
@@ -1287,7 +1287,7 @@ void EndingImageInit(void)
 
     ENDING_DATA.completionPercentage = part1 + part2 + part3 + part4 + part5;
 
-    LZ77UncompVRAM(sEndingImageNumbersMiscGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sEndingImageNumbersMiscGfx, VRAM_OBJ);
 
     ENDING_DATA.language = gLanguage;
     if (gLanguage > LANGUAGE_ENGLISH)

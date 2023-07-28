@@ -77,7 +77,7 @@ void IntroInit(void)
 
     ClearGfxRam();
 
-    LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_OBJ);
     LZ77UncompVRAM(sIntroSpaceBackgroundGfx, VRAM_BASE);
     LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0x8000);
     LZ77UncompVRAM(sIntro_47920c, VRAM_BASE + 0x9000);
@@ -739,7 +739,7 @@ u8 IntroDefeat(void)
     switch (INTRO_DATA.timer++)
     {
         case 0:
-            LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_OBJ);
             if (gLanguage != LANGUAGE_ENGLISH)
                 TextStartStory(STORY_TEXT_DEFEAT);
             break;
@@ -794,7 +794,7 @@ u8 IntroMotherBrain(void)
     switch (INTRO_DATA.timer)
     {
         case 0:
-            LZ77UncompVRAM(sIntroFuzzGfx, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sIntroFuzzGfx, VRAM_OBJ);
             break;
 
         case 1:

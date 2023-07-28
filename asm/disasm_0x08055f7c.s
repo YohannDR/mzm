@@ -368,7 +368,7 @@ lbl_08056294:
     bl DmaTransfer
     ldr r0, [sp, #4]
     ldr r1, lbl_08056330 @ =0x06005800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, [sp, #8]
     adds r1, #0x20
     ldr r2, lbl_08056334 @ =0x05000060
@@ -441,7 +441,7 @@ lbl_08056368:
     orrs r2, r1
     ldr r1, lbl_080563ec @ =0x0600fde0
     subs r1, r1, r2
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r2, lbl_080563f0 @ =0x0600ffe0
     movs r0, #0x20
     str r0, [sp]
@@ -698,7 +698,7 @@ RoomLoadBackgrounds: @ 0x0805656c
     adds r3, r1, #4
     ldr r1, lbl_08056614 @ =0x02007000
     adds r0, r3, #0
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_08056618 @ =gPauseScreenFlag
     ldrb r0, [r0]
     lsls r0, r0, #0x18
@@ -770,7 +770,7 @@ lbl_08056630:
     adds r3, #4
     ldr r1, lbl_080566ac @ =0x0202a800
     adds r0, r3, #0
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
 lbl_08056648:
     ldr r3, [sp, #0x18]
     ldr r4, lbl_080566b0 @ =gBgPointersAndDimensions
@@ -941,7 +941,7 @@ lbl_08056784:
     strb r1, [r0]
     ldr r0, lbl_0805698c @ =gDisableClipdataChangingTransparency
     strb r1, [r0]
-    ldr r0, lbl_08056990 @ =gWrittenTo0x05000000
+    ldr r0, lbl_08056990 @ =gBackdropColor
     strh r3, [r0]
     ldr r0, lbl_08056994 @ =gScreenYOffset
     strb r1, [r0]
@@ -1169,7 +1169,7 @@ lbl_08056980: .4byte gCollectingTank
 lbl_08056984: .4byte gScreenShakeRelated
 lbl_08056988: .4byte gDisablePause
 lbl_0805698c: .4byte gDisableClipdataChangingTransparency
-lbl_08056990: .4byte gWrittenTo0x05000000
+lbl_08056990: .4byte gBackdropColor
 lbl_08056994: .4byte gScreenYOffset
 lbl_08056998: .4byte gScreenXOffset
 lbl_0805699c: .4byte gDISPCNTBackup

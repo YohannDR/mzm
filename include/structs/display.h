@@ -23,7 +23,7 @@ extern u16 gWrittenToWIN1V;
 extern u16 gWrittenToBLDCNT;
 extern u16 gWrittenToBLDCNT_Internal;
 
-extern u16 gWrittenTo0x05000000;
+extern u16 gBackdropColor;
 
 extern u16 gWrittenToBLDALPHA;
 extern u16 gWrittenToBLDALPHA_H;

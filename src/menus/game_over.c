@@ -257,7 +257,7 @@ void GameOverInit(void)
     StopAllMusicsAndSounds();
 
     DmaTransfer(3, sGameOverMenuPal, PALRAM_BASE, sizeof(sGameOverMenuPal), 16);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
     DMA_SET(3, sFileSelectIconsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sFileSelectIconsPal)));
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
@@ -265,7 +265,7 @@ void GameOverInit(void)
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
     DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 32);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGfx, VRAM_BASE + 0x4000);
-    LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_OBJ);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
     write16(REG_BG0CNT, CREATE_BGCNT(1, 0, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
@@ -322,7 +322,7 @@ void GameOverInit_Unused(void)
     DoSoundAction(0x194F780);
     StopAllMusicsAndSounds();
 
-    write16(PALRAM_BASE, COLOR_WHITE);
+    SET_BACKDROP_COLOR(COLOR_WHITE);
 
     write16(REG_BG0CNT, 0);
     write16(REG_BG1CNT, 0);

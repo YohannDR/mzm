@@ -157,11 +157,11 @@ u8 SamusInBlueShipInit(void)
 
     DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 16);
     DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 16);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sSamusInBlueShipSamusGfx, BGCNT_TO_VRAM_CHAR_BASE(sSamusInBlueShipPageData[0].graphicsPage));
-    CallLZ77UncompVRAM(sSamusInBlueShipSamusTileTable, BGCNT_TO_VRAM_TILE_BASE(sSamusInBlueShipPageData[0].tiletablePage));
-    CallLZ77UncompVRAM(sSamusInBlueShipControlsGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
+    CallLZ77UncompVram(sSamusInBlueShipSamusGfx, BGCNT_TO_VRAM_CHAR_BASE(sSamusInBlueShipPageData[0].graphicsPage));
+    CallLZ77UncompVram(sSamusInBlueShipSamusTileTable, BGCNT_TO_VRAM_TILE_BASE(sSamusInBlueShipPageData[0].tiletablePage));
+    CallLZ77UncompVram(sSamusInBlueShipControlsGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
 
     CutsceneSetBgcntPageData(sSamusInBlueShipPageData[0]);
     CutsceneReset();

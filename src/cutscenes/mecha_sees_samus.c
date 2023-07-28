@@ -95,11 +95,11 @@ u8 MechaRidleySeesSamusInit(void)
     DmaTransfer(3, sMechaSeesSamusPal, PALRAM_BASE, sizeof(sMechaSeesSamusPal), 16);
     DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, PALRAM_SIZE / 2, 32);
 
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sMechaSeesSamusMetalGfx, BGCNT_TO_VRAM_CHAR_BASE(sMechaRidleySeesSamusPagesData[0].graphicsPage));
-    CallLZ77UncompVRAM(sMechaSeesSamusCoverMetalTileTable, BGCNT_TO_VRAM_TILE_BASE(sMechaRidleySeesSamusPagesData[0].tiletablePage));
-    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
+    CallLZ77UncompVram(sMechaSeesSamusMetalGfx, BGCNT_TO_VRAM_CHAR_BASE(sMechaRidleySeesSamusPagesData[0].graphicsPage));
+    CallLZ77UncompVram(sMechaSeesSamusCoverMetalTileTable, BGCNT_TO_VRAM_TILE_BASE(sMechaRidleySeesSamusPagesData[0].tiletablePage));
+    CallLZ77UncompVram(sMechaSeesSamusCoverEyeGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
 
     CutsceneSetBgcntPageData(sMechaRidleySeesSamusPagesData[0]);
 

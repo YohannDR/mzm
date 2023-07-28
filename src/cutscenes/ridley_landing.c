@@ -26,11 +26,11 @@ u8 RidleyLandingRidleyFlying(void)
             DmaTransfer(3, sRidleyLandingSkyBackgroundPAL, PALRAM_BASE, 0xA0, 0x10);
 			DmaTransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_OBJ, 0x40, 0x10);
 			
-            write16(PALRAM_BASE, 0);
+            SET_BACKDROP_COLOR(COLOR_BLACK);
 			
-            CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[4].graphicsPage * 0x4000);
-			CallLZ77UncompVRAM(sRidleyLandingRidleyAndRockShadowGfx, VRAM_BASE + 4 * 0x4000);
-			CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[4].tiletablePage * 0x800);
+            CallLZ77UncompVram(sRidleyLandingRidleyFlyingBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[4].graphicsPage * 0x4000);
+			CallLZ77UncompVram(sRidleyLandingRidleyAndRockShadowGfx, VRAM_BASE + 4 * 0x4000);
+			CallLZ77UncompVram(sRidleyLandingRidleyFlyingBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[4].tiletablePage * 0x800);
 			
             CutsceneSetBgcntPageData(sRidleyLandingPageData[4]);
 			CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyLandingPageData[4].bg, 0x800);
@@ -121,18 +121,18 @@ u8 RidleyLandingShipLanding(void)
             DmaTransfer(3, sCutsceneZebesPAL, PALRAM_BASE, sizeof(sCutsceneZebesPAL), 0x10);
             DmaTransfer(3, sCutsceneMotherShipPAL, PALRAM_OBJ, sizeof(sCutsceneMotherShipPAL), 0x10);
 
-            write16(PALRAM_BASE, 0);
+            SET_BACKDROP_COLOR(COLOR_BLACK);
 
-            CallLZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[1].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sCutsceneZebesGroundGfx, VRAM_BASE + sRidleyLandingPageData[3].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sCutsceneZebesRockyBackgroundGfx, VRAM_BASE + 0x4C00 + sRidleyLandingPageData[2].graphicsPage * 0x4000);
+            CallLZ77UncompVram(sCutsceneZebesMotherShipBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[1].graphicsPage * 0x4000);
+            CallLZ77UncompVram(sCutsceneZebesGroundGfx, VRAM_BASE + sRidleyLandingPageData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVram(sCutsceneZebesRockyBackgroundGfx, VRAM_BASE + 0x4C00 + sRidleyLandingPageData[2].graphicsPage * 0x4000);
 
-            BitFill(3, 0, VRAM_BASE + 0x10000, 0x800, 0x20);
-            CallLZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGfx, VRAM_BASE + 0x10000);
+            BitFill(3, 0, VRAM_OBJ, 0x800, 0x20);
+            CallLZ77UncompVram(sCutsceneMotherShipEscapeShipParticlesGfx, VRAM_OBJ);
 
-            CallLZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[1].tiletablePage * 0x800);
-            CallLZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + sRidleyLandingPageData[2].tiletablePage * 0x800);
-            CallLZ77UncompVRAM(sCutsceneZebesGroundTileTable, VRAM_BASE + sRidleyLandingPageData[3].tiletablePage * 0x800);
+            CallLZ77UncompVram(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[1].tiletablePage * 0x800);
+            CallLZ77UncompVram(sCutscene_3b5168_TileTable, VRAM_BASE + sRidleyLandingPageData[2].tiletablePage * 0x800);
+            CallLZ77UncompVram(sCutsceneZebesGroundTileTable, VRAM_BASE + sRidleyLandingPageData[3].tiletablePage * 0x800);
 
             CutsceneSetBgcntPageData(sRidleyLandingPageData[1]);
             CutsceneSetBgcntPageData(sRidleyLandingPageData[2]);
@@ -402,20 +402,20 @@ u8 RidleyLandingInit(void)
 
     DmaTransfer(3, sCutscene_3a09d4_PAL, PALRAM_BASE, sizeof(sCutscene_3a09d4_PAL), 0x10);
     DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVram(sRidleyLandingZebesBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sRidleyLandingZebesBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_4, VRAM_BASE + 0x10C00);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_5, VRAM_BASE + 0x11000);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_6, VRAM_BASE + 0x11400);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_7, VRAM_BASE + 0x11800);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_8, VRAM_BASE + 0x11C00);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_9, VRAM_BASE + 0x12000);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_1, VRAM_OBJ);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_4, VRAM_BASE + 0x10C00);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_5, VRAM_BASE + 0x11000);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_6, VRAM_BASE + 0x11400);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_7, VRAM_BASE + 0x11800);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_8, VRAM_BASE + 0x11C00);
+    CallLZ77UncompVram(sRidleyLandingMotherShipGfx_9, VRAM_BASE + 0x12000);
 
     CutsceneSetBgcntPageData(sRidleyLandingPageData[0]);
     CutsceneReset();

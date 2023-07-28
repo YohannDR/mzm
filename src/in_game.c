@@ -189,7 +189,7 @@ void TransferSamusGraphics(u32 updatePalette, struct SamusPhysics* pPhysics)
         return;
 
     if (pPhysics->shoulderGfxSize != 0)
-        DMA_SET(3, pPhysics->pShouldersGfx, VRAM_BASE + 0x10000, DMA_ENABLE << 16 | pPhysics->shoulderGfxSize / 2);
+        DMA_SET(3, pPhysics->pShouldersGfx, VRAM_OBJ, DMA_ENABLE << 16 | pPhysics->shoulderGfxSize / 2);
 
     if (pPhysics->torsoGfxSize != 0)
         DMA_SET(3, pPhysics->pTorsoGfx, VRAM_BASE + 0x10400, DMA_ENABLE << 16 | pPhysics->torsoGfxSize / 2);
@@ -243,7 +243,7 @@ void VBlankCodeInGameLoad(void)
         {
             buffer = 0;
             DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
-            write16(PALRAM_BASE, gWrittenTo0x05000000);
+            SET_BACKDROP_COLOR(gBackdropColor);
         }
 
         buffer = 0;
@@ -322,7 +322,7 @@ void VBlankCodeInGame(void)
         {
             buffer = 0;
             DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
-            write16(PALRAM_BASE, gWrittenTo0x05000000);
+            SET_BACKDROP_COLOR(gBackdropColor);
         }
 
         buffer = 0;
@@ -380,7 +380,7 @@ void InitAndLoadGenerics(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gCurrentCutscene != 0)
-        DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_BASE + 0x10000, 0x4000, 0x10);
+        DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_OBJ, 0x4000, 0x10);
 
     gDebugFlag = FALSE;
     DMA_SET(3, sCommonSpritesPAL, PALRAM_BASE + 0x240, DMA_ENABLE << 16 | sizeof(sCommonSpritesPAL) / 2);

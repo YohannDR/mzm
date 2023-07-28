@@ -449,7 +449,7 @@ void unk_5c27c(u8 delay)
 void unk_5c2ec(void)
 {
     unk_5d09c();
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
     write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3));
     
     // FIXME RoomRLEDecompress(FALSE, sDoorTransitionTilemap, EWRAM_BASE + 0x7000);
@@ -565,7 +565,8 @@ u8 ColorFading_DoorTransition(void)
 
         case 2:
             unk_5d09c();
-            write16(PALRAM_BASE, 0);
+
+            SET_BACKDROP_COLOR(COLOR_BLACK);
 
             if (gUseMotherShipDoors == TRUE)
             {
@@ -702,7 +703,7 @@ u8 ColorFading_EscapeFailed(void)
 
         case 2:
             unk_5d09c();
-            write16(PALRAM_BASE, 0x7FFF);
+            SET_BACKDROP_COLOR(COLOR_WHITE);
             gColorFading.unk_6 = 0;
             gColorFading.stage++;
             break;
@@ -730,7 +731,7 @@ u8 ColorFading_ChozodiaEscape(void)
     switch (gColorFading.stage)
     {
         case 0:
-            write16(PALRAM_BASE, 0);
+            SET_BACKDROP_COLOR(COLOR_BLACK);
             gWrittenToDISPCNT = read16(REG_DISPCNT) & ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ);
             gColorFading.stage++;
             break;
@@ -788,7 +789,7 @@ u8 ColorFading_BeforeDemoEnding(void)
 
         case 2:
             unk_5d09c();
-            write16(PALRAM_BASE, 0);
+            SET_BACKDROP_COLOR(COLOR_BLACK);
             return TRUE;
     }
 

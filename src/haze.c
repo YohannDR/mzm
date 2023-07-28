@@ -177,7 +177,7 @@ void HazeSetupCode(u8 hazeValue)
             if (gIoRegistersBackup.DISPCNT_NonGameplay & DCNT_BG0 && gCurrentRoomEntry.Bg0Prop != 0x12)
                 gWrittenToDISPCNT = read16(REG_DISPCNT) ^ DCNT_BG0;
 
-            gWrittenTo0x05000000 = COLOR_WHITE;
+            gBackdropColor = COLOR_WHITE;
 
             DmaTransfer(3, Haze_PowerBombExpanding, &gNonGameplayRAM.inGame[640], 0x200, 16);
             gHazeProcessCodePointer = (HazeFunc_T)(&gNonGameplayRAM.inGame[640] + 1);
@@ -351,7 +351,7 @@ u32 HazeProcess(void)
                 gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
                 gWrittenToWININ_H = 0x37;
                 gWrittenToWINOUT_L = 0x1F;
-                gWrittenTo0x05000000 = COLOR_BLACK;
+                gBackdropColor = COLOR_BLACK;
             }
             break;
 

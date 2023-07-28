@@ -24,12 +24,12 @@ u8 RidleySpawnRidleyFlyingIn(void)
     {
         case 0:
             DmaTransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
-            CallLZ77UncompVRAM(sRidleySpawnScreamingGfx, VRAM_BASE + 0x10000);
+            CallLZ77UncompVram(sRidleySpawnScreamingGfx, VRAM_OBJ);
             
-            CallLZ77UncompVRAM(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
+            CallLZ77UncompVram(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVram(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
             DmaTransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
-            write16(PALRAM_BASE, 0);
+            SET_BACKDROP_COLOR(COLOR_BLACK);
             CutsceneSetBgcntPageData(sRidleySpawnPageData[3]);
 
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[3].bg, 0x800);
@@ -236,16 +236,16 @@ u8 RidleySpawnInit(void)
         DmaTransfer(3, sRidleySpawnSamusPAL, PALRAM_OBJ, sizeof(sRidleySpawnSamusPAL), 0x10);
 
     DmaTransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sRidleySpawnSamusAndRidleyGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVram(sRidleySpawnSamusAndRidleyGfx, VRAM_OBJ);
 
-    CallLZ77UncompVRAM(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVram(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetFaceGfx, VRAM_BASE + sRidleySpawnPageData[1].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetTileTable, VRAM_BASE + sRidleySpawnPageData[1].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sRidleySpawnSamusFaceTileTable, VRAM_BASE + sRidleySpawnPageData[2].tiletablePage * 0x800);
+    CallLZ77UncompVram(sRidleySpawnSamusHelmetFaceGfx, VRAM_BASE + sRidleySpawnPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sRidleySpawnSamusHelmetTileTable, VRAM_BASE + sRidleySpawnPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVram(sRidleySpawnSamusFaceTileTable, VRAM_BASE + sRidleySpawnPageData[2].tiletablePage * 0x800);
 
     CutsceneSetBgcntPageData(sRidleySpawnPageData[1]);
     CutsceneSetBgcntPageData(sRidleySpawnPageData[2]);

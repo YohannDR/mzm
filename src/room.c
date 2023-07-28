@@ -193,9 +193,9 @@ void RoomLoadTileset(void)
     DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 0x10);
     DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 0x10);
 
-    CallLZ77UncompVRAM(entry.pTileGraphics, VRAM_BASE + 0x5800);
+    CallLZ77UncompVram(entry.pTileGraphics, VRAM_BASE + 0x5800);
     DmaTransfer(3, entry.pPalette + 0x10, PALRAM_BASE + 0x60, 0x1A0, 0x10);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
     if (gUseMotherShipDoors == TRUE)
     {
@@ -212,7 +212,7 @@ void RoomLoadTileset(void)
     gTilesetTransparentColor.field_2 = 0;
 
     backgroundGfxSize = ((u8*)entry.pBackgroundGraphics)[2] << 8 | ((u8*)entry.pBackgroundGraphics)[1];
-    CallLZ77UncompVRAM(entry.pBackgroundGraphics, VRAM_BASE + 0xfde0 - backgroundGfxSize);
+    CallLZ77UncompVram(entry.pBackgroundGraphics, VRAM_BASE + 0xfde0 - backgroundGfxSize);
     BitFill(3, 0, VRAM_BASE + 0xFFE0, 0x20, 0x20);
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
@@ -313,7 +313,7 @@ void RoomLoadBackgrounds(void)
     // Load BG3, always LZ77
     gCurrentRoomEntry.Bg3Size = *entry.pBG3Data;
     src = entry.pBG3Data + 4;
-    CallLZ77UncompVRAM(src, EWRAM_BASE + 0x7000);
+    CallLZ77UncompVram(src, EWRAM_BASE + 0x7000);
 
     if (gPauseScreenFlag == 0)
     {
@@ -335,7 +335,7 @@ void RoomLoadBackgrounds(void)
             gCurrentRoomEntry.Bg0Size = *src;
 
             src += 4;
-            CallLZ77UncompVRAM(src, gDecompBG0Map);
+            CallLZ77UncompVram(src, gDecompBG0Map);
         }
         
         // Load clipdata, assume RLE
@@ -436,7 +436,7 @@ void RoomReset(void)
     gDisablePause = FALSE;
     gDisableClipdataChangingTransparency = FALSE;
     
-    gWrittenTo0x05000000 = 0;
+    gBackdropColor = 0;
     gScreenYOffset = 0;
     gScreenXOffset = 0;
 

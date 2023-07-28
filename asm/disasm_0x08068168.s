@@ -4711,7 +4711,7 @@ lbl_0806a5dc:
     bl DmaTransfer
     ldr r0, lbl_0806a6c4 @ =0x08400e08
     ldr r1, lbl_0806a6c8 @ =0x06013000
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a6cc @ =0x08760104
     ldr r5, lbl_0806a6d0 @ =gLanguage
     movs r0, #0
@@ -4720,7 +4720,7 @@ lbl_0806a5dc:
     adds r0, r0, r1
     ldr r0, [r0]
     ldr r1, lbl_0806a6d4 @ =0x06010800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a6d8 @ =0x0876013c
     movs r0, #0
     ldrsb r0, [r5, r0]
@@ -4728,7 +4728,7 @@ lbl_0806a5dc:
     adds r0, r0, r1
     ldr r0, [r0]
     ldr r1, lbl_0806a6dc @ =0x06011400
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a6e0 @ =0x08760120
     movs r0, #0
     ldrsb r0, [r5, r0]
@@ -4736,7 +4736,7 @@ lbl_0806a5dc:
     adds r0, r0, r1
     ldr r0, [r0]
     ldr r1, lbl_0806a6e4 @ =0x06011800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0806a698 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     ldrh r0, [r0]
@@ -4746,10 +4746,10 @@ lbl_0806a5dc:
     ldr r0, lbl_0806a6e8 @ =0x084030b4
     movs r1, #0xc0
     lsls r1, r1, #0x13
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0806a6ec @ =0x084110c4
     ldr r1, lbl_0806a6f0 @ =0x0600a800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     b lbl_0806a744
     .align 2, 0
 lbl_0806a698: .4byte sNonGameplayRamPointer
@@ -4779,13 +4779,13 @@ lbl_0806a6f4:
     ldr r0, lbl_0806a794 @ =0x083feb60
     movs r1, #0xc0
     lsls r1, r1, #0x13
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0806a798 @ =0x083fefb8
     ldr r1, lbl_0806a79c @ =0x06001000
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0806a7a0 @ =0x084005a8
     ldr r1, lbl_0806a7a4 @ =0x06007400
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a7a8 @ =0x08760158
     movs r0, #0
     ldrsb r0, [r5, r0]
@@ -4794,7 +4794,7 @@ lbl_0806a6f4:
     ldr r0, [r0]
     ldr r4, lbl_0806a7ac @ =0x06006000
     adds r1, r4, #0
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a7b0 @ =0x08760174
     movs r0, #0
     ldrsb r0, [r5, r0]
@@ -4802,7 +4802,7 @@ lbl_0806a6f4:
     adds r0, r0, r1
     ldr r0, [r0]
     ldr r1, lbl_0806a7b4 @ =0x06000c00
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r2, lbl_0806a7b8 @ =0x06010000
     movs r3, #0x80
     lsls r3, r3, #4
@@ -4838,7 +4838,7 @@ lbl_0806a744:
     beq lbl_0806a7dc
     ldr r0, lbl_0806a7cc @ =0x08408e00
     ldr r1, lbl_0806a7d0 @ =0x0600b800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r1, lbl_0806a7d4 @ =0x0000115f
     ldr r2, lbl_0806a7d8 @ =0x0600c000
     str r6, [sp]
@@ -4872,7 +4872,7 @@ lbl_0806a7dc:
     movs r4, #0x90
     lsls r4, r4, #8
     adds r1, r1, r4
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r1, [r5]
     adds r1, r1, r4
     ldr r2, lbl_0806a824 @ =0x0600c800
@@ -4904,7 +4904,7 @@ lbl_0806a828:
     beq lbl_0806a84e
     ldr r0, lbl_0806a88c @ =0x084078ec
     ldr r1, lbl_0806a890 @ =0x0600b000
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     movs r1, #0xf0
     lsls r1, r1, #8
     ldr r2, [r5]
@@ -4921,13 +4921,13 @@ lbl_0806a84e:
     movs r2, #0xf0
     lsls r2, r2, #7
     adds r1, r1, r2
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0806a898 @ =0x084089ec
     ldr r1, [r5]
     movs r3, #0x80
     lsls r3, r3, #8
     adds r1, r1, r3
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0806a89c @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
@@ -4968,26 +4968,26 @@ lbl_0806a8ba:
     movs r2, #0x98
     lsls r2, r2, #8
     adds r1, r1, r2
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0806a954 @ =0x08407f84
     ldr r1, [r4]
     movs r3, #0xa0
     lsls r3, r3, #8
     adds r1, r1, r3
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     ldr r0, lbl_0806a958 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r0, #0
     strb r0, [r1, #0x11]
     ldr r0, lbl_0806a95c @ =0x08408c90
     ldr r1, lbl_0806a960 @ =0x0600d800
-    bl CallLZ77UncompVRAM
+    bl CallLZ77UncompVram
     ldr r0, lbl_0806a964 @ =0x084086dc
     ldr r1, [r4]
     movs r5, #0x88
     lsls r5, r5, #8
     adds r1, r1, r5
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
 lbl_0806a8f6:
     ldr r2, lbl_0806a968 @ =gBG0HOFS_NonGameplay
     ldr r0, lbl_0806a96c @ =gBG0VOFS_NonGameplay
@@ -5970,7 +5970,7 @@ PauseScreenGetMinimapData: @ 0x0806b0f8
     adds r0, r4, r0
     ldr r0, [r0]
     adds r1, r7, #0
-    bl CallLZ77UncompWRAM
+    bl CallLZ77UncompWram
     mov r0, r8
     adds r1, r7, #0
     bl set_tiles_with_obtained_items

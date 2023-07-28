@@ -1,5 +1,6 @@
 #include "softreset_input.h"
 #include "gba.h"
+#include "macros.h"
 
 #include "constants/game_state.h"
 #include "structs/audio.h"
@@ -33,7 +34,7 @@ void Softreset(void)
     write16(REG_IME, FALSE);
     write16(REG_IE, 0);
     write16(REG_DISPSTAT, 0);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
     write16(REG_DISPCNT, 0);
     write16(REG_BLDY, 0x10);
     write16(REG_BLDCNT, 0xff);

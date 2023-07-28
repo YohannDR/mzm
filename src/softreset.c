@@ -68,7 +68,7 @@ void SoftresetInit(void)
     ResetFreeOam();
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
     gGameModeSub3 = 0;
 
     gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;

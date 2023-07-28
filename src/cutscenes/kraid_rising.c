@@ -30,23 +30,33 @@ u8 KraidRisingRising(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMA_SET(3, sKraidRisingRisingPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sKraidRisingRisingPAL)));
-            write16(PALRAM_BASE, 0);
+            // Load kraid rising palette
+            DMA_SET(3, sKraidRisingRisingPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sKraidRisingRisingPal)));
+            write16(PALRAM_BASE, COLOR_BLACK);
 
-            CallLZ77UncompVRAM(sKraidRisingKraidRisingGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[2].graphicsPage));
-            DmaTransfer(3, KRAID_RISING_EWRAM.kraidRisingTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[2].tiletablePage), 0x800, 16);
+            // Load kraid rising graphics
+            CallLZ77UncompVram(sKraidRisingKraidRisingGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[2].graphicsPage));
 
+            // Load kraid rising tile table
+            DmaTransfer(3, KRAID_RISING_EWRAM.kraidRisingTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[2].tiletablePage),
+                sizeof(KRAID_RISING_EWRAM.kraidRisingTileTable), 16);
+
+            // Enable kraid rising background
             CutsceneSetBgcntPageData(sKraidRisingPagesData[2]);
+
+            // Clear data
             CutsceneReset();
 
-            for (i = 0; i < 11; i++)
+            // Setup puffs
+            for (i = 0; i < KRAID_RISING_PUFF_AMOUNT; i++)
             {
-                CUTSCENE_DATA.oam[i + 6].xPosition = sKraidRisingPuffData[i][0];
-                CUTSCENE_DATA.oam[i + 6].yPosition = sKraidRisingPuffData[i][1];
-                CUTSCENE_DATA.oam[i + 6].timer = sKraidRisingPuffData[i][3];
+                CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + i].xPosition = sKraidRisingPuffData[i][0];
+                CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + i].yPosition = sKraidRisingPuffData[i][1];
+                CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + i].timer = sKraidRisingPuffData[i][3];
             }
 
-            for (i = 0; i < 6; i++)
+            // Setup debris
+            for (i = 0; i < KRAID_RISING_DEBRIS_AMOUNT; i++)
             {
                 CUTSCENE_DATA.oam[i].xPosition = sKraidRisingDebrisSpawnXPosition[i];
                 CUTSCENE_DATA.oam[i].yPosition = -HALF_BLOCK_SIZE;
@@ -58,33 +68,48 @@ u8 KraidRisingRising(void)
             break;
 
         case 1:
-            CallLZ77UncompVRAM(sKraidRisingCaveBackroundGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[3].graphicsPage));
-            DmaTransfer(3, KRAID_RISING_EWRAM.caveBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[3].tiletablePage), 0x800, 16);
+            // Load cave background graphics
+            CallLZ77UncompVram(sKraidRisingCaveBackroundGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[3].graphicsPage));
 
+            // Load cave background tile table
+            DmaTransfer(3, KRAID_RISING_EWRAM.caveBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[3].tiletablePage),
+                sizeof(KRAID_RISING_EWRAM.caveBackgroundTileTable), 16);
+
+            // Enable cave background
             CutsceneSetBgcntPageData(sKraidRisingPagesData[3]);
+
+            // Start screen shake for the kraid rising and the cave background
             CutsceneStartScreenShake(sKraidRisingScreenShakeData, sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg);
 
             CUTSCENE_DATA.bldcnt = 0;
-            CUTSCENE_DATA.oam[17].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-            CUTSCENE_DATA.oam[17].yPosition = BLOCK_SIZE * 10;
-            CUTSCENE_DATA.oam[17].priority = sKraidRisingPagesData[2].priority;
 
-            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[17], KRAID_RISING_OAM_ID_SAMUS);
+            // Samus sprite, allocate after the puffs and debris
+            CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + KRAID_RISING_PUFF_AMOUNT].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+            CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + KRAID_RISING_PUFF_AMOUNT].yPosition = BLOCK_SIZE * 10;
+            CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + KRAID_RISING_PUFF_AMOUNT].priority = sKraidRisingPagesData[2].priority;
+
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + KRAID_RISING_PUFF_AMOUNT], KRAID_RISING_OAM_ID_SAMUS);
+
+            // Enable render for kraid rising, the cave background and objects
             CUTSCENE_DATA.dispcnt = sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg | DCNT_OBJ;
 
-            SoundPlay(0x22D);
+            SoundPlay(SOUND_KRAID_RISING_SCREAMS);
+
             CUTSCENE_DATA.timeInfo.subStage++;
             CUTSCENE_DATA.timeInfo.timer = 0;
             break;
 
         case 2:
+            // Useless, since the first time this code is executed the timer is 1
             if (CUTSCENE_DATA.timeInfo.timer != 0)
                 CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 3:
+            // Wait for scrolling to end, even though no scrolling ever happened?
             if (!CutsceneCheckBackgroundScrollingActive(sKraidRisingPagesData[2].bg))
             {
+                // Start scrolling up for the kraid rising background
                 CutsceneStartBackgroundScrolling(sKraidRisingScrollingInfo, sKraidRisingPagesData[2].bg);
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -92,6 +117,7 @@ u8 KraidRisingRising(void)
             break;
 
         case 4:
+            // Wait 2 seconds, it should probably be better to call CutsceneCheckBackgroundScrollingActive
             if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
             {
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -106,10 +132,12 @@ u8 KraidRisingRising(void)
             break;
     }
 
-    for (i = 0; i < 11; i++)
-        KraidRisingUpdatePuff(&CUTSCENE_DATA.oam[i + 6], i);
+    // Update puffs
+    for (i = 0; i < KRAID_RISING_PUFF_AMOUNT; i++)
+        KraidRisingUpdatePuff(&CUTSCENE_DATA.oam[KRAID_RISING_DEBRIS_AMOUNT + i], i);
 
-    for (i = 0; i < 6; i++)
+    // Update debris
+    for (i = 0; i < KRAID_RISING_DEBRIS_AMOUNT; i++)
         KraidRisingUpdateDebris(&CUTSCENE_DATA.oam[i], i);
 
     return FALSE;
@@ -124,22 +152,26 @@ u8 KraidRisingRising(void)
  */
 struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 puffID)
 {
-    u8* data;
     s32 offset;
 
-    if (!pOam->exists)
+    if (pOam->exists)
     {
-        if (pOam->timer != 0)
-            pOam->timer--;
-        else
-        {
-            // Update timer
-            pOam->timer = MOD_AND(sRandomNumberTable[gFrameCounter8Bit + puffID], 16) + 1;
-
-            // Update OAM id
-            UpdateCutsceneOamDataID(pOam, sKraidRisingPuffData[puffID][2]);
-        }
+        // Puff already exists, nothing to do
+        return;
     }
+
+    if (pOam->timer != 0)
+    {
+        // Spawn delay
+        pOam->timer--;
+        return;
+    }
+
+    // Set new timer
+    pOam->timer = MOD_AND(sRandomNumberTable[gFrameCounter8Bit + puffID], 16) + 1;
+
+    // Update OAM id
+    UpdateCutsceneOamDataID(pOam, sKraidRisingPuffData[puffID][2]);
 
     // Implicit return
 }
@@ -155,12 +187,15 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
 {
     if (pOam->timer != 0)
     {
+        // Spawn timer
         pOam->timer--;
         return;
     }
 
     if (!pOam->exists)
     {
+        // Initialize debris
+
         // Set spawn X (base + [0-64[)
         pOam->xPosition = sKraidRisingDebrisSpawnXPosition[debrisID] + MOD_AND(sRandomNumberTable[~LOW_BYTE(gFrameCounter8Bit + debrisID)], 64);
         
@@ -182,10 +217,13 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
 
         // Apply velocity
         pOam->yPosition += pOam->unk_10;
+
         if (pOam->yPosition >= BLOCK_SIZE * 11 + HALF_BLOCK_SIZE)
         {
+            // Set dead
             pOam->exists = FALSE;
-            // Set random timer
+
+            // Set random respawn timer
             pOam->timer = 1 + MOD_AND(sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + debrisID)], 16);
         }
     }
@@ -203,6 +241,7 @@ u8 KraidRisingOpeningEyes(void)
         case 0:
             if (CUTSCENE_DATA.timeInfo.timer > 8)
             {
+                // Start fade
                 CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 0, 16);
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -210,12 +249,14 @@ u8 KraidRisingOpeningEyes(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > 60 / 2)
             {
-                SoundPlay(0x22C);
+                SoundPlay(SOUND_KRAID_RISING_EYES_OPENING);
 
+                // Load second opening eye frame
                 DmaTransfer(3, KRAID_RISING_EWRAM.barelyOpenedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[1].tiletablePage),
-                    BGCNT_VRAM_TILE_SIZE, 16);
+                    sizeof(KRAID_RISING_EWRAM.barelyOpenedTileTable), 16);
+
                 CutsceneSetBgcntPageData(sKraidRisingPagesData[1]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -226,8 +267,10 @@ u8 KraidRisingOpeningEyes(void)
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > 6)
             {
+                // Load third opening eye frame
                 DmaTransfer(3, KRAID_RISING_EWRAM.aLittleOpenedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[0].tiletablePage),
-                    BGCNT_VRAM_TILE_SIZE, 16);
+                    sizeof(KRAID_RISING_EWRAM.aLittleOpenedTileTable), 16);
+
                 CutsceneSetBgcntPageData(sKraidRisingPagesData[0]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -240,7 +283,10 @@ u8 KraidRisingOpeningEyes(void)
             {
                 PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
 
-                DmaTransfer(3, KRAID_RISING_EWRAM.openedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[1].tiletablePage), 0x800, 16);
+                // Load fourth opening eye frame
+                DmaTransfer(3, KRAID_RISING_EWRAM.openedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[1].tiletablePage),
+                    sizeof(KRAID_RISING_EWRAM.openedTileTable), 16);
+
                 CutsceneSetBgcntPageData(sKraidRisingPagesData[1]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -263,43 +309,61 @@ u8 KraidRisingOpeningEyes(void)
     return FALSE;
 }
 
+/**
+ * @brief 62994 | 190 | Initializes the kraid rising cutscene
+ * 
+ * @return u8 
+ */
 u8 KraidRisingInit(void)
 {
-    u16 bg;
-
     unk_61f0c();
+
+    // Load close up palette
     DmaTransfer(3, sKraidRisingCloseUpPal, PALRAM_BASE, sizeof(sKraidRisingCloseUpPal), 16);
-    write16(PALRAM_BASE, 0);
+    
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[0].graphicsPage));
+    // Load close up graphics
+    CallLZ77UncompVram(sKraidRisingKraidCloseUpGfx, BGCNT_TO_VRAM_CHAR_BASE(sKraidRisingPagesData[0].graphicsPage));
 
+    // Load samus palette based, with or without varia
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
         DmaTransfer(3, sKraidRisingSamusVariaPal, PALRAM_OBJ, sizeof(sKraidRisingSamusVariaPal), 16);
     else
-        DmaTransfer(3, sKraidRisingSamusPal, PALRAM_OBJ, sizeof(sKraidRisingSamusVariaPal), 16);
+        DmaTransfer(3, sKraidRisingSamusPal, PALRAM_OBJ, sizeof(sKraidRisingSamusPal), 16);
 
-    DmaTransfer(3, sKraidRisingParticlesPal, PALRAM_OBJ + 16 * 2, sizeof(sKraidRisingParticlesPal), 16);
+    // Load obj palette
+    DmaTransfer(3, sKraidRisingParticlesPal, PALRAM_OBJ + sizeof(sKraidRisingSamusVariaPal), sizeof(sKraidRisingParticlesPal), 16);
 
-    CallLZ77UncompVRAM(sKraidRisingOamGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
-    
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable, KRAID_RISING_EWRAM.barelyOpenedTileTable);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesALittleOpenedTileTable, KRAID_RISING_EWRAM.aLittleOpenedTileTable);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesOpenedTileTable, KRAID_RISING_EWRAM.openedTileTable);
-    CallLZ77UncompVRAM(sKraidRisingKraidRisingTileTable, KRAID_RISING_EWRAM.kraidRisingTileTable);
-    CallLZ77UncompVRAM(sKraidRisingCaveBackgroundTileTable, KRAID_RISING_EWRAM.caveBackgroundTileTable);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesClosedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[0].tiletablePage));
-    
+    // Load obj data
+    CallLZ77UncompVram(sKraidRisingOamGfx, VRAM_OBJ);
+
+    // Setup later tile tables in EWRAM
+
+    // Eye animation frames
+    CallLZ77UncompVram(sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable, KRAID_RISING_EWRAM.barelyOpenedTileTable);
+    CallLZ77UncompVram(sKraidRisingKraidCloseUpEyesALittleOpenedTileTable, KRAID_RISING_EWRAM.aLittleOpenedTileTable);
+    CallLZ77UncompVram(sKraidRisingKraidCloseUpEyesOpenedTileTable, KRAID_RISING_EWRAM.openedTileTable);
+
+    CallLZ77UncompVram(sKraidRisingKraidRisingTileTable, KRAID_RISING_EWRAM.kraidRisingTileTable);
+    CallLZ77UncompVram(sKraidRisingCaveBackgroundTileTable, KRAID_RISING_EWRAM.caveBackgroundTileTable);
+
+    // First frame of the eye animation
+    CallLZ77UncompVram(sKraidRisingKraidCloseUpEyesClosedTileTable, BGCNT_TO_VRAM_TILE_BASE(sKraidRisingPagesData[0].tiletablePage));
+
+    // Setup for the eyes closed tile table
     CutsceneSetBgcntPageData(sKraidRisingPagesData[0]);
-    bg = sKraidRisingPagesData[0].bg;
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, BLOCK_SIZE * 32);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[0].bg, BLOCK_SIZE * 32);
     CutsceneReset();
 
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, BLOCK_SIZE * 31 + HALF_BLOCK_SIZE);
 
-    CUTSCENE_DATA.dispcnt = bg;
+    // Only display the background of the eyes closed
+    CUTSCENE_DATA.dispcnt = sKraidRisingPagesData[0].bg;
+
     CUTSCENE_DATA.timeInfo.stage++;
     MACRO_CUTSCENE_NEXT_STAGE();
 
@@ -318,7 +382,8 @@ u8 KraidRisingSubroutine(void)
     ended = sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
-    KraidRisingProcessOAM();
+    KraidRisingProcessOam();
+
     return ended;
 }
 
@@ -326,10 +391,10 @@ u8 KraidRisingSubroutine(void)
  * @brief 62b58 | 38 | Processes the OAM for the cutscene
  * 
  */
-void KraidRisingProcessOAM(void)
+void KraidRisingProcessOam(void)
 {
     gNextOamSlot = 0;
 
-    ProcessCutsceneOam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM);
+    ProcessCutsceneOam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOam);
     ResetFreeOam();
 }

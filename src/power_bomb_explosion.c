@@ -275,7 +275,7 @@ void PowerBombExplosionEnd(void)
         gWrittenToWIN1V = C_16_2_8(gSuitFlashEffect.top, gSuitFlashEffect.bottom);
 
         // Set transparent color
-        write16(PALRAM_BASE, 0);
+        SET_BACKDROP_COLOR(COLOR_BLACK);
 
         gWrittenToWININ_H = gIoRegistersBackup.WININ_H;
         gWrittenToWINOUT_L = gIoRegistersBackup.WINOUT_L;

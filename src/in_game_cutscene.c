@@ -791,9 +791,9 @@ void InGameCutsceneCheckPlayOnTransition(void)
             DmaTransfer(3, VRAM_BASE + 0x9000, EWRAM_BASE + 0x1E000, 0x2000, 16);
             
             // Load graphics, tile table and palette
-            CallLZ77UncompVRAM(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
-            CallLZ77UncompWRAM(sSamusCloseUpBackgroundMap, gDecompBG0Map);
-            CallLZ77UncompWRAM(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
+            CallLZ77UncompVram(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
+            CallLZ77UncompWram(sSamusCloseUpBackgroundMap, gDecompBG0Map);
+            CallLZ77UncompWram(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
             DMA_SET(3, sSamusCloseUpPal, PALRAM_BASE + 0xE0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sSamusCloseUpPal)));
 
             unk_5fd58();

@@ -115,19 +115,19 @@ u8 StatueOpeningInit(void)
     unk_61f0c();
     DmaTransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 16);
     DmaTransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 16);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);
 
     // TODO : TIleset 65 Background Gfx
     ptr = (u8*)0x85fe4c8;
-    CallLZ77UncompVRAM(ptr, VRAM_BASE + 0xFDE0 - (ptr[2] << 8 | ptr[1])); 
-    CallLZ77UncompVRAM(sStatueOpeningRoomTileTable, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[0].tiletablePage));
-    CallLZ77UncompVRAM(sStatueOpening_3effc8, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[1].tiletablePage));
+    CallLZ77UncompVram(ptr, VRAM_BASE + 0xFDE0 - (ptr[2] << 8 | ptr[1])); 
+    CallLZ77UncompVram(sStatueOpeningRoomTileTable, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[0].tiletablePage));
+    CallLZ77UncompVram(sStatueOpening_3effc8, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[1].tiletablePage));
     // TODO : Brinstar Room 10 BG3 tiletable
-    CallLZ77UncompVRAM(0x861ac50, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[2].tiletablePage));
+    CallLZ77UncompVram(0x861ac50, BGCNT_TO_VRAM_TILE_BASE(sStatueOpeningPageData[2].tiletablePage));
 
-    CallLZ77UncompVRAM(sBossStatuesGfx, BGCNT_TO_VRAM_CHAR_BASE(5));
+    CallLZ77UncompVram(sBossStatuesGfx, BGCNT_TO_VRAM_CHAR_BASE(5));
     BitFill(3, 0, BGCNT_TO_VRAM_TILE_BASE(1), 32, 32);
 
     CutsceneSetBgcntPageData(sStatueOpeningPageData[0]);

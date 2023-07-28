@@ -1113,21 +1113,21 @@ void TitleScreenInit(void)
     DmaTransfer(3, sTitleScreenPal, PALRAM_BASE, sizeof(sTitleScreenPal), 16);
     DmaTransfer(3, sTitleScreenPal, PALRAM_OBJ, sizeof(sTitleScreenPal), 16);
 
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
     TitleScreenLoadPageData(&sTitleScreenPageData[0]);
     TitleScreenLoadPageData(&sTitleScreenPageData[1]);
 
     unk_777d8(2);
 
-    CallLZ77UncompVRAM(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
-    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundGfx, VRAM_BASE + 0x4000);
-    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGfx, VRAM_BASE + 0xA400);
-    CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGfx, (void*)sEwramPointer + 0x4000);
+    CallLZ77UncompVram(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
+    CallLZ77UncompVram(sTitleScreenSpaceBackgroundGfx, VRAM_BASE + 0x4000);
+    CallLZ77UncompVram(sTitleScreenSpaceBackgroundDecorationGfx, VRAM_BASE + 0xA400);
+    CallLZ77UncompWram(sTitleScreenSpaceAndGroundBackgroundGfx, (void*)sEwramPointer + 0x4000);
 
     DmaTransfer(3, VRAM_BASE + 0x4000, (void*)sEwramPointer, 0x4000, 16);
 
-    CallLZ77UncompVRAM(sTitleScreenSparklesGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVram(sTitleScreenSparklesGfx, VRAM_OBJ);
 
     // Undefined
     TitleScreenSetBGCNTPageData(&sTitleScreenPageData[0]);

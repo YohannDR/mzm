@@ -1508,7 +1508,7 @@ void OptionsSetupTiletable(void)
     u16* dst;
 
     // Decomp tile table
-    CallLZ77UncompWRAM(sFileSelectOptionsTileTable, (void*)sEwramPointer + 0x5100);
+    CallLZ77UncompWram(sFileSelectOptionsTileTable, (void*)sEwramPointer + 0x5100);
 
     // Clear all the options
     for (i = 0; i < ARRAY_SIZE(FILE_SELECT_DATA.optionsUnlocked); i++)
@@ -2154,7 +2154,7 @@ u8 OptionsNesMetroidSubroutine(void)
             gWrittenToBLDY_NonGameplay += 2;
             if (gWrittenToBLDY_NonGameplay >= 16)
             {
-                write16(PALRAM_BASE, 0);
+                SET_BACKDROP_COLOR(COLOR_BLACK);
 
                 FILE_SELECT_DATA.bldcnt = 0;
                 gWrittenToBLDY_NonGameplay = 0;
@@ -3552,20 +3552,20 @@ void FileSelectInit(void)
     DmaTransfer(3, sFileSelectPal, PALRAM_BASE, sizeof(sFileSelectPal), 16);
     DmaTransfer(3, sFileSelect_4548f8, PALRAM_BASE + 0x1C0, sizeof(sFileSelect_4548f8), 16);
     DmaTransfer(3, sFileSelectIconsPal, PALRAM_OBJ, sizeof(sFileSelectIconsPal), 16);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sFileSelectCharactersGfx, VRAM_BASE + 0x400);
-    CallLZ77UncompVRAM(sFileSelectChozoBackgroundGfx, VRAM_BASE + 0x8000);
-    CallLZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVram(sFileSelectCharactersGfx, VRAM_BASE + 0x400);
+    CallLZ77UncompVram(sFileSelectChozoBackgroundGfx, VRAM_BASE + 0x8000);
+    CallLZ77UncompVram(sFileSelectIconsGfx, VRAM_OBJ);
 
     BitFill(3, 0, VRAM_BASE + 0x400, 0x800, 16);
-    CallLZ77UncompVRAM(sFileSelectTextGfxPointers[gLanguage - 2], VRAM_BASE + 0xC00);
-    CallLZ77UncompVRAM(sFileSelectChozoBackgroundTileTable, VRAM_BASE + 0xF800);
+    CallLZ77UncompVram(sFileSelectTextGfxPointers[gLanguage - 2], VRAM_BASE + 0xC00);
+    CallLZ77UncompVram(sFileSelectChozoBackgroundTileTable, VRAM_BASE + 0xF800);
 
-    CallLZ77UncompWRAM(sFileSelectMenuTileTable, (void*)sEwramPointer + 0x800);
-    CallLZ77UncompWRAM(sFileSelect3BigPanelsTileTable, (void*)sEwramPointer + 0x2800);
-    CallLZ77UncompWRAM(sFileSelect1Small2BigPanelsTileTable, (void*)sEwramPointer + 0x1800);
-    CallLZ77UncompWRAM(sFileSelect2Big1SmallPanelsTileTable, (void*)sEwramPointer + 0x2000);
+    CallLZ77UncompWram(sFileSelectMenuTileTable, (void*)sEwramPointer + 0x800);
+    CallLZ77UncompWram(sFileSelect3BigPanelsTileTable, (void*)sEwramPointer + 0x2800);
+    CallLZ77UncompWram(sFileSelect1Small2BigPanelsTileTable, (void*)sEwramPointer + 0x1800);
+    CallLZ77UncompWram(sFileSelect2Big1SmallPanelsTileTable, (void*)sEwramPointer + 0x2000);
 
     OptionsSetupTiletable();
     FileSelectCopyTimeAttackTime();

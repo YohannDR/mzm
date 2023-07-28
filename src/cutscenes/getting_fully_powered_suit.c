@@ -262,15 +262,15 @@ u8 GettingFullyPoweredSuitInit(void)
     unk_61f0c();
     DmaTransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);
     DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
-    write16(PALRAM_BASE, 0);
+    SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGfx, VRAM_BASE + 0x10000);
+    CallLZ77UncompVram(sGettingFullyPoweredSuitRingSparklesGfx, VRAM_OBJ);
 
     CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[0]);
     CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[1]);

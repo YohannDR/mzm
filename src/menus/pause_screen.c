@@ -2032,7 +2032,7 @@ void PauseScreenInit(void)
 
     if (gCurrentCutscene == 0)
     {
-        DmaTransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, 0x8000, 16);
+        DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, 0x8000, 16);
     }
 
     PAUSE_SCREEN_DATA.currentArea = gCurrentArea;
@@ -2084,24 +2084,24 @@ void PauseScreenInit(void)
     DmaTransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x3000, 16);
     DmaTransfer(3, VRAM_BASE + 0xA820, VRAM_BASE + 0xAC20, 0x3E0, 32);
 
-    CallLZ77UncompVRAM(sTankIconsGfx, VRAM_BASE + 0x13000);
-    CallLZ77UncompVRAM(sMapScreenAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x10800);
-    CallLZ77UncompVRAM(sMapScreenUnknownItemsNamesGfxPointers[gLanguage], VRAM_BASE + 0x11400);
-    CallLZ77UncompVRAM(sMapScreenChozoStatueAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x11800);
+    CallLZ77UncompVram(sTankIconsGfx, VRAM_BASE + 0x13000);
+    CallLZ77UncompVram(sMapScreenAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x10800);
+    CallLZ77UncompVram(sMapScreenUnknownItemsNamesGfxPointers[gLanguage], VRAM_BASE + 0x11400);
+    CallLZ77UncompVram(sMapScreenChozoStatueAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x11800);
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
-        CallLZ77UncompVRAM(sChozoHintBackgroundGfx, VRAM_BASE);
-        CallLZ77UncompVRAM(sMapScreenAreaNamesGfx, VRAM_BASE + 0xA800);
+        CallLZ77UncompVram(sChozoHintBackgroundGfx, VRAM_BASE);
+        CallLZ77UncompVram(sMapScreenAreaNamesGfx, VRAM_BASE + 0xA800);
     }
     else
     {
-        CallLZ77UncompVRAM(sMotifBehindWireframeSamusGfx, VRAM_BASE);
-        CallLZ77UncompVRAM(sPauseScreenHudGfx, VRAM_BASE + 0x1000);
-        CallLZ77UncompVRAM(sMinimapLettersGfx, VRAM_BASE + 0x7400);
-        CallLZ77UncompVRAM(sMapScreenEquipmentNamesGfxPointers[gLanguage], VRAM_BASE + 0x6000);
-        CallLZ77UncompVRAM(sMapScreenMenuNamesGfxPointers[gLanguage], VRAM_BASE + 0xC00);
-        DmaTransfer(3, VRAM_BASE + 0x6000, VRAM_BASE + 0x10000, 0x800, 32);
+        CallLZ77UncompVram(sMotifBehindWireframeSamusGfx, VRAM_BASE);
+        CallLZ77UncompVram(sPauseScreenHudGfx, VRAM_BASE + 0x1000);
+        CallLZ77UncompVram(sMinimapLettersGfx, VRAM_BASE + 0x7400);
+        CallLZ77UncompVram(sMapScreenEquipmentNamesGfxPointers[gLanguage], VRAM_BASE + 0x6000);
+        CallLZ77UncompVram(sMapScreenMenuNamesGfxPointers[gLanguage], VRAM_BASE + 0xC00);
+        DmaTransfer(3, VRAM_BASE + 0x6000, VRAM_OBJ, 0x800, 32);
     }
 
     BitFill(3, 0x1140, VRAM_BASE + 0xE800, 0x1800, 16);
@@ -2110,12 +2110,12 @@ void PauseScreenInit(void)
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
-        CallLZ77UncompVRAM(sChozoHintBackgroundTileTable, VRAM_BASE + 0xB800);
+        CallLZ77UncompVram(sChozoHintBackgroundTileTable, VRAM_BASE + 0xB800);
         BitFill(3, 0x115F, VRAM_BASE + 0xC000, 0x800, 16);
     }
     else
     {
-        CallLZ77UncompWRAM(sMapScreenVisorOverlayTilemap, PAUSE_SCREEN_EWRAM.visorOverlayTilemap);
+        CallLZ77UncompWram(sMapScreenVisorOverlayTilemap, PAUSE_SCREEN_EWRAM.visorOverlayTilemap);
         DmaTransfer(3, PAUSE_SCREEN_EWRAM.visorOverlayTilemap, VRAM_BASE + 0xC800,
             sizeof(PAUSE_SCREEN_EWRAM.visorOverlayTilemap), 16);
         PauseScreenUpdateBottomVisorOverlay(2, 2);
@@ -2128,12 +2128,12 @@ void PauseScreenInit(void)
         {
             if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
             {
-                CallLZ77UncompVRAM(sDebugMenuTileParts, VRAM_BASE + 0xB000);
+                CallLZ77UncompVram(sDebugMenuTileParts, VRAM_BASE + 0xB000);
                 BitFill(3, 0xF000, PAUSE_SCREEN_EWRAM.unk_d000, sizeof(PAUSE_SCREEN_EWRAM.unk_d000), 16);
             }
 
-            CallLZ77UncompWRAM(sStatusScreenTilemap, PAUSE_SCREEN_EWRAM.unk_7800);
-            CallLZ77UncompWRAM(sStatusScreenBackgroundTilemap, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap);
+            CallLZ77UncompWram(sStatusScreenTilemap, PAUSE_SCREEN_EWRAM.unk_7800);
+            CallLZ77UncompWram(sStatusScreenBackgroundTilemap, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap);
             
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
@@ -2144,12 +2144,12 @@ void PauseScreenInit(void)
                 DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 16);
             }
 
-            CallLZ77UncompWRAM(sMapScreenOverlayTilemap, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap);
-            CallLZ77UncompWRAM(sWorldMapOverlayTilemap, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap);
+            CallLZ77UncompWram(sMapScreenOverlayTilemap, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap);
+            CallLZ77UncompWram(sWorldMapOverlayTilemap, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap);
             PAUSE_SCREEN_DATA.onWorldMap = FALSE;
 
-            CallLZ77UncompVRAM(sMapScreenTextBg0TileTable, VRAM_BASE + 0xD800);
-            CallLZ77UncompWRAM(sEasySleepTilemap, PAUSE_SCREEN_EWRAM.easySleepTilemap);
+            CallLZ77UncompVram(sMapScreenTextBg0TileTable, VRAM_BASE + 0xD800);
+            CallLZ77UncompWram(sEasySleepTilemap, PAUSE_SCREEN_EWRAM.easySleepTilemap);
         }
     }
 
@@ -2469,7 +2469,7 @@ void PauseScreenGetMinimapData(u8 area, u16* dst)
     s32 i;
 
     // Decompress base minimap
-    CallLZ77UncompWRAM(sMinimapDataPointers[area], dst);
+    CallLZ77UncompWram(sMinimapDataPointers[area], dst);
 
     // Add obtained items
     MinimapSetTilesWithObtainedItems(area, dst);

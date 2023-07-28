@@ -47,6 +47,8 @@
         value = (max);         \
 }
 
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
 #define RED(c) ((c) & COLOR_MASK)
@@ -55,8 +57,10 @@
 #define COLOR(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 #define COLOR_GRAD(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
 #define COLOR_WHITE COLOR(COLOR_MASK, COLOR_MASK, COLOR_MASK)
-#define COLOR_BLACK COLOR(0x0, 0x0, 0x0)
+#define COLOR_BLACK COLOR(0, 0, 0)
 #define COLOR_MASK 0x1F
+
+#define SET_BACKDROP_COLOR(color) (write16(PALRAM_BASE, (color)))
 
 #define OAM_PART_SIZE 3
 #define OAM_DATA_SIZE(nbrOfParts) (1 + (nbrOfParts) * OAM_PART_SIZE)
@@ -161,6 +165,8 @@
 #define PEN_GET_SUPER_MISSILE(pen) ((pen) >> 12 & 0xF)
 #define PEN_GET_MISSILE(pen) (LOW_BYTE((pen) >> 16))
 #define PEN_GET_ENERGY(pen) (LOW_BYTE((pen) >> 24))
+
+
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN
