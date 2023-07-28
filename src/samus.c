@@ -866,81 +866,85 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
     if (pPhysics->standingStatus > STANDING_NOT_IN_CONTROL)
         return;
 
+    // Apply speedbooster/screw damage
     SamusCheckScrewSpeedboosterAffectingEnvironment(pData, pPhysics);
+
     newPose = SPOSE_NONE;
 
     if (pPhysics->verticalMovingDirection == VDMOVING_UP)
+    {
         newPose = SamusCheckTopCollision(pData, pPhysics);
+    }
     else if (pPhysics->verticalMovingDirection == VDMOVING_DOWN)
+    {
         newPose = SamusCheckLandingCollision(pData, pPhysics);
+    }
+    else if (pPhysics->horizontalMovingDirection != VDMOVING_NONE)
+    {
+        if (pPhysics->standingStatus == STANDING_MIDAIR)
+        {
+            newPose = SamusCheckLandingCollision(pData, pPhysics);
+        }
+        else
+        {
+            newPose = SamusCheckWalkingSidesCollision(pData, pPhysics);
+            if (newPose == SPOSE_NONE)
+                newPose = unk_5AD8(pData, pPhysics);
+        }
+    }
     else
     {
-        if (pPhysics->horizontalMovingDirection != VDMOVING_NONE)
-        {
-            if (pPhysics->standingStatus == STANDING_MIDAIR)
-                newPose = SamusCheckLandingCollision(pData, pPhysics);
-            else
-            {
-                newPose = SamusCheckWalkingSidesCollision(pData, pPhysics);
-                if (newPose == SPOSE_NONE)
-                    newPose = unk_5AD8(pData, pPhysics);
-
-            }
-        }
-        else if (pPhysics->standingStatus == STANDING_GROUND)
+        if (pPhysics->standingStatus == STANDING_GROUND)
             newPose = SamusCheckStandingOnGroundCollision(pData, pPhysics);
     }
 
-    if (newPose == SPOSE_NONE)
+    if (newPose == SPOSE_NONE && gEquipment.suitMiscActivation & SMF_POWER_GRIP && gButtonInput & pData->direction && pData->yVelocity < 1)
     {
-        if (gEquipment.suitMiscActivation & SMF_POWER_GRIP && gButtonInput & pData->direction && pData->yVelocity < 0x1)
+        if (pData->direction & KEY_RIGHT)
+            xOffset = (HALF_BLOCK_SIZE - ONE_SUB_PIXEL);
+        else
+            xOffset = -(HALF_BLOCK_SIZE - ONE_SUB_PIXEL);
+
+        blockPrevent = ClipdataProcessForSamus(pData->yPosition + HALF_BLOCK_SIZE, pData->xPosition);
+        if (blockPrevent == CLIPDATA_TYPE_AIR)
         {
-            if (pData->direction & KEY_RIGHT)
-                xOffset = 0x1F;
-            else
-                xOffset = -0x1F;
+            blockPrevent = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), pData->xPosition);
+            blockPrevent &= CLIPDATA_TYPE_SOLID_FLAG;
 
-            blockPrevent = ClipdataProcessForSamus(pData->yPosition + HALF_BLOCK_SIZE, pData->xPosition);
-            if (blockPrevent == CLIPDATA_TYPE_AIR)
+            blockGrabbing = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2),
+                pData->xPosition + xOffset);
+            blockGrabbing &= CLIPDATA_TYPE_SOLID_FLAG;
+
+            blockAbove = ClipdataProcessForSamus(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition + xOffset);
+            blockAbove &= CLIPDATA_TYPE_SOLID_FLAG;
+
+            switch (pData->pose)
             {
-                blockPrevent = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), pData->xPosition);
-                blockPrevent &= CLIPDATA_TYPE_SOLID_FLAG;
-                blockGrabbing = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE + 0x28), pData->xPosition + xOffset);
-                blockGrabbing &= CLIPDATA_TYPE_SOLID_FLAG;
-                blockAbove = ClipdataProcessForSamus(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition + xOffset);
-                blockAbove &= CLIPDATA_TYPE_SOLID_FLAG;
+                case SPOSE_MIDAIR:
+                case SPOSE_STARTING_SPIN_JUMP:
+                case SPOSE_SPINNING:
+                case SPOSE_STARTING_WALL_JUMP:
+                case SPOSE_SPACE_JUMPING:
+                case SPOSE_SCREW_ATTACKING:
+                    movementBlock = HIGH_SHORT(ClipdataCheckCurrentAffectingAtPosition(pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
+                        pData->xPosition + xOffset));
 
-                switch (pData->pose)
-                {
-                    case SPOSE_MIDAIR:
-                    case SPOSE_STARTING_SPIN_JUMP:
-                    case SPOSE_SPINNING:
-                    case SPOSE_STARTING_WALL_JUMP:
-                    case SPOSE_SPACE_JUMPING:
-                    case SPOSE_SCREW_ATTACKING:
-                        movementBlock = ClipdataCheckCurrentAffectingAtPosition(
-                            pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
-                            pData->xPosition + xOffset);
-                        movementBlock >>= 0x10;
-
-                        if (!blockPrevent && blockGrabbing &&
-                            movementBlock != CLIPDATA_MOVEMENT_NON_POWER_GRIP && !blockAbove)
+                    if (!blockPrevent && blockGrabbing && movementBlock != CLIPDATA_MOVEMENT_NON_POWER_GRIP && !blockAbove)
+                    {
+                        if (gEquipment.suitType == SUIT_SUITLESS)
                         {
-                            if (gEquipment.suitType == SUIT_SUITLESS)
-                            {
-                                newPose = SPOSE_GRABBING_A_LEDGE_SUITLESS;
-                                SoundPlay(0x9B);
-                            }
-                            else
-                            {
-                                newPose = SPOSE_HANGING_ON_LEDGE;
-                                if (pPhysics->slowedByLiquid)
-                                    SoundPlay(0x95);
-                                else
-                                    SoundPlay(0x7A);
-                            }
+                            newPose = SPOSE_GRABBING_A_LEDGE_SUITLESS;
+                            SoundPlay(SOUND_SUITLESS_GRAB_LEDGE);
                         }
-                }
+                        else
+                        {
+                            newPose = SPOSE_HANGING_ON_LEDGE;
+                            if (pPhysics->slowedByLiquid)
+                                SoundPlay(SOUND_WATER_MOVEMENT_WALL_JUMP);
+                            else
+                                SoundPlay(SOUND_GRAB_LEDGE);
+                        }
+                    }
             }
         }
     }
@@ -952,13 +956,13 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
         switch (pData->pose)
         {
             case SPOSE_RUNNING:
-                if (gEquipment.suitType == SUIT_SUITLESS && gSamusDataCopy.timer == 0x1)
+                if (gEquipment.suitType == SUIT_SUITLESS && gSamusDataCopy.timer == 1)
                     newPose = SPOSE_CROUCHING_TO_CRAWL;
                 break;
 
             case SPOSE_SPINNING:
             case SPOSE_SCREW_ATTACKING:
-                pData->walljumpTimer = 0x8;
+                pData->walljumpTimer = 8;
                 pData->lastWallTouchedMidAir = pData->direction ^ (KEY_RIGHT | KEY_LEFT);
                 break;
 
@@ -1042,16 +1046,16 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 if (request == WANTING_RUNNING_EFFECT)
                 {
                     if (gEquipment.suitType == SUIT_SUITLESS)
-                        SoundPlay(0xA1);
+                        SoundPlay(SOUND_SUITLESS_FOOTSTEPS_WET_GROUND_1);
                     else
-                        SoundPlay(0x68);
+                        SoundPlay(SOUND_FOOTSTEPS_WET_GROUND_1);
                 }
                 else
                 {
                     if (gEquipment.suitType == SUIT_SUITLESS)
-                        SoundPlay(0xA2);
+                        SoundPlay(SOUND_SUITLESS_FOOTSTEPS_WET_GROUND_2);
                     else
-                        SoundPlay(0x69);
+                        SoundPlay(SOUND_FOOTSTEPS_WET_GROUND_2);
                 }
             }
             else if (affecting == GROUND_EFFECT_DUSTY_GROUND)
@@ -1060,9 +1064,9 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 found++;
 
                 if (request == WANTING_RUNNING_EFFECT)
-                    SoundPlay(0x66);
+                    SoundPlay(SOUND_FOOTSTEPS_DUSTY_GROUND_1);
                 else
-                    SoundPlay(0x67);
+                    SoundPlay(SOUND_FOOTSTEPS_DUSTY_GROUND_2);
             }
             else if (affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
@@ -1070,9 +1074,9 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 found++;
 
                 if (request == WANTING_RUNNING_EFFECT)
-                    SoundPlay(0x66);
+                    SoundPlay(SOUND_FOOTSTEPS_DUSTY_GROUND_1);
                 else
-                    SoundPlay(0x67);
+                    SoundPlay(SOUND_FOOTSTEPS_DUSTY_GROUND_2);
             }
 
             xPosition = nextX;
@@ -1090,9 +1094,9 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
                 found++;
 
                 if (gEquipment.suitType == SUIT_SUITLESS)
-                    SoundPlay(0xA3); // Suitless landing on wet ground
+                    SoundPlay(SOUND_SUITLESS_LANDING_ON_WET_GROUND);
                 else
-                    SoundPlay(0x74); // Landing on wet ground
+                    SoundPlay(SOUND_GOING_IN_LIQUID);
             }
             else if (affecting == GROUND_EFFECT_BUBBLY_GROUND)
             {
@@ -1103,24 +1107,24 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
             {
                 effect = ENV_EFFECT_LANDING_ON_DUSTY_GROUND;
                 found++;
-                SoundPlay(0x73); // Landing on very dusty ground
+                SoundPlay(SOUND_LANDING_ON_DUSTY_GROUND);
             }
             else if (affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND;
                 found++;
-                SoundPlay(0x73); // Landing on very dusty ground
+                SoundPlay(SOUND_LANDING_ON_DUSTY_GROUND);
             }
             else
             {
                 if (pPhysics->slowedByLiquid)
-                    SoundPlay(0x95);
+                    SoundPlay(SOUND_WATER_MOVEMENT_WALL_JUMP);
                 else if (gSamusDataCopy.lastWallTouchedMidAir != 0)
-                    SoundPlay(0x72);
+                    SoundPlay(SOUND_MORPH_BALL_LANDING);
                 else if (gEquipment.suitType != SUIT_SUITLESS)
-                    SoundPlay(0x71);
+                    SoundPlay(SOUND_LANDING);
                 else
-                    SoundPlay(0x99);
+                    SoundPlay(SOUND_SUITLESS_LANDING);
             }
 
             xPosition = pData->xPosition;
@@ -1215,20 +1219,23 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
             break;
 
         case WANTING_BREATHING_BUBBLES:
-            if (pData->standingStatus != STANDING_MIDAIR)
+            if (pData->standingStatus == STANDING_MIDAIR)
             {
-                effect = ENV_EFFECT_BREATHING_BUBBLES;
-                found++;
-
-                if (pData->direction & KEY_RIGHT)
-                    xPosition = pData->xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
-                else
-                    xPosition = pData->xPosition - (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
-
-                // Spawn near head
-                yPosition = pData->yPosition + pPhysics->drawDistanceTopOffset + QUARTER_BLOCK_SIZE;
-                SoundPlay(0x91); // Liquid bubbling
+                // Spawn bubbles only on ground
+                break;
             }
+
+            effect = ENV_EFFECT_BREATHING_BUBBLES;
+            found++;
+
+            if (pData->direction & KEY_RIGHT)
+                xPosition = pData->xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
+            else
+                xPosition = pData->xPosition - (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
+
+            // Spawn near head
+            yPosition = pData->yPosition + pPhysics->drawDistanceTopOffset + QUARTER_BLOCK_SIZE;
+            SoundPlay(SOUND_WATER_BUBBLES);
             break;
 
         case WANTING_SKIDDING_EFFECT:
@@ -1302,6 +1309,7 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
     pPhysics = &gSamusPhysics;
     pEnv = gSamusEnvironmentalEffects;
 
+    // Check set out of liquid effects
     switch (pData->pose)
     {
         case SPOSE_MIDAIR:
@@ -1328,18 +1336,26 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
             SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_RUNNING_OUT_OF_LIQUID_EFFECT);
     }
 
-    if ((ClipdataCheckCurrentAffectingAtPosition(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition) & 0xFF) == HAZARD_TYPE_WATER)
+    // Check for breathing bubbles
+    if (LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition)) == HAZARD_TYPE_WATER)
     {
+        // Head of samus is in water, update timer
         if (pEnv->breathingTimer < 220)
+        {
             pEnv->breathingTimer++;
+        }
         else
         {
+            // Try to spawn bubbles
             SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_BREATHING_BUBBLES);
             pEnv->breathingTimer = 0;
         }
     }
 
-    pEnv += 4;
+    // Use last slot, reserved for the taking damage in liquid effects
+    pEnv += ARRAY_SIZE(gSamusEnvironmentalEffects) - 1;
+
+    // Check is available
     if (pEnv->type == ENV_EFFECT_NONE)
     {
         switch (pData->pose)
@@ -1352,30 +1368,33 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
             case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
             case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
             case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+                // Offset position slightly up when hanging to not take into account the feets
                 yPosition = pData->yPosition - QUARTER_BLOCK_SIZE;
                 break;
 
             default:
+                // Use normal position
                 yPosition = pData->yPosition;
         }
 
-        affecting = ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition);
-        affecting &= 0xFF;
-        affectingTop = ClipdataCheckCurrentAffectingAtPosition(yPosition + pPhysics->drawDistanceTopOffset - 8, pData->xPosition);
-        affectingTop &= 0xFF;
+        // Get liquid at the current position and above samus
+        affecting = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition));
+        affectingTop = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(yPosition + pPhysics->drawDistanceTopOffset - PIXEL_SIZE * 2,
+            pData->xPosition));
 
         if (pPhysics->drawDistanceTopOffset > -BLOCK_SIZE)
             liquidY = yPosition - BLOCK_SIZE;
         else
             liquidY = yPosition + pPhysics->drawDistanceTopOffset;
 
-        affectingLiquid = ClipdataCheckCurrentAffectingAtPosition(liquidY, pData->xPosition);
-        affectingLiquid &= 0xFF;
+        affectingLiquid = LOW_BYTE(ClipdataCheckCurrentAffectingAtPosition(liquidY, pData->xPosition));
 
         subAnimEnded = FALSE;
 
+        // Check is only half-way in a liquid and can be damaged by said liquid
         if (affecting == HAZARD_TYPE_STRONG_LAVA && affectingTop != HAZARD_TYPE_STRONG_LAVA)
         {
+            // Strong lava, check has gravity
             if (!(gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT))
             {
                 effect = ENV_EFFECT_TAKING_DAMAGE_IN_LAVA;
@@ -1384,6 +1403,7 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
         }
         else if (affecting == HAZARD_TYPE_WEAK_LAVA && affectingTop != HAZARD_TYPE_WEAK_LAVA)
         {
+            // Weak lava, check has varia or gravity
             if (!(gEquipment.suitMiscActivation & SMF_ALL_SUITS))
             {
                 effect = ENV_EFFECT_TAKING_DAMAGE_IN_LAVA;
@@ -1392,51 +1412,68 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
         }
         else if (affecting == HAZARD_TYPE_ACID && affectingTop != HAZARD_TYPE_ACID)
         {
+            // Acid, always
             effect = ENV_EFFECT_TAKING_DAMAGE_IN_ACID;
             subAnimEnded++;
         }
 
         if (subAnimEnded)
         {
+            // Setup effect
             pEnv->type = effect;
             pEnv->currentAnimationFrame = 0;
             pEnv->animationDurationCounter = 0;
             pEnv->xPosition = pData->xPosition;
 
             if (gEffectYPosition != 0)
+            {
+                // Use effect position if it exists
                 pEnv->yPosition = gEffectYPosition;
+            }
             else
             {
-                if (affectingLiquid == HAZARD_TYPE_STRONG_LAVA || affectingLiquid == HAZARD_TYPE_WEAK_LAVA || affectingLiquid == HAZARD_TYPE_ACID)
+                if (affectingLiquid == HAZARD_TYPE_STRONG_LAVA || affectingLiquid == HAZARD_TYPE_WEAK_LAVA ||
+                    affectingLiquid == HAZARD_TYPE_ACID)
+                {
+                    // Is a valid liquid, use its position
                     pEnv->yPosition = liquidY & BLOCK_POSITION_FLAG;
+                }
                 else
+                {
+                    // Fail safe?
                     pEnv->yPosition = yPosition & BLOCK_POSITION_FLAG;
+                }
             }
 
-            SoundPlay(0x7D);
+            SoundPlay(SOUND_LIQUID_DAMAGE);
         }
     }
 
-    pEnv = gSamusEnvironmentalEffects;
-    for (i = 0; i < 5; i++, pEnv++)
+    // Update every effect
+    for (pEnv = gSamusEnvironmentalEffects, i = 0; i < ARRAY_SIZE(gSamusEnvironmentalEffects); i++, pEnv++)
     {
         effect = pEnv->type;
         if (effect == ENV_EFFECT_NONE)
             continue;
 
+        // Update animation
         pEnv->animationDurationCounter++;
 
         pOam = sSamusEnvEffectsFrameDataPointers[effect - 1];
         pOam += pEnv->currentAnimationFrame;
+
         subAnimEnded = FALSE;
         
         if (pEnv->animationDurationCounter >= pOam->timer)
         {
+            // Sub anim ended
             pEnv->animationDurationCounter = 0;
             pEnv->currentAnimationFrame++;
             pOam++;
+
             if (pOam->timer == 0)
             {
+                // Animation ended, kill
                 pEnv->type = ENV_EFFECT_NONE;
                 pEnv->currentAnimationFrame = 0;
             }
@@ -1444,24 +1481,26 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
             subAnimEnded++;
         }
 
+        // Set oam frame pointer
         pEnv->pOamFrame = pOam->pFrame;
 
         if (subAnimEnded)
         {
+            // Sub anim ended, check play sounds
             switch (effect)
             {
                 case ENV_EFFECT_GOING_OUT_OF_WATER:
                 case ENV_EFFECT_GOING_OUT_OF_LAVA:
                 case ENV_EFFECT_GOING_OUT_OF_ACID:
                     if (pEnv->currentAnimationFrame == 1)
-                        SoundPlay(0x75);
+                        SoundPlay(SOUND_GOING_OUT_OF_LIQUID);
                     break;
 
                 case ENV_EFFECT_RUNNING_INTO_WATER:
                 case ENV_EFFECT_RUNNING_INTO_LAVA:
                 case ENV_EFFECT_RUNNING_INTO_ACID:
                     if (pEnv->currentAnimationFrame == 1)
-                        SoundPlay(0x74);
+                        SoundPlay(SOUND_GOING_IN_LIQUID);
                     break;
 
                 case ENV_EFFECT_TAKING_DAMAGE_IN_LAVA:
@@ -1692,6 +1731,7 @@ void SamusSetMidAir(struct SamusData* pData, struct SamusData* pCopy, struct Wea
             }
     }
 
+    // Play jumping sounds
     if (pCopy->forcedMovement == FORCED_MOVEMENT_MID_AIR_JUMP)
     {
         if (pData->pose == SPOSE_MIDAIR)
@@ -1935,7 +1975,7 @@ void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, str
             pData->yVelocity = SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE * 2 - ONE_SUB_PIXEL);
 
         pData->armCannonDirection = pCopy->armCannonDirection;
-        SoundPlay(0x7C);
+        SoundPlay(SOUND_HURT);
     }
     else
     {
@@ -2216,14 +2256,20 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_ON_ZIPLINE:
             if (pCopy->pose != SPOSE_SHOOTING_ON_ZIPLINE && pCopy->pose != SPOSE_TURNING_ON_ZIPLINE)
             {
+                // Entered zipline, reset diagonal aim
                 pWeapon->diagonalAim = DIAG_AIM_NONE;
+
+                // Play zipline sound
                 if (gEquipment.suitType == SUIT_SUITLESS)
-                    SoundPlay(0x9B);
+                    SoundPlay(SOUND_SUITLESS_GRAB_LEDGE);
                 else
-                    SoundPlay(0x7A);
+                    SoundPlay(SOUND_GRAB_LEDGE);
             }
             else
+            {
+                // Was already on zipline, carry ACD
                 pData->armCannonDirection = pCopy->armCannonDirection;
+            }
 
             break;
 
@@ -4545,7 +4591,7 @@ u8 SamusSpinningGfx(struct SamusData* pData)
     {
         // Play spinning sound
         if (gSamusPhysics.slowedByLiquid)
-            SoundPlay(SOUND_WATER_MOVEMENT);
+            SoundPlay(SOUND_WATER_SPIN_JUMP);
         else if (gEquipment.suitType != SUIT_SUITLESS)
             SoundPlay(SOUND_SPIN_JUMP);
         else
@@ -5453,7 +5499,7 @@ u8 SamusPullingSelfIntoMorphballTunnelGfx(struct SamusData* pData)
             pData->xPosition -= (PIXEL_SIZE + PIXEL_SIZE / 2);
 
         pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) - ONE_SUB_PIXEL;
-        SoundPlay(0x77);
+        SoundPlay(SOUND_MORPHING);
 
         return SPOSE_MORPH_BALL;
     }
@@ -6074,7 +6120,7 @@ u8 SamusDying(struct SamusData* pData)
     else if (pData->lastWallTouchedMidAir == 1)
     {
         pData->lastWallTouchedMidAir++;
-        SoundPlay(0x83); // Death
+        SoundPlay(SOUND_DYING);
     }
 
     pData->invincibilityTimer = 64;
@@ -6263,7 +6309,7 @@ u8 SamusCrawlingGfx(struct SamusData* pData)
 
     // Play crawling sound
     if (pData->animationDurationCounter == 1 && pData->currentAnimationFrame == 0)
-        SoundPlay(0x9E);
+        SoundPlay(SOUND_SUITLESS_CRAWL);
 
     return SPOSE_NONE;
 }
@@ -6394,7 +6440,7 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
     // Update hazard damage
     if (SamusTakeHazardDamage(pData, pEquipment, pHazard))
     {
-        // Getting knocked back, abort
+        // Getting knocked back or died, abort
         return SPOSE_HURT_REQUEST;
     }
 
@@ -6402,12 +6448,13 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
     if (pWeapon->cooldown != 0)
         pWeapon->cooldown--;
 
+    // Check play speedbooster charge sound
     if (pData->shinesparkTimer != 0 && pData->pose != SPOSE_DELAY_BEFORE_SHINESPARKING && pData->pose != SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
         timer = pData->shinesparkTimer;
 
         if (MOD_AND(timer, 16) == 4)
-            SoundPlay(0x8D);
+            SoundPlay(SOUND_SPEEDBOOSTER_CHARGE);
 
         pData->shinesparkTimer--;
     }
@@ -7481,7 +7528,7 @@ void SamusCheckPlayLowHealthSound(void)
     pEquipment = &gEquipment;
 
     if (pEquipment->lowHealth && pData->pose != SPOSE_DYING && gPreventMovementTimer == 0 && MOD_AND(gFrameCounter8Bit, 16) == 0)
-        SoundPlay(0x82);
+        SoundPlay(SOUND_LOW_HEALTH_BEEP);
 }
 
 void SamusUpdateDrawDistanceAndStandingStatus(struct SamusData* pData, struct SamusPhysics* pPhysics)
