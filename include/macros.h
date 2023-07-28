@@ -54,7 +54,7 @@
 #define BLUE(c) (((c) & (COLOR_MASK << 10)) >> 10)
 #define COLOR(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 #define COLOR_GRAD(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
-#define COLOR_WHITE COLOR(0x1F, 0x1F, 0x1F)
+#define COLOR_WHITE COLOR(COLOR_MASK, COLOR_MASK, COLOR_MASK)
 #define COLOR_BLACK COLOR(0x0, 0x0, 0x0)
 #define COLOR_MASK 0x1F
 

@@ -11,6 +11,9 @@
 #include "structs/room.h"
 #include "structs/game_state.h"
 
+#define COLOR_DATA_BG_EWRAM ((u16*)(EWRAM_BASE + 0x35000))
+#define COLOR_DATA_OBJ_EWRAM ((u16*)(EWRAM_BASE + 0x35200))
+
 /**
  * @brief 5b24c | 3c | To document
  * 
@@ -416,22 +419,32 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
     }
 }
 
+/**
+ * @brief 5b830 | 13c | Applies the color of a special fading to the background palette
+ * 
+ * @param mask Row mask
+ * @param color Color
+ * @param stage Stage
+ */
 void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 {
-    // https://decomp.me/scratch/PWhDo
-
     s32 i;
     s32 j;
+    s32 k;
 
     u8 r;
     u8 g;
     u8 b;
 
-    u8 baseR;
-    u8 baseG;
-    u8 baseB;
+    s32 baseR;
+    s32 baseG;
+    s32 baseB;
 
     u16* pal;
+    u16* src;
+    u16* dst;
+
+    s32 tmp;
 
     if (stage == 0)
     {
@@ -440,7 +453,9 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
         return;
     }
 
-    DmaTransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35000, 0x1E0, 16);
+    src = EWRAM_BASE + 0x35800;
+    dst = EWRAM_BASE + 0x35000;
+    DmaTransfer(3, src, dst, 0x1E0, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);
@@ -448,31 +463,89 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
     for (i = 0; i < 16; i++)
     {
-        if (!((mask >> i) & 1))
+        if (!(mask >> i & 1))
             continue;
 
-        for (j = i * 16; j < i * 16 + 16; j++)
+        tmp = i * 16;
+        for (k = 0, j = i * 16; j < i * 16 + 16; k++, j++)
         {
-            pal = (u16*)(EWRAM_BASE + 0x35000) + j;
-            
-            r = RED(*pal);
-            g = GREEN(*pal);
-            b = BLUE(*pal);
+            pal = dst;
+
+            r = RED(pal[tmp + k]);
+            g = GREEN(pal[tmp + k]);
+            b = BLUE(pal[tmp + k]);
 
             r += (baseR - r) * stage / 16;
             g += (baseG - g) * stage / 16;
             b += (baseB - b) * stage / 16;
 
-            *pal = COLOR(r, g, b);
+            pal[tmp + k] = COLOR(r, g, b);
         }
     }
 
     gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
 }
 
+/**
+ * @brief 5b96c | 140 | Applies the color of a special fading to the object palette
+ * 
+ * @param mask Row mask
+ * @param color Color
+ * @param stage Stage
+ */
 void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
 {
+    s32 i;
+    s32 j;
+    s32 k;
 
+    u8 r;
+    u8 g;
+    u8 b;
+
+    s32 baseR;
+    s32 baseG;
+    s32 baseB;
+
+    u16* pal;
+    s32 tmp;
+
+    if (stage == 0)
+    {
+        DmaTransfer(3, EWRAM_BASE + 0x35A40, PALRAM_OBJ + 16 * 4, 0x1C0, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35A40, EWRAM_BASE + 0x35640, 0x1C0, 16);
+        return;
+    }
+
+    DmaTransfer(3, EWRAM_BASE + 0x35A40, EWRAM_BASE + 0x35240, 0x1C0, 16);
+
+    baseR = RED(color);
+    baseG = GREEN(color);
+    baseB = BLUE(color);
+
+    for (i = 0; i < 16; i++)
+    {
+        if (!(mask >> i & 1))
+            continue;
+
+        tmp = i * 16 + 1;
+        for (k = 0, j = tmp; j < i * 16 + 16; k++, j++)
+        {
+            pal = COLOR_DATA_OBJ_EWRAM;
+
+            r = RED(pal[tmp + k]);
+            g = GREEN(pal[tmp + k]);
+            b = BLUE(pal[tmp + k]);
+
+            r += (baseR - r) * stage / 16;
+            g += (baseG - g) * stage / 16;
+            b += (baseB - b) * stage / 16;
+
+            pal[tmp + k] = COLOR(r, g, b);
+        }
+    }
+
+    gColorFading.status |= COLOR_FADING_STATUS_ON_OBJ;
 }
 
 /**
