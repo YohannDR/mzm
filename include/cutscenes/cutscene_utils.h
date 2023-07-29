@@ -14,7 +14,7 @@ void CutsceneVBlank(void);
 void CutsceneLoadingVBlank(void);
 void CutsceneInit(void);
 void CutsceneSetBgcntPageData(struct CutscenePageData pageData);
-void CutsceneSetBGCNT(u16 value, u16 bg);
+void CutsceneSetBgcnt(u16 value, u16 bg);
 void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value);
 u16* CutsceneGetBgHorizontalPointer(u16 bg);
 u16* CutsceneGetBgVerticalPointer(u16 bg);

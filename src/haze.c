@@ -174,7 +174,7 @@ void HazeSetupCode(u8 hazeValue)
             gWrittenToWIN1H = 0x0;
             PowerBombYellowTint(0);
 
-            if (gIoRegistersBackup.DISPCNT_NonGameplay & DCNT_BG0 && gCurrentRoomEntry.Bg0Prop != 0x12)
+            if (gIoRegistersBackup.Dispcnt_NonGameplay & DCNT_BG0 && gCurrentRoomEntry.Bg0Prop != 0x12)
                 gWrittenToDISPCNT = read16(REG_DISPCNT) ^ DCNT_BG0;
 
             gBackdropColor = COLOR_WHITE;

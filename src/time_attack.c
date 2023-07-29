@@ -34,8 +34,9 @@ void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value)
 u32 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value)
 {
     u32 shift;
-    s32 local = value / 8;
+    s32 local;
 
+    local = value / 8;
     shift = (value - (local << 3));
 
     return (u8)(pSeed[local] << shift) >> 7;
@@ -302,12 +303,11 @@ void CheckUnlockTimeAttack(void)
     // Get each item count
     value = ChozodiaEscapeGetItemCountAndEndingNumber();
 
-    energyNbr = (value >> 0x18) & 0xFF;
-    missilesNbr = (value >> 0x10) & 0xFF;
-
-    superMissilesNbr = (value >> 0xC) & 0xF;
-    powerBombNbr = (value >> 0x8) & 0xF;
-    abilityCount = (value >> 0x4) & 0xF;
+    energyNbr = PEN_GET_ENERGY(value);
+    missilesNbr = PEN_GET_MISSILE(value);
+    superMissilesNbr = PEN_GET_SUPER_MISSILE(value);
+    powerBombNbr = PEN_GET_POWER_BOMB(value);
+    abilityCount = PEN_GET_ABILITY(value);
 
     // Sanity checks to see if the player has an abnormal amount of tanks/abilites
     // - More than the max (12 e-tanks, 50 missile tanks, 15 super missile tanks, 9 power bomb tanks, 14 abilities)

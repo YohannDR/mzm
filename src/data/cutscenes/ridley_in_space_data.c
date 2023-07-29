@@ -22,44 +22,44 @@ const struct CutscenePageData sRidleyInSpacePageData[6] = {
     [0] = {
         .graphicsPage = 2,
         .tiletablePage = 0,
-        .priority = 3,
+        .priority = BGCNT_LOW_PRIORITY,
         .bg = DCNT_BG3,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     [1] = {
         .graphicsPage = 0,
         .tiletablePage = 0x1C,
-        .priority = 3,
+        .priority = BGCNT_LOW_PRIORITY,
         .bg = DCNT_BG3,
-        .screenSize = 0x8000
+        .screenSize = BGCNT_SIZE_256x512 << BGCNT_SCREEN_SIZE_SHIFT
     },
     [2] = {
         .graphicsPage = 2,
         .tiletablePage = 0x1E,
-        .priority = 1,
+        .priority = BGCNT_HIGH_MID_PRIORITY,
         .bg = DCNT_BG1,
-        .screenSize = 0x8000
+        .screenSize = BGCNT_SIZE_256x512 << BGCNT_SCREEN_SIZE_SHIFT
     },
     [3] = {
         .graphicsPage = 0,
         .tiletablePage = 0x1D,
-        .priority = 3,
+        .priority = BGCNT_LOW_PRIORITY,
         .bg = DCNT_BG3,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     [4] = {
         .graphicsPage = 2,
         .tiletablePage = 0x1F,
-        .priority = 2,
+        .priority = BGCNT_LOW_MID_PRIORITY,
         .bg = DCNT_BG2,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     [5] = {
         .graphicsPage = 2,
         .tiletablePage = 0x1E,
-        .priority = 1,
+        .priority = BGCNT_HIGH_MID_PRIORITY,
         .bg = DCNT_BG1,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     }
 };
 
@@ -348,7 +348,7 @@ const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5] = {
     0
 };
 
-const u16 sRidleyInSpaceShipsPAL[3 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/Ships.pal");
+const u16 sRidleyInSpaceShipsPal[3 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/Ships.pal");
 const u16 sRidleyInSpace_39d910_Pal[6 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/39d910.pal");
 const u16 sRidleyInSpaceRedAlertPAL[6 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/RedAlert.pal");
 const u16 sRidleyInSpaceShipInteriorPal[15 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/ShipInterior.pal");

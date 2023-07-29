@@ -367,7 +367,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.status = 0;
     else
     {
-        TransparencyUpdateBLDCNT(1,
+        TransparencyUpdateBldcnt(1,
             BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
             BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
             BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
@@ -486,7 +486,7 @@ void MechaRidleyStartWalking(void)
 
     DMA_SET(3, sMechaRidleyFadingPAL, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
 
-    TransparencyUpdateBLDCNT(1,
+    TransparencyUpdateBldcnt(1,
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
         BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
         BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);

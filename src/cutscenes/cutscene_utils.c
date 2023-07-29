@@ -345,7 +345,7 @@ void CutsceneSetBgcntPageData(struct CutscenePageData pageData)
  * @param value Value
  * @param bg Background (DISPCNT flags)
  */
-void CutsceneSetBGCNT(u16 value, u16 bg)
+void CutsceneSetBgcnt(u16 value, u16 bg)
 {
     u8 offset;
 

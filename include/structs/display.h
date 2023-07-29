@@ -4,8 +4,8 @@
 #include "types.h"
 
 struct IORegistersBackup {
-    u16 DISPCNT_NonGameplay;
-    u16 BLDCNT_NonGameplay;
+    u16 Dispcnt_NonGameplay;
+    u16 Bldcnt_NonGameplay;
     u8 BLDALPHA_NonGameplay_EVA;
     u8 BLDALPHA_NonGameplay_EVB;
     u8 BLDY_NonGameplay;

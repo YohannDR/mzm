@@ -233,16 +233,16 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         }
         else
         {
-            if (pOam->unk_E != 0)
+            if (pOam->xVelocity != 0)
             {
-                pOam->xPosition -= pOam->unk_E;
-                pOam->unk_E = 0;
+                pOam->xPosition -= pOam->xVelocity;
+                pOam->xVelocity = 0;
 
             }
             else
             {
-                pOam->unk_E = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1 ? -4 : 4;
-                pOam->xPosition += pOam->unk_E;
+                pOam->xVelocity = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1 ? -4 : 4;
+                pOam->xPosition += pOam->xVelocity;
             }
             pOam->unk_16 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x1F) + 8;
         }
@@ -253,15 +253,15 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         }
         else
         {
-            if (pOam->unk_10 != 0)
+            if (pOam->yVelocity != 0)
             {
-                pOam->yPosition -= pOam->unk_10;
-                pOam->unk_10 = 0;
+                pOam->yPosition -= pOam->yVelocity;
+                pOam->yVelocity = 0;
             }
             else
             {
-                pOam->unk_10 = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -4 : 4;
-                pOam->yPosition += pOam->unk_10;
+                pOam->yVelocity = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -4 : 4;
+                pOam->yPosition += pOam->yVelocity;
             }
             
             pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
@@ -292,35 +292,35 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         }
 
         pOam->unk_16++;
-        if (pOam->unk_E == 0)
+        if (pOam->xVelocity == 0)
         {
-            pOam->unk_E = sEnterTourian_7600b4[metroidId][0] - pOam->xPosition;
+            pOam->xVelocity = sEnterTourian_7600b4[metroidId][0] - pOam->xPosition;
 
             var_2 = MOD_AND(sRandomNumberTable[LOW_BYTE(pOam->timer * metroidId)], 2) ? 1 : -1;
             var_2 *= MOD_AND(sRandomNumberTable[LOW_BYTE(pOam->timer + metroidId)], 4);
 
-            if (pOam->unk_E > 0)
-                pOam->unk_E = var_2 * 4 + 0x20;
+            if (pOam->xVelocity > 0)
+                pOam->xVelocity = var_2 * 4 + 0x20;
             else
-                pOam->unk_E = var_2 * 4 - 0x20;
+                pOam->xVelocity = var_2 * 4 - 0x20;
         }
         else
         {
-            if (pOam->unk_E > 0)
+            if (pOam->xVelocity > 0)
             {
                 if (sEnterTourian_7600b4[metroidId][0] <= pOam->xPosition)
-                    pOam->unk_E -= 2;
+                    pOam->xVelocity -= 2;
 
-                var_2 = pOam->unk_E / 12 + 1;
+                var_2 = pOam->xVelocity / 12 + 1;
                 if (var_2 > var_1)
                     var_2 = var_1;
             }
             else
             {
                 if (sEnterTourian_7600b4[metroidId][0] >= pOam->xPosition)
-                    pOam->unk_E += 2;
+                    pOam->xVelocity += 2;
 
-                var_2 = pOam->unk_E / 12 - 1;
+                var_2 = pOam->xVelocity / 12 - 1;
                 if (var_2 < -var_1)
                     var_2 = -var_1;
             }
@@ -329,25 +329,25 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         }
 
         pOam->unk_18++;
-        if (pOam->unk_10 == 0)
+        if (pOam->yVelocity == 0)
         {
             var_2 = sRandomNumberTable[LOW_BYTE(pOam->animationDurationCounter + pOam->currentAnimationFrame)] & 2 ? 1 : -1;
             var_2 *= sRandomNumberTable[LOW_BYTE(pOam->timer + metroidId)] & 1;
 
             if (sEnterTourian_7600b4[metroidId][1] < pOam->yPosition)
-                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] - PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
+                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] - PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
             else
-                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] + PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
+                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] + PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
         }
         else if (pOam->unk_18 & 1)
         {
-            if (pOam->unk_10 > 0)
-                pOam->unk_10--;
+            if (pOam->yVelocity > 0)
+                pOam->yVelocity--;
             else
-                pOam->unk_10++;
+                pOam->yVelocity++;
 
             var_3 = pOam->yPosition;
-            if (pOam->unk_10 <= 0)
+            if (pOam->yVelocity <= 0)
                 pOam->yPosition = var_3 - var_0;
             else
                 pOam->yPosition = var_3 + var_0;
@@ -428,15 +428,15 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_16--;
         else
         {
-            if (pOam->unk_E != 0)
+            if (pOam->xVelocity != 0)
             {
-                pOam->xPosition -= pOam->unk_E;
-                pOam->unk_E = 0;
+                pOam->xPosition -= pOam->xVelocity;
+                pOam->xVelocity = 0;
             }
             else
             {
-                pOam->unk_E = sRandomNumberTable[gFrameCounter8Bit] & 1 ? -4 : 4;
-                pOam->xPosition += pOam->unk_E;
+                pOam->xVelocity = sRandomNumberTable[gFrameCounter8Bit] & 1 ? -4 : 4;
+                pOam->xPosition += pOam->xVelocity;
             }
 
             pOam->unk_16 = sRandomNumberTable[gFrameCounter8Bit - 1] + 8;
@@ -446,15 +446,15 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_18--;
         else
         {
-            if (pOam->unk_10 != 0)
+            if (pOam->yVelocity != 0)
             {
-                pOam->yPosition -= pOam->unk_10;
-                pOam->unk_10 = 0;
+                pOam->yPosition -= pOam->yVelocity;
+                pOam->yVelocity = 0;
             }
             else
             {
-                pOam->unk_10 = -4;
-                pOam->yPosition += pOam->unk_10;
+                pOam->yVelocity = -4;
+                pOam->yPosition += pOam->yVelocity;
             }
 
             pOam->unk_18 = (sRandomNumberTable[gFrameCounter8Bit] & 0x7F) + 8;

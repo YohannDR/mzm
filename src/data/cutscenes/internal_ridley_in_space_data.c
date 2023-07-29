@@ -9,22 +9,22 @@ const struct RawCoordsX sRidleyInSpaceShipLeavingPosition = {
 };
 
 const struct RawCoordsX sRidleyInSpaceShipsStartPosition[3] = {
-    [0] = {
+    [RIDLEY_IN_SPACE_LEFT_SHIP_SLOT] = {
         .x = -(BLOCK_SIZE + HALF_BLOCK_SIZE),
-        .y = BLOCK_SIZE * 10 - 8
+        .y = BLOCK_SIZE * 10 - PIXEL_SIZE * 2
     },
-    [1] = {
+    [RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT] = {
         .x = BLOCK_SIZE * 18,
-        .y = BLOCK_SIZE * 9 + 4
+        .y = BLOCK_SIZE * 9 + PIXEL_SIZE
     },
-    [2] = {
+    [RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT] = {
         .x = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
         .y = -(BLOCK_SIZE + 24)
     }
 };
 
 const s8 sRidleyInSpaceShipsYMovementOffsets[8] = {
-    4, 4, -4, -4, -4, -4, 4, 4
+    PIXEL_SIZE, PIXEL_SIZE, -PIXEL_SIZE, -PIXEL_SIZE, -PIXEL_SIZE, -PIXEL_SIZE, PIXEL_SIZE, PIXEL_SIZE
 };
 
 const struct CutsceneSubroutineData sRidleyInSpaceSubroutineData[6] = {

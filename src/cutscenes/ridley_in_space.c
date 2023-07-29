@@ -14,6 +14,20 @@
 #include "structs/display.h"
 #include "structs/game_state.h"
 
+#define SHIP_ACTION_MOVE_HORIZONTALLY 1
+#define SHIP_ACTION_MOVE_VERTICALLY 2
+
+#define MOTHER_SHIP_ACTION_MOVE_HORIZONTALLY 1
+#define MOTHER_SHIP_ACTION_MOVE_VERTICALLY 2
+#define MOTHER_SHIP_ACTION_ZOOM_MOVE 4
+#define MOTHER_SHIP_ACTION_ZOOM_SCALE 8
+#define MOTHER_SHIP_ACTION_MOVE (MOTHER_SHIP_ACTION_MOVE_HORIZONTALLY | MOTHER_SHIP_ACTION_MOVE_VERTICALLY)
+#define MOTHER_SHIP_ACTION_ZOOM (MOTHER_SHIP_ACTION_ZOOM_MOVE | MOTHER_SHIP_ACTION_ZOOM_SCALE)
+
+#define PARTICLE_ACTION_MOVE 1
+
+#define SHIP_MAX_X BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE
+
 /**
  * @brief 63884 | 298 | Handles the ship leaving part
  * 
@@ -26,42 +40,59 @@ u8 RidleyInSpaceShipLeaving(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 0x10);
+            // Load space background palette
+            DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 16);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
-            CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundGfx, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
-            CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
+            // Load space background graphics
+            CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[0].graphicsPage));
+            CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[0].tiletablePage));
 
-            DmaTransfer(3, sRidleyInSpace_39dc70_Pal, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_Pal), 0x10);
+            // Load object palette and graphics
+            DmaTransfer(3, sRidleyInSpace_39dc70_Pal, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_Pal), 16);
             CallLZ77UncompVram(sRidleyInSpaceMotherShipLeavingGfx, VRAM_OBJ);
 
+            // Setup background for the space background
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[0]);
             CutsceneReset();
 
-            CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipLeavingPosition.x;
-            CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipLeavingPosition.y;
-            CUTSCENE_DATA.oam[2].rotationScaling = TRUE;
-            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK);
+            // Setup mother ship
+            CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].xPosition = sRidleyInSpaceShipLeavingPosition.x;
+            CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].yPosition = sRidleyInSpaceShipLeavingPosition.y;
 
+            // Enable for scaling
+            CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].rotationScaling = TRUE;
+
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK);
+
+            // Enable space background and objects
             CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
 
-            for (i = 3; i < 13; i++)
+            // Probably a mistake, should be i < RIDLEY_IN_SPACE_SHIP_AMOUNT + RIDLEY_IN_SPACE_LEAVING_PARTICLE_AMOUNT
+            // to properly initialize all particles
+            for (i = RIDLEY_IN_SPACE_SHIP_AMOUNT; i <= RIDLEY_IN_SPACE_LEAVING_PARTICLE_AMOUNT; i++)
             {
-                CUTSCENE_DATA.oam[i].actions = 0;
-                CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit & i]);
-                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + i)]);
+                CUTSCENE_DATA.oam[i].actions = CUTSCENE_OAM_ACTION_NONE;
 
-                if (CUTSCENE_DATA.oam[i].yPosition >= BLOCK_SIZE * 10)
+                // Set random position on screen
+                // No modulo for X?
+                CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit & i]);
+                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)]);
+
+                // Check is off-screen
+                if (CUTSCENE_DATA.oam[i].yPosition >= SCREEN_SIZE_Y_SUB_PIXEL)
                     continue;
 
                 CUTSCENE_DATA.oam[i].timer = 0;
-                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit * i)];
+                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(u32)(gFrameCounter8Bit * i) % ARRAY_SIZE(sRandomNumberTable)];
 
+                // Set random animation
                 if (MOD_AND(CUTSCENE_DATA.oam[i].unk_12, 2))
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE);
                 else
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2);
             }
+
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
@@ -70,14 +101,18 @@ u8 RidleyInSpaceShipLeaving(void)
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
                 SoundPlay(0x28E);
-                CUTSCENE_DATA.oam[2].actions = 3;
+
+                // Start mother ship animation
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions = SHIP_ACTION_MOVE_HORIZONTALLY | SHIP_ACTION_MOVE_VERTICALLY;
+
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 2:
-            if (CUTSCENE_DATA.oam[2].actions == 0)
+            // Wait for the mother ship animation to be done
+            if (CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions == CUTSCENE_OAM_ACTION_NONE)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -87,15 +122,18 @@ u8 RidleyInSpaceShipLeaving(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
             {
-                CUTSCENE_DATA.oam[2].actions = 12;
+                // Start mother ship zoom animation
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions = MOTHER_SHIP_ACTION_ZOOM;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 4:
-            if (CUTSCENE_DATA.oam[2].actions == 0)
+            // Wait for the mother ship animation to be done
+            if (CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions == CUTSCENE_OAM_ACTION_NONE)
             {
+                // Clear screen
                 CUTSCENE_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -117,9 +155,14 @@ u8 RidleyInSpaceShipLeaving(void)
             break;
     }
 
+    // Update particles
     RidleyInSpaceShipLeavingParticles();
+
+    // Slowly move background
     *CutsceneGetBgHorizontalPointer(sRidleyInSpacePageData[0].bg) += PIXEL_SIZE / 2;
-    RidleyInSpaceUpdateShipLeaving(&CUTSCENE_DATA.oam[2]);
+
+    // Update mother ship
+    RidleyInSpaceUpdateShipLeaving(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT]);
 
     return FALSE;
 }
@@ -127,55 +170,70 @@ u8 RidleyInSpaceShipLeaving(void)
 /**
  * @brief 63b1c | c4 | Updates the ship leaving object
  * 
- * @param pOam Cutscene OAM data pointer
+ * @param pOam Cutscene oam data pointer
  */
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 {
-    if (MOD_AND(pOam->actions, 4))
+    if (pOam->actions & MOTHER_SHIP_ACTION_MOVE)
     {
-        if (MOD_AND(pOam->actions, 2))
+        // Moving to the upper right corner of the screen
+
+        if (pOam->actions & MOTHER_SHIP_ACTION_MOVE_HORIZONTALLY)
         {
+            // Move horizontally
             pOam->xPosition += PIXEL_SIZE * 2;
-            if (pOam->xPosition > 0x4E0)
-                pOam->actions = 0;
+
+            // Check reached X destination
+            if (pOam->xPosition > SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE * 4 + HALF_BLOCK_SIZE)
+                pOam->actions = CUTSCENE_OAM_ACTION_NONE;
         }
 
-        if (pOam->actions & 2)
+        if (pOam->actions & MOTHER_SHIP_ACTION_MOVE_VERTICALLY)
         {
+            // Move vertically
             pOam->unk_18++;
-            pOam->unk_10 = -3;
+            pOam->yVelocity = -(PIXEL_SIZE - ONE_SUB_PIXEL);
 
-            pOam->yPosition += pOam->unk_10;
+            pOam->yPosition += pOam->yVelocity;
 
-            if (pOam->yPosition < -0x70)
-                pOam->actions = 0;
+            // Check reached Y destination
+            if (pOam->yPosition < -(BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE))
+                pOam->actions = CUTSCENE_OAM_ACTION_NONE;
         }
 
-        if (pOam->actions == 0)
+        if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
         {
+            // Either one of the destination was reached, setup zoom animation
+
             pOam->oamID = RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_FRONT;
 
+            // Setup scaling
             gCurrentOamScaling = Q_8_8(1.f);
 
-            pOam->xPosition = 0x4C0;
-            pOam->yPosition = 0x78;
+            // Top right corner of the screen, slightly off screen horizontally
+            pOam->xPosition = SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE * 4;
+            pOam->yPosition = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE / 2;
         }
     }
-    else if (pOam->actions & 0xC)
+    else if (pOam->actions & MOTHER_SHIP_ACTION_ZOOM)
     {
-        if (pOam->actions & 4)
+        // Check move horizontally
+        if (pOam->actions & MOTHER_SHIP_ACTION_ZOOM_MOVE)
             pOam->xPosition -= QUARTER_BLOCK_SIZE;
 
-        pOam->unk_10 = 0;
+        pOam->yVelocity = 0;
+
+        // Gradually scale up to x2
         if (gCurrentOamScaling < Q_8_8(2.f))
         {
             gCurrentOamScaling += Q_8_8(.035f);
             if (gCurrentOamScaling < Q_8_8(2.f))
                 return;
         }
-        
+
+        // Scaling done, kill
         gCurrentOamScaling = Q_8_8(2.f);
-        pOam->actions = 0;
+        pOam->actions = CUTSCENE_OAM_ACTION_NONE;
     }
 }
 
@@ -189,33 +247,40 @@ u8 RidleyInSpaceRidleySuspicious(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
+            // Load ship interior palette
             DmaTransfer(3, sRidleyInSpaceShipInteriorPal, PALRAM_BASE, sizeof(sRidleyInSpaceShipInteriorPal), 16);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
+            // Load ship interior graphics
             CallLZ77UncompVram(sRidleyInSpaceShipInterior2Gfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[3].graphicsPage));
+
+            // Load ridley graphics
             CallLZ77UncompVram(sRidleyInSpaceRidleySuspiciousGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[4].graphicsPage));
 
+            // Load both ridley tile table to setup a transition
             CallLZ77UncompVram(sRidleyInSpaceRidleySuspiciousEyesOpenTileTable,
                 BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[4].tiletablePage));
 
             CallLZ77UncompVram(sRidleyInSpaceRidleySuspiciousEyesSquintedTileTable,
                 BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[5].tiletablePage));
 
+            // Load ship interior tile table
             CallLZ77UncompVram(sRidleyInSpaceShipInteriorTileTable2, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[3].tiletablePage));
 
+            // Enable the ship interior and both ridley backgrounds 
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[3]);
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[4]);
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[5]);
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[3].bg, BLOCK_SIZE * 32);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[4].bg, BLOCK_SIZE * 32);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[5].bg, BLOCK_SIZE * 32);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[3].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[4].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[5].bg, NON_GAMEPLAY_START_BG_POS);
             CutsceneReset();
 
             CUTSCENE_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
-            gWrittenToBLDALPHA_H = 16;
+            gWrittenToBLDALPHA_H = BLDALPHA_MAX_VALUE;
             gWrittenToBLDALPHA_L = 0;
 
             CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[3].bg | sRidleyInSpacePageData[4].bg | sRidleyInSpacePageData[5].bg;
@@ -224,12 +289,14 @@ u8 RidleyInSpaceRidleySuspicious(void)
             break;
 
         case 2:
-            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 16, 0, 2, 2);
+            // Start fade from bg2 to bg1 to smootly transition between the 2 frames of ridley squinting his eyes
+            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, BLDALPHA_MAX_VALUE, 0, 2, 2);
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 3:
+            // Wait for fade to end
             if (CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -263,30 +330,34 @@ u8 RidleyInSpaceRidleySuspicious(void)
  */
 u8 RidleyInSpaceRedAlert(void)
 {
-    u8 scrollStatus;
-
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
+            // Load palette
             DmaTransfer(3, sRidleyInSpace_39d910_Pal, PALRAM_BASE, sizeof(sRidleyInSpace_39d910_Pal), 16);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
-            CallLZ77UncompVram(sRidleyInSpaceShipInteriorTileTable, VRAM_BASE + sRidleyInSpacePageData[1].tiletablePage * 0x800);
-            CallLZ77UncompVram(sRidleyInSpaceShipInteriorGfx, VRAM_BASE + sRidleyInSpacePageData[1].graphicsPage * 0x4000);
+            // Load ship interior graphics
+            CallLZ77UncompVram(sRidleyInSpaceShipInteriorTileTable, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[1].tiletablePage));
+            CallLZ77UncompVram(sRidleyInSpaceShipInteriorGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[1].graphicsPage));
 
-            CallLZ77UncompVram(sRidleyInSpaceRidleySittingGfx, VRAM_BASE + sRidleyInSpacePageData[2].graphicsPage * 0x4000);
-            CallLZ77UncompVram(sRidleyInSpaceRidleySittingTileTable, VRAM_BASE + sRidleyInSpacePageData[2].tiletablePage * 0x800);
+            // Load ridley graphics
+            CallLZ77UncompVram(sRidleyInSpaceRidleySittingGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[2].graphicsPage));
+            CallLZ77UncompVram(sRidleyInSpaceRidleySittingTileTable, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[2].tiletablePage));
 
+            // Setup both backgrounds
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[1]);
             CutsceneSetBgcntPageData(sRidleyInSpacePageData[2]);
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[1].bg, 0x800);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[1].bg, 0xA80);
+            // Set backgrounds position low vertically for the scrolling
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[1].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 10);
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[2].bg, 0x800);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[2].bg, 0xA80);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[2].bg, NON_GAMEPLAY_START_BG_POS);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[2].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 10);
 
             CutsceneReset();
+
             CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[1].bg | sRidleyInSpacePageData[2].bg;
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -295,6 +366,7 @@ u8 RidleyInSpaceRedAlert(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 40)
             {
+                // Setup palette data
                 CUTSCENE_DATA.paletteData[0] = sRidleyInSpacePaletteData;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -304,6 +376,7 @@ u8 RidleyInSpaceRedAlert(void)
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
+                // Start scroll
                 CutsceneStartBackgroundScrolling(sRidleyInSpaceScrollingInfo[0], sRidleyInSpacePageData[1].bg);
                 CutsceneStartBackgroundScrolling(sRidleyInSpaceScrollingInfo[0], sRidleyInSpacePageData[2].bg);
 
@@ -313,8 +386,8 @@ u8 RidleyInSpaceRedAlert(void)
             break;
 
         case 3:
-            scrollStatus = CutsceneCheckBackgroundScrollingActive(sRidleyInSpacePageData[1].bg);
-            if (scrollStatus == 0)
+            // Wait for scroll to end
+            if (CutsceneCheckBackgroundScrollingActive(sRidleyInSpacePageData[1].bg) == 0)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -350,20 +423,24 @@ void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette)
     if (!(pPalette->active & TRUE))
         return;
 
+    // Update timer
     if (pPalette->timer != 0)
     {
         pPalette->timer--;
         return;
     }
 
+    // Reset timer and change row
     pPalette->timer = pPalette->maxTimer;
     pPalette->paletteRow++;
 
+    // Check for overflow
     if (pPalette->paletteRow >= ARRAY_SIZE(sRidleyInSpaceRedAlertPaletteRows))
         pPalette->paletteRow = 0;
 
+    // Transfer current row
     DmaTransfer(3, &sRidleyInSpaceRedAlertPAL[sRidleyInSpaceRedAlertPaletteRows[pPalette->paletteRow] * 16],
-        PALRAM_BASE + 0xA0, 16 * 2, 0x10);
+        PALRAM_BASE + 16 * 10, 16 * 2, 16);
 }
 
 /**
@@ -376,7 +453,7 @@ u8 RidleyInSpaceViewOfShip(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > 60 / 2)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -394,7 +471,8 @@ u8 RidleyInSpaceViewOfShip(void)
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
-                CUTSCENE_DATA.oam[0].actions = 3;
+                // Start left ship
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].actions = SHIP_ACTION_MOVE_HORIZONTALLY | SHIP_ACTION_MOVE_VERTICALLY;
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
             }
@@ -403,7 +481,8 @@ u8 RidleyInSpaceViewOfShip(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > 8)
             {
-                CUTSCENE_DATA.oam[1].actions = 3;
+                // Start right ship
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].actions = SHIP_ACTION_MOVE_HORIZONTALLY | SHIP_ACTION_MOVE_VERTICALLY;
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
             }
@@ -412,20 +491,24 @@ u8 RidleyInSpaceViewOfShip(void)
         case 4:
             if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
             {
-                CUTSCENE_DATA.oam[0].objMode = 1;
-                CUTSCENE_DATA.oam[1].objMode = 1;
+                // Set ships semi transparent
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
 
+                // Start blending for the shadow effects on the small ships
                 CutsceneStartBackgroundEffect(BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                     BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL, 14, 0, 32, 1);
 
-                CUTSCENE_DATA.oam[2].actions = 3;
+                // Start mother ship
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions = MOTHER_SHIP_ACTION_MOVE;
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 5:
-            if (CUTSCENE_DATA.oam[2].actions == 0)
+            // Wait for mother ship to finish
+            if (CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions == CUTSCENE_OAM_ACTION_NONE)
             {
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -442,13 +525,17 @@ u8 RidleyInSpaceViewOfShip(void)
             break;
     }
 
-    RidleyInSpaceUpdateLeftBlueShip(&CUTSCENE_DATA.oam[0]);
-    RidleyInSpaceUpdateRightBlueShip(&CUTSCENE_DATA.oam[1]);
-    RidleyInSpaceUpdateViewOfShip(&CUTSCENE_DATA.oam[2]);
+    // Update ships
+    RidleyInSpaceUpdateLeftBlueShip(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT]);
+    RidleyInSpaceUpdateRightBlueShip(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT]);
+    RidleyInSpaceUpdateViewOfShip(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT]);
+
+    // Update particles
     RidleyInSpaceViewOfShipParticles();
 
-    if (!(gFrameCounter8Bit & 7))
-        (*CutsceneGetBgVerticalPointer(sRidleyInSpacePageData[0].bg))--;
+    // Slowly move background
+    if (MOD_AND(gFrameCounter8Bit, 8) == 0)
+        *CutsceneGetBgVerticalPointer(sRidleyInSpacePageData[0].bg) -= ONE_SUB_PIXEL;
 
     return FALSE;
 }
@@ -460,22 +547,27 @@ u8 RidleyInSpaceViewOfShip(void)
  */
 void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
 {
-    if (pOam->actions & 2)
+    if (pOam->actions & MOTHER_SHIP_ACTION_MOVE_VERTICALLY)
     {
+        // Set Y velocity, start by going fast then slow down
         if (pOam->yPosition < BLOCK_SIZE * 2)
-            pOam->unk_10 = 2;
+            pOam->yVelocity = ONE_SUB_PIXEL * 2;
         else
-            pOam->unk_10 = 1;
+            pOam->yVelocity = ONE_SUB_PIXEL;
 
-        pOam->yPosition += pOam->unk_10;
-        if (pOam->yPosition > 0xDF)
-            pOam->actions = 0;
+        // Move
+        pOam->yPosition += pOam->yVelocity;
+
+        // Check reached destination position
+        if (pOam->yPosition >= BLOCK_SIZE * 3 + HALF_BLOCK_SIZE)
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
     }
 
     pOam->unk_18++;
 
-    if (!(pOam->unk_18 & 0x1F))
-        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
+    // Handle idle floating
+    if (MOD_AND(pOam->unk_18, 32) == 0)
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[DIV_SHIFT(pOam->unk_18, 32) % ARRAY_SIZE(sRidleyInSpaceShipsYMovementOffsets)];
 }
 
 /**
@@ -487,56 +579,67 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 {
     s32 yVelocity;
     
-    if (pOam->actions & 1)
+    if (pOam->actions & SHIP_ACTION_MOVE_HORIZONTALLY)
     {
-        pOam->unk_E = -2;
-        pOam->xPosition += pOam->unk_E;
+        // Move horizontally
+        pOam->xVelocity = -PIXEL_SIZE / 2;
+        pOam->xPosition += pOam->xVelocity;
 
-        if (pOam->xPosition <= 0x2D0)
+        // Symetric with the left shift
+        if (pOam->xPosition <= SCREEN_SIZE_X_SUB_PIXEL - SHIP_MAX_X)
         {
-            pOam->actions = 0;
+            // Reached stop point, stop all movement
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
             pOam->unk_18 = 0;
         }
     }
 
-    if (pOam->actions & 2)
+    if (pOam->actions & SHIP_ACTION_MOVE_VERTICALLY)
     {
-        pOam->unk_10 = pOam->unk_18 & 1 ? -1 : 0;
-        pOam->yPosition += pOam->unk_10;
+        // Move vertically every 2 frames
+        pOam->yVelocity = MOD_AND(pOam->unk_18, 2) ? -ONE_SUB_PIXEL : 0;
+        pOam->yPosition += pOam->yVelocity;
     }
 
     pOam->unk_18++;
 
-    if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
+    // Handle idle floating
+    if (MOD_AND(pOam->unk_18, 16) == 0)
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[DIV_SHIFT(pOam->unk_18, 16) % ARRAY_SIZE(sRidleyInSpaceShipsYMovementOffsets)];
 }
 
 /**
  * @brief 6424c | 70 | Updates the left blue ship during the view of ship part
  * 
- * @param pOam 
+ * @param pOam Cutscene oam data pointer
  */
 void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
-{    
-    if (pOam->actions & 1)
+{
+    if (pOam->actions & SHIP_ACTION_MOVE_HORIZONTALLY)
     {
-        pOam->unk_E = 2;
-        pOam->xPosition += pOam->unk_E;
+        // Move horizontally
+        pOam->xVelocity = PIXEL_SIZE / 2;
+        pOam->xPosition += pOam->xVelocity;
 
-        if (pOam->xPosition > 0x10F)
-            pOam->actions = 0;
+        if (pOam->xPosition >= SHIP_MAX_X)
+        {
+            // Reached stop point, stop all movement
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
+        }
     }
 
-    if (pOam->actions & 2)
+    if (pOam->actions & SHIP_ACTION_MOVE_VERTICALLY)
     {
-        pOam->unk_10 = -1;
-        pOam->yPosition += pOam->unk_10;
+        // Move vertically
+        pOam->yVelocity = -ONE_SUB_PIXEL;
+        pOam->yPosition += pOam->yVelocity;
     }
 
     pOam->unk_18++;
 
-    if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
+    // Handle idle floating
+    if (MOD_AND(pOam->unk_18, 16) == 0)
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[DIV_SHIFT(pOam->unk_18, 16) % ARRAY_SIZE(sRidleyInSpaceShipsYMovementOffsets)];
 }
 
 /**
@@ -547,40 +650,50 @@ void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
 u8 RidleyInSpaceInit(void)
 {
     unk_61f0c();
-    DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 0x10);
+
+    // Load space background palette
+    DmaTransfer(3, sRidleyInSpaceSpaceBackgroundPal, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPal), 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundGfx, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
+    // Load space background graphics
+    CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundGfx, BGCNT_TO_VRAM_CHAR_BASE(sRidleyInSpacePageData[0].graphicsPage));
+    CallLZ77UncompVram(sRidleyInSpaceSpaceBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sRidleyInSpacePageData[0].tiletablePage));
 
-    DmaTransfer(3, sRidleyInSpaceShipsPAL, PALRAM_OBJ, sizeof(sRidleyInSpaceShipsPAL), 0x10);
+    DmaTransfer(3, sRidleyInSpaceShipsPal, PALRAM_OBJ, sizeof(sRidleyInSpaceShipsPal), 16);
     CallLZ77UncompVram(sRidleyInSpaceShipsGfx, VRAM_OBJ);
 
+    // Setup background for the space background
     CutsceneSetBgcntPageData(sRidleyInSpacePageData[0]);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[0].bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[0].bg, NON_GAMEPLAY_START_BG_POS);
+
     CutsceneReset();
 
     gWrittenToBLDY_NonGameplay = 0;
     CUTSCENE_DATA.bldcnt = 0;
 
-    CUTSCENE_DATA.oam[0].xPosition = sRidleyInSpaceShipsStartPosition[0].x;
-    CUTSCENE_DATA.oam[0].yPosition = sRidleyInSpaceShipsStartPosition[0].y;
+    // Setup ships
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].xPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].x;
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].yPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT].y;
 
-    CUTSCENE_DATA.oam[1].xPosition = sRidleyInSpaceShipsStartPosition[1].x;
-    CUTSCENE_DATA.oam[1].yPosition = sRidleyInSpaceShipsStartPosition[1].y;
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].xPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].x;
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].yPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT].y;
 
-    CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipsStartPosition[2].x;
-    CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipsStartPosition[2].y;
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].xPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].x;
+    CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].yPosition = sRidleyInSpaceShipsStartPosition[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].y;
 
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP);
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP);
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_LEFT_SHIP_SLOT], RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_RIGHT_SHIP_SLOT], RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP);
 
     PlayMusic(MUSIC_RIDLEY_IN_SPACE, 0);
-    SoundPlay(0x28D);
+    SoundPlay(SOUND_RIDLEY_IN_SPACE_SHIPS_APPEARING);
+
+    // Start fade in
     CutsceneStartBackgroundFading(2);
 
+    // Enable space background and objects
     CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
+
     CUTSCENE_DATA.timeInfo.timer = 0;
     CUTSCENE_DATA.timeInfo.subStage = 0;
     CUTSCENE_DATA.timeInfo.stage++;
@@ -628,40 +741,56 @@ void RidleyInSpaceViewOfShipParticles(void)
 
     if (MOD_AND(CUTSCENE_DATA.timeInfo.timer, 2) == 0)
     {
-        for (i = 3; i < 29; i++)
+        // Try to initialize a new particle every 2 frames
+        for (i = RIDLEY_IN_SPACE_SHIP_AMOUNT; i < RIDLEY_IN_SPACE_SHIP_AMOUNT + RIDLEY_IN_SPACE_VIEW_PARTICLE_AMOUNT; i++)
         {
+            // Already exists, next
             if (CUTSCENE_DATA.oam[i].exists)
                 continue;
 
-            CUTSCENE_DATA.oam[i].actions = 0;
+            // Found slot, initialize
+            CUTSCENE_DATA.oam[i].actions = CUTSCENE_OAM_ACTION_NONE;
 
-            CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit + i & 0xFF] & 0x53);
-            CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[CUTSCENE_DATA.oam[i].timer + i & 0xFF] & 0x53);
+            // Set random start position
+            CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
+            CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(CUTSCENE_DATA.oam[i].timer + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
 
             CUTSCENE_DATA.oam[i].timer = 0;
-            if (CUTSCENE_DATA.timeInfo.unk_6 & 1)
-                CUTSCENE_DATA.oam[i].xPosition = BLOCK_SIZE * 15 - CUTSCENE_DATA.oam[i].xPosition;
 
-            if (CUTSCENE_DATA.timeInfo.unk_6 & 2)
-                CUTSCENE_DATA.oam[i].yPosition = BLOCK_SIZE * 10 - CUTSCENE_DATA.oam[i].yPosition;
+            // Check reverse position, loops through this sequence :
+            // No reverse, X reverse, Y reverse, X and Y reverse
+            if (CUTSCENE_DATA.timeInfo.customTimer & 1)
+                CUTSCENE_DATA.oam[i].xPosition = SCREEN_SIZE_X_SUB_PIXEL - CUTSCENE_DATA.oam[i].xPosition;
+
+            if (CUTSCENE_DATA.timeInfo.customTimer & 2)
+                CUTSCENE_DATA.oam[i].yPosition = SCREEN_SIZE_Y_SUB_PIXEL - CUTSCENE_DATA.oam[i].yPosition;
 
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE);
-            CUTSCENE_DATA.timeInfo.unk_6++;
+            CUTSCENE_DATA.timeInfo.customTimer++;
             break;
         }
     }
 
-    for (i = 3; i < 29; i++)
+    // Update particles
+    for (i = RIDLEY_IN_SPACE_SHIP_AMOUNT; i < RIDLEY_IN_SPACE_SHIP_AMOUNT + RIDLEY_IN_SPACE_VIEW_PARTICLE_AMOUNT; i++)
     {
+        // Don't update if doesn't exists
         if (!CUTSCENE_DATA.oam[i].exists)
             continue;
 
+        // Update particle
         oamId = RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
         if (oamId != 0)
+        {
+            // Change oam id if needed
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], oamId);
+        }
 
         if (CUTSCENE_DATA.oam[i].exists == 0)
+        {
+            // Destroy if no longer exists
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
+        }
     }
 }
 
@@ -669,49 +798,81 @@ void RidleyInSpaceViewOfShipParticles(void)
  * @brief 645dc | c0 | Updates a particle during the view of ship sequence
  * 
  * @param pOam Cutscene oam data pointer
- * @return u32 Oam Id
+ * @return u32 Oam id
  */
 u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 {
     u32 oamId;
     s32 divisor;
-    u32 xPosition;
+    u32 xOffset;
+    u32 yOffset;
+    u16 xPosition;
 
     oamId = 0;
     pOam->unk_12 = pOam->timer;
 
-    if (pOam->actions == 0)
+    if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
     {
-        pOam->unk_E = (pOam->xPosition - 0x78) * 0x190;
-        pOam->unk_10 = (pOam->yPosition - 0x50) * 0x190;
+        // Initialize destination position to move towards the edges of the screen
+        pOam->xVelocity = (pOam->xPosition - PIXEL_TO_SUBPIXEL(SCREEN_SIZE_X / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
+        pOam->yVelocity = (pOam->yPosition - PIXEL_TO_SUBPIXEL(SCREEN_SIZE_Y / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
 
-        if (pOam->unk_E | pOam->unk_10)
-            pOam->actions = 1;
+        // Check any of the destination positions aren't 0
+        if (pOam->xVelocity | pOam->yVelocity)
+        {
+            // Has to move, activate
+            pOam->actions = PARTICLE_ACTION_MOVE;
+        }
         else
+        {
+            // Already at destination, destroy
             pOam->exists = FALSE;
+        }
     }
     else if (pOam->unk_12 < 100)
     {
-        if (pOam->unk_12 == 0x19 || pOam->unk_12 == 0x32 || pOam->unk_12 == 0x46)
+        // Check change graphics
+        if (pOam->unk_12 == 25 || pOam->unk_12 == 50 || pOam->unk_12 == 70)
             oamId = RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE2;
 
-        divisor = -pOam->unk_12 + 0x64;
-        xPosition = pOam->unk_E / divisor;
-        pOam->xPosition = xPosition + 0x1E0;
-        
-        pOam->yPosition = pOam->unk_10 / divisor + 0x140;
+        // Get complement from 100, used to dilute speed over time
+        // it'll start dividing by 99, then 98... up to 0 or when the destination has been reached
+        // This creates a smooth, increasing velocity from the start position to the destination
+        divisor = 100 + -pOam->unk_12;
 
-        if ((u16)(xPosition + 0x200) > 0x400)
+        // Set positions to the center of the screen + diluted speed
+
+        // X
+        xOffset = pOam->xVelocity / divisor;
+        pOam->xPosition = xOffset + SCREEN_SIZE_X_SUB_PIXEL / 2;
+
+        // Y
+        yOffset = pOam->yVelocity / divisor;
+        pOam->yPosition = yOffset + SCREEN_SIZE_Y_SUB_PIXEL / 2;
+
+        // Check despawn
+        xPosition = xOffset + (SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE) / 2;
+        if (xPosition > SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE)
+        {
+            // Outside of the X range
             pOam->exists = FALSE;
-        else if (pOam->yPosition > 0x2A0)
+        }
+        else if (pOam->yPosition > SCREEN_SIZE_Y_SUB_PIXEL + HALF_BLOCK_SIZE)
+        {
+            // Below the screen
             pOam->exists = FALSE;
-        else if (pOam->yPosition < -0x20)
+        }
+        else if (pOam->yPosition < -HALF_BLOCK_SIZE)
+        {
+            // Above the screen
             pOam->exists = FALSE;
+        }
     }
     else
         pOam->exists = FALSE;
 
     pOam->timer++;
+
     return oamId;
 }
 
@@ -724,25 +885,32 @@ void RidleyInSpaceShipLeavingParticles(void)
     s32 i;
     s32 newY;
 
-    if (!(CUTSCENE_DATA.timeInfo.timer & 1))
+    if (MOD_AND(CUTSCENE_DATA.timeInfo.timer, 2) == 0)
     {
-        for (i = 3; i < 15; i++)
+        // Try to initialize a new particle every 2 frames
+        for (i = RIDLEY_IN_SPACE_SHIP_AMOUNT; i < RIDLEY_IN_SPACE_SHIP_AMOUNT + RIDLEY_IN_SPACE_LEAVING_PARTICLE_AMOUNT; i++)
         {
+            // Already exists, next
             if (CUTSCENE_DATA.oam[i].exists)
                 continue;
 
-            CUTSCENE_DATA.oam[i].actions = 0;
+            // Found slot, initialize
+            CUTSCENE_DATA.oam[i].actions = CUTSCENE_OAM_ACTION_NONE;
 
-            CUTSCENE_DATA.oam[i].xPosition = -0x58;
+            CUTSCENE_DATA.oam[i].xPosition = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
 
-            newY = sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + i)];
-            if (newY < 0xA0)
+            // Get random Y position
+            newY = sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)];
+
+            // Check is a valid position
+            if (newY < SCREEN_SIZE_Y)
             {
-                CUTSCENE_DATA.oam[i].yPosition = newY * 4;
+                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(newY);
                 CUTSCENE_DATA.oam[i].timer = 0;
-                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[LOW_BYTE(i * gFrameCounter8Bit)];
+                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(u32)(gFrameCounter8Bit * i) % ARRAY_SIZE(sRandomNumberTable)];
 
-                if (CUTSCENE_DATA.oam[i].unk_12 & 1)
+                // Random animation
+                if (MOD_AND(CUTSCENE_DATA.oam[i].unk_12, 2))
                     newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE;
                 else
                     newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2;
@@ -753,15 +921,20 @@ void RidleyInSpaceShipLeavingParticles(void)
         }
     }
 
-    for (i = 3; i < 15; i++)
+    for (i = RIDLEY_IN_SPACE_SHIP_AMOUNT; i < RIDLEY_IN_SPACE_SHIP_AMOUNT + RIDLEY_IN_SPACE_LEAVING_PARTICLE_AMOUNT; i++)
     {
+        // Don't update if doesn't exists
         if (!CUTSCENE_DATA.oam[i].exists)
             continue;
 
+        // Update particle
         RidleyInSpaceShipLeavingUpdateParticle(&CUTSCENE_DATA.oam[i]);
 
         if (CUTSCENE_DATA.oam[i].exists == 0)
+        {
+            // Destroy if no longer exists
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
+        }
     }
 }
 
@@ -773,15 +946,19 @@ void RidleyInSpaceShipLeavingParticles(void)
  */
 struct CutsceneOamData* RidleyInSpaceShipLeavingUpdateParticle(struct CutsceneOamData* pOam)
 {
-    if (pOam->actions == 0)
+    if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
     {
-        pOam->unk_E = (pOam->unk_12 & 7) + 2;
-        pOam->actions = 1;
+        // Initialize
+        pOam->xVelocity = MOD_AND(pOam->unk_12, 8) + PIXEL_SIZE / 2;
+        pOam->actions = PARTICLE_ACTION_MOVE;
     }
     else
     {
-        pOam->xPosition += pOam->unk_E;
-        if (pOam->xPosition > 0x3E0)
-            pOam->exists = 0;
+        // Move
+        pOam->xPosition += pOam->xVelocity;
+
+        // Check is off-screen
+        if (pOam->xPosition > SCREEN_SIZE_X_SUB_PIXEL + HALF_BLOCK_SIZE)
+            pOam->exists = FALSE;
     }
 }

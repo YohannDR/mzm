@@ -107,15 +107,15 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
     {
         pOam->unk_18++;
         velocity = DIV_SHIFT((u16)pOam->unk_18, 4);
-        pOam->unk_10 = 4 - velocity;
-        if (pOam->unk_10 < 0)
+        pOam->yVelocity = 4 - velocity;
+        if (pOam->yVelocity < 0)
         {
-            pOam->unk_10 = 0;
+            pOam->yVelocity = 0;
             pOam->actions &= 1;
         }
 
-        pOam->unk_10 *= 4;
-        pOam->yPosition += pOam->unk_10;
+        pOam->yVelocity *= 4;
+        pOam->yPosition += pOam->yVelocity;
     }
 }
 

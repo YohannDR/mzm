@@ -29,6 +29,14 @@
  */
 #define C_16_2_8(high, low) ((high) << 8 | (low))
 
+/**
+ * @brief Constructs an ushort from 2 bytes (low | high << 8)
+ * 
+ * @param high High
+ * @param low Low
+ */
+#define C_16_2_8_(high, low) ((low) | (high) << 8)
+
 #define OPPOSITE_DIRECTION(dir) ((dir) ^ (KEY_RIGHT | KEY_LEFT))
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
 #define OFFSET_OF(type, element) ((int)&(((type*)0)->element))

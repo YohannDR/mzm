@@ -22,7 +22,7 @@ extern const u32 sRidleyInSpaceShipInterior2Gfx[4235];
 extern const u32 sRidleyInSpaceMotherShipLeavingGfx[1497];
 extern const u32 sRidleyInSpaceSpaceBackgroundGfx[5470];
 
-extern const u16 sRidleyInSpaceShipsPAL[3 * 16];
+extern const u16 sRidleyInSpaceShipsPal[3 * 16];
 extern const u16 sRidleyInSpace_39d910_Pal[6 * 16];
 extern const u16 sRidleyInSpaceRedAlertPAL[6 * 16];
 extern const u16 sRidleyInSpaceShipInteriorPal[15 * 16];

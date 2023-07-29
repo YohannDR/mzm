@@ -124,9 +124,10 @@ extern u16 gTilemap[1024];
 extern u16 gCommonTilemap[1024];
 
 extern u16 gDecompClipdataMap[1024];
-extern u16 gDecompBG0Map[1024];
-extern u16 gDecompBG1Map[1024];
-extern u16 gDecompBG2Map[1024];
+extern u16 gDecompBg0Map[1024];
+extern u16 gDecompBg1Map[1024];
+extern u16 gDecompBg2Map[1024];
+extern u16 gDecompBg3Map[2048];
 
 extern u8 gSpriteset;
 extern u8 gSpritesetEntryUsed;

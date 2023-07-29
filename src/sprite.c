@@ -461,7 +461,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             if (alphaBlending)
             {
                 // Semi transparent
-                gOamData[prevSlot + i].split.objMode = 1;
+                gOamData[prevSlot + i].split.objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
             }
 
             dst++;
@@ -615,7 +615,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             if (alphaBlending)
             {
                 // Semi transparent
-                gOamData[prevSlot + i].split.objMode = 1;
+                gOamData[prevSlot + i].split.objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
             }
 
             dst++;

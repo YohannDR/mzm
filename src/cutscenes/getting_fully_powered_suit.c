@@ -154,17 +154,17 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
     if (pOam->actions & 4)
     {
         unk = ++pOam->unk_18;
-        pOam->unk_10 = -4 - (unk / 4);
+        pOam->yVelocity = -4 - (unk / 4);
     }
     else
     {
-        pOam->unk_10 = -4;
+        pOam->yVelocity = -4;
         pOam->unk_18 = 0;
     }
 
     if (pOam->actions & 2)
     {
-        pOam->yPosition += pOam->unk_10;
+        pOam->yPosition += pOam->yVelocity;
         if (pOam->yPosition < -0xBF)
             pOam->actions = 0;
     }
@@ -222,12 +222,12 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
     if (pOam->actions & 2)
     {
         unk = ++pOam->unk_18;
-        pOam->unk_10 += (unk / 16);
+        pOam->yVelocity += (unk / 16);
 
-        if (pOam->unk_10 > 0x20)
-            pOam->unk_10 = 0x20;
+        if (pOam->yVelocity > 0x20)
+            pOam->yVelocity = 0x20;
 
-        pOam->yPosition -= pOam->unk_10;
+        pOam->yPosition -= pOam->yVelocity;
         if (pOam->yPosition >= -0xDF)
             return;
 
@@ -239,7 +239,7 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
         if (pOam->timer == 0)
         {
             pOam->actions = 2;
-            pOam->unk_10 = 0;
+            pOam->yVelocity = 0;
             pOam->xPosition = sGettingFullyPoweredSuit_3c642c[sparkleId - 7] + (sRandomNumberTable[gFrameCounter8Bit] & 0x3F);
             pOam->yPosition = BLOCK_SIZE * 11;
             pOam->unk_18 = 0;

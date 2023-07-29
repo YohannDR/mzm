@@ -197,13 +197,13 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
         // Initialize debris
 
         // Set spawn X (base + [0-64[)
-        pOam->xPosition = sKraidRisingDebrisSpawnXPosition[debrisID] + MOD_AND(sRandomNumberTable[~LOW_BYTE(gFrameCounter8Bit + debrisID)], 64);
+        pOam->xPosition = sKraidRisingDebrisSpawnXPosition[debrisID] + MOD_AND(sRandomNumberTable[~MOD_AND(gFrameCounter8Bit + debrisID, ARRAY_SIZE(sRandomNumberTable))], 64);
         
         // Start above ceiling
         pOam->yPosition = -HALF_BLOCK_SIZE;
 
         // Set random velocity
-        pOam->unk_10 = ((gFrameCounter8Bit + debrisID) & (MOD_AND(debrisID, 2) + 3)) - 2;
+        pOam->yVelocity = ((gFrameCounter8Bit + debrisID) & (MOD_AND(debrisID, 2) + 3)) - 2;
         pOam->unk_18 = 0;
 
         // Reset anim
@@ -212,11 +212,11 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
     else
     {
         // Gradually increment velocity
-        if (pOam->unk_10 < 32)
-            pOam->unk_10++;
+        if (pOam->yVelocity < 32)
+            pOam->yVelocity++;
 
         // Apply velocity
-        pOam->yPosition += pOam->unk_10;
+        pOam->yPosition += pOam->yVelocity;
 
         if (pOam->yPosition >= BLOCK_SIZE * 11 + HALF_BLOCK_SIZE)
         {
@@ -224,7 +224,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
             pOam->exists = FALSE;
 
             // Set random respawn timer
-            pOam->timer = 1 + MOD_AND(sRandomNumberTable[LOW_BYTE(gFrameCounter8Bit + debrisID)], 16);
+            pOam->timer = 1 + MOD_AND(sRandomNumberTable[MOD_AND(gFrameCounter8Bit + debrisID, ARRAY_SIZE(sRandomNumberTable))], 16);
         }
     }
 }

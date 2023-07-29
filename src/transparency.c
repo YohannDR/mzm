@@ -33,8 +33,8 @@ void TransparencySetRoomEffectsTransparency(void)
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
             {
-                dcnt = DCNT_BG0 | gIoRegistersBackup.DISPCNT_NonGameplay;
-                gIoRegistersBackup.DISPCNT_NonGameplay = dcnt & coef;
+                dcnt = DCNT_BG0 | gIoRegistersBackup.Dispcnt_NonGameplay;
+                gIoRegistersBackup.Dispcnt_NonGameplay = dcnt & coef;
             }
         }
 
@@ -319,7 +319,7 @@ void TransparencySetRoomEffectsTransparency(void)
     if (gCurrentRoomEntry.Bg0Prop == BG_PROP_DISABLE_TRANSPARENCY)
         gDefaultTransparency.bldcnt &= ~BLDCNT_BG0_FIRST_TARGET_PIXEL;
 
-    TransparencyUpdateBLDCNT(0, gDefaultTransparency.bldcnt);
+    TransparencyUpdateBldcnt(0, gDefaultTransparency.bldcnt);
 
     gWrittenToBLDCNT = 0;
 
@@ -328,7 +328,7 @@ void TransparencySetRoomEffectsTransparency(void)
     if (coef)
         dispcnt &= coef;
 
-    gIoRegistersBackup.DISPCNT_NonGameplay = dispcnt;
+    gIoRegistersBackup.Dispcnt_NonGameplay = dispcnt;
 }
 
 u16 TransparencyGetBgSizeFlag(u8 size)
@@ -374,13 +374,13 @@ u32 TransparencyCheckIsDarkRoom(void)
  * @param action Action
  * @param value Value
  */
-void TransparencyUpdateBLDCNT(u8 action, u16 value)
+void TransparencyUpdateBldcnt(u8 action, u16 value)
 {
     u16 effects;
 
     effects = value & (BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    gIoRegistersBackup.BLDCNT_NonGameplay = value;
+    gIoRegistersBackup.Bldcnt_NonGameplay = value;
 
     switch (action)
     {
@@ -403,14 +403,14 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
                 return;
 
         case 3:
-            write16(REG_BLDCNT, gIoRegistersBackup.BLDCNT_NonGameplay);
+            write16(REG_BLDCNT, gIoRegistersBackup.Bldcnt_NonGameplay);
 
         default:
             return;
     }
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || effects != BLDCNT_BRIGHTNESS_INCREASE_EFFECT)
-        gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
+        gWrittenToBLDCNT = gIoRegistersBackup.Bldcnt_NonGameplay;
 }
 
 /**

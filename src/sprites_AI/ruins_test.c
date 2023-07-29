@@ -1064,7 +1064,7 @@ void RuinsTestGhostInit(void)
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.status |= SPRITE_STATUS_ALPHA_BLENDING;
 
-        TransparencyUpdateBLDCNT(0x1, BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+        TransparencyUpdateBldcnt(0x1, BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
             BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
 
         TransparencySpriteUpdateBLDALPHA(16, 0, 0, 16);
@@ -1158,7 +1158,7 @@ void RuinsTestGhostIdle(void)
                 {
                     gCurrentSprite.pose = RUINS_TEST_GHOST_POSE_GHOST_DESPAWN;
                     gCurrentSprite.workVariable = 0x10;
-                    TransparencyUpdateBLDCNT(0x1, BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
+                    TransparencyUpdateBldcnt(0x1, BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
                 }
             }
         }

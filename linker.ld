@@ -11,13 +11,14 @@ gUnk_Audio0x50 = 0x50;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
+        . = 0x00007000; gDecompBg3Map = .;
         . = 0x00026300; gHazeValues = .;
         . = 0x00026d00; gPreviousHazeValues = .;
         . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00027800; gDecompClipdataMap = .;
-        . = 0x0002a800; gDecompBG0Map = .;
-        . = 0x0002d800; gDecompBG1Map = .;
-        . = 0x00030800; gDecompBG2Map = .;
+        . = 0x0002a800; gDecompBg0Map = .;
+        . = 0x0002d800; gDecompBg1Map = .;
+        . = 0x00030800; gDecompBg2Map = .;
         . = 0x00033800; gMinimapTilesWithObtainedItems = .;
         . = 0x00034000; gDecompressedMinimapVisitedTiles = .;
         . = 0x00034800; gDecompressedMinimapData = .;

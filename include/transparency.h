@@ -11,7 +11,7 @@
 void TransparencySetRoomEffectsTransparency(void);
 u16 TransparencyGetBgSizeFlag(u8 size);
 u32 TransparencyCheckIsDarkRoom(void);
-void TransparencyUpdateBLDCNT(u8 action, u16 value);
+void TransparencyUpdateBldcnt(u8 action, u16 value);
 void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity);
 void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, s32 delay, u32 intensity);
 void TransparencyUpdateBLDY(u8 value, s32 delay, u32 intensity);

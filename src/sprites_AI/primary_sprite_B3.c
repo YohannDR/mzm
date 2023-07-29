@@ -36,7 +36,7 @@ void PrimarySpriteB3(void)
 
         gCurrentSprite.pose = 9;
 
-        TransparencyUpdateBLDCNT(1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+        TransparencyUpdateBldcnt(1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
             BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL);
 
         if (gAlarmTimer != 0)

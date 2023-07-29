@@ -88,8 +88,8 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
     if (pOam->actions & 1)
     {
         pOam->unk_16++;
-        pOam->unk_E = -0x24;
-        pOam->xPosition += pOam->unk_E;
+        pOam->xVelocity = -0x24;
+        pOam->xPosition += pOam->xVelocity;
 
         if (pOam->xPosition < -0xFF)
             pOam->actions = 0;
@@ -101,8 +101,8 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
     if (pOam->actions & 2)
     {
         pOam->unk_18++;
-        pOam->unk_10 = -((u16)pOam->unk_18 >> 1);
-        pOam->yPosition += pOam->unk_10;
+        pOam->yVelocity = -((u16)pOam->unk_18 >> 1);
+        pOam->yPosition += pOam->yVelocity;
     }
 }
 

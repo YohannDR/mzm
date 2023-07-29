@@ -312,7 +312,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 
         case 3:
             // Hide BG0, and backup its tilemap
-            gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay & ~DCNT_BG0;
+            gWrittenToDISPCNT = gIoRegistersBackup.Dispcnt_NonGameplay & ~DCNT_BG0;
             DMA_SET(3, VRAM_BASE + (1 * BGCNT_VRAM_TILE_SIZE), EWRAM_BASE + 0x1E000, C_32_2_16(DMA_ENABLE, BGCNT_VRAM_TILE_SIZE / 2));
 
             changeStage = TRUE;
@@ -335,7 +335,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 7:
-            gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay;
+            gWrittenToDISPCNT = gIoRegistersBackup.Dispcnt_NonGameplay;
             gWrittenToWININ_H = 0x3F;
             gWrittenToWINOUT_L = 0x1E;
             gWrittenToBLDALPHA = C_16_2_8(16, 13);
@@ -482,11 +482,11 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 15:
-            gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay & ~DCNT_BG0;
+            gWrittenToDISPCNT = gIoRegistersBackup.Dispcnt_NonGameplay & ~DCNT_BG0;
             gWrittenToWINOUT_L = gIoRegistersBackup.WINOUT_L;
             gWrittenToWININ_H = gIoRegistersBackup.WININ_H;
             gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
-            gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
+            gWrittenToBLDCNT = gIoRegistersBackup.Bldcnt_NonGameplay;
 
             gSuitFlashEffect.left = 0;
             gSuitFlashEffect.right = 0xF0;
@@ -505,7 +505,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 17:
-            gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay;
+            gWrittenToDISPCNT = gIoRegistersBackup.Dispcnt_NonGameplay;
             changeStage = TRUE;
             break;
 
@@ -792,7 +792,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             
             // Load graphics, tile table and palette
             CallLZ77UncompVram(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
-            CallLZ77UncompWram(sSamusCloseUpBackgroundMap, gDecompBG0Map);
+            CallLZ77UncompWram(sSamusCloseUpBackgroundMap, gDecompBg0Map);
             CallLZ77UncompWram(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
             DMA_SET(3, sSamusCloseUpPal, PALRAM_BASE + 0xE0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sSamusCloseUpPal)));
 
@@ -811,15 +811,15 @@ void InGameCutsceneCheckPlayOnTransition(void)
             write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
             TransparencyUpdateBLDALPHA(4, 12, 1, 1);
 
-            gIoRegistersBackup.BLDCNT_NonGameplay = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+            gIoRegistersBackup.Bldcnt_NonGameplay = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                 BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
-            TransparencyUpdateBLDCNT(0, gIoRegistersBackup.BLDCNT_NonGameplay);
+            TransparencyUpdateBldcnt(0, gIoRegistersBackup.Bldcnt_NonGameplay);
 
             gIoRegistersBackup.BG0CNT = 8;
             gIoRegistersBackup.unk_12 = 8;
-            gIoRegistersBackup.DISPCNT_NonGameplay |= DCNT_BG0;
+            gIoRegistersBackup.Dispcnt_NonGameplay |= DCNT_BG0;
 
             ColorFadingStart(COLOR_FADING_NO_TRANSITION_HUD_HIDE);
             gHideHud = TRUE;

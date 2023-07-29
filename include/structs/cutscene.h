@@ -4,7 +4,6 @@
 #include "types.h"
 #include "oam.h"
 
-// Temp place
 struct OamArray {
     const struct FrameData* const pOam;
     u8 preAction;
@@ -19,6 +18,10 @@ struct OamArray {
 #define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AFTER_END 7
 #define OAM_ARRAY_PRE_ACTION_SWITCH_TO_PREVIOUS_FRAME 8
 #define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING 9
+
+// For some reason, 0x800 (0x200 * 4) is used as a 0 value for the backgrounds position during most of the non gameplay moments
+// The hardware value is in pixel, ranging from 0 to 0x1FF, so a value of 0x800 equals to a value of 0 (0x800 / 4 & 0x1FF)
+#define NON_GAMEPLAY_START_BG_POS (BLOCK_SIZE * 32)
 
 #define MACRO_CUTSCENE_NEXT_STAGE() \
 {                                   \
@@ -132,8 +135,8 @@ struct CutsceneOamData {
     u8 boundBackground:4;
     u8 rotationScaling:1;
     u8 actions;
-    s16 unk_E;
-    s16 unk_10;
+    s16 xVelocity;
+    s16 yVelocity;
     s16 unk_12;
     u16 timer;
     u16 unk_16;
@@ -148,7 +151,7 @@ struct CutsceneTimeInfo {
     u16 timer;
     u8 subStage;
     u8 unk_5;
-    u8 unk_6;
+    u8 customTimer;
 };
 
 struct CutsceneData {

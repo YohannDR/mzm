@@ -262,7 +262,7 @@ void PowerBombExplosionEnd(void)
     if (gCurrentPowerBomb.stage == 0)
     {
         write16(REG_BLDY, 0);
-        gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
+        gWrittenToBLDCNT = gIoRegistersBackup.Bldcnt_NonGameplay;
 
         if (sHazeData[gCurrentRoomEntry.visualEffect][3] == 2)
             gWrittenToBLDALPHA = C_16_2_8(0, 16);
@@ -286,7 +286,7 @@ void PowerBombExplosionEnd(void)
         write16(REG_BG2CNT, gIoRegistersBackup.BG2CNT);
         write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
 
-        gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay;
+        gWrittenToDISPCNT = gIoRegistersBackup.Dispcnt_NonGameplay;
         gCurrentPowerBomb.stage = 1;
     }
     else if (gCurrentPowerBomb.stage == 1)

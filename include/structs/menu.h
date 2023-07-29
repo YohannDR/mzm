@@ -4,6 +4,7 @@
 #include "types.h"
 
 #define OAM_ID_CHANGED_FLAG (TRUE << 1)
+#define CUTSCENE_OAM_ACTION_NONE 0
 
 struct MenuOamData {
     s16 yPosition;

@@ -745,7 +745,7 @@ lbl_080565d8:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl RoomRLEDecompress
+    bl RoomRleDecompress
     b lbl_08056648
     .align 2, 0
 lbl_08056604: .4byte 0x0875fac4
@@ -784,7 +784,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl RoomRLEDecompress
+    bl RoomRleDecompress
     ldr r3, [sp, #0x10]
     ldr r2, lbl_080566b8 @ =0x0202d800
     str r2, [r4, #8]
@@ -796,7 +796,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl RoomRLEDecompress
+    bl RoomRleDecompress
     ldr r0, lbl_080566bc @ =gCurrentRoomEntry
     ldrb r1, [r0, #3]
     movs r0, #0x10
@@ -814,7 +814,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl RoomRLEDecompress
+    bl RoomRleDecompress
 lbl_080566a4:
     add sp, #0x40
     pop {r4}
@@ -1596,8 +1596,8 @@ lbl_08056d02:
     .align 2, 0
 lbl_08056d14: .4byte 0x0202a800
 
-    thumb_func_start RoomRLEDecompress
-RoomRLEDecompress: @ 0x08056d18
+    thumb_func_start RoomRleDecompress
+RoomRleDecompress: @ 0x08056d18
     push {r4, r5, r6, lr}
     sub sp, #4
     adds r4, r1, #0

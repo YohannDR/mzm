@@ -7,30 +7,30 @@ const struct CutscenePageData sKraidRisingPagesData[4] = {
     {
         .graphicsPage = 2,
         .tiletablePage = 0x1E,
-        .priority = 1,
+        .priority = BGCNT_HIGH_MID_PRIORITY,
         .bg = DCNT_BG1,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     {
         .graphicsPage = 2,
         .tiletablePage = 0x1F,
-        .priority = 1,
+        .priority = BGCNT_HIGH_MID_PRIORITY,
         .bg = DCNT_BG1,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     {
         .graphicsPage = 0,
         .tiletablePage = 0xF,
-        .priority = 2,
+        .priority = BGCNT_LOW_MID_PRIORITY,
         .bg = DCNT_BG2,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
     {
         .graphicsPage = 2,
         .tiletablePage = 0x1F,
-        .priority = 3,
+        .priority = BGCNT_LOW_PRIORITY,
         .bg = DCNT_BG3,
-        .screenSize = 0
+        .screenSize = BGCNT_SIZE_256x256 << BGCNT_SCREEN_SIZE_SHIFT
     },
 };
 
