@@ -71,7 +71,8 @@ extern const struct FrameData sMotherBrainCloseUpOam_Bubble[6];
 extern const struct FrameData sMotherBrainCloseUpOam_EyeOpening[11];
 extern const struct FrameData sMotherBrainCloseUpOam_EyeOpened[4];
 extern const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4];
-const struct OamArray sMotherBrainCloseUpCutsceneOAM[7] = {
+
+const struct OamArray sMotherBrainCloseUpCutsceneOam[7] = {
     [0] = {
         .pOam = sMotherBrainCloseUpOam_Bubble,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -328,7 +329,7 @@ const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4] = {
     0
 };
 
-const u16 sMotherBrainCloseUpPAL[6 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Palette.pal");
+const u16 sMotherBrainCloseUpPal[6 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Palette.pal");
 const u16 sMotherBrainCloseUpBackgroundPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Background.pal");
 const u16 sMotherBrainCloseUpSamusPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Samus.pal");
 const u16 sMotherBrainCloseUpSamusVariaPal[5 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/SamusVaria.pal");

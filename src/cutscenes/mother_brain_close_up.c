@@ -15,6 +15,15 @@
 #include "structs/game_state.h"
 #include "structs/samus.h"
 
+#define OAM_BUBBLES_COUNT 6
+
+#define ELEVATOR_REFLECTION_ACTION_ACTIVE 1
+
+#define OAM_SLOT_ELEVATOR_ANIMATION 0
+#define OAM_SLOT_EYE_OPENING (OAM_BUBBLES_COUNT + 1)
+
+#define OAM_SLOT_EYE_PUPIL 1
+
 /**
  * @brief 63008 | 234 | Handles the looking at samus part
  * 
@@ -47,7 +56,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
 
             // Load big eye graphics
             DmaTransfer(3, sMotherBrainCloseUpBigEyePal, PALRAM_OBJ, sizeof(sMotherBrainCloseUpBigEyePal), 16);
-            CallLZ77UncompVram(sMotherBrainCloseUpBigEyeGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
+            CallLZ77UncompVram(sMotherBrainCloseUpBigEyeGfx, VRAM_OBJ);
 
             CutsceneSetBgcntPageData(sMotherBrainCloseUpPageData[4]);
             CutsceneSetBgcntPageData(sMotherBrainCloseUpPageData[3]);
@@ -80,7 +89,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             if (CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED)
             {
                 // Allow elevator animation to start
-                CUTSCENE_DATA.oam[0].actions = 1;
+                CUTSCENE_DATA.oam[OAM_SLOT_ELEVATOR_ANIMATION].actions = ELEVATOR_REFLECTION_ACTION_ACTIVE;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -89,10 +98,10 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > sMotherBrainCloseUpLookingAtSamusTimers[0])
             {
-                SoundPlay(0x230);
+                SoundPlay(SOUND_MOTHER_BRAIN_CLOSE_UP_EYE_FOCUSING);
 
                 // Set eye focusing animation
-                UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_FOCUSING);
+                UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_SLOT_EYE_PUPIL], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_FOCUSING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -114,7 +123,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             break;
     }
 
-    MotherBrainCloseUpUpdateElevatorReflection(&CUTSCENE_DATA.oam[0]);
+    MotherBrainCloseUpUpdateElevatorReflection(&CUTSCENE_DATA.oam[OAM_SLOT_ELEVATOR_ANIMATION]);
 
     return FALSE;
 }
@@ -126,10 +135,10 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
  */
 void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
 {
-    if (pOam->actions == 0)
+    if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
         return;
 
-    if (pOam->actions == 1)
+    if (pOam->actions == ELEVATOR_REFLECTION_ACTION_ACTIVE)
     {
         // Set cooldown
         pOam->timer = 60;
@@ -151,8 +160,11 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
 
     // Check for elevator animation limit
     pOam->actions++;
-    if (pOam->actions > 6)
-        pOam->actions = 0; // Stop animation
+    if (pOam->actions > ELEVATOR_REFLECTION_ACTION_ACTIVE + 5)
+    {
+        // Stop animation
+        pOam->actions = CUTSCENE_OAM_ACTION_NONE;
+    }
 }
 
 /**
@@ -167,7 +179,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sMotherBrainCloseUpPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpPAL), 16);
+            DmaTransfer(3, sMotherBrainCloseUpPal, PALRAM_BASE, sizeof(sMotherBrainCloseUpPal), 16);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
             // Load mother brain close up graphics
@@ -179,7 +191,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
 
             // Load eye graphics
             DmaTransfer(3, sMotherBrainCloseUpEyePal, PALRAM_OBJ, sizeof(sMotherBrainCloseUpEyePal), 16);
-            CallLZ77UncompVram(sMotherBrainCloseUpEyeGfx, BGCNT_TO_VRAM_CHAR_BASE(4));
+            CallLZ77UncompVram(sMotherBrainCloseUpEyeGfx, VRAM_OBJ);
 
             CutsceneSetBgcntPageData(sMotherBrainCloseUpPageData[2]);
             CutsceneSetBgcntPageData(sMotherBrainCloseUpPageData[1]);
@@ -187,15 +199,17 @@ u8 MotherBrainCloseUpEyeOpening(void)
 
             // Initialize eye
             MotherBrainCloseUpUpdateEye(FALSE);
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[2].bg, BLOCK_SIZE * 32);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[2].bg, NON_GAMEPLAY_START_BG_POS);
 
             // Setup transparency for the flicket effect
             gWrittenToBLDALPHA_L = 6;
             gWrittenToBLDALPHA_H = 12;
 
+            // Setup blending between background 2 (the white lines) and the rest, used for the transparency flicker
             CUTSCENE_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
+            // Enable objects and both backgrounds
             CUTSCENE_DATA.dispcnt = DCNT_OBJ | sMotherBrainCloseUpPageData[1].bg | sMotherBrainCloseUpPageData[2].bg;
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -224,7 +238,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > sMotherBrainCloseUpEyeOpeningTimers[2])
             {
-                SoundPlay(0x22F);
+                SoundPlay(SOUND_MOTHER_BRAIN_CLOSE_UP_EYE_OPENING);
                 // Start eye opening animation
                 UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -258,7 +272,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
     }
 
     // Update bubbles
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < OAM_BUBBLES_COUNT; i++)
     {
         if (CUTSCENE_DATA.oam[i].oamID != 0)
             MotherBrainCloseUpUpdateBubble(&CUTSCENE_DATA.oam[i]);
@@ -281,7 +295,7 @@ u8 MotherBrainCloseUpTankView(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            SoundPlay(0x22E);
+            SoundPlay(SOUND_MOTHER_BRAIN_CLOSE_UP_BUBBLES);
 
             // Start first fade, to semi visible screen
             CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 10, 0, 8);
@@ -335,6 +349,8 @@ u8 MotherBrainCloseUpTankView(void)
 u8 MotherBrainCloseUpInit(void)
 {
     unk_61f0c();
+
+    // Load tank view palette
     DmaTransfer(3, sMotherBrainCloseUpTankViewPal, PALRAM_BASE, sizeof(sMotherBrainCloseUpTankViewPal), 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
@@ -342,14 +358,15 @@ u8 MotherBrainCloseUpInit(void)
     CallLZ77UncompVram(sMotherBrainCloseUpTankViewGfx, BGCNT_TO_VRAM_CHAR_BASE(sMotherBrainCloseUpPageData[0].graphicsPage));
     CallLZ77UncompVram(sMotherBrainCloseUpTankViewTileTable, BGCNT_TO_VRAM_TILE_BASE(sMotherBrainCloseUpPageData[0].tiletablePage));
 
+    // Setup tank view background
     CutsceneSetBgcntPageData(sMotherBrainCloseUpPageData[0]);
     CutsceneReset();
 
-    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
-    gWrittenToBLDY_NonGameplay = 16;
+    // Setup full screen fade in
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[0].bg, BLOCK_SIZE * 32);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
 
     PlayMusic(MUSIC_ENTERING_NORFAIR_CUTSCENE, 0);
     CUTSCENE_DATA.dispcnt = sMotherBrainCloseUpPageData[0].bg;
@@ -384,7 +401,7 @@ u8 MotherBrainCloseUpSubroutine(void)
 void MotherBrainCloseUpProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOAM);
+    ProcessCutsceneOam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOam);
     ResetFreeOam();
 }
 
@@ -396,40 +413,46 @@ void MotherBrainCloseUpProcessOAM(void)
 void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 {
     struct CutsceneOamData* pOam;
+    struct CutsceneOamData* pEye;
 
     pOam = CUTSCENE_DATA.oam;
     
     if (!lookingAtSamus)
     {
-        struct CutsceneOamData* pOam;
-        pOam = &CUTSCENE_DATA.oam[7];
+        // Setup eye opening
+        pEye = &CUTSCENE_DATA.oam[OAM_SLOT_EYE_OPENING];
 
-        pOam->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        pOam->yPosition = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
+        // Place at the center of the screen
+        pEye->xPosition = SCREEN_SIZE_X_SUB_PIXEL / 2;
+        pEye->yPosition = SCREEN_SIZE_Y_SUB_PIXEL / 2 + HALF_BLOCK_SIZE;
 
-        pOam->priority = sMotherBrainCloseUpPageData[2].priority;
-        pOam->boundBackground = 3;
-        pOam->oamID = 0;
-        pOam->exists = TRUE;
+        pEye->priority = sMotherBrainCloseUpPageData[2].priority;
+        pEye->boundBackground = 3;
+        pEye->oamID = 0;
+        pEye->exists = TRUE;
     }
     else
     {
-        pOam->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        pOam->yPosition = BLOCK_SIZE * 5 + PIXEL_SIZE;
+        // Setup eye contour
+        // Place at the center of the screen
+        pOam->xPosition = SCREEN_SIZE_X_SUB_PIXEL / 2;
+        pOam->yPosition = SCREEN_SIZE_Y_SUB_PIXEL / 2 + PIXEL_SIZE;
 
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
         pOam->boundBackground = 1;
-        pOam->objMode = 1;
+        pOam->objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
 
-        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 5);
+        // Setup eye pupil
+        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_SLOT_EYE_PUPIL], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENED);
         
-        pOam[1].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        pOam[1].yPosition = BLOCK_SIZE * 5 + PIXEL_SIZE;
+        // Place at the center of the screen
+        pOam[OAM_SLOT_EYE_PUPIL].xPosition = SCREEN_SIZE_X_SUB_PIXEL / 2;
+        pOam[OAM_SLOT_EYE_PUPIL].yPosition = SCREEN_SIZE_Y_SUB_PIXEL / 2 + PIXEL_SIZE;
 
-        pOam[1].priority = sMotherBrainCloseUpPageData[4].priority;
+        pOam[OAM_SLOT_EYE_PUPIL].priority = sMotherBrainCloseUpPageData[4].priority;
 
-        pOam[1].boundBackground = 1;
-        pOam[1].objMode = 1;
+        pOam[OAM_SLOT_EYE_PUPIL].boundBackground = 1;
+        pOam[OAM_SLOT_EYE_PUPIL].objMode = OAM_OBJ_MODE_SEMI_TRANSPARENT;
     }
 }
 
@@ -443,19 +466,23 @@ void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
     s32 yPosition;
     s32 convertedY;
 
+    // Move vertically
     pOam->yPosition -= PIXEL_SIZE;
-    yPosition = (pOam->yPosition);
-    yPosition += BLOCK_SIZE * 32;
 
+    // Convert position to to have 0 Y be the top of background 3
+    yPosition = pOam->yPosition + NON_GAMEPLAY_START_BG_POS;
     convertedY = yPosition - gBG3VOFS_NonGameplay;
 
+    // Check above screen
     if (convertedY < -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE))
     {
+        // Kill
         pOam->exists = FALSE;
         return;
     }
-    
-    if (convertedY > BLOCK_SIZE * 12)
+
+    // Screen overflow check?
+    if (convertedY > -SCREEN_SIZE_Y_SUB_PIXEL * 2 + NON_GAMEPLAY_START_BG_POS)
     {
         if (!(pOam->notDrawn))
             pOam->notDrawn = TRUE;
@@ -477,7 +504,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
 {
     s32 i;
 
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < OAM_BUBBLES_COUNT; i++)
     {
         if (CUTSCENE_DATA.oam[i].exists)
             continue;
@@ -487,6 +514,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
 
         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], MOTHER_BRAIN_CLOSE_UP_OAM_ID_BUBBLE);
         CUTSCENE_DATA.oam[i].boundBackground = 3;
+
         return FALSE;
     }
 
