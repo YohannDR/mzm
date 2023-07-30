@@ -14,6 +14,23 @@
 #include "structs/game_state.h"
 #include "structs/display.h"
 
+#define OAM_UP_SPARKLES_AMOUNT 5
+#define OAM_UP_SPARKLES_START (OAM_RING_SPARKLES_AMOUNT + 1)
+#define OAM_UP_SPARKLES_END (OAM_UP_SPARKLES_START + OAM_UP_SPARKLES_AMOUNT)
+
+#define OAM_SLOT_RING_BOTTOM OAM_RING_SPARKLES_AMOUNT
+#define OAM_SLOT_RING_TOP 13
+
+#define RING_SPARKLE_ACTION_SPAWN 1
+#define RING_SPARKLE_ACTION_FOLLOW 2
+
+#define UP_SPARKLE_ACTION_MOVE 2
+
+#define RING_ACTION_MOVE 2
+#define RING_ACTION_SCALING_VELOCITY 4
+
+#define RING_MOVEMENT_SPEED PIXEL_SIZE
+
 /**
  * @brief 65bd8 | 204 | Handles the animation part (entire cutscene)
  * 
@@ -27,6 +44,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
+            // Setup blending for the window effect
             CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 12, 8, 1);
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -35,14 +53,16 @@ u8 GettingFullyPoweredSuitAnimation(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 20)
             {
-                CUTSCENE_DATA.oam[6].actions = 2;
+                // Start ring movement
+                CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].actions = RING_ACTION_MOVE;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 2:
-            if (CUTSCENE_DATA.oam[6].yPosition <= BLOCK_SIZE * 17)
+            // Wait a bit for the ring to move
+            if (CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].yPosition <= BLOCK_SIZE * 17)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -50,27 +70,33 @@ u8 GettingFullyPoweredSuitAnimation(void)
             break;
 
         case 3:
+            // Scroll background at the same speed as the ring
             bgPosition = CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
-            if (*bgPosition - 4 > BLOCK_SIZE * 32)
-                (*bgPosition) -= 4;
-            else
+            if (*bgPosition - RING_MOVEMENT_SPEED > NON_GAMEPLAY_START_BG_POS)
             {
-                *bgPosition = BLOCK_SIZE * 32;
-                CUTSCENE_DATA.timeInfo.timer = 0;
-                CUTSCENE_DATA.timeInfo.subStage++;
+                *bgPosition -= RING_MOVEMENT_SPEED;
+                break;
             }
+
+            *bgPosition = NON_GAMEPLAY_START_BG_POS;
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 4:
-            if (CUTSCENE_DATA.oam[6].yPosition < BLOCK_SIZE * 8)
+            if (CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].yPosition < BLOCK_SIZE * 8)
             {
+                // Disable window 1 to prevent a big white square during the final fade
                 CUTSCENE_DATA.dispcnt ^= DCNT_WIN1;
+
+                // Start final fade out
                 CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt | BLDCNT_BG0_FIRST_TARGET_PIXEL |
                     BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
                     BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                    BLDCNT_BACKDROP_FIRST_TARGET_PIXEL, 16, 8, 1);
+                    BLDCNT_BACKDROP_FIRST_TARGET_PIXEL, BLDY_MAX_VALUE, 8, 1);
 
-                CUTSCENE_DATA.oam[6].actions |= 4;
+                // Set ring flying away
+                CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].actions |= RING_ACTION_SCALING_VELOCITY;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -91,26 +117,36 @@ u8 GettingFullyPoweredSuitAnimation(void)
             break;
     }
 
+    // Update ring palette
     GettingFullyPoweredSuitUpdateRingPalette(&CUTSCENE_DATA.paletteData[0]);
+
+    // Sync vertical position of the background with the samus background
     *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[1].bg) = *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
 
-    GettingFullyPoweredSuitUpdateRing(&CUTSCENE_DATA.oam[6]);
+    // Update ring
+    GettingFullyPoweredSuitUpdateRing(&CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM]);
 
-    for (i = 0; i < 6; i++)
+    // Update ring sparkles
+    for (i = 0; i < OAM_RING_SPARKLES_AMOUNT; i++)
         GettingFullyPoweredSuitUpdateSparkleAroundRing(&CUTSCENE_DATA.oam[i], i);
 
-    // ...
+    // Calculte window 1 vertical position
 
-    i = -0x800 + *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg);
-    i = (CUTSCENE_DATA.oam[6].yPosition - i >> 2) + 8;
-    if (i < 0)
-        i = 0;
-    else if (i > 0xA0)
-        i = 0xA0;
+    // Get samus background position, with the base position being 0
+    i = *CutsceneGetBgVerticalPointer(sGettingFullyPoweredSuitPageData[0].bg) - NON_GAMEPLAY_START_BG_POS;
 
+    // Compute difference between the ring and the background position, results a value that is the Y position of the center of the ring
+    // Add half a block to that position to offset it down to around where the bottom of the ring is
+    i = SUB_PIXEL_TO_PIXEL_(CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].yPosition - i) + SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+
+    // Clamp value
+    CLAMP2(i, 0, SCREEN_SIZE_Y);
+
+    // Write to window 1 Y size
     write16(REG_WIN1V, i);
 
-    for (i = 7; i < 12; i++)
+    // Update up sparkles
+    for (i = OAM_UP_SPARKLES_START; i < OAM_UP_SPARKLES_END; i++)
         GettingFullyPoweredSuitUpdateSparkleGoingUp(&CUTSCENE_DATA.oam[i], i);
 
     return FALSE;
@@ -126,20 +162,24 @@ void GettingFullyPoweredSuitUpdateRingPalette(struct CutscenePaletteData* pPalet
     if (!(pPalette->active & TRUE))
         return;
 
+    // Update timer
     if (pPalette->timer != 0)
     {
         pPalette->timer--;
         return;
     }
 
+    // Reset timer and change row
     pPalette->timer = pPalette->maxTimer;
     pPalette->paletteRow++;
 
+    // Check for overflow
     if (pPalette->paletteRow >= ARRAY_SIZE(sGettingFullyPoweredSuitRingPaletteRows))
         pPalette->paletteRow = 0;
 
+    // Transfer current row
     DmaTransfer(3, &sGettingFullyPoweredSuitRingPAL[sGettingFullyPoweredSuitRingPaletteRows[pPalette->paletteRow] * 16],
-        PALRAM_BASE + 0x340, 32, 0x10);
+        PALRAM_OBJ + 16 * 20, 16 * 2, 16);
 }
 
 /**
@@ -151,25 +191,31 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
 {
     u16 unk;
     
-    if (pOam->actions & 4)
+    if (pOam->actions & RING_ACTION_SCALING_VELOCITY)
     {
+        // Move increasingly faster
         unk = ++pOam->unk_18;
-        pOam->yVelocity = -4 - (unk / 4);
+        pOam->yVelocity = -RING_MOVEMENT_SPEED - (unk / RING_MOVEMENT_SPEED);
     }
     else
     {
-        pOam->yVelocity = -4;
+        // Move at a set speed
+        pOam->yVelocity = -RING_MOVEMENT_SPEED;
         pOam->unk_18 = 0;
     }
 
-    if (pOam->actions & 2)
+    if (pOam->actions & RING_ACTION_MOVE)
     {
+        // Move
         pOam->yPosition += pOam->yVelocity;
-        if (pOam->yPosition < -0xBF)
-            pOam->actions = 0;
+
+        // Check despawn
+        if (pOam->yPosition <= -(BLOCK_SIZE * 3))
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
     }
 
-    CUTSCENE_DATA.oam[13].yPosition = pOam->yPosition;
+    // Sync top ring position with the bottom ring
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_TOP].yPosition = pOam->yPosition;
 }
 
 /**
@@ -180,32 +226,41 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
  */
 void GettingFullyPoweredSuitUpdateSparkleAroundRing(struct CutsceneOamData* pOam, u8 sparkleId)
 {
-    if (pOam->actions == 0)
+    if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
     {
-        pOam->timer = sRandomNumberTable[(gFrameCounter8Bit + sparkleId) & 0xFF] & 0x1F;
-        pOam->actions = 1;
+        // Set spawn timer
+        pOam->timer = MOD_AND(sRandomNumberTable[(u32)(gFrameCounter8Bit + sparkleId) % ARRAY_SIZE(sRandomNumberTable)], 32);
+        pOam->actions = RING_SPARKLE_ACTION_SPAWN;
     }
-    else if (pOam->actions == 1)
+    else if (pOam->actions == RING_SPARKLE_ACTION_SPAWN)
     {
+        // Spawn timer
         if (pOam->timer != 0)
+        {
             pOam->timer--;
+        }
         else
         {
-            if (sRandomNumberTable[gFrameCounter8Bit] & 1)
+            // Set random graphics
+            if (MOD_AND(sRandomNumberTable[gFrameCounter8Bit], 2))
                 UpdateCutsceneOamDataID(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING2);
             else
                 UpdateCutsceneOamDataID(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING1);
 
-            pOam->actions = 2;
+            pOam->actions = RING_SPARKLE_ACTION_FOLLOW;
         }
     }
-    else if (!pOam->exists)
-        pOam->actions = 0;
+    else
+    {
+        if (!pOam->exists)
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
+    }
     
     if (pOam->exists)
     {
-        pOam->xPosition = CUTSCENE_DATA.oam[6].xPosition + sGettingFullyPoweredSuitRingSparklesSpawnPositions[sparkleId][0];
-        pOam->yPosition = CUTSCENE_DATA.oam[6].yPosition + sGettingFullyPoweredSuitRingSparklesSpawnPositions[sparkleId][1];
+        // Exists, update position to ring position + offset
+        pOam->xPosition = CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].xPosition + sGettingFullyPoweredSuitRingSparklesPositions[sparkleId][0];
+        pOam->yPosition = CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].yPosition + sGettingFullyPoweredSuitRingSparklesPositions[sparkleId][1];
     }
 }
 
@@ -219,29 +274,44 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
 {
     u16 unk;
 
-    if (pOam->actions & 2)
+    if (pOam->actions & UP_SPARKLE_ACTION_MOVE)
     {
+        // Compute increasing velocity
         unk = ++pOam->unk_18;
-        pOam->yVelocity += (unk / 16);
+        pOam->yVelocity += (unk / QUARTER_BLOCK_SIZE);
 
-        if (pOam->yVelocity > 0x20)
-            pOam->yVelocity = 0x20;
+        // Clamp velocity
+        if (pOam->yVelocity > HALF_BLOCK_SIZE)
+            pOam->yVelocity = HALF_BLOCK_SIZE;
 
+        // Move
         pOam->yPosition -= pOam->yVelocity;
-        if (pOam->yPosition >= -0xDF)
-            return;
 
-        pOam->actions = 0;
-        pOam->timer = sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + sparkleId] & 0x3F;
+        // Check off screen enough
+        if (pOam->yPosition <= -(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE))
+        {
+            // Soft destroy, stop moving
+            pOam->actions = CUTSCENE_OAM_ACTION_NONE;
+
+            // Set respawn timer
+            pOam->timer = MOD_AND(sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + sparkleId], 64);
+        }
     }
     else
     {
+        // Spawn timer
         if (pOam->timer == 0)
         {
-            pOam->actions = 2;
+            // Initialize
+            pOam->actions = UP_SPARKLE_ACTION_MOVE;
             pOam->yVelocity = 0;
-            pOam->xPosition = sGettingFullyPoweredSuit_3c642c[sparkleId - 7] + (sRandomNumberTable[gFrameCounter8Bit] & 0x3F);
-            pOam->yPosition = BLOCK_SIZE * 11;
+
+            // X position + random offset
+            pOam->xPosition = sGettingFullyPoweredSuitUpSparklesXPositions[sparkleId - OAM_UP_SPARKLES_START] +
+                MOD_AND(sRandomNumberTable[gFrameCounter8Bit], 64);
+            
+            // Slightly below screen
+            pOam->yPosition = SCREEN_SIZE_Y_SUB_PIXEL + BLOCK_SIZE;
             pOam->unk_18 = 0;
             return;
         }
@@ -260,75 +330,99 @@ u8 GettingFullyPoweredSuitInit(void)
     s32 i;
 
     unk_61f0c();
-    DmaTransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);
-    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
+
+    // Load palette, in both background and object
+    DmaTransfer(3, sGettingFullyPoweredSuitPal, PALRAM_BASE, 0x160, 16);
+    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, PALRAM_SIZE / 2, 32);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
+    // Load samus graphics
+    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusGfx, BGCNT_TO_VRAM_CHAR_BASE(sGettingFullyPoweredSuitPageData[0].graphicsPage));
+    CallLZ77UncompVram(sGettingFullyPoweredSuitSamusTileTable, BGCNT_TO_VRAM_TILE_BASE(sGettingFullyPoweredSuitPageData[0].tiletablePage));
 
-    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
-    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
+    // Load background graphics
+    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundGfx, BGCNT_TO_VRAM_CHAR_BASE(sGettingFullyPoweredSuitPageData[1].graphicsPage));
+    CallLZ77UncompVram(sGettingFullyPoweredSuitBackgroundTileTable, BGCNT_TO_VRAM_TILE_BASE(sGettingFullyPoweredSuitPageData[1].tiletablePage));
 
+    // Load objects graphics
     CallLZ77UncompVram(sGettingFullyPoweredSuitRingSparklesGfx, VRAM_OBJ);
 
+    // Setup samus and background background
     CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[0]);
     CutsceneSetBgcntPageData(sGettingFullyPoweredSuitPageData[1]);
 
     CutsceneReset();
 
+    // Setup blending for the light effect below the ring using windows
     CUTSCENE_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT |
         BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
         BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
     gWrittenToBLDY_NonGameplay = 0;
     gWrittenToBLDALPHA_L = 0;
-    gWrittenToBLDALPHA_H = 16;
+    gWrittenToBLDALPHA_H = BLDALPHA_MAX_VALUE;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sGettingFullyPoweredSuitPageData[0].bg, 0x800);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sGettingFullyPoweredSuitPageData[1].bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sGettingFullyPoweredSuitPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sGettingFullyPoweredSuitPageData[1].bg, NON_GAMEPLAY_START_BG_POS);
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sGettingFullyPoweredSuitPageData[0].bg, 0xA80);
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sGettingFullyPoweredSuitPageData[1].bg, 0xA80);
+    // Set background low for the scrolling
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sGettingFullyPoweredSuitPageData[0].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 10);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sGettingFullyPoweredSuitPageData[1].bg, NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 10);
 
-    CUTSCENE_DATA.oam[6].xPosition = BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE;
-    CUTSCENE_DATA.oam[6].yPosition = BLOCK_SIZE * 22;
-    CUTSCENE_DATA.oam[6].priority = sGettingFullyPoweredSuitPageData[0].priority;
-    CUTSCENE_DATA.oam[6].objMode = 0;
-    CUTSCENE_DATA.oam[6].boundBackground = 2;
+    // Initialize ring bottom
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].xPosition = BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE;
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].yPosition = BLOCK_SIZE * 22;
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].priority = sGettingFullyPoweredSuitPageData[0].priority;
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].objMode = OAM_OBJ_MODE_NORMAL;
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM].boundBackground = 2;
 
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);
-    CUTSCENE_DATA.oam[13] = CUTSCENE_DATA.oam[6];
-    CUTSCENE_DATA.oam[13].priority = sGettingFullyPoweredSuitPageData[0].priority + 1;
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[13], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_TOP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);
 
-    for (i = 0; i < 6; i++)
+    // Initialize ring top based on ring bottom
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_TOP] = CUTSCENE_DATA.oam[OAM_SLOT_RING_BOTTOM];
+    // Lower priority than the ring bottom
+    CUTSCENE_DATA.oam[OAM_SLOT_RING_TOP].priority = sGettingFullyPoweredSuitPageData[0].priority + 1;
+    
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_SLOT_RING_TOP], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_TOP);
+
+    // Semi setup of the ring sparkles, they'll be properly initialized later
+    for (i = 0; i < OAM_RING_SPARKLES_AMOUNT; i++)
     {
         CUTSCENE_DATA.oam[i].priority = sGettingFullyPoweredSuitPageData[0].priority;
         CUTSCENE_DATA.oam[i].boundBackground = 2;
     }
 
-    CUTSCENE_DATA.oam[7].xPosition = sGettingFullyPoweredSuit_3c642c[0];
-    CUTSCENE_DATA.oam[7].yPosition = BLOCK_SIZE * 11;
-    CUTSCENE_DATA.oam[7].priority = sGettingFullyPoweredSuitPageData[0].priority;
-    CUTSCENE_DATA.oam[i].timer = sRandomNumberTable[gFrameCounter8Bit] & 0x3F;
-    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_GOING_UP);
+    // Setup one up sparkle
+    CUTSCENE_DATA.oam[OAM_UP_SPARKLES_START].xPosition = sGettingFullyPoweredSuitUpSparklesXPositions[0];
+    CUTSCENE_DATA.oam[OAM_UP_SPARKLES_START].yPosition = BLOCK_SIZE * 11;
+    CUTSCENE_DATA.oam[OAM_UP_SPARKLES_START].priority = sGettingFullyPoweredSuitPageData[0].priority;
+    CUTSCENE_DATA.oam[i].timer = MOD_AND(sRandomNumberTable[gFrameCounter8Bit], 64);
 
-    for (i = 8; i < 12; i++)
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[OAM_UP_SPARKLES_START], GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_GOING_UP);
+
+    // Setup the rest of the sparkles
+    for (i = OAM_UP_SPARKLES_START + 1; i < OAM_UP_SPARKLES_END; i++)
     {
-        CUTSCENE_DATA.oam[i] = CUTSCENE_DATA.oam[7];
+        // Copy the template
+        CUTSCENE_DATA.oam[i] = CUTSCENE_DATA.oam[OAM_UP_SPARKLES_START];
 
-        CUTSCENE_DATA.oam[i].xPosition = sGettingFullyPoweredSuit_3c642c[i - 7];
-        CUTSCENE_DATA.oam[i].timer = sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + i] & 0x3F;
+        // Just change X position and timer
+        CUTSCENE_DATA.oam[i].xPosition = sGettingFullyPoweredSuitUpSparklesXPositions[i - OAM_UP_SPARKLES_START];
+        CUTSCENE_DATA.oam[i].timer = MOD_AND(sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + i], 64);
     }
 
     CUTSCENE_DATA.paletteData[0] = sGettingFullyPoweredSuitPaletteData;
+
+    // Enable objects, samus, background and window 1
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | DCNT_WIN1 | sGettingFullyPoweredSuitPageData[0].bg | sGettingFullyPoweredSuitPageData[1].bg;
 
-    write8(REG_WINOUT, 0x3F);
-    write8(REG_WININ + 1, 0x1F);
-    write16(REG_WIN1H, 0xF0);
-    write16(REG_WIN1V, 0xA0);
+    // Setup windows
+    write8(REG_WINOUT, WIN0_ALL);
+    write8(REG_WININ + 1, HIGH_BYTE(WIN1_ALL_NO_COLOR_EFFECT));
+
+    // Set entire screen for the size of window 1
+    write16(REG_WIN1H, SCREEN_SIZE_X);
+    write16(REG_WIN1V, SCREEN_SIZE_Y);
 
     gPauseScreenFlag = PAUSE_SCREEN_NONE;
     PlayMusic(MUSIC_GETTING_FULLY_POWERED_SUIT_CUTSCENE, 0);
@@ -363,6 +457,6 @@ u8 GettingFullyPoweredSuitSubroutine(void)
 void GettingFullyPoweredSuitProcessOAM(void)
 {
     gNextOamSlot = 0;
-    ProcessCutsceneOam(sGettingFullyPoweredSuitSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sGettingFullyPoweredSuitCutsceneOAM);
+    ProcessCutsceneOam(sGettingFullyPoweredSuitSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sGettingFullyPoweredSuitCutsceneOam);
     ResetFreeOam();
 }

@@ -10,6 +10,8 @@
 #define GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM 4
 #define GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_TOP 5
 
+#define OAM_RING_SPARKLES_AMOUNT 6
+
 u8 GettingFullyPoweredSuitAnimation(void);
 void GettingFullyPoweredSuitUpdateRingPalette(struct CutscenePaletteData* pPalette);
 void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam);
