@@ -463,10 +463,13 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
     }
 }
 
+/**
+ * @brief 70534 | 170 | Sets the status screen beams visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetBeamsVisibility(u16* pTilemap)
 {
-    // https://decomp.me/scratch/TvDyb
-
     s32 i;
     s32 j;
     s32 row;
@@ -476,11 +479,19 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
     u8* pVisibility;
+    u8* ptr;
+    s32 size;
 
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
 
-    for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
-        pVisibility[i] = 0;
+    i = 0;
+    size = sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS];
+    if (size)
+    {
+        do {
+            pVisibility[i++] = 0;
+        } while (i < size);
+    }
 
     for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
     {
@@ -505,14 +516,14 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         {
             pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i];
 
-            for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
+            for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
             {
+                ptr = &gEquipment.beamBombsActivation;
                 pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
             }
 
             StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, row + 1,
-                *(u8*)0x300153d & pVisibility[row], FALSE);
-                //gEquipment.beamBombsActivation & pVisibility[row], FALSE);
+                *ptr & pVisibility[row], FALSE);
             row++;
         }
     }
@@ -532,17 +543,20 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
         
-        for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
+        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
     }
 }
 
+/**
+ * @brief 706a4 | 16c | Sets the status screen suits visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetSuitsVisibility(u16* pTilemap)
 {
-    // https://decomp.me/scratch/Z22vi
-
     s32 i;
     s32 j;
     s32 row;
@@ -552,11 +566,18 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
     u8* pVisibility;
-
+    s32 size;
+    
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
 
-    for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_SUITS]; i++)
-        pVisibility[i] = 0;
+    i = 0;
+    size = sPauseScreen_40d0fe[ABILITY_GROUP_SUITS];
+    if (size)
+    {
+        do {
+            pVisibility[i++] = 0;
+        } while (i < size);
+    }
 
     for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_SUITS]; i++)
     {
@@ -579,7 +600,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
         {
             pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i];
 
-            for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+            for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
             {
                 pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
             }
@@ -606,7 +627,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
         srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
         
-        for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
