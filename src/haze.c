@@ -8,6 +8,8 @@
 
 #include "constants/color_fading.h"
 #include "constants/haze.h"
+#include "constants/game_state.h"
+#include "constants/room.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -32,7 +34,7 @@ void HazeSetBackgroundEffect(void)
 
     gCurrentHazeValue = sHazeData[gCurrentRoomEntry.visualEffect][0];
 
-    if (gCurrentHazeValue)
+    if (gCurrentHazeValue != HAZE_VALUE_NONE)
     {
         gCurrentRoomEntry.damageEffect = sHazeData[gCurrentRoomEntry.visualEffect][1];
         gWaterMovement.moving = sHazeData[gCurrentRoomEntry.visualEffect][2];
@@ -51,12 +53,12 @@ void HazeTransferAndDeactivate(void)
 
     if (gHazeInfo.active)
     {
-        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_ENABLE | DMA_DEST_RELOAD, gHazeInfo.size / 2));
 
         buffer = sHaze_345ff8[0];
         buffer = sHaze_345ff8[0];
 
-        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, (DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_DEST_RELOAD, gHazeInfo.size / 2));
 
         gHazeInfo.active = FALSE;
     }
@@ -72,12 +74,12 @@ void unk_5d09c(void)
 
     if (gHazeInfo.active)
     {
-        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_ENABLE | DMA_DEST_RELOAD, gHazeInfo.size / 2));
 
         buffer = sHaze_345ff8[0];
         buffer = sHaze_345ff8[0];
 
-        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, (DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        DMA_SET(0, gHazeValues, gHazeInfo.pAffected, C_32_2_16(DMA_DEST_RELOAD, gHazeInfo.size / 2));
 
         HAZE_SET_INACTIVE();
         gHazeInfo.size = 2;
@@ -106,7 +108,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 2;
-            gHazeInfo.unk = 0x140;
+            gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = PALRAM_BASE;
             break;
 
@@ -117,7 +119,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 2;
-            gHazeInfo.unk = 0x140;
+            gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
             break;
 
@@ -128,7 +130,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 2;
-            gHazeInfo.unk = 0x140;
+            gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
             break;
  
@@ -139,7 +141,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 2;
-            gHazeInfo.unk = 0x140;
+            gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_BG3HOFS;
             break;
 
@@ -150,7 +152,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 8;
-            gHazeInfo.unk = 0x500;
+            gHazeInfo.unk_4 = 0x500;
             gHazeInfo.pAffected = REG_BG2HOFS;
             break;
 
@@ -161,20 +163,25 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 12;
-            gHazeInfo.unk = 0x780;
+            gHazeInfo.unk_4 = 0x780;
             gHazeInfo.pAffected = REG_BG1HOFS;
             break;
 
         case HAZE_VALUE_POWER_BOMB_EXPANDING:
-            gWrittenToWININ_H = 0x1F;
-            gWrittenToWINOUT_L = 0x37;
-            gWrittenToBLDCNT = 0xCF;
-            write16(REG_BLDY, 0xC);
-            gWrittenToWIN1V = 0xA0;
-            gWrittenToWIN1H = 0x0;
+            gWrittenToWININ_H = HIGH_BYTE(WIN1_ALL_NO_COLOR_EFFECT);
+            gWrittenToWINOUT_L = WIN0_BG0 | WIN0_BG1 | WIN0_BG2 | WIN0_OBJ | WIN0_COLOR_EFFECT;
+
+            gWrittenToBLDCNT = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+            write16(REG_BLDY, 12);
+
+            gWrittenToWIN1V = SCREEN_SIZE_Y;
+            gWrittenToWIN1H = 0;
+
             PowerBombYellowTint(0);
 
-            if (gIoRegistersBackup.Dispcnt_NonGameplay & DCNT_BG0 && gCurrentRoomEntry.Bg0Prop != 0x12)
+            if (gIoRegistersBackup.Dispcnt_NonGameplay & DCNT_BG0 && gCurrentRoomEntry.Bg0Prop != BG_PROP_DISABLE_TRANSPARENCY)
                 gWrittenToDISPCNT = read16(REG_DISPCNT) ^ DCNT_BG0;
 
             gBackdropColor = COLOR_WHITE;
@@ -185,7 +192,7 @@ void HazeSetupCode(u8 hazeValue)
             gHazeInfo.enabled = TRUE;
             
             gHazeInfo.size = 2;
-            gHazeInfo.unk = 0x140;
+            gHazeInfo.unk_4 = 0x140;
             gHazeInfo.pAffected = REG_WIN1H;
 
             if (gHazeInfo.enabled)
@@ -215,7 +222,7 @@ void HazeSetupCode(u8 hazeValue)
  */
 void HazeResetLoops(void)
 {
-    if (gPauseScreenFlag == 0)
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
     {
         gHazeLoops[0] = sHazeLoop_Empty;
         gHazeLoops[1] = sHazeLoop_Empty;
@@ -341,16 +348,16 @@ u32 HazeProcess(void)
 
                 if (gAnimatedGraphicsEntry.palette == 0)
                 {
-                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, DMA_ENABLE << 16 | 0x100);
+                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4));
                 }
                 else
                 {
-                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, DMA_ENABLE << 16 | 0xF0);
+                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4 - 16));
                 }
 
                 gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
-                gWrittenToWININ_H = 0x37;
-                gWrittenToWINOUT_L = 0x1F;
+                gWrittenToWININ_H = HIGH_BYTE(WIN1_BG0 | WIN1_BG1 | WIN1_BG2 | WIN1_OBJ | WIN1_COLOR_EFFECT);
+                gWrittenToWINOUT_L = WIN0_ALL_NO_COLOR_EFFECT;
                 gBackdropColor = COLOR_BLACK;
             }
             break;
@@ -366,11 +373,11 @@ u32 HazeProcess(void)
 
                 if (gAnimatedGraphicsEntry.palette == 0)
                 {
-                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, DMA_ENABLE << 16 | 0x100);
+                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4));
                 }
                 else
                 {
-                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, DMA_ENABLE << 16 | 0xF0);
+                    DMA_SET(3, EWRAM_BASE + 0x9000, EWRAM_BASE + 0x35000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4 - 16));
                 }
 
                 gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
@@ -428,19 +435,19 @@ void Haze_Bg3(void)
 
     gUnk_3005728 += gHazeLoops[0].unk_3;
 
-    position = (gEffectYPosition / 4) - (gBg1YPosition / 4) - 1;
+    position = SUB_PIXEL_TO_PIXEL(gEffectYPosition) - SUB_PIXEL_TO_PIXEL(gBg1YPosition) - 1;
 
-    CLAMP(position, 0, 0xA0);
+    CLAMP(position, 0, SCREEN_SIZE_Y);
 
     for (i = 0; i < position; i++)
     {
         dst[i] = gBackgroundPositions.bg[3].x;
     }
 
-    while (i < 0xA0)
+    while (i < SCREEN_SIZE_Y)
     {
-        do{
         ptr = &gUnk_3005728;
+        do{
         position = (gBackgroundPositions.bg[3].y + i + *ptr) & mask;
         }while(0);
         dst[i] = src[position] + gBackgroundPositions.bg[3].x;
@@ -497,9 +504,9 @@ void Haze_Bg3StrongWeak(void)
     gUnk_3005728 += gHazeLoops[0].unk_3;
     gUnk_3005729 += gHazeLoops[1].unk_3;
 
-    position = (gEffectYPosition / 4) - (gBg1YPosition / 4) - 1;
+    position = SUB_PIXEL_TO_PIXEL(gEffectYPosition) - SUB_PIXEL_TO_PIXEL(gBg1YPosition) - 1;
 
-    CLAMP(position, 0, 0xA0);
+    CLAMP(position, 0, SCREEN_SIZE_Y);
 
     for (i = 0; i < position; i++)
     {
@@ -508,7 +515,7 @@ void Haze_Bg3StrongWeak(void)
         dst[i] = src2[offset] + gBackgroundPositions.bg[3].x;
     }
 
-    while (i < 0xA0)
+    while (i < SCREEN_SIZE_Y)
     {
         ptr2 = &gUnk_3005728;
         offset = (gBackgroundPositions.bg[3].y + i + *ptr2) & mask1;
@@ -547,7 +554,7 @@ void Haze_Bg3NoneWeak(void)
     gUnk_3005728 += gHazeLoops[0].unk_3;
     ptr = &gUnk_3005728;
 
-    for (; i < 0xA0; i++)
+    for (; i < SCREEN_SIZE_Y; i++)
     {
         gPreviousHazeValues[i] = src[(gBackgroundPositions.bg[3].y + i + *ptr) & mask] + gBackgroundPositions.bg[3].x;
     }
@@ -582,10 +589,11 @@ void Haze_Bg3Bg2StrongWeakMedium(void)
     gUnk_3005728 += gHazeLoops[0].unk_3;
     dst = gPreviousHazeValues;
 
-    for (; i < 0xA0; i++)
+    for (; i < SCREEN_SIZE_Y; i++)
     {
         *dst++ = src[(gBackgroundPositions.bg[2].y + i + gUnk_3005728) & mask] + gBackgroundPositions.bg[2].x;
         *dst++ = gBackgroundPositions.bg[2].y;
+
         *dst++ = src[(gBackgroundPositions.bg[3].y + i + gUnk_3005728) & mask] + gBackgroundPositions.bg[3].x;
         *dst++ = gBackgroundPositions.bg[3].y;
     }
@@ -640,7 +648,7 @@ void Haze_Bg3Bg2Bg1(void)
     gUnk_3005728 -= gHazeLoops[0].unk_3;
     dst = gPreviousHazeValues;
 
-    for (i = 0; i < 0xA0; i++)
+    for (i = 0; i < SCREEN_SIZE_Y; i++)
     {
         ptr = &gUnk_3005728;
 
@@ -680,8 +688,8 @@ u32 Haze_PowerBombExpanding(void)
 
     src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
     size = gCurrentPowerBomb.semiMinorAxis;
-    xPosition = (gCurrentPowerBomb.xPosition - gBg1XPosition) >> 2;
-    yPosition = (gCurrentPowerBomb.yPosition - gBg1YPosition) >> 2;
+    xPosition = SUB_PIXEL_TO_PIXEL_(gCurrentPowerBomb.xPosition - gBg1XPosition);
+    yPosition = SUB_PIXEL_TO_PIXEL_(gCurrentPowerBomb.yPosition - gBg1YPosition);
 
     dst = (u16*)0x2026d00;
     for (i = 0; i <= 53 * 3; i++, dst++)
@@ -710,12 +718,11 @@ u32 Haze_PowerBombExpanding(void)
         yPosition = (s16)(xPosition + src[subSlice * 2 + 1] * 2);
         right = (s16)(xPosition + src[subSlice * 2 + 0] * 2);
 
-        CLAMP2(yPosition, 0, 0xF0);
-        CLAMP(right, 0, 0xF0);
+        CLAMP2(yPosition, 0, SCREEN_SIZE_X);
+        CLAMP(right, 0, SCREEN_SIZE_X);
 
-        *dst = right | yPosition << 8;
+        *dst = C_16_2_8_(yPosition, right);
     }
-
 
     if (gCurrentPowerBomb.semiMinorAxis >= 53 * 3)
     {
@@ -755,8 +762,8 @@ u32 Haze_PowerBombRetracting(void)
 
     src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
     size = gCurrentPowerBomb.semiMinorAxis;
-    xPosition = (gCurrentPowerBomb.xPosition - gBg1XPosition) >> 2;
-    yPosition = (gCurrentPowerBomb.yPosition - gBg1YPosition) >> 2;
+    xPosition = SUB_PIXEL_TO_PIXEL_(gCurrentPowerBomb.xPosition - gBg1XPosition);
+    yPosition = SUB_PIXEL_TO_PIXEL_(gCurrentPowerBomb.yPosition - gBg1YPosition);
 
     dst = (u16*)0x2026d00;
     for (i = 0; i <= 53 * 3; i++, dst++)
@@ -786,10 +793,10 @@ u32 Haze_PowerBombRetracting(void)
         yPosition = (s16)(xPosition + src[subSlice * 2 + 1] * 2);
         right = (s16)(xPosition + src[subSlice * 2 + 0] * 2);
 
-        CLAMP2(yPosition, 0, 0xF0);
-        CLAMP(right, 0, 0xF0);
+        CLAMP2(yPosition, 0, SCREEN_SIZE_X);
+        CLAMP(right, 0, SCREEN_SIZE_X);
 
-        *dst = right | yPosition << 8;
+        *dst = C_16_2_8_(yPosition, right);
     }
 
 

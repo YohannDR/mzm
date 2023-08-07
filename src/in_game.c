@@ -242,7 +242,7 @@ void VBlankCodeInGameLoad(void)
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
-            DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
+            DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk_4 / 2);
             SET_BACKDROP_COLOR(gBackdropColor);
         }
 
@@ -321,7 +321,7 @@ void VBlankCodeInGame(void)
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
-            DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
+            DMA_SET(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk_4 / 2);
             SET_BACKDROP_COLOR(gBackdropColor);
         }
 

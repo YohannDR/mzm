@@ -1069,9 +1069,11 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
     u8 var_0;
     u8 var_1;
-    u8 var_2;
+    u32 var_2;
+    s32 var_3;
     u8 i;
     struct SoundChannel* pChannel;
+    struct TrackVariables* pVariables2;
 
     if (pTrack->unk_3 + pVariables->unk_B > UCHAR_MAX)
         var_0 = UCHAR_MAX;
@@ -1079,6 +1081,7 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
         var_0 = pTrack->unk_3 + pVariables->unk_B;
 
     var_2 = var_0;
+    pVariables2 = pVariables;
     var_1 = FALSE;
     pChannel = NULL;
 
@@ -1087,37 +1090,49 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
         if (gMusicInfo.soundChannels[i].unk_0 == 0)
         {
             pChannel = &gMusicInfo.soundChannels[i];
-            // break;
+            goto end;
+            //unk_4f8c(pChannel, pVariables, var_0);
+            //return;
         }
 
-        if ((u8)(gMusicInfo.soundChannels[i].unk_0 - 5) < 2 || gMusicInfo.soundChannels[i].unk_0 == 8)
+        if (gMusicInfo.soundChannels[i].unk_0 == 5 || gMusicInfo.soundChannels[i].unk_0 == 6 || gMusicInfo.soundChannels[i].unk_0 == 8)
         {
-            if (!var_1)
+            if (var_1)
+            {
+                var_3 = TRUE;
                 var_1 = TRUE;
+            }
+            else
+                var_1 = FALSE;
         }
 
         if (!var_1)
         {
             if (gMusicInfo.soundChannels[i].unk_2 >= var_2 &&
                 (gMusicInfo.soundChannels[i].unk_2 > var_2 ||
-                (gMusicInfo.soundChannels[i].pVariables <= pVariables &&
-                gMusicInfo.soundChannels[i].pVariables < pVariables)))
+                (gMusicInfo.soundChannels[i].pVariables <= pVariables2 &&
+                gMusicInfo.soundChannels[i].pVariables < pVariables2)))
             {
                 continue;
             }
+            var_3 = TRUE;
         }
         else
         {
-            continue;
+            var_3 = FALSE;
         }
 
-        var_2 = gMusicInfo.soundChannels[i].unk_2;
-        pVariables = gMusicInfo.soundChannels[i].pVariables;
-        pChannel = &gMusicInfo.soundChannels[i];
+        if (var_3)
+        {
+            var_2 = gMusicInfo.soundChannels[i].unk_2;
+            pVariables2 = gMusicInfo.soundChannels[i].pVariables;
+            pChannel = &gMusicInfo.soundChannels[i];
+        }
     }
 
     if (pChannel != NULL)
     {
+        end:
         unk_4f8c(pChannel, pVariables, var_0);
     }
 }

@@ -116,7 +116,7 @@ void ZiplineGeneratorDetectSamus(void)
     spriteX = gCurrentSprite.xPosition;
 
     // Detect samus
-    if (samusY == spriteY - (BLOCK_SIZE * 2 + PIXEL_SIZE / SUB_PIXEL_RATIO) && spriteX - BLOCK_SIZE < samusX &&
+    if (samusY == spriteY - (BLOCK_SIZE * 2 + ONE_SUB_PIXEL) && spriteX - BLOCK_SIZE < samusX &&
         spriteX + BLOCK_SIZE > samusX && gSamusData.pose == SPOSE_MORPH_BALL)
     {
         // Set activating

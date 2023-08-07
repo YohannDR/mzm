@@ -14,8 +14,7 @@
 #include "structs/sprite.h"
 
 /**
- * 11788 | 2c | 
- * Checks if a sprite debris is in a liquid, if yes sets a small splash effect
+ * 11788 | 2c | Checks if a sprite debris is in a liquid, if yes sets a small splash effect
  * 
  * @param oldY Old Y Position
  * @param yPosition Current Y Position

@@ -7,7 +7,7 @@ typedef u32 (*HazeFunc_T)(void);
 
 struct Haze {
     void* pAffected;
-    u16 unk;
+    u16 unk_4;
     u8 size;
     u8 enabled:7;
     u8 active:1;
