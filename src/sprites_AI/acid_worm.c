@@ -1559,7 +1559,7 @@ void AcidWormSpitMove(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-        if (gPreviousCollisionCheck & (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80))
+        if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN)
             gCurrentSprite.pose = SPRITE_POSE_STOPPED;
     }
 }

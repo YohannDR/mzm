@@ -9,6 +9,7 @@
 #include "particle.h"
 #include "projectile.h"
 #include "color_fading.h"
+#include "block.h"
 
 #include "constants/animated_graphics.h"
 #include "constants/haze.h"
@@ -122,7 +123,15 @@ const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1]
 
 const u8* const sScrollPointer_Empty = sScroll_Empty;
 
-const u8 sTempArray_75fae4[0x294] = INCBIN_U8("data/Blob_75fae4_75fd78.bin");
+const u8 sTempArray_75fae4[0x280] = INCBIN_U8("data/Blob_75fae4_75fd64.bin");
+
+const BlockFunc_T sNonReformDestroyFunctionPointers[5] = {
+    BlockDestroySingleBreakableBlock,
+    BlockDestroySquareBlock,
+    BlockDestroySingleBreakableBlock,
+    BlockDestroySquareBlock,
+    BlockDestroyBombChainBlock
+};
 
 const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
     ColorFadingSubroutine_Empty,

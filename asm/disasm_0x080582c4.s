@@ -2138,8 +2138,8 @@ lbl_0805932a:
     pop {r1}
     bx r1
 
-    thumb_func_start sub_08059330
-sub_08059330: @ 0x08059330
+    thumb_func_start BlockDestroyBombChainBlock
+BlockDestroyBombChainBlock: @ 0x08059330
     push {r4, lr}
     adds r4, r0, #0
     ldrh r0, [r4]
@@ -2169,8 +2169,8 @@ sub_08059330: @ 0x08059330
 lbl_08059364: .4byte 0x083459f0
 lbl_08059368: .4byte gBgPointersAndDimensions
 
-    thumb_func_start destroy_single_breakable_block
-destroy_single_breakable_block: @ 0x0805936c
+    thumb_func_start BlockDestroySingleBreakableBlock
+BlockDestroySingleBreakableBlock: @ 0x0805936c
     push {r4, lr}
     adds r4, r0, #0
     ldrh r0, [r4]
@@ -2200,8 +2200,8 @@ destroy_single_breakable_block: @ 0x0805936c
 lbl_080593a0: .4byte 0x083459f0
 lbl_080593a4: .4byte gBgPointersAndDimensions
 
-    thumb_func_start destroy_square_block
-destroy_square_block: @ 0x080593a8
+    thumb_func_start BlockDestroySquareBlock
+BlockDestroySquareBlock: @ 0x080593a8
     push {r4, r5, r6, lr}
     mov r6, r8
     push {r6}
@@ -2375,8 +2375,8 @@ lbl_080594f6:
     .align 2, 0
 lbl_080594fc: .4byte 0x000001fb
 
-    thumb_func_start remove_never_reform_blocks
-remove_never_reform_blocks: @ 0x08059500
+    thumb_func_start BlockRemoveNeverReformBlocks
+BlockRemoveNeverReformBlocks: @ 0x08059500
     push {r4, r5, r6, r7, lr}
     ldr r0, lbl_08059550 @ =gPauseScreenFlag
     movs r1, #0
@@ -3101,8 +3101,8 @@ lbl_08059a8a:
     .align 2, 0
 lbl_08059a98: .4byte gBgPointersAndDimensions
 
-    thumb_func_start samus_apply_screw_speedbooster_damage_to_environment
-samus_apply_screw_speedbooster_damage_to_environment: @ 0x08059a9c
+    thumb_func_start BlockSamusApplyScrewSpeedboosterDamageToEnvironment
+BlockSamusApplyScrewSpeedboosterDamageToEnvironment: @ 0x08059a9c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -3199,8 +3199,8 @@ lbl_08059b46:
     .align 2, 0
 lbl_08059b50: .4byte gCurrentClipdataAffectingAction
 
-    thumb_func_start update_broken_blocks
-update_broken_blocks: @ 0x08059b54
+    thumb_func_start BlockUpdateBrokenBlocks
+BlockUpdateBrokenBlocks: @ 0x08059b54
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -3897,8 +3897,8 @@ lbl_0805a07e:
 lbl_0805a090: .4byte gActiveBombChainTypes
 lbl_0805a094: .4byte 0x08345c28
 
-    thumb_func_start process_bomb_chains
-process_bomb_chains: @ 0x0805a098
+    thumb_func_start BlockProcessBombChains
+BlockProcessBombChains: @ 0x0805a098
     push {r4, r5, lr}
     sub sp, #8
     ldr r4, lbl_0805a150 @ =gBombChains

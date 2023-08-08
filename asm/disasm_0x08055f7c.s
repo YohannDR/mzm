@@ -831,7 +831,7 @@ lbl_080566c0: .4byte 0x02030800
     thumb_func_start RoomRemoveNeverReformBlocksAndCollectedTanks
 RoomRemoveNeverReformBlocksAndCollectedTanks: @ 0x080566c4
     push {lr}
-    bl remove_never_reform_blocks
+    bl BlockRemoveNeverReformBlocks
     bl BgClipRemoveCollectedTanks
     pop {r0}
     bx r0
@@ -2034,8 +2034,8 @@ lbl_08057042:
     ldrsh r0, [r4, r1]
     cmp r0, #2
     bne lbl_0805706c
-    bl update_broken_blocks
-    bl process_bomb_chains
+    bl BlockUpdateBrokenBlocks
+    bl BlockProcessBombChains
     bl InGameCutsceneProcess
     bl check_unlock_doors
     bl ConnectionUpdateHatches

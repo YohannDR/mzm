@@ -6,7 +6,7 @@
 
 extern const s16 sDragonFireballYMovement[40];
 
-extern const s16 sDragonFireballOAMRotation[40];
+extern const s16 sDragonFireballOamRotation[40];
 
 extern const u32 sDragonGfx[512];
 extern const u16 sDragonPAL[32];

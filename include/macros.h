@@ -74,10 +74,6 @@
 #define OAM_DATA_SIZE(nbrOfParts) (1 + (nbrOfParts) * OAM_PART_SIZE)
 #define GET_OAM_DATA_SIZE(size) (((size) - 1) / OAM_PART_SIZE)
 
-#define PI 128
-#define sin(a) (sSineTable[(a)])
-#define cos(a) (sSineTable[(a) + PI / 2])
-
 // Converts a number to Q8.8 fixed-point format
 #define Q_8_8(n) ((s16)((n) * 256))
 
@@ -137,6 +133,11 @@
  * @param den Denominator
  */
 #define FRACT_MUL(value, num, den) ((value) * (num) / (den))
+
+// PI is half a rotation on the unit circle, a full rotation is Q_8_8(1.f)
+#define PI Q_8_8(.5f)
+#define sin(a) (sSineTable[(a)])
+#define cos(a) (sSineTable[(a) + PI / 2])
 
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]

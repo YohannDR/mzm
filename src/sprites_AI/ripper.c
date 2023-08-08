@@ -4,6 +4,7 @@
 #include "data/sprites/ripper.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/clipdata.h"
@@ -138,7 +139,7 @@ void Ripper(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x149);
+            SoundPlayNotAlreadyPlaying(SOUND_RIPPER_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)

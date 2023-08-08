@@ -28,13 +28,14 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
     u32 result;
     u32 bombChainType;
     u32 destroy;
-    u16 behavior;
+    u32 behavior;
+    u16 block;
 
     result = FALSE;
 
-    behavior = BEHAVIOR_TO_BLOCK(pClipBlock->behavior);
+    block = BEHAVIOR_TO_BLOCK(pClipBlock->behavior);
     // Check is block
-    if (behavior <= BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+    if (block <= BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
     {
         // Get block behavior
         pClipBlock->blockBehavior = BEHAVIOR_TO_BLOCK(pClipBlock->behavior);
@@ -149,32 +150,30 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
             break;
 
         case BLOCK_LIFE_TYPE_BOMB_CHAIN:
-            if (BlockCheckRevealOrDestroyBombBlock(pClipBlock))
+            if (!BlockCheckRevealOrDestroyBombBlock(pClipBlock))
+                break;
+
+            // Check type isn't already active
+            if (gActiveBombChainTypes & sBombChainReverseData[bombChainType].typeFlag)
+                break;
+
+            if (BlockStartBombChain(bombChainType, pClipBlock->xPosition, pClipBlock->yPosition))
             {
-                // Check type isn't already active
-                if (!(gActiveBombChainTypes & sBombChainReverseData[bombChainType].typeFlag))
-                {
-                    if (BlockStartBombChain(bombChainType, pClipBlock->xPosition, pClipBlock->yPosition))
-                    {
-                        // Destroy block
-                        if (BlockDestroyNonReformBlock(pClipBlock))
-                            result = TRUE;
-                    }
-                }
+                // Destroy block
+                if (BlockDestroyNonReformBlock(pClipBlock))
+                    result = TRUE;
             }
             break;
 
         case BLOCK_LIFE_TYPE_TANK:
             // Check should reveal
-            if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & 
-                (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE |
-                CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB))
+            if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & TANK_WEAKNESS)
             {
-                destroy = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
-                if (destroy != 0)
+                behavior = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
+                if (behavior != 0)
                 {
-                    BgClipSetBg1BlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
-                    BgClipSetClipdataBlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetBg1BlockValue(behavior, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetClipdataBlockValue(behavior, pClipBlock->yPosition, pClipBlock->xPosition);
                     result = TRUE;
                 }
             }
@@ -229,7 +228,7 @@ u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock)
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
-u8 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
+u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
 {
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, sBlockBehaviors[pClipBlock->blockBehavior].type);
     gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
@@ -242,7 +241,7 @@ u8 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
-u8 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock)
+u32 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock)
 {
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, sBlockBehaviors[pClipBlock->blockBehavior].type);
     gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
@@ -255,7 +254,7 @@ u8 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock)
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u8 TRUE
  */
-u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
+u32 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
 {
     u8 blockType;
 
@@ -528,7 +527,7 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
  */
 u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 {
-    u32 blockType;
+    s32 blockType;
     u16 value;
     u32 reveal;
 
@@ -553,7 +552,7 @@ u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
         if (blockType > BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM)
         {
             // Handle the special case of bomb chain blocks
-            reveal = BLockRevealBombChainBlock(blockType, pClipBlock->xPosition, pClipBlock->yPosition);
+            reveal = BlockCheckRevealBombChainBlock(blockType, pClipBlock->xPosition, pClipBlock->yPosition);
         }
 
         if (!reveal)
@@ -792,7 +791,7 @@ void BlockUpdateBrokenBlocks(void)
 
     pBlock = gBrokenBlocks;
 
-    for (i = MAX_AMOUNT_OF_BROKEN_BLOCKS - 1; i >= 0; i--, pBlock++)
+    for (i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++, pBlock++)
     {
         // Check exists
         if (pBlock->stage == 0)
@@ -926,11 +925,11 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBg1YPosition / BLOCK_SIZE;
-    if (offset - 4 > pBlock->yPosition || pBlock->yPosition > offset + 13)
+    if ((s32)(offset - 4) > pBlock->yPosition || pBlock->yPosition > (s32)(offset + 13))
         return;
 
     offset = gBg1XPosition / BLOCK_SIZE;
-    if (offset - 4 > pBlock->xPosition || pBlock->xPosition > offset + 18)
+    if ((s32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (s32)(offset + 18))
         return;
 
     // Apply to tilemap

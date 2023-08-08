@@ -925,8 +925,8 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
 
         pSprite->properties = SP_NONE;
 
-        pSprite->yPosition = yPosition * BLOCK_SIZE + BLOCK_SIZE;
-        pSprite->xPosition = xPosition * BLOCK_SIZE + HALF_BLOCK_SIZE;
+        pSprite->yPosition = BLOCK_TO_SUB_PIXEL(yPosition) + BLOCK_SIZE;
+        pSprite->xPosition = BLOCK_TO_SUB_PIXEL(xPosition) + HALF_BLOCK_SIZE;
         pSprite->roomSlot = roomSlot;
 
         pSprite->bgPriority = 2;

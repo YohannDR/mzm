@@ -68,11 +68,11 @@ lbl_080053da:
     mov r0, sb
     adds r1, r4, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
     mov r0, r8
     adds r1, r4, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
     mov r0, sl
     adds r0, #0x4e
     ldrb r0, [r0]
@@ -86,12 +86,12 @@ lbl_080053da:
     lsrs r1, r1, #0x10
     mov r0, r8
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
 lbl_0800540c:
     mov r0, r8
     adds r1, r5, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
     b lbl_0800543e
     .align 2, 0
 lbl_08005418: .4byte gEquipment
@@ -105,12 +105,12 @@ lbl_08005420:
     lsrs r1, r1, #0x10
     mov r0, sb
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
 lbl_08005434:
     mov r0, sb
     adds r1, r5, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
 lbl_0800543e:
     mov r0, sl
     adds r0, #0x56
@@ -125,11 +125,11 @@ lbl_08005450:
     mov r0, sb
     adds r1, r5, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
     mov r0, r8
     adds r1, r5, #0
     adds r2, r6, #0
-    bl samus_apply_screw_speedbooster_damage_to_environment
+    bl BlockSamusApplyScrewSpeedboosterDamageToEnvironment
 lbl_08005464:
     pop {r3, r4, r5}
     mov r8, r3

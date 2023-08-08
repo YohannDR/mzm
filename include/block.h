@@ -6,9 +6,9 @@
 
 u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock);
 u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock);
+u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock);
+u32 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock);
+u32 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock);
 u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition);
 void BlockRemoveNeverReformBlocks(void);
 void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition);
@@ -22,7 +22,7 @@ void BlockUpdateBrokenBlocks(void);
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock);
 u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanceStage);
 void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type);
-u32 BLockRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
+u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
 u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition);
 u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition);
 void BlockProcessBombChains(void);

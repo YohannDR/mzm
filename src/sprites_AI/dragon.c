@@ -313,12 +313,12 @@ void DragonFireballMove(void)
     offset = gCurrentSprite.arrayOffset;
 
     yMovement = sDragonFireballYMovement[offset];
-    rotation = sDragonFireballOAMRotation[offset];
+    rotation = sDragonFireballOamRotation[offset];
 
     if (yMovement == SHORT_MAX)
     {
         newVel = sDragonFireballYMovement[offset - 1];
-        rotation = sDragonFireballOAMRotation[offset - 1];
+        rotation = sDragonFireballOamRotation[offset - 1];
         gCurrentSprite.yPosition += newVel;
     }
     else

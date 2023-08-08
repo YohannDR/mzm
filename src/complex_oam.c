@@ -34,13 +34,14 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     unk_0 = sArray_45fd24[shape][size];
     unk_1 = sArray_45fd30[shape][size];
 
-    x = (s16)(gOamData[oamSlot].split.x + xOffset) & 0x1FF;
-    y = (s16)(gOamData[oamSlot].split.y + yOffset) & 0xFF;
+    x = MOD_AND((s16)(gOamData[oamSlot].split.x + xOffset), 512);
+    y = MOD_AND((s16)(gOamData[oamSlot].split.y + yOffset), 256);
 
     tmpX = (s16)(x - xOffset + unk_0);
     tmpY = (s16)(y - yOffset + unk_1);
-    scaledX = (s16)((tmpX * scaling >> 8) - tmpX);
-    scaledY = (s16)((tmpY * scaling >> 8) - tmpY);
+
+    scaledX = (s16)(Q_24_8_TO_INT(tmpX * scaling) - tmpX);
+    scaledY = (s16)(Q_24_8_TO_INT(tmpY * scaling) - tmpY);
 
     x = (s16)(x + scaledX);
     y = (s16)(y + scaledY);
@@ -48,8 +49,8 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     unk_2 = (s16)(x - xOffset + unk_0);
     unk_3 = (s16)(y - yOffset + unk_1);
 
-    x = (s16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
-    y = (s16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
+    x = Q_8_8_TO_SHORT(unk_2 * cos(rotation) - unk_3 * sin(rotation));
+    y = Q_8_8_TO_SHORT(unk_2 * sin(rotation) + unk_3 * cos(rotation));
 
     if (!doubleSize)
     {
@@ -66,8 +67,8 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
         y = (s16)(y - unk_1 * 2);
     }
 
-    gOamData[oamSlot].split.x = (x + xOffset - BLOCK_SIZE) & 0x1FF;
-    gOamData[oamSlot].split.y = (y + yOffset - BLOCK_SIZE) & 0xFF;
+    gOamData[oamSlot].split.x = MOD_AND(x + xOffset - BLOCK_SIZE, 512);
+    gOamData[oamSlot].split.y = MOD_AND(y + yOffset - BLOCK_SIZE, 256);
 
 
     if (gOamData[oamSlot].split.xFlip)

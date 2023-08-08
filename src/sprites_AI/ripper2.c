@@ -4,6 +4,7 @@
 #include "data/sprites/ripper2.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
@@ -26,7 +27,7 @@ void Ripper2Init(void)
     gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.pOam = sRipper2OAM_Moving;
+    gCurrentSprite.pOam = sRipper2Oam_Moving;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
     
@@ -46,7 +47,7 @@ void Ripper2MovingInit(void)
 {
     gCurrentSprite.pose = RIPPER2_POSE_MOVING;
 
-    gCurrentSprite.pOam = sRipper2OAM_Moving;
+    gCurrentSprite.pOam = sRipper2Oam_Moving;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 }
@@ -87,12 +88,12 @@ void Ripper2TurnAroundInit(void)
 {
     gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_FIRST_PART;
 
-    gCurrentSprite.pOam = sRipper2OAM_TurningAround;
+    gCurrentSprite.pOam = sRipper2Oam_TurningAround;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x267);
+        SoundPlayNotAlreadyPlaying(SOUND_RIPPER2_TURNING_AROUND);
 }
 
 /**
@@ -106,7 +107,7 @@ void Ripper2TurnAroundPart1(void)
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_SECOND_PART;
 
-        gCurrentSprite.pOam = sRipper2OAM_TurningAroundPart2;
+        gCurrentSprite.pOam = sRipper2Oam_TurningAroundPart2;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
@@ -132,7 +133,7 @@ void Ripper2(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x268);
+            SoundPlayNotAlreadyPlaying(SOUND_RIPPER2_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)
