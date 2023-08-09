@@ -618,13 +618,20 @@ void unk_2e6c(struct TrackData* pTrack)
     }
 }
 
+/**
+ * @brief 2f00 | 128 | To document
+ * 
+ * @param musicTrack1 First music track
+ * @param musicTrack2 Second music track
+ * @param timer Timer
+ */
 void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
 {
-    // https://decomp.me/scratch/cXPYE
-
     struct TrackData* pTrack1;
     struct TrackData* pTrack2;
     const u8* pHeader;
+    s32 var_0;
+    u32 var_1;
 
     if (gMusicInfo.occupied)
         return;
@@ -658,26 +665,35 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
                             //pTrack1->occupied = FALSE;
                             //pTrack2->occupied = FALSE;
                             //gMusicInfo.occupied = FALSE;
-                            return;
+                            var_0 = FALSE;
                         }
                         else
+                        {
                             reset_track(pTrack1);
+                            var_0 = TRUE;
+                        }
                     }
-        
-                    pTrack2->flags |= 0x80;
-                    pTrack2->maybe_volume = USHORT_MAX;
-                    pTrack2->fadingTimer = USHORT_MAX / timer;
-                    pTrack2->unk_26 = (gMusicInfo.maxSoundChannels * 4096) / timer;
-                    pTrack2->unk_24 = 0;
-                    pTrack2->maxSoundChannels = gMusicInfo.maxSoundChannels;
-        
-                    init_track(pTrack1, pHeader);
-                    pTrack1->flags = 0x40 | 0x2;
-                    pTrack1->maybe_volume = 0;
-                    pTrack1->fadingTimer = pTrack2->fadingTimer;
-                    pTrack1->unk_26 = pTrack2->unk_26;
-                    pTrack1->unk_24 = 0;
-                    pTrack1->maxSoundChannels = 0;
+                    else
+                        var_0 = TRUE;
+
+                    if (var_0)
+                    {
+                        var_1 = pTrack2->flags;
+                        pTrack2->flags = var_1 | 0x80;
+                        pTrack2->maybe_volume = USHORT_MAX;
+                        pTrack2->fadingTimer = USHORT_MAX / timer;
+                        pTrack2->unk_26 = (gMusicInfo.maxSoundChannels * 4096) / timer;
+                        pTrack2->unk_24 = 0;
+                        pTrack2->maxSoundChannels = gMusicInfo.maxSoundChannels;
+            
+                        init_track(pTrack1, pHeader);
+                        pTrack1->flags = 0x40 | 0x2;
+                        pTrack1->maybe_volume = 0;
+                        pTrack1->fadingTimer = pTrack2->fadingTimer;
+                        pTrack1->unk_26 = pTrack2->unk_26;
+                        pTrack1->unk_24 = 0;
+                        pTrack1->maxSoundChannels = 0;
+                    }
                 }
             }
         }
