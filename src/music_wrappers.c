@@ -114,7 +114,7 @@ void unk_34ac(u8 param_1)
     {
         if ((i == 2 && param_1 == FALSE) || (0x14A >> i) & 1)
         {
-            pTrack = sMusicTrackDataROM[i].pTrack;
+            pTrack = sMusicTrackDataRom[i].pTrack;
             if (pTrack->occupied)
                 continue;
 
@@ -182,7 +182,7 @@ void unk_35d0(u8 param_1)
     {
         if ((i == 2 && param_1 == FALSE) || (0x14A >> i) & 1)
         {
-            pTrack = sMusicTrackDataROM[i].pTrack;
+            pTrack = sMusicTrackDataRom[i].pTrack;
             if (pTrack->occupied)
                 continue;
 
@@ -216,7 +216,7 @@ void unk_35d0(u8 param_1)
 
 void CheckSetNewMusicTrack(u16 musicTrack)
 {
-    // https://decomp.me/scratch/LDIqE
+    // https://decomp.me/scratch/HGig0
 
     struct TrackData* pTrack;
     u32 newTrack;
@@ -238,8 +238,8 @@ void CheckSetNewMusicTrack(u16 musicTrack)
 
     gMusicInfo.occupied = TRUE;
 
-    ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, 10);
-    ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, 10);
+    ApplyMusicSoundFading(sMusicTrackDataRom[6].pTrack, 10);
+    ApplyMusicSoundFading(sMusicTrackDataRom[8].pTrack, 10);
 
     if (gSoundQueue[6].exists & 3)
         gSoundQueue[6].exists = 0;
@@ -247,7 +247,7 @@ void CheckSetNewMusicTrack(u16 musicTrack)
     if (gSoundQueue[8].exists & 3)
         gSoundQueue[8].exists = 0;
 
-    pTrack = sMusicTrackDataROM[0].pTrack;
+    pTrack = sMusicTrackDataRom[0].pTrack;
 
     if (musicTrack == 0)
         musicTrack = 0xA9;
@@ -276,8 +276,8 @@ void unk_378c(u16 musicTrack)
 
     gMusicInfo.occupied = TRUE;
 
-    ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, 10);
-    ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, 10);
+    ApplyMusicSoundFading(sMusicTrackDataRom[6].pTrack, 10);
+    ApplyMusicSoundFading(sMusicTrackDataRom[8].pTrack, 10);
 
     if (gSoundQueue[6].exists & 3)
         gSoundQueue[6].exists = 0;
@@ -323,7 +323,7 @@ void unk_378c(u16 musicTrack)
 
     if (var_0)
     {
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
         if (sSoundDataEntries[DetermineNewMusicTrack(musicTrack)].pHeader != pTrack->pHeader)
         {
             ApplyMusicSoundFading(pTrack, 30);
@@ -350,7 +350,7 @@ void CheckPlayTransitionMusicTrack(void)
         
         if (gMusicInfo.priority == 0 && gMusicInfo.musicTrackOnTransition != MUSIC_NONE)
         {
-            init_track(sMusicTrackDataROM[0].pTrack, sSoundDataEntries[gMusicInfo.musicTrackOnTransition].pHeader);
+            init_track(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[gMusicInfo.musicTrackOnTransition].pHeader);
 
             gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
@@ -367,7 +367,7 @@ void unk_38d8(void)
 {
     if (!(gMusicInfo.priority & 0x40) && gMusicInfo.musicTrackOnTransition != MUSIC_NONE)
     {
-        init_track(sMusicTrackDataROM[0].pTrack,
+        init_track(sMusicTrackDataRom[0].pTrack,
             sSoundDataEntries[DetermineNewMusicTrack(gMusicInfo.musicTrackOnTransition)].pHeader);
         gMusicInfo.unk_20 = 0;
         gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
@@ -394,7 +394,7 @@ void UpdateMusicAfterAlarmDisable(void)
 
     musicTrack = gMusicInfo.musicTrackOnTransition - 0x5A;
     if (musicTrack < 10)
-        ApplyMusicSoundFading(sMusicTrackDataROM[0].pTrack, 5);
+        ApplyMusicSoundFading(sMusicTrackDataRom[0].pTrack, 5);
     else
         FadeCurrentMusicAndQueueNextMusic(5, MUSIC_CHOZODIA_DETECTED, 0x20);
 }
@@ -441,8 +441,8 @@ void unk_39c8(void)
 {
     if (gMusicInfo.priority == 0)
     {
-        ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, 10);
-        ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, 10);
+        ApplyMusicSoundFading(sMusicTrackDataRom[6].pTrack, 10);
+        ApplyMusicSoundFading(sMusicTrackDataRom[8].pTrack, 10);
     }
 }
 
@@ -467,7 +467,7 @@ void PlayMusic(u16 musicTrack, u8 priority)
         gMusicInfo.priority = (gMusicInfo.priority & 0x80) | priority;
 
         pHeader = sSoundDataEntries[musicTrack].pHeader;
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
 
         if (pHeader != pTrack->pHeader || !(pTrack->flags & 2))
         {
@@ -490,9 +490,9 @@ void unk_3a6c(void)
     struct TrackData* pTrack;
 
     if (gMusicInfo.unk_20 == 0)
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
     else
-        pTrack = sMusicTrackDataROM[1].pTrack;
+        pTrack = sMusicTrackDataRom[1].pTrack;
 
     stop_music_or_sound(pTrack);
 }
@@ -513,7 +513,7 @@ void FadeMusic(u16 timer)
 
     if (!(gMusicInfo.priority & 0x84))
     {
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
         if (timer != 0)
             ApplyMusicSoundFading(pTrack, timer);
         else
@@ -539,7 +539,7 @@ void FadeMusicForDemo(u16 timer)
 
     if (!(gMusicInfo.priority & 0x80))
     {
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
         if (timer != 0)
             ApplyMusicSoundFading(pTrack, timer);
         else
@@ -566,7 +566,7 @@ void FadeCurrentMusicAndQueueNextMusic(u16 timer, u16 musicTrack, u8 priority)
             PlayMusic(musicTrack, priority);
         else
         {
-            pTrack = sMusicTrackDataROM[0].pTrack;
+            pTrack = sMusicTrackDataRom[0].pTrack;
 
             pTrack->musicTrack = musicTrack;
             pTrack->priority = priority;
@@ -592,7 +592,7 @@ void FadeCurrentInsertMusicQueueCurrent(u16 timer, u16 musicTrack, u8 priority)
             PlayMusic(musicTrack, priority);
         else
         {
-            pTrack = sMusicTrackDataROM[0].pTrack;
+            pTrack = sMusicTrackDataRom[0].pTrack;
 
             pTrack->musicTrack = musicTrack | 0x8000;
             pTrack->priority = priority;
@@ -613,7 +613,7 @@ void unk_3bd0(u16 musicTrack, u16 timer)
 
     if (!(gMusicInfo.priority & 0x84))
     {
-        pTrack = sMusicTrackDataROM[sSoundDataEntries[musicTrack].trackGroundNumber].pTrack;
+        pTrack = sMusicTrackDataRom[sSoundDataEntries[musicTrack].trackGroundNumber].pTrack;
 
         if (sSoundDataEntries[musicTrack].pHeader == pTrack->pHeader)
             unk_2e34(pTrack, timer);
@@ -642,7 +642,7 @@ void CheckPlayFadingMusic(u16 musicTrack, u16 timer, u8 priority)
         gMusicInfo.priority = (gMusicInfo.priority & 0x80) | priority;
 
         pHeader = sSoundDataEntries[musicTrack].pHeader;
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
 
         if ((pTrack->flags & (0x2 | 0x8 | 0x10)) != 0x2 || pHeader != pTrack->pHeader)
         {
@@ -675,13 +675,13 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
     if (!(gMusicInfo.priority & 0x84))
     {
         pHeader = sSoundDataEntries[musicTrack].pHeader;
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
 
         if ((pTrack->flags & (0x2 | 0x8 | 0x10)) != 0x2 || pHeader != pTrack->pHeader)
         {
             if (param_2 == 0)
             {
-                stop_music_or_sound(sMusicTrackDataROM[3].pTrack);
+                stop_music_or_sound(sMusicTrackDataRom[3].pTrack);
                 unk_34ac(TRUE);
                 unk_2a8c();
                 pTrack->queueFlags |= 0x80;
@@ -721,7 +721,7 @@ void ReplayQueuedMusic(u8 queueFlags)
     if (!(queueFlags & 0x40))
         unk_35d0(TRUE);
 
-    pTrack = sMusicTrackDataROM[0].pTrack;
+    pTrack = sMusicTrackDataRom[0].pTrack;
 
     gMusicInfo.unk_20 = 0;
     if ((u16)(gMusicInfo.musicTrack - 0x5A) < 0xA)
@@ -738,9 +738,9 @@ void ReplayQueuedMusic(u8 queueFlags)
 
     if (gMusicInfo.volumeDownFlag & (1 << 7))
     {
-        unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
-        unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
-        unk_3058(sMusicTrackDataROM[7].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+        unk_3058(sMusicTrackDataRom[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+        unk_3058(sMusicTrackDataRom[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+        unk_3058(sMusicTrackDataRom[7].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
     }
 
     gMusicInfo.occupied = FALSE;
@@ -756,9 +756,9 @@ void unk_3e24(u16 timer)
     struct TrackData* pTrack;
 
     if (gMusicInfo.unk_20 == 0)
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
     else
-        pTrack = sMusicTrackDataROM[1].pTrack;
+        pTrack = sMusicTrackDataRom[1].pTrack;
 
     if (timer != 0)
         ApplyMusicSoundFading(pTrack, timer);
@@ -804,7 +804,7 @@ void PlayCurrentMusicTrack(void)
 
     gMusicInfo.occupied = TRUE;
 
-    pTrack = sMusicTrackDataROM[0].pTrack;
+    pTrack = sMusicTrackDataRom[0].pTrack;
     gMusicInfo.unk_20 = 0;
 
     currTrack = gMusicInfo.musicTrack;
@@ -830,8 +830,8 @@ void DecreaseMusicVolume(void)
 
     gMusicInfo.volumeDownFlag |= (1 << 7);
     
-    unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
-    unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+    unk_3058(sMusicTrackDataRom[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+    unk_3058(sMusicTrackDataRom[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
 }
 
 /**
@@ -840,8 +840,8 @@ void DecreaseMusicVolume(void)
  */
 void ResetMusicVolume(void)
 {
-    unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, 0x100);
-    unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, 0x100);
+    unk_3058(sMusicTrackDataRom[0].pTrack, USHORT_MAX, 0x100);
+    unk_3058(sMusicTrackDataRom[1].pTrack, USHORT_MAX, 0x100);
 
     gMusicInfo.volumeDownFlag &= ~(1 << 7);
     unk_35d0(FALSE);
@@ -898,7 +898,7 @@ void StopOrFadeSound(u16 sound, u16 timer)
         gSoundQueue[trackGroup].exists = 0;
     else
     {
-        pTrack = sMusicTrackDataROM[trackGroup].pTrack;
+        pTrack = sMusicTrackDataRom[trackGroup].pTrack;
         if (pHeader == pTrack->pHeader)
         {
             if (timer == 0)
@@ -941,7 +941,7 @@ void BackupTrackData2SoundChannels(void)
     struct SoundChannel* pChannel2;
 
     i = 0;
-    pTrack = sMusicTrackDataROM[2].pTrack;
+    pTrack = sMusicTrackDataRom[2].pTrack;
 
     if (!pTrack->occupied)
     {
@@ -1002,7 +1002,7 @@ void RetrieveTrackData2SoundChannels(void)
     struct SoundChannel* pChannel;
 
     i = 0;
-    pTrack = sMusicTrackDataROM[2].pTrack;
+    pTrack = sMusicTrackDataRom[2].pTrack;
 
     if (!pTrack->occupied)
     {
@@ -1083,7 +1083,7 @@ void PlaySoundTest(u16 musicTrack)
 
     if (musicTrack != gMusicInfo.musicTrack)
     {
-        pTrack = sMusicTrackDataROM[0].pTrack;
+        pTrack = sMusicTrackDataRom[0].pTrack;
         stop_music_or_sound(pTrack);
         PlayMusic(musicTrack, 0x8);
         DelayMusicStart(pTrack, 30);
@@ -1098,7 +1098,7 @@ void PlaySoundTest(u16 musicTrack)
 void ReplaySoundTest(u16 musicTrack)
 {
     SoundPlay(musicTrack);
-    DelayMusicStart(sMusicTrackDataROM[0].pTrack, 30);
+    DelayMusicStart(sMusicTrackDataRom[0].pTrack, 30);
 }
 
 /**
@@ -1111,7 +1111,7 @@ void CheckReplayFileSelectMusic(u16 timer)
     struct TrackData* pTrack;
     const u8* pHeader;
 
-    pTrack = sMusicTrackDataROM[0].pTrack;
+    pTrack = sMusicTrackDataRom[0].pTrack;
     pHeader = sSoundDataEntries[MUSIC_FILE_SELECT].pHeader;
 
     if (pTrack->flags & 2 && pHeader == pTrack->pHeader)
@@ -1136,7 +1136,7 @@ void unk_42bc(u16 musicTrack)
     if (musicTrack == MUSIC_NONE)
         musicTrack = 0x12B;
 
-    init_track(sMusicTrackDataROM[0].pTrack, sSoundDataEntries[musicTrack].pHeader);
+    init_track(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[musicTrack].pHeader);
     
     gMusicInfo.unk_20 = 0;
     gMusicInfo.musicTrack = musicTrack;

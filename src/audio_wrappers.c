@@ -61,14 +61,14 @@ void InitializeAudio(void)
     for (i = 0; i < (u16)gNumMusicPlayers; i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, sMusicTrackDataROM[i].pTrack, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x16);
+        DMA_SET(3, &zero, sMusicTrackDataRom[i].pTrack, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x16);
     }
 
     for (i = 0; i < (u16)gNumMusicPlayers; i++)
     {
-        sMusicTrackDataROM[i].pTrack->pVariables = sMusicTrackDataROM[i].pVariables;
-        sMusicTrackDataROM[i].pTrack->maxAmountOfTracks = sMusicTrackDataROM[i].maxAmountOfTracks;
-        sMusicTrackDataROM[i].pTrack->unk_1D = sMusicTrackDataROM[i].unknonw_A;
+        sMusicTrackDataRom[i].pTrack->pVariables = sMusicTrackDataRom[i].pVariables;
+        sMusicTrackDataRom[i].pTrack->maxAmountOfTracks = sMusicTrackDataRom[i].maxAmountOfTracks;
+        sMusicTrackDataRom[i].pTrack->unk_1D = sMusicTrackDataRom[i].unknonw_A;
     }
 
     DoSoundAction((u32)gUnk_Audio0x194F700);
@@ -246,7 +246,7 @@ void StopAllMusicsAndSounds(void)
     s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
-        stop_music_or_sound(sMusicTrackDataROM[i].pTrack);
+        stop_music_or_sound(sMusicTrackDataRom[i].pTrack);
 }
 
 /**
@@ -259,8 +259,8 @@ void unk_2a8c(void)
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
     {
-        if (!(sMusicTrackDataROM[i].pTrack->unk_1E & 1))
-            stop_music_or_sound(sMusicTrackDataROM[i].pTrack);
+        if (!(sMusicTrackDataRom[i].pTrack->unk_1E & 1))
+            stop_music_or_sound(sMusicTrackDataRom[i].pTrack);
     }
 }
 
@@ -271,14 +271,14 @@ void unk_2a8c(void)
  */
 void FadeAllSounds(u16 timer)
 {
-    ApplyMusicSoundFading(sMusicTrackDataROM[1].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[2].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[3].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[4].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[5].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[7].pTrack, timer);
-    ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[1].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[2].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[3].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[4].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[5].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[6].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[7].pTrack, timer);
+    ApplyMusicSoundFading(sMusicTrackDataRom[8].pTrack, timer);
 }
 
 /**
@@ -291,7 +291,7 @@ void SoundPlayNotAlreadyPlaying(u16 sound)
     struct TrackData* pTrack;
     const u8* pHeader;
 
-    pTrack = sMusicTrackDataROM[sSoundDataEntries[sound].trackGroundNumber].pTrack;
+    pTrack = sMusicTrackDataRom[sSoundDataEntries[sound].trackGroundNumber].pTrack;
     pHeader = sSoundDataEntries[sound].pHeader;
 
     if (!(pTrack->flags & 2) || pHeader != pTrack->pHeader)
@@ -307,7 +307,7 @@ void unk_2b64(u16 sound)
 {
     struct TrackData* pTrack;
 
-    pTrack = sMusicTrackDataROM[sSoundDataEntries[sound].trackGroundNumber].pTrack;
+    pTrack = sMusicTrackDataRom[sSoundDataEntries[sound].trackGroundNumber].pTrack;
 
     if (pTrack->flags & 2)
     {
@@ -337,7 +337,7 @@ void unk_2bd4(u16 sound)
 {
     struct TrackData* pTrack;
 
-    pTrack = sMusicTrackDataROM[sSoundDataEntries[sound].trackGroundNumber].pTrack;
+    pTrack = sMusicTrackDataRom[sSoundDataEntries[sound].trackGroundNumber].pTrack;
 
     if (pTrack->flags & 1 && sSoundDataEntries[sound].pHeader == pTrack->pHeader)
         unk_2c10(pTrack);
@@ -385,7 +385,7 @@ void unk_2c4c(void)
     s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
-        unk_2c10(sMusicTrackDataROM[i].pTrack);
+        unk_2c10(sMusicTrackDataRom[i].pTrack);
 }
 
 /**
@@ -638,8 +638,8 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
 
     gMusicInfo.occupied = TRUE;
 
-    pTrack1 = sMusicTrackDataROM[sSoundDataEntries[musicTrack1].trackGroundNumber].pTrack;
-    pTrack2 = sMusicTrackDataROM[sSoundDataEntries[musicTrack2].trackGroundNumber].pTrack;
+    pTrack1 = sMusicTrackDataRom[sSoundDataEntries[musicTrack1].trackGroundNumber].pTrack;
+    pTrack2 = sMusicTrackDataRom[sSoundDataEntries[musicTrack2].trackGroundNumber].pTrack;
 
     if (!pTrack1->occupied && !pTrack2->occupied)
     {

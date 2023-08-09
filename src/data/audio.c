@@ -64,7 +64,7 @@ const u8 sArray_808cee2[10] = {
 
 const u8 sTempArray_8ceec[0x2368] = INCBIN_U8("data/Blob_8ceec_8f253.bin");
 
-const struct TrackGroupROMData sMusicTrackDataROM[9] = {
+const struct TrackGroupROMData sMusicTrackDataRom[9] = {
     [0] = {
         .pTrack = &gTrackData0,
         .pVariables = gTrack0Variables,

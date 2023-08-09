@@ -898,7 +898,7 @@ lbl_08004d40:
     thumb_func_start UpdateAudio
 UpdateAudio: @ 0x08004d48
     push {r4, r5, r6, lr}
-    ldr r4, lbl_08004df4 @ =sMusicTrackDataROM
+    ldr r4, lbl_08004df4 @ =sMusicTrackDataRom
     ldr r5, lbl_08004df8 @ =gNumMusicPlayers
     ldr r6, lbl_08004dfc @ =gSoundQueue
     b lbl_08004d5c
@@ -920,7 +920,7 @@ lbl_08004d5c:
     str r0, [r6, #4]
     b lbl_08004d52
 lbl_08004d72:
-    ldr r4, lbl_08004e00 @ =sMusicTrackDataROM
+    ldr r4, lbl_08004e00 @ =sMusicTrackDataRom
     ldr r6, lbl_08004e04 @ =gMusicInfo
     movs r0, #0x21
     ldrb r0, [r6, r0]
@@ -989,10 +989,10 @@ lbl_08004dea:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08004df4: .4byte sMusicTrackDataROM
+lbl_08004df4: .4byte sMusicTrackDataRom
 lbl_08004df8: .4byte gNumMusicPlayers
 lbl_08004dfc: .4byte gSoundQueue
-lbl_08004e00: .4byte sMusicTrackDataROM
+lbl_08004e00: .4byte sMusicTrackDataRom
 lbl_08004e04: .4byte gMusicInfo
 lbl_08004e08: .4byte gNumMusicPlayers
 lbl_08004e0c: .4byte gNumMusicPlayers

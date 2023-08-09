@@ -247,7 +247,7 @@ void UpdatePsgSounds(void)
 {
     // https://decomp.me/scratch/1qI1m
 
-    u32 var_0;
+    s16 var_0;
     u8 control;
     u8 i;
     u8* ptr;
