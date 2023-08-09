@@ -1063,14 +1063,19 @@ void unk_1de8(struct TrackVariables* pVariables)
     pVariables->pSoundPSG->unk_F |= 0x4;
 }
 
+/**
+ * @brief 1e2c | 110 | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
-    // https://decomp.me/scratch/gWp3a
-
     u8 var_0;
     u8 var_1;
     u32 var_2;
     s32 var_3;
+    s32 var_4;
     u8 i;
     struct SoundChannel* pChannel;
     struct TrackVariables* pVariables2;
@@ -1094,32 +1099,44 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
             //unk_4f8c(pChannel, pVariables, var_0);
             //return;
         }
-
+        
         if (gMusicInfo.soundChannels[i].unk_0 == 5 || gMusicInfo.soundChannels[i].unk_0 == 6 || gMusicInfo.soundChannels[i].unk_0 == 8)
         {
-            if (var_1)
+            if (!var_1)
             {
-                var_3 = TRUE;
                 var_1 = TRUE;
+                var_4 = FALSE;
+                var_3 = TRUE;
             }
             else
-                var_1 = FALSE;
-        }
-
-        if (!var_1)
-        {
-            if (gMusicInfo.soundChannels[i].unk_2 >= var_2 &&
-                (gMusicInfo.soundChannels[i].unk_2 > var_2 ||
-                (gMusicInfo.soundChannels[i].pVariables <= pVariables2 &&
-                gMusicInfo.soundChannels[i].pVariables < pVariables2)))
             {
-                continue;
+                var_4 = TRUE;
+                var_3 = FALSE;
             }
-            var_3 = TRUE;
         }
         else
         {
+            var_4 = FALSE;
             var_3 = FALSE;
+        }
+
+        if (!var_3)
+        {
+            if (var_4 || !var_1)
+            {
+                if (gMusicInfo.soundChannels[i].unk_2 >= var_2 &&
+                    (gMusicInfo.soundChannels[i].unk_2 > var_2 ||
+                    (gMusicInfo.soundChannels[i].pVariables <= pVariables2 &&
+                    gMusicInfo.soundChannels[i].pVariables < pVariables2)))
+                {
+                    continue;
+                }
+                var_3 = TRUE;
+            }
+            else
+            {
+                var_3 = FALSE;
+            }
         }
 
         if (var_3)
