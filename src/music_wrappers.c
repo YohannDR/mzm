@@ -269,6 +269,7 @@ void unk_378c(u16 musicTrack)
 
     u16 newTrack;
     struct TrackData* pTrack;
+    s32 var_0;
 
     if (gMusicInfo.occupied)
         return;
@@ -297,14 +298,15 @@ void unk_378c(u16 musicTrack)
                 else
                     musicTrack = MUSIC_CHOZODIA_DETECTED;
             }
+            var_0 = TRUE;
         }
         else
         {
             newTrack = musicTrack - 0x5A;
-            if (newTrack < 10)
-            {
-                return;
-            }
+            if (newTrack >= 10)
+                var_0 = FALSE;
+            else
+                var_0 = TRUE;
         }
     }
     else if (gMusicInfo.priority & 0x40)
@@ -314,14 +316,19 @@ void unk_378c(u16 musicTrack)
         {
             gMusicInfo.musicTrackOnTransition = musicTrack;
         }
-        return;
+        var_0 = FALSE;
     }
+    else
+        var_0 = TRUE;
 
-    pTrack = sMusicTrackDataROM[0].pTrack;
-    if (sSoundDataEntries[DetermineNewMusicTrack(musicTrack)].pHeader != pTrack->pHeader)
+    if (var_0)
     {
-        ApplyMusicSoundFading(pTrack, 30);
-        gMusicInfo.musicTrackOnTransition = musicTrack;
+        pTrack = sMusicTrackDataROM[0].pTrack;
+        if (sSoundDataEntries[DetermineNewMusicTrack(musicTrack)].pHeader != pTrack->pHeader)
+        {
+            ApplyMusicSoundFading(pTrack, 30);
+            gMusicInfo.musicTrackOnTransition = musicTrack;
+        }
     }
 
     gMusicInfo.occupied = FALSE;
