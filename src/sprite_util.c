@@ -197,8 +197,6 @@ u32 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 o1Ri
  */
 void SpriteUtilSamusAndSpriteCollision(void)
 {
-    // https://decomp.me/scratch/Bu0kh
-    
     struct SamusData* pData;
     struct SpriteData* pSprite;
     struct SamusPhysics* pPhysics;
@@ -219,6 +217,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
     u16 spriteLeft;
     u16 spriteRight;
     u16 status;
+    u16 statusCheckFlags;
 
     u16 verticalCollisionOffset;
     u16 horizontalCollisionOffset;
@@ -268,10 +267,11 @@ void SpriteUtilSamusAndSpriteCollision(void)
         }
     }
 
+    statusCheckFlags = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         status = pSprite->status;
-        if ((status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN)) != (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN))
+        if ((status & statusCheckFlags) != statusCheckFlags)
             continue;
 
         if (pSprite->ignoreSamusCollisionTimer != 0)
