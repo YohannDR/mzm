@@ -41,6 +41,7 @@ PREPROC = tools/preproc/preproc
 ASFLAGS = -mcpu=arm7tdmi
 CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm -f2003-patch
 CPPFLAGS = -nostdinc -Iinclude/
+PREPROCFLAGS = charmap.txt
 
 # Objects
 CSRC = $(wildcard src/**.c) $(wildcard src/**/**.c) $(wildcard src/**/**/**.c)
@@ -123,7 +124,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.s: %.c
 	$(MSG) CC $@
-	$Q$(PREPROC) $< | $(CPP) $(CPPFLAGS) | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+	$Q$(PREPROC) $< $(PREPROCFLAGS) | $(CPP) $(CPPFLAGS) | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c

@@ -196,10 +196,13 @@ void CFile::TryConvertString()
     long oldLineNum = m_lineNum;
     bool noTerminator = false;
 
-    if (m_buffer[m_pos] != '_' || (m_pos > 0 && IsIdentifierChar(m_buffer[m_pos - 1])))
+    // printf("%c", m_buffer[m_pos]);
+    std::string identifier("INCTEXT");
+
+    if (!CheckIdentifier(identifier) || (m_pos > 0 && IsIdentifierChar(m_buffer[m_pos - 1])))
         return;
 
-    m_pos++;
+    m_pos += identifier.size();
 
     if (m_buffer[m_pos] == '_')
     {
@@ -228,7 +231,7 @@ void CFile::TryConvertString()
 
         if (m_buffer[m_pos] == '"')
         {
-            unsigned char s[kMaxStringLength];
+            unsigned short s[kMaxStringLength];
             int length;
             StringParser stringParser(m_buffer, m_size);
 
@@ -241,8 +244,9 @@ void CFile::TryConvertString()
                 RaiseError(e.what());
             }
 
+            // printf("\n\n%d ; %s\n\n", length, s);
             for (int i = 0; i < length; i++)
-                printf("0x%02X, ", s[i]);
+                printf("0x%04X, ", s[i]);
         }
         else if (m_buffer[m_pos] == ')')
         {
@@ -263,7 +267,7 @@ void CFile::TryConvertString()
     if (noTerminator)
         std::printf(" }");
     else
-        std::printf("0xFF }");
+        std::printf("CHAR_TERMINATOR }");
 }
 
 bool CFile::CheckIdentifier(const std::string& ident)

@@ -694,6 +694,7 @@ SECTIONS {
         src/data/menus/pause_screen_map_data.o(.rodata);
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
+        src/data/text_data.o(.rodata);
         /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);
         src/data/menus/game_over_data.o(.rodata);

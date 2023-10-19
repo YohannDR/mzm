@@ -113,12 +113,29 @@ std::string StringParser::ReadBracketedConstants()
             while (IsIdentifierChar(m_buffer[m_pos]))
                 m_pos++;
 
-            std::string sequence = g_charmap->Constant(std::string(&m_buffer[startPos], m_pos - startPos));
+            std::string txt = std::string(&m_buffer[startPos], m_pos - startPos);
+            std::string sequence = g_charmap->Constant(txt);
 
             if (sequence.length() == 0)
             {
                 m_buffer[m_pos] = 0;
                 RaiseError("unknown constant '%s'", &m_buffer[startPos]);
+            }
+
+            if (m_buffer[m_pos] == '(')
+            {
+                m_pos++; // (
+
+                Integer integer = ReadInteger();
+
+                unsigned short mask = sequence[0] << 8 | (sequence[1] & 0xFF);
+
+                mask |= integer.value;
+
+                sequence[0] = mask >> 8;
+                sequence[1] = mask;
+
+                m_pos++; // )
             }
 
             totalSequence += sequence;
@@ -166,7 +183,7 @@ std::string StringParser::ReadBracketedConstants()
 }
 
 // Reads a charmap string.
-int StringParser::ParseString(long srcPos, unsigned char* dest, int& destLength)
+int StringParser::ParseString(long srcPos, unsigned short* dest, int& destLength)
 {
     m_pos = srcPos;
 
@@ -183,10 +200,16 @@ int StringParser::ParseString(long srcPos, unsigned char* dest, int& destLength)
     {
         std::string sequence = (m_buffer[m_pos] == '{') ? ReadBracketedConstants() : ReadCharOrEscape();
 
-        for (const char& c : sequence)
+        for (size_t i = 0; i < sequence.size(); i += 2)
         {
             if (destLength == kMaxStringLength)
                 RaiseError("mapped string longer than %d bytes", kMaxStringLength);
+
+            unsigned int c;
+            if (sequence[i] == 0)
+                c = sequence[i + 1] & 0xFF;
+            else
+                c = sequence[i] << 8 | (sequence[i + 1] & 0xFF);
 
             dest[destLength++] = c;
         }
@@ -336,7 +359,10 @@ StringParser::Integer StringParser::ReadHex()
 StringParser::Integer StringParser::ReadInteger()
 {
     if (!IsAsciiDigit(m_buffer[m_pos]))
+    {
+        // printf("\n\n\nXXXXXX\n%s\n\n\n", &m_buffer[m_pos]);
         RaiseError("expected integer");
+    }
 
     if (m_buffer[m_pos] == '0' && m_buffer[m_pos + 1] == 'x')
     {

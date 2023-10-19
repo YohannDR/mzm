@@ -1122,6 +1122,10 @@ menus/EraseSram/QuestionEnglish.gfx.lz;1006;0x413c64;4
 menus/EraseSram/Box.tt;137;0x414c1c;4
 menus/EraseSram/Background.tt;368;0x414e40;4
 
+# Text
+
+characters_graphics.gfx;180224;0x415460;1
+
 # Pause screen
 
 menus/PauseScreen/40dd10.pal;96;0x40dd10;2
@@ -2697,7 +2701,7 @@ Blob_2320ec_2376a8.bin;21948;0x2320ec;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
-Blob_415460_446d68.bin;203016;0x415460;1
+Blob_442560_446d68.bin;18440;0x442560;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_60c630_74f8b4.bin;1323652;0x60c630;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1

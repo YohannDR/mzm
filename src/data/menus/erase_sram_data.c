@@ -381,5 +381,3 @@ const struct OamArray sEraseSramMenuOam[7] = {
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
 };
-
-static const u8 sTempArray_415460[0x31908] = INCBIN_U8("data/Blob_415460_446d68.bin");

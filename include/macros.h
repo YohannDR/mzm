@@ -176,6 +176,7 @@
 #define PEN_GET_ENERGY(pen) (LOW_BYTE((pen) >> 24))
 
 
+#define INCTEXT(x)  {0}
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN
