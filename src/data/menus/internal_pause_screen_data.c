@@ -16,7 +16,7 @@ const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty = {
     .unk_A = 0
 };
 
-const u32* const sMapScreenAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sMapScreenAreaNamesGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sMapScreenAreaNamesEnglishGfx,
     [LANGUAGE_HIRAGANA] = sMapScreenAreaNamesHiraganaGfx,
     [LANGUAGE_ENGLISH] = sMapScreenAreaNamesEnglishGfx,
@@ -26,7 +26,7 @@ const u32* const sMapScreenAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
     [LANGUAGE_SPANISH] = sMapScreenAreaNamesEnglishGfx
 };
 
-const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sMapScreenChozoStatueAreaNamesEnglishGfx,
     [LANGUAGE_HIRAGANA] = sMapScreenChozoStatueAreaNamesHiraganaGfx,
     [LANGUAGE_ENGLISH] = sMapScreenChozoStatueAreaNamesEnglishGfx,
@@ -36,7 +36,7 @@ const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAG
     [LANGUAGE_SPANISH] = sMapScreenChozoStatueAreaNamesEnglishGfx
 };
 
-const u32* const sMapScreenUnknownItemsNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sMapScreenUnknownItemsNamesGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sMapScreenUnknownItemsNamesJapaneseGfx,
     [LANGUAGE_HIRAGANA] = sMapScreenUnknownItemsNamesHiraganaGfx,
     [LANGUAGE_ENGLISH] = sMapScreenUnknownItemsNamesEnglishGfx,
@@ -46,7 +46,7 @@ const u32* const sMapScreenUnknownItemsNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES]
     [LANGUAGE_SPANISH] = sMapScreenUnknownItemsNamesEnglishGfx
 };
 
-const u32* const sMapScreenEquipmentNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sMapScreenEquipmentNamesGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sEquipmentNamesJapaneseGfx,
     [LANGUAGE_HIRAGANA] = sEquipmentNamesHiraganaGfx,
     [LANGUAGE_ENGLISH] = sEquipmentNamesEnglishGfx,
@@ -56,7 +56,7 @@ const u32* const sMapScreenEquipmentNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = 
     [LANGUAGE_SPANISH] = sEquipmentNamesEnglishGfx
 };
 
-const u32* const sMapScreenMenuNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sMapScreenMenuNamesGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sMenuNamesJapaneseGfx,
     [LANGUAGE_HIRAGANA] = sMenuNamesHiraganaGfx,
     [LANGUAGE_ENGLISH] = sMenuNamesEnglishGfx,

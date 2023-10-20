@@ -15,7 +15,7 @@ extern const u32 sGameOverTextTileTable[116];
 extern const u32 sGameOver_454520[160];
 
 extern const struct GameOverDynamicPalette sGameOverDynamicPalette_Empty;
-extern const u16 sGameOverSamusHeadXPositions[MAX_AMOUNT_OF_LANGUAGES];
+extern const u16 sGameOverSamusHeadXPositions[LANGUAGE_END];
 extern const u16 sGameOverSamusHeadYPositions[2];
 
 extern const u8 sGameOverSamusHeadOamIds[3][3];

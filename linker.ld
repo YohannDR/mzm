@@ -695,7 +695,6 @@ SECTIONS {
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         src/data/text_data.o(.rodata);
-        /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);
         src/data/menus/game_over_data.o(.rodata);
         src/data/menus/file_select_data.o(.rodata);
@@ -734,6 +733,7 @@ SECTIONS {
         src/data/menus/internal_pause_screen_sub_menus_data.o(.rodata);
         src/data/internal_save_file_data.o(.rodata);
         src/data/menus/internal_erase_sram_data.o(.rodata)
+        src/data/text_pointers.o(.rodata);
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         src/data/menus/internal_game_over_data.o(.rodata)

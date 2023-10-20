@@ -2,7 +2,7 @@
 #include "data/menus/game_over_data.h"
 #include "macros.h"
 
-const u32* const sGameOverTextPromptGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
+const u32* const sGameOverTextPromptGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sGameOverTextPromptEnglishGfx,
     [LANGUAGE_HIRAGANA] = sGameOverTextPromptHiragnaGfx,
     [LANGUAGE_ENGLISH] = sGameOverTextPromptEnglishGfx,

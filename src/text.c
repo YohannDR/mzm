@@ -3,6 +3,7 @@
 #include "macros.h"
 
 #include "data/text_data.h"
+#include "data/text_pointers.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
 
@@ -633,7 +634,7 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
 
     BitFill(3, 0xFFFF, EWRAM_BASE, 0x800, 0x10);
 
-    pText = sLocationTextpointers[gLanguage][locationText];
+    pText = sLocationTextPointers[gLanguage][locationText];
     TextDrawLocationTextCharacters(1, &pText);
 
     DMA_SET(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
@@ -691,7 +692,7 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 
             for (; i != 0; i--)
             {
-                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
+                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextPointers[gLanguage][gCurrentMessage.messageID],
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
                     case TEXT_STATE_ENDED:
@@ -784,7 +785,7 @@ u8 TextProcessItemBanner(void)
             while (i != 0)
             {
                 switch (TextProcessCurrentMessage(&gCurrentMessage,
-                    sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
+                    sMessageTextPointers[gLanguage][gCurrentMessage.messageID],
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
                     case TEXT_STATE_ENDED:
@@ -1319,7 +1320,7 @@ void TextDrawYesNoEasySleep(void)
     PAUSE_SCREEN_DATA.easySleepTextState = 0;
 
     // Get text pointer
-    pText = sMessageTextpointers[gLanguage][MESSAGE_EASY_SLEEP_PROMPT];
+    pText = sMessageTextPointers[gLanguage][MESSAGE_EASY_SLEEP_PROMPT];
 
     // Reset current message
     BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
@@ -1376,7 +1377,7 @@ void TextDrawEasySleep(void)
             // Process message
             for (i = 3; i != -1; i--)
             {
-                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_ACTIVATE_EASY_SLEEP],
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextPointers[gLanguage][MESSAGE_ACTIVATE_EASY_SLEEP],
                     (u32*)&PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[gCurrentMessage.line * 1024]))
                     continue;
 
@@ -1399,7 +1400,7 @@ void TextDrawEasySleep(void)
             // Process message
             for (i = 3; i != -1; i--)
             {
-                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_PRESS_SELECT_L_AND_R],
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextPointers[gLanguage][MESSAGE_PRESS_SELECT_L_AND_R],
                     (u32*)&PAUSE_SCREEN_EWRAM.unk_5000[gCurrentMessage.line * 1024]))
                     continue;
 

@@ -21,7 +21,7 @@ const struct GameOverDynamicPalette sGameOverDynamicPalette_Empty = {
     .unk_13 = 0
 };
 
-const u16 sGameOverSamusHeadXPositions[MAX_AMOUNT_OF_LANGUAGES] = {
+const u16 sGameOverSamusHeadXPositions[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = BLOCK_SIZE * 3 + 8,
     [LANGUAGE_HIRAGANA] = BLOCK_SIZE * 3 + 8,
     [LANGUAGE_ENGLISH] = BLOCK_SIZE * 3 + 8,

@@ -7,6 +7,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/text_data.h"
+#include "data/text_pointers.h"
 #include "data/io_transfer_data.h"
 #include "data/menus/file_select_data.h"
 #include "data/menus/internal_file_select_data.h"

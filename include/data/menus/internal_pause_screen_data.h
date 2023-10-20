@@ -10,11 +10,11 @@
 
 extern const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty;
 
-extern const u32* const sMapScreenAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
-extern const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
-extern const u32* const sMapScreenUnknownItemsNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
-extern const u32* const sMapScreenEquipmentNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
-extern const u32* const sMapScreenMenuNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sMapScreenAreaNamesGfxPointers[LANGUAGE_END];
+extern const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[LANGUAGE_END];
+extern const u32* const sMapScreenUnknownItemsNamesGfxPointers[LANGUAGE_END];
+extern const u32* const sMapScreenEquipmentNamesGfxPointers[LANGUAGE_END];
+extern const u32* const sMapScreenMenuNamesGfxPointers[LANGUAGE_END];
 
 extern u16 sPauseScreenCompletionInfoOamData[6][5];
 

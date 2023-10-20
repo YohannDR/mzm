@@ -4,7 +4,7 @@
 #include "types.h"
 #include "constants/game_state.h"
 
-extern const u32* const sGameOverTextPromptGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sGameOverTextPromptGfxPointers[LANGUAGE_END];
 extern const u8 sGameOverTextPaletteMaxTimers[3];
 extern const s8 sGameOver_760b0f[9];
 
