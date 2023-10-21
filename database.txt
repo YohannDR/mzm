@@ -106,6 +106,11 @@ sprites/MapStation.pal;64;0x2d26c0;2
 sprites/Dragon.gfx.lz;512;0x2d51d4;4
 sprites/Dragon.pal;32;0x2d59d4;2
 
+# Deorem
+
+sprites/deorem.gfx.lz;1569;0x2d5c34;4
+sprites/deorem.pal;80;0x2d74b8;2
+
 # Zipline
 
 sprites/Zipline.gfx.lz;264;0x2ce404;4
@@ -124,11 +129,6 @@ sprites/ReoPurpleWings.pal;16;0x2cdff0;2
 sprites/Gunship.gfx.lz;1027;0x3095d0;4
 sprites/Gunship.pal;48;0x30a5dc;2
 sprites/GunshipFlashingPal.pal;128;0x30a63c;2
-
-# Deorem
-
-sprites/Deorem.gfx.lz;1569;0x2d5c34;4
-sprites/Deorem.pal;80;0x2d74b8;2
 
 # Charge beam
 
@@ -2699,7 +2699,6 @@ Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
 Blob_2320ec_2376a8.bin;21948;0x2320ec;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
-Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_60c630_74f8b4.bin;1323652;0x60c630;1

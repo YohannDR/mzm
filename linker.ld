@@ -599,7 +599,7 @@ SECTIONS {
         src/data/sprites/map_station.o(.rodata);
         src/data/sprites/save_platform.o(.rodata);
         src/data/sprites/dragon.o(.rodata);
-        src/data/sprites/deorem.o(.rodata); /* Incomplete */
+        src/data/sprites/deorem.o(.rodata);
         src/data/sprites/dessgeega.o(.rodata);
         src/data/sprites/waver.o(.rodata);
         src/data/sprites/hive.o(.rodata);
@@ -734,7 +734,6 @@ SECTIONS {
         src/data/internal_save_file_data.o(.rodata);
         src/data/menus/internal_erase_sram_data.o(.rodata)
         src/data/text_pointers.o(.rodata);
-        /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         src/data/menus/internal_game_over_data.o(.rodata)
         src/data/menus/internal_file_select_data.o(.rodata);

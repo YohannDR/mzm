@@ -42,6 +42,12 @@ struct FrameData {
     u8 timer;
 };
 
+#define FRAME_DATA_TERMINATOR \
+{\
+    .pFrame = NULL,\
+    .timer = 0\
+}
+
 union OamData {
     struct {
     /*0x00*/ u32 y:8;
