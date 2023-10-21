@@ -96,7 +96,7 @@ void ImagoShootNeedles(void)
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
+                    gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition - 0x20, 0);
             }
         }
         
@@ -740,7 +740,7 @@ void ImagoDyingInit(void)
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-            gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
+            gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x20, 0);
     }
 
     // Set dying

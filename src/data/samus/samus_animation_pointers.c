@@ -19,7 +19,7 @@ const struct EnvironmentalEffect sEnvironmentalEffect_Empty = {
 
 // Power suit
 
-const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit[MAX_AMOUNT_OF_SAMUS_POSES][2] = {
+const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit[SPOSE_END][2] = {
     [SPOSE_RUNNING] = {
         sSamusAnim_PowerSuit_Right_Running,
         sSamusAnim_PowerSuit_Left_Running
@@ -660,7 +660,7 @@ const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_TurningOnZip
 };
 
 
-const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_All[MAX_AMOUNT_OF_SAMUS_POSES][2] = {
+const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_All[SPOSE_END][2] = {
     [SPOSE_RUNNING] = {
         sArmCannonAnim_Suit_Right_None_Running,
         sArmCannonAnim_Suit_Left_None_Running
@@ -1289,7 +1289,7 @@ const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningOn
 };
 
 
-const u8 sSamusVisualData[MAX_AMOUNT_OF_SAMUS_POSES][3] = {
+const u8 sSamusVisualData[SPOSE_END][3] = {
     [SPOSE_RUNNING] = {
         SAMUS_HITBOX_TYPE_STANDING, SAMUS_HITBOX_TYPE_STANDING, STANDING_GROUND
     },
@@ -1497,7 +1497,7 @@ const u8 sSamusVisualData[MAX_AMOUNT_OF_SAMUS_POSES][3] = {
 
 // Full suit
 
-const struct SamusAnimationData* const sSamusAnimPointers_FullSuit[MAX_AMOUNT_OF_SAMUS_POSES][2] = {
+const struct SamusAnimationData* const sSamusAnimPointers_FullSuit[SPOSE_END][2] = {
     [SPOSE_RUNNING] = {
         sSamusAnim_FullSuit_Right_Running,
         sSamusAnim_FullSuit_Left_Running
@@ -2143,7 +2143,7 @@ const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_TurningOnZipl
 
 // Suitless
 
-const struct SamusAnimationData* const sSamusAnimPointers_Suitless[MAX_AMOUNT_OF_SAMUS_POSES][2] = {
+const struct SamusAnimationData* const sSamusAnimPointers_Suitless[SPOSE_END][2] = {
     [SPOSE_RUNNING] = {
         sSamusAnim_Suitless_Right_Running,
         sSamusAnim_Suitless_Left_Running
@@ -2697,7 +2697,7 @@ const struct SamusAnimationData* const sSamusAnimPointers_Suitless_CrawlingStopp
 };
 
 
-const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_All[MAX_AMOUNT_OF_SAMUS_POSES][2] = {
+const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_All[SPOSE_END][2] = {
     [SPOSE_RUNNING] = {
         sArmCannonAnim_Suitless_Right_None_Running,
         sArmCannonAnim_Suitless_Left_None_Running
@@ -3665,7 +3665,7 @@ const s16 sSamusHitboxData[4][3] = {
     }
 };
 
-const struct FrameData* const sSamusEnvEffectsFrameDataPointers[18] = {
+const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END] = {
     [ENV_EFFECT_RUNNING_ON_WET_GROUND - 1] = sEnvEffectOAM_RunningOnWetGround,
     [ENV_EFFECT_RUNNING_ON_DUSTY_GROUND - 1] = sEnvEffectOAM_RunningOnDustyGround,
     [ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND - 1] = sEnvEffectOAM_RunningOnVeryDustyGround,

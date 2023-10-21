@@ -806,7 +806,7 @@ void ImagoCocoonVineSpawnSpore(void)
                 // Spore on the left
                 yPosition = gCurrentSprite.yPosition - IMAGO_COCOON_SPORE_LEFT_Y_OFFSET;
                 xPosition = gCurrentSprite.xPosition - IMAGO_COCOON_SPORE_LEFT_X_OFFSET;
-                status = SPRITE_STATUS_NONE;
+                status = 0;
             }
             else
             {

@@ -94,7 +94,7 @@
 
 // 75e6a8
 
-const SamusFunc_T sSamusPoseFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES] = {
+const SamusFunc_T sSamusPoseFunctionPointers[SPOSE_END] = {
     [SPOSE_RUNNING] = SamusRunning,
     [SPOSE_STANDING] = SamusStanding,
     [SPOSE_TURNING_AROUND] = SamusTurningAround,
@@ -164,7 +164,7 @@ const SamusFunc_T sSamusPoseFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES] = {
     [SPOSE_TURNING_TO_ENTER_ESCAPE_SHIP] = SamusInactivity,
 };
 
-const SamusFunc_T sSamusPoseGfxFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES] = {
+const SamusFunc_T sSamusPoseGfxFunctionPointers[SPOSE_END] = {
     [SPOSE_RUNNING] = SamusRunningGfx,
     [SPOSE_STANDING] = SamusStandingGfx,
     [SPOSE_TURNING_AROUND] = SamusTurningAroundGfx,

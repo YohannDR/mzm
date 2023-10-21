@@ -4,8 +4,6 @@
 #include "types.h"
 #include "macros.h"
 
-#define MAX_AMOUNT_OF_SAMUS_POSES 67
-
 #define SAMUS_CARRY_ELEVATOR_DIR()\
 do {\
     pData->elevatorDirection = pCopy->elevatorDirection;\

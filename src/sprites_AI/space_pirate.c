@@ -912,23 +912,23 @@ void SpacePirateFireLaserGround(void)
         if (gCurrentSprite.workVariable == SPACE_PIRATE_AIM_FORWARD)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-                yPosition - 0x34, xPosition - 0x44, SPRITE_STATUS_NONE);
+                yPosition - 0x34, xPosition - 0x44, 0);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-                yPosition - 0x78, xPosition - 0x78, SPRITE_STATUS_NONE);
+                yPosition - 0x78, xPosition - 0x78, 0);
         }
         else if (gCurrentSprite.workVariable == SPACE_PIRATE_AIM_DIAGONALLY_UP)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_UP, gfxSlot, ramSlot,
-                yPosition - 0x98, xPosition - 0x44, SPRITE_STATUS_NONE);
+                yPosition - 0x98, xPosition - 0x44, 0);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_UP, gfxSlot, ramSlot,
-                yPosition - 0x5E, xPosition - 0x58, SPRITE_STATUS_NONE);
+                yPosition - 0x5E, xPosition - 0x58, 0);
         }
         else if (gCurrentSprite.workVariable == SPACE_PIRATE_AIM_DIAGONALLY_DOWN)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN, gfxSlot, ramSlot,
-                yPosition - 0x1C, xPosition - 0x44, SPRITE_STATUS_NONE);
+                yPosition - 0x1C, xPosition - 0x44, 0);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN, gfxSlot, ramSlot,
-                yPosition - 0x60, xPosition - 0x58, SPRITE_STATUS_NONE);
+                yPosition - 0x60, xPosition - 0x58, 0);
         }
     }
 }
@@ -952,9 +952,9 @@ void SpacePirateFireLaserWall(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-            yPosition - 0x94, xPosition - 0x44, SPRITE_STATUS_NONE);
+            yPosition - 0x94, xPosition - 0x44, 0);
         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-            yPosition - 0x4E, xPosition - 0x44, SPRITE_STATUS_NONE);
+            yPosition - 0x4E, xPosition - 0x44, 0);
     }
     else
     {

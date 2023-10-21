@@ -441,7 +441,7 @@ void RidleySpawnAscendingFireball(u16 timer)
     }
     else
     {
-        status = SPRITE_STATUS_NONE;
+        status = 0;
         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
     }
 
@@ -1088,7 +1088,7 @@ void RidleyIdle(void)
                     SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, RIDLEY_FIREBALL_PART_SAMUS_GRABBED,
                         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
-                        gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), SPRITE_STATUS_NONE);
+                        gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), 0);
                 }
 
                 SoundPlay(0x1E8);
@@ -1722,7 +1722,7 @@ void RidleyBigFireballsAttack(void)
         }
         else
         {
-            status = SPRITE_STATUS_NONE;
+            status = 0;
             xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
         }
 
