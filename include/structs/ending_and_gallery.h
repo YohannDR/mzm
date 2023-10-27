@@ -6,7 +6,7 @@
 #define ENDING_DATA sNonGameplayRamPointer->ending
 
 struct EndingImageOam {
-    u8 unk_0;
+    u8 type;
     u8 spawnDelay;
     u8 unk_2;
     u16 xPosition;
@@ -38,7 +38,7 @@ struct EndingData {
     u8 language;
     u8 oamLength;
     u8 padding_9C[136];
-    u8 unk_124[6];
+    u8 oamTypes[6];
     u8 unk_12A[17];
     u8 padding_13B[6];
     u8 hasNewRecord;

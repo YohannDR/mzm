@@ -453,7 +453,7 @@ const u16 sUnlockedOptionsPAL[1 * 16] = INCBIN_U16("data/ending/UnlockedOptions.
 
 const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
     [ENDING_IMAGE_LINE_CLEAR_TIME] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -461,7 +461,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
         .pFrame = sEndingImageOam_LineClearTime_English
     },
     [ENDING_IMAGE_LINE_TIMER] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -469,7 +469,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
         .pFrame = sEndingImageOam_LineTimer_English
     },
     [ENDING_IMAGE_LINE_YOUR_RATE] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -477,7 +477,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
         .pFrame = sEndingImageOam_LineYourRate_English
     },
     [ENDING_IMAGE_LINE_COLLECTING] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -485,7 +485,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
         .pFrame = sEndingImageOam_LineCollecting_English
     },
     [ENDING_IMAGE_LINE_PERCENTAGE] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 4,
@@ -493,7 +493,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
         .pFrame = sEndingImageOam_LinePercentage_English
     },
     [ENDING_IMAGE_LINE_NEXT_MISSION] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -504,7 +504,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
 
 const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
     [0] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -512,7 +512,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Clear_C
     },
     [1] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 1,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -520,7 +520,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Clear_L
     },
     [2] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 2,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -528,7 +528,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Clear_E
     },
     [3] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 3,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -536,7 +536,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Clear_A
     },
     [4] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 4,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -544,7 +544,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Clear_R
     },
     [5] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 5,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -552,7 +552,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Time_T
     },
     [6] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 6,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -560,7 +560,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Time_I
     },
     [7] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 7,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -568,7 +568,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
         .pFrame = sClearTimeEnglishOam_Time_M
     },
     [8] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 8,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -579,7 +579,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_English[9] = {
 
 const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
     [0] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -587,7 +587,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Your_Y
     },
     [1] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 1,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -595,7 +595,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Your_O
     },
     [2] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 2,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -603,7 +603,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Your_U
     },
     [3] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 3,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -611,7 +611,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Your_R
     },
     [4] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 4,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -619,7 +619,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Rate_R
     },
     [5] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 5,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -627,7 +627,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Rate_A
     },
     [6] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 6,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -635,7 +635,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Rate_T
     },
     [7] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 7,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -643,7 +643,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_Rate_E
     },
     [8] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 8,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -651,7 +651,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_For_F
     },
     [9] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 9,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -659,7 +659,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
         .pFrame = sYourRateEnglishOam_For_O
     },
     [10] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 10,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -670,7 +670,7 @@ const struct EndingImageOam sEndingImageOam_YourRate_English[11] = {
 
 const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
     [0] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -678,7 +678,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_C1
     },
     [1] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 1,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -686,7 +686,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_O
     },
     [2] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 2,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -694,7 +694,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_L1
     },
     [3] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 3,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -702,7 +702,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_L2
     },
     [4] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 4,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -710,7 +710,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_E
     },
     [5] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 5,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -718,7 +718,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_C2
     },
     [6] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 6,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -726,7 +726,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_T
     },
     [7] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 7,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -734,7 +734,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_I
     },
     [8] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 8,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -742,7 +742,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_N
     },
     [9] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 9,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -750,7 +750,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Collecting_G
     },
     [10] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 10,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -758,7 +758,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Items_I
     },
     [11] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 11,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -766,7 +766,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Items_T
     },
     [12] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 12,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -774,7 +774,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Items_E
     },
     [13] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 13,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -782,7 +782,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Items_M
     },
     [14] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 14,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -790,7 +790,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Items_S
     },
     [15] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 15,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -798,7 +798,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
         .pFrame = sCollectingEnglishOam_Is_I
     },
     [16] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 16,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -809,7 +809,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
 
 const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
     [ENDING_IMAGE_LINE_CLEAR_TIME] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -817,7 +817,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
         .pFrame = sEndingImageOam_LineClearTime_Hiragana
     },
     [ENDING_IMAGE_LINE_TIMER] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -825,7 +825,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
         .pFrame = sEndingImageOam_LineTimer_English
     },
     [ENDING_IMAGE_LINE_YOUR_RATE] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -833,7 +833,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
         .pFrame = sEndingImageOam_LineYourRate_English
     },
     [ENDING_IMAGE_LINE_COLLECTING] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -841,7 +841,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
         .pFrame = sEndingImageOam_LineCollecting_Hiragana
     },
     [ENDING_IMAGE_LINE_PERCENTAGE] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 4,
@@ -849,7 +849,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
         .pFrame = sEndingImageOam_LinePercentage_English
     },
     [ENDING_IMAGE_LINE_NEXT_MISSION] = {
-        .unk_0 = 2,
+        .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -860,7 +860,7 @@ const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
 
 const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
     [0] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -868,7 +868,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
         .pFrame = sClearTimeHiraganaOam_0
     },
     [1] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 2,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -876,7 +876,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
         .pFrame = sClearTimeHiraganaOam_1
     },
     [2] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 4,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -884,7 +884,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
         .pFrame = sClearTimeHiraganaOam_2
     },
     [3] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 6,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -892,7 +892,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
         .pFrame = sClearTimeHiraganaOam_3
     },
     [4] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 8,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -900,7 +900,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
         .pFrame = sClearTimeHiraganaOam_4
     },
     [5] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 4 * 10,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -911,7 +911,7 @@ const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6] = {
 
 const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
     [0] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 0,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -919,7 +919,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_0
     },
     [1] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 1,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -927,7 +927,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_1
     },
     [2] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 2,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -935,7 +935,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_2
     },
     [3] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 3,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -943,7 +943,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_3
     },
     [4] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 4,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -951,7 +951,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_4
     },
     [5] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 5,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -959,7 +959,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_5
     },
     [6] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 6,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -967,7 +967,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_6
     },
     [7] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 7,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -975,7 +975,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_7
     },
     [8] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 8,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -983,7 +983,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_8
     },
     [9] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 9,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
@@ -991,7 +991,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11] = {
         .pFrame = sYourRateHiraganaOam_9
     },
     [10] = {
-        .unk_0 = 1,
+        .type = ENDING_OAM_TYPE_CHAR,
         .spawnDelay = 1 + 5 * 10,
         .unk_2 = 0,
         .xPosition = BLOCK_SIZE * 2 - 8,
