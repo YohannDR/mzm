@@ -9,13 +9,13 @@
 
 typedef u8 (*OptionsFunc_T)(void);
 
-struct FileSelectionData {
-    u8 unk_0;
-    u8 unk_1;
-    u8 unk_2;
-    u8 unk_3;
-    u8 unk_4;
-    u8 unk_5;
+struct FileSelectMenuCursors {
+    u8 confirmCopy;
+    u8 confirmErase;
+    u8 startGame;
+    u8 completedFileOptions;
+    u8 confirmOverwritingCompleted;
+    u8 japaneseText;
     u8 difficulty;
 };
 
@@ -86,7 +86,7 @@ struct FileSelectData {
     u8 currentFile;
     u8 eraseFile;
 
-    struct FileSelectionData fileSelectData;
+    struct FileSelectMenuCursors fileSelectData;
     u8 unk_34;
     u8 unk_35;
     u8 unk_36;

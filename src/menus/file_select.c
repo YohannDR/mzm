@@ -833,7 +833,7 @@ u32 FileSelectCopyFileSubroutine(void)
             FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_DEFAULT, FILE_SELECT_DATA.copySourceFile);
             FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_SPAWN_INIT);
 
-            FILE_SELECT_DATA.fileSelectData.unk_0 = sFileSelectionData_Empty.unk_0;
+            FILE_SELECT_DATA.fileSelectData.confirmCopy = sFileSelectionData_Empty.confirmCopy;
             FILE_SELECT_DATA.unk_3A = 0;
 
             FILE_SELECT_DATA.subroutineStage++;
@@ -938,7 +938,7 @@ u32 FileSelectCopyFileSubroutine(void)
             }
             else if (action == 2)
             {
-                FILE_SELECT_DATA.fileSelectData.unk_0 = sFileSelectionData_Empty.unk_0;
+                FILE_SELECT_DATA.fileSelectData.confirmCopy = sFileSelectionData_Empty.confirmCopy;
                 FileSelectUpdateCopyArrow(ARROW_COPY_POSE_COPYING, FILE_SELECT_DATA.currentFile);
 
                 if ((FILE_SELECT_DATA.enabledMenus >> FILE_SELECT_DATA.currentFile) & 1)
@@ -959,7 +959,7 @@ u32 FileSelectCopyFileSubroutine(void)
         case 5:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_OVERRIDE_SPAWN))
             {
-                unk_7e3fc(4, FILE_SELECT_DATA.fileSelectData.unk_0);
+                unk_7e3fc(4, FILE_SELECT_DATA.fileSelectData.confirmCopy);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -971,7 +971,7 @@ u32 FileSelectCopyFileSubroutine(void)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_0 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmCopy != 0)
                         FILE_SELECT_DATA.subroutineStage = 7;
                     else
                     {
@@ -986,19 +986,19 @@ u32 FileSelectCopyFileSubroutine(void)
                 }
                 else if (gChangedInput & KEY_LEFT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_0 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmCopy != 0)
                     {
                         action = 0;
-                        FILE_SELECT_DATA.fileSelectData.unk_0 = 0;
+                        FILE_SELECT_DATA.fileSelectData.confirmCopy = 0;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
                 else if (gChangedInput & KEY_RIGHT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_0 == 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmCopy == 0)
                     {
                         action = 1;
-                        FILE_SELECT_DATA.fileSelectData.unk_0 = 1;
+                        FILE_SELECT_DATA.fileSelectData.confirmCopy = 1;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
@@ -1044,7 +1044,7 @@ u32 FileSelectCopyFileSubroutine(void)
             if (SramCopyFile(FILE_SELECT_DATA.copySourceFile, FILE_SELECT_DATA.currentFile))
             {
                 FILE_SELECT_DATA.unk_3A = 1;
-                if (FILE_SELECT_DATA.fileSelectData.unk_0 != 0)
+                if (FILE_SELECT_DATA.fileSelectData.confirmCopy != 0)
                     FILE_SELECT_DATA.subroutineStage = 14;
                 else
                     FILE_SELECT_DATA.subroutineStage = 12;
@@ -1175,8 +1175,8 @@ u32 FileSelectEraseFileSubroutine(void)
         case 3:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_SPAWN))
             {
-                FILE_SELECT_DATA.fileSelectData.unk_1 = sFileSelectionData_Empty.unk_1;
-                unk_7e3fc(3, FILE_SELECT_DATA.fileSelectData.unk_1);
+                FILE_SELECT_DATA.fileSelectData.confirmErase = sFileSelectionData_Empty.confirmErase;
+                unk_7e3fc(3, FILE_SELECT_DATA.fileSelectData.confirmErase);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -1188,7 +1188,7 @@ u32 FileSelectEraseFileSubroutine(void)
             {
                 if (gChangedInput & KEY_A)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_1 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmErase != 0)
                         FILE_SELECT_DATA.subroutineStage = 5;
                     else
                     {
@@ -1203,19 +1203,19 @@ u32 FileSelectEraseFileSubroutine(void)
                 }
                 else if (gChangedInput & KEY_LEFT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_1 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmErase != 0)
                     {
                         action = 0;
-                        FILE_SELECT_DATA.fileSelectData.unk_1 = 0;
+                        FILE_SELECT_DATA.fileSelectData.confirmErase = 0;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
                 else if (gChangedInput & KEY_RIGHT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_1 == 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmErase == 0)
                     {
                         action = 1;
-                        FILE_SELECT_DATA.fileSelectData.unk_1 = 1;
+                        FILE_SELECT_DATA.fileSelectData.confirmErase = 1;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
@@ -4224,7 +4224,7 @@ u8 FileSelectUpdateSubMenu(void)
                         {
                             gSaveFilesInfo[gMostRecentSaveFile].exists = FALSE;
                             gSaveFilesInfo[gMostRecentSaveFile].difficulty = FILE_SELECT_DATA.fileSelectData.difficulty;
-                            gSaveFilesInfo[gMostRecentSaveFile].timeAttack = FILE_SELECT_DATA.fileSelectData.unk_3 == 2;
+                            gSaveFilesInfo[gMostRecentSaveFile].timeAttack = FILE_SELECT_DATA.fileSelectData.completedFileOptions == 2;
                         }
                     }
                 }
@@ -4450,7 +4450,7 @@ u8 FileSelectProcessFileSelection(void)
                 break;
 
         case 5:
-            unk_7e3fc(0, FILE_SELECT_DATA.fileSelectData.unk_2);
+            unk_7e3fc(0, FILE_SELECT_DATA.fileSelectData.startGame);
             FILE_SELECT_DATA.subroutineStage = 6;
             break;
 
@@ -4491,7 +4491,7 @@ u8 FileSelectProcessFileSelection(void)
                 if (FileSelectCheckInputtingTimeAttackCode())
                 {
                     action = 0x80;
-                    FILE_SELECT_DATA.fileSelectData.unk_3 = 2;
+                    FILE_SELECT_DATA.fileSelectData.completedFileOptions = 2;
                     FILE_SELECT_DATA.inputtedTimeAttack = TRUE;
                     FILE_SELECT_DATA.subroutineStage = 8;
                 }
@@ -4527,7 +4527,7 @@ u8 FileSelectProcessFileSelection(void)
         case 10:
             if (FileSelectUpdateTilemap(0x1E))
             {
-                unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+                unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.completedFileOptions);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -4553,9 +4553,9 @@ u8 FileSelectProcessFileSelection(void)
                 }
                 else if (gChangedInput & KEY_UP)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_3 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.completedFileOptions != 0)
                     {
-                        action = --FILE_SELECT_DATA.fileSelectData.unk_3;
+                        action = --FILE_SELECT_DATA.fileSelectData.completedFileOptions;
 
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
@@ -4564,16 +4564,16 @@ u8 FileSelectProcessFileSelection(void)
                 {
                     if (FILE_SELECT_DATA.unk_39 == 0x10)
                     {
-                        if (FILE_SELECT_DATA.fileSelectData.unk_3 < 2)
+                        if (FILE_SELECT_DATA.fileSelectData.completedFileOptions < 2)
                         {
-                            action = ++FILE_SELECT_DATA.fileSelectData.unk_3;
+                            action = ++FILE_SELECT_DATA.fileSelectData.completedFileOptions;
 
                             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                         }
                     }
-                    else if (FILE_SELECT_DATA.fileSelectData.unk_3 == 0)
+                    else if (FILE_SELECT_DATA.fileSelectData.completedFileOptions == 0)
                     {
-                        action = ++FILE_SELECT_DATA.fileSelectData.unk_3;
+                        action = ++FILE_SELECT_DATA.fileSelectData.completedFileOptions;
 
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
@@ -4587,8 +4587,8 @@ u8 FileSelectProcessFileSelection(void)
         case 12:
             if (FileSelectUpdateTilemap(0x20))
             {
-                if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
-                    FILE_SELECT_DATA.fileSelectData.unk_3 = 0;
+                if (FILE_SELECT_DATA.fileSelectData.completedFileOptions == 2)
+                    FILE_SELECT_DATA.fileSelectData.completedFileOptions = 0;
                 FILE_SELECT_DATA.subroutineStage = 5;
             }
             break;
@@ -4596,7 +4596,7 @@ u8 FileSelectProcessFileSelection(void)
         case 13:
             FILE_SELECT_DATA.subroutineTimer = 0;
 
-            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 0)
+            if (FILE_SELECT_DATA.fileSelectData.completedFileOptions == 0)
             {
                 FILE_SELECT_DATA.unk_3A = 1;
                 FILE_SELECT_DATA.subroutineStage = 34;
@@ -4619,8 +4619,8 @@ u8 FileSelectProcessFileSelection(void)
         case 16:
             if (FileSelectUpdateTilemap(0x22))
             {
-                FILE_SELECT_DATA.fileSelectData.unk_4 = sFileSelectionData_Empty.unk_4;
-                unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.unk_4);
+                FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted = sFileSelectionData_Empty.confirmOverwritingCompleted;
+                unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -4635,7 +4635,7 @@ u8 FileSelectProcessFileSelection(void)
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     action = 0x80;
 
-                    if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted != 0)
                         SoundPlay(0x209);
                     else
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
@@ -4651,19 +4651,19 @@ u8 FileSelectProcessFileSelection(void)
                 }
                 else if (gChangedInput & KEY_LEFT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted != 0)
                     {
                         action = 0;
-                        FILE_SELECT_DATA.fileSelectData.unk_4 = 0;
+                        FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted = 0;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
                 else if (gChangedInput & KEY_RIGHT)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_4 == 0)
+                    if (FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted == 0)
                     {
                         action = 1;
-                        FILE_SELECT_DATA.fileSelectData.unk_4 = 1;
+                        FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted = 1;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
@@ -4677,13 +4677,13 @@ u8 FileSelectProcessFileSelection(void)
             if (FILE_SELECT_DATA.subroutineTimer <= 10)
                 break;
 
-            if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+            if (FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted != 0)
             {
                 FILE_SELECT_DATA.subroutineStage = 19;
                 break;
             }
 
-            if (FILE_SELECT_DATA.fileSelectData.unk_3 != 2)
+            if (FILE_SELECT_DATA.fileSelectData.completedFileOptions != 2)
             {
                 unk_7e3fc(6, 0x81);
                 FileSelectUpdateTilemap(0x23);
@@ -4691,13 +4691,13 @@ u8 FileSelectProcessFileSelection(void)
                 break;
             }
 
-            FILE_SELECT_DATA.unk_3A = FILE_SELECT_DATA.fileSelectData.unk_3;
+            FILE_SELECT_DATA.unk_3A = FILE_SELECT_DATA.fileSelectData.completedFileOptions;
             FILE_SELECT_DATA.subroutineStage = 34;
             break;
 
         case 19:
             FileSelectUpdateTilemap(0x25);
-            unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+            unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.completedFileOptions);
             FILE_SELECT_DATA.subroutineStage = 11;
             break;
 
@@ -4709,7 +4709,7 @@ u8 FileSelectProcessFileSelection(void)
         case 21:
             FILE_SELECT_DATA.subroutineStage = 28;
 
-            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
+            if (FILE_SELECT_DATA.fileSelectData.completedFileOptions == 2)
             {
                 FILE_SELECT_DATA.fileSelectData.difficulty = 1;
             }
@@ -4732,7 +4732,7 @@ u8 FileSelectProcessFileSelection(void)
         case 23:
             if (FileSelectUpdateTilemap(0x3))
             {
-                unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.unk_5);
+                unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.japaneseText);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -4758,19 +4758,19 @@ u8 FileSelectProcessFileSelection(void)
                 }
                 else if (gChangedInput & KEY_UP)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_5 != 0)
+                    if (FILE_SELECT_DATA.fileSelectData.japaneseText != 0)
                     {
                         action = 0;
-                        FILE_SELECT_DATA.fileSelectData.unk_5 = 0;
+                        FILE_SELECT_DATA.fileSelectData.japaneseText = 0;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
                 else if (gChangedInput & KEY_DOWN)
                 {
-                    if (FILE_SELECT_DATA.fileSelectData.unk_5 == 0)
+                    if (FILE_SELECT_DATA.fileSelectData.japaneseText == 0)
                     {
                         action = 1;
-                        FILE_SELECT_DATA.fileSelectData.unk_5 = 1;
+                        FILE_SELECT_DATA.fileSelectData.japaneseText = 1;
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
                     }
                 }
@@ -4797,7 +4797,7 @@ u8 FileSelectProcessFileSelection(void)
             if (FILE_SELECT_DATA.subroutineTimer <= 10)
                 break;
 
-            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
+            if (FILE_SELECT_DATA.fileSelectData.completedFileOptions == 2)
             {
                 FILE_SELECT_DATA.unk_3A = 3;
                 FILE_SELECT_DATA.subroutineStage = 34;
@@ -4813,7 +4813,7 @@ u8 FileSelectProcessFileSelection(void)
             if (FileSelectUpdateTilemap(0x5))
             {
                 FILE_SELECT_DATA.subroutineStage = 28;
-                FILE_SELECT_DATA.fileSelectData.difficulty = FILE_SELECT_DATA.fileSelectData.unk_5 ^ 1;
+                FILE_SELECT_DATA.fileSelectData.difficulty = FILE_SELECT_DATA.fileSelectData.japaneseText ^ 1;
             }
             break;
 
@@ -4937,17 +4937,17 @@ u8 FileSelectProcessFileSelection(void)
                     break;
 
                 case 1:
-                    unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+                    unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.completedFileOptions);
                     FILE_SELECT_DATA.subroutineStage = 11;
                     break;
 
                 case 2:
-                    unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.unk_4);
+                    unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.confirmOverwritingCompleted);
                     FILE_SELECT_DATA.subroutineStage = 17;
                     break;
 
                 case 3:
-                    unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.unk_5);
+                    unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.japaneseText);
                     FILE_SELECT_DATA.subroutineStage = 24;
                     break;
 

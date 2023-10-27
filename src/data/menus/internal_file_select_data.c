@@ -32,13 +32,13 @@ const u32* const sFileSelectTextGfxPointers[5] = {
     [LANGUAGE_SPANISH - 2] = sFileSelectTextGfx
 };
 
-const struct FileSelectionData sFileSelectionData_Empty = {
-    .unk_0 = 1,
-    .unk_1 = 1,
-    .unk_2 = 0,
-    .unk_3 = 0,
-    .unk_4 = 1,
-    .unk_5 = 0,
+const struct FileSelectMenuCursors sFileSelectionData_Empty = {
+    .confirmCopy = 1,
+    .confirmErase = 1,
+    .startGame = 0,
+    .completedFileOptions = 0,
+    .confirmOverwritingCompleted = 1,
+    .japaneseText = 0,
     .difficulty = 1,
 };
 
