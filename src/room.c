@@ -178,7 +178,7 @@ void RoomLoadTileset(void)
 
     DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
 
-    if (gCurrentArea > AREA_DEBUG)
+    if (gCurrentArea > AREA_DEBUG_1)
     {
         DmaTransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
         DmaTransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);

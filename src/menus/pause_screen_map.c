@@ -753,7 +753,7 @@ void PauseScreenMapGetAbsoluteMapBordersPositions(void)
     if (PAUSE_SCREEN_DATA.currentArea < MAX_AMOUNT_OF_AREAS - 1)
         j = PAUSE_SCREEN_DATA.currentArea;
     else
-        j = AREA_DEBUG;
+        j = AREA_DEBUG_1;
 
     // Fetch current map pointer
     pMap = PAUSE_SCREEN_DATA.mapsDataPointer[j];
@@ -1120,7 +1120,7 @@ void MapScreenChangeMap(void)
             }
             
             // Leftover debug code?
-            while (i >= AREA_DEBUG);
+            while (i >= AREA_DEBUG_1);
 
             while (TRUE)
             {
@@ -1128,7 +1128,7 @@ void MapScreenChangeMap(void)
                 i++;
 
                 // Wrap around
-                if (i >= AREA_DEBUG)
+                if (i >= AREA_DEBUG_1)
                     i = AREA_BRINSTAR;
 
                 // Get viewables and area to test

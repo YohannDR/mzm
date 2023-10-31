@@ -121,9 +121,216 @@ const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1]
     (const struct RoomEntryROM*)0x8343d74,
 };
 
-const u8* const sScrollPointer_Empty = sScroll_Empty;
+static const u8* const sScrollPointer_Empty[] = {
+    sScroll_Empty
+};
 
-const u8 sTempArray_75fae4[0x280] = INCBIN_U8("data/Blob_75fae4_75fd64.bin");
+static const u8* const sBrinstarScrolls[] = {
+    (const u8* const)0x860c630,
+    (const u8* const)0x860cd64,
+    (const u8* const)0x860d46c,
+    (const u8* const)0x860fcf4,
+    (const u8* const)0x86100d8,
+    (const u8* const)0x861093c,
+    (const u8* const)0x8610d54,
+    (const u8* const)0x8611bec,
+    (const u8* const)0x8611f14,
+    (const u8* const)0x8612478,
+    (const u8* const)0x86137d4,
+    (const u8* const)0x8613f44,
+    (const u8* const)0x8614318,
+    (const u8* const)0x8614a60,
+    (const u8* const)0x8614e50,
+    (const u8* const)0x86150d8,
+    (const u8* const)0x861599c,
+    (const u8* const)0x8615df0,
+    (const u8* const)0x8616930,
+    sScroll_Empty
+};
+
+static const u8* const sKraidScrolls[] = {
+    (const u8* const)0x862fc0c,
+    (const u8* const)0x8630a2c,
+    (const u8* const)0x86318b8,
+    (const u8* const)0x8631f80,
+    (const u8* const)0x863248c,
+    (const u8* const)0x8632e6c,
+    (const u8* const)0x8635324,
+    (const u8* const)0x8635704,
+    (const u8* const)0x8636d9c,
+    (const u8* const)0x8636f7c,
+    (const u8* const)0x8637a20,
+    sScroll_Empty
+};
+
+static const u8* const sNorfairScrolls[] = {
+    (const u8* const)0x866bbf0,
+    (const u8* const)0x866c8d8,
+    (const u8* const)0x866dbb4,
+    (const u8* const)0x866fe74,
+    (const u8* const)0x8671070,
+    (const u8* const)0x8671d84,
+    (const u8* const)0x8672a08,
+    (const u8* const)0x8673854,
+    (const u8* const)0x8673e94,
+    (const u8* const)0x8674714,
+    (const u8* const)0x86766c8,
+    (const u8* const)0x8676a9c,
+    (const u8* const)0x8677318,
+    (const u8* const)0x86778a8,
+    (const u8* const)0x8679138,
+    (const u8* const)0x867c4e0,
+    (const u8* const)0x867cc54,
+    sScroll_Empty
+};
+
+static const u8* const sRidleyScrolls[] = {
+    (const u8* const)0x869b058,
+    (const u8* const)0x869bf38,
+    (const u8* const)0x869c4c8,
+    (const u8* const)0x869d12c,
+    (const u8* const)0x869d3c8,
+    (const u8* const)0x869d840,
+    (const u8* const)0x869dce4,
+    (const u8* const)0x869e328,
+    (const u8* const)0x869e6b8,
+    (const u8* const)0x869edac,
+    (const u8* const)0x869f8ac,
+    (const u8* const)0x86a10a4,
+    (const u8* const)0x86a18d8,
+    (const u8* const)0x86a2290,
+    sScroll_Empty
+};
+
+static const u8* const sTourianScrolls[] = {
+    (const u8* const)0x86ba8d4,
+    (const u8* const)0x86bb58c,
+    (const u8* const)0x86bbb94,
+    (const u8* const)0x86bc740,
+    (const u8* const)0x86bd500,
+    (const u8* const)0x86be788,
+    sScroll_Empty
+};
+
+static const u8* const sCrateriaScrolls[] = {
+    (const u8* const)0x86dc2d8,
+    (const u8* const)0x86dd068,
+    (const u8* const)0x86ddc74,
+    (const u8* const)0x86ddf04,
+    (const u8* const)0x86de19c,
+    (const u8* const)0x86defa8,
+    (const u8* const)0x86e0818,
+    (const u8* const)0x86e2604,
+    (const u8* const)0x86e2c80,
+    (const u8* const)0x86e3260,
+    (const u8* const)0x86e38e4,
+    sScroll_Empty
+};
+
+static const u8* const sChozodiaScrolls[] = {
+    (const u8* const)0x872de24,
+    (const u8* const)0x872e390,
+    (const u8* const)0x872ea8c,
+    (const u8* const)0x872efe0,
+    (const u8* const)0x872f470,
+    (const u8* const)0x872f894,
+    (const u8* const)0x872fd38,
+    (const u8* const)0x8730050,
+    (const u8* const)0x87301ac,
+    (const u8* const)0x87306fc,
+    (const u8* const)0x8731710,
+    (const u8* const)0x87322c8,
+    (const u8* const)0x87325ec,
+    (const u8* const)0x8732bec,
+    (const u8* const)0x8733d7c,
+    (const u8* const)0x8734044,
+    (const u8* const)0x8734934,
+    (const u8* const)0x873540c,
+    (const u8* const)0x87359a0,
+    (const u8* const)0x87360a4,
+    (const u8* const)0x8736804,
+    (const u8* const)0x8736d50,
+    (const u8* const)0x8737314,
+    (const u8* const)0x8737910,
+    (const u8* const)0x8737aec,
+    (const u8* const)0x8739594,
+    (const u8* const)0x873a1c4,
+    (const u8* const)0x873abc4,
+    (const u8* const)0x873b248,
+    (const u8* const)0x873b980,
+    (const u8* const)0x873bb84,
+    (const u8* const)0x873c4d0,
+    (const u8* const)0x873c7ac,
+    (const u8* const)0x873d5a4,
+    (const u8* const)0x873d964,
+    (const u8* const)0x873de48,
+    (const u8* const)0x873e770,
+    (const u8* const)0x873eb18,
+    (const u8* const)0x874170c,
+    (const u8* const)0x8741a80,
+    (const u8* const)0x8741ea4,
+    (const u8* const)0x8743044,
+    (const u8* const)0x87436c8,
+    (const u8* const)0x8743ca8,
+    (const u8* const)0x87445a4,
+    (const u8* const)0x8744d64,
+    (const u8* const)0x874531c,
+    (const u8* const)0x87455d4,
+    (const u8* const)0x87458c4,
+    (const u8* const)0x8745d00,
+    (const u8* const)0x87467f4,
+    (const u8* const)0x8746b3c,
+    (const u8* const)0x8747430,
+    (const u8* const)0x874827c,
+    (const u8* const)0x8748580,
+    (const u8* const)0x8748fec,
+    (const u8* const)0x87492c0,
+    (const u8* const)0x874a8bc,
+    (const u8* const)0x874b6a4,
+    (const u8* const)0x874b7ec,
+    sScroll_Empty
+};
+
+const u8* const * const sAreaScrollPointers[AREA_END] = {
+    [AREA_BRINSTAR] = sBrinstarScrolls,
+    [AREA_KRAID] = sKraidScrolls,
+    [AREA_NORFAIR] = sNorfairScrolls,
+    [AREA_RIDLEY] = sRidleyScrolls,
+    [AREA_TOURIAN] = sTourianScrolls,
+    [AREA_CRATERIA] = sCrateriaScrolls,
+    [AREA_CHOZODIA] = sChozodiaScrolls,
+    [AREA_DEBUG_1] = sScrollPointer_Empty,
+    [AREA_DEBUG_2] = sScrollPointer_Empty,
+    [AREA_DEBUG_3] = sScrollPointer_Empty,
+    [AREA_DEBUG_4] = sScrollPointer_Empty
+};
+
+const s8 sWaterLoopCounterArray[8][2] = {
+    [0] = {
+        0, 9
+    },
+    [1] = {
+        1, 9
+    },
+    [2] = {
+        2, 21
+    },
+    [3] = {
+        1, 9
+    },
+    [4] = {
+        0, 9
+    },
+    [5] = {
+        -1, 12
+    },
+    [6] = {
+        -2, 99
+    },
+    [7] = {
+        -1, 12
+    }
+};
 
 const BlockFunc_T sNonReformDestroyFunctionPointers[5] = {
     BlockDestroySingleBreakableBlock,

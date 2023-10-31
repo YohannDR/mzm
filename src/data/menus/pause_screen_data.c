@@ -2534,7 +2534,7 @@ const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_ARE
         .xPosition = BLOCK_SIZE * 13 + HALF_BLOCK_SIZE + 4,
         .yPosition = BLOCK_SIZE * 6 + HALF_BLOCK_SIZE + 4
     },
-    [AREA_DEBUG] = {
+    [AREA_DEBUG_1] = {
         .nameOamId = 0,
         .nameSpawningOamId = 0,
         .outlineOamId = 0,
@@ -2673,7 +2673,7 @@ const u8 sChozoHintAreaNamesOamIds[MAX_AMOUNT_OF_AREAS] = {
     [AREA_TOURIAN] = OVERLAY_OAM_ID_CHOZO_HINT_TOURIAN,
     [AREA_CRATERIA] = OVERLAY_OAM_ID_CHOZO_HINT_CRATERIA,
     [AREA_CHOZODIA] = OVERLAY_OAM_ID_CHOZO_HINT_CHOZODIA,
-    [AREA_DEBUG] = 0
+    [AREA_DEBUG_1] = 0
 };
 
 const struct WorldMapData sWorldMapData[MAX_AMOUNT_OF_AREAS - 1] = {
