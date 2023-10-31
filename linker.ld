@@ -729,7 +729,8 @@ SECTIONS {
         src/data/cutscenes/internal_enter_tourian_data.o(.rodata);
         src/data/cutscenes/internal_samus_in_blue_ship_data.o(.rodata);
         src/data/menus/internal_pause_screen_data.o(.rodata);
-        /* 7602d4-7603f0 */
+        src/data/internal_text_data.o(.rodata);
+        src/data/menus/internal_status_screen_data.o(.rodata);
         src/data/menus/internal_pause_screen_sub_menus_data.o(.rodata);
         src/data/internal_save_file_data.o(.rodata);
         src/data/menus/internal_erase_sram_data.o(.rodata)

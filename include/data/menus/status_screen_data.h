@@ -16,10 +16,4 @@ extern const u8 sStatusScreen_40df64[8];
 extern const u8 sStatusScreen_40df6c[6];
 extern const u8 sStatusScreen_40df72[6];
 
-// ...
-
-extern const u8 sStatusScreenRowsData[6][3];
-
-// ...
-
 #endif /* STATUS_SCREEN_MENU_DATA_H */

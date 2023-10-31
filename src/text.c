@@ -4,6 +4,7 @@
 
 #include "data/text_data.h"
 #include "data/text_pointers.h"
+#include "data/internal_text_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
 

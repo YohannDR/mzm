@@ -86,7 +86,7 @@ struct FileSelectData {
     u8 currentFile;
     u8 eraseFile;
 
-    struct FileSelectMenuCursors fileSelectData;
+    struct FileSelectMenuCursors fileSelectCursors;
     u8 unk_34;
     u8 unk_35;
     u8 unk_36;

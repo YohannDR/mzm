@@ -403,10 +403,4 @@ extern const u16 sEnglishText_FileScreen_TimeAttackRecordUnlock[];
 extern const u16 sEnglishText_FileScreen_SoundTestUnlock[];
 extern const u16 sEnglishText_FileScreen_NesMetroidUnlock[];
 
-extern u32 sArray_7602f0[9];
-extern u32 sArray_760314[9];
-extern u32 sArray_760338[24];
-extern u32 sArray_760398[8];
-extern u32 sArray_7603b8[8];
-
 #endif /* TEXT_DATA_H */

@@ -30,6 +30,5 @@ extern u32* sPauseScreen_7602a8;
 extern u8 sMapDownloadLineTrailOamOffsets[4];
 
 extern const u32 sPauseScreen_7602b0[9];
-extern const u8 sPauseScreen_7603ea[6];
 
 #endif /* INTERNAL_PAUSE_SCREEN_DATA_H */

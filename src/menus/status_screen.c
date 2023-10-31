@@ -6,6 +6,7 @@
 #include "data/menus/status_screen_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/internal_pause_screen_data.h"
+#include "data/menus/internal_status_screen_data.h"
 
 #include "constants/connection.h"
 #include "constants/demo.h"
