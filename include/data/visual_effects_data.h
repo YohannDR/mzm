@@ -4,22 +4,22 @@
 #include "types.h"
 #include "oam.h"
 
-extern const struct FrameData sEnvEffectOAM_RunningOnDustyGround[6];
-extern const struct FrameData sEnvEffectOAM_LandingOnDustyGround[8];
-extern const struct FrameData sEnvEffectOAM_TakingDamageInLava[9];
-extern const struct FrameData sEnvEffectOAM_TakingDamageInAcid[9];
-extern const struct FrameData sEnvEffectOAM_RunningOnWetGround[6];
-extern const struct FrameData sEnvEffectOAM_LandingOnWetGround[6];
-extern const struct FrameData sEnvEffectOAM_GoingOutOfWater[10];
-extern const struct FrameData sEnvEffectOAM_RunningIntoWater[7];
-extern const struct FrameData sEnvEffectOAM_GoingOutOfLava[10];
-extern const struct FrameData sEnvEffectOAM_RunningIntoLava[7];
-extern const struct FrameData sEnvEffectOAM_GoingOutOfAcid[11];
-extern const struct FrameData sEnvEffectOAM_RunningIntoAcid[7];
-extern const struct FrameData sEnvEffectOAM_LandingOnBubblyGround[7];
-extern const struct FrameData sEnvEffectOAM_BreathingBubbles[8];
-extern const struct FrameData sEnvEffectOAM_RunningOnVeryDustyGround[12];
-extern const struct FrameData sEnvEffectOAM_LandingOnVeryDustyGround[18];
+extern const struct FrameData sEnvEffectOam_RunningOnDustyGround[6];
+extern const struct FrameData sEnvEffectOam_LandingOnDustyGround[8];
+extern const struct FrameData sEnvEffectOam_TakingDamageInLava[9];
+extern const struct FrameData sEnvEffectOam_TakingDamageInAcid[9];
+extern const struct FrameData sEnvEffectOam_RunningOnWetGround[6];
+extern const struct FrameData sEnvEffectOam_LandingOnWetGround[6];
+extern const struct FrameData sEnvEffectOam_GoingOutOfWater[10];
+extern const struct FrameData sEnvEffectOam_RunningIntoWater[7];
+extern const struct FrameData sEnvEffectOam_GoingOutOfLava[10];
+extern const struct FrameData sEnvEffectOam_RunningIntoLava[7];
+extern const struct FrameData sEnvEffectOam_GoingOutOfAcid[11];
+extern const struct FrameData sEnvEffectOam_RunningIntoAcid[7];
+extern const struct FrameData sEnvEffectOam_LandingOnBubblyGround[7];
+extern const struct FrameData sEnvEffectOam_BreathingBubbles[8];
+extern const struct FrameData sEnvEffectOam_RunningOnVeryDustyGround[12];
+extern const struct FrameData sEnvEffectOam_LandingOnVeryDustyGround[18];
 
 extern const struct FrameData sParticleSpriteSplashWaterBigOam[10];
 extern const struct FrameData sParticleSpriteSplashWaterHugeOam[10];

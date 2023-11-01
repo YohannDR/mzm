@@ -1,6 +1,7 @@
 #include "data/engine_pointers.h"
 #include "macros.h"
 
+#include "data/rooms/brinstar_rooms_data.h"
 #include "data/clipdata_data.h"
 #include "data/animated_graphics_data.h"
 #include "data/hatch_data.h"
@@ -126,25 +127,25 @@ static const u8* const sScrollPointer_Empty[] = {
 };
 
 static const u8* const sBrinstarScrolls[] = {
-    (const u8* const)0x860c630,
-    (const u8* const)0x860cd64,
-    (const u8* const)0x860d46c,
-    (const u8* const)0x860fcf4,
-    (const u8* const)0x86100d8,
-    (const u8* const)0x861093c,
-    (const u8* const)0x8610d54,
-    (const u8* const)0x8611bec,
-    (const u8* const)0x8611f14,
-    (const u8* const)0x8612478,
-    (const u8* const)0x86137d4,
-    (const u8* const)0x8613f44,
-    (const u8* const)0x8614318,
-    (const u8* const)0x8614a60,
-    (const u8* const)0x8614e50,
-    (const u8* const)0x86150d8,
-    (const u8* const)0x861599c,
-    (const u8* const)0x8615df0,
-    (const u8* const)0x8616930,
+    (const u8* const)0x860c630, // sBrinstar_0_Scrolls,
+    (const u8* const)0x860cd64, // sBrinstar_1_Scrolls,
+    (const u8* const)0x860d46c, // sBrinstar_2_Scrolls,
+    (const u8* const)0x860fcf4, // sBrinstar_3_Scrolls,
+    (const u8* const)0x86100d8, // sBrinstar_4_Scrolls,
+    (const u8* const)0x861093c, // sBrinstar_5_Scrolls,
+    (const u8* const)0x8610d54, // sBrinstar_6_Scrolls,
+    (const u8* const)0x8611bec, // sBrinstar_7_Scrolls,
+    (const u8* const)0x8611f14, // sBrinstar_8_Scrolls,
+    (const u8* const)0x8612478, // sBrinstar_9_Scrolls,
+    (const u8* const)0x86137d4, // sBrinstar_10_Scrolls,
+    (const u8* const)0x8613f44, // sBrinstar_11_Scrolls,
+    (const u8* const)0x8614318, // sBrinstar_12_Scrolls,
+    (const u8* const)0x8614a60, // sBrinstar_13_Scrolls,
+    (const u8* const)0x8614e50, // sBrinstar_14_Scrolls,
+    (const u8* const)0x86150d8, // sBrinstar_15_Scrolls,
+    (const u8* const)0x861599c, // sBrinstar_16_Scrolls,
+    (const u8* const)0x8615df0, // sBrinstar_17_Scrolls,
+    (const u8* const)0x8616930, // sBrinstar_18_Scrolls,
     sScroll_Empty
 };
 

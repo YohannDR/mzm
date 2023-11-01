@@ -335,9 +335,9 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
             var_2 *= sRandomNumberTable[LOW_BYTE(pOam->timer + metroidId)] & 1;
 
             if (sEnterTourian_7600b4[metroidId][1] < pOam->yPosition)
-                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] - PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
+                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] - PIXEL_TO_SUB_PIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
             else
-                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] + PIXEL_TO_SUBPIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
+                pOam->yVelocity = sEnterTourian_7600b4[metroidId][1] + PIXEL_TO_SUB_PIXEL(var_2 + PIXEL_SIZE)- pOam->yPosition;
         }
         else if (pOam->unk_18 & 1)
         {

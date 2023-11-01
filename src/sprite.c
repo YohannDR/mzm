@@ -526,9 +526,9 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             size = gOamData[prevSlot + i].split.size;
         
             yOffset = sOamYFlipOffsets[shape][size];
-            yOffset = PIXEL_TO_SUBPIXEL(yOffset);
+            yOffset = PIXEL_TO_SUB_PIXEL(yOffset);
             xOffset = sOamXFlipOffsets[shape][size];
-            xOffset = PIXEL_TO_SUBPIXEL(xOffset);
+            xOffset = PIXEL_TO_SUB_PIXEL(xOffset);
         
             // Get current positions
             y = (s16)MOD_AND(part1 + yPosition, 256);
@@ -694,14 +694,14 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
         bgYRange = bgBaseY + BLOCK_SIZE * 8;
         spriteYRange = spriteY + BLOCK_SIZE * 8;
-        spriteBottom = bgYRange - PIXEL_TO_SUBPIXEL(pSprite->drawDistanceBottomOffset);
-        drawOffset = PIXEL_TO_SUBPIXEL(pSprite->drawDistanceTopOffset) + BLOCK_SIZE * 10;
+        spriteBottom = bgYRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceBottomOffset);
+        drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceTopOffset) + BLOCK_SIZE * 10;
         spriteTop = bgYRange + drawOffset;
 
         bgXRange = bgBaseX + BLOCK_SIZE * 8;
         spriteXRange = spriteX + BLOCK_SIZE * 8;
-        spriteLeft = bgXRange - PIXEL_TO_SUBPIXEL(pSprite->drawDistanceHorizontalOffset);
-        drawOffset = PIXEL_TO_SUBPIXEL(pSprite->drawDistanceHorizontalOffset) + BLOCK_SIZE * 15;
+        spriteLeft = bgXRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset);
+        drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset) + BLOCK_SIZE * 15;
         spriteRight = bgXRange + drawOffset;
 
         if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)

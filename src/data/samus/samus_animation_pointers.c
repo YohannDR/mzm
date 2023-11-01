@@ -3644,46 +3644,46 @@ const s16 sSamusDrawDistanceOffsets[4][4] = {
 
 const s16 sSamusHitboxData[4][3] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
-        [SAMUS_HITBOX_LEFT] = -28,
-        [SAMUS_HITBOX_RIGHT] = 28,
-        [SAMUS_HITBOX_TOP] = -124
+        [SAMUS_HITBOX_LEFT] = -(HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_RIGHT] = (HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_TOP] = -(BLOCK_SIZE * 2 - PIXEL_SIZE)
     },
     [SAMUS_HITBOX_TYPE_CROUCHED] = {
-        [SAMUS_HITBOX_LEFT] = -28,
-        [SAMUS_HITBOX_RIGHT] = 28,
-        [SAMUS_HITBOX_TOP] = -92
+        [SAMUS_HITBOX_LEFT] = -(HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_RIGHT] = (HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_TOP] = -(BLOCK_SIZE + HALF_BLOCK_SIZE - PIXEL_SIZE)
     },
     [SAMUS_HITBOX_TYPE_MORPHED] = {
-        [SAMUS_HITBOX_LEFT] = -28,
-        [SAMUS_HITBOX_RIGHT] = 28,
-        [SAMUS_HITBOX_TOP] = -60
+        [SAMUS_HITBOX_LEFT] = -(HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_RIGHT] = (HALF_BLOCK_SIZE - PIXEL_SIZE),
+        [SAMUS_HITBOX_TOP] = -(BLOCK_SIZE - PIXEL_SIZE)
     },
     [SAMUS_HITBOX_TYPE_ZIPLINE] = {
-        [SAMUS_HITBOX_LEFT] = -10,
-        [SAMUS_HITBOX_RIGHT] = 10,
+        [SAMUS_HITBOX_LEFT] = -(QUARTER_BLOCK_SIZE / 2 + PIXEL_SIZE / 2),
+        [SAMUS_HITBOX_RIGHT] = (QUARTER_BLOCK_SIZE / 2 + PIXEL_SIZE / 2),
         [SAMUS_HITBOX_TOP] = 0
     }
 };
 
-const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END] = {
-    [ENV_EFFECT_RUNNING_ON_WET_GROUND - 1] = sEnvEffectOAM_RunningOnWetGround,
-    [ENV_EFFECT_RUNNING_ON_DUSTY_GROUND - 1] = sEnvEffectOAM_RunningOnDustyGround,
-    [ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND - 1] = sEnvEffectOAM_RunningOnVeryDustyGround,
-    [ENV_EFFECT_GOING_OUT_OF_WATER - 1] = sEnvEffectOAM_GoingOutOfWater,
-    [ENV_EFFECT_RUNNING_INTO_WATER - 1] = sEnvEffectOAM_RunningIntoWater,
-    [ENV_EFFECT_GOING_OUT_OF_LAVA - 1] = sEnvEffectOAM_GoingOutOfLava,
-    [ENV_EFFECT_RUNNING_INTO_LAVA - 1] = sEnvEffectOAM_RunningIntoLava,
-    [ENV_EFFECT_GOING_OUT_OF_ACID - 1] = sEnvEffectOAM_GoingOutOfAcid,
-    [ENV_EFFECT_RUNNING_INTO_ACID - 1] = sEnvEffectOAM_RunningIntoAcid,
-    [ENV_EFFECT_TAKING_DAMAGE_IN_LAVA - 1] = sEnvEffectOAM_TakingDamageInLava,
-    [ENV_EFFECT_TAKING_DAMAGE_IN_ACID - 1] = sEnvEffectOAM_TakingDamageInAcid,
-    [ENV_EFFECT_LANDING_ON_WET_GROUND - 1] = sEnvEffectOAM_LandingOnWetGround,
-    [ENV_EFFECT_LANDING_ON_BUBBLY_GROUND - 1] = sEnvEffectOAM_LandingOnBubblyGround,
-    [ENV_EFFECT_LANDING_ON_DUSTY_GROUND - 1] = sEnvEffectOAM_LandingOnDustyGround,
-    [ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND - 1] = sEnvEffectOAM_LandingOnVeryDustyGround,
-    [ENV_EFFECT_SKIDDING_ON_WET_GROUND - 1] = sEnvEffectOAM_LandingOnWetGround,
-    [ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND - 1] = sEnvEffectOAM_LandingOnDustyGround,
-    [ENV_EFFECT_BREATHING_BUBBLES - 1] = sEnvEffectOAM_BreathingBubbles
+const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END - 1] = {
+    [ENV_EFFECT_RUNNING_ON_WET_GROUND - 1] = sEnvEffectOam_RunningOnWetGround,
+    [ENV_EFFECT_RUNNING_ON_DUSTY_GROUND - 1] = sEnvEffectOam_RunningOnDustyGround,
+    [ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND - 1] = sEnvEffectOam_RunningOnVeryDustyGround,
+    [ENV_EFFECT_GOING_OUT_OF_WATER - 1] = sEnvEffectOam_GoingOutOfWater,
+    [ENV_EFFECT_RUNNING_INTO_WATER - 1] = sEnvEffectOam_RunningIntoWater,
+    [ENV_EFFECT_GOING_OUT_OF_LAVA - 1] = sEnvEffectOam_GoingOutOfLava,
+    [ENV_EFFECT_RUNNING_INTO_LAVA - 1] = sEnvEffectOam_RunningIntoLava,
+    [ENV_EFFECT_GOING_OUT_OF_ACID - 1] = sEnvEffectOam_GoingOutOfAcid,
+    [ENV_EFFECT_RUNNING_INTO_ACID - 1] = sEnvEffectOam_RunningIntoAcid,
+    [ENV_EFFECT_TAKING_DAMAGE_IN_LAVA - 1] = sEnvEffectOam_TakingDamageInLava,
+    [ENV_EFFECT_TAKING_DAMAGE_IN_ACID - 1] = sEnvEffectOam_TakingDamageInAcid,
+    [ENV_EFFECT_LANDING_ON_WET_GROUND - 1] = sEnvEffectOam_LandingOnWetGround,
+    [ENV_EFFECT_LANDING_ON_BUBBLY_GROUND - 1] = sEnvEffectOam_LandingOnBubblyGround,
+    [ENV_EFFECT_LANDING_ON_DUSTY_GROUND - 1] = sEnvEffectOam_LandingOnDustyGround,
+    [ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND - 1] = sEnvEffectOam_LandingOnVeryDustyGround,
+    [ENV_EFFECT_SKIDDING_ON_WET_GROUND - 1] = sEnvEffectOam_LandingOnWetGround,
+    [ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND - 1] = sEnvEffectOam_LandingOnDustyGround,
+    [ENV_EFFECT_BREATHING_BUBBLES - 1] = sEnvEffectOam_BreathingBubbles
 };
 
 const u16 sSamusPullingSelfUpVelocity[4] = {

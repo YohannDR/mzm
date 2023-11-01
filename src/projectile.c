@@ -168,8 +168,8 @@ void ProjectileUpdate(void)
         return;
     
     SamusCallUpdateArmCannonPositionOffset();
-    gArmCannonY = ((gSamusData.yPosition / 4) + gSamusPhysics.armCannonYPositionOffset) * 0x4;
-    gArmCannonX = ((gSamusData.xPosition / 4) + gSamusPhysics.armCannonXPositionOffset) * 0x4;
+    gArmCannonY = PIXEL_TO_SUB_PIXEL(SUB_PIXEL_TO_PIXEL(gSamusData.yPosition) + gSamusPhysics.armCannonYPositionOffset);
+    gArmCannonX = PIXEL_TO_SUB_PIXEL(SUB_PIXEL_TO_PIXEL(gSamusData.xPosition) + gSamusPhysics.armCannonXPositionOffset);
 
     if (gSamusWeaponInfo.chargeCounter == 16 && gEquipment.suitType != SUIT_SUITLESS)
     {

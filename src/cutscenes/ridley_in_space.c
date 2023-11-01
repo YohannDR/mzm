@@ -76,8 +76,8 @@ u8 RidleyInSpaceShipLeaving(void)
 
                 // Set random position on screen
                 // No modulo for X?
-                CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[gFrameCounter8Bit & i]);
-                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)]);
+                CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUB_PIXEL(sRandomNumberTable[gFrameCounter8Bit & i]);
+                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUB_PIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)]);
 
                 // Check is off-screen
                 if (CUTSCENE_DATA.oam[i].yPosition >= SCREEN_SIZE_Y_SUB_PIXEL)
@@ -752,8 +752,8 @@ void RidleyInSpaceViewOfShipParticles(void)
             CUTSCENE_DATA.oam[i].actions = CUTSCENE_OAM_ACTION_NONE;
 
             // Set random start position
-            CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
-            CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(sRandomNumberTable[(u32)(CUTSCENE_DATA.oam[i].timer + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
+            CUTSCENE_DATA.oam[i].xPosition = PIXEL_TO_SUB_PIXEL(sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
+            CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUB_PIXEL(sRandomNumberTable[(u32)(CUTSCENE_DATA.oam[i].timer + i) % ARRAY_SIZE(sRandomNumberTable)] & 0x53);
 
             CUTSCENE_DATA.oam[i].timer = 0;
 
@@ -814,8 +814,8 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
     if (pOam->actions == CUTSCENE_OAM_ACTION_NONE)
     {
         // Initialize destination position to move towards the edges of the screen
-        pOam->xVelocity = (pOam->xPosition - PIXEL_TO_SUBPIXEL(SCREEN_SIZE_X / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
-        pOam->yVelocity = (pOam->yPosition - PIXEL_TO_SUBPIXEL(SCREEN_SIZE_Y / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
+        pOam->xVelocity = (pOam->xPosition - PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_X / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
+        pOam->yVelocity = (pOam->yPosition - PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_Y / 8)) * (SCREEN_SIZE_X + SCREEN_SIZE_Y);
 
         // Check any of the destination positions aren't 0
         if (pOam->xVelocity | pOam->yVelocity)
@@ -905,7 +905,7 @@ void RidleyInSpaceShipLeavingParticles(void)
             // Check is a valid position
             if (newY < SCREEN_SIZE_Y)
             {
-                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUBPIXEL(newY);
+                CUTSCENE_DATA.oam[i].yPosition = PIXEL_TO_SUB_PIXEL(newY);
                 CUTSCENE_DATA.oam[i].timer = 0;
                 CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(u32)(gFrameCounter8Bit * i) % ARRAY_SIZE(sRandomNumberTable)];
 

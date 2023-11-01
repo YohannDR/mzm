@@ -176,7 +176,7 @@ extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Bal
 
 extern const s16 sSamusDrawDistanceOffsets[4][4];
 extern const s16 sSamusHitboxData[4][3];
-extern const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END];
+extern const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END - 1];
 extern const u16 sSamusPullingSelfUpVelocity[4];
 
 #endif /* SAMUS_ANIMATION_POINTERS_DATA_H */

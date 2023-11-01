@@ -1,45 +1,32 @@
 from io import BufferedReader
 from array import array
 
-types: array = [
-    "CREDIT_LINE_TYPE_BLUE",
-    "CREDIT_LINE_TYPE_RED",
-    "CREDIT_LINE_TYPE_WHITE_BIG",
-    "CREDIT_LINE_TYPE_WHITE_SMALL",
-    "",
-    "CREDIT_LINE_TYPE_UNK_5",
-    "CREDIT_LINE_TYPE_END",
-    "",
-    "",
-    "",
-    "CREDIT_LINE_TYPE_ALL_RIGHTS",
-    "CREDIT_LINE_TYPE_THE_COPYRIGHT",
-    "CREDIT_LINE_TYPE_SCENARIO",
-    "CREDIT_LINE_TYPE_RESERVED"
-]
-
 file = open("../mzm_us_baserom.gba", "rb")
 
 def Func():
-    addr = 0x54c10c
+    addr = int(input("Address : "), 16)
 
     file.seek(addr)
 
+    result = ".y = C_S8_2_S16("
 
-    result = ""
-    for x in range(0, 240):
-        result += "["+str(x)+"] = {\n\t.type = "
+    v: int = int.from_bytes(file.read(2), "little")
+    if v & 0x80:
+        result += str(v - 0x100)
+    else:
+        result += str(v)
 
-        offset: int = int.from_bytes(file.read(1), "little")
-        result += types[offset]
+    result += "),\n.x = C_S9_2_S16("
 
-        txt:str = file.read(35).decode("ascii").strip('\0')
-        result += ",\n\t.text = \""+txt+"\"\n},\n"
+    v = int.from_bytes(file.read(2), "little")
+    if v & 0x100:
+        result += str(v - 0x200)
+    else:
+        result += str(v)
 
-    return result
+    result += ")"
 
-f = open("credits.txt", "w")
-f.write(Func())
-f.close()
+    print(result)
+    Func()
 
 Func()

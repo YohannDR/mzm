@@ -568,7 +568,8 @@ SECTIONS {
         src/data/audio.o(.rodata);
         /* 908e0-2320e4 */
         src/data/samus/samus_empty_data.o(.rodata);
-        /* 2320ec-2376a8 */
+        src/data/samus/arm_cannon_data.o(.rodata);
+        /* 234970-2376a8 */
         src/data/samus/samus_palette_data.o(.rodata);
         /* 238b68-23a5bc */
         src/data/samus/samus_graphics.o(.rodata);

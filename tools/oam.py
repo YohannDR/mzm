@@ -94,8 +94,18 @@ def Func():
 
     file.seek(addr)
 
-    part_count = int.from_bytes(file.read(2), "little")
-    result = hex(part_count) + ",\n"
+    part_count_raw = int.from_bytes(file.read(2), "little")
+    part_count = part_count_raw & 0xFF
+
+    result = hex(part_count)
+
+    if part_count_raw & 0x1000:
+        result += " | ARM_CANNON_OAM_ORDER_IN_FRONT"
+
+    if part_count_raw & 0x2000:
+        result += " | ARM_CANNON_OAM_ORDER_BEHIND"
+    
+    result += ",\n"
 
     for x in range(0, part_count):
         part0 = ParsePart0(int.from_bytes(file.read(2), "little"))

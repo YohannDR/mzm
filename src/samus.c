@@ -6128,8 +6128,8 @@ u8 SamusDying(struct SamusData* pData)
     if (pData->xVelocity != 0 || pData->yVelocity != 0)
     {
         // Center of the screen
-        dstX = gBg1XPosition + PIXEL_TO_SUBPIXEL(SCREEN_SIZE_X / 2);
-        dstY = gBg1YPosition + PIXEL_TO_SUBPIXEL(SCREEN_SIZE_Y / 2 + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+        dstX = gBg1XPosition + PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_X / 2);
+        dstY = gBg1YPosition + PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_Y / 2 + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
 
         // Update X velocity
         if (pData->xVelocity > 0)
@@ -7954,7 +7954,7 @@ void SamusDraw(void)
         }
     }
 
-    if (gSamusPhysics.unk_22 & 0x2000)
+    if (gSamusPhysics.unk_22 & ARM_CANNON_OAM_ORDER_BEHIND)
     {
         // Draw arm cannon oam
         src = gSamusPhysics.pArmCannonOam;
@@ -8004,7 +8004,7 @@ void SamusDraw(void)
         dst++;
     }
 
-    if (gSamusPhysics.unk_22 & 0x1000)
+    if (gSamusPhysics.unk_22 & ARM_CANNON_OAM_ORDER_IN_FRONT)
     {
         src = gSamusPhysics.pArmCannonOam;
         part1 = *src++;
