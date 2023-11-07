@@ -17,5 +17,3 @@ static const u8* const sPlayerNumbersStringPointers[4] = {
     [2] = sPlayer3String,
     [3] = sPlayer4String,
 };
-
-static const u8 sTempArray_760d38[0x969fc] = INCBIN_U8("data/Blob_760d38_7f7734.bin");

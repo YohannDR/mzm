@@ -7,6 +7,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/text_data.h"
+#include "data/nes_metroid.h"
 #include "data/text_pointers.h"
 #include "data/io_transfer_data.h"
 #include "data/menus/file_select_data.h"
@@ -2128,8 +2129,7 @@ u8 OptionsNesMetroidSubroutine(void)
             // Verify data integrity
             for (i = 0; i < ARRAY_SIZE(sNesMetroidDataCheck); i++)
             {
-                // FIXME
-                if (((u8*)0x87d80a0)[i] != sNesMetroidDataCheck[i])
+                if (sNesMetroidData[156 + i] != sNesMetroidDataCheck[i])
                     return TRUE;
             }
             FILE_SELECT_DATA.subroutineStage++;
@@ -2174,6 +2174,7 @@ u8 OptionsNesMetroidSubroutine(void)
             // Give control to some sort of bootloader?
             // Signature : void Func_T(void*)
             // FIXME
+            sNesEmuBootLoader(ROM_BASE);
             ((void*(*)(void*))(0x87d8000))(ROM_BASE);
             break;
     }

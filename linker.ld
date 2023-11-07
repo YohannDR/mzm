@@ -744,6 +744,6 @@ SECTIONS {
         src/data/internal_tourian_escape_data.o(.rodata);
         src/data/internal_ending_and_gallery_data.o(.rodata);
         src/data/internal_chozodia_escape_data.o(.rodata);
-        /* 760d28-7f7734 */
+        src/data/nes_metroid.o(.rodata);
     } >rom
 }
