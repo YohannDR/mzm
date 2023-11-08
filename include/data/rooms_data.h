@@ -4,7 +4,6 @@
 #include "structs/connection.h"
 #include "structs/room.h"
 
-// Should be [3], needed for alignement issues for now
 extern const u8 sEnemyRoomData_Empty[3];
 
 extern const struct TilesetEntry sTilesetEntries[79];
@@ -23,6 +22,20 @@ extern const struct Door sCrateriaDoors[53];
 
 extern const struct Door sChozodiaDoors[246];
 
-// 34099c
+extern const struct Door sDebugDoors[26];
+
+extern const struct RoomEntryROM sBrinstarRoomEntries[42];
+
+extern const struct RoomEntryROM sKraidRoomEntries[42];
+
+extern const struct RoomEntryROM sNorfairRoomEntries[57];
+
+extern const struct RoomEntryROM sRidleyRoomEntries[33];
+
+extern const struct RoomEntryROM sTourianRoomEntries[20];
+
+extern const struct RoomEntryROM sCrateriaRoomEntries[22];
+
+extern const struct RoomEntryROM sChozodiaRoomEntries[115];
 
 #endif /* DOORS_DATA_H */

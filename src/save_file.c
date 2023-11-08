@@ -1914,38 +1914,43 @@ u32 SramCopyFile(u8 src, u8 dst)
     return gDisableSoftreset ^ TRUE;
 }
 
-
 void SramWrite_FileInfo(void)
 {
     // https://decomp.me/scratch/c9e6c
     
     s32 i;
     s32 j;
+    struct Sram* pSram;
+    struct SaveFile* pFile;
 
-    for (i = 0, j = 0; j < ARRAY_SIZE(gSaveFilesInfo); i++, j++)
+    pSram = &gSram;
+    
+    for (i = 0, j = 0; j < ARRAY_SIZE(pSram->files); i++, j++)
     {
-        gSaveFilesInfo[i].currentArea = gSram.files[j].currentArea;
+        pFile = &pSram->files[j];
+
+        gSaveFilesInfo[i].currentArea = pFile->currentArea;
 
         if (gSaveFilesInfo[i].exists == TRUE)
         {
-            gSaveFilesInfo[i].currentEnergy = gSram.files[j].equipment.currentEnergy;
-            gSaveFilesInfo[i].maxEnergy = gSram.files[j].equipment.maxEnergy;
-            gSaveFilesInfo[i].currentMissiles = gSram.files[j].equipment.currentMissiles;
-            gSaveFilesInfo[i].maxMissiles = gSram.files[j].equipment.maxMissiles;
-            gSaveFilesInfo[i].suitType = gSram.files[j].equipment.suitType;
-            gSaveFilesInfo[i].igtHours = gSram.files[j].inGameTimer.hours;
-            gSaveFilesInfo[i].igtMinutes = gSram.files[j].inGameTimer.minutes;
-            gSaveFilesInfo[i].igtSconds = gSram.files[j].inGameTimer.seconds;
-            gSaveFilesInfo[i].hasSaved = gSram.files[j].hasSaved;
-            gSaveFilesInfo[i].completedGame = gSram.files[j].gameCompletion.completedGame;
-            gSaveFilesInfo[i].introPlayed = gSram.files[j].gameCompletion.introPlayed;
-            gSaveFilesInfo[i].language = gSram.files[j].gameCompletion.language;
-            gSaveFilesInfo[i].timeAttack = gSram.files[j].timeAttack;
+            gSaveFilesInfo[i].currentEnergy = pFile->equipment.currentEnergy;
+            gSaveFilesInfo[i].maxEnergy = pFile->equipment.maxEnergy;
+            gSaveFilesInfo[i].currentMissiles = pFile->equipment.currentMissiles;
+            gSaveFilesInfo[i].maxMissiles = pFile->equipment.maxMissiles;
+            gSaveFilesInfo[i].suitType = pFile->equipment.suitType;
+            gSaveFilesInfo[i].igtHours = pFile->inGameTimer.hours;
+            gSaveFilesInfo[i].igtMinutes = pFile->inGameTimer.minutes;
+            gSaveFilesInfo[i].igtSconds = pFile->inGameTimer.seconds;
+            gSaveFilesInfo[i].hasSaved = pFile->hasSaved;
+            gSaveFilesInfo[i].completedGame = pFile->gameCompletion.completedGame;
+            gSaveFilesInfo[i].introPlayed = pFile->gameCompletion.introPlayed;
+            gSaveFilesInfo[i].language = pFile->gameCompletion.language;
+            gSaveFilesInfo[i].timeAttack = pFile->timeAttack;
 
-            if (gSram.files[j].difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
+            if (pFile->difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
                 gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
             else
-                gSaveFilesInfo[i].difficulty = gSram.files[j].difficulty;
+                gSaveFilesInfo[i].difficulty = pFile->difficulty;
         }
 
         if (gSaveFilesInfo[i].exists && gSaveFilesInfo[i].hasSaved)
@@ -1971,13 +1976,13 @@ void SramWrite_FileInfo(void)
         gSaveFilesInfo[i].maxEnergy = 99;
         gSaveFilesInfo[i].difficulty = DIFF_EASY;
 
-        if (gSram.files[j].difficulty > DIFF_HARD)
+        if (pFile->difficulty > DIFF_HARD)
             gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
         else
-            gSaveFilesInfo[i].difficulty = gSram.files[j].difficulty;
+            gSaveFilesInfo[i].difficulty = pFile->difficulty;
         
-        gSaveFilesInfo[i].language = gSram.files[j].gameCompletion.language;
-        gSaveFilesInfo[i].timeAttack = gSram.files[j].timeAttack;
+        gSaveFilesInfo[i].language = pFile->gameCompletion.language;
+        gSaveFilesInfo[i].timeAttack = pFile->timeAttack;
     }
 }
 

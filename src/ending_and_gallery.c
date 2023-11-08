@@ -211,29 +211,29 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (hoursTens != 0)
     {
         offset = hoursTens * 64;
-        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ, DMA_ENABLE << 16 | 32);
-        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ, C_32_2_16(DMA_ENABLE, 64 / 2));
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x400, C_32_2_16(DMA_ENABLE, 64 / 2));
     }
 
     offset = hoursOnes * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x040, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x440, C_32_2_16(DMA_ENABLE, 64 / 2));
 
     offset = minutesTens * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x0A0, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x4A0, C_32_2_16(DMA_ENABLE, 64 / 2));
 
     offset = minutesOnes * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x0E0, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x4E0, C_32_2_16(DMA_ENABLE, 64 / 2));
 
     offset = secondsTens * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x140, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x540, C_32_2_16(DMA_ENABLE, 64 / 2));
 
     offset = secondsOnes * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x180, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x580, C_32_2_16(DMA_ENABLE, 64 / 2));
 
     percentageHundreds = 0;
     percentageTens = 0;
@@ -254,20 +254,20 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (percentageHundreds != 0)
     {
         offset = percentageHundreds * 64;
-        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
-        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x1C0, C_32_2_16(DMA_ENABLE, 64 / 2));
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x5C0, C_32_2_16(DMA_ENABLE, 64 / 2));
     }
     
     if (percentageHundreds != 0 || percentageTens != 0)
     {
         offset = percentageTens * 64;
-        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
-        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x200, C_32_2_16(DMA_ENABLE, 64 / 2));
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x600, C_32_2_16(DMA_ENABLE, 64 / 2));
     }
 
     offset = percentageOnes * 64;
-    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
-    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x240, C_32_2_16(DMA_ENABLE, 64 / 2));
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x640, C_32_2_16(DMA_ENABLE, 64 / 2));
 }
 
 /**
