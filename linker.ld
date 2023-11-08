@@ -712,7 +712,7 @@ SECTIONS {
         /* 60c630-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
-        /* 754bd0-75e6a8 */
+        src/data/cable_link_data.o(.rodata);
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);

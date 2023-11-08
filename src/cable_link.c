@@ -95,7 +95,7 @@ u8 CableLinkProcess(void)
             break;
 
         case 4:
-            if (!unk_8980c(0x875e6a8 - (u32)sTransferData_87566c4, sTransferData_87566c4))
+            if (!unk_8980c(&sTransferRom[sizeof(sTransferRom)] - sTransferRom, sTransferRom))
             {
                 gIoTransferInfo.unk_9++;
                 break;
@@ -707,11 +707,11 @@ void unk_897d0(void)
 /**
  * @brief 8980c | ac | To document
  * 
- * @param data To document
- * @param pData To document
+ * @param size Data size
+ * @param pData Pointer to data
  * @return u32 To document
  */
-u32 unk_8980c(u32 data, const u32* pData)
+u32 unk_8980c(u32 size, const u32* pData)
 {
     u32 result;
     u32 buffer;
@@ -721,7 +721,7 @@ u32 unk_8980c(u32 data, const u32* pData)
 
     while (TRUE)
     {
-        gUnk_30058a8 = unk_899c8(1, data, pData, 0);
+        gUnk_30058a8 = unk_899c8(1, size, pData, 0);
 
         if (!(gUnk_30058a8 & 3) && gUnk_30058a8 & 0xC)
         {
@@ -836,12 +836,12 @@ void unk_899a4(void)
  * @brief 899c8 | 174 | To document
  * 
  * @param param_1 To document
- * @param data To document
- * @param pData To document
+ * @param Size Data size
+ * @param pData Pointer to data
  * @param param_3 To document
  * @return u16 To document
  */
-u16 unk_899c8(u32 param_1, u32 data, const u32* pData, u32 param_3)
+u16 unk_899c8(u32 param_1, u32 size, const u32* pData, u32 param_3)
 {
     switch (gUnk_3005890.unk_1)
     {
@@ -869,7 +869,7 @@ u16 unk_899c8(u32 param_1, u32 data, const u32* pData, u32 param_3)
 
         case 2:
             unk_899a4();
-            unk_89b70(data, pData, param_3);
+            unk_89b70(size, pData, param_3);
             gUnk_3005890.unk_1 = 3;
 
         case 3:
@@ -917,7 +917,7 @@ u16 unk_899c8(u32 param_1, u32 data, const u32* pData, u32 param_3)
             break;
     }
 
-    gUnk_3005890.unk_2 = gUnk_3005890.unk_C * 100 / gUnk_3005890.unk_10;
+    gUnk_3005890.unk_2 = gUnk_3005890.dataCursor * 100 / gUnk_3005890.dataSizeInt;
 
     return gUnk_3005890.unk_3 | gUnk_3005890.unk_4 << 2 | gUnk_3005890.unk_5 << 4 | gUnk_3005890.unk_2 << 8;
 }
@@ -947,17 +947,17 @@ u16 unk_89b3c(u8 param_1)
 /**
  * @brief 89b70 | 30 | To document
  * 
- * @param data To document
- * @param param_2 To document
+ * @param size Data size
+ * @param pData Data pointer
  */
-void unk_89b70(u32 data, const u32* param_2, u32 param_3)
+void unk_89b70(u32 size, const u32* pData, u32 param_3)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG);
     
-    gUnk_3005890.unk_8 = param_2;
-    write32(REG_SIO_MULTI, data);
+    gUnk_3005890.pData = pData;
+    write32(REG_SIO_MULTI, size);
 
-    gUnk_3005890.unk_10 = (data / sizeof(u32)) + 1;
+    gUnk_3005890.dataSizeInt = (size / sizeof(u32)) + 1;
 
     unk_89ba0();
 }
@@ -1040,23 +1040,23 @@ void unk_89be4(void)
         case 3:
             read32(REG_SIO_MULTI);
 
-            if (gUnk_3005890.unk_C < gUnk_3005890.unk_10)
+            if (gUnk_3005890.dataCursor < gUnk_3005890.dataSizeInt)
             {
-                write32(REG_SIO_MULTI, gUnk_3005890.unk_8[gUnk_3005890.unk_C]);
-                gUnk_3005890.unk_14 += gUnk_3005890.unk_8[gUnk_3005890.unk_C];
+                write32(REG_SIO_MULTI, gUnk_3005890.pData[gUnk_3005890.dataCursor]);
+                gUnk_3005890.dataChecksum += gUnk_3005890.pData[gUnk_3005890.dataCursor];
             }
-            else if (gUnk_3005890.unk_C == gUnk_3005890.unk_10)
+            else if (gUnk_3005890.dataCursor == gUnk_3005890.dataSizeInt)
             {
-                write32(REG_SIO_MULTI, gUnk_3005890.unk_14);
+                write32(REG_SIO_MULTI, gUnk_3005890.dataChecksum);
             }
             else
             {
                 write32(REG_SIO_MULTI, 0);
             }
 
-            gUnk_3005890.unk_C++;
+            gUnk_3005890.dataCursor++;
 
-            if (gUnk_3005890.unk_C < gUnk_3005890.unk_10 + gUnk_30058b0)
+            if (gUnk_3005890.dataCursor < gUnk_3005890.dataSizeInt + gUnk_30058b0)
             {
                 write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
             }

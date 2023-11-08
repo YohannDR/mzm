@@ -83,10 +83,10 @@ struct CableLink_3005890 {
     u8 unk_5;
     u8 unk_6;
     u8 unk_7;
-    const u32* unk_8;
-    u32 unk_C;
-    u32 unk_10;
-    u32 unk_14;
+    const u32* pData;
+    u32 dataCursor;
+    u32 dataSizeInt;
+    u32 dataChecksum;
 };
 
 extern struct IoTransferInfo gIoTransferInfo;

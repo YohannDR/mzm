@@ -2691,6 +2691,11 @@ samus/graphics/arm_cannon/Lower_Forward_Armed_Standing.gfx;64;0x233a2c;1
 samus/graphics/arm_cannon/Lower_DiagonalUp_Armed_Standing.gfx;64;0x233a6c;1
 samus/graphics/arm_cannon/Lower_DiagonalDown_Armed_Standing.gfx;64;0x233aac;1
 
+# IO
+
+io/754bd0.bin;6900;0x754bd0;1
+io/rom.bin;8185;0x7566c4;4
+
 # Nes Metroid
 
 nes_metroid.bin;128816;0x7d8004;1
@@ -2705,4 +2710,3 @@ Blob_234970_2376a8.bin;11576;0x234970;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_60c630_74f8b4.bin;1323652;0x60c630;1
-Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
