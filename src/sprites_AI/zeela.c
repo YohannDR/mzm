@@ -838,7 +838,7 @@ void ZeelaFallingInit(void)
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
     }
     else if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-        gCurrentSprite.yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+        gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
    
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
     gCurrentSprite.arrayOffset = 0;
@@ -903,16 +903,16 @@ void ZeelaDeath(void)
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-            xPosition -= HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+            xPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
         else
-            xPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+            xPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-            yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+            yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
         else
-            yPosition -= HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+            yPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
 
     if (gCurrentSprite.spriteID == PSPRITE_ZEELA_RED)

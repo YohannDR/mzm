@@ -5,6 +5,8 @@
 #include "oam.h"
 #include "macros.h"
 
+#include "structs/tourian_escape.h"
+
 extern const u16 sTourianEscape_375cc4[OAM_DATA_SIZE(12)];
 
 extern const u16 sTourianEscapeExplodingPal[9 * 16];
@@ -121,12 +123,12 @@ extern const struct FrameData sTourianEscape_47cbe4[16];
 extern const struct FrameData sTourianEscape_47cc64[11];
 extern const struct FrameData sTourianEscape_47ccbc[15];
 
-extern const u16 sTourianEscape_47ce20[1][3];
-extern const u16 sTourianEscape_47ced0[1][2];
-extern const u16 sTourianEscape_47cef0[1][2];
-extern const u16 sTourianEscape_47cf10[1][2];
-extern const u16 sTourianEscape_47cf30[1][2];
-extern const u16 sTourianEscape_47cf50[1][2];
+extern const u16 sTourianEscape_47ce20[TOURIAN_ESCAPE_MAX_OBJECTS][3];
+extern const u16 sTourianEscape_47ced0[8][2];
+extern const u16 sTourianEscape_47cef0[8][2];
+extern const u16 sTourianEscape_47cf10[8][2];
+extern const u16 sTourianEscape_47cf30[8][2];
+extern const u16 sTourianEscape_47cf50[8][2];
 
 extern const u16 sTourianEscape_47ac10[4];
 extern const u16 sTourianEscape_47ac18[OAM_DATA_SIZE(2)];
@@ -137,8 +139,8 @@ extern const u16 sTourianEscape_47cfb4[8];
 extern const u16 sTourianEscape_47cfc4[8];
 extern const u16 sTourianEscape_47cfd4[8];
 
-extern const u8 sTourianEscape_47cff4[10];
-extern const u16 sTourianEscape_47cffe[11];
+extern const u8 sTourianEscape_47cff4[TOURIAN_ESCAPE_MAX_OBJECTS];
+extern const u16 sTourianEscape_47cffe[TOURIAN_ESCAPE_MAX_OBJECTS];
 
 // ...
 

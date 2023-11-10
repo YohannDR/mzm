@@ -760,23 +760,19 @@ u8 ChozodiaEscapeShipBlowingUp(void)
             break;
 
         case 1:
-            LZ77UncompVRAM(0x847d014, VRAM_BASE + 0x8000);
-            // FIXME LZ77UncompVRAM(sMotherShipExplodingFlashGfx, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sMotherShipExplodingFlashGfx, VRAM_BASE + 0x8000);
             break;
 
         case 2:
-            LZ77UncompVRAM(0x8480148, VRAM_OBJ);
-            // FIXME LZ77UncompVRAM(sMotherShipBlowingUpExplosionsGfx, VRAM_OBJ);
+            LZ77UncompVRAM(sMotherShipBlowingUpExplosionsGfx, VRAM_OBJ);
             break;
 
         case 3:
             LZ77UncompVRAM(sChozodiaEscapeCraterBackgroundTileTable, VRAM_BASE + 0xE800);
-            LZ77UncompVRAM(0x847f884, VRAM_BASE + 0xF000);
-            // FIXME LZ77UncompVRAM(sMotherShipExplodingFlashTileTable, VRAM_BASE + 0xF000);
+            LZ77UncompVRAM(sMotherShipExplodingFlashTileTable, VRAM_BASE + 0xF000);
 
             DMA_SET(3, sChozodiaEscapeShipExplodingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeShipExplodingPAL) - 16 * 2);
-            DMA_SET(3, 0x8479520, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sMotherShipBlowingUpExplosionsPal));
-            // FIXME DMA_SET(3, sMotherShipBlowingUpExplosionsPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sMotherShipBlowingUpExplosionsPal));
+            DMA_SET(3, sMotherShipBlowingUpExplosionsPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sMotherShipBlowingUpExplosionsPal));
 
             write16(REG_BG0CNT, 0x1E08);
             write16(REG_BG1CNT, 0x1D01);

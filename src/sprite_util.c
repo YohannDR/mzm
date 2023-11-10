@@ -2938,36 +2938,36 @@ void SpriteUtilRandomSpriteDebris(u8 cloudType, u8 number, u16 yPosition, u16 xP
     {
         case 1:
             if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-                SpriteDebrisInit(cloudType, 1, yPosition + (QUARTER_BLOCK_SIZE / 2), xPosition - (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 1, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             else
-                SpriteDebrisInit(cloudType, 2, yPosition - (QUARTER_BLOCK_SIZE / 2), xPosition + (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 2, yPosition - EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
             break;
 
         case 2:
             if (MOD_AND(gFrameCounter8Bit, 2) == 0)
             {
-                SpriteDebrisInit(cloudType, 1, yPosition - (QUARTER_BLOCK_SIZE / 2), xPosition - (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 3, yPosition, xPosition + (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 1, yPosition - EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 3, yPosition, xPosition + EIGHTH_BLOCK_SIZE);
             }
             else
             {
-                SpriteDebrisInit(cloudType, 2, yPosition - (QUARTER_BLOCK_SIZE / 2), xPosition + (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 4, yPosition + (QUARTER_BLOCK_SIZE / 2), xPosition - (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 2, yPosition - EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 4, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             }
             break;
 
         case 3:
             if (MOD_AND(gFrameCounter8Bit, 2) == 0)
             {
-                SpriteDebrisInit(cloudType, 2, yPosition - QUARTER_BLOCK_SIZE, xPosition + (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 3, yPosition + (QUARTER_BLOCK_SIZE / 2), xPosition + (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 4, yPosition + QUARTER_BLOCK_SIZE, xPosition - (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 2, yPosition - QUARTER_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 3, yPosition + EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 4, yPosition + QUARTER_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             }
             else
             {
-                SpriteDebrisInit(cloudType, 1, yPosition - (QUARTER_BLOCK_SIZE / 2), xPosition - (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 3, yPosition - QUARTER_BLOCK_SIZE, xPosition + (QUARTER_BLOCK_SIZE / 2));
-                SpriteDebrisInit(cloudType, 4, yPosition + (QUARTER_BLOCK_SIZE / 2), xPosition - (QUARTER_BLOCK_SIZE / 2));
+                SpriteDebrisInit(cloudType, 1, yPosition - EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 3, yPosition - QUARTER_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 4, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             }
     }
 }

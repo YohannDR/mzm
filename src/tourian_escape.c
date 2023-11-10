@@ -416,7 +416,7 @@ void unk_81ad8(void)
     if (TOURIAN_ESCAPE_DATA.unk_8[2])
     {
         offset = TOURIAN_ESCAPE_DATA.oamTimers[2]++ / 4;
-        if (offset > 7)
+        if (offset >= ARRAY_SIZE(sTourianEscape_47ce90))
         {
             TOURIAN_ESCAPE_DATA.oamTimers[2] = 0;
             TOURIAN_ESCAPE_DATA.oamXPositions[2] = 0x6D;

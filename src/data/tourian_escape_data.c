@@ -2793,4 +2793,467 @@ const struct FrameData sChozodiaEscapeOam_MotherShipDecaying[9] = {
     [8] = FRAME_DATA_TERMINATOR
 };
 
-static const u8 sBlob_47cd7c_4bfee4[] = INCBIN_U8("data/Blob_47cd7c_4bfee4.bin");
+const u32 sTourianEscapeDebrisGfx[25] = INCBIN_U32("data/tourian_escape/Debris.gfx.lz");
+
+static const u16 sTourianEscape_47cde0[OAM_DATA_SIZE(1)] = {
+    0x1,
+    0xf8, 0x1f8, 0x1180
+};
+
+static const u16 sTourianEscape_47cde8[OAM_DATA_SIZE(1)] = {
+    0x1,
+    0xf8, 0x1f8, 0x1181
+};
+
+static const u16 sTourianEscape_47cdf0[OAM_DATA_SIZE(1)] = {
+    0x1,
+    0xf8, 0x1f8, 0x1182
+};
+
+static const u16 sTourianEscape_47cdf8[OAM_DATA_SIZE(1)] = {
+    0x1,
+    0xf8, 0x1f8, 0x1183
+};
+
+const u16* const sTourianEscape_47ce00[4] = {
+    [0] = sTourianEscape_47a682,
+    [1] = sTourianEscape_47a68a,
+    [2] = sTourianEscape_47a692,
+    [3] = sTourianEscape_47a69a
+};
+
+const u16* const sTourianEscape_47ce10[4] = {
+    [0] = sTourianEscape_47a6a2,
+    [1] = sTourianEscape_47a6aa,
+    [2] = sTourianEscape_47a6b2,
+    [3] = sTourianEscape_47a6ba,
+};
+
+const u16 sTourianEscape_47ce20[TOURIAN_ESCAPE_MAX_OBJECTS][3] = {
+    [0] = {
+        [0] = QUARTER_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [2] = 1
+    },
+    [1] = {
+        [0] = BLOCK_SIZE * 2,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [2] = 1
+    },
+    [2] = {
+        [0] = BLOCK_SIZE * 3,
+        [1] = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE,
+        [2] = 2
+    },
+    [3] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE,
+        [2] = 1
+    },
+    [4] = {
+        [0] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
+        [2] = 1
+    },
+    [5] = {
+        [0] = BLOCK_SIZE,
+        [1] = BLOCK_SIZE - EIGHTH_BLOCK_SIZE,
+        [2] = 2
+    },
+    [6] = {
+        [0] = BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE,
+        [2] = 1
+    },
+    [7] = {
+        [0] = BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [2] = 1
+    },
+    [8] = {
+        [0] = HALF_BLOCK_SIZE,
+        [1] = QUARTER_BLOCK_SIZE,
+        [2] = 2
+    },
+    [9] = {
+        [0] = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + HALF_BLOCK_SIZE,
+        [2] = 1
+    }
+};
+
+static const u16 sTourianEscape_47ce5c[6][3] = {
+    [0] = {
+        [0] = BLOCK_SIZE + HALF_BLOCK_SIZE,
+        [1] = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
+        [2] = 1
+    },
+    [1] = {
+        [0] = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE - EIGHTH_BLOCK_SIZE,
+        [2] = 2
+    },
+    [2] = {
+        [0] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [2] = 1
+    },
+    [3] = {
+        [0] = BLOCK_SIZE - EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE,
+        [2] = 1
+    },
+    [4] = {
+        [0] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [2] = 2
+    },
+    [5] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE,
+        [2] = 1
+    }
+};
+
+const u16 sTourianEscape_47ce80[8] = {
+    [0] = 2,
+    [1] = 3,
+    [2] = 4,
+    [3] = 5,
+    [4] = 6,
+    [5] = 7,
+    [6] = 8,
+    [7] = 9
+};
+
+const u16 sTourianEscape_47ce90[8] = {
+    [0] = 2,
+    [1] = 2,
+    [2] = 2,
+    [3] = 1,
+    [4] = 1,
+    [5] = 1,
+    [6] = 0,
+    [7] = 0
+};
+
+const u16* const sTourianEscape_47cea0[8] = {
+    [0] = sTourianEscape_47a998,
+    [1] = sTourianEscape_47a998,
+    [2] = sTourianEscape_47a9a0,
+    [3] = sTourianEscape_47a9a0,
+    [4] = sTourianEscape_47a9a8,
+    [5] = sTourianEscape_47a9a8,
+    [6] = sTourianEscape_47a9a8,
+    [7] = sTourianEscape_47a9a8
+};
+
+const u16* const sTourianEscape_47cec0[4] = {
+    [0] = sTourianEscape_47cde0,
+    [1] = sTourianEscape_47cde8,
+    [2] = sTourianEscape_47cdf0,
+    [3] = sTourianEscape_47cdf8
+};
+
+const u16 sTourianEscape_47ced0[8][2] = {
+    [0] = {
+        [0] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2
+    },
+    [1] = {
+        [0] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [2] = {
+        [0] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [3] = {
+        [0] = BLOCK_SIZE * 2,
+        [1] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE
+    },
+    [4] = {
+        [0] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [5] = {
+        [0] = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE
+    },
+    [6] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + HALF_BLOCK_SIZE
+    },
+    [7] = {
+        [0] = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE - EIGHTH_BLOCK_SIZE
+    }
+};
+
+const u16 sTourianEscape_47cef0[8][2] = {
+    [0] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE
+    },
+    [1] = {
+        [0] = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE
+    },
+    [2] = {
+        [0] = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE
+    },
+    [3] = {
+        [0] = BLOCK_SIZE * 3,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE
+    },
+    [4] = {
+        [0] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [5] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [6] = {
+        [0] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE
+    },
+    [7] = {
+        [0] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE - QUARTER_BLOCK_SIZE
+    }
+};
+
+const u16 sTourianEscape_47cf10[8][2] = {
+    [0] = {
+        [0] = BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [1] = {
+        [0] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [2] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE
+    },
+    [3] = {
+        [0] = BLOCK_SIZE * 3,
+        [1] = BLOCK_SIZE - QUARTER_BLOCK_SIZE
+    },
+    [4] = {
+        [0] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [5] = {
+        [0] = BLOCK_SIZE - EIGHTH_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE
+    },
+    [6] = {
+        [0] = BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE
+    },
+    [7] = {
+        [0] = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE
+    }
+};
+
+const u16 sTourianEscape_47cf30[8][2] = {
+    [0] = {
+        [0] = BLOCK_SIZE * 2,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE
+    },
+    [1] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [2] = {
+        [0] = BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2
+    },
+    [3] = {
+        [0] = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE - QUARTER_BLOCK_SIZE
+    },
+    [4] = {
+        [0] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    },
+    [5] = {
+        [0] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = HALF_BLOCK_SIZE
+    },
+    [6] = {
+        [0] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE
+    },
+    [7] = {
+        [0] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE
+    }
+};
+
+const u16 sTourianEscape_47cf50[8][2] = {
+    [0] = {
+        [0] = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 4 - EIGHTH_BLOCK_SIZE
+    },
+    [1] = {
+        [0] = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = PIXEL_SIZE
+    },
+    [2] = {
+        [0] = BLOCK_SIZE + QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE
+    },
+    [3] = {
+        [0] = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
+        [1] = PIXEL_SIZE + PIXEL_SIZE / 2
+    },
+    [4] = {
+        [0] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE,
+        [1] = BLOCK_SIZE * 4 - PIXEL_SIZE / 2
+    },
+    [5] = {
+        [0] = BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = PIXEL_SIZE / 2
+    },
+    [6] = {
+        [0] = BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE,
+        [1] = 0
+    },
+    [7] = {
+        [0] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+        [1] = EIGHTH_BLOCK_SIZE
+    }
+};
+
+const u16* const sTourianEscape_47cf70[6] = {
+    [0] = sTourianEscape_47a6c2,
+    [1] = sTourianEscape_47a6dc,
+    [2] = sTourianEscape_47a6f6,
+    [3] = sTourianEscape_47a710,
+    [4] = sTourianEscape_47a72a,
+    [5] = sTourianEscape_47a744
+};
+
+const u16* const sTourianEscape_47cf88[7] = {
+    [0] = sTourianEscape_47a75e,
+    [1] = sTourianEscape_47a778,
+    [2] = sTourianEscape_47a7aa,
+    [3] = sTourianEscape_47a7e8,
+    [4] = sTourianEscape_47a832,
+    [5] = sTourianEscape_47a888,
+    [6] = sTourianEscape_47a8cc
+};
+
+const u16 sTourianEscape_47cfa4[8] = {
+    -0x5A, 0x78, -0x78, 0x5A,
+    -0x32, 0x46, -0x32, 0x28
+};
+
+const u16 sTourianEscape_47cfb4[8] = {
+    -0x1B, 0xC, 0x24, -0x1B,
+    -0x19, 0x15, 0x14, -0x10
+};
+
+const u16 sTourianEscape_47cfc4[8] = {
+    0xA, -0xA, 0xA, -0xA,
+    0xA, -0xA, 0xA, -0xA
+};
+
+const u16 sTourianEscape_47cfd4[8] = {
+    0x3, -0x1, -0x3, 0x3,
+    0x5, -0x3, -0x4, 0x4
+};
+
+const u16* const sTourianEscape_47cfe4[4] = {
+    [0] = sTourianEscape_47a9b0,
+    [1] = sTourianEscape_47a9dc,
+    [2] = sTourianEscape_47aa1a,
+    [3] = sTourianEscape_47aa5e
+};
+
+const u8 sTourianEscape_47cff4[TOURIAN_ESCAPE_MAX_OBJECTS] = {
+    [0] = 0,
+    [1] = 8,
+    [2] = 20,
+    [3] = 0,
+    [4] = 10,
+    [5] = 8,
+    [6] = 0,
+    [7] = 24,
+    [8] = 8,
+    [9] = 22
+};
+
+const u16 sTourianEscape_47cffe[TOURIAN_ESCAPE_MAX_OBJECTS] = {
+    [0] = QUARTER_BLOCK_SIZE,
+    [1] = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+    [2] = BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+    [3] = BLOCK_SIZE + HALF_BLOCK_SIZE,
+    [4] = BLOCK_SIZE * 2,
+    [5] = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+    [6] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE,
+    [7] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [8] = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE,
+    [9] = BLOCK_SIZE * 4 - EIGHTH_BLOCK_SIZE
+};
+
+
+const u32 sMotherShipExplodingFlashGfx[2588] = INCBIN_U32("data/tourian_escape/MotherShipExplodingFlash.gfx.lz");
+const u32 sMotherShipExplodingFlashTileTable[561] = INCBIN_U32("data/tourian_escape/MotherShipExplodingFlash.tt");
+const u32 sMotherShipBlowingUpExplosionsGfx[1761] = INCBIN_U32("data/tourian_escape/MotherShipBlowingUpExplosions.gfx.lz");
+
+const u32 sTourianEscapeSamusInHerShipSuitGfx[3108] = INCBIN_U32("data/tourian_escape/SamusInHerShipSuit.gfx.lz");
+const u32 sTourianEscapeSamusInHerShipSuitTileTable[368] = INCBIN_U32("data/tourian_escape/SamusInHerShipSuit.tt");
+const u32 sTourianEscapeSamusInHerShipSuitlessGfx[4280] = INCBIN_U32("data/tourian_escape/SamusInHerShipSuitless.gfx.lz");
+const u32 sTourianEscapeSamusInHerShipSuitlessTileTable[368] = INCBIN_U32("data/tourian_escape/SamusInHerShipSuitless.tt");
+const u32 sTourianEscapeSamusInHerShipSuitlessEyesOpenedTileTable[368] = INCBIN_U32("data/tourian_escape/SamusInHerShipSuitlessEyesOpened.tt");
+
+const u32 sTourianEscapeZebesGfx[3442] = INCBIN_U32("data/tourian_escape/Zebes.gfx.lz");
+const u32 sTourianEscapeZebesTileTable[577] = INCBIN_U32("data/tourian_escape/Zebes.tt");
+
+const u32 sTourianEscapeZebesExplodingShipAndExplosionsGfx[1297] = INCBIN_U32("data/tourian_escape/ZebesExplodingShipAndExplosions.gfx.lz");
+
+const u32 sTourianEscapeSamusChasedBackgroundGfx[5470] = INCBIN_U32("data/tourian_escape/SamusChasedBackground.gfx.lz");
+const u32 sTourianEscapeSamusChasedBackgroundTileTable[577] = INCBIN_U32("data/tourian_escape/SamusChasedBackground.tt");
+const u32 sTourianEscapeSamusSurroundedBackgroundGfx[2337] = INCBIN_U32("data/tourian_escape/SamusSurroundedBackground.gfx.lz");
+const u32 sTourianEscapeSamusSurroundedBackgroundTileTable[551] = INCBIN_U32("data/tourian_escape/SamusSurroundedBackground.tt");
+
+const u32 sTourianEscapeSamusSamusInHerShipLookingGfx[4090] = INCBIN_U32("data/tourian_escape/SamusSamusInHerShipLooking.gfx.lz");
+const u32 sTourianEscapeSamusSamusInHerShipLookingLeftTileTable[368] = INCBIN_U32("data/tourian_escape/SamusSamusInHerShipLookingLeft.tt");
+const u32 sTourianEscapeSamusSamusInHerShipLookingRightTileTable[368] = INCBIN_U32("data/tourian_escape/SamusSamusInHerShipLookingRight.tt");
+
+const u32 sTourianEscape_49cb90[3064] = INCBIN_U32("data/tourian_escape/49cb90.gfx.lz");
+const u32 sTourianEscape_49fb70[113] = INCBIN_U32("data/tourian_escape/49fb70.tt");
+
+const u32 sTourianEscapeSamusSamusChasedShipsGfx[2507] = INCBIN_U32("data/tourian_escape/SamusSamusChasedShips.gfx.lz");
+const u32 sTourianEscapeShipsAndProjectilesGfx[1461] = INCBIN_U32("data/tourian_escape/ShipsAndProjectiles.gfx.lz");
+
+const u32 sTourianEscapeSamusGettingShotShipGfx[563] = INCBIN_U32("data/tourian_escape/SamusGettingShotShip.gfx.lz");
+const u32 sTourianEscapeSamusGettingShotGfx[2999] = INCBIN_U32("data/tourian_escape/SamusGettingShot.gfx.lz");
+const u32 sTourianEscapeSamusGettingShotTileTable[566] = INCBIN_U32("data/tourian_escape/SamusGettingShot.tt");
+
+const u32 sTourianEscapeShipCrashingBackgroundAndShipGfx[3251] = INCBIN_U32("data/tourian_escape/ShipCrashingBackgroundAndShip.gfx.lz");
+const u32 sTourianEscapeShipCrashingForegroundGfx[1914] = INCBIN_U32("data/tourian_escape/ShipCrashingForeground.gfx.lz");
+const u32 sTourianEscapeShipCrashingForegroundTileTable[577] = INCBIN_U32("data/tourian_escape/ShipCrashingForeground.tt");
+const u32 sTourianEscapeShipGoingToCrashGfx[1219] = INCBIN_U32("data/tourian_escape/ShipGoingToCrash.gfx.lz");
+
+const u32 sTourianEscapeShipCrashingExplosionGfx[1826] = INCBIN_U32("data/tourian_escape/ShipCrashingExplosion.gfx.lz");
+const u32 sTourianEscapeShipCrashingExplosionTileTable[577] = INCBIN_U32("data/tourian_escape/ShipCrashingExplosion.tt");
+
+const u32 sTourianEscapeSamusLookingAtSkyPiratesShipGfx[867] = INCBIN_U32("data/tourian_escape/SamusLookingAtSkyPiratesShip.gfx.lz");
+const u32 sTourianEscapeSamusLookingAtSkySkyBackgroundGfx[3056] = INCBIN_U32("data/tourian_escape/SamusLookingAtSkySkyBackground.gfx.lz");
+const u32 sTourianEscapeSamusLookingAtSkySkyBackgroundTileTable[399] = INCBIN_U32("data/tourian_escape/SamusLookingAtSkySkyBackground.tt");
+const u32 sTourianEscapeSamusLookingAtSkyGfx[4060] = INCBIN_U32("data/tourian_escape/SamusLookingAtSky.gfx.lz");
+const u32 sTourianEscapeSamusLookingAtSkyTopTileTable[430] = INCBIN_U32("data/tourian_escape/SamusLookingAtSkyTop.tt");
+const u32 sTourianEscapeSamusLookingAtSkyBottomTileTable[185] = INCBIN_U32("data/tourian_escape/SamusLookingAtSkyBottom.tt");
+
+const u32 sTourianEscapeSamusLookingAtMotherShipGfx[2153] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShip.gfx.lz");
+const u32 sTourianEscapeSamusLookingAtMotherShipTileTable[577] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShip.tt");
+const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipGfx[3112] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShipMotherShip.gfx.lz");
+const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipTileTable[577] = INCBIN_U32("data/tourian_escape/SamusLookingAtMotherShipMotherShip.tt");
+

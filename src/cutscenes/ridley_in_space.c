@@ -212,7 +212,7 @@ void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 
             // Top right corner of the screen, slightly off screen horizontally
             pOam->xPosition = SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE * 4;
-            pOam->yPosition = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE / 2;
+            pOam->yPosition = BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE;
         }
     }
     else if (pOam->actions & MOTHER_SHIP_ACTION_ZOOM)
@@ -897,7 +897,7 @@ void RidleyInSpaceShipLeavingParticles(void)
             // Found slot, initialize
             CUTSCENE_DATA.oam[i].actions = CUTSCENE_OAM_ACTION_NONE;
 
-            CUTSCENE_DATA.oam[i].xPosition = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+            CUTSCENE_DATA.oam[i].xPosition = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
             // Get random Y position
             newY = sRandomNumberTable[(u32)(gFrameCounter8Bit + i) % ARRAY_SIZE(sRandomNumberTable)];

@@ -30,8 +30,8 @@ void SearchlightEyeInit(void)
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE / 2);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE / 2);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
 
     gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
@@ -231,8 +231,8 @@ void SearchlightEyeBeamInit(void)
     gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(SEARCHLIGHT_EYE_BEAM_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE / 2);
-    gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE / 2);
+    gCurrentSprite.hitboxTopOffset = -EIGHTH_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottomOffset = EIGHTH_BLOCK_SIZE;
     gCurrentSprite.hitboxLeftOffset = -SEARCHLIGHT_EYE_BEAM_SIZE;
     gCurrentSprite.hitboxRightOffset = SEARCHLIGHT_EYE_BEAM_SIZE;
 
@@ -440,8 +440,8 @@ void SearchlightEyeProjectile(void)
             gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
-            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
             gCurrentSprite.pOam = sSearchlightEyeProjectileOAM_Moving;
             gCurrentSprite.animationDurationCounter = 0;
@@ -455,11 +455,11 @@ void SearchlightEyeProjectile(void)
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
                 gCurrentSprite.hitboxLeftOffset = 0;
-                gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+                gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+                gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
                 gCurrentSprite.hitboxRightOffset = 0;
             }
 
@@ -478,7 +478,7 @@ void SearchlightEyeProjectile(void)
             break;
         
         default:
-            ParticleSet(gCurrentSprite.yPosition + (QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2),
+            ParticleSet(gCurrentSprite.yPosition + (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)

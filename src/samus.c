@@ -911,7 +911,7 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
             blockPrevent = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), pData->xPosition);
             blockPrevent &= CLIPDATA_TYPE_SOLID_FLAG;
 
-            blockGrabbing = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2),
+            blockGrabbing = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 pData->xPosition + xOffset);
             blockGrabbing &= CLIPDATA_TYPE_SOLID_FLAG;
 
@@ -1816,7 +1816,7 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
             }
             else
             {
-                if (pCopy->yVelocity < -SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2) && !gSamusPhysics.slowedByLiquid &&
+                if (pCopy->yVelocity < -SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) && !gSamusPhysics.slowedByLiquid &&
                     ClipdataCheckGroundEffect(pData->yPosition + ONE_SUB_PIXEL, pData->xPosition) != GROUND_EFFECT_VERY_DUSTY_GROUND)
                 {
                     // Morph ball bounce
@@ -2226,9 +2226,9 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_HANGING_ON_LEDGE:
         case SPOSE_GRABBING_A_LEDGE_SUITLESS:
             if ((pData->yPosition & SUB_PIXEL_POSITION_FLAG) < SUB_PIXEL_POSITION_FLAG / 2)
-                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + QUARTER_BLOCK_SIZE / 2;
+                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + EIGHTH_BLOCK_SIZE;
             else
-                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2;
+                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
             pWeapon->diagonalAim = DIAG_AIM_NONE;
 
             gSamusEcho.active = FALSE;
@@ -3592,8 +3592,8 @@ void SamusCheckShinesparking(struct SamusData* pData)
             
             default:
                 // Velocity threshold
-                xVelocity = pData->xVelocity + SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2) - 1;
-                if (xVelocity >= SUB_PIXEL_TO_VELOCITY(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2) - 1)
+                xVelocity = pData->xVelocity + SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - 1;
+                if (xVelocity >= SUB_PIXEL_TO_VELOCITY(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - 1)
                 {
                     // Check not already speedboosting and not skidding
                     if (!pData->speedboostingShinesparking && pose != SPOSE_SKIDDING)
@@ -3711,7 +3711,7 @@ u8 SamusRunning(struct SamusData* pData)
             xVelocityCap = SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL + ONE_SUB_PIXEL / 2.f);
         
         currVelocity = pData->xVelocity + SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE * 3) - 1;
-        if (currVelocity < SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2) - 1)
+        if (currVelocity < SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - 1)
         {
             pData->timer = 0;
         }
@@ -4511,7 +4511,7 @@ u8 SamusSpinning(struct SamusData* pData)
     if (gEquipment.suitMiscActivation & SMF_SPACE_JUMP && !gSamusPhysics.slowedByLiquid)
     {
         // Check can space jump
-        if (gChangedInput & KEY_A && pData->yVelocity <= -SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE / 2))
+        if (gChangedInput & KEY_A && pData->yVelocity <= -SUB_PIXEL_TO_VELOCITY(EIGHTH_BLOCK_SIZE))
         {
             if (gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
                 pData->yVelocity = SAMUS_HIGH_JUMP_VELOCITY;
@@ -4535,9 +4535,9 @@ u8 SamusSpinning(struct SamusData* pData)
                 {
                     // Get check offset
                     if (pData->lastWallTouchedMidAir & KEY_RIGHT)
-                        xOffset = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+                        xOffset = -(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
                     else
-                        xOffset = (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE / 2);
+                        xOffset = (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
                     // Check has block
                     if (ClipdataProcessForSamus(pData->yPosition, pData->xPosition + xOffset) & CLIPDATA_TYPE_SOLID_FLAG)
