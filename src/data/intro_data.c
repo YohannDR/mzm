@@ -430,5 +430,3 @@ const u32 sIntroMotherBrainTileTable[577] = INCBIN_U32("data/intro/MotherBrain.t
 const u32 sIntroFuzzGfx[5224] = INCBIN_U32("data/intro/Fuzz.gfx.lz");
 const u32 sIntro_47920c[125] = INCBIN_U32("data/intro/47920c.tt");
 
-
-const u8 sTemparray_479400[0x46ae4] = INCBIN_U8("data/Blob_479400_4bfee4.bin");

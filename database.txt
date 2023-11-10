@@ -629,6 +629,30 @@ intro/MotherBrain.tt;577;0x473768;4
 intro/Fuzz.gfx.lz;5224;0x47406c;4
 intro/47920c.tt;125;0x47920c;4
 
+# Tourian escape
+
+tourian_escape/Exploding.pal;144;0x479400;2
+tourian_escape/BlowingUpExplosions.pal;96;0x479520;2
+tourian_escape/SamusInHerShipPowerSuit.pal;112;0x4795e0;2
+tourian_escape/SamusInHerShipVariaSuit.pal;112;0x4796c0;2
+tourian_escape/SamusInHerShipSuitless.pal;128;0x4797a0;2
+tourian_escape/SamusLookingAround.pal;112;0x4798a0;2
+tourian_escape/SamusChasedBackground.pal;80;0x479980;2
+tourian_escape/SamusGettingShot.pal;80;0x479a20;2
+tourian_escape/SamusSurrounded.pal;256;0x479ac0;2
+tourian_escape/SamusChasedShips.pal;96;0x479cc0;2
+tourian_escape/SamusChasedByPiratesFiring.pal;64;0x479d80;2
+tourian_escape/SamusGoingToCrash.pal;112;0x479e00;2
+tourian_escape/479ee0.pal;16;0x479ee0;2
+tourian_escape/479f00.pal;16;0x479f00;2
+tourian_escape/SamusCrashingForeground.pal;48;0x479f20;2
+tourian_escape/479f80.pal;112;0x479f80;2
+tourian_escape/ShipCrashingBackgroundAndShip.pal;256;0x47a060;2
+tourian_escape/SamusLookingAtSky.pal;160;0x47a260;2
+tourian_escape/SamusLookingAtMotherShip.pal;160;0x47a3a0;2
+tourian_escape/Rain.gfx.lz;14;0x47abd8;4
+tourian_escape/Rain.pal;16;0x47ac26;2
+
 # Samus close up
 
 close_up/Palette.pal;96;0x367924;2
@@ -2708,5 +2732,5 @@ Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
 Blob_234970_2376a8.bin;11576;0x234970;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
-Blob_479400_4bfee4.bin;289508;0x479400;1
+Blob_47cd7c_4bfee4.bin;274792;0x47cd7c;1
 Blob_60c630_74f8b4.bin;1323652;0x60c630;1

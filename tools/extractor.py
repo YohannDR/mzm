@@ -10,6 +10,7 @@ subDirs: array = [
     "weapons/",
     "common/",
     "intro/",
+    "tourian_escape/",
     "animated_tiles/",
     "close_up/",
     "fusion_gallery/",

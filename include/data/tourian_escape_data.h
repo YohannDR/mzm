@@ -101,7 +101,7 @@ extern const u16 sTourianEscapeRainPal[1 * 16];
 
 
 
-
+extern const struct FrameData sChozodiaEscapeOam_ShipSmokeExplosion[8];
 
 
 

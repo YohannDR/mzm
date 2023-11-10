@@ -700,6 +700,7 @@ SECTIONS {
         src/data/menus/game_over_data.o(.rodata);
         src/data/menus/file_select_data.o(.rodata);
         src/data/intro_data.o(.rodata);
+        src/data/tourian_escape_data.o(.rodata);
         /* 479400-4bfee4 */
         src/data/fusion_gallery_data.o(.rodata);
         src/data/ending_and_gallery_data.o(.rodata);

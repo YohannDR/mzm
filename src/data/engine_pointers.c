@@ -113,13 +113,13 @@ const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
 };
 
 const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1] = {
-    (const struct RoomEntryROM*)0x8340ad4,
-    (const struct RoomEntryROM*)0x83414ac,
-    (const struct RoomEntryROM*)0x8341e84,
-    (const struct RoomEntryROM*)0x8342be0,
-    (const struct RoomEntryROM*)0x834339c,
-    (const struct RoomEntryROM*)0x834384c,
-    (const struct RoomEntryROM*)0x8343d74,
+    [AREA_BRINSTAR] = sBrinstarRoomEntries,
+    [AREA_KRAID] = sKraidRoomEntries,
+    [AREA_NORFAIR] = sNorfairRoomEntries,
+    [AREA_RIDLEY] = sRidleyRoomEntries,
+    [AREA_TOURIAN] = sTourianRoomEntries,
+    [AREA_CRATERIA] = sCrateriaRoomEntries,
+    [AREA_CHOZODIA] = sChozodiaRoomEntries,
 };
 
 static const u8* const sScrollPointer_Empty[] = {
