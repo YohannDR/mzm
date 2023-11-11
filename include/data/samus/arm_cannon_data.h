@@ -332,7 +332,7 @@ extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Ballsparking
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Ballsparking[8];
 
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_SavingLoadingGame[11];
-extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_DownloadingMapData[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_DownloadingMapData[9];
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Dying[25];
 
 // ...
