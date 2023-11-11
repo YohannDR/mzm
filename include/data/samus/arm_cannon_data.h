@@ -256,8 +256,8 @@ extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayBefore
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DelayAfterShinesparking[12];
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayAfterShinesparking[12];
 
-extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingWallJump[3];
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_StartingWallJump[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingWallJump[3];
 
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Shinesparking[9];
 extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Shinesparking[9];

@@ -2747,4 +2747,1610 @@ const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Armed_Skidding[3] 
     }
 };
 
-static const u8 sTempArray_234970[0x2d38] = INCBIN_U8("data/Blob_234970_2376a8.bin");
+
+static const u16 sSamusArmCannonOam_Suit_Left_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xde, OBJ_SIZE_16x16 | 0x1f1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xdf, OBJ_SIZE_16x16 | 0x1f1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xeb, OBJ_SIZE_16x16 | 0x1f1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe5, OBJ_SIZE_16x16 | 0x1ef, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe0, OBJ_SIZE_16x16 | 0x1ee, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd3, OBJ_SIZE_16x16 | 0x1f0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd4, OBJ_SIZE_16x16 | 0x1f0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe0, OBJ_SIZE_16x16 | 0x1f0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xdd, OBJ_SIZE_16x16 | 0x1f0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd8, OBJ_SIZE_16x16 | 0x1ef, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe1, OBJ_SIZE_16x16 | 0x1f2, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe2, OBJ_SIZE_16x16 | 0x1f2, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xee, OBJ_SIZE_16x16 | 0x1f2, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xeb, OBJ_SIZE_16x16 | 0x1f2, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe6, OBJ_SIZE_16x16 | 0x1f1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd0, OBJ_SIZE_16x16 | 0x1f5, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd1, OBJ_SIZE_16x16 | 0x1f5, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Up_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xdd, OBJ_SIZE_16x16 | 0x1f5, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Up_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xda, OBJ_SIZE_16x16 | 0x1f5, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Up_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xd5, OBJ_SIZE_16x16 | 0x1f4, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_IN_FRONT,
+    0xe9, OBJ_SIZE_16x16 | 0x1f5, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xde, OBJ_SIZE_16x16 | 0x1ff, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xdf, OBJ_SIZE_16x16 | 0x1ff, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xeb, OBJ_SIZE_16x16 | 0x1ff, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe5, OBJ_SIZE_16x16 | 0x1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe0, OBJ_SIZE_16x16 | 0x2, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd3, OBJ_SIZE_16x16 | 0x0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd4, OBJ_SIZE_16x16 | 0x0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe0, OBJ_SIZE_16x16 | 0x0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xdd, OBJ_SIZE_16x16 | 0x0, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd8, OBJ_SIZE_16x16 | 0x1, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe1, OBJ_SIZE_16x16 | 0x1fe, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe2, OBJ_SIZE_16x16 | 0x1fe, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xee, OBJ_SIZE_16x16 | 0x1fe, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xeb, OBJ_SIZE_16x16 | 0x1fe, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe6, OBJ_SIZE_16x16 | 0x1ff, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd0, OBJ_SIZE_16x16 | 0x1fb, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd1, OBJ_SIZE_16x16 | 0x1fb, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Up_Landing_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xdd, OBJ_SIZE_16x16 | 0x1fb, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Up_Landing_Frame1[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xda, OBJ_SIZE_16x16 | 0x1fb, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Up_Landing_Frame2[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xd5, OBJ_SIZE_16x16 | 0x1fc, 0x40
+};
+
+static const u16 sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0[OAM_DATA_SIZE(1)] = {
+    0x1 | ARM_CANNON_OAM_ORDER_BEHIND,
+    0xe9, OBJ_SIZE_16x16 | 0x1fb, 0x40
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-18),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame5 = {
+    .y = C_S8_2_S16(-5),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame6 = {
+    .y = C_S8_2_S16(-13),
+    .x = C_S9_2_S16(-12)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame7 = {
+    .y = C_S8_2_S16(-24),
+    .x = C_S9_2_S16(-18)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-26),
+    .x = C_S9_2_S16(-15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-25),
+    .x = C_S9_2_S16(-15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Landing_Frame0 = {
+    .y = C_S8_2_S16(-13),
+    .x = C_S9_2_S16(-15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Landing_Frame1 = {
+    .y = C_S8_2_S16(-19),
+    .x = C_S9_2_S16(-17)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-42),
+    .x = C_S9_2_S16(-13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-41),
+    .x = C_S9_2_S16(-13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame0 = {
+    .y = C_S8_2_S16(-29),
+    .x = C_S9_2_S16(-13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame1 = {
+    .y = C_S8_2_S16(-32),
+    .x = C_S9_2_S16(-13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame2 = {
+    .y = C_S8_2_S16(-37),
+    .x = C_S9_2_S16(-14)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-18),
+    .x = C_S9_2_S16(-11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(-11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalDown_Landing_Frame0 = {
+    .y = C_S8_2_S16(-5),
+    .x = C_S9_2_S16(-11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DiagonalDown_Landing_Frame1 = {
+    .y = C_S8_2_S16(-8),
+    .x = C_S9_2_S16(-11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-48),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-47),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame0 = {
+    .y = C_S8_2_S16(-35),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame1 = {
+    .y = C_S8_2_S16(-38),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame2 = {
+    .y = C_S8_2_S16(-43),
+    .x = C_S9_2_S16(-4)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-7),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-18),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame5 = {
+    .y = C_S8_2_S16(-5),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame6 = {
+    .y = C_S8_2_S16(-13),
+    .x = C_S9_2_S16(12)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame7 = {
+    .y = C_S8_2_S16(-24),
+    .x = C_S9_2_S16(18)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-26),
+    .x = C_S9_2_S16(15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-25),
+    .x = C_S9_2_S16(15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Landing_Frame0 = {
+    .y = C_S8_2_S16(-13),
+    .x = C_S9_2_S16(15)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Landing_Frame1 = {
+    .y = C_S8_2_S16(-19),
+    .x = C_S9_2_S16(17)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-42),
+    .x = C_S9_2_S16(13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-41),
+    .x = C_S9_2_S16(13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame0 = {
+    .y = C_S8_2_S16(-29),
+    .x = C_S9_2_S16(13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame1 = {
+    .y = C_S8_2_S16(-32),
+    .x = C_S9_2_S16(13)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame2 = {
+    .y = C_S8_2_S16(-37),
+    .x = C_S9_2_S16(14)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-18),
+    .x = C_S9_2_S16(11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalDown_Landing_Frame0 = {
+    .y = C_S8_2_S16(-5),
+    .x = C_S9_2_S16(11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DiagonalDown_Landing_Frame1 = {
+    .y = C_S8_2_S16(-8),
+    .x = C_S9_2_S16(11)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-48),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame1 = {
+    .y = C_S8_2_S16(-47),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame0 = {
+    .y = C_S8_2_S16(-35),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame1 = {
+    .y = C_S8_2_S16(-38),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame2 = {
+    .y = C_S8_2_S16(-43),
+    .x = C_S9_2_S16(4)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0 = {
+    .y = C_S8_2_S16(-7),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_StartingSpinJump_Frame0 = {
+    .y = C_S8_2_S16(-12),
+    .x = C_S9_2_S16(-7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame0 = {
+    .y = C_S8_2_S16(-7),
+    .x = C_S9_2_S16(0)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame1 = {
+    .y = C_S8_2_S16(-10),
+    .x = C_S9_2_S16(7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame2 = {
+    .y = C_S8_2_S16(-16),
+    .x = C_S9_2_S16(9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame3 = {
+    .y = C_S8_2_S16(-23),
+    .x = C_S9_2_S16(6)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame4 = {
+    .y = C_S8_2_S16(-25),
+    .x = C_S9_2_S16(0)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame5 = {
+    .y = C_S8_2_S16(-22),
+    .x = C_S9_2_S16(-7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame6 = {
+    .y = C_S8_2_S16(-16),
+    .x = C_S9_2_S16(-9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Spinning_Frame7 = {
+    .y = C_S8_2_S16(-9),
+    .x = C_S9_2_S16(-6)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_StartingSpinJump_Frame0 = {
+    .y = C_S8_2_S16(-11),
+    .x = C_S9_2_S16(9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame0 = {
+    .y = C_S8_2_S16(-8),
+    .x = C_S9_2_S16(5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame1 = {
+    .y = C_S8_2_S16(-9),
+    .x = C_S9_2_S16(-5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame2 = {
+    .y = C_S8_2_S16(-11),
+    .x = C_S9_2_S16(-8)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame3 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(-7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame4 = {
+    .y = C_S8_2_S16(-24),
+    .x = C_S9_2_S16(-5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame5 = {
+    .y = C_S8_2_S16(-23),
+    .x = C_S9_2_S16(5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame6 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(8)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Spinning_Frame7 = {
+    .y = C_S8_2_S16(-11),
+    .x = C_S9_2_S16(7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_DelayBeforeShinesparking_Frame3 = {
+    .y = C_S8_2_S16(-10),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_DelayBeforeShinesparking_Frame3 = {
+    .y = C_S8_2_S16(-10),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame0 = {
+    .y = C_S8_2_S16(-13),
+    .x = C_S9_2_S16(-9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame1 = {
+    .y = C_S8_2_S16(-11),
+    .x = C_S9_2_S16(-9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame2 = {
+    .y = C_S8_2_S16(-9),
+    .x = C_S9_2_S16(0)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame0 = {
+    .y = C_S8_2_S16(-9),
+    .x = C_S9_2_S16(-7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame1 = {
+    .y = C_S8_2_S16(-7),
+    .x = C_S9_2_S16(-6)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame2 = {
+    .y = C_S8_2_S16(-6),
+    .x = C_S9_2_S16(1)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame0 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(-2)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame1 = {
+    .y = C_S8_2_S16(-14),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Shinesparking_Frame0 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(2)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame5 = {
+    .y = C_S8_2_S16(-14),
+    .x = C_S9_2_S16(3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame2 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(-5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame3 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(-9)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame4 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(-7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame6 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(7)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame7 = {
+    .y = C_S8_2_S16(-17),
+    .x = C_S9_2_S16(8)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame8 = {
+    .y = C_S8_2_S16(-15),
+    .x = C_S9_2_S16(5)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Sidewards_Shinesparking_Frame2 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(-4)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Left_Sidewards_Shinesparking_Frame3 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(-6)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame1 = {
+    .y = C_S8_2_S16(-22),
+    .x = C_S9_2_S16(-10)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame2 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(-3)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame3 = {
+    .y = C_S8_2_S16(-21),
+    .x = C_S9_2_S16(-1)
+};
+
+static const struct ArmCannonOffset sSamusArmCannonOffset_Suit_SpaceJumping_Frame0 = {
+    .y = C_S8_2_S16(-16),
+    .x = C_S9_2_S16(0)
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_None_MidAir[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame7,
+        .pOam = sSamusArmCannonOam_Suit_Left_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalUp_Landing_Frame2,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalUp_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DiagonalDown_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame6,
+        .pOam = sSamusArmCannonOam_Suit_Left_DiagonalDown_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Up_Landing_Frame2,
+        .pOam = sSamusArmCannonOam_Suit_Left_Up_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Left_Down_MidAir_Frame0
+    },
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_None_MidAir[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame7,
+        .pOam = sSamusArmCannonOam_Suit_Right_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalUp_Landing_Frame2,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalUp_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DiagonalDown_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame6,
+        .pOam = sSamusArmCannonOam_Suit_Right_DiagonalDown_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_MidAir_Frame0
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_Landing[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_Landing_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame1,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_Landing_Frame1
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Up_Landing_Frame2,
+        .pOam = sSamusArmCannonOam_Suit_Right_Up_Landing_Frame2
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_MidAir[5] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Down_MidAir_Frame0,
+        .pOam = sSamusArmCannonOam_Suit_Right_Down_MidAir_Frame0
+    },
+};
+
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Spinning[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Spinning[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingSpinJump[1] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_StartingSpinJump[1] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DelayBeforeShinesparking[4] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_DelayBeforeShinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayBeforeShinesparking[4] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_DelayBeforeShinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DelayAfterShinesparking[12] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [8] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+    [9] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [10] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [11] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayAfterShinesparking[12] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [8] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+    [9] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingSpinJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [10] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [11] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_None_MidAir_Frame0,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_StartingWallJump[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame2,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingWallJump[3] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame2,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Shinesparking[9] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+    [8] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame8,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Shinesparking[9] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Shinesparking_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame8,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame7,
+        .pOam = sArmCannonOam_Empty
+    },
+    [8] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Shinesparking_Frame6,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Sidewards_Shinesparking[4] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_StartingWallJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Sidewards_Shinesparking_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Sidewards_Shinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Sidewards_Shinesparking[4] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_StartingWallJump_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Sidewards_Shinesparking_Frame3,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_ScrewAttacking[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Left_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_ScrewAttacking[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame0,
+        .pOam = sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame1,
+        .pOam = sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame2,
+        .pOam = sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame3,
+        .pOam = sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame4,
+        .pOam = sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame5,
+        .pOam = sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame6,
+        .pOam = sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_Right_Spinning_Frame7,
+        .pOam = sArmCannonOam_Empty
+    }
+};
+
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_SpaceJumping[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    }
+};
+
+const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_SpaceJumping[8] = {
+    [0] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [1] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [2] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [3] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [4] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [5] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [6] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    },
+    [7] = {
+        .pOffset = &sSamusArmCannonOffset_Suit_SpaceJumping_Frame0,
+        .pOam= sArmCannonOam_Empty
+    }
+};
+
+
+
+
+static const u8 sTempArray_235288[] = INCBIN_U8("data/Blob_235288_2376a8.bin");
