@@ -22,5 +22,3 @@ const u8 sBrinstar_Bg3_8[1164] = INCBIN_U8("data/rooms/brinstar/Brinstar_Bg3_8.g
 const u8 sBrinstar_Bg3_9[1360] = INCBIN_U8("data/rooms/brinstar/Brinstar_Bg3_9.gfx");
 
 const u8 sBrinstar_Bg3_10[1200] = INCBIN_U8("data/rooms/brinstar/Brinstar_Bg3_10.gfx");
-
-const u8 sTempArray_61b64c[] = INCBIN_U8("data/Blob_61b64c_74f8b4.bin");
