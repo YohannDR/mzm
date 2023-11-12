@@ -569,9 +569,8 @@ SECTIONS {
         /* 908e0-2320e4 */
         src/data/samus/samus_empty_data.o(.rodata);
         src/data/samus/arm_cannon_data.o(.rodata);
-        /* 234970-2376a8 */
         src/data/samus/samus_palette_data.o(.rodata);
-        /* 238b68-23a5bc */
+        src/data/samus/samus_animation_pointers.o(.rodata);
         src/data/samus/samus_graphics.o(.rodata);
 
         src/data/sprite_data.o(.rodata);

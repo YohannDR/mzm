@@ -53,5 +53,3 @@ const u16 sSamusPal_Suitless_Saving[3 * 16] = INCBIN_U16("data/samus/palettes/Su
 const u16 sSamusPal_Suitless_ChargingBeam[10 * 16] = INCBIN_U16("data/samus/palettes/Suitless_ChargingBeam.pal");
 const u16 sSamusPal_Suitless_DownloadingMap[2 * 16] = INCBIN_U16("data/samus/palettes/Suitless_DownloadingMap.pal");
 const u16 sSamusPal_Suitless_Frozen[3 * 16] = INCBIN_U16("data/samus/palettes/Suitless_Frozen.pal");
-
-static const u8 sTempArray_238b68[0x1a54] = INCBIN_U8("data/Blob_238b68_23a5bc.bin");

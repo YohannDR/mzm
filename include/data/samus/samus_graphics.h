@@ -3810,11 +3810,11 @@ extern const u16 sSamusOam_Suitless_FacingTheBackground_Frame0[OAM_DATA_SIZE(5)]
 extern const u16 sSamusOam_Suitless_Left_TurningFromFacingTheBackground_Frame0[OAM_DATA_SIZE(4)];
 extern const u16 sSamusOam_Suitless_Right_TurningFromFacingTheBackground_Frame0[OAM_DATA_SIZE(4)];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_TurningAround[3];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalUp_TurningAround[3];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalDown_TurningAround[3];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Up_TurningAround[3];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningAround[3];
 
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalUp_TurningAround[3];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalDown_TurningAround[3];

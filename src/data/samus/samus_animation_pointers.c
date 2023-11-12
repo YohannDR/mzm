@@ -1321,7 +1321,7 @@ const u8 sSamusVisualData[SPOSE_END][3] = {
         SAMUS_HITBOX_TYPE_STANDING, SAMUS_HITBOX_TYPE_STANDING, STANDING_MIDAIR
     },
     [SPOSE_LANDING] = {
-        SAMUS_HITBOX_TYPE_CROUCHED, SAMUS_HITBOX_TYPE_CROUCHED, STANDING_GROUND
+        SAMUS_HITBOX_TYPE_STANDING, SAMUS_HITBOX_TYPE_STANDING, STANDING_GROUND
     },
     [SPOSE_STARTING_SPIN_JUMP] = {
         SAMUS_HITBOX_TYPE_CROUCHED, SAMUS_HITBOX_TYPE_CROUCHED, STANDING_MIDAIR
@@ -1351,7 +1351,7 @@ const u8 sSamusVisualData[SPOSE_END][3] = {
         SAMUS_HITBOX_TYPE_MORPHED, SAMUS_HITBOX_TYPE_MORPHED, STANDING_GROUND
     },
     [SPOSE_MORPH_BALL_MIDAIR] = {
-        SAMUS_HITBOX_TYPE_MORPHED, SAMUS_HITBOX_TYPE_MORPHED, STANDING_GROUND
+        SAMUS_HITBOX_TYPE_MORPHED, SAMUS_HITBOX_TYPE_MORPHED, STANDING_MIDAIR
     },
     [SPOSE_HANGING_ON_LEDGE] = {
         SAMUS_HITBOX_TYPE_STANDING, SAMUS_HITBOX_TYPE_STANDING, STANDING_HANGING
@@ -2181,8 +2181,8 @@ const struct SamusAnimationData* const sSamusAnimPointers_Suitless[SPOSE_END][2]
         sSamusAnim_Suitless_Left_MidAir
     },
     [SPOSE_TURNING_AROUND_MIDAIR] = {
-        sSamusAnim_Suitless_Right_TurningAroundMidAir,
-        sSamusAnim_Suitless_Left_TurningAroundMidAir
+        sSamusAnim_FullSuit_Right_TurningAroundMidAir,
+        sSamusAnim_FullSuit_Left_TurningAroundMidAir
     },
     [SPOSE_LANDING] = {
         sSamusAnim_Suitless_Right_Landing,
@@ -2197,8 +2197,8 @@ const struct SamusAnimationData* const sSamusAnimPointers_Suitless[SPOSE_END][2]
         sSamusAnim_Suitless_Left_Spinning
     },
     [SPOSE_STARTING_WALL_JUMP] = {
-        sSamusAnim_Suitless_Right_StartingWallJump,
-        sSamusAnim_Suitless_Left_StartingWallJump
+        sSamusAnim_Suitless_Left_StartingWallJump,
+        sSamusAnim_Suitless_Right_StartingWallJump
     },
     [SPOSE_SPACE_JUMPING] = {
         sSamusAnim_FullSuit_Right_SpaceJumping,
@@ -2751,8 +2751,8 @@ const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_All[S
         sArmCannonAnim_Suitless_Left_Spinning
     },
     [SPOSE_STARTING_WALL_JUMP] = {
-        sArmCannonAnim_Suitless_Right_StartingWallJump,
-        sArmCannonAnim_Suitless_Left_StartingWallJump
+        sArmCannonAnim_Suitless_Left_StartingWallJump,
+        sArmCannonAnim_Suitless_Right_StartingWallJump
     },
     [SPOSE_SPACE_JUMPING] = {
         sArmCannonAnim_Suit_Right_SpaceJumping,
@@ -2959,12 +2959,12 @@ const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_All[S
         sArmCannonAnim_Suit_MorphballMotionless
     },
     [SPOSE_IN_ESCAPE_SHIP] = {
-        sArmCannonAnim_Suitless_Right_Crouching,
-        sArmCannonAnim_Suitless_Left_Crouching
+        sArmCannonAnim_Suit_Right_Crouching,
+        sArmCannonAnim_Suit_Left_Crouching
     },
     [SPOSE_TURNING_TO_ENTER_ESCAPE_SHIP] = {
-        sArmCannonAnim_Suitless_Right_TurningAround,
-        sArmCannonAnim_Suitless_Left_TurningAround
+        sArmCannonAnim_Suit_Right_TurningAround,
+        sArmCannonAnim_Suit_Left_TurningAround
     }
 };
 
@@ -3546,11 +3546,11 @@ const u8* const sArmCannonGfxPointers_Upper_Right_Armed_Hanging[5] = {
 };
 
 const u8* const sArmCannonGfxPointers_Lower_Right_Armed_Hanging[5] = {
-    [ACD_FORWARD] = sArmCannonGfx_Upper_Forward_Left_Armed_Hanging,
-    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Upper_DiagonalUp_Left_Armed_Hanging,
-    [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Upper_DiagonalDown_Left_Armed_Hanging,
-    [ACD_UP] = sArmCannonGfx_Upper_Up_Left_Armed_Hanging,
-    [ACD_DOWN] = sArmCannonGfx_Upper_Down_Left_Armed_Hanging
+    [ACD_FORWARD] = sArmCannonGfx_Lower_Forward_Right_Armed_Hanging,
+    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_Armed_Hanging,
+    [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Lower_DiagonalDown_Right_Armed_Hanging,
+    [ACD_UP] = sArmCannonGfx_Lower_Up_Right_Armed_Hanging,
+    [ACD_DOWN] = sArmCannonGfx_Lower_Down_Right_Armed_Hanging
 };
 
 
@@ -3564,7 +3564,7 @@ const u8* const sArmCannonGfxPointers_Upper_Right_OnZipline[5] = {
 
 const u8* const sArmCannonGfxPointers_Lower_Right_OnZipline[5] = {
     [ACD_FORWARD] = sArmCannonGfx_Lower_Forward_Right_OnZipline,
-    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_Armed_Hanging,
+    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_OnZipline,
     [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Lower_DiagonalDown_Right_OnZipline,
     [ACD_UP] = sArmCannonGfx_Lower_Up_Right_OnZipline,
     [ACD_DOWN] = sArmCannonGfx_Lower_Down_Right_OnZipline
@@ -3629,7 +3629,7 @@ const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparki
 
 const s16 sSamusDrawDistanceOffsets[4][4] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
-        -28, -124, 24, 0
+        -28, -124, 28, 0
     },
     [SAMUS_HITBOX_TYPE_CROUCHED] = {
         -28, -92, 28, 0
@@ -3638,7 +3638,7 @@ const s16 sSamusDrawDistanceOffsets[4][4] = {
         -28, -60, 28, 0
     },
     [SAMUS_HITBOX_TYPE_ZIPLINE] = {
-        -28, -124, -8, 0
+        -28, -124, 28, -8
     }
 };
 
@@ -3687,5 +3687,8 @@ const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END -
 };
 
 const u16 sSamusPullingSelfUpVelocity[4] = {
-    PIXEL_SIZE * 3 + PIXEL_SIZE / 2, PIXEL_SIZE * 2, PIXEL_SIZE, 0
+    [0] = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE,
+    [1] = EIGHTH_BLOCK_SIZE,
+    [2] = PIXEL_SIZE,
+    [3] = 0
 };

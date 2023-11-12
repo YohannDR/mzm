@@ -32566,7 +32566,7 @@ const u16 sSamusOam_Suitless_Right_TurningFromFacingTheBackground_Frame0[OAM_DAT
 };
 
 
-const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningAround[3] = {
+const struct SamusAnimationData sSamusAnim_Suitless_Left_TurningAround[3] = {
 	[0] = {
 		.pTopGfx = sSamusGfx_Top_Suitless_TurningAround_Frame0,
 		.pBottomGfx = sSamusGfx_Bottom_Suitless_TurningAround_Frame1,
@@ -32630,7 +32630,7 @@ const struct SamusAnimationData sSamusAnim_Suitless_Left_Up_TurningAround[3] = {
 	[2] = SAMUS_ANIM_TERMINATOR
 };
 
-const struct SamusAnimationData sSamusAnim_Suitless_Left_TurningAround[3] = {
+const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningAround[3] = {
 	[0] = {
 		.pTopGfx = sSamusGfx_Top_Suitless_TurningAround_Frame1,
 		.pBottomGfx = sSamusGfx_Bottom_Suitless_TurningAround_Frame1,
