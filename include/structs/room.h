@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#define ROOM_SPRITE_DATA_TERMINATOR UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+
 struct AnimatedGraphicsEntry {
     u8 palette;
     u8 tileset;
@@ -50,11 +52,11 @@ struct RoomEntryROM {
     u8 Bg1Prop;
     u8 Bg2Prop;
     u8 Bg3Prop;
-    const u8* pBG0Data;
-    const u8* pBG1Data;
-    const u8* pBG2Data;
+    const u8* pBg0Data;
+    const u8* pBg1Data;
+    const u8* pBg2Data;
     const u8* pClipData;
-    const u8* pBG3Data;
+    const u8* pBg3Data;
     u8 Bg3Scrolling;
     u8 transparency;
     const u8* pDefaultSpriteData;

@@ -311,8 +311,8 @@ void RoomLoadBackgrounds(void)
     entry = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom];
 
     // Load BG3, always LZ77
-    gCurrentRoomEntry.Bg3Size = *entry.pBG3Data;
-    src = entry.pBG3Data + 4;
+    gCurrentRoomEntry.Bg3Size = *entry.pBg3Data;
+    src = entry.pBg3Data + 4;
     CallLZ77UncompVram(src, gDecompBg3Map);
 
     if (gPauseScreenFlag == 0)
@@ -323,7 +323,7 @@ void RoomLoadBackgrounds(void)
         // Load BG0, either RLE or LZ77
         if (gCurrentRoomEntry.Bg0Prop & BG_PROP_RLE_COMPRESSED)
         {
-            src = entry.pBG0Data;
+            src = entry.pBg0Data;
             gBgPointersAndDimensions.backgrounds[0].pDecomp = gDecompBg0Map;
             gBgPointersAndDimensions.backgrounds[0].width = *src++;
             gBgPointersAndDimensions.backgrounds[0].height = *src++;
@@ -331,7 +331,7 @@ void RoomLoadBackgrounds(void)
         }
         else if (gCurrentRoomEntry.Bg0Prop & BG_PROP_LZ77_COMPRESSED)
         {
-            src = entry.pBG0Data;
+            src = entry.pBg0Data;
             gCurrentRoomEntry.Bg0Size = *src;
 
             src += 4;
@@ -346,7 +346,7 @@ void RoomLoadBackgrounds(void)
         RoomRleDecompress(TRUE, src, (u8*)gDecompClipdataMap);
 
         // Load BG1, assume RLE
-        src = entry.pBG1Data;
+        src = entry.pBg1Data;
         gBgPointersAndDimensions.backgrounds[1].pDecomp = gDecompBg1Map;
         gBgPointersAndDimensions.backgrounds[1].width = *src++;
         gBgPointersAndDimensions.backgrounds[1].height = *src++;
@@ -355,7 +355,7 @@ void RoomLoadBackgrounds(void)
         // Load BG2, force RLE
         if (gCurrentRoomEntry.Bg2Prop & BG_PROP_RLE_COMPRESSED)
         {
-            src = entry.pBG2Data;
+            src = entry.pBg2Data;
             gBgPointersAndDimensions.backgrounds[2].pDecomp = gDecompBg2Map;
             gBgPointersAndDimensions.backgrounds[2].width = *src++;
             gBgPointersAndDimensions.backgrounds[2].height = *src++;

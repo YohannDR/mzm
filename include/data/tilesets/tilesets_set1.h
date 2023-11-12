@@ -7,7 +7,7 @@ extern const u8 sTileset_42_Tilemap[1796];
 extern const u8 sTileset_78_Tilemap[1796];
 extern const u8 sTileset_27_Tilemap[1796];
 
-extern const u8 sBrinstar_6_Bg3[988];
+extern const u8 sMapRoom_Bg3[988];
 extern const u8 sChozodia_5_Bg3[988];
 
 extern const u8 sWater_Bg0[548];

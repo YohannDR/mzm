@@ -5,7 +5,7 @@ const u8 sTileset_42_Tilemap[1796] = INCBIN_U8("data/tilesets/42.tm");
 const u8 sTileset_78_Tilemap[1796] = INCBIN_U8("data/tilesets/78.tm");
 const u8 sTileset_27_Tilemap[1796] = INCBIN_U8("data/tilesets/27.tm");
 
-const u8 sBrinstar_6_Bg3[988] = INCBIN_U8("data/rooms/brinstar/6_Bg3.rle");
+const u8 sMapRoom_Bg3[988] = INCBIN_U8("data/rooms/brinstar/map_room.rle");
 const u8 sChozodia_5_Bg3[988] = INCBIN_U8("data/rooms/chozodia/5_Bg3.rle");
 
 const u8 sWater_Bg0[548] = INCBIN_U8("data/rooms/Water_Bg0.rle");
@@ -56,5 +56,3 @@ const u8 sTileset_4_Tilemap[2436] = INCBIN_U8("data/tilesets/4.tm");
 const u8 sTileset_65_Tilemap[2820] = INCBIN_U8("data/tilesets/65.tm");
 const u8 sTileset_18_Tilemap[2436] = INCBIN_U8("data/tilesets/18.tm");
 const u8 sTileset_20_Tilemap[2436] = INCBIN_U8("data/tilesets/20.tm");
-
-const u8 sTempArray_60c630[0x143284] = INCBIN_U8("data/Blob_60c630_74f8b4.bin");

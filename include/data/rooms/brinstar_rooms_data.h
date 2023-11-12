@@ -4,6 +4,7 @@
 #include "types.h"
 #include "structs/scroll.h"
 #include "structs/sprite.h"
+#include "structs/room.h"
 
 extern const u8 sBrinstar_0_Scrolls[SCROLL_DATA_SIZE(3)];
 extern const u8 sBrinstar_0_Clipdata[311];
@@ -58,7 +59,7 @@ extern const u8 sBrinstar_6_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(1)];
 extern const u8 sBrinstar_6_Bg0[186];
 
 
-extern const u8 sBrinstar_7_Clipdata[695];
+extern const u8 sBrinstar_7_Clipdata[692];
 extern const u8 sBrinstar_7_Bg2[313];
 extern const u8 sBrinstar_7_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(19)];
 extern const u8 sBrinstar_7_Bg1[1962];
@@ -125,10 +126,10 @@ extern const u8 sBrinstar_15_Bg1[975];
 extern const u8 sBrinstar_15_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)];
 
 
-extern const u8 sBrinstar_9_Scrolls[SCROLL_DATA_SIZE(3)];
+extern const u8 sBrinstar_9_Scrolls[SCROLL_DATA_SIZE(2)];
 extern const u8 sBrinstar_16_Clipdata[191];
 extern const u8 sBrinstar_16_Bg2[40];
-extern const u8 sBrinstar_16_Bg1[512];
+extern const u8 sBrinstar_16_Bg1[514];
 extern const u8 sBrinstar_16_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(13)];
 
 
@@ -141,7 +142,7 @@ extern const u8 sBrinstar_17_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(6)];
 extern const u8 sBrinstar_18_Clipdata[52];
 extern const u8 sBrinstar_18_Bg2[172];
 extern const u8 sBrinstar_18_Bg1[135];
-extern const u8 sBrinstar_18_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
+extern const u8 sBrinstar_18_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)];
 
 
 extern const u8 sBrinstar_19_Clipdata[325];
@@ -171,7 +172,7 @@ extern const u8 sBrinstar_11_Scrolls[SCROLL_DATA_SIZE(2)];
 extern const u8 sBrinstar_22_Clipdata[172];
 extern const u8 sBrinstar_22_Bg2[50];
 extern const u8 sBrinstar_22_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(9)];
-extern const u8 sBrinstar_22_Bg1[644];
+extern const u8 sBrinstar_22_Bg1[611];
 extern const u8 sBrinstar_22_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
 extern const u8 sBrinstar_22_Bg0[93];
 
@@ -226,7 +227,7 @@ extern const u8 sBrinstar_29_Clipdata[113];
 extern const u8 sBrinstar_29_Bg2[14];
 extern const u8 sBrinstar_29_Bg1[287];
 extern const u8 sBrinstar_29_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(1)];
-extern const u8 sBrinstar_29_Bg0[287];
+extern const u8 sBrinstar_29_Bg0[357];
 
 
 extern const u8 sBrinstar_30_Clipdata[76];
@@ -237,7 +238,7 @@ extern const u8 sBrinstar_30_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)];
 
 extern const u8 sBrinstar_17_Scrolls[SCROLL_DATA_SIZE(1)];
 extern const u8 sBrinstar_31_Clipdata[136];
-extern const u8 sBrinstar_31_Bg2[14];
+extern const u8 sBrinstar_31_Bg2[95];
 extern const u8 sBrinstar_31_Bg1[408];
 extern const u8 sBrinstar_31_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)];
 

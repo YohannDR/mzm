@@ -6,6 +6,7 @@
 #define SCROLL_SUB_DATA_SIZE 8
 #define SCROLL_DATA_SIZE(nbrScrolls) (2 + SCROLL_SUB_DATA_SIZE * nbrScrolls)
 
+
 struct Scroll {
     u8 within;
     u16 xEnd;

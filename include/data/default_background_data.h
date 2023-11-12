@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-extern const u8 sTileset0_BackgroundGfx[3796];
+extern const u8 sTileset_0_BackgroundGfx[3796];
 extern const u8 sDebug_Bg3[896];
 extern const u8 sBackground_Empty[52];
 extern const u8 sDoorTransitionTilemap[184];
