@@ -2,6 +2,7 @@
 #include "macros.h"
 
 #include "data/rooms/brinstar_rooms_data.h"
+#include "data/rooms/kraid_rooms_data.h"
 #include "macros.h"
 #include "data/clipdata_data.h"
 #include "data/animated_graphics_data.h"
@@ -151,17 +152,17 @@ static const u8* const sBrinstarScrolls[] = {
 };
 
 static const u8* const sKraidScrolls[] = {
-    (const u8* const)0x862fc0c,
-    (const u8* const)0x8630a2c,
-    (const u8* const)0x86318b8,
-    (const u8* const)0x8631f80,
-    (const u8* const)0x863248c,
-    (const u8* const)0x8632e6c,
-    (const u8* const)0x8635324,
-    (const u8* const)0x8635704,
-    (const u8* const)0x8636d9c,
-    (const u8* const)0x8636f7c,
-    (const u8* const)0x8637a20,
+    sKraid_0_Scrolls,
+    sKraid_1_Scrolls,
+    sKraid_2_Scrolls,
+    sKraid_3_Scrolls,
+    sKraid_4_Scrolls,
+    sKraid_5_Scrolls,
+    sKraid_6_Scrolls,
+    sKraid_7_Scrolls,
+    sKraid_8_Scrolls,
+    sKraid_9_Scrolls,
+    sKraid_10_Scrolls,
     sScroll_Empty
 };
 

@@ -2,7 +2,7 @@ from io import BufferedReader
 import os
 
 file: BufferedReader = open("../mzm_us_baserom.gba", "rb")
-header: BufferedReader = open("../include/data/rooms/brinstar_rooms_data.h", "r")
+header: BufferedReader = open("../include/data/rooms/kraid_rooms_data.h", "r")
 
 def ExtractScroll(f: BufferedReader, size: int):
     result: str = "\t"
@@ -67,18 +67,18 @@ def Align(f: BufferedReader):
         addr += 1
 
 def Func():
-    addr = 0x60c630
+    addr = 0x62fc0c
 
     currentRoom: int = 0
     prevIsScroll: bool = False
 
-    cFileName: str = "Brinstar_" + str(currentRoom) + ".c"
+    cFileName: str = "Kraid_" + str(currentRoom) + ".c"
 
     if os.path.exists(cFileName):
         os.remove(cFileName)
 
     f = open(cFileName, "w")
-    f.write('#include "data/rooms/brinstar_rooms_data.h"\n#include "macros.h"\n\n')
+    f.write('#include "data/rooms/kraid_rooms_data.h"\n#include "macros.h"\n\n')
 
     file.seek(addr)
 
@@ -96,33 +96,34 @@ def Func():
 
         if currentRoom != actualRoom:
             if not f.closed:
-                print("Closing file " + f.name)
+                # print("Closing file " + f.name)
                 f.write(result)
                 f.close()
 
                 result = ""
 
-                Align(file)
+                if line.find("// NO ALIGN") == -1:
+                    Align(file)
 
                 print("")
 
             if not prevIsScroll:
                 currentRoom = actualRoom
 
-                cFileName = "Brinstar_" + str(currentRoom) + ".c"
+                cFileName = "Kraid_" + str(currentRoom) + ".c"
 
                 if os.path.exists(cFileName):
                     os.remove(cFileName)
 
                 f = open(cFileName, "w")
-                f.write('#include "data/rooms/brinstar_rooms_data.h"\n#include "macros.h"\n\n')
+                f.write('#include "data/rooms/kraid_rooms_data.h"\n#include "macros.h"\n\n')
 
         prevIsScroll = False
 
         if line.find("SCROLL_DATA_SIZE") != -1:
             prevIsScroll = True
 
-            print(hex(file.tell()))
+            # print(hex(file.tell()))
 
             splitted = line.split("[SCROLL_DATA_SIZE(")
             size: str = splitted[1].split(")")[0]
@@ -152,7 +153,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/brinstar/"
+            folderName: str = "rooms/kraid/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")
@@ -182,7 +183,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/brinstar/"
+            folderName: str = "rooms/kraid/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")
