@@ -862,6 +862,8 @@ SECTIONS {
         src/data/rooms/norfair/Norfair_56.o(.rodata);
         src/data/rooms/norfair/Bg3.o(.rodata);
 
+        src/data/tilesets/tilesets_set4.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);

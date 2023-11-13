@@ -24,5 +24,3 @@ const u8 sNorfair_Bg3_9[1236] = INCBIN_U8("data/rooms/norfair/Norfair_Bg3_9.gfx"
 const u8 sNorfair_Bg3_10[1252] = INCBIN_U8("data/rooms/norfair/Norfair_Bg3_10.gfx");
 
 const u8 sNorfair_Bg3_11[1272] = INCBIN_U8("data/rooms/norfair/Norfair_Bg3_11.gfx");
-
-const u8 sTempArray_681744[] = INCBIN_U8("data/Blob_681744_74f8b4.bin");
