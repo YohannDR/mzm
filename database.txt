@@ -1809,6 +1809,53 @@ tilesets/29.tm;2564;0x62da80;1
 tilesets/39.tm;3460;0x62e484;1
 tilesets/5.tm;2564;0x62f208;1
 
+## Set 3
+
+tilesets/7.gfx.lz;2010;0x6399e8;4
+tilesets/1.gfx.lz;2734;0x63b950;4
+tilesets/30.gfx.lz;4132;0x63e408;4
+tilesets/6.gfx.lz;3252;0x642498;4
+tilesets/68.gfx.lz;1607;0x645768;4
+tilesets/15.gfx.lz;2005;0x647084;4
+tilesets/12.gfx.lz;1445;0x648fd8;4
+tilesets/13.gfx.lz;2310;0x64a66c;4
+tilesets/14.gfx.lz;1890;0x64ca84;4
+tilesets/16.gfx.lz;2168;0x64e80c;4
+tilesets/19.gfx.lz;1640;0x6509ec;4
+
+tilesets/7_Bg.gfx.lz;1761;0x65238c;4
+tilesets/1_Bg.gfx.lz;2190;0x653f10;4
+tilesets/30_Bg.gfx.lz;2190;0x656148;4
+tilesets/15_Bg.gfx.lz;1196;0x658380;4
+tilesets/14_Bg.gfx.lz;1296;0x659630;4
+tilesets/16_Bg.gfx.lz;1850;0x65aa70;4
+tilesets/19_Bg.gfx.lz;1665;0x65c758;4
+tilesets/13_Bg.gfx.lz;1706;0x65e15c;4
+
+tilesets/7.pal;224;0x65fc04;2
+tilesets/1.pal;224;0x65fdc4;2
+tilesets/30.pal;224;0x65ff84;2
+tilesets/6.pal;224;0x660144;2
+tilesets/68.pal;224;0x660304;2
+tilesets/15.pal;224;0x6604c4;2
+tilesets/12.pal;224;0x660684;2
+tilesets/13.pal;224;0x660844;2
+tilesets/14.pal;224;0x660a04;2
+tilesets/16.pal;224;0x660bc4;2
+tilesets/19.pal;224;0x660d84;2
+
+tilesets/7.tm;3460;0x660f44;1
+tilesets/1.tm;3460;0x661cc8;1
+tilesets/30.tm;6148;0x662a4c;1
+tilesets/6.tm;4740;0x664250;1
+tilesets/68.tm;3588;0x6654d4;1
+tilesets/15.tm;3460;0x6662d8;1
+tilesets/12.tm;2948;0x66705c;1
+tilesets/13.tm;4228;0x667be0;1
+tilesets/14.tm;3460;0x668c64;1
+tilesets/16.tm;5380;0x6699e8;1
+tilesets/19.tm;3332;0x66aeec;1
+
 ## Samus
 
 # Animated palettes
@@ -3203,4 +3250,4 @@ Blob_8cad0_8cc60.bin;400;0x8cad0;1
 Blob_8ceec_8f253.bin;9064;0x8ceec;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
-Blob_6399e8_74f8b4.bin;1138380;0x6399e8;1
+Blob_66bbf0_74f8b4.bin;933060;0x66bbf0;1

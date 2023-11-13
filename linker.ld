@@ -801,6 +801,8 @@ SECTIONS {
         src/data/rooms/kraid/Kraid_41.o(.rodata);
         src/data/rooms/kraid/Bg3.o(.rodata);
 
+        src/data/tilesets/tilesets_set3.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);
