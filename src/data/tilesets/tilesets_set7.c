@@ -1,0 +1,84 @@
+#include "data/tilesets/tilesets_set7.h"
+#include "macros.h"
+
+const u32 sTileset_10_Gfx[3663] = INCBIN_U32("data/tilesets/10.gfx.lz");
+const u32 sTileset_52_Gfx[3073] = INCBIN_U32("data/tilesets/52.gfx.lz");
+const u32 sTileset_74_Gfx[3034] = INCBIN_U32("data/tilesets/74.gfx.lz");
+const u32 sTileset_66_Gfx[1010] = INCBIN_U32("data/tilesets/66.gfx.lz");
+const u32 sTileset_77_Gfx[633] = INCBIN_U32("data/tilesets/77.gfx.lz");
+const u32 sTileset_44_Gfx[2791] = INCBIN_U32("data/tilesets/44.gfx.lz");
+const u32 sTileset_46_Gfx[2110] = INCBIN_U32("data/tilesets/46.gfx.lz");
+const u32 sTileset_75_Gfx[1058] = INCBIN_U32("data/tilesets/75.gfx.lz");
+const u32 sTileset_38_Gfx[3119] = INCBIN_U32("data/tilesets/38.gfx.lz");
+const u32 sTileset_48_Gfx[2581] = INCBIN_U32("data/tilesets/48.gfx.lz");
+const u32 sTileset_56_Gfx[4380] = INCBIN_U32("data/tilesets/56.gfx.lz");
+const u32 sTileset_47_Gfx[1737] = INCBIN_U32("data/tilesets/47.gfx.lz");
+const u32 sTileset_49_Gfx[2469] = INCBIN_U32("data/tilesets/49.gfx.lz");
+const u32 sTileset_50_Gfx[2359] = INCBIN_U32("data/tilesets/50.gfx.lz");
+const u32 sTileset_28_Gfx[541] = INCBIN_U32("data/tilesets/28.gfx.lz");
+
+const u32 sTileset_74_Bg_Gfx[2133] = INCBIN_U32("data/tilesets/74_Bg.gfx.lz");
+const u32 sTileset_66_Bg_Gfx[1836] = INCBIN_U32("data/tilesets/66_Bg.gfx.lz");
+const u32 sTileset_52_Bg_Gfx[3168] = INCBIN_U32("data/tilesets/52_Bg.gfx.lz");
+const u32 sTileset_77_Bg_Gfx[1788] = INCBIN_U32("data/tilesets/77_Bg.gfx.lz");
+const u32 sTileset_44_Bg_Gfx[405] = INCBIN_U32("data/tilesets/44_Bg.gfx.lz");
+const u32 sTileset_46_Bg_Gfx[950] = INCBIN_U32("data/tilesets/46_Bg.gfx.lz");
+const u32 sTileset_75_Bg_Gfx[1222] = INCBIN_U32("data/tilesets/75_Bg.gfx.lz");
+const u32 sTileset_38_Bg_Gfx[2100] = INCBIN_U32("data/tilesets/38_Bg.gfx.lz");
+const u32 sTileset_56_Bg_Gfx[726] = INCBIN_U32("data/tilesets/56_Bg.gfx.lz");
+const u32 sTileset_47_Bg_Gfx[808] = INCBIN_U32("data/tilesets/47_Bg.gfx.lz");
+const u32 sTileset_62_Bg_Gfx[1727] = INCBIN_U32("data/tilesets/62_Bg.gfx.lz");
+const u32 sTileset_63_Bg_Gfx[20] = INCBIN_U32("data/tilesets/63_Bg.gfx.lz");
+
+const u8 sTileset_10_Tilemap[6020] = INCBIN_U8("data/tilesets/10.tm");
+const u8 sTileset_52_Tilemap[6020] = INCBIN_U8("data/tilesets/52.tm");
+const u8 sTileset_74_Tilemap[6020] = INCBIN_U8("data/tilesets/74.tm");
+const u8 sTileset_66_Tilemap[2436] = INCBIN_U8("data/tilesets/66.tm");
+const u8 sTileset_77_Tilemap[2180] = INCBIN_U8("data/tilesets/77.tm");
+const u8 sTileset_44_Tilemap[5764] = INCBIN_U8("data/tilesets/44.tm");
+const u8 sTileset_46_Tilemap[3460] = INCBIN_U8("data/tilesets/46.tm");
+const u8 sTileset_75_Tilemap[2436] = INCBIN_U8("data/tilesets/75.tm");
+const u8 sTileset_38_Tilemap[5764] = INCBIN_U8("data/tilesets/38.tm");
+const u8 sTileset_48_Tilemap[5764] = INCBIN_U8("data/tilesets/48.tm");
+const u8 sTileset_56_Tilemap[4868] = INCBIN_U8("data/tilesets/56.tm");
+const u8 sTileset_47_Tilemap[3460] = INCBIN_U8("data/tilesets/47.tm");
+const u8 sTileset_49_Tilemap[5764] = INCBIN_U8("data/tilesets/49.tm");
+const u8 sTileset_50_Tilemap[7684] = INCBIN_U8("data/tilesets/50.tm");
+const u8 sTileset_28_Tilemap[4484] = INCBIN_U8("data/tilesets/28.tm");
+
+const u16 sTileset_10_Pal[14 * 16] = INCBIN_U16("data/tilesets/10.pal");
+const u16 sTileset_52_Pal[14 * 16] = INCBIN_U16("data/tilesets/52.pal");
+const u16 sTileset_57_Pal[14 * 16] = INCBIN_U16("data/tilesets/57.pal");
+const u16 sTileset_58_Pal[14 * 16] = INCBIN_U16("data/tilesets/58.pal");
+const u16 sTileset_59_Pal[14 * 16] = INCBIN_U16("data/tilesets/59.pal");
+const u16 sTileset_60_Pal[14 * 16] = INCBIN_U16("data/tilesets/60.pal");
+const u16 sTileset_74_Pal[14 * 16] = INCBIN_U16("data/tilesets/74.pal");
+const u16 sAnimatedPal_9[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/9.pal");
+const u16 sAnimatedPal_8[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/8.pal");
+const u16 sTileset_66_Pal[14 * 16] = INCBIN_U16("data/tilesets/66.pal");
+const u16 sAnimatedPal_6[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/6.pal");
+const u16 sTileset_77_Pal[14 * 16] = INCBIN_U16("data/tilesets/77.pal");
+const u16 sAnimatedPal_17[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/17.pal");
+const u16 sTileset_44_Pal[14 * 16] = INCBIN_U16("data/tilesets/44.pal");
+const u16 sTileset_45_Pal[14 * 16] = INCBIN_U16("data/tilesets/45.pal");
+const u16 sAnimatedPal_10[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/10.pal");
+const u16 sTileset_46_Pal[14 * 16] = INCBIN_U16("data/tilesets/46.pal");
+const u16 sAnimatedPal_11[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/11.pal");
+const u16 sTileset_75_Pal[14 * 16] = INCBIN_U16("data/tilesets/75.pal");
+const u16 sAnimatedPal_12[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/12.pal");
+const u16 sTileset_38_Pal[14 * 16] = INCBIN_U16("data/tilesets/38.pal");
+const u16 sTileset_48_Pal[14 * 16] = INCBIN_U16("data/tilesets/48.pal");
+const u16 sTileset_56_Pal[14 * 16] = INCBIN_U16("data/tilesets/56.pal");
+const u16 sTileset_47_Pal[14 * 16] = INCBIN_U16("data/tilesets/47.pal");
+const u16 sTileset_62_Pal[14 * 16] = INCBIN_U16("data/tilesets/62.pal");
+const u16 sAnimatedPal_4[8 * 16] = INCBIN_U16("data/tilesets/animated_palettes/4.pal");
+const u16 sTileset_49_Pal[14 * 16] = INCBIN_U16("data/tilesets/49.pal");
+const u16 sTileset_70_Pal[14 * 16] = INCBIN_U16("data/tilesets/70.pal");
+const u16 sAnimatedPal_14[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/14.pal");
+const u16 sTileset_50_Pal[14 * 16] = INCBIN_U16("data/tilesets/50.pal");
+const u16 sTileset_71_Pal[14 * 16] = INCBIN_U16("data/tilesets/71.pal");
+const u16 sAnimatedPal_15[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/15.pal");
+const u16 sTileset_28_Pal[14 * 16] = INCBIN_U16("data/tilesets/28.pal");
+const u16 sTileset_43_Pal[14 * 16] = INCBIN_U16("data/tilesets/43.pal");
+
+const u8 sTempArray_72d478[] = INCBIN_U8("data/Blob_72d478_74f8b4.bin");

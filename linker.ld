@@ -948,6 +948,8 @@ SECTIONS {
         src/data/rooms/crateria/Crateria_20.o(.rodata);
         src/data/rooms/crateria/Crateria_21.o(.rodata);
         src/data/rooms/crateria/Bg3.o(.rodata);
+        
+        src/data/tilesets/tilesets_set7.o(.rodata);
 
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);

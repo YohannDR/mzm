@@ -10,5 +10,3 @@ const u8 sCrateria_Bg3_2[1224] = INCBIN_U8("data/rooms/crateria/Crateria_Bg3_2.g
 const u8 sCrateria_Bg3_3[1840] = INCBIN_U8("data/rooms/crateria/Crateria_Bg3_3.gfx");
 const u8 sCrateria_Bg3_4[520] = INCBIN_U8("data/rooms/crateria/Crateria_Bg3_4.gfx");
 const u8 sCrateria_Bg3_5[1472] = INCBIN_U8("data/rooms/crateria/Crateria_Bg3_5.gfx");
-
-const u8 sTempArray_6e63f8[] = INCBIN_U8("data/Blob_6e63f8_74f8b4.bin");

@@ -2560,6 +2560,78 @@ tilesets/3.tm;3460;0x6d97cc;1
 tilesets/55.tm;4228;0x6da550;1
 tilesets/54.tm;3332;0x6db5d4;1
 
+## Set 7
+
+tilesets/10.gfx.lz;3663;0x6e63f8;4
+tilesets/52.gfx.lz;3073;0x6e9d34;4
+tilesets/74.gfx.lz;3034;0x6ecd38;4
+tilesets/66.gfx.lz;1010;0x6efca0;4
+tilesets/77.gfx.lz;633;0x6f0c68;4
+tilesets/44.gfx.lz;2791;0x6f164c;4
+tilesets/46.gfx.lz;2110;0x6f41e8;4
+tilesets/75.gfx.lz;1058;0x6f62e0;4
+tilesets/38.gfx.lz;3119;0x6f7368;4
+tilesets/48.gfx.lz;2581;0x6fa424;4
+tilesets/56.gfx.lz;4380;0x6fcc78;4
+tilesets/47.gfx.lz;1737;0x7010e8;4
+tilesets/49.gfx.lz;2469;0x702c0c;4
+tilesets/50.gfx.lz;2359;0x7052a0;4
+tilesets/28.gfx.lz;541;0x70777c;4
+
+tilesets/74_Bg.gfx.lz;2133;0x707ff0;4
+tilesets/66_Bg.gfx.lz;1836;0x70a144;4
+tilesets/52_Bg.gfx.lz;3168;0x70bdf4;4
+tilesets/77_Bg.gfx.lz;1788;0x70ef74;4
+tilesets/44_Bg.gfx.lz;405;0x710b64;4
+tilesets/46_Bg.gfx.lz;950;0x7111b8;4
+tilesets/75_Bg.gfx.lz;1222;0x712090;4
+tilesets/38_Bg.gfx.lz;2100;0x7133a8;4
+tilesets/56_Bg.gfx.lz;726;0x715478;4
+tilesets/47_Bg.gfx.lz;808;0x715fd0;4
+tilesets/62_Bg.gfx.lz;1727;0x716c70;4
+tilesets/63_Bg.gfx.lz;20;0x71876c;4
+
+tilesets/10.tm;6020;0x7187bc;1
+tilesets/52.tm;6020;0x719f40;1
+tilesets/74.tm;6020;0x71b6c4;1
+tilesets/66.tm;2436;0x71ce48;1
+tilesets/77.tm;2180;0x71d7cc;1
+tilesets/44.tm;5764;0x71e050;1
+tilesets/46.tm;3460;0x71f6d4;1
+tilesets/75.tm;2436;0x720458;1
+tilesets/38.tm;5764;0x720ddc;1
+tilesets/48.tm;5764;0x722460;1
+tilesets/56.tm;4868;0x723ae4;1
+tilesets/47.tm;3460;0x724de8;1
+tilesets/49.tm;5764;0x725b6c;1
+tilesets/50.tm;7684;0x7271f0;1
+tilesets/28.tm;4484;0x728ff4;1
+
+tilesets/10.pal;224;0x72a178;2
+tilesets/52.pal;224;0x72a338;2
+tilesets/57.pal;224;0x72a4f8;2
+tilesets/58.pal;224;0x72a6b8;2
+tilesets/59.pal;224;0x72a878;2
+tilesets/60.pal;224;0x72aa38;2
+tilesets/74.pal;224;0x72abf8;2
+tilesets/66.pal;224;0x72afb8;2
+tilesets/77.pal;224;0x72b278;2
+tilesets/44.pal;224;0x72b538;2
+tilesets/45.pal;224;0x72b6f8;2
+tilesets/46.pal;224;0x72b9b8;2
+tilesets/75.pal;224;0x72bc78;2
+tilesets/38.pal;224;0x72bf38;2
+tilesets/48.pal;224;0x72c0f8;2
+tilesets/56.pal;224;0x72c2b8;2
+tilesets/47.pal;224;0x72c478;2
+tilesets/62.pal;224;0x72c638;2
+tilesets/49.pal;224;0x72c8f8;2
+tilesets/70.pal;224;0x72cab8;2
+tilesets/50.pal;224;0x72ccf8;2
+tilesets/71.pal;224;0x72ceb8;2
+tilesets/28.pal;224;0x72d0f8;2
+tilesets/43.pal;224;0x72d2b8;2
+
 ## Samus
 
 # Animated palettes
@@ -2574,6 +2646,17 @@ tilesets/animated_palettes/2.pal;192;0x62b8b8;2
 tilesets/animated_palettes/3.pal;128;0x62bdb8;2
 
 tilesets/animated_palettes/13.pal;128;0x6ba614;2
+
+tilesets/animated_palettes/9.pal;128;0x72adb8;2
+tilesets/animated_palettes/8.pal;128;0x72aeb8;2
+tilesets/animated_palettes/6.pal;128;0x72b178;2
+tilesets/animated_palettes/17.pal;128;0x72b438;2
+tilesets/animated_palettes/10.pal;128;0x72b8b8;2
+tilesets/animated_palettes/11.pal;128;0x72bb78;2
+tilesets/animated_palettes/12.pal;128;0x72be38;2
+tilesets/animated_palettes/4.pal;128;0x72c7f8;2
+tilesets/animated_palettes/14.pal;64;0x72cc78;2
+tilesets/animated_palettes/15.pal;64;0x72d078;2
 
 # Palettes
 
@@ -3956,4 +4039,4 @@ Blob_8cad0_8cc60.bin;400;0x8cad0;1
 Blob_8ceec_8f253.bin;9064;0x8ceec;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
-Blob_6e63f8_74f8b4.bin;431292;0x6e63f8;1
+Blob_72d478_74f8b4.bin;140348;0x72d478;1
