@@ -30,5 +30,3 @@ const u8 sTileset_36_Tilemap[3588] = INCBIN_U8("data/tilesets/36.tm");
 const u8 sTileset_3_Tilemap[3460] = INCBIN_U8("data/tilesets/3.tm");
 const u8 sTileset_55_Tilemap[4228] = INCBIN_U8("data/tilesets/55.tm");
 const u8 sTileset_54_Tilemap[3332] = INCBIN_U8("data/tilesets/54.tm");
-
-const u8 sTempArray_6dc2d8[] = INCBIN_U8("data/Blob_6dc2d8_74f8b4.bin");

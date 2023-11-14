@@ -925,6 +925,30 @@ SECTIONS {
 
         src/data/tilesets/tilesets_set6.o(.rodata);
 
+        src/data/rooms/crateria/Crateria_0.o(.rodata);
+        src/data/rooms/crateria/Crateria_1.o(.rodata);
+        src/data/rooms/crateria/Crateria_2.o(.rodata);
+        src/data/rooms/crateria/Crateria_3.o(.rodata);
+        src/data/rooms/crateria/Crateria_4.o(.rodata);
+        src/data/rooms/crateria/Crateria_5.o(.rodata);
+        src/data/rooms/crateria/Crateria_6.o(.rodata);
+        src/data/rooms/crateria/Crateria_7.o(.rodata);
+        src/data/rooms/crateria/Crateria_8.o(.rodata);
+        src/data/rooms/crateria/Crateria_9.o(.rodata);
+        src/data/rooms/crateria/Crateria_10.o(.rodata);
+        src/data/rooms/crateria/Crateria_11.o(.rodata);
+        src/data/rooms/crateria/Crateria_12.o(.rodata);
+        src/data/rooms/crateria/Crateria_13.o(.rodata);
+        src/data/rooms/crateria/Crateria_14.o(.rodata);
+        src/data/rooms/crateria/Crateria_15.o(.rodata);
+        src/data/rooms/crateria/Crateria_16.o(.rodata);
+        src/data/rooms/crateria/Crateria_17.o(.rodata);
+        src/data/rooms/crateria/Crateria_18.o(.rodata);
+        src/data/rooms/crateria/Crateria_19.o(.rodata);
+        src/data/rooms/crateria/Crateria_20.o(.rodata);
+        src/data/rooms/crateria/Crateria_21.o(.rodata);
+        src/data/rooms/crateria/Bg3.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);

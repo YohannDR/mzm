@@ -2,7 +2,7 @@ from io import BufferedReader
 import os
 
 file: BufferedReader = open("../mzm_us_baserom.gba", "rb")
-header: BufferedReader = open("../include/data/rooms/tourian_rooms_data.h", "r")
+header: BufferedReader = open("../include/data/rooms/crateria_rooms_data.h", "r")
 
 def ExtractScroll(f: BufferedReader, size: int):
     result: str = "\t"
@@ -67,18 +67,18 @@ def Align(f: BufferedReader):
         addr += 1
 
 def Func():
-    addr = 0x6ba8d4
+    addr = 0x6dc2d8
 
     currentRoom: int = 0
     prevIsScroll: bool = False
 
-    cFileName: str = "Tourian_" + str(currentRoom) + ".c"
+    cFileName: str = "Crateria_" + str(currentRoom) + ".c"
 
     if os.path.exists(cFileName):
         os.remove(cFileName)
 
     f = open(cFileName, "w")
-    f.write('#include "data/rooms/tourian_rooms_data.h"\n#include "macros.h"\n\n')
+    f.write('#include "data/rooms/crateria_rooms_data.h"\n#include "macros.h"\n\n')
 
     file.seek(addr)
 
@@ -110,13 +110,13 @@ def Func():
             if not prevIsScroll:
                 currentRoom = actualRoom
 
-                cFileName = "Tourian_" + str(currentRoom) + ".c"
+                cFileName = "Crateria_" + str(currentRoom) + ".c"
 
                 if os.path.exists(cFileName):
                     os.remove(cFileName)
 
                 f = open(cFileName, "w")
-                f.write('#include "data/rooms/tourian_rooms_data.h"\n#include "macros.h"\n\n')
+                f.write('#include "data/rooms/crateria_rooms_data.h"\n#include "macros.h"\n\n')
 
         prevIsScroll = False
 
@@ -153,7 +153,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/tourian/"
+            folderName: str = "rooms/crateria/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")
@@ -183,7 +183,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/tourian/"
+            folderName: str = "rooms/crateria/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")

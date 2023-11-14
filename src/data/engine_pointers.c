@@ -6,6 +6,7 @@
 #include "data/rooms/norfair_rooms_data.h"
 #include "data/rooms/ridley_rooms_data.h"
 #include "data/rooms/tourian_rooms_data.h"
+#include "data/rooms/crateria_rooms_data.h"
 
 #include "macros.h"
 #include "data/clipdata_data.h"
@@ -220,17 +221,17 @@ static const u8* const sTourianScrolls[] = {
 };
 
 static const u8* const sCrateriaScrolls[] = {
-    (const u8* const)0x86dc2d8,
-    (const u8* const)0x86dd068,
-    (const u8* const)0x86ddc74,
-    (const u8* const)0x86ddf04,
-    (const u8* const)0x86de19c,
-    (const u8* const)0x86defa8,
-    (const u8* const)0x86e0818,
-    (const u8* const)0x86e2604,
-    (const u8* const)0x86e2c80,
-    (const u8* const)0x86e3260,
-    (const u8* const)0x86e38e4,
+    sCrateria_0_Scrolls,
+    sCrateria_1_Scrolls,
+    sCrateria_2_Scrolls,
+    sCrateria_3_Scrolls,
+    sCrateria_4_Scrolls,
+    sCrateria_5_Scrolls,
+    sCrateria_6_Scrolls,
+    sCrateria_7_Scrolls,
+    sCrateria_8_Scrolls,
+    sCrateria_9_Scrolls,
+    sCrateria_10_Scrolls,
     sScroll_Empty
 };
 
