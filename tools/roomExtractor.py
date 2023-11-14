@@ -2,7 +2,7 @@ from io import BufferedReader
 import os
 
 file: BufferedReader = open("../mzm_us_baserom.gba", "rb")
-header: BufferedReader = open("../include/data/rooms/norfair_rooms_data.h", "r")
+header: BufferedReader = open("../include/data/rooms/ridley_rooms_data.h", "r")
 
 def ExtractScroll(f: BufferedReader, size: int):
     result: str = "\t"
@@ -67,18 +67,18 @@ def Align(f: BufferedReader):
         addr += 1
 
 def Func():
-    addr = 0x66bbf0
+    addr = 0x69b058
 
     currentRoom: int = 0
     prevIsScroll: bool = False
 
-    cFileName: str = "Norfair_" + str(currentRoom) + ".c"
+    cFileName: str = "Ridley_" + str(currentRoom) + ".c"
 
     if os.path.exists(cFileName):
         os.remove(cFileName)
 
     f = open(cFileName, "w")
-    f.write('#include "data/rooms/norfair_rooms_data.h"\n#include "macros.h"\n\n')
+    f.write('#include "data/rooms/ridley_rooms_data.h"\n#include "macros.h"\n\n')
 
     file.seek(addr)
 
@@ -110,13 +110,13 @@ def Func():
             if not prevIsScroll:
                 currentRoom = actualRoom
 
-                cFileName = "Norfair_" + str(currentRoom) + ".c"
+                cFileName = "Ridley_" + str(currentRoom) + ".c"
 
                 if os.path.exists(cFileName):
                     os.remove(cFileName)
 
                 f = open(cFileName, "w")
-                f.write('#include "data/rooms/norfair_rooms_data.h"\n#include "macros.h"\n\n')
+                f.write('#include "data/rooms/ridley_rooms_data.h"\n#include "macros.h"\n\n')
 
         prevIsScroll = False
 
@@ -153,7 +153,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/norfair/"
+            folderName: str = "rooms/ridley/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")
@@ -183,7 +183,7 @@ def Func():
 
             #print(name)
 
-            folderName: str = "rooms/norfair/"
+            folderName: str = "rooms/ridley/"
 
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")

@@ -864,6 +864,41 @@ SECTIONS {
 
         src/data/tilesets/tilesets_set4.o(.rodata);
 
+        src/data/rooms/ridley/Ridley_0.o(.rodata);
+        src/data/rooms/ridley/Ridley_1.o(.rodata);
+        src/data/rooms/ridley/Ridley_2.o(.rodata);
+        src/data/rooms/ridley/Ridley_3.o(.rodata);
+        src/data/rooms/ridley/Ridley_4.o(.rodata);
+        src/data/rooms/ridley/Ridley_5.o(.rodata);
+        src/data/rooms/ridley/Ridley_6.o(.rodata);
+        src/data/rooms/ridley/Ridley_7.o(.rodata);
+        src/data/rooms/ridley/Ridley_8.o(.rodata);
+        src/data/rooms/ridley/Ridley_9.o(.rodata);
+        src/data/rooms/ridley/Ridley_10.o(.rodata);
+        src/data/rooms/ridley/Ridley_11.o(.rodata);
+        src/data/rooms/ridley/Ridley_12.o(.rodata);
+        src/data/rooms/ridley/Ridley_13.o(.rodata);
+        src/data/rooms/ridley/Ridley_14.o(.rodata);
+        src/data/rooms/ridley/Ridley_15.o(.rodata);
+        src/data/rooms/ridley/Ridley_16.o(.rodata);
+        src/data/rooms/ridley/Ridley_17.o(.rodata);
+        src/data/rooms/ridley/Ridley_18.o(.rodata);
+        src/data/rooms/ridley/Ridley_19.o(.rodata);
+        src/data/rooms/ridley/Ridley_20.o(.rodata);
+        src/data/rooms/ridley/Ridley_21.o(.rodata);
+        src/data/rooms/ridley/Ridley_22.o(.rodata);
+        src/data/rooms/ridley/Ridley_23.o(.rodata);
+        src/data/rooms/ridley/Ridley_24.o(.rodata);
+        src/data/rooms/ridley/Ridley_25.o(.rodata);
+        src/data/rooms/ridley/Ridley_26.o(.rodata);
+        src/data/rooms/ridley/Ridley_27.o(.rodata);
+        src/data/rooms/ridley/Ridley_28.o(.rodata);
+        src/data/rooms/ridley/Ridley_29.o(.rodata);
+        src/data/rooms/ridley/Ridley_30.o(.rodata);
+        src/data/rooms/ridley/Ridley_31.o(.rodata);
+        src/data/rooms/ridley/Ridley_32.o(.rodata);
+        src/data/rooms/ridley/Bg3.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);

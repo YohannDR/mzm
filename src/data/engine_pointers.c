@@ -3,6 +3,8 @@
 
 #include "data/rooms/brinstar_rooms_data.h"
 #include "data/rooms/kraid_rooms_data.h"
+#include "data/rooms/norfair_rooms_data.h"
+#include "data/rooms/ridley_rooms_data.h"
 #include "macros.h"
 #include "data/clipdata_data.h"
 #include "data/animated_graphics_data.h"
@@ -167,41 +169,41 @@ static const u8* const sKraidScrolls[] = {
 };
 
 static const u8* const sNorfairScrolls[] = {
-    (const u8* const)0x866bbf0,
-    (const u8* const)0x866c8d8,
-    (const u8* const)0x866dbb4,
-    (const u8* const)0x866fe74,
-    (const u8* const)0x8671070,
-    (const u8* const)0x8671d84,
-    (const u8* const)0x8672a08,
-    (const u8* const)0x8673854,
-    (const u8* const)0x8673e94,
-    (const u8* const)0x8674714,
-    (const u8* const)0x86766c8,
-    (const u8* const)0x8676a9c,
-    (const u8* const)0x8677318,
-    (const u8* const)0x86778a8,
-    (const u8* const)0x8679138,
-    (const u8* const)0x867c4e0,
-    (const u8* const)0x867cc54,
+    sNorfair_0_Scrolls,
+    sNorfair_1_Scrolls,
+    sNorfair_2_Scrolls,
+    sNorfair_3_Scrolls,
+    sNorfair_4_Scrolls,
+    sNorfair_5_Scrolls,
+    sNorfair_6_Scrolls,
+    sNorfair_7_Scrolls,
+    sNorfair_8_Scrolls,
+    sNorfair_9_Scrolls,
+    sNorfair_10_Scrolls,
+    sNorfair_11_Scrolls,
+    sNorfair_12_Scrolls,
+    sNorfair_13_Scrolls,
+    sNorfair_14_Scrolls,
+    sNorfair_15_Scrolls,
+    sNorfair_16_Scrolls,
     sScroll_Empty
 };
 
 static const u8* const sRidleyScrolls[] = {
-    (const u8* const)0x869b058,
-    (const u8* const)0x869bf38,
-    (const u8* const)0x869c4c8,
-    (const u8* const)0x869d12c,
-    (const u8* const)0x869d3c8,
-    (const u8* const)0x869d840,
-    (const u8* const)0x869dce4,
-    (const u8* const)0x869e328,
-    (const u8* const)0x869e6b8,
-    (const u8* const)0x869edac,
-    (const u8* const)0x869f8ac,
-    (const u8* const)0x86a10a4,
-    (const u8* const)0x86a18d8,
-    (const u8* const)0x86a2290,
+    sRidley_0_Scrolls,
+    sRidley_1_Scrolls,
+    sRidley_2_Scrolls,
+    sRidley_3_Scrolls,
+    sRidley_4_Scrolls,
+    sRidley_5_Scrolls,
+    sRidley_6_Scrolls,
+    sRidley_7_Scrolls,
+    sRidley_8_Scrolls,
+    sRidley_9_Scrolls,
+    sRidley_10_Scrolls,
+    sRidley_11_Scrolls,
+    sRidley_12_Scrolls,
+    sRidley_13_Scrolls,
     sScroll_Empty
 };
 
