@@ -12,5 +12,3 @@ const u8 sRidley_Bg3_3[1248] = INCBIN_U8("data/rooms/ridley/Ridley_Bg3_3.gfx");
 const u8 sRidley_Bg3_4[1248] = INCBIN_U8("data/rooms/ridley/Ridley_Bg3_4.gfx");
 
 const u8 sRidley_Bg3_5[1268] = INCBIN_U8("data/rooms/ridley/Ridley_Bg3_5.gfx");
-
-const u8 sTempArray_6a58b4[] = INCBIN_U8("data/Blob_6a58b4_74f8b4.bin");

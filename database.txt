@@ -2139,6 +2139,95 @@ rooms/ridley/Ridley_Bg3_5.gfx;1268;0x6a53c0;1
 
 ## Tourian rooms
 
+rooms/tourian/Tourian_0_Clipdata.gfx;158;0x6ba8de;1
+rooms/tourian/Tourian_0_Bg2.gfx;178;0x6ba97c;1
+rooms/tourian/Tourian_0_Bg1.gfx;445;0x6baa2e;1
+
+rooms/tourian/Tourian_1_Clipdata.gfx;182;0x6babf4;1
+rooms/tourian/Tourian_1_Bg2.gfx;116;0x6bacaa;1
+rooms/tourian/Tourian_1_Bg1.gfx;436;0x6bad4e;1
+rooms/tourian/Tourian_1_Bg0.gfx;264;0x6baf20;1
+
+rooms/tourian/Tourian_2_Clipdata.gfx;242;0x6bb028;1
+rooms/tourian/Tourian_2_Bg2.gfx;114;0x6bb11a;1
+rooms/tourian/Tourian_2_Bg1.gfx;618;0x6bb1b3;1
+
+rooms/tourian/Tourian_3_Clipdata.gfx;64;0x6bb444;1
+rooms/tourian/Tourian_3_Bg2.gfx;14;0x6bb484;1
+rooms/tourian/Tourian_3_Bg1.gfx;225;0x6bb492;1
+
+rooms/tourian/Tourian_4_Clipdata.gfx;375;0x6bb596;1
+rooms/tourian/Tourian_4_Bg2.gfx;144;0x6bb70d;1
+rooms/tourian/Tourian_4_Bg1.gfx;657;0x6bb79d;1
+rooms/tourian/Tourian_4_Bg0.gfx;307;0x6bba61;1
+
+rooms/tourian/Tourian_5_Clipdata.gfx;597;0x6bbb9e;1
+rooms/tourian/Tourian_5_Bg2.gfx;226;0x6bbdf3;1
+rooms/tourian/Tourian_5_Bg1.gfx;1425;0x6bbed5;1
+rooms/tourian/Tourian_5_Bg0.gfx;186;0x6bc4ae;1
+
+rooms/tourian/Tourian_6_Clipdata.gfx;93;0x6bc568;1
+rooms/tourian/Tourian_6_Bg1.gfx;166;0x6bc5c5;1
+
+rooms/tourian/Tourian_7_Clipdata.gfx;55;0x6bc674;1
+rooms/tourian/Tourian_7_Bg2.gfx;14;0x6bc6ab;1
+rooms/tourian/Tourian_7_Bg1.gfx;131;0x6bc6b9;1
+
+rooms/tourian/Tourian_8_Clipdata.gfx;657;0x6bc752;1
+rooms/tourian/Tourian_8_Bg2.gfx;1201;0x6bc9e3;1
+rooms/tourian/Tourian_8_Bg1.gfx;1638;0x6bce94;1
+
+rooms/tourian/Tourian_9_Clipdata.gfx;271;0x6bd50a;1
+rooms/tourian/Tourian_9_Bg2.gfx;602;0x6bd619;1
+rooms/tourian/Tourian_9_Bg1.gfx;600;0x6bd873;1
+rooms/tourian/Tourian_9_Bg0.gfx;250;0x6bdace;1
+
+rooms/tourian/Tourian_10_Clipdata.gfx;66;0x6bdbc8;1
+rooms/tourian/Tourian_10_Bg2.gfx;164;0x6bdc0a;1
+rooms/tourian/Tourian_10_Bg1.gfx;257;0x6bdcae;1
+rooms/tourian/Tourian_10_Bg0.gfx;294;0x6bddb2;1
+
+rooms/tourian/Tourian_11_Clipdata.gfx;91;0x6bded8;1
+rooms/tourian/Tourian_11_Bg1.gfx;167;0x6bdf33;1
+
+rooms/tourian/Tourian_12_Clipdata.gfx;60;0x6bdfe0;1
+rooms/tourian/Tourian_12_Bg2.gfx;36;0x6be01c;1
+rooms/tourian/Tourian_12_Bg1.gfx;130;0x6be040;1
+
+rooms/tourian/Tourian_13_Clipdata.gfx;100;0x6be0c8;1
+rooms/tourian/Tourian_13_Bg2.gfx;52;0x6be12c;1
+rooms/tourian/Tourian_13_Bg1.gfx;280;0x6be16c;1
+
+rooms/tourian/Tourian_14_Clipdata.gfx;68;0x6be28c;1
+rooms/tourian/Tourian_14_Bg2.gfx;52;0x6be2d0;1
+rooms/tourian/Tourian_14_Bg1.gfx;173;0x6be316;1
+
+rooms/tourian/Tourian_15_Clipdata.gfx;218;0x6be3d0;1
+rooms/tourian/Tourian_15_Bg2.gfx;102;0x6be4aa;1
+rooms/tourian/Tourian_15_Bg1.gfx;573;0x6be534;1
+
+rooms/tourian/Tourian_16_Clipdata.gfx;166;0x6be79a;1
+rooms/tourian/Tourian_16_Bg2.gfx;154;0x6be840;1
+rooms/tourian/Tourian_16_Bg1.gfx;513;0x6be907;1
+
+rooms/tourian/Tourian_17_Clipdata.gfx;80;0x6beb34;1
+rooms/tourian/Tourian_17_Bg1.gfx;162;0x6beb84;1
+
+rooms/tourian/Tourian_18_Clipdata.gfx;113;0x6bec2c;1
+rooms/tourian/Tourian_18_Bg2.gfx;14;0x6bec9d;1
+rooms/tourian/Tourian_18_Bg1.gfx;270;0x6becab;1
+
+rooms/tourian/Tourian_19_Clipdata.gfx;149;0x6bedc4;1
+rooms/tourian/Tourian_19_Bg2.gfx;129;0x6bee59;1
+rooms/tourian/Tourian_19_Bg1.gfx;387;0x6bef07;1
+
+rooms/tourian/Tourian_Bg3_0.gfx;2180;0x6bf0ac;1
+rooms/tourian/Tourian_Bg3_1.gfx;2216;0x6bf930;1
+rooms/tourian/Tourian_Bg3_2.gfx;936;0x6c01d8;1
+rooms/tourian/Tourian_Bg3_3.gfx;932;0x6c0580;1
+rooms/tourian/Tourian_Bg3_4.gfx;860;0x6c0924;1
+rooms/tourian/Tourian_Bg3_5.gfx;852;0x6c0c80;1
+
 ## Crateria rooms
 
 ## Chozodia rooms
@@ -2312,6 +2401,28 @@ tilesets/76.pal;224;0x69ab18;2
 tilesets/61.pal;224;0x69acd8;2
 tilesets/64.pal;224;0x69ae98;2
 
+## Set 5
+
+tilesets/26.gfx.lz;2843;0x6a58b4;4
+tilesets/69.gfx.lz;3143;0x6a8520;4
+tilesets/40.gfx.lz;1558;0x6ab63c;4
+tilesets/35.gfx.lz;3095;0x6ace94;4
+
+tilesets/26_Bg.gfx.lz;2287;0x6afef0;4
+tilesets/69_Bg.gfx.lz;2281;0x6b22ac;4
+tilesets/35_Bg.gfx.lz;920;0x6b4650;4
+tilesets/40_Bg.gfx.lz;709;0x6b54b0;4
+
+tilesets/26.tm;4868;0x6b5fc4;1
+tilesets/69.tm;3332;0x6b72c8;1
+tilesets/40.tm;3972;0x6b7fcc;1
+tilesets/35.tm;4484;0x6b8f50;1
+
+tilesets/26.pal;224;0x6ba0d4;2
+tilesets/69.pal;224;0x6ba294;2
+tilesets/40.pal;224;0x6ba454;2
+tilesets/35.pal;224;0x6ba714;2
+
 ## Samus
 
 # Animated palettes
@@ -2324,6 +2435,8 @@ tilesets/animated_palettes/5.pal;65;0x5dfda0;2
 
 tilesets/animated_palettes/2.pal;192;0x62b8b8;2
 tilesets/animated_palettes/3.pal;128;0x62bdb8;2
+
+tilesets/animated_palettes/13.pal;128;0x6ba614;2
 
 # Palettes
 
@@ -3706,4 +3819,4 @@ Blob_8cad0_8cc60.bin;400;0x8cad0;1
 Blob_8ceec_8f253.bin;9064;0x8ceec;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
-Blob_6a58b4_74f8b4.bin;696320;0x6a58b4;1
+Blob_6c0fd4_74f8b4.bin;583904;0x6c0fd4;1

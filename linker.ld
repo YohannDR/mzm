@@ -899,6 +899,30 @@ SECTIONS {
         src/data/rooms/ridley/Ridley_32.o(.rodata);
         src/data/rooms/ridley/Bg3.o(.rodata);
 
+        src/data/tilesets/tilesets_set5.o(.rodata);
+        
+        src/data/rooms/tourian/Tourian_0.o(.rodata);
+        src/data/rooms/tourian/Tourian_1.o(.rodata);
+        src/data/rooms/tourian/Tourian_2.o(.rodata);
+        src/data/rooms/tourian/Tourian_3.o(.rodata);
+        src/data/rooms/tourian/Tourian_4.o(.rodata);
+        src/data/rooms/tourian/Tourian_5.o(.rodata);
+        src/data/rooms/tourian/Tourian_6.o(.rodata);
+        src/data/rooms/tourian/Tourian_7.o(.rodata);
+        src/data/rooms/tourian/Tourian_8.o(.rodata);
+        src/data/rooms/tourian/Tourian_9.o(.rodata);
+        src/data/rooms/tourian/Tourian_10.o(.rodata);
+        src/data/rooms/tourian/Tourian_11.o(.rodata);
+        src/data/rooms/tourian/Tourian_12.o(.rodata);
+        src/data/rooms/tourian/Tourian_13.o(.rodata);
+        src/data/rooms/tourian/Tourian_14.o(.rodata);
+        src/data/rooms/tourian/Tourian_15.o(.rodata);
+        src/data/rooms/tourian/Tourian_16.o(.rodata);
+        src/data/rooms/tourian/Tourian_17.o(.rodata);
+        src/data/rooms/tourian/Tourian_18.o(.rodata);
+        src/data/rooms/tourian/Tourian_19.o(.rodata);
+        src/data/rooms/tourian/Bg3.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);

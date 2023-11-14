@@ -5,6 +5,8 @@
 #include "data/rooms/kraid_rooms_data.h"
 #include "data/rooms/norfair_rooms_data.h"
 #include "data/rooms/ridley_rooms_data.h"
+#include "data/rooms/tourian_rooms_data.h"
+
 #include "macros.h"
 #include "data/clipdata_data.h"
 #include "data/animated_graphics_data.h"
@@ -208,12 +210,12 @@ static const u8* const sRidleyScrolls[] = {
 };
 
 static const u8* const sTourianScrolls[] = {
-    (const u8* const)0x86ba8d4,
-    (const u8* const)0x86bb58c,
-    (const u8* const)0x86bbb94,
-    (const u8* const)0x86bc740,
-    (const u8* const)0x86bd500,
-    (const u8* const)0x86be788,
+    sTourian_0_Scrolls,
+    sTourian_1_Scrolls,
+    sTourian_2_Scrolls,
+    sTourian_3_Scrolls,
+    sTourian_4_Scrolls,
+    sTourian_5_Scrolls,
     sScroll_Empty
 };
 

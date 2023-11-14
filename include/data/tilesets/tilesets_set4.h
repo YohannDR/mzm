@@ -1,5 +1,5 @@
-#ifndef TILESETS_SET_3_DATA_H
-#define TILESETS_SET_3_DATA_H
+#ifndef TILESETS_SET_4_DATA_H
+#define TILESETS_SET_4_DATA_H
 
 #include "types.h"
 
@@ -29,4 +29,4 @@ extern const u16 sTileset_76_Pal[14 * 16];
 extern const u16 sTileset_61_Pal[14 * 16];
 extern const u16 sTileset_64_Pal[14 * 16];
 
-#endif /* TILESETS_SET_3_DATA_H */
+#endif /* TILESETS_SET_4_DATA_H */
