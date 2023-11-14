@@ -12,5 +12,3 @@ const u8 sTourian_Bg3_3[932] = INCBIN_U8("data/rooms/tourian/Tourian_Bg3_3.gfx")
 const u8 sTourian_Bg3_4[860] = INCBIN_U8("data/rooms/tourian/Tourian_Bg3_4.gfx");
 
 const u8 sTourian_Bg3_5[852] = INCBIN_U8("data/rooms/tourian/Tourian_Bg3_5.gfx");
-
-const u8 sTempArray_6c0fd4[] = INCBIN_U8("data/Blob_6c0fd4_74f8b4.bin");

@@ -2423,6 +2423,38 @@ tilesets/69.pal;224;0x6ba294;2
 tilesets/40.pal;224;0x6ba454;2
 tilesets/35.pal;224;0x6ba714;2
 
+## Set 6
+
+tilesets/11.gfx.lz;1632;0x6c0fd4;4
+tilesets/2.gfx.lz;2523;0x6c2954;4
+tilesets/36.gfx.lz;2847;0x6c50c0;4
+tilesets/3.gfx.lz;2536;0x6c7d3c;4
+tilesets/55.gfx.lz;3667;0x6ca4dc;4
+tilesets/54.gfx.lz;1973;0x6cde28;4
+
+tilesets/11_Bg.gfx.lz;808;0x6cfcfc;4
+tilesets/2_Bg.gfx.lz;1459;0x6d099c;4
+tilesets/32_Bg.gfx.lz;1309;0x6d2068;4
+tilesets/55_Bg.gfx.lz;1239;0x6d34dc;4
+tilesets/54_Bg.gfx.lz;1266;0x6d4838;4
+
+tilesets/11.pal;224;0x6d5c00;2
+tilesets/21.pal;224;0x6d5dc0;2
+tilesets/31.pal;224;0x6d5f80;2
+tilesets/2.pal;224;0x6d6140;2
+tilesets/36.pal;224;0x6d6300;2
+tilesets/73.pal;224;0x6d64c0;2
+tilesets/3.pal;224;0x6d6680;2
+tilesets/55.pal;224;0x6d6840;2
+tilesets/54.pal;224;0x6d6a00;2
+
+tilesets/11.tm;4228;0x6d6bc0;1
+tilesets/2.tm;3460;0x6d7c44;1
+tilesets/36.tm;3588;0x6d89c8;1
+tilesets/3.tm;3460;0x6d97cc;1
+tilesets/55.tm;4228;0x6da550;1
+tilesets/54.tm;3332;0x6db5d4;1
+
 ## Samus
 
 # Animated palettes
@@ -3819,4 +3851,4 @@ Blob_8cad0_8cc60.bin;400;0x8cad0;1
 Blob_8ceec_8f253.bin;9064;0x8ceec;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
-Blob_6c0fd4_74f8b4.bin;583904;0x6c0fd4;1
+Blob_6dc2d8_74f8b4.bin;472540;0x6dc2d8;1

@@ -923,6 +923,8 @@ SECTIONS {
         src/data/rooms/tourian/Tourian_19.o(.rodata);
         src/data/rooms/tourian/Bg3.o(.rodata);
 
+        src/data/tilesets/tilesets_set6.o(.rodata);
+
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);
