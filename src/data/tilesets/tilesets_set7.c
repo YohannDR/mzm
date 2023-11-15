@@ -80,5 +80,3 @@ const u16 sTileset_71_Pal[14 * 16] = INCBIN_U16("data/tilesets/71.pal");
 const u16 sAnimatedPal_15[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/15.pal");
 const u16 sTileset_28_Pal[14 * 16] = INCBIN_U16("data/tilesets/28.pal");
 const u16 sTileset_43_Pal[14 * 16] = INCBIN_U16("data/tilesets/43.pal");
-
-const u8 sTempArray_72d478[] = INCBIN_U8("data/Blob_72d478_74f8b4.bin");

@@ -36,6 +36,8 @@ extern const struct RoomEntryROM sTourianRoomEntries[20];
 
 extern const struct RoomEntryROM sCrateriaRoomEntries[22];
 
-extern const struct RoomEntryROM sChozodiaRoomEntries[115];
+extern const struct RoomEntryROM sChozodiaRoomEntries[99];
+
+extern const struct RoomEntryROM sDebugRoomEntries[16];
 
 #endif /* DOORS_DATA_H */

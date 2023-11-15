@@ -90,6 +90,5 @@ const u8 sDebug_11_SpriteData[1 * 3] = {
 const u8 sDebug_12_SpriteData[3 * 3] = {
     ROOM_SPRITE_DATA_TERMINATOR,
     ROOM_SPRITE_DATA_TERMINATOR,
-    0, 0, 0 // End of file alignment?
 };
 
