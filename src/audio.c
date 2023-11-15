@@ -1717,7 +1717,7 @@ void unk_2460(struct TrackVariables* pVariables)
  * 
  * @param pVariables Track variables pointer
  */
-void Music_Empty(struct TrackVariables* pVariables)
+void Music_EmptyCommand(struct TrackVariables* pVariables)
 {
     return;
 }

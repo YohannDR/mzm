@@ -1,5 +1,9 @@
 #include "data/audio.h"
+#include "gba.h"
 #include "macros.h"
+
+#include "audio.h"
+#include "audio/track_internal.h"
 
 const u16 sUnk_808cad0[128] = {
     0x2c, 0x9d, 0x107, 0x16b, 0x1ca, 0x223, 0x277, 0x2c7, 0x312, 0x358, 0x39b, 0x3da, 0x2c, 0x9d, 0x107, 0x16b,
@@ -36,7 +40,7 @@ const u8 sUnk_808cc4d[19] = {
 };
 
 
-const u32 sNativeSmapleRate[13] = {
+const u32 sNativeSampleRate[13] = {
     0x0, 0x1666, 0x1ECC, 0x2910,
     0x3443, 0x3D98, 0x46ED, 0x5220,
     0x6886, 0x7B30, 0x8DDA, 0x9CC9, 0xA440
@@ -95,7 +99,45 @@ const u8 sArray_808cee2[10] = {
     1, 1, 1, 0, 1, 1, 0, 1, 1, 0
 };
 
-const u8 sTempArray_8ceec[0x2368] = INCBIN_U8("data/Blob_8ceec_8f253.bin");
+void* const sDma1ControlPointer = REG_DMA1_CNT;
+const u32 sDma1ControlValue = C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED, 4);
+static const u16 sAudio_8cef4 = DMA_ENABLE | DMA_START_SPECIAL | DMA_REPEAT | DMA_32BIT;
+static const u16 sAudio_8cef6 = DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_SPECIAL | DMA_REPEAT | DMA_32BIT;
+
+const MusicFunc_T sMusicCommandFunctionPointers[30] = {
+    [0] = Music_EmptyCommand,
+    [1] = unk_5030,
+    [2] = unk_5070,
+    [3] = unk_222c,
+    [4] = unk_2264,
+    [5] = Music_EmptyCommand,
+    [6] = Music_EmptyCommand,
+    [7] = Music_EmptyCommand,
+    [8] = Music_EmptyCommand,
+    [9] = unk_22a4,
+    [10] = Music_EmptyCommand,
+    [11] = unk_22b4,
+    [12] = Music_EmptyCommand,
+    [13] = unk_238c,
+    [14] = unk_23a0,
+    [15] = unk_23b4,
+    [16] = unk_23cc,
+    [17] = unk_23e0,
+    [18] = unk_23f0,
+    [19] = unk_2400,
+    [20] = unk_240c,
+    [21] = Music_EmptyCommand,
+    [22] = Music_EmptyCommand,
+    [23] = unk_2418,
+    [24] = Music_EmptyCommand,
+    [25] = Music_EmptyCommand,
+    [26] = Music_EmptyCommand,
+    [27] = Music_EmptyCommand,
+    [28] = unk_2430,
+    [29] = unk_2460
+};
+
+const u8 sTempArray_8cf70[] = INCBIN_U8("data/Blob_8cf70_8f253.bin");
 
 const struct TrackGroupROMData sMusicTrackDataRom[9] = {
     [0] = {

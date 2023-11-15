@@ -1300,8 +1300,8 @@ lbl_08005024:
     .align 2, 0
 lbl_0800502c: .4byte gMusicInfo
 
-    thumb_func_start sub_08005030
-sub_08005030: @ 0x08005030
+    thumb_func_start unk_5030
+unk_5030: @ 0x08005030
     ldr r1, [r0, #0x24]
     adds r1, #1
     movs r2, #3
@@ -1338,8 +1338,8 @@ lbl_0800506a:
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_08005070
-sub_08005070: @ 0x08005070
+    thumb_func_start unk_5070
+unk_5070: @ 0x08005070
     ldr r1, [r0, #0x24]
     adds r1, #1
     movs r2, #3

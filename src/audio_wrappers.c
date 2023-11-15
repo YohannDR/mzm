@@ -173,7 +173,7 @@ void SetupSoundTransfer(void)
     buffer = 0;
     CpuFastSet(&buffer, gMusicInfo.soundRawData, CPU_SET_SRC_FIXED << 16 | sizeof(gMusicInfo.soundRawData) / sizeof(u32));
 
-    gMusicInfo.maybe_frequency = sNativeSmapleRate[gMusicInfo.unk_7];
+    gMusicInfo.maybe_frequency = sNativeSampleRate[gMusicInfo.unk_7];
     gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unk_7];
 
     unk_0 = sAudio_8ccc8[gMusicInfo.unk_7];

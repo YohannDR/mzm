@@ -40,7 +40,7 @@ void unk_240c(struct TrackVariables* pVariables);
 void unk_2418(struct TrackVariables* pVariables);
 void unk_2430(struct TrackVariables* pVariables);
 void unk_2460(struct TrackVariables* pVariables);
-void Music_Empty(struct TrackVariables* pVariables);
+void Music_EmptyCommand(struct TrackVariables* pVariables);
 void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel);
 void ClearRegistersForPsg_Unused(struct PSGSoundData* pSound, u8 channel);
 
