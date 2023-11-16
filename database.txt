@@ -4487,6 +4487,5 @@ nes_metroid.bin;128816;0x7d8004;1
 
 # Blobs
 
-Blob_8cf70_8f253.bin;8931;0x8cf70;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1

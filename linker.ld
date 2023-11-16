@@ -564,8 +564,20 @@ SECTIONS {
 
     .rodata : ALIGN(2) {
         src/data/generic_data.o(.rodata);
-        /* 8cad0-8f253 */
         src/data/audio.o(.rodata);
+
+        audio/voice_groups/voice_group0.o(.rodata);
+        audio/voice_groups/voice_group1.o(.rodata);
+        audio/voice_groups/voice_group2.o(.rodata);
+        audio/voice_groups/voice_group3.o(.rodata);
+        audio/voice_groups/voice_group4.o(.rodata);
+        audio/voice_groups/voice_group5.o(.rodata);
+        audio/voice_groups/voice_group6.o(.rodata);
+        audio/voice_groups/voice_group7.o(.rodata);
+        audio/voice_groups/voice_group8.o(.rodata);
+        audio/samples/sample_0x8f244.o(.rodata);
+
+        src/data/temp_blob.o(.rodata);
         /* 908e0-2320e4 */
         src/data/samus/samus_empty_data.o(.rodata);
         src/data/samus/arm_cannon_data.o(.rodata);

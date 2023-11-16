@@ -22,7 +22,7 @@ void unk_1fe0(struct TrackData* pTrack, struct TrackVariables* pVariables);
 void unk_2030(struct PSGSoundData* pSound, struct TrackVariables* pVariables, u32 param_3);
 void unk_20a4(struct SoundChannel* pChannel);
 u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3);
-void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables);
+void AudioCommand_EndTrack(struct TrackData* pTrack, struct TrackVariables* pVariables);
 void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables);
 void unk_222c(struct TrackVariables* pVariables);
 void unk_2264(struct TrackVariables* pVariables);

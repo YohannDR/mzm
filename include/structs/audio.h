@@ -157,7 +157,7 @@ struct TrackData {
 
     u8 undefined_2;
     u8 unk_3;
-    u8 unk_4;
+    u8 currentTrack;
 
     u8 maxAmountOfTracks;
     u16 maybe_volume;

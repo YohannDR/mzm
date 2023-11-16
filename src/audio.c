@@ -770,7 +770,7 @@ void UpdateTrack(struct TrackData* pTrack)
                             }
                             else if (var_0 == 0xB1)
                             {
-                                unk_2140(pTrack, pVariables);
+                                AudioCommand_EndTrack(pTrack, pVariables);
                                 break;
                             }
                             else if (var_0 == 0xB6)
@@ -1320,12 +1320,12 @@ u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3)
 }
 
 /**
- * @brief 2140 | 70 | To document
+ * @brief 2140 | 70 | Ends an audio sample
  * 
  * @param pTrack Track data pointer
  * @param pVariables Track variables pointer
  */
-void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
+void AudioCommand_EndTrack(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
     struct SoundChannel* pChannel;
     struct SoundChannel* pNext;
@@ -1352,11 +1352,11 @@ void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
     pVariables->pSoundPSG = NULL;
     pVariables->pChannel = NULL;
 
-    if (++pTrack->unk_4 == pTrack->amountOfTracks)
+    if (++pTrack->currentTrack == pTrack->amountOfTracks)
     {
         unk_2a38(pTrack);
         pTrack->flags = 0;
-        pTrack->unk_4 = 0;
+        pTrack->currentTrack = 0;
     }
 
     pVariables->unk_0 = 0;
@@ -1395,11 +1395,11 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
     pVariables->pSoundPSG = NULL;
     pVariables->pChannel = NULL;
 
-    if (++pTrack->unk_4 == pTrack->amountOfTracks)
+    if (++pTrack->currentTrack == pTrack->amountOfTracks)
     {
         unk_2a38(pTrack);
         pTrack->flags = 0;
-        pTrack->unk_4 = 0;
+        pTrack->currentTrack = 0;
         pTrack->queueFlags |= 0x2;
     }
 
