@@ -1,6 +1,8 @@
 #include "data/samus/samus_empty_data.h"
 #include "macros.h"
 
+const u8 sTempArray_20b090[] = INCBIN_U8("data/Blob_20b090_2320e4.bin");
+
 const u8 sSamusGfx_Empty[2] = {
     0, 0
 };
