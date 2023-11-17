@@ -591,7 +591,7 @@ SECTIONS {
         audio/voice_groups/voice_group22.o(.rodata);
         audio/samples/sample_0x8f244.o(.rodata);
 
-        src/data/temp_blob.o(.rodata);
+        src/data/music_track_data.o(.rodata);
         audio/sound_entries.o(.rodata);
 
         audio/tracks/track_0.o(.rodata);
