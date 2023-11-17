@@ -2,8 +2,8 @@
 
     .syntax unified
 
-    thumb_func_start return_one
-return_one: @ 0x08060e28
+    thumb_func_start CutsceneDefaultRoutine
+CutsceneDefaultRoutine: @ 0x08060e28
     movs r0, #1
     bx lr
 
@@ -481,8 +481,8 @@ lbl_0806121e:
     bx r1
     .align 2, 0
 
-    thumb_func_start return_one_cutscene
-return_one_cutscene: @ 0x08061228
+    thumb_func_start CutsceneEndFunction
+CutsceneEndFunction: @ 0x08061228
     movs r0, #1
     bx lr
 

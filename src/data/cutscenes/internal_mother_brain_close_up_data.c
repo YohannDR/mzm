@@ -28,7 +28,7 @@ const struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {
         .oamLength = 2
     },
     [4] = {
-        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 2
     }
 };

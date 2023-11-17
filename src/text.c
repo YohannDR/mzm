@@ -7,6 +7,7 @@
 #include "data/internal_text_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
+#include "data/cutscenes/internal_story_text_cutscene_data.h"
 
 #include "constants/text.h"
 #include "constants/menus/pause_screen.h"

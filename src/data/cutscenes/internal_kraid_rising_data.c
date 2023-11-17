@@ -80,19 +80,19 @@ const u16 sKraidRisingDebrisSpawnXPosition[6] = {
 
 const struct CutsceneSubroutineData sKraidRisingSubroutineData[4] = {
     {
-        .pFunction = (CutsceneFunc_T)0x8062995,//KraidRisingInit,
+        .pFunction = KraidRisingInit,
         .oamLength = 18
     },
     {
-        .pFunction = (CutsceneFunc_T)0x806280D,//KraidRisingOpeningEyes,
+        .pFunction = KraidRisingOpeningEyes,
         .oamLength = 18
     },
     {
-        .pFunction = (CutsceneFunc_T)0x806240D,//KraidRisingRising,
+        .pFunction = KraidRisingRising,
         .oamLength = 18
     },
     {
-        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 18
     }
 };

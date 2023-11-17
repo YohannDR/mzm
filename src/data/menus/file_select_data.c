@@ -977,7 +977,7 @@ static const u16 sOptionsOam_SpeakersActive_Frame0[OAM_DATA_SIZE(2)] = {
     0xf8, OBJ_SIZE_16x16 | 0x1dd, 0x11db
 };
 
-static const struct FrameData sFileSelectOam_SamusHeadTurningOn[5] = {
+const struct FrameData sFileSelectOam_SamusHeadTurningOn[5] = {
     sFileSelectOam_SamusHeadTurningOn_Frame0,
     15,
     sFileSelectOam_SamusHeadTurningOn_Frame1,
@@ -997,7 +997,7 @@ static const struct FrameData sFileSelectOam_SamusHeadOff[2] = {
     0
 };
 
-static const struct FrameData sFileSelectOam_SamusHeadTurning[11] = {
+const struct FrameData sFileSelectOam_SamusHeadTurning[11] = {
     sFileSelectOam_SamusHeadOff_Frame0,
     4,
     sFileSelectOam_SamusHeadTurning_Frame1,
@@ -1204,7 +1204,7 @@ static const struct FrameData sFileSelectOam_MetroidLogo[2] = {
     0
 };
 
-static const struct FrameData sFileSelectOam_SamusHeadSuitlessIdle[5] = {
+const struct FrameData sFileSelectOam_SamusHeadSuitlessIdle[5] = {
     sFileSelectOam_SamusHeadSuitlessIdle_Frame0,
     120,
     sFileSelectOam_SamusHeadSuitlessIdle_Frame1,
@@ -1217,7 +1217,7 @@ static const struct FrameData sFileSelectOam_SamusHeadSuitlessIdle[5] = {
     0
 };
 
-static const struct FrameData sFileSelectOam_SamusHeadSuitlessTurning[8] = {
+const struct FrameData sFileSelectOam_SamusHeadSuitlessTurning[8] = {
     sFileSelectOam_SamusHeadSuitlessTurning_Frame0,
     4,
     sFileSelectOam_SamusHeadSuitlessTurning_Frame1,
@@ -1275,7 +1275,7 @@ static const struct FrameData sOptionsOam_SoundTestId[2] = {
     0
 };
 
-static const struct FrameData sFileSelectOam_SamusHeadSuitlessTurningOn[6] = {
+const struct FrameData sFileSelectOam_SamusHeadSuitlessTurningOn[6] = {
     sFileSelectOam_SamusHeadSuitlessTurningOn_Frame0,
     3,
     sFileSelectOam_SamusHeadSuitlessTurningOn_Frame1,

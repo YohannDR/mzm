@@ -1,4 +1,5 @@
 #include "data/cutscenes/internal_before_charlie_data.h"
+#include "cutscenes/cutscene_utils.h"
 #include "cutscenes/before_charlie.h"
 
 const struct CutsceneGraphicsData sBeforeCharlieCutsceneGraphicsData = {
@@ -27,7 +28,7 @@ const struct CutsceneSubroutineData sBeforeCharlieSubroutineData[5] = {
         .oamLength = 0
     },
     [4] = {
-        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 0
     },
 };

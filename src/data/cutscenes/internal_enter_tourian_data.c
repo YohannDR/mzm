@@ -1,4 +1,5 @@
 #include "data/cutscenes/internal_enter_tourian_data.h"
+#include "cutscenes/cutscene_utils.h"
 #include "cutscenes/enter_tourian.h"
 
 const u16 sEnterTourian_760090[9][2] = {
@@ -69,7 +70,7 @@ const struct CutsceneSubroutineData sEnterTourianSubroutineData[3] = {
         .oamLength = 9
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 9
     }
 };

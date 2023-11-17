@@ -1,4 +1,5 @@
 #include "data/cutscenes/internal_getting_fully_powered_suit_data.h"
+#include "cutscenes/cutscene_utils.h"
 #include "cutscenes/getting_fully_powered_suit.h"
 #include "macros.h"
 
@@ -12,7 +13,7 @@ const struct CutsceneSubroutineData sGettingFullyPoweredSuitSubroutineData[3] = 
         .oamLength = 14
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 0
     }
 };

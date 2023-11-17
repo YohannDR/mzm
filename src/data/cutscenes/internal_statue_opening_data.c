@@ -12,7 +12,7 @@ const struct CutsceneSubroutineData sStatueOpeningSubroutineData[3] = {
         .oamLength = 2
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8061229, //CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 2
     }
 };

@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
-extern const u16** const sStoryTextPointers[7];
+extern const u16* const * const sStoryTextPointers[7];
 
 extern const struct CutsceneSubroutineData sStoryTextCutsceneSubroutineData[7];
 

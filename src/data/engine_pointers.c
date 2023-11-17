@@ -19,6 +19,8 @@
 #include "projectile.h"
 #include "color_fading.h"
 #include "block.h"
+#include "tourian_escape.h"
+#include "cutscenes/cutscene_utils.h"
 
 #include "constants/animated_graphics.h"
 #include "constants/haze.h"
@@ -449,8 +451,8 @@ const struct SaveDemo* const sDemoRamDataPointers[MAX_AMOUNT_OF_DEMOS] = {
 };
 
 const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2] = {
-    (TourianEscapeFunc_T)0x8060e29,
-    (TourianEscapeFunc_T)0x8084715,
+    CutsceneDefaultRoutine,
+    TourianEscapeCallSubroutines,
 };
 
 const s8 sCutsceneScreenShakeOffsets_Set0[2] = {

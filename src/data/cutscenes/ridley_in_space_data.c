@@ -80,8 +80,9 @@ extern const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[4];
 extern const u16 sRidleyInSpaceOAM_RightBlueShip_Frame0[4];
 extern const u16 sRidleyInSpaceOAM_MotherShip_Frame0[25];
 extern const u16 sRidleyInSpaceOAM_ViewOfShipParticle_Frame0[4];
-extern const u16 sRidleyinSpaceOAM_ShipLeavingParticle_Frame2[4];
+extern const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[4];
 extern const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[4];
+extern const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0[4];
 
 const struct FrameData sRidleyInSpaceOAM_LeftBlueShip[2] = {
     sRidleyInSpaceOAM_LeftBlueShip_Frame0,
@@ -126,14 +127,14 @@ const struct FrameData sRidleyInSpaceOAM_ViewOfShipParticle[2] = {
 };
 
 const struct FrameData sRidleyInSpaceOAM_387010[2] = {
-    sRidleyinSpaceOAM_ShipLeavingParticle_Frame2,
+    sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
     128,
     NULL,
     0
 };
 
 const struct FrameData sRidleyInSpaceOAM_ViewOfShipParticleSecond[2] = {
-    (const u16*)0x839d828,//sRidleyinSpaceOAM_ShipLeavingParticleSecond_Frame0,
+    sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
     128,
     NULL,
     0
@@ -282,17 +283,17 @@ const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[13] = {
     0x0, OBJ_SIZE_64x64 | 0x0, 0x1108
 };
 
-const u16 sRidleyinSpaceOAM_ShipLeavingParticle_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x21dc
 };
 
-const u16 sRidleyinSpaceOAM_ViewOfShipParticleSecond_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[4] = {
     0x1,
     0xfc, 0x1fc, 0x21dd
 };
 
-const u16 sRidleyinSpaceOAM_ShipLeavingParticle_Frame2[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[4] = {
     0x1,
     0xfc, 0x1fc, 0x21de
 };
@@ -323,11 +324,11 @@ const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame3[4] = {
 };
 
 const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5] = {
-    sRidleyinSpaceOAM_ShipLeavingParticle_Frame0,
+    sRidleyInSpaceOAM_ShipLeavingParticle_Frame0,
     4,
-    (const u16*)0x839d828,//sRidleyinSpaceOAM_ShipLeavingParticleSecond_Frame0,
+    sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
     4,
-    sRidleyinSpaceOAM_ShipLeavingParticle_Frame2,
+    sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
     4,
     sRidleyInSpaceOAM_ViewOfShipParticle_Frame0,
     4,
@@ -336,7 +337,7 @@ const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5] = {
 };
 
 const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5] = {
-    (const u16*)0x839d840,//sRidleyinSpaceOAM_ShipLeavingParticleSecond_Frame0,
+    sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0,
     4,
     sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame1,
     4,

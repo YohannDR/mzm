@@ -10,7 +10,11 @@ extern const u16 sFileSelectPal[7 * 16];
 extern const u16 sFileSelect_4548f8[2 * 16];
 extern const u16 sFileSelectIconsPal[6 * 16];
 
-// ...
+extern const struct FrameData sFileSelectOam_SamusHeadTurningOn[5];
+extern const struct FrameData sFileSelectOam_SamusHeadTurning[11];
+extern const struct FrameData sFileSelectOam_SamusHeadSuitlessTurningOn[6];
+extern const struct FrameData sFileSelectOam_SamusHeadSuitlessIdle[5];
+extern const struct FrameData sFileSelectOam_SamusHeadSuitlessTurning[8];
 
 extern const u32 sFileSelectChozoBackgroundGfx[2985];
 extern const u32 sFileSelectCharactersGfx[1531];

@@ -29,27 +29,27 @@ const s8 sRidleyInSpaceShipsYMovementOffsets[8] = {
 
 const struct CutsceneSubroutineData sRidleyInSpaceSubroutineData[6] = {
     [0] = {
-        .pFunction = (CutsceneFunc_T)0x80642BD,//RidleyInSpaceInit,
+        .pFunction = RidleyInSpaceInit,
         .oamLength = 30
     },
     [1] = {
-        .pFunction = (CutsceneFunc_T)0x8063FB5,//RidleyInSpaceViewOfShip,
+        .pFunction = RidleyInSpaceViewOfShip,
         .oamLength = 30
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8063D91,//RidleyInSpaceRedAlert,
+        .pFunction = RidleyInSpaceRedAlert,
         .oamLength = 30
     },
     [3] = {
-        .pFunction = (CutsceneFunc_T)0x8063BE1,//RidleyInSpaceRidleySuspicious,
+        .pFunction = RidleyInSpaceRidleySuspicious,
         .oamLength = 30
     },
     [4] = {
-        .pFunction = (CutsceneFunc_T)0x8063885,//RidleyInSpaceShipLeaving,
+        .pFunction = RidleyInSpaceShipLeaving,
         .oamLength = 30
     },
     [5] = {
-        .pFunction = (CutsceneFunc_T)0x8061229, //CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 30
     }
 };

@@ -32,8 +32,4 @@ extern const u16* const sEnglishTextPointers_Description[DESCRIPTION_TEXT_END];
 extern const u16* const sEnglishTextPointers_Story[STORY_TEXT_END];
 extern const u16* const sEnglishTextPointers_FileScreen[FILE_SCREEN_TEXT_END];
 
-
-extern const u16** const sStoryTextPointers[LANGUAGE_END];
-
-
 #endif /* TEXT_POINTERS_DATA_H */

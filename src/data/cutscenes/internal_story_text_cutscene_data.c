@@ -1,16 +1,17 @@
 #include "data/cutscenes/internal_story_text_cutscene_data.h"
+#include "data/text_pointers.h"
 #include "cutscenes/story_text_cutscene.h"
 
 #include "constants/game_state.h"
 
-const u16** const sStoryTextPointers[7] = {
-    [LANGUAGE_JAPANESE] = (const u16**)0x8760804,
-    [LANGUAGE_HIRAGANA] = (const u16**)0x87608fc,
-    [LANGUAGE_ENGLISH] = (const u16**)0x87609f4,
-    [LANGUAGE_GERMAN] = (const u16**)0x87609f4,
-    [LANGUAGE_FRENCH] = (const u16**)0x87609f4,
-    [LANGUAGE_ITALIAN] = (const u16**)0x87609f4,
-    [LANGUAGE_SPANISH] = (const u16**)0x87609f4
+const u16* const * const sStoryTextPointers[7] = {
+    [LANGUAGE_JAPANESE] = sJapaneseTextPointers_Story,
+    [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_Story,
+    [LANGUAGE_ENGLISH] = sEnglishTextPointers_Story,
+    [LANGUAGE_GERMAN] = sEnglishTextPointers_Story,
+    [LANGUAGE_FRENCH] = sEnglishTextPointers_Story,
+    [LANGUAGE_ITALIAN] = sEnglishTextPointers_Story,
+    [LANGUAGE_SPANISH] = sEnglishTextPointers_Story
 };
 
 const struct CutsceneSubroutineData sStoryTextCutsceneSubroutineData[7] = {

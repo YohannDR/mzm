@@ -1,7 +1,10 @@
 #include "data/menus/game_over_data.h"
+#include "macros.h"
+
+#include "data/menus/file_select_data.h"
+
 #include "constants/game_over.h"
 #include "constants/samus.h"
-#include "macros.h"
 
 const u16 sGameOverMenuPal[16 * 5] = INCBIN_U16("data/menus/GameOver/Palette.pal");
 const u32 sGameOverTextAndBackgroundGfx[2738] = INCBIN_U32("data/menus/GameOver/TextAndBackground.gfx.lz");
@@ -22,13 +25,13 @@ const struct GameOverDynamicPalette sGameOverDynamicPalette_Empty = {
 };
 
 const u16 sGameOverSamusHeadXPositions[LANGUAGE_END] = {
-    [LANGUAGE_JAPANESE] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_HIRAGANA] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_ENGLISH] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_GERMAN] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_FRENCH] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_ITALIAN] = BLOCK_SIZE * 3 + 8,
-    [LANGUAGE_SPANISH] = BLOCK_SIZE * 3 + 8
+    [LANGUAGE_JAPANESE] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_HIRAGANA] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_ENGLISH] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_GERMAN] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_FRENCH] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_ITALIAN] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE,
+    [LANGUAGE_SPANISH] = BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE
 };
 
 const u16 sGameOverSamusHeadYPositions[2] = {
@@ -54,42 +57,41 @@ const u8 sGameOverSamusHeadOamIds[3][3] = {
     }
 };
 
-// FIXME use symbols instead of hardcoded pointers
 const struct OamArray sGameOverOam[9] = {
     [0] = {
-        .pOam = (const struct FrameData*)0x8455794,
+        .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
     },
     [GAME_OVER_OAM_ID_SUIT_MOVING] = {
-        .pOam = (const struct FrameData*)0x8455794,
+        .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [GAME_OVER_OAM_ID_SUIT_LOADING] = {
-        .pOam = (const struct FrameData*)0x8455794,
+        .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [3] = {
-        .pOam = (const struct FrameData*)0x84557cc,
+        .pOam = sFileSelectOam_SamusHeadTurning,
         .preAction = OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING
     },
     [GAME_OVER_OAM_ID_SUIT_SELECTING] = {
-        .pOam = (const struct FrameData*)0x84557cc,
+        .pOam = sFileSelectOam_SamusHeadTurning,
         .preAction = OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME
     },
     [GAME_OVER_OAM_ID_SUITLESS_MOVING] = {
-        .pOam = (const struct FrameData*)0x8455abc,
+        .pOam = sFileSelectOam_SamusHeadSuitlessTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [GAME_OVER_OAM_ID_SUITLESS_LOADING] = {
-        .pOam = (const struct FrameData*)0x84559f4,
+        .pOam = sFileSelectOam_SamusHeadSuitlessIdle,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [7] = {
-        .pOam = (const struct FrameData*)0x8455a1c,
+        .pOam = sFileSelectOam_SamusHeadSuitlessTurning,
         .preAction = OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING
     },
     [GAME_OVER_OAM_ID_SUITLESS_SELECTING] = {
-        .pOam = (const struct FrameData*)0x8455a1c,
+        .pOam = sFileSelectOam_SamusHeadSuitlessTurning,
         .preAction = OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME
     },
 };

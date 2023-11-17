@@ -21,7 +21,7 @@ const struct CutsceneSubroutineData sRidleyLandingSubroutineData[5] = {
         .oamLength = 2
     },
     {
-        .pFunction = (CutsceneFunc_T)0x8061229, //CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 2
     }
 };

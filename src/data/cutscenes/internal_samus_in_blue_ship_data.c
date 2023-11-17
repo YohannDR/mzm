@@ -1,5 +1,6 @@
 #include "data/cutscenes/internal_samus_in_blue_ship_data.h"
 #include "cutscenes/samus_in_blue_ship.h"
+#include "cutscenes/cutscene_utils.h"
 #include "macros.h"
 
 const u8 sSamusInBlueShipPanelTransparency[4] = {
@@ -16,7 +17,7 @@ const struct CutsceneSubroutineData sSamusInBlueShipSubroutineData[3] = {
         .oamLength = 1
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8061229, //CutsceneEndFunction,
+        .pFunction = CutsceneEndFunction,
         .oamLength = 1
     }
 };

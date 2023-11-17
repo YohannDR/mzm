@@ -2173,9 +2173,7 @@ u8 OptionsNesMetroidSubroutine(void)
 
             // Give control to some sort of bootloader?
             // Signature : void Func_T(void*)
-            // FIXME
             sNesEmuBootLoader(ROM_BASE);
-            ((void*(*)(void*))(0x87d8000))(ROM_BASE);
             break;
     }
 
