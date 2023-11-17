@@ -105,7 +105,7 @@ u8 SamusOnZipline(struct SamusData* pData);
 u8 SamusShootingOnZiplineGfx(struct SamusData* pData);
 u8 SamusMorphballOnZipline(struct SamusData* pData);
 u8 SamusSavingLoadingGame(struct SamusData* pData);
-u8 SamusTurningAroundToDownloadMapDataGfxGfx(struct SamusData* pData);
+u8 SamusTurningAroundToDownloadMapDataGfx(struct SamusData* pData);
 u8 SamusGettingHurt(struct SamusData* pData);
 u8 SamusGettingHurtGfx(struct SamusData* pData);
 u8 SamusGettingKnockedBack(struct SamusData* pData);

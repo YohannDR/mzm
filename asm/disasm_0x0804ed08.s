@@ -216,7 +216,7 @@ ProjectileUpdate: @ 0x0804ee88
     beq lbl_0804ee96
     b lbl_0804f2e6
 lbl_0804ee96:
-    bl call_update_arm_cannon
+    bl SamusCallUpdateArmCannonPositionOffset
     ldr r4, lbl_0804ef1c @ =gArmCannonY
     ldr r3, lbl_0804ef20 @ =gSamusData
     ldrh r0, [r3, #0x14]
@@ -6581,7 +6581,7 @@ lbl_08051fa8:
     ble lbl_08051fd0
     adds r0, r1, #0
     adds r0, #0xb
-    bl samus_bombjump
+    bl SamusBombBounce
     b lbl_08051fe8
     .align 2, 0
 lbl_08051fc4: .4byte gSamusData
@@ -6593,12 +6593,12 @@ lbl_08051fd0:
     blo lbl_08051fe0
     adds r0, r1, #0
     adds r0, #0xc
-    bl samus_bombjump
+    bl SamusBombBounce
     b lbl_08051fe8
 lbl_08051fe0:
     adds r0, r1, #0
     adds r0, #0xa
-    bl samus_bombjump
+    bl SamusBombBounce
 lbl_08051fe8:
     add sp, #0x1c
     pop {r3, r4, r5}

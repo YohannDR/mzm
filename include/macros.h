@@ -157,7 +157,7 @@
 #define SUB_PIXEL_TO_BLOCK(pixel) ((pixel) / BLOCK_SIZE)
 #define BLOCK_TO_SUB_PIXEL(block) ((block) * BLOCK_SIZE)
 #define VELOCITY_TO_SUB_PIXEL(velocity) (DIV_SHIFT((velocity), 8))
-#define SUB_PIXEL_TO_VELOCITY(velocity) ((velocity) * 8)
+#define SUB_PIXEL_TO_VELOCITY(velocity) ((s16)((velocity) * 8))
 
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)

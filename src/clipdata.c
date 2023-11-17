@@ -273,7 +273,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
  * @param xPosition X Position (subpixels)
  * @return u32 Affecting clipdata (movement << 16 | hazard)
  */
-u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
+s32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 {
     u16 tileY;
     u16 tileX;

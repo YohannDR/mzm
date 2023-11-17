@@ -390,11 +390,11 @@ u8 SamusCheckCollisionAbove(struct SamusData* pData, s32 hitbox)
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
         result += SAMUS_COLLISION_DETECTION_LEFT_MOST;
 
-    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_LEFT]);
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + sSamusHitboxData_Above[SAMUS_HITBOX_LEFT]);
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
         result += SAMUS_COLLISION_DETECTION_MIDDLE_LEFT;
 
-    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_RIGHT]);
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + sSamusHitboxData_Above[SAMUS_HITBOX_RIGHT]);
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
         result += SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT;
 
@@ -650,6 +650,7 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
     return SPOSE_NONE;
 }
 
+#ifdef NON_MATCHING
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     // https://decomp.me/scratch/zWpei
@@ -780,6 +781,258 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
 
     return SPOSE_NONE;
 }
+#else
+NAKED_FUNCTION
+u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
+{
+    asm("\n\
+        push {r4, r5, r6, r7, lr} \n\
+        mov r7, sl \n\
+        mov r6, sb \n\
+        mov r5, r8 \n\
+        push {r5, r6, r7} \n\
+        sub sp, #0x24 \n\
+        add r6, r0, #0 \n\
+        mov sb, r1 \n\
+        mov r0, sb \n\
+        add r0, #0x4e \n\
+        ldrb r0, [r0] \n\
+        cmp r0, #1 \n\
+        bne lbl_08005c6e \n\
+        mov r0, sb \n\
+        add r0, #0x50 \n\
+        ldrh r1, [r0] \n\
+        b lbl_08005c76 \n\
+    lbl_08005c6e: \n\
+        mov r0, sb \n\
+        add r0, #0x52 \n\
+        ldrh r1, [r0] \n\
+        sub r0, #2 \n\
+    lbl_08005c76: \n\
+        str r0, [sp, #0x20] \n\
+        ldrh r2, [r6, #0x12] \n\
+        add r2, r1, r2 \n\
+        lsl r2, r2, #0x10 \n\
+        lsr r2, r2, #0x10 \n\
+        add r0, r6, #0 \n\
+        mov r1, sb \n\
+        add r3, sp, #4 \n\
+        bl unk_5604 \n\
+        lsl r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        beq lbl_08005ca0 \n\
+        add r0, sp, #4 \n\
+        ldrh r0, [r0] \n\
+        strh r0, [r6, #0x12] \n\
+        mov r1, sb \n\
+        add r1, #0x58 \n\
+        ldrb r0, [r1] \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08005ca0: \n\
+        ldrb r0, [r6, #1] \n\
+        cmp r0, #1 \n\
+        bne lbl_08005ca8 \n\
+        b lbl_08005e06 \n\
+    lbl_08005ca8: \n\
+        ldrh r0, [r6, #0x14] \n\
+        ldr r1, lbl_08005d2c @ =0x0000ffc0 \n\
+        and r1, r0 \n\
+        str r1, [sp, #0x14] \n\
+        ldr r0, lbl_08005d30 @ =gPreviousYPosition \n\
+        ldrh r0, [r0] \n\
+        ldr r2, lbl_08005d2c @ =0x0000ffc0 \n\
+        mov sl, r2 \n\
+        mov r1, sl \n\
+        and r1, r0 \n\
+        mov sl, r1 \n\
+        ldr r2, [sp, #0x20] \n\
+        str r2, [sp, #0x18] \n\
+        ldrh r0, [r2] \n\
+        ldrh r1, [r6, #0x12] \n\
+        add r0, r0, r1 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        ldrh r1, [r6, #0x14] \n\
+        movs r2, #6 \n\
+        add r2, sp \n\
+        mov r8, r2 \n\
+        add r5, sp, #8 \n\
+        str r5, [sp] \n\
+        add r2, sp, #4 \n\
+        mov r3, r8 \n\
+        bl SamusCheckCollisionAtPosition \n\
+        lsl r0, r0, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        str r0, [sp, #0x10] \n\
+        mov r0, sb \n\
+        add r0, #0x52 \n\
+        str r0, [sp, #0x1c] \n\
+        ldrh r0, [r0] \n\
+        ldrh r1, [r6, #0x12] \n\
+        add r0, r0, r1 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        ldrh r1, [r6, #0x14] \n\
+        mov r2, sp \n\
+        add r2, #0xa \n\
+        add r4, sp, #0xc \n\
+        mov r7, sp \n\
+        add r7, #0xe \n\
+        str r7, [sp] \n\
+        add r3, r4, #0 \n\
+        bl SamusCheckCollisionAtPosition \n\
+        lsl r0, r0, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        ldr r2, [sp, #0x14] \n\
+        cmp r2, sl \n\
+        bls lbl_08005db2 \n\
+        ldr r1, [sp, #0x10] \n\
+        cmp r1, #0 \n\
+        beq lbl_08005d72 \n\
+        ldrh r1, [r5] \n\
+        cmp r1, #0 \n\
+        beq lbl_08005d3c \n\
+        cmp r0, #0 \n\
+        beq lbl_08005d34 \n\
+        ldrh r0, [r4] \n\
+        sub r0, #1 \n\
+        b lbl_08005de6 \n\
+        .align 2, 0 \n\
+    lbl_08005d2c: .4byte 0x0000ffc0 \n\
+    lbl_08005d30: .4byte gPreviousYPosition \n\
+    lbl_08005d34: \n\
+        strh r1, [r6, #0x1a] \n\
+        mov r2, r8 \n\
+        ldrh r0, [r2] \n\
+        b lbl_08005de6 \n\
+    lbl_08005d3c: \n\
+        ldr r1, [sp, #0x18] \n\
+        ldrh r0, [r1] \n\
+        ldrh r2, [r6, #0x12] \n\
+        add r0, r0, r2 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        ldrh r1, [r6, #0x14] \n\
+        sub r1, #0x40 \n\
+        lsl r1, r1, #0x10 \n\
+        lsr r1, r1, #0x10 \n\
+        str r5, [sp] \n\
+        add r2, sp, #4 \n\
+        mov r3, r8 \n\
+        bl SamusCheckCollisionAtPosition \n\
+        mov r0, r8 \n\
+        ldrh r3, [r0] \n\
+        strh r3, [r6, #0x14] \n\
+        ldrh r0, [r5] \n\
+        cmp r0, #0 \n\
+        bne lbl_08005d6c \n\
+        add r0, r3, #0 \n\
+        add r0, #0x3f \n\
+        strh r0, [r6, #0x14] \n\
+    lbl_08005d6c: \n\
+        ldrh r0, [r5] \n\
+        strh r0, [r6, #0x1a] \n\
+        b lbl_08005de8 \n\
+    lbl_08005d72: \n\
+        cmp r0, #0 \n\
+        beq lbl_08005e06 \n\
+        ldrh r0, [r7] \n\
+        cmp r0, #0 \n\
+        bne lbl_08005de2 \n\
+        ldr r1, [sp, #0x1c] \n\
+        ldrh r0, [r1] \n\
+        ldrh r2, [r6, #0x12] \n\
+        add r0, r0, r2 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        ldrh r1, [r6, #0x14] \n\
+        sub r1, #0x40 \n\
+        lsl r1, r1, #0x10 \n\
+        lsr r1, r1, #0x10 \n\
+        str r5, [sp] \n\
+        add r2, sp, #4 \n\
+        mov r3, r8 \n\
+        bl SamusCheckCollisionAtPosition \n\
+        mov r0, r8 \n\
+        ldrh r3, [r0] \n\
+        strh r3, [r6, #0x14] \n\
+        ldrh r0, [r5] \n\
+        cmp r0, #0 \n\
+        bne lbl_08005dac \n\
+        add r0, r3, #0 \n\
+        add r0, #0x3f \n\
+        strh r0, [r6, #0x14] \n\
+    lbl_08005dac: \n\
+        ldrh r0, [r5] \n\
+        strh r0, [r6, #0x1a] \n\
+        b lbl_08005de8 \n\
+    lbl_08005db2: \n\
+        ldr r1, [sp, #0x10] \n\
+        cmp r1, #0 \n\
+        beq lbl_08005dd8 \n\
+        ldrh r0, [r5] \n\
+        cmp r0, #0 \n\
+        beq lbl_08005dc6 \n\
+        strh r0, [r6, #0x1a] \n\
+        mov r2, r8 \n\
+        ldrh r0, [r2] \n\
+        b lbl_08005de6 \n\
+    lbl_08005dc6: \n\
+        ldrh r1, [r6, #0x12] \n\
+        ldr r0, lbl_08005dd4 @ =0x0000ffc0 \n\
+        and r0, r1 \n\
+        ldr r2, [sp, #0x20] \n\
+        ldrh r1, [r2] \n\
+        sub r0, r0, r1 \n\
+        b lbl_08005dfa \n\
+        .align 2, 0 \n\
+    lbl_08005dd4: .4byte 0x0000ffc0 \n\
+    lbl_08005dd8: \n\
+        cmp r0, #0 \n\
+        beq lbl_08005e06 \n\
+        ldrh r0, [r7] \n\
+        cmp r0, #0 \n\
+        beq lbl_08005dec \n\
+    lbl_08005de2: \n\
+        strh r0, [r6, #0x1a] \n\
+        ldrh r0, [r4] \n\
+    lbl_08005de6: \n\
+        strh r0, [r6, #0x14] \n\
+    lbl_08005de8: \n\
+        movs r0, #0xfd \n\
+        b lbl_08005e08 \n\
+    lbl_08005dec: \n\
+        ldrh r1, [r6, #0x12] \n\
+        ldr r0, lbl_08005e18 @ =0x0000ffc0 \n\
+        and r0, r1 \n\
+        ldr r2, [sp, #0x1c] \n\
+        ldrh r1, [r2] \n\
+        sub r0, r0, r1 \n\
+        add r0, #0x3f \n\
+    lbl_08005dfa: \n\
+        strh r0, [r6, #0x12] \n\
+        mov r1, sb \n\
+        add r1, #0x58 \n\
+        ldrb r0, [r1] \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08005e06: \n\
+        movs r0, #0xff \n\
+    lbl_08005e08: \n\
+        add sp, #0x24 \n\
+        pop {r3, r4, r5} \n\
+        mov r8, r3 \n\
+        mov sb, r4 \n\
+        mov sl, r5 \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r1} \n\
+        bx r1 \n\
+        .align 2, 0 \n\
+    lbl_08005e18: .4byte 0x0000ffc0 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 5e1c | 11c | Checks for top collision
@@ -2038,6 +2291,9 @@ void SamusChangeToKnockbackPose(struct SamusData* pData, struct SamusData* pCopy
         case SPOSE_SHOOTING_WHILE_CRAWLING:
             // Stop crawling if getting knocked back
             pData->pose = SPOSE_CRAWLING_STOPPED;
+            break;
+
+        case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
             break;
 
         default:
@@ -3592,7 +3848,7 @@ void SamusCheckShinesparking(struct SamusData* pData)
             
             default:
                 // Velocity threshold
-                xVelocity = pData->xVelocity + SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - 1;
+                xVelocity = pData->xVelocity + SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + PIXEL_SIZE) - 1;
                 if (xVelocity >= SUB_PIXEL_TO_VELOCITY(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) - 1)
                 {
                     // Check not already speedboosting and not skidding
@@ -3862,11 +4118,13 @@ u8 SamusRunningGfx(struct SamusData* pData)
 u8 SamusStanding(struct SamusData* pData)
 {
     u32 clipdata;
+    s16 hitbox;
 
     // Check shinesparking
     if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0)
     {
-        if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE) == SAMUS_COLLISION_DETECTION_NONE)
+        hitbox = sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE;
+        if (SamusCheckCollisionAbove(pData, hitbox) == SAMUS_COLLISION_DETECTION_NONE)
         {
             pData->yPosition -= HALF_BLOCK_SIZE;
             return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -3967,10 +4225,13 @@ u8 SamusStandingGfx(struct SamusData* pData)
  */
 u8 SamusTurningAround(struct SamusData* pData)
 {
+    s16 hitbox;
+
     // Check shinesparking
     if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0)
     {
-        if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE) == SAMUS_COLLISION_DETECTION_NONE)
+        hitbox = sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE;
+        if (SamusCheckCollisionAbove(pData, hitbox) == SAMUS_COLLISION_DETECTION_NONE)
         {
             pData->yPosition -= HALF_BLOCK_SIZE;
             return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -4051,11 +4312,13 @@ u8 SamusCrouching(struct SamusData* pData)
 {
     u16 xPosition;
     u8 collision;
+    s16 hitbox;
 
     // Check start shinespark
     if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0)
     {
-        if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE) == SAMUS_COLLISION_DETECTION_NONE)
+        hitbox = sSamusHitboxData[SAMUS_HITBOX_TYPE_STANDING][SAMUS_HITBOX_TOP] - HALF_BLOCK_SIZE;
+        if (SamusCheckCollisionAbove(pData, hitbox) == SAMUS_COLLISION_DETECTION_NONE)
         {
             pData->yPosition -= HALF_BLOCK_SIZE;
             return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -4616,7 +4879,7 @@ u8 SamusStartingWallJump(struct SamusData* pData)
         return SPOSE_MID_AIR_REQUEST;
     }
 
-    if (gButtonInput & (KEY_RIGHT | KEY_LEFT) == 0 && gButtonInput & (KEY_UP | KEY_DOWN))
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gButtonInput & (KEY_UP | KEY_DOWN))
     {
         // Cancel all momentum and fall
         pData->forcedMovement = FORCED_MOVEMENT_MID_AIR_FALL;
@@ -4749,7 +5012,7 @@ u8 SamusMorphing(struct SamusData* pData)
  */
 u8 SamusMorphingGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_MORPH_BALL;
 
     return SPOSE_NONE;
@@ -4765,6 +5028,7 @@ u8 SamusMorphball(struct SamusData* pData)
 {
     u8 collision;
     u16 xPosition;
+    s16 hitbox;
 
     // Check for morphball bounce
     if (pData->forcedMovement > FORCED_MOVEMENT_MORPH_BALL_BOUNCE_BEFORE_JUMP + 1)
@@ -4782,7 +5046,8 @@ u8 SamusMorphball(struct SamusData* pData)
     // Check start ballsparking
     if (gChangedInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP && pData->shinesparkTimer != 0)
     {
-        if (SamusCheckCollisionAbove(pData, sSamusHitboxData[SAMUS_HITBOX_TYPE_MORPHED][SAMUS_HITBOX_TOP] - BLOCK_SIZE) == SAMUS_COLLISION_DETECTION_NONE)
+        hitbox = sSamusHitboxData[SAMUS_HITBOX_TYPE_MORPHED][SAMUS_HITBOX_TOP] - BLOCK_SIZE;
+        if (SamusCheckCollisionAbove(pData, hitbox) == SAMUS_COLLISION_DETECTION_NONE)
         {
             pData->yPosition -= HALF_BLOCK_SIZE;
             return SPOSE_DELAY_BEFORE_BALLSPARKING;
@@ -5472,7 +5737,7 @@ u8 SamusPullingSelfForward(struct SamusData* pData)
  */
 u8 SamusPullingSelfForwardGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
         if (gEquipment.suitType == SUIT_SUITLESS)
             return SPOSE_UNCROUCHING_SUITLESS;
@@ -5491,7 +5756,7 @@ u8 SamusPullingSelfForwardGfx(struct SamusData* pData)
  */
 u8 SamusPullingSelfIntoMorphballTunnelGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, pData->timer) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, pData->timer) == SAMUS_ANIM_STATE_ENDED)
     {
         if (pData->direction & KEY_RIGHT)
             pData->xPosition += (PIXEL_SIZE + PIXEL_SIZE / 2);
@@ -5532,7 +5797,7 @@ u8 SamusUsingAnElevator(struct SamusData* pData)
 
     if (pData->elevatorDirection & KEY_UP)
     {
-        previousBlock = HIGH_SHORT(ClipdataCheckCurrentAffectingAtPosition(gPreviousXPosition, pData->xPosition));
+        previousBlock = HIGH_SHORT(ClipdataCheckCurrentAffectingAtPosition(gPreviousYPosition, pData->xPosition));
 
         // Check hitting an elevator down block
         if (currentBlock != CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK && previousBlock == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK)
@@ -5818,7 +6083,7 @@ u8 SamusShinesparkCollisionGfx(struct SamusData* pData)
 
 u8 SamusDelayAfterShinesparkingGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_MID_AIR_REQUEST;
 
     return SPOSE_NONE;
@@ -5967,7 +6232,7 @@ u8 SamusOnZipline(struct SamusData* pData)
  */
 u8 SamusShootingOnZiplineGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_ON_ZIPLINE;
 
     return SPOSE_NONE;
@@ -6045,7 +6310,7 @@ u8 SamusGettingHurt(struct SamusData* pData)
         forcedMovement = 0x1;
     }
 
-    if (forcedMovement == 0 && pData->timer++ > 12 && pData->yVelocity < -SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE))
+    if (forcedMovement == 0 && pData->timer++ > 12 && pData->yVelocity < -SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE / 2))
     {
         pData->forcedMovement = forcedMovement;
 
@@ -6193,7 +6458,7 @@ u8 SamusDying(struct SamusData* pData)
  */
 u8 SamusCrouchingToCrawlGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
         // Move slightly
         if (pData->direction & KEY_RIGHT)
@@ -6248,7 +6513,7 @@ u8 SamusCrawlingStopped(struct SamusData* pData)
  */
 u8 SamusStartingToCrawlGfx(struct SamusData* pData)
 {
-    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_CRAWLING_STOPPED;
 
     return SPOSE_NONE;
@@ -6605,7 +6870,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
         case SPOSE_SCREW_ATTACKING:
         case SPOSE_MORPH_BALL_MIDAIR:
             // Not slowed and Y velocity of at least 2 blocks
-            if (!pPhysics->slowedByLiquid && pData->yVelocity > BLOCK_SIZE * 2)
+            if (!pPhysics->slowedByLiquid && pData->yVelocity > SUB_PIXEL_TO_VELOCITY(EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2))
             {
                 pEcho->active = TRUE;
                 pEcho->timer = 6;
@@ -7247,6 +7512,7 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
     pPhysics->pScrewShinesparkGfx = &pGraphics[pPhysics->screwSpeedGfxSize];
 }
 
+#ifdef NON_MATCHING
 void SamusUpdatePalette(struct SamusData* pData)
 {
     // https://decomp.me/scratch/LhP1o
@@ -7518,6 +7784,502 @@ void SamusUpdatePalette(struct SamusData* pData)
 
     SamusCopyPalette(pBufferPal, 0, 16 * 2);
 }
+#else
+NAKED_FUNCTION
+void SamusUpdatePalette(struct SamusData* pData)
+{
+    asm("\n\
+        push {r4, r5, r6, r7, lr} \n\
+        mov r7, sl \n\
+        mov r6, sb \n\
+        mov r5, r8 \n\
+        push {r5, r6, r7} \n\
+        sub sp, #8 \n\
+        add r5, r0, #0 \n\
+        ldr r1, lbl_0800b4d8 @ =gSamusPaletteSize \n\
+        movs r0, #0x40 \n\
+        strh r0, [r1] \n\
+        ldr r1, lbl_0800b4dc @ =gSamusWeaponInfo \n\
+        ldrb r0, [r1, #6] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b48c \n\
+        sub r0, #1 \n\
+        strb r0, [r1, #6] \n\
+    lbl_0800b48c: \n\
+        ldrb r0, [r5, #9] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b496 \n\
+        sub r0, #1 \n\
+        strb r0, [r5, #9] \n\
+    lbl_0800b496: \n\
+        ldr r2, lbl_0800b4e0 @ =gEquipment \n\
+        ldrb r0, [r2, #0x12] \n\
+        add r1, r0, #0 \n\
+        mov r2, sp \n\
+        strb r0, [r2, #4] \n\
+        cmp r1, #1 \n\
+        bne lbl_0800b554 \n\
+        ldr r0, lbl_0800b4e0 @ =gEquipment \n\
+        ldrb r1, [r0, #0xf] \n\
+        movs r0, #0x20 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b508 \n\
+        ldr r1, lbl_0800b4e4 @ =0x082383c8 \n\
+        mov r8, r1 \n\
+        ldr r2, lbl_0800b4e8 @ =0x08238428 \n\
+        mov ip, r2 \n\
+        ldr r6, lbl_0800b4ec @ =0x082384c8 \n\
+        ldr r0, lbl_0800b4f0 @ =0x08238508 \n\
+        mov sl, r0 \n\
+        ldr r1, lbl_0800b4f4 @ =0x08238568 \n\
+        str r1, [sp] \n\
+        ldr r2, lbl_0800b4f8 @ =0x08238608 \n\
+        mov sb, r2 \n\
+        ldr r0, lbl_0800b4fc @ =0x0823a224 \n\
+        ldrb r1, [r5, #0x1d] \n\
+        lsl r1, r1, #2 \n\
+        add r0, r1, r0 \n\
+        ldr r3, [r0] \n\
+        ldr r7, lbl_0800b500 @ =0x082379e8 \n\
+        ldr r0, lbl_0800b504 @ =0x0823a2dc \n\
+        b lbl_0800b624 \n\
+        .align 2, 0 \n\
+    lbl_0800b4d8: .4byte gSamusPaletteSize \n\
+    lbl_0800b4dc: .4byte gSamusWeaponInfo \n\
+    lbl_0800b4e0: .4byte gEquipment \n\
+    lbl_0800b4e4: .4byte 0x082383c8 \n\
+    lbl_0800b4e8: .4byte 0x08238428 \n\
+    lbl_0800b4ec: .4byte 0x082384c8 \n\
+    lbl_0800b4f0: .4byte 0x08238508 \n\
+    lbl_0800b4f4: .4byte 0x08238568 \n\
+    lbl_0800b4f8: .4byte 0x08238608 \n\
+    lbl_0800b4fc: .4byte 0x0823a224 \n\
+    lbl_0800b500: .4byte 0x082379e8 \n\
+    lbl_0800b504: .4byte 0x0823a2dc \n\
+    lbl_0800b508: \n\
+        ldr r0, lbl_0800b530 @ =0x08237fa8 \n\
+        mov r8, r0 \n\
+        ldr r1, lbl_0800b534 @ =0x08238008 \n\
+        mov ip, r1 \n\
+        ldr r6, lbl_0800b538 @ =0x082380a8 \n\
+        ldr r2, lbl_0800b53c @ =0x082380e8 \n\
+        mov sl, r2 \n\
+        ldr r0, lbl_0800b540 @ =0x08238148 \n\
+        str r0, [sp] \n\
+        ldr r1, lbl_0800b544 @ =0x082381e8 \n\
+        mov sb, r1 \n\
+        ldr r0, lbl_0800b548 @ =0x0823a1f8 \n\
+        ldrb r1, [r5, #0x1d] \n\
+        lsl r1, r1, #2 \n\
+        add r0, r1, r0 \n\
+        ldr r3, [r0] \n\
+        ldr r7, lbl_0800b54c @ =0x082379c8 \n\
+        ldr r0, lbl_0800b550 @ =0x0823a2bc \n\
+        b lbl_0800b624 \n\
+        .align 2, 0 \n\
+    lbl_0800b530: .4byte 0x08237fa8 \n\
+    lbl_0800b534: .4byte 0x08238008 \n\
+    lbl_0800b538: .4byte 0x082380a8 \n\
+    lbl_0800b53c: .4byte 0x082380e8 \n\
+    lbl_0800b540: .4byte 0x08238148 \n\
+    lbl_0800b544: .4byte 0x082381e8 \n\
+    lbl_0800b548: .4byte 0x0823a1f8 \n\
+    lbl_0800b54c: .4byte 0x082379c8 \n\
+    lbl_0800b550: .4byte 0x0823a2bc \n\
+    lbl_0800b554: \n\
+        cmp r1, #0 \n\
+        bne lbl_0800b600 \n\
+        ldr r2, lbl_0800b58c @ =gEquipment \n\
+        ldrb r1, [r2, #0xf] \n\
+        movs r0, #0x10 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b5b4 \n\
+        ldr r0, lbl_0800b590 @ =0x08237be8 \n\
+        mov r8, r0 \n\
+        ldr r1, lbl_0800b594 @ =0x08237c48 \n\
+        mov ip, r1 \n\
+        ldr r6, lbl_0800b598 @ =0x08237ce8 \n\
+        ldr r2, lbl_0800b59c @ =0x08237d28 \n\
+        mov sl, r2 \n\
+        ldr r0, lbl_0800b5a0 @ =0x08237d88 \n\
+        str r0, [sp] \n\
+        ldr r1, lbl_0800b5a4 @ =0x08237e28 \n\
+        mov sb, r1 \n\
+        ldr r0, lbl_0800b5a8 @ =0x0823a1cc \n\
+        ldrb r1, [r5, #0x1d] \n\
+        lsl r1, r1, #2 \n\
+        add r0, r1, r0 \n\
+        ldr r3, [r0] \n\
+        ldr r7, lbl_0800b5ac @ =0x082379a8 \n\
+        ldr r0, lbl_0800b5b0 @ =0x0823a29c \n\
+        b lbl_0800b624 \n\
+        .align 2, 0 \n\
+    lbl_0800b58c: .4byte gEquipment \n\
+    lbl_0800b590: .4byte 0x08237be8 \n\
+    lbl_0800b594: .4byte 0x08237c48 \n\
+    lbl_0800b598: .4byte 0x08237ce8 \n\
+    lbl_0800b59c: .4byte 0x08237d28 \n\
+    lbl_0800b5a0: .4byte 0x08237d88 \n\
+    lbl_0800b5a4: .4byte 0x08237e28 \n\
+    lbl_0800b5a8: .4byte 0x0823a1cc \n\
+    lbl_0800b5ac: .4byte 0x082379a8 \n\
+    lbl_0800b5b0: .4byte 0x0823a29c \n\
+    lbl_0800b5b4: \n\
+        ldr r2, lbl_0800b5dc @ =0x082376a8 \n\
+        mov r8, r2 \n\
+        ldr r0, lbl_0800b5e0 @ =0x08237708 \n\
+        mov ip, r0 \n\
+        ldr r6, lbl_0800b5e4 @ =0x082377a8 \n\
+        ldr r1, lbl_0800b5e8 @ =0x082377e8 \n\
+        mov sl, r1 \n\
+        ldr r2, lbl_0800b5ec @ =0x08237848 \n\
+        str r2, [sp] \n\
+        ldr r0, lbl_0800b5f0 @ =0x08237a68 \n\
+        mov sb, r0 \n\
+        ldr r0, lbl_0800b5f4 @ =0x0823a1a0 \n\
+        ldrb r1, [r5, #0x1d] \n\
+        lsl r1, r1, #2 \n\
+        add r0, r1, r0 \n\
+        ldr r3, [r0] \n\
+        ldr r7, lbl_0800b5f8 @ =0x08237888 \n\
+        ldr r0, lbl_0800b5fc @ =0x0823a27c \n\
+        b lbl_0800b624 \n\
+        .align 2, 0 \n\
+    lbl_0800b5dc: .4byte 0x082376a8 \n\
+    lbl_0800b5e0: .4byte 0x08237708 \n\
+    lbl_0800b5e4: .4byte 0x082377a8 \n\
+    lbl_0800b5e8: .4byte 0x082377e8 \n\
+    lbl_0800b5ec: .4byte 0x08237848 \n\
+    lbl_0800b5f0: .4byte 0x08237a68 \n\
+    lbl_0800b5f4: .4byte 0x0823a1a0 \n\
+    lbl_0800b5f8: .4byte 0x08237888 \n\
+    lbl_0800b5fc: .4byte 0x0823a27c \n\
+    lbl_0800b600: \n\
+        ldr r1, lbl_0800b650 @ =0x082387e8 \n\
+        mov r8, r1 \n\
+        ldr r2, lbl_0800b654 @ =0x08238848 \n\
+        mov ip, r2 \n\
+        ldr r6, lbl_0800b658 @ =0x082388e8 \n\
+        ldr r0, lbl_0800b65c @ =0x082377e8 \n\
+        mov sl, r0 \n\
+        ldr r1, lbl_0800b660 @ =0x08237848 \n\
+        str r1, [sp] \n\
+        ldr r2, lbl_0800b664 @ =0x08238988 \n\
+        mov sb, r2 \n\
+        ldr r0, lbl_0800b668 @ =0x0823a250 \n\
+        ldrb r1, [r5, #0x1d] \n\
+        lsl r1, r1, #2 \n\
+        add r0, r1, r0 \n\
+        ldr r3, [r0] \n\
+        ldr r7, lbl_0800b66c @ =0x082378a8 \n\
+        ldr r0, lbl_0800b670 @ =0x0823a2fc \n\
+    lbl_0800b624: \n\
+        add r1, r1, r0 \n\
+        ldr r1, [r1] \n\
+        ldrb r0, [r5] \n\
+        add r4, r0, #0 \n\
+        cmp r4, #0x33 \n\
+        bne lbl_0800b6a0 \n\
+        ldr r4, lbl_0800b674 @ =0x08237888 \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        ldrb r0, [r5, #7] \n\
+        cmp r0, #0 \n\
+        bne lbl_0800b698 \n\
+        ldrb r0, [r5, #0x1d] \n\
+        cmp r0, #0xb \n\
+        beq lbl_0800b64c \n\
+        cmp r0, #0xf \n\
+        bne lbl_0800b678 \n\
+    lbl_0800b64c: \n\
+        add r4, #0x40 \n\
+        b lbl_0800b7d6 \n\
+        .align 2, 0 \n\
+    lbl_0800b650: .4byte 0x082387e8 \n\
+    lbl_0800b654: .4byte 0x08238848 \n\
+    lbl_0800b658: .4byte 0x082388e8 \n\
+    lbl_0800b65c: .4byte 0x082377e8 \n\
+    lbl_0800b660: .4byte 0x08237848 \n\
+    lbl_0800b664: .4byte 0x08238988 \n\
+    lbl_0800b668: .4byte 0x0823a250 \n\
+    lbl_0800b66c: .4byte 0x082378a8 \n\
+    lbl_0800b670: .4byte 0x0823a2fc \n\
+    lbl_0800b674: .4byte 0x08237888 \n\
+    lbl_0800b678: \n\
+        cmp r0, #0xc \n\
+        beq lbl_0800b680 \n\
+        cmp r0, #0xe \n\
+        bne lbl_0800b684 \n\
+    lbl_0800b680: \n\
+        add r4, #0x80 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b684: \n\
+        cmp r0, #0xd \n\
+        bne lbl_0800b68c \n\
+        add r4, #0xc0 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b68c: \n\
+        add r4, #0x20 \n\
+        cmp r0, #0xa \n\
+        bls lbl_0800b694 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b694: \n\
+        add r4, r7, #0 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b698: \n\
+        ldrb r0, [r5, #7] \n\
+        lsl r0, r0, #5 \n\
+        add r4, r0, r4 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b6a0: \n\
+        ldrb r0, [r5, #6] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b6c4 \n\
+        sub r0, #1 \n\
+        strb r0, [r5, #6] \n\
+        ldr r0, lbl_0800b6c0 @ =gFrameCounter8Bit \n\
+        ldrb r1, [r0] \n\
+        movs r0, #3 \n\
+        and r0, r1 \n\
+        add r4, r6, #0 \n\
+        add r4, #0x20 \n\
+        cmp r0, #1 \n\
+        bls lbl_0800b6bc \n\
+        b lbl_0800b7c8 \n\
+    lbl_0800b6bc: \n\
+        add r4, r6, #0 \n\
+        b lbl_0800b7c8 \n\
+        .align 2, 0 \n\
+    lbl_0800b6c0: .4byte gFrameCounter8Bit \n\
+    lbl_0800b6c4: \n\
+        ldr r0, lbl_0800b710 @ =gSamusHazardDamage \n\
+        ldrb r2, [r0, #4] \n\
+        cmp r2, #0 \n\
+        beq lbl_0800b6d4 \n\
+        movs r0, #0xf \n\
+        and r0, r2 \n\
+        cmp r0, #7 \n\
+        bhi lbl_0800b72c \n\
+    lbl_0800b6d4: \n\
+        ldrb r0, [r5, #5] \n\
+        cmp r0, #0 \n\
+        bne lbl_0800b6e0 \n\
+        ldrb r0, [r5, #8] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b718 \n\
+    lbl_0800b6e0: \n\
+        ldr r0, lbl_0800b714 @ =gFrameCounter8Bit \n\
+        ldrb r0, [r0] \n\
+        movs r1, #6 \n\
+        bl __umodsi3 \n\
+        lsl r0, r0, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        blt lbl_0800b6fe \n\
+        mov r4, sl \n\
+        cmp r0, #1 \n\
+        ble lbl_0800b702 \n\
+        add r4, #0x20 \n\
+        cmp r0, #3 \n\
+        ble lbl_0800b702 \n\
+    lbl_0800b6fe: \n\
+        mov r4, sl \n\
+        add r4, #0x40 \n\
+    lbl_0800b702: \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        b lbl_0800b7d6 \n\
+        .align 2, 0 \n\
+    lbl_0800b710: .4byte gSamusHazardDamage \n\
+    lbl_0800b714: .4byte gFrameCounter8Bit \n\
+    lbl_0800b718: \n\
+        lsl r0, r4, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        cmp r0, #0xf \n\
+        bne lbl_0800b732 \n\
+        ldrb r1, [r5, #0x1d] \n\
+        movs r0, #1 \n\
+        and r0, r1 \n\
+        mov r4, r8 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b7c8 \n\
+    lbl_0800b72c: \n\
+        add r4, r6, #0 \n\
+        add r4, #0x20 \n\
+        b lbl_0800b7c8 \n\
+    lbl_0800b732: \n\
+        cmp r0, #0x2c \n\
+        bne lbl_0800b748 \n\
+        add r4, r3, #0 \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        mov r4, r8 \n\
+        add r4, #0x40 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b748: \n\
+        cmp r0, #0x2d \n\
+        bne lbl_0800b766 \n\
+        ldrb r0, [r5, #0xa] \n\
+        add r4, r1, #0 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b756 \n\
+        mov r4, r8 \n\
+    lbl_0800b756: \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        mov r4, r8 \n\
+        add r4, #0x40 \n\
+        b lbl_0800b7d6 \n\
+    lbl_0800b766: \n\
+        ldr r1, lbl_0800b780 @ =gSamusWeaponInfo \n\
+        ldrb r0, [r1, #6] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b7b2 \n\
+        ldr r2, lbl_0800b784 @ =gEquipment \n\
+        ldrb r1, [r2, #0xd] \n\
+        movs r0, #2 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b788 \n\
+        mov r4, ip \n\
+        add r4, #0x40 \n\
+        b lbl_0800b7c8 \n\
+        .align 2, 0 \n\
+    lbl_0800b780: .4byte gSamusWeaponInfo \n\
+    lbl_0800b784: .4byte gEquipment \n\
+    lbl_0800b788: \n\
+        movs r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b796 \n\
+        mov r4, ip \n\
+        add r4, #0x80 \n\
+        b lbl_0800b7c8 \n\
+    lbl_0800b796: \n\
+        movs r0, #4 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b7a4 \n\
+        mov r4, ip \n\
+        add r4, #0x60 \n\
+        b lbl_0800b7c8 \n\
+    lbl_0800b7a4: \n\
+        movs r0, #1 \n\
+        and r0, r1 \n\
+        mov r4, ip \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b7c8 \n\
+        add r4, #0x20 \n\
+        b lbl_0800b7c8 \n\
+    lbl_0800b7b2: \n\
+        ldrb r0, [r5, #9] \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b7e2 \n\
+        sub r0, #5 \n\
+        lsl r0, r0, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        ldr r4, [sp] \n\
+        add r4, #0x20 \n\
+        cmp r0, #4 \n\
+        bls lbl_0800b7c8 \n\
+        ldr r4, [sp] \n\
+    lbl_0800b7c8: \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        mov r4, r8 \n\
+        add r4, #0x20 \n\
+    lbl_0800b7d6: \n\
+        add r0, r4, #0 \n\
+        movs r1, #0x10 \n\
+        movs r2, #0x10 \n\
+        bl SamusCopyPalette \n\
+        b lbl_0800b858 \n\
+    lbl_0800b7e2: \n\
+        mov r4, r8 \n\
+        mov r1, sp \n\
+        ldrb r1, [r1, #4] \n\
+        lsl r0, r1, #0x18 \n\
+        lsr r0, r0, #0x18 \n\
+        cmp r0, #2 \n\
+        beq lbl_0800b84e \n\
+        ldr r2, lbl_0800b814 @ =gSamusWeaponInfo \n\
+        ldrb r0, [r2, #5] \n\
+        cmp r0, #0x40 \n\
+        blo lbl_0800b84e \n\
+        sub r0, #0x40 \n\
+        asr r2, r0, #2 \n\
+        cmp r2, #3 \n\
+        beq lbl_0800b84e \n\
+        ldr r0, lbl_0800b818 @ =gEquipment \n\
+        ldrb r1, [r0, #0xd] \n\
+        movs r0, #2 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b81c \n\
+        mov r4, sb \n\
+        add r4, #0x80 \n\
+        b lbl_0800b846 \n\
+        .align 2, 0 \n\
+    lbl_0800b814: .4byte gSamusWeaponInfo \n\
+    lbl_0800b818: .4byte gEquipment \n\
+    lbl_0800b81c: \n\
+        movs r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b82c \n\
+        movs r4, #0x80 \n\
+        lsl r4, r4, #1 \n\
+        add r4, sb \n\
+        b lbl_0800b846 \n\
+    lbl_0800b82c: \n\
+        movs r0, #4 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b83a \n\
+        mov r4, sb \n\
+        add r4, #0xc0 \n\
+        b lbl_0800b846 \n\
+    lbl_0800b83a: \n\
+        movs r0, #1 \n\
+        and r0, r1 \n\
+        mov r4, sb \n\
+        cmp r0, #0 \n\
+        beq lbl_0800b846 \n\
+        add r4, #0x40 \n\
+    lbl_0800b846: \n\
+        movs r0, #1 \n\
+        and r2, r0 \n\
+        lsl r0, r2, #5 \n\
+        add r4, r4, r0 \n\
+    lbl_0800b84e: \n\
+        add r0, r4, #0 \n\
+        movs r1, #0 \n\
+        movs r2, #0x20 \n\
+        bl SamusCopyPalette \n\
+    lbl_0800b858: \n\
+        add sp, #8 \n\
+        pop {r3, r4, r5} \n\
+        mov r8, r3 \n\
+        mov sb, r4 \n\
+        mov sl, r5 \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r0} \n\
+        bx r0 \n\
+    ");
+}
+#endif
 
 void SamusCheckPlayLowHealthSound(void)
 {
@@ -7901,7 +8663,7 @@ void SamusDraw(void)
         // Get position
         xPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusEnvironmentalEffects[j].xPosition) - SUB_PIXEL_TO_PIXEL(gBg1XPosition));
         yPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusEnvironmentalEffects[j].yPosition) -
-            SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(ONE_SUB_PIXEL * 2));
+            SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 2));
 
         // Write data
         for (; currSlot < nextSlot; currSlot++)
@@ -7926,7 +8688,7 @@ void SamusDraw(void)
 
     // Get position
     xPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusData.xPosition) - SUB_PIXEL_TO_PIXEL(gBg1XPosition));
-    yPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusData.yPosition) - SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(ONE_SUB_PIXEL * 2));
+    yPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusData.yPosition) - SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 2));
 
     if (gSamusPhysics.unk_36 & 0x20)
     {
@@ -8092,7 +8854,7 @@ void SamusDraw(void)
         
         xPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusEcho.previous64XPositions[ppc]) - SUB_PIXEL_TO_PIXEL(gBg1XPosition));
         yPosition = (s16)(SUB_PIXEL_TO_PIXEL(gSamusEcho.previous64YPositions[ppc]) -
-            SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(ONE_SUB_PIXEL * 2));
+            SUB_PIXEL_TO_PIXEL(gBg1YPosition) + SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 2));
 
         for (; currSlot < nextSlot; currSlot++)
         {
