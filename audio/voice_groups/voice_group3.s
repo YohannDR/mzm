@@ -1,51 +1,51 @@
-.align 4
+.align 2
 
 .section .rodata
 .global voice_group3
 
 voice_group3:
 	.byte 0, 60, 0, 0
-	.word 135136456
+	.word sample_0xe04c8
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135137908
+	.word sample_0xe0a74
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135141432
+	.word sample_0xe1838
 	.byte 64, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135141432
+	.word sample_0xe1838
 	.byte 37, 0, 206, 0
 
 	.byte 0, 60, 0, 0
-	.word 135097708
+	.word sample_0xd6d6c
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135141432
+	.word sample_0xe1838
 	.byte 64, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135142620
+	.word sample_0xe1cdc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135145028
+	.word sample_0xe2644
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135058348
+	.word sample_0xcd3ac
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135133400
+	.word sample_0xdf8d8
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135110944
+	.word sample_0xda120
 	.byte 255, 0, 255, 0
 
 	.byte 4, 60, 0, 0
@@ -53,43 +53,43 @@ voice_group3:
 	.byte 0, 0, 12, 4
 
 	.byte 0, 60, 0, 0
-	.word 135149080
+	.word sample_0xe3618
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135153356
+	.word sample_0xe46cc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135103820
+	.word sample_0xd854c
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135154300
+	.word sample_0xe4a7c
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135142620
+	.word sample_0xe1cdc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135156112
+	.word sample_0xe5190
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135061284
+	.word sample_0xcdf24
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135156932
+	.word sample_0xe54c4
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135168952
+	.word sample_0xe83b8
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135169500
+	.word sample_0xe85dc
 	.byte 255, 0, 255, 0
 
 	.byte 4, 60, 0, 0
@@ -97,11 +97,11 @@ voice_group3:
 	.byte 0, 0, 15, 3
 
 	.byte 0, 60, 0, 0
-	.word 135170408
+	.word sample_0xe8968
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 134886172
+	.word sample_0xa331c
 	.byte 255, 0, 255, 0
 
 	.byte 4, 60, 0, 0
@@ -109,19 +109,19 @@ voice_group3:
 	.byte 0, 0, 15, 4
 
 	.byte 0, 60, 0, 0
-	.word 135172888
+	.word sample_0xe9318
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135173856
+	.word sample_0xe96e0
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135175296
+	.word sample_0xe9c80
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135156112
+	.word sample_0xe5190
 	.byte 255, 0, 255, 0
 
 	.byte 4, 60, 0, 0
@@ -129,70 +129,70 @@ voice_group3:
 	.byte 0, 0, 15, 5
 
 	.byte 0, 60, 0, 0
-	.word 135137908
+	.word sample_0xe0a74
 	.byte 64, 0, 255, 0
 
 	.byte 8, 60, 0, 0
-	.word 135176444
+	.word sample_0xea0fc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 134894056
+	.word sample_0xa51e8
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135180496
+	.word sample_0xeb0d0
 	.byte 128, 0, 255, 0
 
 	.byte 8, 60, 0, 0
-	.word 134812472
+	.word sample_0x91338
 	.byte 255, 0, 255, 0
 
 	.byte 8, 60, 0, 0
-	.word 134811804
+	.word sample_0x9109c
 	.byte 255, 0, 255, 0
 
 	.byte 8, 60, 0, 0
-	.word 134811436
+	.word sample_0x90f2c
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135184452
+	.word sample_0xec044
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135176444
+	.word sample_0xea0fc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135185176
+	.word sample_0xec318
 	.byte 37, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135121048
+	.word sample_0xdc898
 	.byte 51, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135133400
+	.word sample_0xdf8d8
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135215836
+	.word sample_0xf3adc
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135216976
+	.word sample_0xf3f50
 	.byte 255, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 134982332
+	.word sample_0xbaabc
 	.byte 37, 0, 255, 0
 
 	.byte 0, 60, 0, 0
-	.word 135221864
+	.word sample_0xf5268
 	.byte 64, 0, 231, 0
 
 	.byte 0, 60, 0, 0
-	.word 135221864
+	.word sample_0xf5268
 	.byte 255, 0, 255, 0
 

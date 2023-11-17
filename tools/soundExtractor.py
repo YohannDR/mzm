@@ -41,8 +41,14 @@ def ExtractVoiceGroups(f: BufferedReader):
         f.seek(voiceGroupsAddr[x])
 
         name: str = "voice_group" + str(x)
-        output = open("../audio/voice_groups/" + name + ".s", "w")
-        content = ".align 4\n\n.section .rodata\n.global " + name + "\n\n" + name + ":\n"
+
+        filePath: str = "../audio/voice_groups/" + name + ".s"
+
+        if os.path.exists(filePath):
+            os.remove(filePath)
+
+        output = open(filePath, "w")
+        content = ".align 2\n\n.section .rodata\n.global " + name + "\n\n" + name + ":\n"
 
         for y in range(0, voiceGroupsSizes[x]):
             instrType: int = int.from_bytes(f.read(1), "little")
@@ -57,10 +63,10 @@ def ExtractVoiceGroups(f: BufferedReader):
 
             content += "\t.byte " + str(instrType) + ", " + str(pitch) + ", " + str(unk_2) + ", " + str(unk_3) + "\n\t"
             
-            #if sample < 0:
-            content += ".word " + str(sample + 0x8000000) +"\n\t"
-            #else:
-            #    content += ".word sample_" + hex(sample) + "\n\t"
+            if sample < 0:
+                content += ".word " + str(sample + 0x8000000) +"\n\t"
+            else:
+                content += ".word sample_" + hex(sample) + "\n\t"
             content += ".byte " + str(attack) + ", " + str(decay) + ", " + str(sustain) + ", " + str(release) + "\n\n"
 
         output.write(content)
@@ -134,7 +140,9 @@ def ExtractSamples(f: BufferedReader):
         print(hex(v[x]))
 
 def Func():
-    # TODO use sample symbols in voice groups
-    ExtractSamples(file)
+    addr: int = 0x8f2c0
+    file.seek(addr)
+    
+    ExtractVoiceGroups(file)
 
 Func()
