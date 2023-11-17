@@ -8,8 +8,8 @@ extern const u32 sTileset_69_Gfx[3143];
 extern const u32 sTileset_40_Gfx[1558];
 extern const u32 sTileset_35_Gfx[3095];
 
-extern const u32 sTileset_26_Bg_Gfx[2287];
-extern const u32 sTileset_69_Bg_Gfx[2281];
+extern const u32 sTileset_69_Bg_Gfx[2287];
+extern const u32 sTileset_26_Bg_Gfx[2281];
 extern const u32 sTileset_35_Bg_Gfx[920];
 extern const u32 sTileset_40_Bg_Gfx[709];
 

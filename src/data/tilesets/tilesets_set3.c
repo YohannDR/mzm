@@ -13,14 +13,14 @@ const u32 sTileset_14_Gfx[1890] = INCBIN_U32("data/tilesets/14.gfx.lz");
 const u32 sTileset_16_Gfx[2168] = INCBIN_U32("data/tilesets/16.gfx.lz");
 const u32 sTileset_19_Gfx[1640] = INCBIN_U32("data/tilesets/19.gfx.lz");
 
-const u32 sTileset_7_Gfx_Bg[1761] = INCBIN_U32("data/tilesets/7_Bg.gfx.lz");
-const u32 sTileset_1_Gfx_Bg[2190] = INCBIN_U32("data/tilesets/1_Bg.gfx.lz");
-const u32 sTileset_30_Gfx_Bg[2190] = INCBIN_U32("data/tilesets/30_Bg.gfx.lz");
-const u32 sTileset_15_Gfx_Bg[1196] = INCBIN_U32("data/tilesets/15_Bg.gfx.lz");
-const u32 sTileset_14_Gfx_Bg[1296] = INCBIN_U32("data/tilesets/14_Bg.gfx.lz");
-const u32 sTileset_16_Gfx_Bg[1850] = INCBIN_U32("data/tilesets/16_Bg.gfx.lz");
-const u32 sTileset_19_Gfx_Bg[1665] = INCBIN_U32("data/tilesets/19_Bg.gfx.lz");
-const u32 sTileset_13_Gfx_Bg[1706] = INCBIN_U32("data/tilesets/13_Bg.gfx.lz");
+const u32 sTileset_7_Bg_Gfx[1761] = INCBIN_U32("data/tilesets/7_Bg.gfx.lz");
+const u32 sTileset_1_Bg_Gfx[2190] = INCBIN_U32("data/tilesets/1_Bg.gfx.lz");
+const u32 sTileset_30_Bg_Gfx[2190] = INCBIN_U32("data/tilesets/30_Bg.gfx.lz");
+const u32 sTileset_15_Bg_Gfx[1196] = INCBIN_U32("data/tilesets/15_Bg.gfx.lz");
+const u32 sTileset_14_Bg_Gfx[1296] = INCBIN_U32("data/tilesets/14_Bg.gfx.lz");
+const u32 sTileset_16_Bg_Gfx[1850] = INCBIN_U32("data/tilesets/16_Bg.gfx.lz");
+const u32 sTileset_19_Bg_Gfx[1665] = INCBIN_U32("data/tilesets/19_Bg.gfx.lz");
+const u32 sTileset_13_Bg_Gfx[1706] = INCBIN_U32("data/tilesets/13_Bg.gfx.lz");
 
 const u16 sTileset_7_Pal[14 * 16] = INCBIN_U16("data/tilesets/7.pal");
 const u16 sTileset_1_Pal[14 * 16] = INCBIN_U16("data/tilesets/1.pal");

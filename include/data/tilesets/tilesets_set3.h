@@ -15,14 +15,14 @@ extern const u32 sTileset_14_Gfx[1890];
 extern const u32 sTileset_16_Gfx[2168];
 extern const u32 sTileset_19_Gfx[1640];
 
-extern const u32 sTileset_7_Gfx_Bg[1761];
-extern const u32 sTileset_1_Gfx_Bg[2190];
-extern const u32 sTileset_30_Gfx_Bg[2190];
-extern const u32 sTileset_15_Gfx_Bg[1196];
-extern const u32 sTileset_14_Gfx_Bg[1296];
-extern const u32 sTileset_16_Gfx_Bg[1850];
-extern const u32 sTileset_19_Gfx_Bg[1665];
-extern const u32 sTileset_13_Gfx_Bg[1706];
+extern const u32 sTileset_7_Bg_Gfx[1761];
+extern const u32 sTileset_1_Bg_Gfx[2190];
+extern const u32 sTileset_30_Bg_Gfx[2190];
+extern const u32 sTileset_15_Bg_Gfx[1196];
+extern const u32 sTileset_14_Bg_Gfx[1296];
+extern const u32 sTileset_16_Bg_Gfx[1850];
+extern const u32 sTileset_19_Bg_Gfx[1665];
+extern const u32 sTileset_13_Bg_Gfx[1706];
 
 extern const u16 sTileset_7_Pal[14 * 16];
 extern const u16 sTileset_1_Pal[14 * 16];

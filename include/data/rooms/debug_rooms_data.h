@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/room.h"
 
-extern const u8 sTileset_0_Gfx[1780];
+extern const u32 sTileset_0_Gfx[445];
 extern const u8 sTileset_0_Tilemap[1410];
 extern const u16 sTileset_0_Pal[14 * 16];
 

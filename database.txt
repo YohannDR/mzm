@@ -1272,7 +1272,7 @@ menus/PauseScreen/MinimapTiles.pal;80;0x411360;2
 
 ## Default background data
 
-rooms/Tileset0_Background.gfx.lz;3796;0x363cf8;1
+rooms/Tileset0_Background.gfx.lz;949;0x363cf8;4
 rooms/Debug_Bg3.gfx.lz;896;0x364bcc;1
 rooms/Background_Empty.bin;52;0x364f4c;1
 rooms/DoorTransition.tm;184;0x364f80;1
@@ -1286,7 +1286,7 @@ rooms/SaveRoom_Bg3.rle;1132;0x5e2508;1
 
 ## Debug rooms
 
-rooms/debug/Tileset0_Tiles.gfx.lz;1780;0x365e00;1
+rooms/debug/Tileset0_Tiles.gfx.lz;445;0x365e00;4
 rooms/debug/Tileset0.tm;1410;0x3664f4;1
 rooms/debug/Tileset0.pal;224;0x366a76;2
 
@@ -2965,8 +2965,8 @@ tilesets/69.gfx.lz;3143;0x6a8520;4
 tilesets/40.gfx.lz;1558;0x6ab63c;4
 tilesets/35.gfx.lz;3095;0x6ace94;4
 
-tilesets/26_Bg.gfx.lz;2287;0x6afef0;4
-tilesets/69_Bg.gfx.lz;2281;0x6b22ac;4
+tilesets/69_Bg.gfx.lz;2287;0x6afef0;4
+tilesets/26_Bg.gfx.lz;2281;0x6b22ac;4
 tilesets/35_Bg.gfx.lz;920;0x6b4650;4
 tilesets/40_Bg.gfx.lz;709;0x6b54b0;4
 

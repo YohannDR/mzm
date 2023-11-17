@@ -1,7 +1,7 @@
 #include "data/rooms/debug_rooms_data.h"
 #include "macros.h"
 
-const u8 sTileset_0_Gfx[1780] = INCBIN_U8("data/rooms/debug/Tileset0_Tiles.gfx.lz");
+const u32 sTileset_0_Gfx[445] = INCBIN_U32("data/rooms/debug/Tileset0_Tiles.gfx.lz");
 const u8 sTileset_0_Tilemap[1410] = INCBIN_U8("data/rooms/debug/Tileset0.tm");
 const u16 sTileset_0_Pal[14 * 16] = INCBIN_U16("data/rooms/debug/Tileset0.pal");
 
