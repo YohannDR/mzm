@@ -1,4 +1,5 @@
 #include "data/chozodia_escape_data.h"
+#include "data/tourian_escape_data.h"
 
 const u16 sChozodiaEscapeShipHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/ShipHeatingUp.pal");
 const u16 sChozodiaEscapeGroundHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/GroundHeatingUp.pal");
@@ -320,11 +321,11 @@ const u8 sChozodiaEscapeHeatingUpPalOffsets[8] = {
 };
 
 const struct FrameData* const sChozodiaEscape_5ca0c4[5] = {
-    (const struct FrameData*)0x847cbe4,
-    (const struct FrameData*)0x847ca14,
-    (const struct FrameData*)0x847ca74,
-    (const struct FrameData*)0x847cd34,
-    (const struct FrameData*)0x847c8f4,
+    sChozodiaEscapeOam_HugeShipExplosion,
+    sChozodiaEscapeOam_SmallExplosion,
+    sChozodiaEscapeOam_MediumExplosion,
+    sChozodiaEscapeOam_MotherShipDecaying,
+    sChozodiaEscapeOam_ShipSmokeExplosion,
 };
 
 const u16 sChozodiaEscape_5ca0d8[8][2] = {

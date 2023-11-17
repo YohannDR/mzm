@@ -31,6 +31,12 @@ extern const u16 sTourianEscapeShipCrashingBackgroundAndShipPal[16 * 16];
 extern const u16 sTourianEscapeSamusLookingAtSkyPal[10 * 16];
 extern const u16 sTourianEscapeSamusLookingAtMotherShipPal[10 * 16];
 
+extern const struct FrameData sChozodiaEscapeOam_HugeShipExplosion[16];
+extern const struct FrameData sChozodiaEscapeOam_SmallExplosion[12];
+extern const struct FrameData sChozodiaEscapeOam_HugeExplosion[13];
+extern const struct FrameData sChozodiaEscapeOam_MotherShipDecaying[9];
+extern const struct FrameData sChozodiaEscapeOam_MediumExplosion[18];
+
 extern const u16 sTourianEscape_47a4e0[OAM_DATA_SIZE(6)];
 extern const u16 sTourianEscape_47a506[OAM_DATA_SIZE(6)];
 extern const u16 sTourianEscape_47a52c[OAM_DATA_SIZE(3)];

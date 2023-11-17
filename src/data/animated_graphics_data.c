@@ -3,6 +3,13 @@
 
 #include "data/animated_tiles_data.h"
 #include "data/tilesets/tilesets_set0.h"
+#include "data/tilesets/tilesets_set1.h"
+#include "data/tilesets/tilesets_set2.h"
+#include "data/tilesets/tilesets_set3.h"
+#include "data/tilesets/tilesets_set4.h"
+#include "data/tilesets/tilesets_set5.h"
+#include "data/tilesets/tilesets_set6.h"
+#include "data/tilesets/tilesets_set7.h"
 
 #include "constants/animated_graphics.h"
 
@@ -343,20 +350,20 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [2] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 5,
-        .numbersOfStates = 12,
-        .pPalette = (const u16* const)0x862b8b8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_2) / 16,
+        .pPalette = sAnimatedPal_2
     },
     [ANIMATED_PALETTE_ID_ZIPLINE] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x862bdb8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_3) / 16,
+        .pPalette = sAnimatedPal_3
     },
     [4] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872c7f8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_4) / 16,
+        .pPalette = sAnimatedPal_4
     },
     [5] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -367,8 +374,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [6] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872b178
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_6) / 16,
+        .pPalette = sAnimatedPal_6
     },
     [7] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -379,50 +386,50 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [8] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872aeb8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_8) / 16,
+        .pPalette = sAnimatedPal_8
     },
     [9] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872adb8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_9) / 16,
+        .pPalette = sAnimatedPal_9
     },
     [10] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872b8b8
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_10) / 16,
+        .pPalette = sAnimatedPal_10
     },
     [11] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872bb78
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_11) / 16,
+        .pPalette = sAnimatedPal_11
     },
     [12] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872be38
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_12) / 16,
+        .pPalette = sAnimatedPal_12
     },
     [13] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 4,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x86ba614
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_13) / 16,
+        .pPalette = sAnimatedPal_13
     },
     [14] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x872cc78
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_14) / 16,
+        .pPalette = sAnimatedPal_14
     },
     [15] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x872d078
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_15) / 16,
+        .pPalette = sAnimatedPal_15
     },
     [16] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -433,8 +440,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [17] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x872b438
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_17) / 16,
+        .pPalette = sAnimatedPal_17
     },
 };
 
