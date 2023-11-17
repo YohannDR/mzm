@@ -402,7 +402,7 @@ SECTIONS {
         asm/disasm_0x08002a58.o(.text);
         asm/audio_internal.o(.text);
         asm/syscalls.o(.text);
-        asm/disasm_0x080051d4.o(.text);
+        src/sram/sram.o(.text);
         asm/disasm_0x08005368.o(.text);
         src/demo_input.o(.text);
         src/in_game.o(.text);
@@ -1519,6 +1519,8 @@ SECTIONS {
         audio/tracks/track_26.o(.rodata);
         audio/tracks/track_27.o(.rodata);
         audio/tracks/track_28.o(.rodata);
+
+        src/sram/sram.o(.rodata);
 
         src/data/samus/samus_empty_data.o(.rodata);
         src/data/samus/arm_cannon_data.o(.rodata);

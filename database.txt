@@ -4484,7 +4484,3 @@ io/rom.bin;8185;0x7566c4;4
 # Nes Metroid
 
 nes_metroid.bin;128816;0x7d8004;1
-
-# Blobs
-
-Blob_2320c8_2320e4.bin;28;0x2320c8;1

@@ -3,6 +3,8 @@
 #include "gba.h"
 #include "io.h"
 
+static const char sSramVersion[] = "SRAM_V113";
+
 static void SramWriteUncheckedInternal(u8 *src, u8 *dest, u32 size)
 {
     while (size-- != 0) {
