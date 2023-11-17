@@ -58,15 +58,5 @@ const struct TrackGroupROMData sMusicTrackDataRom[9] = {
         .pVariables = gTrack8Variables,
         .maxAmountOfTracks = 6,
         .unknonw_A = 1
-    },
-};
-
-const u8 sTempArray_8f2c0[0x1620] = INCBIN_U8("data/Blob_8f2c0_908df.bin");
-// const struct SoundEntry sSoundDataEntries[708] = {0};
-
-const u8 sSoundHeader_Empty[4] = {
-    0,
-    0,
-    0,
-    0
+    }
 };
