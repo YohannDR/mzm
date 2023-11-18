@@ -32,7 +32,7 @@ void RipperInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= PIXEL_SIZE * 2;
 
     SpriteUtilChooseRandomXFlip();
@@ -60,7 +60,7 @@ void RipperMove(void)
 {
     u16 speed;
 
-    if (gCurrentSprite.spriteID == PSPRITE_RIPPER_PURPLE)
+    if (gCurrentSprite.spriteId == PSPRITE_RIPPER_PURPLE)
         speed = 4;
     else
         speed = 2;

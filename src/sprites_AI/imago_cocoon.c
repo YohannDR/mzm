@@ -233,7 +233,7 @@ void ImagoCocoonInit(void)
 
         gCurrentSprite.drawOrder = 0x6;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
 
         gCurrentSprite.oamScaling = Q_8_8(1.f);
@@ -572,7 +572,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -588,7 +588,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -604,7 +604,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -620,7 +620,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -636,7 +636,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x7;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -652,7 +652,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x7;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -921,7 +921,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     ImagoCocoonSporeSyncPosition();
@@ -1140,7 +1140,7 @@ void WingedRipperInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.drawOrder = 0x8;
 
     gCurrentSprite.pose = WINGED_RIPPER_POSE_MOVING_INIT;

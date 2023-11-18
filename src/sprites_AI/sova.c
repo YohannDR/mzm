@@ -209,12 +209,12 @@ void SovaInit(void)
     SovaSetCrawlingOAM();
     SovaUpdateHitbox();
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-    if (gCurrentSprite.spriteID == PSPRITE_SOVA_ORANGE)
+    if (gCurrentSprite.spriteId == PSPRITE_SOVA_ORANGE)
     {
         gCurrentSprite.absolutePaletteRow = 0x1;
         gCurrentSprite.paletteRow = 0x1;
@@ -262,7 +262,7 @@ void SovaMove(void)
             speed = 0;
     }
 
-    if (gCurrentSprite.spriteID == PSPRITE_SOVA_ORANGE && speed != 0)
+    if (gCurrentSprite.spriteId == PSPRITE_SOVA_ORANGE && speed != 0)
         speed++;
 
     turning = FALSE;

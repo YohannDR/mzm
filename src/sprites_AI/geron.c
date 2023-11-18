@@ -35,14 +35,14 @@ void Geron(void)
         case SPRITE_POSE_UNINITIALIZED:
             destroyed = FALSE;
             // Check is destroyed
-            if (gCurrentSprite.spriteID == PSPRITE_GERON_BRINSTAR_ROOM_15)
+            if (gCurrentSprite.spriteId == PSPRITE_GERON_BRINSTAR_ROOM_15)
             {
                 if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_PLANT_DESTROYED_LAVA))
                     destroyed = FALSE;
                 else
                     destroyed = TRUE;
             }
-            else if (gCurrentSprite.spriteID == PSPRITE_GERON_BRINSTAR_ROOM_1C)
+            else if (gCurrentSprite.spriteId == PSPRITE_GERON_BRINSTAR_ROOM_1C)
             {
                 if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_HIGH_JUMP_OBTAINED))
                 {
@@ -53,17 +53,17 @@ void Geron(void)
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLANT_DESTROYED_POST_VARIA))
                     destroyed = TRUE;
             }
-            else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA1)
+            else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA1)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLANT_DESTROYED_VARIA2))
                     destroyed = TRUE;
             }
-            else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA2)
+            else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA2)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLANT_DESTROYED_VARIA3))
                     destroyed = TRUE;
             }
-            else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA3)
+            else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA3)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLANT_DESTROYED_VARIA1))
                     destroyed = TRUE;
@@ -215,15 +215,15 @@ void Geron(void)
                 ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition);
 
                 // Set event
-                if (gCurrentSprite.spriteID == PSPRITE_GERON_BRINSTAR_ROOM_15)
+                if (gCurrentSprite.spriteId == PSPRITE_GERON_BRINSTAR_ROOM_15)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_PLANT_DESTROYED_LAVA);
-                else if (gCurrentSprite.spriteID == PSPRITE_GERON_BRINSTAR_ROOM_1C)
+                else if (gCurrentSprite.spriteId == PSPRITE_GERON_BRINSTAR_ROOM_1C)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_PLANT_DESTROYED_POST_VARIA);
-                else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA1)
+                else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA1)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_PLANT_DESTROYED_VARIA2);
-                else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA2)
+                else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA2)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_PLANT_DESTROYED_VARIA3);
-                else if (gCurrentSprite.spriteID == PSPRITE_GERON_VARIA3)
+                else if (gCurrentSprite.spriteId == PSPRITE_GERON_VARIA3)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_PLANT_DESTROYED_VARIA1);
             }
             break;

@@ -67,7 +67,7 @@ void SqueeptInit(void)
     gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition += PIXEL_SIZE;
 
     // Save spawn Y

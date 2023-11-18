@@ -9,7 +9,7 @@ extern const u8 sOamXFlipOffsets[3][4];
 
 extern const u8 sOamYFlipOffsets[3][4];
 
-extern const u8 sSpriteRandomNumberTable[56];
+extern const u8 sSpriteRandomNumberTable[32];
 
 extern const s16 sSpritesFallingCeilingSpeed[16];
 

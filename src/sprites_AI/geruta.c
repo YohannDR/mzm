@@ -96,7 +96,7 @@ void GerutaInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.yPosition -= 0xC;
     gCurrentSprite.pose = GERUTA_POSE_IDLE_INIT;

@@ -31,7 +31,7 @@ void Zebetite(void)
         alreadyDead = FALSE;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-        switch (gCurrentSprite.spriteID)
+        switch (gCurrentSprite.spriteId)
         {
             case PSPRITE_ZEBETITE_ONE_AND_THREE:
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_ONE_DESTROYED))
@@ -78,7 +78,7 @@ void Zebetite(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.drawOrder = 5;
-        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.health = spawnHealth;
         gCurrentSprite.oamScaling = spawnHealth;
 
@@ -90,7 +90,7 @@ void Zebetite(void)
             gCurrentSprite.timer = ZEBETITE_HEAL_TIMER;
     }
 
-    maxHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    maxHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     phase = (maxHealth - gCurrentSprite.health) / ZEBETITE_HEALTH_THRESHOLD;
 
@@ -177,7 +177,7 @@ void Zebetite(void)
 
             SoundPlay(0x12F);
 
-            switch (gCurrentSprite.spriteID)
+            switch (gCurrentSprite.spriteId)
             {
                 case PSPRITE_ZEBETITE_ONE_AND_THREE:
                     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZEBETITE_ONE_DESTROYED))
@@ -328,7 +328,7 @@ void Cannon(void)
     spriteX = gCurrentSprite.xPositionSpawn;
     samusX = gSamusData.xPosition;
 
-    switch (gCurrentSprite.spriteID)
+    switch (gCurrentSprite.spriteId)
     {
         case PSPRITE_CANNON:
             range = QUARTER_BLOCK_SIZE + PIXEL_SIZE;

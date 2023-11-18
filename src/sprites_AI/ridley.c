@@ -516,7 +516,7 @@ void RidleyInit(void)
     gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
     gSubSpriteData1.xPosition = gCurrentSprite.xPosition;
 
-    health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.health = health;
     gSubSpriteData1.health = health;
 
@@ -2490,7 +2490,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT,4);
     gCurrentSprite.drawOrder = 2;
     
-    if (gCurrentSprite.spriteID == SSPRITE_RIDLEY_BIG_FIREBALL)
+    if (gCurrentSprite.spriteId == SSPRITE_RIDLEY_BIG_FIREBALL)
     {
         // Big fireball
         gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
@@ -2522,7 +2522,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.oamRotation = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -2773,12 +2773,12 @@ void Ridley(void)
     {
         if (gCurrentSprite.paletteRow != 0xE)
         {
-            if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) / 4)
+            if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) / 4)
             {
                 gCurrentSprite.paletteRow = 0x5;
                 gCurrentSprite.absolutePaletteRow = gCurrentSprite.paletteRow;
             }
-            else if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) / 2)
+            else if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) / 2)
             {
                 gCurrentSprite.paletteRow = 0x3;
                 gCurrentSprite.absolutePaletteRow = gCurrentSprite.paletteRow;
@@ -3056,7 +3056,7 @@ void RidleyFireball(void)
             return;
 
         default:
-            if (gCurrentSprite.spriteID == SSPRITE_RIDLEY_BIG_FIREBALL)
+            if (gCurrentSprite.spriteId == SSPRITE_RIDLEY_BIG_FIREBALL)
                 SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
             else
                 SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

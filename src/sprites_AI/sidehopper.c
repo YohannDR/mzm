@@ -72,7 +72,7 @@ void SidehopperInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     SpriteUtilChooseRandomXDirection();
 }
 

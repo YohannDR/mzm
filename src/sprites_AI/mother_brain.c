@@ -118,7 +118,7 @@ void MotherBrainInit(void)
         gCurrentSprite.hitboxRightOffset = 0x80;
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
         gCurrentSprite.timer = 0x0;
         gCurrentSprite.workVariable = 0x0;
@@ -487,7 +487,7 @@ void MotherBrainPartInit(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x6;
             gCurrentSprite.pose = 0xE;
-            health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.health = health;
             gBossWork.work3 = health;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;

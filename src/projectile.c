@@ -1496,9 +1496,9 @@ void ProjectileCheckHittingSprite(void)
 u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
-        return sPrimarySpriteStats[pSprite->spriteID][2]; // Offset 2 is weakness
+        return sPrimarySpriteStats[pSprite->spriteId][2]; // Offset 2 is weakness
     else
-        return sSecondarySpriteStats[pSprite->spriteID][2];
+        return sSecondarySpriteStats[pSprite->spriteId][2];
 }
 
 /**

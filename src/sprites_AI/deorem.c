@@ -318,7 +318,7 @@ void DeoremCallSpawnChargeBeam(void)
  */
 void DeoremInit(void)
 {
-    if (gCurrentSprite.spriteID == PSPRITE_DEOREM)
+    if (gCurrentSprite.spriteId == PSPRITE_DEOREM)
     {
         if (EventFunction(EVENT_ACTION_CHECKING,
             EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED))
@@ -372,7 +372,7 @@ void DeoremInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 10;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.timer = 0;
     gCurrentSprite.pose = DEOREM_POSE_SPAWN_GOING_DOWN;
     gCurrentSprite.oamRotation = 0;
@@ -1013,7 +1013,7 @@ void DeoremDying(void)
     EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
     EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
 
-    if (gCurrentSprite.spriteID == PSPRITE_DEOREM_SECOND_LOCATION)
+    if (gCurrentSprite.spriteId == PSPRITE_DEOREM_SECOND_LOCATION)
     {
         EventFuncion(EVENT_ACTION_SETTING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
     }
@@ -1099,7 +1099,7 @@ void DeoremLeaving(void)
         for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
         {
             if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && !(gSpriteData[i].properties & SP_SECONDARY_SPRITE) &&
-                (u8)(gSpriteData[i].spriteID - PSPRITE_LARGE_ENERGY_DROP) < 5) // Sprite is drop
+                (u8)(gSpriteData[i].spriteId - PSPRITE_LARGE_ENERGY_DROP) < 5) // Sprite is drop
                 return;
         }
 
@@ -1134,7 +1134,7 @@ void DeoremLeaving(void)
             DeoremRightChangeCCAA(CAA_REMOVE_SOLID);
             gLockScreen.lock = FALSE;
     
-            if (gCurrentSprite.spriteID == PSPRITE_DEOREM) // Leaving first location
+            if (gCurrentSprite.spriteId == PSPRITE_DEOREM) // Leaving first location
             {
                 EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
                 EventFunction(EVENT_ACTION_CLEARING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
@@ -2038,7 +2038,7 @@ void DeoremEyeInit(void)
     gCurrentSprite.oamScaling = 256;
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.drawOrder = 11;
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.drawDistanceTopOffset = 16;
     gCurrentSprite.drawDistanceBottomOffset = 16;
@@ -2362,7 +2362,7 @@ void DeoremThornInit(void)
     gCurrentSprite.pose = 9; // TODO: Pose names
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 3;
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
     
     if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0)
     {

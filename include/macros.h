@@ -42,6 +42,7 @@
 
 #define OPPOSITE_DIRECTION(dir) ((dir) ^ (KEY_RIGHT | KEY_LEFT))
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
+#define ARRAY_ACCESS(a, o) (a[(u32)(o) % ARRAY_SIZE(a)])
 #define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
 #define CLAMP(value, min, max)\
 {                             \
@@ -58,6 +59,7 @@
         value = (max);         \
 }
 
+#define CEIL(v) ((int)(((float)v) + .5) == (int)(v) ? ((int)(v)) : (int)(((float)v) + .5))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
@@ -158,6 +160,12 @@
 #define BLOCK_TO_SUB_PIXEL(block) ((block) * BLOCK_SIZE)
 #define VELOCITY_TO_SUB_PIXEL(velocity) (DIV_SHIFT((velocity), 8))
 #define SUB_PIXEL_TO_VELOCITY(velocity) ((s16)((velocity) * 8))
+
+#define SCREEN_SIZE_X_SUB_PIXEL (PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_X))
+#define SCREEN_SIZE_Y_SUB_PIXEL (PIXEL_TO_SUB_PIXEL(SCREEN_SIZE_Y))
+
+#define SCREEN_SIZE_X_BLOCKS (SUB_PIXEL_TO_BLOCK(SCREEN_SIZE_X_SUB_PIXEL))
+#define SCREEN_SIZE_Y_BLOCKS (SUB_PIXEL_TO_BLOCK(SCREEN_SIZE_Y_SUB_PIXEL))
 
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)

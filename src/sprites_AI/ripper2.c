@@ -32,7 +32,7 @@ void Ripper2Init(void)
     gCurrentSprite.currentAnimationFrame = 0;
     
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= PIXEL_SIZE * 2;
 
     SpriteUtilChooseRandomXFlip();

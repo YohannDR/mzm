@@ -294,7 +294,7 @@ void AcidWormInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     
     gCurrentSprite.samusCollision = SSC_ACID_WORM_MOUTH;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
@@ -604,7 +604,7 @@ void AcidWormExtend(void)
     u8 speed;
     u8 checks;
 
-    spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     if (gCurrentSprite.timer != 0)
     {
         // Delay before moving
@@ -940,7 +940,7 @@ void AcidWormRetracting(void)
 
     if (checks == 3) // Check everything done
     {
-        if (gCurrentSprite.health <= GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) / 2 && gDifficulty != DIFF_EASY)
+        if (gCurrentSprite.health <= GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) / 2 && gDifficulty != DIFF_EASY)
         {
             gCurrentSprite.status ^= SPRITE_STATUS_MOSAIC;
 
@@ -1371,9 +1371,9 @@ void AcidWormBodyMainLoop(void)
             gSpriteData[slot].health -= health2;
             gCurrentSprite.health = 0x400;
             
-            if (gSpriteData[slot].health <= GET_PSPRITE_HEALTH(gSpriteData[slot].spriteID / 4))
+            if (gSpriteData[slot].health <= GET_PSPRITE_HEALTH(gSpriteData[slot].spriteId / 4))
                 gSpriteData[slot].absolutePaletteRow = 2;
-            else if (gSpriteData[slot].health <= DIV_SHIFT(GET_PSPRITE_HEALTH(gSpriteData[slot].spriteID), 2))
+            else if (gSpriteData[slot].health <= DIV_SHIFT(GET_PSPRITE_HEALTH(gSpriteData[slot].spriteId), 2))
                 gSpriteData[slot].absolutePaletteRow = 1;
 
             SoundPlay(0x1BC);
@@ -1477,7 +1477,7 @@ void AcidWormSpitInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.drawOrder = 3;
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.pose = 0x9;

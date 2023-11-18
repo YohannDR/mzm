@@ -37,7 +37,7 @@ u8 BaristuteCheckSamusInRange(void)
 void BaristuteInit(void)
 {
     // Check for kraid baristutes
-    if (gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_UPPER || gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_LOWER)
+    if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER || gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_BARISTUTES_KILLED))
         {
@@ -65,7 +65,7 @@ void BaristuteInit(void)
     gCurrentSprite.hitboxRightOffset = 0x54;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     SpriteUtilMakeSpriteFaceSamusDirection();
 }
 
@@ -260,9 +260,9 @@ void BaristuteIdle(void)
                 ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
                 : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
             {
-                if (gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_UPPER)
+                if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
                     gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
-                else if (gCurrentSprite.spriteID != PSPRITE_BARISTUTE_KRAID_LOWER)
+                else if (gCurrentSprite.spriteId != PSPRITE_BARISTUTE_KRAID_LOWER)
                 {
                     if (gCurrentSprite.workVariable > 0x1)
                         gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
@@ -454,7 +454,7 @@ void BaristuteFalling(void)
  */
 void BaristuteDeath(void)
 {
-    u8 spriteID;
+    u8 spriteId;
     struct SpriteData* pSprite;
     u8 count;
     u16 yPosition;
@@ -464,20 +464,20 @@ void BaristuteDeath(void)
     // Check for the second baristute in Kraid
 
     // Get sprite ID
-    spriteID = 0x0;
-    if (gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_UPPER)
-        spriteID = PSPRITE_BARISTUTE_KRAID_LOWER;
-    else if (gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_LOWER)
-        spriteID = PSPRITE_BARISTUTE_KRAID_UPPER;
+    spriteId = 0x0;
+    if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
+        spriteId = PSPRITE_BARISTUTE_KRAID_LOWER;
+    else if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)
+        spriteId = PSPRITE_BARISTUTE_KRAID_UPPER;
 
-    if (spriteID != 0x0)
+    if (spriteId != 0x0)
     {
         // Check if dead
         count = 0x0;
         for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
         {
             if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE)
-                && pSprite->spriteID == spriteID && pSprite->health != 0x0)
+                && pSprite->spriteId == spriteId && pSprite->health != 0x0)
                 count++; // Baristute found
         }
 
@@ -501,18 +501,18 @@ void BaristuteDeath(void)
     {
         // Has drop, spawn 2 other drops
         if (gSpriteRng & 0x1)
-            spriteID = PSPRITE_LARGE_ENERGY_DROP;
+            spriteId = PSPRITE_LARGE_ENERGY_DROP;
         else
-            spriteID = PSPRITE_MISSILE_DROP;
+            spriteId = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
+        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
         
         if (sRandomNumberTable[gSpriteRng] & 0x1)
-            spriteID = PSPRITE_LARGE_ENERGY_DROP;
+            spriteId = PSPRITE_LARGE_ENERGY_DROP;
         else
-            spriteID = PSPRITE_MISSILE_DROP;
+            spriteId = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition + 0x14 - rng, xPosition - 0x48 + rng, 0x0);
+        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition + 0x14 - rng, xPosition - 0x48 + rng, 0x0);
     }
 }
 
@@ -537,7 +537,7 @@ void Baristute(void)
     if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
         // Damaged
-        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         health = gCurrentSprite.health;
 
         if (health <= spawnHealth / 4)

@@ -37,7 +37,7 @@ void SpawnChozoStatueMovement(u8 stage)
 
         gSpriteData[i].properties = SP_ALWAYS_ACTIVE | SP_SECONDARY_SPRITE;
         gSpriteData[i].spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
-        gSpriteData[i].spriteID = SSPRITE_CHOZO_STATUE_MOVEMENT;
+        gSpriteData[i].spriteId = SSPRITE_CHOZO_STATUE_MOVEMENT;
 
         gSpriteData[i].yPosition = gCurrentSprite.yPosition;
         gSpriteData[i].xPosition = gCurrentSprite.xPosition;

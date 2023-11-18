@@ -172,13 +172,13 @@ void ZoomerInit(void)
     ZoomerSetCrawlingOAM();
     ZoomerUpdateHitbox();
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     // Check set other palette
-    if (gCurrentSprite.spriteID == PSPRITE_ZOOMER_RED)
+    if (gCurrentSprite.spriteId == PSPRITE_ZOOMER_RED)
     {
         gCurrentSprite.absolutePaletteRow = 0x1;
         gCurrentSprite.paletteRow = 0x1;
@@ -205,7 +205,7 @@ void ZoomerCrawling(void)
     u8 turning;
     u8 collision;
 
-    if (gCurrentSprite.spriteID == PSPRITE_ZOOMER_RED)
+    if (gCurrentSprite.spriteId == PSPRITE_ZOOMER_RED)
         speed = 0x3;
     else
         speed = 0x2;

@@ -88,7 +88,7 @@ void WorkerRobotInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samusCollision = SSC_SOLID;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
 

@@ -25,7 +25,7 @@ void GadoraInit(void)
     u8 ramSlot;
 
     // Check isn't already dead
-    if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
+    if (gCurrentSprite.spriteId == PSPRITE_GADORA_KRAID)
     {
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_GADORA_KILLED))
         {
@@ -37,7 +37,7 @@ void GadoraInit(void)
             return;
         }
     }
-    else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY && EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_GADORA_KILLED))
+    else if (gCurrentSprite.spriteId == PSPRITE_GADORA_RIDLEY && EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_GADORA_KILLED))
     {
         gCurrentSprite.status = 0;
         return;
@@ -84,10 +84,10 @@ void GadoraInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 5;
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     // Change palette if ridley gadora
-    if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
+    if (gCurrentSprite.spriteId == PSPRITE_GADORA_RIDLEY)
     {
         gCurrentSprite.absolutePaletteRow = 1;
         gCurrentSprite.paletteRow = 1;
@@ -170,7 +170,7 @@ void GadoraCheckOpeningEyeAnimEnded(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.timer = 0x3C; // Timer for how long to stay open
-        if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
+        if (gCurrentSprite.spriteId == PSPRITE_GADORA_RIDLEY)
         {
             gCurrentSprite.timer = 0x58; // Longer timer because of beam
 
@@ -285,9 +285,9 @@ void GadoraDeath(void)
         GadoraHatchUpdate(xPosition, yPosition, TRUE);
 
         // Set event
-        if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
+        if (gCurrentSprite.spriteId == PSPRITE_GADORA_KRAID)
             EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_GADORA_KILLED);
-        else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
+        else if (gCurrentSprite.spriteId == PSPRITE_GADORA_RIDLEY)
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_GADORA_KILLED);
 
         rng = gSpriteRng;
@@ -384,7 +384,7 @@ void GadoraEye(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
 
-            if (gSpriteData[ramSlot].spriteID == PSPRITE_GADORA_KRAID)
+            if (gSpriteData[ramSlot].spriteId == PSPRITE_GADORA_KRAID)
             {
                 gCurrentSprite.health = 1;
             }
@@ -392,7 +392,7 @@ void GadoraEye(void)
             {
                 gCurrentSprite.absolutePaletteRow = 1;
                 gCurrentSprite.paletteRow = 1;
-                gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+                gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             }
 
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);

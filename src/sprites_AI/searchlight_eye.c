@@ -45,7 +45,7 @@ void SearchlightEyeInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     // Set direction
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition + BLOCK_SIZE) != COLLISION_AIR)
@@ -58,7 +58,7 @@ void SearchlightEyeInit(void)
         gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
     }
 
-    if (gCurrentSprite.spriteID == PSPRITE_SEARCHLIGHT_EYE)
+    if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT_EYE)
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 
     if (gAlarmTimer != 0)

@@ -26,7 +26,7 @@ void Steam(void)
         gCurrentSprite.pose = STEAM_POSE_IDLE;
 
         // Check is large
-        if (gCurrentSprite.spriteID == PSPRITE_STEAM_LARGE)
+        if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE)
             isLarge = TRUE;
 
         gCurrentSprite.workVariable = isLarge;
@@ -183,7 +183,7 @@ void SteamDiagonal(void)
         if (!(collision & COLLISION_FLAGS_UNKNOWN))
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP; // Flip if wall on left
 
-        if (gCurrentSprite.spriteID == PSPRITE_STEAM_LARGE_DIAGONAL_UP)
+        if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_UP)
         {
             gCurrentSprite.workVariable = TRUE; // Is large flag
 
@@ -192,14 +192,14 @@ void SteamDiagonal(void)
             gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
             gCurrentSprite.pOam = sSteamDiagonalOam_Large;
         }
-        else if (gCurrentSprite.spriteID == PSPRITE_STEAM_SMALL_DIAGONAL_UP)
+        else if (gCurrentSprite.spriteId == PSPRITE_STEAM_SMALL_DIAGONAL_UP)
         {
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.pOam = sSteamDiagonalOam_Small;
         }
-        else if (gCurrentSprite.spriteID == PSPRITE_STEAM_LARGE_DIAGONAL_DOWN)
+        else if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_DOWN)
         {
             gCurrentSprite.workVariable = TRUE; // Is large flag
 
@@ -209,7 +209,7 @@ void SteamDiagonal(void)
             gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
             gCurrentSprite.pOam = sSteamDiagonalOam_Large;
         }
-        else if (gCurrentSprite.spriteID == PSPRITE_STEAM_SMALL_DIAGONAL_DOWN)
+        else if (gCurrentSprite.spriteId == PSPRITE_STEAM_SMALL_DIAGONAL_DOWN)
         {
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);

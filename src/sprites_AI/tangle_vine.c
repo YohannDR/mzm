@@ -71,7 +71,7 @@ void TangleVineGeruta(void)
         gCurrentSprite.hitboxLeftOffset = -0x1C;
         gCurrentSprite.hitboxRightOffset = 0x1C;
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         gCurrentSprite.pose = 0x9;
 
@@ -242,7 +242,7 @@ void TangleVineRedGeruta(void)
         gCurrentSprite.hitboxRightOffset = 0x24;
 
         gCurrentSprite.pOam = sTangleVineRedGerutaOAM;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -287,7 +287,7 @@ void TangleVineLarvaRight(void)
         gCurrentSprite.hitboxRightOffset = 0x24;
 
         gCurrentSprite.pOam = sTangleVineLarvaRightOAM;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -331,7 +331,7 @@ void TangleVineLarvaLeft(void)
         gCurrentSprite.hitboxRightOffset = 0x0;
 
         gCurrentSprite.pOam = sTangleVineLarvaLeftOAM;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -396,7 +396,7 @@ void TangleVineTall(void)
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -463,7 +463,7 @@ void TangleVineMedium(void)
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -530,7 +530,7 @@ void TangleVineCurved(void)
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -597,7 +597,7 @@ void TangleVineShort(void)
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
         gCurrentSprite.currentAnimationFrame = 0x0;

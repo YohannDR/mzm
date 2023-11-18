@@ -237,7 +237,7 @@ void ImagoInit(void)
 
         gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
         gCurrentSprite.timer = 0x50;
-        health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.health = health;
         gSubSpriteData1.health = health;
 
@@ -1498,7 +1498,7 @@ void ImagoNeedle(void)
             gCurrentSprite.hitboxLeftOffset = -0xC;
             gCurrentSprite.hitboxRightOffset = 0xC;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.pOam = sImagoNeedleOAM;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;

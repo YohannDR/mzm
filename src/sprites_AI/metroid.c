@@ -571,7 +571,7 @@ void MetroidInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPositionSpawn = gCurrentSprite.health;
     gCurrentSprite.samusCollision = SSC_NONE;
     SpriteUtilMakeSpriteFaceSamusDirection();
@@ -867,7 +867,7 @@ void MetroidDeath(void)
         if (pSprite->properties & secondary)
             continue;
 
-        if ((pSprite->spriteID == metroidID || pSprite->spriteID == frozenID) && pSprite->pose < pose)
+        if ((pSprite->spriteId == metroidID || pSprite->spriteId == frozenID) && pSprite->pose < pose)
         {
             // Found an alive metroid, abort
             isMetroidAlive++;
@@ -954,11 +954,11 @@ void Metroid(void)
         else
             SpriteUtilMetroidUnfreezeAnim();
 
-        gCurrentSprite.spriteID = PSPRITE_FROZEN_METROID;
+        gCurrentSprite.spriteId = PSPRITE_FROZEN_METROID;
         return;
     }
 
-    if (gCurrentSprite.spriteID == PSPRITE_FROZEN_METROID)
+    if (gCurrentSprite.spriteId == PSPRITE_FROZEN_METROID)
     {
         // Unfreeze, set movement behavior
         gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
@@ -966,7 +966,7 @@ void Metroid(void)
         gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
         gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
-        gCurrentSprite.spriteID = PSPRITE_METROID;
+        gCurrentSprite.spriteId = PSPRITE_METROID;
 
         if (gCurrentSprite.pose < METROID_POSE_DEATH)
             gCurrentSprite.pose = METROID_POSE_MOVING_INIT;
@@ -1033,7 +1033,7 @@ void MetroidShell(void)
         else
             yPosition += rng;
 
-        gCurrentSprite.spriteID = PSPRITE_METROID;
+        gCurrentSprite.spriteId = PSPRITE_METROID;
         gCurrentSprite.properties &= ~SP_SECONDARY_SPRITE;
         SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE), TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
         return;

@@ -27,7 +27,7 @@ void PolypInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     gCurrentSprite.samusCollision = SSC_KNOCKS_BACK_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 }
 
 /**
@@ -175,7 +175,7 @@ void PolypProjectileInit(void)
     gCurrentSprite.pose = POLYP_PROJECTILE_POSE_SPAWN;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 5;
-    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     // Try set same direction samus
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 8 + HALF_BLOCK_SIZE + PIXEL_SIZE + PIXEL_SIZE / 2);

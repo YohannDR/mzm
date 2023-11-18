@@ -27,7 +27,7 @@ void ZebInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -149,7 +149,7 @@ void ZebRespawn(void)
     ZebIdleInit();
 
     gCurrentSprite.workVariable = 0x3C;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;

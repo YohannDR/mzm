@@ -79,7 +79,7 @@ void ImagoLarvaUpdatePalette(void)
  */
 void ImagoLarvaInit(struct SubSpriteData* pSub)
 {
-    u8 spriteID;
+    u8 spriteId;
     u16 health;
     u16 yPosition;
     u16 xPosition;
@@ -104,8 +104,8 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     xPosition = pSub->xPosition;
     gCurrentSprite.xPositionSpawn = xPosition;
 
-    spriteID = gCurrentSprite.spriteID;
-    if (spriteID == PSPRITE_IMAGO_LARVA_LEFT)
+    spriteId = gCurrentSprite.spriteId;
+    if (spriteId == PSPRITE_IMAGO_LARVA_LEFT)
     {
         // Left larva
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -146,7 +146,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     gCurrentSprite.samusCollision = SSC_NONE;
 
     // Set spawn health
-    health = GET_PSPRITE_HEALTH(spriteID);
+    health = GET_PSPRITE_HEALTH(spriteId);
     gCurrentSprite.health = health;
     pSub->health = health;
 
@@ -422,7 +422,7 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
     SoundFade(0xAE, 10);
     SoundPlay(0xB0);
 
-    if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
+    if (gCurrentSprite.spriteId == PSPRITE_IMAGO_LARVA_RIGHT)
         FadeMusic(10);
 }
 
@@ -457,7 +457,7 @@ void ImagoLarvaDeath(struct SubSpriteData* pSub)
     if (gCurrentSprite.timer != 0)
         return;
 
-    if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
+    if (gCurrentSprite.spriteId == PSPRITE_IMAGO_LARVA_RIGHT)
     {
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
@@ -617,7 +617,7 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
         }
     }
 
-    if (gSpriteData[ramSlot].spriteID == PSPRITE_IMAGO_LARVA_LEFT)
+    if (gSpriteData[ramSlot].spriteId == PSPRITE_IMAGO_LARVA_LEFT)
     {
         // If samus is below the left larva, slightly extend its hitbox downwards
         // This allows for the larva to be hit with precise missile shots
@@ -866,7 +866,7 @@ void ImagoLarva(void)
     struct SubSpriteData* pSub;
 
     // Get sub sprite data pointer
-    if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_LEFT)
+    if (gCurrentSprite.spriteId == PSPRITE_IMAGO_LARVA_LEFT)
         pSub = &gSubSpriteData2;
     else
         pSub = &gSubSpriteData1;
@@ -975,7 +975,7 @@ void ImagoLarvaPart(void)
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Get sub sprite data pointer
-    if (gSpriteData[ramSlot].spriteID == PSPRITE_IMAGO_LARVA_LEFT)
+    if (gSpriteData[ramSlot].spriteId == PSPRITE_IMAGO_LARVA_LEFT)
         pSub = &gSubSpriteData2;
     else
         pSub = &gSubSpriteData1;

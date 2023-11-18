@@ -29,7 +29,7 @@ void SkreeInit(void)
     gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
     gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= BLOCK_SIZE;
 }
 
@@ -187,7 +187,7 @@ void SkreeCrashGround(void)
     u16 xPosition;
     u8 gfxSlot;
     u8 ramSlot;
-    u8 spriteID;
+    u8 spriteId;
 
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -216,21 +216,21 @@ void SkreeCrashGround(void)
             gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-            if (gCurrentSprite.spriteID == PSPRITE_SKREE_BLUE)
-                spriteID = SSPRITE_BLUE_SKREE_EXPLOSION;
+            if (gCurrentSprite.spriteId == PSPRITE_SKREE_BLUE)
+                spriteId = SSPRITE_BLUE_SKREE_EXPLOSION;
             else
-                spriteID = SSPRITE_SKREE_EXPLOSION;
+                spriteId = SSPRITE_SKREE_EXPLOSION;
             
-            SpriteSpawnSecondary(spriteID, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
+            SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
                 yPosition - (PIXEL_SIZE * 2), xPosition, 0);
 
-            SpriteSpawnSecondary(spriteID, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
+            SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
                 yPosition - (PIXEL_SIZE * 2), xPosition, SPRITE_STATUS_XFLIP);
 
-            SpriteSpawnSecondary(spriteID, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
+            SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
                 yPosition + (PIXEL_SIZE * 2), xPosition - (PIXEL_SIZE * 3), 0);
 
-            SpriteSpawnSecondary(spriteID, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
+            SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
                 yPosition + (PIXEL_SIZE * 2), xPosition + (PIXEL_SIZE * 3), SPRITE_STATUS_XFLIP);
 
            

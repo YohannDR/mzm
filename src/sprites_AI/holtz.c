@@ -131,7 +131,7 @@ void HoltzInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.pose = HOLTZ_POSE_IDLE_INIT;
     gCurrentSprite.arrayOffset = 0x0;

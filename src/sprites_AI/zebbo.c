@@ -27,7 +27,7 @@ void ZebboInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= 0x20;
     gCurrentSprite.xPosition += 0x20;
@@ -66,13 +66,13 @@ void ZebboIdle(void)
     u8 ramSlot;
     s32 distance;
 
-    if (gCurrentSprite.spriteID == PSPRITE_ZEBBO_GREEN_FOLLOWER)
+    if (gCurrentSprite.spriteId == PSPRITE_ZEBBO_GREEN_FOLLOWER)
     {
         // Directly go up if follower
         gCurrentSprite.pose = ZEBBO_POSE_GOING_UP;
         gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
-    else if ((gCurrentSprite.spriteID != PSPRITE_ZEBBO_GREEN_LEADER ||
+    else if ((gCurrentSprite.spriteId != PSPRITE_ZEBBO_GREEN_LEADER ||
         SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_ZEBBO_GREEN_FOLLOWER) == 0x0)
         && !SpriteUtilCheckHasDrops())
     {
@@ -104,7 +104,7 @@ void ZebboIdle(void)
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                         SoundPlay(0x162);
     
-                    if (gCurrentSprite.spriteID == PSPRITE_ZEBBO_GREEN_LEADER)
+                    if (gCurrentSprite.spriteId == PSPRITE_ZEBBO_GREEN_LEADER)
                     {
                         // First follower
                         ramSlot = SpriteSpawnDropFollowers(PSPRITE_ZEBBO_GREEN_FOLLOWER, gCurrentSprite.roomSlot,
@@ -178,7 +178,7 @@ void ZebboGoingUp(void)
  */
 void ZebboRespawn(void)
 {
-    if (gCurrentSprite.spriteID == PSPRITE_ZEBBO_GREEN_FOLLOWER)
+    if (gCurrentSprite.spriteId == PSPRITE_ZEBBO_GREEN_FOLLOWER)
         gCurrentSprite.status = 0x0; // Kill if not leader
     else
     {
@@ -189,7 +189,7 @@ void ZebboRespawn(void)
         ZebboIdleInit();
 
         gCurrentSprite.workVariable = 0x3C;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.invincibilityStunFlashTimer = 0x0;
         gCurrentSprite.paletteRow = 0x0;

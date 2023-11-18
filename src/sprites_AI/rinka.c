@@ -32,7 +32,7 @@ void RinkaInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Get spawn tile position
@@ -44,7 +44,7 @@ void RinkaInit(void)
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.workVariable = 0x0;
 
-    if (gCurrentSprite.spriteID != PSPRITE_RINKA_GREEN && gCurrentSprite.spriteID != PSPRITE_RINKA_ORANGE)
+    if (gCurrentSprite.spriteId != PSPRITE_RINKA_GREEN && gCurrentSprite.spriteId != PSPRITE_RINKA_ORANGE)
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
 }
 
@@ -58,7 +58,7 @@ void RinkaSpawningInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
 
-    if (gCurrentSprite.spriteID == PSPRITE_RINKA_GREEN)
+    if (gCurrentSprite.spriteId == PSPRITE_RINKA_GREEN)
     {
         gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
         gCurrentSprite.pOam = sRinkaGreenOAM_Spawning;
@@ -78,7 +78,7 @@ void RinkaRespawn(void)
     gCurrentSprite.xPosition = (gCurrentSprite.workVariable2 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
 
     RinkaSpawningInit();
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;
@@ -140,7 +140,7 @@ void RinkaSpawning(void)
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                if (gCurrentSprite.spriteID == PSPRITE_RINKA_GREEN)
+                if (gCurrentSprite.spriteId == PSPRITE_RINKA_GREEN)
                     gCurrentSprite.pOam = sRinkaGreenOAM_Moving;
                 else
                     gCurrentSprite.pOam = sRinkaOrangeOAM_Moving;
@@ -324,7 +324,7 @@ void RinkaMotherBrainRespawn(void)
     samusX = gSamusData.xPosition;
 
     // Check should be first or second place
-    switch (gCurrentSprite.spriteID)
+    switch (gCurrentSprite.spriteId)
     {
         case PSPRITE_RINKA_MOTHER_BRAIN2:
             offset = 0x28;
@@ -387,7 +387,7 @@ void RinkaMotherBrainRespawn(void)
     gCurrentSprite.yPosition = spriteY;
     gCurrentSprite.xPosition = spriteX;
     RinkaMotherBrainSpawningInit();
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -505,7 +505,7 @@ void RinkaMotherBrainMove(void)
     tileY = gCurrentSprite.arrayOffset;
 
     // Check spawn at second place
-    switch (gCurrentSprite.spriteID)
+    switch (gCurrentSprite.spriteId)
     {
         case PSPRITE_RINKA_MOTHER_BRAIN2:
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)

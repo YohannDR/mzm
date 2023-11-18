@@ -61,7 +61,7 @@ void CrocomireInit(void)
     gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 2;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gSubSpriteData1.pMultiOam = sCrocomireMultiSpriteData_Screaming;
     gSubSpriteData1.animationDurationCounter = 0;

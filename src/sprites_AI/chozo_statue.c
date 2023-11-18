@@ -50,11 +50,11 @@ void ChozoStatueSyncSubSprites(void)
 /**
  * @brief 138d8 | 30c | Registers a chozo statue item/hint
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  */
-void ChozoStatueRegisterItem(u8 spriteID)
+void ChozoStatueRegisterItem(u8 spriteId)
 {
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_LONG:
             gEquipment.beamBombs |= BBF_LONG_BEAM;
@@ -138,7 +138,7 @@ void ChozoStatueRegisterItem(u8 spriteID)
  */
 void ChozoStatueSetDirection(void)
 {
-    switch (gCurrentSprite.spriteID)
+    switch (gCurrentSprite.spriteId)
     {
         case PSPRITE_CHOZO_STATUE_LONG:
         case PSPRITE_CHOZO_STATUE_ICE_HINT:
@@ -169,16 +169,16 @@ void ChozoStatueSetDirection(void)
 /**
  * @brief 13de0 | 2bc | Gets the behavior of the chozo statue with the ID in parameter
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  * @return u8 Behavior
  */
-u8 ChozoStatueGetBehavior(u8 spriteID)
+u8 ChozoStatueGetBehavior(u8 spriteId)
 {
     u8 behavior;
 
     behavior = CHOZO_STATUE_BEHAVIOR_ITEM;
 
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_LONG_HINT:
             if (EventFunction(EVENT_ACTION_CHECKING, EVENT_STATUE_LONG_BEAM_GRABBED))
@@ -336,7 +336,7 @@ void ChozoStatueInit(void)
     gSubSpriteData1.workVariable2 = 0x0;
     gSubSpriteData1.workVariable3 = FALSE;
 
-    behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteID);
+    behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteId);
     if (behavior > CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Is hint
@@ -435,14 +435,14 @@ void ChozoStatueRegisterHint(void)
     gCurrentSprite.workVariable2 = 0xC;
     gCurrentSprite.arrayOffset = 0x0;
 
-    if (gCurrentSprite.spriteID == PSPRITE_CHOZO_STATUE_LONG_HINT)
+    if (gCurrentSprite.spriteId == PSPRITE_CHOZO_STATUE_LONG_HINT)
     {
         MakeBackgroundFlash(BG_FLASH_CHOZO_LONG_TRANSPARENCY);
         gCurrentSprite.timer += 0x28;
     }
 
     // Register hint
-    ChozoStatueRegisterItem(gCurrentSprite.spriteID);
+    ChozoStatueRegisterItem(gCurrentSprite.spriteId);
     FadeMusic(0x3C);
 }
 
@@ -557,7 +557,7 @@ void ChozoStatueDelayBeforeRefillAfterHint(void)
 void ChozoStatueWaitForItemToBeCollected(void)
 {
     // Check behavior
-    if (ChozoStatueGetBehavior(gCurrentSprite.spriteID) == CHOZO_STATUE_BEHAVIOR_REFILL)
+    if (ChozoStatueGetBehavior(gCurrentSprite.spriteId) == CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Hint behavior, thus item was took
         gCurrentSprite.pose = CHOZO_STATUE_POSE_TIMER_AFTER_ITEM;
@@ -670,7 +670,7 @@ void ChozoStatuePartInit(void)
     gCurrentSprite.hitboxLeftOffset = 0x4;
     gCurrentSprite.hitboxRightOffset = 0x4;
 
-    behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID);
+    behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId);
 
     switch (gCurrentSprite.roomSlot)
     {
@@ -871,7 +871,7 @@ void ChozoStatuePartArmCheckGrabSamusRefill(void)
 
     // Update OAM
     if (gCurrentSprite.pOam == sChozoStatuePartOAM_ArmIdle && gPreventMovementTimer == 0x0 &&
-        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID) != CHOZO_STATUE_BEHAVIOR_ITEM)
+        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId) != CHOZO_STATUE_BEHAVIOR_ITEM)
         gCurrentSprite.pOam = sChozoStatuePartOAM_ArmGlow;
 
     isGrabbed = FALSE;

@@ -15,13 +15,13 @@
 /**
  * 162b0 | 94 | Spawns an item banner depending on the chozo statue sprite ID
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSpawnItemBanner(u8 spriteID)
+void ChozoBallSpawnItemBanner(u8 spriteId)
 {
     u8 text;
 
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_LONG:
             text = MESSAGE_LONG_BEAM;
@@ -74,11 +74,11 @@ void ChozoBallSpawnItemBanner(u8 spriteID)
 /**
  * @brief 16344 | 64 | Sets the closed OAM of a chozo ball based on the sprite ID
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetClosedOAM(u8 spriteID)
+void ChozoBallSetClosedOAM(u8 spriteId)
 {
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
             gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
@@ -111,11 +111,11 @@ void ChozoBallSetClosedOAM(u8 spriteID)
 /**
  * @brief 163a8 | 64 | Sets the revealing OAM of a chozo ball based on the sprite ID
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetRevealingOAM(u8 spriteID)
+void ChozoBallSetRevealingOAM(u8 spriteId)
 {
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
             gCurrentSprite.pOam = sChozoBallOam_UnknownRevealing;
@@ -148,11 +148,11 @@ void ChozoBallSetRevealingOAM(u8 spriteID)
 /**
  * @brief 1640c | 64 | Sets the revealed OAM of a chozo ball based on the sprite ID
  * 
- * @param spriteID Chozo statue sprite ID
+ * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetRevealedOAM(u8 spriteID)
+void ChozoBallSetRevealedOAM(u8 spriteId)
 {
-    switch (spriteID)
+    switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
             gCurrentSprite.pOam = sChozoBallOam_UnknownRevealed;
@@ -206,7 +206,7 @@ void ChozoBallInit(void)
     gCurrentSprite.health = 1;
     gCurrentSprite.pose = CHOZO_BALL_POSE_DO_NOTHING;
 
-    ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
+    ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
 }
 
 /**
@@ -235,7 +235,7 @@ void ChozoBallRevealingInit(void)
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     SPRITE_CLEAR_ISFT(gCurrentSprite);
 
-    ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
+    ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
     SoundPlay(0x11D);
 }
 
@@ -251,7 +251,7 @@ void ChozoBallCheckRevealingAnimEnded(void)
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
+        ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
     }
 }
 
@@ -261,7 +261,7 @@ void ChozoBallCheckRevealingAnimEnded(void)
  */
 void ChozoBallRegisterItem(void)
 {
-    u8 spriteID;
+    u8 spriteId;
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
@@ -272,9 +272,9 @@ void ChozoBallRegisterItem(void)
         gCurrentSprite.pose = CHOZO_BALL_POSE_GETTING;
         gCurrentSprite.timer = 0;
 
-        spriteID = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID;
-        ChozoStatueRegisterItem(spriteID);
-        ChozoBallSpawnItemBanner(spriteID);
+        spriteId = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId;
+        ChozoStatueRegisterItem(spriteId);
+        ChozoBallSpawnItemBanner(spriteId);
     }
 }
 

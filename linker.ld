@@ -405,14 +405,12 @@ SECTIONS {
         asm/syscalls.o(.text);
 
         src/sram/sram.o(.text);
-
-        /* asm/disasm_0x08005368.o(.text); */
         src/samus.o(.text);
-
         src/demo_input.o(.text);
         src/in_game.o(.text);
+        src/sprite.o(.text);
 
-        asm/disasm_0x0800c4b4.o(.text);
+        asm/disasm_0x0800e498.o(.text);
 
         src/sprite_debris.o(.text);
         src/location_text.o(.text);

@@ -66,7 +66,7 @@ void ViolaInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
@@ -78,7 +78,7 @@ void ViolaInit(void)
     gCurrentSprite.hitboxRightOffset = 0x14;
 
     // Set speed
-    if (gCurrentSprite.spriteID == PSPRITE_VIOLA_ORANGE)
+    if (gCurrentSprite.spriteId == PSPRITE_VIOLA_ORANGE)
         gCurrentSprite.workVariable2 = 0x4;
     else
         gCurrentSprite.workVariable2 = 0x2;

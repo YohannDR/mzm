@@ -56,9 +56,9 @@
 #define CHOZO_BALL_POSE_REVEALING 0x67
 
 void ChozoStatueSyncSubSprites(void);
-void ChozoStatueRegisterItem(u8 spriteID);
+void ChozoStatueRegisterItem(u8 spriteId);
 void ChozoStatueSetDirection(void);
-u8 ChozoStatueGetBehavior(u8 spriteID);
+u8 ChozoStatueGetBehavior(u8 spriteId);
 void ChozoStatueInit(void);
 void ChozoStatue_Empty(void);
 void ChozoStatueRegisterHint(void);

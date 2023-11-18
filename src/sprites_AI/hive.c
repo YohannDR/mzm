@@ -64,7 +64,7 @@ void HiveInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.drawOrder = 5;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.pose = 9;
     gCurrentSprite.timer = 0;
     
@@ -124,7 +124,7 @@ void HivePhase1(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) >> 0x1)
+    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) >> 0x1)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
         gCurrentSprite.pOam = sHiveOAM_Phase2;
@@ -148,7 +148,7 @@ void HivePhase2(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) >> 0x2)
+    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteId) >> 0x2)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x3;
         gCurrentSprite.pOam = sHiveOAM_Phase3;
@@ -191,7 +191,7 @@ void HiveDying(void)
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE)
-            && pSprite->spriteID == param && pSprite->health != 0x0)
+            && pSprite->spriteId == param && pSprite->health != 0x0)
             count++;
     }
 
@@ -302,7 +302,7 @@ void MellowInit(struct SpriteData* pSprite)
         pSprite->currentAnimationFrame = 0x0;
         pSprite->samusCollision = SSC_MELLOW;
         
-        pSprite->health = GET_PSPRITE_HEALTH(pSprite->spriteID);;
+        pSprite->health = GET_PSPRITE_HEALTH(pSprite->spriteId);;
         if (pSprite->roomSlot != 0x88)
         {
             pSprite->pOam = sMellowOAM_Idle;
@@ -752,10 +752,10 @@ void HiveRoots(void)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (gSpriteData[ramSlot].spriteID == PSPRITE_HIVE)
+    if (gSpriteData[ramSlot].spriteId == PSPRITE_HIVE)
     {
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
-        if (gSpriteData[ramSlot].health < GET_PSPRITE_HEALTH(gSpriteData[ramSlot].spriteID) / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
+        if (gSpriteData[ramSlot].health < GET_PSPRITE_HEALTH(gSpriteData[ramSlot].spriteId) / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
         {
             gCurrentSprite.status = 0x0;
             return;
@@ -863,7 +863,7 @@ void MellowSwarm(void)
                 gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.yPositionSpawn = 0xF0;
 
-            if (gCurrentSprite.spriteID == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
+            if (gCurrentSprite.spriteId == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
             {
                 if (gEquipment.currentEnergy >= 0x190)
                     gCurrentSprite.workVariable2 = 0xF;

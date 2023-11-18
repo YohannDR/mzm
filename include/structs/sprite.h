@@ -39,7 +39,7 @@ struct SpriteData {
     u16 currentAnimationFrame;
     const struct FrameData* pOam;
     u8 animationDurationCounter;
-    u8 spriteID;
+    u8 spriteId;
     u8 roomSlot;
     u8 spritesetGfxSlot;
     u8 paletteRow;

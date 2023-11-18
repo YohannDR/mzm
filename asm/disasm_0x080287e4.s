@@ -75,8 +75,8 @@ lbl_0802886a:
     .align 2, 0
 lbl_08028870: .4byte gDisableAnimatedPalette
 
-    thumb_func_start spawn_space_pirates_waiting
-spawn_space_pirates_waiting: @ 0x08028874
+    thumb_func_start SpawnWaitingPirates
+SpawnWaitingPirates: @ 0x08028874
     push {r4, lr}
     sub sp, #8
     movs r4, #0

@@ -17,7 +17,7 @@ void SecurityLaserInit(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.spriteID == PSPRITE_SECURITY_LASER_VERTICAL || gCurrentSprite.spriteID == PSPRITE_SECURITY_LASER_VERTICAL2)
+    if (gCurrentSprite.spriteId == PSPRITE_SECURITY_LASER_VERTICAL || gCurrentSprite.spriteId == PSPRITE_SECURITY_LASER_VERTICAL2)
     {
         // Initialize vertical laser
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
@@ -344,7 +344,7 @@ void SecurityLaser(void)
             SecurityLaser_Unused();
     }
 
-    if ((u8)(gCurrentSprite.spriteID + 0x68) < 0x2)
+    if ((u8)(gCurrentSprite.spriteId + 0x68) < 0x2)
     {
         if (gAlarmTimer != 0x0)
         {

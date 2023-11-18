@@ -43,12 +43,12 @@ void UnknownItemBlockChangeCCAA(u8 caa)
  */
 void UnknownItemBlock(void)
 {
-    u32 spriteID;
+    u32 spriteId;
     u8 activated;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
     activated = FALSE;
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
 
     switch (gCurrentSprite.pose)
     {
@@ -80,17 +80,17 @@ void UnknownItemBlock(void)
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
             // Check activate block
-            if (spriteID == PSPRITE_PLASMA_BEAM_BLOCK)
+            if (spriteId == PSPRITE_PLASMA_BEAM_BLOCK)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_PLASMA_BEAM_OBTAINED))
                     activated++;
             }
-            else if (spriteID == PSPRITE_GRAVITY_SUIT_BLOCK)
+            else if (spriteId == PSPRITE_GRAVITY_SUIT_BLOCK)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GRAVITY_SUIT_OBTAINED))
                     activated++;
             }
-            else if (spriteID == PSPRITE_SPACE_JUMP_BLOCK)
+            else if (spriteId == PSPRITE_SPACE_JUMP_BLOCK)
             {
                 if (EventFunction(EVENT_ACTION_CHECKING, EVENT_SPACE_JUMP_OBTAINED))
                     activated++;
@@ -175,11 +175,11 @@ void UnknownItemBlock(void)
             UnknownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
 
             // Play sound, most likely planned to have a different sound for each block
-            if (spriteID == PSPRITE_PLASMA_BEAM_BLOCK)
+            if (spriteId == PSPRITE_PLASMA_BEAM_BLOCK)
                 SoundPlayNotAlreadyPlaying(0x13B);
-            else if (spriteID == PSPRITE_GRAVITY_SUIT_BLOCK)
+            else if (spriteId == PSPRITE_GRAVITY_SUIT_BLOCK)
                 SoundPlayNotAlreadyPlaying(0x13B);
-            else if (spriteID == PSPRITE_SPACE_JUMP_BLOCK)
+            else if (spriteId == PSPRITE_SPACE_JUMP_BLOCK)
                 SoundPlayNotAlreadyPlaying(0x13B);
             break;
     }

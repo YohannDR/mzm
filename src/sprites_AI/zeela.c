@@ -269,12 +269,12 @@ void ZeelaInit(void)
     ZeelaSetCrawlingOam();
     ZeelaUpdateHitbox();
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    if (gCurrentSprite.spriteID == PSPRITE_ZEELA_RED)
+    if (gCurrentSprite.spriteId == PSPRITE_ZEELA_RED)
     {
         gCurrentSprite.absolutePaletteRow = 1;
         gCurrentSprite.paletteRow = 1;
@@ -915,7 +915,7 @@ void ZeelaDeath(void)
             yPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
 
-    if (gCurrentSprite.spriteID == PSPRITE_ZEELA_RED)
+    if (gCurrentSprite.spriteId == PSPRITE_ZEELA_RED)
         ZeelaSpawnEyes();
 
     SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

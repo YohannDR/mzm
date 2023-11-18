@@ -13,8 +13,6 @@
 
 #define MAX_AMOUNT_OF_SPRITESET 114
 
-// 75e6a8
-
 extern const SamusFunc_T sSamusPoseFunctionPointers[SPOSE_END];
 
 extern const SamusFunc_T sSamusPoseGfxFunctionPointers[SPOSE_END];

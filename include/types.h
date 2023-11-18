@@ -45,9 +45,6 @@ typedef volatile signed int vs32;
 #define SCREEN_SIZE_X 240
 #define SCREEN_SIZE_Y 160
 
-#define SCREEN_SIZE_X_SUB_PIXEL (SCREEN_SIZE_X * SUB_PIXEL_RATIO)
-#define SCREEN_SIZE_Y_SUB_PIXEL (SCREEN_SIZE_Y * SUB_PIXEL_RATIO)
-
 struct RawCoordsX {
     u16 x;
     u16 y;

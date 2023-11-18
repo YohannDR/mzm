@@ -412,7 +412,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.drawOrder = 10;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         // Triple health if 100% items
         if (gBossWork.work11 == 100)
@@ -1123,7 +1123,7 @@ void MechaRidleySpawnDrops(void)
     u8 partNumber;
     u8 rngParam1;
     u8 rngParam2;
-    u8 spriteID;
+    u8 spriteId;
 
     yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE + 0x24);
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE * 6;
@@ -1132,7 +1132,7 @@ void MechaRidleySpawnDrops(void)
     rngParam1 = gSpriteRng * 8;
     partNumber &= 3;
     rngParam2 = (gCurrentSprite.timer & 15) * 8;
-    spriteID = PSPRITE_MULTIPLE_LARGE_ENERGY;
+    spriteId = PSPRITE_MULTIPLE_LARGE_ENERGY;
     gCurrentSprite.timer++;
 
     // Update palette and spawn drops (10 in total)
@@ -1151,27 +1151,27 @@ void MechaRidleySpawnDrops(void)
             break;
 
         case 30:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition + rngParam1, xPosition - rngParam2, 0);
             break;
 
         case 31:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1, xPosition + rngParam2, 0);
             break;
 
         case 33:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
         case 35:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
         case 37:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
@@ -1179,12 +1179,12 @@ void MechaRidleySpawnDrops(void)
         case 34:
         case 36:
         case 38:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition + rngParam1 - rngParam2 * 2, xPosition - rngParam2 - rngParam1, 0);
             break;
 
         case 39:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnDropFollowers(spriteId, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
     }
@@ -1389,7 +1389,7 @@ void MechaRidleyPartInit(void)
             gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
             gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
             // Triple health if 100% items
             if (gBossWork.work11 == 100)
@@ -2809,7 +2809,7 @@ void MechaRidleyMissile(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.oamRotation = 0xA0;
             gCurrentSprite.oamScaling = Q_8_8(1.f);
             
@@ -2915,7 +2915,7 @@ void MechaRidleyFireball(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.timer = 30;
             gCurrentSprite.pose = 9;
 

@@ -87,7 +87,7 @@ void UnknownItemChozoStatueInit(void)
     gSubSpriteData1.workVariable2 = 0x0;
     gSubSpriteData1.workVariable3 = FALSE;
 
-    behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteID);
+    behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteId);
     if (behavior > UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Is hint
@@ -186,7 +186,7 @@ void UnknownItemChozoStatueRegisterHint(void)
     gCurrentSprite.workVariable2 = 0xC;
     gCurrentSprite.arrayOffset = 0x0;
 
-    ChozoStatueRegisterItem(gCurrentSprite.spriteID);
+    ChozoStatueRegisterItem(gCurrentSprite.spriteId);
     FadeMusic(0x3C);
 }
 
@@ -298,7 +298,7 @@ void UnknownItemChozoStatueDelayBeforeRefillAfterHint(void)
  */
 void UnknownItemChozoStatueWaitForItemToBeCollected(void)
 {
-    u8 behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteID);
+    u8 behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteId);
     // Check behavior
     if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_REFILL)
     {
@@ -413,7 +413,7 @@ void UnknownItemChozoStatuePartInit(void)
     gCurrentSprite.hitboxLeftOffset = 0x4;
     gCurrentSprite.hitboxRightOffset = 0x4;
 
-    behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID);
+    behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId);
 
     switch (gCurrentSprite.roomSlot)
     {
@@ -614,7 +614,7 @@ void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
 
     // Update OAM
     if (gCurrentSprite.pOam == sUnknownItemChozoStatuePartOAM_ArmIdle && gPreventMovementTimer == 0x0 &&
-        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID) != UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_ITEM)
+        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId) != UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_ITEM)
         gCurrentSprite.pOam = sUnknownItemChozoStatuePartOAM_ArmGlow;
 
     isGrabbed = FALSE;

@@ -6,8 +6,6 @@
 
 #define MAX_AMOUNT_OF_SPRITE_DEBRIS 8
 
-extern struct SpriteDebris gSpriteDebris[MAX_AMOUNT_OF_SPRITE_DEBRIS];
-
 struct SpriteDebris {
     const struct FrameData* pOam;
     u16 currentAnimationFrame;
@@ -19,6 +17,8 @@ struct SpriteDebris {
     u8 frameCounter;
     u8 arrayOffset;
 };
+
+extern struct SpriteDebris gSpriteDebris[MAX_AMOUNT_OF_SPRITE_DEBRIS];
 
 void SpriteDebrisSetSplash(u16 oldY, u16 yPosition, u16 xPosition);
 void SpriteDebrisProcess(struct SpriteDebris* pDebris);

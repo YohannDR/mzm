@@ -31,7 +31,7 @@ void ReoInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
     SpriteUtilChooseRandomXDirection();
@@ -130,7 +130,7 @@ void ReoMove(void)
     u16 otherY;
     u16 otherX;
     
-    u8 spriteID;
+    u8 spriteId;
     u8 ramSlot;
     u16 offset;
     u8 collision;
@@ -141,11 +141,11 @@ void ReoMove(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
     offset = 0x28;
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
 
     for (ramSlot = gCurrentSprite.primarySpriteRamSlot + 1; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
-        if (gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS && !(gSpriteData[ramSlot].properties & SP_SECONDARY_SPRITE) && gSpriteData[ramSlot].spriteID == spriteID)
+        if (gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS && !(gSpriteData[ramSlot].properties & SP_SECONDARY_SPRITE) && gSpriteData[ramSlot].spriteId == spriteId)
         {
             otherY = gSpriteData[ramSlot].yPosition;
             otherX = gSpriteData[ramSlot].xPosition;
@@ -209,7 +209,7 @@ void ReoMove(void)
     otherY = gSamusData.yPosition - 0x48;
     otherX = gSamusData.xPosition;
     
-    if (spriteID == PSPRITE_REO_PURPLE_WINGS)
+    if (spriteId == PSPRITE_REO_PURPLE_WINGS)
     {
         ySpeedCap = HALF_BLOCK_SIZE;
         xSpeedCap = BLOCK_SIZE;

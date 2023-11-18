@@ -7848,15 +7848,15 @@ void SamusUpdatePalette(struct SamusData* pData)
     lbl_0800b4d8: .4byte gSamusPaletteSize \n\
     lbl_0800b4dc: .4byte gSamusWeaponInfo \n\
     lbl_0800b4e0: .4byte gEquipment \n\
-    lbl_0800b4e4: .4byte 0x082383c8 \n\
-    lbl_0800b4e8: .4byte 0x08238428 \n\
-    lbl_0800b4ec: .4byte 0x082384c8 \n\
-    lbl_0800b4f0: .4byte 0x08238508 \n\
-    lbl_0800b4f4: .4byte 0x08238568 \n\
-    lbl_0800b4f8: .4byte 0x08238608 \n\
-    lbl_0800b4fc: .4byte 0x0823a224 \n\
-    lbl_0800b500: .4byte 0x082379e8 \n\
-    lbl_0800b504: .4byte 0x0823a2dc \n\
+    lbl_0800b4e4: .4byte sSamusPal_GravitySuit_Default \n\
+    lbl_0800b4e8: .4byte sSamusPal_GravitySuit_BeamRelease \n\
+    lbl_0800b4ec: .4byte sSamusPal_GravitySuit_Flashing \n\
+    lbl_0800b4f0: .4byte sSamusPal_GravitySuit_Speedboost \n\
+    lbl_0800b4f4: .4byte sSamusPal_GravitySuit_Unmorph \n\
+    lbl_0800b4f8: .4byte sSamusPal_GravitySuit_ChargingBeam \n\
+    lbl_0800b4fc: .4byte sSamusPal_GravitySuit_SavingPointers \n\
+    lbl_0800b500: .4byte sSamusPal_GravitySuit_Dying \n\
+    lbl_0800b504: .4byte sSamusPal_GravitySuit_DownloadingMapPointers \n\
     lbl_0800b508: \n\
         ldr r0, lbl_0800b530 @ =0x08237fa8 \n\
         mov r8, r0 \n\
@@ -7878,15 +7878,15 @@ void SamusUpdatePalette(struct SamusData* pData)
         ldr r0, lbl_0800b550 @ =0x0823a2bc \n\
         b lbl_0800b624 \n\
         .align 2, 0 \n\
-    lbl_0800b530: .4byte 0x08237fa8 \n\
-    lbl_0800b534: .4byte 0x08238008 \n\
-    lbl_0800b538: .4byte 0x082380a8 \n\
-    lbl_0800b53c: .4byte 0x082380e8 \n\
-    lbl_0800b540: .4byte 0x08238148 \n\
-    lbl_0800b544: .4byte 0x082381e8 \n\
-    lbl_0800b548: .4byte 0x0823a1f8 \n\
-    lbl_0800b54c: .4byte 0x082379c8 \n\
-    lbl_0800b550: .4byte 0x0823a2bc \n\
+    lbl_0800b530: .4byte sSamusPal_FullSuit_Default \n\
+    lbl_0800b534: .4byte sSamusPal_FullSuit_BeamRelease \n\
+    lbl_0800b538: .4byte sSamusPal_FullSuit_Flashing \n\
+    lbl_0800b53c: .4byte sSamusPal_FullSuit_Speedboost \n\
+    lbl_0800b540: .4byte sSamusPal_FullSuit_Unmorph \n\
+    lbl_0800b544: .4byte sSamusPal_FullSuit_ChargingBeam \n\
+    lbl_0800b548: .4byte sSamusPal_FullSuit_SavingPointers \n\
+    lbl_0800b54c: .4byte sSamusPal_FullSuit_Dying \n\
+    lbl_0800b550: .4byte sSamusPal_FullSuit_DownloadingMapPointers \n\
     lbl_0800b554: \n\
         cmp r1, #0 \n\
         bne lbl_0800b600 \n\
@@ -7917,15 +7917,15 @@ void SamusUpdatePalette(struct SamusData* pData)
         b lbl_0800b624 \n\
         .align 2, 0 \n\
     lbl_0800b58c: .4byte gEquipment \n\
-    lbl_0800b590: .4byte 0x08237be8 \n\
-    lbl_0800b594: .4byte 0x08237c48 \n\
-    lbl_0800b598: .4byte 0x08237ce8 \n\
-    lbl_0800b59c: .4byte 0x08237d28 \n\
-    lbl_0800b5a0: .4byte 0x08237d88 \n\
-    lbl_0800b5a4: .4byte 0x08237e28 \n\
-    lbl_0800b5a8: .4byte 0x0823a1cc \n\
-    lbl_0800b5ac: .4byte 0x082379a8 \n\
-    lbl_0800b5b0: .4byte 0x0823a29c \n\
+    lbl_0800b590: .4byte sSamusPal_VariaSuit_Default \n\
+    lbl_0800b594: .4byte sSamusPal_VariaSuit_BeamRelease \n\
+    lbl_0800b598: .4byte sSamusPal_VariaSuit_Flashing \n\
+    lbl_0800b59c: .4byte sSamusPal_VariaSuit_Speedboost \n\
+    lbl_0800b5a0: .4byte sSamusPal_VariaSuit_Unmorph \n\
+    lbl_0800b5a4: .4byte sSamusPal_VariaSuit_ChargingBeam \n\
+    lbl_0800b5a8: .4byte sSamusPal_VariaSuit_SavingPointers \n\
+    lbl_0800b5ac: .4byte sSamusPal_VariaSuit_Dying \n\
+    lbl_0800b5b0: .4byte sSamusPal_VariaSuit_DownloadingMapPointers \n\
     lbl_0800b5b4: \n\
         ldr r2, lbl_0800b5dc @ =0x082376a8 \n\
         mov r8, r2 \n\
@@ -7947,15 +7947,15 @@ void SamusUpdatePalette(struct SamusData* pData)
         ldr r0, lbl_0800b5fc @ =0x0823a27c \n\
         b lbl_0800b624 \n\
         .align 2, 0 \n\
-    lbl_0800b5dc: .4byte 0x082376a8 \n\
-    lbl_0800b5e0: .4byte 0x08237708 \n\
-    lbl_0800b5e4: .4byte 0x082377a8 \n\
-    lbl_0800b5e8: .4byte 0x082377e8 \n\
-    lbl_0800b5ec: .4byte 0x08237848 \n\
-    lbl_0800b5f0: .4byte 0x08237a68 \n\
-    lbl_0800b5f4: .4byte 0x0823a1a0 \n\
-    lbl_0800b5f8: .4byte 0x08237888 \n\
-    lbl_0800b5fc: .4byte 0x0823a27c \n\
+    lbl_0800b5dc: .4byte sSamusPal_PowerSuit_Default \n\
+    lbl_0800b5e0: .4byte sSamusPal_PowerSuit_BeamRelease \n\
+    lbl_0800b5e4: .4byte sSamusPal_PowerSuit_Flashing \n\
+    lbl_0800b5e8: .4byte sSamusPal_PowerSuit_Speedboost \n\
+    lbl_0800b5ec: .4byte sSamusPal_PowerSuit_Unmorph \n\
+    lbl_0800b5f0: .4byte sSamusPal_PowerSuit_ChargingBeam \n\
+    lbl_0800b5f4: .4byte sSamusPal_PowerSuit_SavingPointers \n\
+    lbl_0800b5f8: .4byte sSamusPal_PowerSuit_Dying \n\
+    lbl_0800b5fc: .4byte sSamusPal_PowerSuit_DownloadingMapPointers \n\
     lbl_0800b600: \n\
         ldr r1, lbl_0800b650 @ =0x082387e8 \n\
         mov r8, r1 \n\
@@ -7999,16 +7999,16 @@ void SamusUpdatePalette(struct SamusData* pData)
         add r4, #0x40 \n\
         b lbl_0800b7d6 \n\
         .align 2, 0 \n\
-    lbl_0800b650: .4byte 0x082387e8 \n\
-    lbl_0800b654: .4byte 0x08238848 \n\
-    lbl_0800b658: .4byte 0x082388e8 \n\
-    lbl_0800b65c: .4byte 0x082377e8 \n\
-    lbl_0800b660: .4byte 0x08237848 \n\
-    lbl_0800b664: .4byte 0x08238988 \n\
-    lbl_0800b668: .4byte 0x0823a250 \n\
-    lbl_0800b66c: .4byte 0x082378a8 \n\
-    lbl_0800b670: .4byte 0x0823a2fc \n\
-    lbl_0800b674: .4byte 0x08237888 \n\
+    lbl_0800b650: .4byte sSamusPal_Suitless_Default \n\
+    lbl_0800b654: .4byte sSamusPal_Suitless_BeamRelease \n\
+    lbl_0800b658: .4byte sSamusPal_Suitless_Flashing \n\
+    lbl_0800b65c: .4byte sSamusPal_PowerSuit_Speedboost \n\
+    lbl_0800b660: .4byte sSamusPal_PowerSuit_Unmorph \n\
+    lbl_0800b664: .4byte sSamusPal_Suitless_ChargingBeam \n\
+    lbl_0800b668: .4byte sSamusPal_Suitless_SavingPointers \n\
+    lbl_0800b66c: .4byte sSamusPal_Generic_Dying \n\
+    lbl_0800b670: .4byte sSamusPal_Suitless_DownloadingMapPointers \n\
+    lbl_0800b674: .4byte sSamusPal_PowerSuit_Dying \n\
     lbl_0800b678: \n\
         cmp r0, #0xc \n\
         beq lbl_0800b680 \n\

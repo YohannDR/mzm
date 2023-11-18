@@ -39,11 +39,11 @@ void Searchlight(void)
                 gCurrentSprite.drawOrder = 0x1;
 
                 // Set initial direction based on sprite ID
-                if (gCurrentSprite.spriteID == PSPRITE_SEARCHLIGHT)
+                if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT)
                     gCurrentSprite.status |= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_UNKNOWN2);
-                else if (gCurrentSprite.spriteID == PSPRITE_SEARCHLIGHT2)
+                else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT2)
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
-                else if (gCurrentSprite.spriteID == PSPRITE_SEARCHLIGHT3)
+                else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT3)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             }
             break;

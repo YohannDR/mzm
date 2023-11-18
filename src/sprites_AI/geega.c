@@ -27,7 +27,7 @@ void GeegaInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
 
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -66,13 +66,13 @@ void GeegaIdle(void)
     u8 ramSlot;
     s32 distance;
 
-    if (gCurrentSprite.spriteID == PSPRITE_GEEGA_FOLLOWER)
+    if (gCurrentSprite.spriteId == PSPRITE_GEEGA_FOLLOWER)
     {
         // Directly go up if follower
         gCurrentSprite.pose = GEEGA_POSE_GOING_UP;
         gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
-    else if ((gCurrentSprite.spriteID != PSPRITE_GEEGA_LEADER ||
+    else if ((gCurrentSprite.spriteId != PSPRITE_GEEGA_LEADER ||
         SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_GEEGA_FOLLOWER) == 0x0)
         && !SpriteUtilCheckHasDrops())
     {
@@ -104,7 +104,7 @@ void GeegaIdle(void)
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                         SoundPlay(0x183);
     
-                    if (gCurrentSprite.spriteID == PSPRITE_GEEGA_LEADER)
+                    if (gCurrentSprite.spriteId == PSPRITE_GEEGA_LEADER)
                     {
                         // Spawn follower
                         ramSlot = SpriteSpawnDropFollowers(PSPRITE_GEEGA_FOLLOWER, gCurrentSprite.roomSlot,
@@ -166,7 +166,7 @@ void GeegaGoingUp(void)
  */
 void GeegaRespawn(void)
 {
-    if (gCurrentSprite.spriteID == PSPRITE_GEEGA_FOLLOWER)
+    if (gCurrentSprite.spriteId == PSPRITE_GEEGA_FOLLOWER)
         gCurrentSprite.status = 0x0; // Kill if not leader
     else
     {
@@ -177,7 +177,7 @@ void GeegaRespawn(void)
         GeegaIdleInit();
 
         gCurrentSprite.workVariable = 0x3C;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.invincibilityStunFlashTimer = 0x0;
         gCurrentSprite.paletteRow = 0x0;

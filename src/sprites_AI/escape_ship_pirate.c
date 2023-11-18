@@ -50,7 +50,7 @@ void EscapeShipSpacePirateSpawn(void)
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING;
 
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.drawOrder = 0xC;
 }

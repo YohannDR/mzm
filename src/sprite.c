@@ -32,122 +32,184 @@ void SpriteUpdate(void)
 
     pCurrent = &gCurrentSprite;
     rngParam1 = gFrameCounter8Bit;
-    rngParam2 = (gFrameCounter16Bit >> 0x4);
+    rngParam2 = gFrameCounter16Bit / 16;
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
+        // In normal gameplay
+
         SpriteDebrisProcessAll();
+
         if (!SpriteUtilCheckStopSpritesPose())
         {
+            // Samus is able, update sprites normally
+
+            // Check collision
             SpriteUtilSamusAndSpriteCollision();
-            for (count = 0x0; count < MAX_AMOUNT_OF_SPRITES; count++)
-            {
-                if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
-                {
-                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer sprite to current
-                    gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
-                    SpriteUtilUpdateStunTimer(pCurrent);
-                    if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
-                        sSecondarySpritesAIPointers[pCurrent->spriteID]();
-                    else
-                        sPrimarySpritesAIPointers[pCurrent->spriteID]();
-                    if (pCurrent->status & SPRITE_STATUS_EXISTS)
-                    {
-                        SpriteUtilSamusStandingOnSprite(pCurrent);
-                        SpriteUpdateAnimation(pCurrent);
-                        SpriteCheckOnScreen(pCurrent);
-                    }
-                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer current back to array
-                }
-            }
-            DecrementChozodiaAlarm();
-            if (gParasiteRelated != 0x0)
-                gParasiteRelated--;
-        }
-        else
-        {
-            for (count = 0x0; count < MAX_AMOUNT_OF_SPRITES; count++)
-            {
-                if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
-                {
-                    if (gSpriteData[count].pose == 0x0 || gSpriteData[count].properties & SP_ALWAYS_ACTIVE)
-                    {
-                        DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                        gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
-                        SpriteUtilUpdateStunTimer(pCurrent);
-                        if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
-                            sSecondarySpritesAIPointers[pCurrent->spriteID]();
-                        else
-                            sPrimarySpritesAIPointers[pCurrent->spriteID]();
 
-                        if (pCurrent->status & SPRITE_STATUS_EXISTS)
-                        {
-                            SpriteUtilSamusStandingOnSprite(pCurrent);
-                            SpriteUpdateAnimation(pCurrent);
-                            SpriteCheckOnScreen(pCurrent);
-                        }
-                        DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                    }
-                    else
-                    {
-                        DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                        SpriteCheckOnScreen(pCurrent);
-                        DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                    }
-                }
-            }
-            return;
-        }
-    }
-    else if (gGameModeSub1 == 0x6)
-    {
-        for (count = 0x0; count < MAX_AMOUNT_OF_SPRITES; count++)
-        {
-            if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
+            for (count = 0; count < MAX_AMOUNT_OF_SPRITES; count++)
             {
-                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
+                if (!(gSpriteData[count].status & SPRITE_STATUS_EXISTS))
+                    continue;
+
+                // Transfer sprite to current
+                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+
+                // Update random number
+                gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
+
+                // Update stun timer
                 SpriteUtilUpdateStunTimer(pCurrent);
-                if (pCurrent->properties & SP_SECONDARY_SPRITE)
-                    sSecondarySpritesAIPointers[pCurrent->spriteID]();
-                else
-                    sPrimarySpritesAIPointers[pCurrent->spriteID]();
 
+                // Call AI
+                if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                    sSecondarySpritesAIPointers[pCurrent->spriteId]();
+                else
+                    sPrimarySpritesAIPointers[pCurrent->spriteId]();
+
+                // Check update sprite info if still alive
                 if (pCurrent->status & SPRITE_STATUS_EXISTS)
                 {
                     SpriteUtilSamusStandingOnSprite(pCurrent);
                     SpriteUpdateAnimation(pCurrent);
                     SpriteCheckOnScreen(pCurrent);
                 }
-                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+
+                // Transfer current back to array
+                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+            }
+
+            // Update alarm
+            DecrementChozodiaAlarm();
+
+            if (gParasiteRelated != 0)
+                gParasiteRelated--;
+        }
+        else
+        {
+            // Samus isn't able, still update sprites but only on some conditions
+
+            for (count = 0; count < MAX_AMOUNT_OF_SPRITES; count++)
+            {
+                if (!(gSpriteData[count].status & SPRITE_STATUS_EXISTS))
+                    continue;
+
+                if (gSpriteData[count].pose == SPRITE_POSE_UNINITIALIZED || gSpriteData[count].properties & SP_ALWAYS_ACTIVE)
+                {
+                    // Only update sprites to initialize them or if they have the always active flag
+
+                    // Transfer sprite to current
+                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                    
+                    // Update random number
+                    gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
+
+                    // Update stun timer
+                    SpriteUtilUpdateStunTimer(pCurrent);
+
+                    // Call AI
+                    if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                        sSecondarySpritesAIPointers[pCurrent->spriteId]();
+                    else
+                        sPrimarySpritesAIPointers[pCurrent->spriteId]();
+
+                    // Check update sprite info if still alive
+                    if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                    {
+                        SpriteUtilSamusStandingOnSprite(pCurrent);
+                        SpriteUpdateAnimation(pCurrent);
+                        SpriteCheckOnScreen(pCurrent);
+                    }
+
+                    // Transfer current back to array
+                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                }
+                else
+                {
+                    // Only check if on screen
+
+                    // Transfer sprite to current
+                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+
+                    SpriteCheckOnScreen(pCurrent);
+
+                    // Transfer current back to array
+                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+                }
             }
         }
+    }
+    else if (gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+    {
+        // In debug free movement, update sprites normally but don't check for collision
+        for (count = 0; count < MAX_AMOUNT_OF_SPRITES; count++)
+        {
+            if (!(gSpriteData[count].status & SPRITE_STATUS_EXISTS))
+                continue;
+
+            // Transfer sprite to current
+            DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+
+            // Update random number
+            gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
+            
+            // Update stun timer
+            SpriteUtilUpdateStunTimer(pCurrent);
+
+            // Call AI
+            if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                sSecondarySpritesAIPointers[pCurrent->spriteId]();
+            else
+                sPrimarySpritesAIPointers[pCurrent->spriteId]();
+
+            // Check update sprite info if still alive
+            if (pCurrent->status & SPRITE_STATUS_EXISTS)
+            {
+                SpriteUtilSamusStandingOnSprite(pCurrent);
+                SpriteUpdateAnimation(pCurrent);
+                SpriteCheckOnScreen(pCurrent);
+            }
+
+            // Transfer current back to array
+            DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+        }
+
+        // Update alarm
         DecrementChozodiaAlarm();
-        if (gParasiteRelated != 0x0)
+
+        if (gParasiteRelated != 0)
             gParasiteRelated--;
     }
     else
     {
-        for (count = 0x0; count < MAX_AMOUNT_OF_SPRITES; count++)
+        // Any other sub game mode
+        for (count = 0; count < MAX_AMOUNT_OF_SPRITES; count++)
         {
-            if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
+            if (!(gSpriteData[count].status & SPRITE_STATUS_EXISTS))
+                continue;
+
+            // Transfer sprite to current
+            DMA_SET(3, &gSpriteData[count], &gCurrentSprite, C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
+
+            // Update random number
+            gSpriteRng = ARRAY_ACCESS(sSpriteRandomNumberTable, rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition);
+
+            // Only call init code
+            if (pCurrent->pose == SPRITE_POSE_UNINITIALIZED)
             {
-                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
-                gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
-                
-                if (pCurrent->pose == 0x0)
-                {
-                    if (pCurrent->properties & SP_SECONDARY_SPRITE)
-                        sSecondarySpritesAIPointers[pCurrent->spriteID]();
-                    else
-                        sPrimarySpritesAIPointers[pCurrent->spriteID]();
-                }
-
-                if (pCurrent->status & SPRITE_STATUS_EXISTS)
-                    SpriteCheckOnScreen(pCurrent);
-
-                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                // Call AI
+                if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                    sSecondarySpritesAIPointers[pCurrent->spriteId]();
+                else
+                    sPrimarySpritesAIPointers[pCurrent->spriteId]();
             }
+
+            // Check update sprite info if still alive
+            if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                SpriteCheckOnScreen(pCurrent);
+
+            // Transfer current back to array
+            DMA_SET(3, &gCurrentSprite, &gSpriteData[count], C_32_2_16(DMA_ENABLE, sizeof(struct SpriteData) / 2));
         }
     }
 }
@@ -155,23 +217,27 @@ void SpriteUpdate(void)
 /**
  * d32c | 40 | Updates the animation related info of a sprite
  * 
- * @param pSprite Sprite Data Pointer
+ * @param pSprite Sprite data pointer
  */
 void SpriteUpdateAnimation(struct SpriteData* pSprite)
 {
-    u32 adc;
+    // Don't update the animation if freezed
+    if (pSprite->freezeTimer != 0)
+        return;
 
-    if (pSprite->freezeTimer == 0x0)
+    // Update adc
+    pSprite->animationDurationCounter++;
+
+    // Check reached the end of the current frame
+    if (pSprite->pOam[pSprite->currentAnimationFrame].timer < pSprite->animationDurationCounter)
     {
-        adc = pSprite->animationDurationCounter + 0x1;
-        pSprite->animationDurationCounter = adc;
-        if (pSprite->pOam[pSprite->currentAnimationFrame].timer < (u8)adc)
-        {
-            pSprite->animationDurationCounter = 0x1;
-            pSprite->currentAnimationFrame++;
-            if (pSprite->pOam[pSprite->currentAnimationFrame].timer == 0x0)
-                pSprite->currentAnimationFrame = 0x0;
-        }
+        // Advance to next frame
+        pSprite->animationDurationCounter = 1;
+        pSprite->currentAnimationFrame++;
+
+        // Reached the end, set caf to 0 to loop back the animation
+        if (pSprite->pOam[pSprite->currentAnimationFrame].timer == 0)
+            pSprite->currentAnimationFrame = 0;
     }
 }
 
@@ -186,45 +252,53 @@ void SpriteDrawAll_2(void)
     s32 drawOrder;
     u32 drawStatus;
     u32 checkStatus;
-    u32 modeCheck;
+    u32 notPlaying;
 
-    if (gGameModeSub1 ^ 2)
-        modeCheck = TRUE;
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+        notPlaying = FALSE;
     else
-        modeCheck = FALSE;
+        notPlaying = TRUE;
 
     checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN;
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
-        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
+        // Sprite doesn't exists or isn't drawn
+        if ((gSpriteData[i].status & checkStatus) != drawStatus)
         {
-            if (modeCheck)
-            {
-                if (gSpriteData[i].properties & SP_ABSOLUTE_POSITION)
-                    gSpriteDrawOrder[i] = 0;
-                else
-                    gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
-            }
-            else
-                gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+            gSpriteDrawOrder[i] = 0;
+            continue;
         }
+
+        // Check is lower draw order
+        if (gSpriteData[i].drawOrder >= 9)
+        {
+            gSpriteDrawOrder[i] = 0;
+            continue;
+        }
+
+        // Check is playing
+        if (!notPlaying)
+        {
+            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+            continue;
+        }
+
+        // Don't draw sprites that have an absolute position if not in game
+        if (!(gSpriteData[i].properties & SP_ABSOLUTE_POSITION))
+            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
         else
-        {
-            u8 d = 0;
-            gSpriteDrawOrder[i] = d;
-        }
+            gSpriteDrawOrder[i] = 0;
     }
 
+    // Apply draw order and draw sprites
     for (drawOrder = 1; drawOrder < 9; drawOrder++)
     {
-        i = 0;
-        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        for (i = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; i++, pSprite++)
         {
             if (gSpriteDrawOrder[i] == drawOrder)
                 SpriteDraw(pSprite, i);
-            i++;
         }
     }
 }
@@ -248,15 +322,21 @@ void SpriteDrawAll(void)
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
-        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
+        // Sprite doesn't exists or isn't drawn
+        if ((gSpriteData[i].status & checkStatus) != drawStatus)
+        {
+            gSpriteDrawOrder[i] = 0;
+            continue;
+        }
+
+        // Check is lower draw order
+        if (gSpriteData[i].drawOrder < 9)
             gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
         else
-        {
-            u8 d = 0;
-            gSpriteDrawOrder[i] = d;
-        }
+            gSpriteDrawOrder[i] = 0;
     }
 
+    // Apply draw order and draw sprites
     for (drawOrder = 1; drawOrder < 9; drawOrder++)
     {
         for (i = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; i++, pSprite++)
@@ -284,22 +364,27 @@ void SpriteDrawAll_Upper(void)
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
-        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder > 8)
-            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
-        else {
-            u8 d = 0;
-            gSpriteDrawOrder[i] = d;
+        // Sprite doesn't exists or isn't drawn
+        if ((gSpriteData[i].status & checkStatus) != drawStatus)
+        {
+            gSpriteDrawOrder[i] = 0;
+            continue;
         }
+
+        // Check is upper draw order
+        if (gSpriteData[i].drawOrder >= 9)
+            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+        else
+            gSpriteDrawOrder[i] = 0;
     }
 
+    // Apply draw order and draw sprites
     for (drawOrder = 9; drawOrder < 17; drawOrder++)
     {
-        i = 0;
-        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        for (i = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; i++, pSprite++)
         {
             if (gSpriteDrawOrder[i] == drawOrder)
                 SpriteDraw(pSprite, i);
-            i++;
         }
     }
 }
@@ -529,7 +614,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
             yOffset = PIXEL_TO_SUB_PIXEL(yOffset);
             xOffset = sOamXFlipOffsets[shape][size];
             xOffset = PIXEL_TO_SUB_PIXEL(xOffset);
-        
+
             // Get current positions
             y = (s16)MOD_AND(part1 + yPosition, 256);
             x = (s16)MOD_AND(part2 + xPosition, 512);
@@ -664,7 +749,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 /**
  * @brief ddd4 | 150 | Checks if a sprite is on screen
  * 
- * @param pSprite Sprite Data Pointer
+ * @param pSprite Sprite data pointer
  */
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
 {
@@ -684,69 +769,90 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
     u32 drawOffset;
 
-    if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
+    // Don't bother checking if the sprite has an absolute position
+    if (pSprite->properties & SP_ABSOLUTE_POSITION)
+        return;
+
+    bgBaseY = gBg1YPosition;
+    bgBaseX = gBg1XPosition;
+
+    spriteY = pSprite->yPosition;
+    spriteX = pSprite->xPosition;
+
+    bgYRange = bgBaseY + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
+    spriteYRange = spriteY + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
+    spriteBottom = bgYRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceBottomOffset);
+    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceTopOffset) + SCREEN_SIZE_Y_SUB_PIXEL;
+    spriteTop = bgYRange + drawOffset;
+
+    bgXRange = bgBaseX + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
+    spriteXRange = spriteX + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
+    spriteLeft = bgXRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset);
+    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset) + SCREEN_SIZE_X_SUB_PIXEL;
+    spriteRight = bgXRange + drawOffset;
+
+    if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)
     {
-        bgBaseY = gBg1YPosition;
-        bgBaseX = gBg1XPosition;
+        pSprite->status |= SPRITE_STATUS_ONSCREEN;
+        return;
+    }
 
-        spriteY = pSprite->yPosition;
-        spriteX = pSprite->xPosition;
+    pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
 
-        bgYRange = bgBaseY + BLOCK_SIZE * 8;
-        spriteYRange = spriteY + BLOCK_SIZE * 8;
-        spriteBottom = bgYRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceBottomOffset);
-        drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceTopOffset) + BLOCK_SIZE * 10;
-        spriteTop = bgYRange + drawOffset;
+    if (pSprite->properties & SP_KILL_OFF_SCREEN)
+    {
+        bgYRange = bgBaseY + BLOCK_SIZE * 10;
+        spriteYRange = spriteY + BLOCK_SIZE * 10;
+        spriteBottom = bgYRange - BLOCK_SIZE * 9;
+        spriteTop = bgYRange + BLOCK_SIZE * 19;
 
-        bgXRange = bgBaseX + BLOCK_SIZE * 8;
-        spriteXRange = spriteX + BLOCK_SIZE * 8;
-        spriteLeft = bgXRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset);
-        drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset) + BLOCK_SIZE * 15;
-        spriteRight = bgXRange + drawOffset;
+        bgXRange = bgBaseX + BLOCK_SIZE * 10;
+        spriteXRange = spriteX + BLOCK_SIZE * 10;
+        spriteLeft = bgXRange - BLOCK_SIZE * 9;
+        spriteRight = bgXRange + BLOCK_SIZE * 24;
 
-        if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)
+        if (spriteLeft >= spriteXRange || spriteXRange >= spriteRight || spriteBottom >= spriteYRange || spriteYRange >= spriteTop)
         {
-            pSprite->status |= SPRITE_STATUS_ONSCREEN;
-            return;
-        }
-
-        pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
-
-        if (pSprite->properties & SP_KILL_OFF_SCREEN)
-        {
-            bgYRange = bgBaseY + BLOCK_SIZE * 10;
-            spriteYRange = spriteY + BLOCK_SIZE * 10;
-            spriteBottom = bgYRange - BLOCK_SIZE * 9;
-            spriteTop = bgYRange + BLOCK_SIZE * 19;
-
-            bgXRange = bgBaseX + BLOCK_SIZE * 10;
-            spriteXRange = spriteX + BLOCK_SIZE * 10;
-            spriteLeft = bgXRange - BLOCK_SIZE * 9;
-            spriteRight = bgXRange + BLOCK_SIZE * 24;
-
-            if (spriteLeft >= spriteXRange || spriteXRange >= spriteRight || spriteBottom >= spriteYRange || spriteYRange >= spriteTop)
-                pSprite->status = 0;
+            // Off range, kill sprite
+            pSprite->status = 0;
         }
     }
 }
 
+/**
+ * @brief df24 | 4c | 
+ * 
+ */
 void SpriteLoadAllData(void)
 {
-    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
     {
-        if (gGameModeSub3 == 0 && !gIsLoadingFile)
-            gAlarmTimer = 0;
-
-        SpriteClearData();
-        SpriteLoadSpriteset();
-        EscapeCheckReloadGraphics();
-        SpriteUtilInitLocationText();
-        SpriteLoadRoomSprites();
-        SpawnWaitingPirates();
-        gParasiteRelated = 0;
+        // Don't load sprites if psf was active, this indirectly means that the room was already loaded before
+        return;
     }
+
+    // Check reset alarm timer
+    if (gGameModeSub3 == 0 && !gIsLoadingFile)
+        gAlarmTimer = 0;
+
+    // Clear
+    SpriteClearData();
+
+    // Load spriteset
+    SpriteLoadSpriteset();
+
+    // Setup special sprites
+    EscapeCheckReloadGraphics();
+    SpriteUtilInitLocationText();
+
+    // Load current room sprites
+    SpriteLoadRoomSprites();
+    SpawnWaitingPirates();
+
+    gParasiteRelated = 0;
 }
 
+#ifdef NON_MATCHING
 void SpriteLoadSpriteset(void)
 {
     // https://decomp.me/scratch/59czd
@@ -754,7 +860,7 @@ void SpriteLoadSpriteset(void)
     s32 i;
     s32 j;
     s32 spriteset;
-    u32 spriteID;
+    u32 spriteId;
     u32 gfxSlot;
     u32 prevGfxSlot;
     u16 nbrRows;
@@ -780,15 +886,15 @@ void SpriteLoadSpriteset(void)
 
     for (j = 0, i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
-        spriteID = sSpritesetPointers[spriteset][j * 2 + 0];
+        spriteId = sSpritesetPointers[spriteset][j * 2 + 0];
         gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
 
         j++;
         
-        if (spriteID == PSPRITE_UNUSED0)
+        if (spriteId == PSPRITE_UNUSED0)
             break;
 
-        gSpritesetSpritesID[i] = spriteID;
+        gSpritesetSpritesID[i] = spriteId;
         gSpritesetGfxSlots[i] = MOD_AND(gfxSlot, 8);
 
         if (gfxSlot == prevGfxSlot)
@@ -798,43 +904,173 @@ void SpriteLoadSpriteset(void)
         if (gfxSlot == 8)
             continue;
 
-        spriteID -= 0x10;
+        spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 
-        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + gfxSlot * 2048);
+        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteId], VRAM_BASE + 0x14000 + gfxSlot * 2048);
 
-        ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
-        ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
-        DMA_SET(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
+        ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteId])[1];
+        ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteId])[2] << 8;
+        DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_BASE + 0x300 + gfxSlot * 32,
             C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
     }
 }
+#else
+NAKED_FUNCTION
+void SpriteLoadSpriteset(void)
+{
+    asm("\n\
+        push {r4, r5, r6, r7, lr} \n\
+        mov r7, sl \n\
+        mov r6, sb \n\
+        mov r5, r8 \n\
+        push {r5, r6, r7} \n\
+        movs r7, #0 \n\
+        ldr r5, lbl_0800e05c @ =gSpriteset \n\
+        ldr r6, lbl_0800e060 @ =0x0875f31c \n\
+        ldr r4, lbl_0800e064 @ =gSpritesetSpritesID \n\
+        movs r3, #0 \n\
+        movs r2, #0x10 \n\
+        ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots \n\
+    lbl_0800df9c: \n\
+        add r0, r7, r4 \n\
+        strb r2, [r0] \n\
+        add r0, r7, r1 \n\
+        strb r3, [r0] \n\
+        add r7, #1 \n\
+        cmp r7, #0xe \n\
+        ble lbl_0800df9c \n\
+        movs r0, #0xff \n\
+        mov sb, r0 \n\
+        ldrb r1, [r5] \n\
+        cmp r1, #0x70 \n\
+        ble lbl_0800dfc0 \n\
+        ldr r0, lbl_0800e06c @ =gCurrentArea \n\
+        ldrb r0, [r0] \n\
+        movs r1, #0 \n\
+        cmp r0, #7 \n\
+        bls lbl_0800dfc0 \n\
+        movs r1, #0x71 \n\
+    lbl_0800dfc0: \n\
+        movs r7, #0 \n\
+        lsl r0, r1, #2 \n\
+        add r1, r0, r6 \n\
+        ldr r1, [r1] \n\
+        ldrb r5, [r1] \n\
+        ldrb r6, [r1, #1] \n\
+        movs r1, #1 \n\
+        mov r8, r1 \n\
+        mov sl, r0 \n\
+        cmp r5, #0 \n\
+        beq lbl_0800e04e \n\
+    lbl_0800dfd6: \n\
+        ldr r0, lbl_0800e064 @ =gSpritesetSpritesID \n\
+        add r0, r7, r0 \n\
+        strb r5, [r0] \n\
+        ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots \n\
+        add r1, r7, r1 \n\
+        movs r2, #7 \n\
+        add r0, r6, #0 \n\
+        and r0, r2 \n\
+        strb r0, [r1] \n\
+        cmp r6, sb \n\
+        beq lbl_0800e030 \n\
+        mov sb, r6 \n\
+        cmp r6, #8 \n\
+        beq lbl_0800e030 \n\
+        sub r5, #0x10 \n\
+        ldr r4, lbl_0800e070 @ =0x0875ebf8 \n\
+        lsl r5, r5, #2 \n\
+        add r4, r5, r4 \n\
+        ldr r0, [r4] \n\
+        lsl r1, r6, #0xb \n\
+        ldr r2, lbl_0800e074 @ =0x06014000 \n\
+        add r1, r1, r2 \n\
+        bl LZ77UncompVRAM \n\
+        ldr r0, [r4] \n\
+        ldrb r2, [r0, #1] \n\
+        ldrb r1, [r0, #2] \n\
+        lsl r1, r1, #8 \n\
+        ldr r3, lbl_0800e078 @ =0x040000d4 \n\
+        ldr r0, lbl_0800e07c @ =0x0875eef0 \n\
+        add r5, r5, r0 \n\
+        ldr r0, [r5] \n\
+        str r0, [r3] \n\
+        lsl r0, r6, #5 \n\
+        ldr r4, lbl_0800e080 @ =0x05000300 \n\
+        add r0, r0, r4 \n\
+        str r0, [r3, #4] \n\
+        orr r2, r1 \n\
+        asr r0, r2, #0xb \n\
+        lsl r0, r0, #4 \n\
+        movs r1, #0x80 \n\
+        lsl r1, r1, #0x18 \n\
+        orr r0, r1 \n\
+        str r0, [r3, #8] \n\
+        ldr r0, [r3, #8] \n\
+    lbl_0800e030: \n\
+        add r7, #1 \n\
+        cmp r7, #0xe \n\
+        bgt lbl_0800e04e \n\
+        ldr r0, lbl_0800e060 @ =0x0875f31c \n\
+        add r0, sl \n\
+        ldr r1, [r0] \n\
+        mov r2, r8 \n\
+        lsl r0, r2, #1 \n\
+        add r0, r0, r1 \n\
+        ldrb r5, [r0] \n\
+        ldrb r6, [r0, #1] \n\
+        movs r4, #1 \n\
+        add r8, r4 \n\
+        cmp r5, #0 \n\
+        bne lbl_0800dfd6 \n\
+    lbl_0800e04e: \n\
+        pop {r3, r4, r5} \n\
+        mov r8, r3 \n\
+        mov sb, r4 \n\
+        mov sl, r5 \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r0} \n\
+        bx r0 \n\
+        .align 2, 0 \n\
+    lbl_0800e05c: .4byte gSpriteset \n\
+    lbl_0800e060: .4byte sSpritesetPointers \n\
+    lbl_0800e064: .4byte gSpritesetSpritesID \n\
+    lbl_0800e068: .4byte gSpritesetGfxSlots \n\
+    lbl_0800e06c: .4byte gCurrentArea \n\
+    lbl_0800e070: .4byte sSpritesGraphicsPointers \n\
+    lbl_0800e074: .4byte 0x06014000 \n\
+    lbl_0800e078: .4byte 0x040000d4 \n\
+    lbl_0800e07c: .4byte sSpritesPalettePointers \n\
+    lbl_0800e080: .4byte 0x05000300 \n\
+    ");
+}
+#endif
 
 /**
- * e084 | 2c | 
- * Loads the graphics in VRAM for a new sprite
+ * e084 | 2c | Loads the graphics in VRAM for a new sprite
  * 
- * @param spriteID Sprite ID
- * @param gfx_row Spriteset Graphics Row
+ * @param spriteId Sprite ID
+ * @param row Spriteset Graphics Row
  */
-void SpriteLoadGfx(u8 spriteID, u8 gfx_row)
+void SpriteLoadGfx(u8 spriteId, u8 row)
 {
-    spriteID -= 0x10;
-    LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
+    spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
+
+    LZ77UncompVRAM(sSpritesGraphicsPointers[spriteId], VRAM_BASE + 0x14000 + (row * 0x800));
 }
 
 /**
- * e0b0 | 40 | 
- * Loads the palette in PALRAM for a new sprite
+ * e0b0 | 40 | Loads the palette in PALRAM for a new sprite
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @param row Palette Row
  * @param len Lenght (in rows)
  */
-void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
+void SpriteLoadPAL(u8 spriteId, u8 row, u8 len)
 {
-    spriteID -= 0x10;
+    spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 
-    DMA_SET(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + (row * 0x20), DMA_ENABLE | len << 0x4);
+    DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_BASE + 0x300 + (row * 16 * sizeof(u16)), C_32_2_16(DMA_ENABLE, len * 16));
 }
 
 /**
@@ -892,8 +1128,8 @@ void SpriteLoadRoomSprites(void)
  * @brief e17c | dc | Initializes a primary sprite with the values in parameters
  * 
  * @param spritesetSlot Spriteset slot/properties
- * @param yPosition Y Position (tiles)
- * @param xPosition X Position (tiles)
+ * @param yPosition Y Position (blocks)
+ * @param xPosition X Position (blocks)
  * @param roomSlot Room Slot
  */
 void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSlot)
@@ -901,30 +1137,40 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
     u8 ramSlot;
     struct SpriteData* pSprite;
 
+    // Try to find an empty slot
     for (ramSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; ramSlot++, pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS)
             continue;
 
+        // Found empty slot, mark exists
         pSprite->status = SPRITE_STATUS_EXISTS;
+
+        // Get 7 first bits of the spriteset slot
         spritesetSlot = MOD_AND(spritesetSlot, 128);
 
-        if (spritesetSlot > 0x10)
+        // A spriteset slot value that's above MAX_AMOUNT_OF_SPRITE_TYPES + 1 means the spriteset should be used
+        if (spritesetSlot > MAX_AMOUNT_OF_SPRITE_TYPES + 1)
         {
             spritesetSlot--;
-            spritesetSlot = MOD_AND(spritesetSlot, 16);
 
+            // Modulo to not overflow the next array access
+            spritesetSlot = MOD_AND(spritesetSlot, MAX_AMOUNT_OF_SPRITE_TYPES + 1);
+
+            // Fetch the gfx slot and the sprite id
             pSprite->spritesetGfxSlot = gSpritesetGfxSlots[spritesetSlot];
-            pSprite->spriteID = gSpritesetSpritesID[spritesetSlot];
+            pSprite->spriteId = gSpritesetSpritesID[spritesetSlot];
         }
         else
         {
+            // Don't use the spriteset, directly write to sprite id and use first gfx slot
             pSprite->spritesetGfxSlot = 0;
-            pSprite->spriteID = spritesetSlot - 1;
+            pSprite->spriteId = spritesetSlot - 1;
         }
 
         pSprite->properties = 0;
 
+        // Convert block position to sub pixel such that the new position is in the bottom middle of the block in sub pixels
         pSprite->yPosition = BLOCK_TO_SUB_PIXEL(yPosition) + BLOCK_SIZE;
         pSprite->xPosition = BLOCK_TO_SUB_PIXEL(xPosition) + HALF_BLOCK_SIZE;
         pSprite->roomSlot = roomSlot;
@@ -948,10 +1194,9 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
 }
 
 /**
- * e258 | c4 | 
- * Spawns a new secondary sprite with the given parameters
+ * e258 | c4 | Spawns a new secondary sprite with the given parameters
  * 
- * @param spriteID The ID of the sprite to spawn
+ * @param spriteId The ID of the sprite to spawn
  * @param roomSlot The room slot
  * @param gfxSlot The sprite graphics slot (usually the same as the primary sprite)
  * @param ramSlot The RAM slot of the secondary sprite's parent
@@ -960,53 +1205,54 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnSecondary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
-    u16 status;
 
-    newSlot = 0x0;
-
-    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+    // Try to find an empty slot
+    for (newSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; newSlot++, pSprite++)
     {
-        status = pSprite->status & SPRITE_STATUS_EXISTS;
-        if (status == 0x0)
-        {
-            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
-            pSprite->properties = SP_SECONDARY_SPRITE;
-            pSprite->spritesetGfxSlot = gfxSlot;
-            pSprite->spriteID = spriteID;
-            pSprite->yPosition = yPosition;
-            pSprite->xPosition = xPosition;
-            pSprite->roomSlot = roomSlot;
-            pSprite->bgPriority = 0x2;
-            pSprite->drawOrder = 0x4;
-            pSprite->pose = SPRITE_POSE_UNINITIALIZED;
-            pSprite->health = status;
-            pSprite->invincibilityStunFlashTimer = 0x0;
-            pSprite->paletteRow = 0x0;
-            pSprite->frozenPaletteRowOffset = 0x0;
-            pSprite->absolutePaletteRow = 0x0;
-            pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRamSlot = ramSlot;
-            pSprite->freezeTimer = 0x0;
-            pSprite->standingOnSprite = FALSE;
+        if (pSprite->status & SPRITE_STATUS_EXISTS)
+            continue;
 
-            return newSlot;
-        }
+        pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+        pSprite->properties = SP_SECONDARY_SPRITE;
 
-        newSlot++;
+        pSprite->spritesetGfxSlot = gfxSlot;
+        pSprite->spriteId = spriteId;
+        pSprite->yPosition = yPosition;
+        pSprite->xPosition = xPosition;
+        pSprite->roomSlot = roomSlot;
+
+        pSprite->bgPriority = 2;
+        pSprite->drawOrder = 4;
+
+        pSprite->pose = SPRITE_POSE_UNINITIALIZED;
+        pSprite->health = 0;
+        pSprite->invincibilityStunFlashTimer = 0;
+
+        pSprite->paletteRow = 0;
+        pSprite->frozenPaletteRowOffset = 0;
+        pSprite->absolutePaletteRow = 0;
+
+        pSprite->ignoreSamusCollisionTimer = 1;
+
+        pSprite->primarySpriteRamSlot = ramSlot;
+
+        pSprite->freezeTimer = 0;
+        pSprite->standingOnSprite = FALSE;
+
+        return newSlot;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }
 
 /**
- * e31c | b8 | 
- * Spawns a new primary sprite with the given parameters
+ * e31c | b8 | Spawns a new primary sprite with the given parameters
  * 
- * @param spriteID The ID of the sprite to spawn
+ * @param spriteId The ID of the sprite to spawn
  * @param roomSlot The room slot
  * @param gfxSlot The sprite graphics slot
  * @param yPosition Y Position
@@ -1014,53 +1260,54 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF if the sprite couldn't spawn
  */
-u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
-    u16 status;
 
-    newSlot = 0x0;
-
-    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+    // Try to find an empty slot
+    for (newSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; newSlot++, pSprite++)
     {
-        status = pSprite->status & SPRITE_STATUS_EXISTS;
-        if (status == 0x0)
-        {
-            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
-            pSprite->properties = 0x0;
-            pSprite->spritesetGfxSlot = gfxSlot;
-            pSprite->spriteID = spriteID;
-            pSprite->yPosition = yPosition;
-            pSprite->xPosition = xPosition;
-            pSprite->roomSlot = roomSlot;
-            pSprite->bgPriority = 0x2;
-            pSprite->drawOrder = 0x4;
-            pSprite->pose = SPRITE_POSE_UNINITIALIZED;
-            pSprite->health = status;
-            pSprite->invincibilityStunFlashTimer = 0x0;
-            pSprite->paletteRow = 0x0;
-            pSprite->frozenPaletteRowOffset = 0x0;
-            pSprite->absolutePaletteRow = 0x0;
-            pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRamSlot = newSlot;
-            pSprite->freezeTimer = 0x0;
-            pSprite->standingOnSprite = FALSE;
+        if (pSprite->status & SPRITE_STATUS_EXISTS)
+            continue;
 
-            return newSlot;
-        }
+        pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+        pSprite->properties = 0;
 
-        newSlot++;
+        pSprite->spritesetGfxSlot = gfxSlot;
+        pSprite->spriteId = spriteId;
+        pSprite->yPosition = yPosition;
+        pSprite->xPosition = xPosition;
+        pSprite->roomSlot = roomSlot;
+
+        pSprite->bgPriority = 2;
+        pSprite->drawOrder = 4;
+
+        pSprite->pose = SPRITE_POSE_UNINITIALIZED;
+        pSprite->health = 0;
+        pSprite->invincibilityStunFlashTimer = 0;
+
+        pSprite->paletteRow = 0;
+        pSprite->frozenPaletteRowOffset = 0;
+        pSprite->absolutePaletteRow = 0;
+
+        pSprite->ignoreSamusCollisionTimer = 1;
+
+        pSprite->primarySpriteRamSlot = newSlot;
+
+        pSprite->freezeTimer = 0;
+        pSprite->standingOnSprite = FALSE;
+
+        return newSlot;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }
 
 /**
- * e31c | b8 | 
- * Spawns a new primary sprite with the given parameters (used only for the drops and the followers sprite)
+ * e3d4 | b8 | Spawns a new primary sprite with the given parameters (used only for the drops and the followers sprite)
  * 
- * @param spriteID The ID of the sprite to spawn
+ * @param spriteId The ID of the sprite to spawn
  * @param roomSlot The room slot
  * @param gfxSlot The sprite graphics slot
  * @param ramSlot The RAM slot of the sprite's parent
@@ -1069,44 +1316,46 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnDropFollowers(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
-    u16 status;
 
-    newSlot = 0x0;
-
-    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+    // Try to find an empty slot
+    for (newSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; newSlot++, pSprite++)
     {
-        status = pSprite->status & SPRITE_STATUS_EXISTS;
-        if (status == 0x0)
-        {
-            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
-            pSprite->properties = 0x0;
-            pSprite->spritesetGfxSlot = gfxSlot;
-            pSprite->spriteID = spriteID;
-            pSprite->yPosition = yPosition;
-            pSprite->xPosition = xPosition;
-            pSprite->roomSlot = roomSlot;
-            pSprite->bgPriority = 0x2;
-            pSprite->drawOrder = 0x4;
-            pSprite->pose = SPRITE_POSE_UNINITIALIZED;
-            pSprite->health = status;
-            pSprite->invincibilityStunFlashTimer = 0x0;
-            pSprite->paletteRow = 0x0;
-            pSprite->frozenPaletteRowOffset = 0x0;
-            pSprite->absolutePaletteRow = 0x0;
-            pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRamSlot = ramSlot;
-            pSprite->freezeTimer = 0x0;
-            pSprite->standingOnSprite = FALSE;
+        if (pSprite->status & SPRITE_STATUS_EXISTS)
+            continue;
 
-            return newSlot;
-        }
+        pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+        pSprite->properties = 0;
 
-        newSlot++;
+        pSprite->spritesetGfxSlot = gfxSlot;
+        pSprite->spriteId = spriteId;
+        pSprite->yPosition = yPosition;
+        pSprite->xPosition = xPosition;
+        pSprite->roomSlot = roomSlot;
+
+        pSprite->bgPriority = 2;
+        pSprite->drawOrder = 4;
+
+        pSprite->pose = SPRITE_POSE_UNINITIALIZED;
+        pSprite->health = 0;
+        pSprite->invincibilityStunFlashTimer = 0;
+
+        pSprite->paletteRow = 0;
+        pSprite->frozenPaletteRowOffset = 0;
+        pSprite->absolutePaletteRow = 0;
+
+        pSprite->ignoreSamusCollisionTimer = 1;
+
+        pSprite->primarySpriteRamSlot = ramSlot;
+
+        pSprite->freezeTimer = 0;
+        pSprite->standingOnSprite = FALSE;
+
+        return newSlot;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }

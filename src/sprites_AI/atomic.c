@@ -325,7 +325,7 @@ void AtomicInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.pose = ATOMIC_POSE_IDLE_INIT;
 
@@ -582,7 +582,7 @@ void AtomicChaseSamus(void)
  */
 u8 AtomicElectricityCheckAtomicDead(u8 ramSlot)
 {
-    if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS) || gSpriteData[ramSlot].spriteID != PSPRITE_ATOMIC)
+    if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS) || gSpriteData[ramSlot].spriteId != PSPRITE_ATOMIC)
         return TRUE;
     else
         return FALSE;

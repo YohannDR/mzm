@@ -34,7 +34,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawOrder = 1;
 
     // Set OAM and collision
-    switch (gCurrentSprite.spriteID)
+    switch (gCurrentSprite.spriteId)
     {
         case PSPRITE_POWER_BOMB_DROP:
             gCurrentSprite.pOam = sEnemyDropOAM_PowerBomb;

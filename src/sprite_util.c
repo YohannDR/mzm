@@ -34,7 +34,7 @@ void SpriteUtilInitLocationText(void)
         gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_IGNORE_PROJECTILES;
         gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
         gSpriteData[0].spritesetGfxSlot = gfxSlot;
-        gSpriteData[0].spriteID = PSPRITE_AREA_BANNER;
+        gSpriteData[0].spriteId = PSPRITE_AREA_BANNER;
         gSpriteData[0].yPosition = gSamusData.yPosition;
         gSpriteData[0].xPosition = gSamusData.xPosition;
         gSpriteData[0].bgPriority = 0;
@@ -117,9 +117,9 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
 
     // Get damage
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        damage = GET_SSPRITE_DAMAGE(pSprite->spriteID);
+        damage = GET_SSPRITE_DAMAGE(pSprite->spriteId);
     else
-        damage = GET_PSPRITE_DAMAGE(pSprite->spriteID);
+        damage = GET_PSPRITE_DAMAGE(pSprite->spriteId);
 
     // Apply multiplier
     damage *= dmgMultiplier;
@@ -1928,10 +1928,10 @@ void SpriteUtilMetroidUnfreezeAnim(void)
 /**
  * @brief 100fc | 9c | Updates the freeze timer of the secondary sprites of the specified primary sprite
  * 
- * @param spriteID 
+ * @param spriteId 
  * @param ramSlot 
  */
-void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot)
+void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteId, u8 ramSlot)
 {
     u8 i;
 
@@ -1946,7 +1946,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot
         if (!(gSpriteData[i].properties & SP_SECONDARY_SPRITE))
             continue;
 
-        if(gSpriteData[i].spriteID == spriteID && gSpriteData[i].primarySpriteRamSlot == ramSlot
+        if(gSpriteData[i].spriteId == spriteId && gSpriteData[i].primarySpriteRamSlot == ramSlot
             && gSpriteData[i].freezeTimer < gCurrentSprite.freezeTimer)
         {
             if (gSpriteData[i].properties & SP_DESTROYED)
@@ -1980,10 +1980,10 @@ void SpriteUtillUpdatePrimarySpriteFreezeTimerOfCurrent(void)
 /**
  * @brief 101f4 | 68 | Unfreezes all of the secondary sprites of the specified type
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @param ramSlot Ram slot
  */
-void SpriteUtilUnfreezeSecondarySprites(u8 spriteID, u8 ramSlot)
+void SpriteUtilUnfreezeSecondarySprites(u8 spriteId, u8 ramSlot)
 {
     u8 i;
 
@@ -1995,7 +1995,7 @@ void SpriteUtilUnfreezeSecondarySprites(u8 spriteID, u8 ramSlot)
         if (!(gSpriteData[i].properties & SP_SECONDARY_SPRITE))
             continue;
 
-        if (gSpriteData[i].spriteID == spriteID && gSpriteData[i].primarySpriteRamSlot == ramSlot && gSpriteData[i].freezeTimer != 0)
+        if (gSpriteData[i].spriteId == spriteId && gSpriteData[i].primarySpriteRamSlot == ramSlot && gSpriteData[i].freezeTimer != 0)
         {
             gSpriteData[i].freezeTimer = 0;
             gSpriteData[i].paletteRow = 0;
@@ -2297,9 +2297,9 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
 
     // Get weakness
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        weakness = GET_SSPRITE_WEAKNESS(pSprite->spriteID);
+        weakness = GET_SSPRITE_WEAKNESS(pSprite->spriteId);
     else
-        weakness = GET_PSPRITE_WEAKNESS(pSprite->spriteID);
+        weakness = GET_PSPRITE_WEAKNESS(pSprite->spriteId);
 
     if (dct >= DCT_SUDO_SCREW)
     {
@@ -2425,10 +2425,10 @@ u32 SpriteUtilCheckOnZipline(void)
 /**
  * @brief 106e8 | 50 | Counts the number of primary sprites
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @return u8 Count
  */
-u8 SpriteUtilCountPrimarySprites(u8 spriteID)
+u8 SpriteUtilCountPrimarySprites(u8 spriteId)
 {
     u8 count;
     struct SpriteData* pSprite;
@@ -2437,7 +2437,7 @@ u8 SpriteUtilCountPrimarySprites(u8 spriteID)
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteId == spriteId)
             count++;
     }
 
@@ -2447,10 +2447,10 @@ u8 SpriteUtilCountPrimarySprites(u8 spriteID)
 /**
  * @brief 10738 | 60 | Counts the number of secondary sprites the current sprite ram slot
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @return u8 Count
  */
-u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
+u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteId)
 {
     u8 count;
     u8 ramSlot;
@@ -2462,7 +2462,7 @@ u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE &&
-            pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
+            pSprite->spriteId == spriteId && pSprite->primarySpriteRamSlot == ramSlot)
             count++;
     }
 
@@ -2472,10 +2472,10 @@ u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
 /**
  * @brief 10798 | 60 | Counts the number of primary sprites the current sprite ram slot
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @return u8 Count
  */
-u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
+u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteId)
 {
     u8 count;
     u8 ramSlot;
@@ -2492,7 +2492,7 @@ u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
         if (pSprite->properties & SP_SECONDARY_SPRITE)
             continue;
 
-        if (pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
+        if (pSprite->spriteId == spriteId && pSprite->primarySpriteRamSlot == ramSlot)
             count++;
     }
 
@@ -2502,10 +2502,10 @@ u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
 /**
  * @brief 107f8 | 58 | Finds the ram slot of a primary sprite
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @return u8 Ram slot
  */
-u8 SpriteUtilFindPrimary(u8 spriteID)
+u8 SpriteUtilFindPrimary(u8 spriteId)
 {
     u8 ramSlot;
     struct SpriteData* pSprite;
@@ -2514,7 +2514,7 @@ u8 SpriteUtilFindPrimary(u8 spriteID)
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteId == spriteId)
             return ramSlot;
 
         ramSlot++;
@@ -2526,11 +2526,11 @@ u8 SpriteUtilFindPrimary(u8 spriteID)
 /**
  * @brief 10850 | 60 | Finds the ram slot of a secondary sprite
  * 
- * @param spriteID Sprite ID
+ * @param spriteId Sprite ID
  * @param roomSlot Room slot/part number
  * @return u8 Ram slot
  */
-u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteID, u8 roomSlot)
+u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteId, u8 roomSlot)
 {
     u8 ramSlot;
     struct SpriteData* pSprite;
@@ -2540,7 +2540,7 @@ u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteID, u8 roomSlot)
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE &&
-            pSprite->spriteID == spriteID && pSprite->roomSlot == roomSlot)
+            pSprite->spriteId == spriteId && pSprite->roomSlot == roomSlot)
             return ramSlot;
 
         ramSlot++;
@@ -2999,7 +2999,7 @@ u8 SpriteUtilDetermineEnemyDrop(void)
     u8 drop;
     u8 fullLife;
     u16 rng;
-    u8 spriteID;
+    u8 spriteId;
 
     u16 smallEnergyProb;
     u16 largeEnergyProb;
@@ -3022,23 +3022,23 @@ u8 SpriteUtilDetermineEnemyDrop(void)
     if (rng == 0)
         rng = 1;
 
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
 
     if (gCurrentSprite.properties & SP_SECONDARY_SPRITE)
     {
-        smallEnergyProb = sSecondarySpriteStats[spriteID][4];
-        largeEnergyProb = sSecondarySpriteStats[spriteID][5];
-        missileProb = sSecondarySpriteStats[spriteID][6];
-        superProb = sSecondarySpriteStats[spriteID][7];
-        powerProb = sSecondarySpriteStats[spriteID][8];
+        smallEnergyProb = sSecondarySpriteStats[spriteId][4];
+        largeEnergyProb = sSecondarySpriteStats[spriteId][5];
+        missileProb = sSecondarySpriteStats[spriteId][6];
+        superProb = sSecondarySpriteStats[spriteId][7];
+        powerProb = sSecondarySpriteStats[spriteId][8];
     }
     else
     {
-        smallEnergyProb = sPrimarySpriteStats[spriteID][4];
-        largeEnergyProb = sPrimarySpriteStats[spriteID][5];
-        missileProb = sPrimarySpriteStats[spriteID][6];
-        superProb = sPrimarySpriteStats[spriteID][7];
-        powerProb = sPrimarySpriteStats[spriteID][8];
+        smallEnergyProb = sPrimarySpriteStats[spriteId][4];
+        largeEnergyProb = sPrimarySpriteStats[spriteId][5];
+        missileProb = sPrimarySpriteStats[spriteId][6];
+        superProb = sPrimarySpriteStats[spriteId][7];
+        powerProb = sPrimarySpriteStats[spriteId][8];
     }
 
     if (powerProb != 0)
@@ -3253,7 +3253,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             gCurrentSprite.status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties = 0;
             gCurrentSprite.spritesetGfxSlot = 0;
-            gCurrentSprite.spriteID = drop;
+            gCurrentSprite.spriteId = drop;
             gCurrentSprite.yPosition = yPosition;
             gCurrentSprite.xPosition = xPosition;
             gCurrentSprite.bgPriority = 2;

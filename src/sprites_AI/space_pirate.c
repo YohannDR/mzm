@@ -71,7 +71,7 @@ void SpawnWaitingPirates(void)
 {
     u8 foundPirate;
     u8 i;
-    u8 spriteID;
+    u8 spriteId;
     u16 yPosition;
     u16 xPosition;
 
@@ -89,8 +89,8 @@ void SpawnWaitingPirates(void)
     
     for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
-        spriteID = gSpritesetSpritesID[i];
-        if (spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+        spriteId = gSpritesetSpritesID[i];
+        if (spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
         {
             foundPirate++;
             break;
@@ -101,13 +101,13 @@ void SpawnWaitingPirates(void)
     {
         for (i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
         {
-            spriteID = gSpritesetSpritesID[i];
+            spriteId = gSpritesetSpritesID[i];
 
-            if (spriteID == PSPRITE_SPACE_PIRATE || spriteID == PSPRITE_SPACE_PIRATE_WAITING1 ||
-                spriteID == PSPRITE_SPACE_PIRATE_WAITING3 || spriteID == PSPRITE_SPACE_PIRATE2)
+            if (spriteId == PSPRITE_SPACE_PIRATE || spriteId == PSPRITE_SPACE_PIRATE_WAITING1 ||
+                spriteId == PSPRITE_SPACE_PIRATE_WAITING3 || spriteId == PSPRITE_SPACE_PIRATE2)
             {
                 foundPirate++;
-                spriteID = PSPRITE_SPACE_PIRATE_WAITING1;
+                spriteId = PSPRITE_SPACE_PIRATE_WAITING1;
                 break;
             }
         }
@@ -129,11 +129,11 @@ void SpawnWaitingPirates(void)
         {
             case 0x58: // Save platform + pirates
             case 0x67: // Map station + pirates
-                i = SpriteSpawnPrimary(spriteID, 0x81, 0x5, yPosition, xPosition, 0);
+                i = SpriteSpawnPrimary(spriteId, 0x81, 0x5, yPosition, xPosition, 0);
                 break;
 
             default:
-                i = SpriteSpawnPrimary(spriteID, 0x81, 0x0, yPosition, xPosition, 0);
+                i = SpriteSpawnPrimary(spriteId, 0x81, 0x0, yPosition, xPosition, 0);
         }
     }
     else
@@ -142,11 +142,11 @@ void SpawnWaitingPirates(void)
         {
             case 0x58: // Save platform + pirates
             case 0x67: // Map station + pirates
-                i = SpriteSpawnPrimary(spriteID, 0x80, 0x5, yPosition, xPosition, 0);
+                i = SpriteSpawnPrimary(spriteId, 0x80, 0x5, yPosition, xPosition, 0);
                 break;
 
             default:
-                i = SpriteSpawnPrimary(spriteID, 0x80, 0x0, yPosition, xPosition, 0);
+                i = SpriteSpawnPrimary(spriteId, 0x80, 0x0, yPosition, xPosition, 0);
         }
     }
 
@@ -1210,7 +1210,7 @@ u8 SpacePirateCheckSamusInShootingRange(void)
 
     if (gSpriteDrawOrder[2] == 0x1)
     {
-        if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE2)
+        if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE2)
             xRange = BLOCK_SIZE * 8;
         else
         {
@@ -1286,7 +1286,7 @@ u8 SpacePirateCheckSamusInShootingRange(void)
         }
     }
 
-    if (gCurrentSprite.spriteID != PSPRITE_SPACE_PIRATE_WAITING2)
+    if (gCurrentSprite.spriteId != PSPRITE_SPACE_PIRATE_WAITING2)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
@@ -1632,7 +1632,7 @@ void unk_29ef0(void)
             {
                 if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE)
                 {
-                    if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+                    if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
                     {
                         gCurrentSprite.status = 0;
 
@@ -1692,7 +1692,7 @@ void unk_29ef0(void)
             {
                 if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE)
                 {
-                    if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+                    if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
                     {
                         gCurrentSprite.status = 0;
 
@@ -1845,11 +1845,11 @@ void unk_29ef0(void)
  */
 void SpacePirateInit(void)
 {
-    u8 spriteID;
+    u8 spriteId;
     u16 yPosition;
     u16 xPosition;
 
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
 
     gCurrentSprite.drawDistanceTopOffset = 0x40;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
@@ -1862,12 +1862,12 @@ void SpacePirateInit(void)
     gCurrentSprite.currentAnimationFrame = gSpriteRng & 0x7;
     gCurrentSprite.animationDurationCounter = 0x0;
 
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteId);
     gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.oamRotation = 0x0;
 
-    if ((u8)(spriteID - PSPRITE_SPACE_PIRATE_WAITING1) < 0x3)
+    if ((u8)(spriteId - PSPRITE_SPACE_PIRATE_WAITING1) < 0x3)
     {
         gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -1879,7 +1879,7 @@ void SpacePirateInit(void)
             else
                 gCurrentSprite.xPosition += 0x88;
 
-            if (spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+            if (spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
                 gCurrentSprite.timer = 0x78;
             else if (gCurrentArea == AREA_CHOZODIA && gCurrentRoom == 0x50)
                 gCurrentSprite.timer = 0x6E;
@@ -1889,7 +1889,7 @@ void SpacePirateInit(void)
             gCurrentSprite.pose = SPACE_PIRATE_POSE_WAITING_AT_DOOR;
             gCurrentSprite.status |= (SPRITE_STATUS_MOSAIC | SPRITE_STATUS_IGNORE_PROJECTILES);
         }
-        else if (spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+        else if (spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
         {
             gCurrentSprite.status = 0x0;
             return;
@@ -2521,7 +2521,7 @@ void SpacePirateTurningAroundSecondPartAlerted(void)
                 unk_29ef0();
                 if (gCurrentSprite.pose == 0x47)
                     gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
-                else if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE2)
+                else if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE2)
                     gCurrentSprite.pose = 0x2A;
             }
         }
@@ -2567,7 +2567,7 @@ void SpacePirateWalkingAlerted(void)
 
         if (gCurrentSprite.pose != SPACE_PIRATE_POSE_WALKING_ALERTED)
         {
-            if ((gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2 || gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE2) &&
+            if ((gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE_WAITING2 || gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE2) &&
                 gCurrentSprite.pose == SPACE_PIRATE_POSE_JUMPING_INIT)
                 gCurrentSprite.pose = 0x2A;
         }
@@ -2986,7 +2986,7 @@ void SpacePirateShootingLaser(void)
             gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
         else
         {
-            if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE2)
+            if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE2)
                 xRange = BLOCK_SIZE * 8;
             else
             {
@@ -3099,7 +3099,7 @@ void SpacePirateWaitingAtDoor(void)
         
         if (shoot)
         {
-            if (gCurrentSprite.spriteID != PSPRITE_SPACE_PIRATE_WAITING3 ||
+            if (gCurrentSprite.spriteId != PSPRITE_SPACE_PIRATE_WAITING3 ||
                 SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 6, BLOCK_SIZE * 10) != NSLR_OUT_OF_RANGE)
             {
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_SHOOTING_AFTER_WAITING_AT_DOOR;
@@ -4362,14 +4362,14 @@ void SpacePirate(void)
             if (gSpriteDrawOrder[2] == TRUE)
             {
                 gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
-                if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+                if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     {
                         if (gSpriteDrawOrder[1] == TRUE)
                         {
                             if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
-                                gCurrentSprite.spriteID = PSPRITE_SPACE_PIRATE;
+                                gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
                         }
                     }
                     else
@@ -4377,7 +4377,7 @@ void SpacePirate(void)
                         if (gSpriteDrawOrder[1] == FALSE)
                         {
                             if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
-                                gCurrentSprite.spriteID = PSPRITE_SPACE_PIRATE;
+                                gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
                         }
                     }
                     

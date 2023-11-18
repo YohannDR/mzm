@@ -2010,7 +2010,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
     u8 roomSlot;
     u8 lowHealth;
     u8 i;
-    s32 spriteID;
+    s32 spriteId;
     u32 health;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
@@ -2036,11 +2036,11 @@ void KraidPartCheckShouldSpawnSpikes(void)
             return;
 
         // Don't start to spawn spikes if there's already one
-        spriteID = SSPRITE_KRAID_SPIKE;
+        spriteId = SSPRITE_KRAID_SPIKE;
         for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
         {
             if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && gSpriteData[i].properties & SP_SECONDARY_SPRITE &&
-                gSpriteData[i].spriteID == spriteID)
+                gSpriteData[i].spriteId == spriteId)
                 return;
         }
 
@@ -2207,7 +2207,7 @@ void KraidPartDyingStationary(void)
         gCurrentSprite.animationDurationCounter += 0x2;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gSpriteData[ramSlot].spriteID == PSPRITE_KRAID)
+    if (gSpriteData[ramSlot].spriteId == PSPRITE_KRAID)
         return;
 
     // Kraid is dead, kill the part
@@ -2426,7 +2426,7 @@ void Kraid(void)
             KraidBeforeDeath();
     }
 
-    if (gCurrentSprite.spriteID == PSPRITE_KRAID)
+    if (gCurrentSprite.spriteId == PSPRITE_KRAID)
     {
         SpriteUtilUpdateSubSprite1Anim();
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
@@ -2593,7 +2593,7 @@ void KraidPart(void)
             KraidPartDyingStationary();
     }
 
-    if (gCurrentSprite.spriteID != SSPRITE_KRAID_PART)
+    if (gCurrentSprite.spriteId != SSPRITE_KRAID_PART)
         return;
 
     // Check update hitbox
@@ -2668,7 +2668,7 @@ void KraidSpike(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.pose = KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
@@ -2865,7 +2865,7 @@ void KraidNail(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 

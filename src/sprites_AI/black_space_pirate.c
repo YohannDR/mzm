@@ -273,7 +273,7 @@ void BlackSpacePirateInit(void)
     gCurrentSprite.hitboxTopOffset = -0xA0;
     gCurrentSprite.hitboxBottomOffset = 0;
 
-    health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.health = health;
     gCurrentSprite.yPositionSpawn = health;
 
@@ -405,7 +405,7 @@ void BlackSpacePirateShooting(void)
             return;
         }
 
-        if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE2)
+        if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE2)
             xRange = BLOCK_SIZE * 8;
         else
         {

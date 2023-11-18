@@ -49,7 +49,7 @@ u32 ParasiteCount(void)
  */
 void ParasiteInit(struct SpriteData* pSprite)
 {
-    u8 spriteID;
+    u8 spriteId;
     u8 gfxSlot;
     u8 roomSlot;
     u16 yPosition;
@@ -76,9 +76,9 @@ void ParasiteInit(struct SpriteData* pSprite)
 
     pSprite->pose = PARASITE_POSE_IDLE_INIT;
 
-    spriteID = pSprite->spriteID;
+    spriteId = pSprite->spriteId;
 
-    if (spriteID == PSPRITE_PARASITE_MULTIPLE)
+    if (spriteId == PSPRITE_PARASITE_MULTIPLE)
     {
         // Check lock doors
         if (gEquipment.beamBombs & BBF_BOMBS && !EventFunction(EVENT_ACTION_CHECKING, EVENT_BUGS_KILLED))
@@ -101,11 +101,11 @@ void ParasiteInit(struct SpriteData* pSprite)
             xPosition = pSprite->xPosition;
 
             // Spawn sub parasites
-            SpriteSpawnPrimary(spriteID, roomSlot, gfxSlot, yPosition, xPosition - 0x8, 0x0);
-            SpriteSpawnPrimary(spriteID, roomSlot, gfxSlot, yPosition, xPosition + 0xC, 0x0);
-            SpriteSpawnPrimary(spriteID, roomSlot, gfxSlot, yPosition, xPosition - 0xC, 0x0);
-            SpriteSpawnPrimary(spriteID, roomSlot, gfxSlot, yPosition, xPosition + 0x8, 0x0);
-            SpriteSpawnPrimary(spriteID, roomSlot, gfxSlot, yPosition, xPosition, 0x0);
+            SpriteSpawnPrimary(spriteId, roomSlot, gfxSlot, yPosition, xPosition - 0x8, 0x0);
+            SpriteSpawnPrimary(spriteId, roomSlot, gfxSlot, yPosition, xPosition + 0xC, 0x0);
+            SpriteSpawnPrimary(spriteId, roomSlot, gfxSlot, yPosition, xPosition - 0xC, 0x0);
+            SpriteSpawnPrimary(spriteId, roomSlot, gfxSlot, yPosition, xPosition + 0x8, 0x0);
+            SpriteSpawnPrimary(spriteId, roomSlot, gfxSlot, yPosition, xPosition, 0x0);
         }
     }
 }

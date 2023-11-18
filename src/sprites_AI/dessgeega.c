@@ -38,11 +38,11 @@ u8 DessgeegaCheckSamusNearLeftRight(void)
  */
 void DessgeegaInit(void)
 {
-    u8 spriteID;
+    u8 spriteId;
 
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
 
-    if (spriteID == PSPRITE_DESSGEEGA_AFTER_LONG_BEAM)
+    if (spriteId == PSPRITE_DESSGEEGA_AFTER_LONG_BEAM)
     {
         // Check should kill dessgeega
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LONG_BEAM_DESSGEEGA_KILLED)
@@ -96,7 +96,7 @@ void DessgeegaInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteID);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteId);
     SpriteUtilChooseRandomXDirection();
 }
 

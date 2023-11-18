@@ -59,14 +59,14 @@ void EscapeGateChangeCCAA(u8 caa)
  */
 void EscapeGate(void)
 {
-    u8 spriteID;
+    u8 spriteId;
     u8 delay;
     u32 timer;
     u8 flag;
     u8 row;
     u32 offset;
 
-    spriteID = gCurrentSprite.spriteID;
+    spriteId = gCurrentSprite.spriteId;
     delay = 16;
 
     switch (gCurrentSprite.pose)
@@ -99,7 +99,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_LOAD_GRAPHICS:
-            if (spriteID == PSPRITE_ESCAPE_GATE1)
+            if (spriteId == PSPRITE_ESCAPE_GATE1)
             {
                 // Load graphics and spawn the black pirates
                 DMA_SET(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, (DMA_ENABLE << 16) | 0x400);
@@ -116,7 +116,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_IDLE:
-            if (spriteID == PSPRITE_ESCAPE_GATE1)
+            if (spriteId == PSPRITE_ESCAPE_GATE1)
             {
                 // Check if black pirates are dead
                 if (SpriteUtilCountPrimarySprites(PSPRITE_BLACK_SPACE_PIRATE) == 0)
@@ -130,7 +130,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_CHECK_OPEN:
-            if (spriteID != PSPRITE_ESCAPE_GATE1 || SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE, BLOCK_SIZE * 6) == NSLR_LEFT)
+            if (spriteId != PSPRITE_ESCAPE_GATE1 || SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE, BLOCK_SIZE * 6) == NSLR_LEFT)
             {
                 // Open gate if samus near
                 gCurrentSprite.pOam = sEscapeGateOAM_Opening;
@@ -161,7 +161,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_OPENED:
-            if (spriteID != PSPRITE_ESCAPE_GATE1)
+            if (spriteId != PSPRITE_ESCAPE_GATE1)
                 return;
 
             if (gSubSpriteData1.workVariable3 == 1)
@@ -175,7 +175,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_ESCAPING:
-            if (spriteID != PSPRITE_ESCAPE_GATE1)
+            if (spriteId != PSPRITE_ESCAPE_GATE1)
                 return;
 
             if (gSubSpriteData1.workVariable3 == 2)
@@ -184,7 +184,7 @@ void EscapeGate(void)
     }
 
     // Update animated palette
-    if (spriteID == PSPRITE_ESCAPE_GATE1)
+    if (spriteId == PSPRITE_ESCAPE_GATE1)
     {
         timer = --gCurrentSprite.workVariable2;
         if (timer == 0)
