@@ -471,9 +471,7 @@ SECTIONS {
         src/sprites_AI/atomic.o(.text);
         src/sprites_AI/area_banner.o(.text);
         src/sprites_AI/mother_brain.o(.text);
-
-        asm/disasm_0x0803d860.o(.text);
-
+        src/sprites_AI/acid_worm.o(.text);
         src/sprites_AI/sidehopper.o(.text);
         src/sprites_AI/geron_norfair.o(.text);
         src/sprites_AI/geega.o(.text);
