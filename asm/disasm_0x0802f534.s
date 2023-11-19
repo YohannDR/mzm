@@ -150,7 +150,7 @@ WorkerRobotInit: @ 0x0802f5f8
     adds r0, r0, r2
     ldrh r0, [r0]
     strh r0, [r4, #0x14]
-    bl SpriteUtilMakeSpriteFaceAwawFromSamusXFlip
+    bl SpriteUtilMakeSpriteFaceAwayFromSamusXFlip
     ldrh r1, [r4]
     movs r0, #0x40
     ands r0, r1
@@ -3823,7 +3823,7 @@ lbl_080311e0:
     adds r0, r6, #0
     adds r0, #0x2e
     strb r7, [r0]
-    bl SpriteUtilMakeSpriteFaceAwawFromSamusDirection
+    bl SpriteUtilMakeSpriteFaceAwayFromSamusDirection
 lbl_080311ea:
     add sp, #0x18
     pop {r3, r4, r5}

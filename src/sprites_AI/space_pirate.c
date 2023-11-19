@@ -267,7 +267,7 @@ void SpacePirateSamusDetection(void)
     foundSolid = FALSE;
     blockSize = BLOCK_SIZE;
 
-    small = SpriteUtilCheckMorphed();
+    small = SpriteUtilCheckCrouchingOrMorphed();
     lowXRange = 8;
     highXRange = 8;
 
@@ -1873,7 +1873,7 @@ void SpacePirateInit(void)
 
         if (gCurrentSprite.roomSlot & 0x80)
         {
-            SpriteUtilMakeSpriteFaceAwawFromSamusDirection();
+            SpriteUtilMakeSpriteFaceSamusDirection();
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 gCurrentSprite.xPosition -= 0x88;
             else
@@ -3541,7 +3541,7 @@ void unk_2ba98(void)
             break;
 
         case 3:
-            if (SpriteUtilCheckEndCurrentSpriteAnim())
+            if (SpriteUtilCheckNearEndCurrentSpriteAnim())
                 gCurrentSprite.pose = gCurrentSprite.timer;
             break;
 
@@ -3628,7 +3628,7 @@ void SpacePirateClimbingShootingLaser(void)
     if (gCurrentSprite.currentAnimationFrame == 0x2 && gCurrentSprite.animationDurationCounter == 0x1)
         SpacePirateFireLaserWall();
 
-    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
     {
         gCurrentSprite.pOam = sSpacePirateOAM_AimingWhileClimbing;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -3731,7 +3731,7 @@ void SpacePirateLaunchingFromWallInit(void)
  */
 void SpacePirateLaunchingFromWall(void)
 {
-    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = SPACE_PIRATE_POSE_WALL_JUMPING;
 
@@ -4307,6 +4307,7 @@ void SpacePirateLaserMove(void)
     }
 }
 
+#ifdef NON_MATCHING
 void SpacePirate(void)
 {
     // https://decomp.me/scratch/lP6Vb
@@ -4635,6 +4636,488 @@ void SpacePirate(void)
     if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400))
         SoundPlayNotAlreadyPlaying(0x169);
 }
+#else
+NAKED_FUNCTION
+void SpacePirate(void)
+{
+    asm(" \n\
+        push {r4, r5, r6, r7, lr} \n\
+        mov r7, r8 \n\
+        push {r7} \n\
+        ldr r4, lbl_0802c718 @ =gCurrentSprite \n\
+        ldrh r0, [r4] \n\
+        movs r6, #0x80 \n\
+        lsl r6, r6, #3 \n\
+        add r1, r6, #0 \n\
+        and r1, r0 \n\
+        lsl r1, r1, #0x10 \n\
+        lsr r1, r1, #0x10 \n\
+        neg r1, r1 \n\
+        lsr r1, r1, #0x1f \n\
+        mov r8, r1 \n\
+        add r7, r4, #0 \n\
+        add r7, #0x24 \n\
+        ldrb r0, [r7] \n\
+        mov ip, r4 \n\
+        cmp r0, #0x61 \n\
+        bls lbl_0802c6ce \n\
+        b lbl_0802c7d4 \n\
+    lbl_0802c6ce: \n\
+        add r2, r4, #0 \n\
+        add r2, #0x30 \n\
+        ldrb r5, [r2] \n\
+        cmp r5, #0 \n\
+        beq lbl_0802c742 \n\
+        ldr r0, lbl_0802c71c @ =gEquipment \n\
+        ldrb r0, [r0, #0x12] \n\
+        cmp r0, #2 \n\
+        bne lbl_0802c738 \n\
+        ldr r0, lbl_0802c720 @ =gFrameCounter8Bit \n\
+        ldrb r1, [r0] \n\
+        movs r3, #1 \n\
+        add r0, r3, #0 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c6f2 \n\
+        sub r0, r5, #1 \n\
+        strb r0, [r2] \n\
+    lbl_0802c6f2: \n\
+        ldrb r2, [r2] \n\
+        cmp r2, #0 \n\
+        bne lbl_0802c6fe \n\
+        ldrb r0, [r4, #0x1c] \n\
+        sub r0, #1 \n\
+        strb r0, [r4, #0x1c] \n\
+    lbl_0802c6fe: \n\
+        cmp r2, #0x2d \n\
+        bhi lbl_0802c72e \n\
+        add r1, r3, #0 \n\
+        and r1, r2 \n\
+        cmp r1, #0 \n\
+        beq lbl_0802c724 \n\
+        add r0, r4, #0 \n\
+        add r0, #0x20 \n\
+        strb r3, [r0] \n\
+        add r0, #0x14 \n\
+        strb r3, [r0] \n\
+        b lbl_0802c72e \n\
+        .align 2, 0 \n\
+    lbl_0802c718: .4byte gCurrentSprite \n\
+    lbl_0802c71c: .4byte gEquipment \n\
+    lbl_0802c720: .4byte gFrameCounter8Bit \n\
+    lbl_0802c724: \n\
+        add r0, r4, #0 \n\
+        add r0, #0x20 \n\
+        strb r1, [r0] \n\
+        add r0, #0x14 \n\
+        strb r1, [r0] \n\
+    lbl_0802c72e: \n\
+        mov r1, ip \n\
+        add r1, #0x26 \n\
+        movs r0, #1 \n\
+        strb r0, [r1] \n\
+        b lbl_0802c73c \n\
+    lbl_0802c738: \n\
+        bl SpriteUtilUpdateFreezeTimer \n\
+    lbl_0802c73c: \n\
+        bl SpacePirateCheckCollidingWithLaser \n\
+        b lbl_0802cb10 \n\
+    lbl_0802c742: \n\
+        bl SpacePirateSamusDetection \n\
+        ldrh r2, [r4] \n\
+        add r0, r6, #0 \n\
+        and r0, r2 \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c7bc \n\
+        ldr r0, lbl_0802c784 @ =gSpriteDrawOrder \n\
+        ldrb r1, [r0, #2] \n\
+        add r3, r0, #0 \n\
+        cmp r1, #1 \n\
+        bne lbl_0802c7a6 \n\
+        ldr r0, lbl_0802c788 @ =gAlarmTimer \n\
+        movs r5, #0xf0 \n\
+        lsl r5, r5, #1 \n\
+        add r1, r5, #0 \n\
+        strh r1, [r0] \n\
+        ldrb r0, [r4, #0x1d] \n\
+        cmp r0, #0x53 \n\
+        bne lbl_0802c7d0 \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #2 \n\
+        and r0, r2 \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c78c \n\
+        ldrb r0, [r3, #1] \n\
+        cmp r0, #1 \n\
+        bne lbl_0802c7a0 \n\
+        movs r0, #4 \n\
+        and r0, r2 \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c79a \n\
+        b lbl_0802c7a0 \n\
+        .align 2, 0 \n\
+    lbl_0802c784: .4byte gSpriteDrawOrder \n\
+    lbl_0802c788: .4byte gAlarmTimer \n\
+    lbl_0802c78c: \n\
+        ldrb r0, [r3, #1] \n\
+        cmp r0, #0 \n\
+        bne lbl_0802c7a0 \n\
+        movs r0, #4 \n\
+        and r0, r2 \n\
+        cmp r0, #0 \n\
+        bne lbl_0802c7a0 \n\
+    lbl_0802c79a: \n\
+        movs r0, #0x51 \n\
+        strb r0, [r4, #0x1d] \n\
+        b lbl_0802c7d0 \n\
+    lbl_0802c7a0: \n\
+        movs r0, #0 \n\
+        strb r0, [r3, #2] \n\
+        b lbl_0802c7d0 \n\
+    lbl_0802c7a6: \n\
+        ldr r0, lbl_0802c7b4 @ =gAlarmTimer \n\
+        ldrh r0, [r0] \n\
+        cmp r0, #0 \n\
+        bne lbl_0802c7d0 \n\
+        ldr r0, lbl_0802c7b8 @ =0x0000fbff \n\
+        and r0, r2 \n\
+        b lbl_0802c7ce \n\
+        .align 2, 0 \n\
+    lbl_0802c7b4: .4byte gAlarmTimer \n\
+    lbl_0802c7b8: .4byte 0x0000fbff \n\
+    lbl_0802c7bc: \n\
+        ldr r0, lbl_0802c7ec @ =gAlarmTimer \n\
+        ldrh r0, [r0] \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c7d0 \n\
+        ldrb r0, [r7] \n\
+        cmp r0, #0 \n\
+        beq lbl_0802c7d0 \n\
+        add r0, r6, #0 \n\
+        orr r0, r2 \n\
+    lbl_0802c7ce: \n\
+        strh r0, [r4] \n\
+    lbl_0802c7d0: \n\
+        bl SpacePirateCheckCollidingWithLaser \n\
+    lbl_0802c7d4: \n\
+        ldr r0, lbl_0802c7f0 @ =gCurrentSprite \n\
+        add r0, #0x24 \n\
+        ldrb r0, [r0] \n\
+        cmp r0, #0x6c \n\
+        bls lbl_0802c7e0 \n\
+        b lbl_0802caf0 \n\
+    lbl_0802c7e0: \n\
+        lsl r0, r0, #2 \n\
+        ldr r1, lbl_0802c7f4 @ =lbl_0802c7f8 \n\
+        add r0, r0, r1 \n\
+        ldr r0, [r0] \n\
+        mov pc, r0 \n\
+        .align 2, 0 \n\
+    lbl_0802c7ec: .4byte gAlarmTimer \n\
+    lbl_0802c7f0: .4byte gCurrentSprite \n\
+    lbl_0802c7f4: .4byte lbl_0802c7f8 \n\
+    lbl_0802c7f8: @ jump table \n\
+        .4byte lbl_0802c9ac @ case 0 \n\
+        .4byte lbl_0802caf0 @ case 1 \n\
+        .4byte lbl_0802caf0 @ case 2 \n\
+        .4byte lbl_0802caf0 @ case 3 \n\
+        .4byte lbl_0802caf0 @ case 4 \n\
+        .4byte lbl_0802caf0 @ case 5 \n\
+        .4byte lbl_0802caf0 @ case 6 \n\
+        .4byte lbl_0802caf0 @ case 7 \n\
+        .4byte lbl_0802c9b2 @ case 8 \n\
+        .4byte lbl_0802c9b8 @ case 9 \n\
+        .4byte lbl_0802ca12 @ case 10 \n\
+        .4byte lbl_0802ca16 @ case 11 \n\
+        .4byte lbl_0802ca1c @ case 12 \n\
+        .4byte lbl_0802caf0 @ case 13 \n\
+        .4byte lbl_0802c9f6 @ case 14 \n\
+        .4byte lbl_0802c9f0 @ case 15 \n\
+        .4byte lbl_0802ca0c @ case 16 \n\
+        .4byte lbl_0802ca00 @ case 17 \n\
+        .4byte lbl_0802ca8c @ case 18 \n\
+        .4byte lbl_0802ca90 @ case 19 \n\
+        .4byte lbl_0802caf0 @ case 20 \n\
+        .4byte lbl_0802ca96 @ case 21 \n\
+        .4byte lbl_0802ca06 @ case 22 \n\
+        .4byte lbl_0802caf0 @ case 23 \n\
+        .4byte lbl_0802ca6e @ case 24 \n\
+        .4byte lbl_0802ca72 @ case 25 \n\
+        .4byte lbl_0802c9ec @ case 26 \n\
+        .4byte lbl_0802caf0 @ case 27 \n\
+        .4byte lbl_0802c9fc @ case 28 \n\
+        .4byte lbl_0802caf0 @ case 29 \n\
+        .4byte lbl_0802c9e2 @ case 30 \n\
+        .4byte lbl_0802c9e6 @ case 31 \n\
+        .4byte lbl_0802caf0 @ case 32 \n\
+        .4byte lbl_0802caf0 @ case 33 \n\
+        .4byte lbl_0802ca22 @ case 34 \n\
+        .4byte lbl_0802ca26 @ case 35 \n\
+        .4byte lbl_0802c9ca @ case 36 \n\
+        .4byte lbl_0802c9d0 @ case 37 \n\
+        .4byte lbl_0802caf0 @ case 38 \n\
+        .4byte lbl_0802c9be @ case 39 \n\
+        .4byte lbl_0802c9c4 @ case 40 \n\
+        .4byte lbl_0802caf0 @ case 41 \n\
+        .4byte lbl_0802c9d6 @ case 42 \n\
+        .4byte lbl_0802c9dc @ case 43 \n\
+        .4byte lbl_0802caf0 @ case 44 \n\
+        .4byte lbl_0802caf0 @ case 45 \n\
+        .4byte lbl_0802caf0 @ case 46 \n\
+        .4byte lbl_0802caf0 @ case 47 \n\
+        .4byte lbl_0802caf0 @ case 48 \n\
+        .4byte lbl_0802caf0 @ case 49 \n\
+        .4byte lbl_0802caf0 @ case 50 \n\
+        .4byte lbl_0802caf0 @ case 51 \n\
+        .4byte lbl_0802ca2c @ case 52 \n\
+        .4byte lbl_0802ca30 @ case 53 \n\
+        .4byte lbl_0802ca36 @ case 54 \n\
+        .4byte lbl_0802ca3a @ case 55 \n\
+        .4byte lbl_0802ca78 @ case 56 \n\
+        .4byte lbl_0802ca7c @ case 57 \n\
+        .4byte lbl_0802ca82 @ case 58 \n\
+        .4byte lbl_0802ca86 @ case 59 \n\
+        .4byte lbl_0802caf0 @ case 60 \n\
+        .4byte lbl_0802caf0 @ case 61 \n\
+        .4byte lbl_0802caf0 @ case 62 \n\
+        .4byte lbl_0802caf0 @ case 63 \n\
+        .4byte lbl_0802caf0 @ case 64 \n\
+        .4byte lbl_0802caf0 @ case 65 \n\
+        .4byte lbl_0802ca40 @ case 66 \n\
+        .4byte lbl_0802ca44 @ case 67 \n\
+        .4byte lbl_0802ca4a @ case 68 \n\
+        .4byte lbl_0802ca4e @ case 69 \n\
+        .4byte lbl_0802caf0 @ case 70 \n\
+        .4byte lbl_0802ca54 @ case 71 \n\
+        .4byte lbl_0802ca5a @ case 72 \n\
+        .4byte lbl_0802ca5e @ case 73 \n\
+        .4byte lbl_0802ca9c @ case 74 \n\
+        .4byte lbl_0802caa0 @ case 75 \n\
+        .4byte lbl_0802caf0 @ case 76 \n\
+        .4byte lbl_0802ca44 @ case 77 \n\
+        .4byte lbl_0802caa6 @ case 78 \n\
+        .4byte lbl_0802caaa @ case 79 \n\
+        .4byte lbl_0802caf0 @ case 80 \n\
+        .4byte lbl_0802cab0 @ case 81 \n\
+        .4byte lbl_0802cab6 @ case 82 \n\
+        .4byte lbl_0802cabc @ case 83 \n\
+        .4byte lbl_0802caf0 @ case 84 \n\
+        .4byte lbl_0802cac2 @ case 85 \n\
+        .4byte lbl_0802cac8 @ case 86 \n\
+        .4byte lbl_0802cacc @ case 87 \n\
+        .4byte lbl_0802cad2 @ case 88 \n\
+        .4byte lbl_0802cad6 @ case 89 \n\
+        .4byte lbl_0802cadc @ case 90 \n\
+        .4byte lbl_0802cae0 @ case 91 \n\
+        .4byte lbl_0802caf0 @ case 92 \n\
+        .4byte lbl_0802caf0 @ case 93 \n\
+        .4byte lbl_0802ca64 @ case 94 \n\
+        .4byte lbl_0802ca68 @ case 95 \n\
+        .4byte lbl_0802caf0 @ case 96 \n\
+        .4byte lbl_0802caf0 @ case 97 \n\
+        .4byte lbl_0802caf0 @ case 98 \n\
+        .4byte lbl_0802caf0 @ case 99 \n\
+        .4byte lbl_0802caf0 @ case 100 \n\
+        .4byte lbl_0802caf0 @ case 101 \n\
+        .4byte lbl_0802caf0 @ case 102 \n\
+        .4byte lbl_0802caf0 @ case 103 \n\
+        .4byte lbl_0802caf0 @ case 104 \n\
+        .4byte lbl_0802caf0 @ case 105 \n\
+        .4byte lbl_0802caf0 @ case 106 \n\
+        .4byte lbl_0802cae6 @ case 107 \n\
+        .4byte lbl_0802caea @ case 108 \n\
+    lbl_0802c9ac: \n\
+        bl SpacePirateInit \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9b2: \n\
+        bl SpacePirateWalkingInit \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9b8: \n\
+        bl SpacePirateWalking \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9be: \n\
+        bl SpacePirateIdle \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9c4: \n\
+        bl SpacePirateIdleAtDoor \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9ca: \n\
+        bl SpacePirateWaitingAtDoor \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9d0: \n\
+        bl SpacePirateShootingAfterWaitingAtDoor \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9d6: \n\
+        bl unk_2aa5c \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9dc: \n\
+        bl unk_2aa88 \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9e2: \n\
+        bl SpacePirateFallingInit \n\
+    lbl_0802c9e6: \n\
+        bl SpacePirateFalling \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9ec: \n\
+        bl unk_2a794 \n\
+    lbl_0802c9f0: \n\
+        bl unk_2a7c0 \n\
+        b lbl_0802caf6 \n\
+    lbl_0802c9f6: \n\
+        bl unk_2a768 \n\
+        b lbl_0802c9f0 \n\
+    lbl_0802c9fc: \n\
+        bl unk_2ab34 \n\
+    lbl_0802ca00: \n\
+        bl unk_2ab58 \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca06: \n\
+        bl unk_2ab10 \n\
+        b lbl_0802ca00 \n\
+    lbl_0802ca0c: \n\
+        bl unk_2aaec \n\
+        b lbl_0802ca00 \n\
+    lbl_0802ca12: \n\
+        bl SpacePirateTurningAroundInit \n\
+    lbl_0802ca16: \n\
+        bl SpacePirateTurningAroundFirstPart \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca1c: \n\
+        bl SpacePirateTurningAroundSecondPart \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca22: \n\
+        bl SpacePirateWalkingAlertedInit \n\
+    lbl_0802ca26: \n\
+        bl SpacePirateWalkingAlerted \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca2c: \n\
+        bl SpacePirateChargingLaserInit \n\
+    lbl_0802ca30: \n\
+        bl SpacePirateChargingLaser \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca36: \n\
+        bl SpacePirateShootingLaserInit \n\
+    lbl_0802ca3a: \n\
+        bl SpacePirateShootingLaser \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca40: \n\
+        bl SpacePirateJumpingInit \n\
+    lbl_0802ca44: \n\
+        bl SpacePirateJumping \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca4a: \n\
+        bl SpacePirateTurningAroundAlertedInit \n\
+    lbl_0802ca4e: \n\
+        bl SpacePirateTurningAroundFirstPartAlerted \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca54: \n\
+        bl SpacePirateTurningAroundSecondPartAlerted \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca5a: \n\
+        bl SpacePirateClimbingUpInit \n\
+    lbl_0802ca5e: \n\
+        bl SpacePirateClimbingUp \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca64: \n\
+        bl SpacePirateClimbingDownInit \n\
+    lbl_0802ca68: \n\
+        bl SpacePirateClimbingDown \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca6e: \n\
+        bl unk_2ba7c \n\
+    lbl_0802ca72: \n\
+        bl unk_2ba98 \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca78: \n\
+        bl SpacePirateClimbingChargingLaserInit \n\
+    lbl_0802ca7c: \n\
+        bl SpacePirateClimbingChargingLaser \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca82: \n\
+        bl SpacePirateClimbingShootingLaserInit \n\
+    lbl_0802ca86: \n\
+        bl SpacePirateClimbingShootingLaser \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca8c: \n\
+        bl SpacePirateTurningAroundToWallJumpInit \n\
+    lbl_0802ca90: \n\
+        bl SpacePirateTurningAroundToWallJump \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca96: \n\
+        bl SpacePirateDelayBeforeLaunchingFromWall \n\
+        b lbl_0802caf6 \n\
+    lbl_0802ca9c: \n\
+        bl SpacePirateLaunchingFromWallInit \n\
+    lbl_0802caa0: \n\
+        bl SpacePirateLaunchingFromWall \n\
+        b lbl_0802caf6 \n\
+    lbl_0802caa6: \n\
+        bl SpacePirateStartingToCrawlInit \n\
+    lbl_0802caaa: \n\
+        bl SpacePirateStartingToCrawl \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cab0: \n\
+        bl SpacePirateCrawling \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cab6: \n\
+        bl SpacePirateTurningAroundWhileCrawlingInit \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cabc: \n\
+        bl SpacePirateTurningWhileCrawlingFirstPart \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cac2: \n\
+        bl SpacePirateTurningWhileCrawlingSecondPart \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cac8: \n\
+        bl SpacePirateStandingUpInit \n\
+    lbl_0802cacc: \n\
+        bl SpacePirateStandingUp \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cad2: \n\
+        bl SpacePirateCrawlingStoppedInit \n\
+    lbl_0802cad6: \n\
+        bl SpacePirateCrawlingStopped \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cadc: \n\
+        bl SpacePirateFallingWhileCrawlingInit \n\
+    lbl_0802cae0: \n\
+        bl SpacePirateFallingWhileCrawling \n\
+        b lbl_0802caf6 \n\
+    lbl_0802cae6: \n\
+        bl SpacePirateHitByLaserInit \n\
+    lbl_0802caea: \n\
+        bl SpacePirateHitByLaser \n\
+        b lbl_0802caf6 \n\
+    lbl_0802caf0: \n\
+        movs r0, #1 \n\
+        bl SpacePirateDeath \n\
+    lbl_0802caf6: \n\
+        mov r0, r8 \n\
+        cmp r0, #0 \n\
+        bne lbl_0802cb10 \n\
+        ldr r0, lbl_0802cb1c @ =gCurrentSprite \n\
+        ldrh r1, [r0] \n\
+        ldr r0, lbl_0802cb20 @ =0x00008403 \n\
+        and r0, r1 \n\
+        ldr r1, lbl_0802cb24 @ =0x00000403 \n\
+        cmp r0, r1 \n\
+        bne lbl_0802cb10 \n\
+        ldr r0, lbl_0802cb28 @ =0x00000169 \n\
+        bl SoundPlayNotAlreadyPlaying \n\
+    lbl_0802cb10: \n\
+        pop {r3} \n\
+        mov r8, r3 \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r0} \n\
+        bx r0 \n\
+        .align 2, 0 \n\
+    lbl_0802cb1c: .4byte gCurrentSprite \n\
+    lbl_0802cb20: .4byte 0x00008403 \n\
+    lbl_0802cb24: .4byte 0x00000403 \n\
+    lbl_0802cb28: .4byte 0x00000169 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 2cb2c | 3c | Space pirate laser AI

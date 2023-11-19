@@ -448,9 +448,7 @@ SECTIONS {
         src/sprites_AI/morph_ball_launcher.o(.text);
         src/sprites_AI/imago_cocoon.o(.text);
         src/sprites_AI/elevator_pad.o(.text);
-
-        asm/disasm_0x080287e4.o(.text);
-
+        src/sprites_AI/space_pirate.o(.text);
         src/sprites_AI/black_space_pirate.o(.text);
         src/sprites_AI/escape_ship_pirate.o(.text);
         src/sprites_AI/zipline_generator.o(.text);

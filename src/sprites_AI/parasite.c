@@ -1317,7 +1317,7 @@ void ParasiteProjectilesCollision(struct SpriteData* pSprite)
 
     pSprite->workVariable2 = kill;
 
-    SpriteUtilMakeSpriteFaceAwawFromSamusDirection();
+    SpriteUtilMakeSpriteFaceAwayFromSamusDirection();
 }
 
 /**

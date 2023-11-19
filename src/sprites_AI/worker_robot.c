@@ -90,7 +90,7 @@ void WorkerRobotInit(void)
     gCurrentSprite.samusCollision = SSC_SOLID;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-    SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
+    SpriteUtilMakeSpriteFaceAwayFromSamusXFlip();
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;

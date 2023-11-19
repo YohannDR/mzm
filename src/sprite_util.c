@@ -1223,7 +1223,7 @@ void SpriteUtilMakeSpriteFaceSamusDirection(void)
  * f914 | 30 | Makes the sprite face away from samus using X flip
  * 
  */
-void SpriteUtilMakeSpriteFaceAwawFromSamusXFlip(void)
+void SpriteUtilMakeSpriteFaceAwayFromSamusXFlip(void)
 {
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -1235,7 +1235,7 @@ void SpriteUtilMakeSpriteFaceAwawFromSamusXFlip(void)
  * f944 | 34 | Makes the sprite face away from samus using X direction
  * 
  */
-void SpriteUtilMakeSpriteFaceAwawFromSamusDirection(void)
+void SpriteUtilMakeSpriteFaceAwayFromSamusDirection(void)
 {
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
