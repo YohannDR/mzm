@@ -443,9 +443,7 @@ SECTIONS {
         src/sprites_AI/deorem.o(.text);
         src/sprites_AI/dessgeega.o(.text);
         src/sprites_AI/waver.o(.text);
-
-        asm/disasm_0x08024a10.o(.text);
-
+        src/sprites_AI/hive.o(.text);
         src/sprites_AI/imago_larva.o(.text);
         src/sprites_AI/morph_ball_launcher.o(.text);
         src/sprites_AI/imago_cocoon.o(.text);

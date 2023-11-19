@@ -23,8 +23,8 @@ void HiveSpawnParticle(void)
     u16 xPosition;
     u16 yPosition;
 
-    xPosition = gCurrentSprite.xPosition;
     yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
 
     ParticleSet(yPosition - HALF_BLOCK_SIZE, xPosition, PE_MEDIUM_DUST);
     ParticleSet(yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE, xPosition, PE_TWO_MEDIUM_DUST);
@@ -441,6 +441,7 @@ void MellowSamusDetectedInit(struct SpriteData* pSprite)
         pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
 }
 
+#ifdef NON_MATCHING
 void MellowMove(struct SpriteData* pSprite)
 {
     // https://decomp.me/scratch/o7G5U
@@ -705,13 +706,568 @@ void MellowMove(struct SpriteData* pSprite)
             SoundPlayNotAlreadyPlaying(0x15E);
     }
 }
+#else
+NAKED_FUNCTION
+void MellowMove(struct SpriteData* pSprite)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #8 \n\
+    mov ip, r0 \n\
+    movs r0, #0 \n\
+    str r0, [sp] \n\
+    movs r5, #0x18 \n\
+    mov r2, ip \n\
+    ldrh r1, [r2, #2] \n\
+    add r0, r1, #0 \n\
+    sub r0, #0x18 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    str r0, [sp, #4] \n\
+    add r1, #0x18 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r1, r1, #0x10 \n\
+    mov sl, r1 \n\
+    ldrh r1, [r2, #4] \n\
+    add r0, r1, #0 \n\
+    sub r0, #0x18 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    mov r8, r0 \n\
+    add r1, #0x18 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r7, r1, #0x10 \n\
+    mov r0, ip \n\
+    add r0, #0x23 \n\
+    ldrb r0, [r0] \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    lsl r1, r0, #3 \n\
+    sub r1, r1, r0 \n\
+    lsl r1, r1, #3 \n\
+    ldr r0, lbl_080251dc @ =gSpriteData \n\
+    add r2, r1, r0 \n\
+    movs r1, #0xa8 \n\
+    lsl r1, r1, #3 \n\
+    add r0, r0, r1 \n\
+    ldr r1, lbl_080251e0 @ =gSamusData \n\
+    mov sb, r1 \n\
+    cmp r2, r0 \n\
+    bhs lbl_08025202 \n\
+    add r3, r2, #0 \n\
+    add r3, #0x25 \n\
+lbl_0802519c: \n\
+    ldrh r1, [r2] \n\
+    movs r0, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080251f8 \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0x12 \n\
+    bne lbl_080251f8 \n\
+    ldrh r6, [r2, #2] \n\
+    ldrh r4, [r2, #4] \n\
+    sub r0, r6, r5 \n\
+    cmp sl, r0 \n\
+    ble lbl_080251f8 \n\
+    add r0, r6, r5 \n\
+    ldr r1, [sp, #4] \n\
+    cmp r1, r0 \n\
+    bge lbl_080251f8 \n\
+    sub r0, r4, r5 \n\
+    cmp r7, r0 \n\
+    ble lbl_080251f8 \n\
+    add r0, r4, r5 \n\
+    cmp r8, r0 \n\
+    bge lbl_080251f8 \n\
+    ldrb r0, [r3, #0xb] \n\
+    cmp r0, #0 \n\
+    bne lbl_08025202 \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #2] \n\
+    cmp r0, r6 \n\
+    bls lbl_080251e4 \n\
+    sub r0, r6, #4 \n\
+    b lbl_080251e6 \n\
+    .align 2, 0 \n\
+lbl_080251dc: .4byte gSpriteData \n\
+lbl_080251e0: .4byte gSamusData \n\
+lbl_080251e4: \n\
+    add r0, r6, #4 \n\
+lbl_080251e6: \n\
+    strh r0, [r2, #2] \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #4] \n\
+    cmp r0, r4 \n\
+    bhi lbl_08025240 \n\
+    ldrh r0, [r2, #4] \n\
+    add r0, #4 \n\
+    strh r0, [r2, #4] \n\
+    b lbl_08025202 \n\
+lbl_080251f8: \n\
+    add r3, #0x38 \n\
+    add r2, #0x38 \n\
+    ldr r0, lbl_08025238 @ =gSpritesetSpritesID \n\
+    cmp r2, r0 \n\
+    blo lbl_0802519c \n\
+lbl_08025202: \n\
+    mov r2, ip \n\
+    ldrb r0, [r2, #0x1e] \n\
+    cmp r0, #0x88 \n\
+    bne lbl_08025298 \n\
+    movs r7, #0x14 \n\
+    ldr r1, lbl_0802523c @ =gSpriteRng \n\
+    ldrb r0, [r1] \n\
+    add r0, #0x1e \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r5, r0, #0x18 \n\
+    ldrb r1, [r1] \n\
+    lsl r1, r1, #2 \n\
+    add r1, #0xdc \n\
+    mov r2, sb \n\
+    ldrh r0, [r2, #0x14] \n\
+    sub r0, r0, r1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    ldrh r4, [r2, #0x12] \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #8] \n\
+    cmp r0, #1 \n\
+    beq lbl_08025248 \n\
+    cmp r0, #3 \n\
+    beq lbl_08025270 \n\
+    b lbl_08025304 \n\
+    .align 2, 0 \n\
+lbl_08025238: .4byte gSpritesetSpritesID \n\
+lbl_0802523c: .4byte gSpriteRng \n\
+lbl_08025240: \n\
+    ldrh r0, [r2, #4] \n\
+    sub r0, #4 \n\
+    strh r0, [r2, #4] \n\
+    b lbl_08025202 \n\
+lbl_08025248: \n\
+    add r0, r6, #0 \n\
+    sub r0, #0x80 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    mov r2, ip \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08025266 \n\
+    movs r1, #0x80 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r4, r1 \n\
+    b lbl_08025300 \n\
+lbl_08025266: \n\
+    ldr r2, lbl_0802526c @ =0xffffff00 \n\
+    add r0, r4, r2 \n\
+    b lbl_08025300 \n\
+    .align 2, 0 \n\
+lbl_0802526c: .4byte 0xffffff00 \n\
+lbl_08025270: \n\
+    add r0, r6, #0 \n\
+    add r0, #0x20 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    mov r0, ip \n\
+    ldrh r1, [r0] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08025290 \n\
+    ldr r1, lbl_0802528c @ =0xffffff00 \n\
+    add r0, r4, r1 \n\
+    b lbl_08025300 \n\
+    .align 2, 0 \n\
+lbl_0802528c: .4byte 0xffffff00 \n\
+lbl_08025290: \n\
+    movs r2, #0x80 \n\
+    lsl r2, r2, #1 \n\
+    add r0, r4, r2 \n\
+    b lbl_08025300 \n\
+lbl_08025298: \n\
+    ldr r0, lbl_080252c0 @ =gSamusPhysics \n\
+    add r0, #0x70 \n\
+    ldrh r0, [r0] \n\
+    mov r1, sb \n\
+    ldrh r1, [r1, #0x14] \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    mov r2, sb \n\
+    ldrh r4, [r2, #0x12] \n\
+    movs r7, #0x1e \n\
+    movs r5, #0x28 \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #8] \n\
+    cmp r0, #1 \n\
+    beq lbl_080252c4 \n\
+    cmp r0, #3 \n\
+    beq lbl_080252e0 \n\
+    b lbl_08025304 \n\
+    .align 2, 0 \n\
+lbl_080252c0: .4byte gSamusPhysics \n\
+lbl_080252c4: \n\
+    add r0, r6, #0 \n\
+    sub r0, #0x20 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    mov r2, ip \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_080252fc \n\
+    add r0, r4, #0 \n\
+    sub r0, #0x30 \n\
+    b lbl_08025300 \n\
+lbl_080252e0: \n\
+    add r0, r6, #0 \n\
+    add r0, #0x20 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r6, r0, #0x10 \n\
+    mov r0, ip \n\
+    ldrh r1, [r0] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080252fc \n\
+    add r0, r4, #0 \n\
+    sub r0, #0x30 \n\
+    b lbl_08025300 \n\
+lbl_080252fc: \n\
+    add r0, r4, #0 \n\
+    add r0, #0x30 \n\
+lbl_08025300: \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r4, r0, #0x10 \n\
+lbl_08025304: \n\
+    mov r2, ip \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r3, r0, #0x10 \n\
+    cmp r3, #0 \n\
+    beq lbl_08025354 \n\
+    add r2, #0x2d \n\
+    ldrb r0, [r2] \n\
+    cmp r0, #0 \n\
+    bne lbl_0802533c \n\
+    mov r0, ip \n\
+    ldrh r1, [r0, #4] \n\
+    sub r0, r4, #4 \n\
+    cmp r1, r0 \n\
+    bgt lbl_08025368 \n\
+    mov r1, ip \n\
+    add r1, #0x2e \n\
+    ldrb r0, [r1] \n\
+    cmp r0, r5 \n\
+    bhs lbl_08025336 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_08025336: \n\
+    ldrb r0, [r1] \n\
+    lsr r0, r0, #2 \n\
+    b lbl_08025348 \n\
+lbl_0802533c: \n\
+    sub r1, r0, #1 \n\
+    strb r1, [r2] \n\
+    lsl r0, r1, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_080253ca \n\
+    lsr r0, r0, #0x1a \n\
+lbl_08025348: \n\
+    mov r1, ip \n\
+    ldrh r1, [r1, #4] \n\
+    add r0, r0, r1 \n\
+    mov r2, ip \n\
+    strh r0, [r2, #4] \n\
+    b lbl_080253d4 \n\
+lbl_08025354: \n\
+    mov r2, ip \n\
+    add r2, #0x2d \n\
+    ldrb r0, [r2] \n\
+    cmp r0, #0 \n\
+    bne lbl_08025396 \n\
+    mov r0, ip \n\
+    ldrh r1, [r0, #4] \n\
+    add r0, r4, #4 \n\
+    cmp r1, r0 \n\
+    bge lbl_08025372 \n\
+lbl_08025368: \n\
+    mov r0, ip \n\
+    add r0, #0x2e \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r2] \n\
+    b lbl_080253d4 \n\
+lbl_08025372: \n\
+    mov r1, ip \n\
+    add r1, #0x2e \n\
+    ldrb r0, [r1] \n\
+    cmp r0, r5 \n\
+    bhs lbl_08025380 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_08025380: \n\
+    ldrb r0, [r1] \n\
+    lsr r5, r0, #2 \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #4] \n\
+    sub r1, r0, r5 \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #8 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_080253b2 \n\
+    b lbl_080253c4 \n\
+lbl_08025396: \n\
+    sub r1, r0, #1 \n\
+    strb r1, [r2] \n\
+    lsl r0, r1, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_080253ca \n\
+    lsr r5, r0, #0x1a \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #4] \n\
+    sub r1, r0, r5 \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #8 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080253c4 \n\
+lbl_080253b2: \n\
+    ldr r0, [sp] \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    str r0, [sp] \n\
+    strb r3, [r2] \n\
+    mov r2, ip \n\
+    strh r3, [r2, #4] \n\
+    b lbl_080253d4 \n\
+lbl_080253c4: \n\
+    mov r0, ip \n\
+    strh r1, [r0, #4] \n\
+    b lbl_080253d4 \n\
+lbl_080253ca: \n\
+    ldr r0, [sp] \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    str r0, [sp] \n\
+lbl_080253d4: \n\
+    ldr r1, [sp] \n\
+    cmp r1, #0 \n\
+    beq lbl_08025404 \n\
+    mov r2, ip \n\
+    ldrh r0, [r2] \n\
+    movs r2, #0x80 \n\
+    lsl r2, r2, #2 \n\
+    add r1, r2, #0 \n\
+    eor r0, r1 \n\
+    mov r1, ip \n\
+    strh r0, [r1] \n\
+    add r1, #0x2e \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    mov r2, ip \n\
+    ldrh r0, [r2, #8] \n\
+    add r0, #1 \n\
+    strh r0, [r2, #8] \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    cmp r0, #3 \n\
+    bls lbl_08025404 \n\
+    movs r0, #0 \n\
+    strh r0, [r2, #8] \n\
+lbl_08025404: \n\
+    movs r0, #0 \n\
+    str r0, [sp] \n\
+    mov r2, ip \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #3 \n\
+    and r0, r1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r3, r0, #0x10 \n\
+    cmp r3, #0 \n\
+    beq lbl_08025462 \n\
+    add r2, #0x2c \n\
+    ldrb r0, [r2] \n\
+    cmp r0, #0 \n\
+    bne lbl_0802544a \n\
+    mov r0, ip \n\
+    ldrh r1, [r0, #2] \n\
+    sub r0, r6, #4 \n\
+    cmp r1, r0 \n\
+    ble lbl_08025436 \n\
+    mov r0, ip \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r2] \n\
+    b lbl_080254e2 \n\
+lbl_08025436: \n\
+    mov r1, ip \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, r7 \n\
+    bhs lbl_08025444 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_08025444: \n\
+    ldrb r0, [r1] \n\
+    lsr r0, r0, #2 \n\
+    b lbl_08025456 \n\
+lbl_0802544a: \n\
+    sub r1, r0, #1 \n\
+    strb r1, [r2] \n\
+    lsl r0, r1, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_080254e8 \n\
+    lsr r0, r0, #0x1a \n\
+lbl_08025456: \n\
+    mov r1, ip \n\
+    ldrh r1, [r1, #2] \n\
+    add r0, r0, r1 \n\
+    mov r2, ip \n\
+    strh r0, [r2, #2] \n\
+    b lbl_080254e2 \n\
+lbl_08025462: \n\
+    mov r4, ip \n\
+    add r4, #0x2c \n\
+    ldrb r0, [r4] \n\
+    add r2, r0, #0 \n\
+    cmp r2, #0 \n\
+    bne lbl_080254b0 \n\
+    mov r0, ip \n\
+    ldrh r1, [r0, #2] \n\
+    add r0, r6, #4 \n\
+    cmp r1, r0 \n\
+    bge lbl_08025482 \n\
+    mov r0, ip \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r4] \n\
+    b lbl_080254e2 \n\
+lbl_08025482: \n\
+    mov r1, ip \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, r7 \n\
+    bhs lbl_08025490 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_08025490: \n\
+    ldrb r0, [r1] \n\
+    lsr r5, r0, #2 \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #2] \n\
+    sub r1, r0, r5 \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #8 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080254d8 \n\
+    movs r0, #1 \n\
+    str r0, [sp] \n\
+    strb r2, [r4] \n\
+    mov r1, ip \n\
+    strh r2, [r1, #2] \n\
+    b lbl_080254e2 \n\
+lbl_080254b0: \n\
+    sub r1, r0, #1 \n\
+    strb r1, [r4] \n\
+    lsl r0, r1, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_080254de \n\
+    lsr r5, r0, #0x1a \n\
+    mov r1, ip \n\
+    ldrh r0, [r1, #2] \n\
+    sub r1, r0, r5 \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #8 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080254d8 \n\
+    movs r2, #1 \n\
+    str r2, [sp] \n\
+    strb r3, [r4] \n\
+    mov r0, ip \n\
+    strh r3, [r0, #2] \n\
+    b lbl_080254e2 \n\
+lbl_080254d8: \n\
+    mov r2, ip \n\
+    strh r1, [r2, #2] \n\
+    b lbl_080254e2 \n\
+lbl_080254de: \n\
+    movs r0, #1 \n\
+    str r0, [sp] \n\
+lbl_080254e2: \n\
+    ldr r1, [sp] \n\
+    cmp r1, #0 \n\
+    beq lbl_080254fe \n\
+lbl_080254e8: \n\
+    mov r2, ip \n\
+    ldrh r0, [r2] \n\
+    movs r2, #0x80 \n\
+    lsl r2, r2, #3 \n\
+    add r1, r2, #0 \n\
+    eor r0, r1 \n\
+    mov r1, ip \n\
+    strh r0, [r1] \n\
+    add r1, #0x2f \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_080254fe: \n\
+    mov r2, ip \n\
+    ldrh r0, [r2, #0x12] \n\
+    sub r0, #1 \n\
+    strh r0, [r2, #0x12] \n\
+    lsl r0, r0, #0x10 \n\
+    cmp r0, #0 \n\
+    bne lbl_08025522 \n\
+    movs r0, #0x20 \n\
+    strh r0, [r2, #0x12] \n\
+    ldrh r1, [r2] \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08025522 \n\
+    movs r0, #0xaf \n\
+    lsl r0, r0, #1 \n\
+    bl SoundPlayNotAlreadyPlaying \n\
+lbl_08025522: \n\
+    add sp, #8 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    ");
+}
+#endif
 
 void Hive(void)
 {
     if (gCurrentSprite.freezeTimer != 0x0)
     {
         SpriteUtilUpdateFreezeTimer();
-        SpriteUtilUnfreezeSecondarySprites(SSPRITE_HIVE_ROOTS, gCurrentSprite.primarySpriteRamSlot);
+        SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_HIVE_ROOTS, gCurrentSprite.primarySpriteRamSlot);
         gCurrentSprite.timer = gCurrentSprite.freezeTimer;
     }
     else
