@@ -567,10 +567,10 @@ extern const struct FrameData sParticleChargedPlasmaBeamTrailOam[5];
 
 extern const struct FrameData sParticleChargedFullBeamTrailOam[9];
 
-extern const u8 sPistolBeamGfx_Top[512];
-extern const u8 sPistolBeamGfx_Bottom[512];
-extern const u8 sPistolBeamGfx_Charged_Top[512];
-extern const u8 sPistolBeamGfx_Charged_Bottom[512];
+extern const u8 sPistolGfx_Top[512];
+extern const u8 sPistolGfx_Bottom[512];
+extern const u8 sPistolGfx_Charged_Top[512];
+extern const u8 sPistolGfx_Charged_Bottom[512];
 
 extern const u16 sPistolOAM_Horizontal_Frame0[4];
 

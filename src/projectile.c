@@ -1,5 +1,6 @@
 #include "gba.h"
 #include "projectile.h"
+#include "clipdata.h"
 
 #include "data/projectile_data.h"
 #include "data/sprite_data.h"
@@ -685,10 +686,10 @@ void ProjectileLoadGraphics(void)
     
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DMA_SET(3, sPistolBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
-        DMA_SET(3, sPistolBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-        DMA_SET(3, sPistolBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-        DMA_SET(3, sPistolBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+        DMA_SET(3, sPistolGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
+        DMA_SET(3, sPistolGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+        DMA_SET(3, sPistolGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+        DMA_SET(3, sPistolGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
         HudDrawSuitless();
         palOffset = 0x50;
@@ -985,6 +986,7 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
  * @param effect Particle effect
  * @param delay Delay between each particle
  */
+#ifdef NON_MATCHING
 void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 {
     // https://decomp.me/scratch/4n6pN
@@ -998,7 +1000,7 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
         return;
 
     movement = HALF_BLOCK_SIZE;
-    diagMovement = QUARTER_BLOCK_SIZE + 8;
+    diagMovement = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
@@ -1041,6 +1043,109 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 
     ParticleSet(yPosition, xPosition, effect);
 }
+#else
+NAKED_FUNCTION
+void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
+{
+    asm(" \n\
+    push {r4, r5, r6, lr} \n\
+    add r4, r0, #0 \n\
+    lsl r1, r1, #0x18 \n\
+    lsr r6, r1, #0x18 \n\
+    ldr r0, lbl_0804fc60 @ =gFrameCounter8Bit \n\
+    ldrb r0, [r0] \n\
+    and r0, r2 \n\
+    cmp r0, #0 \n\
+    bne lbl_0804fcd8 \n\
+    movs r5, #0x20 \n\
+    ldrh r3, [r4, #8] \n\
+    ldrh r2, [r4, #0xa] \n\
+    ldrb r0, [r4, #0x10] \n\
+    cmp r0, #2 \n\
+    beq lbl_0804fc9c \n\
+    cmp r0, #2 \n\
+    bgt lbl_0804fc64 \n\
+    cmp r0, #1 \n\
+    beq lbl_0804fc7e \n\
+    b lbl_0804fcba \n\
+    .align 2, 0 \n\
+lbl_0804fc60: .4byte gFrameCounter8Bit \n\
+lbl_0804fc64: \n\
+    cmp r0, #3 \n\
+    beq lbl_0804fc6e \n\
+    cmp r0, #4 \n\
+    beq lbl_0804fc74 \n\
+    b lbl_0804fcba \n\
+lbl_0804fc6e: \n\
+    add r0, r3, #0 \n\
+    add r0, #0x20 \n\
+    b lbl_0804fc78 \n\
+lbl_0804fc74: \n\
+    add r0, r3, #0 \n\
+    sub r0, #0x20 \n\
+lbl_0804fc78: \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r3, r0, #0x10 \n\
+    b lbl_0804fcce \n\
+lbl_0804fc7e: \n\
+    movs r0, #0x40 \n\
+    add r1, r3, #0 \n\
+    add r1, #0x18 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r3, r1, #0x10 \n\
+    ldrb r1, [r4] \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0804fc96 \n\
+    add r0, r2, #0 \n\
+    sub r0, #0x18 \n\
+    b lbl_0804fcca \n\
+lbl_0804fc96: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x18 \n\
+    b lbl_0804fcca \n\
+lbl_0804fc9c: \n\
+    movs r0, #0x40 \n\
+    add r1, r3, #0 \n\
+    sub r1, #0x18 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r3, r1, #0x10 \n\
+    ldrb r1, [r4] \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0804fcb4 \n\
+    add r0, r2, #0 \n\
+    sub r0, #0x18 \n\
+    b lbl_0804fcca \n\
+lbl_0804fcb4: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x18 \n\
+    b lbl_0804fcca \n\
+lbl_0804fcba: \n\
+    ldrb r1, [r4] \n\
+    movs r0, #0x40 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0804fcc8 \n\
+    sub r0, r2, r5 \n\
+    b lbl_0804fcca \n\
+lbl_0804fcc8: \n\
+    add r0, r2, r5 \n\
+lbl_0804fcca: \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r2, r0, #0x10 \n\
+lbl_0804fcce: \n\
+    add r0, r3, #0 \n\
+    add r1, r2, #0 \n\
+    add r2, r6, #0 \n\
+    bl ParticleSet \n\
+lbl_0804fcd8: \n\
+    pop {r4, r5, r6} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    ");
+}
+#endif
 
 /**
  * 4fce0 | 68 | Handles a projectile moving when tumbling
@@ -2459,6 +2564,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 
         pProj->drawDistanceOffset = 0xA0;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
         pProj->movementStage = 0x1;
