@@ -150,7 +150,7 @@ void SpawnWaitingPirates(void)
         }
     }
 
-    gSpriteData[i].status |= SPRITE_STATUS_UNKNOWN2;
+    gSpriteData[i].status |= SPRITE_STATUS_UNKNOWN_400;
 }
 
 /**
@@ -995,7 +995,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 
     bottomOffset = 0;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC))
         {
@@ -1017,7 +1017,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
     pirateRight = pirateX + (HALF_BLOCK_SIZE + 12);
 
     facingRight = gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT;
-    alerted = gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2;
+    alerted = gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400;
 
     for (ramSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; ramSlot++, pSprite++)
     {
@@ -1055,7 +1055,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 
                         if (alerted)
                         {
-                            pSprite->status |= SPRITE_STATUS_UNKNOWN2;
+                            pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                         }
                         else
@@ -1082,7 +1082,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 
                         if (alerted)
                         {
-                            pSprite->status |= SPRITE_STATUS_UNKNOWN2;
+                            pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                         }
                         else
@@ -1110,7 +1110,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 
                         if (alerted)
                         {
-                            pSprite->status |= SPRITE_STATUS_UNKNOWN2;
+                            pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                         }
                         else
@@ -1335,19 +1335,19 @@ u8 unk_29b68(void)
         {
             if (gSpriteDrawOrder[1] == TRUE)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
             }
             else if (gBossWork.work2 < 0x300)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             }
         }
 
         if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             if (gSpriteDrawOrder[4] == FALSE)
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             else
@@ -1360,19 +1360,19 @@ u8 unk_29b68(void)
         {
             if (gSpriteDrawOrder[1] == FALSE)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
             }
             else if (gBossWork.work2 < 0x300)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             }
         }
 
         if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             if (gSpriteDrawOrder[4] == TRUE)
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             else
@@ -1397,17 +1397,17 @@ u8 SpacePirateDetectSamusWhileCrawling(void)
 
     oldPose = gCurrentSprite.pose;
 
-    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gAlarmTimer > 0x1DE)
+    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gAlarmTimer > 0x1DE)
         gCurrentSprite.invincibilityStunFlashTimer++;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         if (gSpriteDrawOrder[2] == 0x1 && gSpriteDrawOrder[1] == 0x1)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
         if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             if (gSpriteDrawOrder[4] == 0x0)
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_CRAWLING_STOPPED_INIT;
         }
@@ -1415,11 +1415,11 @@ u8 SpacePirateDetectSamusWhileCrawling(void)
     else
     {
         if (gSpriteDrawOrder[2] == 0x1 && gSpriteDrawOrder[1] == 0x0)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
         if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             if (gSpriteDrawOrder[4] == 0x1)
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_CRAWLING_STOPPED_INIT;
         }
@@ -1450,12 +1450,12 @@ u8 SpacePirateClimbingCheckWallJumpOrFire(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gAlarmTimer > 0x1DE)
+    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gAlarmTimer > 0x1DE)
         gCurrentSprite.invincibilityStunFlashTimer++;
 
     if (gSpriteDrawOrder[2] == 0x1 || gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             xPosition += (BLOCK_SIZE - QUARTER_BLOCK_SIZE);
@@ -1922,7 +1922,7 @@ void SpacePirateInit(void)
 
         if (gAlarmTimer != 0x0)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition - BLOCK_SIZE) != COLLISION_AIR)
@@ -2030,7 +2030,7 @@ void SpacePirateFalling(void)
     {
         if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             {
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
 
@@ -2459,7 +2459,7 @@ void SpacePirateTurningAroundSecondPart(void)
     {
         if (unk_29b68())
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 && !SpacePirateCheckSamusInShootingRange())
+            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400 && !SpacePirateCheckSamusInShootingRange())
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
         }
         else
@@ -2514,7 +2514,7 @@ void SpacePirateTurningAroundSecondPartAlerted(void)
 
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             if (!SpacePirateCheckSamusInShootingRange())
             {
@@ -2609,7 +2609,7 @@ void SpacePirateWalkingAlerted(void)
                     gCurrentSprite.workVariable2 = 0x0;
                 }
 
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
                 {
                     unk_f978(gCurrentSprite.workVariable2 / 4);
                     if (gCurrentSprite.workVariable2 < 0x34)
@@ -2672,7 +2672,7 @@ void SpacePirateJumping(void)
     {
         if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             {
                 if (!SpacePirateCheckSamusInShootingRange())
                 {
@@ -2716,7 +2716,7 @@ void SpacePirateJumping(void)
             return;
         }
 
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             movement = gCurrentSprite.workVariable2 / 4;
             if (movement < 0x6)
@@ -2765,7 +2765,7 @@ void SpacePirateJumping(void)
             gCurrentSprite.xPosition -= movement;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (colliding)
         {
@@ -2812,7 +2812,7 @@ void SpacePirateJumping(void)
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
             else
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
                 {
                     if (gSpriteDrawOrder[3] == TRUE)
                     {
@@ -3204,7 +3204,7 @@ void SpacePirateClimbingUp(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         gCurrentSprite.workVariable = 0x0;
 
     if (gCurrentSprite.workVariable > 0x1)
@@ -3237,7 +3237,7 @@ void SpacePirateClimbingUp(void)
             return;
         }
         
-        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gCurrentSprite.workVariable == 0x0)
+        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gCurrentSprite.workVariable == 0x0)
             gCurrentSprite.workVariable = 0x28;
         else
         {
@@ -3279,7 +3279,7 @@ void SpacePirateClimbingUp(void)
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         movement = 0x8;
         gCurrentSprite.animationDurationCounter++;
@@ -3380,7 +3380,7 @@ void SpacePirateClimbingDown(void)
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         movement = 0x8;
         gCurrentSprite.animationDurationCounter++;
@@ -3435,7 +3435,7 @@ void unk_2ba98(void)
     colliding = FALSE;
     goingDown = FALSE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         gCurrentSprite.animationDurationCounter++;
 
     yPosition = gCurrentSprite.yPosition;
@@ -3497,7 +3497,7 @@ void unk_2ba98(void)
 
                 if (pose == 0)
                 {
-                    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
                     {
                         if (gSpriteDrawOrder[3] == TRUE)
                             pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
@@ -3855,7 +3855,7 @@ void SpacePirateCrawling(void)
             }
         }
 
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             movement = 0x4;
             gCurrentSprite.animationDurationCounter++;
@@ -3971,12 +3971,12 @@ void SpacePirateStandingUp(void)
         {
             if (unk_29b68())
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 && !SpacePirateCheckSamusInShootingRange())
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400 && !SpacePirateCheckSamusInShootingRange())
                     gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
             }
             else
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
                     gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
                 else
                     gCurrentSprite.pose = 0xE;
@@ -4314,7 +4314,7 @@ void SpacePirate(void)
     u8 alerted;
     u8 freezeTimer;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         alerted = TRUE;
     else
         alerted = FALSE;
@@ -4357,7 +4357,7 @@ void SpacePirate(void)
         }
 
         SpacePirateSamusDetection();
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             if (gSpriteDrawOrder[2] == TRUE)
             {
@@ -4385,13 +4385,13 @@ void SpacePirate(void)
                 }
             }
             else if (gAlarmTimer == 0)
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
 
         }
         else
         {
             if (gAlarmTimer != 0 && gCurrentSprite.pose != 0)
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
         }
 
         SpacePirateCheckCollidingWithLaser();
@@ -4632,7 +4632,7 @@ void SpacePirate(void)
             SpacePirateDeath(TRUE);
     }
 
-    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN2))
+    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400))
         SoundPlayNotAlreadyPlaying(0x169);
 }
 

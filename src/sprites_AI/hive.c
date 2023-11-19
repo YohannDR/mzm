@@ -332,9 +332,9 @@ void MellowInit(struct SpriteData* pSprite)
             pSprite->oamScaling = 0x20;
             SpriteUtilMakeSpriteFaceSamusDirection();
             if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-                pSprite->status &= ~SPRITE_STATUS_UNKNOWN2;
+                pSprite->status &= ~SPRITE_STATUS_UNKNOWN_400;
             else
-                pSprite->status |= SPRITE_STATUS_UNKNOWN2;
+                pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
         }
     }
 }
@@ -436,9 +436,9 @@ void MellowSamusDetectedInit(struct SpriteData* pSprite)
     pSprite->oamScaling = 0x20;
     SpriteUtilMakeSpriteFaceSamusDirection();
     if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-        pSprite->status &= ~SPRITE_STATUS_UNKNOWN2;
+        pSprite->status &= ~SPRITE_STATUS_UNKNOWN_400;
     else
-        pSprite->status |= SPRITE_STATUS_UNKNOWN2;
+        pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
 }
 
 void MellowMove(struct SpriteData* pSprite)
@@ -625,7 +625,7 @@ void MellowMove(struct SpriteData* pSprite)
 
     flip = FALSE;
     
-    if (pSprite->status & SPRITE_STATUS_UNKNOWN2)
+    if (pSprite->status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (pSprite->timer == 0)
         {
@@ -692,7 +692,7 @@ void MellowMove(struct SpriteData* pSprite)
 
     if (flip)
     {
-        pSprite->status ^= SPRITE_STATUS_UNKNOWN2;
+        pSprite->status ^= SPRITE_STATUS_UNKNOWN_400;
         ///pSprite->arrayOffset = 1;
         gCurrentSprite.arrayOffset = 1;
     }
@@ -891,7 +891,7 @@ void MellowSwarm(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 && gCurrentSprite.yPositionSpawn != 0x0)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400 && gCurrentSprite.yPositionSpawn != 0x0)
             gCurrentSprite.yPositionSpawn--;
         else
         {
@@ -904,11 +904,11 @@ void MellowSwarm(void)
                 pSprite++;
             }
 
-            if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) == 0x0)
             {
                 if (count >= gCurrentSprite.workVariable2)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                     return;
                 }
             }

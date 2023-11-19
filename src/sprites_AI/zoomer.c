@@ -23,7 +23,7 @@ u8 ZoomerCheckCollidingWithAir(void)
 
     colliding = FALSE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -63,7 +63,7 @@ u8 ZoomerCheckCollidingWithAir(void)
  */
 void ZoomerUpdateHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -105,7 +105,7 @@ void ZoomerUpdateHitbox(void)
  */
 void ZoomerSetCrawlingOAM(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         gCurrentSprite.pOam = sZoomerOAM_OnWall;
     else
         gCurrentSprite.pOam = sZoomerOAM_OnGround;
@@ -120,7 +120,7 @@ void ZoomerSetCrawlingOAM(void)
  */
 void ZoomerSetFallingOAM(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         gCurrentSprite.pOam = sZoomerOAM_OnWall;
     else
         gCurrentSprite.pOam = sZoomerOAM_Falling;
@@ -141,23 +141,23 @@ void ZoomerInit(void)
     // Check surroundings
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) & 0xF0)
     {
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     }
     else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x44, gCurrentSprite.xPosition) & 0xF0)
     {
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         gCurrentSprite.yPosition -= BLOCK_SIZE;
     }
     else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x24) & 0xF0)
     {
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
         gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
     }
     else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) & 0xF0)
     {
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
         gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -218,14 +218,14 @@ void ZoomerCrawling(void)
         return;
     }
 
-    if (SpriteUtilIsShouldFall())
+    if (SpriteUtilShouldFall())
     {
-        if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2))
+        if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400))
             gCurrentSprite.pose = ZOOMER_POSE_FALLING_INIT;
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -613,7 +613,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             break;
 
         case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE:
@@ -625,7 +625,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             break;
 
         case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
@@ -636,7 +636,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             break;
 
         case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER:
@@ -648,7 +648,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             break;
 
         case ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE:
@@ -662,7 +662,7 @@ void ZoomerTurningAround(void)
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
             gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             break;
         
         case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
@@ -676,7 +676,7 @@ void ZoomerTurningAround(void)
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
             gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             break;
 
         case ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER:
@@ -687,7 +687,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             break;
         
         case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
@@ -698,7 +698,7 @@ void ZoomerTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             break;
 
         default:
@@ -737,7 +737,7 @@ void ZoomerLanding(void)
  */
 void ZoomerFallingInit(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
@@ -749,7 +749,7 @@ void ZoomerFallingInit(void)
 
     gCurrentSprite.pose = ZOOMER_POSE_FALLING;
     gCurrentSprite.arrayOffset = 0x0;
-    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2);
+    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400);
 
     ZoomerUpdateHitbox();
     ZoomerSetFallingOAM();
@@ -806,7 +806,7 @@ void ZoomerDeath(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             xPosition -= 0x28;

@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "oam.h"
 #include "sprite_util.h"
-#include "constants/particle.h"
+#include "clipdata.h"
 #include "sprites_AI/parasite.h"
 #include "sprites_AI/ridley.h"
 #include "sprites_AI/acid_worm.h"
@@ -12,6 +12,7 @@
 #include "constants/samus.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+#include "constants/particle.h"
 #include "constants/projectile.h"
 
 #include "structs/clipdata.h"
@@ -31,7 +32,9 @@ void SpriteUtilInitLocationText(void)
     gfxSlot = LocationTextGetGfxSlot();
     if (gfxSlot < 0x8)
     {
-        gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_IGNORE_PROJECTILES;
+        gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN |
+            SPRITE_STATUS_UNKNOWN_10 | SPRITE_STATUS_IGNORE_PROJECTILES;
+
         gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
         gSpriteData[0].spritesetGfxSlot = gfxSlot;
         gSpriteData[0].spriteId = PSPRITE_AREA_BANNER;
@@ -219,8 +222,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
     u16 status;
     u16 statusCheckFlags;
 
-    u16 verticalCollisionOffset;
-    u16 horizontalCollisionOffset;
+    u16 collisionCenterY;
+    u16 collisionCenterX;
     u8 collisionFlags;
 
     pPhysics = &gSamusPhysics;
@@ -251,10 +254,10 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 break;
 
             default:
-                samusLeft -= 0x18;
-                samusRight += 0x18;
-                samusTop -= 0x18;
-                samusBottom += 0x18;
+                samusLeft -= (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                samusRight += (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                samusTop -= (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                samusBottom += (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
         }
     }
     else if (pData->pose == SPOSE_SHINESPARKING)
@@ -290,39 +293,41 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
         gIgnoreSamusAndSpriteCollision = FALSE;
 
-        verticalCollisionOffset = spriteTop + (spriteBottom - spriteTop) / 2;
-        horizontalCollisionOffset = (spriteRight - spriteLeft) / 2 + spriteLeft;
+        collisionCenterY = spriteTop + (spriteBottom - spriteTop) / 2;
+        collisionCenterX = (spriteRight - spriteLeft) / 2 + spriteLeft;
 
         collisionFlags = SPRITE_COLLISION_FLAG_NONE;
 
-        if (verticalCollisionOffset - 4 > samusBottom)
+        if (collisionCenterY - PIXEL_SIZE > samusBottom)
         {
-            if (pData->yVelocity <= 24)
+            if (pData->yVelocity <= SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE - ONE_SUB_PIXEL))
                 collisionFlags = SPRITE_COLLISION_FLAG_ON_TOP;
         }
 
-        if (verticalCollisionOffset + 4 < samusTop)
+        if (collisionCenterY + PIXEL_SIZE < samusTop)
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_BOTTOM;
 
-        if (horizontalCollisionOffset >= previousX)
+        if (collisionCenterX >= previousX)
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_LEFT;
         else
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_RIGHT;
 
         if (pSprite->freezeTimer != 0)
         {
-            if (!SpriteUtilCheckPullingSeftUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
+            if (!SpriteUtilCheckPullingSelfUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
             {
                 if (SpriteUtilCheckOnZipline())
+                {
                     SamusSetPose(SPOSE_MID_AIR_REQUEST);
+                }
                 else
                 {
                     if ((samusY - 0x18) < spriteTop)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + ONE_SUB_PIXEL + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                         {
-                            pData->yPosition = spriteTop + 1;
+                            pData->yPosition = spriteTop + ONE_SUB_PIXEL;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
                             pSprite->standingOnSprite = 0x2;
                         }
@@ -366,7 +371,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                             if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                             {
-                                pData->yPosition = spriteTop + 1;
+                                pData->yPosition = spriteTop + ONE_SUB_PIXEL;
                                 pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
                                 pSprite->standingOnSprite = 2;
                             }
@@ -392,7 +397,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     break;
 
                 case SSC_ESCAPE_SHIP:
-                    if (!SpriteUtilCheckPullingSeftUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE && samusY - 0x18 < spriteTop)
+                    if (!SpriteUtilCheckPullingSelfUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE && samusY - 0x18 < spriteTop)
                     {
                         SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
@@ -409,7 +414,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         if (samusY - 0x18 < spriteTop)
                         {
-                            if (!SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 40)
+                            if (!SpriteUtilCheckPullingSelfUp() && pData->invincibilityTimer < 40)
                             {
                                 SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                                 if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
@@ -449,7 +454,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         pSprite->ignoreSamusCollisionTimer = 0xF;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
-                    else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 38)
+                    else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSelfUp() && pData->invincibilityTimer < 38)
                     {
                         SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
@@ -1027,8 +1032,7 @@ void unk_f608(void)
 }
 
 /**
- * f688 | 98 | 
- * Checks the collision at the given parameters and updates the gPreviousCollisionCheck global variable
+ * f688 | 98 | Checks the collision at the given parameters and updates the gPreviousCollisionCheck global variable
  * 
  * @param yPosition Y Position
  * @param xPosition X Position
@@ -1273,7 +1277,7 @@ void unk_f978(s16 movement)
  * 
  * @param movement Movement
  */
-void unk_f9e7(s16 movement)
+void unk_f9e4(s16 movement)
 {
     s32 velocity;
 
@@ -2561,7 +2565,7 @@ u8 SpriteUtilCheckHasDrops(void)
     struct SpriteData* pSprite;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    collision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    collision = SSC_SMALL_ENERGY_DROP;
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
@@ -2580,19 +2584,22 @@ u8 SpriteUtilCheckHasDrops(void)
 u8 SpriteUtilCountDrops(void)
 {
     u8 count;
+    u8 spriteId;
     struct SpriteData* pSprite;
 
     count = 0;
+    spriteId = SSC_SMALL_ENERGY_DROP;
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision >= SSC_ABILITY_LASER_SEARCHLIGHT)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision >= spriteId)
             count++;
     }
 
     return count;
 }
 
+#ifdef NON_MATCHING
 void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
 {
     // https://decomp.me/scratch/6NT7r
@@ -2685,7 +2692,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
     }
 
     flip = FALSE;
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.timer == 0)
         {
@@ -2762,10 +2769,340 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
 
     if (flip)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.arrayOffset = 1;
     }
 }
+#else
+NAKED_FUNCTION
+void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
+{
+    asm("\n\
+        push {r4, r5, r6, r7, lr} \n\
+        mov r7, sl \n\
+        mov r6, sb \n\
+        mov r5, r8 \n\
+        push {r5, r6, r7} \n\
+        sub sp, #4 \n\
+        ldr r4, [sp, #0x24] \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        mov sl, r0 \n\
+        lsl r1, r1, #0x10 \n\
+        lsr r5, r1, #0x10 \n\
+        add r7, r5, #0 \n\
+        lsl r2, r2, #0x18 \n\
+        lsr r2, r2, #0x18 \n\
+        str r2, [sp] \n\
+        lsl r3, r3, #0x18 \n\
+        lsr r3, r3, #0x18 \n\
+        mov r8, r3 \n\
+        lsl r4, r4, #0x18 \n\
+        lsr r4, r4, #0x18 \n\
+        movs r0, #0 \n\
+        mov sb, r0 \n\
+        ldr r1, lbl_080109b8 @ =gCurrentSprite \n\
+        mov ip, r1 \n\
+        ldrh r1, [r1] \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #2 \n\
+        and r0, r1 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r6, r0, #0x10 \n\
+        cmp r6, #0 \n\
+        beq lbl_080109d6 \n\
+        mov r2, ip \n\
+        add r2, #0x2d \n\
+        ldrb r0, [r2] \n\
+        cmp r0, #0 \n\
+        bne lbl_080109bc \n\
+        mov r6, ip \n\
+        ldrh r1, [r6, #4] \n\
+        sub r0, r5, #4 \n\
+        cmp r1, r0 \n\
+        bgt lbl_080109ec \n\
+        mov r1, ip \n\
+        add r1, #0x2e \n\
+        ldrb r0, [r1] \n\
+        cmp r0, r3 \n\
+        bhs lbl_080109a8 \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_080109a8: \n\
+        ldrb r0, [r1] \n\
+        asr r0, r4 \n\
+        mov r1, ip \n\
+        ldrh r1, [r1, #4] \n\
+        add r0, r0, r1 \n\
+        mov r2, ip \n\
+        strh r0, [r2, #4] \n\
+        b lbl_08010a54 \n\
+        .align 2, 0 \n\
+    lbl_080109b8: .4byte gCurrentSprite \n\
+    lbl_080109bc: \n\
+        sub r0, #1 \n\
+        strb r0, [r2] \n\
+        lsl r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010a5a \n\
+        ldrb r0, [r2] \n\
+        asr r0, r4 \n\
+        mov r3, ip \n\
+        ldrh r3, [r3, #4] \n\
+        add r0, r0, r3 \n\
+        mov r6, ip \n\
+        strh r0, [r6, #4] \n\
+        b lbl_08010a54 \n\
+    lbl_080109d6: \n\
+        mov r2, ip \n\
+        add r2, #0x2d \n\
+        ldrb r0, [r2] \n\
+        add r5, r0, #0 \n\
+        cmp r5, #0 \n\
+        bne lbl_08010a20 \n\
+        mov r0, ip \n\
+        ldrh r3, [r0, #4] \n\
+        add r0, r7, #4 \n\
+        cmp r3, r0 \n\
+        bge lbl_080109f6 \n\
+    lbl_080109ec: \n\
+        mov r0, ip \n\
+        add r0, #0x2e \n\
+        ldrb r0, [r0] \n\
+        strb r0, [r2] \n\
+        b lbl_08010a54 \n\
+    lbl_080109f6: \n\
+        mov r1, ip \n\
+        add r1, #0x2e \n\
+        ldrb r0, [r1] \n\
+        cmp r0, r8 \n\
+        bhs lbl_08010a04 \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08010a04: \n\
+        ldrb r0, [r1] \n\
+        asr r0, r4 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r1, r0, #0x10 \n\
+        sub r1, r3, r1 \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010a4a \n\
+        movs r1, #1 \n\
+        mov sb, r1 \n\
+        strb r5, [r2] \n\
+        b lbl_08010a54 \n\
+    lbl_08010a20: \n\
+        sub r0, #1 \n\
+        strb r0, [r2] \n\
+        lsl r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010a50 \n\
+        ldrb r0, [r2] \n\
+        asr r0, r4 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r1, r0, #0x10 \n\
+        mov r3, ip \n\
+        ldrh r0, [r3, #4] \n\
+        sub r1, r0, r1 \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010a4a \n\
+        movs r0, #1 \n\
+        mov sb, r0 \n\
+        strb r6, [r2] \n\
+        b lbl_08010a54 \n\
+    lbl_08010a4a: \n\
+        mov r2, ip \n\
+        strh r1, [r2, #4] \n\
+        b lbl_08010a54 \n\
+    lbl_08010a50: \n\
+        movs r3, #1 \n\
+        mov sb, r3 \n\
+    lbl_08010a54: \n\
+        mov r6, sb \n\
+        cmp r6, #0 \n\
+        beq lbl_08010a72 \n\
+    lbl_08010a5a: \n\
+        mov r1, ip \n\
+        ldrh r0, [r1] \n\
+        movs r2, #0x80 \n\
+        lsl r2, r2, #2 \n\
+        add r1, r2, #0 \n\
+        eor r0, r1 \n\
+        mov r3, ip \n\
+        strh r0, [r3] \n\
+        mov r1, ip \n\
+        add r1, #0x2e \n\
+        movs r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08010a72: \n\
+        movs r6, #0 \n\
+        mov sb, r6 \n\
+        mov r0, ip \n\
+        ldrh r1, [r0] \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #3 \n\
+        and r0, r1 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r3, r0, #0x10 \n\
+        cmp r3, #0 \n\
+        beq lbl_08010ae2 \n\
+        mov r3, ip \n\
+        add r3, #0x2c \n\
+        ldrb r0, [r3] \n\
+        cmp r0, #0 \n\
+        bne lbl_08010ac8 \n\
+        mov r2, ip \n\
+        ldrh r1, [r2, #2] \n\
+        mov r0, sl \n\
+        sub r0, #4 \n\
+        cmp r1, r0 \n\
+        ble lbl_08010aa8 \n\
+        mov r0, ip \n\
+        add r0, #0x2f \n\
+        ldrb r0, [r0] \n\
+        strb r0, [r3] \n\
+        b lbl_08010b6a \n\
+    lbl_08010aa8: \n\
+        mov r1, ip \n\
+        add r1, #0x2f \n\
+        ldrb r0, [r1] \n\
+        ldr r3, [sp] \n\
+        cmp r0, r3 \n\
+        bhs lbl_08010ab8 \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08010ab8: \n\
+        ldrb r0, [r1] \n\
+        asr r0, r4 \n\
+        mov r4, ip \n\
+        ldrh r4, [r4, #2] \n\
+        add r0, r0, r4 \n\
+        mov r6, ip \n\
+        strh r0, [r6, #2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010ac8: \n\
+        sub r0, #1 \n\
+        strb r0, [r3] \n\
+        lsl r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010b70 \n\
+        ldrb r0, [r3] \n\
+        asr r0, r4 \n\
+        mov r1, ip \n\
+        ldrh r1, [r1, #2] \n\
+        add r0, r0, r1 \n\
+        mov r2, ip \n\
+        strh r0, [r2, #2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010ae2: \n\
+        mov r2, ip \n\
+        add r2, #0x2c \n\
+        ldrb r0, [r2] \n\
+        add r5, r0, #0 \n\
+        cmp r5, #0 \n\
+        bne lbl_08010b36 \n\
+        mov r6, ip \n\
+        ldrh r3, [r6, #2] \n\
+        mov r0, sl \n\
+        add r0, #4 \n\
+        cmp r3, r0 \n\
+        bge lbl_08010b04 \n\
+        mov r0, ip \n\
+        add r0, #0x2f \n\
+        ldrb r0, [r0] \n\
+        strb r0, [r2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010b04: \n\
+        mov r1, ip \n\
+        add r1, #0x2f \n\
+        ldrb r0, [r1] \n\
+        ldr r6, [sp] \n\
+        cmp r0, r6 \n\
+        bhs lbl_08010b14 \n\
+        add r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08010b14: \n\
+        ldrb r0, [r1] \n\
+        asr r0, r4 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r1, r0, #0x10 \n\
+        sub r1, r3, r1 \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010b30 \n\
+        movs r0, #1 \n\
+        mov sb, r0 \n\
+        strb r5, [r2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010b30: \n\
+        mov r2, ip \n\
+        strh r1, [r2, #2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010b36: \n\
+        sub r0, #1 \n\
+        strb r0, [r2] \n\
+        lsl r0, r0, #0x18 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010b66 \n\
+        ldrb r0, [r2] \n\
+        asr r0, r4 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r1, r0, #0x10 \n\
+        mov r4, ip \n\
+        ldrh r0, [r4, #2] \n\
+        sub r1, r0, r1 \n\
+        movs r0, #0x80 \n\
+        lsl r0, r0, #8 \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_08010b60 \n\
+        movs r6, #1 \n\
+        mov sb, r6 \n\
+        strb r3, [r2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010b60: \n\
+        mov r0, ip \n\
+        strh r1, [r0, #2] \n\
+        b lbl_08010b6a \n\
+    lbl_08010b66: \n\
+        movs r1, #1 \n\
+        mov sb, r1 \n\
+    lbl_08010b6a: \n\
+        mov r2, sb \n\
+        cmp r2, #0 \n\
+        beq lbl_08010b86 \n\
+    lbl_08010b70: \n\
+        mov r3, ip \n\
+        ldrh r0, [r3] \n\
+        movs r4, #0x80 \n\
+        lsl r4, r4, #3 \n\
+        add r1, r4, #0 \n\
+        eor r0, r1 \n\
+        strh r0, [r3] \n\
+        mov r1, ip \n\
+        add r1, #0x2f \n\
+        movs r0, #1 \n\
+        strb r0, [r1] \n\
+    lbl_08010b86: \n\
+        add sp, #4 \n\
+        pop {r3, r4, r5} \n\
+        mov r8, r3 \n\
+        mov sb, r4 \n\
+        mov sl, r5 \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r0} \n\
+        bx r0 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 10b98 | 158 | Handles a ridley fireball moving (TODO rename to a more general name)
@@ -2800,7 +3137,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
 
     flip = FALSE;
     
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.timer == 0)
         {
@@ -2884,7 +3221,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
 
     if (flip)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.arrayOffset = 1;
     }
 }
@@ -2937,37 +3274,37 @@ void SpriteUtilRandomSpriteDebris(u8 cloudType, u8 number, u16 yPosition, u16 xP
     switch (number)
     {
         case 1:
-            if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-                SpriteDebrisInit(cloudType, 1, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
-            else
+            if (MOD_AND(gFrameCounter8Bit, 2) != 0)
                 SpriteDebrisInit(cloudType, 2, yPosition - EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+            else
+                SpriteDebrisInit(cloudType, 1, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             break;
 
         case 2:
-            if (MOD_AND(gFrameCounter8Bit, 2) == 0)
+            if (MOD_AND(gFrameCounter8Bit, 2) != 0)
+            {
+                SpriteDebrisInit(cloudType, 2, yPosition - EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 4, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
+            }
+            else
             {
                 SpriteDebrisInit(cloudType, 1, yPosition - EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
                 SpriteDebrisInit(cloudType, 3, yPosition, xPosition + EIGHTH_BLOCK_SIZE);
             }
-            else
-            {
-                SpriteDebrisInit(cloudType, 2, yPosition - EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
-                SpriteDebrisInit(cloudType, 4, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
-            }
             break;
 
         case 3:
-            if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-            {
-                SpriteDebrisInit(cloudType, 2, yPosition - QUARTER_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
-                SpriteDebrisInit(cloudType, 3, yPosition + EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
-                SpriteDebrisInit(cloudType, 4, yPosition + QUARTER_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
-            }
-            else
+            if (MOD_AND(gFrameCounter8Bit, 2) != 0)
             {
                 SpriteDebrisInit(cloudType, 1, yPosition - EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
                 SpriteDebrisInit(cloudType, 3, yPosition - QUARTER_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
                 SpriteDebrisInit(cloudType, 4, yPosition + EIGHTH_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
+            }
+            else
+            {
+                SpriteDebrisInit(cloudType, 2, yPosition - QUARTER_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 3, yPosition + EIGHTH_BLOCK_SIZE, xPosition + EIGHTH_BLOCK_SIZE);
+                SpriteDebrisInit(cloudType, 4, yPosition + QUARTER_BLOCK_SIZE, xPosition - EIGHTH_BLOCK_SIZE);
             }
     }
 }
@@ -3308,7 +3645,7 @@ u8 SpriteUtilIsSpriteStunned(void)
  * 
  * @return bool, should fall
  */
-u8 SpriteUtilIsShouldFall(void)
+u8 SpriteUtilShouldFall(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gScreenShakeY.timer != 0 || gScreenShakeX.timer != 0))
         return TRUE;

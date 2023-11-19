@@ -348,7 +348,7 @@ void MechaRidleyClawAttackInit(u8 leftArmSlot)
     gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
     gCurrentSprite.pose = MECHA_RIDLEY_POSE_CLAW_ATTACK;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
     gBossWork.work4 = EYE_STATE_BLINKING_INIT;
 }
 
@@ -609,11 +609,11 @@ u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 {
     if (!(gCurrentSprite.arrayOffset & 0x3F))
     {
-        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gSpriteRng < 8)
+        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gSpriteRng < 8)
             MechaRidleyClawAttackInit(ramSlot); // Start claw attack
         else
         {
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
 
             if (gSubSpriteData1.workVariable3 == HEALTH_THRESHOLD_COVER_DAMAGED && gBossWork.work6 == 0)
             {
@@ -2794,7 +2794,7 @@ void MechaRidleyMissile(void)
     switch (gCurrentSprite.pose)
     {
         case 0:
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
             gCurrentSprite.drawDistanceTopOffset = 0x10;
             gCurrentSprite.drawDistanceBottomOffset = 0x10;
@@ -2899,7 +2899,7 @@ void MechaRidleyFireball(void)
     {
         case 0:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.drawDistanceTopOffset = 0x14;

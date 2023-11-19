@@ -37,7 +37,7 @@ void Steam(void)
         if (collision & COLLISION_FLAGS_UNKNOWN)
         {
             // Steam on ground
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
 
             if (isLarge)
             {
@@ -58,7 +58,7 @@ void Steam(void)
             if (collision & COLLISION_FLAGS_UNKNOWN)
             {
                 // Steam on ceiling
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
                 gCurrentSprite.yPosition -= BLOCK_SIZE;
 
@@ -95,7 +95,7 @@ void Steam(void)
                 if (collision & COLLISION_FLAGS_UNKNOWN)
                 {
                     // Steam on left wall
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                     gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
                 }
@@ -106,7 +106,7 @@ void Steam(void)
                     if (collision & COLLISION_FLAGS_UNKNOWN)
                     {
                         // Steam on right wall
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                         gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -122,7 +122,7 @@ void Steam(void)
         }
 
         // Set OAM
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             if (isLarge)
                 gCurrentSprite.pOam = sSteamOam_HorizontalLarge;

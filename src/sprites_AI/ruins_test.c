@@ -114,12 +114,12 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
     if (yTarget > yStart)
     {
         distanceY = yTarget - yStart;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
     }
     else
     {
         distanceY = yStart - yTarget;
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     }
 
     if (xTarget > xStart)
@@ -135,7 +135,7 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0)
@@ -156,7 +156,7 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0)
@@ -1077,7 +1077,7 @@ void RuinsTestGhostInit(void)
     {
         // Symbol shot
 
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
 
         gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
         gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
@@ -1320,7 +1320,7 @@ void RuinsTestGhostMoveSymbolToPlace(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
 
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_10;
         gCurrentSprite.drawOrder = 14;
         SoundPlay(0x1DA);
     }
@@ -1812,7 +1812,7 @@ void RuinsTestReflectionCover(void)
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
@@ -2325,11 +2325,11 @@ void RuinsTestLightning(void)
             {
                 // Move
                 gCurrentSprite.yPosition += velocity;
-                if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+                if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     {
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                         SoundPlay(0x1DC);
                     }
                 }

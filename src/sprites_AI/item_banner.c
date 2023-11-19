@@ -37,7 +37,7 @@ void ItemBannerInit(void)
 
     message = gCurrentSprite.roomSlot;
 
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
     gCurrentSprite.bgPriority = 0; // On top of everything
 
     gCurrentSprite.samusCollision = SSC_NONE;
@@ -363,7 +363,7 @@ void SaveYesNoCursor(void)
     switch (gCurrentSprite.pose)
     {
         case SPRITE_POSE_UNINITIALIZED:
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.bgPriority = 0;

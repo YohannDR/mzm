@@ -1056,7 +1056,7 @@ void ParasiteFalling(struct SpriteData* pSprite)
  */
 void ParasiteDyingInit(struct SpriteData* pSprite)
 {
-    pSprite->status &= ~(SPRITE_STATUS_UNKNOWN3 | SPRITE_STATUS_YFLIP);
+    pSprite->status &= ~(SPRITE_STATUS_UNKNOWN_80 | SPRITE_STATUS_YFLIP);
     pSprite->pose = PARASITE_POSE_DYING;
 
     pSprite->pOam = sParasiteOAM_Dying;

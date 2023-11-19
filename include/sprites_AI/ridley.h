@@ -110,7 +110,7 @@ void RidleyTailSyncSubSprites(void);
 void RidleyIdleYFloatingMovement(void);
 void RidleySpawnSpittingFireballsYFloatingMovement(void);
 void RidleyUpdateHealth(void);
-u8 RidleyCheckGrabbing(u16 yPosition, u16 xPosition);
+u32 RidleyCheckGrabbing(u16 yPosition, u16 xPosition);
 void RidleyPartClawIdle(u8 ramSlot);
 void RidleyTailCheckStartScreenShakeVerticalTailAttack(void);
 u8 RidleyTailAttacksXMove(u16 movement);

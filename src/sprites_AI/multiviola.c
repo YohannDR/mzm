@@ -75,7 +75,7 @@ void MultiviolaMove(void)
         }
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         // Move up
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset, gCurrentSprite.xPosition);
@@ -84,7 +84,7 @@ void MultiviolaMove(void)
         else
         {
             // Bounce Y
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             isBouncing++;
         }
     }
@@ -97,7 +97,7 @@ void MultiviolaMove(void)
         else
         {
             // Bounce Y
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             isBouncing++;
         }
     }

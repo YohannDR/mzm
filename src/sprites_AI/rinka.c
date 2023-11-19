@@ -161,9 +161,9 @@ void RinkaSpawning(void)
 
                 // Set direction
                 if (samusY < spriteY)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
                 else
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
                     
                 if (samusX < spriteX)
@@ -206,7 +206,7 @@ void RinkaMove(void)
     spawnY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     spawnX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -218,7 +218,7 @@ void RinkaMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -239,7 +239,7 @@ void RinkaMove(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -461,9 +461,9 @@ void RinkaMotherBrainSpawning(void)
 
                 // Set direction
                 if (samusY < spriteY)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
                 else
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
                     
                 if (samusX < spriteX)
@@ -542,7 +542,7 @@ void RinkaMotherBrainMove(void)
     spawnY = tileY * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     spawnX = tileX * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -554,7 +554,7 @@ void RinkaMotherBrainMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -575,7 +575,7 @@ void RinkaMotherBrainMove(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)

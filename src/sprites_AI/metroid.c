@@ -110,7 +110,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     }
 
     // Check for Y collision
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         SpriteUtilCheckCollisionAtPosition(yPosition + (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2), xPosition - HALF_BLOCK_SIZE);
         if (gPreviousCollisionCheck != COLLISION_AIR)
@@ -218,7 +218,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     }
 
     bouncing = 0;
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (!hittingSolidY)
         {
@@ -288,7 +288,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     if (bouncing)
     {
         // Bouncing, flip
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
         if (bouncing == 2)
         {
             // Set bouncing speed
@@ -417,7 +417,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                     gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                 {
                     gSpriteData[ramSlot].yPosition -= movement;
-                    gSpriteData[ramSlot].status &= ~SPRITE_STATUS_UNKNOWN2;
+                    gSpriteData[ramSlot].status &= ~SPRITE_STATUS_UNKNOWN_400;
                     gSpriteData[ramSlot].timer = 0;
                     gSpriteData[ramSlot].arrayOffset = movement * 16;
                 }
@@ -428,7 +428,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                     gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                 {
                     gSpriteData[ramSlot].yPosition += movement;
-                    gSpriteData[ramSlot].status |= SPRITE_STATUS_UNKNOWN2;
+                    gSpriteData[ramSlot].status |= SPRITE_STATUS_UNKNOWN_400;
                     gSpriteData[ramSlot].timer = 0;
                     gSpriteData[ramSlot].arrayOffset = movement * 16;
                 }
@@ -553,7 +553,7 @@ void MetroidInit(void)
     
     gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
     gCurrentSprite.oamScaling = Q_8_8(.25f);
     gCurrentSprite.oamRotation = 0;
@@ -661,7 +661,7 @@ void MetroidSpawning(void)
     {
         // Set spawned behavior
         gCurrentSprite.paletteRow = 0;
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_80;
         gCurrentSprite.pose = METROID_POSE_MOVING_INIT;
 
         gCurrentSprite.pOam = sMetroidOAM_Moving;
@@ -787,7 +787,7 @@ void MetroidSamusGrabbed(void)
         gCurrentSprite.paletteRow = 0;
         gCurrentSprite.ignoreSamusCollisionTimer = 15;
 
-        gCurrentSprite.status &= ~(SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_IGNORE_PROJECTILES);
+        gCurrentSprite.status &= ~(SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.timer = 0;
         gCurrentSprite.arrayOffset = velocity;
         gCurrentSprite.workVariable = 0;
@@ -1060,7 +1060,7 @@ void MetroidShell(void)
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN && !(gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN3))
+    if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN && !(gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN_80))
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
     gCurrentSprite.yPosition = gSpriteData[slot].yPosition;

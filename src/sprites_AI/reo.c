@@ -37,7 +37,7 @@ void ReoInit(void)
     SpriteUtilChooseRandomXDirection();
 
     if (0x8 < gSpriteRng)
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
     gCurrentSprite.pose = REO_POSE_IDLE_INIT;
 }
@@ -114,9 +114,9 @@ void ReoMovingInit(void)
     SpriteUtilMakeSpriteFaceSamusDirection();
 
     if (gCurrentSprite.yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     else
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 }
 
 /**
@@ -194,14 +194,14 @@ void ReoMove(void)
         gCurrentSprite.workVariable2 = 1;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
     else
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
 
     if (collision != COLLISION_AIR)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
         gCurrentSprite.timer = 0;
         gCurrentSprite.arrayOffset = 1;
     }
@@ -275,7 +275,7 @@ void ReoMove(void)
         }
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (gCurrentSprite.timer == 0)
         {
@@ -297,7 +297,7 @@ void ReoMove(void)
             }
             else
             {
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.arrayOffset = 1;
             }
         }
@@ -326,7 +326,7 @@ void ReoMove(void)
             }
             else
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 gCurrentSprite.arrayOffset = 1;
             }
         }

@@ -29,7 +29,7 @@ void GadoraInit(void)
     {
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_GADORA_KILLED))
         {
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
         }
         else
         {

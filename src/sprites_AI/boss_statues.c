@@ -512,9 +512,9 @@ void KraidStatue(void)
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, BLOCK_SIZE * 13) != NSLR_OUT_OF_RANGE)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_10;
     }
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
@@ -573,8 +573,8 @@ void RidleyStatue(void)
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, BLOCK_SIZE * 13) != NSLR_OUT_OF_RANGE)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_10;
     }
 }

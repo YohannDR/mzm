@@ -59,7 +59,7 @@ void SearchlightEyeInit(void)
     }
 
     if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT_EYE)
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
     if (gAlarmTimer != 0)
     {
@@ -108,7 +108,7 @@ void SearchlightEyeMove(void)
     else
         xPosition += QUARTER_BLOCK_SIZE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         // Move down
         gCurrentSprite.yPosition += ONE_SUB_PIXEL;
@@ -116,7 +116,7 @@ void SearchlightEyeMove(void)
         SpriteUtilGetCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
 
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2; // Change direction
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400; // Change direction
     }
     else
     {
@@ -126,7 +126,7 @@ void SearchlightEyeMove(void)
         SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition);
 
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2; // Change direction
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400; // Change direction
     }
 }
 

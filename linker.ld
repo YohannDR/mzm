@@ -409,9 +409,7 @@ SECTIONS {
         src/demo_input.o(.text);
         src/in_game.o(.text);
         src/sprite.o(.text);
-
-        asm/disasm_0x0800e498.o(.text);
-
+        src/sprite_util.o(.text);
         src/sprite_debris.o(.text);
         src/location_text.o(.text);
         src/sprites_AI/chozo_statue_movement.o(.text);
@@ -1703,7 +1701,6 @@ SECTIONS {
         src/data/menus/file_select_data.o(.rodata);
         src/data/intro_data.o(.rodata);
         src/data/tourian_escape_data.o(.rodata);
-        /* 479400-4bfee4 */
         src/data/fusion_gallery_data.o(.rodata);
         src/data/ending_and_gallery_data.o(.rodata);
         src/data/chozodia_escape_data.o(.rodata);
@@ -1712,7 +1709,6 @@ SECTIONS {
         src/data/tilesets/tilesets_set0.o(.rodata);
         src/data/common_pals.o(.rodata);
         src/data/tilesets/tilesets_set1.o(.rodata);
-        /* 60c630-74f8b4 */
 
         src/data/rooms/brinstar/Brinstar_0.o(.rodata);
         src/data/rooms/brinstar/Brinstar_1.o(.rodata);

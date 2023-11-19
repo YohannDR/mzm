@@ -182,7 +182,7 @@ void RidleyUpdateHealth(void)
  * @param xPosition X position
  * @return u8 1 if grabbing, 0 otherwise
  */
-u8 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
+u32 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
 {
     u16 xOffset;
     
@@ -2484,7 +2484,7 @@ void RidleyFireballCheckSlideOnWall(void)
 void RidleyFireballInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT,4);
@@ -2555,7 +2555,7 @@ void RidleyFireballInit(void)
         gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_MOVE_DESCENDING_PATTERN;
 
         if (gCurrentSprite.yPosition < gSamusData.yPosition)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
     }
 }
 

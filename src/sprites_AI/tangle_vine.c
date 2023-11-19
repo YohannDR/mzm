@@ -392,7 +392,7 @@ void TangleVineTall(void)
 
             gCurrentSprite.pOam = sTangleVineTallOAM_OnCeiling;
 
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
@@ -407,7 +407,7 @@ void TangleVineTall(void)
     }
     else if (gCurrentSprite.pose > 0x61)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             yPosition = gCurrentSprite.yPosition + 0x64;
         else
             yPosition = gCurrentSprite.yPosition - BLOCK_SIZE;
@@ -459,7 +459,7 @@ void TangleVineMedium(void)
 
             gCurrentSprite.pOam = sTangleVineMediumOAM_OnCeiling;
 
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
@@ -474,7 +474,7 @@ void TangleVineMedium(void)
     }
     else if (gCurrentSprite.pose > 0x61)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             yPosition = gCurrentSprite.yPosition + 0x70;
         else
             yPosition = gCurrentSprite.yPosition - 0x30;
@@ -526,7 +526,7 @@ void TangleVineCurved(void)
 
             gCurrentSprite.pOam = sTangleVineCurvedOAM_OnCeiling;
 
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
@@ -541,7 +541,7 @@ void TangleVineCurved(void)
     }
     else if (gCurrentSprite.pose > 0x61)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             yPosition = gCurrentSprite.yPosition + 0x48;
         else
             yPosition = gCurrentSprite.yPosition - 0x28;
@@ -593,7 +593,7 @@ void TangleVineShort(void)
 
             gCurrentSprite.pOam = sTangleVineShortOAM_OnCeiling;
 
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
 
@@ -608,7 +608,7 @@ void TangleVineShort(void)
     }
     else if (gCurrentSprite.pose > 0x61)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             yPosition = gCurrentSprite.yPosition + BLOCK_SIZE;
         else
             yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;

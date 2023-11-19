@@ -2306,7 +2306,7 @@ void KraidNailMovement(void)
     spawnY = gCurrentSprite.arrayOffset * BLOCK_SIZE;
     spawnX = gCurrentSprite.workVariable2 * BLOCK_SIZE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -2318,7 +2318,7 @@ void KraidNailMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -2339,7 +2339,7 @@ void KraidNailMovement(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -2522,11 +2522,11 @@ void Kraid(void)
 
         if (gCurrentSprite.paletteRow == 0xE - gCurrentSprite.frozenPaletteRowOffset)
         {
-            if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
         }
-        else if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        else if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     }
     else
         gLockScreen.lock = FALSE;
@@ -2884,7 +2884,7 @@ void KraidNail(void)
 
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = 0x1;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
             gCurrentSprite.oamScaling = Q_8_8(1.f);
             gCurrentSprite.workVariable = 0x0;
 
@@ -2905,9 +2905,9 @@ void KraidNail(void)
             dstX = gSamusData.xPosition;
 
             if (dstY < (gCurrentSprite.arrayOffset * BLOCK_SIZE))
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             else
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
             if (dstX < gCurrentSprite.xPosition)
                 dstX = gSamusData.xPosition + BLOCK_SIZE;

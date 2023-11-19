@@ -1265,8 +1265,8 @@ lbl_0802fee8:
     bx r0
     .align 2, 0
 
-    thumb_func_start sub_0802fef0
-sub_0802fef0: @ 0x0802fef0
+    thumb_func_start ParasiteCount
+ParasiteCount: @ 0x0802fef0
     push {r4, lr}
     movs r4, #0
     ldr r2, lbl_0802ff28 @ =gSpriteData

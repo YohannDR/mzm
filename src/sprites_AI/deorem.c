@@ -713,7 +713,7 @@ void DeoremMainLoop(void)
     u32 spriteOffset = gCurrentSprite.arrayOffset;
     u16 health = gSpriteData[spriteOffset].health;
 
-    if (gCurrentSprite.timer != 0 && !(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+    if (gCurrentSprite.timer != 0 && !(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
     {
         if (!DeoremCheckLeaving(gCurrentSprite.arrayOffset))
         {
@@ -746,13 +746,13 @@ void DeoremMainLoop(void)
             
                 if (health == 60)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                     gCurrentSprite.timer = 8;
                 }
                 else if ((gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE) < gSamusData.xPosition) &&
                     (gCurrentSprite.xPosition + BLOCK_SIZE + HALF_BLOCK_SIZE > gSamusData.xPosition))
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                     gCurrentSprite.timer = 8;
                 }
                 else
@@ -796,7 +796,7 @@ void DeoremMainLoop(void)
         }
         else
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             {
                 yRange = 0x1F4;
                 if (health == 0x3C)
@@ -873,12 +873,12 @@ void DeoremRetracting(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer >= 0x19)
         {
-            if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+            if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
                 DeoremMoveDiagonally(0x10, gSamusData.xPosition);
         }
         else if (gCurrentSprite.timer == 0)
         {
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             SoundPlay(0x195);
         }
     }
@@ -2337,7 +2337,7 @@ void DeoremEyeDyingMovingAnim(void)
  */
 void DeoremThornInit(void)
 {
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
     
     gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.oamRotation = 0;

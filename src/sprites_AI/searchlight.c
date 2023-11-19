@@ -40,9 +40,9 @@ void Searchlight(void)
 
                 // Set initial direction based on sprite ID
                 if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT)
-                    gCurrentSprite.status |= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_UNKNOWN2);
+                    gCurrentSprite.status |= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_UNKNOWN_400);
                 else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT2)
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                 else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT3)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             }
@@ -82,12 +82,12 @@ void Searchlight(void)
                         gCurrentSprite.xPosition -= 0x2;
                 }
 
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
                 {
                     // Move down
                     SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition);
                     if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-                        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2; // Change direction if colliding with stop enemy
+                        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400; // Change direction if colliding with stop enemy
                     else
                         gCurrentSprite.yPosition += 0x2;
                 }
@@ -96,7 +96,7 @@ void Searchlight(void)
                     // Move up
                     SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - BLOCK_SIZE, gCurrentSprite.xPosition);
                     if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2; // Change direction if colliding with stop enemy
+                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400; // Change direction if colliding with stop enemy
                     else
                         gCurrentSprite.yPosition -= 0x2;
                 }

@@ -69,13 +69,13 @@ void WaverMove(void)
     }
 
     // Move vertically
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition -= ySpeed;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     }
     else
     {
@@ -83,7 +83,7 @@ void WaverMove(void)
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition += ySpeed;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
     }
 }
 

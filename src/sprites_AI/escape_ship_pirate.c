@@ -97,7 +97,7 @@ void EscapeShipSpacePirate(void)
     u8 alerted;
     u8 freezeTimer;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         alerted = TRUE;
     else
         alerted = FALSE;
@@ -141,17 +141,17 @@ void EscapeShipSpacePirate(void)
         {
             SpacePirateSamusDetection();
 
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             {
                 if (gSpriteDrawOrder[2] == TRUE)
                     gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
                 else if (gAlarmTimer == 0x0)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
             }
             else
             {
                 if (gAlarmTimer != 0x0 && gCurrentSprite.pose != 0x0)
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             }
 
             SpacePirateCheckCollidingWithLaser();
@@ -403,6 +403,6 @@ void EscapeShipSpacePirate(void)
             SpacePirateDeath(TRUE);
     }
 
-    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN2))
+    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400))
         SoundPlayNotAlreadyPlaying(0x169);
 }

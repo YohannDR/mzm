@@ -20,7 +20,7 @@ void SecurityLaserInit(void)
     if (gCurrentSprite.spriteId == PSPRITE_SECURITY_LASER_VERTICAL || gCurrentSprite.spriteId == PSPRITE_SECURITY_LASER_VERTICAL2)
     {
         // Initialize vertical laser
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
         // Get size
         if (SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), xPosition) != COLLISION_AIR)

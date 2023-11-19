@@ -259,8 +259,8 @@ void SpriteDrawAll_2(void)
     else
         notPlaying = TRUE;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
-    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
+    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_10;
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
@@ -315,7 +315,7 @@ void SpriteDrawAll(void)
     u32 drawStatus;
     u32 checkStatus;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     
     SpriteDebrisDrawAll();
@@ -359,7 +359,7 @@ void SpriteDrawAll_Upper(void)
     u32 drawStatus;
     u32 checkStatus;
 
-    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN_10;
     drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
 
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
@@ -457,7 +457,7 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
     // Shortcuts for status
     xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
-    status_unk3 = pSprite->status & SPRITE_STATUS_UNKNOWN3;
+    status_unk3 = pSprite->status & SPRITE_STATUS_UNKNOWN_80;
     doubleSize = pSprite->status & SPRITE_STATUS_DOUBLE_SIZE;
     alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
     yFlip = pSprite->status & SPRITE_STATUS_YFLIP;

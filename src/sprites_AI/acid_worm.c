@@ -298,7 +298,7 @@ void AcidWormInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_IGNORE_PROJECTILES;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES;
 
     gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.workVariable2 = 20;
@@ -516,7 +516,7 @@ void AcidWormIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = ACID_WORM_POSE_IDLE;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 }
 
 /**
@@ -563,7 +563,7 @@ void AcidWormIdle(void)
     
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
     SpriteUtilMakeSpriteFaceSamusDirection();
-    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     SoundPlay(0x1B5);
 }
 
@@ -1281,7 +1281,7 @@ void AcidWormBodyMove(void) {
     else if (gSpriteData[slot].pose == 0x8)
     {
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
         gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0x0;
     }
@@ -1338,7 +1338,7 @@ void AcidWormBodyMainLoop(void)
         gCurrentSprite.oamRotation = timer + gSpriteData[slot].oamRotation;
     }
 
-    if (!(gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN2))
+    if (!(gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN_400))
     {
         oldY = gCurrentSprite.yPosition;
         AcidWormHandleRotation();

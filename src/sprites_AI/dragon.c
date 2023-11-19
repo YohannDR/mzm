@@ -25,7 +25,7 @@ void DragonYMovement(void)
     oldY = gCurrentSprite.yPosition;
     ySpawn = gCurrentSprite.yPositionSpawn;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
         if (ySpawn - (BLOCK_SIZE * 2 - PIXEL_SIZE / SUB_PIXEL_RATIO) < gCurrentSprite.yPosition)
             gCurrentSprite.yPosition -= PIXEL_SIZE / 2;
@@ -98,14 +98,14 @@ void DragonGoUp(void)
         gCurrentSprite.timer--;
 
     DragonYMovement();
-    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
 
     if (gSamusData.yPosition > gCurrentSprite.yPosition)
         return;
 
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 6, BLOCK_SIZE * 6);
     if (nslr != NSLR_OUT_OF_RANGE)
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
 
     if (nslr == NSLR_RIGHT)
     {
@@ -288,7 +288,7 @@ void DragonFireballInit(void)
     else
         gCurrentSprite.oamRotation = 0;
 
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
     gCurrentSprite.oamScaling = Q_8_8(1.f);
     gCurrentSprite.arrayOffset = 0;
 
@@ -362,7 +362,7 @@ void DragonFireballExplodingInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = DRAGON_FIREBALL_POSE_EXPLODING;
-    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_80;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 }
 
