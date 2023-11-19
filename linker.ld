@@ -425,9 +425,7 @@ SECTIONS {
         src/sprites_AI/chozo_ball.o(.text);
         src/sprites_AI/zoomer.o(.text);
         src/sprites_AI/zeela.o(.text);
-
-        asm/disasm_0x080183d8.o(.text);
-
+        src/sprites_AI/kraid.o(.text);
         src/sprites_AI/item_banner.o(.text);
         src/sprites_AI/ripper.o(.text);
         src/sprites_AI/ripper2.o(.text);

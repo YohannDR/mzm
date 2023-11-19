@@ -1891,7 +1891,7 @@ lbl_0808213c:
     movs r0, #0
     movs r1, #0x14
     movs r2, #0
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
     b lbl_0808222a
     .align 2, 0
 lbl_08082184: .4byte 0x0848e048

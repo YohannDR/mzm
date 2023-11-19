@@ -2087,7 +2087,7 @@ UpdateMusicAfterAlarmDisable: @ 0x08003930
     movs r0, #5
     movs r1, #0x49
     movs r2, #0x20
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
     b lbl_0800397a
     .align 2, 0
 lbl_08003950: .4byte gMusicInfo
@@ -2108,7 +2108,7 @@ lbl_08003970:
     movs r0, #5
     movs r1, #0x49
     movs r2, #0x20
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
 lbl_0800397a:
     pop {r0}
     bx r0
@@ -2344,8 +2344,8 @@ lbl_08003b26:
     .align 2, 0
 lbl_08003b2c: .4byte gMusicInfo
 
-    thumb_func_start sub_08003b30
-sub_08003b30: @ 0x08003b30
+    thumb_func_start FadeCurrentMusicAndQueueNextMusic
+FadeCurrentMusicAndQueueNextMusic: @ 0x08003b30
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
@@ -3334,7 +3334,7 @@ lbl_080042ac:
     adds r0, r4, #0
     movs r1, #9
     movs r2, #2
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
 lbl_080042b6:
     pop {r4}
     pop {r0}

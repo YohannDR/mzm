@@ -3692,8 +3692,8 @@ lbl_0805096a:
     .align 2, 0
 lbl_08050970: .4byte 0x08326fd0
 
-    thumb_func_start kraid_start_tumbling_missile
-kraid_start_tumbling_missile: @ 0x08050974
+    thumb_func_start ProjectileStartTumblingMissileCurrentSprite
+ProjectileStartTumblingMissileCurrentSprite: @ 0x08050974
     push {r4, r5, lr}
     adds r3, r0, #0
     lsls r1, r1, #0x18

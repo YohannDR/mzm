@@ -2221,7 +2221,7 @@ lbl_08021e02:
     movs r0, #0x32
     movs r1, #1
     movs r2, #0
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -2528,7 +2528,7 @@ lbl_08022068:
     movs r0, #0x32
     movs r1, #1
     movs r2, #0
-    bl sub_08003b30
+    bl FadeCurrentMusicAndQueueNextMusic
 lbl_0802207a:
     add sp, #0xc
     pop {r3, r4, r5}
