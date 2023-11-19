@@ -468,9 +468,7 @@ SECTIONS {
         src/sprites_AI/gekitai_machine.o(.text);
         src/sprites_AI/ruins_test.o(.text);
         src/sprites_AI/mella.o(.text);
-
-        asm/disasm_0x0803b944.o(.text);
-
+        src/sprites_AI/atomic.o(.text);
         src/sprites_AI/area_banner.o(.text);
         src/sprites_AI/mother_brain.o(.text);
 

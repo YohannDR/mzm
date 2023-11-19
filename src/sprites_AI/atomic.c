@@ -17,7 +17,7 @@
 #include "structs/samus.h"
 #include "structs/sprite.h"
 
-
+#ifdef NON_MATCHING
 void AtomicSmoothMovement(void)
 {
     // https://decomp.me/scratch/g2eKp
@@ -212,6 +212,336 @@ void AtomicSmoothMovement(void)
         gCurrentSprite.arrayOffset = 0x1;
     }
 }
+#else
+NAKED_FUNCTION
+void AtomicSmoothMovement(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    movs r0, #2 \n\
+    mov sb, r0 \n\
+    ldr r0, lbl_0803b980 @ =gArmCannonY \n\
+    ldrh r0, [r0] \n\
+    str r0, [sp] \n\
+    ldr r0, lbl_0803b984 @ =gArmCannonX \n\
+    ldrh r0, [r0] \n\
+    mov sl, r0 \n\
+    movs r7, #0 \n\
+    movs r1, #0 \n\
+    mov r8, r1 \n\
+    ldr r0, lbl_0803b988 @ =gCurrentSprite \n\
+    ldrh r5, [r0, #2] \n\
+    ldrh r6, [r0, #4] \n\
+    ldrh r1, [r0] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803b98c \n\
+    add r4, r6, #0 \n\
+    add r4, #0x20 \n\
+    b lbl_0803b990 \n\
+    .align 2, 0 \n\
+lbl_0803b980: .4byte gArmCannonY \n\
+lbl_0803b984: .4byte gArmCannonX \n\
+lbl_0803b988: .4byte gCurrentSprite \n\
+lbl_0803b98c: \n\
+    add r4, r6, #0 \n\
+    sub r4, #0x20 \n\
+lbl_0803b990: \n\
+    add r0, r5, #0 \n\
+    add r1, r4, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    bne lbl_0803b9b8 \n\
+    add r0, r5, #0 \n\
+    add r0, #0x20 \n\
+    add r1, r4, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    bne lbl_0803b9b8 \n\
+    add r0, r5, #0 \n\
+    sub r0, #0x20 \n\
+    add r1, r4, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    beq lbl_0803b9ba \n\
+lbl_0803b9b8: \n\
+    movs r7, #1 \n\
+lbl_0803b9ba: \n\
+    ldr r0, lbl_0803b9d0 @ =gCurrentSprite \n\
+    ldrh r1, [r0] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #3 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803b9d4 \n\
+    add r4, r5, #0 \n\
+    add r4, #0x20 \n\
+    b lbl_0803b9d8 \n\
+    .align 2, 0 \n\
+lbl_0803b9d0: .4byte gCurrentSprite \n\
+lbl_0803b9d4: \n\
+    add r4, r5, #0 \n\
+    sub r4, #0x20 \n\
+lbl_0803b9d8: \n\
+    add r0, r4, #0 \n\
+    add r1, r6, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    bne lbl_0803ba00 \n\
+    add r1, r6, #0 \n\
+    add r1, #0x20 \n\
+    add r0, r4, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    bne lbl_0803ba00 \n\
+    add r1, r6, #0 \n\
+    sub r1, #0x20 \n\
+    add r0, r4, #0 \n\
+    bl SpriteUtilGetCollisionAtPosition \n\
+    cmp r0, #0 \n\
+    beq lbl_0803ba0a \n\
+lbl_0803ba00: \n\
+    mov r0, r8 \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    mov r8, r0 \n\
+lbl_0803ba0a: \n\
+    movs r4, #0 \n\
+    ldr r2, lbl_0803ba44 @ =gCurrentSprite \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803ba60 \n\
+    cmp r7, #0 \n\
+    bne lbl_0803bab6 \n\
+    add r3, r2, #0 \n\
+    add r3, #0x2d \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0 \n\
+    bne lbl_0803ba48 \n\
+    ldrh r1, [r2, #4] \n\
+    mov r0, sl \n\
+    sub r0, #4 \n\
+    cmp r1, r0 \n\
+    bgt lbl_0803ba78 \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2e \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0x14 \n\
+    bhs lbl_0803ba40 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803ba40: \n\
+    ldrb r0, [r1] \n\
+    b lbl_0803ba54 \n\
+    .align 2, 0 \n\
+lbl_0803ba44: .4byte gCurrentSprite \n\
+lbl_0803ba48: \n\
+    sub r0, #1 \n\
+    strb r0, [r3] \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803bab6 \n\
+    ldrb r0, [r3] \n\
+lbl_0803ba54: \n\
+    mov r3, sb \n\
+    asr r0, r3 \n\
+    ldrh r1, [r2, #4] \n\
+    add r0, r0, r1 \n\
+    strh r0, [r2, #4] \n\
+    b lbl_0803bab2 \n\
+lbl_0803ba60: \n\
+    cmp r7, #0 \n\
+    bne lbl_0803bab0 \n\
+    add r3, r2, #0 \n\
+    add r3, #0x2d \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0 \n\
+    bne lbl_0803ba98 \n\
+    ldrh r1, [r2, #4] \n\
+    mov r0, sl \n\
+    add r0, #4 \n\
+    cmp r1, r0 \n\
+    bge lbl_0803ba82 \n\
+lbl_0803ba78: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x2e \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r3] \n\
+    b lbl_0803bab2 \n\
+lbl_0803ba82: \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2e \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0x14 \n\
+    bhs lbl_0803ba90 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803ba90: \n\
+    ldrb r1, [r1] \n\
+    mov r3, sb \n\
+    asr r1, r3 \n\
+    b lbl_0803baa8 \n\
+lbl_0803ba98: \n\
+    sub r0, #1 \n\
+    strb r0, [r3] \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803bab6 \n\
+    ldrb r1, [r3] \n\
+    mov r0, sb \n\
+    asr r1, r0 \n\
+lbl_0803baa8: \n\
+    ldrh r0, [r2, #4] \n\
+    sub r0, r0, r1 \n\
+    strh r0, [r2, #4] \n\
+    b lbl_0803bab2 \n\
+lbl_0803bab0: \n\
+    movs r4, #1 \n\
+lbl_0803bab2: \n\
+    cmp r4, #0 \n\
+    beq lbl_0803baca \n\
+lbl_0803bab6: \n\
+    ldrh r0, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    add r1, r3, #0 \n\
+    eor r0, r1 \n\
+    strh r0, [r2] \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2e \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803baca: \n\
+    movs r4, #0 \n\
+    ldrh r1, [r2] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #3 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803bb1c \n\
+    mov r0, r8 \n\
+    cmp r0, #0 \n\
+    bne lbl_0803bb74 \n\
+    add r3, r2, #0 \n\
+    add r3, #0x2c \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0 \n\
+    bne lbl_0803bb04 \n\
+    ldrh r1, [r2, #2] \n\
+    ldr r0, [sp] \n\
+    sub r0, #4 \n\
+    cmp r1, r0 \n\
+    bgt lbl_0803bb36 \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0x14 \n\
+    bhs lbl_0803bb00 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803bb00: \n\
+    ldrb r0, [r1] \n\
+    b lbl_0803bb10 \n\
+lbl_0803bb04: \n\
+    sub r0, #1 \n\
+    strb r0, [r3] \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803bb74 \n\
+    ldrb r0, [r3] \n\
+lbl_0803bb10: \n\
+    mov r1, sb \n\
+    asr r0, r1 \n\
+    ldrh r3, [r2, #2] \n\
+    add r0, r0, r3 \n\
+    strh r0, [r2, #2] \n\
+    b lbl_0803bb70 \n\
+lbl_0803bb1c: \n\
+    mov r0, r8 \n\
+    cmp r0, #0 \n\
+    bne lbl_0803bb6e \n\
+    add r3, r2, #0 \n\
+    add r3, #0x2c \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0 \n\
+    bne lbl_0803bb56 \n\
+    ldrh r1, [r2, #2] \n\
+    ldr r0, [sp] \n\
+    add r0, #4 \n\
+    cmp r1, r0 \n\
+    bge lbl_0803bb40 \n\
+lbl_0803bb36: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r3] \n\
+    b lbl_0803bb70 \n\
+lbl_0803bb40: \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0x14 \n\
+    bhs lbl_0803bb4e \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803bb4e: \n\
+    ldrb r1, [r1] \n\
+    mov r3, sb \n\
+    asr r1, r3 \n\
+    b lbl_0803bb66 \n\
+lbl_0803bb56: \n\
+    sub r0, #1 \n\
+    strb r0, [r3] \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0803bb74 \n\
+    ldrb r1, [r3] \n\
+    mov r0, sb \n\
+    asr r1, r0 \n\
+lbl_0803bb66: \n\
+    ldrh r0, [r2, #2] \n\
+    sub r0, r0, r1 \n\
+    strh r0, [r2, #2] \n\
+    b lbl_0803bb70 \n\
+lbl_0803bb6e: \n\
+    movs r4, #1 \n\
+lbl_0803bb70: \n\
+    cmp r4, #0 \n\
+    beq lbl_0803bb88 \n\
+lbl_0803bb74: \n\
+    ldrh r0, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #3 \n\
+    add r1, r3, #0 \n\
+    eor r0, r1 \n\
+    strh r0, [r2] \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2f \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0803bb88: \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 3bb98 | 9c | Updates the direction of an atomic to flee samus if in range
@@ -355,41 +685,40 @@ void AtomicIdleInit(void)
  */
 void AtomicIdle(void)
 {
-    u8 offset;
     s32 movement;
+    u8 offset;
 
     if (gSamusWeaponInfo.chargeCounter >= CHARGE_BEAM_THRESHOLD)
     {
         // Set chasing if samus has a charged beam
         gCurrentSprite.pose = ATOMIC_POSE_CHASING_SAMUS_INIT;
+        return;
     }
-    else
+
+    // Y movement
+    offset = gCurrentSprite.arrayOffset;
+    movement = sAtomicIdleYMovement[offset];
+    if (movement == SHORT_MAX)
     {
-        // Y movement
-        offset = gCurrentSprite.arrayOffset;
-        movement = sAtomicIdleYMovement[offset];
-        if (movement == SHORT_MAX)
-        {
-            movement = sAtomicIdleYMovement[0]; // 0
-            offset = 0x0;
-        }
-        gCurrentSprite.arrayOffset = offset + 0x1;
-        gCurrentSprite.yPosition += movement;
-
-        // X movement
-        offset = gCurrentSprite.workVariable2;
-        movement = sAtomicIdleXMovement[offset];
-        if (movement == SHORT_MAX)
-        {
-            movement = sAtomicIdleXMovement[0]; // 0
-            offset = 0x0;
-        }
-        gCurrentSprite.workVariable2 = offset + 0x1;
-        gCurrentSprite.xPosition += movement;
-
-        AtomicUpdateDirectionToFleeSamus();
-        AtomicCheckShootElectricity();
+        movement = sAtomicIdleYMovement[0]; // 0
+        offset = 0;
     }
+    gCurrentSprite.arrayOffset = offset + 1;
+    gCurrentSprite.yPosition += movement;
+
+    // X movement
+    offset = gCurrentSprite.workVariable2;
+    movement = sAtomicIdleXMovement[offset];
+    if (movement == SHORT_MAX)
+    {
+        movement = sAtomicIdleXMovement[0]; // 0
+        offset = 0;
+    }
+    gCurrentSprite.workVariable2 = offset + 1;
+    gCurrentSprite.xPosition += movement;
+
+    AtomicUpdateDirectionToFleeSamus();
+    AtomicCheckShootElectricity();
 }
 
 /**
