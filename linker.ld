@@ -455,9 +455,8 @@ SECTIONS {
         src/sprites_AI/gamet.o(.text);
         src/sprites_AI/security_gate.o(.text);
         src/sprites_AI/zebbo.o(.text);
-
-        asm/disasm_0x0802f534.o(.text);
-
+        src/sprites_AI/worker_robot.o(.text);
+        src/sprites_AI/parasite.o(.text);
         src/sprites_AI/piston.o(.text);
         src/sprites_AI/ridley.o(.text);
         src/sprites_AI/metroid.o(.text);

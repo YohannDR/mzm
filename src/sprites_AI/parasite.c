@@ -1253,6 +1253,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
     }
 }
 
+#ifdef NON_MATCHING
 void ParasiteProjectilesCollision(struct SpriteData* pSprite)
 {
     // https://decomp.me/scratch/aJlpC
@@ -1319,6 +1320,157 @@ void ParasiteProjectilesCollision(struct SpriteData* pSprite)
 
     SpriteUtilMakeSpriteFaceAwayFromSamusDirection();
 }
+#else
+NAKED_FUNCTION
+void ParasiteProjectilesCollision(struct SpriteData* pSprite)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #0x18 \n\
+    add r6, r0, #0 \n\
+    add r0, #0x2b \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08031114 \n\
+    add r1, r6, #0 \n\
+    add r1, #0x24 \n\
+    movs r0, #0x62 \n\
+    strb r0, [r1] \n\
+    b lbl_080311ea \n\
+lbl_0803110c: \n\
+    add r0, r7, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r7, r0, #0x18 \n\
+    b lbl_080311ae \n\
+lbl_08031114: \n\
+    movs r7, #0 \n\
+    ldrh r1, [r6, #2] \n\
+    ldrh r0, [r6, #0xa] \n\
+    add r0, r1, r0 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    str r0, [sp, #0x10] \n\
+    ldrh r0, [r6, #0xc] \n\
+    add r1, r1, r0 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r1, r1, #0x10 \n\
+    str r1, [sp, #0x14] \n\
+    ldrh r1, [r6, #4] \n\
+    ldrh r0, [r6, #0xe] \n\
+    add r0, r1, r0 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    mov sb, r0 \n\
+    ldrh r0, [r6, #0x10] \n\
+    add r1, r1, r0 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r1, r1, #0x10 \n\
+    mov r8, r1 \n\
+    ldr r5, lbl_080311bc @ =gProjectileData \n\
+    movs r1, #0xe0 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r5, r1 \n\
+    movs r1, #0x24 \n\
+    add r1, r1, r6 \n\
+    mov sl, r1 \n\
+    cmp r5, r0 \n\
+    bhs lbl_080311ae \n\
+lbl_08031154: \n\
+    ldrb r0, [r5] \n\
+    movs r1, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080311a6 \n\
+    ldrb r0, [r5, #0xf] \n\
+    cmp r0, #0xe \n\
+    bne lbl_080311a6 \n\
+    ldrb r0, [r5, #0x11] \n\
+    cmp r0, #3 \n\
+    bne lbl_080311a6 \n\
+    ldrh r3, [r5, #8] \n\
+    ldrh r4, [r5, #0x14] \n\
+    add r4, r3, r4 \n\
+    lsl r4, r4, #0x10 \n\
+    lsr r4, r4, #0x10 \n\
+    ldrh r0, [r5, #0x16] \n\
+    add r3, r3, r0 \n\
+    lsl r3, r3, #0x10 \n\
+    lsr r3, r3, #0x10 \n\
+    ldrh r2, [r5, #0xa] \n\
+    ldrh r1, [r5, #0x18] \n\
+    add r1, r2, r1 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r1, r1, #0x10 \n\
+    ldrh r0, [r5, #0x1a] \n\
+    add r2, r2, r0 \n\
+    lsl r2, r2, #0x10 \n\
+    lsr r2, r2, #0x10 \n\
+    str r4, [sp] \n\
+    str r3, [sp, #4] \n\
+    str r1, [sp, #8] \n\
+    str r2, [sp, #0xc] \n\
+    ldr r0, [sp, #0x10] \n\
+    ldr r1, [sp, #0x14] \n\
+    mov r2, sb \n\
+    mov r3, r8 \n\
+    bl SpriteUtilCheckObjectsTouching \n\
+    cmp r0, #0 \n\
+    bne lbl_0803110c \n\
+lbl_080311a6: \n\
+    add r5, #0x1c \n\
+    ldr r0, lbl_080311c0 @ =gArmCannonY \n\
+    cmp r5, r0 \n\
+    blo lbl_08031154 \n\
+lbl_080311ae: \n\
+    cmp r7, #0 \n\
+    beq lbl_080311c4 \n\
+    movs r0, #0x62 \n\
+    mov r1, sl \n\
+    strb r0, [r1] \n\
+    b lbl_080311ea \n\
+    .align 2, 0 \n\
+lbl_080311bc: .4byte gProjectileData \n\
+lbl_080311c0: .4byte gArmCannonY \n\
+lbl_080311c4: \n\
+    add r0, r6, #0 \n\
+    add r0, #0x2b \n\
+    strb r7, [r0] \n\
+    movs r0, #1 \n\
+    strh r0, [r6, #0x14] \n\
+    movs r0, #0x44 \n\
+    mov r1, sl \n\
+    strb r0, [r1] \n\
+    ldr r0, lbl_080311fc @ =gSpriteRng \n\
+    ldrb r0, [r0] \n\
+    lsr r7, r0, #1 \n\
+    cmp r7, #8 \n\
+    bhi lbl_080311e0 \n\
+    movs r7, #9 \n\
+lbl_080311e0: \n\
+    add r0, r6, #0 \n\
+    add r0, #0x2e \n\
+    strb r7, [r0] \n\
+    bl SpriteUtilMakeSpriteFaceAwayFromSamusDirection \n\
+lbl_080311ea: \n\
+    add sp, #0x18 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_080311fc: .4byte gSpriteRng \n\
+    ");
+}
+#endif
 
 /**
  * @brief 31200 | 27c | Parasite (multiple) AI
