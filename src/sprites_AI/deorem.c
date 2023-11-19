@@ -5,8 +5,6 @@
 #include "data/sprites/deorem.h"
 #include "data/sprite_data.h"
 
-#include "clipdata.h"
-
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
@@ -16,6 +14,7 @@
 #include "constants/sprite_util.h"
 #include "constants/particle.h"
 
+#include "structs/clipdata.h"
 #include "structs/game_state.h"
 #include "structs/samus.h"
 #include "structs/scroll.h"
@@ -342,7 +341,7 @@ void DeoremInit(void)
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED))
         {
         
-            if (EventFuction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) &&
+            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) &&
                 !(gEquipment.beamBombs & BBF_CHARGE_BEAM) &&
                 EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION))
             {
@@ -462,8 +461,8 @@ void DeoremSpawnGoingDown(void)
         ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
         
-        DeoremLeftChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
-        DeoremRightChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
+        DeoremChangeLeftCCAA(CAA_MAKE_SOLID_GRIPPABLE);
+        DeoremChangeRightCCAA(CAA_MAKE_SOLID_GRIPPABLE);
     }
 }
 
@@ -500,7 +499,7 @@ void DeoremSpawnGoingDownAnim(void)
             ParticleSet(yPosition + BLOCK_SIZE, xPosition, PE_TWO_MEDIUM_DUST);
             SoundPlay(0x191);
             SoundPlay(0x19C);
-            MusicPlay(MUSIC_WORMS_BATTLE, 0x0);
+            PlayMusic(MUSIC_WORMS_BATTLE, 0x0);
         }
     }
 
@@ -520,7 +519,7 @@ void DeoremSpawnGoingDownAnim(void)
             gCurrentSprite.xPosition += BLOCK_SIZE * 13;
         }
 
-        StartVerticalScreenShake(0x28, 0x81);
+        ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
     }
 }
@@ -607,7 +606,7 @@ void DeoremSpawnGoingUpAnim(void)
             gCurrentSprite.xPosition -= BLOCK_SIZE * 6 + HALF_BLOCK_SIZE;
         }
 
-        StartVerticalScreenShake(0x28, 0x81);
+        ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
     }
 }
@@ -761,7 +760,7 @@ void DeoremMainLoop(void)
                     gCurrentSprite.workVariable2 = 1;
                     gCurrentSprite.oamScaling = gSamusData.xPosition;
         
-                    StartVerticalScreenShake(0x14, 0x81);
+                    ScreenShakeStartVertical(0x14, 0x81);
                 }
             }
             else if (gCurrentSprite.timer == 0x17 && gCurrentSprite.pOam == sDeoremOam_OpenedFast)
@@ -809,7 +808,7 @@ void DeoremMainLoop(void)
                     gCurrentSprite.yPosition -= movement;
                     gCurrentSprite.timer--;
                     if (gCurrentSprite.timer == 0)
-                        StartVerticalScreenShake(0x14, 0x81);
+                        ScreenShakeStartVertical(0x14, 0x81);
                     return;
                 }
             }
@@ -860,7 +859,7 @@ void DeoremRetracting(void)
 
     if (gCurrentSprite.timer != 0)
     {
-        if (gCurrentSprite.pOam == sDeoremOam_ClosedFast
+        if (gCurrentSprite.pOam == sDeoremOam_Opening
             && SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = sDeoremOam_OpenedFast;
@@ -912,7 +911,7 @@ void DeoremRetracting(void)
                 else
                 {
                     gCurrentSprite.pose = DEOREM_POSE_MAIN;
-                    DeoremSetEyeOpeningtimer();
+                    DeoremSetEyeOpeningTimer();
                 }
             }
         }
@@ -1006,8 +1005,8 @@ void DeoremDying(void)
     gCurrentSprite.pose = DEOREM_POSE_DYING_GOING_DOWN;
     gCurrentSprite.invincibilityStunFlashTimer |= 0x70;
 
-    DeoremLeftChangeCCAA(CAA_REMOVE_SOLID);
-    DeoremRightChangeCCAA(CAA_REMOVE_SOLID);
+    DeoremChangeLeftCCAA(CAA_REMOVE_SOLID);
+    DeoremChangeRightCCAA(CAA_REMOVE_SOLID);
 
     gLockScreen.lock = FALSE;
     EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
@@ -1015,7 +1014,7 @@ void DeoremDying(void)
 
     if (gCurrentSprite.spriteId == PSPRITE_DEOREM_SECOND_LOCATION)
     {
-        EventFuncion(EVENT_ACTION_SETTING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
+        EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
     }
 
     SoundPlay(0x19B);
@@ -1130,8 +1129,8 @@ void DeoremLeaving(void)
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x11, gfxSlot, ramSlot, yPosition, xPosition, 0);
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x10, gfxSlot, ramSlot, yPosition, xPosition, 0);
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xf, gfxSlot, ramSlot, yPosition, xPosition, 0);
-            DeoremLeftChangeCCAA(CAA_REMOVE_SOLID);
-            DeoremRightChangeCCAA(CAA_REMOVE_SOLID);
+            DeoremChangeLeftCCAA(CAA_REMOVE_SOLID);
+            DeoremChangeRightCCAA(CAA_REMOVE_SOLID);
             gLockScreen.lock = FALSE;
     
             if (gCurrentSprite.spriteId == PSPRITE_DEOREM) // Leaving first location
@@ -1329,6 +1328,7 @@ void DeoremSegmentInit(void)
  * @brief 2235c | 90 | Handles the movement when Deorem is spawning and going down
  * 
  */
+#ifdef NON_MATCHING
 void DeoremSegmentSpawnGoingDown(void)
 {
     // https://decomp.me/scratch/bFhC3
@@ -1358,6 +1358,86 @@ void DeoremSegmentSpawnGoingDown(void)
         }
     }
 }
+#else
+NAKED_FUNCTION
+void DeoremSegmentSpawnGoingDown(void)
+{
+    asm("\n\
+push {r4, r5, r6, lr} \n\
+    ldr r1, lbl_08022384 @ =gCurrentSprite \n\
+    add r0, r1, #0 \n\
+    add r0, #0x23 \n\
+    ldrb r5, [r0] \n\
+    ldrb r0, [r1, #0x1e] \n\
+    mov ip, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0802238c \n\
+    ldr r1, lbl_08022388 @ =gSpriteData \n\
+    lsl r2, r5, #3 \n\
+    sub r0, r2, r5 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r1 \n\
+    ldrh r0, [r0, #2] \n\
+    sub r0, #0xa8 \n\
+    mov r3, ip \n\
+    strh r0, [r3, #2] \n\
+    b lbl_080223b0 \n\
+    .align 2, 0 \n\
+lbl_08022384: .4byte gCurrentSprite \n\
+lbl_08022388: .4byte gSpriteData \n\
+lbl_0802238c: \n\
+    ldr r3, lbl_080223e4 @ =gSpriteData \n\
+    lsl r4, r5, #3 \n\
+    sub r0, r4, r5 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r3 \n\
+    ldrh r0, [r0, #2] \n\
+    sub r0, #0xa8 \n\
+    mov r6, ip \n\
+    ldrb r2, [r6, #0x1e] \n\
+    movs r1, #0x64 \n\
+    add r6, r2, #0 \n\
+    mul r6, r1, r6 \n\
+    add r1, r6, #0 \n\
+    sub r0, r0, r1 \n\
+    mov r1, ip \n\
+    strh r0, [r1, #2] \n\
+    add r1, r3, #0 \n\
+    add r2, r4, #0 \n\
+lbl_080223b0: \n\
+    sub r0, r2, r5 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r1 \n\
+    add r0, #0x24 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x22 \n\
+    bne lbl_080223de \n\
+    mov r1, ip \n\
+    add r1, #0x24 \n\
+    movs r0, #9 \n\
+    strb r0, [r1] \n\
+    add r1, #8 \n\
+    movs r0, #6 \n\
+    strb r0, [r1] \n\
+    mov r3, ip \n\
+    ldrb r0, [r3, #0x1e] \n\
+    cmp r0, #0 \n\
+    bne lbl_080223de \n\
+    ldr r0, lbl_080223e8 @ =0x082d7894 \n\
+    str r0, [r3, #0x18] \n\
+    sub r1, #0xa \n\
+    movs r0, #4 \n\
+    strb r0, [r1] \n\
+lbl_080223de: \n\
+    pop {r4, r5, r6} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_080223e4: .4byte gSpriteData \n\
+lbl_080223e8: .4byte sDeoremSegmentOam_Middle \n\
+    ");
+}
+#endif
 
 /**
  * @brief 223ec | 9c80 | Handles the movement when Deorem is spawning, going down
@@ -1861,7 +1941,7 @@ void DeoremSegmentMiddleLeaving(void)
  * @brief 22bf4 | a0 | Handles the right side leaving
  * 
  */
-void DeoremSegmentRighLeaving(void)
+void DeoremSegmentRightLeaving(void)
 {
     gCurrentSprite.yPosition = gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE;
 
@@ -1900,7 +1980,7 @@ void DeoremSegmentRighLeaving(void)
  * @brief 22c94 | 28 | Handles the end of the right side leaving, sets status to 0
  * 
  */
-void DeoremSegmentRighLeavingEnd(void)
+void DeoremSegmentRightLeavingEnd(void)
 {
     gCurrentSprite.yPosition += QUARTER_BLOCK_SIZE;
     if (--gCurrentSprite.timer == 0)
@@ -2481,7 +2561,7 @@ void Deorem(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case DEOREM_POSE_INIT:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremInit();
             break;
 
@@ -2528,7 +2608,6 @@ void Deorem(void)
 
         case DEOREM_POSE_DYING:
             DeoremDying();
-            break;
 
         case DEOREM_POSE_DYING_GOING_DOWN:
             DeoremDyingGoingDown();

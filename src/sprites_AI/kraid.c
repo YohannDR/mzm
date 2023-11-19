@@ -2723,13 +2723,13 @@ void Kraid(void)
         b lbl_0801ae26 \n\
     lbl_0801ac80: \n\
         ldr r1, [r6] \n\
-        ldr r0, lbl_0801acb4 @ =0x082c61f0 \n\
+        ldr r0, lbl_0801acb4 @ =sKraidMultiSpriteData_Rising \n\
         cmp r1, r0 \n\
         beq lbl_0801ac94 \n\
-        ldr r0, lbl_0801acb8 @ =0x082c6200 \n\
+        ldr r0, lbl_0801acb8 @ =sKraidMultiSpriteData_Standing \n\
         cmp r1, r0 \n\
         beq lbl_0801ac94 \n\
-        ldr r0, lbl_0801acbc @ =0x082c6220 \n\
+        ldr r0, lbl_0801acbc @ =sKraidMultiSpriteData_StandingBetweenSteps \n\
         cmp r1, r0 \n\
         bne lbl_0801acc4 \n\
     lbl_0801ac94: \n\
@@ -2750,15 +2750,15 @@ void Kraid(void)
         .align 2, 0 \n\
     lbl_0801acac: .4byte gCurrentSprite \n\
     lbl_0801acb0: .4byte gSubSpriteData1 \n\
-    lbl_0801acb4: .4byte 0x082c61f0 \n\
-    lbl_0801acb8: .4byte 0x082c6200 \n\
-    lbl_0801acbc: .4byte 0x082c6220 \n\
+    lbl_0801acb4: .4byte sKraidMultiSpriteData_Rising \n\
+    lbl_0801acb8: .4byte sKraidMultiSpriteData_Standing \n\
+    lbl_0801acbc: .4byte sKraidMultiSpriteData_StandingBetweenSteps \n\
     lbl_0801acc0: .4byte gBG2Movement \n\
     lbl_0801acc4: \n\
-        ldr r4, lbl_0801ace8 @ =0x082c6240 \n\
+        ldr r4, lbl_0801ace8 @ =sKraidMultiSpriteData_MovingLeftFeetToRight \n\
         cmp r1, r4 \n\
         beq lbl_0801acd0 \n\
-        ldr r0, lbl_0801acec @ =0x082c62e8 \n\
+        ldr r0, lbl_0801acec @ =sKraidMultiSpriteData_MovingRightFeetToLeft \n\
         cmp r1, r0 \n\
         bne lbl_0801ad64 \n\
     lbl_0801acd0: \n\
@@ -2776,8 +2776,8 @@ void Kraid(void)
         strh r0, [r1] \n\
         b lbl_0801ae26 \n\
         .align 2, 0 \n\
-    lbl_0801ace8: .4byte 0x082c6240 \n\
-    lbl_0801acec: .4byte 0x082c62e8 \n\
+    lbl_0801ace8: .4byte sKraidMultiSpriteData_MovingLeftFeetToRight \n\
+    lbl_0801acec: .4byte sKraidMultiSpriteData_MovingRightFeetToLeft \n\
     lbl_0801acf0: .4byte gBG2Movement \n\
     lbl_0801acf4: \n\
         cmp r0, #4 \n\
@@ -2834,10 +2834,10 @@ void Kraid(void)
         .align 2, 0 \n\
     lbl_0801ad60: .4byte gCurrentSprite \n\
     lbl_0801ad64: \n\
-        ldr r0, lbl_0801ad88 @ =0x082c6278 \n\
+        ldr r0, lbl_0801ad88 @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
         cmp r1, r0 \n\
         beq lbl_0801ad70 \n\
-        ldr r0, lbl_0801ad8c @ =0x082c62b0 \n\
+        ldr r0, lbl_0801ad8c @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
         cmp r1, r0 \n\
         bne lbl_0801ae26 \n\
     lbl_0801ad70: \n\
@@ -2855,8 +2855,8 @@ void Kraid(void)
         strh r0, [r1] \n\
         b lbl_0801ae26 \n\
         .align 2, 0 \n\
-    lbl_0801ad88: .4byte 0x082c6278 \n\
-    lbl_0801ad8c: .4byte 0x082c62b0 \n\
+    lbl_0801ad88: .4byte sKraidMultiSpriteData_MovingRightFeetToRight \n\
+    lbl_0801ad8c: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
     lbl_0801ad90: .4byte gBG2Movement \n\
     lbl_0801ad94: \n\
         cmp r0, #4 \n\
@@ -2883,7 +2883,7 @@ void Kraid(void)
         lsl r0, r0, #1 \n\
         bl SoundPlay \n\
         ldr r1, [r6] \n\
-        ldr r0, lbl_0801adf4 @ =0x082c62b0 \n\
+        ldr r0, lbl_0801adf4 @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
         cmp r1, r0 \n\
         bne lbl_0801adfc \n\
         ldr r5, lbl_0801adf8 @ =gCurrentSprite \n\
@@ -2905,7 +2905,7 @@ void Kraid(void)
         b lbl_0801ae26 \n\
         .align 2, 0 \n\
     lbl_0801adf0: .4byte gBG2Movement \n\
-    lbl_0801adf4: .4byte 0x082c62b0 \n\
+    lbl_0801adf4: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
     lbl_0801adf8: .4byte gCurrentSprite \n\
     lbl_0801adfc: \n\
         ldr r5, lbl_0801ae74 @ =gCurrentSprite \n\

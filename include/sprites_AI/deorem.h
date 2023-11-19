@@ -3,7 +3,6 @@
 
 #include "types.h"
 
-#define DEOREM_POSE_INIT 0x0
 #define DEOREM_POSE_SPAWN_GOING_DOWN 0x8
 #define DEOREM_POSE_SPAWN_GOING_UP 0x22
 #define DEOREM_POSE_SPAWN_HEAD_BODY 0x24
@@ -62,8 +61,8 @@ void DeoremSegmentLeftLeaving(void);
 void DeoremSegmentLeftLeavingEnd(void);
 void DeoremSegmentMiddleLeavingEnd(void);
 void DeoremSegmentMiddleLeaving(void);
-void DeoremSegmentRighLeaving(void);
-void DeoremSegmentRighLeavingEnd(void);
+void DeoremSegmentRightLeaving(void);
+void DeoremSegmentRightLeavingEnd(void);
 void DeoremSegmentSetTimerDying(void);
 void DeoremSegmentDying(void);
 void DeoremEyeInit(void);
