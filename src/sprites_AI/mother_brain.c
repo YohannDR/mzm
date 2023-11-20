@@ -696,7 +696,7 @@ void MotherBrain(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gSubSpriteData1.workVariable3 < 0x3
         && gSamusData.xPosition < (gSubSpriteData1.xPosition + (BLOCK_SIZE * 12)))
     {
-        gLockScreen.lock = TRUE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
         gLockScreen.yPositionCenter = gBossWork.work1;
         gLockScreen.xPositionCenter = gSubSpriteData1.xPosition + (BLOCK_SIZE * 5);
 
@@ -709,7 +709,7 @@ void MotherBrain(void)
             gSamusData.xPosition = gBossWork.work2 + mbSize;
     }
     else
-        gLockScreen.lock = FALSE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
 }
 
 /**

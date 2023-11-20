@@ -32,19 +32,19 @@ void ScrollProcess(struct RawCoordsX* pCoords)
     screenY = gCamera.yPosition;
 
     pScroll = gCurrentScrolls;
-    if (pScroll->within)
+    if (pScroll->within != SCROLL_NOT_WITHIN_FLAG)
     {
         screenX = ScrollProcessX(pScroll, pCoords);
         screenY = ScrollProcessY(pScroll, pCoords);
     }
 
-    pScroll = gCurrentScrolls + 1;
-    if (pScroll->within)
+    pScroll = &gCurrentScrolls[1];
+    if (pScroll->within != SCROLL_NOT_WITHIN_FLAG)
     {
         newPosition = ScrollProcessX(pScroll, pCoords);
-        screenX = (s32)(screenX + newPosition) >> 0x1;
+        screenX = DIV_SHIFT(screenX + newPosition, 2);
         newPosition = ScrollProcessY(pScroll, pCoords);
-        screenY = (s32)(screenY + newPosition) >> 0x1;
+        screenY = DIV_SHIFT(screenY + newPosition, 2);
     }
 
     ScrollScreen(screenX, screenY);
@@ -118,18 +118,22 @@ void ScrollScreen(u16 screenX, u16 screenY)
  */
 s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    s32 xPosition;
-    s32 xStart;
+    // Check is on the far left of the scroll, i.e. if the distance between the start and the coords X is smaller than the anchor
+    if (pCoords->x < pScroll->xStart + SCROLL_X_ANCHOR)
+    {
+        // Screen should be at the left limit of the scroll then
+        return pScroll->xStart;
+    }
 
-    xPosition = pCoords->x;
-    xStart = pScroll->xStart;
+    // Check isn't on the far right of the scroll, i.e. if the distance between the end and the coords X is smaller than the anchor
+    if (pCoords->x <= pScroll->xEnd - SCROLL_X_ANCHOR)
+    {
+        // In the middle of the scroll otherwhise, set the position to the coords - anchor
+        return pCoords->x - SCROLL_X_ANCHOR;
+    }
 
-    if (xStart + 0x1E0 <= xPosition)
-        return xStart;
-    else if (xPosition <= pScroll->xEnd - 0x1E0)
-        return xPosition - 0x1E0;
-    else
-        return pScroll->xEnd - 0x3C0;
+    // Screen should "stop" before the right limit, so set it to right - screen size
+    return pScroll->xEnd - SCREEN_SIZE_X_SUB_PIXEL;
 }
 
 /**
@@ -141,30 +145,30 @@ s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
  */
 s32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    s32 yPosition;
-    s32 yStart;
-
-    if (pScroll->within == 0x2)
+    if (pScroll->within == SCROLL_WITHIN_FLAG)
     {
-        yPosition = pCoords->y;
-        yStart = pScroll->yStart;
-
-        if (yPosition >= yStart + 0x180)
+        // Check is above the scroll Y anchor, i.e. the distance between the start and the coords Y is smaller than the anchor
+        if (pCoords->y < pScroll->yStart + SCROLL_Y_ANCHOR)
         {
-            if (yPosition > pScroll->yEnd - 0x100)
-            {
-                if (pScroll->yEnd - 0x280 < yStart)
-                    return yStart;
-                return pScroll->yEnd - 0x280;
-            }
-            else
-                return yPosition - 0x180;
+            // Stop the screen at the top of the scroll
+            return pScroll->yStart;
         }
-        else
-            return yStart;
+
+        // Check is below the scroll Y anchor, i.e. the distance between the end and the coords Y is smaller than the difference between the total size and the anchor
+        if (pCoords->y > pScroll->yEnd - (SCREEN_SIZE_Y_SUB_PIXEL - SCROLL_Y_ANCHOR))
+        {
+            if (pScroll->yEnd - SCREEN_SIZE_Y_SUB_PIXEL < pScroll->yStart)
+                return pScroll->yStart;
+
+            // Stop the screen at the bottom of the scroll
+            return pScroll->yEnd - SCREEN_SIZE_Y_SUB_PIXEL;
+        }
+
+        // In the middle of the scroll otherwhise, set the position to the coords - anchor
+        return pCoords->y - SCROLL_Y_ANCHOR;
     }
-    else
-        return pScroll->yEnd - 0x280;
+
+    return pScroll->yEnd - SCREEN_SIZE_Y_SUB_PIXEL;
 }
 
 /**
@@ -214,8 +218,8 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     s32 value;
     s32 position;
     
-    gCurrentScrolls[0].within = FALSE;
-    gCurrentScrolls[1].within = FALSE;
+    gCurrentScrolls[0].within = SCROLL_NOT_WITHIN_FLAG;
+    gCurrentScrolls[1].within = SCROLL_NOT_WITHIN_FLAG;
 
     xPosition = pCoords->x / BLOCK_SIZE;
     yPosition = (u32)(pCoords->y - 1) / BLOCK_SIZE;
@@ -247,7 +251,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
                 bounds[data[6]] = 7;
         }
 
-        if (data[bounds[0]] <= xPosition && xPosition <= data[bounds[1]] && data[bounds[2]] <= yPosition && yPosition <= data[bounds[3]] && !gCurrentScrolls[i].within)
+        if (data[bounds[0]] <= xPosition && xPosition <= data[bounds[1]] && data[bounds[2]] <= yPosition && yPosition <= data[bounds[3]] && gCurrentScrolls[i].within == SCROLL_NOT_WITHIN_FLAG)
         {
             limit = BLOCK_SIZE * 2;
             value = data[bounds[0]] * BLOCK_SIZE;
@@ -289,16 +293,16 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
             
             gCurrentScrolls[i].yEnd = bound2;
             
-            gCurrentScrolls[i].within = 2;
+            gCurrentScrolls[i].within = SCROLL_WITHIN_FLAG;
             i++;
         }
 
         data += SCROLL_SUB_DATA_SIZE;
     }
 
-    if (!gCurrentScrolls[0].within && !gCurrentScrolls[1].within)
+    if (gCurrentScrolls[0].within == SCROLL_NOT_WITHIN_FLAG && gCurrentScrolls[1].within == SCROLL_NOT_WITHIN_FLAG)
     {
-        gCurrentScrolls[0].within = FALSE;
+        gCurrentScrolls[0].within = SCROLL_NOT_WITHIN_FLAG;
         gCurrentScrolls[0].xEnd = 0;
         gCurrentScrolls[0].xStart = 0;
         gCurrentScrolls[0].yStart = 0;
@@ -318,43 +322,62 @@ void ScrollProcessGeneral(void)
     u32 x;
     u32 y;
 
+    // Don't scroll if a color fading is active
     if (gColorFading.stage != 0)
         return;
 
-    if (gLockScreen.lock == FALSE)
+    // Get coordinates for the center of the scroll
+    if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE)
     {
+        // No lock screen, use samus position
         coords.x = gSamusData.xPosition;
-        coords.y = gSamusData.yPosition + 1;
+        coords.y = gSamusData.yPosition + ONE_SUB_PIXEL;
 
+        // Update slow scrolling timer
         if (gSamusData.pose == SPOSE_HANGING_ON_LEDGE || gSamusData.pose == SPOSE_GRABBING_A_LEDGE_SUITLESS)
+        {
+            // Hanging on ledge, slow scroll a little bit
             gSlowScrollingTimer = 1;
+        }
         else if (gSamusData.pose == SPOSE_PULLING_YOURSELF_UP_FROM_HANGING || gSamusData.pose == SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING)
+        {
+            // Pulling self up, slow scroll during the animation
             gSlowScrollingTimer = 8;
+        }
         else if (gSamusData.pose == SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL)
+        {
+            // Pulling self up and morphing, slow scroll during the animation
             gSlowScrollingTimer = 20;
+        }
         else if (gSlowScrollingTimer != 0)
+        {
+            // Decrement timer
             gSlowScrollingTimer--;
+        }
     }
-    else if (gLockScreen.lock == TRUE)
+    else if (gLockScreen.lock == LOCK_SCREEN_TYPE_POSITION)
     {
+        // Lock screen active (position type), use lock screen position
         coords.x = gLockScreen.xPositionCenter;
         coords.y = gLockScreen.yPositionCenter;
     }
     else
     {
+        // Lock screen active (middle type), use middle position between samus and lock screen position
         x = gSamusData.xPosition + gLockScreen.xPositionCenter;
-        y = gSamusData.yPosition + 1 + gLockScreen.yPositionCenter;
+        y = gSamusData.yPosition + ONE_SUB_PIXEL + gLockScreen.yPositionCenter;
 
         coords.x = x / 2;
         coords.y = y / 2;
     }
 
+    // Check for sign bit
     if (coords.y & 0x8000)
         coords.y = 0;
 
     gUnk_3005714 = sUnk_8345988[0];
 
-    if (!gLockScreen.lock)
+    if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE)
     {
         if (gSlowScrollingTimer == 0)
         {
@@ -385,22 +408,39 @@ void ScrollProcessGeneral(void)
 
     if (!gDisableScrolling)
     {
-        if (gUnk_300007f != 0 && gGameModeSub1 == 6)
-            ScrollMaybeScrollBG1Related(&coords);
+        // Process scrolling
+        if (gFreeMovementLockCamera && gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+        {
+            // Update camera lock movement
+            ScrollFreeMovementDebugCameraLock(&coords);
+        }
         else if (gCurrentRoomEntry.scrollsFlag == ROOM_SCROLLS_FLAG_HAS_SCROLLS)
+        {
+            // Process with scrolls in the room
             ScrollProcess(&coords);
+        }
         else
+        {
+            // Process without scrolls in the room
             ScrollWithNoScrolls(&coords);
+        }
 
-        ScrollBG2(&coords);
+        // Scroll bg2
+        ScrollBg2(&coords);
 
+        // Check auto scroll bg0
         if (gBG0Movement.type != 0 && gCurrentRoomEntry.Bg0Prop & BG_PROP_LZ77_COMPRESSED)
-            ScrollAutoBG0();
+            ScrollAutoBg0();
 
+        // Update effect and haze
         ScrollUpdateEffectAndHazePosition(&coords);
-        ScrollBG3();
+
+        // Scroll bg3
+        ScrollBg3();
+
+        // Check auto scroll bg3
         if (gBG3Movement.direction != 0)
-            ScrollAutoBG3();
+            ScrollAutoBg3();
     }
 }
 
@@ -428,7 +468,7 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
     s32 yPosition;
     s32 yMovement;
 
-    if (!gLockScreen.lock)
+    if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE)
         yMovement = gSamusData.yPosition - gPreviousYPosition;
     else
         yMovement = 0;
@@ -494,7 +534,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     s32 xPosition;
 
     xOffset = 0;
-    if (!gLockScreen.lock && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
+    if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
     {
         if (gSamusData.direction & KEY_RIGHT)
             xOffset = BLOCK_SIZE * 2;
@@ -683,7 +723,7 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
  * @brief 58cc0 | 60 | Handles the automatic scrolling of the background 0
  * 
  */
-void ScrollAutoBG0(void)
+void ScrollAutoBg0(void)
 {
     if (gBG0Movement.type == BG0_MOVEMENT_WATER_CLOUDS)
     {
@@ -775,7 +815,7 @@ u32 ScrollGetBG3Scroll(void)
  * @brief 58da0 | 124 | Scrolls the background 3
  * 
  */
-void ScrollBG3(void)
+void ScrollBg3(void)
 {
     u32 xScrolling;
     s32 yScrolling;
@@ -839,7 +879,7 @@ void ScrollBG3(void)
  * @brief 58ec4 | 50 | To document
  * 
  */
-void ScrollBG3Related(void)
+void ScrollBg3Related(void)
 {
     u32 xScroll;
 
@@ -857,7 +897,7 @@ void ScrollBG3Related(void)
  * @brief 58f14 | 2c | Handles the automatic scrolling of the background 3
  * 
  */
-void ScrollAutoBG3(void)
+void ScrollAutoBg3(void)
 {
     if (gBG3Movement.direction == 0x1)
     {
@@ -873,7 +913,7 @@ void ScrollAutoBG3(void)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollBG2(struct RawCoordsX* pCoords)
+void ScrollBg2(struct RawCoordsX* pCoords)
 {
     s32 size;
     s32 position;
@@ -925,11 +965,11 @@ void ScrollBG2(struct RawCoordsX* pCoords)
 }
 
 /**
- * @brief 59008 | a8 | To document
+ * @brief 59008 | a8 | Handle the free movement camera lock functionality
  * 
  * @param pCoords Coords pointer
  */
-void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
+void ScrollFreeMovementDebugCameraLock(struct RawCoordsX* pCoords)
 {
     if (pCoords->x < BLOCK_SIZE * 7 + HALF_BLOCK_SIZE)
     {

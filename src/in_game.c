@@ -456,11 +456,11 @@ void UpdateFreeMovement_Debug(void)
     if (gChangedInput & (KEY_B | KEY_START))
     {
         gGameModeSub1 = SUB_GAME_MODE_PLAYING;
-        gUnk_300007f = 0;
+        gFreeMovementLockCamera = FALSE;
     }
 
     if (gChangedInput & KEY_SELECT)
-        gUnk_300007f ^= 1;
+        gFreeMovementLockCamera ^= TRUE;
 
     if (gButtonInput & KEY_RIGHT)
         xVelocity = 12;

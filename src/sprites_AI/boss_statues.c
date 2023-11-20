@@ -526,10 +526,10 @@ void KraidStatue(void)
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_STATUE_OPENED) && EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))
     {
         if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, 0x190) == NSLR_OUT_OF_RANGE)
-            gLockScreen.lock = FALSE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
         else
         {
-            gLockScreen.lock = TRUE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
             gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
         }
@@ -538,12 +538,12 @@ void KraidStatue(void)
     {
         if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, 0x1F0) == NSLR_RIGHT)
         {
-            gLockScreen.lock = TRUE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
             gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
         }
         else
-            gLockScreen.lock = FALSE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
     }
 }
 

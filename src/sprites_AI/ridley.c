@@ -2797,16 +2797,16 @@ void Ridley(void)
         }
 
         if (gSamusData.yPosition < (BLOCK_SIZE * 13 - 1) && !(gSpriteData[gSubSpriteData1.workVariable5].status & SPRITE_STATUS_SAMUS_COLLIDING))
-            gLockScreen.lock = FALSE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
         else
         {
-            gLockScreen.lock = TRUE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
             gLockScreen.yPositionCenter = gSamusData.yPosition - BLOCK_SIZE * 2;
             gLockScreen.xPositionCenter = gSamusData.xPosition;
         }
     }
     else
-        gLockScreen.lock = FALSE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
 
     SpriteUtilUpdateSubSprite1Anim();
     RidleySyncSubSprites();

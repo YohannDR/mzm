@@ -46,7 +46,7 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
     TransparencySetRoomEffectsTransparency();
     
     // Properly update background 3 position
-    ScrollBG3();
+    ScrollBg3();
 
     // Check play room effects
     AnimatedGraphicsCheckPlayLightningEffect();

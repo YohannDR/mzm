@@ -108,7 +108,7 @@ void RoomLoad(void)
         ScrollProcessGeneral();
         gBg1YPosition = gCamera.yPosition;
         gBg1XPosition = gCamera.xPosition;
-        ScrollBG3Related();
+        ScrollBg3Related();
         ScrollProcessGeneral();
     }
 

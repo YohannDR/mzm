@@ -658,7 +658,7 @@ lbl_080587a2:
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0805881e
-    ldr r0, lbl_080587c8 @ =gUnk_300007f
+    ldr r0, lbl_080587c8 @ =gFreeMovementLockCamera
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_080587d0
@@ -672,7 +672,7 @@ lbl_080587a2:
     b lbl_080587ea
     .align 2, 0
 lbl_080587c4: .4byte gDisableScrolling
-lbl_080587c8: .4byte gUnk_300007f
+lbl_080587c8: .4byte gFreeMovementLockCamera
 lbl_080587cc: .4byte gGameModeSub1
 lbl_080587d0:
     ldr r0, lbl_080587e0 @ =gCurrentRoomEntry
@@ -689,7 +689,7 @@ lbl_080587e4:
     bl ScrollWithNoScrolls
 lbl_080587ea:
     mov r0, sp
-    bl ScrollBG2
+    bl ScrollBg2
     ldr r0, lbl_08058828 @ =gBG0Movement
     ldrb r0, [r0]
     cmp r0, #0
@@ -704,7 +704,7 @@ lbl_080587ea:
 lbl_08058808:
     mov r0, sp
     bl update_effect_and_haze_pos
-    bl ScrollBG3
+    bl ScrollBg3
     ldr r0, lbl_08058830 @ =gBG3Movement
     ldrb r0, [r0]
     cmp r0, #0
@@ -1433,8 +1433,8 @@ lbl_08058d96:
     bx r1
     .align 2, 0
 
-    thumb_func_start ScrollBG3
-ScrollBG3: @ 0x08058da0
+    thumb_func_start ScrollBg3
+ScrollBg3: @ 0x08058da0
     push {lr}
     bl get_Bg3Scrolling_values
     adds r3, r0, #0
@@ -1583,8 +1583,8 @@ lbl_08058eb8:
 lbl_08058ebc: .4byte gBg3YPosition
 lbl_08058ec0: .4byte gBg1YPosition
 
-    thumb_func_start ScrollBG3Related
-ScrollBG3Related: @ 0x08058ec4
+    thumb_func_start ScrollBg3Related
+ScrollBg3Related: @ 0x08058ec4
     push {lr}
     bl get_Bg3Scrolling_values
     adds r1, r0, #0
@@ -1651,8 +1651,8 @@ lbl_08058f30:
     .align 2, 0
 lbl_08058f3c: .4byte gBG3Movement
 
-    thumb_func_start ScrollBG2
-ScrollBG2: @ 0x08058f40
+    thumb_func_start ScrollBg2
+ScrollBg2: @ 0x08058f40
     push {lr}
     ldr r0, lbl_08058f78 @ =gCurrentRoomEntry
     ldrb r2, [r0, #3]

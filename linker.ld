@@ -104,7 +104,7 @@ SECTIONS {
         . = 0x0000007c; gDisableDrawingSprites = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
-        . = 0x0000007f; gUnk_300007f = .;
+        . = 0x0000007f; gFreeMovementLockCamera = .;
         . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIoRegistersBackup = .;
         . = 0x0000009C; gBgPointersAndDimensions = .;

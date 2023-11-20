@@ -1786,12 +1786,12 @@ void AcidWorm(void)
     // Lock screen if not dead
     if (gSubSpriteData1.workVariable2 != 0x0)
     {
-        gLockScreen.lock = 0x2;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_MIDDLE;
         gLockScreen.yPositionCenter = gCurrentSprite.yPositionSpawn - 0x100;
         gLockScreen.xPositionCenter = gCurrentSprite.xPositionSpawn;
     }
     else
-        gLockScreen.lock = FALSE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
 }
 
 /**

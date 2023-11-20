@@ -426,7 +426,7 @@ void DeoremSpawnGoingDown(void)
     }
     else
     {        
-        gLockScreen.lock = TRUE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
         gLockScreen.yPositionCenter = gSamusData.yPosition;
         gLockScreen.xPositionCenter = gBossWork.work2 + (BLOCK_SIZE * 6 + HALF_BLOCK_SIZE);
         
@@ -1008,7 +1008,7 @@ void DeoremDying(void)
     DeoremChangeLeftCCAA(CAA_REMOVE_SOLID);
     DeoremChangeRightCCAA(CAA_REMOVE_SOLID);
 
-    gLockScreen.lock = FALSE;
+    gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
     EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
     EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
 
@@ -1131,7 +1131,7 @@ void DeoremLeaving(void)
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xf, gfxSlot, ramSlot, yPosition, xPosition, 0);
             DeoremChangeLeftCCAA(CAA_REMOVE_SOLID);
             DeoremChangeRightCCAA(CAA_REMOVE_SOLID);
-            gLockScreen.lock = FALSE;
+            gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
     
             if (gCurrentSprite.spriteId == PSPRITE_DEOREM) // Leaving first location
             {

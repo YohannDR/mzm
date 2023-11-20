@@ -2517,7 +2517,7 @@ void Kraid(void)
         if (gSubSpriteData1.workVariable1 != 0)
             gSubSpriteData1.animationDurationCounter += 4;
 
-        gLockScreen.lock = TRUE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_POSITION;
         gLockScreen.yPositionCenter = gSamusData.yPosition;
         gLockScreen.xPositionCenter = gSamusData.xPosition - BLOCK_SIZE * 5;
 
@@ -2530,7 +2530,7 @@ void Kraid(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     }
     else
-        gLockScreen.lock = FALSE;
+        gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
 }
 #else
 NAKED_FUNCTION
