@@ -173,9 +173,9 @@ s32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
  */
 void ScrollLoad(void)
 {
-    u8** ppSrc;
+    const u8* const * ppSrc;
 
-    // ppSrc = sAreaScrollPointers[gCurrentArea];
+    ppSrc = sAreaScrollPointers[gCurrentArea];
 
     // Loop through every scroll of the area
     for (; ; ppSrc++)

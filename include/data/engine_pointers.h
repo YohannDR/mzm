@@ -5,6 +5,8 @@
 
 #include "data/demo_data.h"
 
+#include "constants/connection.h"
+
 #include "structs/connection.h"
 #include "structs/projectile.h"
 #include "structs/particle.h"
@@ -24,6 +26,8 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 // 75fd88
 
 extern const s8 sWaterLoopCounterArray[8][2];
+
+extern const u8* const * const sAreaScrollPointers[AREA_END];
 
 extern const BlockFunc_T sNonReformDestroyFunctionPointers[5];
 

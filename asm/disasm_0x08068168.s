@@ -8023,8 +8023,8 @@ lbl_0806c144:
 lbl_0806c14c: .4byte gMaintainedInputData
 lbl_0806c150: .4byte 0x0840d66c
 
-    thumb_func_start update_minimap
-update_minimap: @ 0x0806c154
+    thumb_func_start MinimapUpdate
+MinimapUpdate: @ 0x0806c154
     push {lr}
     bl check_for_unexplored_minimap_tile
     ldr r0, lbl_0806c174 @ =gUpdateMinimapFlag

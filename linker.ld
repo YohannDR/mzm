@@ -11,6 +11,12 @@ gUnk_Audio0x50 = 0x50;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
+        . = 0x00002000; gClipdataCollisionTypes = .;
+        . = 0x00002400; gClipdataCollisionTypes_Tilemap = .;
+        . = 0x00003000; gClipdataBehaviorTypes = .;
+        . = 0x00003800; gClipdataBehaviorTypes_Tilemap = .;
+        . = 0x00004000; gTilemap = .;
+        . = 0x00006000; gCommonTilemap = .;
         . = 0x00007000; gDecompBg3Map = .;
         . = 0x00026300; gHazeValues = .;
         . = 0x00026d00; gPreviousHazeValues = .;
@@ -508,9 +514,7 @@ SECTIONS {
         src/particle.o(.text);
         src/screen_shake.o(.text);
         src/transparency.o(.text);
-
-        asm/disasm_0x08055f7c.o(.text);
-
+        src/room.o(.text);
         src/power_bomb_explosion.o(.text);
         src/gadora_hatch.o(.text);
         src/in_game_timer.o(.text);

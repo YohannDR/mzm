@@ -230,8 +230,8 @@ lbl_0805846e:
     .align 2, 0
 lbl_08058474: .4byte 0xfffffd80
 
-    thumb_func_start load_scrolls
-load_scrolls: @ 0x08058478
+    thumb_func_start ScrollLoad
+ScrollLoad: @ 0x08058478
     push {r4, r5, lr}
     ldr r1, lbl_0805849c @ =0x0875fd28
     ldr r0, lbl_080584a0 @ =gCurrentArea
@@ -1583,8 +1583,8 @@ lbl_08058eb8:
 lbl_08058ebc: .4byte gBg3YPosition
 lbl_08058ec0: .4byte gBg1YPosition
 
-    thumb_func_start sub_08058ec4
-sub_08058ec4: @ 0x08058ec4
+    thumb_func_start ScrollBG3Related
+ScrollBG3Related: @ 0x08058ec4
     push {lr}
     bl get_Bg3Scrolling_values
     adds r1, r0, #0

@@ -1202,8 +1202,8 @@ lbl_0805f096:
     pop {r1}
     bx r1
 
-    thumb_func_start check_unlock_doors
-check_unlock_doors: @ 0x0805f0a4
+    thumb_func_start ConnectionCheckUnlockDoors
+ConnectionCheckUnlockDoors: @ 0x0805f0a4
     push {r4, lr}
     ldr r1, lbl_0805f0dc @ =gDoorUnlockTimer
     ldrb r2, [r1]

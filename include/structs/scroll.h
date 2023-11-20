@@ -47,6 +47,6 @@ extern s16 gScreenXOffset;
 
 extern u8 gUnk_300007f;
 extern struct Unk_3005714 gUnk_3005714;
-extern u8* gCurrentRoomScrollDataPointer;
+extern const u8* gCurrentRoomScrollDataPointer;
 
 #endif

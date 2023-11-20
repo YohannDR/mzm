@@ -2857,8 +2857,8 @@ lbl_080749d8: .4byte 0x02036c00
 lbl_080749dc: .4byte gNumberOfNeverReformBlocks
 lbl_080749e0: .4byte gNumberOfItemsCollected
 
-    thumb_func_start sub_080749e4
-sub_080749e4: @ 0x080749e4
+    thumb_func_start SramWrite_MostRecentSaveFile
+SramWrite_MostRecentSaveFile: @ 0x080749e4
     push {r4, r5, lr}
     ldr r0, lbl_08074a68 @ =0x08754bc8
     ldr r2, [r0]
