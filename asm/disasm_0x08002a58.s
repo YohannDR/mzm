@@ -540,8 +540,8 @@ lbl_08002de2:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08002de8
-sub_08002de8: @ 0x08002de8
+    thumb_func_start PlayFadingSound
+PlayFadingSound: @ 0x08002de8
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -552,8 +552,8 @@ sub_08002de8: @ 0x08002de8
     bx r0
     .align 2, 0
 
-    thumb_func_start sub_08002dfc
-sub_08002dfc: @ 0x08002dfc
+    thumb_func_start InitFadingMusic
+InitFadingMusic: @ 0x08002dfc
     push {r4, r5, r6, lr}
     adds r5, r0, #0
     lsls r2, r2, #0x10
@@ -2430,8 +2430,8 @@ lbl_08003bc6:
     .align 2, 0
 lbl_08003bcc: .4byte sMusicTrackDataRom
 
-    thumb_func_start sub_08003bd0
-sub_08003bd0: @ 0x08003bd0
+    thumb_func_start unk_3bd0
+unk_3bd0: @ 0x08003bd0
     push {r4, lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
@@ -2470,8 +2470,8 @@ lbl_08003c14: .4byte gMusicInfo
 lbl_08003c18: .4byte sMusicTrackDataRom
 lbl_08003c1c: .4byte 0x0808f2c0
 
-    thumb_func_start sub_08003c20
-sub_08003c20: @ 0x08003c20
+    thumb_func_start CheckPlayFadingMusic
+CheckPlayFadingMusic: @ 0x08003c20
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
@@ -2522,7 +2522,7 @@ lbl_08003c70:
     adds r0, r2, #0
     adds r1, r5, #0
     mov r2, ip
-    bl sub_08002dfc
+    bl InitFadingMusic
 lbl_08003c86:
     ldr r1, lbl_08003c94 @ =gMusicInfo
     movs r0, #0

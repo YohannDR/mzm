@@ -535,8 +535,7 @@ SECTIONS {
         src/room_music.o(.text);
         src/demo.o(.text);
 
-        asm/disasm_0x08060e28.o(.text);
-
+        src/cutscenes/cutscene_utils.o(.text);
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
         src/cutscenes/mother_brain_close_up.o(.text);

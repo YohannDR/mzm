@@ -84,7 +84,7 @@ void CutsceneUpdateMusicAfterSkip(void)
             SoundPlay(0x24C);
     }
 
-    SoundFade(10);
+    FadeAllSounds(10);
 }
 
 /**
@@ -135,8 +135,8 @@ void CutsceneEnd(void)
 
     if (sCutsceneData[gCurrentCutscene].isElevator)
     {
-        PlayFadingSound(0x10E, sCutsceneData[gCurrentCutscene].fadingTimer);
-        InitFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
+        PlayFadingSound(SOUND_ELEVATOR, sCutsceneData[gCurrentCutscene].fadingTimer);
+        CheckPlayFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
     }
 }
 
@@ -287,7 +287,7 @@ void CutsceneInit(void)
 
     write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt = 0xFF);
 
-    write16(REG_BLDY, gWrittenToBLDY = 0x10);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
 
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
@@ -918,6 +918,7 @@ void CutsceneUpdateSpecialEffect(void)
     }
 }
 
+#ifdef NON_MATCHING
 void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
 {
     // https://decomp.me/scratch/2WAha
@@ -932,7 +933,63 @@ void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
 
     CUTSCENE_DATA.bldcnt = CUTSCENE_DATA.specialEffect.s_BLDCNT = bldcnt;
 }
+#else
+NAKED_FUNCTION
+void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
+{
+    asm(" \n\
+    push {r4, r5, r6, lr} \n\
+    mov r6, r8 \n\
+    push {r6} \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    ldr r4, lbl_08061dc4 @ =sNonGameplayRamPointer \n\
+    mov r8, r4 \n\
+    ldr r5, [r4] \n\
+    add r5, #0xa8 \n\
+    ldrb r6, [r5] \n\
+    movs r4, #0xfd \n\
+    and r4, r6 \n\
+    strb r4, [r5] \n\
+    mov r4, r8 \n\
+    ldr r5, [r4] \n\
+    add r5, #0xa8 \n\
+    ldrb r6, [r5] \n\
+    movs r4, #1 \n\
+    orr r4, r6 \n\
+    strb r4, [r5] \n\
+    mov r5, r8 \n\
+    ldr r4, [r5] \n\
+    add r4, #0xa9 \n\
+    strb r1, [r4] \n\
+    ldr r1, [r5] \n\
+    add r1, #0xae \n\
+    strb r3, [r1] \n\
+    ldr r1, [r5] \n\
+    add r1, #0xaf \n\
+    lsl r2, r2, #0x18 \n\
+    lsr r2, r2, #0x18 \n\
+    strb r2, [r1] \n\
+    ldr r1, [r5] \n\
+    add r1, #0xb0 \n\
+    strb r2, [r1] \n\
+    ldr r2, [r5] \n\
+    add r1, r2, #0 \n\
+    add r1, #0xac \n\
+    strh r0, [r1] \n\
+    strh r0, [r2, #0x1e] \n\
+    pop {r3} \n\
+    mov r8, r3 \n\
+    pop {r4, r5, r6} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_08061dc4: .4byte sNonGameplayRamPointer \n\
+    ");
+}
+#endif
 
+#ifdef NON_MATCHING
 void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 interval, u8 intensity)
 {
     // https://decomp.me/scratch/G6ViR
@@ -951,6 +1008,71 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 in
     if (!(CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE))
         CUTSCENE_DATA.bldcnt = bldcnt;
 }
+#else
+NAKED_FUNCTION
+void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 interval, u8 intensity)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, r8 \n\
+    push {r7} \n\
+    ldr r4, [sp, #0x18] \n\
+    mov r8, r4 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r7, r0, #0x10 \n\
+    ldr r6, lbl_08061e34 @ =sNonGameplayRamPointer \n\
+    ldr r4, [r6] \n\
+    add r4, #0xa8 \n\
+    ldrb r5, [r4] \n\
+    movs r0, #0xf7 \n\
+    and r0, r5 \n\
+    strb r0, [r4] \n\
+    ldr r4, [r6] \n\
+    add r4, #0xa8 \n\
+    ldrb r5, [r4] \n\
+    movs r0, #4 \n\
+    orr r0, r5 \n\
+    strb r0, [r4] \n\
+    ldr r0, [r6] \n\
+    add r0, #0xaa \n\
+    strb r1, [r0] \n\
+    ldr r0, [r6] \n\
+    add r0, #0xab \n\
+    strb r2, [r0] \n\
+    ldr r0, [r6] \n\
+    add r0, #0xb4 \n\
+    mov r1, r8 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r6] \n\
+    add r0, #0xb5 \n\
+    lsl r3, r3, #0x18 \n\
+    lsr r3, r3, #0x18 \n\
+    strb r3, [r0] \n\
+    ldr r0, [r6] \n\
+    add r0, #0xb6 \n\
+    strb r3, [r0] \n\
+    ldr r2, [r6] \n\
+    add r0, r2, #0 \n\
+    add r0, #0xb2 \n\
+    strh r7, [r0] \n\
+    sub r0, #0xa \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_08061e2a \n\
+    strh r7, [r2, #0x1e] \n\
+lbl_08061e2a: \n\
+    pop {r3} \n\
+    mov r8, r3 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_08061e34: .4byte sNonGameplayRamPointer \n\
+    ");
+}
+#endif
 
 /**
  * @brief 61e38 | d4 | Resets the data for a cutscene
