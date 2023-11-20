@@ -506,9 +506,7 @@ SECTIONS {
         src/escape.o(.text);
         src/hud_generic.o(.text);
         src/particle.o(.text);
-
-        asm/disasm_0x08055344.o(.text);
-
+        src/screen_shake.o(.text);
         src/transparency.o(.text);
 
         asm/disasm_0x08055f7c.o(.text);

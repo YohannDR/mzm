@@ -2069,9 +2069,9 @@ lbl_080570a8: .4byte gHazeInfo
     thumb_func_start RoomUpdateBackgroundsPosition
 RoomUpdateBackgroundsPosition: @ 0x080570ac
     push {r4, r5, r6, lr}
-    bl update_vertical_screen_shake
+    bl ScreenShakeUpdateVertical
     adds r5, r0, #0
-    bl update_horizontal_screen_shake
+    bl ScreenShakeUpdateHorizontal
     adds r4, r0, #0
     ldr r0, lbl_0805711c @ =gBg1XPosition
     ldrh r1, [r0]
