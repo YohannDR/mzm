@@ -500,9 +500,8 @@ SECTIONS {
         src/sprites_AI/falling_chozo_pillar.o(.text);
         src/sprites_AI/mecha_ridley.o(.text);
         src/sprites_AI/escape_gate.o(.text);
-
-        asm/disasm_0x0804ed08.o(.text)
-
+        src/projectile_util.o(.text);
+        src/projectile.o(.text);
         src/hud.o(.text);
         src/escape.o(.text);
         src/hud_generic.o(.text);
