@@ -390,7 +390,7 @@ void unk_76978(u8 param_1)
     if (param_1 & 8)
     {
         DmaTransfer(3, (void*)sEwramPointer + 0x7000, VRAM_BASE + 0x7000, 0x400, 16);
-        TITLE_SCREEN_DATA.unk_24 = gBG3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
+        TITLE_SCREEN_DATA.unk_24 = gBg3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
     }
 }
 
@@ -518,14 +518,14 @@ u32 TitleScreenCometsView(void)
 
         case 4:
             // Scroll screen
-            if (gBG3VOFS_NonGameplay >= BLOCK_SIZE * 12 + HALF_BLOCK_SIZE)
+            if (gBg3VOFS_NonGameplay >= BLOCK_SIZE * 12 + HALF_BLOCK_SIZE)
             {
-                gBG3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
+                gBg3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
                 TITLE_SCREEN_DATA.cometsStage++;
                 break;
             }
 
-            if (BLOCK_SIZE * 12 + HALF_BLOCK_SIZE - gBG3VOFS_NonGameplay < 9)
+            if (BLOCK_SIZE * 12 + HALF_BLOCK_SIZE - gBg3VOFS_NonGameplay < 9)
                 screenOffset += PIXEL_SIZE / 2;
             else
                 screenOffset += PIXEL_SIZE;
@@ -538,18 +538,18 @@ u32 TitleScreenCometsView(void)
 
     if (!ended)
     {
-        screenOffset += gBG3VOFS_NonGameplay;
+        screenOffset += gBg3VOFS_NonGameplay;
         if (screenOffset > BLOCK_SIZE * 12 + HALF_BLOCK_SIZE)
             screenOffset = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
         else if (screenOffset < 0)
             screenOffset = 0;
 
-        gBG3VOFS_NonGameplay = screenOffset;
+        gBg3VOFS_NonGameplay = screenOffset;
 
         TitleScreenTransferGroundGraphics();
     }
 
-    TITLE_SCREEN_DATA.unk_24 = gBG3VOFS_NonGameplay;
+    TITLE_SCREEN_DATA.unk_24 = gBg3VOFS_NonGameplay;
 
     return ended;
 }
@@ -567,22 +567,22 @@ void TitleScreenTransferGroundGraphics(void)
     var_0 = -1;
     var_1 = -1;
 
-    if (TITLE_SCREEN_DATA.unk_24 != gBG3VOFS_NonGameplay)
+    if (TITLE_SCREEN_DATA.unk_24 != gBg3VOFS_NonGameplay)
     {
-        if (TITLE_SCREEN_DATA.unk_24 < gBG3VOFS_NonGameplay)
+        if (TITLE_SCREEN_DATA.unk_24 < gBg3VOFS_NonGameplay)
         {
-            if (gBG3VOFS_NonGameplay >= (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE))
+            if (gBg3VOFS_NonGameplay >= (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE))
             {
-                var_0 = (gBG3VOFS_NonGameplay - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE)) >> 5;
+                var_0 = (gBg3VOFS_NonGameplay - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE)) >> 5;
                 var_1 = (TITLE_SCREEN_DATA.unk_24 - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE)) >> 5;
                 src = (void*)sEwramPointer + 0x4000;
             }
         }
         else
         {
-            if (gBG3VOFS_NonGameplay <= (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
+            if (gBg3VOFS_NonGameplay <= (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
             {
-                var_0 = 13 - (((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) - gBG3VOFS_NonGameplay) >> 5);
+                var_0 = 13 - (((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) - gBg3VOFS_NonGameplay) >> 5);
                 var_1 = 13 - (((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) - TITLE_SCREEN_DATA.unk_24) >> 5);
                 src = (void*)sEwramPointer;
             }
@@ -688,8 +688,8 @@ void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOa
             pOam->yPosition += movement;
 
             // Check out of bounds
-            yLimit = pOam->yPosition - (s16)gBG3VOFS_NonGameplay;
-            xLimit = pOam->xPosition - (s16)gBG3HOFS_NonGameplay;
+            yLimit = pOam->yPosition - (s16)gBg3VOFS_NonGameplay;
+            xLimit = pOam->xPosition - (s16)gBg3HOFS_NonGameplay;
 
             pOam->notDrawn = FALSE;
 
@@ -1134,10 +1134,10 @@ void TitleScreenInit(void)
     TitleScreenSetBGCNTPageData(&sTitleScreenPageData[1]);
 
     gGameModeSub3 = 0;
-    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;
-    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0;
-    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
-    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0;
 
     gWrittenToBLDALPHA_H = 16;
     gWrittenToBLDALPHA_L = 0;
@@ -1190,17 +1190,17 @@ void TitleScreenVBlank(void)
 {
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
-    write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBG0HOFS_NonGameplay));
-    write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBG0VOFS_NonGameplay));
+    write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBg0HOFS_NonGameplay));
+    write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBg0VOFS_NonGameplay));
 
-    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBG1HOFS_NonGameplay));
-    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBG1VOFS_NonGameplay));
+    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBg1HOFS_NonGameplay));
+    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBg1VOFS_NonGameplay));
 
-    write16(REG_BG2HOFS, SUB_PIXEL_TO_PIXEL(gBG2HOFS_NonGameplay));
-    write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBG2VOFS_NonGameplay));
+    write16(REG_BG2HOFS, SUB_PIXEL_TO_PIXEL(gBg2HOFS_NonGameplay));
+    write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBg2VOFS_NonGameplay));
 
-    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBG3HOFS_NonGameplay));
-    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBG3VOFS_NonGameplay));
+    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBg3HOFS_NonGameplay));
+    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBg3VOFS_NonGameplay));
 
     write16(REG_DISPCNT, TITLE_SCREEN_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);

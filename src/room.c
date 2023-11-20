@@ -294,7 +294,7 @@ void RoomLoadEntry(void)
     if (gCurrentRoomEntry.Bg3Prop == BG_PROP_STARTS_FROM_BOTTOM)
     {
         gCurrentRoomEntry.BG3FromBottomFlag = TRUE;
-        gBG0Movement.type = BG0_MOVEMENT_WATER_CLOUDS;
+        gBg0Movement.type = BG0_MOVEMENT_WATER_CLOUDS;
     }
 }
 
@@ -469,9 +469,9 @@ void RoomReset(void)
     gEffectYPositionOffset = 0;
     gUnusedStruct_3005504 = sUnusedStruct_3005504_Empty;
 
-    gBG0Movement = sBg0Movement_Empty;
-    gBG2Movement.xOffset = 0;
-    gBG2Movement.yOffset = 0;
+    gBg0Movement = sBg0Movement_Empty;
+    gBg2Movement.xOffset = 0;
+    gBg2Movement.yOffset = 0;
 
     for (i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++)
         gBrokenBlocks[i] = sBrokenBlock_Empty;
@@ -549,22 +549,22 @@ void RoomReset(void)
  */
 void RoomSetBackgroundScrolling(void)
 {
-    gBG3Movement = sBg3Movement_Empty;
+    gBg3Movement = sBg3Movement_Empty;
 
     switch (gCurrentRoomEntry.Bg3Scrolling)
     {
-        case 0x7:
-        case 0x8:
-        case 0xA:
-            gBG3Movement.direction = TRUE;
+        case 7:
+        case 8:
+        case 10:
+            gBg3Movement.active = TRUE;
     }
 
     if (gCurrentRoomEntry.visualEffect == EFFECT_WATER)
-        gBG0Movement.type = BG0_MOVEMENT_WATER_CLOUDS;
+        gBg0Movement.type = BG0_MOVEMENT_WATER_CLOUDS;
     else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD_KNOCKBACK)
-        gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
+        gBg0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
     else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD)
-        gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
+        gBg0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
 
     gInGameCutscene.queriedCutscene = 0;
 }
@@ -1277,16 +1277,16 @@ void RoomUpdateBackgroundsPosition(void)
 
     if (gScreenShakeRelated & 0x100)
     {
-        gBackgroundPositions.bg[0].x = (gBg0XPosition >> 0x2) + gBG0Movement.xOffset & 0x1FF;
-        gBackgroundPositions.bg[0].y = (gBg0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF;
+        gBackgroundPositions.bg[0].x = (gBg0XPosition >> 0x2) + gBg0Movement.xOffset & 0x1FF;
+        gBackgroundPositions.bg[0].y = (gBg0YPosition >> 0x2) + gBg0Movement.yOffset & 0x1FF;
     }
     else
     {
-        gBackgroundPositions.bg[0].x = ((gBg0XPosition >> 0x2) + gBG0Movement.xOffset & 0x1FF) + xOffset;
-        gBackgroundPositions.bg[0].y = ((gBg0YPosition >> 0x2) + gBG0Movement.snowflakesRelated & 0x1FF) + yOffset;
+        gBackgroundPositions.bg[0].x = ((gBg0XPosition >> 0x2) + gBg0Movement.xOffset & 0x1FF) + xOffset;
+        gBackgroundPositions.bg[0].y = ((gBg0YPosition >> 0x2) + gBg0Movement.yOffset & 0x1FF) + yOffset;
     }
 
-    bg3X = (gBg3XPosition >> 0x2) + gBG3Movement.xOffset & 0x1FF;
+    bg3X = (gBg3XPosition >> 0x2) + gBg3Movement.xOffset & 0x1FF;
     bbg3Y = gBg3YPosition >> 0x2 & 0x1FF;
 
     if (gScreenShakeRelated & 0x800)

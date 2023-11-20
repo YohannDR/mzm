@@ -237,7 +237,7 @@ void RisingChozoPillar(void)
             gCurrentSprite.oamScaling--;
             if (gCurrentSprite.oamScaling != 0)
             {
-                gBG2Movement.yOffset += 2;
+                gBg2Movement.yOffset += 2;
             }
             else
             {

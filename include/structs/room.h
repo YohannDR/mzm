@@ -91,20 +91,20 @@ struct BackgroundPositions {
 struct WaterMovement {
     u8 moving;
     u8 stage;
-    u8 loopCounter;
+    s8 loopCounter;
     s8 yOffset;
 };
 
 struct BG0Movement {
     u8 type;
-    u8 yOffset;
+    u8 counter;
     u16 unused;
     u16 xOffset;
-    u16 snowflakesRelated;
+    u16 yOffset;
 };
 
 struct BG3Movement {
-    u8 direction;
+    u8 active;
     u8 counter;
     u8 undefined; // Needed for correct alignement
     u16 xOffset;
@@ -134,8 +134,8 @@ extern u16 gDecompBg3Map[2048];
 extern u8 gSpriteset;
 extern u8 gSpritesetEntryUsed;
 extern struct RawCoordsX gWaitingSpacePiratesPosition;
-extern struct BG3Movement gBG3Movement;
-extern struct BG0Movement gBG0Movement;
+extern struct BG3Movement gBg3Movement;
+extern struct BG0Movement gBg0Movement;
 extern u16 gRainSoundEffect;
 extern struct WaterMovement gWaterMovement;
 extern u8 gScrollCounter;

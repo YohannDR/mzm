@@ -1206,23 +1206,23 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (s16)gBG0HOFS_NonGameplay;
-            yPosition = (s16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBg0HOFS_NonGameplay;
+            yPosition = (s16)gBg0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (s16)gBG1HOFS_NonGameplay;
-            yPosition = (s16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBg1HOFS_NonGameplay;
+            yPosition = (s16)gBg1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (s16)gBG2HOFS_NonGameplay;
-            yPosition = (s16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBg2HOFS_NonGameplay;
+            yPosition = (s16)gBg2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (s16)gBG3HOFS_NonGameplay;
-            yPosition = (s16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBg3HOFS_NonGameplay;
+            yPosition = (s16)gBg3VOFS_NonGameplay;
         }
         else
         {
@@ -1487,23 +1487,23 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (s16)gBG0HOFS_NonGameplay;
-            yPosition = (s16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBg0HOFS_NonGameplay;
+            yPosition = (s16)gBg0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (s16)gBG1HOFS_NonGameplay;
-            yPosition = (s16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBg1HOFS_NonGameplay;
+            yPosition = (s16)gBg1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (s16)gBG2HOFS_NonGameplay;
-            yPosition = (s16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBg2HOFS_NonGameplay;
+            yPosition = (s16)gBg2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (s16)gBG3HOFS_NonGameplay;
-            yPosition = (s16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBg3HOFS_NonGameplay;
+            yPosition = (s16)gBg3VOFS_NonGameplay;
         }
         else
         {
@@ -1785,23 +1785,23 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (s16)gBG0HOFS_NonGameplay;
-            yPosition = (s16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBg0HOFS_NonGameplay;
+            yPosition = (s16)gBg0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (s16)gBG1HOFS_NonGameplay;
-            yPosition = (s16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBg1HOFS_NonGameplay;
+            yPosition = (s16)gBg1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (s16)gBG2HOFS_NonGameplay;
-            yPosition = (s16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBg2HOFS_NonGameplay;
+            yPosition = (s16)gBg2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (s16)gBG3HOFS_NonGameplay;
-            yPosition = (s16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBg3HOFS_NonGameplay;
+            yPosition = (s16)gBg3VOFS_NonGameplay;
         }
         else
         {
@@ -1977,14 +1977,14 @@ void PauseScreenVBlank(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
     write16(REG_MOSAIC, gWrittenToMOSAIC_L);
 
-    write16(REG_BG0HOFS, (gBG0HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG0VOFS, (gBG0VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG1HOFS, (gBG1HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG1VOFS, (gBG1VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG2HOFS, (gBG2HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG2VOFS, (gBG2VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG3HOFS, (gBG3HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG3VOFS, (gBG3VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG0HOFS, (gBg0HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG0VOFS, (gBg0VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1HOFS, (gBg1HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1VOFS, (gBg1VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2HOFS, (gBg2HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2VOFS, (gBg2VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3HOFS, (gBg3HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3VOFS, (gBg3VOFS_NonGameplay / 4) & 0x1FF);
     
     write16(REG_BG0CNT, PAUSE_SCREEN_DATA.bg0cnt);
     write16(REG_BG1CNT, PAUSE_SCREEN_DATA.bg1cnt);
@@ -2153,16 +2153,16 @@ void PauseScreenInit(void)
         }
     }
 
-    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;
-    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0;
-    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
-    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0;
 
     PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
     PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
     PAUSE_SCREEN_DATA.subroutineInfo = sMapScreenSubroutineInfo_Empty;
 
-    gBG1VOFS_NonGameplay = BLOCK_SIZE * 16;
+    gBg1VOFS_NonGameplay = BLOCK_SIZE * 16;
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
@@ -2216,8 +2216,8 @@ void PauseScreenInit(void)
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
     {
-        gBG1HOFS_NonGameplay = QUARTER_BLOCK_SIZE;
-        gBG1VOFS_NonGameplay = QUARTER_BLOCK_SIZE;
+        gBg1HOFS_NonGameplay = QUARTER_BLOCK_SIZE;
+        gBg1VOFS_NonGameplay = QUARTER_BLOCK_SIZE;
     }
 
     gWrittenToBLDY_NonGameplay = gWrittenToBLDALPHA_H = 0;
@@ -2257,14 +2257,14 @@ void PauseScreenInit(void)
     write8(REG_WINOUT + 1, WIN0_BG3 | WIN0_OBJ);
     gWrittenToMOSAIC_L = 0;
 
-    write16(REG_BG0HOFS, (gBG0HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG0VOFS, (gBG0VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG1HOFS, (gBG1HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG1VOFS, (gBG1VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG2HOFS, (gBG2HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG2VOFS, (gBG2VOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG3HOFS, (gBG3HOFS_NonGameplay / 4) & 0x1FF);
-    write16(REG_BG3VOFS, (gBG3VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG0HOFS, (gBg0HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG0VOFS, (gBg0VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1HOFS, (gBg1HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1VOFS, (gBg1VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2HOFS, (gBg2HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2VOFS, (gBg2VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3HOFS, (gBg3HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3VOFS, (gBg3VOFS_NonGameplay / 4) & 0x1FF);
 
     write16(REG_MOSAIC, 0);
     write16(REG_BLDCNT, PAUSE_SCREEN_DATA.bldcnt);

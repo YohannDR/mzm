@@ -22,31 +22,37 @@
  */
 void ScrollProcess(struct RawCoordsX* pCoords)
 {
-    u32 screenX;
-    u32 screenY;
-    u32 newPosition;
+    s32 screenX;
+    s32 screenY;
     struct Scroll* pScroll;
 
+    // Update scrolls
     ScrollUpdateCurrent(pCoords);
+
+    // Get current screen coords
     screenX = gCamera.xPosition;
     screenY = gCamera.yPosition;
 
+    // Check for first scroll
     pScroll = gCurrentScrolls;
     if (pScroll->within != SCROLL_NOT_WITHIN_FLAG)
     {
+        // Get positions
         screenX = ScrollProcessX(pScroll, pCoords);
         screenY = ScrollProcessY(pScroll, pCoords);
     }
 
-    pScroll = &gCurrentScrolls[1];
+    // Check for second scroll
+    pScroll++;
     if (pScroll->within != SCROLL_NOT_WITHIN_FLAG)
     {
-        newPosition = ScrollProcessX(pScroll, pCoords);
-        screenX = DIV_SHIFT(screenX + newPosition, 2);
-        newPosition = ScrollProcessY(pScroll, pCoords);
-        screenY = DIV_SHIFT(screenY + newPosition, 2);
+        // Get positions, compute middle between previous and new positions
+        // This merges the results of this scroll with the previous one
+        screenX = DIV_SHIFT(screenX + ScrollProcessX(pScroll, pCoords), 2);
+        screenY = DIV_SHIFT(screenY + ScrollProcessY(pScroll, pCoords), 2);
     }
 
+    // Apply new positions
     ScrollScreen(screenX, screenY);
 }
 
@@ -60,53 +66,67 @@ void ScrollScreen(u16 screenX, u16 screenY)
 {
     s32 velocity;
 
+    // Set wanted position
     gCamera.xPosition = screenX;
     gCamera.yPosition = screenY;
 
     if (gGameModeSub1 == 0)
         return;
-    
+
+    // Check needs to scroll
     if (screenY != gBg1YPosition)
     {
+        // Compute Y difference
         velocity = screenY - gBg1YPosition;
 
+        // Apply velocity caps
         if (velocity > 0)
         {
-            if (gUnk_3005714.unk6 < velocity)
-                velocity = gUnk_3005714.unk6;
+            if (gScrollingVelocityCaps.downCap < velocity)
+                velocity = gScrollingVelocityCaps.downCap;
         }
         else
         {
-            if (gUnk_3005714.unk4 > velocity)
-                velocity = gUnk_3005714.unk4;
+            if (gScrollingVelocityCaps.upCap > velocity)
+                velocity = gScrollingVelocityCaps.upCap;
         }
 
+        // Set velocity and apply it
         gCamera.yVelocity = velocity;
         gBg1YPosition += velocity;
     }
     else
+    {
+        // Already at position
         gCamera.yVelocity = 0;
+    }
     
     if (screenX != gBg1XPosition)
     {
+        // Compute X difference
         velocity = screenX - gBg1XPosition;
 
+        // Apply velocity caps
         if (velocity > 0)
         {
-            if (gUnk_3005714.unk2 < velocity)
-                velocity = gUnk_3005714.unk2;
+            if (gScrollingVelocityCaps.rightCap < velocity)
+                velocity = gScrollingVelocityCaps.rightCap;
         }
         else
         {
-            if (gUnk_3005714.unk0 > velocity)
-                velocity = gUnk_3005714.unk0;
+            if (gScrollingVelocityCaps.leftCap > velocity)
+                velocity = gScrollingVelocityCaps.leftCap;
         }
 
+        // Set velocity and apply it
         gCamera.xVelocity = velocity;
         gBg1XPosition += velocity;
     }
     else
+    {
+        // Already at position
         gCamera.xVelocity = 0;
+    }
 }
 
 /**
@@ -201,6 +221,7 @@ void ScrollLoad(void)
     }
 }
 
+#ifdef NON_MATCHING
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
     // https://decomp.me/scratch/VHsfW
@@ -309,6 +330,204 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
         gCurrentScrolls[0].yEnd = 0;
     }
 }
+#else
+NAKED_FUNCTION
+void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sb \n\
+    mov r6, r8 \n\
+    push {r6, r7} \n\
+    sub sp, #0x10 \n\
+    ldr r2, lbl_08058554 @ =gCurrentScrolls \n\
+    movs r1, #0 \n\
+    strb r1, [r2] \n\
+    strb r1, [r2, #0xc] \n\
+    ldrh r1, [r0] \n\
+    lsr r1, r1, #6 \n\
+    mov r8, r1 \n\
+    ldrh r0, [r0, #2] \n\
+    sub r0, #1 \n\
+    lsl r0, r0, #0xa \n\
+    lsr r0, r0, #0x10 \n\
+    mov ip, r0 \n\
+    ldr r0, lbl_08058558 @ =gCurrentRoomScrollDataPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #1 \n\
+    ldrb r5, [r0] \n\
+    add r4, r0, #1 \n\
+    add r7, r2, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_0805850c \n\
+    b lbl_08058616 \n\
+lbl_0805850c: \n\
+    ldr r6, lbl_0805855c @ =gBgPointersAndDimensions \n\
+    mov sb, r7 \n\
+lbl_08058510: \n\
+    mov r0, sb \n\
+    add r0, #0x18 \n\
+    cmp r2, r0 \n\
+    bne lbl_0805851a \n\
+    b lbl_0805862c \n\
+lbl_0805851a: \n\
+    movs r0, #0 \n\
+    str r0, [sp] \n\
+    movs r0, #1 \n\
+    str r0, [sp, #4] \n\
+    movs r0, #2 \n\
+    str r0, [sp, #8] \n\
+    movs r0, #3 \n\
+    str r0, [sp, #0xc] \n\
+    ldrb r0, [r4, #4] \n\
+    cmp r0, #0xff \n\
+    beq lbl_08058560 \n\
+    ldrb r0, [r4, #7] \n\
+    cmp r0, #0xff \n\
+    beq lbl_08058560 \n\
+    ldrb r1, [r4, #5] \n\
+    ldrh r0, [r6, #0x1c] \n\
+    mul r0, r1, r0 \n\
+    ldrb r1, [r4, #4] \n\
+    add r3, r0, r1 \n\
+    ldr r1, [r6, #0x18] \n\
+    lsl r0, r3, #1 \n\
+    add r0, r0, r1 \n\
+    ldrh r0, [r0] \n\
+    cmp r0, #0 \n\
+    bne lbl_08058586 \n\
+    ldrb r0, [r4, #6] \n\
+    cmp r0, #0xff \n\
+    beq lbl_08058586 \n\
+    b lbl_0805857c \n\
+    .align 2, 0 \n\
+lbl_08058554: .4byte gCurrentScrolls \n\
+lbl_08058558: .4byte gCurrentRoomScrollDataPointer \n\
+lbl_0805855c: .4byte gBgPointersAndDimensions \n\
+lbl_08058560: \n\
+    ldr r0, lbl_0805863c @ =gSamusData \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x1d \n\
+    bne lbl_08058586 \n\
+    ldrb r0, [r4, #7] \n\
+    cmp r0, #0xff \n\
+    beq lbl_08058586 \n\
+    ldrb r0, [r4, #6] \n\
+    sub r0, #2 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    cmp r0, #1 \n\
+    bhi lbl_08058586 \n\
+    ldrb r0, [r4, #6] \n\
+lbl_0805857c: \n\
+    lsl r0, r0, #2 \n\
+    mov r3, sp \n\
+    add r1, r3, r0 \n\
+    movs r0, #7 \n\
+    str r0, [r1] \n\
+lbl_08058586: \n\
+    ldr r0, [sp] \n\
+    add r0, r4, r0 \n\
+    ldrb r1, [r0] \n\
+    cmp r1, r8 \n\
+    bhi lbl_0805860c \n\
+    ldr r0, [sp, #4] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    cmp r8, r0 \n\
+    bhi lbl_0805860c \n\
+    ldr r0, [sp, #8] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, ip \n\
+    bhi lbl_0805860c \n\
+    ldr r0, [sp, #0xc] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    cmp ip, r0 \n\
+    bhi lbl_0805860c \n\
+    ldrb r0, [r2] \n\
+    cmp r0, #0 \n\
+    bne lbl_0805860c \n\
+    lsl r0, r1, #6 \n\
+    cmp r0, #0x80 \n\
+    bge lbl_080585bc \n\
+    movs r0, #0x80 \n\
+lbl_080585bc: \n\
+    strh r0, [r2, #4] \n\
+    ldrh r0, [r6, #0x1c] \n\
+    lsl r0, r0, #6 \n\
+    add r3, r0, #0 \n\
+    sub r3, #0x80 \n\
+    ldr r0, [sp, #4] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    add r0, #1 \n\
+    lsl r0, r0, #6 \n\
+    add r1, r3, #0 \n\
+    cmp r0, r3 \n\
+    bge lbl_080585d8 \n\
+    add r1, r0, #0 \n\
+lbl_080585d8: \n\
+    strh r1, [r2, #2] \n\
+    ldr r0, [sp, #8] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #6 \n\
+    cmp r0, #0x80 \n\
+    bge lbl_080585e8 \n\
+    movs r0, #0x80 \n\
+lbl_080585e8: \n\
+    strh r0, [r2, #6] \n\
+    ldrh r0, [r6, #0x1e] \n\
+    lsl r0, r0, #6 \n\
+    add r3, r0, #0 \n\
+    sub r3, #0x80 \n\
+    ldr r0, [sp, #0xc] \n\
+    add r0, r4, r0 \n\
+    ldrb r0, [r0] \n\
+    add r0, #1 \n\
+    lsl r0, r0, #6 \n\
+    add r1, r3, #0 \n\
+    cmp r0, r3 \n\
+    bge lbl_08058604 \n\
+    add r1, r0, #0 \n\
+lbl_08058604: \n\
+    strh r1, [r2, #8] \n\
+    movs r0, #2 \n\
+    strb r0, [r2] \n\
+    add r2, #0xc \n\
+lbl_0805860c: \n\
+    add r4, #8 \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    beq lbl_08058616 \n\
+    b lbl_08058510 \n\
+lbl_08058616: \n\
+    ldrb r0, [r7] \n\
+    cmp r0, #0 \n\
+    bne lbl_0805862c \n\
+    ldrb r0, [r7, #0xc] \n\
+    cmp r0, #0 \n\
+    bne lbl_0805862c \n\
+    strb r0, [r7] \n\
+    strh r0, [r7, #2] \n\
+    strh r0, [r7, #4] \n\
+    strh r0, [r7, #6] \n\
+    strh r0, [r7, #8] \n\
+lbl_0805862c: \n\
+    add sp, #0x10 \n\
+    pop {r3, r4} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0805863c: .4byte gSamusData \n\
+    ");
+}
+#endif
 
 /**
  * @brief 58640 | 1f4 | Processes the general scrolling
@@ -375,35 +594,45 @@ void ScrollProcessGeneral(void)
     if (coords.y & 0x8000)
         coords.y = 0;
 
-    gUnk_3005714 = sUnk_8345988[0];
+    // Set default velocity caps
+    gScrollingVelocityCaps = sScrollVelocityCaps[SCROLL_VELOCITY_CAP_SET_DEFAULT];
 
     if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE)
     {
         if (gSlowScrollingTimer == 0)
         {
+            // Compute new velocity caps to accomodate for samus movements
             distance = gSamusData.xPosition - gPreviousXPosition;
 
             if (distance > 0)
             {
-                if (distance >= gUnk_3005714.unk2)
-                    gUnk_3005714.unk2 = distance + 4;
+                if (distance >= gScrollingVelocityCaps.rightCap)
+                    gScrollingVelocityCaps.rightCap = distance + PIXEL_SIZE;
             }
-            else if (distance < 0 && distance <= gUnk_3005714.unk0)
-                gUnk_3005714.unk0 = distance - 4;
+            else if (distance < 0)
+            {
+                if (distance <= gScrollingVelocityCaps.leftCap)
+                    gScrollingVelocityCaps.leftCap = distance - PIXEL_SIZE;
+            }
 
             distance = gSamusData.yPosition - gPreviousYPosition;
 
             if (distance > 0)
             {
-                if (distance >= gUnk_3005714.unk6)
-                    gUnk_3005714.unk6 = distance + 4;
+                if (distance >= gScrollingVelocityCaps.downCap)
+                    gScrollingVelocityCaps.downCap = distance + PIXEL_SIZE;
             }
-            else if (distance < 0 && distance <= gUnk_3005714.unk4)
-                gUnk_3005714.unk4 = distance - 4;
-
+            else if (distance < 0)
+            {
+                if (distance <= gScrollingVelocityCaps.upCap)
+                    gScrollingVelocityCaps.upCap = distance - PIXEL_SIZE;
+            }
         }
         else
-            gUnk_3005714 = sUnk_8345988[1];
+        {
+            // Use slow velocity caps since slow scrolling is active
+            gScrollingVelocityCaps = sScrollVelocityCaps[SCROLL_VELOCITY_CAP_SET_SLOW];
+        }
     }
 
     if (!gDisableScrolling)
@@ -429,7 +658,7 @@ void ScrollProcessGeneral(void)
         ScrollBg2(&coords);
 
         // Check auto scroll bg0
-        if (gBG0Movement.type != 0 && gCurrentRoomEntry.Bg0Prop & BG_PROP_LZ77_COMPRESSED)
+        if (gBg0Movement.type != 0 && gCurrentRoomEntry.Bg0Prop & BG_PROP_LZ77_COMPRESSED)
             ScrollAutoBg0();
 
         // Update effect and haze
@@ -439,7 +668,7 @@ void ScrollProcessGeneral(void)
         ScrollBg3();
 
         // Check auto scroll bg3
-        if (gBG3Movement.direction != 0)
+        if (gBg3Movement.active != 0)
             ScrollAutoBg3();
     }
 }
@@ -475,8 +704,8 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 
     if (gSamusData.pose == SPOSE_MORPH_BALL || gSamusData.pose == SPOSE_ROLLING || gSamusData.pose == SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL)
     {
-        if (gScreenYOffset + 4 < HALF_BLOCK_SIZE)
-            gScreenYOffset += 2;
+        if (gScreenYOffset + PIXEL_SIZE < HALF_BLOCK_SIZE)
+            gScreenYOffset += PIXEL_SIZE / 2;
         else
             gScreenYOffset = HALF_BLOCK_SIZE;
     }
@@ -490,16 +719,17 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 
     yPosition = pCoords->y;
     offsetY = gScreenYOffset;
+
     if (yPosition < BLOCK_SIZE * 8 - offsetY)
         yOffset = BLOCK_SIZE * 2;
     else
     {
-        clipPosition = (gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - BLOCK_SIZE * 6;
+        clipPosition = (gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - SCROLL_Y_ANCHOR;
         clipPosition -= offsetY;
         if (yPosition > clipPosition)
-            clipPosition = clipPosition - BLOCK_SIZE * 6;
+            clipPosition = clipPosition - SCROLL_Y_ANCHOR;
         else
-            clipPosition = yPosition - BLOCK_SIZE * 6;
+            clipPosition = yPosition - SCROLL_Y_ANCHOR;
         yOffset = clipPosition + offsetY;
     }
 
@@ -508,13 +738,13 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
     yOffset -= gBg1YPosition;
     if (yOffset > 0)
     {
-        if (gUnk_3005714.unk6 < yOffset)
-            yOffset = gUnk_3005714.unk6;
+        if (gScrollingVelocityCaps.downCap < yOffset)
+            yOffset = gScrollingVelocityCaps.downCap;
     }
     else
     {
-        if (yOffset < gUnk_3005714.unk4)
-            yOffset = gUnk_3005714.unk4;
+        if (yOffset < gScrollingVelocityCaps.upCap)
+            yOffset = gScrollingVelocityCaps.upCap;
     }
 
     gCamera.yVelocity = yOffset;
@@ -555,9 +785,9 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
             clipPosition -= offsetX;
         }while(0);
         if (xPosition > clipPosition)
-            clipPosition = clipPosition - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+            clipPosition = clipPosition - SCROLL_X_ANCHOR;
         else
-            clipPosition = xPosition - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+            clipPosition = xPosition - SCROLL_X_ANCHOR;
         xOffset = clipPosition + offsetX;
     }
 
@@ -566,13 +796,13 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     xOffset -= gBg1XPosition;
     if (xOffset > 0)
     {
-        if (gUnk_3005714.unk2 < xOffset)
-            xOffset = gUnk_3005714.unk2;
+        if (gScrollingVelocityCaps.rightCap < xOffset)
+            xOffset = gScrollingVelocityCaps.rightCap;
     }
     else
     {
-        if (xOffset < gUnk_3005714.unk0)
-            xOffset = gUnk_3005714.unk0;
+        if (xOffset < gScrollingVelocityCaps.leftCap)
+            xOffset = gScrollingVelocityCaps.leftCap;
     }
 
     gCamera.xVelocity = xOffset;
@@ -725,28 +955,28 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
  */
 void ScrollAutoBg0(void)
 {
-    if (gBG0Movement.type == BG0_MOVEMENT_WATER_CLOUDS)
+    if (gBg0Movement.type == BG0_MOVEMENT_WATER_CLOUDS)
     {
-        if (!(gBG0Movement.yOffset & 7))
-            gBG0Movement.xOffset++;
+        if (MOD_AND(gBg0Movement.counter, 8) == 0)
+            gBg0Movement.xOffset++;
     }
-    else if (gBG0Movement.type == 2)
+    else if (gBg0Movement.type == 2)
     {
-        if (!(gBG0Movement.yOffset & 3))
-            gBG0Movement.xOffset++;
+        if (MOD_AND(gBg0Movement.counter, 4) == 0)
+            gBg0Movement.xOffset++;
     }
-    else if (gBG0Movement.type == 3)
+    else if (gBg0Movement.type == 3)
     {
-        if (!(gBG0Movement.yOffset & 7))
-            gBG0Movement.snowflakesRelated++;
+        if (MOD_AND(gBg0Movement.counter, 8) == 0)
+            gBg0Movement.yOffset++;
     }
-    else if (gBG0Movement.type == BG0_MOVEMENT_SNOWFLAKES)
+    else if (gBg0Movement.type == BG0_MOVEMENT_SNOWFLAKES)
     {
-        if (!(gBG0Movement.yOffset & 7))
-            gBG0Movement.snowflakesRelated--;
+        if (MOD_AND(gBg0Movement.counter, 8) == 0)
+            gBg0Movement.yOffset--;
     }
 
-    gBG0Movement.yOffset++;
+    gBg0Movement.counter++;
 }
 
 /**
@@ -759,8 +989,8 @@ u32 ScrollGetBG3Scroll(void)
     u32 xScroll;
     u32 yScroll;
 
-    yScroll = 0;
-    xScroll = 0;
+    yScroll = BG3_SCROLLING_TYPE_NONE;
+    xScroll = BG3_SCROLLING_TYPE_NONE;
 
     switch (gCurrentRoomEntry.Bg3Scrolling)
     {
@@ -768,47 +998,48 @@ u32 ScrollGetBG3Scroll(void)
             break;
 
         case 1:
-            xScroll = 2;
-            yScroll = 0;
+            xScroll = BG3_SCROLLING_TYPE_HALVED;
+            yScroll = BG3_SCROLLING_TYPE_NONE;
             break;
 
         case 2:
-            xScroll = 0;
-            yScroll = 2;
+            xScroll = BG3_SCROLLING_TYPE_NONE;
+            yScroll = BG3_SCROLLING_TYPE_HALVED;
             break;
 
         case 3:
-            xScroll = 2;
-            yScroll = 2;
+            xScroll = BG3_SCROLLING_TYPE_HALVED;
+            yScroll = BG3_SCROLLING_TYPE_HALVED;
             break;
 
         case 4:
-            xScroll = 1;
-            yScroll = 2;
+            xScroll = BG3_SCROLLING_TYPE_NORMAL;
+            yScroll = BG3_SCROLLING_TYPE_HALVED;
             break;
 
         case 5:
-            xScroll = 2;
-            yScroll = 1;
+            xScroll = BG3_SCROLLING_TYPE_HALVED;
+            yScroll = BG3_SCROLLING_TYPE_NORMAL;
             break;
 
         case 6:
         case 10:
-            xScroll = 1;
-            yScroll = 1;
+            xScroll = BG3_SCROLLING_TYPE_NORMAL;
+            yScroll = BG3_SCROLLING_TYPE_NORMAL;
             break;
         
         case 9:
-            xScroll = 3;
-            yScroll = 0;
+            xScroll = BG3_SCROLLING_TYPE_QUARTERED;
+            yScroll = BG3_SCROLLING_TYPE_NONE;
             break;
 
         case 7:
-            xScroll = 1;
-            yScroll = 0;
+        case 8:
+            xScroll = BG3_SCROLLING_TYPE_NORMAL;
+            yScroll = BG3_SCROLLING_TYPE_NONE;
     }
 
-    return yScroll << 16 | xScroll;
+    return C_32_2_16(yScroll, xScroll);
 }
 
 /**
@@ -817,28 +1048,29 @@ u32 ScrollGetBG3Scroll(void)
  */
 void ScrollBg3(void)
 {
-    u32 xScrolling;
+    s32 xScrolling;
     s32 yScrolling;
     s32 offset;
     s32 size;
 
+    // Get scrolling values
     yScrolling = ScrollGetBG3Scroll();
-    xScrolling = yScrolling & 0xFF;
-    yScrolling = yScrolling >> 16;
+    xScrolling = LOW_BYTE(yScrolling);
+    yScrolling = HIGH_SHORT(yScrolling);
 
-    if (xScrolling != 0)
+    if (xScrolling != BG3_SCROLLING_TYPE_NONE)
     {
-        if (xScrolling == 1)
+        if (xScrolling == BG3_SCROLLING_TYPE_NORMAL)
             gBg3XPosition = gBg1XPosition - BLOCK_SIZE * 2;
-        else if (xScrolling == 2)
-            gBg3XPosition = (gBg1XPosition - BLOCK_SIZE * 2) >> 1;
-        else if (xScrolling == 3)
-            gBg3XPosition = (gBg1XPosition - BLOCK_SIZE * 2) >> 2;
+        else if (xScrolling == BG3_SCROLLING_TYPE_HALVED)
+            gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 2);
+        else if (xScrolling == BG3_SCROLLING_TYPE_QUARTERED)
+            gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 4);
     }
 
     if (gCurrentRoomEntry.BG3FromBottomFlag)
     {
-        size = (gBgPointersAndDimensions.clipdataHeight - 0xC) * BLOCK_SIZE;
+        size = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataHeight - (SCREEN_SIZE_Y_BLOCKS + 2));
 
         if (gCurrentRoomEntry.Bg3Size & 2)
             offset = 0x800;
@@ -847,15 +1079,15 @@ void ScrollBg3(void)
 
         offset -= 0x280;
 
-        if (yScrolling == 0)
+        if (yScrolling == BG3_SCROLLING_TYPE_NONE)
         {
             offset = 0;
             size = 0;
         }
-        else if (yScrolling == 1)
+        else if (yScrolling == BG3_SCROLLING_TYPE_NORMAL)
             size -= gBg1YPosition;
         else
-            size = (size - gBg1YPosition) >> 2;
+            size = DIV_SHIFT(size - gBg1YPosition, 4);
         
         if (offset - size > 0)
             gBg3YPosition = offset - size;
@@ -864,14 +1096,14 @@ void ScrollBg3(void)
     }
     else
     {
-        if (yScrolling == 0)
+        if (yScrolling == BG3_SCROLLING_TYPE_NONE)
             gBg3YPosition = 0;
-        else if (yScrolling == 1)
+        else if (yScrolling == BG3_SCROLLING_TYPE_NORMAL)
             gBg3YPosition = gBg1YPosition - BLOCK_SIZE * 2;
-        else if (yScrolling == 2)
-            gBg3YPosition = (gBg1YPosition - BLOCK_SIZE * 2) >> 1;
+        else if (yScrolling == BG3_SCROLLING_TYPE_HALVED)
+            gBg3YPosition = DIV_SHIFT(gBg1YPosition - BLOCK_SIZE * 2, 2);
         else
-            gBg3YPosition = (gBg1YPosition - BLOCK_SIZE * 2) >> 2;
+            gBg3YPosition = DIV_SHIFT(gBg1YPosition - BLOCK_SIZE * 2, 4);
     }
 }
 
@@ -883,14 +1115,14 @@ void ScrollBg3Related(void)
 {
     u32 xScroll;
 
-    xScroll = ScrollGetBG3Scroll();
-    xScroll &= 0xFF;
-    if (xScroll == 0x0)
-        gBg3XPosition = 0x0;
-    else if (xScroll == 0x2)
-        gBg3XPosition = (gBg1XPosition - 0x80) >> 0x1;
-    else if (xScroll == 0x3)
-        gBg3XPosition = (gBg1XPosition - 0x80) >> 0x2;
+    xScroll = LOW_BYTE(ScrollGetBG3Scroll());
+
+    if (xScroll == BG3_SCROLLING_TYPE_NONE)
+        gBg3XPosition = 0;
+    else if (xScroll == BG3_SCROLLING_TYPE_HALVED)
+        gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 2);
+    else if (xScroll == BG3_SCROLLING_TYPE_QUARTERED)
+        gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 4);
 }
 
 /**
@@ -899,13 +1131,13 @@ void ScrollBg3Related(void)
  */
 void ScrollAutoBg3(void)
 {
-    if (gBG3Movement.direction == 0x1)
+    if (gBg3Movement.active == TRUE)
     {
-        if (!(gBG3Movement.counter & 0x7))
-            gBG3Movement.xOffset++;
+        if (MOD_AND(gBg3Movement.counter, 8) == 0)
+            gBg3Movement.xOffset++;
     }
 
-    gBG3Movement.counter++;
+    gBg3Movement.counter++;
 }
 
 /**
@@ -927,24 +1159,24 @@ void ScrollBg2(struct RawCoordsX* pCoords)
         {
             if (gCurrentRoomEntry.Bg2Prop == BG_PROP_MOVING)
             {
-                position = gBg1XPosition + gBG2Movement.xOffset;
+                position = gBg1XPosition + gBg2Movement.xOffset;
                 if (position < 0)
                     position = 0;
                 else
                 {
-                    size = (gBgPointersAndDimensions.backgrounds[2].width - 0xF) * BLOCK_SIZE;
+                    size = (gBgPointersAndDimensions.backgrounds[2].width - SCREEN_SIZE_X_BLOCKS) * BLOCK_SIZE;
                     if (size < position)
                         position = size;
                 }
 
                 gBg2XPosition = position;
 
-                position = gBg1YPosition + gBG2Movement.yOffset;
+                position = gBg1YPosition + gBg2Movement.yOffset;
                 if (position < 0)
                     position = 0;
                 else
                 {
-                    size = (gBgPointersAndDimensions.backgrounds[2].height - 0xA) * BLOCK_SIZE;
+                    size = (gBgPointersAndDimensions.backgrounds[2].height - SCREEN_SIZE_Y_BLOCKS) * BLOCK_SIZE;
                     if (size < position)
                         position = size;
                 }
@@ -975,25 +1207,25 @@ void ScrollFreeMovementDebugCameraLock(struct RawCoordsX* pCoords)
     {
         gBg1XPosition = 0;
     }
-    else if (pCoords->x > gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
+    else if (pCoords->x > BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.backgrounds[1].width) - SCROLL_X_ANCHOR)
     {
-        gBg1XPosition = gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
+        gBg1XPosition = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.backgrounds[1].width) - SCREEN_SIZE_X_SUB_PIXEL;
     }
     else
     {
-        gBg1XPosition = pCoords->x - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+        gBg1XPosition = pCoords->x - SCROLL_X_ANCHOR;
     }
 
-    if (pCoords->y < BLOCK_SIZE * 6)
+    if (pCoords->y < SCROLL_Y_ANCHOR)
     {
         gBg1YPosition = 0;
     }
-    else if (pCoords->y > gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 3))
+    else if (pCoords->y > BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.backgrounds[1].height) - SCROLL_Y_ANCHOR / 2)
     {
-        gBg1YPosition = gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
+        gBg1YPosition = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.backgrounds[1].height) - (BLOCK_SIZE * 9);
     }
     else
     {
-        gBg1YPosition = pCoords->y - (BLOCK_SIZE * 6);
+        gBg1YPosition = pCoords->y - SCROLL_Y_ANCHOR;
     }
 }

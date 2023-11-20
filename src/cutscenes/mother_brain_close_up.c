@@ -471,7 +471,7 @@ void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
 
     // Convert position to to have 0 Y be the top of background 3
     yPosition = pOam->yPosition + NON_GAMEPLAY_START_BG_POS;
-    convertedY = yPosition - gBG3VOFS_NonGameplay;
+    convertedY = yPosition - gBg3VOFS_NonGameplay;
 
     // Check above screen
     if (convertedY < -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE))

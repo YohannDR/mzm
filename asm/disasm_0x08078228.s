@@ -4264,9 +4264,9 @@ lbl_0807a354:
     adds r1, r3, #0
     orrs r0, r1
     strh r0, [r2]
-    ldr r0, lbl_0807a44c @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807a44c @ =gBg0HOFS_NonGameplay
     strh r6, [r0]
-    ldr r1, lbl_0807a450 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807a450 @ =gBg0VOFS_NonGameplay
     movs r3, #0xc0
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -4289,8 +4289,8 @@ lbl_0807a43c: .4byte 0x0000011f
 lbl_0807a440: .4byte 0x0000013f
 lbl_0807a444: .4byte 0x0600e000
 lbl_0807a448: .4byte sEwramPointer
-lbl_0807a44c: .4byte gBG0HOFS_NonGameplay
-lbl_0807a450: .4byte gBG0VOFS_NonGameplay
+lbl_0807a44c: .4byte gBg0HOFS_NonGameplay
+lbl_0807a450: .4byte gBg0VOFS_NonGameplay
 lbl_0807a454:
     movs r2, #1
     ldr r1, lbl_0807a46c @ =gWrittenToBLDALPHA_L
@@ -4358,7 +4358,7 @@ lbl_0807a4c8: .4byte gWrittenToBLDALPHA_H
 lbl_0807a4cc: .4byte 0x0000010f
 lbl_0807a4d0: .4byte 0x0000fdff
 lbl_0807a4d4:
-    ldr r1, lbl_0807a500 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807a500 @ =gBg0VOFS_NonGameplay
     ldrh r0, [r1]
     ldr r2, lbl_0807a504 @ =0x000007ff
     cmp r0, r2
@@ -4380,7 +4380,7 @@ lbl_0807a4ec:
     ldr r1, [r0]
     b lbl_0807a77e
     .align 2, 0
-lbl_0807a500: .4byte gBG0VOFS_NonGameplay
+lbl_0807a500: .4byte gBg0VOFS_NonGameplay
 lbl_0807a504: .4byte 0x000007ff
 lbl_0807a508: .4byte sNonGameplayRamPointer
 lbl_0807a50c:
@@ -4468,8 +4468,8 @@ lbl_0807a584:
     adds r2, r6, #0
     movs r3, #0xc0
     bl DmaTransfer
-    ldr r1, lbl_0807a5ec @ =gBG0HOFS_NonGameplay
-    ldr r0, lbl_0807a5f0 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807a5ec @ =gBg0HOFS_NonGameplay
+    ldr r0, lbl_0807a5f0 @ =gBg0VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
     ldr r1, [r7]
@@ -4480,9 +4480,9 @@ lbl_0807a584:
     strh r2, [r0]
     ldr r0, lbl_0807a5fc @ =gWrittenToBLDALPHA_L
     strh r5, [r0]
-    ldr r0, lbl_0807a600 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0807a600 @ =gBg1HOFS_NonGameplay
     strh r4, [r0]
-    ldr r0, lbl_0807a604 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0807a604 @ =gBg1VOFS_NonGameplay
     strh r4, [r0]
     ldrh r0, [r1, #0x1e]
     strh r0, [r1, #4]
@@ -4496,13 +4496,13 @@ lbl_0807a584:
     .align 2, 0
 lbl_0807a5e4: .4byte 0x0600e000
 lbl_0807a5e8: .4byte sEwramPointer
-lbl_0807a5ec: .4byte gBG0HOFS_NonGameplay
-lbl_0807a5f0: .4byte gBG0VOFS_NonGameplay
+lbl_0807a5ec: .4byte gBg0HOFS_NonGameplay
+lbl_0807a5f0: .4byte gBg0VOFS_NonGameplay
 lbl_0807a5f4: .4byte 0x00003f54
 lbl_0807a5f8: .4byte gWrittenToBLDALPHA_H
 lbl_0807a5fc: .4byte gWrittenToBLDALPHA_L
-lbl_0807a600: .4byte gBG1HOFS_NonGameplay
-lbl_0807a604: .4byte gBG1VOFS_NonGameplay
+lbl_0807a600: .4byte gBg1HOFS_NonGameplay
+lbl_0807a604: .4byte gBg1VOFS_NonGameplay
 lbl_0807a608:
     movs r2, #1
     ldr r1, lbl_0807a620 @ =gWrittenToBLDALPHA_L
@@ -4540,7 +4540,7 @@ lbl_0807a640:
     .align 2, 0
 lbl_0807a644: .4byte gWrittenToBLDALPHA_H
 lbl_0807a648:
-    ldr r2, lbl_0807a668 @ =gBG0VOFS_NonGameplay
+    ldr r2, lbl_0807a668 @ =gBg0VOFS_NonGameplay
     ldrh r0, [r2]
     movs r1, #0xc0
     lsls r1, r1, #3
@@ -4557,7 +4557,7 @@ lbl_0807a662:
     strh r1, [r2]
     b lbl_0807a77c
     .align 2, 0
-lbl_0807a668: .4byte gBG0VOFS_NonGameplay
+lbl_0807a668: .4byte gBg0VOFS_NonGameplay
 lbl_0807a66c:
     ldr r0, [r7]
     adds r0, #0x3f
@@ -4716,12 +4716,12 @@ lbl_0807a7a0:
     ands r0, r1
     movs r3, #0
     strh r0, [r2]
-    ldr r0, lbl_0807a7c8 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807a7c8 @ =gBg0HOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_0807a7cc @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_0807a7cc @ =gBg0VOFS_NonGameplay
     strh r1, [r0]
     ldr r0, lbl_0807a7d0 @ =gGameModeSub2
     strb r3, [r0]
@@ -4729,8 +4729,8 @@ lbl_0807a7a0:
     b lbl_0807a7d6
     .align 2, 0
 lbl_0807a7c4: .4byte 0x0000feff
-lbl_0807a7c8: .4byte gBG0HOFS_NonGameplay
-lbl_0807a7cc: .4byte gBG0VOFS_NonGameplay
+lbl_0807a7c8: .4byte gBg0HOFS_NonGameplay
+lbl_0807a7cc: .4byte gBg0VOFS_NonGameplay
 lbl_0807a7d0: .4byte gGameModeSub2
 lbl_0807a7d4:
     movs r0, #0
@@ -6068,22 +6068,22 @@ lbl_0807b1e4:
     adds r1, r2, r0
     movs r0, #0x80
     strh r0, [r1]
-    ldr r1, lbl_0807b340 @ =gBG1HOFS_NonGameplay
+    ldr r1, lbl_0807b340 @ =gBg1HOFS_NonGameplay
     movs r2, #0xdb
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b344 @ =gBG1VOFS_NonGameplay
+    ldr r1, lbl_0807b344 @ =gBg1VOFS_NonGameplay
     movs r3, #0xe0
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b348 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807b348 @ =gBg0HOFS_NonGameplay
     movs r4, #0xcc
     lsls r4, r4, #3
     adds r0, r4, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b34c @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807b34c @ =gBg0VOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r0, r2, #0
@@ -6178,10 +6178,10 @@ lbl_0807b1e4:
     .align 2, 0
 lbl_0807b338: .4byte sNonGameplayRamPointer
 lbl_0807b33c: .4byte 0x000001ff
-lbl_0807b340: .4byte gBG1HOFS_NonGameplay
-lbl_0807b344: .4byte gBG1VOFS_NonGameplay
-lbl_0807b348: .4byte gBG0HOFS_NonGameplay
-lbl_0807b34c: .4byte gBG0VOFS_NonGameplay
+lbl_0807b340: .4byte gBg1HOFS_NonGameplay
+lbl_0807b344: .4byte gBg1VOFS_NonGameplay
+lbl_0807b348: .4byte gBg0HOFS_NonGameplay
+lbl_0807b34c: .4byte gBg0VOFS_NonGameplay
 lbl_0807b350: .4byte sEwramPointer
 lbl_0807b354: .4byte 0x0600e000
 lbl_0807b358: .4byte 0x000001cf
@@ -7210,22 +7210,22 @@ lbl_0807bac4:
     adds r0, r0, r4
     movs r1, #0x10
     bl UpdateMenuOamDataID
-    ldr r1, lbl_0807bbec @ =gBG1HOFS_NonGameplay
+    ldr r1, lbl_0807bbec @ =gBg1HOFS_NonGameplay
     movs r2, #0xdb
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf0 @ =gBG1VOFS_NonGameplay
+    ldr r1, lbl_0807bbf0 @ =gBg1VOFS_NonGameplay
     movs r3, #0xdf
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf4 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807bbf4 @ =gBg0HOFS_NonGameplay
     movs r4, #0xcc
     lsls r4, r4, #3
     adds r0, r4, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf8 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807bbf8 @ =gBg0VOFS_NonGameplay
     movs r2, #0xfc
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -7246,10 +7246,10 @@ lbl_0807bbdc: .4byte sNonGameplayRamPointer
 lbl_0807bbe0: .4byte 0x000001ff
 lbl_0807bbe4: .4byte 0x000001bf
 lbl_0807bbe8: .4byte 0x000001ef
-lbl_0807bbec: .4byte gBG1HOFS_NonGameplay
-lbl_0807bbf0: .4byte gBG1VOFS_NonGameplay
-lbl_0807bbf4: .4byte gBG0HOFS_NonGameplay
-lbl_0807bbf8: .4byte gBG0VOFS_NonGameplay
+lbl_0807bbec: .4byte gBg1HOFS_NonGameplay
+lbl_0807bbf0: .4byte gBg1VOFS_NonGameplay
+lbl_0807bbf4: .4byte gBg0HOFS_NonGameplay
+lbl_0807bbf8: .4byte gBg0VOFS_NonGameplay
 lbl_0807bbfc:
     ldr r0, lbl_0807bc34 @ =gChangedInput
     ldrh r1, [r0]
@@ -8795,23 +8795,23 @@ lbl_0807c85c:
     movs r1, #0
 lbl_0807c872:
     strb r1, [r0]
-    ldr r2, lbl_0807c970 @ =gBG0HOFS_NonGameplay
-    ldr r0, lbl_0807c974 @ =gBG0VOFS_NonGameplay
+    ldr r2, lbl_0807c970 @ =gBg0HOFS_NonGameplay
+    ldr r0, lbl_0807c974 @ =gBg0VOFS_NonGameplay
     movs r3, #0x80
     lsls r3, r3, #4
     adds r1, r3, #0
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c978 @ =gBG1HOFS_NonGameplay
-    ldr r0, lbl_0807c97c @ =gBG1VOFS_NonGameplay
+    ldr r2, lbl_0807c978 @ =gBg1HOFS_NonGameplay
+    ldr r0, lbl_0807c97c @ =gBg1VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c980 @ =gBG2HOFS_NonGameplay
-    ldr r0, lbl_0807c984 @ =gBG2VOFS_NonGameplay
+    ldr r2, lbl_0807c980 @ =gBg2HOFS_NonGameplay
+    ldr r0, lbl_0807c984 @ =gBg2VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c988 @ =gBG3HOFS_NonGameplay
-    ldr r0, lbl_0807c98c @ =gBG3VOFS_NonGameplay
+    ldr r2, lbl_0807c988 @ =gBg3HOFS_NonGameplay
+    ldr r0, lbl_0807c98c @ =gBg3VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
     ldr r5, lbl_0807c96c @ =sNonGameplayRamPointer
@@ -8917,14 +8917,14 @@ lbl_0807c872:
     .align 2, 0
 lbl_0807c968: .4byte gOptionsOptionSelected
 lbl_0807c96c: .4byte sNonGameplayRamPointer
-lbl_0807c970: .4byte gBG0HOFS_NonGameplay
-lbl_0807c974: .4byte gBG0VOFS_NonGameplay
-lbl_0807c978: .4byte gBG1HOFS_NonGameplay
-lbl_0807c97c: .4byte gBG1VOFS_NonGameplay
-lbl_0807c980: .4byte gBG2HOFS_NonGameplay
-lbl_0807c984: .4byte gBG2VOFS_NonGameplay
-lbl_0807c988: .4byte gBG3HOFS_NonGameplay
-lbl_0807c98c: .4byte gBG3VOFS_NonGameplay
+lbl_0807c970: .4byte gBg0HOFS_NonGameplay
+lbl_0807c974: .4byte gBg0VOFS_NonGameplay
+lbl_0807c978: .4byte gBg1HOFS_NonGameplay
+lbl_0807c97c: .4byte gBg1VOFS_NonGameplay
+lbl_0807c980: .4byte gBg2HOFS_NonGameplay
+lbl_0807c984: .4byte gBg2VOFS_NonGameplay
+lbl_0807c988: .4byte gBg3HOFS_NonGameplay
+lbl_0807c98c: .4byte gBg3VOFS_NonGameplay
 lbl_0807c990: .4byte 0x00001f0b
 lbl_0807c994: .4byte 0x00001e02
 lbl_0807c998: .4byte 0x00001b01
@@ -9001,42 +9001,42 @@ lbl_0807ca36:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     subs r1, #0xc4
-    ldr r0, lbl_0807cae8 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807cae8 @ =gBg0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caec @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_0807caec @ =gBg0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf0 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0807caf0 @ =gBg1HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf4 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0807caf4 @ =gBg1VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf8 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_0807caf8 @ =gBg2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cafc @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_0807cafc @ =gBg2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cb00 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_0807cb00 @ =gBg3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cb04 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_0807cb04 @ =gBg3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
@@ -9076,14 +9076,14 @@ lbl_0807cad8: .4byte gIoTransferInfo
 lbl_0807cadc: .4byte 0x040000d4
 lbl_0807cae0: .4byte gOamData
 lbl_0807cae4: .4byte 0x84000100
-lbl_0807cae8: .4byte gBG0HOFS_NonGameplay
-lbl_0807caec: .4byte gBG0VOFS_NonGameplay
-lbl_0807caf0: .4byte gBG1HOFS_NonGameplay
-lbl_0807caf4: .4byte gBG1VOFS_NonGameplay
-lbl_0807caf8: .4byte gBG2HOFS_NonGameplay
-lbl_0807cafc: .4byte gBG2VOFS_NonGameplay
-lbl_0807cb00: .4byte gBG3HOFS_NonGameplay
-lbl_0807cb04: .4byte gBG3VOFS_NonGameplay
+lbl_0807cae8: .4byte gBg0HOFS_NonGameplay
+lbl_0807caec: .4byte gBg0VOFS_NonGameplay
+lbl_0807caf0: .4byte gBg1HOFS_NonGameplay
+lbl_0807caf4: .4byte gBg1VOFS_NonGameplay
+lbl_0807caf8: .4byte gBg2HOFS_NonGameplay
+lbl_0807cafc: .4byte gBg2VOFS_NonGameplay
+lbl_0807cb00: .4byte gBg3HOFS_NonGameplay
+lbl_0807cb04: .4byte gBg3VOFS_NonGameplay
 lbl_0807cb08: .4byte sNonGameplayRamPointer
 lbl_0807cb0c: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807cb10: .4byte 0x04000052
@@ -10827,7 +10827,7 @@ lbl_0807d8ec:
     movs r1, #0x80
     lsls r1, r1, #4
     adds r5, r0, r1
-    ldr r1, lbl_0807d918 @ =gBG2VOFS_NonGameplay
+    ldr r1, lbl_0807d918 @ =gBg2VOFS_NonGameplay
     ldrh r0, [r1]
     cmp r5, r0
     beq lbl_0807d91c
@@ -10838,7 +10838,7 @@ lbl_0807d8ec:
 lbl_0807d912:
     bl lbl_0807e30c
     .align 2, 0
-lbl_0807d918: .4byte gBG2VOFS_NonGameplay
+lbl_0807d918: .4byte gBg2VOFS_NonGameplay
 lbl_0807d91c:
     adds r1, r2, #0
     bl lbl_0807e3b8
@@ -12067,18 +12067,18 @@ lbl_0807e298:
     strh r0, [r2]
     ldrh r0, [r2, #0x18]
     strh r0, [r2, #6]
-    ldr r0, lbl_0807e2bc @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0807e2bc @ =gBg1HOFS_NonGameplay
     movs r5, #0x80
     lsls r5, r5, #4
     adds r1, r5, #0
     strh r1, [r0]
-    ldr r0, lbl_0807e2c0 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0807e2c0 @ =gBg1VOFS_NonGameplay
     strh r1, [r0]
     adds r1, r2, #0
     b lbl_0807e3b8
     .align 2, 0
-lbl_0807e2bc: .4byte gBG1HOFS_NonGameplay
-lbl_0807e2c0: .4byte gBG1VOFS_NonGameplay
+lbl_0807e2bc: .4byte gBg1HOFS_NonGameplay
+lbl_0807e2c0: .4byte gBg1VOFS_NonGameplay
 lbl_0807e2c4:
     ldr r0, [r7]
     adds r0, #0x3f
@@ -12102,7 +12102,7 @@ lbl_0807e2c4:
 lbl_0807e2ec:
     movs r5, #0x80
     lsls r5, r5, #4
-    ldr r1, lbl_0807e308 @ =gBG2VOFS_NonGameplay
+    ldr r1, lbl_0807e308 @ =gBg2VOFS_NonGameplay
     ldrh r0, [r1]
     cmp r5, r0
     beq lbl_0807e310
@@ -12116,7 +12116,7 @@ sub_0807e2fe: @ 0x0807e2fe
     b lbl_0807e3e6
     .align 2, 0
 lbl_0807e304: .4byte 0x0600f000
-lbl_0807e308: .4byte gBG2VOFS_NonGameplay
+lbl_0807e308: .4byte gBg2VOFS_NonGameplay
 lbl_0807e30c:
     strh r0, [r1]
     b lbl_0807e3e6
@@ -12711,12 +12711,12 @@ lbl_0807e7a4:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807e7f0 @ =gBG1HOFS_NonGameplay
+    ldr r1, lbl_0807e7f0 @ =gBg1HOFS_NonGameplay
     movs r2, #0xf8
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e7f4 @ =gBG1VOFS_NonGameplay
+    ldr r1, lbl_0807e7f4 @ =gBg1VOFS_NonGameplay
     movs r3, #0xed
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -12730,8 +12730,8 @@ lbl_0807e7a4:
     b lbl_0807ee54
     .align 2, 0
 lbl_0807e7ec: .4byte sNonGameplayRamPointer
-lbl_0807e7f0: .4byte gBG1HOFS_NonGameplay
-lbl_0807e7f4: .4byte gBG1VOFS_NonGameplay
+lbl_0807e7f0: .4byte gBg1HOFS_NonGameplay
+lbl_0807e7f4: .4byte gBg1VOFS_NonGameplay
 lbl_0807e7f8: .4byte sEwramPointer
 lbl_0807e7fc: .4byte 0x0600e800
 lbl_0807e800:
@@ -12777,12 +12777,12 @@ lbl_0807e838:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807e87c @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807e87c @ =gBg0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e880 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807e880 @ =gBg0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -12795,8 +12795,8 @@ lbl_0807e838:
     b lbl_0807ee52
     .align 2, 0
 lbl_0807e878: .4byte sNonGameplayRamPointer
-lbl_0807e87c: .4byte gBG0HOFS_NonGameplay
-lbl_0807e880: .4byte gBG0VOFS_NonGameplay
+lbl_0807e87c: .4byte gBg0HOFS_NonGameplay
+lbl_0807e880: .4byte gBg0VOFS_NonGameplay
 lbl_0807e884: .4byte sEwramPointer
 lbl_0807e888:
     ldr r4, lbl_0807e8ac @ =sNonGameplayRamPointer
@@ -12848,12 +12848,12 @@ lbl_0807e8cc:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807e908 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807e908 @ =gBg0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e90c @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807e90c @ =gBg0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -12861,8 +12861,8 @@ lbl_0807e8cc:
     b lbl_0807eec8
     .align 2, 0
 lbl_0807e904: .4byte sNonGameplayRamPointer
-lbl_0807e908: .4byte gBG0HOFS_NonGameplay
-lbl_0807e90c: .4byte gBG0VOFS_NonGameplay
+lbl_0807e908: .4byte gBg0HOFS_NonGameplay
+lbl_0807e90c: .4byte gBg0VOFS_NonGameplay
 lbl_0807e910:
     ldr r0, lbl_0807e960 @ =sNonGameplayRamPointer
     mov r8, r0
@@ -12938,12 +12938,12 @@ lbl_0807e988:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807e9f8 @ =gBG1HOFS_NonGameplay
+    ldr r1, lbl_0807e9f8 @ =gBg1HOFS_NonGameplay
     movs r2, #0xd9
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e9fc @ =gBG1VOFS_NonGameplay
+    ldr r1, lbl_0807e9fc @ =gBg1VOFS_NonGameplay
     movs r3, #0xd5
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -12974,8 +12974,8 @@ lbl_0807e988:
     b lbl_0807ee8a
     .align 2, 0
 lbl_0807e9f4: .4byte sNonGameplayRamPointer
-lbl_0807e9f8: .4byte gBG1HOFS_NonGameplay
-lbl_0807e9fc: .4byte gBG1VOFS_NonGameplay
+lbl_0807e9f8: .4byte gBg1HOFS_NonGameplay
+lbl_0807e9fc: .4byte gBg1VOFS_NonGameplay
 lbl_0807ea00: .4byte sEwramPointer
 lbl_0807ea04: .4byte 0x0600e800
 lbl_0807ea08: .4byte 0x0000fdff
@@ -13025,12 +13025,12 @@ lbl_0807ea44:
 lbl_0807ea5c: .4byte sNonGameplayRamPointer
 lbl_0807ea60: .4byte 0x0000fdff
 lbl_0807ea64:
-    ldr r1, lbl_0807ea84 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807ea84 @ =gBg0HOFS_NonGameplay
     movs r3, #0xd9
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ea88 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807ea88 @ =gBg0VOFS_NonGameplay
     movs r2, #0xd5
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -13041,8 +13041,8 @@ lbl_0807ea64:
     lsls r3, r3, #7
     b lbl_0807ee50
     .align 2, 0
-lbl_0807ea84: .4byte gBG0HOFS_NonGameplay
-lbl_0807ea88: .4byte gBG0VOFS_NonGameplay
+lbl_0807ea84: .4byte gBg0HOFS_NonGameplay
+lbl_0807ea88: .4byte gBg0VOFS_NonGameplay
 lbl_0807ea8c: .4byte sEwramPointer
 lbl_0807ea90:
     movs r0, #1
@@ -13083,12 +13083,12 @@ lbl_0807eabc:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807eb2c @ =gBG1HOFS_NonGameplay
+    ldr r1, lbl_0807eb2c @ =gBg1HOFS_NonGameplay
     movs r2, #0xd9
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807eb30 @ =gBG1VOFS_NonGameplay
+    ldr r1, lbl_0807eb30 @ =gBg1VOFS_NonGameplay
     movs r3, #0xd5
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -13119,8 +13119,8 @@ lbl_0807eabc:
     b lbl_0807ee8a
     .align 2, 0
 lbl_0807eb28: .4byte sNonGameplayRamPointer
-lbl_0807eb2c: .4byte gBG1HOFS_NonGameplay
-lbl_0807eb30: .4byte gBG1VOFS_NonGameplay
+lbl_0807eb2c: .4byte gBg1HOFS_NonGameplay
+lbl_0807eb30: .4byte gBg1VOFS_NonGameplay
 lbl_0807eb34: .4byte sEwramPointer
 lbl_0807eb38: .4byte 0x0600e800
 lbl_0807eb3c: .4byte 0x0000fdff
@@ -13192,12 +13192,12 @@ lbl_0807ebaa:
     adds r1, r3, #0
     orrs r0, r1
     strh r0, [r2]
-    ldr r0, lbl_0807ebdc @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0807ebdc @ =gBg1HOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_0807ebe0 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0807ebe0 @ =gBg1VOFS_NonGameplay
     strh r1, [r0]
 lbl_0807ebd0:
     movs r6, #1
@@ -13205,15 +13205,15 @@ lbl_0807ebd0:
     .align 2, 0
 lbl_0807ebd4: .4byte sNonGameplayRamPointer
 lbl_0807ebd8: .4byte 0x0000fbff
-lbl_0807ebdc: .4byte gBG1HOFS_NonGameplay
-lbl_0807ebe0: .4byte gBG1VOFS_NonGameplay
+lbl_0807ebdc: .4byte gBg1HOFS_NonGameplay
+lbl_0807ebe0: .4byte gBg1VOFS_NonGameplay
 lbl_0807ebe4:
-    ldr r1, lbl_0807ec04 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807ec04 @ =gBg0HOFS_NonGameplay
     movs r3, #0xd9
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ec08 @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807ec08 @ =gBg0VOFS_NonGameplay
     movs r2, #0xd5
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -13224,8 +13224,8 @@ lbl_0807ebe4:
     lsls r3, r3, #7
     b lbl_0807ee50
     .align 2, 0
-lbl_0807ec04: .4byte gBG0HOFS_NonGameplay
-lbl_0807ec08: .4byte gBG0VOFS_NonGameplay
+lbl_0807ec04: .4byte gBg0HOFS_NonGameplay
+lbl_0807ec08: .4byte gBg0VOFS_NonGameplay
 lbl_0807ec0c: .4byte sEwramPointer
 lbl_0807ec10:
     movs r0, #1
@@ -13312,12 +13312,12 @@ lbl_0807eca4:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl FileSelectPlayMenuSound
-    ldr r1, lbl_0807ece8 @ =gBG0HOFS_NonGameplay
+    ldr r1, lbl_0807ece8 @ =gBg0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ecec @ =gBG0VOFS_NonGameplay
+    ldr r1, lbl_0807ecec @ =gBg0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -13330,8 +13330,8 @@ lbl_0807eca4:
     b lbl_0807ee52
     .align 2, 0
 lbl_0807ece4: .4byte sNonGameplayRamPointer
-lbl_0807ece8: .4byte gBG0HOFS_NonGameplay
-lbl_0807ecec: .4byte gBG0VOFS_NonGameplay
+lbl_0807ece8: .4byte gBg0HOFS_NonGameplay
+lbl_0807ecec: .4byte gBg0VOFS_NonGameplay
 lbl_0807ecf0: .4byte sEwramPointer
 lbl_0807ecf4:
     ldr r4, lbl_0807ed30 @ =sNonGameplayRamPointer
@@ -13465,12 +13465,12 @@ lbl_0807eddc:
     strh r1, [r0]
     movs r1, #0x26
     bl UpdateMenuOamDataID
-    ldr r0, lbl_0807ee28 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807ee28 @ =gBg0HOFS_NonGameplay
     movs r3, #0xec
     lsls r3, r3, #3
     adds r1, r3, #0
     strh r1, [r0]
-    ldr r0, lbl_0807ee2c @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_0807ee2c @ =gBg0VOFS_NonGameplay
     strh r1, [r0]
     ldr r0, [r4]
     adds r0, #0x47
@@ -13486,8 +13486,8 @@ lbl_0807eddc:
     .align 2, 0
 lbl_0807ee20: .4byte 0x000001fd
 lbl_0807ee24: .4byte sNonGameplayRamPointer
-lbl_0807ee28: .4byte gBG0HOFS_NonGameplay
-lbl_0807ee2c: .4byte gBG0VOFS_NonGameplay
+lbl_0807ee28: .4byte gBg0HOFS_NonGameplay
+lbl_0807ee2c: .4byte gBg0VOFS_NonGameplay
 lbl_0807ee30: .4byte sEwramPointer
 lbl_0807ee34:
     cmp r0, #2

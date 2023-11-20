@@ -408,7 +408,7 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
 
                 PAUSE_SCREEN_DATA.downloadStage++;
                 PAUSE_SCREEN_DATA.downloadTimer = 0;
-                PAUSE_SCREEN_DATA.currentDownloadedLine = (gBG3VOFS_NonGameplay & 0x3FF) / 4;
+                PAUSE_SCREEN_DATA.currentDownloadedLine = (gBg3VOFS_NonGameplay & 0x3FF) / 4;
             }
             break;
 
@@ -503,13 +503,13 @@ u32 PauseScreenMapDownload(void)
             PAUSE_SCREEN_DATA.currentDownloadedLine = 0;
             PAUSE_SCREEN_DATA.unk_4F = 0;
 
-            if (gBG3VOFS_NonGameplay < BLOCK_SIZE * 32)
+            if (gBg3VOFS_NonGameplay < BLOCK_SIZE * 32)
             {
-                PAUSE_SCREEN_DATA.currentDownloadedLine = 0x3F - ((BLOCK_SIZE * 32 - gBG3VOFS_NonGameplay) >> 5);
+                PAUSE_SCREEN_DATA.currentDownloadedLine = 0x3F - ((BLOCK_SIZE * 32 - gBg3VOFS_NonGameplay) >> 5);
             }
-            else if (gBG3VOFS_NonGameplay > BLOCK_SIZE * 32)
+            else if (gBg3VOFS_NonGameplay > BLOCK_SIZE * 32)
             {
-                PAUSE_SCREEN_DATA.currentDownloadedLine = (gBG3VOFS_NonGameplay - BLOCK_SIZE * 32) >> 5;
+                PAUSE_SCREEN_DATA.currentDownloadedLine = (gBg3VOFS_NonGameplay - BLOCK_SIZE * 32) >> 5;
             }
 
             PAUSE_SCREEN_DATA.downloadStage++;
@@ -735,8 +735,8 @@ void unk_6db58(u8 param_1)
     else if (PAUSE_SCREEN_DATA.mapViewY > PAUSE_SCREEN_DATA.mapBottomBorder)
         PAUSE_SCREEN_DATA.mapBottomBorder = PAUSE_SCREEN_DATA.mapViewY;
 
-    gBG3HOFS_NonGameplay = (0x204 - (15 - PAUSE_SCREEN_DATA.mapViewX) * 8) * 4;
-    gBG3VOFS_NonGameplay = (0x204 - (10 - PAUSE_SCREEN_DATA.mapViewY) * 8) * 4;
+    gBg3HOFS_NonGameplay = (0x204 - (15 - PAUSE_SCREEN_DATA.mapViewX) * 8) * 4;
+    gBg3VOFS_NonGameplay = (0x204 - (10 - PAUSE_SCREEN_DATA.mapViewY) * 8) * 4;
 }
 
 /**
@@ -990,8 +990,8 @@ void MapScreenSubroutine(void)
         }
 
         // Update BG3 position
-        gBG3HOFS_NonGameplay = (0x204 - (15 - PAUSE_SCREEN_DATA.mapViewX) * 8) * 4;
-        gBG3VOFS_NonGameplay = (0x204 - (10 - PAUSE_SCREEN_DATA.mapViewY) * 8) * 4;
+        gBg3HOFS_NonGameplay = (0x204 - (15 - PAUSE_SCREEN_DATA.mapViewX) * 8) * 4;
+        gBg3VOFS_NonGameplay = (0x204 - (10 - PAUSE_SCREEN_DATA.mapViewY) * 8) * 4;
 
         if (action == 1)
         {

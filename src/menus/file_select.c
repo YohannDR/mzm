@@ -1716,8 +1716,8 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
             
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 32;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 24;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 24;
 
             FILE_SELECT_DATA.subroutineTimer = 0;
             FILE_SELECT_DATA.subroutineStage++;
@@ -1762,14 +1762,14 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
         case 3:
             // Scroll BG0 up until it's all the way to the top
-            if (gBG0VOFS_NonGameplay < BLOCK_SIZE * 32)
+            if (gBg0VOFS_NonGameplay < BLOCK_SIZE * 32)
             {
-                gBG0VOFS_NonGameplay += BLOCK_SIZE;
-                if (gBG0VOFS_NonGameplay < BLOCK_SIZE * 32)
+                gBg0VOFS_NonGameplay += BLOCK_SIZE;
+                if (gBg0VOFS_NonGameplay < BLOCK_SIZE * 32)
                     break;
             }
 
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
             // Initializes options
             OptionsSetupTiletable();
@@ -1826,7 +1826,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             BitFill(3, 0, VRAM_BASE + 0xE000, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
 
-            gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
             FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
@@ -1835,8 +1835,8 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             gWrittenToBLDALPHA_H = 0;
             gWrittenToBLDALPHA_L = 16;
 
-            gBG1HOFS_NonGameplay = BLOCK_SIZE * 32;
-            gBG1VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg1HOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg1VOFS_NonGameplay = BLOCK_SIZE * 32;
 
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
@@ -1873,14 +1873,14 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
         case 9:
             // Scroll BG0 down until the "options" text is at the bottom
-            if (gBG0VOFS_NonGameplay > BLOCK_SIZE * 24)
+            if (gBg0VOFS_NonGameplay > BLOCK_SIZE * 24)
             {
-                gBG0VOFS_NonGameplay -= BLOCK_SIZE;
-                if (gBG0VOFS_NonGameplay > BLOCK_SIZE * 24)
+                gBg0VOFS_NonGameplay -= BLOCK_SIZE;
+                if (gBg0VOFS_NonGameplay > BLOCK_SIZE * 24)
                     break;
             }
 
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 24;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 24;
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -1948,8 +1948,8 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
         case 12:
             FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
 
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 32;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
             gGameModeSub2 = 0;
             return TRUE;
@@ -2542,10 +2542,10 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].xPosition = BLOCK_SIZE * 4;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].yPosition = BLOCK_SIZE * 2;
 
-            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + QUARTER_BLOCK_SIZE + 8;
-            gBG1VOFS_NonGameplay = BLOCK_SIZE * 28;
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 25 + HALF_BLOCK_SIZE;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg1HOFS_NonGameplay = BLOCK_SIZE * 27 + QUARTER_BLOCK_SIZE + 8;
+            gBg1VOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 25 + HALF_BLOCK_SIZE;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
 
@@ -2957,10 +2957,10 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL], OPTIONS_OAM_ID_HUGE_PANEL);
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
 
-                gBG1HOFS_NonGameplay = 0x6D8;
-                gBG1VOFS_NonGameplay = 0x6F8;
-                gBG0HOFS_NonGameplay = 0x660,
-                gBG0VOFS_NonGameplay = 0x7E0;
+                gBg1HOFS_NonGameplay = 0x6D8;
+                gBg1VOFS_NonGameplay = 0x6F8;
+                gBg0HOFS_NonGameplay = 0x660,
+                gBg0VOFS_NonGameplay = 0x7E0;
 
                 FILE_SELECT_DATA.subroutineStage = 2;
             }
@@ -3594,10 +3594,10 @@ void FileSelectInit(void)
         }
     }
 
-    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0x800;
-    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0x800;
-    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0x800;
-    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0x800;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0x800;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0x800;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0x800;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0x800;
 
     FILE_SELECT_DATA.dispcnt = DCNT_BG1 | DCNT_BG3 | DCNT_OBJ;
     FILE_SELECT_DATA.unk_14 = 0x1F0B;
@@ -3665,14 +3665,14 @@ void FileSelectVBlank(void)
 
     DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
 
-    write16(REG_BG0HOFS, gBG0HOFS_NonGameplay / 4);
-    write16(REG_BG0VOFS, gBG0VOFS_NonGameplay / 4);
-    write16(REG_BG1HOFS, gBG1HOFS_NonGameplay / 4);
-    write16(REG_BG1VOFS, gBG1VOFS_NonGameplay / 4);
-    write16(REG_BG2HOFS, gBG2HOFS_NonGameplay / 4);
-    write16(REG_BG2VOFS, gBG2VOFS_NonGameplay / 4);
-    write16(REG_BG3HOFS, gBG3HOFS_NonGameplay / 4);
-    write16(REG_BG3VOFS, gBG3VOFS_NonGameplay / 4);
+    write16(REG_BG0HOFS, gBg0HOFS_NonGameplay / 4);
+    write16(REG_BG0VOFS, gBg0VOFS_NonGameplay / 4);
+    write16(REG_BG1HOFS, gBg1HOFS_NonGameplay / 4);
+    write16(REG_BG1VOFS, gBg1VOFS_NonGameplay / 4);
+    write16(REG_BG2HOFS, gBg2HOFS_NonGameplay / 4);
+    write16(REG_BG2VOFS, gBg2VOFS_NonGameplay / 4);
+    write16(REG_BG3HOFS, gBg3HOFS_NonGameplay / 4);
+    write16(REG_BG3VOFS, gBg3VOFS_NonGameplay / 4);
 
     write16(REG_DISPCNT, FILE_SELECT_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
@@ -4422,12 +4422,12 @@ u8 FileSelectProcessFileSelection(void)
 
         case 2:
             action = FILE_SELECT_DATA.fileSelectCursorPosition * 0x60 + 0x800;
-            if (action != gBG2VOFS_NonGameplay)
+            if (action != gBg2VOFS_NonGameplay)
             {
-                if (gBG2VOFS_NonGameplay + 12 > action)
-                    gBG2VOFS_NonGameplay = action;
+                if (gBg2VOFS_NonGameplay + 12 > action)
+                    gBg2VOFS_NonGameplay = action;
                 else
-                    gBG2VOFS_NonGameplay += 12;
+                    gBg2VOFS_NonGameplay += 12;
 
                 break;
             }
@@ -4973,8 +4973,8 @@ u8 FileSelectProcessFileSelection(void)
             {
                 FILE_SELECT_DATA.dispcnt |= DCNT_WIN0;
                 FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_18;
-                gBG1HOFS_NonGameplay = BLOCK_SIZE * 32;
-                gBG1VOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBg1HOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBg1VOFS_NonGameplay = BLOCK_SIZE * 32;
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -4985,12 +4985,12 @@ u8 FileSelectProcessFileSelection(void)
 
         case 42:
             action = BLOCK_SIZE * 32;
-            if (action != gBG2VOFS_NonGameplay)
+            if (action != gBg2VOFS_NonGameplay)
             {
-                if (gBG2VOFS_NonGameplay - 12 < action)
-                    gBG2VOFS_NonGameplay = action;
+                if (gBg2VOFS_NonGameplay - 12 < action)
+                    gBg2VOFS_NonGameplay = action;
                 else
-                    gBG2VOFS_NonGameplay -= 12;
+                    gBg2VOFS_NonGameplay -= 12;
                 break;
             }
 
@@ -5257,8 +5257,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].yPosition = BLOCK_SIZE * 2;
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_SMALL_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
-            gBG1HOFS_NonGameplay = BLOCK_SIZE * 31;
-            gBG1VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE + 8;
+            gBg1HOFS_NonGameplay = BLOCK_SIZE * 31;
+            gBg1VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE + 8;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x3000, VRAM_BASE + 0xE800, 0x300, 16);
             break;
@@ -5278,8 +5278,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x3900, VRAM_BASE + 0xE000, 0x300, 16);
             break;
@@ -5305,8 +5305,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 3;
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_LARGE_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
             break;
 
         case TILEMAP_REQUEST_DIFFICULTY_SPAWN:
@@ -5333,8 +5333,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
 
-            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
-            gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+            gBg1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBg1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
 
@@ -5361,8 +5361,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             break;
 
         case TILEMAP_REQUEST_ERASE_YES_NO_SPAWN_INIT:
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
             break;
@@ -5389,8 +5389,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
 
-            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
-            gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+            gBg1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBg1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
@@ -5425,8 +5425,8 @@ u32 FileSelectUpdateTilemap(u8 request)
                 FILE_SELECT_DATA.dispcnt &= ~DCNT_BG2;
                 FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
 
-                gBG1HOFS_NonGameplay = BLOCK_SIZE * 32;
-                gBG1VOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBg1HOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBg1VOFS_NonGameplay = BLOCK_SIZE * 32;
             }
             else
             {
@@ -5440,8 +5440,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             break;
 
         case TILEMAP_REQUEST_COPY_OVERRIDE_SPAWN_INIT:
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
             break;
@@ -5480,8 +5480,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_LARGE_PANEL);
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
 
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
 
             DmaTransfer(3, (void*)sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
             break;
@@ -5534,8 +5534,8 @@ u32 FileSelectUpdateTilemap(u8 request)
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
 
-            gBG0HOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
-            gBG0VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
+            gBg0HOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
+            gBg0VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
 
             if (FILE_SELECT_DATA.unk_47 == 1)
                 DmaTransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);

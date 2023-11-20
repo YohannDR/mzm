@@ -154,24 +154,24 @@ const u8 sScroll_Empty[11] = {
     UCHAR_MAX
 };
 
-const struct Unk_3005714 sUnk_8345988[3] = {
-    [0] = {
-        .unk0 = -8,
-        .unk2 = 8,
-        .unk4 = -8,
-        .unk6 = 8
+const struct CameraScrollVelocityCaps sScrollVelocityCaps[3] = {
+    [SCROLL_VELOCITY_CAP_SET_DEFAULT] = {
+        .leftCap = -EIGHTH_BLOCK_SIZE,
+        .rightCap = EIGHTH_BLOCK_SIZE,
+        .upCap = -EIGHTH_BLOCK_SIZE,
+        .downCap = EIGHTH_BLOCK_SIZE
     },
-    [1] = {
-        .unk0 = -4,
-        .unk2 = 4,
-        .unk4 = -4,
-        .unk6 = 4
+    [SCROLL_VELOCITY_CAP_SET_SLOW] = {
+        .leftCap = -PIXEL_SIZE,
+        .rightCap = PIXEL_SIZE,
+        .upCap = -PIXEL_SIZE,
+        .downCap = PIXEL_SIZE
     },
-    [2] = {
-        .unk0 = -48,
-        .unk2 = 48,
-        .unk4 = -48,
-        .unk6 = 48
+    [SCROLL_VELOCITY_CAP_SET_FAST] = {
+        .leftCap = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE),
+        .rightCap = (BLOCK_SIZE - QUARTER_BLOCK_SIZE),
+        .upCap = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE),
+        .downCap = (BLOCK_SIZE - QUARTER_BLOCK_SIZE)
     }
 };
 

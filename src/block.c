@@ -21,6 +21,7 @@
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u32 1 if detroyed, 0 otherwise
  */
+#ifdef NON_MATCHING
 u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 {
     // https://decomp.me/scratch/o1iEv
@@ -181,6 +182,264 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 
     return result;
 }
+#else
+NAKED_FUNCTION
+u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
+{
+    asm(" \n\
+        push {r4, r5, r6, r7, lr} \n\
+        add r5, r0, #0 \n\
+        movs r7, #0 \n\
+        ldrh r1, [r5, #4] \n\
+        add r0, r1, #0 \n\
+        sub r0, #0x10 \n\
+        lsl r0, r0, #0x10 \n\
+        lsr r0, r0, #0x10 \n\
+        cmp r0, #0x2f \n\
+        bls lbl_080590c6 \n\
+        b lbl_080591ec \n\
+    lbl_080590c6: \n\
+        add r0, r1, #0 \n\
+        sub r0, #0x10 \n\
+        strb r0, [r5, #6] \n\
+        ldr r3, lbl_080590ec @ =gCurrentClipdataAffectingAction \n\
+        ldrb r0, [r3] \n\
+        cmp r0, #0xd \n\
+        bne lbl_080590f4 \n\
+        ldr r1, lbl_080590f0 @ =sBlockBehaviors \n\
+        ldrb r2, [r5, #6] \n\
+        lsl r0, r2, #2 \n\
+        add r0, r0, r1 \n\
+        ldrb r0, [r0, #3] \n\
+        lsl r0, r0, #0x1c \n\
+        cmp r0, #0 \n\
+        bne lbl_080590e6 \n\
+        b lbl_080591ec \n\
+    lbl_080590e6: \n\
+        movs r0, #0xc \n\
+        strb r0, [r3] \n\
+        b lbl_08059108 \n\
+        .align 2, 0 \n\
+    lbl_080590ec: .4byte gCurrentClipdataAffectingAction \n\
+    lbl_080590f0: .4byte sBlockBehaviors \n\
+    lbl_080590f4: \n\
+        ldrb r2, [r5, #6] \n\
+        cmp r0, #0xf \n\
+        bne lbl_08059108 \n\
+        ldr r0, lbl_0805911c @ =sBlockBehaviors \n\
+        lsl r1, r2, #2 \n\
+        add r1, r1, r0 \n\
+        ldrb r0, [r1, #3] \n\
+        lsr r0, r0, #4 \n\
+        cmp r0, #0 \n\
+        beq lbl_080591ec \n\
+    lbl_08059108: \n\
+        movs r4, #1 \n\
+        movs r6, #0 \n\
+        sub r0, r2, #2 \n\
+        cmp r0, #0x1c \n\
+        bhi lbl_080591e8 \n\
+        lsl r0, r0, #2 \n\
+        ldr r1, lbl_08059120 @ =lbl_08059124 \n\
+        add r0, r0, r1 \n\
+        ldr r0, [r0] \n\
+        mov pc, r0 \n\
+        .align 2, 0 \n\
+    lbl_0805911c: .4byte sBlockBehaviors \n\
+    lbl_08059120: .4byte lbl_08059124 \n\
+    lbl_08059124: @ jump table \n\
+        .4byte lbl_08059198 @ case 0 \n\
+        .4byte lbl_080591a6 @ case 1 \n\
+        .4byte lbl_080591a0 @ case 2 \n\
+        .4byte lbl_080591e8 @ case 3 \n\
+        .4byte lbl_080591e8 @ case 4 \n\
+        .4byte lbl_08059198 @ case 5 \n\
+        .4byte lbl_080591a6 @ case 6 \n\
+        .4byte lbl_080591a0 @ case 7 \n\
+        .4byte lbl_080591e8 @ case 8 \n\
+        .4byte lbl_080591ae @ case 9 \n\
+        .4byte lbl_080591ae @ case 10 \n\
+        .4byte lbl_080591b8 @ case 11 \n\
+        .4byte lbl_080591b8 @ case 12 \n\
+        .4byte lbl_080591b8 @ case 13 \n\
+        .4byte lbl_080591b8 @ case 14 \n\
+        .4byte lbl_080591b8 @ case 15 \n\
+        .4byte lbl_080591b8 @ case 16 \n\
+        .4byte lbl_080591c2 @ case 17 \n\
+        .4byte lbl_080591b8 @ case 18 \n\
+        .4byte lbl_080591b8 @ case 19 \n\
+        .4byte lbl_080591ca @ case 20 \n\
+        .4byte lbl_080591ce @ case 21 \n\
+        .4byte lbl_080591d2 @ case 22 \n\
+        .4byte lbl_080591d6 @ case 23 \n\
+        .4byte lbl_080591da @ case 24 \n\
+        .4byte lbl_080591de @ case 25 \n\
+        .4byte lbl_080591e2 @ case 26 \n\
+        .4byte lbl_080591e6 @ case 27 \n\
+        .4byte lbl_080591c2 @ case 28 \n\
+    lbl_08059198: \n\
+        ldrh r0, [r5] \n\
+        sub r0, #1 \n\
+        strh r0, [r5] \n\
+        b lbl_080591e8 \n\
+    lbl_080591a0: \n\
+        ldrh r0, [r5] \n\
+        sub r0, #1 \n\
+        strh r0, [r5] \n\
+    lbl_080591a6: \n\
+        ldrh r0, [r5, #2] \n\
+        sub r0, #1 \n\
+        strh r0, [r5, #2] \n\
+        b lbl_080591e8 \n\
+    lbl_080591ae: \n\
+        add r0, r5, #0 \n\
+        bl BlockCheckRevealOrDestroyBombBlock \n\
+        add r4, r0, #0 \n\
+        b lbl_080591e8 \n\
+    lbl_080591b8: \n\
+        add r0, r5, #0 \n\
+        bl BlockCheckRevealOrDestroyNonBombBlock \n\
+        add r4, r0, #0 \n\
+        b lbl_080591e8 \n\
+    lbl_080591c2: \n\
+        add r0, r5, #0 \n\
+        bl BlockCheckRevealOrDestroyNonBombBlock \n\
+        b lbl_080591ec \n\
+    lbl_080591ca: \n\
+        movs r6, #0 \n\
+        b lbl_080591e8 \n\
+    lbl_080591ce: \n\
+        movs r6, #1 \n\
+        b lbl_080591e8 \n\
+    lbl_080591d2: \n\
+        movs r6, #2 \n\
+        b lbl_080591e8 \n\
+    lbl_080591d6: \n\
+        movs r6, #3 \n\
+        b lbl_080591e8 \n\
+    lbl_080591da: \n\
+        movs r6, #4 \n\
+        b lbl_080591e8 \n\
+    lbl_080591de: \n\
+        movs r6, #5 \n\
+        b lbl_080591e8 \n\
+    lbl_080591e2: \n\
+        movs r6, #6 \n\
+        b lbl_080591e8 \n\
+    lbl_080591e6: \n\
+        movs r6, #7 \n\
+    lbl_080591e8: \n\
+        cmp r4, #0 \n\
+        bne lbl_080591f0 \n\
+    lbl_080591ec: \n\
+        movs r0, #0 \n\
+        b lbl_080592b0 \n\
+    lbl_080591f0: \n\
+        ldr r1, lbl_08059208 @ =sBlockBehaviors \n\
+        ldrb r0, [r5, #6] \n\
+        lsl r0, r0, #2 \n\
+        add r0, r0, r1 \n\
+        ldrb r1, [r0] \n\
+        cmp r1, #2 \n\
+        beq lbl_08059222 \n\
+        cmp r1, #2 \n\
+        bgt lbl_0805920c \n\
+        cmp r1, #1 \n\
+        beq lbl_08059216 \n\
+        b lbl_080592ae \n\
+        .align 2, 0 \n\
+    lbl_08059208: .4byte sBlockBehaviors \n\
+    lbl_0805920c: \n\
+        cmp r1, #3 \n\
+        beq lbl_08059234 \n\
+        cmp r1, #4 \n\
+        beq lbl_08059274 \n\
+        b lbl_080592ae \n\
+    lbl_08059216: \n\
+        add r0, r5, #0 \n\
+        bl BlockDestroyNonReformBlock \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        b lbl_080592ac \n\
+    lbl_08059222: \n\
+        ldrb r0, [r0, #2] \n\
+        ldrh r1, [r5] \n\
+        ldrh r2, [r5, #2] \n\
+        movs r3, #0 \n\
+        bl BlockStoreBrokenReformBlock \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        b lbl_080592ac \n\
+    lbl_08059234: \n\
+        add r0, r5, #0 \n\
+        bl BlockCheckRevealOrDestroyBombBlock \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        ldr r2, lbl_0805926c @ =gActiveBombChainTypes \n\
+        ldr r1, lbl_08059270 @ =sBombChainReverseData \n\
+        lsl r0, r6, #2 \n\
+        add r0, r0, r1 \n\
+        ldrb r1, [r2] \n\
+        ldrb r0, [r0] \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        bne lbl_080592ae \n\
+        add r0, r6, #0 \n\
+        ldrh r1, [r5] \n\
+        ldrh r2, [r5, #2] \n\
+        bl BlockStartBombChain \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        add r0, r5, #0 \n\
+        bl BlockDestroyNonReformBlock \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        b lbl_080592ac \n\
+        .align 2, 0 \n\
+    lbl_0805926c: .4byte gActiveBombChainTypes \n\
+    lbl_08059270: .4byte sBombChainReverseData \n\
+    lbl_08059274: \n\
+        ldr r1, lbl_080592b8 @ =sClipdataAffectingActionDamageTypes \n\
+        ldr r0, lbl_080592bc @ =gCurrentClipdataAffectingAction \n\
+        ldrb r0, [r0] \n\
+        lsl r0, r0, #1 \n\
+        add r0, r0, r1 \n\
+        ldrh r1, [r0] \n\
+        movs r0, #0x1f \n\
+        and r0, r1 \n\
+        cmp r0, #0 \n\
+        beq lbl_080592ae \n\
+        ldr r1, lbl_080592c0 @ =sTankBehaviors \n\
+        ldrh r0, [r5, #4] \n\
+        sub r0, #0x34 \n\
+        lsl r0, r0, #3 \n\
+        add r0, r0, r1 \n\
+        ldrh r4, [r0, #4] \n\
+        cmp r4, #0 \n\
+        beq lbl_080592ae \n\
+        ldrh r1, [r5, #2] \n\
+        ldrh r2, [r5] \n\
+        add r0, r4, #0 \n\
+        bl BgClipSetBg1BlockValue \n\
+        ldrh r1, [r5, #2] \n\
+        ldrh r2, [r5] \n\
+        add r0, r4, #0 \n\
+        bl BgClipSetClipdataBlockValue \n\
+    lbl_080592ac: \n\
+        movs r7, #1 \n\
+    lbl_080592ae: \n\
+        add r0, r7, #0 \n\
+    lbl_080592b0: \n\
+        pop {r4, r5, r6, r7} \n\
+        pop {r1} \n\
+        bx r1 \n\
+        .align 2, 0 \n\
+    lbl_080592b8: .4byte sClipdataAffectingActionDamageTypes \n\
+    lbl_080592bc: .4byte gCurrentClipdataAffectingAction \n\
+    lbl_080592c0: .4byte sTankBehaviors \n\
+    ");
+}
+#endif
 
 /**
  * @brief 592c4 | 6c | Handles the destruction of non reform blocks

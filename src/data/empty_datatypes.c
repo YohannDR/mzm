@@ -87,14 +87,14 @@ const struct ScreenShake sScreenShake_Empty = {
 
 const struct BG0Movement sBg0Movement_Empty = {
     .type = 0,
-    .yOffset = 0,
+    .counter = 0,
     .unused = 0,
     .xOffset = 0,
-    .snowflakesRelated = 0
+    .yOffset = 0
 };
 
 const struct BG3Movement sBg3Movement_Empty = {
-    .direction = 0,
+    .active = FALSE,
     .counter = 0,
     .xOffset = 0,
     .undefined = 0

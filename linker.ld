@@ -112,7 +112,7 @@ SECTIONS {
         . = 0x000000DC; gCurrentAffectingClipdata = .;
         . = 0x000000E4; gBackgroundPositions = .;
         . = 0x000000F8; gWaitingSpacePiratesPosition = .;
-        . = 0x000000FC; gBG2Movement = .;
+        . = 0x000000FC; gBg2Movement = .;
         . = 0x00000100; gLockScreen = .;
         . = 0x00000108; gSuitFlashEffect = .;
         . = 0x00000110; gScreenShakeY = .;
@@ -169,14 +169,14 @@ SECTIONS {
         . = 0x00000bf1; gAreaBeforeTransition = .;
         . = 0x00000bf2; gCurrentItemBeingAcquired = .;
         . = 0x00000bf3; gOptionsOptionSelected = .;
-        . = 0x00000bf4; gBG0HOFS_NonGameplay = .;
-        . = 0x00000bf6; gBG0VOFS_NonGameplay = .;
-        . = 0x00000bf8; gBG1HOFS_NonGameplay = .;
-        . = 0x00000bfA; gBG1VOFS_NonGameplay = .;
-        . = 0x00000bfC; gBG2HOFS_NonGameplay = .;
-        . = 0x00000bfE; gBG2VOFS_NonGameplay = .;
-        . = 0x00000C00; gBG3HOFS_NonGameplay = .;
-        . = 0x00000C02; gBG3VOFS_NonGameplay = .;
+        . = 0x00000bf4; gBg0HOFS_NonGameplay = .;
+        . = 0x00000bf6; gBg0VOFS_NonGameplay = .;
+        . = 0x00000bf8; gBg1HOFS_NonGameplay = .;
+        . = 0x00000bfA; gBg1VOFS_NonGameplay = .;
+        . = 0x00000bfC; gBg2HOFS_NonGameplay = .;
+        . = 0x00000bfE; gBg2VOFS_NonGameplay = .;
+        . = 0x00000C00; gBg3HOFS_NonGameplay = .;
+        . = 0x00000C02; gBg3VOFS_NonGameplay = .;
         . = 0x00000c04; gCurrentOamRotation = .;
         . = 0x00000c06; gCurrentOamScaling = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
@@ -288,8 +288,8 @@ SECTIONS {
         . = 0x000054DC; gNumberOfValidHatchesInRoom = .;
         . = 0x000054E0; gDoorPositionStart = .;
         . = 0x000054E4; gHatchesState = .;
-        . = 0x000054EC; gBG3Movement = .;
-        . = 0x000054F4; gBG0Movement = .;
+        . = 0x000054EC; gBg3Movement = .;
+        . = 0x000054F4; gBg0Movement = .;
         . = 0x000054Fc; gTilesetTransparentColor = .;
         . = 0x00005504; gUnusedStruct_3005504 = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
@@ -319,7 +319,7 @@ SECTIONS {
         . = 0x00005700; gScrollCounter = .;
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
-        . = 0x00005714; gUnk_3005714 = .;
+        . = 0x00005714; gScrollingVelocityCaps = .;
         . = 0x0000571c; gHazeLoops = .;
         . = 0x00005728; gUnk_3005728 = .;
         . = 0x00005729; gUnk_3005729 = .;
@@ -522,9 +522,8 @@ SECTIONS {
         src/process_pause_press.o(.text);
         src/room_cutscene.o(.text);
         src/clipdata.o(.text);
-
-        asm/disasm_0x080582c4.o(.text);
-
+        src/scroll.o(.text);
+        src/block.o(.text);
         src/bg_clip.o(.text);
 
         asm/disasm_0x0805b24c.o(.text);

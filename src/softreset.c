@@ -71,10 +71,10 @@ void SoftresetInit(void)
     SET_BACKDROP_COLOR(COLOR_BLACK);
     gGameModeSub3 = 0;
 
-    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;
-    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0;
-    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
-    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0;
 
     write16(REG_BG0HOFS, 0);
     write16(REG_BG0VOFS, 0);

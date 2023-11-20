@@ -412,8 +412,8 @@ void ChozoStatueHintScrolling(void)
             PAUSE_SCREEN_DATA.unk_8C[1].unk_4 = (0x204 - (0xA - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4;
             PAUSE_SCREEN_DATA.unk_8C[1].unk_6 = (0x204 - (0xF - PAUSE_SCREEN_DATA.hintTargetX) * 8) * 4;
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_0 = gBG3VOFS_NonGameplay;
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_2 = gBG3HOFS_NonGameplay;
+            PAUSE_SCREEN_DATA.unk_8C[1].unk_0 = gBg3VOFS_NonGameplay;
+            PAUSE_SCREEN_DATA.unk_8C[1].unk_2 = gBg3HOFS_NonGameplay;
 
             PAUSE_SCREEN_DATA.unk_8C[1].unk_A = PAUSE_SCREEN_DATA.unk_8C[1].unk_6 - PAUSE_SCREEN_DATA.unk_8C[1].unk_2;
 
@@ -469,8 +469,8 @@ void ChozoStatueHintScrolling(void)
             var_1 = var_0 >> 16;
             var_0 = var_0 & 0xFFFF;
 
-            gBG3VOFS_NonGameplay = var_1;
-            gBG3HOFS_NonGameplay = var_0;
+            gBg3VOFS_NonGameplay = var_1;
+            gBg3HOFS_NonGameplay = var_0;
 
             var_1 = var_1 == PAUSE_SCREEN_DATA.unk_8C[1].unk_4 ? TRUE : FALSE;
             var_0 = var_0 == PAUSE_SCREEN_DATA.unk_8C[1].unk_6 ? TRUE : FALSE;

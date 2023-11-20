@@ -44,14 +44,14 @@ extern u16 unk_02035400;
 extern u8 gUnk_03004fc9;
 extern union NonGameplayRAM gNonGameplayRAM;
 
-extern u16 gBG0HOFS_NonGameplay;
-extern u16 gBG0VOFS_NonGameplay;
-extern u16 gBG1HOFS_NonGameplay;
-extern u16 gBG1VOFS_NonGameplay;
-extern u16 gBG2HOFS_NonGameplay;
-extern u16 gBG2VOFS_NonGameplay;
-extern u16 gBG3HOFS_NonGameplay;
-extern u16 gBG3VOFS_NonGameplay;
+extern u16 gBg0HOFS_NonGameplay;
+extern u16 gBg0VOFS_NonGameplay;
+extern u16 gBg1HOFS_NonGameplay;
+extern u16 gBg1VOFS_NonGameplay;
+extern u16 gBg2HOFS_NonGameplay;
+extern u16 gBg2VOFS_NonGameplay;
+extern u16 gBg3HOFS_NonGameplay;
+extern u16 gBg3VOFS_NonGameplay;
 
 extern u16 gCurrentOamRotation;
 extern u16 gCurrentOamScaling;

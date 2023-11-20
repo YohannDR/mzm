@@ -350,10 +350,10 @@ void EraseSramInit(void)
 
     gGameModeSub3 = 0;
 
-    gBG1HOFS_NonGameplay = 0;
-    gBG1VOFS_NonGameplay = 0;
-    gBG3HOFS_NonGameplay = 0;
-    gBG3VOFS_NonGameplay = 0;
+    gBg1HOFS_NonGameplay = 0;
+    gBg1VOFS_NonGameplay = 0;
+    gBg3HOFS_NonGameplay = 0;
+    gBg3VOFS_NonGameplay = 0;
 
     EraseSramResetOam();
     EraseSramUpdateCursorPosition();
@@ -422,11 +422,11 @@ void EraseSramVBlank(void)
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBG1HOFS_NonGameplay));
-    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBG1VOFS_NonGameplay));
+    write16(REG_BG1HOFS, SUB_PIXEL_TO_PIXEL(gBg1HOFS_NonGameplay));
+    write16(REG_BG1VOFS, SUB_PIXEL_TO_PIXEL(gBg1VOFS_NonGameplay));
 
-    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBG3HOFS_NonGameplay));
-    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBG3VOFS_NonGameplay));
+    write16(REG_BG3HOFS, SUB_PIXEL_TO_PIXEL(gBg3HOFS_NonGameplay));
+    write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBg3VOFS_NonGameplay));
 
     write16(REG_BLDCNT, ERASE_SRAM_DATA.bldcnt);
     write16(REG_DISPCNT, ERASE_SRAM_DATA.dispcnt);

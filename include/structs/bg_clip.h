@@ -46,9 +46,9 @@ extern u8 gNumberOfItemsCollected[MAX_AMOUNT_OF_AREAS];
 extern struct LastTank gLastTankCollected;
 extern struct BackgroundPointersAndDimensions gBgPointersAndDimensions;
 
-extern struct BG2Movement gBG2Movement;
-extern struct BG3Movement gBG3Movement;
-extern struct BG0Movement gBG0Movement;
+extern struct BG2Movement gBg2Movement;
+extern struct BG3Movement gBg3Movement;
+extern struct BG0Movement gBg0Movement;
 
 extern u16 gBg0XPosition;
 extern u16 gBg0YPosition;

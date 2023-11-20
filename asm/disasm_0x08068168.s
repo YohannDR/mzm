@@ -3004,55 +3004,55 @@ lbl_08069892:
     ands r1, r0
     cmp r1, #0
     bne lbl_080698b4
-    ldr r0, lbl_080698ac @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_080698ac @ =gBg0HOFS_NonGameplay
     movs r1, #0
     ldrsh r7, [r0, r1]
-    ldr r0, lbl_080698b0 @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_080698b0 @ =gBg0VOFS_NonGameplay
     movs r2, #0
     ldrsh r6, [r0, r2]
     b lbl_0806990c
     .align 2, 0
-lbl_080698ac: .4byte gBG0HOFS_NonGameplay
-lbl_080698b0: .4byte gBG0VOFS_NonGameplay
+lbl_080698ac: .4byte gBg0HOFS_NonGameplay
+lbl_080698b0: .4byte gBg0VOFS_NonGameplay
 lbl_080698b4:
     cmp r1, #1
     bne lbl_080698d0
-    ldr r0, lbl_080698c8 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_080698c8 @ =gBg1HOFS_NonGameplay
     movs r1, #0
     ldrsh r7, [r0, r1]
-    ldr r0, lbl_080698cc @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_080698cc @ =gBg1VOFS_NonGameplay
     movs r2, #0
     ldrsh r6, [r0, r2]
     b lbl_0806990c
     .align 2, 0
-lbl_080698c8: .4byte gBG1HOFS_NonGameplay
-lbl_080698cc: .4byte gBG1VOFS_NonGameplay
+lbl_080698c8: .4byte gBg1HOFS_NonGameplay
+lbl_080698cc: .4byte gBg1VOFS_NonGameplay
 lbl_080698d0:
     cmp r1, #2
     bne lbl_080698ec
-    ldr r0, lbl_080698e4 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_080698e4 @ =gBg2HOFS_NonGameplay
     movs r1, #0
     ldrsh r7, [r0, r1]
-    ldr r0, lbl_080698e8 @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_080698e8 @ =gBg2VOFS_NonGameplay
     movs r2, #0
     ldrsh r6, [r0, r2]
     b lbl_0806990c
     .align 2, 0
-lbl_080698e4: .4byte gBG2HOFS_NonGameplay
-lbl_080698e8: .4byte gBG2VOFS_NonGameplay
+lbl_080698e4: .4byte gBg2HOFS_NonGameplay
+lbl_080698e8: .4byte gBg2VOFS_NonGameplay
 lbl_080698ec:
     cmp r1, #3
     bne lbl_08069908
-    ldr r0, lbl_08069900 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_08069900 @ =gBg3HOFS_NonGameplay
     movs r1, #0
     ldrsh r7, [r0, r1]
-    ldr r0, lbl_08069904 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_08069904 @ =gBg3VOFS_NonGameplay
     movs r2, #0
     ldrsh r6, [r0, r2]
     b lbl_0806990c
     .align 2, 0
-lbl_08069900: .4byte gBG3HOFS_NonGameplay
-lbl_08069904: .4byte gBG3VOFS_NonGameplay
+lbl_08069900: .4byte gBg3HOFS_NonGameplay
+lbl_08069904: .4byte gBg3VOFS_NonGameplay
 lbl_08069908:
     movs r7, #0
     movs r6, #0
@@ -3447,59 +3447,59 @@ lbl_08069bf6:
     ands r1, r0
     cmp r1, #0
     bne lbl_08069c18
-    ldr r0, lbl_08069c10 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_08069c10 @ =gBg0HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069c14 @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_08069c14 @ =gBg0VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_08069c72
     .align 2, 0
-lbl_08069c10: .4byte gBG0HOFS_NonGameplay
-lbl_08069c14: .4byte gBG0VOFS_NonGameplay
+lbl_08069c10: .4byte gBg0HOFS_NonGameplay
+lbl_08069c14: .4byte gBg0VOFS_NonGameplay
 lbl_08069c18:
     cmp r1, #1
     bne lbl_08069c34
-    ldr r0, lbl_08069c2c @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_08069c2c @ =gBg1HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069c30 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_08069c30 @ =gBg1VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_08069c72
     .align 2, 0
-lbl_08069c2c: .4byte gBG1HOFS_NonGameplay
-lbl_08069c30: .4byte gBG1VOFS_NonGameplay
+lbl_08069c2c: .4byte gBg1HOFS_NonGameplay
+lbl_08069c30: .4byte gBg1VOFS_NonGameplay
 lbl_08069c34:
     cmp r1, #2
     bne lbl_08069c50
-    ldr r0, lbl_08069c48 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_08069c48 @ =gBg2HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069c4c @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_08069c4c @ =gBg2VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_08069c72
     .align 2, 0
-lbl_08069c48: .4byte gBG2HOFS_NonGameplay
-lbl_08069c4c: .4byte gBG2VOFS_NonGameplay
+lbl_08069c48: .4byte gBg2HOFS_NonGameplay
+lbl_08069c4c: .4byte gBg2VOFS_NonGameplay
 lbl_08069c50:
     cmp r1, #3
     bne lbl_08069c6c
-    ldr r0, lbl_08069c64 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_08069c64 @ =gBg3HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069c68 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_08069c68 @ =gBg3VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_08069c72
     .align 2, 0
-lbl_08069c64: .4byte gBG3HOFS_NonGameplay
-lbl_08069c68: .4byte gBG3VOFS_NonGameplay
+lbl_08069c64: .4byte gBg3HOFS_NonGameplay
+lbl_08069c68: .4byte gBg3VOFS_NonGameplay
 lbl_08069c6c:
     movs r3, #0
     mov r8, r3
@@ -3935,59 +3935,59 @@ lbl_08069fae:
     ands r1, r0
     cmp r1, #0
     bne lbl_08069fd0
-    ldr r0, lbl_08069fc8 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_08069fc8 @ =gBg0HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069fcc @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_08069fcc @ =gBg0VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_0806a02a
     .align 2, 0
-lbl_08069fc8: .4byte gBG0HOFS_NonGameplay
-lbl_08069fcc: .4byte gBG0VOFS_NonGameplay
+lbl_08069fc8: .4byte gBg0HOFS_NonGameplay
+lbl_08069fcc: .4byte gBg0VOFS_NonGameplay
 lbl_08069fd0:
     cmp r1, #1
     bne lbl_08069fec
-    ldr r0, lbl_08069fe4 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_08069fe4 @ =gBg1HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_08069fe8 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_08069fe8 @ =gBg1VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_0806a02a
     .align 2, 0
-lbl_08069fe4: .4byte gBG1HOFS_NonGameplay
-lbl_08069fe8: .4byte gBG1VOFS_NonGameplay
+lbl_08069fe4: .4byte gBg1HOFS_NonGameplay
+lbl_08069fe8: .4byte gBg1VOFS_NonGameplay
 lbl_08069fec:
     cmp r1, #2
     bne lbl_0806a008
-    ldr r0, lbl_0806a000 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_0806a000 @ =gBg2HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_0806a004 @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_0806a004 @ =gBg2VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_0806a02a
     .align 2, 0
-lbl_0806a000: .4byte gBG2HOFS_NonGameplay
-lbl_0806a004: .4byte gBG2VOFS_NonGameplay
+lbl_0806a000: .4byte gBg2HOFS_NonGameplay
+lbl_0806a004: .4byte gBg2VOFS_NonGameplay
 lbl_0806a008:
     cmp r1, #3
     bne lbl_0806a024
-    ldr r0, lbl_0806a01c @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_0806a01c @ =gBg3HOFS_NonGameplay
     movs r1, #0
     ldrsh r3, [r0, r1]
     mov r8, r3
-    ldr r0, lbl_0806a020 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_0806a020 @ =gBg3VOFS_NonGameplay
     movs r2, #0
     ldrsh r7, [r0, r2]
     b lbl_0806a02a
     .align 2, 0
-lbl_0806a01c: .4byte gBG3HOFS_NonGameplay
-lbl_0806a020: .4byte gBG3VOFS_NonGameplay
+lbl_0806a01c: .4byte gBg3HOFS_NonGameplay
+lbl_0806a020: .4byte gBg3VOFS_NonGameplay
 lbl_0806a024:
     movs r3, #0
     mov r8, r3
@@ -4361,7 +4361,7 @@ sub_0806a2f8: @ 0x0806a2f8
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r2, lbl_0806a3f0 @ =0x04000010
-    ldr r0, lbl_0806a3f4 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0806a3f4 @ =gBg0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ldr r4, lbl_0806a3f8 @ =0x000001ff
@@ -4369,43 +4369,43 @@ sub_0806a2f8: @ 0x0806a2f8
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a3fc @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_0806a3fc @ =gBg0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a400 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0806a400 @ =gBg1HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a404 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0806a404 @ =gBg1VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a408 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_0806a408 @ =gBg2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a40c @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_0806a40c @ =gBg2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a410 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_0806a410 @ =gBg3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806a414 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_0806a414 @ =gBg3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
@@ -4454,15 +4454,15 @@ lbl_0806a3e4: .4byte sNonGameplayRamPointer
 lbl_0806a3e8: .4byte gWrittenToBLDY_NonGameplay
 lbl_0806a3ec: .4byte gWrittenToMOSAIC_L
 lbl_0806a3f0: .4byte 0x04000010
-lbl_0806a3f4: .4byte gBG0HOFS_NonGameplay
+lbl_0806a3f4: .4byte gBg0HOFS_NonGameplay
 lbl_0806a3f8: .4byte 0x000001ff
-lbl_0806a3fc: .4byte gBG0VOFS_NonGameplay
-lbl_0806a400: .4byte gBG1HOFS_NonGameplay
-lbl_0806a404: .4byte gBG1VOFS_NonGameplay
-lbl_0806a408: .4byte gBG2HOFS_NonGameplay
-lbl_0806a40c: .4byte gBG2VOFS_NonGameplay
-lbl_0806a410: .4byte gBG3HOFS_NonGameplay
-lbl_0806a414: .4byte gBG3VOFS_NonGameplay
+lbl_0806a3fc: .4byte gBg0VOFS_NonGameplay
+lbl_0806a400: .4byte gBg1HOFS_NonGameplay
+lbl_0806a404: .4byte gBg1VOFS_NonGameplay
+lbl_0806a408: .4byte gBg2HOFS_NonGameplay
+lbl_0806a40c: .4byte gBg2VOFS_NonGameplay
+lbl_0806a410: .4byte gBg3HOFS_NonGameplay
+lbl_0806a414: .4byte gBg3VOFS_NonGameplay
 lbl_0806a418: .4byte 0x04000008
 lbl_0806a41c: .4byte gWrittenToBLDALPHA_H
 lbl_0806a420: .4byte gWrittenToBLDALPHA_L
@@ -4989,21 +4989,21 @@ lbl_0806a8ba:
     adds r1, r1, r5
     bl CallLZ77UncompWram
 lbl_0806a8f6:
-    ldr r2, lbl_0806a968 @ =gBG0HOFS_NonGameplay
-    ldr r0, lbl_0806a96c @ =gBG0VOFS_NonGameplay
+    ldr r2, lbl_0806a968 @ =gBg0HOFS_NonGameplay
+    ldr r0, lbl_0806a96c @ =gBg0VOFS_NonGameplay
     movs r1, #0
     strh r1, [r0]
     strh r1, [r2]
-    ldr r0, lbl_0806a970 @ =gBG1HOFS_NonGameplay
-    ldr r4, lbl_0806a974 @ =gBG1VOFS_NonGameplay
+    ldr r0, lbl_0806a970 @ =gBg1HOFS_NonGameplay
+    ldr r4, lbl_0806a974 @ =gBg1VOFS_NonGameplay
     strh r1, [r4]
     strh r1, [r0]
-    ldr r2, lbl_0806a978 @ =gBG2HOFS_NonGameplay
-    ldr r0, lbl_0806a97c @ =gBG2VOFS_NonGameplay
+    ldr r2, lbl_0806a978 @ =gBg2HOFS_NonGameplay
+    ldr r0, lbl_0806a97c @ =gBg2VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0806a980 @ =gBG3HOFS_NonGameplay
-    ldr r0, lbl_0806a984 @ =gBG3VOFS_NonGameplay
+    ldr r2, lbl_0806a980 @ =gBg3HOFS_NonGameplay
+    ldr r0, lbl_0806a984 @ =gBg3VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
     ldr r2, lbl_0806a958 @ =sNonGameplayRamPointer
@@ -5038,14 +5038,14 @@ lbl_0806a958: .4byte sNonGameplayRamPointer
 lbl_0806a95c: .4byte 0x08408c90
 lbl_0806a960: .4byte 0x0600d800
 lbl_0806a964: .4byte 0x084086dc
-lbl_0806a968: .4byte gBG0HOFS_NonGameplay
-lbl_0806a96c: .4byte gBG0VOFS_NonGameplay
-lbl_0806a970: .4byte gBG1HOFS_NonGameplay
-lbl_0806a974: .4byte gBG1VOFS_NonGameplay
-lbl_0806a978: .4byte gBG2HOFS_NonGameplay
-lbl_0806a97c: .4byte gBG2VOFS_NonGameplay
-lbl_0806a980: .4byte gBG3HOFS_NonGameplay
-lbl_0806a984: .4byte gBG3VOFS_NonGameplay
+lbl_0806a968: .4byte gBg0HOFS_NonGameplay
+lbl_0806a96c: .4byte gBg0VOFS_NonGameplay
+lbl_0806a970: .4byte gBg1HOFS_NonGameplay
+lbl_0806a974: .4byte gBg1VOFS_NonGameplay
+lbl_0806a978: .4byte gBg2HOFS_NonGameplay
+lbl_0806a97c: .4byte gBg2VOFS_NonGameplay
+lbl_0806a980: .4byte gBg3HOFS_NonGameplay
+lbl_0806a984: .4byte gBg3VOFS_NonGameplay
 lbl_0806a988: .4byte 0x087600f8
 lbl_0806a98c:
     movs r0, #0x20
@@ -5152,9 +5152,9 @@ lbl_0806aa6a:
     movs r0, #2
     ands r0, r1
     mov sl, r2
-    ldr r3, lbl_0806aad4 @ =gBG1HOFS_NonGameplay
+    ldr r3, lbl_0806aad4 @ =gBg1HOFS_NonGameplay
     mov ip, r3
-    ldr r5, lbl_0806aad8 @ =gBG1VOFS_NonGameplay
+    ldr r5, lbl_0806aad8 @ =gBg1VOFS_NonGameplay
     mov sb, r5
     cmp r0, #0
     beq lbl_0806aa88
@@ -5198,8 +5198,8 @@ lbl_0806aa88:
 lbl_0806aac8: .4byte sEwramPointer
 lbl_0806aacc: .4byte 0x0600d000
 lbl_0806aad0: .4byte sNonGameplayRamPointer
-lbl_0806aad4: .4byte gBG1HOFS_NonGameplay
-lbl_0806aad8: .4byte gBG1VOFS_NonGameplay
+lbl_0806aad4: .4byte gBg1HOFS_NonGameplay
+lbl_0806aad8: .4byte gBg1VOFS_NonGameplay
 lbl_0806aadc: .4byte gWrittenToBLDY_NonGameplay
 lbl_0806aae0: .4byte gWrittenToBLDALPHA_H
 lbl_0806aae4: .4byte gWrittenToBLDALPHA_L
@@ -5249,7 +5249,7 @@ lbl_0806ab30:
     movs r6, #0
     strh r6, [r0]
     ldr r2, lbl_0806ac4c @ =0x04000010
-    ldr r0, lbl_0806ac50 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0806ac50 @ =gBg0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ldr r5, lbl_0806ac54 @ =0x000001ff
@@ -5257,7 +5257,7 @@ lbl_0806ab30:
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806ac58 @ =gBG0VOFS_NonGameplay
+    ldr r0, lbl_0806ac58 @ =gBg0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
@@ -5275,25 +5275,25 @@ lbl_0806ab30:
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806ac5c @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_0806ac5c @ =gBg2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806ac60 @ =gBG2VOFS_NonGameplay
+    ldr r0, lbl_0806ac60 @ =gBg2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806ac64 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_0806ac64 @ =gBg3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0806ac68 @ =gBG3VOFS_NonGameplay
+    ldr r0, lbl_0806ac68 @ =gBg3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     ands r0, r1
@@ -5379,13 +5379,13 @@ lbl_0806ac40: .4byte 0x0000060a
 lbl_0806ac44: .4byte 0x0400004a
 lbl_0806ac48: .4byte gWrittenToMOSAIC_L
 lbl_0806ac4c: .4byte 0x04000010
-lbl_0806ac50: .4byte gBG0HOFS_NonGameplay
+lbl_0806ac50: .4byte gBg0HOFS_NonGameplay
 lbl_0806ac54: .4byte 0x000001ff
-lbl_0806ac58: .4byte gBG0VOFS_NonGameplay
-lbl_0806ac5c: .4byte gBG2HOFS_NonGameplay
-lbl_0806ac60: .4byte gBG2VOFS_NonGameplay
-lbl_0806ac64: .4byte gBG3HOFS_NonGameplay
-lbl_0806ac68: .4byte gBG3VOFS_NonGameplay
+lbl_0806ac58: .4byte gBg0VOFS_NonGameplay
+lbl_0806ac5c: .4byte gBg2HOFS_NonGameplay
+lbl_0806ac60: .4byte gBg2VOFS_NonGameplay
+lbl_0806ac64: .4byte gBg3HOFS_NonGameplay
+lbl_0806ac68: .4byte gBg3VOFS_NonGameplay
 lbl_0806ac6c: .4byte 0x0400004c
 lbl_0806ac70: .4byte 0x04000050
 lbl_0806ac74: .4byte 0x0840d088

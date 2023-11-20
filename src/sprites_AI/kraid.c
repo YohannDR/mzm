@@ -1075,7 +1075,7 @@ void KraidPartUpdateLeftArmAttackingHitbox(void)
 void KraidMoveBG2ToRight(u8 movement)
 {
     gSubSpriteData1.xPosition += movement;
-    gBG2Movement.xOffset -= movement;
+    gBg2Movement.xOffset -= movement;
 }
 
 /**
@@ -1086,7 +1086,7 @@ void KraidMoveBG2ToRight(u8 movement)
 void KraidMoveBG2ToLeft(u8 movement)
 {
     gSubSpriteData1.xPosition -= movement;
-    gBG2Movement.xOffset += movement;
+    gBg2Movement.xOffset += movement;
 }
 
 /**
@@ -1171,7 +1171,7 @@ void KraidInit(void)
     SpriteSpawnSecondary(SSPRITE_KRAID_PART, KRAID_PART_RIGHT_FEET, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
 
     gSubSpriteData1.yPosition += (BLOCK_SIZE * 2);
-    gBG2Movement.yOffset -= (BLOCK_SIZE * 2);
+    gBg2Movement.yOffset -= (BLOCK_SIZE * 2);
 }
 
 /**
@@ -1188,7 +1188,7 @@ u8 KraidMoveUp(void)
     if (gSubSpriteData1.yPosition > gCurrentSprite.yPositionSpawn)
     {
         gSubSpriteData1.yPosition--;
-        gBG2Movement.yOffset++;
+        gBg2Movement.yOffset++;
         return FALSE;
     }
     else
@@ -1601,7 +1601,7 @@ void KraidDying(void)
         else
         {
             gSubSpriteData1.yPosition++;
-            gBG2Movement.yOffset--;
+            gBg2Movement.yOffset--;
         }
     }
 }
@@ -2440,24 +2440,24 @@ void Kraid(void)
                 pSub->pMultiOam == sKraidMultiSpriteData_StandingBetweenSteps)
             {
                 if (pSub->currentAnimationFrame == 1)
-                    gBG2Movement.yOffset -= 4;
+                    gBg2Movement.yOffset -= 4;
                 else if (pSub->currentAnimationFrame == 2)
-                    gBG2Movement.yOffset += 4;
+                    gBg2Movement.yOffset += 4;
             }
             else if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight ||
                 pSub->pMultiOam == sKraidMultiSpriteData_MovingRightFeetToLeft)
             {
                 if (pSub->currentAnimationFrame == 1)
-                    gBG2Movement.xOffset -= 4;
+                    gBg2Movement.xOffset -= 4;
                 else if (pSub->currentAnimationFrame == 2)
-                    gBG2Movement.xOffset -= 4;
+                    gBg2Movement.xOffset -= 4;
                 else if (pSub->currentAnimationFrame == 3)
-                    gBG2Movement.xOffset -= 4;
+                    gBg2Movement.xOffset -= 4;
                 else if (pSub->currentAnimationFrame == 4)
-                    gBG2Movement.yOffset -= 4;
+                    gBg2Movement.yOffset -= 4;
                 else if (pSub->currentAnimationFrame == 5)
                 {
-                    gBG2Movement.yOffset += 4;
+                    gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
@@ -2482,16 +2482,16 @@ void Kraid(void)
                 pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
             {
                 if (pSub->currentAnimationFrame == 1)
-                    gBG2Movement.xOffset += 4;
+                    gBg2Movement.xOffset += 4;
                 else if (pSub->currentAnimationFrame == 2)
-                    gBG2Movement.xOffset += 4;
+                    gBg2Movement.xOffset += 4;
                 else if (pSub->currentAnimationFrame == 3)
-                    gBG2Movement.xOffset += 4;
+                    gBg2Movement.xOffset += 4;
                 else if (pSub->currentAnimationFrame == 4)
-                    gBG2Movement.yOffset -= 4;
+                    gBg2Movement.yOffset -= 4;
                 else if (pSub->currentAnimationFrame == 5)
                 {
-                    gBG2Movement.yOffset += 4;
+                    gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
@@ -2742,7 +2742,7 @@ void Kraid(void)
         beq lbl_0801aca2 \n\
         b lbl_0801ae26 \n\
     lbl_0801aca2: \n\
-        ldr r1, lbl_0801acc0 @ =gBG2Movement \n\
+        ldr r1, lbl_0801acc0 @ =gBg2Movement \n\
         ldrh r0, [r1, #2] \n\
         add r0, #4 \n\
         strh r0, [r1, #2] \n\
@@ -2753,7 +2753,7 @@ void Kraid(void)
     lbl_0801acb4: .4byte sKraidMultiSpriteData_Rising \n\
     lbl_0801acb8: .4byte sKraidMultiSpriteData_Standing \n\
     lbl_0801acbc: .4byte sKraidMultiSpriteData_StandingBetweenSteps \n\
-    lbl_0801acc0: .4byte gBG2Movement \n\
+    lbl_0801acc0: .4byte gBg2Movement \n\
     lbl_0801acc4: \n\
         ldr r4, lbl_0801ace8 @ =sKraidMultiSpriteData_MovingLeftFeetToRight \n\
         cmp r1, r4 \n\
@@ -2770,7 +2770,7 @@ void Kraid(void)
         cmp r0, #3 \n\
         bne lbl_0801acf4 \n\
     lbl_0801acde: \n\
-        ldr r1, lbl_0801acf0 @ =gBG2Movement \n\
+        ldr r1, lbl_0801acf0 @ =gBg2Movement \n\
         ldrh r0, [r1] \n\
         sub r0, #4 \n\
         strh r0, [r1] \n\
@@ -2778,7 +2778,7 @@ void Kraid(void)
         .align 2, 0 \n\
     lbl_0801ace8: .4byte sKraidMultiSpriteData_MovingLeftFeetToRight \n\
     lbl_0801acec: .4byte sKraidMultiSpriteData_MovingRightFeetToLeft \n\
-    lbl_0801acf0: .4byte gBG2Movement \n\
+    lbl_0801acf0: .4byte gBg2Movement \n\
     lbl_0801acf4: \n\
         cmp r0, #4 \n\
         beq lbl_0801ad98 \n\
@@ -2786,7 +2786,7 @@ void Kraid(void)
         beq lbl_0801acfe \n\
         b lbl_0801ae26 \n\
     lbl_0801acfe: \n\
-        ldr r1, lbl_0801ad38 @ =gBG2Movement \n\
+        ldr r1, lbl_0801ad38 @ =gBg2Movement \n\
         ldrh r0, [r1, #2] \n\
         add r0, #4 \n\
         strh r0, [r1, #2] \n\
@@ -2813,7 +2813,7 @@ void Kraid(void)
         sub r1, #0x90 \n\
         b lbl_0801ade8 \n\
         .align 2, 0 \n\
-    lbl_0801ad38: .4byte gBG2Movement \n\
+    lbl_0801ad38: .4byte gBg2Movement \n\
     lbl_0801ad3c: \n\
         ldr r5, lbl_0801ad60 @ =gCurrentSprite \n\
         ldrh r0, [r5, #6] \n\
@@ -2849,7 +2849,7 @@ void Kraid(void)
         cmp r0, #3 \n\
         bne lbl_0801ad94 \n\
     lbl_0801ad7e: \n\
-        ldr r1, lbl_0801ad90 @ =gBG2Movement \n\
+        ldr r1, lbl_0801ad90 @ =gBg2Movement \n\
         ldrh r0, [r1] \n\
         add r0, #4 \n\
         strh r0, [r1] \n\
@@ -2857,22 +2857,22 @@ void Kraid(void)
         .align 2, 0 \n\
     lbl_0801ad88: .4byte sKraidMultiSpriteData_MovingRightFeetToRight \n\
     lbl_0801ad8c: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-    lbl_0801ad90: .4byte gBG2Movement \n\
+    lbl_0801ad90: .4byte gBg2Movement \n\
     lbl_0801ad94: \n\
         cmp r0, #4 \n\
         bne lbl_0801ada8 \n\
     lbl_0801ad98: \n\
-        ldr r1, lbl_0801ada4 @ =gBG2Movement \n\
+        ldr r1, lbl_0801ada4 @ =gBg2Movement \n\
         ldrh r0, [r1, #2] \n\
         sub r0, #4 \n\
         strh r0, [r1, #2] \n\
         b lbl_0801ae26 \n\
         .align 2, 0 \n\
-    lbl_0801ada4: .4byte gBG2Movement \n\
+    lbl_0801ada4: .4byte gBg2Movement \n\
     lbl_0801ada8: \n\
         cmp r0, #5 \n\
         bne lbl_0801ae26 \n\
-        ldr r1, lbl_0801adf0 @ =gBG2Movement \n\
+        ldr r1, lbl_0801adf0 @ =gBg2Movement \n\
         ldrh r0, [r1, #2] \n\
         add r0, #4 \n\
         strh r0, [r1, #2] \n\
@@ -2904,7 +2904,7 @@ void Kraid(void)
         bl ParticleSet \n\
         b lbl_0801ae26 \n\
         .align 2, 0 \n\
-    lbl_0801adf0: .4byte gBG2Movement \n\
+    lbl_0801adf0: .4byte gBg2Movement \n\
     lbl_0801adf4: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
     lbl_0801adf8: .4byte gCurrentSprite \n\
     lbl_0801adfc: \n\

@@ -306,10 +306,10 @@ void CutsceneInit(void)
 
     ClearGfxRam();
 
-    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0x800;
-    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0x800;
-    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0x800;
-    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay= 0x800;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0x800;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0x800;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0x800;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay= 0x800;
 
     CUTSCENE_DATA.timeInfo.stage = 0;
     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -375,25 +375,25 @@ void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value)
     if (type & CUTSCENE_BG_EDIT_HOFS)
     {
         if (bg == DCNT_BG0)
-            gBG0HOFS_NonGameplay = value;
+            gBg0HOFS_NonGameplay = value;
         else if (bg == DCNT_BG1)
-            gBG1HOFS_NonGameplay = value;
+            gBg1HOFS_NonGameplay = value;
         else if (bg == DCNT_BG2)
-            gBG2HOFS_NonGameplay = value;
+            gBg2HOFS_NonGameplay = value;
         else if (bg == DCNT_BG3)
-            gBG3HOFS_NonGameplay = value;
+            gBg3HOFS_NonGameplay = value;
     }
 
     if (type & CUTSCENE_BG_EDIT_VOFS)
     {
         if (bg == DCNT_BG0)
-            gBG0VOFS_NonGameplay = value;
+            gBg0VOFS_NonGameplay = value;
         else if (bg == DCNT_BG1)
-            gBG1VOFS_NonGameplay = value;
+            gBg1VOFS_NonGameplay = value;
         else if (bg == DCNT_BG2)
-            gBG2VOFS_NonGameplay = value;
+            gBg2VOFS_NonGameplay = value;
         else if (bg == DCNT_BG3)
-            gBG3VOFS_NonGameplay = value;
+            gBg3VOFS_NonGameplay = value;
     }
 }
 
@@ -409,13 +409,13 @@ u16* CutsceneGetBgHorizontalPointer(u16 bg)
 
     pBg = NULL;
     if (bg == DCNT_BG0)
-        pBg = &gBG0HOFS_NonGameplay;
+        pBg = &gBg0HOFS_NonGameplay;
     else if (bg == DCNT_BG1)
-        pBg = &gBG1HOFS_NonGameplay;
+        pBg = &gBg1HOFS_NonGameplay;
     else if (bg == DCNT_BG2)
-        pBg = &gBG2HOFS_NonGameplay;
+        pBg = &gBg2HOFS_NonGameplay;
     else if (bg == DCNT_BG3)
-        pBg = &gBG3HOFS_NonGameplay;
+        pBg = &gBg3HOFS_NonGameplay;
 
     return pBg;
 }
@@ -432,13 +432,13 @@ u16* CutsceneGetBgVerticalPointer(u16 bg)
 
     pBg = NULL;
     if (bg == DCNT_BG0)
-        pBg = &gBG0VOFS_NonGameplay;
+        pBg = &gBg0VOFS_NonGameplay;
     else if (bg == DCNT_BG1)
-        pBg = &gBG1VOFS_NonGameplay;
+        pBg = &gBg1VOFS_NonGameplay;
     else if (bg == DCNT_BG2)
-        pBg = &gBG2VOFS_NonGameplay;
+        pBg = &gBg2VOFS_NonGameplay;
     else if (bg == DCNT_BG3)
-        pBg = &gBG3VOFS_NonGameplay;
+        pBg = &gBg3VOFS_NonGameplay;
 
     return pBg;
 }
@@ -525,35 +525,35 @@ u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData,
         switch (slot)
         {
             case 0:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG0HOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg0HOFS_NonGameplay;
                 break;
 
             case 1:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG0VOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg0VOFS_NonGameplay;
                 break;
 
             case 2:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG1HOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg1HOFS_NonGameplay;
                 break;
 
             case 3:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG1VOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg1VOFS_NonGameplay;
                 break;
 
             case 4:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG2HOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg2HOFS_NonGameplay;
                 break;
 
             case 5:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG2VOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg2VOFS_NonGameplay;
                 break;
 
             case 6:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG3HOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg3HOFS_NonGameplay;
                 break;
 
             case 7:
-                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBG3VOFS_NonGameplay;
+                CUTSCENE_DATA.bgScrolling[slot].pPosition = &gBg3VOFS_NonGameplay;
                 break;
         }
 
@@ -689,14 +689,14 @@ void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
         }
     }
 
-    CUTSCENE_DATA.bg0hofs = gBG0HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg0vofs = gBG0VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg1hofs = gBG1HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg1vofs = gBG1VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg2hofs = gBG2HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg2vofs = gBG2VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg3hofs = gBG3HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg3vofs = gBG3VOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg0hofs = gBg0HOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg0vofs = gBg0VOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg1hofs = gBg1HOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg1vofs = gBg1VOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg2hofs = gBg2HOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg2vofs = gBg2VOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg3hofs = gBg3HOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg3vofs = gBg3VOFS_NonGameplay / 4;
 
     if (CUTSCENE_DATA.horizontalScreenShake.bg != 0)
         CutsceneUpdateScreenShake(FALSE, &CUTSCENE_DATA.horizontalScreenShake);

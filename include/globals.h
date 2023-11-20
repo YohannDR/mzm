@@ -28,7 +28,7 @@ union TileData {
 
 ///
 
-extern struct BG2Movement gBG2Movement;
+extern struct BG2Movement gBg2Movement;
 extern u16 gInterruptCode[0x100];
 
 extern void *sp_sys;

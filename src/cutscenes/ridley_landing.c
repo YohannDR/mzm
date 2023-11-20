@@ -247,9 +247,9 @@ u8 RidleyLandingShipLanding(void)
             if (movement == 0)
                 break;
 
-            gBG3VOFS_NonGameplay += movement / 2;
-            gBG1VOFS_NonGameplay += movement;
-            gBG0VOFS_NonGameplay += movement;
+            gBg3VOFS_NonGameplay += movement / 2;
+            gBg1VOFS_NonGameplay += movement;
+            gBg0VOFS_NonGameplay += movement;
             CUTSCENE_DATA.oam[6].yPosition -= movement;
             break;
 
@@ -269,21 +269,21 @@ u8 RidleyLandingShipLanding(void)
     CUTSCENE_DATA.oam[8].xPosition = CUTSCENE_DATA.oam[6].xPosition;
     CUTSCENE_DATA.oam[8].yPosition = CUTSCENE_DATA.oam[6].yPosition;
 
-    movement = gBG3VOFS_NonGameplay - CUTSCENE_DATA.oam[6].yPosition;
+    movement = gBg3VOFS_NonGameplay - CUTSCENE_DATA.oam[6].yPosition;
     if (BLOCK_SIZE * 15u + HALF_BLOCK_SIZE < movement - BLOCK_SIZE * 37 + HALF_BLOCK_SIZE)
         movement = TRUE;
     else
         movement = FALSE;
     CUTSCENE_DATA.oam[6].notDrawn = movement;
 
-    movement = gBG3VOFS_NonGameplay - CUTSCENE_DATA.oam[7].yPosition;
+    movement = gBg3VOFS_NonGameplay - CUTSCENE_DATA.oam[7].yPosition;
     if (BLOCK_SIZE * 17u < movement - BLOCK_SIZE * 32)
         movement = TRUE;
     else
         movement = FALSE;
     CUTSCENE_DATA.oam[7].notDrawn = movement;
 
-    movement = gBG3VOFS_NonGameplay - CUTSCENE_DATA.oam[8].yPosition;
+    movement = gBg3VOFS_NonGameplay - CUTSCENE_DATA.oam[8].yPosition;
     if (BLOCK_SIZE * 13u + HALF_BLOCK_SIZE < movement - BLOCK_SIZE * 31 + QUARTER_BLOCK_SIZE)
         movement = TRUE;
     else
