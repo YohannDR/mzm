@@ -612,6 +612,7 @@ void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppD
     }
 }
 
+#ifdef NON_MATCHING
 u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 {
     // https://decomp.me/scratch/RdwBt
@@ -653,3 +654,120 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 
     return COLOR_GRAD(red, green, blue);
 }
+#else
+NAKED_FUNCTION
+u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r6, r0, #0x18 \n\
+    mov ip, r6 \n\
+    lsl r1, r1, #0x10 \n\
+    lsr r1, r1, #0x10 \n\
+    lsl r2, r2, #0x18 \n\
+    lsr r5, r2, #0x18 \n\
+    movs r7, #0x1f \n\
+    add r3, r1, #0 \n\
+    and r3, r7 \n\
+    movs r0, #0xf8 \n\
+    lsl r0, r0, #2 \n\
+    and r0, r1 \n\
+    lsr r4, r0, #5 \n\
+    movs r0, #0xf8 \n\
+    lsl r0, r0, #7 \n\
+    and r0, r1 \n\
+    lsr r2, r0, #0xa \n\
+    cmp r6, #1 \n\
+    beq lbl_0805bc3e \n\
+    cmp r6, #1 \n\
+    bgt lbl_0805bc18 \n\
+    cmp r6, #0 \n\
+    beq lbl_0805bc24 \n\
+    b lbl_0805bc9e \n\
+lbl_0805bc18: \n\
+    mov r0, ip \n\
+    cmp r0, #2 \n\
+    beq lbl_0805bc5e \n\
+    cmp r0, #3 \n\
+    beq lbl_0805bc7e \n\
+    b lbl_0805bc9e \n\
+lbl_0805bc24: \n\
+    add r0, r3, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r3, r0, #5 \n\
+    movs r1, #0x1f \n\
+    and r3, r1 \n\
+    add r0, r4, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r4, r0, #5 \n\
+    and r4, r1 \n\
+    add r0, r2, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r2, r0, #5 \n\
+    b lbl_0805bc9c \n\
+lbl_0805bc3e: \n\
+    sub r0, r7, r3 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    movs r1, #0x1f \n\
+    sub r3, r1, r0 \n\
+    and r3, r1 \n\
+    sub r0, r7, r4 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    sub r4, r1, r0 \n\
+    and r4, r1 \n\
+    sub r0, r7, r2 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    sub r2, r1, r0 \n\
+    b lbl_0805bc9c \n\
+lbl_0805bc5e: \n\
+    add r0, r3, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    sub r3, r3, r0 \n\
+    movs r1, #0x1f \n\
+    and r3, r1 \n\
+    add r0, r4, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    sub r4, r4, r0 \n\
+    and r4, r1 \n\
+    add r0, r2, #0 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    sub r2, r2, r0 \n\
+    b lbl_0805bc9c \n\
+lbl_0805bc7e: \n\
+    sub r0, r7, r3 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    add r3, r3, r0 \n\
+    movs r1, #0x1f \n\
+    and r3, r1 \n\
+    sub r0, r7, r4 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    add r4, r4, r0 \n\
+    and r4, r1 \n\
+    sub r0, r7, r2 \n\
+    mul r0, r5, r0 \n\
+    asr r0, r0, #5 \n\
+    add r2, r2, r0 \n\
+lbl_0805bc9c: \n\
+    and r2, r1 \n\
+lbl_0805bc9e: \n\
+    lsl r0, r4, #5 \n\
+    orr r3, r0 \n\
+    lsl r0, r2, #0xa \n\
+    orr r3, r0 \n\
+    lsl r0, r3, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif

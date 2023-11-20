@@ -525,15 +525,11 @@ SECTIONS {
         src/scroll.o(.text);
         src/block.o(.text);
         src/bg_clip.o(.text);
-
-        asm/disasm_0x0805b24c.o(.text);
-
+        src/color_effects.o(.text);
         src/color_fading.o(.text);
         src/haze.o(.text);
         src/animated_graphics.o(.text);
-
-        asm/disasm_0x0805e760.o(.text);
-
+        src/connection.o(.text);
         src/in_game_cutscene.o(.text);
         src/event.o(.text);
         src/room_music.o(.text);

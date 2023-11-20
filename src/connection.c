@@ -27,7 +27,7 @@
 // FIXME, find a better solution
 void BgClipSetBg1BlockValue(u32, u16, u16);
 void BgClipSetRawBG1BlockValue(u32, u16, u16);
-void BgClipSetClipdataBlockValue(u32, u16, u16);
+void BgClipSetClipdataBlockValue(u16, u16, u16);
 
 /**
  * @brief 5e760 | 198 | Updates the hatches
@@ -109,6 +109,7 @@ void ConnectionUpdateHatches(void)
     }
 }
 
+#ifdef NON_MATCHING
 void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
 {
     // https://decomp.me/scratch/q1BYt
@@ -159,6 +160,181 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
     BgClipSetClipdataBlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
     BgClipSetClipdataBlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
 }
+#else
+NAKED_FUNCTION
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    add r5, r1, #0 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r6, r0, #0x18 \n\
+    ldr r0, lbl_0805e948 @ =gHatchData \n\
+    lsl r4, r5, #3 \n\
+    add r1, r4, r0 \n\
+    ldrb r2, [r1] \n\
+    lsl r3, r2, #0x1b \n\
+    ldr r7, lbl_0805e94c @ =0x00000411 \n\
+    mov r8, r0 \n\
+    cmp r3, #0 \n\
+    bge lbl_0805e91e \n\
+    add r7, #5 \n\
+lbl_0805e91e: \n\
+    lsl r0, r2, #0x1c \n\
+    lsr r0, r0, #0x1d \n\
+    sub r2, r0, #1 \n\
+    ldrb r0, [r1, #1] \n\
+    lsl r0, r0, #0x1e \n\
+    lsr r0, r0, #0x1e \n\
+    cmp r0, #3 \n\
+    bne lbl_0805e95e \n\
+    movs r0, #2 \n\
+    sub r2, r0, r2 \n\
+    cmp r2, #0 \n\
+    bge lbl_0805e954 \n\
+    movs r2, #0 \n\
+    ldr r0, lbl_0805e950 @ =sHatchesTilemapValues \n\
+    ldrb r1, [r1, #3] \n\
+    lsl r1, r1, #1 \n\
+    add r1, r1, r0 \n\
+    lsr r0, r3, #0x1f \n\
+    ldrh r1, [r1] \n\
+    add r7, r0, r1 \n\
+    b lbl_0805e95e \n\
+    .align 2, 0 \n\
+lbl_0805e948: .4byte gHatchData \n\
+lbl_0805e94c: .4byte 0x00000411 \n\
+lbl_0805e950: .4byte sHatchesTilemapValues \n\
+lbl_0805e954: \n\
+    ldrb r0, [r1, #3] \n\
+    mov sl, r4 \n\
+    cmp r0, #0 \n\
+    beq lbl_0805e96c \n\
+    add r2, #0x40 \n\
+lbl_0805e95e: \n\
+    lsl r0, r5, #3 \n\
+    mov r3, r8 \n\
+    add r1, r0, r3 \n\
+    ldrb r1, [r1, #3] \n\
+    mov sl, r0 \n\
+    cmp r1, #0 \n\
+    bne lbl_0805e96e \n\
+lbl_0805e96c: \n\
+    add r2, #0x80 \n\
+lbl_0805e96e: \n\
+    add r7, r7, r2 \n\
+    cmp r6, #0 \n\
+    beq lbl_0805e9c0 \n\
+    ldr r4, lbl_0805e9bc @ =gHatchData \n\
+    add r4, sl \n\
+    ldrb r1, [r4, #6] \n\
+    ldrb r2, [r4, #5] \n\
+    add r0, r7, #0 \n\
+    bl BgClipSetBg1BlockValue \n\
+    movs r0, #0x10 \n\
+    add r0, r0, r7 \n\
+    mov r8, r0 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #1 \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetBg1BlockValue \n\
+    add r1, r7, #0 \n\
+    add r1, #0x20 \n\
+    str r1, [sp] \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #2 \n\
+    ldrb r2, [r4, #5] \n\
+    ldr r0, [sp] \n\
+    bl BgClipSetBg1BlockValue \n\
+    add r5, r7, #0 \n\
+    add r5, #0x30 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #3 \n\
+    ldrb r2, [r4, #5] \n\
+    add r0, r5, #0 \n\
+    bl BgClipSetBg1BlockValue \n\
+    mov r6, r8 \n\
+    ldr r3, [sp] \n\
+    mov r8, r3 \n\
+    b lbl_0805ea04 \n\
+    .align 2, 0 \n\
+lbl_0805e9bc: .4byte gHatchData \n\
+lbl_0805e9c0: \n\
+    ldr r4, lbl_0805ea50 @ =gHatchData \n\
+    add r4, sl \n\
+    ldrb r1, [r4, #6] \n\
+    ldrb r2, [r4, #5] \n\
+    add r0, r7, #0 \n\
+    bl BgClipSetRawBG1BlockValue \n\
+    movs r0, #0x10 \n\
+    add r0, r0, r7 \n\
+    mov r8, r0 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #1 \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetRawBG1BlockValue \n\
+    movs r1, #0x20 \n\
+    add r1, r1, r7 \n\
+    mov sb, r1 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #2 \n\
+    ldrb r2, [r4, #5] \n\
+    mov r0, sb \n\
+    bl BgClipSetRawBG1BlockValue \n\
+    add r5, r7, #0 \n\
+    add r5, #0x30 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #3 \n\
+    ldrb r2, [r4, #5] \n\
+    add r0, r5, #0 \n\
+    bl BgClipSetRawBG1BlockValue \n\
+    mov r6, r8 \n\
+    mov r8, sb \n\
+lbl_0805ea04: \n\
+    lsl r0, r7, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    ldr r4, lbl_0805ea50 @ =gHatchData \n\
+    add r4, sl \n\
+    ldrb r1, [r4, #6] \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetClipdataBlockValue \n\
+    lsl r0, r6, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #1 \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetClipdataBlockValue \n\
+    mov r3, r8 \n\
+    lsl r0, r3, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #2 \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetClipdataBlockValue \n\
+    lsl r0, r5, #0x10 \n\
+    lsr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #6] \n\
+    add r1, #3 \n\
+    ldrb r2, [r4, #5] \n\
+    bl BgClipSetClipdataBlockValue \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0805ea50: .4byte gHatchData \n\
+    ");
+}
+#endif
 
 /**
  * @brief 5ea54 | c4 | Updates the flashing animation of an hatch
@@ -395,7 +571,7 @@ void ConnectionProcessDoorType(u8 type)
 {
     u8 transition;
 
-    transition = 0x6;
+    transition = COLOR_FADING_NO_TRANSITION;
 
     switch (type & DOOR_TYPE_NO_FLAGS)
     {
@@ -408,16 +584,16 @@ void ConnectionProcessDoorType(u8 type)
             break;
 
         default:
-            gWhichBGPositionIsWrittenToBG3OFS = 0x4;
+            gWhichBGPositionIsWrittenToBG3OFS = 4;
             if (!gSkipDoorTransition)
-                transition = 0x4;
+                transition = COLOR_FADING_DOOR_TRANSITION;
 
         case DOOR_TYPE_NO_HATCH:
         case DOOR_TYPE_AREA_CONNECTION:
             break;
     }
 
-    background_fading_start(transition); // Undefined
+    ColorFadingStart(transition);
 }
 
 /**
@@ -432,14 +608,14 @@ u8 ConnectionFindEventBasedDoor(u8 sourceDoor)
     
     for (i = MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS - 1; i >= 0; i--)
     {
-        if (gCurrentArea != sEventBasedConnections[i].sourceArea)
+        if (gCurrentArea != sEventBasedConnections[i][0])
             continue;
         
-        if (sourceDoor != sEventBasedConnections[i].sourceDoor)
+        if (sourceDoor != sEventBasedConnections[i][1])
             continue;
 
-        if (EventFunction(EVENT_ACTION_CHECKING, sEventBasedConnections[i].event))
-            return sEventBasedConnections[i].destinationDoor;
+        if (EventFunction(EVENT_ACTION_CHECKING, sEventBasedConnections[i][2]))
+            return sEventBasedConnections[i][3];
     }
 
     return UCHAR_MAX;
@@ -529,7 +705,7 @@ void ConnectionCheckUnlockDoors(void)
 void ConnectionHatchStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status)
 {
     gHatchData[hatch].opening = status;
-    gHatchData[hatch].currentAnimationFrame = 0x0;
+    gHatchData[hatch].currentAnimationFrame = 0;
 
     ConnectionUpdateHatchAnimation(dontSetRaw, hatch); 
 }
@@ -587,7 +763,7 @@ void ConnectionLockHatches(u8 isEvent)
     {
         lockedHatches = gHatchesState.hatchesLockedWithEvent | gHatchesState.unk2;
         
-        for (i = 0, hatch = 0; i < MAX_AMOUNT_OF_HATCHES; i++, hatch++)
+        for (i = 0, hatch = 0; i < MAX_AMOUNT_OF_HATCHES; hatch++, i++)
         {
             if ((lockedHatches >> i) & 1)
             {
@@ -818,7 +994,7 @@ void ConnectionLoadDoors(void)
         if (bldalpha != 0)
         {
             // Update bldalpha
-            TransprencyUpdateBLDALPHA(bldalpha & UCHAR_MAX, (bldalpha & UCHAR_MAX << 8) >> 8, 1, 1);
+            TransparencyUpdateBLDALPHA(LOW_BYTE(bldalpha), HIGH_BYTE(bldalpha), 1, 1);
 
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;

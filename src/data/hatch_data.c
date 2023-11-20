@@ -430,252 +430,252 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     }
 };
 
-const struct EventBasedConnection sEventBasedConnections[MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS] = {
+const u8 sEventBasedConnections[MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS][4] = {
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 198,
-        .event = EVENT_HARD,
-        .destinationDoor = 212
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 198, // Source door
+        [2] = EVENT_HARD, // Event
+        [3] = 212 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 195,
-        .event = EVENT_HARD,
-        .destinationDoor = 235
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 195, // Source door
+        [2] = EVENT_HARD, // Event
+        [3] = 235 // Destination door
     },
     {
-        .sourceArea = AREA_NORFAIR,
-        .sourceDoor = 66,
-        .event = EVENT_ENTER_RIDLEY_DEMO_PLAYED,
-        .destinationDoor = 95
+        [0] = AREA_NORFAIR, // Source area
+        [1] = 66, // Source door
+        [2] = EVENT_ENTER_RIDLEY_DEMO_PLAYED, // Event
+        [3] = 95 // Destination door
     },
     {
-        .sourceArea = AREA_NORFAIR,
-        .sourceDoor = 69,
-        .event = EVENT_ENTER_RIDLEY_DEMO_PLAYED,
-        .destinationDoor = 96
+        [0] = AREA_NORFAIR, // Source area
+        [1] = 69, // Source door
+        [2] = EVENT_ENTER_RIDLEY_DEMO_PLAYED, // Event
+        [3] = 96 // Destination door
     },
     {
-        .sourceArea = AREA_CRATERIA,
-        .sourceDoor = 30,
-        .event = EVENT_POWER_GRIP_OBTAINED,
-        .destinationDoor = 29
+        [0] = AREA_CRATERIA, // Source area
+        [1] = 30, // Source door
+        [2] = EVENT_POWER_GRIP_OBTAINED, // Event
+        [3] = 29 // Destination door
     },
     {
-        .sourceArea = AREA_CRATERIA,
-        .sourceDoor = 19,
-        .event = EVENT_CHOZO_PILLAR_FULLY_EXTENDED,
-        .destinationDoor = 47
+        [0] = AREA_CRATERIA, // Source area
+        [1] = 19, // Source door
+        [2] = EVENT_CHOZO_PILLAR_FULLY_EXTENDED, // Event
+        [3] = 47 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 132,
-        .event = EVENT_SPACE_JUMP_OBTAINED,
-        .destinationDoor = 202
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 132, // Source door
+        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
+        [3] = 202 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 136,
-        .event = EVENT_SPACE_JUMP_OBTAINED,
-        .destinationDoor = 203
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 136, // Source door
+        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
+        [3] = 203 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 153,
-        .event = EVENT_SPACE_JUMP_OBTAINED,
-        .destinationDoor = 208
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 153, // Source door
+        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
+        [3] = 208 // Destination door
     },
     {
-        .sourceArea = AREA_KRAID,
-        .sourceDoor = 70,
-        .event = EVENT_KRAID_KILLED,
-        .destinationDoor = 89
+        [0] = AREA_KRAID, // Source area
+        [1] = 70, // Source door
+        [2] = EVENT_KRAID_KILLED, // Event
+        [3] = 89 // Destination door
     },
     {
-        .sourceArea = AREA_NORFAIR,
-        .sourceDoor = 94,
-        .event = EVENT_CATERPILLAR_KILLED,
-        .destinationDoor = 93
+        [0] = AREA_NORFAIR, // Source area
+        [1] = 94, // Source door
+        [2] = EVENT_CATERPILLAR_KILLED, // Event
+        [3] = 93 // Destination door
     },
     {
-        .sourceArea = AREA_RIDLEY,
-        .sourceDoor = 74,
-        .event = EVENT_IMAGO_TUNNEL_DISCOVERED,
-        .destinationDoor = 66
+        [0] = AREA_RIDLEY, // Source area
+        [1] = 74, // Source door
+        [2] = EVENT_IMAGO_TUNNEL_DISCOVERED, // Event
+        [3] = 66 // Destination door
     },
     {
-        .sourceArea = AREA_RIDLEY,
-        .sourceDoor = 43,
-        .event = EVENT_IMAGO_KILLED,
-        .destinationDoor = 59
+        [0] = AREA_RIDLEY, // Source area
+        [1] = 43, // Source door
+        [2] = EVENT_IMAGO_KILLED, // Event
+        [3] = 59 // Destination door
     },
     {
-        .sourceArea = AREA_RIDLEY,
-        .sourceDoor = 63,
-        .event = EVENT_IMAGO_KILLED,
-        .destinationDoor = 65
+        [0] = AREA_RIDLEY, // Source area
+        [1] = 63, // Source door
+        [2] = EVENT_IMAGO_KILLED, // Event
+        [3] = 65 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 88,
-        .event = EVENT_REPEL_MACHINE_KILLED,
-        .destinationDoor = 93
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 88, // Source door
+        [2] = EVENT_REPEL_MACHINE_KILLED, // Event
+        [3] = 93 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 91,
-        .event = EVENT_REPEL_MACHINE_KILLED,
-        .destinationDoor = 92
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 91, // Source door
+        [2] = EVENT_REPEL_MACHINE_KILLED, // Event
+        [3] = 92 // Destination door
     },
     {
-        .sourceArea = AREA_TOURIAN,
-        .sourceDoor = 13,
-        .event = EVENT_ESCAPED_ZEBES,
-        .destinationDoor = 20
+        [0] = AREA_TOURIAN, // Source area
+        [1] = 13, // Source door
+        [2] = EVENT_ESCAPED_ZEBES, // Event
+        [3] = 20 // Destination door
     },
     {
-        .sourceArea = AREA_CRATERIA,
-        .sourceDoor = 27,
-        .event = EVENT_ESCAPED_ZEBES,
-        .destinationDoor = 14
+        [0] = AREA_CRATERIA, // Source area
+        [1] = 27, // Source door
+        [2] = EVENT_ESCAPED_ZEBES, // Event
+        [3] = 14 // Destination door
     },
     {
-        .sourceArea = AREA_CRATERIA,
-        .sourceDoor = 4,
-        .event = EVENT_ESCAPED_ZEBES,
-        .destinationDoor = 46
+        [0] = AREA_CRATERIA, // Source area
+        [1] = 4, // Source door
+        [2] = EVENT_ESCAPED_ZEBES, // Event
+        [3] = 46 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 161,
-        .event = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
-        .destinationDoor = 228
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 161, // Source door
+        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
+        [3] = 228 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 164,
-        .event = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
-        .destinationDoor = 229
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 164, // Source door
+        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
+        [3] = 229 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 188,
-        .event = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
-        .destinationDoor = 227
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 188, // Source door
+        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
+        [3] = 227 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 82,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 192
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 82, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 192 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 85,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 191
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 85, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 191 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 46,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 224
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 46, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 224 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 53,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 169
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 53, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 169 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 176,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 201
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 176, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 201 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 57,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 118
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 57, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 118 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 76,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 121
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 76, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 121 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 64,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 120
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 64, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 120 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 67,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 119
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 67, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 119 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 86,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 209
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 86, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 209 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 54,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 148
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 54, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 148 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 79,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 147
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 79, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 147 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 238,
-        .event = EVENT_FULLY_POWERED_SUIT_OBTAINED,
-        .destinationDoor = 242
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 238, // Source door
+        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
+        [3] = 242 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 172,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 215
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 172, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 215 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 96,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 216
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 96, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 216 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 100,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 217
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 100, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 217 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 104,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 218
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 104, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 218 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 128,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 233
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 128, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 233 // Destination door
     },
     {
-        .sourceArea = AREA_CHOZODIA,
-        .sourceDoor = 152,
-        .event = EVENT_MECHA_RIDLEY_KILLED,
-        .destinationDoor = 234
+        [0] = AREA_CHOZODIA, // Source area
+        [1] = 152, // Source door
+        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
+        [3] = 234 // Destination door
     }
 };
 

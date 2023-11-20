@@ -17,7 +17,7 @@ extern const struct HatchLockEvent sHatchLockEventsNorfair[2];
 
 extern const struct HatchLockEvent sHatchLockEventsChozodia[15];
 
-extern const struct EventBasedConnection sEventBasedConnections[MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS];
+extern const u8 sEventBasedConnections[MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS][4];
 
 extern const u8 sAreaConnections[26][3];
 

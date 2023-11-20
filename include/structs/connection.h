@@ -53,7 +53,7 @@ struct HatchData {
     u16 facingRight:1;
     u16 padding:3;
     /* 1 */
-    u16 opening:2;
+    u8 opening:2;
     u16 locked:2;
     u16 flashingTimer:4;
     /* 2 */
