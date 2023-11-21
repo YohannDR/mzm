@@ -418,6 +418,7 @@ SECTIONS {
         src/sprite_util.o(.text);
         src/sprite_debris.o(.text);
         src/location_text.o(.text);
+
         src/sprites_AI/chozo_statue_movement.o(.text);
         src/sprites_AI/water_drop.o(.text);
         src/sprites_AI/explosion_zebes_escape.o(.text);
@@ -506,6 +507,7 @@ SECTIONS {
         src/sprites_AI/falling_chozo_pillar.o(.text);
         src/sprites_AI/mecha_ridley.o(.text);
         src/sprites_AI/escape_gate.o(.text);
+
         src/projectile_util.o(.text);
         src/projectile.o(.text);
         src/hud.o(.text);
@@ -548,10 +550,10 @@ SECTIONS {
         src/cutscenes/statue_opening.o(.text);
         src/cutscenes/enter_tourian.o(.text);
         src/cutscenes/samus_in_blue_ship.o(.text);
+
         src/oam_id.o(.text);
-
-        asm/disasm_0x08068168.o(.text);
-
+        src/menus/pause_screen.o(.text);
+        src/minimap.o(.text);
         src/menus/pause_screen_map.o(.text);
 
         asm/disasm_0x0806e460.o(.text);

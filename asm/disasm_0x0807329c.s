@@ -2838,7 +2838,7 @@ lbl_080749a0:
     adds r5, #1
     cmp r5, #7
     ble lbl_0807497c
-    bl load_minimap_tiles_with_obtained_items
+    bl MinimapLoadTilesWithObtainedItems
     add sp, #4
     pop {r3}
     mov r8, r3

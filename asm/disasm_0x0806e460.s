@@ -2972,8 +2972,8 @@ lbl_0806faba:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_0806facc
-sub_0806facc: @ 0x0806facc
+    thumb_func_start TextDrawYesNoEasySleep
+TextDrawYesNoEasySleep: @ 0x0806facc
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -3090,8 +3090,8 @@ lbl_0806fba8:
     .align 2, 0
 lbl_0806fbb4: .4byte sEwramPointer
 
-    thumb_func_start sub_0806fbb8
-sub_0806fbb8: @ 0x0806fbb8
+    thumb_func_start TextDrawEasySleep
+TextDrawEasySleep: @ 0x0806fbb8
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     ldr r5, lbl_0806fbd4 @ =sNonGameplayRamPointer
@@ -3257,8 +3257,8 @@ lbl_0806fcf4: .4byte 0x08760780
 lbl_0806fcf8: .4byte sEwramPointer
 lbl_0806fcfc: .4byte gLanguage
 
-    thumb_func_start update_minimap_anim_palette
-update_minimap_anim_palette: @ 0x0806fd00
+    thumb_func_start UpdateMinimapAnimatedPalette
+UpdateMinimapAnimatedPalette: @ 0x0806fd00
     push {r4, r5, lr}
     ldr r0, lbl_0806fdf4 @ =sNonGameplayRamPointer
     ldr r3, [r0]
@@ -3498,8 +3498,8 @@ lbl_0806fed8: .4byte sNonGameplayRamPointer
 lbl_0806fedc: .4byte gCurrentArea
 lbl_0806fee0: .4byte 0x083fd2f0
 
-    thumb_func_start update_suitType
-update_suitType: @ 0x0806fee4
+    thumb_func_start UpdateSuitType
+UpdateSuitType: @ 0x0806fee4
     push {lr}
     lsls r0, r0, #0x18
     lsrs r1, r0, #0x18
@@ -3559,8 +3559,8 @@ lbl_0806ff48:
     pop {r0}
     bx r0
 
-    thumb_func_start draw_status_screen_item
-draw_status_screen_item: @ 0x0806ff4c
+    thumb_func_start StatusScreenDrawItems
+StatusScreenDrawItems: @ 0x0806ff4c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3669,8 +3669,8 @@ lbl_08070014: .4byte 0x087603da
 lbl_08070018: .4byte sEwramPointer
 lbl_0807001c: .4byte 0x0600c000
 
-    thumb_func_start sub_08070020
-sub_08070020: @ 0x08070020
+    thumb_func_start StatusScreenGetSlotForNewItem
+StatusScreenGetSlotForNewItem: @ 0x08070020
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -3853,8 +3853,8 @@ lbl_08070172:
     bx r1
     .align 2, 0
 
-    thumb_func_start draw_status_screen_tanks_amounts
-draw_status_screen_tanks_amounts: @ 0x08070180
+    thumb_func_start StatusScreenDraw
+StatusScreenDraw: @ 0x08070180
     push {r4, r5, r6, r7, lr}
     sub sp, #8
     ldr r6, lbl_080701e0 @ =gEquipment
@@ -5693,8 +5693,8 @@ check_select_pressed_on_status_screen: @ 0x08070f58
     .align 2, 0
 lbl_08070f68: .4byte gChangedInput
 
-    thumb_func_start sub_08070f6c
-sub_08070f6c: @ 0x08070f6c
+    thumb_func_start StatusScreenInitCursorAndItems
+StatusScreenInitCursorAndItems: @ 0x08070f6c
     push {r4, lr}
     ldr r4, lbl_08070fac @ =sNonGameplayRamPointer
     ldr r0, [r4]
@@ -5729,8 +5729,8 @@ lbl_08070fa6:
     .align 2, 0
 lbl_08070fac: .4byte sNonGameplayRamPointer
 
-    thumb_func_start sub_08070fb0
-sub_08070fb0: @ 0x08070fb0
+    thumb_func_start StatusScreenSuitlessItems
+StatusScreenSuitlessItems: @ 0x08070fb0
     push {r4, r5, lr}
     movs r5, #0
     ldr r0, lbl_08070fdc @ =sNonGameplayRamPointer
@@ -5752,7 +5752,7 @@ lbl_08070fd0:
     ldrb r0, [r2, #0xc]
     cmp r0, #0
     beq lbl_08070fe4
-    bl sub_08068ec0
+    bl unk_68ec0
     b lbl_080711c8
     .align 2, 0
 lbl_08070fdc: .4byte sNonGameplayRamPointer
@@ -6305,8 +6305,8 @@ lbl_08071420: .4byte 0x0840df72
 lbl_08071424: .4byte 0x0840ddd0
 lbl_08071428: .4byte 0x08754bbc
 
-    thumb_func_start sub_0807142c
-sub_0807142c: @ 0x0807142c
+    thumb_func_start StatusScreenFullyPoweredItems
+StatusScreenFullyPoweredItems: @ 0x0807142c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -6317,7 +6317,7 @@ sub_0807142c: @ 0x0807142c
     adds r7, r0, #0
     cmp r1, #0
     beq lbl_0807144c
-    bl sub_08068ec0
+    bl unk_68ec0
     b lbl_080717f0
     .align 2, 0
 lbl_08071448: .4byte sNonGameplayRamPointer
@@ -6355,7 +6355,7 @@ lbl_08071494:
     b lbl_080717f0
 lbl_0807149e:
     movs r0, #2
-    bl sub_08068dbc
+    bl PauseScreenUpdateWireframeSamus
     ldr r1, [r7]
     movs r0, #0
     strh r0, [r1, #0xa]
@@ -6662,7 +6662,7 @@ lbl_080716d6:
     orrs r1, r2
     strb r1, [r0, #0xf]
     movs r0, #2
-    bl sub_08068dbc
+    bl PauseScreenUpdateWireframeSamus
     b lbl_080717f0
     .align 2, 0
 lbl_08071718: .4byte sNonGameplayRamPointer
@@ -6784,8 +6784,8 @@ lbl_080717f2:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_08071800
-sub_08071800: @ 0x08071800
+    thumb_func_start StatusScreenSubroutine
+StatusScreenSubroutine: @ 0x08071800
     push {r4, lr}
     ldr r0, lbl_0807182c @ =gChangedInput
     ldrh r1, [r0]
@@ -6818,7 +6818,7 @@ lbl_08071838:
     cmp r0, #0
     beq lbl_08071846
 lbl_08071840:
-    bl sub_08068ec0
+    bl unk_68ec0
     b lbl_0807188a
 lbl_08071846:
     adds r0, r1, #0
@@ -7446,7 +7446,7 @@ lbl_08071cec:
 lbl_08071cf8: .4byte sNonGameplayRamPointer
 lbl_08071cfc:
     movs r0, #2
-    bl sub_08068dbc
+    bl PauseScreenUpdateWireframeSamus
     b lbl_08071d5a
 lbl_08071d04:
     ldr r3, lbl_08071db4 @ =sNonGameplayRamPointer

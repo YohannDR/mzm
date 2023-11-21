@@ -14,7 +14,7 @@ void PauseScreenUpdateMapArrows(void);
 void PauseScreenUpdateBossIcons(void);
 void PauseScreenDrawCompletionInfo(u8 dontDraw);
 u8 unk_68a58(u8 param_1);
-u8 PauseScreenUpdateStatusScreenOam(u8 param_1);
+u32 PauseScreenUpdateStatusScreenOam(u8 param_1);
 void PauseScreenUpdateWireframeSamus(u8 param_1);
 void unk_68ec0(void);
 void PauseScreenUpdateWorldMapHighlight(u8 area);

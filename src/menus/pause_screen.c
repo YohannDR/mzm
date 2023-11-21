@@ -32,6 +32,7 @@
 #include "structs/game_state.h"
 #include "structs/text.h"
 
+#ifdef NON_MATCHING
 u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
 {
     // https://decomp.me/scratch/7coJ2
@@ -55,6 +56,63 @@ u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
 
     return FALSE;
 }
+#else
+NAKED_FUNCTION
+u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    lsl r7, r0, #0x10 \n\
+    lsr r4, r7, #0x10 \n\
+    lsl r1, r1, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    lsl r2, r2, #0x18 \n\
+    asr r2, r2, #0x18 \n\
+    ldr r5, lbl_080681bc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r5] \n\
+    add r3, r0, #0 \n\
+    add r3, #0x7c \n\
+    ldrb r0, [r3] \n\
+    add r6, r0, #0 \n\
+    cmp r6, #0 \n\
+    bne lbl_080681c0 \n\
+    cmp r1, #0 \n\
+    beq lbl_080681c0 \n\
+    add r0, #1 \n\
+    strb r0, [r3] \n\
+    ldr r0, [r5] \n\
+    add r0, #0x7d \n\
+    strb r1, [r0] \n\
+    ldr r0, [r5] \n\
+    add r0, #0x7f \n\
+    strb r2, [r0] \n\
+    ldr r0, [r5] \n\
+    movs r1, #0x1f \n\
+    and r4, r1 \n\
+    add r0, #0x80 \n\
+    strb r4, [r0] \n\
+    ldr r2, [r5] \n\
+    lsr r0, r7, #0x18 \n\
+    movs r1, #0x1f \n\
+    and r0, r1 \n\
+    add r2, #0x81 \n\
+    strb r0, [r2] \n\
+    ldr r0, [r5] \n\
+    add r0, #0x7e \n\
+    strb r6, [r0] \n\
+    movs r0, #1 \n\
+    b lbl_080681c2 \n\
+    .align 2, 0 \n\
+lbl_080681bc: .4byte sNonGameplayRamPointer \n\
+lbl_080681c0: \n\
+    movs r0, #0 \n\
+lbl_080681c2: \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 681c8 | 124 | To document
@@ -253,7 +311,7 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
     {
         DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-        DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+        DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
     }
     else
     {
@@ -499,7 +557,7 @@ u8 unk_68a58(u8 param_1)
  * @param param_1 To document
  * @return u8 To document
  */
-u8 PauseScreenUpdateStatusScreenOam(u8 param_1)
+u32 PauseScreenUpdateStatusScreenOam(u8 param_1)
 {
     s32 i;
     struct MenuOamData* pOam;
@@ -656,7 +714,7 @@ void PauseScreenUpdateWireframeSamus(u8 param_1)
     else if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
         oamId = 1;
 
-    DmaTransfer(3, &sSamusWireframePal[oamId * 16], sObjPalramPointer + 0x80, 16 * 2, 16);
+    DmaTransfer(3, &sSamusWireframePal[oamId * 16], sObjPalramPointer + 16 * 4, 16 * 2, 16);
 }
 
 /**
@@ -2405,6 +2463,7 @@ void PauseScreenDetermineMapsViewable(void)
     PauseScreenUpdateBottomVisorOverlay(1, 1);
 }
 
+#ifdef NON_MATCHING
 void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 {
     // https://decomp.me/scratch/kHRx8
@@ -2456,6 +2515,133 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
         dst[0x30] = src[var_1++];
     }
 }
+#else
+NAKED_FUNCTION
+void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
+{
+    asm(" \n\
+    push {r4, r5, lr} \n\
+    sub sp, #4 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r2, r0, #0x18 \n\
+    lsl r1, r1, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    ldr r0, lbl_0806b074 @ =0x0600cc40 \n\
+    mov ip, r0 \n\
+    ldr r0, lbl_0806b078 @ =sEwramPointer \n\
+    ldr r0, [r0] \n\
+    movs r3, #0x97 \n\
+    lsl r3, r3, #8 \n\
+    add r5, r0, r3 \n\
+    movs r4, #1 \n\
+    neg r4, r4 \n\
+    add r3, r4, #0 \n\
+    cmp r2, #0 \n\
+    beq lbl_0806b042 \n\
+    movs r3, #0 \n\
+    cmp r2, #1 \n\
+    bne lbl_0806b042 \n\
+    ldr r0, lbl_0806b07c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    ldrb r0, [r0, #0x11] \n\
+    cmp r0, #0 \n\
+    bne lbl_0806b042 \n\
+    movs r3, #0x16 \n\
+lbl_0806b042: \n\
+    cmp r1, #0 \n\
+    beq lbl_0806b05a \n\
+    movs r4, #0 \n\
+    cmp r1, #1 \n\
+    bne lbl_0806b05a \n\
+    ldr r0, lbl_0806b07c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0xbb \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    bls lbl_0806b05a \n\
+    movs r4, #0x2d \n\
+lbl_0806b05a: \n\
+    cmp r3, #0 \n\
+    bne lbl_0806b080 \n\
+    cmp r4, #0 \n\
+    bne lbl_0806b080 \n\
+    movs r0, #0x20 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    mov r2, ip \n\
+    movs r3, #0x80 \n\
+    bl BitFill \n\
+    b lbl_0806b0ee \n\
+    .align 2, 0 \n\
+lbl_0806b074: .4byte 0x0600cc40 \n\
+lbl_0806b078: .4byte sEwramPointer \n\
+lbl_0806b07c: .4byte sNonGameplayRamPointer \n\
+lbl_0806b080: \n\
+    cmp r3, #0 \n\
+    blt lbl_0806b0a6 \n\
+    lsl r0, r3, #1 \n\
+    add r0, r0, r5 \n\
+    ldrh r1, [r0] \n\
+    mov r2, ip \n\
+    strh r1, [r2, #0x2c] \n\
+    ldrh r1, [r0, #2] \n\
+    strh r1, [r2, #0x2e] \n\
+    add r2, #0x6c \n\
+    add r1, r0, #0 \n\
+    add r1, #0x40 \n\
+    ldrh r1, [r1] \n\
+    strh r1, [r2] \n\
+    mov r1, ip \n\
+    add r1, #0x6e \n\
+    add r0, #0x42 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1] \n\
+lbl_0806b0a6: \n\
+    cmp r4, #0 \n\
+    blt lbl_0806b0ee \n\
+    mov r3, ip \n\
+    add r3, #0x5a \n\
+    add r1, r4, #0 \n\
+    add r0, r1, #1 \n\
+    lsl r0, r0, #0x10 \n\
+    asr r4, r0, #0x10 \n\
+    add r2, r4, #0 \n\
+    lsl r1, r1, #1 \n\
+    add r1, r1, r5 \n\
+    ldrh r0, [r1] \n\
+    strh r0, [r3] \n\
+    add r3, #2 \n\
+    add r0, r2, #1 \n\
+    lsl r0, r0, #0x10 \n\
+    asr r4, r0, #0x10 \n\
+    add r1, r4, #0 \n\
+    lsl r2, r2, #1 \n\
+    add r2, r2, r5 \n\
+    ldrh r0, [r2] \n\
+    strh r0, [r3] \n\
+    mov r2, ip \n\
+    add r2, #0x5e \n\
+    add r0, r1, #1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsl r1, r1, #1 \n\
+    add r1, r1, r5 \n\
+    ldrh r1, [r1] \n\
+    strh r1, [r2] \n\
+    mov r1, ip \n\
+    add r1, #0x60 \n\
+    asr r0, r0, #0xf \n\
+    add r0, r0, r5 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1] \n\
+lbl_0806b0ee: \n\
+    add sp, #4 \n\
+    pop {r4, r5} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 6b0f8 | 148 | Gets the minimap for the provided area

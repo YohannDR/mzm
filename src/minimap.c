@@ -47,6 +47,7 @@ void MinimapSetTileAsExplored(void)
     }
 }
 
+#ifdef NON_MATCHING
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
 {
     // https://decomp.me/scratch/lc52R
@@ -153,6 +154,255 @@ void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
         gLastAreaNameVisited.flags = 0;
     }
 }
+#else
+NAKED_FUNCTION
+void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    str r0, [sp] \n\
+    ldr r0, lbl_0806c21c @ =gShipLandingFlag \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0806c1e0 \n\
+    b lbl_0806c372 \n\
+lbl_0806c1e0: \n\
+    ldr r0, lbl_0806c220 @ =gLastAreaNameVisited \n\
+    ldrb r1, [r0] \n\
+    mov ip, r0 \n\
+    cmp r1, #0 \n\
+    bne lbl_0806c1ec \n\
+    b lbl_0806c372 \n\
+lbl_0806c1ec: \n\
+    movs r4, #0 \n\
+    movs r6, #0 \n\
+    ldr r0, [sp] \n\
+    cmp r0, #1 \n\
+    bne lbl_0806c236 \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0806c2a6 \n\
+    movs r6, #0x7f \n\
+    and r6, r1 \n\
+    ldr r1, lbl_0806c224 @ =sMinimapAreaNames \n\
+    lsl r0, r6, #1 \n\
+    add r0, r0, r6 \n\
+    lsl r0, r0, #2 \n\
+    add r3, r0, r1 \n\
+    ldr r0, lbl_0806c228 @ =gAreaBeforeTransition \n\
+    ldrb r1, [r3] \n\
+    ldrb r2, [r0] \n\
+    cmp r1, r2 \n\
+    bne lbl_0806c22c \n\
+    movs r4, #1 \n\
+    b lbl_0806c2a6 \n\
+    .align 2, 0 \n\
+lbl_0806c21c: .4byte gShipLandingFlag \n\
+lbl_0806c220: .4byte gLastAreaNameVisited \n\
+lbl_0806c224: .4byte sMinimapAreaNames \n\
+lbl_0806c228: .4byte gAreaBeforeTransition \n\
+lbl_0806c22c: \n\
+    ldrb r0, [r3, #5] \n\
+    cmp r0, r2 \n\
+    bne lbl_0806c2a6 \n\
+    movs r4, #2 \n\
+    b lbl_0806c2a6 \n\
+lbl_0806c236: \n\
+    ldr r1, lbl_0806c264 @ =sMinimapAreaNames \n\
+    mov r8, r1 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0xff \n\
+    beq lbl_0806c294 \n\
+    mov r5, ip \n\
+    ldrb r2, [r5, #1] \n\
+    movs r3, #0 \n\
+lbl_0806c246: \n\
+    ldrb r0, [r1] \n\
+    cmp r0, r2 \n\
+    bne lbl_0806c268 \n\
+    mov r7, ip \n\
+    ldrb r0, [r7, #2] \n\
+    ldrb r7, [r1, #1] \n\
+    cmp r0, r7 \n\
+    bne lbl_0806c280 \n\
+    ldrb r0, [r5, #3] \n\
+    ldrb r7, [r1, #2] \n\
+    cmp r0, r7 \n\
+    bne lbl_0806c280 \n\
+    movs r4, #1 \n\
+    b lbl_0806c298 \n\
+    .align 2, 0 \n\
+lbl_0806c264: .4byte sMinimapAreaNames \n\
+lbl_0806c268: \n\
+    ldrb r0, [r1, #5] \n\
+    cmp r0, r2 \n\
+    bne lbl_0806c280 \n\
+    ldrb r0, [r5, #2] \n\
+    ldrb r7, [r1, #6] \n\
+    cmp r0, r7 \n\
+    bne lbl_0806c280 \n\
+    ldrb r0, [r5, #3] \n\
+    ldrb r7, [r1, #7] \n\
+    cmp r0, r7 \n\
+    bne lbl_0806c280 \n\
+    movs r4, #2 \n\
+lbl_0806c280: \n\
+    cmp r4, #0 \n\
+    bne lbl_0806c298 \n\
+    add r3, #0xc \n\
+    add r1, #0xc \n\
+    add r6, #1 \n\
+    mov r7, r8 \n\
+    add r0, r3, r7 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0xff \n\
+    bne lbl_0806c246 \n\
+lbl_0806c294: \n\
+    cmp r4, #0 \n\
+    beq lbl_0806c2a6 \n\
+lbl_0806c298: \n\
+    movs r0, #0x80 \n\
+    neg r0, r0 \n\
+    add r1, r0, #0 \n\
+    add r0, r6, #0 \n\
+    orr r0, r1 \n\
+    mov r1, ip \n\
+    strb r0, [r1] \n\
+lbl_0806c2a6: \n\
+    cmp r4, #1 \n\
+    bne lbl_0806c2cc \n\
+    ldr r0, lbl_0806c2c8 @ =sMinimapAreaNames \n\
+    lsl r1, r6, #1 \n\
+    add r1, r1, r6 \n\
+    lsl r1, r1, #2 \n\
+    add r1, r1, r0 \n\
+    ldrb r5, [r1] \n\
+    ldrb r3, [r1, #1] \n\
+    movs r0, #3 \n\
+    ldrsb r0, [r1, r0] \n\
+    add r0, r3, r0 \n\
+    sub r4, r0, #1 \n\
+    ldrb r2, [r1, #2] \n\
+    movs r0, #4 \n\
+    ldrsb r0, [r1, r0] \n\
+    b lbl_0806c2f4 \n\
+    .align 2, 0 \n\
+lbl_0806c2c8: .4byte sMinimapAreaNames \n\
+lbl_0806c2cc: \n\
+    cmp r4, #2 \n\
+    beq lbl_0806c2d8 \n\
+    movs r0, #0 \n\
+    mov r1, ip \n\
+    strb r0, [r1] \n\
+    b lbl_0806c372 \n\
+lbl_0806c2d8: \n\
+    ldr r0, lbl_0806c384 @ =sMinimapAreaNames \n\
+    lsl r1, r6, #1 \n\
+    add r1, r1, r6 \n\
+    lsl r1, r1, #2 \n\
+    add r1, r1, r0 \n\
+    ldrb r5, [r1, #5] \n\
+    ldrb r3, [r1, #6] \n\
+    movs r0, #8 \n\
+    ldrsb r0, [r1, r0] \n\
+    add r0, r3, r0 \n\
+    sub r4, r0, #1 \n\
+    ldrb r2, [r1, #7] \n\
+    movs r0, #9 \n\
+    ldrsb r0, [r1, r0] \n\
+lbl_0806c2f4: \n\
+    add r0, r2, r0 \n\
+    sub r1, r0, #1 \n\
+    sub r3, #1 \n\
+    mov r7, ip \n\
+    strb r3, [r7, #2] \n\
+    sub r2, #1 \n\
+    strb r2, [r7, #3] \n\
+    lsl r0, r1, #5 \n\
+    add r0, r4, r0 \n\
+    lsl r0, r0, #1 \n\
+    ldr r2, lbl_0806c388 @ =0x02034800 \n\
+    add r3, r0, r2 \n\
+    lsl r0, r5, #5 \n\
+    add r5, r0, r1 \n\
+    movs r6, #0 \n\
+    mov sl, r0 \n\
+    ldr r1, lbl_0806c38c @ =sExploredMinimapBitFlags \n\
+    lsl r0, r4, #2 \n\
+    add r7, r0, r1 \n\
+    ldr r0, lbl_0806c390 @ =0xfffffebf \n\
+    mov sb, r0 \n\
+    ldr r1, lbl_0806c394 @ =sVisitedMinimapTilesPointer \n\
+    mov r8, r1 \n\
+lbl_0806c322: \n\
+    ldrh r0, [r3] \n\
+    ldr r4, lbl_0806c398 @ =0x000003ff \n\
+    and r4, r0 \n\
+    mov r2, sb \n\
+    add r0, r4, r2 \n\
+    cmp r0, #0x1d \n\
+    bhi lbl_0806c348 \n\
+    mov r1, r8 \n\
+    ldr r0, [r1] \n\
+    lsl r2, r5, #2 \n\
+    add r2, r2, r0 \n\
+    ldr r0, [r2] \n\
+    ldm r7!, {r1} \n\
+    orr r0, r1 \n\
+    str r0, [r2] \n\
+    add r6, #1 \n\
+    add r3, #2 \n\
+    cmp r6, #0x1f \n\
+    ble lbl_0806c322 \n\
+lbl_0806c348: \n\
+    ldr r2, [sp] \n\
+    cmp r2, #0 \n\
+    beq lbl_0806c372 \n\
+    mov r3, ip \n\
+    ldrb r0, [r3, #3] \n\
+    mov r7, sl \n\
+    add r5, r7, r0 \n\
+    ldr r0, lbl_0806c394 @ =sVisitedMinimapTilesPointer \n\
+    ldr r0, [r0] \n\
+    lsl r2, r5, #2 \n\
+    add r2, r2, r0 \n\
+    ldr r1, lbl_0806c38c @ =sExploredMinimapBitFlags \n\
+    ldrb r0, [r3, #2] \n\
+    lsl r0, r0, #2 \n\
+    add r0, r0, r1 \n\
+    ldr r1, [r2] \n\
+    ldr r0, [r0] \n\
+    orr r1, r0 \n\
+    str r1, [r2] \n\
+    movs r0, #0 \n\
+    strb r0, [r3] \n\
+lbl_0806c372: \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0806c384: .4byte sMinimapAreaNames \n\
+lbl_0806c388: .4byte 0x02034800 \n\
+lbl_0806c38c: .4byte sExploredMinimapBitFlags \n\
+lbl_0806c390: .4byte 0xfffffebf \n\
+lbl_0806c394: .4byte sVisitedMinimapTilesPointer \n\
+lbl_0806c398: .4byte 0x000003ff \n\
+    ");
+}
+#endif
 
 /**
  * @brief 6c39c | d8 | Checks if Samus is on an unexplored minimap tile
@@ -296,6 +546,7 @@ void MinimapUpdateForExploredTiles(void)
     }
 }
 
+#ifdef NON_MATCHING
 void MinimapDraw(void)
 {
     // https://decomp.me/scratch/qI74Z
@@ -361,6 +612,144 @@ void MinimapDraw(void)
         sMinimapTilesCopyGfxFunctionPointers[flip](dst, &tile, palette);
     }
 }
+#else
+NAKED_FUNCTION
+void MinimapDraw(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sb \n\
+    mov r6, r8 \n\
+    push {r6, r7} \n\
+    sub sp, #4 \n\
+    ldr r3, lbl_0806c5e4 @ =gUpdateMinimapFlag \n\
+    ldrb r0, [r3] \n\
+    cmp r0, #0 \n\
+    beq lbl_0806c690 \n\
+    ldr r0, lbl_0806c5e8 @ =0x02034000 \n\
+    mov r8, r0 \n\
+    ldrb r2, [r3] \n\
+    sub r1, r2, #1 \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #5 \n\
+    ldr r1, lbl_0806c5ec @ =0x02037e20 \n\
+    add r6, r0, r1 \n\
+    cmp r2, #3 \n\
+    bne lbl_0806c5f0 \n\
+    movs r7, #1 \n\
+    mov sb, r7 \n\
+    b lbl_0806c60a \n\
+    .align 2, 0 \n\
+lbl_0806c5e4: .4byte gUpdateMinimapFlag \n\
+lbl_0806c5e8: .4byte 0x02034000 \n\
+lbl_0806c5ec: .4byte 0x02037e20 \n\
+lbl_0806c5f0: \n\
+    cmp r2, #2 \n\
+    bne lbl_0806c5fa \n\
+    movs r0, #0 \n\
+    mov sb, r0 \n\
+    b lbl_0806c60a \n\
+lbl_0806c5fa: \n\
+    cmp r2, #1 \n\
+    beq lbl_0806c604 \n\
+    movs r0, #0 \n\
+    strb r0, [r3] \n\
+    b lbl_0806c690 \n\
+lbl_0806c604: \n\
+    movs r1, #1 \n\
+    neg r1, r1 \n\
+    mov sb, r1 \n\
+lbl_0806c60a: \n\
+    movs r5, #1 \n\
+    neg r5, r5 \n\
+    mov r4, sp \n\
+lbl_0806c610: \n\
+    ldr r0, lbl_0806c6a0 @ =gMinimapX \n\
+    ldrb r0, [r0] \n\
+    add r1, r0, r5 \n\
+    cmp r1, #0x1f \n\
+    bls lbl_0806c61e \n\
+    movs r1, #1 \n\
+    neg r1, r1 \n\
+lbl_0806c61e: \n\
+    ldr r0, lbl_0806c6a4 @ =gMinimapY \n\
+    ldrb r0, [r0] \n\
+    add r0, sb \n\
+    cmp r0, #0x1f \n\
+    bls lbl_0806c62c \n\
+    movs r0, #1 \n\
+    neg r0, r0 \n\
+lbl_0806c62c: \n\
+    cmp r0, #0 \n\
+    blt lbl_0806c634 \n\
+    cmp r1, #0 \n\
+    bge lbl_0806c638 \n\
+lbl_0806c634: \n\
+    movs r1, #0x1f \n\
+    movs r0, #0x1f \n\
+lbl_0806c638: \n\
+    lsl r0, r0, #5 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #1 \n\
+    add r0, r8 \n\
+    movs r7, #0xc0 \n\
+    lsl r7, r7, #4 \n\
+    add r2, r7, #0 \n\
+    ldrh r1, [r0] \n\
+    add r0, r1, #0 \n\
+    and r0, r2 \n\
+    lsr r3, r0, #0xa \n\
+    lsr r2, r1, #0xc \n\
+    ldr r7, lbl_0806c6a8 @ =0x000003ff \n\
+    add r0, r7, #0 \n\
+    and r1, r0 \n\
+    strh r1, [r4] \n\
+    ldr r0, lbl_0806c6ac @ =gLanguage \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #0x18 \n\
+    asr r0, r0, #0x18 \n\
+    cmp r0, #1 \n\
+    bne lbl_0806c672 \n\
+    movs r0, #0xa0 \n\
+    lsl r0, r0, #1 \n\
+    cmp r1, r0 \n\
+    bls lbl_0806c672 \n\
+    add r0, r1, #0 \n\
+    add r0, #0x20 \n\
+    strh r0, [r4] \n\
+lbl_0806c672: \n\
+    ldrh r0, [r4] \n\
+    lsl r0, r0, #5 \n\
+    strh r0, [r4] \n\
+    ldr r1, lbl_0806c6b0 @ =sMinimapTilesCopyGfxFunctionPointers \n\
+    lsl r0, r3, #2 \n\
+    add r0, r0, r1 \n\
+    ldr r3, [r0] \n\
+    add r0, r6, #0 \n\
+    mov r1, sp \n\
+    bl _call_via_r3 \n\
+    add r5, #1 \n\
+    add r6, #0x20 \n\
+    cmp r5, #1 \n\
+    ble lbl_0806c610 \n\
+lbl_0806c690: \n\
+    add sp, #4 \n\
+    pop {r3, r4} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0806c6a0: .4byte gMinimapX \n\
+lbl_0806c6a4: .4byte gMinimapY \n\
+lbl_0806c6a8: .4byte 0x000003ff \n\
+lbl_0806c6ac: .4byte gLanguage \n\
+lbl_0806c6b0: .4byte sMinimapTilesCopyGfxFunctionPointers \n\
+    ");
+}
+#endif
 
 /**
  * @brief 6c6b4 | d8 | Copies the graphics of a map tile
@@ -745,13 +1134,13 @@ void MinimapUpdateChunk(u8 event)
     u16* ptr;
     u32 mask;
 
-    for (i = 0; i < ARRAY_SIZE(sBossIcons); i++)
+    for (i = 0; i < (u32)ARRAY_SIZE(sBossIcons); i++)
     {
         if (event == sBossIcons[i][0])
             break;
     }
 
-    if (i >= (int)ARRAY_SIZE(sBossIcons))
+    if (i >= ARRAY_SIZE(sBossIcons))
         return;
 
     if (i != gCurrentArea)
@@ -791,8 +1180,8 @@ void MinimapUpdateChunk(u8 event)
         {
             pVisitedLower = pVisited;
             pMinimapLower = pMinimap;
-            
-            for (i = 1; i >= 0; i--)
+
+            for (i = 0; i < 2; i++)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
@@ -806,7 +1195,7 @@ void MinimapUpdateChunk(u8 event)
             pMinimapLower = pMinimap;
             pMinimapLower += MINIMAP_SIZE;
 
-            for (i = 1; i >= 0; i--)
+            for (i = 0; i < 2; i++)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
@@ -826,7 +1215,7 @@ void MinimapUpdateChunk(u8 event)
         {
             pVisitedLower = pVisited;
             pMinimapLower = pMinimap;
-            for (i = 1; i >= 0; i--)
+            for (i = 0; i < 2; i++)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
@@ -840,7 +1229,7 @@ void MinimapUpdateChunk(u8 event)
             pMinimapLower = pMinimap;
             pMinimapLower += MINIMAP_SIZE;
 
-            for (i = 1; i >= 0; i--)
+            for (i = 0; i < 2; i++)
             {
                 (*pMinimapLower) += 0x20;
                 (*pVisitedLower) += 0x20;
