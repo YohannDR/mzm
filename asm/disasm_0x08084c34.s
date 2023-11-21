@@ -4353,7 +4353,7 @@ lbl_08087034:
     movs r1, #0x22
 lbl_08087040:
     adds r0, r1, #0
-    bl start_file_screen_text
+    bl TextStartFileScreen
     ldr r0, lbl_08087058 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     movs r1, #0x92
@@ -4412,7 +4412,7 @@ lbl_080870aa:
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080870c8
-    bl sub_0806f5c4
+    bl TextProcessFileScreenPopUp
     ldr r1, [r4]
     movs r2, #0x92
     lsls r2, r2, #1

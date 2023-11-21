@@ -5,6 +5,7 @@
 #include "minimap.h"
 
 #include "constants/connection.h"
+#include "constants/menus/status_screen.h"
 #include "constants/menus/pause_screen.h"
 
 const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty = {
@@ -102,12 +103,14 @@ static const u8 sUnused_7601cc[16] = {
     0x34, 0x0, 0x0, 0x0 
 };
 
-const u8* const sStatusScreenBeamFlagsOrderPointer = sStatusScreenBeamFlagsOrder;
-const u8* const sStatusScreenBombFlagsOrderPointer = sStatusScreenBombFlagsOrder;
-const u8* const sStatusScreenSuitFlagsOrderPointer = sStatusScreenSuitFlagsOrder;
-const u8* const sStatusScreenMiscFlagsOrderPointer = sStatusScreenMiscFlagsOrder;
+const u8* const sStatusScreenFlagsOrderPointers[4] = {
+    [ABILITY_GROUP_BEAMS] = sStatusScreenBeamFlagsOrder,
+    [ABILITY_GROUP_BOMBS] = sStatusScreenBombFlagsOrder,
+    [ABILITY_GROUP_SUITS] = sStatusScreenSuitFlagsOrder,
+    [ABILITY_GROUP_MISC] = sStatusScreenMiscFlagsOrder,
+};
 
-const u32* const sMinimapDataPointers[11] = {
+const u32* const sMinimapDataPointers[AREA_END] = {
     [AREA_BRINSTAR] = sBrinstarMinimap,
     [AREA_KRAID] = sKraidMinimap,
     [AREA_NORFAIR] = sNorfairMinimap,

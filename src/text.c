@@ -958,6 +958,7 @@ void TextStartFileScreen(u8 textID)
     gCurrentMessage.messageID = textID;
 }
 
+#ifdef NON_MATCHING
 u8 TextProcessFileScreenPopUp(void)
 {
     // https://decomp.me/scratch/vcoZi
@@ -1018,6 +1019,115 @@ u8 TextProcessFileScreenPopUp(void)
 
     return 0;
 }
+#else
+NAKED_FUNCTION
+u8 TextProcessFileScreenPopUp(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, lr} \n\
+    ldr r0, lbl_0806f5ec @ =gCurrentMessage \n\
+    ldrb r1, [r0, #0xc] \n\
+    add r2, r0, #0 \n\
+    cmp r1, #1 \n\
+    beq lbl_0806f668 \n\
+    cmp r1, #1 \n\
+    bgt lbl_0806f674 \n\
+    cmp r1, #0 \n\
+    bne lbl_0806f674 \n\
+    movs r5, #8 \n\
+    ldrb r0, [r2, #7] \n\
+    cmp r0, #3 \n\
+    bhi lbl_0806f5e6 \n\
+    ldrb r0, [r2, #0xe] \n\
+    cmp r0, #0 \n\
+    beq lbl_0806f5f0 \n\
+lbl_0806f5e6: \n\
+    movs r0, #1 \n\
+    strb r0, [r2, #0xc] \n\
+    b lbl_0806f678 \n\
+    .align 2, 0 \n\
+lbl_0806f5ec: .4byte gCurrentMessage \n\
+lbl_0806f5f0: \n\
+    ldrb r0, [r2, #7] \n\
+    lsl r0, r0, #0xb \n\
+    movs r1, #0xc0 \n\
+    lsl r1, r1, #0x13 \n\
+    add r6, r0, r1 \n\
+lbl_0806f5fa: \n\
+    ldr r4, lbl_0806f630 @ =gCurrentMessage \n\
+    ldr r1, lbl_0806f634 @ =sFileScreenTextPointers \n\
+    ldr r0, lbl_0806f638 @ =gLanguage \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #0x18 \n\
+    asr r0, r0, #0x18 \n\
+    lsl r0, r0, #2 \n\
+    add r0, r0, r1 \n\
+    ldrb r1, [r4, #0xa] \n\
+    ldr r0, [r0] \n\
+    lsl r1, r1, #2 \n\
+    add r1, r1, r0 \n\
+    ldr r1, [r1] \n\
+    add r0, r4, #0 \n\
+    add r2, r6, #0 \n\
+    bl TextProcessCurrentMessage \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    cmp r0, #2 \n\
+    beq lbl_0806f642 \n\
+    cmp r0, #2 \n\
+    bgt lbl_0806f63c \n\
+    cmp r0, #1 \n\
+    beq lbl_0806f648 \n\
+    b lbl_0806f654 \n\
+    .align 2, 0 \n\
+lbl_0806f630: .4byte gCurrentMessage \n\
+lbl_0806f634: .4byte sFileScreenTextPointers \n\
+lbl_0806f638: .4byte gLanguage \n\
+lbl_0806f63c: \n\
+    cmp r0, #4 \n\
+    beq lbl_0806f648 \n\
+    b lbl_0806f654 \n\
+lbl_0806f642: \n\
+    ldrb r0, [r4, #0xc] \n\
+    add r0, #1 \n\
+    strb r0, [r4, #0xc] \n\
+lbl_0806f648: \n\
+    ldr r1, lbl_0806f650 @ =gCurrentMessage \n\
+    movs r0, #0 \n\
+    strh r0, [r1, #2] \n\
+    b lbl_0806f678 \n\
+    .align 2, 0 \n\
+lbl_0806f650: .4byte gCurrentMessage \n\
+lbl_0806f654: \n\
+    ldr r0, lbl_0806f664 @ =gCurrentMessage \n\
+    ldrb r0, [r0, #7] \n\
+    cmp r0, #3 \n\
+    bhi lbl_0806f678 \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    bne lbl_0806f5fa \n\
+    b lbl_0806f678 \n\
+    .align 2, 0 \n\
+lbl_0806f664: .4byte gCurrentMessage \n\
+lbl_0806f668: \n\
+    ldrb r0, [r2, #7] \n\
+    add r0, #1 \n\
+    strb r0, [r2, #7] \n\
+    ldrb r0, [r2, #0xc] \n\
+    add r0, #1 \n\
+    strb r0, [r2, #0xc] \n\
+lbl_0806f674: \n\
+    ldrb r0, [r2, #7] \n\
+    b lbl_0806f67a \n\
+lbl_0806f678: \n\
+    movs r0, #0 \n\
+lbl_0806f67a: \n\
+    pop {r4, r5, r6} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 6f680 | 30c | Processes the description text

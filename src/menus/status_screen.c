@@ -1,6 +1,5 @@
 #include "menus/status_screen.h"
 #include "menus/pause_screen.h"
-#include "oam_id.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/menus/status_screen_data.h"
@@ -148,6 +147,7 @@ void UpdateSuitType(u8 newSuit)
     }
 }
 
+#ifdef NON_MATCHING
 u32 StatusScreenDrawItems(u8 row)
 {
     // https://decomp.me/scratch/qX1cv
@@ -190,6 +190,121 @@ u32 StatusScreenDrawItems(u8 row)
 
     return j;
 }
+#else
+NAKED_FUNCTION
+u32 StatusScreenDrawItems(u8 row)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r7, r0, #0x18 \n\
+    cmp r7, #7 \n\
+    bls lbl_0806ff64 \n\
+    movs r0, #1 \n\
+    b lbl_0806fff4 \n\
+lbl_0806ff64: \n\
+    movs r4, #0 \n\
+    ldr r0, lbl_08070004 @ =sStatusScreenRowsData \n\
+    mov sb, r0 \n\
+    ldr r1, lbl_08070008 @ =sStatusScreenGroupsData \n\
+    mov sl, r1 \n\
+lbl_0806ff6e: \n\
+    lsl r1, r4, #1 \n\
+    cmp r7, #0 \n\
+    bne lbl_0806ff80 \n\
+    add r0, r1, r4 \n\
+    add r0, sb \n\
+    ldrb r0, [r0] \n\
+    add r6, r4, #1 \n\
+    cmp r0, #2 \n\
+    beq lbl_0806ffe4 \n\
+lbl_0806ff80: \n\
+    add r2, r1, r4 \n\
+    mov r3, sb \n\
+    add r0, r2, r3 \n\
+    ldrb r0, [r0] \n\
+    lsl r1, r0, #2 \n\
+    add r1, r1, r0 \n\
+    mov r5, sl \n\
+    add r0, r1, r5 \n\
+    ldrb r0, [r0] \n\
+    add r0, r0, r7 \n\
+    ldr r3, lbl_0807000c @ =sStatusScreenGroupsData+0x2 \n\
+    add r1, r1, r3 \n\
+    lsl r0, r0, #5 \n\
+    ldrb r1, [r1] \n\
+    add r3, r0, r1 \n\
+    ldr r5, lbl_08070010 @ =sStatusScreenRowsData+0x1 \n\
+    add r0, r2, r5 \n\
+    ldrb r0, [r0] \n\
+    add r6, r4, #1 \n\
+    cmp r0, r7 \n\
+    bls lbl_0806ffe4 \n\
+    movs r4, #0 \n\
+    ldr r1, lbl_08070014 @ =sStatusScreenRowsData+0x2 \n\
+    add r0, r2, r1 \n\
+    ldrb r5, [r0] \n\
+    cmp r4, r5 \n\
+    bge lbl_0806ffe4 \n\
+    ldr r1, lbl_08070018 @ =sEwramPointer \n\
+    mov r8, r1 \n\
+    movs r5, #0xe0 \n\
+    lsl r5, r5, #7 \n\
+    mov ip, r5 \n\
+    str r0, [sp] \n\
+    lsl r0, r3, #1 \n\
+    ldr r1, lbl_0807001c @ =0x0600c000 \n\
+    add r2, r0, r1 \n\
+lbl_0806ffc8: \n\
+    lsl r0, r3, #1 \n\
+    mov r5, r8 \n\
+    ldr r1, [r5] \n\
+    add r1, ip \n\
+    add r1, r1, r0 \n\
+    ldrh r0, [r1] \n\
+    strh r0, [r2] \n\
+    add r4, #1 \n\
+    add r2, #2 \n\
+    add r3, #1 \n\
+    ldr r0, [sp] \n\
+    ldrb r0, [r0] \n\
+    cmp r4, r0 \n\
+    blt lbl_0806ffc8 \n\
+lbl_0806ffe4: \n\
+    add r4, r6, #0 \n\
+    cmp r4, #5 \n\
+    ble lbl_0806ff6e \n\
+    movs r4, #0 \n\
+    cmp r7, #6 \n\
+    bls lbl_0806fff2 \n\
+    movs r4, #1 \n\
+lbl_0806fff2: \n\
+    add r0, r4, #0 \n\
+lbl_0806fff4: \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    .align 2, 0 \n\
+lbl_08070004: .4byte sStatusScreenRowsData \n\
+lbl_08070008: .4byte sStatusScreenGroupsData \n\
+lbl_0807000c: .4byte sStatusScreenGroupsData+0x2 \n\
+lbl_08070010: .4byte sStatusScreenRowsData+0x1 \n\
+lbl_08070014: .4byte sStatusScreenRowsData+0x2 \n\
+lbl_08070018: .4byte sEwramPointer \n\
+lbl_0807001c: .4byte 0x0600c000 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 70020 | 160 | Gets the status slot for a new item
@@ -284,7 +399,7 @@ void StatusScreenDraw(void)
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
         DmaTransfer(3, (void*)sEwramPointer + 0x8000, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
-        BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
+        BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
         StatusScreenSetPistolVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_MAX_ENERGY, gEquipment.maxEnergy, 11, TRUE);
@@ -297,12 +412,12 @@ void StatusScreenDraw(void)
     previousSlots[1] = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
     previousSlots[2] = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
 
-    BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
+    BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
 
     StatusScreenSetBeamsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
     StatusScreenSetSuitsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
     StatusScreenSetBombsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
-    StatusScreenSetMiscVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
+    StatusScreenSetMiscsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
     StatusScreenSetMissilesVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
 
     StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
@@ -558,6 +673,8 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
  */
 void StatusScreenSetSuitsVisibility(u16* pTilemap)
 {
+    // https://decomp.me/scratch/Z22vi
+
     s32 i;
     s32 j;
     s32 row;
@@ -567,6 +684,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
     u8* pVisibility;
+    u8* ptr;
     s32 size;
     
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
@@ -603,35 +721,35 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
 
             for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
             {
+                ptr = &gEquipment.suitMiscActivation;
                 pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
             }
 
             StatusScreenUpdateRow(ABILITY_GROUP_SUITS, row + 1,
-                *(u8*)0x300153f & pVisibility[row], FALSE);
-                //gEquipment.suitMiscActivation & pVisibility[row], FALSE);
+                *ptr & pVisibility[row], FALSE);
             row++;
         }
     }
 
-    if (row != 0)
+    if (row == 0)
+        return;
+
+    if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80 | 0x2;
+
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 10;
+
+    row++;
+    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + row) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
+
+    srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
+    
+    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
     {
-        if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
-            PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80 | 0x2;
-
-        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 10;
-
-        row++;
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + row) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
-
-        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
-        
-        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
-        {
-            pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
-        }
+        pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
     }
 }
 
@@ -1799,7 +1917,7 @@ u32 StatusScreenUpdateCursorPosition(u8 statusSlot)
     PAUSE_SCREEN_DATA.miscOam[0].yPosition = yPosition * HALF_BLOCK_SIZE;
     PAUSE_SCREEN_DATA.miscOam[0].xPosition = xPosition * HALF_BLOCK_SIZE;
 
-    return xPosition << 16 | yPosition;
+    return C_32_2_16(xPosition, yPosition);
 }
 
 /**
@@ -2074,6 +2192,7 @@ void StatusScreenMoveCursor(void)
     }
 }
 
+#ifdef NON_MATCHING
 u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
 {
     // https://decomp.me/scratch/JSj7i
@@ -2200,3 +2319,148 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
 
     return newSlot;
 }
+#else
+NAKED_FUNCTION
+u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, r8 \n\
+    push {r7} \n\
+    sub sp, #4 \n\
+    lsl r0, r0, #0x18 \n\
+    asr r5, r0, #0x18 \n\
+    lsl r1, r1, #0x18 \n\
+    lsr r4, r1, #0x18 \n\
+    mov r8, r4 \n\
+    cmp r5, #0 \n\
+    beq lbl_08071f62 \n\
+    cmp r5, #1 \n\
+    ble lbl_08071f26 \n\
+    cmp r4, #7 \n\
+    bls lbl_08071ea8 \n\
+    ldr r1, lbl_08071ea4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r1] \n\
+    add r0, #0xc3 \n\
+    b lbl_08071eae \n\
+    .align 2, 0 \n\
+lbl_08071ea4: .4byte sNonGameplayRamPointer \n\
+lbl_08071ea8: \n\
+    ldr r1, lbl_08071ed4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r1] \n\
+    add r0, #0xc2 \n\
+lbl_08071eae: \n\
+    strb r4, [r0] \n\
+    mov r0, r8 \n\
+    cmp r0, #7 \n\
+    bls lbl_08071edc \n\
+    ldr r0, [r1] \n\
+    add r0, #0xc2 \n\
+    ldrb r4, [r0] \n\
+    cmp r4, #0 \n\
+    bne lbl_08071f62 \n\
+    movs r1, #7 \n\
+    movs r7, #1 \n\
+    mov r0, r8 \n\
+    cmp r0, #0xb \n\
+    bls lbl_08071ed8 \n\
+    movs r4, #6 \n\
+    movs r5, #1 \n\
+    neg r5, r5 \n\
+    b lbl_08071efc \n\
+    .align 2, 0 \n\
+lbl_08071ed4: .4byte sNonGameplayRamPointer \n\
+lbl_08071ed8: \n\
+    movs r4, #1 \n\
+    b lbl_08071efa \n\
+lbl_08071edc: \n\
+    ldr r0, [r1] \n\
+    add r0, #0xc3 \n\
+    ldrb r4, [r0] \n\
+    cmp r4, #0 \n\
+    bne lbl_08071f62 \n\
+    movs r1, #0x11 \n\
+    movs r7, #8 \n\
+    mov r0, r8 \n\
+    cmp r0, #5 \n\
+    bls lbl_08071ef8 \n\
+    movs r4, #0xc \n\
+    movs r5, #1 \n\
+    neg r5, r5 \n\
+    b lbl_08071efc \n\
+lbl_08071ef8: \n\
+    movs r4, #8 \n\
+lbl_08071efa: \n\
+    movs r5, #1 \n\
+lbl_08071efc: \n\
+    add r6, r4, #0 \n\
+lbl_08071efe: \n\
+    lsl r0, r4, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    str r1, [sp] \n\
+    bl StatusScreenIsStatusSlotEnabled \n\
+    ldr r1, [sp] \n\
+    cmp r0, #0 \n\
+    bne lbl_08071f62 \n\
+    add r4, r4, r5 \n\
+    cmp r4, r7 \n\
+    bge lbl_08071f18 \n\
+    add r4, r1, #0 \n\
+    b lbl_08071f1e \n\
+lbl_08071f18: \n\
+    cmp r4, r1 \n\
+    ble lbl_08071f1e \n\
+    add r4, r7, #0 \n\
+lbl_08071f1e: \n\
+    cmp r4, r6 \n\
+    bne lbl_08071efe \n\
+lbl_08071f22: \n\
+    mov r4, r8 \n\
+    b lbl_08071f62 \n\
+lbl_08071f26: \n\
+    cmp r4, #7 \n\
+    bls lbl_08071f30 \n\
+    movs r1, #0x11 \n\
+    movs r7, #8 \n\
+    b lbl_08071f34 \n\
+lbl_08071f30: \n\
+    movs r1, #7 \n\
+    movs r7, #1 \n\
+lbl_08071f34: \n\
+    cmp r5, #1 \n\
+    beq lbl_08071f3c \n\
+    movs r0, #1 \n\
+    neg r0, r0 \n\
+lbl_08071f3c: \n\
+    add r6, r4, #0 \n\
+lbl_08071f3e: \n\
+    add r4, r4, r5 \n\
+    cmp r4, r7 \n\
+    bge lbl_08071f48 \n\
+    add r4, r1, #0 \n\
+    b lbl_08071f4e \n\
+lbl_08071f48: \n\
+    cmp r4, r1 \n\
+    ble lbl_08071f4e \n\
+    add r4, r7, #0 \n\
+lbl_08071f4e: \n\
+    cmp r4, r6 \n\
+    beq lbl_08071f22 \n\
+    lsl r0, r4, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    str r1, [sp] \n\
+    bl StatusScreenIsStatusSlotEnabled \n\
+    ldr r1, [sp] \n\
+    cmp r0, #0 \n\
+    beq lbl_08071f3e \n\
+lbl_08071f62: \n\
+    add r0, r4, #0 \n\
+    add sp, #4 \n\
+    pop {r3} \n\
+    mov r8, r3 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif

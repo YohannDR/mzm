@@ -20,6 +20,7 @@ SECTIONS {
         . = 0x00007000; gDecompBg3Map = .;
         . = 0x00026300; gHazeValues = .;
         . = 0x00026d00; gPreviousHazeValues = .;
+        . = 0x00027700; gCurrentCharacterGfx = .;
         . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00027800; gDecompClipdataMap = .;
         . = 0x0002a800; gDecompBg0Map = .;
@@ -555,9 +556,8 @@ SECTIONS {
         src/menus/pause_screen.o(.text);
         src/minimap.o(.text);
         src/menus/pause_screen_map.o(.text);
-
-        asm/disasm_0x0806e460.o(.text);
-
+        src/text.o(.text);
+        src/menus/status_screen.o(.text);
         src/menus/pause_screen_sub_menus.o(.text);
 
         asm/disasm_0x0807329c.o(.text);

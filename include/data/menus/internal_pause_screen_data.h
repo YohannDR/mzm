@@ -8,6 +8,8 @@
 #include "structs/menus/pause_screen.h"
 #include "structs/minimap.h"
 
+#include "constants/connection.h"
+
 extern const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty;
 
 extern const u32* const sMapScreenAreaNamesGfxPointers[LANGUAGE_END];
@@ -20,7 +22,7 @@ extern u16 sPauseScreenCompletionInfoOamData[6][5];
 
 extern const u8* const sStatusScreenFlagsOrderPointers[4];
 
-extern const u32* const sMinimapDataPointers[11];
+extern const u32* const sMinimapDataPointers[AREA_END];
 
 extern const u32 sExploredMinimapBitFlags[32];
 extern const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4];

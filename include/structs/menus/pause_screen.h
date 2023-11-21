@@ -164,7 +164,7 @@ struct PauseScreenData {
     u16 unk_18;
     s8 unk_1A;
     u16 unk_1C;
-    u8 unk_1E;
+    s8 unk_1E;
 
     struct UnknownItemPalette unknownItemDynamicPalette;
     
