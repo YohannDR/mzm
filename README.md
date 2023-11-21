@@ -37,5 +37,5 @@ This produces the following ROMs:
 ## Build
 
 - Run `make clean` if necessary
-- Run the `extractor.py` script in tools (`python3 tools/extractor.py`) if necessary
+- Run the `extractor` script in tools (`./tools/extractor`) if necessary
 - Run `make` (using the -j option is recommended to speed up the process)
