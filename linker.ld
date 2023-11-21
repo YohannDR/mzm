@@ -30,6 +30,7 @@ SECTIONS {
         . = 0x00034000; gDecompressedMinimapVisitedTiles = .;
         . = 0x00034800; gDecompressedMinimapData = .;
         . = 0x00035400; unk_02035400 = .;
+        . = 0x00035c00; gNeverReformBlocks = .;
         . = 0x00036c00; gItemsCollected = .;
         . = 0x00037400; gVisitedMinimapTiles = .;
         . = 0x00037c00; gHatchesOpened = .;
@@ -559,9 +560,7 @@ SECTIONS {
         src/text.o(.text);
         src/menus/status_screen.o(.text);
         src/menus/pause_screen_sub_menus.o(.text);
-
-        asm/disasm_0x0807329c.o(.text);
-
+        src/save_file.o(.text);
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         src/menus/game_over.o(.text);

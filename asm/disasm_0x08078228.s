@@ -2551,7 +2551,7 @@ lbl_0807964c:
     ldrb r0, [r0]
     adds r1, #0x27
     ldrb r1, [r1]
-    bl sub_080755a4
+    bl SramCopyFile
     cmp r0, #0
     bne lbl_08079662
     b lbl_08079794
@@ -3013,7 +3013,7 @@ lbl_08079a24:
     ldr r0, [r5]
     adds r0, #0x28
     ldrb r0, [r0]
-    bl sub_08075494
+    bl SramDeleteFile
     cmp r0, #0
     bne lbl_08079a34
     b lbl_08079b44
@@ -5393,7 +5393,7 @@ lbl_0807acd0:
 lbl_0807ace4:
     movs r0, #1
     bl sub_08078ca0
-    bl sub_08074b6c
+    bl SramWrite_SoundMode
 lbl_0807acee:
     ldr r1, [r4]
     adds r1, #0x40
@@ -8585,7 +8585,7 @@ file_select_menu_init: @ 0x0807c5e0
     movs r1, #0
     mov r3, sb
     bl BitFill
-    bl sub_080756c0
+    bl SramWrite_FileInfo
     bl sub_0807c5a4
     ldr r0, [r7]
     ldr r2, lbl_0807c7c8 @ =gMostRecentSaveFile
@@ -8696,7 +8696,7 @@ file_select_menu_init: @ 0x0807c5e0
     movs r0, #3
     mov r3, sb
     bl DmaTransfer
-    bl sub_08074c08
+    bl SramRead_SoundMode
     bl sub_08078228
     ldr r3, lbl_0807c820 @ =gGameModeSub1
     movs r0, #2

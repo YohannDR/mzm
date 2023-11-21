@@ -100,7 +100,7 @@ void SramWrite_FileScreenOptionsUnlocked(void)
 
     ptr = (u32*)&sSramEwramPointer->fileScreenOptions_fileA;
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFileScreenOptions, 4, u32); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveFileScreenOptions, 4, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -362,7 +362,7 @@ void SramWrite_HeaderAndGameInfo(void)
     // Calculate checksum
     ptr = (u32*)&sSramEwramPointer->files[gMostRecentSaveFile];
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -515,7 +515,7 @@ void SramCopy_GameCompletion(void)
     // Calculate checksum
     ptr = (u32*)&sSramEwramPointer->files[gMostRecentSaveFile];
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -744,7 +744,7 @@ void SramWrite_ToEwram(void)
     // Calculate checksum
     ptr = (u32*)&sSramEwramPointer->files[gMostRecentSaveFile];
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1009,7 +1009,7 @@ u32 unk_74624(u8 useCopy)
     ptr = (u32*)pFile;
     checksum = 0;
 
-    for (i = 0; i < (s32)SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1228,7 +1228,7 @@ void SramWrite_MostRecentSaveFile(void)
 
     // Calculate checksum
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1268,7 +1268,7 @@ void SramRead_MostRecentSaveFile(void)
         ptr = (u16*)&sSramEwramPointer->mostRecentFileSave;
         checksum = 0;
         actualChecksum = pSave->checksum;
-        for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i >= 0; i--)
+        for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i++)
         {
             checksum += *ptr++;
             checksum += *ptr++;
@@ -1289,7 +1289,7 @@ void SramRead_MostRecentSaveFile(void)
                     break;
                 }
 
-                if (sMostRecentFileSave_Text[1][i])
+                if (pSave->endText[i] != sMostRecentFileSave_Text[1][i])
                 {
                     error = 3;
                     break;
@@ -1307,7 +1307,7 @@ void SramRead_MostRecentSaveFile(void)
     ptr = &buffer;
     buffer = USHORT_MAX;
     DMA_SET(3, &buffer, &sSramEwramPointer->mostRecentFileSave,
-        (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->mostRecentFileSave) / 2);
+        C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, sizeof(sSramEwramPointer->mostRecentFileSave) / 2));
 
     gMostRecentSaveFile = 0;
 }
@@ -1341,7 +1341,7 @@ void SramWrite_SoundMode(void)
 
     // Calculate checksum
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1381,7 +1381,7 @@ void SramRead_SoundMode(void)
         ptr = (u16*)&sSramEwramPointer->soundModeSave;
         checksum = 0;
         actualChecksum = pSave->checksum;
-        for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i >= 0; i--)
+        for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i++)
         {
             checksum += *ptr++;
             checksum += *ptr++;
@@ -1459,7 +1459,7 @@ void SramWrite_Language(void)
 
     // Calculate checksum
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1502,7 +1502,7 @@ u32 SramRead_Language(void)
         {
             checksum = 0;
             actualChecksum = pSave->checksum;
-            for (j = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); j >= 0; j--)
+            for (j = 0; j < SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); j++)
             {
                 checksum += *ptr++;
                 checksum += *ptr++;
@@ -1606,7 +1606,7 @@ void SramWrite_TimeAttack(void)
 
     // Calculate checksum
     checksum = 0;
-    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveTimeAttack, 4, u16); i >= 0; i--)
+    for (i = 0; i < SRAM_GET_CHECKSUM_SIZE(struct SaveTimeAttack, 4, u16); i++)
     {
         checksum += *ptr++;
         checksum += *ptr++;
@@ -1647,7 +1647,7 @@ void SramRead_TimeAttack(void)
         {
             checksum = 0;
             actualChecksum = pSave->checksum;
-            for (j = SRAM_GET_CHECKSUM_SIZE(struct SaveTimeAttack, 4, u16); j >= 0; j--)
+            for (j = 0; j < SRAM_GET_CHECKSUM_SIZE(struct SaveTimeAttack, 4, u16); j++)
             {
                 checksum += *ptr++;
                 checksum += *ptr++;
@@ -1741,8 +1741,10 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->environmentalEffects[3] = gSamusEnvironmentalEffects[3];
     pFile->environmentalEffects[4] = gSamusEnvironmentalEffects[4];
 
-    DmaTransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
-    DmaTransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
+    // 0x2037400 = gVisitedMinimapTiles
+    DmaTransfer(3, (u32*)0x2037400 + gCurrentArea * MINIMAP_SIZE, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
+    // 0x2037c00 = gHatchesOpened
+    DmaTransfer(3, (u8*)0x2037c00 + gCurrentArea * 32, pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
 
     pFile->text[0] = 'A';
     pFile->text[1] = 'T';
@@ -1914,6 +1916,7 @@ u32 SramCopyFile(u8 src, u8 dst)
     return gDisableSoftreset ^ TRUE;
 }
 
+#ifdef NON_MATCHING
 void SramWrite_FileInfo(void)
 {
     // https://decomp.me/scratch/c9e6c
@@ -1985,6 +1988,150 @@ void SramWrite_FileInfo(void)
         gSaveFilesInfo[i].timeAttack = pFile->timeAttack;
     }
 }
+#else
+NAKED_FUNCTION
+void SramWrite_FileInfo(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, r8 \n\
+    push {r7} \n\
+    ldr r0, lbl_0807574c @ =0x02038000 \n\
+    movs r6, #0 \n\
+    ldr r1, lbl_08075750 @ =gSaveFilesInfo \n\
+    add r5, r0, #0 \n\
+    add r5, #0xbc \n\
+    add r4, r0, #0 \n\
+    add r4, #0x98 \n\
+    add r3, r0, #0 \n\
+    add r3, #0x80 \n\
+    movs r0, #0x91 \n\
+    lsl r0, r0, #5 \n\
+    mov ip, r0 \n\
+    movs r7, #2 \n\
+    mov r8, r7 \n\
+lbl_080756e2: \n\
+    ldrb r0, [r4, #5] \n\
+    strb r0, [r1, #2] \n\
+    ldrb r2, [r1] \n\
+    cmp r2, #1 \n\
+    bne lbl_08075756 \n\
+    movs r7, #0xd1 \n\
+    lsl r7, r7, #1 \n\
+    add r0, r3, r7 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1, #4] \n\
+    sub r7, #6 \n\
+    add r0, r3, r7 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1, #6] \n\
+    add r7, #8 \n\
+    add r0, r3, r7 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1, #8] \n\
+    sub r7, #6 \n\
+    add r0, r3, r7 \n\
+    ldrh r0, [r0] \n\
+    strh r0, [r1, #0xa] \n\
+    add r7, #0x10 \n\
+    add r0, r3, r7 \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r1, #0xc] \n\
+    add r7, #0x4e \n\
+    add r0, r3, r7 \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r1, #0xd] \n\
+    add r7, #1 \n\
+    add r0, r3, r7 \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r1, #0xe] \n\
+    add r7, #1 \n\
+    add r0, r3, r7 \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r1, #0xf] \n\
+    ldrb r0, [r4, #4] \n\
+    strb r0, [r1, #0x10] \n\
+    ldrb r0, [r4] \n\
+    strb r0, [r1, #0x11] \n\
+    ldrb r0, [r4, #1] \n\
+    strb r0, [r1, #0x12] \n\
+    ldrb r0, [r4, #2] \n\
+    strb r0, [r1, #0x13] \n\
+    ldrb r0, [r5, #2] \n\
+    strb r0, [r1, #0x15] \n\
+    ldrb r0, [r5] \n\
+    cmp r0, #2 \n\
+    bls lbl_08075754 \n\
+    strb r2, [r1, #0x14] \n\
+    b lbl_08075756 \n\
+    .align 2, 0 \n\
+lbl_0807574c: .4byte 0x02038000 \n\
+lbl_08075750: .4byte gSaveFilesInfo \n\
+lbl_08075754: \n\
+    strb r0, [r1, #0x14] \n\
+lbl_08075756: \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_08075762 \n\
+    ldrb r0, [r1, #0x10] \n\
+    cmp r0, #0 \n\
+    bne lbl_080757a4 \n\
+lbl_08075762: \n\
+    strb r6, [r1] \n\
+    strb r6, [r1, #2] \n\
+    movs r2, #0 \n\
+    strh r6, [r1, #4] \n\
+    strh r6, [r1, #6] \n\
+    strh r6, [r1, #8] \n\
+    strh r6, [r1, #0xa] \n\
+    strb r2, [r1, #0xc] \n\
+    strb r2, [r1, #0xd] \n\
+    strb r2, [r1, #0xe] \n\
+    strb r2, [r1, #0xf] \n\
+    ldr r0, lbl_080757c4 @ =gLanguage \n\
+    ldrb r0, [r0] \n\
+    strb r0, [r1, #0x13] \n\
+    movs r0, #0x12 \n\
+    ldrsb r0, [r1, r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_080757a4 \n\
+    movs r0, #5 \n\
+    strb r0, [r1, #2] \n\
+    movs r0, #0x63 \n\
+    strh r0, [r1, #4] \n\
+    strh r0, [r1, #6] \n\
+    strb r2, [r1, #0x14] \n\
+    ldrb r0, [r5] \n\
+    cmp r0, #2 \n\
+    bls lbl_0807579a \n\
+    movs r0, #1 \n\
+lbl_0807579a: \n\
+    strb r0, [r1, #0x14] \n\
+    ldrb r0, [r4, #2] \n\
+    strb r0, [r1, #0x13] \n\
+    ldrb r0, [r5, #2] \n\
+    strb r0, [r1, #0x15] \n\
+lbl_080757a4: \n\
+    add r1, #0x18 \n\
+    add r5, ip \n\
+    add r4, ip \n\
+    add r3, ip \n\
+    movs r0, #1 \n\
+    neg r0, r0 \n\
+    add r8, r0 \n\
+    mov r7, r8 \n\
+    cmp r7, #0 \n\
+    bge lbl_080756e2 \n\
+    pop {r3} \n\
+    mov r8, r3 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_080757c4: .4byte gLanguage \n\
+    ");
+}
+#endif
 
 /**
  * @brief 757c8 | 84 | To document
@@ -2117,6 +2264,7 @@ void Sram_CheckLoadSaveFile(void)
     gDebugFlag = FALSE;
 }
 
+#ifdef NON_MATCHING
 void Sram_InitSaveFile(void)
 {
     // https://decomp.me/scratch/uEm2z
@@ -2166,6 +2314,171 @@ void Sram_InitSaveFile(void)
 
     gIsLoadingFile = gTimeAttackFlag = FALSE;
 }
+#else
+NAKED_FUNCTION
+void Sram_InitSaveFile(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    ldr r2, lbl_08075ba8 @ =0x02037400 \n\
+    movs r6, #0x80 \n\
+    lsl r6, r6, #4 \n\
+    movs r5, #0x10 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    add r3, r6, #0 \n\
+    bl BitFill \n\
+    ldr r4, lbl_08075bac @ =0x0000ffff \n\
+    ldr r2, lbl_08075bb0 @ =0x02035c00 \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #5 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    add r1, r4, #0 \n\
+    bl BitFill \n\
+    ldr r2, lbl_08075bb4 @ =0x02036c00 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    add r1, r4, #0 \n\
+    add r3, r6, #0 \n\
+    bl BitFill \n\
+    ldr r2, lbl_08075bb8 @ =0x02037c00 \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    add r1, r4, #0 \n\
+    bl BitFill \n\
+    ldr r2, lbl_08075bbc @ =0x02037e00 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    movs r3, #0x20 \n\
+    bl BitFill \n\
+    ldr r2, lbl_08075bc0 @ =0x02033800 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    add r3, r6, #0 \n\
+    bl BitFill \n\
+    movs r1, #0 \n\
+    ldr r4, lbl_08075bc4 @ =gNumberOfNeverReformBlocks \n\
+    movs r2, #0 \n\
+    ldr r3, lbl_08075bc8 @ =gNumberOfItemsCollected \n\
+lbl_08075b08: \n\
+    add r0, r1, r4 \n\
+    strb r2, [r0] \n\
+    add r0, r1, r3 \n\
+    strb r2, [r0] \n\
+    add r1, #1 \n\
+    cmp r1, #7 \n\
+    ble lbl_08075b08 \n\
+    ldr r1, lbl_08075bcc @ =gInGameTimer \n\
+    ldr r0, lbl_08075bd0 @ =sInGameTimer_Empty \n\
+    ldr r0, [r0] \n\
+    str r0, [r1] \n\
+    ldr r0, lbl_08075bd4 @ =gDisableDrawingSamusAndScrolling \n\
+    mov r8, r0 \n\
+    ldr r1, lbl_08075bd8 @ =gDifficulty \n\
+    mov sl, r1 \n\
+    ldr r2, lbl_08075bdc @ =gIsLoadingFile \n\
+    mov sb, r2 \n\
+    ldr r2, lbl_08075be0 @ =gBestCompletionTimes \n\
+    ldr r0, lbl_08075be4 @ =sBestCompletionTime_Empty \n\
+    ldr r0, [r0] \n\
+    add r1, r2, #0 \n\
+    add r1, #0x2c \n\
+lbl_08075b34: \n\
+    str r0, [r1] \n\
+    sub r1, #4 \n\
+    cmp r1, r2 \n\
+    bge lbl_08075b34 \n\
+    ldr r2, lbl_08075be8 @ =gInGameTimerAtBosses \n\
+    ldr r0, lbl_08075bd0 @ =sInGameTimer_Empty \n\
+    ldr r0, [r0] \n\
+    add r1, r2, #0 \n\
+    add r1, #0x10 \n\
+lbl_08075b46: \n\
+    str r0, [r1] \n\
+    sub r1, #4 \n\
+    cmp r1, r2 \n\
+    bge lbl_08075b46 \n\
+    movs r1, #0 \n\
+    ldr r0, lbl_08075bec @ =sInGameCutsceneData \n\
+    mov ip, r0 \n\
+    ldr r7, lbl_08075bf0 @ =gInGameCutscenesTriggered \n\
+lbl_08075b56: \n\
+    movs r3, #0 \n\
+    movs r4, #0 \n\
+    add r6, r1, #1 \n\
+    lsl r5, r1, #2 \n\
+    lsl r0, r1, #8 \n\
+    mov r1, ip \n\
+    add r2, r0, r1 \n\
+lbl_08075b64: \n\
+    ldrb r1, [r2] \n\
+    neg r0, r1 \n\
+    orr r0, r1 \n\
+    lsr r0, r0, #0x1f \n\
+    lsl r0, r3 \n\
+    orr r4, r0 \n\
+    add r2, #8 \n\
+    add r3, #1 \n\
+    cmp r3, #0x1f \n\
+    ble lbl_08075b64 \n\
+    add r0, r5, r7 \n\
+    str r4, [r0] \n\
+    add r1, r6, #0 \n\
+    cmp r1, #0 \n\
+    ble lbl_08075b56 \n\
+    movs r1, #0 \n\
+    mov r2, r8 \n\
+    strb r1, [r2] \n\
+    movs r0, #1 \n\
+    mov r2, sl \n\
+    strb r0, [r2] \n\
+    ldr r0, lbl_08075bf4 @ =gTimeAttackFlag \n\
+    strb r1, [r0] \n\
+    mov r2, sb \n\
+    strb r1, [r2] \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_08075ba8: .4byte 0x02037400 \n\
+lbl_08075bac: .4byte 0x0000ffff \n\
+lbl_08075bb0: .4byte 0x02035c00 \n\
+lbl_08075bb4: .4byte 0x02036c00 \n\
+lbl_08075bb8: .4byte 0x02037c00 \n\
+lbl_08075bbc: .4byte 0x02037e00 \n\
+lbl_08075bc0: .4byte 0x02033800 \n\
+lbl_08075bc4: .4byte gNumberOfNeverReformBlocks \n\
+lbl_08075bc8: .4byte gNumberOfItemsCollected \n\
+lbl_08075bcc: .4byte gInGameTimer \n\
+lbl_08075bd0: .4byte sInGameTimer_Empty \n\
+lbl_08075bd4: .4byte gDisableDrawingSamusAndScrolling \n\
+lbl_08075bd8: .4byte gDifficulty \n\
+lbl_08075bdc: .4byte gIsLoadingFile \n\
+lbl_08075be0: .4byte gBestCompletionTimes \n\
+lbl_08075be4: .4byte sBestCompletionTime_Empty \n\
+lbl_08075be8: .4byte gInGameTimerAtBosses \n\
+lbl_08075bec: .4byte sInGameCutsceneData \n\
+lbl_08075bf0: .4byte gInGameCutscenesTriggered \n\
+lbl_08075bf4: .4byte gTimeAttackFlag \n\
+    ");
+}
+#endif
 
 /**
  * @brief 75bf8 | c | Empty V-blank code for SRAM

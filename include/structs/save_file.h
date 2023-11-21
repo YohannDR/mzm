@@ -19,7 +19,7 @@
 
 #define SRAM_TEXT_SIZE 16
 
-#define SRAM_GET_CHECKSUM_SIZE(type, iteration, checksumType) (sizeof(type) / iteration / sizeof(checksumType))
+#define SRAM_GET_CHECKSUM_SIZE(type, iteration, checksumType) ((s32)(sizeof(type) / iteration / sizeof(checksumType)))
 
 struct StartingInfo {
     u8 startingArea;
