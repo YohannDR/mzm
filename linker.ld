@@ -568,9 +568,7 @@ SECTIONS {
 
         src/softreset.o(.text);
         src/time_attack.o(.text);
-
-        asm/disasm_0x0807fd64.o(.text);
-
+        src/complex_oam.o(.text);
         src/intro.o(.text);
 
         asm/disasm_0x0808117c.o(.text);
