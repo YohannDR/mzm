@@ -570,9 +570,7 @@ SECTIONS {
         src/time_attack.o(.text);
         src/complex_oam.o(.text);
         src/intro.o(.text);
-
-        asm/disasm_0x0808117c.o(.text);
-
+        src/tourian_escape.o(.text);
         src/fusion_gallery.o(.text);
 
         asm/disasm_0x08084c34.o(.text);

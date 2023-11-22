@@ -31,7 +31,7 @@ extern const u16 sTourianEscapeShipCrashingBackgroundAndShipPal[16 * 16];
 extern const u16 sTourianEscapeSamusLookingAtSkyPal[10 * 16];
 extern const u16 sTourianEscapeSamusLookingAtMotherShipPal[10 * 16];
 
-extern const struct FrameData sChozodiaEscapeOam_HugeShipExplosion[16];
+extern const struct FrameData sTourianEscapeOam_HugeShipExplosion[16];
 extern const struct FrameData sChozodiaEscapeOam_SmallExplosion[12];
 extern const struct FrameData sChozodiaEscapeOam_HugeExplosion[13];
 extern const struct FrameData sChozodiaEscapeOam_MotherShipDecaying[9];
@@ -122,12 +122,8 @@ extern const u16* const sTourianEscape_47cf88[7];
 extern const u16* const sTourianEscape_47cfe4[4];
 
 
-
-
-
-extern const struct FrameData sTourianEscape_47cbe4[16];
-extern const struct FrameData sTourianEscape_47cc64[11];
-extern const struct FrameData sTourianEscape_47ccbc[15];
+extern const struct FrameData sChozodiaEscapeOam_47cc64[11];
+extern const struct FrameData sChozodiaEscapeOam_47ccbc[15];
 
 extern const u16 sTourianEscape_47ce20[TOURIAN_ESCAPE_MAX_OBJECTS][3];
 extern const u16 sTourianEscape_47ced0[8][2];

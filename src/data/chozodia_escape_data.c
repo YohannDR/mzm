@@ -321,7 +321,7 @@ const u8 sChozodiaEscapeHeatingUpPalOffsets[8] = {
 };
 
 const struct FrameData* const sChozodiaEscape_5ca0c4[5] = {
-    sChozodiaEscapeOam_HugeShipExplosion,
+    sTourianEscapeOam_HugeShipExplosion,
     sChozodiaEscapeOam_SmallExplosion,
     sChozodiaEscapeOam_MediumExplosion,
     sChozodiaEscapeOam_MotherShipDecaying,

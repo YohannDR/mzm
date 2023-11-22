@@ -1123,7 +1123,7 @@ static const u16 sChozodiaEscapeOam_47b3c0[OAM_DATA_SIZE(1)] = {
     0xfc, 0x1fc, 0x3048
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame0[OAM_DATA_SIZE(6)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame0[OAM_DATA_SIZE(6)] = {
     0x6,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, 0x3056,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, 0x3056,
@@ -1133,7 +1133,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame0[OAM_DATA_SIZE(6)] =
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | 0x8, 0x304a
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame1[OAM_DATA_SIZE(6)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame1[OAM_DATA_SIZE(6)] = {
     0x6,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, 0x3058,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, 0x3058,
@@ -1143,7 +1143,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame1[OAM_DATA_SIZE(6)] =
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | 0x8, 0x304b
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame2[OAM_DATA_SIZE(10)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame2[OAM_DATA_SIZE(10)] = {
     0xa,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, 0x305a,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, 0x305a,
@@ -1157,7 +1157,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame2[OAM_DATA_SIZE(10)] 
     OBJ_SHAPE_VERTICAL | 0x4, OBJ_X_FLIP | 0x1ee, 0x304a
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame3[OAM_DATA_SIZE(17)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame3[OAM_DATA_SIZE(17)] = {
     0x11,
     0xf5, OBJ_SIZE_16x16 | 0x1f4, 0x30d0,
     OBJ_SHAPE_VERTICAL | 0xf4, OBJ_X_FLIP | 0x3, 0x30d0,
@@ -1178,7 +1178,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame3[OAM_DATA_SIZE(17)] 
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | 0x1f4, 0x304a
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame4[OAM_DATA_SIZE(18)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame4[OAM_DATA_SIZE(18)] = {
     0x12,
     0xf8, OBJ_SIZE_16x16 | 0x1e8, 0x3040,
     0xee, OBJ_SIZE_16x16 | 0x1f3, 0x30d0,
@@ -1200,7 +1200,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame4[OAM_DATA_SIZE(18)] 
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | 0x1f4, 0x304b
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame5[OAM_DATA_SIZE(18)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame5[OAM_DATA_SIZE(18)] = {
     0x12,
     0xe8, OBJ_SIZE_16x16 | 0x1f1, 0x30d0,
     0xe9, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, 0x30d0,
@@ -1222,7 +1222,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame5[OAM_DATA_SIZE(18)] 
     0xe8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1fc, 0x3056
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame6[OAM_DATA_SIZE(21)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame6[OAM_DATA_SIZE(21)] = {
     0x15,
     0xd8, OBJ_SIZE_16x16 | 0x1ec, 0x3058,
     0xd8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fc, 0x3058,
@@ -1247,7 +1247,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame6[OAM_DATA_SIZE(21)] 
     OBJ_SHAPE_HORIZONTAL | 0x7, OBJ_X_FLIP | OBJ_Y_FLIP | 0xd, 0x30d0
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame7[OAM_DATA_SIZE(20)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame7[OAM_DATA_SIZE(20)] = {
     0x14,
     0xd8, OBJ_SIZE_16x16 | 0x1ec, 0x305a,
     0xd8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fc, 0x305a,
@@ -1271,7 +1271,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame7[OAM_DATA_SIZE(20)] 
     0xfe, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0xc, 0x30d0
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame8[OAM_DATA_SIZE(19)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame8[OAM_DATA_SIZE(19)] = {
     0x13,
     0xd8, OBJ_SIZE_16x16 | 0x1ec, 0x305c,
     0xd8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fc, 0x305c,
@@ -1294,7 +1294,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame8[OAM_DATA_SIZE(19)] 
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0xe, 0x30d0
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame9[OAM_DATA_SIZE(20)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame9[OAM_DATA_SIZE(20)] = {
     0x14,
     0xe9, 0x1f4, 0x3001,
     0xe6, OBJ_Y_FLIP | 0x2, 0x3001,
@@ -1318,7 +1318,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame9[OAM_DATA_SIZE(20)] 
     0xe8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1fc, 0x305e
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame10[OAM_DATA_SIZE(19)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame10[OAM_DATA_SIZE(19)] = {
     0x13,
     0xd9, 0x1f8, 0x304d,
     0xf3, 0x1fd, 0x3001,
@@ -1341,7 +1341,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame10[OAM_DATA_SIZE(19)]
     0xf9, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x5, 0x3042
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame11[OAM_DATA_SIZE(15)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame11[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd5, 0x1f8, 0x304d,
     0xd4, 0x4, 0x304d,
@@ -1360,7 +1360,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame11[OAM_DATA_SIZE(15)]
     0xf0, OBJ_SIZE_16x16 | 0x5, 0x4040
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame12[OAM_DATA_SIZE(14)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame12[OAM_DATA_SIZE(14)] = {
     0xe,
     0xd6, OBJ_Y_FLIP | 0x1fc, 0x304d,
     0xda, 0x0, 0x304d,
@@ -1378,7 +1378,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame12[OAM_DATA_SIZE(14)]
     0xf6, OBJ_X_FLIP | OBJ_Y_FLIP | 0x5, 0x4047
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame13[OAM_DATA_SIZE(11)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame13[OAM_DATA_SIZE(11)] = {
     0xb,
     0xd1, 0x1fc, 0x304d,
     0xea, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ed, 0x304d,
@@ -1393,7 +1393,7 @@ static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame13[OAM_DATA_SIZE(11)]
     0xf5, OBJ_X_FLIP | 0x7, 0x304d
 };
 
-static const u16 sChozodiaEscapeOam_HugeShipExplosion_Frame14[OAM_DATA_SIZE(7)] = {
+static const u16 sTourianEscapeOam_HugeShipExplosion_Frame14[OAM_DATA_SIZE(7)] = {
     0x7,
     0xe5, OBJ_Y_FLIP | 0x1eb, 0x404d,
     0xed, 0x1ed, 0x404d,
@@ -2589,65 +2589,65 @@ const struct FrameData sChozodiaEscapeOam_HugeExplosion[13] = {
     [12] = FRAME_DATA_TERMINATOR
 };
 
-const struct FrameData sChozodiaEscapeOam_HugeShipExplosion[16] = {
+const struct FrameData sTourianEscapeOam_HugeShipExplosion[16] = {
     [0] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame0,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame0,
         .timer = 2
     },
     [1] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame1,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame1,
         .timer = 2
     },
     [2] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame2,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame2,
         .timer = 2
     },
     [3] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame3,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame3,
         .timer = 2
     },
     [4] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame4,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame4,
         .timer = 2
     },
     [5] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame5,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame5,
         .timer = 3
     },
     [6] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame6,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame6,
         .timer = 3
     },
     [7] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame7,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame7,
         .timer = 3
     },
     [8] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame8,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame8,
         .timer = 3
     },
     [9] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame9,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame9,
         .timer = 3
     },
     [10] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame10,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame10,
         .timer = 3
     },
     [11] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame11,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame11,
         .timer = 3
     },
     [12] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame12,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame12,
         .timer = 3
     },
     [13] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame13,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame13,
         .timer = 3
     },
     [14] = {
-        .pFrame = sChozodiaEscapeOam_HugeShipExplosion_Frame14,
+        .pFrame = sTourianEscapeOam_HugeShipExplosion_Frame14,
         .timer = 3
     },
     [15] = FRAME_DATA_TERMINATOR

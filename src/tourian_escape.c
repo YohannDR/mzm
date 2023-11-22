@@ -84,7 +84,7 @@ void TourianEscapeVBLankSamusSurrounded(void)
 {
     write16(REG_DISPCNT, TOURIAN_ESCAPE_DATA.dispcnt);
     write16(REG_BLDCNT, TOURIAN_ESCAPE_DATA.bldcnt);
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
 
     write16(REG_BG2PA, gWrittenToBG2PA);
     write16(REG_BG2PB, gWrittenToBG2PB);
@@ -744,12 +744,12 @@ u8 TourianEscapeZebesExploding(void)
     }
     else
     {
-        if (TOURIAN_ESCAPE_DATA.oamTimers[0] >= sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[0]].timer)
+        if (TOURIAN_ESCAPE_DATA.oamTimers[0] >= sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[0]].timer)
         {
             TOURIAN_ESCAPE_DATA.oamTimers[0] = 0;
             TOURIAN_ESCAPE_DATA.oamFrames[0]++;
 
-            if (sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[0]].timer == 0)
+            if (sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[0]].timer == 0)
             {
                 TOURIAN_ESCAPE_DATA.oamFrames[0] = 0;
                 TOURIAN_ESCAPE_DATA.unk_8[0] = ((TOURIAN_ESCAPE_DATA.unk_8[0] + 1) & 7) + 1;
@@ -760,12 +760,12 @@ u8 TourianEscapeZebesExploding(void)
             }
         }
 
-        if (TOURIAN_ESCAPE_DATA.oamTimers[1] >= sTourianEscape_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].timer)
+        if (TOURIAN_ESCAPE_DATA.oamTimers[1] >= sChozodiaEscapeOam_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].timer)
         {
             TOURIAN_ESCAPE_DATA.oamTimers[1] = 0;
             TOURIAN_ESCAPE_DATA.oamFrames[1]++;
 
-            if (sTourianEscape_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].timer == 0)
+            if (sChozodiaEscapeOam_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].timer == 0)
             {
                 TOURIAN_ESCAPE_DATA.oamFrames[1] = 0;
                 TOURIAN_ESCAPE_DATA.unk_8[1] = ((TOURIAN_ESCAPE_DATA.unk_8[1] + 1) & 7) + 1;
@@ -776,12 +776,12 @@ u8 TourianEscapeZebesExploding(void)
             }
         }
 
-        if (TOURIAN_ESCAPE_DATA.oamTimers[2] >= sTourianEscape_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].timer)
+        if (TOURIAN_ESCAPE_DATA.oamTimers[2] >= sChozodiaEscapeOam_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].timer)
         {
             TOURIAN_ESCAPE_DATA.oamTimers[2] = 0;
             TOURIAN_ESCAPE_DATA.oamFrames[2]++;
 
-            if (sTourianEscape_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].timer == 0)
+            if (sChozodiaEscapeOam_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].timer == 0)
             {
                 TOURIAN_ESCAPE_DATA.oamFrames[2] = 0;
                 TOURIAN_ESCAPE_DATA.unk_8[2] = ((TOURIAN_ESCAPE_DATA.unk_8[2] + 1) & 7) + 1;
@@ -792,12 +792,12 @@ u8 TourianEscapeZebesExploding(void)
             }
         }
 
-        if (TOURIAN_ESCAPE_DATA.oamTimers[3] >= sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[3]].timer)
+        if (TOURIAN_ESCAPE_DATA.oamTimers[3] >= sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[3]].timer)
         {
             TOURIAN_ESCAPE_DATA.oamTimers[3] = 0;
             TOURIAN_ESCAPE_DATA.oamFrames[3]++;
 
-            if (sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[3]].timer == 0)
+            if (sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[3]].timer == 0)
             {
                 TOURIAN_ESCAPE_DATA.oamFrames[3] = 0;
                 TOURIAN_ESCAPE_DATA.unk_8[3] = ((TOURIAN_ESCAPE_DATA.unk_8[3] + 1) & 7) + 1;
@@ -808,10 +808,10 @@ u8 TourianEscapeZebesExploding(void)
             }
         }
 
-        TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[0]].pFrame;
-        TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].pFrame;
-        TOURIAN_ESCAPE_DATA.oamFramePointers[2] = sTourianEscape_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].pFrame;
-        TOURIAN_ESCAPE_DATA.oamFramePointers[3] = sTourianEscape_47cbe4[TOURIAN_ESCAPE_DATA.oamFrames[3]].pFrame;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[0]].pFrame;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sChozodiaEscapeOam_47cc64[TOURIAN_ESCAPE_DATA.oamFrames[1]].pFrame;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[2] = sChozodiaEscapeOam_47ccbc[TOURIAN_ESCAPE_DATA.oamFrames[2]].pFrame;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[3] = sTourianEscapeOam_HugeShipExplosion[TOURIAN_ESCAPE_DATA.oamFrames[3]].pFrame;
 
         TOURIAN_ESCAPE_DATA.oamTimers[0]++;
         TOURIAN_ESCAPE_DATA.oamTimers[1]++;
@@ -1880,7 +1880,7 @@ u8 TourianEscapeSamusGettingShot(void)
         {
                 case 0:
                     TOURIAN_ESCAPE_DATA.unk_96[2]--;
-                    if (TOURIAN_ESCAPE_DATA.unk_96[2] < -27)
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] < -19)
                         TOURIAN_ESCAPE_DATA.oamFrames[2]++;
                     break;
     
@@ -2309,7 +2309,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
             break;
 
         case 5:
-            StoryTextStart(STORY_TEXT_THE_TIMING);
+            TextStartStory(STORY_TEXT_THE_TIMING);
             break;
 
         case 6:

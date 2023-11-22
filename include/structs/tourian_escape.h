@@ -59,8 +59,8 @@ extern s16 gWrittenToBG2PA;
 extern s16 gWrittenToBG2PB;
 extern s16 gWrittenToBG2PC;
 extern s16 gWrittenToBG2PD;
-extern u16 gWrittenToBG2X;
-extern u16 gWrittenToBG2Y;
+extern s32 gWrittenToBG2X;
+extern s32 gWrittenToBG2Y;
 extern u16 gUnk_30013a2;
 
 
