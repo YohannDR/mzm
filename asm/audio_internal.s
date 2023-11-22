@@ -582,9 +582,9 @@ sub_08004adc: @ 0x08004adc
     ldrb r3, [r0, #0xe]
     cmp r1, r3
     bne lbl_08004b3c
-    ldr r3, lbl_08004b48 @ =0x0808ceec
+    ldr r3, lbl_08004b48 @ =sDma1ControlPointer
     ldr r3, [r3]
-    ldr ip, lbl_08004b4c @ =0x0808cef0
+    ldr ip, lbl_08004b4c @ =sDma1ControlValue
     ldr ip, [ip]
     str ip, [r3]
     str ip, [r3, #0xC]
@@ -605,8 +605,8 @@ lbl_08004b3c:
     bx lr
     .align 2, 0
 lbl_08004b44: .4byte gMusicInfo
-lbl_08004b48: .4byte 0x0808ceec
-lbl_08004b4c: .4byte 0x0808cef0
+lbl_08004b48: .4byte sDma1ControlPointer
+lbl_08004b4c: .4byte sDma1ControlValue
 
     thumb_func_start sub_08004b50
 sub_08004b50: @ 0x08004b50

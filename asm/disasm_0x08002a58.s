@@ -154,7 +154,7 @@ SoundPlayNotAlreadyPlaying: @ 0x08002b20
     lsrs r0, r0, #0x10
     adds r4, r0, #0
     ldr r3, lbl_08002b5c @ =sMusicTrackDataRom
-    ldr r0, lbl_08002b60 @ =0x0808f2c0
+    ldr r0, lbl_08002b60 @ =sSoundDataEntries
     lsls r2, r4, #3
     adds r2, r2, r0
     ldrh r1, [r2, #4]
@@ -182,7 +182,7 @@ lbl_08002b56:
     bx r0
     .align 2, 0
 lbl_08002b5c: .4byte sMusicTrackDataRom
-lbl_08002b60: .4byte 0x0808f2c0
+lbl_08002b60: .4byte sSoundDataEntries
 
     thumb_func_start sub_08002b64
 sub_08002b64: @ 0x08002b64
@@ -191,7 +191,7 @@ sub_08002b64: @ 0x08002b64
     lsrs r4, r0, #0x10
     adds r5, r4, #0
     ldr r2, lbl_08002ba4 @ =sMusicTrackDataRom
-    ldr r1, lbl_08002ba8 @ =0x0808f2c0
+    ldr r1, lbl_08002ba8 @ =sSoundDataEntries
     lsls r0, r4, #3
     adds r3, r0, r1
     ldrh r1, [r3, #4]
@@ -218,7 +218,7 @@ sub_08002b64: @ 0x08002b64
     b lbl_08002bcc
     .align 2, 0
 lbl_08002ba4: .4byte sMusicTrackDataRom
-lbl_08002ba8: .4byte 0x0808f2c0
+lbl_08002ba8: .4byte sSoundDataEntries
 lbl_08002bac:
     ldr r1, [r3]
     ldr r0, [r2, #0x10]
@@ -247,7 +247,7 @@ sub_08002bd4: @ 0x08002bd4
     push {lr}
     lsls r0, r0, #0x10
     ldr r2, lbl_08002c08 @ =sMusicTrackDataRom
-    ldr r1, lbl_08002c0c @ =0x0808f2c0
+    ldr r1, lbl_08002c0c @ =sSoundDataEntries
     lsrs r0, r0, #0xd
     adds r3, r0, r1
     ldrh r1, [r3, #4]
@@ -272,7 +272,7 @@ lbl_08002c04:
     bx r0
     .align 2, 0
 lbl_08002c08: .4byte sMusicTrackDataRom
-lbl_08002c0c: .4byte 0x0808f2c0
+lbl_08002c0c: .4byte sSoundDataEntries
 
     thumb_func_start sub_08002c10
 sub_08002c10: @ 0x08002c10
@@ -717,7 +717,7 @@ sub_08002f00: @ 0x08002f00
     movs r4, #1
     strb r4, [r0, #1]
     ldr r3, lbl_08002f8c @ =sMusicTrackDataRom
-    ldr r2, lbl_08002f90 @ =0x0808f2c0
+    ldr r2, lbl_08002f90 @ =sSoundDataEntries
     lsls r0, r5, #3
     adds r0, r0, r2
     mov ip, r0
@@ -766,7 +766,7 @@ sub_08002f00: @ 0x08002f00
     .align 2, 0
 lbl_08002f88: .4byte gMusicInfo
 lbl_08002f8c: .4byte sMusicTrackDataRom
-lbl_08002f90: .4byte 0x0808f2c0
+lbl_08002f90: .4byte sSoundDataEntries
 lbl_08002f94:
     ldrb r1, [r6]
     adds r0, r2, #0
@@ -1834,7 +1834,7 @@ lbl_08003750:
     adds r0, r4, #0
     bl sub_08003980
     adds r4, r0, #0
-    ldr r1, lbl_08003788 @ =0x0808f2c0
+    ldr r1, lbl_08003788 @ =sSoundDataEntries
     lsls r0, r4, #3
     adds r0, r0, r1
     ldr r1, [r0]
@@ -1858,7 +1858,7 @@ lbl_08003776:
     .align 2, 0
 lbl_08003780: .4byte sMusicTrackDataRom
 lbl_08003784: .4byte gSoundQueue
-lbl_08003788: .4byte 0x0808f2c0
+lbl_08003788: .4byte sSoundDataEntries
 
     thumb_func_start sub_0800378c
 sub_0800378c: @ 0x0800378c
@@ -1952,7 +1952,7 @@ lbl_08003822:
 lbl_0800383a:
     ldr r0, lbl_0800386c @ =sMusicTrackDataRom
     ldr r6, [r0]
-    ldr r4, lbl_08003870 @ =0x0808f2c0
+    ldr r4, lbl_08003870 @ =sSoundDataEntries
     adds r0, r5, #0
     bl sub_08003980
     lsls r0, r0, #0x10
@@ -1977,7 +1977,7 @@ lbl_08003866:
     bx r0
     .align 2, 0
 lbl_0800386c: .4byte sMusicTrackDataRom
-lbl_08003870: .4byte 0x0808f2c0
+lbl_08003870: .4byte sSoundDataEntries
 lbl_08003874: .4byte gMusicInfo
 
     thumb_func_start CheckPlayTransitionMusicTrack
@@ -2009,7 +2009,7 @@ lbl_0800389c:
     beq lbl_080038c8
     ldr r0, lbl_080038d0 @ =sMusicTrackDataRom
     ldr r0, [r0]
-    ldr r2, lbl_080038d4 @ =0x0808f2c0
+    ldr r2, lbl_080038d4 @ =sSoundDataEntries
     ldrh r1, [r4, #0x22]
     lsls r1, r1, #3
     adds r1, r1, r2
@@ -2027,7 +2027,7 @@ lbl_080038c8:
     bx r0
     .align 2, 0
 lbl_080038d0: .4byte sMusicTrackDataRom
-lbl_080038d4: .4byte 0x0808f2c0
+lbl_080038d4: .4byte sSoundDataEntries
 
     thumb_func_start sub_080038d8
 sub_080038d8: @ 0x080038d8
@@ -2047,7 +2047,7 @@ sub_080038d8: @ 0x080038d8
     beq lbl_08003918
     ldr r0, lbl_08003928 @ =sMusicTrackDataRom
     ldr r5, [r0]
-    ldr r4, lbl_0800392c @ =0x0808f2c0
+    ldr r4, lbl_0800392c @ =sSoundDataEntries
     ldrh r0, [r6, #0x22]
     bl sub_08003980
     lsls r0, r0, #0x10
@@ -2071,7 +2071,7 @@ lbl_08003918:
     .align 2, 0
 lbl_08003924: .4byte gMusicInfo
 lbl_08003928: .4byte sMusicTrackDataRom
-lbl_0800392c: .4byte 0x0808f2c0
+lbl_0800392c: .4byte sSoundDataEntries
 
     thumb_func_start UpdateMusicAfterAlarmDisable
 UpdateMusicAfterAlarmDisable: @ 0x08003930
@@ -2203,7 +2203,7 @@ PlayMusic: @ 0x080039f4
     ands r0, r2
     orrs r0, r1
     strb r0, [r5]
-    ldr r1, lbl_08003a64 @ =0x0808f2c0
+    ldr r1, lbl_08003a64 @ =sSoundDataEntries
     lsls r0, r6, #3
     adds r0, r0, r1
     ldr r5, [r0]
@@ -2237,7 +2237,7 @@ lbl_08003a58:
     bx r0
     .align 2, 0
 lbl_08003a60: .4byte gMusicInfo
-lbl_08003a64: .4byte 0x0808f2c0
+lbl_08003a64: .4byte sSoundDataEntries
 lbl_08003a68: .4byte sMusicTrackDataRom
 
     thumb_func_start sub_08003a6c
@@ -2445,7 +2445,7 @@ unk_3bd0: @ 0x08003bd0
     cmp r0, #0
     bne lbl_08003c0c
     ldr r3, lbl_08003c18 @ =sMusicTrackDataRom
-    ldr r0, lbl_08003c1c @ =0x0808f2c0
+    ldr r0, lbl_08003c1c @ =sSoundDataEntries
     lsls r2, r2, #3
     adds r2, r2, r0
     ldrh r1, [r2, #4]
@@ -2468,7 +2468,7 @@ lbl_08003c0c:
     .align 2, 0
 lbl_08003c14: .4byte gMusicInfo
 lbl_08003c18: .4byte sMusicTrackDataRom
-lbl_08003c1c: .4byte 0x0808f2c0
+lbl_08003c1c: .4byte sSoundDataEntries
 
     thumb_func_start CheckPlayFadingMusic
 CheckPlayFadingMusic: @ 0x08003c20
@@ -2498,7 +2498,7 @@ CheckPlayFadingMusic: @ 0x08003c20
     ands r0, r1
     orrs r0, r2
     strb r0, [r5]
-    ldr r1, lbl_08003c98 @ =0x0808f2c0
+    ldr r1, lbl_08003c98 @ =sSoundDataEntries
     lsls r0, r6, #3
     adds r0, r0, r1
     ldr r5, [r0]
@@ -2533,7 +2533,7 @@ lbl_08003c8c:
     bx r0
     .align 2, 0
 lbl_08003c94: .4byte gMusicInfo
-lbl_08003c98: .4byte 0x0808f2c0
+lbl_08003c98: .4byte sSoundDataEntries
 lbl_08003c9c: .4byte sMusicTrackDataRom
 
     thumb_func_start InsertMusicAndQueueCurrent
@@ -2558,7 +2558,7 @@ InsertMusicAndQueueCurrent: @ 0x08003ca0
     ands r0, r1
     cmp r0, #0
     bne lbl_08003d3a
-    ldr r1, lbl_08003d04 @ =0x0808f2c0
+    ldr r1, lbl_08003d04 @ =sSoundDataEntries
     lsls r0, r2, #3
     adds r0, r0, r1
     ldr r5, [r0]
@@ -2586,7 +2586,7 @@ lbl_08003ce4:
     b lbl_08003d1e
     .align 2, 0
 lbl_08003d00: .4byte gMusicInfo
-lbl_08003d04: .4byte 0x0808f2c0
+lbl_08003d04: .4byte sSoundDataEntries
 lbl_08003d08: .4byte sMusicTrackDataRom
 lbl_08003d0c:
     cmp r6, #1
@@ -2668,7 +2668,7 @@ lbl_08003d9c: .4byte sMusicTrackDataRom
 lbl_08003da0:
     ldrh r0, [r4, #0x1c]
 lbl_08003da2:
-    ldr r1, lbl_08003e10 @ =0x0808f2c0
+    ldr r1, lbl_08003e10 @ =sSoundDataEntries
     lsls r0, r0, #3
     adds r0, r0, r1
     ldr r1, [r0]
@@ -2721,7 +2721,7 @@ lbl_08003e02:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003e10: .4byte 0x0808f2c0
+lbl_08003e10: .4byte sSoundDataEntries
 lbl_08003e14: .4byte gMusicInfo
 lbl_08003e18: .4byte sMusicTrackDataRom
 lbl_08003e1c: .4byte 0x0000ffff
@@ -2831,7 +2831,7 @@ PlayCurrentMusicTrack: @ 0x08003eb8
     lsrs r0, r0, #0x10
     cmp r0, #9
     bhi lbl_08003efc
-    ldr r4, lbl_08003ef8 @ =0x0808f2c0
+    ldr r4, lbl_08003ef8 @ =sSoundDataEntries
     adds r0, r2, #0
     bl sub_08003980
     lsls r0, r0, #0x10
@@ -2841,9 +2841,9 @@ PlayCurrentMusicTrack: @ 0x08003eb8
     .align 2, 0
 lbl_08003ef0: .4byte gMusicInfo
 lbl_08003ef4: .4byte sMusicTrackDataRom
-lbl_08003ef8: .4byte 0x0808f2c0
+lbl_08003ef8: .4byte sSoundDataEntries
 lbl_08003efc:
-    ldr r1, lbl_08003f18 @ =0x0808f2c0
+    ldr r1, lbl_08003f18 @ =sSoundDataEntries
     lsls r0, r2, #3
     adds r0, r0, r1
 lbl_08003f02:
@@ -2859,7 +2859,7 @@ lbl_08003f12:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003f18: .4byte 0x0808f2c0
+lbl_08003f18: .4byte sSoundDataEntries
 lbl_08003f1c: .4byte gMusicInfo
 
     thumb_func_start DecreaseMusicVolume
@@ -2933,12 +2933,12 @@ QueueSound: @ 0x08003fac
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r4, r1, #0x10
-    ldr r1, lbl_08003fec @ =0x0808f2c0
+    ldr r1, lbl_08003fec @ =sSoundDataEntries
     lsrs r0, r0, #0xd
     adds r0, r0, r1
     ldrb r2, [r0, #4]
     ldr r5, [r0]
-    ldr r0, lbl_08003ff0 @ =0x0808cee2
+    ldr r0, lbl_08003ff0 @ =sArray_808cee2
     adds r0, r2, r0
     ldrb r0, [r0]
     ldr r6, lbl_08003ff4 @ =gSoundQueue
@@ -2963,8 +2963,8 @@ lbl_08003fe0:
     movs r0, #1
     b lbl_08003ffe
     .align 2, 0
-lbl_08003fec: .4byte 0x0808f2c0
-lbl_08003ff0: .4byte 0x0808cee2
+lbl_08003fec: .4byte sSoundDataEntries
+lbl_08003ff0: .4byte sArray_808cee2
 lbl_08003ff4: .4byte gSoundQueue
 lbl_08003ff8:
     lsls r2, r2, #3
@@ -2990,7 +2990,7 @@ StopOrFadeSound: @ 0x08004014
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r7, r1, #0x10
-    ldr r1, lbl_08004048 @ =0x0808f2c0
+    ldr r1, lbl_08004048 @ =sSoundDataEntries
     lsrs r0, r0, #0xd
     adds r0, r0, r1
     ldrb r2, [r0, #4]
@@ -3012,7 +3012,7 @@ StopOrFadeSound: @ 0x08004014
     strb r0, [r4]
     b lbl_0800407c
     .align 2, 0
-lbl_08004048: .4byte 0x0808f2c0
+lbl_08004048: .4byte sSoundDataEntries
 lbl_0800404c: .4byte gSoundQueue
 lbl_08004050:
     ldr r0, lbl_08004070 @ =sMusicTrackDataRom
@@ -3314,7 +3314,7 @@ CheckReplayFileSelectMusic: @ 0x0800427c
     lsrs r4, r0, #0x10
     ldr r0, lbl_080042a4 @ =sMusicTrackDataRom
     ldr r2, [r0]
-    ldr r0, lbl_080042a8 @ =0x0808f2c0
+    ldr r0, lbl_080042a8 @ =sSoundDataEntries
     ldr r3, [r0, #0x48]
     ldrb r1, [r2]
     movs r0, #2
@@ -3329,7 +3329,7 @@ CheckReplayFileSelectMusic: @ 0x0800427c
     b lbl_080042b6
     .align 2, 0
 lbl_080042a4: .4byte sMusicTrackDataRom
-lbl_080042a8: .4byte 0x0808f2c0
+lbl_080042a8: .4byte sSoundDataEntries
 lbl_080042ac:
     adds r0, r4, #0
     movs r1, #9
@@ -3363,7 +3363,7 @@ sub_080042bc: @ 0x080042bc
 lbl_080042e0:
     ldr r0, lbl_08004308 @ =sMusicTrackDataRom
     ldr r0, [r0]
-    ldr r2, lbl_0800430c @ =0x0808f2c0
+    ldr r2, lbl_0800430c @ =sSoundDataEntries
     lsls r1, r5, #3
     adds r1, r1, r2
     ldr r1, [r1]
@@ -3380,6 +3380,6 @@ lbl_080042f8:
 lbl_08004300: .4byte gMusicInfo
 lbl_08004304: .4byte 0x0000012b
 lbl_08004308: .4byte sMusicTrackDataRom
-lbl_0800430c: .4byte 0x0808f2c0
+lbl_0800430c: .4byte sSoundDataEntries
 
     

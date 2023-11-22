@@ -924,7 +924,7 @@ lbl_0800176c:
     mov r1, r8
     cmp r1, #2
     bne lbl_080017a0
-    ldr r0, lbl_0800179c @ =0x0808cc3d
+    ldr r0, lbl_0800179c @ =sUnk_808cc3d
     movs r1, #0x19
     ldrsb r1, [r4, r1]
     adds r1, r1, r0
@@ -932,7 +932,7 @@ lbl_0800176c:
     strb r0, [r4, #0x12]
     b lbl_080017ae
     .align 2, 0
-lbl_0800179c: .4byte 0x0808cc3d
+lbl_0800179c: .4byte sUnk_808cc3d
 lbl_080017a0:
     strb r3, [r4, #0x12]
     ldrh r1, [r4, #8]
@@ -996,12 +996,12 @@ lbl_08001808:
     mov r0, r8
     cmp r0, #2
     bne lbl_08001820
-    ldr r0, lbl_0800181c @ =0x0808cc3d
+    ldr r0, lbl_0800181c @ =sUnk_808cc3d
     adds r0, r1, r0
     ldrb r0, [r0]
     b lbl_08001826
     .align 2, 0
-lbl_0800181c: .4byte 0x0808cc3d
+lbl_0800181c: .4byte sUnk_808cc3d
 lbl_08001820:
     lsls r0, r1, #4
     ldrb r1, [r4, #0x12]
@@ -1251,7 +1251,7 @@ lbl_080019dc:
     movs r0, #2
     orrs r0, r1
     strb r0, [r4]
-    ldr r1, lbl_08001a74 @ =0x0808cbd0
+    ldr r1, lbl_08001a74 @ =sDelayNoteLengthTable
     adds r0, r2, #0
     subs r0, #0xcf
     adds r0, r0, r1
@@ -1320,7 +1320,7 @@ lbl_08001a40:
     bl sub_08001fe0
     b lbl_08001b00
     .align 2, 0
-lbl_08001a74: .4byte 0x0808cbd0
+lbl_08001a74: .4byte sDelayNoteLengthTable
 lbl_08001a78:
     adds r0, r5, #0
     adds r1, r4, #0
@@ -1368,7 +1368,7 @@ lbl_08001aca:
     bne lbl_08001ad0
     b lbl_0800197a
 lbl_08001ad0:
-    ldr r0, lbl_08001ae4 @ =0x0808cef8
+    ldr r0, lbl_08001ae4 @ =sMusicCommandFunctionPointers
     adds r1, r2, #0
     subs r1, #0xb1
     lsls r1, r1, #2
@@ -1378,9 +1378,9 @@ lbl_08001ad0:
     bl _call_via_r1
     b lbl_08001b00
     .align 2, 0
-lbl_08001ae4: .4byte 0x0808cef8
+lbl_08001ae4: .4byte sMusicCommandFunctionPointers
 lbl_08001ae8:
-    ldr r1, lbl_08001afc @ =0x0808cbd0
+    ldr r1, lbl_08001afc @ =sDelayNoteLengthTable
     adds r0, r2, #0
     subs r0, #0x80
     adds r0, r0, r1
@@ -1391,7 +1391,7 @@ lbl_08001ae8:
     str r0, [r4, #0x24]
     b lbl_08001b08
     .align 2, 0
-lbl_08001afc: .4byte 0x0808cbd0
+lbl_08001afc: .4byte sDelayNoteLengthTable
 lbl_08001b00:
     ldrb r0, [r4, #2]
     cmp r0, #0
@@ -1664,7 +1664,7 @@ sub_08001ccc: @ 0x08001ccc
     ldrb r4, [r6, #0x19]
     movs r0, #0x13
     ldrsb r0, [r5, r0]
-    ldr r2, lbl_08001d04 @ =0x0808cc4d
+    ldr r2, lbl_08001d04 @ =sUnk_808cc4d
     lsls r1, r7, #0x10
     asrs r1, r1, #0x10
     adds r1, r1, r2
@@ -1677,7 +1677,7 @@ sub_08001ccc: @ 0x08001ccc
     movs r0, #0x20
     b lbl_08001d52
     .align 2, 0
-lbl_08001d04: .4byte 0x0808cc4d
+lbl_08001d04: .4byte sUnk_808cc4d
 lbl_08001d08:
     cmp r0, #0
     bne lbl_08001d44
@@ -2235,7 +2235,7 @@ sub_080020d4: @ 0x080020d4
     ands r0, r1
     cmp r0, #3
     bhi lbl_08002120
-    ldr r1, lbl_0800211c @ =0x0808cad0
+    ldr r1, lbl_0800211c @ =sUnk_808cad0
     lsls r0, r4, #1
     adds r0, r0, r1
     ldrh r3, [r0]
@@ -2260,9 +2260,9 @@ lbl_08002102:
     lsrs r3, r0, #0x10
     b lbl_08002132
     .align 2, 0
-lbl_0800211c: .4byte 0x0808cad0
+lbl_0800211c: .4byte sUnk_808cad0
 lbl_08002120:
-    ldr r0, lbl_0800213c @ =0x0808cc01
+    ldr r0, lbl_0800213c @ =sUnk_808cc01
     adds r1, r4, #0
     subs r1, #0x15
     adds r1, r1, r0
@@ -2277,7 +2277,7 @@ lbl_08002132:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800213c: .4byte 0x0808cc01
+lbl_0800213c: .4byte sUnk_808cc01
 
     thumb_func_start sub_08002140
 sub_08002140: @ 0x08002140
@@ -3382,19 +3382,19 @@ sub_080028f4: @ 0x080028f4
     bl CpuFastSet
     ldr r1, lbl_080029f0 @ =0xfffff3dc
     adds r4, r6, r1
-    ldr r1, lbl_080029f4 @ =0x0808cc60
+    ldr r1, lbl_080029f4 @ =sNativeSampleRate
     ldrb r0, [r4, #7]
     lsls r0, r0, #2
     adds r0, r0, r1
     ldr r0, [r0]
     strh r0, [r4, #0x12]
-    ldr r1, lbl_080029f8 @ =0x0808cc94
+    ldr r1, lbl_080029f8 @ =sMusicPitchData
     ldrb r0, [r4, #7]
     lsls r0, r0, #2
     adds r0, r0, r1
     ldr r0, [r0]
     str r0, [r4, #0x18]
-    ldr r1, lbl_080029fc @ =0x0808ccc8
+    ldr r1, lbl_080029fc @ =sAudio_8ccc8
     ldrb r0, [r4, #7]
     lsls r0, r0, #1
     adds r0, r0, r1
@@ -3473,9 +3473,9 @@ lbl_080029e4: .4byte 0x040000d2
 lbl_080029e8: .4byte gMusicInfo+0xC24
 lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
-lbl_080029f4: .4byte 0x0808cc60
-lbl_080029f8: .4byte 0x0808cc94
-lbl_080029fc: .4byte 0x0808ccc8
+lbl_080029f4: .4byte sNativeSampleRate
+lbl_080029f8: .4byte sMusicPitchData
+lbl_080029fc: .4byte sAudio_8ccc8
 lbl_08002a00: .4byte 0x040000bc
 lbl_08002a04: .4byte 0x040000c0
 lbl_08002a08: .4byte 0x04000102
