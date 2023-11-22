@@ -1431,8 +1431,8 @@ lbl_0800344c: .4byte 0x00000c24
 lbl_08003450: .4byte 0x05000300
 lbl_08003454: .4byte 0x04000084
 
-    thumb_func_start sub_08003458
-sub_08003458: @ 0x08003458
+    thumb_func_start unk_3458
+unk_3458: @ 0x08003458
     push {r4, r5, lr}
     sub sp, #4
     ldr r5, lbl_08003498 @ =gMusicInfo

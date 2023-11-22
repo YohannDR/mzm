@@ -574,8 +574,7 @@ SECTIONS {
         src/fusion_gallery.o(.text);
         src/ending_and_gallery.o(.text);
         src/chozodia_escape.o(.text);
-
-        asm/disasm_0x08088ea0.o(.text);
+        src/cable_link.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -2030,6 +2029,7 @@ SECTIONS {
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         src/data/cable_link_data.o(.rodata);
+        sTransferRom_After = .; 
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);

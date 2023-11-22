@@ -95,7 +95,7 @@ u8 CableLinkProcess(void)
             break;
 
         case 4:
-            if (!unk_8980c(&sTransferRom[sizeof(sTransferRom)] - sTransferRom, sTransferRom))
+            if (!unk_8980c(sTransferRom_After - sTransferRom, (const u32*)sTransferRom))
             {
                 gIoTransferInfo.unk_9++;
                 break;
@@ -124,12 +124,12 @@ u8 CableLinkProcess(void)
             gIoTransferInfo.unk_9 = 10;
             break;
 
-        case 7:
+        case 8:
             gIoTransferInfo.result = 2;
             gIoTransferInfo.unk_9 = 11;
             break;
 
-        case 8:
+        case 7:
             gIoTransferInfo.result = 3;
             gIoTransferInfo.unk_9 = 11;
             break;
@@ -205,6 +205,7 @@ void CableLinkResetTransfer(struct MultiBootData* pMultiBoot)
     write16(REG_SIO_DATA8, 0);
 }
 
+#ifdef NON_MATCHING
 u32 unk_891a0(struct MultiBootData* pMultiBoot)
 {
     // https://decomp.me/scratch/fqhAa
@@ -467,6 +468,540 @@ u32 unk_891a0(struct MultiBootData* pMultiBoot)
         }
     }
 }
+#else
+NAKED_FUNCTION
+u32 unk_891a0(struct MultiBootData* pMultiBoot)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    add r7, r0, #0 \n\
+    bl unk_896b8 \n\
+    cmp r0, #0 \n\
+    beq lbl_080891b6 \n\
+    b lbl_0808957e \n\
+lbl_080891b6: \n\
+    add r0, r7, #0 \n\
+    add r0, #0x4a \n\
+    ldrb r1, [r0] \n\
+    mov sl, r0 \n\
+    cmp r1, #0xf \n\
+    bls lbl_080891ca \n\
+    sub r0, r1, #1 \n\
+    mov r1, sl \n\
+    strb r0, [r1] \n\
+    b lbl_0808957e \n\
+lbl_080891ca: \n\
+    add r1, r7, #0 \n\
+    add r1, #0x48 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_080891f4 \n\
+    movs r0, #0 \n\
+    strb r0, [r1] \n\
+    ldr r0, lbl_080891f0 @ =0x04000128 \n\
+    ldrh r0, [r0] \n\
+    movs r5, #0xfc \n\
+    and r5, r0 \n\
+    cmp r5, #8 \n\
+    beq lbl_080891f4 \n\
+    add r0, r7, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #8 \n\
+    eor r0, r5 \n\
+    b lbl_08089580 \n\
+    .align 2, 0 \n\
+lbl_080891f0: .4byte 0x04000128 \n\
+lbl_080891f4: \n\
+    ldrb r0, [r7, #0x18] \n\
+    cmp r0, #0xdf \n\
+    bls lbl_08089246 \n\
+    add r0, r7, #0 \n\
+    bl unk_896cc \n\
+    add r5, r0, #0 \n\
+    cmp r5, #0 \n\
+    beq lbl_08089208 \n\
+    b lbl_08089580 \n\
+lbl_08089208: \n\
+    add r0, r7, #0 \n\
+    add r0, #0x4b \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    bne lbl_08089224 \n\
+    ldrb r0, [r7, #0x18] \n\
+    cmp r0, #0xe1 \n\
+    bls lbl_08089224 \n\
+    add r0, r7, #0 \n\
+    bl unk_896b8 \n\
+    cmp r0, #0 \n\
+    bne lbl_08089224 \n\
+    b lbl_0808956e \n\
+lbl_08089224: \n\
+    add r0, r7, #0 \n\
+    bl unk_896b8 \n\
+    cmp r0, #0 \n\
+    beq lbl_08089230 \n\
+    b lbl_0808957e \n\
+lbl_08089230: \n\
+    ldrh r0, [r7, #0x16] \n\
+    cmp r0, #0 \n\
+    bne lbl_08089240 \n\
+    add r0, r7, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #0x71 \n\
+    b lbl_08089580 \n\
+lbl_08089240: \n\
+    sub r0, #1 \n\
+    strh r0, [r7, #0x16] \n\
+    b lbl_0808957e \n\
+lbl_08089246: \n\
+    ldrb r0, [r7, #0x18] \n\
+    cmp r0, #2 \n\
+    bne lbl_0808924e \n\
+    b lbl_08089384 \n\
+lbl_0808924e: \n\
+    cmp r0, #2 \n\
+    bgt lbl_0808925c \n\
+    cmp r0, #0 \n\
+    beq lbl_0808926a \n\
+    cmp r0, #1 \n\
+    beq lbl_08089326 \n\
+    b lbl_080894bc \n\
+lbl_0808925c: \n\
+    cmp r0, #0xd0 \n\
+    bne lbl_08089262 \n\
+    b lbl_080893d0 \n\
+lbl_08089262: \n\
+    cmp r0, #0xd1 \n\
+    bne lbl_08089268 \n\
+    b lbl_0808946a \n\
+lbl_08089268: \n\
+    b lbl_080894bc \n\
+lbl_0808926a: \n\
+    movs r3, #0xe \n\
+    movs r5, #3 \n\
+    ldr r0, lbl_080892b0 @ =0x04000120 \n\
+    ldrh r0, [r0, #6] \n\
+    add r1, r0, #0 \n\
+    ldr r0, lbl_080892b4 @ =0x0000ffff \n\
+    ldrb r2, [r7, #0x1e] \n\
+    add r6, r2, #0 \n\
+    cmp r1, r0 \n\
+    bne lbl_08089292 \n\
+    add r4, r1, #0 \n\
+    ldr r1, lbl_080892b8 @ =0x04000126 \n\
+lbl_08089282: \n\
+    asr r3, r3, #1 \n\
+    sub r1, #2 \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    beq lbl_08089292 \n\
+    ldrh r0, [r1] \n\
+    cmp r0, r4 \n\
+    beq lbl_08089282 \n\
+lbl_08089292: \n\
+    movs r0, #0xe \n\
+    and r3, r0 \n\
+    strb r3, [r7, #0x1d] \n\
+    movs r5, #3 \n\
+    ldr r0, lbl_080892b0 @ =0x04000120 \n\
+    ldrh r0, [r0, #6] \n\
+    add r4, r0, #0 \n\
+    asr r0, r2, #3 \n\
+    movs r1, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080892c0 \n\
+    ldr r0, lbl_080892bc @ =0x00007208 \n\
+    b lbl_080892e6 \n\
+    .align 2, 0 \n\
+lbl_080892b0: .4byte 0x04000120 \n\
+lbl_080892b4: .4byte 0x0000ffff \n\
+lbl_080892b8: .4byte 0x04000126 \n\
+lbl_080892bc: .4byte 0x00007208 \n\
+lbl_080892c0: \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    beq lbl_080892ec \n\
+    lsl r0, r5, #1 \n\
+    ldr r1, lbl_08089314 @ =0x04000120 \n\
+    add r0, r0, r1 \n\
+    ldrh r0, [r0] \n\
+    add r4, r0, #0 \n\
+    add r0, r2, #0 \n\
+    asr r0, r5 \n\
+    movs r1, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080892c0 \n\
+    add r0, r1, #0 \n\
+    lsl r0, r5 \n\
+    movs r1, #0xe4 \n\
+    lsl r1, r1, #7 \n\
+    orr r0, r1 \n\
+lbl_080892e6: \n\
+    cmp r4, r0 \n\
+    beq lbl_080892c0 \n\
+    movs r3, #0 \n\
+lbl_080892ec: \n\
+    add r0, r3, #0 \n\
+    and r0, r6 \n\
+    strb r0, [r7, #0x1e] \n\
+    cmp r3, #0 \n\
+    bne lbl_080892fc \n\
+    movs r0, #0xf \n\
+    mov r2, sl \n\
+    strb r0, [r2] \n\
+lbl_080892fc: \n\
+    mov r1, sl \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_08089318 \n\
+    ldrb r0, [r7, #0x1d] \n\
+    ldrb r2, [r7, #0x1e] \n\
+    cmp r0, r2 \n\
+    beq lbl_0808931e \n\
+    add r0, r7, #0 \n\
+    bl unk_895dc \n\
+    b lbl_08089326 \n\
+    .align 2, 0 \n\
+lbl_08089314: .4byte 0x04000120 \n\
+lbl_08089318: \n\
+    sub r0, #1 \n\
+    mov r1, sl \n\
+    strb r0, [r1] \n\
+lbl_0808931e: \n\
+    ldrb r1, [r7, #0x1e] \n\
+    movs r2, #0xc4 \n\
+    lsl r2, r2, #7 \n\
+    b lbl_08089426 \n\
+lbl_08089326: \n\
+    add r1, r7, #0 \n\
+    add r1, #0x49 \n\
+    movs r0, #0 \n\
+    strb r0, [r1] \n\
+    movs r5, #3 \n\
+    mov ip, r1 \n\
+    ldr r3, lbl_0808937c @ =gUnk_3005888 \n\
+lbl_08089334: \n\
+    lsl r0, r5, #1 \n\
+    ldr r2, lbl_08089380 @ =0x04000120 \n\
+    add r0, r0, r2 \n\
+    ldrh r0, [r0] \n\
+    add r4, r0, #0 \n\
+    asr r0, r4, #8 \n\
+    sub r2, r5, #1 \n\
+    cmp r0, #0x72 \n\
+    bne lbl_0808935e \n\
+    lsl r0, r2, #1 \n\
+    add r0, r0, r3 \n\
+    strh r4, [r0] \n\
+    movs r0, #0xff \n\
+    and r4, r0 \n\
+    movs r0, #1 \n\
+    lsl r0, r5 \n\
+    cmp r4, r0 \n\
+    bne lbl_0808935e \n\
+    ldrb r0, [r1] \n\
+    orr r4, r0 \n\
+    strb r4, [r1] \n\
+lbl_0808935e: \n\
+    add r5, r2, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_08089334 \n\
+    ldrb r0, [r7, #0x1d] \n\
+    mov r1, ip \n\
+    ldrb r1, [r1] \n\
+    cmp r0, r1 \n\
+    bne lbl_0808931e \n\
+    movs r0, #2 \n\
+    strb r0, [r7, #0x18] \n\
+    mov r2, ip \n\
+    ldrb r1, [r2] \n\
+    movs r2, #0xc2 \n\
+    lsl r2, r2, #7 \n\
+    b lbl_08089426 \n\
+    .align 2, 0 \n\
+lbl_0808937c: .4byte gUnk_3005888 \n\
+lbl_08089380: .4byte 0x04000120 \n\
+lbl_08089384: \n\
+    movs r5, #3 \n\
+    movs r0, #0x49 \n\
+    add r0, r0, r7 \n\
+    mov ip, r0 \n\
+    mov r4, ip \n\
+    movs r6, #1 \n\
+    ldr r1, lbl_080893c8 @ =gUnk_3005888 \n\
+    mov sb, r1 \n\
+    ldr r2, lbl_080893cc @ =0x04000120 \n\
+    mov r8, r2 \n\
+lbl_08089398: \n\
+    ldrb r3, [r4] \n\
+    add r0, r3, #0 \n\
+    asr r0, r5 \n\
+    and r0, r6 \n\
+    sub r2, r5, #1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080893be \n\
+    lsl r0, r5, #1 \n\
+    add r0, r8 \n\
+    ldrh r1, [r0] \n\
+    lsl r0, r2, #1 \n\
+    add r0, sb \n\
+    ldrh r0, [r0] \n\
+    cmp r1, r0 \n\
+    beq lbl_080893be \n\
+    add r0, r6, #0 \n\
+    lsl r0, r5 \n\
+    eor r3, r0 \n\
+    strb r3, [r4] \n\
+lbl_080893be: \n\
+    add r5, r2, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_08089398 \n\
+    b lbl_08089524 \n\
+    .align 2, 0 \n\
+lbl_080893c8: .4byte gUnk_3005888 \n\
+lbl_080893cc: .4byte 0x04000120 \n\
+lbl_080893d0: \n\
+    movs r3, #1 \n\
+    movs r5, #3 \n\
+    movs r0, #0x49 \n\
+    add r0, r0, r7 \n\
+    mov ip, r0 \n\
+    add r6, r7, #0 \n\
+    add r6, #0x19 \n\
+    ldr r1, lbl_08089434 @ =gUnk_3005888 \n\
+    mov r8, r1 \n\
+lbl_080893e2: \n\
+    lsl r0, r5, #1 \n\
+    ldr r2, lbl_08089438 @ =0x04000120 \n\
+    add r0, r0, r2 \n\
+    ldrh r0, [r0] \n\
+    add r4, r0, #0 \n\
+    sub r2, r5, #1 \n\
+    add r0, r6, r2 \n\
+    strb r4, [r0] \n\
+    mov r0, ip \n\
+    ldrb r1, [r0] \n\
+    asr r1, r5 \n\
+    movs r0, #1 \n\
+    and r1, r0 \n\
+    cmp r1, #0 \n\
+    beq lbl_08089416 \n\
+    asr r0, r4, #8 \n\
+    sub r0, #0x72 \n\
+    cmp r0, #1 \n\
+    bls lbl_0808940a \n\
+    b lbl_08089574 \n\
+lbl_0808940a: \n\
+    lsl r0, r2, #1 \n\
+    add r0, r8 \n\
+    ldrh r0, [r0] \n\
+    cmp r4, r0 \n\
+    bne lbl_08089416 \n\
+    movs r3, #0 \n\
+lbl_08089416: \n\
+    add r5, r2, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_080893e2 \n\
+    cmp r3, #0 \n\
+    bne lbl_0808943c \n\
+    ldrb r1, [r7, #0x1c] \n\
+    movs r2, #0xc6 \n\
+    lsl r2, r2, #7 \n\
+lbl_08089426: \n\
+    add r0, r2, #0 \n\
+    orr r1, r0 \n\
+    add r0, r7, #0 \n\
+    bl CableLinkStartTransfer \n\
+    b lbl_08089580 \n\
+    .align 2, 0 \n\
+lbl_08089434: .4byte gUnk_3005888 \n\
+lbl_08089438: .4byte 0x04000120 \n\
+lbl_0808943c: \n\
+    movs r0, #0xd1 \n\
+    strb r0, [r7, #0x18] \n\
+    movs r3, #0x11 \n\
+    movs r5, #3 \n\
+    add r1, r6, #2 \n\
+lbl_08089446: \n\
+    ldrb r0, [r1] \n\
+    add r3, r3, r0 \n\
+    sub r1, #1 \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    bne lbl_08089446 \n\
+    strb r3, [r7, #0x14] \n\
+    movs r0, #0xff \n\
+    and r3, r0 \n\
+    movs r1, #0xc8 \n\
+    lsl r1, r1, #7 \n\
+    add r0, r1, #0 \n\
+    orr r3, r0 \n\
+    add r0, r7, #0 \n\
+    add r1, r3, #0 \n\
+    bl CableLinkStartTransfer \n\
+    b lbl_08089580 \n\
+lbl_0808946a: \n\
+    movs r5, #3 \n\
+    movs r2, #0x49 \n\
+    ldrb r1, [r2, r7] \n\
+    ldr r2, lbl_080894a8 @ =0x04000126 \n\
+    movs r3, #1 \n\
+lbl_08089474: \n\
+    ldrh r0, [r2] \n\
+    add r4, r0, #0 \n\
+    add r0, r1, #0 \n\
+    asr r0, r5 \n\
+    and r0, r3 \n\
+    cmp r0, #0 \n\
+    beq lbl_08089488 \n\
+    asr r0, r4, #8 \n\
+    cmp r0, #0x73 \n\
+    bne lbl_08089574 \n\
+lbl_08089488: \n\
+    sub r2, #2 \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    bne lbl_08089474 \n\
+    add r0, r7, #0 \n\
+    bl Multiboot \n\
+    add r5, r0, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_080894ac \n\
+    movs r0, #0xe0 \n\
+    strb r0, [r7, #0x18] \n\
+    add r0, #0xb0 \n\
+    strh r0, [r7, #0x16] \n\
+    b lbl_0808957e \n\
+    .align 2, 0 \n\
+lbl_080894a8: .4byte 0x04000126 \n\
+lbl_080894ac: \n\
+    add r0, r7, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #0x1e \n\
+    mov r1, sl \n\
+    strb r0, [r1] \n\
+    movs r0, #0x70 \n\
+    b lbl_08089580 \n\
+lbl_080894bc: \n\
+    movs r5, #3 \n\
+    movs r2, #0x49 \n\
+    add r2, r2, r7 \n\
+    mov ip, r2 \n\
+    mov r8, ip \n\
+    movs r0, #1 \n\
+    mov sb, r0 \n\
+lbl_080894ca: \n\
+    mov r1, r8 \n\
+    ldrb r6, [r1] \n\
+    add r0, r6, #0 \n\
+    asr r0, r5 \n\
+    mov r2, sb \n\
+    and r0, r2 \n\
+    cmp r0, #0 \n\
+    beq lbl_08089504 \n\
+    lsl r0, r5, #1 \n\
+    ldr r1, lbl_08089520 @ =0x04000120 \n\
+    add r0, r0, r1 \n\
+    ldrh r0, [r0] \n\
+    add r4, r0, #0 \n\
+    asr r2, r4, #8 \n\
+    ldrb r0, [r7, #0x18] \n\
+    lsr r0, r0, #1 \n\
+    movs r1, #0x62 \n\
+    sub r1, r1, r0 \n\
+    mov r3, sb \n\
+    lsl r3, r5 \n\
+    cmp r2, r1 \n\
+    bne lbl_080894fe \n\
+    movs r0, #0xff \n\
+    and r4, r0 \n\
+    cmp r4, r3 \n\
+    beq lbl_08089504 \n\
+lbl_080894fe: \n\
+    eor r6, r3 \n\
+    mov r2, r8 \n\
+    strb r6, [r2] \n\
+lbl_08089504: \n\
+    sub r5, #1 \n\
+    cmp r5, #0 \n\
+    bne lbl_080894ca \n\
+    ldrb r0, [r7, #0x18] \n\
+    cmp r0, #0xc4 \n\
+    bne lbl_08089524 \n\
+    mov r0, ip \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0xe \n\
+    and r0, r1 \n\
+    strb r0, [r7, #0x1e] \n\
+    strb r5, [r7, #0x18] \n\
+    b lbl_0808931e \n\
+    .align 2, 0 \n\
+lbl_08089520: .4byte 0x04000120 \n\
+lbl_08089524: \n\
+    mov r1, ip \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_08089536 \n\
+    add r0, r7, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #0x50 \n\
+    b lbl_08089580 \n\
+lbl_08089536: \n\
+    ldrb r0, [r7, #0x18] \n\
+    add r0, #2 \n\
+    strb r0, [r7, #0x18] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    cmp r0, #0xc4 \n\
+    bne lbl_08089546 \n\
+    b lbl_0808931e \n\
+lbl_08089546: \n\
+    ldrb r0, [r7, #0x18] \n\
+    ldr r1, [r7, #0x28] \n\
+    add r0, r0, r1 \n\
+    sub r1, r0, #3 \n\
+    ldrb r2, [r1] \n\
+    lsl r2, r2, #8 \n\
+    sub r0, #4 \n\
+    ldrb r1, [r0] \n\
+    orr r1, r2 \n\
+    add r0, r7, #0 \n\
+    bl CableLinkStartTransfer \n\
+    add r5, r0, #0 \n\
+    cmp r5, #0 \n\
+    bne lbl_08089580 \n\
+    add r0, r7, #0 \n\
+    add r0, #0x4b \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    bne lbl_0808957e \n\
+lbl_0808956e: \n\
+    bl unk_897d0 \n\
+    b lbl_080891ca \n\
+lbl_08089574: \n\
+    add r0, r7, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #0x60 \n\
+    b lbl_08089580 \n\
+lbl_0808957e: \n\
+    movs r0, #0 \n\
+lbl_08089580: \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 89590 | 4c | Starts a data transfer
@@ -587,6 +1122,7 @@ u32 unk_896b8(struct MultiBootData* pMultiBoot)
         return FALSE;
 }
 
+#ifdef NON_MATCHING
 u32 unk_896cc(struct MultiBootData* pMultiBoot)
 {
     // https://decomp.me/scratch/6M5KZ
@@ -660,6 +1196,139 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
             return CableLinkStartTransfer(pMultiBoot, pMultiBoot->systemWork_1[0]);
     }
 }
+#else
+NAKED_FUNCTION
+u32 unk_896cc(struct MultiBootData* pMultiBoot)
+{
+    asm(" \n\
+    push {r4, r5, r6, lr} \n\
+    add r3, r0, #0 \n\
+    ldrb r0, [r3, #0x18] \n\
+    cmp r0, #0xe0 \n\
+    beq lbl_080896e8 \n\
+    cmp r0, #0xe0 \n\
+    blt lbl_080896f8 \n\
+    cmp r0, #0xe8 \n\
+    bgt lbl_080896f8 \n\
+    cmp r0, #0xe7 \n\
+    blt lbl_080896f8 \n\
+    movs r4, #3 \n\
+    ldrb r5, [r3, #0x1e] \n\
+    b lbl_08089758 \n\
+lbl_080896e8: \n\
+    movs r1, #0 \n\
+    movs r0, #0xe1 \n\
+    strb r0, [r3, #0x18] \n\
+    str r1, [r3, #4] \n\
+    movs r0, #0x80 \n\
+    lsl r0, r0, #0xd \n\
+    str r0, [r3] \n\
+    b lbl_0808974a \n\
+lbl_080896f8: \n\
+    movs r4, #3 \n\
+    ldrb r5, [r3, #0x1e] \n\
+    movs r6, #1 \n\
+    ldr r1, lbl_08089754 @ =0x04000126 \n\
+lbl_08089700: \n\
+    ldrh r0, [r1] \n\
+    add r2, r0, #0 \n\
+    add r0, r5, #0 \n\
+    asr r0, r4 \n\
+    and r0, r6 \n\
+    cmp r0, #0 \n\
+    beq lbl_08089714 \n\
+    ldr r0, [r3, #4] \n\
+    cmp r2, r0 \n\
+    bne lbl_080896e8 \n\
+lbl_08089714: \n\
+    sub r1, #2 \n\
+    sub r4, #1 \n\
+    cmp r4, #0 \n\
+    bne lbl_08089700 \n\
+    ldrb r0, [r3, #0x18] \n\
+    add r0, #1 \n\
+    strb r0, [r3, #0x18] \n\
+    ldr r1, [r3] \n\
+    ldrh r0, [r3] \n\
+    str r0, [r3, #4] \n\
+    cmp r1, #0 \n\
+    bne lbl_08089742 \n\
+    ldr r0, [r3, #0x28] \n\
+    add r1, r0, #0 \n\
+    add r1, #0xac \n\
+    ldrb r1, [r1] \n\
+    add r0, #0xad \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #8 \n\
+    orr r1, r0 \n\
+    str r1, [r3, #4] \n\
+    lsl r1, r1, #5 \n\
+    str r1, [r3] \n\
+lbl_08089742: \n\
+    ldr r0, [r3] \n\
+    lsr r0, r0, #5 \n\
+    str r0, [r3] \n\
+lbl_08089748: \n\
+    ldrh r1, [r3] \n\
+lbl_0808974a: \n\
+    add r0, r3, #0 \n\
+    bl CableLinkStartTransfer \n\
+    b lbl_080897b0 \n\
+    .align 2, 0 \n\
+lbl_08089754: .4byte 0x04000126 \n\
+lbl_08089758: \n\
+    lsl r0, r4, #1 \n\
+    ldr r1, lbl_080897a0 @ =0x04000120 \n\
+    add r0, r0, r1 \n\
+    ldrh r0, [r0] \n\
+    add r2, r0, #0 \n\
+    add r0, r5, #0 \n\
+    asr r0, r4 \n\
+    movs r1, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08089774 \n\
+    ldr r0, [r3, #4] \n\
+    cmp r2, r0 \n\
+    bne lbl_080897a4 \n\
+lbl_08089774: \n\
+    sub r4, #1 \n\
+    cmp r4, #0 \n\
+    bne lbl_08089758 \n\
+    ldrb r0, [r3, #0x18] \n\
+    add r0, #1 \n\
+    strb r0, [r3, #0x18] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    cmp r0, #0xe9 \n\
+    beq lbl_080897ae \n\
+    ldr r0, [r3, #0x28] \n\
+    add r1, r0, #0 \n\
+    add r1, #0xae \n\
+    ldrb r1, [r1] \n\
+    add r0, #0xaf \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #8 \n\
+    orr r1, r0 \n\
+    str r1, [r3] \n\
+    str r1, [r3, #4] \n\
+    b lbl_08089748 \n\
+    .align 2, 0 \n\
+lbl_080897a0: .4byte 0x04000120 \n\
+lbl_080897a4: \n\
+    add r0, r3, #0 \n\
+    bl CableLinkResetTransfer \n\
+    movs r0, #0x71 \n\
+    b lbl_080897b0 \n\
+lbl_080897ae: \n\
+    movs r0, #0 \n\
+lbl_080897b0: \n\
+    pop {r4, r5, r6} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 897b8 | 18 | Checks for the current memory region (where execution is)
@@ -1387,6 +2056,7 @@ void unk_8a260(void)
     CpuSet(&buffer, &gCableLinkInfo, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gCableLinkInfo) / sizeof(u32));
 }
 
+#ifdef NON_MATCHING
 void unk_8a2c8(void)
 {
     // https://decomp.me/scratch/YaVig
@@ -1427,6 +2097,100 @@ void unk_8a2c8(void)
     gUnk_30058d8 = 0;
     gUnk_30058da = 0;
 }
+#else
+NAKED_FUNCTION
+void unk_8a2c8(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    sub sp, #4 \n\
+    ldr r6, lbl_0808a350 @ =gUnk_30058d0 \n\
+    ldr r3, lbl_0808a354 @ =0x04000208 \n\
+    ldrh r2, [r3] \n\
+    movs r4, #0 \n\
+    strh r4, [r3] \n\
+    ldr r5, lbl_0808a358 @ =0x04000200 \n\
+    ldrh r1, [r5] \n\
+    ldr r0, lbl_0808a35c @ =0x0000ff3f \n\
+    and r0, r1 \n\
+    strh r0, [r5] \n\
+    strh r2, [r3] \n\
+    ldr r0, lbl_0808a360 @ =0x04000134 \n\
+    strh r4, [r0] \n\
+    ldr r2, lbl_0808a364 @ =0x04000128 \n\
+    movs r1, #0x80 \n\
+    lsl r1, r1, #6 \n\
+    add r0, r1, #0 \n\
+    strh r0, [r2] \n\
+    ldrh r0, [r2] \n\
+    ldr r7, lbl_0808a368 @ =0x00004003 \n\
+    add r1, r7, #0 \n\
+    orr r0, r1 \n\
+    strh r0, [r2] \n\
+    ldrh r2, [r3] \n\
+    strh r2, [r6] \n\
+    strh r4, [r3] \n\
+    ldrh r0, [r5] \n\
+    movs r1, #0x80 \n\
+    orr r0, r1 \n\
+    strh r0, [r5] \n\
+    strh r2, [r3] \n\
+    ldr r0, lbl_0808a36c @ =0x0400012a \n\
+    strh r4, [r0] \n\
+    ldr r2, lbl_0808a370 @ =0x04000120 \n\
+    movs r0, #0 \n\
+    movs r1, #0 \n\
+    str r0, [r2] \n\
+    str r1, [r2, #4] \n\
+    movs r5, #0 \n\
+    str r5, [sp] \n\
+    ldr r1, lbl_0808a374 @ =gCableLinkInfo \n\
+    ldr r2, lbl_0808a378 @ =0x05000069 \n\
+    mov r0, sp \n\
+    bl CpuSet \n\
+    ldr r0, lbl_0808a37c @ =gUnk_30058d2 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a380 @ =gUnk_30058d3 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a384 @ =gUnk_30058d5 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a388 @ =gUnk_3005b50 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a38c @ =gUnk_3005b54 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a390 @ =gUnk_30058d6 \n\
+    strb r4, [r0] \n\
+    ldr r0, lbl_0808a394 @ =gUnk_30058d8 \n\
+    strh r5, [r0] \n\
+    ldr r0, lbl_0808a398 @ =gUnk_30058da \n\
+    strh r5, [r0] \n\
+    add sp, #4 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0808a350: .4byte gUnk_30058d0 \n\
+lbl_0808a354: .4byte 0x04000208 \n\
+lbl_0808a358: .4byte 0x04000200 \n\
+lbl_0808a35c: .4byte 0x0000ff3f \n\
+lbl_0808a360: .4byte 0x04000134 \n\
+lbl_0808a364: .4byte 0x04000128 \n\
+lbl_0808a368: .4byte 0x00004003 \n\
+lbl_0808a36c: .4byte 0x0400012a \n\
+lbl_0808a370: .4byte 0x04000120 \n\
+lbl_0808a374: .4byte gCableLinkInfo \n\
+lbl_0808a378: .4byte 0x05000069 \n\
+lbl_0808a37c: .4byte gUnk_30058d2 \n\
+lbl_0808a380: .4byte gUnk_30058d3 \n\
+lbl_0808a384: .4byte gUnk_30058d5 \n\
+lbl_0808a388: .4byte gUnk_3005b50 \n\
+lbl_0808a38c: .4byte gUnk_3005b54 \n\
+lbl_0808a390: .4byte gUnk_30058d6 \n\
+lbl_0808a394: .4byte gUnk_30058d8 \n\
+lbl_0808a398: .4byte gUnk_30058da \n\
+    ");
+}
+#endif
 
 /**
  * @brief 8a39c | 10 | To document

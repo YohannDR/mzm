@@ -4479,7 +4479,7 @@ samus/graphics/arm_cannon/Lower_DiagonalDown_Armed_Standing.gfx;64;0x233aac;1
 # IO
 
 io/754bd0.bin;6900;0x754bd0;1
-io/rom.bin;8185;0x7566c4;4
+io/rom.bin;32740;0x7566c4;1
 
 # Nes Metroid
 

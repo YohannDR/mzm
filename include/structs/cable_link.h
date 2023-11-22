@@ -84,8 +84,8 @@ struct CableLink_3005890 {
     u8 unk_6;
     u8 unk_7;
     const u32* pData;
-    u32 dataCursor;
-    u32 dataSizeInt;
+    s32 dataCursor;
+    s32 dataSizeInt;
     u32 dataChecksum;
 };
 
