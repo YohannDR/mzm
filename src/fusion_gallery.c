@@ -13,12 +13,6 @@
 #include "structs/fusion_gallery.h"
 #include "structs/game_state.h"
 
-#define GALLERY_RESET_BG_POS()\
-do {                          \
-gBg0YPosition = 0;            \
-gBg1YPosition = 0;            \
-} while(0);
-
 /**
  * @brief 847f8 | 78 | V-blank code for the fusion gallery
  * 

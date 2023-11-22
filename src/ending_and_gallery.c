@@ -164,6 +164,7 @@ void EndingImageDisplayLinePermanently(u32 line)
     ENDING_DATA.oamLength = 6;
 }
 
+#ifdef NON_MATCHING
 void EndingImageLoadIGTAndPercentageGraphics(void)
 {
     // https://decomp.me/scratch/vLTLr
@@ -269,6 +270,258 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_OBJ + 0x240, C_32_2_16(DMA_ENABLE, 64 / 2));
     DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_OBJ + 0x640, C_32_2_16(DMA_ENABLE, 64 / 2));
 }
+#else
+NAKED_FUNCTION
+void EndingImageLoadIGTAndPercentageGraphics(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    movs r1, #0 \n\
+    ldr r0, lbl_080850c8 @ =gInGameTimer \n\
+    ldrb r4, [r0] \n\
+    ldr r6, lbl_080850cc @ =sEndingImageNumbersGfx_Upper \n\
+    ldr r7, lbl_080850d0 @ =sEndingImageNumbersGfx_Lower \n\
+    ldr r2, lbl_080850d4 @ =sNonGameplayRamPointer \n\
+    mov sl, r2 \n\
+    cmp r4, #9 \n\
+    ble lbl_08084fd4 \n\
+lbl_08084fcc: \n\
+    sub r4, #0xa \n\
+    add r1, #1 \n\
+    cmp r4, #9 \n\
+    bgt lbl_08084fcc \n\
+lbl_08084fd4: \n\
+    movs r5, #0 \n\
+    ldrb r2, [r0, #1] \n\
+    lsl r4, r4, #6 \n\
+    mov r8, r4 \n\
+    cmp r2, #9 \n\
+    ble lbl_08084fe8 \n\
+lbl_08084fe0: \n\
+    sub r2, #0xa \n\
+    add r5, #1 \n\
+    cmp r2, #9 \n\
+    bgt lbl_08084fe0 \n\
+lbl_08084fe8: \n\
+    movs r3, #0 \n\
+    mov ip, r3 \n\
+    ldrb r4, [r0, #2] \n\
+    lsl r5, r5, #6 \n\
+    lsl r2, r2, #6 \n\
+    mov sb, r2 \n\
+    cmp r4, #9 \n\
+    ble lbl_08085002 \n\
+lbl_08084ff8: \n\
+    sub r4, #0xa \n\
+    movs r0, #1 \n\
+    add ip, r0 \n\
+    cmp r4, #9 \n\
+    bgt lbl_08084ff8 \n\
+lbl_08085002: \n\
+    cmp r1, #0 \n\
+    beq lbl_08085024 \n\
+    lsl r3, r1, #6 \n\
+    ldr r0, lbl_080850d8 @ =0x040000d4 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850dc @ =0x06010000 \n\
+    str r1, [r0, #4] \n\
+    ldr r2, lbl_080850e0 @ =0x80000020 \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850e4 @ =0x06010400 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r0, [r0, #8] \n\
+lbl_08085024: \n\
+    mov r3, r8 \n\
+    ldr r0, lbl_080850d8 @ =0x040000d4 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850e8 @ =0x06010040 \n\
+    str r1, [r0, #4] \n\
+    ldr r2, lbl_080850e0 @ =0x80000020 \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850ec @ =0x06010440 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r3, r5, #0 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850f0 @ =0x060100a0 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850f4 @ =0x060104a0 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    mov r3, sb \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850f8 @ =0x060100e0 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080850fc @ =0x060104e0 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    mov r1, ip \n\
+    lsl r3, r1, #6 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_08085100 @ =0x06010140 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_08085104 @ =0x06010540 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    lsl r3, r4, #6 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_08085108 @ =0x06010180 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_0808510c @ =0x06010580 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r0, [r0, #8] \n\
+    movs r1, #0 \n\
+    movs r4, #0 \n\
+    mov r2, sl \n\
+    ldr r0, [r2] \n\
+    add r0, #0x99 \n\
+    ldrb r5, [r0] \n\
+    cmp r5, #0x63 \n\
+    ble lbl_08085114 \n\
+lbl_080850bc: \n\
+    sub r5, #0x64 \n\
+    add r1, #1 \n\
+    cmp r5, #0x63 \n\
+    bgt lbl_080850bc \n\
+    b lbl_08085114 \n\
+    .align 2, 0 \n\
+lbl_080850c8: .4byte gInGameTimer \n\
+lbl_080850cc: .4byte sEndingImageNumbersGfx_Upper \n\
+lbl_080850d0: .4byte sEndingImageNumbersGfx_Lower \n\
+lbl_080850d4: .4byte sNonGameplayRamPointer \n\
+lbl_080850d8: .4byte 0x040000d4 \n\
+lbl_080850dc: .4byte 0x06010000 \n\
+lbl_080850e0: .4byte 0x80000020 \n\
+lbl_080850e4: .4byte 0x06010400 \n\
+lbl_080850e8: .4byte 0x06010040 \n\
+lbl_080850ec: .4byte 0x06010440 \n\
+lbl_080850f0: .4byte 0x060100a0 \n\
+lbl_080850f4: .4byte 0x060104a0 \n\
+lbl_080850f8: .4byte 0x060100e0 \n\
+lbl_080850fc: .4byte 0x060104e0 \n\
+lbl_08085100: .4byte 0x06010140 \n\
+lbl_08085104: .4byte 0x06010540 \n\
+lbl_08085108: .4byte 0x06010180 \n\
+lbl_0808510c: .4byte 0x06010580 \n\
+lbl_08085110: \n\
+    sub r5, #0xa \n\
+    add r4, #1 \n\
+lbl_08085114: \n\
+    cmp r5, #9 \n\
+    bgt lbl_08085110 \n\
+    cmp r1, #0 \n\
+    beq lbl_0808514c \n\
+    lsl r3, r1, #6 \n\
+    ldr r0, lbl_0808513c @ =0x040000d4 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_08085140 @ =0x060101c0 \n\
+    str r1, [r0, #4] \n\
+    ldr r2, lbl_08085144 @ =0x80000020 \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_08085148 @ =0x060105c0 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r0, [r0, #8] \n\
+    b lbl_08085150 \n\
+    .align 2, 0 \n\
+lbl_0808513c: .4byte 0x040000d4 \n\
+lbl_08085140: .4byte 0x060101c0 \n\
+lbl_08085144: .4byte 0x80000020 \n\
+lbl_08085148: .4byte 0x060105c0 \n\
+lbl_0808514c: \n\
+    cmp r4, #0 \n\
+    beq lbl_0808516e \n\
+lbl_08085150: \n\
+    lsl r3, r4, #6 \n\
+    ldr r0, lbl_0808519c @ =0x040000d4 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080851a0 @ =0x06010200 \n\
+    str r1, [r0, #4] \n\
+    ldr r2, lbl_080851a4 @ =0x80000020 \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080851a8 @ =0x06010600 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r0, [r0, #8] \n\
+lbl_0808516e: \n\
+    lsl r3, r5, #6 \n\
+    ldr r0, lbl_0808519c @ =0x040000d4 \n\
+    add r1, r3, r6 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080851ac @ =0x06010240 \n\
+    str r1, [r0, #4] \n\
+    ldr r2, lbl_080851a4 @ =0x80000020 \n\
+    str r2, [r0, #8] \n\
+    ldr r1, [r0, #8] \n\
+    add r1, r3, r7 \n\
+    str r1, [r0] \n\
+    ldr r1, lbl_080851b0 @ =0x06010640 \n\
+    str r1, [r0, #4] \n\
+    str r2, [r0, #8] \n\
+    ldr r0, [r0, #8] \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_0808519c: .4byte 0x040000d4 \n\
+lbl_080851a0: .4byte 0x06010200 \n\
+lbl_080851a4: .4byte 0x80000020 \n\
+lbl_080851a8: .4byte 0x06010600 \n\
+lbl_080851ac: .4byte 0x06010240 \n\
+lbl_080851b0: .4byte 0x06010640 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 851b4 | 164 | V-blank code for gallery, ending image and credits
@@ -1637,7 +1890,7 @@ u8 UnlockedOptionsPopUp(void)
     }
 
     if (ENDING_DATA.oamTypes[0] == 0)
-        ENDING_DATA.oamTypes[0] = TextProcessFileScreen();
+        ENDING_DATA.oamTypes[0] = TextProcessFileScreenPopUp();
 
     if (ENDING_DATA.unk_1 == 1)
     {
@@ -2035,7 +2288,7 @@ u32 GalleryDisplay(void)
 /**
  * @brief 87778 | d8 | Subroutine for the gallery
  * 
- * @return u32 
+ * @return u32 bool, ended
  */
 u32 GallerySubroutine(void)
 {

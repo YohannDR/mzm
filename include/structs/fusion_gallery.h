@@ -5,6 +5,12 @@
 
 #define FUSION_GALLERY_DATA sNonGameplayRamPointer->fusionGallery
 
+#define GALLERY_RESET_BG_POS()\
+do {                          \
+gBg0YPosition = 0;            \
+gBg1YPosition = 0;            \
+} while(0);
+
 struct FusionGalleryImageEntry {
     const u32* const pTopGfx;
     const u32* const pBottomGfx;
