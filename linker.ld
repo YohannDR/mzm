@@ -572,9 +572,7 @@ SECTIONS {
         src/intro.o(.text);
         src/tourian_escape.o(.text);
         src/fusion_gallery.o(.text);
-
-        asm/disasm_0x08084c34.o(.text);
-
+        src/ending_and_gallery.o(.text);
         src/chozodia_escape.o(.text);
 
         asm/disasm_0x08088ea0.o(.text);
