@@ -813,6 +813,7 @@ void FileSelectFileCopyChooseBaseDestinationFile(void)
     FILE_SELECT_DATA.currentFile = file;
 }
 
+#ifdef NON_MATCHING
 u32 FileSelectCopyFileSubroutine(void)
 {
     // https://decomp.me/scratch/iYyvZ
@@ -834,7 +835,7 @@ u32 FileSelectCopyFileSubroutine(void)
             FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_DEFAULT, FILE_SELECT_DATA.copySourceFile);
             FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_SPAWN_INIT);
 
-            FILE_SELECT_DATA.fileSelectCursors.confirmCopy = sFileSelectionData_Empty.confirmCopy;
+            FILE_SELECT_DATA.fileSelectCursors.confirmCopy = sFileSelectMenuCursors_Empty.confirmCopy;
             FILE_SELECT_DATA.unk_3A = 0;
 
             FILE_SELECT_DATA.subroutineStage++;
@@ -939,7 +940,7 @@ u32 FileSelectCopyFileSubroutine(void)
             }
             else if (action == 2)
             {
-                FILE_SELECT_DATA.fileSelectCursors.confirmCopy = sFileSelectionData_Empty.confirmCopy;
+                FILE_SELECT_DATA.fileSelectCursors.confirmCopy = sFileSelectMenuCursors_Empty.confirmCopy;
                 FileSelectUpdateCopyArrow(ARROW_COPY_POSE_COPYING, FILE_SELECT_DATA.currentFile);
 
                 if ((FILE_SELECT_DATA.enabledMenus >> FILE_SELECT_DATA.currentFile) & 1)
@@ -1095,12 +1096,686 @@ u32 FileSelectCopyFileSubroutine(void)
 
     return ended;
 }
+#else
+NAKED_FUNCTION
+u32 FileSelectCopyFileSubroutine(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    sub sp, #4 \n\
+    movs r7, #0 \n\
+    ldr r2, lbl_0807923c @ =sNonGameplayRamPointer \n\
+    ldr r1, [r2] \n\
+    add r3, r1, #0 \n\
+    add r3, #0x42 \n\
+    ldrh r0, [r3] \n\
+    add r0, #1 \n\
+    strh r0, [r3] \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r6, r2, #0 \n\
+    cmp r0, #0xf \n\
+    bls lbl_08079230 \n\
+    b lbl_08079794 \n\
+lbl_08079230: \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_08079240 @ =lbl_08079244 \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_0807923c: .4byte sNonGameplayRamPointer \n\
+lbl_08079240: .4byte lbl_08079244 \n\
+lbl_08079244: @ jump table \n\
+    .4byte lbl_08079284 @ case 0 \n\
+    .4byte lbl_080792d0 @ case 1 \n\
+    .4byte lbl_080792e8 @ case 2 \n\
+    .4byte lbl_08079300 @ case 3 \n\
+    .4byte lbl_080793e8 @ case 4 \n\
+    .4byte lbl_080794ec @ case 5 \n\
+    .4byte lbl_08079510 @ case 6 \n\
+    .4byte lbl_080795b2 @ case 7 \n\
+    .4byte lbl_080795d4 @ case 8 \n\
+    .4byte lbl_080795fc @ case 9 \n\
+    .4byte lbl_0807961c @ case 10 \n\
+    .4byte lbl_0807964c @ case 11 \n\
+    .4byte lbl_08079686 @ case 12 \n\
+    .4byte lbl_080796a0 @ case 13 \n\
+    .4byte lbl_080796bc @ case 14 \n\
+    .4byte lbl_08079780 @ case 15 \n\
+lbl_08079284: \n\
+    movs r0, #0 \n\
+    movs r1, #1 \n\
+    bl unk_790cc \n\
+    movs r0, #0 \n\
+    movs r1, #2 \n\
+    bl unk_790cc \n\
+    ldr r4, lbl_080792c8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x26 \n\
+    bl FileSelectFindFirstNonEmptyFile \n\
+    ldr r0, [r4] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    movs r0, #0x12 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r1, [r4] \n\
+    ldr r0, lbl_080792cc @ =sFileSelectMenuCursors_Empty \n\
+    ldrb r0, [r0] \n\
+    add r1, #0x2c \n\
+    movs r2, #0 \n\
+    strb r0, [r1] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x3a \n\
+    strb r2, [r0] \n\
+    ldr r1, [r4] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_080792c8: .4byte sNonGameplayRamPointer \n\
+lbl_080792cc: .4byte sFileSelectMenuCursors_Empty \n\
+lbl_080792d0: \n\
+    movs r0, #0x13 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_080792dc \n\
+    b lbl_08079794 \n\
+lbl_080792dc: \n\
+    ldr r0, lbl_080792e4 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_080792e4: .4byte sNonGameplayRamPointer \n\
+lbl_080792e8: \n\
+    movs r0, #1 \n\
+    movs r1, #2 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_080792f6 \n\
+    b lbl_08079794 \n\
+lbl_080792f6: \n\
+    ldr r0, lbl_080792fc @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_080792fc: .4byte sNonGameplayRamPointer \n\
+lbl_08079300: \n\
+    movs r4, #0 \n\
+    ldr r5, lbl_08079320 @ =gChangedInput \n\
+    ldrh r0, [r5] \n\
+    cmp r0, #0 \n\
+    beq lbl_08079354 \n\
+    ldr r1, [r6] \n\
+    add r1, #0x26 \n\
+    movs r0, #1 \n\
+    bl FileSelectApplyMenuSelectInput \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079324 \n\
+    movs r4, #1 \n\
+    b lbl_0807935a \n\
+    .align 2, 0 \n\
+lbl_08079320: .4byte gChangedInput \n\
+lbl_08079324: \n\
+    ldrh r1, [r5] \n\
+    movs r3, #2 \n\
+    add r0, r3, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079332 \n\
+    b lbl_080796aa \n\
+lbl_08079332: \n\
+    movs r2, #1 \n\
+    add r0, r2, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079354 \n\
+    ldr r0, [r6] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x3b \n\
+    ldrb r1, [r1] \n\
+    add r0, #0x26 \n\
+    ldrb r0, [r0] \n\
+    asr r1, r0 \n\
+    and r1, r2 \n\
+    neg r0, r1\n\
+    orr r0, r1 \n\
+    asr r4, r0, #0x1f \n\
+    and r4, r3 \n\
+lbl_08079354: \n\
+    cmp r4, #0 \n\
+    bne lbl_0807935a \n\
+    b lbl_08079794 \n\
+lbl_0807935a: \n\
+    cmp r4, #1 \n\
+    bne lbl_08079378 \n\
+    movs r0, #2 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, lbl_08079374 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_08079374: .4byte sNonGameplayRamPointer \n\
+lbl_08079378: \n\
+    cmp r4, #2 \n\
+    beq lbl_0807937e \n\
+    b lbl_08079794 \n\
+lbl_0807937e: \n\
+    ldr r4, lbl_080793bc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #2 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    ldr r2, lbl_080793c0 @ =gSaveFilesInfo \n\
+    ldr r0, [r4] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r2 \n\
+    ldrb r0, [r0, #0x15] \n\
+    cmp r0, #0 \n\
+    beq lbl_080793c8 \n\
+    ldr r0, lbl_080793c4 @ =0x00000209 \n\
+    bl SoundPlay \n\
+    movs r0, #0 \n\
+    movs r1, #4 \n\
+    bl unk_790cc \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #9 \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_080793bc: .4byte sNonGameplayRamPointer \n\
+lbl_080793c0: .4byte gSaveFilesInfo \n\
+lbl_080793c4: .4byte 0x00000209 \n\
+lbl_080793c8: \n\
+    movs r0, #8 \n\
+    bl FileSelectPlayMenuSound \n\
+    bl FileSelectFileCopyChooseBaseDestinationFile \n\
+    ldr r0, [r4] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    movs r0, #0x1b \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r1, [r4] \n\
+    b lbl_08079766 \n\
+lbl_080793e8: \n\
+    movs r4, #0 \n\
+    ldr r5, lbl_08079408 @ =gChangedInput \n\
+    ldrh r0, [r5] \n\
+    cmp r0, #0 \n\
+    beq lbl_08079420 \n\
+    ldr r1, [r6] \n\
+    add r1, #0x27 \n\
+    movs r0, #2 \n\
+    bl FileSelectApplyMenuSelectInput \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807940c \n\
+    movs r4, #1 \n\
+    b lbl_08079460 \n\
+    .align 2, 0 \n\
+lbl_08079408: .4byte gChangedInput \n\
+lbl_0807940c: \n\
+    ldrh r1, [r5] \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_08079428 \n\
+    movs r0, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079420 \n\
+    movs r4, #2 \n\
+lbl_08079420: \n\
+    cmp r4, #0 \n\
+    bne lbl_08079426 \n\
+    b lbl_08079794 \n\
+lbl_08079426: \n\
+    b lbl_08079460 \n\
+lbl_08079428: \n\
+    ldr r0, lbl_08079458 @ =0x00000209 \n\
+    bl SoundPlay \n\
+    ldr r4, lbl_0807945c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    ldr r0, [r4] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #3 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    movs r0, #0x1a \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #3 \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_08079458: .4byte 0x00000209 \n\
+lbl_0807945c: .4byte sNonGameplayRamPointer \n\
+lbl_08079460: \n\
+    cmp r4, #1 \n\
+    bne lbl_08079480 \n\
+    ldr r0, lbl_0807947c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    movs r0, #9 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_0807947c: .4byte sNonGameplayRamPointer \n\
+lbl_08079480: \n\
+    cmp r4, #2 \n\
+    beq lbl_08079486 \n\
+    b lbl_08079794 \n\
+lbl_08079486: \n\
+    ldr r4, lbl_080794d4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_080794d8 @ =sFileSelectMenuCursors_Empty \n\
+    ldrb r1, [r1] \n\
+    add r0, #0x2c \n\
+    strb r1, [r0] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #2 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    ldr r0, [r4] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x3b \n\
+    ldrb r1, [r1] \n\
+    add r0, #0x27 \n\
+    ldrb r0, [r0] \n\
+    asr r1, r0 \n\
+    movs r0, #1 \n\
+    and r1, r0 \n\
+    cmp r1, #0 \n\
+    beq lbl_080794dc \n\
+    movs r0, #0 \n\
+    movs r1, #3 \n\
+    bl unk_790cc \n\
+    movs r0, #0x16 \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r0, #8 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #5 \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_080794d4: .4byte sNonGameplayRamPointer \n\
+lbl_080794d8: .4byte sFileSelectMenuCursors_Empty \n\
+lbl_080794dc: \n\
+    movs r0, #0xa \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xb \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+lbl_080794ec: \n\
+    movs r0, #0x17 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_080794f8 \n\
+    b lbl_08079794 \n\
+lbl_080794f8: \n\
+    ldr r4, lbl_0807950c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x2c \n\
+    ldrb r1, [r0] \n\
+    movs r0, #4 \n\
+    bl unk_7e3fc \n\
+    ldr r1, [r4] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_0807950c: .4byte sNonGameplayRamPointer \n\
+lbl_08079510: \n\
+    movs r4, #0xff \n\
+    ldr r0, lbl_08079538 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_080795a0 \n\
+    movs r0, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807954e \n\
+    ldr r1, [r6] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2c \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807953c \n\
+    add r1, #0x40 \n\
+    movs r0, #7 \n\
+    strb r0, [r1] \n\
+    b lbl_080795a0 \n\
+    .align 2, 0 \n\
+lbl_08079538: .4byte gChangedInput \n\
+lbl_0807953c: \n\
+    movs r0, #0xa \n\
+    bl FileSelectPlayMenuSound \n\
+    movs r4, #0x80 \n\
+    ldr r0, [r6] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xb \n\
+    strb r1, [r0] \n\
+    b lbl_080795a0 \n\
+lbl_0807954e: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079560 \n\
+    ldr r0, [r6] \n\
+    add r0, #0x40 \n\
+    movs r1, #7 \n\
+    strb r1, [r0] \n\
+    b lbl_080795a0 \n\
+lbl_08079560: \n\
+    movs r0, #0x20 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079580 \n\
+    ldr r0, [r6] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2c \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_080795a0 \n\
+    movs r4, #0 \n\
+    strb r4, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_080795a0 \n\
+lbl_08079580: \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080795a0 \n\
+    ldr r0, [r6] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2c \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_080795a0 \n\
+    movs r4, #1 \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_080795a0: \n\
+    add r0, r4, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_080795a8 \n\
+    b lbl_08079794 \n\
+lbl_080795a8: \n\
+    add r1, r4, #0 \n\
+    movs r0, #4 \n\
+    bl unk_7e3fc \n\
+    b lbl_08079794 \n\
+lbl_080795b2: \n\
+    ldr r0, lbl_080795cc @ =0x00000209 \n\
+    bl SoundPlay \n\
+    movs r0, #4 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    movs r0, #0x18 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_080795d0 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_080795cc: .4byte 0x00000209 \n\
+lbl_080795d0: .4byte sNonGameplayRamPointer \n\
+lbl_080795d4: \n\
+    movs r0, #0x19 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_080795e0 \n\
+    b lbl_08079794 \n\
+lbl_080795e0: \n\
+    ldr r4, lbl_080795f8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #4 \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_080795f8: .4byte sNonGameplayRamPointer \n\
+lbl_080795fc: \n\
+    movs r0, #1 \n\
+    movs r1, #4 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807960a \n\
+    b lbl_08079794 \n\
+lbl_0807960a: \n\
+    movs r0, #0x1c \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_08079618 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_08079618: .4byte sNonGameplayRamPointer \n\
+lbl_0807961c: \n\
+    ldr r0, lbl_08079648 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    movs r0, #3 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807962a \n\
+    b lbl_08079794 \n\
+lbl_0807962a: \n\
+    ldr r0, [r6] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    movs r0, #0x1a \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, [r6] \n\
+    add r0, #0x40 \n\
+    movs r1, #3 \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_08079648: .4byte gChangedInput \n\
+lbl_0807964c: \n\
+    ldr r1, [r6] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x26 \n\
+    ldrb r0, [r0] \n\
+    add r1, #0x27 \n\
+    ldrb r1, [r1] \n\
+    bl SramCopyFile \n\
+    cmp r0, #0 \n\
+    bne lbl_08079662 \n\
+    b lbl_08079794 \n\
+lbl_08079662: \n\
+    ldr r0, [r6] \n\
+    add r0, #0x3a \n\
+    movs r1, #1 \n\
+    strb r1, [r0] \n\
+    ldr r1, [r6] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2c \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807967e \n\
+    add r1, #0x40 \n\
+    movs r0, #0xe \n\
+    strb r0, [r1] \n\
+    b lbl_08079794 \n\
+lbl_0807967e: \n\
+    add r1, #0x40 \n\
+    movs r0, #0xc \n\
+    strb r0, [r1] \n\
+    b lbl_08079794 \n\
+lbl_08079686: \n\
+    movs r0, #4 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    movs r0, #0x18 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_0807969c @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079766 \n\
+    .align 2, 0 \n\
+lbl_0807969c: .4byte sNonGameplayRamPointer \n\
+lbl_080796a0: \n\
+    movs r0, #0x19 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    beq lbl_08079794 \n\
+lbl_080796aa: \n\
+    ldr r0, lbl_080796b8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xe \n\
+    strb r1, [r0] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_080796b8: .4byte sNonGameplayRamPointer \n\
+lbl_080796bc: \n\
+    add r5, r6, #0 \n\
+    ldr r1, [r5] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3a \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_08079746 \n\
+    add r0, r1, #0 \n\
+    add r0, #0x27 \n\
+    ldrb r0, [r0] \n\
+    bl FileSelectDisplaySaveFileHealth \n\
+    ldr r0, [r5] \n\
+    add r0, #0x27 \n\
+    ldrb r0, [r0] \n\
+    bl FileSelectDisplaySaveFileTimer \n\
+    ldr r0, [r5] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    ldr r4, lbl_08079770 @ =gSaveFilesInfo \n\
+    add r0, r0, r4 \n\
+    bl FileSelectDisplaySaveFileMiscInfo \n\
+    ldr r3, [r5] \n\
+    ldr r0, lbl_08079774 @ =sFileSelectFileOamOffsets \n\
+    add r1, r3, #0 \n\
+    add r1, #0x27 \n\
+    ldrb r2, [r1] \n\
+    lsl r1, r2, #1 \n\
+    add r0, #1 \n\
+    add r0, r1, r0 \n\
+    ldrb r0, [r0] \n\
+    lsl r0, r0, #4 \n\
+    add r3, r3, r0 \n\
+    add r1, r1, r2 \n\
+    lsl r1, r1, #3 \n\
+    add r1, r1, r4 \n\
+    ldrb r1, [r1, #0x11] \n\
+    lsl r1, r1, #0x18 \n\
+    asr r1, r1, #0x18 \n\
+    neg r0, r1\n\
+    orr r0, r1 \n\
+    asr r0, r0, #0x1f \n\
+    movs r1, #2 \n\
+    add r3, #0x7f \n\
+    and r1, r0 \n\
+    lsl r1, r1, #6 \n\
+    ldrb r2, [r3] \n\
+    movs r0, #0x3f \n\
+    and r0, r2 \n\
+    orr r0, r1 \n\
+    strb r0, [r3] \n\
+    bl FileScreenSetEnabledMenuFlags \n\
+    ldr r0, lbl_08079778 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #4 \n\
+    add r1, r1, r3 \n\
+    ldr r2, lbl_0807977c @ =0x0600d800 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+lbl_08079746: \n\
+    ldr r0, [r6] \n\
+    add r0, #0x26 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #3 \n\
+    bl FileSelectUpdateCopyCursor \n\
+    ldr r0, [r6] \n\
+    add r0, #0x27 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #3 \n\
+    bl FileSelectUpdateCopyArrow \n\
+    movs r0, #0x14 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r1, [r6] \n\
+lbl_08079766: \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+    b lbl_08079794 \n\
+    .align 2, 0 \n\
+lbl_08079770: .4byte gSaveFilesInfo \n\
+lbl_08079774: .4byte sFileSelectFileOamOffsets \n\
+lbl_08079778: .4byte sEwramPointer \n\
+lbl_0807977c: .4byte 0x0600d800 \n\
+lbl_08079780: \n\
+    movs r0, #0x15 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    beq lbl_08079794 \n\
+    movs r0, #2 \n\
+    movs r1, #0xff \n\
+    bl unk_790cc \n\
+    movs r7, #1 \n\
+lbl_08079794: \n\
+    add r0, r7, #0 \n\
+    add sp, #4 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
+
 
 /**
  * @brief 797a0 | 3b0 | File erasure subroutine
  * 
  * @return u32 bool, ended
  */
+#ifdef NON_MATCHING
 u32 FileSelectEraseFileSubroutine(void)
 {
     // https://decomp.me/scratch/noF8W
@@ -1176,7 +1851,7 @@ u32 FileSelectEraseFileSubroutine(void)
         case 3:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_SPAWN))
             {
-                FILE_SELECT_DATA.fileSelectCursors.confirmErase = sFileSelectionData_Empty.confirmErase;
+                FILE_SELECT_DATA.fileSelectCursors.confirmErase = sFileSelectMenuCursors_Empty.confirmErase;
                 unk_7e3fc(3, FILE_SELECT_DATA.fileSelectCursors.confirmErase);
                 FILE_SELECT_DATA.subroutineStage++;
             }
@@ -1293,6 +1968,456 @@ u32 FileSelectEraseFileSubroutine(void)
 
     return ended;
 }
+#else
+NAKED_FUNCTION
+u32 FileSelectEraseFileSubroutine(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    sub sp, #4 \n\
+    movs r7, #0 \n\
+    ldr r2, lbl_080797cc @ =sNonGameplayRamPointer \n\
+    ldr r1, [r2] \n\
+    add r3, r1, #0 \n\
+    add r3, #0x42 \n\
+    ldrh r0, [r3] \n\
+    add r0, #1 \n\
+    strh r0, [r3] \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r5, r2, #0 \n\
+    cmp r0, #0xb \n\
+    bls lbl_080797c0 \n\
+    b lbl_08079b44 \n\
+lbl_080797c0: \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_080797d0 @ =lbl_080797d4 \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_080797cc: .4byte sNonGameplayRamPointer \n\
+lbl_080797d0: .4byte lbl_080797d4 \n\
+lbl_080797d4: @ jump table \n\
+    .4byte lbl_08079804 @ case 0 \n\
+    .4byte lbl_08079840 @ case 1 \n\
+    .4byte lbl_08079858 @ case 2 \n\
+    .4byte lbl_08079900 @ case 3 \n\
+    .4byte lbl_08079930 @ case 4 \n\
+    .4byte lbl_080799d8 @ case 5 \n\
+    .4byte lbl_080799fc @ case 6 \n\
+    .4byte lbl_08079a24 @ case 7 \n\
+    .4byte lbl_08079a46 @ case 8 \n\
+    .4byte lbl_08079a60 @ case 9 \n\
+    .4byte lbl_08079a7c @ case 10 \n\
+    .4byte lbl_08079b30 @ case 11 \n\
+lbl_08079804: \n\
+    movs r0, #0 \n\
+    movs r1, #5 \n\
+    bl unk_790cc \n\
+    movs r0, #0 \n\
+    movs r1, #6 \n\
+    bl unk_790cc \n\
+    ldr r4, lbl_0807983c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x28 \n\
+    bl FileSelectFindFirstNonEmptyFile \n\
+    ldr r0, [r4] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateEraseCursor \n\
+    movs r0, #0xa \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, [r4] \n\
+    add r0, #0x3a \n\
+    movs r1, #0 \n\
+    strb r1, [r0] \n\
+    b lbl_08079b10 \n\
+    .align 2, 0 \n\
+lbl_0807983c: .4byte sNonGameplayRamPointer \n\
+lbl_08079840: \n\
+    movs r0, #0xb \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807984c \n\
+    b lbl_08079b44 \n\
+lbl_0807984c: \n\
+    ldr r0, lbl_08079854 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079b12 \n\
+    .align 2, 0 \n\
+lbl_08079854: .4byte sNonGameplayRamPointer \n\
+lbl_08079858: \n\
+    movs r4, #0 \n\
+    ldr r6, lbl_08079878 @ =gChangedInput \n\
+    ldrh r0, [r6] \n\
+    cmp r0, #0 \n\
+    beq lbl_080798ac \n\
+    ldr r1, [r5] \n\
+    add r1, #0x28 \n\
+    movs r0, #1 \n\
+    bl FileSelectApplyMenuSelectInput \n\
+    lsl r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807987c \n\
+    movs r4, #1 \n\
+    b lbl_080798b2 \n\
+    .align 2, 0 \n\
+lbl_08079878: .4byte gChangedInput \n\
+lbl_0807987c: \n\
+    ldrh r1, [r6] \n\
+    movs r3, #2 \n\
+    add r0, r3, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807988a \n\
+    b lbl_08079a6a \n\
+lbl_0807988a: \n\
+    movs r2, #1 \n\
+    add r0, r2, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080798ac \n\
+    ldr r0, [r5] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x3b \n\
+    ldrb r1, [r1] \n\
+    add r0, #0x28 \n\
+    ldrb r0, [r0] \n\
+    asr r1, r0 \n\
+    and r1, r2 \n\
+    neg r0, r1\n\
+    orr r0, r1 \n\
+    asr r4, r0, #0x1f \n\
+    and r4, r3 \n\
+lbl_080798ac: \n\
+    cmp r4, #0 \n\
+    bne lbl_080798b2 \n\
+    b lbl_08079b44 \n\
+lbl_080798b2: \n\
+    cmp r4, #1 \n\
+    bne lbl_080798d0 \n\
+    movs r0, #2 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, lbl_080798cc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl FileSelectUpdateEraseCursor \n\
+    b lbl_08079b44 \n\
+    .align 2, 0 \n\
+lbl_080798cc: .4byte sNonGameplayRamPointer \n\
+lbl_080798d0: \n\
+    cmp r4, #2 \n\
+    beq lbl_080798d6 \n\
+    b lbl_08079b44 \n\
+lbl_080798d6: \n\
+    movs r0, #0x84 \n\
+    lsl r0, r0, #2 \n\
+    bl SoundPlay \n\
+    ldr r4, lbl_080798fc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #2 \n\
+    bl FileSelectUpdateEraseCursor \n\
+    movs r0, #0xe \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #3 \n\
+    strb r1, [r0] \n\
+    b lbl_08079b44 \n\
+    .align 2, 0 \n\
+lbl_080798fc: .4byte sNonGameplayRamPointer \n\
+lbl_08079900: \n\
+    movs r0, #0xf \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807990c \n\
+    b lbl_08079b44 \n\
+lbl_0807990c: \n\
+    ldr r4, lbl_08079928 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807992c @ =sFileSelectMenuCursors_Empty \n\
+    ldrb r1, [r1, #1] \n\
+    add r0, #0x2d \n\
+    strb r1, [r0] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x2d \n\
+    ldrb r1, [r0] \n\
+    movs r0, #3 \n\
+    bl unk_7e3fc \n\
+    b lbl_08079b10 \n\
+    .align 2, 0 \n\
+lbl_08079928: .4byte sNonGameplayRamPointer \n\
+lbl_0807992c: .4byte sFileSelectMenuCursors_Empty \n\
+lbl_08079930: \n\
+    movs r4, #0xff \n\
+    ldr r0, lbl_08079958 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_080799c6 \n\
+    movs r0, #1 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079974 \n\
+    ldr r1, [r5] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2d \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807995c \n\
+    add r1, #0x40 \n\
+    movs r0, #5 \n\
+    strb r0, [r1] \n\
+    b lbl_080799c6 \n\
+    .align 2, 0 \n\
+lbl_08079958: .4byte gChangedInput \n\
+lbl_0807995c: \n\
+    movs r4, #0x80 \n\
+    ldr r0, lbl_08079970 @ =0x0000020d \n\
+    bl SoundPlay \n\
+    ldr r0, [r5] \n\
+    add r0, #0x40 \n\
+    movs r1, #7 \n\
+    strb r1, [r0] \n\
+    b lbl_080799c6 \n\
+    .align 2, 0 \n\
+lbl_08079970: .4byte 0x0000020d \n\
+lbl_08079974: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08079986 \n\
+    ldr r0, [r5] \n\
+    add r0, #0x40 \n\
+    movs r1, #5 \n\
+    strb r1, [r0] \n\
+    b lbl_080799c6 \n\
+lbl_08079986: \n\
+    movs r0, #0x20 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080799a6 \n\
+    ldr r0, [r5] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2d \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_080799c6 \n\
+    movs r4, #0 \n\
+    strb r4, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_080799c6 \n\
+lbl_080799a6: \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080799c6 \n\
+    ldr r0, [r5] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2d \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_080799c6 \n\
+    movs r4, #1 \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_080799c6: \n\
+    add r0, r4, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_080799ce \n\
+    b lbl_08079b44 \n\
+lbl_080799ce: \n\
+    add r1, r4, #0 \n\
+    movs r0, #3 \n\
+    bl unk_7e3fc \n\
+    b lbl_08079b44 \n\
+lbl_080799d8: \n\
+    ldr r0, lbl_080799f4 @ =0x00000209 \n\
+    bl SoundPlay \n\
+    movs r0, #3 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    movs r0, #0x10 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_080799f8 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079b12 \n\
+    .align 2, 0 \n\
+lbl_080799f4: .4byte 0x00000209 \n\
+lbl_080799f8: .4byte sNonGameplayRamPointer \n\
+lbl_080799fc: \n\
+    movs r0, #0x11 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_08079a08 \n\
+    b lbl_08079b44 \n\
+lbl_08079a08: \n\
+    ldr r4, lbl_08079a20 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateEraseCursor \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #2 \n\
+    strb r1, [r0] \n\
+    b lbl_08079b44 \n\
+    .align 2, 0 \n\
+lbl_08079a20: .4byte sNonGameplayRamPointer \n\
+lbl_08079a24: \n\
+    ldr r0, [r5] \n\
+    add r0, #0x28 \n\
+    ldrb r0, [r0] \n\
+    bl SramDeleteFile \n\
+    cmp r0, #0 \n\
+    bne lbl_08079a34 \n\
+    b lbl_08079b44 \n\
+lbl_08079a34: \n\
+    ldr r0, [r5] \n\
+    add r0, #0x3a \n\
+    movs r1, #1 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r5] \n\
+    add r0, #0x40 \n\
+    movs r1, #8 \n\
+    strb r1, [r0] \n\
+    b lbl_08079b44 \n\
+lbl_08079a46: \n\
+    movs r0, #3 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    movs r0, #0x10 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_08079a5c @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_08079b12 \n\
+    .align 2, 0 \n\
+lbl_08079a5c: .4byte sNonGameplayRamPointer \n\
+lbl_08079a60: \n\
+    movs r0, #0x11 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    beq lbl_08079b44 \n\
+lbl_08079a6a: \n\
+    ldr r0, lbl_08079a78 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xa \n\
+    strb r1, [r0] \n\
+    b lbl_08079b44 \n\
+    .align 2, 0 \n\
+lbl_08079a78: .4byte sNonGameplayRamPointer \n\
+lbl_08079a7c: \n\
+    ldr r5, lbl_08079b1c @ =sNonGameplayRamPointer \n\
+    ldr r1, [r5] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3a \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_08079afc \n\
+    add r0, r1, #0 \n\
+    add r0, #0x28 \n\
+    ldrb r0, [r0] \n\
+    bl FileSelectDisplaySaveFileHealth \n\
+    ldr r0, [r5] \n\
+    add r0, #0x28 \n\
+    ldrb r0, [r0] \n\
+    bl FileSelectDisplaySaveFileTimer \n\
+    ldr r0, [r5] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    ldr r4, lbl_08079b20 @ =gSaveFilesInfo \n\
+    add r0, r0, r4 \n\
+    bl FileSelectDisplaySaveFileMiscInfo \n\
+    ldr r2, [r5] \n\
+    add r0, r2, #0 \n\
+    add r0, #0x28 \n\
+    ldrb r0, [r0] \n\
+    lsl r1, r0, #1 \n\
+    add r0, r1, r0 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r4 \n\
+    ldrb r0, [r0, #0x11] \n\
+    lsl r0, r0, #0x18 \n\
+    asr r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    bne lbl_08079ae2 \n\
+    ldr r0, lbl_08079b24 @ =sFileSelectFileOamOffsets \n\
+    add r0, #1 \n\
+    add r0, r1, r0 \n\
+    ldrb r1, [r0] \n\
+    lsl r1, r1, #4 \n\
+    add r1, r2, r1 \n\
+    add r1, #0x7f \n\
+    ldrb r2, [r1] \n\
+    movs r0, #0x3f \n\
+    and r0, r2 \n\
+    strb r0, [r1] \n\
+lbl_08079ae2: \n\
+    bl FileScreenSetEnabledMenuFlags \n\
+    ldr r0, lbl_08079b28 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #4 \n\
+    add r1, r1, r3 \n\
+    ldr r2, lbl_08079b2c @ =0x0600d800 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+lbl_08079afc: \n\
+    ldr r4, lbl_08079b1c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x28 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #3 \n\
+    bl FileSelectUpdateEraseCursor \n\
+    movs r0, #0xc \n\
+    bl FileSelectUpdateTilemap \n\
+lbl_08079b10: \n\
+    ldr r1, [r4] \n\
+lbl_08079b12: \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+    b lbl_08079b44 \n\
+    .align 2, 0 \n\
+lbl_08079b1c: .4byte sNonGameplayRamPointer \n\
+lbl_08079b20: .4byte gSaveFilesInfo \n\
+lbl_08079b24: .4byte sFileSelectFileOamOffsets \n\
+lbl_08079b28: .4byte sEwramPointer \n\
+lbl_08079b2c: .4byte 0x0600d800 \n\
+lbl_08079b30: \n\
+    movs r0, #0xd \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    beq lbl_08079b44 \n\
+    movs r0, #2 \n\
+    movs r1, #0xff \n\
+    bl unk_790cc \n\
+    movs r7, #1 \n\
+lbl_08079b44: \n\
+    add r0, r7, #0 \n\
+    add sp, #4 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    ");
+}
+#endif
 
 /**
  * @brief 79b50 | 37c | Corrupted file subroutine
@@ -2129,7 +3254,7 @@ u8 OptionsNesMetroidSubroutine(void)
             // Verify data integrity
             for (i = 0; i < ARRAY_SIZE(sNesMetroidDataCheck); i++)
             {
-                if (sNesMetroidData[156 + i] != sNesMetroidDataCheck[i])
+                if (sNesMetroidData_Text[i] != sNesMetroidDataCheck[i])
                     return TRUE;
             }
             FILE_SELECT_DATA.subroutineStage++;
@@ -2173,7 +3298,8 @@ u8 OptionsNesMetroidSubroutine(void)
 
             // Give control to some sort of bootloader?
             // Signature : void Func_T(void*)
-            sNesEmuBootLoader(ROM_BASE);
+            // FIXME : sNesEmuBootLoader(ROM_BASE);
+            ((void*(*)(void*))(0x87d8000))(ROM_BASE);
             break;
     }
 
@@ -2746,8 +3872,8 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             break;
 
         case 11:
-            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].exists |
-                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].exists)
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].exists |
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].exists)
                 break;
 
             FILE_SELECT_DATA.subroutineTimer++;
@@ -2858,7 +3984,7 @@ void unk_7b854(void)
         low = (character % 32) * 0x20;
 
         DmaTransfer(3, &sCharactersGfx[high + low], &dstHigh[i * 32], 32, bitSize);
-        DmaTransfer(3, &sCharactersGfx[high + low + 0x200], &dstLow[i * 32], 32, bitSize);
+        DmaTransfer(3, &sCharactersGfx[high + low + 1024], &dstLow[i * 32], 32, bitSize);
     }
 
     DmaTransfer(3, dstHigh, dstHigh + 0x1000, 0x100, 16);
@@ -2921,7 +4047,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
     FILE_SELECT_DATA.subroutineTimer++;
 
     if (gIoTransferInfo.active == 1)
-        process_cable_link_connection(); // Undefined
+        CableLinkProcess();
     else if (gIoTransferInfo.active == 2)
         unk_89e30();
     else
@@ -3613,7 +4739,7 @@ void FileSelectInit(void)
     write16(REG_BG2CNT, FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_16);
     write16(REG_BG3CNT, FILE_SELECT_DATA.bg3cnt = FILE_SELECT_DATA.unk_14);
 
-    FILE_SELECT_DATA.fileSelectCursors = sFileSelectionData_Empty;
+    FILE_SELECT_DATA.fileSelectCursors = sFileSelectMenuCursors_Empty;
 
     FILE_SELECT_DATA.unk_34 = 0;
     FILE_SELECT_DATA.unk_35 = UCHAR_MAX;
@@ -4332,6 +5458,7 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
     return FALSE;
 }
 
+#ifdef NON_MATCHING
 u8 FileSelectProcessFileSelection(void)
 {
     // https://decomp.me/scratch/VYid8
@@ -4370,7 +5497,7 @@ u8 FileSelectProcessFileSelection(void)
 
             FILE_SELECT_DATA.unk_3A = 0;
 
-            FILE_SELECT_DATA.fileSelectCursors = sFileSelectionData_Empty;
+            FILE_SELECT_DATA.fileSelectCursors = sFileSelectMenuCursors_Empty;
 
             if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_A)
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = TRUE;
@@ -4618,7 +5745,7 @@ u8 FileSelectProcessFileSelection(void)
         case 16:
             if (FileSelectUpdateTilemap(0x22))
             {
-                FILE_SELECT_DATA.fileSelectCursors.confirmOverwritingCompleted = sFileSelectionData_Empty.confirmOverwritingCompleted;
+                FILE_SELECT_DATA.fileSelectCursors.confirmOverwritingCompleted = sFileSelectMenuCursors_Empty.confirmOverwritingCompleted;
                 unk_7e3fc(6, FILE_SELECT_DATA.fileSelectCursors.confirmOverwritingCompleted);
                 FILE_SELECT_DATA.subroutineStage++;
             }
@@ -5041,6 +6168,1732 @@ u8 FileSelectProcessFileSelection(void)
 
     return leaving;
 }
+#else
+NAKED_FUNCTION
+u8 FileSelectProcessFileSelection(void)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #4 \n\
+    movs r0, #0 \n\
+    mov sl, r0 \n\
+    ldr r2, lbl_0807d664 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r2] \n\
+    add r3, r1, #0 \n\
+    add r3, #0x42 \n\
+    ldrh r0, [r3] \n\
+    add r0, #1 \n\
+    strh r0, [r3] \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r7, r2, #0 \n\
+    cmp r0, #0x2c \n\
+    bls lbl_0807d658 \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807d658: \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_0807d668 @ =lbl_0807d66c \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_0807d664: .4byte sNonGameplayRamPointer \n\
+lbl_0807d668: .4byte lbl_0807d66c \n\
+lbl_0807d66c: @ jump table \n\
+    .4byte lbl_0807d720 @ case 0 \n\
+    .4byte lbl_0807d854 @ case 1 \n\
+    .4byte lbl_0807d8ec @ case 2 \n\
+    .4byte lbl_0807d922 @ case 3 \n\
+    .4byte lbl_0807d978 @ case 4 \n\
+    .4byte lbl_0807d986 @ case 5 \n\
+    .4byte lbl_0807d9a4 @ case 6 \n\
+    .4byte lbl_0807d9c8 @ case 7 \n\
+    .4byte lbl_0807daa8 @ case 8 \n\
+    .4byte lbl_0807db0a @ case 9 \n\
+    .4byte lbl_0807db28 @ case 10 \n\
+    .4byte lbl_0807db50 @ case 11 \n\
+    .4byte lbl_0807dc1a @ case 12 \n\
+    .4byte lbl_0807dc44 @ case 13 \n\
+    .4byte lbl_0807dc66 @ case 14 \n\
+    .4byte lbl_0807e3b6 @ case 15 \n\
+    .4byte lbl_0807dc7c @ case 16 \n\
+    .4byte lbl_0807dcac @ case 17 \n\
+    .4byte lbl_0807dd78 @ case 18 \n\
+    .4byte lbl_0807ddc4 @ case 19 \n\
+    .4byte lbl_0807dde0 @ case 20 \n\
+    .4byte lbl_0807ddfc @ case 21 \n\
+    .4byte lbl_0807de56 @ case 22 \n\
+    .4byte lbl_0807de68 @ case 23 \n\
+    .4byte lbl_0807de8c @ case 24 \n\
+    .4byte lbl_0807df38 @ case 25 \n\
+    .4byte lbl_0807df78 @ case 26 \n\
+    .4byte lbl_0807dfb0 @ case 27 \n\
+    .4byte lbl_0807dfdc @ case 28 \n\
+    .4byte lbl_0807dfec @ case 29 \n\
+    .4byte lbl_0807e010 @ case 30 \n\
+    .4byte lbl_0807e0da @ case 31 \n\
+    .4byte lbl_0807e3e6 @ case 32 \n\
+    .4byte lbl_0807e3e6 @ case 33 \n\
+    .4byte lbl_0807e11e @ case 34 \n\
+    .4byte lbl_0807e132 @ case 35 \n\
+    .4byte lbl_0807e164 @ case 36 \n\
+    .4byte lbl_0807e190 @ case 37 \n\
+    .4byte lbl_0807e1a4 @ case 38 \n\
+    .4byte lbl_0807e26a @ case 39 \n\
+    .4byte lbl_0807e288 @ case 40 \n\
+    .4byte lbl_0807e2c4 @ case 41 \n\
+    .4byte lbl_0807e2ec @ case 42 \n\
+    .4byte lbl_0807e34c @ case 43 \n\
+    .4byte lbl_0807e3d8 @ case 44 \n\
+lbl_0807d720: \n\
+    ldr r2, lbl_0807d824 @ =gMostRecentSaveFile \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    strb r1, [r2] \n\
+    ldrb r0, [r0] \n\
+    add r0, #1 \n\
+    lsl r4, r0, #1 \n\
+    add r4, r4, r0 \n\
+    ldr r5, lbl_0807d828 @ =sEwramPointer \n\
+    ldr r2, [r5] \n\
+    movs r1, #0x86 \n\
+    lsl r1, r1, #5 \n\
+    add r2, r2, r1 \n\
+    movs r3, #0x90 \n\
+    lsl r3, r3, #2 \n\
+    movs r0, #0x10 \n\
+    mov r8, r0 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    bl BitFill \n\
+    lsl r4, r4, #6 \n\
+    movs r1, #0x80 \n\
+    lsl r1, r1, #4 \n\
+    mov sb, r1 \n\
+    add r1, r4, r1 \n\
+    ldr r2, [r5] \n\
+    add r1, r2, r1 \n\
+    movs r6, #0x80 \n\
+    lsl r6, r6, #5 \n\
+    add r4, r4, r6 \n\
+    add r2, r2, r4 \n\
+    mov r3, r8 \n\
+    str r3, [sp] \n\
+    movs r0, #3 \n\
+    movs r3, #0xc0 \n\
+    bl DmaTransfer \n\
+    ldr r1, [r5] \n\
+    add r1, r1, r6 \n\
+    ldr r2, lbl_0807d82c @ =0x0600f000 \n\
+    mov r5, r8 \n\
+    str r5, [sp] \n\
+    movs r0, #3 \n\
+    mov r3, sb \n\
+    bl DmaTransfer \n\
+    ldr r2, [r7] \n\
+    ldrh r1, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    movs r4, #0 \n\
+    movs r3, #0 \n\
+    orr r0, r1 \n\
+    movs r5, #0x80 \n\
+    lsl r5, r5, #6 \n\
+    add r1, r5, #0 \n\
+    orr r0, r1 \n\
+    strh r0, [r2] \n\
+    ldr r1, lbl_0807d830 @ =0x04000040 \n\
+    ldr r5, lbl_0807d834 @ =0x000046aa \n\
+    add r0, r5, #0 \n\
+    strh r0, [r1] \n\
+    add r1, #4 \n\
+    movs r0, #0x17 \n\
+    strh r0, [r1] \n\
+    add r1, #6 \n\
+    movs r0, #0x3f \n\
+    strh r0, [r1] \n\
+    sub r1, #2 \n\
+    movs r0, #0x1f \n\
+    strb r0, [r1] \n\
+    ldr r0, lbl_0807d838 @ =gWrittenToBLDALPHA_H \n\
+    strh r3, [r0] \n\
+    ldr r0, lbl_0807d83c @ =gWrittenToBLDALPHA_L \n\
+    mov r1, r8 \n\
+    strh r1, [r0] \n\
+    ldr r0, lbl_0807d840 @ =0x00003f42 \n\
+    strh r0, [r2, #2] \n\
+    add r2, #0x3a \n\
+    strb r4, [r2] \n\
+    ldr r2, [r7] \n\
+    ldr r0, lbl_0807d844 @ =sFileSelectMenuCursors_Empty \n\
+    ldr r1, [r0, #4] \n\
+    ldr r0, [r0] \n\
+    str r0, [r2, #0x2c] \n\
+    str r1, [r2, #0x30] \n\
+    add r0, r2, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807d7ea \n\
+    ldr r3, lbl_0807d848 @ =0x0000013f \n\
+    add r2, r2, r3 \n\
+    ldrb r0, [r2] \n\
+    movs r1, #0x20 \n\
+    orr r0, r1 \n\
+    strb r0, [r2] \n\
+lbl_0807d7ea: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    beq lbl_0807d802 \n\
+    ldr r5, lbl_0807d84c @ =0x0000014f \n\
+    add r2, r1, r5 \n\
+    ldrb r0, [r2] \n\
+    movs r1, #0x20 \n\
+    orr r0, r1 \n\
+    strb r0, [r2] \n\
+lbl_0807d802: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #2 \n\
+    bne lbl_0807d812 \n\
+    bl lbl_0807e3b6 \n\
+lbl_0807d812: \n\
+    ldr r0, lbl_0807d850 @ =0x0000015f \n\
+    add r2, r1, r0 \n\
+    ldrb r0, [r2] \n\
+    movs r1, #0x20 \n\
+    orr r0, r1 \n\
+    strb r0, [r2] \n\
+    bl lbl_0807e3b6 \n\
+    .align 2, 0 \n\
+lbl_0807d824: .4byte gMostRecentSaveFile \n\
+lbl_0807d828: .4byte sEwramPointer \n\
+lbl_0807d82c: .4byte 0x0600f000 \n\
+lbl_0807d830: .4byte 0x04000040 \n\
+lbl_0807d834: .4byte 0x000046aa \n\
+lbl_0807d838: .4byte gWrittenToBLDALPHA_H \n\
+lbl_0807d83c: .4byte gWrittenToBLDALPHA_L \n\
+lbl_0807d840: .4byte 0x00003f42 \n\
+lbl_0807d844: .4byte sFileSelectMenuCursors_Empty \n\
+lbl_0807d848: .4byte 0x0000013f \n\
+lbl_0807d84c: .4byte 0x0000014f \n\
+lbl_0807d850: .4byte 0x0000015f \n\
+lbl_0807d854: \n\
+    movs r5, #1 \n\
+    ldr r1, lbl_0807d86c @ =gWrittenToBLDALPHA_L \n\
+    ldrh r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807d872 \n\
+    movs r5, #0 \n\
+    sub r0, #2 \n\
+    cmp r0, #0 \n\
+    bge lbl_0807d870 \n\
+    strh r5, [r1] \n\
+    b lbl_0807d872 \n\
+    .align 2, 0 \n\
+lbl_0807d86c: .4byte gWrittenToBLDALPHA_L \n\
+lbl_0807d870: \n\
+    strh r0, [r1] \n\
+lbl_0807d872: \n\
+    ldr r1, lbl_0807d8e0 @ =gWrittenToBLDALPHA_H \n\
+    ldrh r0, [r1] \n\
+    cmp r0, #0x10 \n\
+    beq lbl_0807d886 \n\
+    movs r5, #0 \n\
+    add r0, #2 \n\
+    cmp r0, #0x10 \n\
+    ble lbl_0807d884 \n\
+    movs r0, #0x10 \n\
+lbl_0807d884: \n\
+    strh r0, [r1] \n\
+lbl_0807d886: \n\
+    cmp r5, #0 \n\
+    bne lbl_0807d88e \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807d88e: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807d8a6 \n\
+    add r0, r1, #0 \n\
+    add r0, #0xff \n\
+    ldrb r1, [r0] \n\
+    movs r2, #0x20 \n\
+    orr r1, r2 \n\
+    strb r1, [r0] \n\
+lbl_0807d8a6: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    beq lbl_0807d8be \n\
+    ldr r3, lbl_0807d8e4 @ =0x0000010f \n\
+    add r2, r1, r3 \n\
+    ldrb r0, [r2] \n\
+    movs r1, #0x20 \n\
+    orr r0, r1 \n\
+    strb r0, [r2] \n\
+lbl_0807d8be: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #2 \n\
+    bne lbl_0807d8ce \n\
+    bl lbl_0807e3b6 \n\
+lbl_0807d8ce: \n\
+    ldr r5, lbl_0807d8e8 @ =0x0000011f \n\
+    add r2, r1, r5 \n\
+    ldrb r0, [r2] \n\
+    movs r1, #0x20 \n\
+    orr r0, r1 \n\
+    strb r0, [r2] \n\
+    bl lbl_0807e3b6 \n\
+    .align 2, 0 \n\
+lbl_0807d8e0: .4byte gWrittenToBLDALPHA_H \n\
+lbl_0807d8e4: .4byte 0x0000010f \n\
+lbl_0807d8e8: .4byte 0x0000011f \n\
+lbl_0807d8ec: \n\
+    ldr r2, [r7] \n\
+    add r0, r2, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #5 \n\
+    movs r1, #0x80 \n\
+    lsl r1, r1, #4 \n\
+    add r5, r0, r1 \n\
+    ldr r1, lbl_0807d918 @ =gBg2VOFS_NonGameplay \n\
+    ldrh r0, [r1] \n\
+    cmp r5, r0 \n\
+    beq lbl_0807d91c \n\
+    add r0, #0xc \n\
+    cmp r0, r5 \n\
+    ble lbl_0807d912 \n\
+    bl lbl_0807e2fe \n\
+lbl_0807d912: \n\
+    bl lbl_0807e30c \n\
+    .align 2, 0 \n\
+lbl_0807d918: .4byte gBg2VOFS_NonGameplay \n\
+lbl_0807d91c: \n\
+    add r1, r2, #0 \n\
+    bl lbl_0807e3b8 \n\
+lbl_0807d922: \n\
+    ldr r0, lbl_0807d96c @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r2, #0x80 \n\
+    lsl r2, r2, #4 \n\
+    add r1, r1, r2 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    lsl r2, r0, #1 \n\
+    add r2, r2, r0 \n\
+    lsl r2, r2, #6 \n\
+    ldr r3, lbl_0807d970 @ =0x0600f000 \n\
+    add r2, r2, r3 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    movs r3, #0xc0 \n\
+    bl DmaTransfer \n\
+    ldr r2, [r7] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807d974 @ =0x0000dfff \n\
+    and r0, r1 \n\
+    strh r0, [r2] \n\
+    movs r0, #0 \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r0, #0 \n\
+    movs r1, #0 \n\
+    bl unk_790cc \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #4 \n\
+    strb r1, [r0] \n\
+    bl lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807d96c: .4byte sEwramPointer \n\
+lbl_0807d970: .4byte 0x0600f000 \n\
+lbl_0807d974: .4byte 0x0000dfff \n\
+lbl_0807d978: \n\
+    movs r0, #1 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807d986 \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807d986: \n\
+    ldr r4, lbl_0807d9a0 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x2e \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #6 \n\
+    strb r1, [r0] \n\
+    bl lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807d9a0: .4byte sNonGameplayRamPointer \n\
+lbl_0807d9a4: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x6c \n\
+    movs r1, #0 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x6d \n\
+    strb r1, [r0] \n\
+    ldr r0, [r7] \n\
+    add r3, r0, #0 \n\
+    add r3, #0x6e \n\
+    movs r2, #0 \n\
+    strh r1, [r3] \n\
+    add r0, #0x70 \n\
+    strb r2, [r0] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #7 \n\
+    strb r1, [r0] \n\
+lbl_0807d9c8: \n\
+    movs r5, #0xff \n\
+    ldr r0, lbl_0807da18 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    movs r2, #1 \n\
+    add r0, r2, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da2e \n\
+    movs r5, #0x80 \n\
+    movs r0, #1 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r2, lbl_0807da1c @ =gSaveFilesInfo \n\
+    ldr r4, lbl_0807da20 @ =sNonGameplayRamPointer \n\
+    ldr r3, [r4] \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r1, r0, r2 \n\
+    movs r2, #0x11 \n\
+    ldrsb r2, [r1, r2] \n\
+    cmp r2, #0 \n\
+    bne lbl_0807da24 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807da0a \n\
+    movs r0, #0x12 \n\
+    ldrsb r0, [r1, r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da24 \n\
+lbl_0807da0a: \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3a \n\
+    strb r2, [r0] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x22 \n\
+    b lbl_0807da84 \n\
+    .align 2, 0 \n\
+lbl_0807da18: .4byte gChangedInput \n\
+lbl_0807da1c: .4byte gSaveFilesInfo \n\
+lbl_0807da20: .4byte sNonGameplayRamPointer \n\
+lbl_0807da24: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x40 \n\
+    movs r0, #8 \n\
+    strb r0, [r1] \n\
+    b lbl_0807da86 \n\
+lbl_0807da2e: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da40 \n\
+    movs r5, #0x81 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x27 \n\
+    b lbl_0807da84 \n\
+lbl_0807da40: \n\
+    ldr r0, lbl_0807daa0 @ =gFileScreenOptionsUnlocked \n\
+    ldr r0, [r0, #8] \n\
+    and r0, r2 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da86 \n\
+    ldr r2, lbl_0807daa4 @ =gSaveFilesInfo \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r2 \n\
+    ldrb r0, [r0, #0x11] \n\
+    lsl r0, r0, #0x18 \n\
+    asr r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da86 \n\
+    bl FileSelectCheckInputtingTimeAttackCode \n\
+    cmp r0, #0 \n\
+    beq lbl_0807da86 \n\
+    movs r5, #0x80 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x2f \n\
+    movs r1, #2 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x70 \n\
+    movs r1, #1 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #8 \n\
+lbl_0807da84: \n\
+    strb r1, [r0] \n\
+lbl_0807da86: \n\
+    add r0, r5, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807da90 \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807da90: \n\
+    lsl r1, r5, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    movs r0, #0 \n\
+    bl unk_7e3fc \n\
+    bl lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807daa0: .4byte gFileScreenOptionsUnlocked \n\
+lbl_0807daa4: .4byte gSaveFilesInfo \n\
+lbl_0807daa8: \n\
+    ldr r2, lbl_0807dae0 @ =gSaveFilesInfo \n\
+    ldr r3, [r7] \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r1, r0, r2 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dac8 \n\
+    movs r0, #0x12 \n\
+    ldrsb r0, [r1, r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807daf6 \n\
+lbl_0807dac8: \n\
+    ldrb r0, [r1, #0x15] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dad8 \n\
+    add r0, r3, #0 \n\
+    add r0, #0x70 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dae4 \n\
+lbl_0807dad8: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x39 \n\
+    movs r0, #0x10 \n\
+    b lbl_0807daea \n\
+    .align 2, 0 \n\
+lbl_0807dae0: .4byte gSaveFilesInfo \n\
+lbl_0807dae4: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x39 \n\
+    movs r0, #0xf \n\
+lbl_0807daea: \n\
+    strb r0, [r1] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #9 \n\
+    strb r1, [r0] \n\
+    b lbl_0807dafe \n\
+lbl_0807daf6: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x40 \n\
+    movs r0, #0x15 \n\
+    strb r0, [r1] \n\
+lbl_0807dafe: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x42 \n\
+    movs r1, #0 \n\
+    strh r1, [r0] \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807db0a: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x39 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl unk_790cc \n\
+    movs r0, #0 \n\
+    movs r1, #0x14 \n\
+    bl unk_790cc \n\
+    movs r0, #0x1d \n\
+    bl FileSelectUpdateTilemap \n\
+    bl lbl_0807e3b6 \n\
+lbl_0807db28: \n\
+    movs r0, #0x1e \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807db36 \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807db36: \n\
+    ldr r4, lbl_0807db4c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x2f \n\
+    ldrb r1, [r0] \n\
+    movs r0, #5 \n\
+    bl unk_7e3fc \n\
+    ldr r1, [r4] \n\
+    bl lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807db4c: .4byte sNonGameplayRamPointer \n\
+lbl_0807db50: \n\
+    movs r5, #0xff \n\
+    ldr r0, lbl_0807db7c @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_0807dc02 \n\
+    movs r4, #1 \n\
+    and r4, r1 \n\
+    cmp r4, #0 \n\
+    beq lbl_0807db80 \n\
+    movs r5, #0x80 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x42 \n\
+    movs r1, #0 \n\
+    strh r1, [r0] \n\
+    movs r0, #1 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xd \n\
+    strb r1, [r0] \n\
+    b lbl_0807dc02 \n\
+    .align 2, 0 \n\
+lbl_0807db7c: .4byte gChangedInput \n\
+lbl_0807db80: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dba8 \n\
+    movs r0, #0x1f \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r5, #0x81 \n\
+    ldr r0, lbl_0807dba4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x42 \n\
+    strh r4, [r1] \n\
+    add r0, #0x40 \n\
+    movs r1, #0xc \n\
+    strb r1, [r0] \n\
+    b lbl_0807dc02 \n\
+    .align 2, 0 \n\
+lbl_0807dba4: .4byte sNonGameplayRamPointer \n\
+lbl_0807dba8: \n\
+    movs r0, #0x40 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dbc0 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dc02 \n\
+    sub r0, #1 \n\
+    b lbl_0807dbde \n\
+lbl_0807dbc0: \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dc02 \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x39 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x10 \n\
+    bne lbl_0807dbec \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #1 \n\
+    bhi lbl_0807dc02 \n\
+    add r0, #1 \n\
+lbl_0807dbde: \n\
+    strb r0, [r1] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r5, r0, #0x18 \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807dc02 \n\
+lbl_0807dbec: \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dc02 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r5, r0, #0x18 \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_0807dc02: \n\
+    add r0, r5, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dc0c \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807dc0c: \n\
+    lsl r1, r5, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    movs r0, #5 \n\
+    bl unk_7e3fc \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807dc1a: \n\
+    movs r0, #0x20 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dc28 \n\
+    bl lbl_0807e3e6 \n\
+lbl_0807dc28: \n\
+    ldr r2, lbl_0807dc40 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r2] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x2f \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #2 \n\
+    bne lbl_0807dc3a \n\
+    movs r0, #0 \n\
+    strb r0, [r1] \n\
+lbl_0807dc3a: \n\
+    ldr r0, [r2] \n\
+    b lbl_0807e20a \n\
+    .align 2, 0 \n\
+lbl_0807dc40: .4byte sNonGameplayRamPointer \n\
+lbl_0807dc44: \n\
+    ldr r1, [r7] \n\
+    add r2, r1, #0 \n\
+    add r2, #0x42 \n\
+    movs r0, #0 \n\
+    strh r0, [r2] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dc5e \n\
+    add r1, #0x3a \n\
+    movs r0, #1 \n\
+    b lbl_0807df94 \n\
+lbl_0807dc5e: \n\
+    add r1, #0x40 \n\
+    movs r0, #0xe \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dc66: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x42 \n\
+    ldrh r0, [r0] \n\
+    cmp r0, #0xa \n\
+    bhi lbl_0807dc74 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dc74: \n\
+    add r1, #0x40 \n\
+    movs r0, #0xf \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dc7c: \n\
+    movs r0, #0x22 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dc88 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dc88: \n\
+    ldr r4, lbl_0807dca4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807dca8 @ =sFileSelectMenuCursors_Empty \n\
+    ldrb r1, [r1, #4] \n\
+    add r0, #0x30 \n\
+    strb r1, [r0] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x30 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #6 \n\
+    bl unk_7e3fc \n\
+    ldr r1, [r4] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807dca4: .4byte sNonGameplayRamPointer \n\
+lbl_0807dca8: .4byte sFileSelectMenuCursors_Empty \n\
+lbl_0807dcac: \n\
+    movs r5, #0xff \n\
+    ldr r0, lbl_0807dcdc @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_0807dd64 \n\
+    movs r2, #1 \n\
+    and r2, r1 \n\
+    cmp r2, #0 \n\
+    beq lbl_0807dd00 \n\
+    ldr r0, lbl_0807dce0 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    add r2, r1, #0 \n\
+    add r2, #0x42 \n\
+    movs r0, #0 \n\
+    strh r0, [r2] \n\
+    movs r5, #0x80 \n\
+    add r1, #0x30 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dce8 \n\
+    ldr r0, lbl_0807dce4 @ =0x00000209 \n\
+    bl SoundPlay \n\
+    b lbl_0807dcee \n\
+    .align 2, 0 \n\
+lbl_0807dcdc: .4byte gChangedInput \n\
+lbl_0807dce0: .4byte sNonGameplayRamPointer \n\
+lbl_0807dce4: .4byte 0x00000209 \n\
+lbl_0807dce8: \n\
+    movs r0, #1 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_0807dcee: \n\
+    ldr r0, lbl_0807dcfc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x12 \n\
+    strb r1, [r0] \n\
+    b lbl_0807dd64 \n\
+    .align 2, 0 \n\
+lbl_0807dcfc: .4byte sNonGameplayRamPointer \n\
+lbl_0807dd00: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dd24 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x42 \n\
+    strh r2, [r0] \n\
+    movs r5, #0x81 \n\
+    ldr r0, lbl_0807dd20 @ =0x00000209 \n\
+    bl SoundPlay \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x13 \n\
+    strb r1, [r0] \n\
+    b lbl_0807dd64 \n\
+    .align 2, 0 \n\
+lbl_0807dd20: .4byte 0x00000209 \n\
+lbl_0807dd24: \n\
+    movs r0, #0x20 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dd44 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x30 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dd64 \n\
+    movs r5, #0 \n\
+    strb r5, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807dd64 \n\
+lbl_0807dd44: \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dd64 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x30 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dd64 \n\
+    movs r5, #1 \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_0807dd64: \n\
+    add r0, r5, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dd6c \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dd6c: \n\
+    lsl r1, r5, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    movs r0, #6 \n\
+    bl unk_7e3fc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dd78: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x42 \n\
+    ldrh r0, [r0] \n\
+    cmp r0, #0xa \n\
+    bhi lbl_0807dd86 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dd86: \n\
+    add r0, r1, #0 \n\
+    add r0, #0x30 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dd98 \n\
+    add r1, #0x40 \n\
+    movs r0, #0x13 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dd98: \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    movs r2, #2 \n\
+    cmp r0, r2 \n\
+    beq lbl_0807ddbc \n\
+    movs r0, #6 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    movs r0, #0x23 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x14 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807ddbc: \n\
+    add r0, r1, #0 \n\
+    add r0, #0x3a \n\
+    strb r2, [r0] \n\
+    b lbl_0807df96 \n\
+lbl_0807ddc4: \n\
+    movs r0, #0x25 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r4, lbl_0807dddc @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x2f \n\
+    ldrb r1, [r0] \n\
+    movs r0, #5 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r4] \n\
+    b lbl_0807e220 \n\
+    .align 2, 0 \n\
+lbl_0807dddc: .4byte sNonGameplayRamPointer \n\
+lbl_0807dde0: \n\
+    movs r0, #0x24 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ddec \n\
+    b lbl_0807e3e6 \n\
+lbl_0807ddec: \n\
+    ldr r0, lbl_0807ddf8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x15 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807ddf8: .4byte sNonGameplayRamPointer \n\
+lbl_0807ddfc: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x1c \n\
+    strb r1, [r0] \n\
+    ldr r3, [r7] \n\
+    add r0, r3, #0 \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #2 \n\
+    bne lbl_0807de1a \n\
+    add r1, r3, #0 \n\
+    add r1, #0x32 \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807de1a: \n\
+    ldr r2, lbl_0807de3c @ =gSaveFilesInfo \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r2 \n\
+    ldrb r1, [r0, #0x11] \n\
+    movs r0, #0x36 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807de40 \n\
+    add r1, r3, #0 \n\
+    add r1, #0x38 \n\
+    movs r0, #0x13 \n\
+    b lbl_0807de46 \n\
+    .align 2, 0 \n\
+lbl_0807de3c: .4byte gSaveFilesInfo \n\
+lbl_0807de40: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x38 \n\
+    movs r0, #0x12 \n\
+lbl_0807de46: \n\
+    strb r0, [r1] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x38 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0 \n\
+    bl unk_790cc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807de56: \n\
+    movs r0, #2 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_0807de64 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807de64: .4byte sNonGameplayRamPointer \n\
+lbl_0807de68: \n\
+    movs r0, #3 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807de74 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807de74: \n\
+    ldr r4, lbl_0807de88 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x31 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl unk_7e3fc \n\
+    ldr r1, [r4] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807de88: .4byte sNonGameplayRamPointer \n\
+lbl_0807de8c: \n\
+    movs r5, #0xff \n\
+    ldr r0, lbl_0807deb8 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_0807df24 \n\
+    movs r4, #1 \n\
+    and r4, r1 \n\
+    cmp r4, #0 \n\
+    beq lbl_0807debc \n\
+    movs r5, #0x80 \n\
+    ldr r0, [r7] \n\
+    add r0, #0x42 \n\
+    movs r1, #0 \n\
+    strh r1, [r0] \n\
+    movs r0, #1 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x1a \n\
+    strb r1, [r0] \n\
+    b lbl_0807df24 \n\
+    .align 2, 0 \n\
+lbl_0807deb8: .4byte gChangedInput \n\
+lbl_0807debc: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807dee4 \n\
+    movs r0, #4 \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r5, #0x81 \n\
+    ldr r0, lbl_0807dee0 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x42 \n\
+    strh r4, [r1] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x19 \n\
+    strb r1, [r0] \n\
+    b lbl_0807df24 \n\
+    .align 2, 0 \n\
+lbl_0807dee0: .4byte sNonGameplayRamPointer \n\
+lbl_0807dee4: \n\
+    movs r0, #0x40 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807df04 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x31 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807df24 \n\
+    movs r5, #0 \n\
+    strb r5, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807df24 \n\
+lbl_0807df04: \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807df24 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x31 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807df24 \n\
+    movs r5, #1 \n\
+    movs r0, #1 \n\
+    strb r0, [r1] \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_0807df24: \n\
+    add r0, r5, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807df2c \n\
+    b lbl_0807e3e6 \n\
+lbl_0807df2c: \n\
+    lsl r1, r5, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    movs r0, #1 \n\
+    bl unk_7e3fc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807df38: \n\
+    movs r0, #5 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807df44 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807df44: \n\
+    ldr r2, lbl_0807df70 @ =gSaveFilesInfo \n\
+    ldr r0, lbl_0807df74 @ =sNonGameplayRamPointer \n\
+    ldr r3, [r0] \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r2 \n\
+    ldrb r0, [r0, #0x11] \n\
+    lsl r0, r0, #0x18 \n\
+    asr r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807df64 \n\
+    b lbl_0807e100 \n\
+lbl_0807df64: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x40 \n\
+    movs r0, #5 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807df70: .4byte gSaveFilesInfo \n\
+lbl_0807df74: .4byte sNonGameplayRamPointer \n\
+lbl_0807df78: \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x42 \n\
+    ldrh r0, [r0] \n\
+    cmp r0, #0xa \n\
+    bhi lbl_0807df86 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807df86: \n\
+    add r0, r1, #0 \n\
+    add r0, #0x2f \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #2 \n\
+    bne lbl_0807dfa0 \n\
+    add r1, #0x3a \n\
+    movs r0, #3 \n\
+lbl_0807df94: \n\
+    strb r0, [r1] \n\
+lbl_0807df96: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x22 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dfa0: \n\
+    movs r0, #4 \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r0, #1 \n\
+    movs r1, #0x81 \n\
+    bl unk_7e3fc \n\
+    b lbl_0807e3b6 \n\
+lbl_0807dfb0: \n\
+    movs r0, #5 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dfbc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dfbc: \n\
+    ldr r2, lbl_0807dfd8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r2] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x1c \n\
+    strb r1, [r0] \n\
+    ldr r2, [r2] \n\
+    add r0, r2, #0 \n\
+    add r0, #0x31 \n\
+    ldrb r0, [r0] \n\
+    movs r1, #1 \n\
+    eor r0, r1 \n\
+    add r2, #0x32 \n\
+    strb r0, [r2] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807dfd8: .4byte sNonGameplayRamPointer \n\
+lbl_0807dfdc: \n\
+    movs r0, #6 \n\
+    bl FileSelectUpdateTilemap \n\
+    ldr r0, lbl_0807dfe8 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807dfe8: .4byte sNonGameplayRamPointer \n\
+lbl_0807dfec: \n\
+    movs r0, #7 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807dff8 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807dff8: \n\
+    ldr r4, lbl_0807e00c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0x32 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #2 \n\
+    bl unk_7e3fc \n\
+    ldr r1, [r4] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807e00c: .4byte sNonGameplayRamPointer \n\
+lbl_0807e010: \n\
+    movs r5, #0xff \n\
+    ldr r0, lbl_0807e040 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    cmp r1, #0 \n\
+    beq lbl_0807e0c6 \n\
+    movs r4, #1 \n\
+    and r4, r1 \n\
+    cmp r4, #0 \n\
+    beq lbl_0807e044 \n\
+    movs r5, #0x80 \n\
+    ldr r1, [r7] \n\
+    add r2, r1, #0 \n\
+    add r2, #0x42 \n\
+    movs r0, #0 \n\
+    strh r0, [r2] \n\
+    add r1, #0x3a \n\
+    movs r0, #4 \n\
+    strb r0, [r1] \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x22 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e0c6 \n\
+    .align 2, 0 \n\
+lbl_0807e040: .4byte gChangedInput \n\
+lbl_0807e044: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e06c \n\
+    movs r0, #8 \n\
+    bl FileSelectUpdateTilemap \n\
+    movs r5, #0x81 \n\
+    ldr r0, lbl_0807e068 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x42 \n\
+    strh r4, [r1] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x1f \n\
+    strb r1, [r0] \n\
+    b lbl_0807e0c6 \n\
+    .align 2, 0 \n\
+lbl_0807e068: .4byte sNonGameplayRamPointer \n\
+lbl_0807e06c: \n\
+    movs r0, #0x40 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e084 \n\
+    ldr r0, [r7] \n\
+    add r1, r0, #0 \n\
+    add r1, #0x32 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e0c6 \n\
+    sub r0, #1 \n\
+    b lbl_0807e0a2 \n\
+lbl_0807e084: \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e0c6 \n\
+    ldr r1, [r7] \n\
+    add r0, r1, #0 \n\
+    add r0, #0x38 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x13 \n\
+    bne lbl_0807e0b0 \n\
+    add r1, #0x32 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #1 \n\
+    bhi lbl_0807e0c6 \n\
+    add r0, #1 \n\
+lbl_0807e0a2: \n\
+    strb r0, [r1] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r5, r0, #0x18 \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807e0c6 \n\
+lbl_0807e0b0: \n\
+    add r1, #0x32 \n\
+    ldrb r0, [r1] \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e0c6 \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r5, r0, #0x18 \n\
+    movs r0, #0 \n\
+    bl FileSelectPlayMenuSound \n\
+lbl_0807e0c6: \n\
+    add r0, r5, #1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e0ce \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e0ce: \n\
+    lsl r1, r5, #0x18 \n\
+    lsr r1, r1, #0x18 \n\
+    movs r0, #2 \n\
+    bl unk_7e3fc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e0da: \n\
+    movs r0, #9 \n\
+    bl FileSelectUpdateTilemap \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e0e6 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e0e6: \n\
+    ldr r2, lbl_0807e10c @ =gSaveFilesInfo \n\
+    ldr r0, lbl_0807e110 @ =sNonGameplayRamPointer \n\
+    ldr r3, [r0] \n\
+    add r0, r3, #0 \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r2 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e114 \n\
+lbl_0807e100: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x40 \n\
+    movs r0, #8 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807e10c: .4byte gSaveFilesInfo \n\
+lbl_0807e110: .4byte sNonGameplayRamPointer \n\
+lbl_0807e114: \n\
+    add r1, r3, #0 \n\
+    add r1, #0x40 \n\
+    movs r0, #6 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e11e: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    movs r0, #7 \n\
+    bl FileSelectUpdateCursor \n\
+    movs r0, #4 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807e3b6 \n\
+lbl_0807e132: \n\
+    ldr r0, lbl_0807e160 @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r3, r0, #0x10 \n\
+    cmp r3, #0 \n\
+    bne lbl_0807e170 \n\
+    ldr r2, [r7] \n\
+    add r0, r2, #0 \n\
+    add r0, #0xef \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e154 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e154: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x42 \n\
+    strh r3, [r0] \n\
+    add r1, r2, #0 \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807e160: .4byte gChangedInput \n\
+lbl_0807e164: \n\
+    ldr r0, lbl_0807e17c @ =gChangedInput \n\
+    ldrh r1, [r0] \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e180 \n\
+lbl_0807e170: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x25 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807e17c: .4byte gChangedInput \n\
+lbl_0807e180: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x42 \n\
+    ldrh r0, [r0] \n\
+    cmp r0, #0x10 \n\
+    bhi lbl_0807e18c \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e18c: \n\
+    movs r5, #2 \n\
+    b lbl_0807e3e4 \n\
+lbl_0807e190: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r1, [r0] \n\
+    movs r0, #8 \n\
+    bl FileSelectUpdateCursor \n\
+    movs r0, #7 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807e3b6 \n\
+lbl_0807e1a4: \n\
+    ldr r5, [r7] \n\
+    add r0, r5, #0 \n\
+    add r0, #0xee \n\
+    ldrb r4, [r0] \n\
+    ldr r2, lbl_0807e1e8 @ =sFileSelectCursorOamData \n\
+    ldr r3, lbl_0807e1ec @ =gSaveFilesInfo \n\
+    sub r0, #0xaf \n\
+    ldrb r1, [r0] \n\
+    lsl r0, r1, #1 \n\
+    add r0, r0, r1 \n\
+    lsl r0, r0, #3 \n\
+    add r0, r0, r3 \n\
+    lsl r1, r1, #3 \n\
+    ldrb r0, [r0, #0xc] \n\
+    add r1, r1, r0 \n\
+    add r2, #5 \n\
+    add r1, r1, r2 \n\
+    ldrb r0, [r1] \n\
+    add r0, #3 \n\
+    cmp r4, r0 \n\
+    beq lbl_0807e1d0 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e1d0: \n\
+    add r0, r5, #0 \n\
+    add r0, #0x3a \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #4 \n\
+    bls lbl_0807e1dc \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e1dc: \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_0807e1f0 @ =lbl_0807e1f4 \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_0807e1e8: .4byte sFileSelectCursorOamData \n\
+lbl_0807e1ec: .4byte gSaveFilesInfo \n\
+lbl_0807e1f0: .4byte lbl_0807e1f4 \n\
+lbl_0807e1f4: @ jump table \n\
+    .4byte lbl_0807e208 @ case 0 \n\
+    .4byte lbl_0807e212 @ case 1 \n\
+    .4byte lbl_0807e228 @ case 2 \n\
+    .4byte lbl_0807e23e @ case 3 \n\
+    .4byte lbl_0807e254 @ case 4 \n\
+lbl_0807e208: \n\
+    ldr r0, [r7] \n\
+lbl_0807e20a: \n\
+    add r0, #0x40 \n\
+    movs r1, #5 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e212: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x2f \n\
+    ldrb r1, [r0] \n\
+    movs r0, #5 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r7] \n\
+lbl_0807e220: \n\
+    add r0, #0x40 \n\
+    movs r1, #0xb \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e228: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x30 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #6 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x11 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e23e: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x31 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x18 \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e254: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x32 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #2 \n\
+    bl unk_7e3fc \n\
+    ldr r0, [r7] \n\
+    add r0, #0x40 \n\
+    movs r1, #0x1e \n\
+    strb r1, [r0] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e26a: \n\
+    ldr r1, [r7] \n\
+    ldr r0, lbl_0807e284 @ =0x00003f42 \n\
+    strh r0, [r1, #2] \n\
+    movs r0, #0x97 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r1, r0 \n\
+    movs r0, #0x23 \n\
+    strb r0, [r1] \n\
+    movs r0, #6 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807e3b6 \n\
+    .align 2, 0 \n\
+lbl_0807e284: .4byte 0x00003f42 \n\
+lbl_0807e288: \n\
+    ldr r2, [r7] \n\
+    movs r1, #0x97 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r2, r1 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e298 \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e298: \n\
+    ldrh r1, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #6 \n\
+    add r0, r3, #0 \n\
+    orr r0, r1 \n\
+    strh r0, [r2] \n\
+    ldrh r0, [r2, #0x18] \n\
+    strh r0, [r2, #6] \n\
+    ldr r0, lbl_0807e2bc @ =gBg1HOFS_NonGameplay \n\
+    movs r5, #0x80 \n\
+    lsl r5, r5, #4 \n\
+    add r1, r5, #0 \n\
+    strh r1, [r0] \n\
+    ldr r0, lbl_0807e2c0 @ =gBg1VOFS_NonGameplay \n\
+    strh r1, [r0] \n\
+    add r1, r2, #0 \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807e2bc: .4byte gBg1HOFS_NonGameplay \n\
+lbl_0807e2c0: .4byte gBg1VOFS_NonGameplay \n\
+lbl_0807e2c4: \n\
+    ldr r0, [r7] \n\
+    add r0, #0x3f \n\
+    ldrb r0, [r0] \n\
+    lsl r2, r0, #1 \n\
+    add r2, r2, r0 \n\
+    lsl r2, r2, #6 \n\
+    ldr r0, lbl_0807e304 @ =0x0600f000 \n\
+    add r2, r2, r0 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    movs r1, #0 \n\
+    movs r3, #0xc0 \n\
+    bl BitFill \n\
+    ldr r1, [r7] \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+lbl_0807e2ec: \n\
+    movs r5, #0x80 \n\
+    lsl r5, r5, #4 \n\
+    ldr r1, lbl_0807e308 @ =gBg2VOFS_NonGameplay \n\
+    ldrh r0, [r1] \n\
+    cmp r5, r0 \n\
+    beq lbl_0807e310 \n\
+    sub r0, #0xc \n\
+    cmp r0, r5 \n\
+    bge lbl_0807e30c \n\
+lbl_0807e2fe: \n\
+    strh r5, [r1] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807e304: .4byte 0x0600f000 \n\
+lbl_0807e308: .4byte gBg2VOFS_NonGameplay \n\
+lbl_0807e30c: \n\
+    strh r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+lbl_0807e310: \n\
+    ldr r4, lbl_0807e340 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r4] \n\
+    add r1, #0xff \n\
+    ldrb r3, [r1] \n\
+    movs r2, #0x21 \n\
+    neg r2, r2\n\
+    add r0, r2, #0 \n\
+    and r0, r3 \n\
+    strb r0, [r1] \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807e344 @ =0x0000010f \n\
+    add r3, r0, r1 \n\
+    ldrb r1, [r3] \n\
+    add r0, r2, #0 \n\
+    and r0, r1 \n\
+    strb r0, [r3] \n\
+    ldr r0, [r4] \n\
+    ldr r3, lbl_0807e348 @ =0x0000011f \n\
+    add r1, r0, r3 \n\
+    ldrb r0, [r1] \n\
+    and r2, r0 \n\
+    strb r2, [r1] \n\
+    ldr r1, [r4] \n\
+    b lbl_0807e3b8 \n\
+    .align 2, 0 \n\
+lbl_0807e340: .4byte sNonGameplayRamPointer \n\
+lbl_0807e344: .4byte 0x0000010f \n\
+lbl_0807e348: .4byte 0x0000011f \n\
+lbl_0807e34c: \n\
+    movs r5, #1 \n\
+    ldr r1, lbl_0807e364 @ =gWrittenToBLDALPHA_H \n\
+    ldrh r0, [r1] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e36a \n\
+    movs r5, #0 \n\
+    sub r0, #2 \n\
+    cmp r0, #0 \n\
+    bge lbl_0807e368 \n\
+    strh r5, [r1] \n\
+    b lbl_0807e36a \n\
+    .align 2, 0 \n\
+lbl_0807e364: .4byte gWrittenToBLDALPHA_H \n\
+lbl_0807e368: \n\
+    strh r0, [r1] \n\
+lbl_0807e36a: \n\
+    ldr r1, lbl_0807e3c4 @ =gWrittenToBLDALPHA_L \n\
+    ldrh r0, [r1] \n\
+    cmp r0, #0x10 \n\
+    beq lbl_0807e37e \n\
+    movs r5, #0 \n\
+    add r0, #2 \n\
+    cmp r0, #0x10 \n\
+    ble lbl_0807e37c \n\
+    movs r0, #0x10 \n\
+lbl_0807e37c: \n\
+    strh r0, [r1] \n\
+lbl_0807e37e: \n\
+    cmp r5, #0 \n\
+    beq lbl_0807e3e6 \n\
+    ldr r1, [r7] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807e3c8 @ =0x0000fbff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    ldr r5, lbl_0807e3cc @ =0x0000013f \n\
+    add r3, r1, r5 \n\
+    ldrb r2, [r3] \n\
+    movs r1, #0x21 \n\
+    neg r1, r1\n\
+    add r0, r1, #0 \n\
+    and r0, r2 \n\
+    strb r0, [r3] \n\
+    ldr r0, [r7] \n\
+    ldr r2, lbl_0807e3d0 @ =0x0000014f \n\
+    add r3, r0, r2 \n\
+    ldrb r2, [r3] \n\
+    add r0, r1, #0 \n\
+    and r0, r2 \n\
+    strb r0, [r3] \n\
+    ldr r0, [r7] \n\
+    ldr r3, lbl_0807e3d4 @ =0x0000015f \n\
+    add r2, r0, r3 \n\
+    ldrb r0, [r2] \n\
+    and r1, r0 \n\
+    strb r1, [r2] \n\
+lbl_0807e3b6: \n\
+    ldr r1, [r7] \n\
+lbl_0807e3b8: \n\
+    add r1, #0x40 \n\
+    ldrb r0, [r1] \n\
+    add r0, #1 \n\
+    strb r0, [r1] \n\
+    b lbl_0807e3e6 \n\
+    .align 2, 0 \n\
+lbl_0807e3c4: .4byte gWrittenToBLDALPHA_L \n\
+lbl_0807e3c8: .4byte 0x0000fbff \n\
+lbl_0807e3cc: .4byte 0x0000013f \n\
+lbl_0807e3d0: .4byte 0x0000014f \n\
+lbl_0807e3d4: .4byte 0x0000015f \n\
+lbl_0807e3d8: \n\
+    ldr r2, [r7] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807e3f8 @ =0x0000dfff \n\
+    and r0, r1 \n\
+    strh r0, [r2] \n\
+    movs r5, #1 \n\
+lbl_0807e3e4: \n\
+    mov sl, r5 \n\
+lbl_0807e3e6: \n\
+    mov r0, sl \n\
+    add sp, #4 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    .align 2, 0 \n\
+lbl_0807e3f8: .4byte 0x0000dfff \n\
+    ");
+}
+#endif
 
 /**
  * @brief 7e3fc | 2dc | To document
@@ -5242,6 +8095,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
     }
 }
 
+#ifdef NON_MATCHING
 u32 FileSelectUpdateTilemap(u8 request)
 {
     // https://decomp.me/scratch/ZaBhq
@@ -5575,6 +8429,960 @@ u32 FileSelectUpdateTilemap(u8 request)
 
     return ended;
 }
+#else
+NAKED_FUNCTION
+u32 FileSelectUpdateTilemap(u8 request)
+{
+    asm(" \n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, r8 \n\
+    push {r7} \n\
+    sub sp, #4 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    movs r6, #1 \n\
+    cmp r0, #0x29 \n\
+    bls lbl_0807e6ee \n\
+    bl lbl_0807eec8 \n\
+lbl_0807e6ee: \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_0807e6f8 @ =lbl_0807e6fc \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_0807e6f8: .4byte lbl_0807e6fc \n\
+lbl_0807e6fc: @ jump table \n\
+    .4byte lbl_0807e7a4 @ case 0 \n\
+    .4byte lbl_0807e800 @ case 1 \n\
+    .4byte lbl_0807e838 @ case 2 \n\
+    .4byte lbl_0807e888 @ case 3 \n\
+    .4byte lbl_0807e8b0 @ case 4 \n\
+    .4byte lbl_0807eeb8 @ case 5 \n\
+    .4byte lbl_0807e8cc @ case 6 \n\
+    .4byte lbl_0807e910 @ case 7 \n\
+    .4byte lbl_0807e96c @ case 8 \n\
+    .4byte lbl_0807eeb8 @ case 9 \n\
+    .4byte lbl_0807e988 @ case 10 \n\
+    .4byte lbl_0807ea0c @ case 11 \n\
+    .4byte lbl_0807ea44 @ case 12 \n\
+    .4byte lbl_0807eb98 @ case 13 \n\
+    .4byte lbl_0807ea64 @ case 14 \n\
+    .4byte lbl_0807ea90 @ case 15 \n\
+    .4byte lbl_0807eaa0 @ case 16 \n\
+    .4byte lbl_0807ebd0 @ case 17 \n\
+    .4byte lbl_0807eabc @ case 18 \n\
+    .4byte lbl_0807eb40 @ case 19 \n\
+    .4byte lbl_0807eb78 @ case 20 \n\
+    .4byte lbl_0807eb98 @ case 21 \n\
+    .4byte lbl_0807ebe4 @ case 22 \n\
+    .4byte lbl_0807ec10 @ case 23 \n\
+    .4byte lbl_0807ec40 @ case 24 \n\
+    .4byte lbl_0807ebd0 @ case 25 \n\
+    .4byte lbl_0807ec5c @ case 26 \n\
+    .4byte lbl_0807ec74 @ case 27 \n\
+    .4byte lbl_0807ec8c @ case 28 \n\
+    .4byte lbl_0807eca4 @ case 29 \n\
+    .4byte lbl_0807ecf4 @ case 30 \n\
+    .4byte lbl_0807ed34 @ case 31 \n\
+    .4byte lbl_0807eeb8 @ case 32 \n\
+    .4byte lbl_0807eec8 @ case 33 \n\
+    .4byte lbl_0807ed50 @ case 34 \n\
+    .4byte lbl_0807ed78 @ case 35 \n\
+    .4byte lbl_0807eeb8 @ case 36 \n\
+    .4byte lbl_0807edb0 @ case 37 \n\
+    .4byte lbl_0807eddc @ case 38 \n\
+    .4byte lbl_0807ee6c @ case 39 \n\
+    .4byte lbl_0807ee94 @ case 40 \n\
+    .4byte lbl_0807eeb8 @ case 41 \n\
+lbl_0807e7a4: \n\
+    ldr r0, lbl_0807e7ec @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    movs r0, #0x93 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r2, r0 \n\
+    sub r0, #0x26 \n\
+    strh r0, [r1] \n\
+    movs r1, #0x92 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r2, r1 \n\
+    movs r1, #0x80 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x22 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807e7f0 @ =gBg1HOFS_NonGameplay \n\
+    movs r2, #0xf8 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807e7f4 @ =gBg1VOFS_NonGameplay \n\
+    movs r3, #0xed \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807e7f8 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xc0 \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    ldr r2, lbl_0807e7fc @ =0x0600e800 \n\
+    b lbl_0807ee54 \n\
+    .align 2, 0 \n\
+lbl_0807e7ec: .4byte sNonGameplayRamPointer \n\
+lbl_0807e7f0: .4byte gBg1HOFS_NonGameplay \n\
+lbl_0807e7f4: .4byte gBg1VOFS_NonGameplay \n\
+lbl_0807e7f8: .4byte sEwramPointer \n\
+lbl_0807e7fc: .4byte 0x0600e800 \n\
+lbl_0807e800: \n\
+    ldr r4, lbl_0807e830 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807e834 @ =0x0000012f \n\
+    add r0, r0, r1 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e814 \n\
+    b lbl_0807eec6 \n\
+lbl_0807e814: \n\
+    movs r0, #1 \n\
+    movs r1, #0 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e822 \n\
+    b lbl_0807eec6 \n\
+lbl_0807e822: \n\
+    ldr r0, [r4] \n\
+    movs r1, #0 \n\
+    strh r1, [r0, #2] \n\
+    ldrh r1, [r0, #0x1c] \n\
+    strh r1, [r0, #6] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807e830: .4byte sNonGameplayRamPointer \n\
+lbl_0807e834: .4byte 0x0000012f \n\
+lbl_0807e838: \n\
+    ldr r0, lbl_0807e878 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r2, r0, #0 \n\
+    add r2, #0xb6 \n\
+    movs r1, #0xa0 \n\
+    lsl r1, r1, #1 \n\
+    strh r1, [r2] \n\
+    add r0, #0xb4 \n\
+    movs r1, #0xa0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x26 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807e87c @ =gBg0HOFS_NonGameplay \n\
+    movs r2, #0xe0 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807e880 @ =gBg0VOFS_NonGameplay \n\
+    movs r3, #0xe4 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807e884 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xe4 \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807e878: .4byte sNonGameplayRamPointer \n\
+lbl_0807e87c: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807e880: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807e884: .4byte sEwramPointer \n\
+lbl_0807e888: \n\
+    ldr r4, lbl_0807e8ac @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r0, #0xbf \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e89a \n\
+    b lbl_0807eec6 \n\
+lbl_0807e89a: \n\
+    movs r0, #1 \n\
+    movs r1, #0x11 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    beq lbl_0807e8a8 \n\
+    b lbl_0807ed1a \n\
+lbl_0807e8a8: \n\
+    b lbl_0807eec6 \n\
+    .align 2, 0 \n\
+lbl_0807e8ac: .4byte sNonGameplayRamPointer \n\
+lbl_0807e8b0: \n\
+    ldr r0, lbl_0807e8c4 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807e8c8 @ =0x0000feff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    add r1, #0xbe \n\
+    movs r0, #0x27 \n\
+    strb r0, [r1] \n\
+    b lbl_0807ed9e \n\
+    .align 2, 0 \n\
+lbl_0807e8c4: .4byte sNonGameplayRamPointer \n\
+lbl_0807e8c8: .4byte 0x0000feff \n\
+lbl_0807e8cc: \n\
+    ldr r0, lbl_0807e904 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r2, r0, #0 \n\
+    add r2, #0xb6 \n\
+    movs r1, #0xa0 \n\
+    lsl r1, r1, #1 \n\
+    strh r1, [r2] \n\
+    add r0, #0xb4 \n\
+    movs r1, #0xc0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x24 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807e908 @ =gBg0HOFS_NonGameplay \n\
+    movs r2, #0xe0 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807e90c @ =gBg0VOFS_NonGameplay \n\
+    movs r3, #0xe4 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807e904: .4byte sNonGameplayRamPointer \n\
+lbl_0807e908: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807e90c: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807e910: \n\
+    ldr r0, lbl_0807e960 @ =sNonGameplayRamPointer \n\
+    mov r8, r0 \n\
+    ldr r2, [r0] \n\
+    add r0, r2, #0 \n\
+    add r0, #0xbf \n\
+    ldrb r1, [r0] \n\
+    movs r7, #0x10 \n\
+    add r0, r7, #0 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e928 \n\
+    b lbl_0807eec6 \n\
+lbl_0807e928: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x38 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807e93a \n\
+    b lbl_0807eec6 \n\
+lbl_0807e93a: \n\
+    ldr r5, lbl_0807e964 @ =sEwramPointer \n\
+    ldr r0, [r5] \n\
+    movs r4, #0xf0 \n\
+    lsl r4, r4, #6 \n\
+    add r0, r0, r4 \n\
+    bl unk_7eedc \n\
+    ldr r1, [r5] \n\
+    add r1, r1, r4 \n\
+    ldr r2, lbl_0807e968 @ =0x0600e000 \n\
+    movs r3, #0xc0 \n\
+    lsl r3, r3, #2 \n\
+    str r7, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+    mov r2, r8 \n\
+    ldr r1, [r2] \n\
+    b lbl_0807ed1c \n\
+    .align 2, 0 \n\
+lbl_0807e960: .4byte sNonGameplayRamPointer \n\
+lbl_0807e964: .4byte sEwramPointer \n\
+lbl_0807e968: .4byte 0x0600e000 \n\
+lbl_0807e96c: \n\
+    ldr r0, lbl_0807e980 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807e984 @ =0x0000feff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    add r1, #0xbe \n\
+    movs r0, #0x25 \n\
+    strb r0, [r1] \n\
+    b lbl_0807ed9e \n\
+    .align 2, 0 \n\
+lbl_0807e980: .4byte sNonGameplayRamPointer \n\
+lbl_0807e984: .4byte 0x0000feff \n\
+lbl_0807e988: \n\
+    ldr r4, lbl_0807e9f4 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r4] \n\
+    movs r0, #0x93 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r2, r0 \n\
+    add r0, #0x1a \n\
+    strh r0, [r1] \n\
+    movs r1, #0x92 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r2, r1 \n\
+    movs r1, #0xa0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x26 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807e9f8 @ =gBg1HOFS_NonGameplay \n\
+    movs r2, #0xd9 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807e9fc @ =gBg1VOFS_NonGameplay \n\
+    movs r3, #0xd5 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807ea00 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xfc \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    ldr r2, lbl_0807ea04 @ =0x0600e800 \n\
+    movs r3, #0xc0 \n\
+    lsl r3, r3, #2 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+    ldr r2, [r4] \n\
+    ldrh r0, [r2, #0x1c] \n\
+    strh r0, [r2, #6] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807ea08 @ =0x0000fdff \n\
+    and r0, r1 \n\
+    ldrh r1, [r2, #0x1a] \n\
+    strh r1, [r2, #8] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #3 \n\
+    add r1, r3, #0 \n\
+    b lbl_0807ee8a \n\
+    .align 2, 0 \n\
+lbl_0807e9f4: .4byte sNonGameplayRamPointer \n\
+lbl_0807e9f8: .4byte gBg1HOFS_NonGameplay \n\
+lbl_0807e9fc: .4byte gBg1VOFS_NonGameplay \n\
+lbl_0807ea00: .4byte sEwramPointer \n\
+lbl_0807ea04: .4byte 0x0600e800 \n\
+lbl_0807ea08: .4byte 0x0000fdff \n\
+lbl_0807ea0c: \n\
+    ldr r4, lbl_0807ea3c @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807ea40 @ =0x0000012f \n\
+    add r0, r0, r1 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ea20 \n\
+    b lbl_0807eec6 \n\
+lbl_0807ea20: \n\
+    movs r0, #1 \n\
+    movs r1, #5 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ea2e \n\
+    b lbl_0807eec6 \n\
+lbl_0807ea2e: \n\
+    ldr r1, [r4] \n\
+    ldrh r0, [r1, #0x1c] \n\
+    strh r0, [r1, #6] \n\
+    ldrh r2, [r1] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    b lbl_0807ed26 \n\
+    .align 2, 0 \n\
+lbl_0807ea3c: .4byte sNonGameplayRamPointer \n\
+lbl_0807ea40: .4byte 0x0000012f \n\
+lbl_0807ea44: \n\
+    ldr r0, lbl_0807ea5c @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807ea60 @ =0x0000fdff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    movs r0, #0x97 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r1, r0 \n\
+    movs r0, #0x27 \n\
+    strb r0, [r1] \n\
+    b lbl_0807ed9e \n\
+    .align 2, 0 \n\
+lbl_0807ea5c: .4byte sNonGameplayRamPointer \n\
+lbl_0807ea60: .4byte 0x0000fdff \n\
+lbl_0807ea64: \n\
+    ldr r1, lbl_0807ea84 @ =gBg0HOFS_NonGameplay \n\
+    movs r3, #0xd9 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807ea88 @ =gBg0VOFS_NonGameplay \n\
+    movs r2, #0xd5 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807ea8c @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0x84 \n\
+    lsl r3, r3, #7 \n\
+    b lbl_0807ee50 \n\
+    .align 2, 0 \n\
+lbl_0807ea84: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807ea88: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807ea8c: .4byte sEwramPointer \n\
+lbl_0807ea90: \n\
+    movs r0, #1 \n\
+    movs r1, #6 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    beq lbl_0807ea9e \n\
+    b lbl_0807ec1e \n\
+lbl_0807ea9e: \n\
+    b lbl_0807eec6 \n\
+lbl_0807eaa0: \n\
+    ldr r0, lbl_0807eab4 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807eab8 @ =0x0000feff \n\
+    and r0, r1 \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    add r1, r3, #0 \n\
+    b lbl_0807ee8a \n\
+    .align 2, 0 \n\
+lbl_0807eab4: .4byte sNonGameplayRamPointer \n\
+lbl_0807eab8: .4byte 0x0000feff \n\
+lbl_0807eabc: \n\
+    ldr r4, lbl_0807eb28 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r4] \n\
+    movs r0, #0x93 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r2, r0 \n\
+    add r0, #0x1a \n\
+    strh r0, [r1] \n\
+    movs r1, #0x92 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r2, r1 \n\
+    movs r1, #0xa0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x26 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807eb2c @ =gBg1HOFS_NonGameplay \n\
+    movs r2, #0xd9 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807eb30 @ =gBg1VOFS_NonGameplay \n\
+    movs r3, #0xd5 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807eb34 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xfc \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    ldr r2, lbl_0807eb38 @ =0x0600e800 \n\
+    movs r3, #0xc0 \n\
+    lsl r3, r3, #2 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+    ldr r2, [r4] \n\
+    ldrh r0, [r2, #0x1c] \n\
+    strh r0, [r2, #6] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807eb3c @ =0x0000fdff \n\
+    and r0, r1 \n\
+    ldrh r1, [r2, #0x1a] \n\
+    strh r1, [r2, #8] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #3 \n\
+    add r1, r3, #0 \n\
+    b lbl_0807ee8a \n\
+    .align 2, 0 \n\
+lbl_0807eb28: .4byte sNonGameplayRamPointer \n\
+lbl_0807eb2c: .4byte gBg1HOFS_NonGameplay \n\
+lbl_0807eb30: .4byte gBg1VOFS_NonGameplay \n\
+lbl_0807eb34: .4byte sEwramPointer \n\
+lbl_0807eb38: .4byte 0x0600e800 \n\
+lbl_0807eb3c: .4byte 0x0000fdff \n\
+lbl_0807eb40: \n\
+    ldr r4, lbl_0807eb70 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    ldr r1, lbl_0807eb74 @ =0x0000012f \n\
+    add r0, r0, r1 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807eb54 \n\
+    b lbl_0807eec6 \n\
+lbl_0807eb54: \n\
+    movs r0, #1 \n\
+    movs r1, #1 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807eb62 \n\
+    b lbl_0807eec6 \n\
+lbl_0807eb62: \n\
+    ldr r1, [r4] \n\
+    ldrh r0, [r1, #0x1c] \n\
+    strh r0, [r1, #6] \n\
+    ldrh r2, [r1] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    b lbl_0807ed26 \n\
+    .align 2, 0 \n\
+lbl_0807eb70: .4byte sNonGameplayRamPointer \n\
+lbl_0807eb74: .4byte 0x0000012f \n\
+lbl_0807eb78: \n\
+    ldr r0, lbl_0807eb90 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807eb94 @ =0x0000fdff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    movs r0, #0x97 \n\
+    lsl r0, r0, #1 \n\
+    add r1, r1, r0 \n\
+    movs r0, #0x27 \n\
+    strb r0, [r1] \n\
+    b lbl_0807ed9e \n\
+    .align 2, 0 \n\
+lbl_0807eb90: .4byte sNonGameplayRamPointer \n\
+lbl_0807eb94: .4byte 0x0000fdff \n\
+lbl_0807eb98: \n\
+    ldr r0, lbl_0807ebd4 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    movs r1, #0x97 \n\
+    lsl r1, r1, #1 \n\
+    add r0, r2, r1 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0 \n\
+    beq lbl_0807ebaa \n\
+    b lbl_0807eec6 \n\
+lbl_0807ebaa: \n\
+    ldrh r0, [r2, #0x18] \n\
+    strh r0, [r2, #6] \n\
+    ldrh r0, [r2, #0x16] \n\
+    strh r0, [r2, #8] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807ebd8 @ =0x0000fbff \n\
+    and r0, r1 \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    add r1, r3, #0 \n\
+    orr r0, r1 \n\
+    strh r0, [r2] \n\
+    ldr r0, lbl_0807ebdc @ =gBg1HOFS_NonGameplay \n\
+    movs r2, #0x80 \n\
+    lsl r2, r2, #4 \n\
+    add r1, r2, #0 \n\
+    strh r1, [r0] \n\
+    ldr r0, lbl_0807ebe0 @ =gBg1VOFS_NonGameplay \n\
+    strh r1, [r0] \n\
+lbl_0807ebd0: \n\
+    movs r6, #1 \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807ebd4: .4byte sNonGameplayRamPointer \n\
+lbl_0807ebd8: .4byte 0x0000fbff \n\
+lbl_0807ebdc: .4byte gBg1HOFS_NonGameplay \n\
+lbl_0807ebe0: .4byte gBg1VOFS_NonGameplay \n\
+lbl_0807ebe4: \n\
+    ldr r1, lbl_0807ec04 @ =gBg0HOFS_NonGameplay \n\
+    movs r3, #0xd9 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807ec08 @ =gBg0VOFS_NonGameplay \n\
+    movs r2, #0xd5 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807ec0c @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0x84 \n\
+    lsl r3, r3, #7 \n\
+    b lbl_0807ee50 \n\
+    .align 2, 0 \n\
+lbl_0807ec04: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807ec08: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807ec0c: .4byte sEwramPointer \n\
+lbl_0807ec10: \n\
+    movs r0, #1 \n\
+    movs r1, #3 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ec1e \n\
+    b lbl_0807eec6 \n\
+lbl_0807ec1e: \n\
+    ldr r0, lbl_0807ec38 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    ldrh r0, [r2, #0x1e] \n\
+    strh r0, [r2, #4] \n\
+    ldrh r1, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #1 \n\
+    add r0, r3, #0 \n\
+    orr r0, r1 \n\
+    ldr r1, lbl_0807ec3c @ =0x0000fdff \n\
+    and r0, r1 \n\
+    strh r0, [r2] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807ec38: .4byte sNonGameplayRamPointer \n\
+lbl_0807ec3c: .4byte 0x0000fdff \n\
+lbl_0807ec40: \n\
+    ldr r0, lbl_0807ec54 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    ldrh r1, [r2] \n\
+    ldr r0, lbl_0807ec58 @ =0x0000feff \n\
+    and r0, r1 \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #2 \n\
+    add r1, r3, #0 \n\
+    b lbl_0807ee8a \n\
+    .align 2, 0 \n\
+lbl_0807ec54: .4byte sNonGameplayRamPointer \n\
+lbl_0807ec58: .4byte 0x0000feff \n\
+lbl_0807ec5c: \n\
+    ldr r0, lbl_0807ec6c @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xfc \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    ldr r2, lbl_0807ec70 @ =0x0600e800 \n\
+    b lbl_0807ee54 \n\
+    .align 2, 0 \n\
+lbl_0807ec6c: .4byte sEwramPointer \n\
+lbl_0807ec70: .4byte 0x0600e800 \n\
+lbl_0807ec74: \n\
+    ldr r0, lbl_0807ec84 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r2, #0x8a \n\
+    lsl r2, r2, #7 \n\
+    add r1, r1, r2 \n\
+    ldr r2, lbl_0807ec88 @ =0x0600e800 \n\
+    b lbl_0807ee54 \n\
+    .align 2, 0 \n\
+lbl_0807ec84: .4byte sEwramPointer \n\
+lbl_0807ec88: .4byte 0x0600e800 \n\
+lbl_0807ec8c: \n\
+    ldr r0, lbl_0807ec9c @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0x84 \n\
+    lsl r3, r3, #7 \n\
+    add r1, r1, r3 \n\
+    ldr r2, lbl_0807eca0 @ =0x0600e800 \n\
+    b lbl_0807ee54 \n\
+    .align 2, 0 \n\
+lbl_0807ec9c: .4byte sEwramPointer \n\
+lbl_0807eca0: .4byte 0x0600e800 \n\
+lbl_0807eca4: \n\
+    ldr r0, lbl_0807ece4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r2, r0, #0 \n\
+    add r2, #0xb6 \n\
+    movs r1, #0xa0 \n\
+    lsl r1, r1, #1 \n\
+    strh r1, [r2] \n\
+    add r0, #0xb4 \n\
+    movs r1, #0xc0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x24 \n\
+    bl UpdateMenuOamDataID \n\
+    movs r0, #5 \n\
+    bl FileSelectPlayMenuSound \n\
+    ldr r1, lbl_0807ece8 @ =gBg0HOFS_NonGameplay \n\
+    movs r2, #0xe0 \n\
+    lsl r2, r2, #3 \n\
+    add r0, r2, #0 \n\
+    strh r0, [r1] \n\
+    ldr r1, lbl_0807ecec @ =gBg0VOFS_NonGameplay \n\
+    movs r3, #0xe4 \n\
+    lsl r3, r3, #3 \n\
+    add r0, r3, #0 \n\
+    strh r0, [r1] \n\
+    ldr r0, lbl_0807ecf0 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xcc \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807ece4: .4byte sNonGameplayRamPointer \n\
+lbl_0807ece8: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807ecec: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807ecf0: .4byte sEwramPointer \n\
+lbl_0807ecf4: \n\
+    ldr r4, lbl_0807ed30 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r4] \n\
+    add r0, r2, #0 \n\
+    add r0, #0xbf \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ed08 \n\
+    b lbl_0807eec6 \n\
+lbl_0807ed08: \n\
+    add r0, r2, #0 \n\
+    add r0, #0x39 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ed1a \n\
+    b lbl_0807eec6 \n\
+lbl_0807ed1a: \n\
+    ldr r1, [r4] \n\
+lbl_0807ed1c: \n\
+    ldrh r0, [r1, #0x1e] \n\
+    strh r0, [r1, #4] \n\
+    ldrh r2, [r1] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #1 \n\
+lbl_0807ed26: \n\
+    add r0, r3, #0 \n\
+    orr r0, r2 \n\
+    strh r0, [r1] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807ed30: .4byte sNonGameplayRamPointer \n\
+lbl_0807ed34: \n\
+    ldr r0, lbl_0807ed48 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807ed4c @ =0x0000feff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    add r1, #0xbe \n\
+    movs r0, #0x25 \n\
+    strb r0, [r1] \n\
+    b lbl_0807ed9e \n\
+    .align 2, 0 \n\
+lbl_0807ed48: .4byte sNonGameplayRamPointer \n\
+lbl_0807ed4c: .4byte 0x0000feff \n\
+lbl_0807ed50: \n\
+    ldr r0, lbl_0807ed70 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0x39 \n\
+    ldrb r1, [r0] \n\
+    movs r0, #1 \n\
+    bl unk_790cc \n\
+    cmp r0, #0 \n\
+    bne lbl_0807ed64 \n\
+    b lbl_0807eec6 \n\
+lbl_0807ed64: \n\
+    ldr r0, lbl_0807ed74 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0xd8 \n\
+    lsl r0, r0, #6 \n\
+    add r1, r1, r0 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807ed70: .4byte sNonGameplayRamPointer \n\
+lbl_0807ed74: .4byte sEwramPointer \n\
+lbl_0807ed78: \n\
+    ldr r3, lbl_0807eda8 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r3] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807edac @ =0x0000feff \n\
+    and r0, r2 \n\
+    movs r2, #0 \n\
+    strh r0, [r1] \n\
+    add r1, #0x7e \n\
+    strb r2, [r1] \n\
+    ldr r1, [r3] \n\
+    add r1, #0x7f \n\
+    ldrb r2, [r1] \n\
+    movs r0, #0x3f \n\
+    and r0, r2 \n\
+    strb r0, [r1] \n\
+    ldr r0, [r3] \n\
+    add r0, #0xbe \n\
+    movs r1, #0x25 \n\
+    strb r1, [r0] \n\
+lbl_0807ed9e: \n\
+    movs r0, #6 \n\
+    bl FileSelectPlayMenuSound \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807eda8: .4byte sNonGameplayRamPointer \n\
+lbl_0807edac: .4byte 0x0000feff \n\
+lbl_0807edb0: \n\
+    ldr r2, lbl_0807edd4 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r2] \n\
+    add r0, #0x7e \n\
+    movs r1, #0 \n\
+    strb r1, [r0] \n\
+    ldr r1, [r2] \n\
+    add r1, #0x7f \n\
+    ldrb r2, [r1] \n\
+    movs r0, #0x3f \n\
+    and r0, r2 \n\
+    strb r0, [r1] \n\
+    ldr r0, lbl_0807edd8 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r2, #0xcc \n\
+    lsl r2, r2, #6 \n\
+    add r1, r1, r2 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807edd4: .4byte sNonGameplayRamPointer \n\
+lbl_0807edd8: .4byte sEwramPointer \n\
+lbl_0807eddc: \n\
+    ldr r0, lbl_0807ee20 @ =0x000001fd \n\
+    bl SoundPlay \n\
+    ldr r4, lbl_0807ee24 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r4] \n\
+    add r2, r0, #0 \n\
+    add r2, #0xb6 \n\
+    movs r1, #0xa0 \n\
+    lsl r1, r1, #1 \n\
+    strh r1, [r2] \n\
+    add r0, #0xb4 \n\
+    movs r1, #0xa0 \n\
+    strh r1, [r0] \n\
+    movs r1, #0x26 \n\
+    bl UpdateMenuOamDataID \n\
+    ldr r0, lbl_0807ee28 @ =gBg0HOFS_NonGameplay \n\
+    movs r3, #0xec \n\
+    lsl r3, r3, #3 \n\
+    add r1, r3, #0 \n\
+    strh r1, [r0] \n\
+    ldr r0, lbl_0807ee2c @ =gBg0VOFS_NonGameplay \n\
+    strh r1, [r0] \n\
+    ldr r0, [r4] \n\
+    add r0, #0x47 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #1 \n\
+    bne lbl_0807ee34 \n\
+    ldr r0, lbl_0807ee30 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r0, #0x84 \n\
+    lsl r0, r0, #7 \n\
+    add r1, r1, r0 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807ee20: .4byte 0x000001fd \n\
+lbl_0807ee24: .4byte sNonGameplayRamPointer \n\
+lbl_0807ee28: .4byte gBg0HOFS_NonGameplay \n\
+lbl_0807ee2c: .4byte gBg0VOFS_NonGameplay \n\
+lbl_0807ee30: .4byte sEwramPointer \n\
+lbl_0807ee34: \n\
+    cmp r0, #2 \n\
+    bne lbl_0807ee48 \n\
+    ldr r0, lbl_0807ee44 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r2, #0x8a \n\
+    lsl r2, r2, #7 \n\
+    add r1, r1, r2 \n\
+    b lbl_0807ee52 \n\
+    .align 2, 0 \n\
+lbl_0807ee44: .4byte sEwramPointer \n\
+lbl_0807ee48: \n\
+    ldr r0, lbl_0807ee64 @ =sEwramPointer \n\
+    ldr r1, [r0] \n\
+    movs r3, #0xfc \n\
+    lsl r3, r3, #6 \n\
+lbl_0807ee50: \n\
+    add r1, r1, r3 \n\
+lbl_0807ee52: \n\
+    ldr r2, lbl_0807ee68 @ =0x0600e000 \n\
+lbl_0807ee54: \n\
+    movs r3, #0xc0 \n\
+    lsl r3, r3, #2 \n\
+    movs r0, #0x10 \n\
+    str r0, [sp] \n\
+    movs r0, #3 \n\
+    bl DmaTransfer \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807ee64: .4byte sEwramPointer \n\
+lbl_0807ee68: .4byte 0x0600e000 \n\
+lbl_0807ee6c: \n\
+    ldr r0, lbl_0807ee90 @ =sNonGameplayRamPointer \n\
+    ldr r2, [r0] \n\
+    add r0, r2, #0 \n\
+    add r0, #0xbf \n\
+    ldrb r1, [r0] \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807eec6 \n\
+    ldrh r0, [r2, #0x1e] \n\
+    strh r0, [r2, #4] \n\
+    ldrh r1, [r2] \n\
+    movs r3, #0x80 \n\
+    lsl r3, r3, #1 \n\
+    add r0, r3, #0 \n\
+lbl_0807ee8a: \n\
+    orr r0, r1 \n\
+    strh r0, [r2] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807ee90: .4byte sNonGameplayRamPointer \n\
+lbl_0807ee94: \n\
+    movs r0, #0xff \n\
+    lsl r0, r0, #1 \n\
+    bl SoundPlay \n\
+    ldr r0, lbl_0807eeb0 @ =sNonGameplayRamPointer \n\
+    ldr r1, [r0] \n\
+    ldrh r2, [r1] \n\
+    ldr r0, lbl_0807eeb4 @ =0x0000feff \n\
+    and r0, r2 \n\
+    strh r0, [r1] \n\
+    add r1, #0xbe \n\
+    movs r0, #0x27 \n\
+    strb r0, [r1] \n\
+    b lbl_0807eec8 \n\
+    .align 2, 0 \n\
+lbl_0807eeb0: .4byte sNonGameplayRamPointer \n\
+lbl_0807eeb4: .4byte 0x0000feff \n\
+lbl_0807eeb8: \n\
+    ldr r0, lbl_0807eed8 @ =sNonGameplayRamPointer \n\
+    ldr r0, [r0] \n\
+    add r0, #0xbe \n\
+    ldrb r0, [r0] \n\
+    movs r6, #1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0807eec8 \n\
+lbl_0807eec6: \n\
+    movs r6, #0 \n\
+lbl_0807eec8: \n\
+    add r0, r6, #0 \n\
+    add sp, #4 \n\
+    pop {r3} \n\
+    mov r8, r3 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r1} \n\
+    bx r1 \n\
+    .align 2, 0 \n\
+lbl_0807eed8: .4byte sNonGameplayRamPointer \n\
+    ");
+}
+#endif
 
 /**
  * @brief 7eedc | a0 | To document

@@ -3265,8 +3265,8 @@ lbl_0800421e:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08004228
-sub_08004228: @ 0x08004228
+    thumb_func_start PlaySoundTest
+PlaySoundTest: @ 0x08004228
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
@@ -3292,8 +3292,8 @@ lbl_08004250:
 lbl_08004258: .4byte gMusicInfo
 lbl_0800425c: .4byte sMusicTrackDataRom
 
-    thumb_func_start sub_08004260
-sub_08004260: @ 0x08004260
+    thumb_func_start ReplaySoundTest
+ReplaySoundTest: @ 0x08004260
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -3307,8 +3307,8 @@ sub_08004260: @ 0x08004260
     .align 2, 0
 lbl_08004278: .4byte sMusicTrackDataRom
 
-    thumb_func_start sub_0800427c
-sub_0800427c: @ 0x0800427c
+    thumb_func_start CheckReplayFileSelectMusic
+CheckReplayFileSelectMusic: @ 0x0800427c
     push {r4, lr}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10

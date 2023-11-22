@@ -6,7 +6,7 @@
 
 extern const s8 sSaveFileAreasId[12];
 extern const u32* const sFileSelectTextGfxPointers[5];
-extern const struct FileSelectMenuCursors sFileSelectionData_Empty;
+extern const struct FileSelectMenuCursors sFileSelectMenuCursors_Empty;
 extern const struct FileSelectCursorOamData sFileSelectCursorOamData[6];
 extern const u8 sFileSelectCopyFileArrowsOamIds[3][3];
 extern const u8 sFileSelectFileOamOffsets[3][2];

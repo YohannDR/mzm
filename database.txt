@@ -4483,4 +4483,4 @@ io/rom.bin;8185;0x7566c4;4
 
 # Nes Metroid
 
-nes_metroid.bin;128816;0x7d8004;1
+nes_metroid.bin;128642;0x7d80b2;1

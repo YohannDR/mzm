@@ -7,7 +7,8 @@ typedef void (*NesEmuFunc_T)(void*);
 
 extern const NesEmuFunc_T sNesEmuBootLoader;
 
-static const u8 sNesMetroidData[];
+extern const u8 sNesMetroidData_Text[18];
+extern const u8 sNesMetroidData[];
 
 #endif /* NES_METROID_DATA_H */
 

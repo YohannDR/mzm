@@ -564,8 +564,7 @@ SECTIONS {
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         src/menus/game_over.o(.text);
-
-        asm/disasm_0x08078228.o(.text);
+        src/menus/file_select.o(.text);
 
         src/softreset.o(.text);
         src/time_attack.o(.text);

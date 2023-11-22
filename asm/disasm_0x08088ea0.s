@@ -2,8 +2,8 @@
 
     .syntax unified
 
-    thumb_func_start sub_08088ea0
-sub_08088ea0: @ 0x08088ea0
+    thumb_func_start CableLinkProcess
+CableLinkProcess: @ 0x08088ea0
     push {r4, lr}
     sub sp, #4
     ldr r0, lbl_08088ec0 @ =gIoTransferInfo
@@ -278,7 +278,7 @@ lbl_080890e4:
     strb r0, [r1, #8]
 lbl_080890ea:
     bl InitializeAudio
-    bl sub_08078228
+    bl FileSelectApplyStereo
     ldr r4, lbl_0808910c @ =gIoTransferInfo
     ldrh r0, [r4, #0x12]
     ldrb r1, [r4, #0x14]
@@ -2028,8 +2028,8 @@ lbl_08089e24: .4byte gRegTm3Cnt_H_Backup
 lbl_08089e28: .4byte gRegSiocnt_Backup
 lbl_08089e2c: .4byte gRegRcnt_Backup
 
-    thumb_func_start sub_08089e30
-sub_08089e30: @ 0x08089e30
+    thumb_func_start unk_89e30
+unk_89e30: @ 0x08089e30
     push {r4, r5, lr}
     sub sp, #4
     ldr r1, lbl_08089e54 @ =gIoTransferInfo
@@ -3139,8 +3139,8 @@ lbl_0808a724: .4byte gCableLinkInfo
 lbl_0808a728: .4byte 0x000001a1
 lbl_0808a72c: .4byte 0x04000208
 
-    thumb_func_start sub_0808a730
-sub_0808a730: @ 0x0808a730
+    thumb_func_start unk_8a730
+unk_8a730: @ 0x0808a730
     push {r4, lr}
     ldr r4, lbl_0808a758 @ =gCableLinkInfo
     ldrb r3, [r4]
