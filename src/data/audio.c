@@ -5,6 +5,8 @@
 #include "audio.h"
 #include "audio/track_internal.h"
 
+#include "constants/audio_engine.h"
+
 const u16 sUnk_808cad0[128] = {
     0x2c, 0x9d, 0x107, 0x16b, 0x1ca, 0x223, 0x277, 0x2c7, 0x312, 0x358, 0x39b, 0x3da, 0x2c, 0x9d, 0x107, 0x16b,
     0x1ca, 0x223, 0x277, 0x2c7, 0x312, 0x358, 0x39b, 0x3da, 0x2c, 0x9d, 0x107, 0x16b, 0x1ca, 0x223, 0x277, 0x2c7,
@@ -105,34 +107,34 @@ static const u16 sAudio_8cef4 = DMA_ENABLE | DMA_START_SPECIAL | DMA_REPEAT | DM
 static const u16 sAudio_8cef6 = DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_SPECIAL | DMA_REPEAT | DMA_32BIT;
 
 const MusicFunc_T sMusicCommandFunctionPointers[30] = {
-    [0] = Music_EmptyCommand,
-    [1] = unk_5030,
-    [2] = unk_5070,
-    [3] = unk_222c,
-    [4] = unk_2264,
+    [FINE - FINE] = Music_EmptyCommand,
+    [GOTO - FINE] = AudioCommand_Goto,
+    [PATT - FINE] = AudioCommand_PatternPlay,
+    [PEND - FINE] = AudioCommand_PatternEnd,
+    [REPT - FINE] = AudioCommand_Repeat,
     [5] = Music_EmptyCommand,
     [6] = Music_EmptyCommand,
     [7] = Music_EmptyCommand,
-    [8] = Music_EmptyCommand,
-    [9] = unk_22a4,
-    [10] = Music_EmptyCommand,
-    [11] = unk_22b4,
-    [12] = Music_EmptyCommand,
-    [13] = unk_238c,
-    [14] = unk_23a0,
-    [15] = unk_23b4,
-    [16] = unk_23cc,
-    [17] = unk_23e0,
-    [18] = unk_23f0,
-    [19] = unk_2400,
-    [20] = unk_240c,
+    [MEMACC - FINE] = Music_EmptyCommand,
+    [PRIO - FINE] = AudioCommand_Priority,
+    [TEMPO - FINE] = Music_EmptyCommand,
+    [KEYSH - FINE] = AudioCommand_KeyShift,
+    [VOICE - FINE] = Music_EmptyCommand,
+    [VOL - FINE] = AudioCommand_Volume,
+    [PAN - FINE] = AudioCommand_PanPot,
+    [BEND - FINE] = AudioCommand_PitchBend,
+    [BENDR - FINE] = AudioCommand_BendRange,
+    [LFOS - FINE] = AudioCommand_LfoSpeed,
+    [LFODL - FINE] = AudioCommand_LfoDelay,
+    [MOD - FINE] = AudioCommand_ModulationDepth,
+    [MODT - FINE] = AudioCommand_ModulationType,
     [21] = Music_EmptyCommand,
     [22] = Music_EmptyCommand,
-    [23] = unk_2418,
+    [TUNE - FINE] = AudioCommand_Tune,
     [24] = Music_EmptyCommand,
     [25] = Music_EmptyCommand,
     [26] = Music_EmptyCommand,
     [27] = Music_EmptyCommand,
-    [28] = unk_2430,
-    [29] = unk_2460
+    [XCMD - FINE] = AudioCommand_ExtendCommand,
+    [EOT - FINE] = AudioCommand_EndOfTie
 };

@@ -1062,7 +1062,7 @@ void DelayMusicStart(struct TrackData* pTrack, u16 delay)
         while (trackID < pTrack->amountOfTracks)
         {
             if (pVariables->unk_0 != 0)
-                pVariables->maybe_delayBeforeStart += delay;
+                pVariables->delay += delay;
 
             trackID++;
             pVariables++;

@@ -2407,8 +2407,8 @@ lbl_08002224:
     pop {r0}
     bx r0
 
-    thumb_func_start unk_222c
-unk_222c: @ 0x0800222c
+    thumb_func_start AudioCommand_PatternEnd
+AudioCommand_PatternEnd: @ 0x0800222c
     push {r4, r5, lr}
     adds r3, r0, #0
     ldr r0, [r3, #0x24]
@@ -2441,8 +2441,8 @@ lbl_0800225c:
     bx r0
     .align 2, 0
 
-    thumb_func_start unk_2264
-unk_2264: @ 0x08002264
+    thumb_func_start AudioCommand_Repeat
+AudioCommand_Repeat: @ 0x08002264
     push {lr}
     adds r2, r0, #0
     ldrb r0, [r2, #0xa]
@@ -2454,7 +2454,7 @@ unk_2264: @ 0x08002264
     ldrb r0, [r0, #1]
     strb r0, [r2, #0xa]
     adds r0, r2, #0
-    bl unk_5070
+    bl AudioCommand_PatternPlay
     b lbl_0800229e
 lbl_08002280:
     subs r0, #1
@@ -2463,21 +2463,21 @@ lbl_08002280:
     cmp r0, #0
     bne lbl_08002292
     adds r0, r2, #0
-    bl unk_222c
+    bl AudioCommand_PatternEnd
     b lbl_0800229e
 lbl_08002292:
     ldr r0, [r2, #0x24]
     adds r0, #1
     str r0, [r2, #0x24]
     adds r0, r2, #0
-    bl unk_5070
+    bl AudioCommand_PatternPlay
 lbl_0800229e:
     pop {r0}
     bx r0
     .align 2, 0
 
-    thumb_func_start unk_22a4
-unk_22a4: @ 0x080022a4
+    thumb_func_start AudioCommand_Priority
+AudioCommand_Priority: @ 0x080022a4
     ldr r2, [r0, #0x24]
     adds r1, r2, #1
     str r1, [r0, #0x24]
@@ -2487,8 +2487,8 @@ unk_22a4: @ 0x080022a4
     str r1, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_22b4
-unk_22b4: @ 0x080022b4
+    thumb_func_start AudioCommand_KeyShift
+AudioCommand_KeyShift: @ 0x080022b4
     ldr r1, [r0, #0x24]
     adds r2, r1, #1
     str r2, [r0, #0x24]
@@ -2611,8 +2611,8 @@ lbl_0800237e:
     bx r0
     .align 2, 0
 
-    thumb_func_start unk_238c
-unk_238c: @ 0x0800238c
+    thumb_func_start AudioCommand_Volume
+AudioCommand_Volume: @ 0x0800238c
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     strb r1, [r0, #4]
@@ -2624,8 +2624,8 @@ unk_238c: @ 0x0800238c
     str r2, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_23a0
-unk_23a0: @ 0x080023a0
+    thumb_func_start AudioCommand_PanPot
+AudioCommand_PanPot: @ 0x080023a0
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     strb r1, [r0, #6]
@@ -2637,8 +2637,8 @@ unk_23a0: @ 0x080023a0
     str r2, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_23b4
-unk_23b4: @ 0x080023b4
+    thumb_func_start AudioCommand_PitchBend
+AudioCommand_PitchBend: @ 0x080023b4
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     subs r1, #0x40
@@ -2652,8 +2652,8 @@ unk_23b4: @ 0x080023b4
     bx lr
     .align 2, 0
 
-    thumb_func_start unk_23cc
-unk_23cc: @ 0x080023cc
+    thumb_func_start AudioCommand_BendRange
+AudioCommand_BendRange: @ 0x080023cc
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     strb r1, [r0, #0x1a]
@@ -2665,8 +2665,8 @@ unk_23cc: @ 0x080023cc
     str r2, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_23e0
-unk_23e0: @ 0x080023e0
+    thumb_func_start AudioCommand_LfoSpeed
+AudioCommand_LfoSpeed: @ 0x080023e0
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     adds r1, #1
@@ -2676,8 +2676,8 @@ unk_23e0: @ 0x080023e0
     str r2, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_23f0
-unk_23f0: @ 0x080023f0
+    thumb_func_start AudioCommand_LfoDelay
+AudioCommand_LfoDelay: @ 0x080023f0
     ldr r1, [r0, #0x24]
     ldrb r2, [r1]
     strb r2, [r0, #0x14]
@@ -2687,8 +2687,8 @@ unk_23f0: @ 0x080023f0
     bx lr
     .align 2, 0
 
-    thumb_func_start unk_2400
-unk_2400: @ 0x08002400
+    thumb_func_start AudioCommand_ModulationDepth
+AudioCommand_ModulationDepth: @ 0x08002400
     ldr r1, [r0, #0x24]
     ldrb r2, [r1]
     strb r2, [r0, #0x11]
@@ -2696,8 +2696,8 @@ unk_2400: @ 0x08002400
     str r1, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_240c
-unk_240c: @ 0x0800240c
+    thumb_func_start AudioCommand_ModulationType
+AudioCommand_ModulationType: @ 0x0800240c
     ldr r1, [r0, #0x24]
     ldrb r2, [r1]
     strb r2, [r0, #0x12]
@@ -2705,8 +2705,8 @@ unk_240c: @ 0x0800240c
     str r1, [r0, #0x24]
     bx lr
 
-    thumb_func_start unk_2418
-unk_2418: @ 0x08002418
+    thumb_func_start AudioCommand_Tune
+AudioCommand_Tune: @ 0x08002418
     ldr r2, [r0, #0x24]
     ldrb r1, [r2]
     subs r1, #0x40
@@ -2720,8 +2720,8 @@ unk_2418: @ 0x08002418
     bx lr
     .align 2, 0
 
-    thumb_func_start unk_2430
-unk_2430: @ 0x08002430
+    thumb_func_start AudioCommand_ExtendCommand
+AudioCommand_ExtendCommand: @ 0x08002430
     push {lr}
     adds r2, r0, #0
     ldr r1, [r2, #0x24]
@@ -2749,8 +2749,8 @@ lbl_0800245c:
     pop {r0}
     bx r0
 
-    thumb_func_start unk_2460
-unk_2460: @ 0x08002460
+    thumb_func_start AudioCommand_EndOfTie
+AudioCommand_EndOfTie: @ 0x08002460
     push {r4, lr}
     adds r3, r0, #0
     ldr r1, [r3, #0x24]

@@ -859,7 +859,7 @@ void unk_315c(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         while (i > 0)
         {
             if ((variablesMask >> i) & 1)
-                pVariables->unk_11 = param_3;
+                pVariables->modulationDepth = param_3;
 
             i--;
             pVariables++;
@@ -892,7 +892,7 @@ void unk_31a0(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         while (i > 0)
         {
             if ((variablesMask >> i) & 1)
-                pVariables->unk_10 = param_3;
+                pVariables->lfoSpeed = param_3;
 
             i--;
             pVariables++;
