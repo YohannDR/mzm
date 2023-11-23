@@ -167,6 +167,485 @@ def ExtractSamples(f: BufferedReader):
     for x in range(0, len(v)):
         print(hex(v[x]))
 
+waitCommand = [
+    "W00",
+    "W01",
+	"W02",
+	"W03",
+	"W04",
+	"W05",
+	"W06",
+	"W07",
+	"W08",
+	"W09",
+	"W10",
+	"W11",
+	"W12",
+	"W13",
+	"W14",
+	"W15",
+	"W16",
+	"W17",
+	"W18",
+	"W19",
+	"W20",
+	"W21",
+	"W22",
+	"W23",
+	"W24",
+	"W28",
+	"W30",
+	"W32",
+	"W36",
+	"W40",
+	"W42",
+	"W44",
+	"W48",
+	"W52",
+	"W54",
+	"W56",
+	"W60",
+	"W64",
+	"W66",
+	"W68",
+	"W72",
+	"W76",
+	"W78",
+	"W80",
+	"W84",
+	"W88",
+	"W90",
+	"W92",
+	"W96",
+]
+
+codeCommands = [
+    "FINE", # 0xb1
+    "GOTO", # 0xb2
+    "PATT", # 0xb3
+    "PEND", # 0xb4
+    "REPT", # 0xb5
+    "0xB6", # 0xb6
+    "0xB7", # 0xb7
+    "0xB8", # 0xb8
+    "MEMACC", # 0xb9
+    "PRIO", # 0xba
+    "TEMPO", # 0xbb
+    "KEYSH", # 0xbc
+    "VOICE", # 0xbd
+    "VOL", # 0xbe
+    "PAN", # 0xbf
+    "BEND", # 0xc0
+    "BENDR", # 0xc1
+    "LFOS", # 0xc2
+    "LFODL", # 0xc3
+    "MOD", # 0xc4
+    "MODT", # 0xc5
+    "0xc6", # 0xc6
+    "0xc7", # 0xc7
+    "TUNE", # 0xc8
+    "0xc9", # 0xc9
+    "0xca", # 0xca
+    "0xcb", # 0xcb
+    "0xcc", # 0xcc
+    "XCMD", # 0xcd
+    "EOT", # 0xce
+]
+
+PARAM_TYPE_NONE = 0
+PARAM_TYPE_BYTE = 1
+PARAM_TYPE_C_V = 2
+PARAM_TYPE_MEM = 3
+PARAM_TYPE_MODT = 4
+PARAM_TYPE_XCMD = 5
+PARAM_TYPE_EOT = 6
+PARAM_TYPE_PTR = 7
+codeCommandsParamType = [
+    PARAM_TYPE_NONE, # FINE
+    PARAM_TYPE_PTR, # GOTO
+    PARAM_TYPE_PTR, # PATT
+    PARAM_TYPE_NONE, # PEND
+    PARAM_TYPE_PTR, # REPT
+    PARAM_TYPE_NONE, # 0xB6
+    PARAM_TYPE_NONE, # 0xB7
+    PARAM_TYPE_NONE, # 0xB8
+    PARAM_TYPE_MEM, # MEMACC
+    PARAM_TYPE_BYTE, # PRIO
+    PARAM_TYPE_BYTE, # TEMPO
+    PARAM_TYPE_BYTE, # KEYSH
+    PARAM_TYPE_BYTE, # VOICE
+    PARAM_TYPE_BYTE, # VOL
+    PARAM_TYPE_C_V, # PAN
+    PARAM_TYPE_C_V, # BEND
+    PARAM_TYPE_BYTE, # BENDR
+    PARAM_TYPE_BYTE, # LFOS
+    PARAM_TYPE_BYTE, # LFODL
+    PARAM_TYPE_BYTE, # MOD
+    PARAM_TYPE_MODT, # MODT
+    PARAM_TYPE_NONE, # 0xc6
+    PARAM_TYPE_NONE, # 0xc7
+    PARAM_TYPE_C_V, # TUNE
+    PARAM_TYPE_NONE, # 0xc9
+    PARAM_TYPE_NONE, # 0xca
+    PARAM_TYPE_NONE, # 0xcb
+    PARAM_TYPE_NONE, # 0xcc
+    PARAM_TYPE_XCMD, # XCMD
+    PARAM_TYPE_EOT, # EOT
+]
+
+memParams = [
+    "mem_set",
+    "mem_add",
+    "mem_sub",
+    "mem_mem_set",
+    "mem_mem_add",
+    "mem_mem_sub",
+    "mem_beq",
+    "mem_bne",
+    "mem_bhi",
+    "mem_bhs",
+    "mem_bls",
+    "mem_blo",
+    "mem_mem_beq",
+    "mem_mem_bne",
+    "mem_mem_bhi",
+    "mem_mem_bhs",
+    "mem_mem_bls",
+    "mem_mem_blo",
+]
+
+modtParams = [
+    "mod_vib",
+    "mod_tre",
+    "mod_pan",
+]
+
+notesTieEot = [
+    "CnM2",
+    "CsM2",
+    "DnM2",
+    "DsM2",
+    "EnM2",
+    "FnM2",
+    "FsM2",
+    "GnM2",
+    "GsM2",
+    "AnM2",
+    "AsM2",
+    "BnM2",
+    "CnM1",
+    "CsM1",
+    "DnM1",
+    "DsM1",
+    "EnM1",
+    "FnM1",
+    "FsM1",
+    "GnM1",
+    "GsM1",
+    "AnM1",
+    "AsM1",
+    "BnM1",
+    "Cn0",
+    "Cs0",
+    "Dn0",
+    "Ds0",
+    "En0",
+    "Fn0",
+    "Fs0",
+    "Gn0",
+    "Gs0",
+    "An0",
+    "As0",
+    "Bn0",
+    "Cn1",
+    "Cs1",
+    "Dn1",
+    "Ds1",
+    "En1",
+    "Fn1",
+    "Fs1",
+    "Gn1",
+    "Gs1",
+    "An1",
+    "As1",
+    "Bn1",
+    "Cn2",
+    "Cs2",
+    "Dn2",
+    "Ds2",
+    "En2",
+    "Fn2",
+    "Fs2",
+    "Gn2",
+    "Gs2",
+    "An2",
+    "As2",
+    "Bn2",
+    "Cn3",
+    "Cs3",
+    "Dn3",
+    "Ds3",
+    "En3",
+    "Fn3",
+    "Fs3",
+    "Gn3",
+    "Gs3",
+    "An3",
+    "As3",
+    "Bn3",
+    "Cn4",
+    "Cs4",
+    "Dn4",
+    "Ds4",
+    "En4",
+    "Fn4",
+    "Fs4",
+    "Gn4",
+    "Gs4",
+    "An4",
+    "As4",
+    "Bn4",
+    "Cn5",
+    "Cs5",
+    "Dn5",
+    "Ds5",
+    "En5",
+    "Fn5",
+    "Fs5",
+    "Gn5",
+    "Gs5",
+    "An5",
+    "As5",
+    "Bn5",
+    "Cn6",
+    "Cs6",
+    "Dn6",
+    "Ds6",
+    "En6",
+    "Fn6",
+    "Fs6",
+    "Gn6",
+    "Gs6",
+    "An6",
+    "As6",
+    "Bn6",
+    "Cn7",
+    "Cs7",
+    "Dn7",
+    "Ds7",
+    "En7",
+    "Fn7",
+    "Fs7",
+    "Gn7",
+    "Gs7",
+    "An7",
+    "As7",
+    "Bn7",
+    "Cn8",
+    "Cs8",
+    "Dn8",
+    "Ds8",
+    "En8",
+    "Fn8",
+    "Fs8",
+    "Gn8",
+]
+
+notes = [
+    "TIE",
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N10",
+    "N11",
+    "N12",
+    "N13",
+    "N14",
+    "N15",
+    "N16",
+    "N17",
+    "N18",
+    "N19",
+    "N20",
+    "N21",
+    "N22",
+    "N23",
+    "N24",
+    "N28",
+    "N30",
+    "N32",
+    "N36",
+    "N40",
+    "N42",
+    "N44",
+    "N48",
+    "N52",
+    "N54",
+    "N56",
+    "N60",
+    "N64",
+    "N66",
+    "N68",
+    "N72",
+    "N76",
+    "N78",
+    "N80",
+    "N84",
+    "N88",
+    "N90",
+    "N92",
+    "N96",
+]
+
+def ExtractCommandParam(f: BufferedReader, type: int, name: str) -> str:
+    if type == PARAM_TYPE_NONE:
+        return ""
+    
+    if type == PARAM_TYPE_BYTE:
+        value: int = int.from_bytes(f.read(1), "little")
+        return ", " + str(value)
+
+    if type == PARAM_TYPE_C_V:
+        value: int = int.from_bytes(f.read(1), "little")
+        result = ", c_v"
+        if value == 0x40:
+            return result
+        
+        if value > 0x40:
+            return result + "+" + str(value - 0x40)
+        
+        if value < 0x40:
+            return result + "-" + str(0x40 - value)
+
+    if type == PARAM_TYPE_MEM:
+        value: int = int.from_bytes(f.read(1), "little")
+        return ", " + memParams[value]
+
+    if type == PARAM_TYPE_MODT:
+        value: int = int.from_bytes(f.read(1), "little")
+        return ", " + modtParams[value]
+
+    if type == PARAM_TYPE_XCMD:
+        value: int = int.from_bytes(f.read(1), "little")
+
+        if value == 8:
+            return ", xIECV"
+
+        if value == 9:
+            return ", xIECL"
+
+    if type == PARAM_TYPE_EOT:
+        value: int = int.from_bytes(f.read(1), "little")
+
+        if value <= 127:
+            return ", " + notesTieEot[value]
+        else:
+            f.seek(f.tell() - 1)
+            return ""
+
+    if type == PARAM_TYPE_PTR:
+        ptr = ReadPtr(f)
+
+        return "\n\t\t.word " + name + hex(ptr).split("0x")[1]
+
+
+def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
+    f.seek(addr)
+    value: int = int.from_bytes(f.read(1), "little")
+    name = "track_" + str(trackNbr) + "_lbl_"
+    result = ""
+
+    while value != 0xB1:
+        if value >= 0x80 and value <= 0xb0:
+            # Wait command
+            value -= 0x80
+            result += "\t.byte " + waitCommand[value]
+        elif value >= 0xb1 and value <= 0xce:
+            # Code command
+            value -= 0xb1
+            result += "\t.byte " + codeCommands[value]
+
+            ret = ExtractCommandParam(f, codeCommandsParamType[value], name)
+
+            if codeCommandsParamType[value] == PARAM_TYPE_PTR:
+                ptr = int(ret.split("lbl_")[1], 16)
+                result = result.replace(hex(ptr), hex(ptr).replace("0x", ""))
+
+            result += ret
+
+        elif value >= 0xcf:
+            # Note command
+            result += "\t.byte " + notes[value - 0xcf]
+            value: int = int.from_bytes(f.read(1), "little")
+
+            if value >= 0xcf:
+                result += ", " + notes[value - 0xcf]
+                value: int = int.from_bytes(f.read(1), "little")
+
+                if value >= 0xcf:
+                    result += ", " + notes[value - 0xcf]
+                    value: int = int.from_bytes(f.read(1), "little")
+                        
+                    if value >= 0xcf:
+                        result += ", " + notes[value - 0xcf]
+                        value: int = int.from_bytes(f.read(1), "little")
+                        
+                        if value >= 0xcf:
+                            result += ", " + notes[value - 0xcf]
+                        else:
+                            f.seek(f.tell() - 1)
+                    else:
+                        f.seek(f.tell() - 1)
+                else:
+                    f.seek(f.tell() - 1)
+            else:
+                f.seek(f.tell() - 1)
+        elif value < 0x80:
+            # Raw note command
+            result += "\t.byte " + notesTieEot[value]
+            value: int = int.from_bytes(f.read(1), "little")
+
+            if value < 0x80:
+                result += ", " + notesTieEot[value]
+                value: int = int.from_bytes(f.read(1), "little")
+
+                if value < 0x80:
+                    result += ", " + notesTieEot[value]
+                    value: int = int.from_bytes(f.read(1), "little")
+                        
+                    if value < 0x80:
+                        result += ", " + notesTieEot[value]
+                        value: int = int.from_bytes(f.read(1), "little")
+                        
+                        if value < 0x80:
+                            result += ", " + notesTieEot[value]
+                        else:
+                            f.seek(f.tell() - 1)
+                    else:
+                        f.seek(f.tell() - 1)
+                else:
+                    f.seek(f.tell() - 1)
+            else:
+                f.seek(f.tell() - 1)
+
+        value = int.from_bytes(f.read(1), "little")
+        result += "\n" + name + hex(f.tell()) + ":\n"
+
+    splitted = result.split("\n")
+    result = ""
+    for x in splitted:
+        if x.find("0x") == -1:
+            result += x + "\n"
+
+    result += "\t.byte FINE\n\n"
+    return result
+
 def ExtractSoundHeader(f: BufferedReader, addr: int, number: int):
     f.seek(addr)
 
@@ -189,31 +668,9 @@ def ExtractSoundHeader(f: BufferedReader, addr: int, number: int):
         prevAddr: int = f.tell()
         ptr: int = ReadPtr(f)
 
-        f.seek(ptr)
         content += name + "_" + str(x) + ":\n"
 
-        value: int = int.from_bytes(f.read(1), "little")
-        values = []
-
-        while value != 0xB1 and value != 0xB6:
-            values.append(value)
-            value = int.from_bytes(f.read(1), "little")
-
-        values.append(value)
-        size8: int = len(values) // 8
-
-        for y in range(0, size8):
-            content += "\t.byte " + str(values[y * 8 + 0]) + ", " + str(values[y * 8 + 1]) + ", " + str(values[y * 8 + 2]) + ", " + str(values[y * 8 + 3]) + ", " + str(values[y * 8 + 4]) + ", " + str(values[y * 8 + 5]) + ", " + str(values[y * 8 + 6]) + ", " + str(values[y * 8 + 7]) + "\n"
-
-        content += "\t.byte "
-
-        remaining: int = len(values) % 8
-        for y in range(0, remaining):
-            content += str(values[size8 * 8 + y])
-            if y != remaining - 1:
-                content += ", "
-
-        content += "\n\n"
+        content += ExtractTrackCommands(f, ptr, number)
 
         f.seek(prevAddr + 4)
     
@@ -266,6 +723,7 @@ def ExtractTracks(f: BufferedReader):
         content += "\n\t.short " + str(int.from_bytes(f.read(2), "little"))
         content += "\n\t.short " + str(int.from_bytes(f.read(2), "little"))
 
+    content += "\n"
     output.write(content)
     output.close()
 
@@ -277,11 +735,12 @@ def ExtractTracks(f: BufferedReader):
 def Func():
     addr = 0x8cf70
     file.seek(addr)
-    ExtractVoiceGroups(file)
+    # ExtractVoiceGroups(file)
+
+    # result = ExtractTrackCommands(file, 0x20dbbc, 270)
 
     addr: int = 0x8f2c0
     file.seek(addr)
-    
-    # ExtractTracks(file)
+    ExtractTracks(file)
 
 Func()
