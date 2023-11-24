@@ -1,17 +1,60 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_84
 
 track_84_0:
-	.byte 188, 0, 187, 28, 189, 102, 191, 64
-	.byte 186, 120, 190, 11, 254, 47, 120, 3
-	.byte 254, 53, 120, 3, 131, 190, 13, 131
-	.byte 16, 131, 18, 131, 21, 131, 23, 131
-	.byte 26, 131, 29, 131, 32, 156, 131, 29
-	.byte 132, 27, 133, 25, 133, 22, 133, 20
-	.byte 133, 17, 133, 15, 131, 13, 129, 178
-	.byte 70, 185, 34, 8, 177
+	.byte KEYSH, 0
+track_84_lbl_22b946:
+	.byte TEMPO, 28
+	.byte VOICE, 102
+	.byte PAN, c_v
+	.byte PRIO, 120
+	.byte VOL, 11
+	.byte N92
+	.byte Bn1, Cn8, DsM2
+	.byte N92
+	.byte Fn2, Cn8, DsM2
+	.byte W03
+	.byte VOL, 13
+	.byte W03
+	.byte EnM1
+	.byte W03
+	.byte FsM1
+	.byte W03
+	.byte AnM1
+	.byte W03
+	.byte BnM1
+	.byte W03
+	.byte Dn0
+	.byte W03
+	.byte Fn0
+	.byte W03
+	.byte Gs0
+	.byte W36
+	.byte W03
+	.byte Fn0
+	.byte W04
+	.byte Ds0
+	.byte W05
+	.byte Cs0
+	.byte W05
+	.byte AsM1
+	.byte W05
+	.byte GsM1
+	.byte W05
+	.byte FnM1
+	.byte W05
+	.byte DsM1
+	.byte W03
+	.byte CsM1
+	.byte W01
+	.byte GOTO
+		.word track_84_lbl_22b946
+
+	.byte FINE
 
 .align 2
 

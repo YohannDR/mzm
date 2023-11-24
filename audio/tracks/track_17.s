@@ -1,54 +1,211 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_17
 
 track_17_0:
-	.byte 188, 0, 187, 42, 189, 71, 190, 56
-	.byte 191, 64, 176, 168, 211, 72, 127, 134
-	.byte 215, 74, 134, 212, 76, 134, 209, 77
-	.byte 134, 255, 78, 112, 176, 168, 211, 78
-	.byte 127, 134, 215, 77, 134, 212, 76, 134
-	.byte 209, 75, 134, 247, 74, 112, 176, 176
-	.byte 160, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 42
+	.byte VOICE, 71
+	.byte VOL, 56
+	.byte PAN, c_v
+	.byte W96
+	.byte W72
+	.byte N04
+	.byte Cn4, Gn8
+	.byte W06
+	.byte N08
+	.byte Dn4
+	.byte W06
+	.byte N05
+	.byte En4
+	.byte W06
+	.byte N02
+	.byte Fn4
+	.byte W06
+	.byte N96
+	.byte Fs4, En7
+	.byte W96
+	.byte W72
+	.byte N04
+	.byte Fs4, Gn8
+	.byte W06
+	.byte N08
+	.byte Fn4
+	.byte W06
+	.byte N05
+	.byte En4
+	.byte W06
+	.byte N02
+	.byte Ds4
+	.byte W06
+	.byte N72
+	.byte Dn4, En7
+	.byte W96
+	.byte W96
+	.byte W48
+
+	.byte FINE
 
 track_17_1:
-	.byte 188, 0, 189, 71, 190, 31, 191, 84
-	.byte 255, 55, 104, 176, 254, 56, 96, 176
-	.byte 255, 54, 104, 176, 255, 176, 207, 43
-	.byte 176, 160, 206, 160, 160, 177
+	.byte KEYSH, 0
+	.byte VOICE, 71
+	.byte VOL, 31
+	.byte PAN, c_v+20
+	.byte N96
+	.byte Gn2, Gs6
+	.byte W96
+	.byte N92
+	.byte Gs2, Cn6
+	.byte W96
+	.byte N96
+	.byte Fs2, Gs6
+	.byte W96
+	.byte N96
+	.byte W96
+	.byte TIE
+	.byte Gn1
+	.byte W96
+	.byte W48
+	.byte EOT
+	.byte W48
+	.byte W48
+
+	.byte FINE
 
 track_17_2:
-	.byte 188, 0, 189, 71, 190, 31, 191, 42
-	.byte 255, 79, 104, 176, 254, 80, 96, 176
-	.byte 176, 255, 78, 104, 176, 207, 67, 176
-	.byte 160, 206, 160, 160, 177
+	.byte KEYSH, 0
+	.byte VOICE, 71
+	.byte VOL, 31
+	.byte PAN, c_v-22
+	.byte N96
+	.byte Gn4, Gs6
+	.byte W96
+	.byte N92
+	.byte Gs4, Cn6
+	.byte W96
+	.byte W96
+	.byte N96
+	.byte Fs4, Gs6
+	.byte W96
+	.byte TIE
+	.byte Gn3
+	.byte W96
+	.byte W48
+	.byte EOT
+	.byte W48
+	.byte W48
+
+	.byte FINE
 
 track_17_3:
-	.byte 188, 0, 189, 72, 190, 80, 191, 64
-	.byte 176, 176, 176, 176, 176, 168, 239, 51
-	.byte 127, 239, 54, 239, 60, 152, 160, 177
-	.byte 
+	.byte KEYSH, 0
+	.byte VOICE, 72
+	.byte VOL, 80
+	.byte PAN, c_v
+	.byte W96
+	.byte W96
+	.byte W96
+	.byte W96
+	.byte W96
+	.byte W72
+	.byte N48
+	.byte Ds2, Gn8
+	.byte N48
+	.byte Fs2
+	.byte N48
+	.byte Cn3
+	.byte W24
+	.byte W48
+
+	.byte FINE
 
 track_17_4:
-	.byte 188, 0, 189, 47, 190, 62, 191, 64
-	.byte 219, 48, 100, 140, 46, 80, 140, 48
-	.byte 100, 140, 44, 80, 140, 48, 100, 140
-	.byte 46, 80, 140, 48, 100, 140, 44, 80
-	.byte 140, 219, 48, 100, 140, 46, 80, 140
-	.byte 48, 100, 140, 44, 80, 140, 48, 100
-	.byte 140, 46, 80, 140, 48, 100, 140, 44
-	.byte 80, 140, 180, 179, 234, 245, 34, 8
-	.byte 179, 234, 245, 34, 8, 176, 176, 160
-	.byte 177
+	.byte KEYSH, 0
+	.byte VOICE, 47
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte N12
+	.byte Cn2, En6
+	.byte W12
+	.byte As1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte Gs1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte As1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte Gs1, Gs4
+	.byte W12
+track_17_lbl_22f5ea:
+	.byte N12
+	.byte Cn2, En6
+	.byte W12
+	.byte As1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte Gs1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte As1, Gs4
+	.byte W12
+	.byte Cn2, En6
+	.byte W12
+	.byte Gs1, Gs4
+	.byte W12
+	.byte PEND
+	.byte PATT
+		.word track_17_lbl_22f5ea
+	.byte PATT
+		.word track_17_lbl_22f5ea
+	.byte W96
+	.byte W96
+	.byte W48
+
+	.byte FINE
 
 track_17_5:
-	.byte 188, 0, 189, 52, 190, 50, 191, 64
-	.byte 231, 48, 100, 160, 231, 160, 231, 160
-	.byte 231, 160, 231, 160, 231, 160, 231, 160
-	.byte 231, 160, 48, 60, 160, 48, 72, 160
-	.byte 48, 80, 160, 48, 100, 160, 160, 177
-	.byte 
+	.byte KEYSH, 0
+	.byte VOICE, 52
+	.byte VOL, 50
+	.byte PAN, c_v
+	.byte N24
+	.byte Cn2, En6
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte N24
+	.byte W48
+	.byte Cn2, Cn3
+	.byte W48
+	.byte Cn2, Cn4
+	.byte W48
+	.byte Cn2, Gs4
+	.byte W48
+	.byte Cn2, En6
+	.byte W48
+	.byte W48
+
+	.byte FINE
 
 .align 2
 

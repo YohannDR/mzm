@@ -1,13 +1,30 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_623
 
 track_623_0:
-	.byte 188, 0, 187, 75, 189, 51, 190, 69
-	.byte 191, 64, 217, 57, 120, 138, 189, 53
-	.byte 212, 48, 60, 155, 130, 189, 52, 215
-	.byte 60, 40, 136, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 51
+	.byte VOL, 69
+	.byte PAN, c_v
+	.byte N10
+	.byte An2, Cn8
+	.byte W10
+	.byte VOICE, 53
+	.byte N05
+	.byte Cn2, Cn3
+	.byte W32
+	.byte W02
+	.byte VOICE, 52
+	.byte N08
+	.byte Cn3, En1
+	.byte W08
+
+	.byte FINE
 
 .align 2
 

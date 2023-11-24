@@ -1,119 +1,603 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_703
 
 track_703_0:
-	.byte 188, 0, 187, 75, 189, 2, 190, 120
-	.byte 191, 50, 193, 12, 163, 192, 64, 231
-	.byte 60, 120, 129, 192, 67, 129, 69, 129
-	.byte 73, 129, 77, 129, 61, 129, 57, 129
-	.byte 55, 129, 60, 129, 65, 129, 69, 129
-	.byte 67, 129, 63, 129, 61, 129, 60, 129
-	.byte 59, 129, 61, 129, 63, 129, 65, 129
-	.byte 70, 129, 71, 129, 69, 129, 67, 129
-	.byte 63, 145, 151, 53, 129, 63, 231, 60
-	.byte 100, 129, 192, 75, 129, 85, 129, 86
-	.byte 129, 75, 129, 63, 129, 55, 130, 65
-	.byte 129, 74, 129, 80, 129, 56, 129, 61
-	.byte 129, 67, 129, 71, 129, 77, 129, 71
-	.byte 129, 65, 129, 57, 129, 53, 129, 51
-	.byte 129, 55, 129, 59, 130, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 2
+	.byte VOL, 120
+	.byte PAN, c_v-14
+	.byte BENDR, 12
+	.byte W56
+	.byte BEND, c_v
+	.byte N24
+	.byte Cn3, Cn8
+	.byte W01
+	.byte BEND, c_v+3
+	.byte W01
+	.byte An3
+	.byte W01
+	.byte Cs4
+	.byte W01
+	.byte Fn4
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte An2
+	.byte W01
+	.byte Gn2
+	.byte W01
+	.byte Cn3
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte An3
+	.byte W01
+	.byte Gn3
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte Cn3
+	.byte W01
+	.byte Bn2
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte As3
+	.byte W01
+	.byte Bn3
+	.byte W01
+	.byte An3
+	.byte W01
+	.byte Gn3
+	.byte W01
+	.byte Ds3
+	.byte W17
+	.byte W23
+	.byte Fn2
+	.byte W01
+	.byte Ds3
+	.byte N24
+	.byte Cn3, En6
+	.byte W01
+	.byte BEND, c_v+11
+	.byte W01
+	.byte Cs5
+	.byte W01
+	.byte Dn5
+	.byte W01
+	.byte Ds4
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte Gn2
+	.byte W02
+	.byte Fn3
+	.byte W01
+	.byte Dn4
+	.byte W01
+	.byte Gs4
+	.byte W01
+	.byte Gs2
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte Gn3
+	.byte W01
+	.byte Bn3
+	.byte W01
+	.byte Fn4
+	.byte W01
+	.byte Bn3
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte An2
+	.byte W01
+	.byte Fn2
+	.byte W01
+	.byte Ds2
+	.byte W01
+	.byte Gn2
+	.byte W01
+	.byte Bn2
+	.byte W02
+
+	.byte FINE
 
 track_703_1:
-	.byte 188, 0, 189, 3, 196, 60, 190, 0
-	.byte 194, 40, 191, 64, 193, 6, 192, 1
-	.byte 207, 57, 127, 129, 190, 3, 192, 3
-	.byte 129, 190, 8, 192, 5, 129, 190, 13
-	.byte 192, 8, 129, 190, 20, 192, 13, 129
-	.byte 190, 29, 192, 18, 129, 190, 39, 192
-	.byte 27, 129, 190, 55, 192, 39, 129, 190
-	.byte 63, 192, 56, 129, 190, 67, 192, 63
-	.byte 129, 190, 72, 192, 70, 129, 190, 76
-	.byte 192, 82, 129, 190, 78, 192, 91, 129
-	.byte 190, 80, 192, 97, 129, 101, 130, 190
-	.byte 78, 192, 98, 129, 190, 76, 192, 92
-	.byte 129, 190, 74, 129, 72, 192, 81, 129
-	.byte 190, 68, 192, 71, 129, 190, 65, 192
-	.byte 62, 129, 190, 61, 192, 52, 129, 190
-	.byte 61, 192, 31, 129, 190, 36, 192, 51
-	.byte 129, 190, 31, 192, 60, 129, 190, 28
-	.byte 192, 64, 129, 190, 24, 192, 61, 129
-	.byte 190, 21, 192, 52, 129, 190, 19, 192
-	.byte 38, 129, 190, 17, 192, 19, 129, 190
-	.byte 17, 192, 17, 129, 190, 16, 192, 19
-	.byte 129, 190, 17, 192, 23, 129, 190, 17
-	.byte 192, 27, 129, 190, 19, 192, 41, 129
-	.byte 190, 21, 192, 54, 129, 190, 24, 192
-	.byte 65, 129, 190, 28, 192, 73, 129, 190
-	.byte 32, 192, 79, 129, 190, 37, 192, 82
-	.byte 129, 190, 40, 192, 81, 129, 190, 44
-	.byte 192, 80, 129, 190, 48, 192, 76, 129
-	.byte 190, 51, 192, 61, 129, 190, 53, 192
-	.byte 53, 129, 45, 129, 190, 55, 192, 35
-	.byte 129, 29, 129, 190, 53, 129, 52, 192
-	.byte 30, 129, 190, 50, 192, 33, 129, 190
-	.byte 46, 192, 37, 129, 190, 43, 192, 45
-	.byte 129, 190, 33, 192, 51, 129, 190, 29
-	.byte 192, 54, 129, 190, 27, 192, 53, 129
-	.byte 190, 24, 192, 45, 129, 190, 23, 192
-	.byte 43, 129, 41, 129, 190, 25, 129, 28
-	.byte 192, 43, 129, 190, 34, 129, 40, 192
-	.byte 53, 129, 190, 44, 192, 59, 129, 190
-	.byte 46, 192, 63, 129, 190, 47, 192, 64
-	.byte 129, 190, 46, 192, 63, 129, 190, 44
-	.byte 192, 60, 129, 190, 41, 192, 56, 129
-	.byte 190, 26, 192, 51, 129, 190, 23, 192
-	.byte 45, 129, 190, 21, 192, 40, 129, 190
-	.byte 20, 192, 37, 129, 190, 19, 129, 192
-	.byte 39, 130, 190, 21, 192, 41, 129, 190
-	.byte 25, 192, 43, 129, 190, 31, 192, 45
-	.byte 129, 190, 31, 192, 49, 129, 190, 34
-	.byte 192, 58, 129, 190, 36, 192, 65, 129
-	.byte 190, 40, 192, 75, 129, 190, 42, 192
-	.byte 83, 129, 190, 44, 192, 92, 129, 190
-	.byte 46, 192, 99, 129, 190, 49, 192, 107
-	.byte 129, 190, 50, 192, 106, 129, 190, 51
-	.byte 192, 105, 129, 190, 52, 192, 99, 129
-	.byte 190, 53, 192, 79, 129, 65, 129, 61
-	.byte 129, 190, 54, 192, 57, 129, 55, 129
-	.byte 190, 53, 192, 57, 130, 61, 129, 190
-	.byte 51, 192, 65, 129, 190, 50, 192, 69
-	.byte 129, 72, 129, 190, 48, 192, 71, 129
-	.byte 190, 45, 192, 69, 129, 190, 43, 192
-	.byte 65, 129, 190, 40, 192, 57, 129, 190
-	.byte 38, 192, 52, 129, 190, 34, 192, 48
-	.byte 129, 190, 33, 192, 45, 129, 190, 26
-	.byte 192, 42, 129, 190, 21, 192, 39, 129
-	.byte 190, 17, 192, 35, 129, 190, 14, 192
-	.byte 33, 129, 190, 12, 192, 35, 129, 190
-	.byte 9, 192, 38, 129, 190, 8, 192, 41
-	.byte 129, 190, 5, 192, 43, 129, 190, 4
-	.byte 192, 53, 129, 190, 2, 192, 59, 129
-	.byte 190, 0, 192, 61, 129, 206, 177
+	.byte KEYSH, 0
+	.byte VOICE, 3
+	.byte MOD, 60
+	.byte VOL, 0
+	.byte LFOS, 40
+	.byte PAN, c_v
+	.byte BENDR, 6
+	.byte BEND, c_v-63
+	.byte TIE
+	.byte An2, Gn8
+	.byte W01
+	.byte VOL, 3
+	.byte BEND, c_v-61
+	.byte W01
+	.byte VOL, 8
+	.byte BEND, c_v-59
+	.byte W01
+	.byte VOL, 13
+	.byte BEND, c_v-56
+	.byte W01
+	.byte VOL, 20
+	.byte BEND, c_v-51
+	.byte W01
+	.byte VOL, 29
+	.byte BEND, c_v-46
+	.byte W01
+	.byte VOL, 39
+	.byte BEND, c_v-37
+	.byte W01
+	.byte VOL, 55
+	.byte BEND, c_v-25
+	.byte W01
+	.byte VOL, 63
+	.byte BEND, c_v-8
+	.byte W01
+	.byte VOL, 67
+	.byte BEND, c_v-1
+	.byte W01
+	.byte VOL, 72
+	.byte BEND, c_v+6
+	.byte W01
+	.byte VOL, 76
+	.byte BEND, c_v+18
+	.byte W01
+	.byte VOL, 78
+	.byte BEND, c_v+27
+	.byte W01
+	.byte VOL, 80
+	.byte BEND, c_v+33
+	.byte W01
+	.byte Fn6
+	.byte W02
+	.byte VOL, 78
+	.byte BEND, c_v+34
+	.byte W01
+	.byte VOL, 76
+	.byte BEND, c_v+28
+	.byte W01
+	.byte VOL, 74
+	.byte W01
+	.byte Cn4
+	.byte BEND, c_v+17
+	.byte W01
+	.byte VOL, 68
+	.byte BEND, c_v+7
+	.byte W01
+	.byte VOL, 65
+	.byte BEND, c_v-2
+	.byte W01
+	.byte VOL, 61
+	.byte BEND, c_v-12
+	.byte W01
+	.byte VOL, 61
+	.byte BEND, c_v-33
+	.byte W01
+	.byte VOL, 36
+	.byte BEND, c_v-13
+	.byte W01
+	.byte VOL, 31
+	.byte BEND, c_v-4
+	.byte W01
+	.byte VOL, 28
+	.byte BEND, c_v
+	.byte W01
+	.byte VOL, 24
+	.byte BEND, c_v-3
+	.byte W01
+	.byte VOL, 21
+	.byte BEND, c_v-12
+	.byte W01
+	.byte VOL, 19
+	.byte BEND, c_v-26
+	.byte W01
+	.byte VOL, 17
+	.byte BEND, c_v-45
+	.byte W01
+	.byte VOL, 17
+	.byte BEND, c_v-47
+	.byte W01
+	.byte VOL, 16
+	.byte BEND, c_v-45
+	.byte W01
+	.byte VOL, 17
+	.byte BEND, c_v-41
+	.byte W01
+	.byte VOL, 17
+	.byte BEND, c_v-37
+	.byte W01
+	.byte VOL, 19
+	.byte BEND, c_v-23
+	.byte W01
+	.byte VOL, 21
+	.byte BEND, c_v-10
+	.byte W01
+	.byte VOL, 24
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 28
+	.byte BEND, c_v+9
+	.byte W01
+	.byte VOL, 32
+	.byte BEND, c_v+15
+	.byte W01
+	.byte VOL, 37
+	.byte BEND, c_v+18
+	.byte W01
+	.byte VOL, 40
+	.byte BEND, c_v+17
+	.byte W01
+	.byte VOL, 44
+	.byte BEND, c_v+16
+	.byte W01
+	.byte VOL, 48
+	.byte BEND, c_v+12
+	.byte W01
+	.byte VOL, 51
+	.byte BEND, c_v-3
+	.byte W01
+	.byte VOL, 53
+	.byte BEND, c_v-11
+	.byte W01
+	.byte An1
+	.byte W01
+	.byte VOL, 55
+	.byte BEND, c_v-29
+	.byte W01
+	.byte Fn0
+	.byte W01
+	.byte VOL, 53
+	.byte W01
+	.byte En2
+	.byte BEND, c_v-34
+	.byte W01
+	.byte VOL, 50
+	.byte BEND, c_v-31
+	.byte W01
+	.byte VOL, 46
+	.byte BEND, c_v-27
+	.byte W01
+	.byte VOL, 43
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 33
+	.byte BEND, c_v-13
+	.byte W01
+	.byte VOL, 29
+	.byte BEND, c_v-10
+	.byte W01
+	.byte VOL, 27
+	.byte BEND, c_v-11
+	.byte W01
+	.byte VOL, 24
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 23
+	.byte BEND, c_v-21
+	.byte W01
+	.byte Fn1
+	.byte W01
+	.byte VOL, 25
+	.byte W01
+	.byte En0
+	.byte BEND, c_v-21
+	.byte W01
+	.byte VOL, 34
+	.byte W01
+	.byte En1
+	.byte BEND, c_v-11
+	.byte W01
+	.byte VOL, 44
+	.byte BEND, c_v-5
+	.byte W01
+	.byte VOL, 46
+	.byte BEND, c_v-1
+	.byte W01
+	.byte VOL, 47
+	.byte BEND, c_v
+	.byte W01
+	.byte VOL, 46
+	.byte BEND, c_v-1
+	.byte W01
+	.byte VOL, 44
+	.byte BEND, c_v-4
+	.byte W01
+	.byte VOL, 41
+	.byte BEND, c_v-8
+	.byte W01
+	.byte VOL, 26
+	.byte BEND, c_v-13
+	.byte W01
+	.byte VOL, 23
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 21
+	.byte BEND, c_v-24
+	.byte W01
+	.byte VOL, 20
+	.byte BEND, c_v-27
+	.byte W01
+	.byte VOL, 19
+	.byte W01
+	.byte BEND, c_v-25
+	.byte W02
+	.byte VOL, 21
+	.byte BEND, c_v-23
+	.byte W01
+	.byte VOL, 25
+	.byte BEND, c_v-21
+	.byte W01
+	.byte VOL, 31
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 31
+	.byte BEND, c_v-15
+	.byte W01
+	.byte VOL, 34
+	.byte BEND, c_v-6
+	.byte W01
+	.byte VOL, 36
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 40
+	.byte BEND, c_v+11
+	.byte W01
+	.byte VOL, 42
+	.byte BEND, c_v+19
+	.byte W01
+	.byte VOL, 44
+	.byte BEND, c_v+28
+	.byte W01
+	.byte VOL, 46
+	.byte BEND, c_v+35
+	.byte W01
+	.byte VOL, 49
+	.byte BEND, c_v+43
+	.byte W01
+	.byte VOL, 50
+	.byte BEND, c_v+42
+	.byte W01
+	.byte VOL, 51
+	.byte BEND, c_v+41
+	.byte W01
+	.byte VOL, 52
+	.byte BEND, c_v+35
+	.byte W01
+	.byte VOL, 53
+	.byte BEND, c_v+15
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte VOL, 54
+	.byte BEND, c_v-7
+	.byte W01
+	.byte Gn2
+	.byte W01
+	.byte VOL, 53
+	.byte BEND, c_v-7
+	.byte W02
+	.byte Cs3
+	.byte W01
+	.byte VOL, 51
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 50
+	.byte BEND, c_v+5
+	.byte W01
+	.byte Cn4
+	.byte W01
+	.byte VOL, 48
+	.byte BEND, c_v+7
+	.byte W01
+	.byte VOL, 45
+	.byte BEND, c_v+5
+	.byte W01
+	.byte VOL, 43
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 40
+	.byte BEND, c_v-7
+	.byte W01
+	.byte VOL, 38
+	.byte BEND, c_v-12
+	.byte W01
+	.byte VOL, 34
+	.byte BEND, c_v-16
+	.byte W01
+	.byte VOL, 33
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 26
+	.byte BEND, c_v-22
+	.byte W01
+	.byte VOL, 21
+	.byte BEND, c_v-25
+	.byte W01
+	.byte VOL, 17
+	.byte BEND, c_v-29
+	.byte W01
+	.byte VOL, 14
+	.byte BEND, c_v-31
+	.byte W01
+	.byte VOL, 12
+	.byte BEND, c_v-29
+	.byte W01
+	.byte VOL, 9
+	.byte BEND, c_v-26
+	.byte W01
+	.byte VOL, 8
+	.byte BEND, c_v-23
+	.byte W01
+	.byte VOL, 5
+	.byte BEND, c_v-21
+	.byte W01
+	.byte VOL, 4
+	.byte BEND, c_v-11
+	.byte W01
+	.byte VOL, 2
+	.byte BEND, c_v-5
+	.byte W01
+	.byte VOL, 0
+	.byte BEND, c_v-3
+	.byte W01
+	.byte EOT
+
+	.byte FINE
 
 track_703_2:
-	.byte 188, 0, 189, 1, 190, 113, 191, 50
-	.byte 132, 239, 60, 100, 169, 129, 235, 62
-	.byte 60, 3, 143, 152, 177
+	.byte KEYSH, 0
+	.byte VOICE, 1
+	.byte VOL, 113
+	.byte PAN, c_v-14
+	.byte W04
+	.byte N48
+	.byte Cn3, En6
+	.byte W76
+	.byte W01
+	.byte N36
+	.byte Dn3, Cn3, DsM2
+	.byte W15
+	.byte W24
+
+	.byte FINE
 
 track_703_3:
-	.byte 188, 0, 189, 4, 190, 72, 191, 50
-	.byte 223, 60, 120, 129, 190, 68, 129, 63
-	.byte 129, 58, 129, 52, 129, 50, 129, 57
-	.byte 129, 72, 129, 78, 129, 85, 129, 84
-	.byte 129, 82, 129, 78, 129, 76, 129, 72
-	.byte 129, 68, 129, 67, 152, 80, 223, 129
-	.byte 190, 83, 129, 84, 129, 87, 129, 91
-	.byte 129, 95, 129, 99, 129, 87, 129, 75
-	.byte 129, 66, 129, 58, 129, 50, 129, 40
-	.byte 129, 38, 129, 80, 129, 84, 129, 87
-	.byte 152, 129, 87, 129, 86, 223, 60, 112
-	.byte 129, 190, 91, 129, 99, 129, 78, 129
-	.byte 65, 129, 55, 129, 93, 129, 95, 129
-	.byte 97, 129, 95, 129, 72, 129, 73, 129
-	.byte 76, 129, 79, 129, 81, 129, 84, 129
-	.byte 87, 129, 90, 177
+	.byte KEYSH, 0
+	.byte VOICE, 4
+	.byte VOL, 72
+	.byte PAN, c_v-14
+	.byte N16
+	.byte Cn3, Cn8
+	.byte W01
+	.byte VOL, 68
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte As2
+	.byte W01
+	.byte En2
+	.byte W01
+	.byte Dn2
+	.byte W01
+	.byte An2
+	.byte W01
+	.byte Cn4
+	.byte W01
+	.byte Fs4
+	.byte W01
+	.byte Cs5
+	.byte W01
+	.byte Cn5
+	.byte W01
+	.byte As4
+	.byte W01
+	.byte Fs4
+	.byte W01
+	.byte En4
+	.byte W01
+	.byte Cn4
+	.byte W01
+	.byte Gs3
+	.byte W01
+	.byte Gn3
+	.byte W24
+	.byte Gs4
+	.byte N16
+	.byte W01
+	.byte VOL, 83
+	.byte W01
+	.byte Cn5
+	.byte W01
+	.byte Ds5
+	.byte W01
+	.byte Gn5
+	.byte W01
+	.byte Bn5
+	.byte W01
+	.byte Ds6
+	.byte W01
+	.byte Ds5
+	.byte W01
+	.byte Ds4
+	.byte W01
+	.byte Fs3
+	.byte W01
+	.byte As2
+	.byte W01
+	.byte Dn2
+	.byte W01
+	.byte En1
+	.byte W01
+	.byte Dn1
+	.byte W01
+	.byte Gs4
+	.byte W01
+	.byte Cn5
+	.byte W01
+	.byte Ds5
+	.byte W24
+	.byte W01
+	.byte Ds5
+	.byte W01
+	.byte Dn5
+	.byte N16
+	.byte Cn3, En7
+	.byte W01
+	.byte VOL, 91
+	.byte W01
+	.byte Ds6
+	.byte W01
+	.byte Fs4
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte Gn2
+	.byte W01
+	.byte An5
+	.byte W01
+	.byte Bn5
+	.byte W01
+	.byte Cs6
+	.byte W01
+	.byte Bn5
+	.byte W01
+	.byte Cn4
+	.byte W01
+	.byte Cs4
+	.byte W01
+	.byte En4
+	.byte W01
+	.byte Gn4
+	.byte W01
+	.byte An4
+	.byte W01
+	.byte Cn5
+	.byte W01
+	.byte Ds5
+	.byte W01
+	.byte Fs5
+
+	.byte FINE
 
 .align 2
 

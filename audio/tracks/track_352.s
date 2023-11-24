@@ -1,19 +1,57 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_352
 
 track_352_0:
-	.byte 188, 0, 187, 75, 189, 21, 190, 42
-	.byte 191, 64, 193, 12, 192, 39, 231, 57
-	.byte 100, 1, 130, 190, 58, 192, 43, 130
-	.byte 190, 67, 192, 47, 130, 190, 70, 192
-	.byte 51, 130, 59, 130, 69, 130, 190, 70
-	.byte 192, 81, 130, 190, 63, 192, 95, 130
-	.byte 190, 51, 192, 99, 130, 190, 29, 192
-	.byte 96, 130, 190, 12, 192, 83, 130, 190
-	.byte 4, 192, 54, 130, 190, 0, 192, 41
-	.byte 129, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 21
+	.byte VOL, 42
+	.byte PAN, c_v
+	.byte BENDR, 12
+	.byte BEND, c_v-25
+	.byte N24
+	.byte An2, En6, CsM2
+	.byte W02
+	.byte VOL, 58
+	.byte BEND, c_v-21
+	.byte W02
+	.byte VOL, 67
+	.byte BEND, c_v-17
+	.byte W02
+	.byte VOL, 70
+	.byte BEND, c_v-13
+	.byte W02
+	.byte Bn2
+	.byte W02
+	.byte An3
+	.byte W02
+	.byte VOL, 70
+	.byte BEND, c_v+17
+	.byte W02
+	.byte VOL, 63
+	.byte BEND, c_v+31
+	.byte W02
+	.byte VOL, 51
+	.byte BEND, c_v+35
+	.byte W02
+	.byte VOL, 29
+	.byte BEND, c_v+32
+	.byte W02
+	.byte VOL, 12
+	.byte BEND, c_v+19
+	.byte W02
+	.byte VOL, 4
+	.byte BEND, c_v-10
+	.byte W02
+	.byte VOL, 0
+	.byte BEND, c_v-23
+	.byte W01
+
+	.byte FINE
 
 .align 2
 

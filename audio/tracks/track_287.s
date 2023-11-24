@@ -1,33 +1,114 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_287
 
 track_287_0:
-	.byte 188, 0, 187, 75, 189, 8, 190, 81
-	.byte 191, 80, 210, 57, 40, 131, 60, 60
-	.byte 131, 211, 59, 80, 132, 57, 100, 132
-	.byte 212, 55, 127, 133, 53, 100, 133, 213
-	.byte 50, 80, 134, 48, 72, 134, 215, 45
-	.byte 60, 156, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 8
+	.byte VOL, 81
+	.byte PAN, c_v+16
+	.byte N03
+	.byte An2, En1
+	.byte W03
+	.byte Cn3, Cn3
+	.byte W03
+	.byte N04
+	.byte Bn2, Gs4
+	.byte W04
+	.byte An2, En6
+	.byte W04
+	.byte N05
+	.byte Gn2, Gn8
+	.byte W05
+	.byte Fn2, En6
+	.byte W05
+	.byte N06
+	.byte Dn2, Gs4
+	.byte W06
+	.byte Cn2, Cn4
+	.byte W06
+	.byte N08
+	.byte An1, Cn3
+	.byte W36
+
+	.byte FINE
 
 track_287_1:
-	.byte 188, 0, 140, 189, 10, 190, 115, 191
-	.byte 80, 220, 60, 127, 141, 60, 60, 141
-	.byte 226, 60, 32, 155, 130, 177
+	.byte KEYSH, 0
+	.byte W12
+	.byte VOICE, 10
+	.byte VOL, 115
+	.byte PAN, c_v+16
+	.byte N13
+	.byte Cn3, Gn8
+	.byte W13
+	.byte Cn3, Cn3
+	.byte W13
+	.byte N19
+	.byte Cn3, Gs0
+	.byte W32
+	.byte W02
+
+	.byte FINE
 
 track_287_2:
-	.byte 188, 0, 189, 9, 190, 72, 191, 80
-	.byte 218, 60, 112, 130, 190, 76, 130, 81
-	.byte 130, 86, 130, 9, 130, 115, 129, 211
-	.byte 60, 80, 134, 189, 12, 190, 108, 210
-	.byte 64, 120, 133, 217, 60, 139, 226, 60
-	.byte 40, 156, 131, 177
+	.byte KEYSH, 0
+	.byte VOICE, 9
+	.byte VOL, 72
+	.byte PAN, c_v+16
+	.byte N11
+	.byte Cn3, En7
+	.byte W02
+	.byte VOL, 76
+	.byte W02
+	.byte An4
+	.byte W02
+	.byte Dn5
+	.byte W02
+	.byte AnM2
+	.byte W02
+	.byte Gn7
+	.byte W01
+	.byte N04
+	.byte Cn3, Gs4
+	.byte W06
+	.byte VOICE, 12
+	.byte VOL, 108
+	.byte N03
+	.byte En3, Cn8
+	.byte W05
+	.byte N10
+	.byte Cn3
+	.byte W11
+	.byte N19
+	.byte Cn3, En1
+	.byte W36
+	.byte W03
+
+	.byte FINE
 
 track_287_3:
-	.byte 188, 0, 189, 11, 190, 115, 191, 80
-	.byte 132, 209, 57, 120, 131, 211, 59, 132
-	.byte 222, 53, 127, 164, 129, 177
+	.byte KEYSH, 0
+	.byte VOICE, 11
+	.byte VOL, 115
+	.byte PAN, c_v+16
+	.byte W04
+	.byte N02
+	.byte An2, Cn8
+	.byte W03
+	.byte N04
+	.byte Bn2
+	.byte W04
+	.byte N15
+	.byte Fn2, Gn8
+	.byte W60
+	.byte W01
+
+	.byte FINE
 
 .align 2
 

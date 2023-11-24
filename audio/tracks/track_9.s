@@ -1,35 +1,126 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_9
 
 track_9_0:
-	.byte 188, 0, 187, 60, 189, 18, 190, 31
-	.byte 191, 79, 247, 38, 80, 176, 247, 38
-	.byte 92, 176, 38, 72, 176, 38, 80, 176
-	.byte 38, 72, 176, 38, 80, 176, 38, 72
-	.byte 176, 38, 80, 176, 38, 72, 176, 38
-	.byte 76, 176, 178, 242, 232, 34, 8, 177
-	.byte 
+	.byte KEYSH, 0
+	.byte TEMPO, 60
+	.byte VOICE, 18
+	.byte VOL, 31
+	.byte PAN, c_v+15
+	.byte N72
+	.byte Dn1, Gs4
+	.byte W96
+track_9_lbl_22e8f2:
+	.byte N72
+	.byte Dn1, Gs5
+	.byte W96
+	.byte Dn1, Cn4
+	.byte W96
+	.byte Dn1, Gs4
+	.byte W96
+	.byte Dn1, Cn4
+	.byte W96
+	.byte Dn1, Gs4
+	.byte W96
+	.byte Dn1, Cn4
+	.byte W96
+	.byte Dn1, Gs4
+	.byte W96
+	.byte Dn1, Cn4
+	.byte W96
+	.byte Dn1, En4
+	.byte W96
+	.byte GOTO
+		.word track_9_lbl_22e8f2
+
+	.byte FINE
 
 track_9_1:
-	.byte 188, 0, 189, 19, 190, 25, 191, 47
-	.byte 250, 45, 44, 176, 250, 45, 56, 176
-	.byte 45, 72, 176, 45, 80, 176, 45, 72
-	.byte 176, 45, 80, 176, 45, 72, 176, 45
-	.byte 80, 176, 45, 72, 176, 45, 76, 176
-	.byte 178, 32, 233, 34, 8, 177
+	.byte KEYSH, 0
+	.byte VOICE, 19
+	.byte VOL, 25
+	.byte PAN, c_v-17
+	.byte N80
+	.byte An1, Gs1
+	.byte W96
+track_9_lbl_22e920:
+	.byte N80
+	.byte An1, Gs2
+	.byte W96
+	.byte An1, Cn4
+	.byte W96
+	.byte An1, Gs4
+	.byte W96
+	.byte An1, Cn4
+	.byte W96
+	.byte An1, Gs4
+	.byte W96
+	.byte An1, Cn4
+	.byte W96
+	.byte An1, Gs4
+	.byte W96
+	.byte An1, Cn4
+	.byte W96
+	.byte An1, En4
+	.byte W96
+	.byte GOTO
+		.word track_9_lbl_22e920
+
+	.byte FINE
 
 track_9_2:
-	.byte 188, 0, 189, 20, 190, 18, 191, 64
-	.byte 176, 176, 223, 86, 80, 144, 86, 48
-	.byte 144, 86, 24, 165, 180, 223, 94, 80
-	.byte 144, 94, 48, 144, 94, 24, 165, 180
-	.byte 89, 80, 144, 89, 48, 144, 89, 24
-	.byte 165, 176, 179, 76, 233, 34, 8, 223
-	.byte 96, 80, 144, 96, 48, 144, 96, 24
-	.byte 165, 179, 87, 233, 34, 8, 176, 178
-	.byte 75, 233, 34, 8, 177
+	.byte KEYSH, 0
+	.byte VOICE, 20
+	.byte VOL, 18
+	.byte PAN, c_v
+	.byte W96
+track_9_lbl_22e94b:
+	.byte W96
+track_9_lbl_22e94c:
+	.byte N16
+	.byte Dn5, Gs4
+	.byte W16
+	.byte Dn5, Cn2
+	.byte W16
+	.byte Dn5, Cn0
+	.byte W64
+	.byte PEND
+track_9_lbl_22e957:
+	.byte N16
+	.byte As5, Gs4
+	.byte W16
+	.byte As5, Cn2
+	.byte W16
+	.byte As5, Cn0
+	.byte W64
+	.byte PEND
+	.byte Fn5, Gs4
+	.byte W16
+	.byte Fn5, Cn2
+	.byte W16
+	.byte Fn5, Cn0
+	.byte W64
+	.byte W96
+	.byte PATT
+		.word track_9_lbl_22e94c
+	.byte N16
+	.byte Cn6, Gs4
+	.byte W16
+	.byte Cn6, Cn2
+	.byte W16
+	.byte Cn6, Cn0
+	.byte W64
+	.byte PATT
+		.word track_9_lbl_22e957
+	.byte W96
+	.byte GOTO
+		.word track_9_lbl_22e94b
+
+	.byte FINE
 
 .align 2
 

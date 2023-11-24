@@ -1,14 +1,33 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_472
 
 track_472_0:
-	.byte 188, 0, 187, 75, 189, 7, 190, 62
-	.byte 191, 64, 207, 60, 64, 155, 130, 196
-	.byte 20, 194, 120, 197, 1, 129, 164, 129
-	.byte 178, 226, 83, 33, 8, 129, 206, 60
-	.byte 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 7
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte TIE
+	.byte Cn3, En3
+	.byte W32
+	.byte W02
+	.byte MOD, 20
+	.byte LFOS, 120
+	.byte MODT, mod_tre
+	.byte W01
+track_472_lbl_2153e2:
+	.byte W60
+	.byte W01
+	.byte GOTO
+		.word track_472_lbl_2153e2
+	.byte W01
+	.byte EOT, Cn3
+
+	.byte FINE
 
 .align 2
 

@@ -1,27 +1,113 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_404
 
 track_404_0:
-	.byte 188, 0, 187, 75, 189, 0, 196, 30
-	.byte 190, 63, 191, 64, 193, 9, 194, 40
-	.byte 192, 72, 237, 60, 100, 130, 192, 68
-	.byte 130, 64, 130, 60, 130, 56, 130, 52
-	.byte 130, 48, 130, 44, 130, 40, 130, 36
-	.byte 130, 32, 130, 28, 130, 24, 130, 20
-	.byte 130, 16, 130, 12, 130, 8, 130, 4
-	.byte 130, 1, 134, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 0
+	.byte MOD, 30
+	.byte VOL, 63
+	.byte PAN, c_v
+	.byte BENDR, 9
+	.byte LFOS, 40
+	.byte BEND, c_v+8
+	.byte N42
+	.byte Cn3, En6
+	.byte W02
+	.byte BEND, c_v+4
+	.byte W02
+	.byte En3
+	.byte W02
+	.byte Cn3
+	.byte W02
+	.byte Gs2
+	.byte W02
+	.byte En2
+	.byte W02
+	.byte Cn2
+	.byte W02
+	.byte Gs1
+	.byte W02
+	.byte En1
+	.byte W02
+	.byte Cn1
+	.byte W02
+	.byte Gs0
+	.byte W02
+	.byte En0
+	.byte W02
+	.byte Cn0
+	.byte W02
+	.byte GsM1
+	.byte W02
+	.byte EnM1
+	.byte W02
+	.byte CnM1
+	.byte W02
+	.byte GsM2
+	.byte W02
+	.byte EnM2
+	.byte W02
+	.byte CsM2
+	.byte W06
+
+	.byte FINE
 
 track_404_1:
-	.byte 188, 0, 189, 3, 196, 30, 190, 70
-	.byte 191, 64, 193, 6, 194, 120, 192, 72
-	.byte 231, 53, 100, 130, 192, 68, 130, 64
-	.byte 130, 60, 130, 56, 130, 52, 130, 48
-	.byte 130, 44, 130, 40, 130, 36, 130, 32
-	.byte 130, 28, 130, 24, 225, 130, 192, 20
-	.byte 130, 16, 130, 12, 130, 8, 130, 4
-	.byte 130, 1, 134, 177
+	.byte KEYSH, 0
+	.byte VOICE, 3
+	.byte MOD, 30
+	.byte VOL, 70
+	.byte PAN, c_v
+	.byte BENDR, 6
+	.byte LFOS, 120
+	.byte BEND, c_v+8
+	.byte N24
+	.byte Fn2, En6
+	.byte W02
+	.byte BEND, c_v+4
+	.byte W02
+	.byte En3
+	.byte W02
+	.byte Cn3
+	.byte W02
+	.byte Gs2
+	.byte W02
+	.byte En2
+	.byte W02
+	.byte Cn2
+	.byte W02
+	.byte Gs1
+	.byte W02
+	.byte En1
+	.byte W02
+	.byte Cn1
+	.byte W02
+	.byte Gs0
+	.byte W02
+	.byte En0
+	.byte W02
+	.byte Cn0
+	.byte N18
+	.byte W02
+	.byte BEND, c_v-44
+	.byte W02
+	.byte EnM1
+	.byte W02
+	.byte CnM1
+	.byte W02
+	.byte GsM2
+	.byte W02
+	.byte EnM2
+	.byte W02
+	.byte CsM2
+	.byte W06
+
+	.byte FINE
 
 .align 2
 

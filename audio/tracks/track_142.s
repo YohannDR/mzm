@@ -1,18 +1,61 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_142
 
 track_142_0:
-	.byte 188, 0, 187, 75, 189, 31, 190, 59
-	.byte 191, 64, 193, 12, 192, 64, 233, 60
-	.byte 60, 130, 192, 66, 130, 69, 130, 72
-	.byte 130, 74, 130, 77, 130, 80, 130, 82
-	.byte 130, 85, 130, 88, 130, 90, 130, 93
-	.byte 130, 96, 134, 189, 17, 190, 74, 192
-	.byte 64, 207, 60, 100, 129, 165, 129, 154
-	.byte 178, 245, 188, 32, 8, 129, 206, 60
-	.byte 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 31
+	.byte VOL, 59
+	.byte PAN, c_v
+	.byte BENDR, 12
+	.byte BEND, c_v
+	.byte N30
+	.byte Cn3, Cn3
+	.byte W02
+	.byte BEND, c_v+2
+	.byte W02
+	.byte An3
+	.byte W02
+	.byte Cn4
+	.byte W02
+	.byte Dn4
+	.byte W02
+	.byte Fn4
+	.byte W02
+	.byte Gs4
+	.byte W02
+	.byte As4
+	.byte W02
+	.byte Cs5
+	.byte W02
+	.byte En5
+	.byte W02
+	.byte Fs5
+	.byte W02
+	.byte An5
+	.byte W02
+	.byte Cn6
+	.byte W06
+	.byte VOICE, 17
+	.byte VOL, 74
+	.byte BEND, c_v
+	.byte TIE
+	.byte Cn3, En6
+	.byte W01
+track_142_lbl_20bcf5:
+	.byte W64
+	.byte W01
+	.byte W30
+	.byte GOTO
+		.word track_142_lbl_20bcf5
+	.byte W01
+	.byte EOT, Cn3
+
+	.byte FINE
 
 .align 2
 

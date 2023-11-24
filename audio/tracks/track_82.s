@@ -1,12 +1,23 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_82
 
 track_82_0:
-	.byte 188, 0, 187, 60, 189, 2, 190, 0
-	.byte 231, 60, 12, 176, 178, 222, 184, 34
-	.byte 8, 177
+	.byte KEYSH, 0
+track_82_lbl_22b8de:
+	.byte TEMPO, 60
+	.byte VOICE, 2
+	.byte VOL, 0
+	.byte N24
+	.byte Cn3, CnM1
+	.byte W96
+	.byte GOTO
+		.word track_82_lbl_22b8de
+
+	.byte FINE
 
 .align 2
 

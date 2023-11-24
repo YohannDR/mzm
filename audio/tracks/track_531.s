@@ -1,32 +1,156 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_531
 
 track_531_0:
-	.byte 188, 0, 187, 75, 142, 189, 15, 190
-	.byte 0, 191, 64, 193, 0, 243, 43, 100
-	.byte 1, 243, 48, 100, 1, 129, 190, 2
-	.byte 129, 3, 129, 6, 129, 8, 129, 11
-	.byte 129, 14, 129, 18, 129, 23, 129, 29
-	.byte 129, 38, 129, 44, 129, 48, 129, 52
-	.byte 129, 55, 129, 58, 129, 61, 129, 63
-	.byte 129, 65, 129, 67, 129, 68, 129, 70
-	.byte 130, 70, 129, 71, 129, 70, 130, 70
-	.byte 130, 68, 129, 67, 130, 65, 129, 63
-	.byte 129, 61, 129, 60, 129, 58, 129, 56
-	.byte 129, 54, 129, 52, 129, 50, 129, 47
-	.byte 129, 44, 129, 41, 129, 36, 129, 31
-	.byte 129, 26, 129, 23, 129, 20, 129, 17
-	.byte 129, 14, 129, 13, 129, 10, 129, 9
-	.byte 129, 7, 129, 6, 129, 4, 129, 3
-	.byte 129, 2, 129, 0, 129, 0, 129, 177
-	.byte 
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte W14
+	.byte VOICE, 15
+	.byte VOL, 0
+	.byte PAN, c_v
+	.byte BENDR, 0
+	.byte N60
+	.byte Gn1, En6, CsM2
+	.byte N60
+	.byte Cn2, En6, CsM2
+	.byte W01
+	.byte VOL, 2
+	.byte W01
+	.byte DsM2
+	.byte W01
+	.byte FsM2
+	.byte W01
+	.byte GsM2
+	.byte W01
+	.byte BnM2
+	.byte W01
+	.byte DnM1
+	.byte W01
+	.byte FsM1
+	.byte W01
+	.byte BnM1
+	.byte W01
+	.byte Fn0
+	.byte W01
+	.byte Dn1
+	.byte W01
+	.byte Gs1
+	.byte W01
+	.byte Cn2
+	.byte W01
+	.byte En2
+	.byte W01
+	.byte Gn2
+	.byte W01
+	.byte As2
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte Gn3
+	.byte W01
+	.byte Gs3
+	.byte W01
+	.byte As3
+	.byte W02
+	.byte As3
+	.byte W01
+	.byte Bn3
+	.byte W01
+	.byte As3
+	.byte W02
+	.byte As3
+	.byte W02
+	.byte Gs3
+	.byte W01
+	.byte Gn3
+	.byte W02
+	.byte Fn3
+	.byte W01
+	.byte Ds3
+	.byte W01
+	.byte Cs3
+	.byte W01
+	.byte Cn3
+	.byte W01
+	.byte As2
+	.byte W01
+	.byte Gs2
+	.byte W01
+	.byte Fs2
+	.byte W01
+	.byte En2
+	.byte W01
+	.byte Dn2
+	.byte W01
+	.byte Bn1
+	.byte W01
+	.byte Gs1
+	.byte W01
+	.byte Fn1
+	.byte W01
+	.byte Cn1
+	.byte W01
+	.byte Gn0
+	.byte W01
+	.byte Dn0
+	.byte W01
+	.byte BnM1
+	.byte W01
+	.byte GsM1
+	.byte W01
+	.byte FnM1
+	.byte W01
+	.byte DnM1
+	.byte W01
+	.byte CsM1
+	.byte W01
+	.byte AsM2
+	.byte W01
+	.byte AnM2
+	.byte W01
+	.byte GnM2
+	.byte W01
+	.byte FsM2
+	.byte W01
+	.byte EnM2
+	.byte W01
+	.byte DsM2
+	.byte W01
+	.byte DnM2
+	.byte W01
+	.byte CnM2
+	.byte W01
+	.byte CnM2
+	.byte W01
+
+	.byte FINE
 
 track_531_1:
-	.byte 188, 0, 189, 2, 190, 42, 191, 64
-	.byte 212, 60, 80, 133, 64, 133, 71, 133
-	.byte 71, 32, 133, 71, 12, 133, 177
+	.byte KEYSH, 0
+	.byte VOICE, 2
+	.byte VOL, 42
+	.byte PAN, c_v
+	.byte N05
+	.byte Cn3, Gs4
+	.byte W05
+	.byte En3
+	.byte W05
+	.byte Bn3
+	.byte W05
+	.byte Bn3, Gs0
+	.byte W05
+	.byte Bn3, CnM1
+	.byte W05
+
+	.byte FINE
 
 .align 2
 

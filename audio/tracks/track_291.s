@@ -1,31 +1,141 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_291
 
 track_291_0:
-	.byte 188, 0, 187, 75, 189, 4, 190, 37
-	.byte 191, 60, 132, 234, 70, 40, 155, 189
-	.byte 20, 209, 71, 130, 72, 150, 189, 17
-	.byte 190, 28, 212, 60, 20, 133, 64, 32
-	.byte 133, 70, 40, 133, 62, 52, 133, 68
-	.byte 60, 133, 66, 133, 212, 60, 60, 133
-	.byte 64, 129, 132, 70, 133, 62, 133, 68
-	.byte 133, 66, 133, 72, 133, 62, 133, 70
-	.byte 133, 66, 133, 68, 133, 72, 133, 60
-	.byte 133, 64, 133, 70, 133, 62, 133, 68
-	.byte 133, 66, 133, 72, 133, 68, 133, 70
-	.byte 130, 131, 62, 133, 68, 133, 72, 133
-	.byte 60, 133, 64, 133, 70, 133, 62, 133
-	.byte 68, 133, 66, 133, 72, 133, 60, 133
-	.byte 66, 133, 68, 133, 64, 133, 72, 133
-	.byte 178, 152, 230, 32, 8, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 4
+	.byte VOL, 37
+	.byte PAN, c_v-4
+	.byte W04
+	.byte N32
+	.byte As3, En1
+	.byte W32
+	.byte VOICE, 20
+	.byte N02
+	.byte Bn3
+	.byte W02
+	.byte Cn4
+	.byte W22
+	.byte VOICE, 17
+	.byte VOL, 28
+	.byte N05
+	.byte Cn3, GsM1
+	.byte W05
+	.byte En3, Gs0
+	.byte W05
+	.byte As3, En1
+	.byte W05
+	.byte Dn3, En2
+	.byte W05
+	.byte Gs3, Cn3
+	.byte W05
+	.byte Fs3
+	.byte W05
+track_291_lbl_20e698:
+	.byte N05
+	.byte Cn3, Cn3
+	.byte W05
+	.byte En3
+	.byte W01
+	.byte W04
+	.byte As3
+	.byte W05
+	.byte Dn3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte Fs3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte Dn3
+	.byte W05
+	.byte As3
+	.byte W05
+	.byte Fs3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte Cn3
+	.byte W05
+	.byte En3
+	.byte W05
+	.byte As3
+	.byte W05
+	.byte Dn3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte Fs3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte As3
+	.byte W02
+	.byte W03
+	.byte Dn3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte Cn3
+	.byte W05
+	.byte En3
+	.byte W05
+	.byte As3
+	.byte W05
+	.byte Dn3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte Fs3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte Cn3
+	.byte W05
+	.byte Fs3
+	.byte W05
+	.byte Gs3
+	.byte W05
+	.byte En3
+	.byte W05
+	.byte Cn4
+	.byte W05
+	.byte GOTO
+		.word track_291_lbl_20e698
+
+	.byte FINE
 
 track_291_1:
-	.byte 188, 0, 176, 175, 130, 189, 21, 196
-	.byte 2, 190, 50, 191, 64, 194, 120, 207
-	.byte 48, 60, 130, 176, 164, 130, 206, 177
-	.byte 
+	.byte KEYSH, 0
+	.byte W96
+	.byte W92
+	.byte W02
+	.byte VOICE, 21
+	.byte MOD, 2
+	.byte VOL, 50
+	.byte PAN, c_v
+	.byte LFOS, 120
+	.byte TIE
+	.byte Cn2, Cn3
+	.byte W02
+	.byte W96
+	.byte W60
+	.byte W02
+	.byte EOT
+
+	.byte FINE
 
 .align 2
 

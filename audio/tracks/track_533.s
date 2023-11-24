@@ -1,35 +1,124 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_533
 
 track_533_0:
-	.byte 188, 0, 187, 75, 189, 2, 190, 62
-	.byte 191, 64, 211, 55, 80, 132, 59, 60
-	.byte 132, 66, 40, 144, 55, 80, 132, 59
-	.byte 60, 132, 66, 40, 144, 55, 80, 132
-	.byte 59, 60, 132, 66, 40, 144, 55, 80
-	.byte 132, 59, 60, 132, 66, 40, 144, 55
-	.byte 80, 132, 59, 60, 132, 66, 40, 132
-	.byte 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 2
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte N04
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W04
+
+	.byte FINE
 
 track_533_1:
-	.byte 188, 0, 136, 189, 2, 190, 47, 191
-	.byte 64, 211, 55, 80, 132, 59, 60, 132
-	.byte 66, 40, 144, 55, 80, 132, 59, 60
-	.byte 132, 66, 40, 144, 55, 80, 132, 59
-	.byte 60, 132, 66, 40, 144, 55, 80, 132
-	.byte 59, 60, 132, 66, 40, 136, 136, 55
-	.byte 80, 132, 59, 60, 132, 66, 40, 132
-	.byte 177
+	.byte KEYSH, 0
+	.byte W08
+	.byte VOICE, 2
+	.byte VOL, 47
+	.byte PAN, c_v
+	.byte N04
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W08
+	.byte W08
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W04
+
+	.byte FINE
 
 track_533_2:
-	.byte 188, 0, 189, 2, 190, 31, 191, 64
-	.byte 144, 211, 55, 80, 132, 59, 60, 132
-	.byte 66, 40, 144, 55, 80, 132, 59, 60
-	.byte 132, 66, 40, 144, 55, 80, 132, 59
-	.byte 60, 132, 66, 40, 144, 55, 80, 132
-	.byte 59, 60, 132, 66, 40, 132, 177
+	.byte KEYSH, 0
+	.byte VOICE, 2
+	.byte VOL, 31
+	.byte PAN, c_v
+	.byte W16
+	.byte N04
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W16
+	.byte Gn2, Gs4
+	.byte W04
+	.byte Bn2, Cn3
+	.byte W04
+	.byte Fs3, En1
+	.byte W04
+
+	.byte FINE
 
 .align 2
 

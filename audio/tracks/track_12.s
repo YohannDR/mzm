@@ -1,85 +1,479 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_12
 
 track_12_0:
-	.byte 188, 0, 187, 37, 189, 59, 190, 15
-	.byte 191, 42, 186, 30, 166, 208, 104, 36
-	.byte 134, 96, 134, 103, 134, 94, 134, 100
-	.byte 134, 108, 134, 109, 134, 98, 134, 102
-	.byte 134, 101, 134, 93, 134, 89, 134, 106
-	.byte 162, 156, 99, 134, 98, 134, 104, 134
-	.byte 94, 134, 98, 134, 103, 134, 208, 134
-	.byte 110, 134, 100, 134, 104, 134, 96, 134
-	.byte 99, 170, 208, 134, 98, 134, 96, 134
-	.byte 106, 134, 107, 134, 208, 134, 99, 134
-	.byte 96, 134, 103, 134, 102, 134, 101, 134
-	.byte 93, 134, 98, 140, 178, 102, 235, 34
-	.byte 8, 177
+	.byte KEYSH, 0
+track_12_lbl_22eb66:
+	.byte TEMPO, 37
+	.byte VOICE, 59
+	.byte VOL, 15
+	.byte PAN, c_v-22
+	.byte PRIO, 30
+	.byte W66
+	.byte N01
+	.byte Gs6, Cn1
+	.byte W06
+	.byte Cn6
+	.byte W06
+	.byte Gn6
+	.byte W06
+	.byte As5
+	.byte W06
+	.byte En6
+	.byte W06
+	.byte Cn7
+	.byte W06
+	.byte Cs7
+	.byte W06
+	.byte Dn6
+	.byte W06
+	.byte Fs6
+	.byte W06
+	.byte Fn6
+	.byte W06
+	.byte An5
+	.byte W06
+	.byte Fn5
+	.byte W06
+	.byte As6
+	.byte W54
+	.byte W36
+	.byte Ds6
+	.byte W06
+	.byte Dn6
+	.byte W06
+	.byte Gs6
+	.byte W06
+	.byte As5
+	.byte W06
+	.byte Dn6
+	.byte W06
+	.byte Gn6
+	.byte W06
+	.byte N01
+	.byte W06
+	.byte Dn7
+	.byte W06
+	.byte En6
+	.byte W06
+	.byte Gs6
+	.byte W06
+	.byte Cn6
+	.byte W06
+	.byte Ds6
+	.byte W78
+	.byte N01
+	.byte W06
+	.byte Dn6
+	.byte W06
+	.byte Cn6
+	.byte W06
+	.byte As6
+	.byte W06
+	.byte Bn6
+	.byte W06
+	.byte N01
+	.byte W06
+	.byte Ds6
+	.byte W06
+	.byte Cn6
+	.byte W06
+	.byte Gn6
+	.byte W06
+	.byte Fs6
+	.byte W06
+	.byte Fn6
+	.byte W06
+	.byte An5
+	.byte W06
+	.byte Dn6
+	.byte W12
+	.byte GOTO
+		.word track_12_lbl_22eb66
+
+	.byte FINE
 
 track_12_1:
-	.byte 188, 0, 189, 59, 190, 18, 191, 84
-	.byte 186, 29, 160, 208, 86, 40, 129, 81
-	.byte 130, 91, 129, 85, 130, 87, 129, 81
-	.byte 130, 77, 129, 86, 130, 80, 129, 85
-	.byte 130, 79, 129, 82, 130, 81, 129, 89
-	.byte 130, 87, 129, 84, 130, 80, 129, 91
-	.byte 130, 81, 129, 77, 130, 87, 146, 134
-	.byte 78, 129, 80, 130, 79, 129, 73, 130
-	.byte 75, 129, 77, 130, 74, 129, 81, 130
-	.byte 75, 208, 76, 129, 80, 130, 84, 129
-	.byte 72, 130, 78, 129, 81, 130, 78, 129
-	.byte 84, 130, 77, 129, 79, 130, 75, 129
-	.byte 85, 160, 131, 87, 130, 75, 129, 81
-	.byte 130, 73, 129, 79, 130, 77, 129, 91
-	.byte 130, 78, 129, 79, 208, 81, 130, 72
-	.byte 208, 74, 129, 92, 130, 73, 129, 85
-	.byte 130, 78, 152, 129, 208, 130, 83, 129
-	.byte 72, 130, 79, 129, 87, 130, 80, 129
-	.byte 67, 130, 88, 208, 89, 129, 75, 130
-	.byte 94, 129, 76, 130, 78, 129, 80, 130
-	.byte 84, 129, 72, 130, 78, 129, 76, 130
-	.byte 87, 129, 75, 130, 77, 129, 86, 130
-	.byte 76, 154, 152, 87, 129, 208, 130, 75
-	.byte 129, 79, 130, 74, 129, 86, 130, 78
-	.byte 129, 95, 130, 85, 129, 86, 130, 84
-	.byte 129, 96, 130, 79, 129, 85, 130, 87
-	.byte 129, 80, 130, 83, 129, 71, 130, 75
-	.byte 129, 70, 130, 80, 129, 77, 208, 79
-	.byte 130, 86, 129, 78, 130, 89, 129, 80
-	.byte 155, 131, 140, 87, 129, 73, 130, 79
-	.byte 129, 72, 130, 89, 129, 68, 130, 82
-	.byte 129, 73, 130, 87, 129, 75, 130, 80
-	.byte 129, 74, 130, 82, 129, 71, 130, 86
-	.byte 156, 131, 178, 200, 235, 34, 8, 177
-	.byte 
+	.byte KEYSH, 0
+track_12_lbl_22ebc8:
+	.byte VOICE, 59
+	.byte VOL, 18
+	.byte PAN, c_v+20
+	.byte PRIO, 29
+	.byte W48
+	.byte N01
+	.byte Dn5, En1
+	.byte W01
+	.byte An4
+	.byte W02
+	.byte Gn5
+	.byte W01
+	.byte Cs5
+	.byte W02
+	.byte Ds5
+	.byte W01
+	.byte An4
+	.byte W02
+	.byte Fn4
+	.byte W01
+	.byte Dn5
+	.byte W02
+	.byte Gs4
+	.byte W01
+	.byte Cs5
+	.byte W02
+	.byte Gn4
+	.byte W01
+	.byte As4
+	.byte W02
+	.byte An4
+	.byte W01
+	.byte Fn5
+	.byte W02
+	.byte Ds5
+	.byte W01
+	.byte Cn5
+	.byte W02
+	.byte Gs4
+	.byte W01
+	.byte Gn5
+	.byte W02
+	.byte An4
+	.byte W01
+	.byte Fn4
+	.byte W02
+	.byte Ds5
+	.byte W18
+	.byte W06
+	.byte Fs4
+	.byte W01
+	.byte Gs4
+	.byte W02
+	.byte Gn4
+	.byte W01
+	.byte Cs4
+	.byte W02
+	.byte Ds4
+	.byte W01
+	.byte Fn4
+	.byte W02
+	.byte Dn4
+	.byte W01
+	.byte An4
+	.byte W02
+	.byte Ds4
+	.byte N01
+	.byte En4
+	.byte W01
+	.byte Gs4
+	.byte W02
+	.byte Cn5
+	.byte W01
+	.byte Cn4
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte An4
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte Cn5
+	.byte W02
+	.byte Fn4
+	.byte W01
+	.byte Gn4
+	.byte W02
+	.byte Ds4
+	.byte W01
+	.byte Cs5
+	.byte W48
+	.byte W03
+	.byte Ds5
+	.byte W02
+	.byte Ds4
+	.byte W01
+	.byte An4
+	.byte W02
+	.byte Cs4
+	.byte W01
+	.byte Gn4
+	.byte W02
+	.byte Fn4
+	.byte W01
+	.byte Gn5
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte Gn4
+	.byte N01
+	.byte An4
+	.byte W02
+	.byte Cn4
+	.byte N01
+	.byte Dn4
+	.byte W01
+	.byte Gs5
+	.byte W02
+	.byte Cs4
+	.byte W01
+	.byte Cs5
+	.byte W02
+	.byte Fs4
+	.byte W24
+	.byte W01
+	.byte N01
+	.byte W02
+	.byte Bn4
+	.byte W01
+	.byte Cn4
+	.byte W02
+	.byte Gn4
+	.byte W01
+	.byte Ds5
+	.byte W02
+	.byte Gs4
+	.byte W01
+	.byte Gn3
+	.byte W02
+	.byte En5
+	.byte N01
+	.byte Fn5
+	.byte W01
+	.byte Ds4
+	.byte W02
+	.byte As5
+	.byte W01
+	.byte En4
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte Gs4
+	.byte W02
+	.byte Cn5
+	.byte W01
+	.byte Cn4
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte En4
+	.byte W02
+	.byte Ds5
+	.byte W01
+	.byte Ds4
+	.byte W02
+	.byte Fn4
+	.byte W01
+	.byte Dn5
+	.byte W02
+	.byte En4
+	.byte W30
+	.byte W24
+	.byte Ds5
+	.byte W01
+	.byte N01
+	.byte W02
+	.byte Ds4
+	.byte W01
+	.byte Gn4
+	.byte W02
+	.byte Dn4
+	.byte W01
+	.byte Dn5
+	.byte W02
+	.byte Fs4
+	.byte W01
+	.byte Bn5
+	.byte W02
+	.byte Cs5
+	.byte W01
+	.byte Dn5
+	.byte W02
+	.byte Cn5
+	.byte W01
+	.byte Cn6
+	.byte W02
+	.byte Gn4
+	.byte W01
+	.byte Cs5
+	.byte W02
+	.byte Ds5
+	.byte W01
+	.byte Gs4
+	.byte W02
+	.byte Bn4
+	.byte W01
+	.byte Bn3
+	.byte W02
+	.byte Ds4
+	.byte W01
+	.byte As3
+	.byte W02
+	.byte Gs4
+	.byte W01
+	.byte Fn4
+	.byte N01
+	.byte Gn4
+	.byte W02
+	.byte Dn5
+	.byte W01
+	.byte Fs4
+	.byte W02
+	.byte Fn5
+	.byte W01
+	.byte Gs4
+	.byte W32
+	.byte W03
+	.byte W12
+	.byte Ds5
+	.byte W01
+	.byte Cs4
+	.byte W02
+	.byte Gn4
+	.byte W01
+	.byte Cn4
+	.byte W02
+	.byte Fn5
+	.byte W01
+	.byte Gs3
+	.byte W02
+	.byte As4
+	.byte W01
+	.byte Cs4
+	.byte W02
+	.byte Ds5
+	.byte W01
+	.byte Ds4
+	.byte W02
+	.byte Gs4
+	.byte W01
+	.byte Dn4
+	.byte W02
+	.byte As4
+	.byte W01
+	.byte Bn3
+	.byte W02
+	.byte Dn5
+	.byte W36
+	.byte W03
+	.byte GOTO
+		.word track_12_lbl_22ebc8
+
+	.byte FINE
 
 track_12_2:
-	.byte 188, 0, 189, 22, 190, 15, 191, 64
-	.byte 186, 28, 176, 160, 213, 90, 28, 140
-	.byte 213, 140, 213, 140, 213, 140, 213, 140
-	.byte 213, 172, 140, 213, 140, 213, 140, 213
-	.byte 140, 213, 140, 213, 140, 213, 152, 168
-	.byte 178, 216, 236, 34, 8, 177
+	.byte KEYSH, 0
+track_12_lbl_22ecd8:
+	.byte VOICE, 22
+	.byte VOL, 15
+	.byte PAN, c_v
+	.byte PRIO, 28
+	.byte W96
+	.byte W48
+	.byte N06
+	.byte Fs5, En0
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W84
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W12
+	.byte N06
+	.byte W24
+	.byte W72
+	.byte GOTO
+		.word track_12_lbl_22ecd8
+
+	.byte FINE
 
 track_12_3:
-	.byte 188, 0, 189, 14, 190, 62, 191, 47
-	.byte 186, 120, 255, 62, 100, 176, 156, 255
-	.byte 164, 176, 140, 207, 172, 156, 206, 156
-	.byte 178, 6, 237, 34, 8, 177
+	.byte KEYSH, 0
+track_12_lbl_22ed06:
+	.byte VOICE, 14
+	.byte VOL, 62
+	.byte PAN, c_v-17
+	.byte PRIO, 120
+	.byte N96
+	.byte Dn3, En6
+	.byte W96
+	.byte W36
+	.byte N96
+	.byte W60
+	.byte W96
+	.byte W12
+	.byte TIE
+	.byte W84
+	.byte W36
+	.byte EOT
+	.byte W36
+	.byte GOTO
+		.word track_12_lbl_22ed06
+
+	.byte FINE
 
 track_12_4:
-	.byte 188, 0, 189, 19, 190, 37, 191, 79
-	.byte 186, 119, 255, 22, 92, 176, 156, 255
-	.byte 164, 176, 140, 207, 172, 156, 206, 156
-	.byte 178, 36, 237, 34, 8, 177
+	.byte KEYSH, 0
+track_12_lbl_22ed24:
+	.byte VOICE, 19
+	.byte VOL, 37
+	.byte PAN, c_v+15
+	.byte PRIO, 119
+	.byte N96
+	.byte AsM1, Gs5
+	.byte W96
+	.byte W36
+	.byte N96
+	.byte W60
+	.byte W96
+	.byte W12
+	.byte TIE
+	.byte W84
+	.byte W36
+	.byte EOT
+	.byte W36
+	.byte GOTO
+		.word track_12_lbl_22ed24
+
+	.byte FINE
 
 track_12_5:
-	.byte 188, 0, 189, 0, 190, 62, 191, 64
-	.byte 186, 118, 207, 48, 120, 176, 176, 176
-	.byte 176, 168, 206, 178, 66, 237, 34, 8
-	.byte 177
+	.byte KEYSH, 0
+track_12_lbl_22ed42:
+	.byte VOICE, 0
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte PRIO, 118
+	.byte TIE
+	.byte Cn2, Cn8
+	.byte W96
+	.byte W96
+	.byte W96
+	.byte W96
+	.byte W72
+	.byte EOT
+	.byte GOTO
+		.word track_12_lbl_22ed42
+
+	.byte FINE
 
 .align 2
 

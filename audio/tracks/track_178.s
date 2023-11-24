@@ -1,25 +1,97 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_178
 
 track_178_0:
-	.byte 188, 0, 187, 75, 189, 9, 190, 51
-	.byte 191, 50, 193, 12, 192, 1, 233, 48
-	.byte 80, 1, 129, 190, 54, 192, 7, 129
-	.byte 190, 58, 192, 14, 129, 190, 62, 192
-	.byte 23, 129, 190, 68, 192, 33, 129, 190
-	.byte 75, 192, 45, 129, 190, 86, 192, 61
-	.byte 129, 79, 129, 94, 129, 104, 129, 110
-	.byte 129, 112, 129, 111, 129, 108, 129, 103
-	.byte 129, 97, 129, 91, 129, 79, 129, 67
-	.byte 129, 57, 129, 49, 129, 40, 129, 190
-	.byte 63, 192, 33, 129, 190, 47, 192, 27
-	.byte 129, 190, 35, 192, 21, 129, 190, 26
-	.byte 192, 17, 129, 190, 19, 192, 12, 129
-	.byte 190, 12, 192, 7, 129, 190, 7, 192
-	.byte 4, 129, 190, 4, 192, 1, 129, 190
-	.byte 0, 129, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 9
+	.byte VOL, 51
+	.byte PAN, c_v-14
+	.byte BENDR, 12
+	.byte BEND, c_v-63
+	.byte N30
+	.byte Cn2, Gs4, CsM2
+	.byte W01
+	.byte VOL, 54
+	.byte BEND, c_v-57
+	.byte W01
+	.byte VOL, 58
+	.byte BEND, c_v-50
+	.byte W01
+	.byte VOL, 62
+	.byte BEND, c_v-41
+	.byte W01
+	.byte VOL, 68
+	.byte BEND, c_v-31
+	.byte W01
+	.byte VOL, 75
+	.byte BEND, c_v-19
+	.byte W01
+	.byte VOL, 86
+	.byte BEND, c_v-3
+	.byte W01
+	.byte Gn4
+	.byte W01
+	.byte As5
+	.byte W01
+	.byte Gs6
+	.byte W01
+	.byte Dn7
+	.byte W01
+	.byte En7
+	.byte W01
+	.byte Ds7
+	.byte W01
+	.byte Cn7
+	.byte W01
+	.byte Gn6
+	.byte W01
+	.byte Cs6
+	.byte W01
+	.byte Gn5
+	.byte W01
+	.byte Gn4
+	.byte W01
+	.byte Gn3
+	.byte W01
+	.byte An2
+	.byte W01
+	.byte Cs2
+	.byte W01
+	.byte En1
+	.byte W01
+	.byte VOL, 63
+	.byte BEND, c_v-31
+	.byte W01
+	.byte VOL, 47
+	.byte BEND, c_v-37
+	.byte W01
+	.byte VOL, 35
+	.byte BEND, c_v-43
+	.byte W01
+	.byte VOL, 26
+	.byte BEND, c_v-47
+	.byte W01
+	.byte VOL, 19
+	.byte BEND, c_v-52
+	.byte W01
+	.byte VOL, 12
+	.byte BEND, c_v-57
+	.byte W01
+	.byte VOL, 7
+	.byte BEND, c_v-60
+	.byte W01
+	.byte VOL, 4
+	.byte BEND, c_v-63
+	.byte W01
+	.byte VOL, 0
+	.byte W01
+
+	.byte FINE
 
 .align 2
 

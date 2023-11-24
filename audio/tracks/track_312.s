@@ -1,20 +1,64 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_312
 
 track_312_0:
-	.byte 188, 0, 187, 75, 189, 11, 190, 78
-	.byte 191, 64, 210, 60, 96, 131, 189, 20
-	.byte 215, 60, 100, 136, 57, 136, 189, 19
-	.byte 222, 60, 92, 136, 190, 62, 129, 47
-	.byte 129, 31, 129, 15, 129, 7, 129, 3
-	.byte 129, 0, 155, 131, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 11
+	.byte VOL, 78
+	.byte PAN, c_v
+	.byte N03
+	.byte Cn3, Cn6
+	.byte W03
+	.byte VOICE, 20
+	.byte N08
+	.byte Cn3, En6
+	.byte W08
+	.byte An2
+	.byte W08
+	.byte VOICE, 19
+	.byte N15
+	.byte Cn3, Gs5
+	.byte W08
+	.byte VOL, 62
+	.byte W01
+	.byte Bn1
+	.byte W01
+	.byte Gn0
+	.byte W01
+	.byte DsM1
+	.byte W01
+	.byte GnM2
+	.byte W01
+	.byte DsM2
+	.byte W01
+	.byte CnM2
+	.byte W32
+	.byte W03
+
+	.byte FINE
 
 track_312_1:
-	.byte 188, 0, 189, 0, 190, 94, 191, 64
-	.byte 186, 55, 209, 81, 80, 131, 212, 57
-	.byte 112, 135, 53, 100, 163, 130, 177
+	.byte KEYSH, 0
+	.byte VOICE, 0
+	.byte VOL, 94
+	.byte PAN, c_v
+	.byte PRIO, 55
+	.byte N02
+	.byte An4, Gs4
+	.byte W03
+	.byte N05
+	.byte An2, En7
+	.byte W07
+	.byte Fn2, En6
+	.byte W56
+	.byte W02
+
+	.byte FINE
 
 .align 2
 

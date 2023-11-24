@@ -1,22 +1,59 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_423
 
 track_423_0:
-	.byte 188, 0, 187, 75, 189, 4, 190, 86
-	.byte 191, 64, 217, 60, 80, 138, 64, 40
-	.byte 138, 64, 12, 158, 129, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 4
+	.byte VOL, 86
+	.byte PAN, c_v
+	.byte N10
+	.byte Cn3, Gs4
+	.byte W10
+	.byte En3, En1
+	.byte W10
+	.byte En3, CnM1
+	.byte W42
+	.byte W01
+
+	.byte FINE
 
 track_423_1:
-	.byte 188, 0, 189, 2, 190, 62, 191, 64
-	.byte 212, 60, 80, 133, 189, 3, 230, 57
-	.byte 100, 163, 130, 177
+	.byte KEYSH, 0
+	.byte VOICE, 2
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte N05
+	.byte Cn3, Gs4
+	.byte W05
+	.byte VOICE, 3
+	.byte N23
+	.byte An2, En6
+	.byte W56
+	.byte W02
+
+	.byte FINE
 
 track_423_2:
-	.byte 188, 0, 189, 0, 190, 94, 191, 64
-	.byte 186, 22, 209, 81, 80, 130, 189, 1
-	.byte 211, 53, 112, 164, 129, 177
+	.byte KEYSH, 0
+	.byte VOICE, 0
+	.byte VOL, 94
+	.byte PAN, c_v
+	.byte PRIO, 22
+	.byte N02
+	.byte An4, Gs4
+	.byte W02
+	.byte VOICE, 1
+	.byte N04
+	.byte Fn2, En7
+	.byte W60
+	.byte W01
+
+	.byte FINE
 
 .align 2
 

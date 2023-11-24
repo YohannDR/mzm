@@ -562,6 +562,12 @@ def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
     result = ""
 
     while value != 0xB1:
+        if value == 0xB6:
+            value: int = int.from_bytes(f.read(1), "little")
+            result += "\t.byte 0xB6"
+            if value == 0x0 or value == 0xBC:
+                break
+
         if value >= 0x80 and value <= 0xb0:
             # Wait command
             value -= 0x80
@@ -594,12 +600,6 @@ def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
                         
                     if value >= 0xcf:
                         result += ", " + notes[value - 0xcf]
-                        value: int = int.from_bytes(f.read(1), "little")
-                        
-                        if value >= 0xcf:
-                            result += ", " + notes[value - 0xcf]
-                        else:
-                            f.seek(f.tell() - 1)
                     else:
                         f.seek(f.tell() - 1)
                 else:
@@ -621,12 +621,6 @@ def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
                         
                     if value < 0x80:
                         result += ", " + notesTieEot[value]
-                        value: int = int.from_bytes(f.read(1), "little")
-                        
-                        if value < 0x80:
-                            result += ", " + notesTieEot[value]
-                        else:
-                            f.seek(f.tell() - 1)
                     else:
                         f.seek(f.tell() - 1)
                 else:
@@ -634,8 +628,8 @@ def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
             else:
                 f.seek(f.tell() - 1)
 
-        value = int.from_bytes(f.read(1), "little")
         result += "\n" + name + hex(f.tell()) + ":\n"
+        value = int.from_bytes(f.read(1), "little")
 
     splitted = result.split("\n")
     result = ""
@@ -643,7 +637,12 @@ def ExtractTrackCommands(f: BufferedReader, addr: int, trackNbr: int):
         if x.find("0x") == -1:
             result += x + "\n"
 
-    result += "\t.byte FINE\n\n"
+    if value == 0xB1:
+        result += "\t.byte FINE"
+    else:
+        result += "\t.byte 0xB6"
+
+    result += "\n\n"
     return result
 
 def ExtractSoundHeader(f: BufferedReader, addr: int, number: int):
@@ -656,7 +655,7 @@ def ExtractSoundHeader(f: BufferedReader, addr: int, number: int):
         os.remove(filePath)
 
     output = open(filePath, "w")
-    content = ".align 2\n\n.section .rodata\n.global " + name + "\n\n"
+    content = '.include "audio/m_play_def.s"\n\n.align 2\n\n.section .rodata\n.global ' + name + '\n\n'
 
     nbrTracks: int = int.from_bytes(f.read(1), "little")
     unk_1: int = int.from_bytes(f.read(1), "little")
@@ -726,11 +725,6 @@ def ExtractTracks(f: BufferedReader):
     content += "\n"
     output.write(content)
     output.close()
-
-    sorted_dict = dict(sorted(existingHeaders.items()))
-
-    for key, value in sorted_dict.items():
-        print(value)
 
 def Func():
     addr = 0x8cf70

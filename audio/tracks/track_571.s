@@ -1,33 +1,117 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_571
 
 track_571_0:
-	.byte 188, 0, 187, 75, 189, 18, 196, 16
-	.byte 190, 0, 194, 4, 191, 94, 207, 53
-	.byte 120, 131, 190, 1, 191, 91, 131, 190
-	.byte 4, 191, 89, 131, 190, 6, 191, 86
-	.byte 131, 190, 9, 191, 84, 131, 190, 11
-	.byte 191, 81, 131, 190, 15, 191, 79, 131
-	.byte 190, 19, 191, 76, 131, 190, 24, 191
-	.byte 74, 131, 190, 32, 191, 71, 131, 190
-	.byte 39, 191, 69, 131, 190, 49, 191, 66
-	.byte 131, 190, 62, 191, 64, 164, 176, 176
-	.byte 168, 206, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 18
+	.byte MOD, 16
+	.byte VOL, 0
+	.byte LFOS, 4
+	.byte PAN, c_v+30
+	.byte TIE
+	.byte Fn2, Cn8
+	.byte W03
+	.byte VOL, 1
+	.byte PAN, c_v+27
+	.byte W03
+	.byte VOL, 4
+	.byte PAN, c_v+25
+	.byte W03
+	.byte VOL, 6
+	.byte PAN, c_v+22
+	.byte W03
+	.byte VOL, 9
+	.byte PAN, c_v+20
+	.byte W03
+	.byte VOL, 11
+	.byte PAN, c_v+17
+	.byte W03
+	.byte VOL, 15
+	.byte PAN, c_v+15
+	.byte W03
+	.byte VOL, 19
+	.byte PAN, c_v+12
+	.byte W03
+	.byte VOL, 24
+	.byte PAN, c_v+10
+	.byte W03
+	.byte VOL, 32
+	.byte PAN, c_v+7
+	.byte W03
+	.byte VOL, 39
+	.byte PAN, c_v+5
+	.byte W03
+	.byte VOL, 49
+	.byte PAN, c_v+2
+	.byte W03
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte W60
+	.byte W96
+	.byte W96
+	.byte W72
+	.byte EOT
+
+	.byte FINE
 
 track_571_1:
-	.byte 188, 0, 189, 12, 196, 30, 190, 0
-	.byte 194, 10, 197, 1, 191, 94, 207, 55
-	.byte 80, 131, 190, 1, 191, 91, 131, 190
-	.byte 4, 191, 89, 131, 190, 6, 191, 86
-	.byte 131, 190, 9, 191, 84, 131, 190, 11
-	.byte 191, 81, 131, 190, 15, 191, 79, 131
-	.byte 190, 19, 191, 76, 131, 190, 24, 191
-	.byte 74, 131, 190, 32, 191, 71, 131, 190
-	.byte 39, 191, 69, 131, 190, 49, 191, 66
-	.byte 131, 190, 62, 191, 64, 164, 176, 176
-	.byte 168, 206, 177
+	.byte KEYSH, 0
+	.byte VOICE, 12
+	.byte MOD, 30
+	.byte VOL, 0
+	.byte LFOS, 10
+	.byte MODT, mod_tre
+	.byte PAN, c_v+30
+	.byte TIE
+	.byte Gn2, Gs4
+	.byte W03
+	.byte VOL, 1
+	.byte PAN, c_v+27
+	.byte W03
+	.byte VOL, 4
+	.byte PAN, c_v+25
+	.byte W03
+	.byte VOL, 6
+	.byte PAN, c_v+22
+	.byte W03
+	.byte VOL, 9
+	.byte PAN, c_v+20
+	.byte W03
+	.byte VOL, 11
+	.byte PAN, c_v+17
+	.byte W03
+	.byte VOL, 15
+	.byte PAN, c_v+15
+	.byte W03
+	.byte VOL, 19
+	.byte PAN, c_v+12
+	.byte W03
+	.byte VOL, 24
+	.byte PAN, c_v+10
+	.byte W03
+	.byte VOL, 32
+	.byte PAN, c_v+7
+	.byte W03
+	.byte VOL, 39
+	.byte PAN, c_v+5
+	.byte W03
+	.byte VOL, 49
+	.byte PAN, c_v+2
+	.byte W03
+	.byte VOL, 62
+	.byte PAN, c_v
+	.byte W60
+	.byte W96
+	.byte W96
+	.byte W72
+	.byte EOT
+
+	.byte FINE
 
 .align 2
 

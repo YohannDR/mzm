@@ -1,26 +1,107 @@
+.include "audio/m_play_def.s"
+
 .align 2
 
 .section .rodata
 .global track_410
 
 track_410_0:
-	.byte 188, 0, 187, 75, 189, 6, 190, 47
-	.byte 191, 64, 193, 12, 192, 1, 235, 62
-	.byte 100, 1, 129, 190, 49, 192, 5, 129
-	.byte 190, 51, 192, 11, 129, 190, 54, 192
-	.byte 17, 129, 190, 58, 192, 24, 129, 190
-	.byte 64, 192, 33, 129, 190, 75, 192, 45
-	.byte 129, 59, 129, 79, 129, 109, 129, 119
-	.byte 129, 121, 130, 115, 129, 107, 129, 97
-	.byte 129, 87, 129, 76, 129, 65, 129, 53
-	.byte 129, 43, 129, 37, 129, 35, 129, 33
-	.byte 129, 35, 129, 39, 129, 47, 129, 53
-	.byte 129, 60, 129, 190, 47, 192, 65, 129
-	.byte 190, 32, 192, 69, 129, 190, 23, 192
-	.byte 71, 129, 190, 15, 192, 69, 129, 190
-	.byte 11, 192, 68, 129, 190, 6, 192, 66
-	.byte 129, 190, 2, 192, 65, 129, 190, 0
-	.byte 192, 64, 129, 177
+	.byte KEYSH, 0
+	.byte TEMPO, 75
+	.byte VOICE, 6
+	.byte VOL, 47
+	.byte PAN, c_v
+	.byte BENDR, 12
+	.byte BEND, c_v-63
+	.byte N36
+	.byte Dn3, En6, CsM2
+	.byte W01
+	.byte VOL, 49
+	.byte BEND, c_v-59
+	.byte W01
+	.byte VOL, 51
+	.byte BEND, c_v-53
+	.byte W01
+	.byte VOL, 54
+	.byte BEND, c_v-47
+	.byte W01
+	.byte VOL, 58
+	.byte BEND, c_v-40
+	.byte W01
+	.byte VOL, 64
+	.byte BEND, c_v-31
+	.byte W01
+	.byte VOL, 75
+	.byte BEND, c_v-19
+	.byte W01
+	.byte Bn2
+	.byte W01
+	.byte Gn4
+	.byte W01
+	.byte Cs7
+	.byte W01
+	.byte Bn7
+	.byte W01
+	.byte Cs8
+	.byte W02
+	.byte Gn7
+	.byte W01
+	.byte Bn6
+	.byte W01
+	.byte Cs6
+	.byte W01
+	.byte Ds5
+	.byte W01
+	.byte En4
+	.byte W01
+	.byte Fn3
+	.byte W01
+	.byte Fn2
+	.byte W01
+	.byte Gn1
+	.byte W01
+	.byte Cs1
+	.byte W01
+	.byte Bn0
+	.byte W01
+	.byte An0
+	.byte W01
+	.byte Bn0
+	.byte W01
+	.byte Ds1
+	.byte W01
+	.byte Bn1
+	.byte W01
+	.byte Fn2
+	.byte W01
+	.byte Cn3
+	.byte W01
+	.byte VOL, 47
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 32
+	.byte BEND, c_v+5
+	.byte W01
+	.byte VOL, 23
+	.byte BEND, c_v+7
+	.byte W01
+	.byte VOL, 15
+	.byte BEND, c_v+5
+	.byte W01
+	.byte VOL, 11
+	.byte BEND, c_v+4
+	.byte W01
+	.byte VOL, 6
+	.byte BEND, c_v+2
+	.byte W01
+	.byte VOL, 2
+	.byte BEND, c_v+1
+	.byte W01
+	.byte VOL, 0
+	.byte BEND, c_v
+	.byte W01
+
+	.byte FINE
 
 .align 2
 
