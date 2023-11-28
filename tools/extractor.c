@@ -53,38 +53,34 @@ int remove_file_or_directory(const char *fpath, const struct stat *sb, int typef
 
     if (rv)
     {
-    	// If found an error, print to stderr with errno:
+        // If found an error, print to stderr with errno:
         perror(fpath);
-	exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     return rv;
 }
 
-void str_split(const char *s, char del, char ***result)
+/* Splits a string (s) by a given delimiter (del) into a
+ * a preallocated buffer (result), without allocating
+ * new memory. result should be properly allocated to
+ * store all of the substrings.
+ * s is edited as a byproduct of calling this function.
+ * None of the elements stored in result should be freed,
+ * only s.
+ */
+void str_split(char *s, char del, char **result)
 {
-    int count = 0;
-    const char *p = s;
-    while (*p != '\0')
-    {
-        if (*p == del)
-            count++;
-        p++;
-    }
-    count++; // Add 1 to get last substring
-
-    *result = (char **)malloc(count * sizeof(char *));
     size_t idx = 0;
-    const char *start = s;
-    p = s;
+    char *start = s;
+    char *p = s;
     while (*p != '\0')
     {
         if (*p == del)
         {
             size_t len = p - start;
-            (*result)[idx] = (char *)malloc((len + 1) * sizeof(char));
-            strncpy((*result)[idx], start, len);
-            (*result)[idx][len] = '\0';
+            result[idx] = start;
+            result[idx][len] = '\0';
             idx++;
             start = p + 1;
         }
@@ -92,9 +88,8 @@ void str_split(const char *s, char del, char ***result)
     }
     // Last substring:
     size_t len = p - start;
-    (*result)[idx] = (char *)malloc((len + 1) * sizeof(char));
-    strncpy((*result)[idx], start, len);
-    (*result)[idx][len] = '\0';
+    result[idx] = start;
+    result[idx][len] = '\0';
 }
 
 int main()
@@ -126,7 +121,7 @@ int main()
         {
             struct stat st;
             if (stat(dataPath, &st) == 0)
-	    {
+            {
                 printf("Deleting old files...\n");
                 nftw(dataPath, remove_file_or_directory, 10, FTW_DEPTH | FTW_PHYS);
             }
@@ -155,8 +150,8 @@ int main()
             {
                 if (line[0] == '#' || line[0] == '\n')
                     continue;
-		database[i] = (char *)malloc(MAX_PATH_LENGTH * sizeof(char));
-		strcpy(database[i++], line);
+                database[i] = (char *)malloc(MAX_PATH_LENGTH * sizeof(char));
+                strcpy(database[i++], line);
             }
         }
     }
@@ -180,8 +175,8 @@ int main()
     #pragma omp for
     for (size_t i = 0; i < databaseSize; ++i)
     {
-        char **split;
-        str_split(database[i], ';', &split);
+        char *split[4];
+        str_split(database[i], ';', split);
 
         // Extract data:
         char *name = split[0];
@@ -193,13 +188,7 @@ int main()
         char filePath[MAX_PATH_LENGTH];
         snprintf(filePath, sizeof(filePath), "%s%s", dataPath, name);
 
-	free(split[0]);
-	free(split[1]);
-	free(split[2]);
-	free(split[3]);
-	free(split);
-
-	create_directories(filePath);
+        create_directories(filePath);
         char *data = (char *)malloc(length * size);
         if (!data)
         {
