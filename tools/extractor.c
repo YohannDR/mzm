@@ -143,11 +143,11 @@ int main()
 
             // Create and populate database array:
             database = (char *)malloc(databaseSize * MAX_PATH_LENGTH * sizeof(char));
-			if (database == NULL)
-			{
-				fprintf(stderr, "Error allocating buffer for the database\n.");
-				exit(EXIT_FAILURE);
-			}
+            if (database == NULL)
+            {
+                fprintf(stderr, "Error allocating buffer for the database\n.");
+                exit(EXIT_FAILURE);
+            }
 
             size_t i = 0;
             while (fgets(line, sizeof(line), databaseFile) != NULL)
