@@ -1916,21 +1916,17 @@ u32 SramCopyFile(u8 src, u8 dst)
     return gDisableSoftreset ^ TRUE;
 }
 
-#ifdef NON_MATCHING
 void SramWrite_FileInfo(void)
 {
-    // https://decomp.me/scratch/c9e6c
-    
     s32 i;
-    s32 j;
     struct Sram* pSram;
     struct SaveFile* pFile;
 
     pSram = &gSram;
     
-    for (i = 0, j = 0; j < ARRAY_SIZE(pSram->files); i++, j++)
+    for (i = 0; i < ARRAY_SIZE(pSram->files); i++)
     {
-        pFile = &pSram->files[j];
+        pFile = &pSram->files[i];
 
         gSaveFilesInfo[i].currentArea = pFile->currentArea;
 
@@ -1988,150 +1984,6 @@ void SramWrite_FileInfo(void)
         gSaveFilesInfo[i].timeAttack = pFile->timeAttack;
     }
 }
-#else
-NAKED_FUNCTION
-void SramWrite_FileInfo(void)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, r8 \n\
-    push {r7} \n\
-    ldr r0, lbl_0807574c @ =0x02038000 \n\
-    movs r6, #0 \n\
-    ldr r1, lbl_08075750 @ =gSaveFilesInfo \n\
-    add r5, r0, #0 \n\
-    add r5, #0xbc \n\
-    add r4, r0, #0 \n\
-    add r4, #0x98 \n\
-    add r3, r0, #0 \n\
-    add r3, #0x80 \n\
-    movs r0, #0x91 \n\
-    lsl r0, r0, #5 \n\
-    mov ip, r0 \n\
-    movs r7, #2 \n\
-    mov r8, r7 \n\
-lbl_080756e2: \n\
-    ldrb r0, [r4, #5] \n\
-    strb r0, [r1, #2] \n\
-    ldrb r2, [r1] \n\
-    cmp r2, #1 \n\
-    bne lbl_08075756 \n\
-    movs r7, #0xd1 \n\
-    lsl r7, r7, #1 \n\
-    add r0, r3, r7 \n\
-    ldrh r0, [r0] \n\
-    strh r0, [r1, #4] \n\
-    sub r7, #6 \n\
-    add r0, r3, r7 \n\
-    ldrh r0, [r0] \n\
-    strh r0, [r1, #6] \n\
-    add r7, #8 \n\
-    add r0, r3, r7 \n\
-    ldrh r0, [r0] \n\
-    strh r0, [r1, #8] \n\
-    sub r7, #6 \n\
-    add r0, r3, r7 \n\
-    ldrh r0, [r0] \n\
-    strh r0, [r1, #0xa] \n\
-    add r7, #0x10 \n\
-    add r0, r3, r7 \n\
-    ldrb r0, [r0] \n\
-    strb r0, [r1, #0xc] \n\
-    add r7, #0x4e \n\
-    add r0, r3, r7 \n\
-    ldrb r0, [r0] \n\
-    strb r0, [r1, #0xd] \n\
-    add r7, #1 \n\
-    add r0, r3, r7 \n\
-    ldrb r0, [r0] \n\
-    strb r0, [r1, #0xe] \n\
-    add r7, #1 \n\
-    add r0, r3, r7 \n\
-    ldrb r0, [r0] \n\
-    strb r0, [r1, #0xf] \n\
-    ldrb r0, [r4, #4] \n\
-    strb r0, [r1, #0x10] \n\
-    ldrb r0, [r4] \n\
-    strb r0, [r1, #0x11] \n\
-    ldrb r0, [r4, #1] \n\
-    strb r0, [r1, #0x12] \n\
-    ldrb r0, [r4, #2] \n\
-    strb r0, [r1, #0x13] \n\
-    ldrb r0, [r5, #2] \n\
-    strb r0, [r1, #0x15] \n\
-    ldrb r0, [r5] \n\
-    cmp r0, #2 \n\
-    bls lbl_08075754 \n\
-    strb r2, [r1, #0x14] \n\
-    b lbl_08075756 \n\
-    .align 2, 0 \n\
-lbl_0807574c: .4byte 0x02038000 \n\
-lbl_08075750: .4byte gSaveFilesInfo \n\
-lbl_08075754: \n\
-    strb r0, [r1, #0x14] \n\
-lbl_08075756: \n\
-    ldrb r0, [r1] \n\
-    cmp r0, #0 \n\
-    beq lbl_08075762 \n\
-    ldrb r0, [r1, #0x10] \n\
-    cmp r0, #0 \n\
-    bne lbl_080757a4 \n\
-lbl_08075762: \n\
-    strb r6, [r1] \n\
-    strb r6, [r1, #2] \n\
-    movs r2, #0 \n\
-    strh r6, [r1, #4] \n\
-    strh r6, [r1, #6] \n\
-    strh r6, [r1, #8] \n\
-    strh r6, [r1, #0xa] \n\
-    strb r2, [r1, #0xc] \n\
-    strb r2, [r1, #0xd] \n\
-    strb r2, [r1, #0xe] \n\
-    strb r2, [r1, #0xf] \n\
-    ldr r0, lbl_080757c4 @ =gLanguage \n\
-    ldrb r0, [r0] \n\
-    strb r0, [r1, #0x13] \n\
-    movs r0, #0x12 \n\
-    ldrsb r0, [r1, r0] \n\
-    cmp r0, #0 \n\
-    beq lbl_080757a4 \n\
-    movs r0, #5 \n\
-    strb r0, [r1, #2] \n\
-    movs r0, #0x63 \n\
-    strh r0, [r1, #4] \n\
-    strh r0, [r1, #6] \n\
-    strb r2, [r1, #0x14] \n\
-    ldrb r0, [r5] \n\
-    cmp r0, #2 \n\
-    bls lbl_0807579a \n\
-    movs r0, #1 \n\
-lbl_0807579a: \n\
-    strb r0, [r1, #0x14] \n\
-    ldrb r0, [r4, #2] \n\
-    strb r0, [r1, #0x13] \n\
-    ldrb r0, [r5, #2] \n\
-    strb r0, [r1, #0x15] \n\
-lbl_080757a4: \n\
-    add r1, #0x18 \n\
-    add r5, ip \n\
-    add r4, ip \n\
-    add r3, ip \n\
-    movs r0, #1 \n\
-    neg r0, r0 \n\
-    add r8, r0 \n\
-    mov r7, r8 \n\
-    cmp r7, #0 \n\
-    bge lbl_080756e2 \n\
-    pop {r3} \n\
-    mov r8, r3 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_080757c4: .4byte gLanguage \n\
-    ");
-}
-#endif
 
 /**
  * @brief 757c8 | 84 | To document
