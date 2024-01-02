@@ -1916,6 +1916,10 @@ u32 SramCopyFile(u8 src, u8 dst)
     return gDisableSoftreset ^ TRUE;
 }
 
+/**
+ * @brief 756c0 | 108 | Writes the SRAM data to the file info
+ * 
+ */
 void SramWrite_FileInfo(void)
 {
     s32 i;

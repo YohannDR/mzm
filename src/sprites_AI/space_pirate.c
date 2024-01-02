@@ -4307,6 +4307,10 @@ void SpacePirateLaserMove(void)
     }
 }
 
+/**
+ * @brief 2c6a4 | 488 | Space pirate AI
+ * 
+ */
 void SpacePirate(void)
 {
     u8 alerted;
@@ -4359,29 +4363,33 @@ void SpacePirate(void)
         {
             if (gSpriteDrawOrder[2] == TRUE)
             {
-                gAlarmTimer = 0x1E0;
+                gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
                 if (gCurrentSprite.spriteId == PSPRITE_SPACE_PIRATE_WAITING2)
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     {
                         if (gSpriteDrawOrder[1] == TRUE)
                         {
-                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)) {
+                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+                            {
                                 gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
                                 goto lasercheck;
                             }
                         }
+
                         gSpriteDrawOrder[2] = FALSE;
                     }
                     else
                     {
                         if (gSpriteDrawOrder[1] == FALSE)
                         {
-                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)) {
+                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+                            {
                                 gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
                                 goto lasercheck;
                             }
                         }
+
                         gSpriteDrawOrder[2] = FALSE;
                     }
                 }
@@ -4464,14 +4472,16 @@ void SpacePirate(void)
             unk_2ab58();
             break;
 
-        case 0x16:
+        case SPACE_PIRATE_POSE_0x16:
             unk_2ab10();
             unk_2ab58();
             break;
+
         case 0x10:
             unk_2aaec();
             unk_2ab58();
             break;
+
         case 0x11:
             unk_2ab58();
             break;
@@ -4544,7 +4554,7 @@ void SpacePirate(void)
         case SPACE_PIRATE_POSE_0x18:
             unk_2ba7c();
 
-        case 0x19:
+        case SPACE_PIRATE_POSE_0x19:
             unk_2ba98();
             break;
 
