@@ -431,7 +431,7 @@ const struct FrameData sParticleSuperMissileTrailOam[9] = {
     0x0
 };
 
-const u16 sBeamPAL[96] = INCBIN_U16("data/weapons/Beams.pal");
+const u16 sBeamPal[96] = INCBIN_U16("data/weapons/Beams.pal");
 
 const u8 sNormalBeamGfx_Top[512] = INCBIN_U8("data/weapons/NormalBeamTop.gfx");
 const u8 sNormalBeamGfx_Bottom[512] = INCBIN_U8("data/weapons/NormalBeamBottom.gfx");

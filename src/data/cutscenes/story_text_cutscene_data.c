@@ -13,5 +13,5 @@ const struct CutscenePageData sStoryTextCutscenePagesData[1] = {
 };
 
 const u32 sStoryTextCutsceneGfx_Unused[645] = INCBIN_U32("data/cutscenes/StoryText/UnusedLetters.gfx.lz");
-const u16 sStoryTextCutscenePAL[1 * 16] = INCBIN_U16("data/cutscenes/StoryText/Palette.pal");
+const u16 sStoryTextCutscenePal[1 * 16] = INCBIN_U16("data/cutscenes/StoryText/Palette.pal");
 const u32 sStoryTextCutsceneTileTable[347] = INCBIN_U32("data/cutscenes/StoryText/Text.tt");

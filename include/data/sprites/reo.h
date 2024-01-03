@@ -9,9 +9,9 @@ extern const s16 sReoIdleYMovement[65];
 extern const s16 sReoIdleXMovement[81];
 
 extern const u32 sReoGreenWingsGfx[277];
-extern const u16 sReoGreenWingsPAL[16];
+extern const u16 sReoGreenWingsPal[16];
 extern const u32 sReoPurpleWingsGfx[277];
-extern const u16 sReoPurpleWingsPAL[16];
+extern const u16 sReoPurpleWingsPal[16];
 
 extern const u16 sReoOAM_Idle_Frame0[10];
 

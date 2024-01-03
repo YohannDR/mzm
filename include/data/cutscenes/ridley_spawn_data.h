@@ -11,10 +11,10 @@ extern const struct OamArray sRidleySpawnOam[5];
 
 extern const struct FrameData sRidleySpawnOAM_Samus[2];
 
-extern const u16 sRidleySpawnSamusPAL[3 * 16];
-extern const u16 sRidleySpawnSamusVariaPAL[3 * 16];
-extern const u16 sRidleySpawnBackgroundPAL[13 * 16];
-extern const u16 sRidleySpawnRidleyScreamingPAL[1 * 16];
+extern const u16 sRidleySpawnSamusPal[3 * 16];
+extern const u16 sRidleySpawnSamusVariaPal[3 * 16];
+extern const u16 sRidleySpawnBackgroundPal[13 * 16];
+extern const u16 sRidleySpawnRidleyScreamingPal[1 * 16];
 extern const u32 sRidleySpawnBackgroundGfx[2830];
 extern const u32 sRidleySpawnSamusAndRidleyGfx[2215];
 extern const u32 sRidleySpawnSamusHelmetFaceGfx[3164];

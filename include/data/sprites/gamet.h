@@ -5,9 +5,9 @@
 #include "oam.h"
 
 extern const u32 sGametBlueGfx[168];
-extern const u16 sGametBluePAL[16];
+extern const u16 sGametBluePal[16];
 extern const u32 sGametRedGfx[168];
-extern const u16 sGametRedPAL[16];
+extern const u16 sGametRedPal[16];
 
 extern const u16 sGametOAM_Idle_Frame0[10];
 

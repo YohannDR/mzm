@@ -3,8 +3,8 @@
 #include "macros.h"
 
 const u8 sEscapeGateAndTimerGfx[2048] = INCBIN_U8("data/sprites/EscapeGateAndTimer.gfx");
-const u16 sEscapeGateAndTimerPAL[16] = INCBIN_U16("data/sprites/EscapeGateAndTimer.pal");
-const u16 sEscapeGateFlashingPAL[96] = INCBIN_U16("data/sprites/EscapeGateFlashing.pal");
+const u16 sEscapeGateAndTimerPal[16] = INCBIN_U16("data/sprites/EscapeGateAndTimer.pal");
+const u16 sEscapeGateFlashingPal[96] = INCBIN_U16("data/sprites/EscapeGateFlashing.pal");
 
 const u16 sEscapeGateOAM_Closed_Frame0[16] = {
     0x5,

@@ -17,7 +17,7 @@ const s16 sMellowIdleXVelocity[81] = {
 };
 
 const u32 sHiveGfx[1799] = INCBIN_U32("data/sprites/Hive.gfx.lz");
-const u16 sHivePAL[96] = INCBIN_U16("data/sprites/Hive.pal");
+const u16 sHivePal[96] = INCBIN_U16("data/sprites/Hive.pal");
 
 const u16 sMellowOAM_Idle_Frame0[4] = {
     0x1,

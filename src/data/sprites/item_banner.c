@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sItemBannerGfx[139] = INCBIN_U32("data/sprites/ItemBanner.gfx.lz");
-const u16 sItemBannerPAL[32] = INCBIN_U16("data/sprites/ItemBanner.pal");
+const u16 sItemBannerPal[32] = INCBIN_U16("data/sprites/ItemBanner.pal");
 
 const u16 sSaveYesNoCursorOAM_Idle_Frame0[4] = {
     0x1,

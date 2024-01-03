@@ -479,7 +479,7 @@ static const struct FrameData sSamusInBlueShipOam_Controls[11] = {
     0
 };
 
-const u16 sSamusInBlueShipPAL[9 * 16] = INCBIN_U16("data/cutscenes/SamusInBlueShip/Ship.pal");
+const u16 sSamusInBlueShipPal[9 * 16] = INCBIN_U16("data/cutscenes/SamusInBlueShip/Ship.pal");
 const u32 sSamusInBlueShipSamusGfx[3641] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Samus.gfx.lz");
 const u32 sSamusInBlueShipControlsGfx[1642] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Controls.gfx.lz");
 const u32 sSamusInBlueShipSamusTileTable[368] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Ship.tt");

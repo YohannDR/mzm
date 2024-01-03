@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sWaverGfx[289];
-extern const u16 sWaverPAL[16];
+extern const u16 sWaverPal[16];
 
 extern const u16 sWaverOAM_Frame0[7];
 

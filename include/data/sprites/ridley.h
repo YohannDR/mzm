@@ -135,7 +135,7 @@ extern const s16 sRidleySpawningSpittingFireballsYOffsets[81];
 extern const s16 sRidleyIdleYOffsets[65];
 
 extern const u32 sRidleyGfx[2211];
-extern const u16 sRidleyPAL[128];
+extern const u16 sRidleyPal[128];
 
 extern const u16 sRidleyOAM_Idle_Frame0[49];
 

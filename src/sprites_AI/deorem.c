@@ -284,7 +284,7 @@ void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
     gfxSlot = gCurrentSprite.spritesetGfxSlot;
     SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfxSlot, yPosition, xPosition, 0x0);
     SpriteLoadGfx(PSPRITE_CHARGE_BEAM, gfxSlot);
-    SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfxSlot, 0x1);
+    SpriteLoadPal(PSPRITE_CHARGE_BEAM, gfxSlot, 0x1);
 }
 
 /**

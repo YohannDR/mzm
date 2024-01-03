@@ -28,4 +28,4 @@ const struct FrameData sUnusedSpritesOAM_Unused[2] = {
 };
 
 const u32 sUnusedSpritesGfx[6] = INCBIN_U32("data/sprites/UnusedSprites.gfx.lz");
-const u16 sUnusedSpritesPAL[16] = INCBIN_U16("data/sprites/UnusedSprites.pal");
+const u16 sUnusedSpritesPal[16] = INCBIN_U16("data/sprites/UnusedSprites.pal");

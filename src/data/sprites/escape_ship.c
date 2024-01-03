@@ -17,8 +17,8 @@ const s16 sEscapeShipHoveringXMovement[57] = {
 };
 
 const u32 sEscapeShipGfx[919] = INCBIN_U32("data/sprites/EscapeShip.gfx.lz");
-const u16 sEscapeShipPAL[64] = INCBIN_U16("data/sprites/EscapeShip.pal");
-const u16 sEscapeShipFlashingPAL[3 * 16] = INCBIN_U16("data/sprites/EscapeShipFlashing.pal");
+const u16 sEscapeShipPal[64] = INCBIN_U16("data/sprites/EscapeShip.pal");
+const u16 sEscapeShipFlashingPal[3 * 16] = INCBIN_U16("data/sprites/EscapeShipFlashing.pal");
 
 const u16 sEscapeShipOAM_Idle_Frame0[34] = {
     0xb,

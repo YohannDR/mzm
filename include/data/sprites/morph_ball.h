@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sMorphBallGfx[168];
-extern const u16 sMorphBallPAL[16];
+extern const u16 sMorphBallPal[16];
 
 extern const u16 sMorphBallOam_Idle_Frame0[4];
 

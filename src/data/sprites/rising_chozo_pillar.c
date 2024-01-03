@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sRisingChozoPillarGfx[671] = INCBIN_U32("data/sprites/RisingChozoPillar.gfx.lz");
-const u16 sRisingChozoPillarPAL[64] = INCBIN_U16("data/sprites/RisingChozoPillar.pal");
+const u16 sRisingChozoPillarPal[64] = INCBIN_U16("data/sprites/RisingChozoPillar.pal");
 
 const u16 sRisingChozoPillarPlatformOam_Slot0Spawning_Frame0[7] = {
     0x2,

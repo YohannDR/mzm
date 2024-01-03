@@ -5,8 +5,8 @@
 #include "oam.h"
 
 extern const u32 sAreaBannerGfx[65];
-extern const u16 sAreaBannerPAL[16];
-extern const u16 sAreaBannerLocationTextPAL[16];
+extern const u16 sAreaBannerPal[16];
+extern const u16 sAreaBannerLocationTextPal[16];
 
 extern const u16 sAreaBannerOam_SpawnMiddle_Frame0[7];
 

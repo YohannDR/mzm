@@ -115,8 +115,8 @@ u8 StatueOpeningInit(void)
     const u8* ptr;
     
     unk_61f0c();
-    DmaTransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 16);
-    DmaTransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 16);
+    DmaTransfer(3, sBossStatuesPal, PALRAM_BASE + 0x300, sizeof(sBossStatuesPal), 16);
+    DmaTransfer(3, sStatueOpeningPal, PALRAM_BASE, sizeof(sStatueOpeningPal), 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     CallLZ77UncompVram(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);

@@ -17,8 +17,8 @@ const s16 sMetroidSpawningXMovement[81] = {
 };
 
 const u32 sMetroidGfx[793] = INCBIN_U32("data/sprites/Metroid.gfx.lz");
-const u16 sMetroidPAL[80] = INCBIN_U16("data/sprites/Metroid.pal");
-const u16 sMetroidPAL_SamusGrabbed[80] = INCBIN_U16("data/sprites/MetroidSamusGrabbed.pal");
+const u16 sMetroidPal[80] = INCBIN_U16("data/sprites/Metroid.pal");
+const u16 sMetroidPal_SamusGrabbed[80] = INCBIN_U16("data/sprites/MetroidSamusGrabbed.pal");
 
 const u16 sMetroidShellOAM_Idle_Frame0[7] = {
     0x2,

@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sSavePlatformGfx[603];
-extern const u16 sSavePlatformPAL[64];
+extern const u16 sSavePlatformPal[64];
 
 extern const u16 sSavePlatformOAM_Idle_Frame0[28];
 

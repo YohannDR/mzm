@@ -68,9 +68,9 @@ const struct CutscenePageData sBeforeCharliePageData[9] = {
     },
 };
 
-const u16 sBeforeCharlieChozoWallSidesPAL[10 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/ChozoWallSides.pal");
-const u16 sBeforeCharlieChozoWallPAL[8 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/ChozoWall.pal");
-const u16 sBeforeCharlieSamusCloseUpPAL[16 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/SamusCloseUp.pal");
+const u16 sBeforeCharlieChozoWallSidesPal[10 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/ChozoWallSides.pal");
+const u16 sBeforeCharlieChozoWallPal[8 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/ChozoWall.pal");
+const u16 sBeforeCharlieSamusCloseUpPal[16 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/SamusCloseUp.pal");
 
 const u32 sBeforeCharlieLeftSideOfChozoWallGfx[4049] = INCBIN_U32("data/cutscenes/BeforeCharlie/LeftSideChozoWall.gfx.lz");
 const u32 sBeforeCharlieRightSideOfChozoWallGfx[3987] = INCBIN_U32("data/cutscenes/BeforeCharlie/RightSideChozoWall.gfx.lz");

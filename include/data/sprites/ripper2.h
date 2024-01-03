@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sRipper2Gfx[212];
-extern const u16 sRipper2PAL[16];
+extern const u16 sRipper2Pal[16];
 
 extern const u16 sRipper2Oam_Moving_Frame0[7];
 

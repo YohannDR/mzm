@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sImagoLarvaRightSideGfx[592] = INCBIN_U32("data/sprites/ImagoLarvaRightSide.gfx.lz");
-const u16 sImagoLarvaRightSidePAL[32] = INCBIN_U16("data/sprites/ImagoLarvaRightSide.pal");
+const u16 sImagoLarvaRightSidePal[32] = INCBIN_U16("data/sprites/ImagoLarvaRightSide.pal");
 
 const u16 sImagoLarvaRightSideOAM_Frame0[37] = {
     0xc,

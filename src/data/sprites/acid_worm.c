@@ -27,7 +27,7 @@ const s16 sAcidWormHeadRandomXVelocity[45] = {
 };
 
 const u32 sAcidWormGfx[1000] = INCBIN_U32("data/sprites/AcidWorm.gfx.lz");
-const u16 sAcidWormPAL[64] = INCBIN_U16("data/sprites/AcidWorm.pal");
+const u16 sAcidWormPal[64] = INCBIN_U16("data/sprites/AcidWorm.pal");
 
 const u16 sAcidWormBodyOam_Unused2_Frame0[52] = {
     0x11,

@@ -134,10 +134,10 @@ const struct FrameData sRidleySpawnOAM_RidleyFlyingAndScreaming_Unused[3] = {
 };
 
 
-const u16 sRidleySpawnSamusPAL[3 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/Samus.pal");
-const u16 sRidleySpawnSamusVariaPAL[3 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/SamusVaria.pal");
-const u16 sRidleySpawnBackgroundPAL[13 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/Background.pal");
-const u16 sRidleySpawnRidleyScreamingPAL[1 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/RidleyScreaming.pal");
+const u16 sRidleySpawnSamusPal[3 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/Samus.pal");
+const u16 sRidleySpawnSamusVariaPal[3 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/SamusVaria.pal");
+const u16 sRidleySpawnBackgroundPal[13 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/Background.pal");
+const u16 sRidleySpawnRidleyScreamingPal[1 * 16] = INCBIN_U16("data/cutscenes/RidleySpawn/RidleyScreaming.pal");
 const u32 sRidleySpawnBackgroundGfx[2830] = INCBIN_U32("data/cutscenes/RidleySpawn/Background.gfx.lz");
 const u32 sRidleySpawnSamusAndRidleyGfx[2215] = INCBIN_U32("data/cutscenes/RidleySpawn/SamusAndRidley.gfx.lz");
 const u32 sRidleySpawnSamusHelmetFaceGfx[3164] = INCBIN_U32("data/cutscenes/RidleySpawn/SamusHelmetFace.gfx.lz");

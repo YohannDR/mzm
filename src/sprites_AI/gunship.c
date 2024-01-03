@@ -61,7 +61,7 @@ void GunshipFlickerFlames(void)
 
         // Transfer palette
         offset = gCurrentSprite.oamScaling & 0x7F;
-        DMA_SET(3, (sGunshipFlashingPAL + offset * 16),
+        DMA_SET(3, (sGunshipFlashingPal + offset * 16),
             (PALRAM_BASE + 0x340), (DMA_ENABLE << 0x10) | 0x10);
     }
 }
@@ -107,7 +107,7 @@ void GunshipEntranceFlashingAnim(void)
 
         // Transfer palette
         offset = gCurrentSprite.workVariable & 0x7F;
-        DMA_SET(3, (sGunshipFlashingPAL + 0x38 + offset * 16), // Not sure
+        DMA_SET(3, (sGunshipFlashingPal + 0x38 + offset * 16), // Not sure
             (PALRAM_BASE + 0x330), (DMA_ENABLE << 0x10) | 0x8);
     }
 }

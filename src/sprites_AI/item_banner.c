@@ -107,7 +107,7 @@ void ItemBannerGfxInit(void)
     if (gCurrentSprite.yPositionSpawn == 7)
         SpriteLoadGfx(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot); // Load Gfx
     else if (gCurrentSprite.yPositionSpawn == 8)
-        SpriteLoadPAL(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot, 1); // Load PAL
+        SpriteLoadPal(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot, 1); // Load Pal
     
     if (gCurrentSprite.yPositionSpawn == 0)
     {
@@ -295,7 +295,7 @@ void ItemBannerRemovalAnimation(void)
 
             // Spawn chozo pillar
             SpriteLoadGfx(PSPRITE_FALLING_CHOZO_PILLAR, 7);
-            SpriteLoadPAL(PSPRITE_FALLING_CHOZO_PILLAR, 7, 1);
+            SpriteLoadPal(PSPRITE_FALLING_CHOZO_PILLAR, 7, 1);
             SpriteSpawnPrimary(PSPRITE_FALLING_CHOZO_PILLAR, 0, 7, gBossWork.work1 - BLOCK_SIZE * 4,
                 gBossWork.work2 + BLOCK_SIZE * 12, 0);
         }

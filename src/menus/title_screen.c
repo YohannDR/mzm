@@ -344,7 +344,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                 pAnim->paletteRow *= 4;
             }
 
-            DmaTransfer(3, &sTitleScreenPromptPAL[pAnim->paletteRow * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
+            DmaTransfer(3, &sTitleScreenPromptPal[pAnim->paletteRow * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
         }
         else
         {
@@ -358,7 +358,7 @@ void TitleScreenUpdateAnimatedPalette(void)
                     pAnim->paletteRow = 0;
             }
             
-            DmaTransfer(3, &sTitleScreenPromptPAL[sTitleScreenPromptPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
+            DmaTransfer(3, &sTitleScreenPromptPal[sTitleScreenPromptPaletteRows[pAnim->paletteRow] * 16], PALRAM_BASE + 0x1A0, 0x18, 16);
         }
     }
 }

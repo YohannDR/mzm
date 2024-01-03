@@ -5,12 +5,12 @@
 #include "oam.h"
 #include "macros.h"
 
-extern const u16 sChozodiaEscapeShipHeatingUpPAL[8 * 16];
-extern const u16 sChozodiaEscapeGroundHeatingUpPAL[8 * 16];
+extern const u16 sChozodiaEscapeShipHeatingUpPal[8 * 16];
+extern const u16 sChozodiaEscapeGroundHeatingUpPal[8 * 16];
 
-extern const u16 sChozodiaEscapeShipExplodingPAL[9 * 16];
-extern const u16 sChozodiaEscapeMissionAccomplishedPAL[16 * 16];
-extern const u16 sChozodiaEscapeSamusInBlueShipPAL[1 * 16];
+extern const u16 sChozodiaEscapeShipExplodingPal[9 * 16];
+extern const u16 sChozodiaEscapeMissionAccomplishedPal[16 * 16];
+extern const u16 sChozodiaEscapeSamusInBlueShipPal[1 * 16];
 
 extern const u16 sChozodiaEscapeOam_ShipExterior_Frame0[OAM_DATA_SIZE(10)];
 extern const u16 sChozodiaEscapeOam_BlueShipAngledDown_Frame0[OAM_DATA_SIZE(2)];

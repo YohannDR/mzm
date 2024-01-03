@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sSecurityLaserGfx[104];
-extern const u16 sSecurityLaserPAL[16];
+extern const u16 sSecurityLaserPal[16];
 
 extern const u16 sSecurityLaserOAM_VerticalSmall_Frame0[10];
 

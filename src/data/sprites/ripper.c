@@ -2,9 +2,9 @@
 #include "macros.h"
 
 const u32 sRipperBrownGfx[141] = INCBIN_U32("data/sprites/RipperBrown.gfx.lz");
-const u16 sRipperBrownPAL[16] = INCBIN_U16("data/sprites/RipperBrown.pal");
+const u16 sRipperBrownPal[16] = INCBIN_U16("data/sprites/RipperBrown.pal");
 const u32 sRipperPurpleGfx[141] = INCBIN_U32("data/sprites/RipperPurple.gfx.lz");
-const u16 sRipperPurplePAL[16] = INCBIN_U16("data/sprites/RipperPurple.pal");
+const u16 sRipperPurplePal[16] = INCBIN_U16("data/sprites/RipperPurple.pal");
 
 const u16 sRipperOam_Moving_Frame0[4] = {
     0x1,

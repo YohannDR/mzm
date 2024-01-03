@@ -6,7 +6,7 @@
 #include "structs/ending_and_gallery.h"
 #include "macros.h"
 
-extern const u16 sEndingImageTextPAL[14 * 16];
+extern const u16 sEndingImageTextPal[14 * 16];
 
 // ...
 
@@ -17,18 +17,18 @@ extern const u16 sEndingImageOam_NewRecord[OAM_DATA_SIZE(6)];
 
 // ...
 
-extern const u16 sCreditsCharactersPAL[3 * 16];
-extern const u16 sCreditsChozoWallPAL[15 * 16];
+extern const u16 sCreditsCharactersPal[3 * 16];
+extern const u16 sCreditsChozoWallPal[15 * 16];
 
 // ...
 
-extern const u16 sEndingPosingPAL[13 * 16];
-extern const u16 sEndingPosingPAL_White1[5 * 16];
-extern const u16 sEndingPosingPAL_White2[5 * 16];
-extern const u16 sEndingPosingPAL_White3[5 * 16];
-extern const u16 sEndingPosingPAL_White4[5 * 16];
+extern const u16 sEndingPosingPal[13 * 16];
+extern const u16 sEndingPosingPal_White1[5 * 16];
+extern const u16 sEndingPosingPal_White2[5 * 16];
+extern const u16 sEndingPosingPal_White3[5 * 16];
+extern const u16 sEndingPosingPal_White4[5 * 16];
 
-extern const u16 sUnlockedOptionsPAL[1 * 16];
+extern const u16 sUnlockedOptionsPal[1 * 16];
 
 extern const struct EndingImageOam sEndingImageOam_FullLines_English[6];
 extern const struct EndingImageOam sEndingImageOam_ClearTime_English[9];

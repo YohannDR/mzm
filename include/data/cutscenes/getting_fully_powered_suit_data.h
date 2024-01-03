@@ -19,6 +19,6 @@ extern const u32 sGettingFullyPoweredSuitRingSparklesGfx[646];
 extern const u32 sGettingFullyPoweredSuitSamusTileTable[387];
 extern const u8 sGettingFullyPoweredSuitBackgroundGfx[13872];
 extern const u32 sGettingFullyPoweredSuitBackgroundTileTable[734];
-extern const u16 sGettingFullyPoweredSuitRingPAL[7 * 16];
+extern const u16 sGettingFullyPoweredSuitRingPal[7 * 16];
 
 #endif /* GETTING_FULLY_POWERED_SUIT_DATA_H */

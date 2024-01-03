@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sGekitaiMachineGfx[364];
-extern const u16 sGekitaiMachinePAL[80];
+extern const u16 sGekitaiMachinePal[80];
 
 extern const s16 sGekitaiMachine_array_2f1c7c[96];
 

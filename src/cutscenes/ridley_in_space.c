@@ -439,7 +439,7 @@ void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette)
         pPalette->paletteRow = 0;
 
     // Transfer current row
-    DmaTransfer(3, &sRidleyInSpaceRedAlertPAL[sRidleyInSpaceRedAlertPaletteRows[pPalette->paletteRow] * 16],
+    DmaTransfer(3, &sRidleyInSpaceRedAlertPal[sRidleyInSpaceRedAlertPaletteRows[pPalette->paletteRow] * 16],
         PALRAM_BASE + 16 * 10, 16 * 2, 16);
 }
 

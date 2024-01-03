@@ -93,7 +93,7 @@ extern const struct FrameData sImagoLarvaMultiSpriteData_TakingDamage[5] ;
 extern const u8 sImagoLarvaPaletteRows[4];
 
 extern const u32 sImagoLarvaGfx[1195];
-extern const u16 sImagoLarvaPAL[80];
+extern const u16 sImagoLarvaPal[80];
 
 extern const u16 sImagoLarvaPartOAM_ShellAttacking_Frame0[82];
 

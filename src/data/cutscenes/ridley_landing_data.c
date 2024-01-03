@@ -383,11 +383,11 @@ const struct FrameData sRidleyLandingOAM_Rocks[5] = {
 
 
 
-const u16 sCutscene_3a09d4_PAL[9 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/3a09d4.pal");
-const u16 sCutsceneZebesPAL[13 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/CutsceneZebes.pal");
-const u16 sCutsceneMotherShipPAL[5 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/CutsceneMotherShip.pal");
-const u16 sRidleyLandingRidleyAndRocksPAL[2 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/Objects.pal");
-const u16 sRidleyLandingSkyBackgroundPAL[5 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/SkyBackground.pal");
+const u16 sCutscene_3a09d4_Pal[9 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/3a09d4.pal");
+const u16 sCutsceneZebesPal[13 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/CutsceneZebes.pal");
+const u16 sCutsceneMotherShipPal[5 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/CutsceneMotherShip.pal");
+const u16 sRidleyLandingRidleyAndRocksPal[2 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/Objects.pal");
+const u16 sRidleyLandingSkyBackgroundPal[5 * 16] = INCBIN_U16("data/cutscenes/RidleyLanding/SkyBackground.pal");
 
 const u32 sRidleyLandingZebesBackgroundGfx[3167] = INCBIN_U32("data/cutscenes/RidleyLanding/ZebesBackground.gfx.lz");
 const u32 sRidleyLandingMotherShipGfx_1[38] = INCBIN_U32("data/cutscenes/RidleyLanding/MotherShip_1.gfx.lz");

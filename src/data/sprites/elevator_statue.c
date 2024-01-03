@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sElevatorStatuesGfx[1122] = INCBIN_U32("data/sprites/ElevatorStatues.gfx.lz");
-const u16 sElevatorStatuesPAL[64] = INCBIN_U16("data/sprites/ElevatorStatues.pal");
+const u16 sElevatorStatuesPal[64] = INCBIN_U16("data/sprites/ElevatorStatues.pal");
 
 const u16 sKraidElevatorStatueOAM_Idle_Frame0[64] = {
     0x15,

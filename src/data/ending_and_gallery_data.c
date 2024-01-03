@@ -1,7 +1,7 @@
 #include "data/ending_and_gallery_data.h"
 #include "oam.h"
 
-const u16 sEndingImageTextPAL[14 * 16] = INCBIN_U16("data/ending/ImageText.pal");
+const u16 sEndingImageTextPal[14 * 16] = INCBIN_U16("data/ending/ImageText.pal");
 
 static const u16 sEndingImageOam_LineTimer_English[OAM_DATA_SIZE(8)] = {
     0x8,
@@ -431,8 +431,8 @@ static const u16 sYourRateHiraganaOam_10[OAM_DATA_SIZE(1)] = {
     0xf0, OBJ_SIZE_16x16 | 0x3a, 0x154
 };
 
-const u16 sCreditsCharactersPAL[3 * 16] = INCBIN_U16("data/ending/CreditsCharacters.pal");
-const u16 sCreditsChozoWallPAL[15 * 16] = INCBIN_U16("data/ending/CreditsChozoWall.pal");
+const u16 sCreditsCharactersPal[3 * 16] = INCBIN_U16("data/ending/CreditsCharacters.pal");
+const u16 sCreditsChozoWallPal[15 * 16] = INCBIN_U16("data/ending/CreditsChozoWall.pal");
 
 static const u16 sEndingImage_Palette_0[16 * 16] = INCBIN_U16("data/ending/Image_0.pal");
 static const u16 sEndingImage_Palette_1[16 * 16] = INCBIN_U16("data/ending/Image_1.pal");
@@ -443,13 +443,13 @@ static const u16 sEndingImage_Palette_5[16 * 16] = INCBIN_U16("data/ending/Image
 static const u16 sEndingImage_Palette_6[16 * 16] = INCBIN_U16("data/ending/Image_6.pal");
 static const u16 sEndingImage_Palette_7[16 * 16] = INCBIN_U16("data/ending/Image_7.pal");
 
-const u16 sEndingPosingPAL[13 * 16] = INCBIN_U16("data/ending/Posing.pal");
-const u16 sEndingPosingPAL_White1[5 * 16] = INCBIN_U16("data/ending/Posing_White1.pal");
-const u16 sEndingPosingPAL_White2[5 * 16] = INCBIN_U16("data/ending/Posing_White2.pal");
-const u16 sEndingPosingPAL_White3[5 * 16] = INCBIN_U16("data/ending/Posing_White3.pal");
-const u16 sEndingPosingPAL_White4[5 * 16] = INCBIN_U16("data/ending/Posing_White4.pal");
+const u16 sEndingPosingPal[13 * 16] = INCBIN_U16("data/ending/Posing.pal");
+const u16 sEndingPosingPal_White1[5 * 16] = INCBIN_U16("data/ending/Posing_White1.pal");
+const u16 sEndingPosingPal_White2[5 * 16] = INCBIN_U16("data/ending/Posing_White2.pal");
+const u16 sEndingPosingPal_White3[5 * 16] = INCBIN_U16("data/ending/Posing_White3.pal");
+const u16 sEndingPosingPal_White4[5 * 16] = INCBIN_U16("data/ending/Posing_White4.pal");
 
-const u16 sUnlockedOptionsPAL[1 * 16] = INCBIN_U16("data/ending/UnlockedOptions.pal");
+const u16 sUnlockedOptionsPal[1 * 16] = INCBIN_U16("data/ending/UnlockedOptions.pal");
 
 const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
     [ENDING_IMAGE_LINE_CLEAR_TIME] = {
@@ -2062,10 +2062,10 @@ const struct CreditsEntry sCredits[240] = {
 };
 
 const u16* const sEndingWhitePalPointers[4] = {
-    [0] = sEndingPosingPAL_White1,
-    [1] = sEndingPosingPAL_White2,
-    [2] = sEndingPosingPAL_White3,
-    [3] = sEndingPosingPAL_White4
+    [0] = sEndingPosingPal_White1,
+    [1] = sEndingPosingPal_White2,
+    [2] = sEndingPosingPal_White3,
+    [3] = sEndingPosingPal_White4
 };
 
 const u8 sEndingImage_54e2dc[8] = {

@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sZiplineGfx[264];
-extern const u16 sZiplinePAL[16];
+extern const u16 sZiplinePal[16];
 
 extern const u16 sZiplineOam_OffIdle_Frame0[7];
 

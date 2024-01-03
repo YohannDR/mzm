@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sItemBannerGfx[139];
-extern const u16 sItemBannerPAL[32];
+extern const u16 sItemBannerPal[32];
 
 extern const u16 sSaveYesNoCursorOAM_Idle_Frame0[4];
 

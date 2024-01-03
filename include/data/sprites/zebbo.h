@@ -5,9 +5,9 @@
 #include "oam.h"
 
 extern const u32 sZebboGreenGfx[124];
-extern const u16 sZebboGreenPAL[16];
+extern const u16 sZebboGreenPal[16];
 extern const u32 sZebboYellowGfx[124];
-extern const u16 sZebboYellowPAL[16];
+extern const u16 sZebboYellowPal[16];
 
 extern const u16 sZebboOAM_Idle_Frame0[4];
 

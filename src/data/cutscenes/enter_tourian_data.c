@@ -77,8 +77,8 @@ const struct FrameData sEnterTourianOAM_Empty[1] = {
     0
 };
 
-const u16 sEnterTourianBackgroundPAL[10 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Background.pal");
-const u16 sEnterTourianMetroidPAL[6 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Metroid.pal");
+const u16 sEnterTourianBackgroundPal[10 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Background.pal");
+const u16 sEnterTourianMetroidPal[6 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Metroid.pal");
 const u32 sEnterTourianBackgroundGfx[3110] = INCBIN_U32("data/cutscenes/EnterTourian/Background.gfx.lz");
 const u32 sEnterTourianForegroundGfx[2483] = INCBIN_U32("data/cutscenes/EnterTourian/Foreground.gfx.lz");
 const u32 sEnterTourianDeadSpacePirateGfx_1[55] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_1.gfx.lz");

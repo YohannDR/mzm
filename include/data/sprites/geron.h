@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sGeronGfx[711];
-extern const u16 sGeronPAL[48];
+extern const u16 sGeronPal[48];
 
 extern const u16 sGeronOAM_Idle_Frame0[40];
 

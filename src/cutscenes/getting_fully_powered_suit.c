@@ -178,7 +178,7 @@ void GettingFullyPoweredSuitUpdateRingPalette(struct CutscenePaletteData* pPalet
         pPalette->paletteRow = 0;
 
     // Transfer current row
-    DmaTransfer(3, &sGettingFullyPoweredSuitRingPAL[sGettingFullyPoweredSuitRingPaletteRows[pPalette->paletteRow] * 16],
+    DmaTransfer(3, &sGettingFullyPoweredSuitRingPal[sGettingFullyPoweredSuitRingPaletteRows[pPalette->paletteRow] * 16],
         PALRAM_OBJ + 16 * 20, 16 * 2, 16);
 }
 

@@ -5,9 +5,9 @@
 
 extern const struct CutscenePageData sBeforeCharliePageData[9];
 
-extern const u16 sBeforeCharlieChozoWallSidesPAL[10 * 16];
-extern const u16 sBeforeCharlieChozoWallPAL[8 * 16];
-extern const u16 sBeforeCharlieSamusCloseUpPAL[16 * 16];
+extern const u16 sBeforeCharlieChozoWallSidesPal[10 * 16];
+extern const u16 sBeforeCharlieChozoWallPal[8 * 16];
+extern const u16 sBeforeCharlieSamusCloseUpPal[16 * 16];
 
 extern const u32 sBeforeCharlieLeftSideOfChozoWallGfx[4049];
 extern const u32 sBeforeCharlieRightSideOfChozoWallGfx[3987];

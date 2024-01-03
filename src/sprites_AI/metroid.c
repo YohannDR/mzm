@@ -760,10 +760,10 @@ void MetroidSamusGrabbed(void)
     {
         gCurrentSprite.timer = 4;
         gCurrentSprite.workVariable++; // Palette row
-        if (gCurrentSprite.workVariable >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
+        if (gCurrentSprite.workVariable >= ARRAY_SIZE(sMetroidPal_SamusGrabbed) / 16)
             gCurrentSprite.workVariable = 0;
 
-        DMA_SET(3, &sMetroidPAL_SamusGrabbed[gCurrentSprite.workVariable * 16], PALRAM_BASE + 0x380, C_32_2_16(DMA_ENABLE, 8));
+        DMA_SET(3, &sMetroidPal_SamusGrabbed[gCurrentSprite.workVariable * 16], PALRAM_BASE + 0x380, C_32_2_16(DMA_ENABLE, 8));
     }
 
     // Synchronises position

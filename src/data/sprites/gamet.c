@@ -2,9 +2,9 @@
 #include "macros.h"
 
 const u32 sGametBlueGfx[168] = INCBIN_U32("data/sprites/GametBlue.gfx.lz");
-const u16 sGametBluePAL[16] = INCBIN_U16("data/sprites/GametBlue.pal");
+const u16 sGametBluePal[16] = INCBIN_U16("data/sprites/GametBlue.pal");
 const u32 sGametRedGfx[168] = INCBIN_U32("data/sprites/GametRed.gfx.lz");
-const u16 sGametRedPAL[16] = INCBIN_U16("data/sprites/GametRed.pal");
+const u16 sGametRedPal[16] = INCBIN_U16("data/sprites/GametRed.pal");
 
 const u16 sGametOAM_Idle_Frame0[10] = {
     0x3,

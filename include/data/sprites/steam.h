@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sSteamGfx[195];
-extern const u16 sSteamPAL[16];
+extern const u16 sSteamPal[16];
 
 extern const u16 sSteamOam_HorizontalLarge_Frame0[4];
 

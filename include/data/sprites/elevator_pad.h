@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sElevatorPadGfx[136];
-extern const u16 sElevatorPadPAL[16];
+extern const u16 sElevatorPadPal[16];
 
 extern const u16 sElevatorPadOAM_Moving_Frame0[4];
 

@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sMorphBallLauncherGfx[303] = INCBIN_U32("data/sprites/MorphBallLauncher.gfx.lz");
-const u16 sMorphBallLauncherPAL[16] = INCBIN_U16("data/sprites/MorphBallLauncher.pal");
+const u16 sMorphBallLauncherPal[16] = INCBIN_U16("data/sprites/MorphBallLauncher.pal");
 
 const u16 sMorphBallLauncherOam_Idle_Frame0[37] = {
     0xc,

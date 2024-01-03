@@ -22,7 +22,7 @@ const s16 sSpacePirate_2e1070[12] = {
 };
 
 const u32 sSpacePirateGfx[810] = INCBIN_U32("data/sprites/SpacePirate.gfx.lz");
-const u16 sSpacePiratePAL[48] = INCBIN_U16("data/sprites/SpacePirate.pal");
+const u16 sSpacePiratePal[48] = INCBIN_U16("data/sprites/SpacePirate.pal");
 
 const u16 sSpacePirateOAM_Crouched_Frame0[43] = {
     0xe,

@@ -5,9 +5,9 @@
 #include "oam.h"
 
 extern const u32 sGerutaRedGfx[321];
-extern const u16 sGerutaRedPAL[16];
+extern const u16 sGerutaRedPal[16];
 extern const u32 sGerutaGreenGfx[308];
-extern const u16 sGerutaGreenPAL[16];
+extern const u16 sGerutaGreenPal[16];
 
 extern const u16 sGerutaOAM_Idle_Frame0[16];
 

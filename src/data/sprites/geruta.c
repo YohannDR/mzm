@@ -2,9 +2,9 @@
 #include "macros.h"
 
 const u32 sGerutaRedGfx[321] = INCBIN_U32("data/sprites/GerutaRed.gfx.lz");
-const u16 sGerutaRedPAL[16] = INCBIN_U16("data/sprites/GerutaRed.pal");
+const u16 sGerutaRedPal[16] = INCBIN_U16("data/sprites/GerutaRed.pal");
 const u32 sGerutaGreenGfx[308] = INCBIN_U32("data/sprites/GerutaGreen.gfx.lz");
-const u16 sGerutaGreenPAL[16] = INCBIN_U16("data/sprites/GerutaGreen.pal");
+const u16 sGerutaGreenPal[16] = INCBIN_U16("data/sprites/GerutaGreen.pal");
 
 const u16 sGerutaOAM_Idle_Frame0[16] = {
     0x5,

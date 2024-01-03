@@ -8,7 +8,7 @@ const s16 sPolypProjectileYVelocity[44] = {
 };
 
 const u32 sPolypGfx[241] = INCBIN_U32("data/sprites/Polyp.gfx.lz");
-const u16 sPolypPAL[16] = INCBIN_U16("data/sprites/Polyp.pal");
+const u16 sPolypPal[16] = INCBIN_U16("data/sprites/Polyp.pal");
 
 const u16 sPolypOam_Idle_Frame0[13] = {
     0x4,

@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sZoomerGfx[379] = INCBIN_U32("data/sprites/Zoomer.gfx.lz");
-const u16 sZoomerPAL[32] = INCBIN_U16("data/sprites/Zoomer.pal");
+const u16 sZoomerPal[32] = INCBIN_U16("data/sprites/Zoomer.pal");
 
 const u16 sZoomerOAM_Falling_Frame0[13] = {
     0x4,
