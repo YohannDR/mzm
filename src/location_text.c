@@ -263,10 +263,10 @@ u8 LocationTextLoadAreaBannerGfx(void)
     // Check if found an area banner
     if (gfxSlot > 0x7)
     {
-        // Use 7 as default and load Gfx/PAL
+        // Use 7 as default and load Gfx/Pal
         gfxSlot = 7;
         SpriteLoadGfx(PSPRITE_AREA_BANNER, 7);
-        SpriteLoadPAL(PSPRITE_AREA_BANNER, 7, 1);
+        SpriteLoadPal(PSPRITE_AREA_BANNER, 7, 1);
     }
 
     return gfxSlot;
@@ -354,7 +354,7 @@ u8 LocationTextGetGfxSlot(void)
 
                 // Load different palette for some reason
                 if (lt < LT_SAVE_ROOM)
-                    DMA_SET(3, sAreaBannerLocationTextPAL, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), C_32_2_16(DMA_ENABLE, 16));
+                    DMA_SET(3, sAreaBannerLocationTextPal, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), C_32_2_16(DMA_ENABLE, 16));
             }
         }
     }

@@ -243,11 +243,11 @@ const u16 sIntroFuzzOAM[52] = {
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_SIZE_16x32 | 0x60, 0x21c
 };
 
-const u16 sIntroTextAndShipPAL[16 * 6] = INCBIN_U16("data/intro/TextAndShip.pal");
-const u16 sIntroPAL_45f9d4[16 * 1] = INCBIN_U16("data/intro/45f9d4.pal");
-const u16 sIntroSamusInHerShipPAL[16 * 5] = INCBIN_U16("data/intro/SamusInHerShip.pal");
-const u16 sIntroViewOfZebesPAL[16 * 10] = INCBIN_U16("data/intro/ViewOfZebes.pal");
-const u16 sIntroMotherBrainPAL[16 * 5] = INCBIN_U16("data/intro/MotherBrain.pal");
+const u16 sIntroTextAndShipPal[16 * 6] = INCBIN_U16("data/intro/TextAndShip.pal");
+const u16 sIntroPal_45f9d4[16 * 1] = INCBIN_U16("data/intro/45f9d4.pal");
+const u16 sIntroSamusInHerShipPal[16 * 5] = INCBIN_U16("data/intro/SamusInHerShip.pal");
+const u16 sIntroViewOfZebesPal[16 * 10] = INCBIN_U16("data/intro/ViewOfZebes.pal");
+const u16 sIntroMotherBrainPal[16 * 5] = INCBIN_U16("data/intro/MotherBrain.pal");
 
 
 const u8 sIntroFuzzRandomValues_1[64] = {

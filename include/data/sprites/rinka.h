@@ -5,9 +5,9 @@
 #include "oam.h"
 
 extern const u32 sRinkaOrangeGfx[242];
-extern const u16 sRinkaOrangePAL[16];
+extern const u16 sRinkaOrangePal[16];
 extern const u32 sRinkaGreenGfx[242];
-extern const u16 sRinkaGreenPAL[16];
+extern const u16 sRinkaGreenPal[16];
 
 extern const u16 sRinkaOrangeOAM_Moving_Frame0[4];
 

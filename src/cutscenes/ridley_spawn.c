@@ -23,12 +23,12 @@ u8 RidleySpawnRidleyFlyingIn(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
+            DmaTransfer(3, sRidleySpawnRidleyScreamingPal, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPal), 0x10);
             CallLZ77UncompVram(sRidleySpawnScreamingGfx, VRAM_OBJ);
             
             CallLZ77UncompVram(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
             CallLZ77UncompVram(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
-            DmaTransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
+            DmaTransfer(3, sRidleySpawnBackgroundPal, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPal), 0x10);
             SET_BACKDROP_COLOR(COLOR_BLACK);
             CutsceneSetBgcntPageData(sRidleySpawnPageData[3]);
 
@@ -231,11 +231,11 @@ u8 RidleySpawnInit(void)
     unk_61f0c();
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
-        DmaTransfer(3, sRidleySpawnSamusVariaPAL, PALRAM_OBJ, sizeof(sRidleySpawnSamusVariaPAL), 0x10);
+        DmaTransfer(3, sRidleySpawnSamusVariaPal, PALRAM_OBJ, sizeof(sRidleySpawnSamusVariaPal), 0x10);
     else
-        DmaTransfer(3, sRidleySpawnSamusPAL, PALRAM_OBJ, sizeof(sRidleySpawnSamusPAL), 0x10);
+        DmaTransfer(3, sRidleySpawnSamusPal, PALRAM_OBJ, sizeof(sRidleySpawnSamusPal), 0x10);
 
-    DmaTransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
+    DmaTransfer(3, sRidleySpawnBackgroundPal, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPal), 0x10);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     CallLZ77UncompVram(sRidleySpawnSamusAndRidleyGfx, VRAM_OBJ);

@@ -1744,7 +1744,7 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
 
-            gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_Gfx_PAL;
+            gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_GFX_PAL;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 3;
 
@@ -1752,7 +1752,7 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.timer = 1;
             break;
 
-        case RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_Gfx_PAL:
+        case RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_GFX_PAL:
             if (gCurrentSprite.timer < 16)
             {
                 // Update palette

@@ -5,8 +5,8 @@
 #include "oam.h"
 
 extern const u8 sEscapeGateAndTimerGfx[2048];
-extern const u16 sEscapeGateAndTimerPAL[16];
-extern const u16 sEscapeGateFlashingPAL[96];
+extern const u16 sEscapeGateAndTimerPal[16];
+extern const u16 sEscapeGateFlashingPal[96];
 
 extern const u16 sEscapeGateOAM_Closed_Frame0[16];
 

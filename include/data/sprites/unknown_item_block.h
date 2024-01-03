@@ -5,11 +5,11 @@
 #include "oam.h"
 
 extern const u32 sPlasmaBeamBlockGfx[306];
-extern const u16 sPlasmaBeamBlockPAL[16];
+extern const u16 sPlasmaBeamBlockPal[16];
 extern const u32 sGravityBlockGfx[303];
-extern const u16 sGravityBlockPAL[16];
+extern const u16 sGravityBlockPal[16];
 extern const u32 sSpaceJumpBlockGfx[297];
-extern const u16 sSpaceJumpBlockPAL[16];
+extern const u16 sSpaceJumpBlockPal[16];
 
 extern const u16 sUnknownItemBlockOam_Idle_Frame0[7];
 

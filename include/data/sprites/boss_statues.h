@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sBossStatuesGfx[2388];
-extern const u16 sBossStatuesPAL[128];
+extern const u16 sBossStatuesPal[128];
 
 extern const u16 sKraidStatueOAM_Idle_Frame0[16];
 

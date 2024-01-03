@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sGeronNorfairGfx[270] = INCBIN_U32("data/sprites/GeronNorfair.gfx.lz");
-const u16 sGeronNorfairPAL[16] = INCBIN_U16("data/sprites/GeronNorfair.pal");
+const u16 sGeronNorfairPal[16] = INCBIN_U16("data/sprites/GeronNorfair.pal");
 
 const u16 sGeronNorfairOAM_Idle_Frame0[43] = {
     0xe,

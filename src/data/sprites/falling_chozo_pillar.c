@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sFallingChozoPillarGfx[219] = INCBIN_U32("data/sprites/FallingChozoPillar.gfx.lz");
-const u16 sFallingChozoPillarPAL[16] = INCBIN_U16("data/sprites/FallingChozoPillar.pal");
+const u16 sFallingChozoPillarPal[16] = INCBIN_U16("data/sprites/FallingChozoPillar.pal");
 
 const u16 sFallingChozoPillarOAM_Falling_Frame0[25] = {
     0x8,

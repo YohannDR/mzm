@@ -9,7 +9,7 @@ extern const s16 sMellowIdleYVelocity[65];
 extern const s16 sMellowIdleXVelocity[81];
 
 extern const u32 sHiveGfx[1799];
-extern const u16 sHivePAL[96];
+extern const u16 sHivePal[96];
 
 extern const u16 sMellowOAM_Idle_Frame0[4];
 

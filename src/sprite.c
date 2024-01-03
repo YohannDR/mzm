@@ -1066,7 +1066,7 @@ void SpriteLoadGfx(u8 spriteId, u8 row)
  * @param row Palette Row
  * @param len Lenght (in rows)
  */
-void SpriteLoadPAL(u8 spriteId, u8 row, u8 len)
+void SpriteLoadPal(u8 spriteId, u8 row, u8 len)
 {
     spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 

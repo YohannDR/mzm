@@ -6,9 +6,9 @@ const s16 sSkreeFallingSpeed[8] = {
 };
 
 const u32 sSkreeGreenGfx[264] = INCBIN_U32("data/sprites/SkreeGreen.gfx.lz");
-const u16 sSkreeGreenPAL[16] = INCBIN_U16("data/sprites/SkreeGreen.pal");
+const u16 sSkreeGreenPal[16] = INCBIN_U16("data/sprites/SkreeGreen.pal");
 const u32 sSkreeBlueGfx[264] = INCBIN_U32("data/sprites/SkreeBlue.gfx.lz");
-const u16 sSkreeBluePAL[16] = INCBIN_U16("data/sprites/SkreeBlue.pal");
+const u16 sSkreeBluePal[16] = INCBIN_U16("data/sprites/SkreeBlue.pal");
 
 const u16 sSkreeOAM_Idle_Frame0[13] = {
     0x4,

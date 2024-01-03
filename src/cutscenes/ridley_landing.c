@@ -23,8 +23,8 @@ u8 RidleyLandingRidleyFlying(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sRidleyLandingSkyBackgroundPAL, PALRAM_BASE, 0xA0, 0x10);
-			DmaTransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_OBJ, 0x40, 0x10);
+            DmaTransfer(3, sRidleyLandingSkyBackgroundPal, PALRAM_BASE, 0xA0, 0x10);
+			DmaTransfer(3, sRidleyLandingRidleyAndRocksPal, PALRAM_OBJ, 0x40, 0x10);
 			
             SET_BACKDROP_COLOR(COLOR_BLACK);
 			
@@ -118,8 +118,8 @@ u8 RidleyLandingShipLanding(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sCutsceneZebesPAL, PALRAM_BASE, sizeof(sCutsceneZebesPAL), 0x10);
-            DmaTransfer(3, sCutsceneMotherShipPAL, PALRAM_OBJ, sizeof(sCutsceneMotherShipPAL), 0x10);
+            DmaTransfer(3, sCutsceneZebesPal, PALRAM_BASE, sizeof(sCutsceneZebesPal), 0x10);
+            DmaTransfer(3, sCutsceneMotherShipPal, PALRAM_OBJ, sizeof(sCutsceneMotherShipPal), 0x10);
 
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
@@ -400,7 +400,7 @@ u8 RidleyLandingInit(void)
 {
     unk_61f0c();
 
-    DmaTransfer(3, sCutscene_3a09d4_PAL, PALRAM_BASE, sizeof(sCutscene_3a09d4_PAL), 0x10);
+    DmaTransfer(3, sCutscene_3a09d4_Pal, PALRAM_BASE, sizeof(sCutscene_3a09d4_Pal), 0x10);
     DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 

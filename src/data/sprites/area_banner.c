@@ -3,8 +3,8 @@
 #include "macros.h"
 
 const u32 sAreaBannerGfx[65] = INCBIN_U32("data/sprites/AreaBanner.gfx.lz");
-const u16 sAreaBannerPAL[16] = INCBIN_U16("data/sprites/AreaBanner.pal");
-const u16 sAreaBannerLocationTextPAL[16] = INCBIN_U16("data/sprites/AreaBannerLocationText.pal");
+const u16 sAreaBannerPal[16] = INCBIN_U16("data/sprites/AreaBanner.pal");
+const u16 sAreaBannerLocationTextPal[16] = INCBIN_U16("data/sprites/AreaBannerLocationText.pal");
 
 const u16 sAreaBannerOam_SpawnMiddle_Frame0[7] = {
     0x2,

@@ -8,7 +8,7 @@
 
 // 32ba08
 
-extern const u16 sCommonSpritesPAL[96];
+extern const u16 sCommonSpritesPal[96];
 extern const u32 sCommonSpritesGfx[3584];
 
 extern const u8 sMissileDigitsGfx[2304];

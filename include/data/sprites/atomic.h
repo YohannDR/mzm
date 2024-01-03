@@ -9,7 +9,7 @@ extern const s16 sAtomicIdleYMovement[65];
 extern const s16 sAtomicIdleXMovement[81];
 
 extern const u32 sAtomicGfx[752];
-extern const u16 sAtomicPAL[64];
+extern const u16 sAtomicPal[64];
 
 extern const u16 sAtomicOAM_Idle_Frame0[13];
 

@@ -415,8 +415,8 @@ void ChozodiaEscapeInit(void)
     LZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + 0xA800);
     LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + 0xB000);
 
-    DMA_SET(3, sCutsceneZebesPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneZebesPAL));
-    DMA_SET(3, sCutsceneMotherShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneMotherShipPAL));
+    DMA_SET(3, sCutsceneZebesPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneZebesPal));
+    DMA_SET(3, sCutsceneMotherShipPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneMotherShipPal));
 
     write16(REG_BG0CNT, 0x1408);
     write16(REG_BG1CNT, 0x1509);
@@ -466,7 +466,7 @@ void ChozodiaEscapeInit(void)
     ChozodiaEscapeProcessOam_2();
     ResetFreeOam();
     
-    ApplyMonochromeToPalette(sChozodiaEscapeMissionAccomplishedPAL, CHOZODIA_ESCAPE_DATA.monochromePalette, 0);
+    ApplyMonochromeToPalette(sChozodiaEscapeMissionAccomplishedPal, CHOZODIA_ESCAPE_DATA.monochromePalette, 0);
 
     // Set ending flags
     gEndingFlags = 0;
@@ -678,8 +678,8 @@ u8 ChozodiaEscapeShipHeatingUp(void)
     {
         tmp = (u16)timer / 16;
         offset = sChozodiaEscapeHeatingUpPalOffsets[tmp];
-        src1 = &sChozodiaEscapeShipHeatingUpPAL[offset];
-        src2 = &sChozodiaEscapeGroundHeatingUpPAL[offset];
+        src1 = &sChozodiaEscapeShipHeatingUpPal[offset];
+        src2 = &sChozodiaEscapeGroundHeatingUpPal[offset];
         DMA_SET(3, src1, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | 16);
         DMA_SET(3, src2, PALRAM_BASE + 0x280, DMA_ENABLE << 16 | 16);
     }
@@ -771,7 +771,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
             LZ77UncompVRAM(sChozodiaEscapeCraterBackgroundTileTable, VRAM_BASE + 0xE800);
             LZ77UncompVRAM(sMotherShipExplodingFlashTileTable, VRAM_BASE + 0xF000);
 
-            DMA_SET(3, sChozodiaEscapeShipExplodingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeShipExplodingPAL) - 16 * 2);
+            DMA_SET(3, sChozodiaEscapeShipExplodingPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeShipExplodingPal) - 16 * 2);
             DMA_SET(3, sMotherShipBlowingUpExplosionsPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sMotherShipBlowingUpExplosionsPal));
 
             write16(REG_BG0CNT, 0x1E08);
@@ -951,10 +951,10 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
             LZ77UncompVRAM(sChozodiaEscapeZebesSkyTileTable, VRAM_BASE + 0xF000);
             LZ77UncompVRAM(sChozodiaEscapeSamusInBlueShipTileTable, VRAM_BASE + 0xF800);
             
-            DMA_SET(3, sChozodiaEscapeMissionAccomplishedPAL, PALRAM_BASE,
-                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeMissionAccomplishedPAL));
-            DMA_SET(3, sChozodiaEscapeMissionAccomplishedPAL, PALRAM_OBJ,
-                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeMissionAccomplishedPAL));
+            DMA_SET(3, sChozodiaEscapeMissionAccomplishedPal, PALRAM_BASE,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeMissionAccomplishedPal));
+            DMA_SET(3, sChozodiaEscapeMissionAccomplishedPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeMissionAccomplishedPal));
 
             // Setup ship object
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP]++;
@@ -1092,8 +1092,8 @@ u8 ChozodiaEscapeMissionAccomplished(void)
             LZ77UncompVRAM(sChozodiaEscapeMissionAccomplishedLettersGfx, VRAM_OBJ);
 
             // Load the "correct" palette for samus in blue ship, makes her visible
-            DMA_SET(3, sChozodiaEscapeSamusInBlueShipPAL, PALRAM_OBJ,
-                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeSamusInBlueShipPAL));
+            DMA_SET(3, sChozodiaEscapeSamusInBlueShipPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeSamusInBlueShipPal));
             
             CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_OBJ;
             break;

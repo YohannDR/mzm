@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sZiplineGeneratorGfx[1124];
-extern const u16 sZiplineGeneratorPAL[64];
+extern const u16 sZiplineGeneratorPal[64];
 
 extern const u16 sZiplineGeneratorPartOam_ConductorDeactivated_Frame0[31];
 

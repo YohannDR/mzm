@@ -9,7 +9,7 @@ extern const s16 sSidehopperHighJumpVelocity[10];
 extern const s16 sSidehopperLowJumpVelocity[10];
 
 extern const u32 sSidehopperGfx[303];
-extern const u16 sSidehopperPAL[16];
+extern const u16 sSidehopperPal[16];
 
 extern const u16 sSidehopperOAM_Idle_Frame0[19];
 

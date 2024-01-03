@@ -37,7 +37,7 @@ extern const struct FrameData sCrocomireMultiSpriteData_Dying[2];
 extern const struct FrameData sCrocomireMultiSpriteData_Angry[2];
 
 extern const u32 sCrocomireGfx[1954];
-extern const u16 sCrocomirePAL[128];
+extern const u16 sCrocomirePal[128];
 
 extern const u16 sCrocomireOam_Screaming_Frame1[22];
 

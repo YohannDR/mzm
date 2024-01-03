@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sParasiteGfx[309];
-extern const u16 sParasitePAL[16];
+extern const u16 sParasitePal[16];
 
 extern const u16 sParasiteOAM_Idle_Frame0[4];
 

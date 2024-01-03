@@ -12,11 +12,11 @@ extern const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3];
 
 extern const struct OamArray sRidleyLandingCutsceneOAM[11];
 
-extern const u16 sCutscene_3a09d4_PAL[9 * 16];
-extern const u16 sCutsceneZebesPAL[13 * 16];
-extern const u16 sCutsceneMotherShipPAL[5 * 16];
-extern const u16 sRidleyLandingRidleyAndRocksPAL[2 * 16];
-extern const u16 sRidleyLandingSkyBackgroundPAL[5 * 16];
+extern const u16 sCutscene_3a09d4_Pal[9 * 16];
+extern const u16 sCutsceneZebesPal[13 * 16];
+extern const u16 sCutsceneMotherShipPal[5 * 16];
+extern const u16 sRidleyLandingRidleyAndRocksPal[2 * 16];
+extern const u16 sRidleyLandingSkyBackgroundPal[5 * 16];
 
 extern const u32 sRidleyLandingZebesBackgroundGfx[3167];
 extern const u32 sRidleyLandingMotherShipGfx_1[38];

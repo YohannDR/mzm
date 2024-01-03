@@ -126,7 +126,7 @@ extern const struct FrameData sParticleMissileTrailOam[8];
 
 extern const struct FrameData sParticleSuperMissileTrailOam[9];
 
-extern const u16 sBeamPAL[96];
+extern const u16 sBeamPal[96];
 
 extern const u8 sNormalBeamGfx_Top[512];
 extern const u8 sNormalBeamGfx_Bottom[512];

@@ -518,7 +518,7 @@ const struct FrameData sKraidMultiSpriteData_Dying2[2] = {
 };
 
 const u32 sKraidGfx[2725] = INCBIN_U32("data/sprites/Kraid.gfx.lz");
-const u16 sKraidPAL[128] = INCBIN_U16("data/sprites/Kraid.pal");
+const u16 sKraidPal[128] = INCBIN_U16("data/sprites/Kraid.pal");
 
 const u16 sKraidOAM_MouthClosed_Frame0[31] = {
     0xa,

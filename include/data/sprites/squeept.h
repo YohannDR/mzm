@@ -9,7 +9,7 @@ extern const s16 sSqueeptRisingMovement[65];
 extern const s16 sSqueeptFallingMovement[16];
 
 extern const u32 sSqueeptGfx[263];
-extern const u16 sSqueeptPAL[16];
+extern const u16 sSqueeptPal[16];
 
 extern const u16 sSqueeptOam_GoingUp_Frame0[25];
 

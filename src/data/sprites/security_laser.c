@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sSecurityLaserGfx[104] = INCBIN_U32("data/sprites/SecurityLaser.gfx.lz");
-const u16 sSecurityLaserPAL[16] = INCBIN_U16("data/sprites/SecurityLaser.pal");
+const u16 sSecurityLaserPal[16] = INCBIN_U16("data/sprites/SecurityLaser.pal");
 
 const u16 sSecurityLaserOAM_VerticalSmall_Frame0[10] = {
     0x3,

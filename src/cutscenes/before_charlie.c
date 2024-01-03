@@ -22,7 +22,7 @@ u8 BeforeCharlieSamusCloseUp(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sBeforeCharlieSamusCloseUpPAL, PALRAM_BASE, sizeof(sBeforeCharlieSamusCloseUpPAL), 0x10);
+            DmaTransfer(3, sBeforeCharlieSamusCloseUpPal, PALRAM_BASE, sizeof(sBeforeCharlieSamusCloseUpPal), 0x10);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
             CallLZ77UncompVram(sBeforeCharlieYoungSamusCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[5].graphicsPage * 0x4000);
@@ -146,11 +146,11 @@ u8 BeforeCharlieWallAndGreyVoice(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DmaTransfer(3, sBeforeCharlieChozoWallPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            DmaTransfer(3, sBeforeCharlieChozoWallPal, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPal), 0x10);
             SET_BACKDROP_COLOR(COLOR_BLACK);
 
-            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, (void*)sEwramPointer + 0x3800, 0);
-            DmaTransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPal, (void*)sEwramPointer + 0x3800, 0);
+            DmaTransfer(3, sBeforeCharlieChozoWallPal, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPal), 0x10);
 
             CallLZ77UncompVram(sBeforeCharlieChozoWallBackgroundGfx, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800, 0x800, 0x20);
@@ -365,7 +365,7 @@ u8 BeforeCharlieInit(void)
 {
     unk_61f0c();
 
-    DmaTransfer(3, sBeforeCharlieChozoWallSidesPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPAL), 0x10);
+    DmaTransfer(3, sBeforeCharlieChozoWallSidesPal, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPal), 0x10);
     BitFill(3, 0, PALRAM_OBJ, 0x200, 0x20);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 

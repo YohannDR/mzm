@@ -24,7 +24,7 @@ extern const u32 sRidleyInSpaceSpaceBackgroundGfx[5470];
 
 extern const u16 sRidleyInSpaceShipsPal[3 * 16];
 extern const u16 sRidleyInSpace_39d910_Pal[6 * 16];
-extern const u16 sRidleyInSpaceRedAlertPAL[6 * 16];
+extern const u16 sRidleyInSpaceRedAlertPal[6 * 16];
 extern const u16 sRidleyInSpaceShipInteriorPal[15 * 16];
 extern const u16 sRidleyInSpace_39dc70_Pal[3 * 16];
 extern const u16 sRidleyInSpaceSpaceBackgroundPal[5 * 16];

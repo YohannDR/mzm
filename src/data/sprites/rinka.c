@@ -2,9 +2,9 @@
 #include "macros.h"
 
 const u32 sRinkaOrangeGfx[242] = INCBIN_U32("data/sprites/RinkaOrange.gfx.lz");
-const u16 sRinkaOrangePAL[16] = INCBIN_U16("data/sprites/RinkaOrange.pal");
+const u16 sRinkaOrangePal[16] = INCBIN_U16("data/sprites/RinkaOrange.pal");
 const u32 sRinkaGreenGfx[242] = INCBIN_U32("data/sprites/RinkaGreen.gfx.lz");
-const u16 sRinkaGreenPAL[16] = INCBIN_U16("data/sprites/RinkaGreen.pal");
+const u16 sRinkaGreenPal[16] = INCBIN_U16("data/sprites/RinkaGreen.pal");
 
 const u16 sRinkaOrangeOAM_Moving_Frame0[4] = {
     0x1,

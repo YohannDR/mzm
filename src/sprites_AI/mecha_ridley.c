@@ -111,7 +111,7 @@ void MechaRidleyPartGreenGlow(void)
 
         gCurrentSprite.timer = sMechaRidleyGreenGlowPaletteData[stage][1];
 
-        DMA_SET(3, &sMechaRidleyGreenGlowPAL[palRow * 16],
+        DMA_SET(3, &sMechaRidleyGreenGlowPal[palRow * 16],
             PALRAM_BASE + 0x31A + gCurrentSprite.absolutePaletteRow * 32,
             (DMA_ENABLE << 16) | 3);
     }
@@ -484,7 +484,7 @@ void MechaRidleyStartWalking(void)
     gCurrentSprite.pose = MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING;
     SoundPlay(0x2B3);
 
-    DMA_SET(3, sMechaRidleyFadingPAL, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
+    DMA_SET(3, sMechaRidleyFadingPal, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
 
     TransparencyUpdateBldcnt(1,
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
@@ -591,7 +591,7 @@ void MechaRidleyStartBattle(void)
                 SoundPlay(0x2AD);
 
             // Palette fading
-            DMA_SET(3, &sMechaRidleyFadingPAL[palRow * 16],
+            DMA_SET(3, &sMechaRidleyFadingPal[palRow * 16],
                 PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
 
             TransparencySpriteUpdateBLDALPHA(palRow + 10, 0, 0, 16);
@@ -1095,11 +1095,11 @@ void MechaRidleyGlowFading(void)
             break;
 
         case 8:
-            DMA_SET(3, sMechaRidley_8323b42_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            DMA_SET(3, sMechaRidley_8323b42_Pal, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
             break;
 
         case 16:
-            DMA_SET(3, sMechaRidley_8323b62_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            DMA_SET(3, sMechaRidley_8323b62_Pal, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
             break;
     }
 
@@ -1139,15 +1139,15 @@ void MechaRidleySpawnDrops(void)
     switch (gCurrentSprite.yPositionSpawn++)
     {
         case 1:
-            DMA_SET(3, sMechaRidley_8323aaa_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, sMechaRidley_8323aaa_Pal, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 6:
-            DMA_SET(3, &sMechaRidleyGreenGlowPAL[4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPal[4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 12:
-            DMA_SET(3, &sMechaRidleyGreenGlowPAL[20], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPal[20], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 30:
@@ -1213,12 +1213,12 @@ void MechaRidleyFirstEyeGlow(void)
         if (gCurrentSprite.workVariable != 0)
         {
             gCurrentSprite.workVariable = 0;
-            DMA_SET(3, &sMechaRidleyGreenGlowPAL[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPal[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
             gCurrentSprite.workVariable = 1;
-            DMA_SET(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPal[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 
@@ -1248,12 +1248,12 @@ void MechaRidleySecondEyeGlow(void)
         if (gCurrentSprite.workVariable != 0)
         {
             gCurrentSprite.workVariable = 0;
-            DMA_SET(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPal[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
             gCurrentSprite.workVariable = 1;
-            DMA_SET(3, sMechaRidley_8323b4a_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, sMechaRidley_8323b4a_Pal, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 

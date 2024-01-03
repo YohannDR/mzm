@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sFakePowerBombGfx[115] = INCBIN_U32("data/sprites/FakePowerBomb.gfx.lz");
-const u16 sFakePowerBombPAL[16] = INCBIN_U16("data/sprites/FakePowerBomb.pal");
+const u16 sFakePowerBombPal[16] = INCBIN_U16("data/sprites/FakePowerBomb.pal");
 
 const u16 sFakePowerBombOAM_Idle_Frame0[4] = {
     0x1,

@@ -82,9 +82,9 @@ void IntroInit(void)
     LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0x8000);
     LZ77UncompVRAM(sIntro_47920c, VRAM_BASE + 0x9000);
 
-    DMA_SET(3, sIntroTextAndShipPAL, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPAL)));
-    DMA_SET(3, sIntroTextAndShipPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPAL)));
-    DMA_SET(3, sIntroPAL_45f9d4, PALRAM_BASE + 0x1E0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroPAL_45f9d4)));
+    DMA_SET(3, sIntroTextAndShipPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPal)));
+    DMA_SET(3, sIntroTextAndShipPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPal)));
+    DMA_SET(3, sIntroPal_45f9d4, PALRAM_BASE + 0x1E0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroPal_45f9d4)));
 
     write16(REG_BG0CNT, CREATE_BGCNT(0, 16, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
     write16(REG_BG1CNT, CREATE_BGCNT(0, 18, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
@@ -500,7 +500,7 @@ u8 IntroSamusInHerShip(void)
             break;
 
         case 2:
-            DMA_SET(3, sIntroSamusInHerShipPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroSamusInHerShipPAL)));
+            DMA_SET(3, sIntroSamusInHerShipPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroSamusInHerShipPal)));
             break;
 
         case 3:
@@ -688,8 +688,8 @@ u8 IntroViewOfZebes(void)
 
         case 2:
             LZ77UncompVRAM(sIntroViewOfZebesTileTable, VRAM_BASE + 0x8000);
-            DMA_SET(3, sIntroViewOfZebesPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroViewOfZebesPAL)));
-            DMA_SET(3, sIntroViewOfZebesPAL, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroViewOfZebesPAL)));
+            DMA_SET(3, sIntroViewOfZebesPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroViewOfZebesPal)));
+            DMA_SET(3, sIntroViewOfZebesPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroViewOfZebesPal)));
             gBg0XPosition = QUARTER_BLOCK_SIZE;
             break;
 
@@ -808,7 +808,7 @@ u8 IntroMotherBrain(void)
             break;
 
         case 3:
-            DMA_SET(3, sIntroMotherBrainPAL, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroMotherBrainPAL)));
+            DMA_SET(3, sIntroMotherBrainPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroMotherBrainPal)));
             INTRO_DATA.dispcnt = DCNT_BG0;
             SoundPlay(0x22A);
             SoundPlay(0x39);

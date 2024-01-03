@@ -6,8 +6,8 @@
 extern const struct CutscenePageData sEnterTourianPageData[2];
 extern const struct OamArray sEnterTourianOam[7];
 
-extern const u16 sEnterTourianBackgroundPAL[10 * 16];
-extern const u16 sEnterTourianMetroidPAL[6 * 16];
+extern const u16 sEnterTourianBackgroundPal[10 * 16];
+extern const u16 sEnterTourianMetroidPal[6 * 16];
 extern const u32 sEnterTourianBackgroundGfx[3110];
 extern const u32 sEnterTourianForegroundGfx[2483];
 extern const u32 sEnterTourianDeadSpacePirateGfx_1[55];

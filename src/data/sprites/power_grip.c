@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sPowerGripGfx[279] = INCBIN_U32("data/sprites/PowerGrip.gfx.lz");
-const u16 sPowerGripPAL[32] = INCBIN_U16("data/sprites/PowerGrip.pal");
+const u16 sPowerGripPal[32] = INCBIN_U16("data/sprites/PowerGrip.pal");
 
 const u16 sPowerGripOAM_Idle_Frame0[4] = {
     0x1,

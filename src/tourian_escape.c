@@ -1225,8 +1225,8 @@ u8 TourianEscapeSamusFlyingIn(void)
         case 2:
             LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0xF000);
 
-            DMA_SET(3, sIntroTextAndShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2 + 16);
-            DMA_SET(3, sIntroTextAndShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2 + 16);
+            DMA_SET(3, sIntroTextAndShipPal, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPal) / 2 + 16);
+            DMA_SET(3, sIntroTextAndShipPal, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPal) / 2 + 16);
 
             write16(REG_BG0CNT, 0x1E00);
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
@@ -2277,7 +2277,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
             BitFill(3, 0, VRAM_OBJ, 0x8000, 32);
             LZ77UncompVRAM(sTourianEscapeRainGfx, VRAM_OBJ);
             DMA_SET(3, sTourianEscapeRainPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeRainPal));
-            DMA_SET(3, sStoryTextCutscenePAL, PALRAM_OBJ + PALRAM_SIZE / 2 - 16 * 2, DMA_ENABLE << 16 | ARRAY_SIZE(sStoryTextCutscenePAL));
+            DMA_SET(3, sStoryTextCutscenePal, PALRAM_OBJ + PALRAM_SIZE / 2 - 16 * 2, DMA_ENABLE << 16 | ARRAY_SIZE(sStoryTextCutscenePal));
 
             for (i = 0; i < TOURIAN_ESCAPE_MAX_OBJECTS; i++)
             {

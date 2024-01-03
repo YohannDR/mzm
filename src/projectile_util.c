@@ -751,7 +751,7 @@ void ProjectileLoadGraphics(void)
         }
     }
     
-    DMA_SET(3, (sBeamPAL + palOffset), PALRAM_BASE + 0x240, DMA_ENABLE << 16 | 6);
+    DMA_SET(3, (sBeamPal + palOffset), PALRAM_BASE + 0x240, DMA_ENABLE << 16 | 6);
 }
 
 /**

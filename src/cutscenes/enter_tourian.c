@@ -398,10 +398,10 @@ void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 g
         pPalette->timer = pPalette->maxTimer;
         pPalette->paletteRow++;
 
-        if (pPalette->paletteRow >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
+        if (pPalette->paletteRow >= ARRAY_SIZE(sMetroidPal_SamusGrabbed) / 16)
             pPalette->paletteRow = 0;
 
-        DmaTransfer(3, &sMetroidPAL_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
+        DmaTransfer(3, &sMetroidPal_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
         return;
     }
 
@@ -501,11 +501,11 @@ u8 EnterTourianInit(void)
     s32 i;
 
     unk_61f0c();
-    DmaTransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
+    DmaTransfer(3, sEnterTourianBackgroundPal, PALRAM_BASE, sizeof(sEnterTourianBackgroundPal), 0x10);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
-    DmaTransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
-    DmaTransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
+    DmaTransfer(3, sEnterTourianMetroidPal, PALRAM_OBJ, sizeof(sEnterTourianMetroidPal), 0x10);
+    DmaTransfer(3, sMetroidPal, PALRAM_BASE + 0x300, sizeof(sMetroidPal), 0x10);
 
     CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_1, VRAM_OBJ);
     CallLZ77UncompVram(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);

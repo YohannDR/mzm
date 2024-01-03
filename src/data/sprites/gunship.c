@@ -21,8 +21,8 @@ const s16 sGunshipFlyingYVelocity[22] = {
 };
 
 const u32 sGunshipGfx[1027] = INCBIN_U32("data/sprites/Gunship.gfx.lz");
-const u16 sGunshipPAL[48] = INCBIN_U16("data/sprites/Gunship.pal");
-const u16 sGunshipFlashingPAL[8 * 16] = INCBIN_U16("data/sprites/GunshipFlashingPal.pal");
+const u16 sGunshipPal[48] = INCBIN_U16("data/sprites/Gunship.pal");
+const u16 sGunshipFlashingPal[8 * 16] = INCBIN_U16("data/sprites/GunshipFlashingPal.pal");
 
 const u16 sGunshipOAM_Idle_Frame0[52] = {
     0x11,

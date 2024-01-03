@@ -351,7 +351,7 @@ const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5] = {
 
 const u16 sRidleyInSpaceShipsPal[3 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/Ships.pal");
 const u16 sRidleyInSpace_39d910_Pal[6 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/39d910.pal");
-const u16 sRidleyInSpaceRedAlertPAL[6 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/RedAlert.pal");
+const u16 sRidleyInSpaceRedAlertPal[6 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/RedAlert.pal");
 const u16 sRidleyInSpaceShipInteriorPal[15 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/ShipInterior.pal");
 const u16 sRidleyInSpace_39dc70_Pal[3 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/39dc70.pal");
 const u16 sRidleyInSpaceSpaceBackgroundPal[5 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/SpaceBackground.pal");

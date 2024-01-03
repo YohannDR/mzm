@@ -1,12 +1,12 @@
 #include "data/chozodia_escape_data.h"
 #include "data/tourian_escape_data.h"
 
-const u16 sChozodiaEscapeShipHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/ShipHeatingUp.pal");
-const u16 sChozodiaEscapeGroundHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/GroundHeatingUp.pal");
+const u16 sChozodiaEscapeShipHeatingUpPal[8 * 16] = INCBIN_U16("data/chozodia_escape/ShipHeatingUp.pal");
+const u16 sChozodiaEscapeGroundHeatingUpPal[8 * 16] = INCBIN_U16("data/chozodia_escape/GroundHeatingUp.pal");
 
-const u16 sChozodiaEscapeShipExplodingPAL[9 * 16] = INCBIN_U16("data/chozodia_escape/ShipExploding.pal");
-const u16 sChozodiaEscapeMissionAccomplishedPAL[16 * 16] = INCBIN_U16("data/chozodia_escape/MissionAccomplished.pal");
-const u16 sChozodiaEscapeSamusInBlueShipPAL[1 * 16] = INCBIN_U16("data/chozodia_escape/SamusInBlueShip.pal");
+const u16 sChozodiaEscapeShipExplodingPal[9 * 16] = INCBIN_U16("data/chozodia_escape/ShipExploding.pal");
+const u16 sChozodiaEscapeMissionAccomplishedPal[16 * 16] = INCBIN_U16("data/chozodia_escape/MissionAccomplished.pal");
+const u16 sChozodiaEscapeSamusInBlueShipPal[1 * 16] = INCBIN_U16("data/chozodia_escape/SamusInBlueShip.pal");
 
 const u16 sChozodiaEscapeOam_ShipExterior_Frame0[OAM_DATA_SIZE(10)] = {
     0xa,

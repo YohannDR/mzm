@@ -7,7 +7,7 @@
 extern const s16 sPolypProjectileYVelocity[44];
 
 extern const u32 sPolypGfx[241];
-extern const u16 sPolypPAL[16];
+extern const u16 sPolypPal[16];
 
 extern const u16 sPolypOam_Idle_Frame0[13];
 

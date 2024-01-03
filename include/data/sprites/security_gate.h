@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sSecurityGateGfx[122];
-extern const u16 sSecurityGatePAL[16];
+extern const u16 sSecurityGatePal[16];
 
 extern const u16 sSecurityGateOAM_Opened_Frame0[4];
 

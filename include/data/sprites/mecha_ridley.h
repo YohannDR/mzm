@@ -430,15 +430,15 @@ extern const u32 sMechaRidleyGfx[2525];
 extern const u32 sMechaRidleyWeaponsGfx[1024];
 extern const u32 sMechaRidleyDestroyedGfx[336];
 
-extern const u16 sMechaRidleyPAL[129];
+extern const u16 sMechaRidleyPal[129];
 
-extern const u16 sMechaRidley_8323aaa_PAL[12];
-extern const u16 sMechaRidleyGreenGlowPAL[4 * 16];
-extern const u16 sMechaRidley_8323b42_PAL[4];
-extern const u16 sMechaRidley_8323b4a_PAL[12];
-extern const u16 sMechaRidley_8323b62_PAL[3];
+extern const u16 sMechaRidley_8323aaa_Pal[12];
+extern const u16 sMechaRidleyGreenGlowPal[4 * 16];
+extern const u16 sMechaRidley_8323b42_Pal[4];
+extern const u16 sMechaRidley_8323b4a_Pal[12];
+extern const u16 sMechaRidley_8323b62_Pal[3];
 
-extern const u16 sMechaRidleyFadingPAL[7 * 16];
+extern const u16 sMechaRidleyFadingPal[7 * 16];
 
 
 extern const u16 sMechaRidleyPartOAM_Tail_Frame0[7];

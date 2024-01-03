@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sMapStationGfx[680];
-extern const u16 sMapStationPAL[64];
+extern const u16 sMapStationPal[64];
 
 extern const u16 sMapStationOAM_Inactive_Frame19[76];
 

@@ -15,7 +15,7 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite);
 void SpriteLoadAllData(void);
 void SpriteLoadSpriteset(void);
 void SpriteLoadGfx(u8 spriteId, u8 row);
-void SpriteLoadPAL(u8 spriteId, u8 row, u8 len);
+void SpriteLoadPal(u8 spriteId, u8 row, u8 len);
 void SpriteClearData(void);
 void SpriteLoadRoomSprites(void);
 void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSlot);

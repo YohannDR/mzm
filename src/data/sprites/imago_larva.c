@@ -463,7 +463,7 @@ const u8 sImagoLarvaPaletteRows[4] = {
 };
 
 const u32 sImagoLarvaGfx[1195] = INCBIN_U32("data/sprites/ImagoLarva.gfx.lz");
-const u16 sImagoLarvaPAL[80] = INCBIN_U16("data/sprites/ImagoLarva.pal");
+const u16 sImagoLarvaPal[80] = INCBIN_U16("data/sprites/ImagoLarva.pal");
 
 const u16 sImagoLarvaPartOAM_ShellAttacking_Frame0[82] = {
     0x1b,

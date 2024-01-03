@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sFallingChozoPillarGfx[219];
-extern const u16 sFallingChozoPillarPAL[16];
+extern const u16 sFallingChozoPillarPal[16];
 
 extern const u16 sFallingChozoPillarOAM_Falling_Frame0[25];
 

@@ -77,7 +77,7 @@ extern const struct FrameData sKraidMultiSpriteData_Dying1[2];
 extern const struct FrameData sKraidMultiSpriteData_Dying2[2];
 
 extern const u32 sKraidGfx[2725];
-extern const u16 sKraidPAL[128];
+extern const u16 sKraidPal[128];
 
 extern const u16 sKraidOAM_MouthClosed_Frame0[31];
 

@@ -19,11 +19,11 @@ extern const u16 sIntroViewOfZebesHeatOAM_1[73];
 
 extern const u16 sIntroFuzzOAM[52];
 
-extern const u16 sIntroTextAndShipPAL[16 * 6];
-extern const u16 sIntroPAL_45f9d4[16 * 1];
-extern const u16 sIntroSamusInHerShipPAL[16 * 5];
-extern const u16 sIntroViewOfZebesPAL[16 * 10];
-extern const u16 sIntroMotherBrainPAL[16 * 5];
+extern const u16 sIntroTextAndShipPal[16 * 6];
+extern const u16 sIntroPal_45f9d4[16 * 1];
+extern const u16 sIntroSamusInHerShipPal[16 * 5];
+extern const u16 sIntroViewOfZebesPal[16 * 10];
+extern const u16 sIntroMotherBrainPal[16 * 5];
 
 extern const u8 sIntroFuzzRandomValues_1[64];
 extern const u8 sIntroFuzzRandomValues_2[64];

@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sSearchlightGfx[172] = INCBIN_U32("data/sprites/Searchlight.gfx.lz");
-const u16 sSearchlightPAL[16] = INCBIN_U16("data/sprites/Searchlight.pal");
+const u16 sSearchlightPal[16] = INCBIN_U16("data/sprites/Searchlight.pal");
 
 const u16 sSearchlightOAM_Moving_Frame0[25] = {
     0x8,

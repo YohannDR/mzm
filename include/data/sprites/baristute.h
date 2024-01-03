@@ -9,7 +9,7 @@ extern const s16 sBaristuteFallingYVelocity[8];
 extern const s16 sBaristuteJumpingYVelocity[10];
 
 extern const u32 sBaristuteGfx[596];
-extern const u16 sBaristutePAL[80];
+extern const u16 sBaristutePal[80];
 
 extern const u16 sBaristuteOAM_Idle_Frame0[49];
 

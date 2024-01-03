@@ -17,7 +17,7 @@ const s16 sSqueeptFallingMovement[16] = {
 };
 
 const u32 sSqueeptGfx[263] = INCBIN_U32("data/sprites/Squeept.gfx.lz");
-const u16 sSqueeptPAL[16] = INCBIN_U16("data/sprites/Squeept.pal");
+const u16 sSqueeptPal[16] = INCBIN_U16("data/sprites/Squeept.pal");
 
 const u16 sSqueeptOam_GoingUp_Frame0[25] = {
     0x8,

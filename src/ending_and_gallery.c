@@ -642,8 +642,8 @@ void CreditsInit(void)
     LZ77UncompVRAM(sCreditsChozoWallBottomTileTable, VRAM_BASE + 0xD800);
     LZ77UncompVRAM(sCreditsCharactersGfx, VRAM_BASE + 0x8000);
 
-    DMA_SET(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sCreditsChozoWallPAL) / 2);
-    DMA_SET(3, sCreditsCharactersPAL, PALRAM_BASE + 0x1A0, DMA_ENABLE << 16 | sizeof(sCreditsCharactersPAL) / 2);
+    DMA_SET(3, sCreditsChozoWallPal, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sCreditsChozoWallPal) / 2);
+    DMA_SET(3, sCreditsCharactersPal, PALRAM_BASE + 0x1A0, DMA_ENABLE << 16 | sizeof(sCreditsCharactersPal) / 2);
 
     write16(REG_BG0CNT, 0x1E08);
     write16(REG_BG1CNT, 0x1F09);
@@ -1027,7 +1027,7 @@ u8 CreditsChozoWallZoom(void)
     {
         case 0:
             LZ77UncompVRAM(sCreditsChozoWallBottomZoomedGfx, VRAM_BASE);
-            DMA_SET(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPAL));
+            DMA_SET(3, sCreditsChozoWallPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPal));
             gBg0YPosition = 0;
             gWrittenToBLDALPHA_L = 0;
             gWrittenToBLDALPHA_H = 16;
@@ -1145,7 +1145,7 @@ void EndScreenInit(void)
     BitFill(3, 0, VRAM_BASE + 0xD800, 0x800, 32);
     BitFill(3, 0, VRAM_BASE + 0xE800, 0x800, 32);
 
-    DMA_SET(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL));
+    DMA_SET(3, sEndingPosingPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPal));
 
     write16(REG_BG0CNT, 0x1E08);
     write16(REG_BG1CNT, 0x5A01);
@@ -1338,7 +1338,7 @@ u8 EndScreenSamusPosing(void)
                 break;
             }
             DMA_SET(3, sEndingWhitePalPointers[(u8)temp / 4],
-                PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL_White1));
+                PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPal_White1));
             break;
 
         case 4:
@@ -1470,7 +1470,7 @@ u8 EndScreenSamusPosing(void)
             break;
 
         case 19:
-            DMA_SET(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x50);
+            DMA_SET(3, sEndingPosingPal, PALRAM_BASE, DMA_ENABLE << 16 | 0x50);
             ENDING_DATA.oamTypes[1]++;
             break;
 
@@ -1555,7 +1555,7 @@ void EndingImageInit(void)
     else
         LZ77UncompVRAM(sEndingImageTextGfx, VRAM_BASE + 0x11000);
 
-    DMA_SET(3, sEndingImageTextPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
+    DMA_SET(3, sEndingImageTextPal, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPal) / 2);
 
     EndingImageLoadIGTAndPercentageGraphics();
     write16(REG_BG0CNT, 0x9C00);
@@ -1824,7 +1824,7 @@ void UnlockedOptionsInit(void)
     BitFill(3, -1, VRAM_BASE + 0x7FE0, 0x20, 32);
     BitFill(3, 0xF3FFF3FF, VRAM_BASE + 0x8800, 0x800, 32);
 
-    DMA_SET(3, sUnlockedOptionsPAL, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | ARRAY_SIZE(sUnlockedOptionsPAL));
+    DMA_SET(3, sUnlockedOptionsPal, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | ARRAY_SIZE(sUnlockedOptionsPal));
 
     write16(REG_BG0CNT, 0x1000);
     write16(REG_BG1CNT, 0x1101);

@@ -5,7 +5,7 @@
 #include "oam.h"
 
 extern const u32 sSavePlatformChozodiaGfx[552];
-extern const u16 sSavePlatformChozodiaPAL[64];
+extern const u16 sSavePlatformChozodiaPal[64];
 
 extern const u16 sSavePlatformChozodiaOAM_Idle_Frame0[61];
 

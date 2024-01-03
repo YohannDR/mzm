@@ -880,7 +880,7 @@ const s16 sRidleyIdleYOffsets[65] = {
 };
 
 const u32 sRidleyGfx[2211] = INCBIN_U32("data/sprites/Ridley.gfx.lz");
-const u16 sRidleyPAL[128] = INCBIN_U16("data/sprites/Ridley.pal");
+const u16 sRidleyPal[128] = INCBIN_U16("data/sprites/Ridley.pal");
 
 const u16 sRidleyOAM_Idle_Frame0[49] = {
     0x10,

@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sWorkerRobotGfx[376] = INCBIN_U32("data/sprites/WorkerRobot.gfx.lz");
-const u16 sWorkerRobotPAL[32] = INCBIN_U16("data/sprites/WorkerRobot.pal");
+const u16 sWorkerRobotPal[32] = INCBIN_U16("data/sprites/WorkerRobot.pal");
 
 const u16 sWorkerRobotOAM_Walking_Frame2[19] = {
     0x6,

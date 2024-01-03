@@ -2912,15 +2912,15 @@ const u32 sMechaRidleyGfx[2525] = INCBIN_U32("data/sprites/MechaRidley.gfx.lz");
 const u32 sMechaRidleyWeaponsGfx[32 * 32] = INCBIN_U32("data/sprites/MechaRidleyWeapons.gfx.lz");
 const u32 sMechaRidleyDestroyedGfx[336] = INCBIN_U32("data/sprites/MechaRidleyDestroyed.gfx.lz");
 
-const u16 sMechaRidleyPAL[129] = INCBIN_U16("data/sprites/MechaRidley.pal");
+const u16 sMechaRidleyPal[129] = INCBIN_U16("data/sprites/MechaRidley.pal");
 
-const u16 sMechaRidley_8323aaa_PAL[12] = INCBIN_U16("data/sprites/MechaRidley_323aaa.pal");
-const u16 sMechaRidleyGreenGlowPAL[4 * 16] = INCBIN_U16("data/sprites/MechaRidleyGreenGlow.pal");
-const u16 sMechaRidley_8323b42_PAL[4] = INCBIN_U16("data/sprites/MechaRidley_323b42.pal");
-const u16 sMechaRidley_8323b4a_PAL[12] = INCBIN_U16("data/sprites/MechaRidley_323b4a.pal");
-const u16 sMechaRidley_8323b62_PAL[3] = INCBIN_U16("data/sprites/MechaRidley_323b62.pal");
+const u16 sMechaRidley_8323aaa_Pal[12] = INCBIN_U16("data/sprites/MechaRidley_323aaa.pal");
+const u16 sMechaRidleyGreenGlowPal[4 * 16] = INCBIN_U16("data/sprites/MechaRidleyGreenGlow.pal");
+const u16 sMechaRidley_8323b42_Pal[4] = INCBIN_U16("data/sprites/MechaRidley_323b42.pal");
+const u16 sMechaRidley_8323b4a_Pal[12] = INCBIN_U16("data/sprites/MechaRidley_323b4a.pal");
+const u16 sMechaRidley_8323b62_Pal[3] = INCBIN_U16("data/sprites/MechaRidley_323b62.pal");
 
-const u16 sMechaRidleyFadingPAL[7 * 16] = INCBIN_U16("data/sprites/MechaRidleyFading.pal");
+const u16 sMechaRidleyFadingPal[7 * 16] = INCBIN_U16("data/sprites/MechaRidleyFading.pal");
 
 
 const u16 sMechaRidleyPartOAM_Tail_Frame0[7] = {

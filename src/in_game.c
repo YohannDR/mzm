@@ -383,7 +383,7 @@ void InitAndLoadGenerics(void)
         DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_OBJ, 0x4000, 0x10);
 
     gDebugFlag = FALSE;
-    DMA_SET(3, sCommonSpritesPAL, PALRAM_BASE + 0x240, DMA_ENABLE << 16 | sizeof(sCommonSpritesPAL) / 2);
+    DMA_SET(3, sCommonSpritesPal, PALRAM_BASE + 0x240, DMA_ENABLE << 16 | sizeof(sCommonSpritesPal) / 2);
     SamusInit();
 
     do {

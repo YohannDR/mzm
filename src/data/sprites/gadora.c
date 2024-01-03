@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const u32 sGadoraGfx[585] = INCBIN_U32("data/sprites/Gadora.gfx.lz");
-const u16 sGadoraPAL[32] = INCBIN_U16("data/sprites/Gadora.pal");
+const u16 sGadoraPal[32] = INCBIN_U16("data/sprites/Gadora.pal");
 
 const u16 sGadoraOAM_EyeClosed_Frame2[22] = {
     0x7,

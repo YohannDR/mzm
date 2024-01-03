@@ -48,7 +48,7 @@ void EscapeShipPartUpdatePalette(u8 delay)
         }
 
         offset = gCurrentSprite.workVariable & 0x7F;
-        DMA_SET(3, (sEscapeShipFlashingPAL + offset * 16),
+        DMA_SET(3, (sEscapeShipFlashingPal + offset * 16),
             (PALRAM_BASE + 0x320 + (gCurrentSprite.spritesetGfxSlot * 0x20)), (DMA_ENABLE << 0x10) | 0x10);
     }
 }
