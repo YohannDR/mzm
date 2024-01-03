@@ -176,6 +176,8 @@
     SPRITE_SET_ISFT(sprite, value);             \
 }
 
+#define SPRITESET_IDX(idx) (16 + idx + 1)
+
 
 #define HAS_AREA_MAP(area) ((gEquipment.downloadedMapStatus >> (area)) & 1)
 

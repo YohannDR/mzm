@@ -23,51 +23,51 @@ const u8 sRidley_10_Scrolls[SCROLL_DATA_SIZE(2)] = {
 const u8 sRidley_17_Clipdata[346] = INCBIN_U8("data/rooms/ridley/Ridley_17_Clipdata.gfx");
 
 const u8 sRidley_17_Spriteset2[ENEMY_ROOM_DATA_ARRAY_SIZE(10)] = {
-	8, 23, 19,
-	8, 34, 19,
-	8, 57, 19,
-	10, 7, 21,
-	10, 20, 22,
-	10, 25, 21,
-	10, 36, 21,
-	10, 49, 21,
-	10, 60, 21,
+	8, 23, SPRITESET_IDX(2),
+	8, 34, SPRITESET_IDX(2),
+	8, 57, SPRITESET_IDX(2),
+	10, 7, SPRITESET_IDX(4),
+	10, 20, SPRITESET_IDX(5),
+	10, 25, SPRITESET_IDX(4),
+	10, 36, SPRITESET_IDX(4),
+	10, 49, SPRITESET_IDX(4),
+	10, 60, SPRITESET_IDX(4),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sRidley_17_Bg2[1131] = INCBIN_U8("data/rooms/ridley/Ridley_17_Bg2.gfx");
 
 const u8 sRidley_17_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(13)] = {
-	8, 23, 19,
-	8, 34, 19,
-	8, 39, 19,
-	8, 47, 19,
-	8, 57, 19,
-	8, 63, 19,
-	10, 7, 22,
-	10, 20, 22,
-	10, 25, 22,
-	10, 36, 22,
-	10, 49, 22,
-	10, 60, 22,
+	8, 23, SPRITESET_IDX(2),
+	8, 34, SPRITESET_IDX(2),
+	8, 39, SPRITESET_IDX(2),
+	8, 47, SPRITESET_IDX(2),
+	8, 57, SPRITESET_IDX(2),
+	8, 63, SPRITESET_IDX(2),
+	10, 7, SPRITESET_IDX(5),
+	10, 20, SPRITESET_IDX(5),
+	10, 25, SPRITESET_IDX(5),
+	10, 36, SPRITESET_IDX(5),
+	10, 49, SPRITESET_IDX(5),
+	10, 60, SPRITESET_IDX(5),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sRidley_17_Bg1[1107] = INCBIN_U8("data/rooms/ridley/Ridley_17_Bg1.gfx");
 
 const u8 sRidley_17_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(13)] = {
-	8, 23, 19,
-	8, 34, 19,
-	8, 39, 19,
-	8, 47, 19,
-	8, 57, 19,
-	8, 63, 19,
-	10, 7, 22,
-	10, 20, 22,
-	10, 25, 21,
-	10, 36, 22,
-	10, 49, 21,
-	10, 60, 21,
+	8, 23, SPRITESET_IDX(2),
+	8, 34, SPRITESET_IDX(2),
+	8, 39, SPRITESET_IDX(2),
+	8, 47, SPRITESET_IDX(2),
+	8, 57, SPRITESET_IDX(2),
+	8, 63, SPRITESET_IDX(2),
+	10, 7, SPRITESET_IDX(5),
+	10, 20, SPRITESET_IDX(5),
+	10, 25, SPRITESET_IDX(4),
+	10, 36, SPRITESET_IDX(5),
+	10, 49, SPRITESET_IDX(4),
+	10, 60, SPRITESET_IDX(4),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

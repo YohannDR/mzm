@@ -6,36 +6,36 @@ const u8 sTourian_1_Clipdata[182] = INCBIN_U8("data/rooms/tourian/Tourian_1_Clip
 const u8 sTourian_1_Bg2[116] = INCBIN_U8("data/rooms/tourian/Tourian_1_Bg2.gfx");
 
 const u8 sTourian_1_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(16)] = {
-	2, 19, 18,
-	3, 22, 17,
-	3, 57, 17,
-	3, 71, 17,
-	4, 42, 17,
-	5, 72, 17,
-	6, 58, 17,
-	7, 22, 17,
-	8, 64, 18,
-	8, 69, 18,
-	9, 33, 18,
-	9, 53, 18,
-	10, 11, 18,
-	10, 48, 18,
-	11, 23, 18,
+	2, 19, SPRITESET_IDX(1),
+	3, 22, SPRITESET_IDX(0),
+	3, 57, SPRITESET_IDX(0),
+	3, 71, SPRITESET_IDX(0),
+	4, 42, SPRITESET_IDX(0),
+	5, 72, SPRITESET_IDX(0),
+	6, 58, SPRITESET_IDX(0),
+	7, 22, SPRITESET_IDX(0),
+	8, 64, SPRITESET_IDX(1),
+	8, 69, SPRITESET_IDX(1),
+	9, 33, SPRITESET_IDX(1),
+	9, 53, SPRITESET_IDX(1),
+	10, 11, SPRITESET_IDX(1),
+	10, 48, SPRITESET_IDX(1),
+	11, 23, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sTourian_1_Bg1[436] = INCBIN_U8("data/rooms/tourian/Tourian_1_Bg1.gfx");
 
 const u8 sTourian_1_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(10)] = {
-	2, 19, 18,
-	4, 42, 17,
-	4, 58, 17,
-	5, 21, 17,
-	5, 72, 17,
-	8, 69, 18,
-	10, 11, 18,
-	10, 48, 18,
-	11, 23, 18,
+	2, 19, SPRITESET_IDX(1),
+	4, 42, SPRITESET_IDX(0),
+	4, 58, SPRITESET_IDX(0),
+	5, 21, SPRITESET_IDX(0),
+	5, 72, SPRITESET_IDX(0),
+	8, 69, SPRITESET_IDX(1),
+	10, 11, SPRITESET_IDX(1),
+	10, 48, SPRITESET_IDX(1),
+	11, 23, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

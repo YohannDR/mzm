@@ -27,9 +27,9 @@ const u8 sNorfair_35_Bg2[183] = INCBIN_U8("data/rooms/norfair/Norfair_35_Bg2.gfx
 const u8 sNorfair_35_Bg1[601] = INCBIN_U8("data/rooms/norfair/Norfair_35_Bg1.gfx");
 
 const u8 sNorfair_35_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)] = {
-	9, 9, 17,
-	9, 15, 18,
-	11, 24, 19,
+	9, 9, SPRITESET_IDX(0),
+	9, 15, SPRITESET_IDX(1),
+	11, 24, SPRITESET_IDX(2),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

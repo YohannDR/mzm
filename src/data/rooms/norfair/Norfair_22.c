@@ -18,26 +18,26 @@ const u8 sNorfair_22_Clipdata[264] = INCBIN_U8("data/rooms/norfair/Norfair_22_Cl
 const u8 sNorfair_22_Bg2[456] = INCBIN_U8("data/rooms/norfair/Norfair_22_Bg2.gfx");
 
 const u8 sNorfair_22_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(8)] = {
-	9, 21, 21,
-	9, 30, 21,
-	16, 18, 17,
-	16, 24, 18,
-	17, 35, 18,
-	19, 29, 18,
-	21, 11, 19,
+	9, 21, SPRITESET_IDX(4),
+	9, 30, SPRITESET_IDX(4),
+	16, 18, SPRITESET_IDX(0),
+	16, 24, SPRITESET_IDX(1),
+	17, 35, SPRITESET_IDX(1),
+	19, 29, SPRITESET_IDX(1),
+	21, 11, SPRITESET_IDX(2),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sNorfair_22_Bg1[647] = INCBIN_U8("data/rooms/norfair/Norfair_22_Bg1.gfx");
 
 const u8 sNorfair_22_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(8)] = {
-	9, 21, 21,
-	9, 30, 21,
-	16, 18, 17,
-	16, 24, 17,
-	17, 35, 17,
-	19, 29, 18,
-	21, 11, 19,
+	9, 21, SPRITESET_IDX(4),
+	9, 30, SPRITESET_IDX(4),
+	16, 18, SPRITESET_IDX(0),
+	16, 24, SPRITESET_IDX(0),
+	17, 35, SPRITESET_IDX(0),
+	19, 29, SPRITESET_IDX(1),
+	21, 11, SPRITESET_IDX(2),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

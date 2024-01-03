@@ -18,18 +18,18 @@ const u8 sChozodia_53_Clipdata[162] = INCBIN_U8("data/rooms/chozodia/Chozodia_53
 const u8 sChozodia_53_Bg2[495] = INCBIN_U8("data/rooms/chozodia/Chozodia_53_Bg2.gfx");
 
 const u8 sChozodia_53_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(3)] = {
-	16, 23, 22,
-	21, 41, 17,
+	16, 23, SPRITESET_IDX(5),
+	21, 41, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sChozodia_53_Bg1[561] = INCBIN_U8("data/rooms/chozodia/Chozodia_53_Bg1.gfx");
 
 const u8 sChozodia_53_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)] = {
-	16, 23, 22,
-	20, 2, 18,
-	21, 39, 17,
-	21, 46, 18,
+	16, 23, SPRITESET_IDX(5),
+	20, 2, SPRITESET_IDX(1),
+	21, 39, SPRITESET_IDX(0),
+	21, 46, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

@@ -18,7 +18,7 @@ const u8 sChozodia_11_Clipdata[109] = INCBIN_U8("data/rooms/chozodia/Chozodia_11
 const u8 sChozodia_11_Bg1[221] = INCBIN_U8("data/rooms/chozodia/Chozodia_11_Bg1.gfx");
 
 const u8 sChozodia_11_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	4, 7, 17,
+	4, 7, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

@@ -25,7 +25,7 @@ const u8 sBrinstar_9_Clipdata[313] = INCBIN_U8("data/rooms/brinstar/Brinstar_9_C
 const u8 sBrinstar_9_Bg2[247] = INCBIN_U8("data/rooms/brinstar/Brinstar_9_Bg2.gfx");
 
 const u8 sBrinstar_9_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	1, 69, 17,
+	1, 69, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
