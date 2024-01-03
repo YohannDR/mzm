@@ -20,7 +20,7 @@ const u8 sRidley_12_Bg2[14] = INCBIN_U8("data/rooms/ridley/Ridley_12_Bg2.gfx");
 const u8 sRidley_12_Bg1[343] = INCBIN_U8("data/rooms/ridley/Ridley_12_Bg1.gfx");
 
 const u8 sRidley_12_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	11, 16, 17,
+	11, 16, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

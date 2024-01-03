@@ -25,24 +25,24 @@ const u8 sRidley_14_Clipdata[163] = INCBIN_U8("data/rooms/ridley/Ridley_14_Clipd
 const u8 sRidley_14_Bg2[14] = INCBIN_U8("data/rooms/ridley/Ridley_14_Bg2.gfx");
 
 const u8 sRidley_14_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(6)] = {
-	2, 20, 20,
-	2, 29, 20,
-	6, 26, 21,
-	7, 17, 21,
-	7, 35, 22,
+	2, 20, SPRITESET_IDX(3),
+	2, 29, SPRITESET_IDX(3),
+	6, 26, SPRITESET_IDX(4),
+	7, 17, SPRITESET_IDX(4),
+	7, 35, SPRITESET_IDX(5),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sRidley_14_Bg1[433] = INCBIN_U8("data/rooms/ridley/Ridley_14_Bg1.gfx");
 
 const u8 sRidley_14_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(8)] = {
-	2, 20, 20,
-	2, 24, 20,
-	2, 29, 20,
-	2, 33, 20,
-	6, 26, 22,
-	7, 17, 22,
-	7, 35, 22,
+	2, 20, SPRITESET_IDX(3),
+	2, 24, SPRITESET_IDX(3),
+	2, 29, SPRITESET_IDX(3),
+	2, 33, SPRITESET_IDX(3),
+	6, 26, SPRITESET_IDX(5),
+	7, 17, SPRITESET_IDX(5),
+	7, 35, SPRITESET_IDX(5),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

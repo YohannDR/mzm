@@ -23,32 +23,32 @@ const u8 sBrinstar_2_Scrolls[SCROLL_DATA_SIZE(2)] = {
 const u8 sBrinstar_2_Clipdata[122] = INCBIN_U8("data/rooms/brinstar/Brinstar_2_Clipdata.gfx");
 
 const u8 sBrinstar_2_Spriteset2[ENEMY_ROOM_DATA_ARRAY_SIZE(7)] = {
-	2, 19, 17,
-	2, 23, 17,
-	3, 12, 17,
-	3, 16, 17,
-	3, 27, 17,
-	9, 53, 18,
+	2, 19, SPRITESET_IDX(0),
+	2, 23, SPRITESET_IDX(0),
+	3, 12, SPRITESET_IDX(0),
+	3, 16, SPRITESET_IDX(0),
+	3, 27, SPRITESET_IDX(0),
+	9, 53, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sBrinstar_2_Bg2[108] = INCBIN_U8("data/rooms/brinstar/Brinstar_2_Bg2.gfx");
 
 const u8 sBrinstar_2_Spriteset1[ENEMY_ROOM_DATA_ARRAY_SIZE(5)] = {
-	2, 19, 17,
-	2, 23, 17,
-	3, 27, 17,
-	9, 53, 18,
+	2, 19, SPRITESET_IDX(0),
+	2, 23, SPRITESET_IDX(0),
+	3, 27, SPRITESET_IDX(0),
+	9, 53, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
 const u8 sBrinstar_2_Bg1[653] = INCBIN_U8("data/rooms/brinstar/Brinstar_2_Bg1.gfx");
 
 const u8 sBrinstar_2_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(5)] = {
-	2, 19, 17,
-	2, 23, 17,
-	3, 27, 17,
-	9, 53, 18,
+	2, 19, SPRITESET_IDX(0),
+	2, 23, SPRITESET_IDX(0),
+	3, 27, SPRITESET_IDX(0),
+	9, 53, SPRITESET_IDX(1),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

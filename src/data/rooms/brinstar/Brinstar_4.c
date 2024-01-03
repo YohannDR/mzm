@@ -8,9 +8,9 @@ const u8 sBrinstar_4_Bg2[128] = INCBIN_U8("data/rooms/brinstar/Brinstar_4_Bg2.gf
 const u8 sBrinstar_4_Bg1[544] = INCBIN_U8("data/rooms/brinstar/Brinstar_4_Bg1.gfx");
 
 const u8 sBrinstar_4_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(4)] = {
-	3, 9, 19,
-	3, 12, 19,
-	3, 39, 19,
+	3, 9, SPRITESET_IDX(2),
+	3, 12, SPRITESET_IDX(2),
+	3, 39, SPRITESET_IDX(2),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

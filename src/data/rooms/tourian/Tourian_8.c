@@ -27,7 +27,7 @@ const u8 sTourian_8_Bg2[1201] = INCBIN_U8("data/rooms/tourian/Tourian_8_Bg2.gfx"
 const u8 sTourian_8_Bg1[1638] = INCBIN_U8("data/rooms/tourian/Tourian_8_Bg1.gfx");
 
 const u8 sTourian_8_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	15, 24, 17,
+	15, 24, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

@@ -20,7 +20,7 @@ const u8 sCrateria_17_Bg2[527] = INCBIN_U8("data/rooms/crateria/Crateria_17_Bg2.
 const u8 sCrateria_17_Bg1[735] = INCBIN_U8("data/rooms/crateria/Crateria_17_Bg1.gfx");
 
 const u8 sCrateria_17_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	40, 13, 17,
+	40, 13, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 

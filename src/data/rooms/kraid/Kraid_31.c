@@ -8,7 +8,7 @@ const u8 sKraid_31_Bg2[18] = INCBIN_U8("data/rooms/kraid/Kraid_31_Bg2.gfx");
 const u8 sKraid_31_Bg1[208] = INCBIN_U8("data/rooms/kraid/Kraid_31_Bg1.gfx");
 
 const u8 sKraid_31_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)] = {
-	10, 8, 17,
+	10, 8, SPRITESET_IDX(0),
 	ROOM_SPRITE_DATA_TERMINATOR
 };
 
