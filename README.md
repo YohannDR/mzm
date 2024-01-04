@@ -35,5 +35,7 @@ This produces the following ROMs:
 ## Build
 
 - Run `make clean` if necessary
-- Run the `extractor` script in tools (`./tools/extractor`) if necessary
+- Run the data extractor if necessary:
+   * Compile: `cd tools && . compile_c_extractor.sh && cd ..`
+   * Run: `tools/c_extractor`
 - Run `make` (using the -j option is recommended to speed up the process)
