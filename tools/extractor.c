@@ -67,6 +67,10 @@ int stoi_hex(const char *s)
 	return n;
 }
 
+/*
+ * Creates the entire directory hierarchy for the given file path, if it does
+ * not exist yet.
+ */
 void create_directories(const char *filePath)
 {
 	// NOTE: filePath contains the full path of a given extracted data asset.
@@ -81,7 +85,7 @@ void create_directories(const char *filePath)
 		exit(EXIT_FAILURE);
 	}
 
-	// Retrieve the directory filePath from the fila filePath:
+	// Retrieve the directory path from the complete file path:
 	strncpy(dirPath, filePath, dirPathLen);
 	dirPath[dirPathLen] = '\0';
 
@@ -100,6 +104,17 @@ void create_directories(const char *filePath)
 	free(dirPath);
 }
 
+/*
+ * Function passed to nftw() to recursively remove all files and directories
+ * under a given path.
+ * It basically does the "removing" part of "rm -rf".
+ * fpath is a specific file or empty directory. It cannot be a non-empty
+ * directory (i.e. does not work recursively). nftw() passes the files and
+ * directories in the correct order so that a path (parent of fpath) is
+ * recursively removed.
+ * All the other arguments (sb, typeflag, ftwbuf) are needed as specified by
+ * nftw(), but are unused in this function.
+ */
 int remove_file_or_directory(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
 {
 	int rv = remove(fpath);
@@ -172,6 +187,7 @@ int main(void)
 			if (stat(dataPath, &st) == 0)
 			{
 				printf("Deleting old files...\n");
+				// Basically a "rm -rf dataPath":
 				nftw(dataPath, remove_file_or_directory, 10, FTW_DEPTH | FTW_PHYS);
 			}
 		}
