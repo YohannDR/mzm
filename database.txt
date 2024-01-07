@@ -479,7 +479,7 @@ sprites/FallingChozoPillar.pal;16;0x31cb00;2
 sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
 sprites/MechaRidleyWeapons.gfx.lz;1024;0x322468;4
 sprites/MechaRidleyDestroyed.gfx.lz;336;0x323468;4
-sprites/MechaRidley.pal;129;03239a8;2
+sprites/MechaRidley.pal;129;0x3239a8;2
 sprites/MechaRidley_323aaa.pal;12;0x323aaa;2
 sprites/MechaRidleyGreenGlow.pal;64;0x323ac2;2
 sprites/MechaRidley_323b42.pal;4;0x323b42;2
