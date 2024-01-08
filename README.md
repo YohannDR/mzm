@@ -38,4 +38,5 @@ This produces the following ROMs:
 - Run the data extractor if necessary:
    * Compile: `cd tools && . compile_c_extractor.sh && cd ..`
    * Run: `tools/c_extractor`
+   * If the C version doesn't work, run the C# version `tools/extractor`
 - Run `make` (using the -j option is recommended to speed up the process)
