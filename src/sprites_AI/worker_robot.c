@@ -132,15 +132,13 @@ void WorkerRobotChecWakingUpAnimEnded(void)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
 }
 
-#ifdef NON_MATCHING
 void WorkerRobotWalkingDetectProjectile(void)
 {
-    // https://decomp.me/scratch/P1vZU
-    
     struct ProjectileData* pProj;
     u8 type;
     u8 onSide;
     u8 status;
+    u32 statusCheck;
     
     u16 projY;
     u16 projX;
@@ -156,6 +154,7 @@ void WorkerRobotWalkingDetectProjectile(void)
     u16 spriteLeft;
     u16 spriteRight;
 
+    statusCheck = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
     onSide = FALSE;
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
@@ -167,7 +166,7 @@ void WorkerRobotWalkingDetectProjectile(void)
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         status = pProj->status;
-        if ((status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) != (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
+        if ((status & statusCheck) != statusCheck)
             continue;
 
         type = pProj->type;
@@ -247,225 +246,6 @@ void WorkerRobotWalkingDetectProjectile(void)
         break;
     }
 }
-#else
-NAKED_FUNCTION
-void WorkerRobotWalkingDetectProjectile(void)
-{
-    asm(" \n\
-        push {r4, r5, r6, r7, lr} \n\
-        mov r7, sl \n\
-        mov r6, sb \n\
-        mov r5, r8 \n\
-        push {r5, r6, r7} \n\
-        sub sp, #0x18 \n\
-        movs r0, #0 \n\
-        mov r8, r0 \n\
-        ldr r3, lbl_0802f828 @ =gCurrentSprite \n\
-        ldrh r1, [r3, #2] \n\
-        ldrh r2, [r3, #4] \n\
-        ldrh r0, [r3, #0xa] \n\
-        add r0, r1, r0 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        mov sb, r0 \n\
-        ldrh r0, [r3, #0xc] \n\
-        add r1, r1, r0 \n\
-        lsl r1, r1, #0x10 \n\
-        lsr r7, r1, #0x10 \n\
-        ldrh r0, [r3, #0xe] \n\
-        add r0, r2, r0 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        str r0, [sp, #0x14] \n\
-        ldrh r0, [r3, #0x10] \n\
-        add r2, r2, r0 \n\
-        lsl r2, r2, #0x10 \n\
-        lsr r2, r2, #0x10 \n\
-        mov sl, r2 \n\
-        ldr r4, lbl_0802f82c @ =gProjectileData \n\
-        movs r1, #0xe0 \n\
-        lsl r1, r1, #1 \n\
-        add r0, r4, r1 \n\
-        cmp r4, r0 \n\
-        blo lbl_0802f77e \n\
-        b lbl_0802f8ba \n\
-    lbl_0802f77e: \n\
-        ldrb r0, [r4] \n\
-        movs r1, #0x11 \n\
-        and r0, r1 \n\
-        cmp r0, #0x11 \n\
-        beq lbl_0802f78a \n\
-        b lbl_0802f8b0 \n\
-    lbl_0802f78a: \n\
-        ldrb r0, [r4, #0xf] \n\
-        str r0, [sp, #0x10] \n\
-        sub r0, #0xc \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        cmp r0, #1 \n\
-        bls lbl_0802f79a \n\
-        b lbl_0802f8b0 \n\
-    lbl_0802f79a: \n\
-        ldrh r6, [r4, #8] \n\
-        ldrh r5, [r4, #0xa] \n\
-        ldrh r3, [r4, #0x14] \n\
-        add r3, r6, r3 \n\
-        lsl r3, r3, #0x10 \n\
-        lsr r3, r3, #0x10 \n\
-        ldrh r2, [r4, #0x16] \n\
-        add r2, r6, r2 \n\
-        lsl r2, r2, #0x10 \n\
-        lsr r2, r2, #0x10 \n\
-        ldrh r1, [r4, #0x18] \n\
-        add r1, r5, r1 \n\
-        lsl r1, r1, #0x10 \n\
-        lsr r1, r1, #0x10 \n\
-        ldrh r0, [r4, #0x1a] \n\
-        add r0, r5, r0 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        str r3, [sp] \n\
-        str r2, [sp, #4] \n\
-        str r1, [sp, #8] \n\
-        str r0, [sp, #0xc] \n\
-        mov r0, sb \n\
-        add r1, r7, #0 \n\
-        ldr r2, [sp, #0x14] \n\
-        mov r3, sl \n\
-        bl SpriteUtilCheckObjectsTouching \n\
-        cmp r0, #0 \n\
-        beq lbl_0802f8b0 \n\
-        ldrb r0, [r4, #0x10] \n\
-        cmp r0, #0 \n\
-        beq lbl_0802f7ee \n\
-        sub r0, #1 \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        cmp r0, #1 \n\
-        bhi lbl_0802f7f8 \n\
-        cmp r6, sb \n\
-        bls lbl_0802f7f8 \n\
-        cmp r6, r7 \n\
-        bhs lbl_0802f7f8 \n\
-    lbl_0802f7ee: \n\
-        mov r0, r8 \n\
-        add r0, #1 \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        mov r8, r0 \n\
-    lbl_0802f7f8: \n\
-        mov r1, r8 \n\
-        cmp r1, #0 \n\
-        beq lbl_0802f86a \n\
-        ldrb r1, [r4] \n\
-        movs r3, #0x40 \n\
-        add r0, r3, #0 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0802f834 \n\
-        ldr r5, [sp, #0x14] \n\
-        ldr r0, lbl_0802f828 @ =gCurrentSprite \n\
-        ldrh r2, [r0] \n\
-        movs r7, #0x80 \n\
-        lsl r7, r7, #2 \n\
-        add r1, r7, #0 \n\
-        orr r1, r2 \n\
-        strh r1, [r0] \n\
-        and r1, r3 \n\
-        add r2, r0, #0 \n\
-        cmp r1, #0 \n\
-        bne lbl_0802f85c \n\
-        ldr r0, [r2, #0x18] \n\
-        ldr r1, lbl_0802f830 @ =sWorkerRobotOAM_WalkingBackwards \n\
-        b lbl_0802f860 \n\
-        .align 2, 0 \n\
-    lbl_0802f828: .4byte gCurrentSprite \n\
-    lbl_0802f82c: .4byte gProjectileData \n\
-    lbl_0802f830: .4byte sWorkerRobotOAM_WalkingBackwards \n\
-    lbl_0802f834: \n\
-        mov r5, sl \n\
-        ldr r0, lbl_0802f850 @ =gCurrentSprite \n\
-        ldrh r1, [r0] \n\
-        ldr r7, lbl_0802f854 @ =0x0000fdff \n\
-        add r2, r7, #0 \n\
-        and r1, r2 \n\
-        strh r1, [r0] \n\
-        and r1, r3 \n\
-        add r2, r0, #0 \n\
-        cmp r1, #0 \n\
-        beq lbl_0802f85c \n\
-        ldr r0, [r2, #0x18] \n\
-        ldr r1, lbl_0802f858 @ =sWorkerRobotOAM_WalkingBackwards \n\
-        b lbl_0802f860 \n\
-        .align 2, 0 \n\
-    lbl_0802f850: .4byte gCurrentSprite \n\
-    lbl_0802f854: .4byte 0x0000fdff \n\
-    lbl_0802f858: .4byte sWorkerRobotOAM_WalkingBackwards \n\
-    lbl_0802f85c: \n\
-        ldr r0, [r2, #0x18] \n\
-        ldr r1, lbl_0802f888 @ =sWorkerRobotOAM_Walking \n\
-    lbl_0802f860: \n\
-        cmp r0, r1 \n\
-        beq lbl_0802f866 \n\
-        str r1, [r2, #0x18] \n\
-    lbl_0802f866: \n\
-        movs r0, #0 \n\
-        strb r0, [r2, #0x1c] \n\
-    lbl_0802f86a: \n\
-        ldr r0, [sp, #0x10] \n\
-        cmp r0, #0xd \n\
-        bne lbl_0802f890 \n\
-        add r0, r6, #0 \n\
-        add r1, r5, #0 \n\
-        movs r2, #0x31 \n\
-        bl ParticleSet \n\
-        mov r1, r8 \n\
-        cmp r1, #0 \n\
-        beq lbl_0802f8a6 \n\
-        movs r0, #0x3c \n\
-        ldr r7, lbl_0802f88c @ =gCurrentSprite+0x2d \n\
-        strb r0, [r7] \n\
-        b lbl_0802f8a6 \n\
-        .align 2, 0 \n\
-    lbl_0802f888: .4byte sWorkerRobotOAM_Walking \n\
-    lbl_0802f88c: .4byte gCurrentSprite+0x2d \n\
-    lbl_0802f890: \n\
-        add r0, r6, #0 \n\
-        add r1, r5, #0 \n\
-        movs r2, #0x30 \n\
-        bl ParticleSet \n\
-        mov r0, r8 \n\
-        cmp r0, #0 \n\
-        beq lbl_0802f8a6 \n\
-        movs r0, #0x1e \n\
-        ldr r1, lbl_0802f8ac @ =gCurrentSprite+0x2d \n\
-        strb r0, [r1] \n\
-    lbl_0802f8a6: \n\
-        movs r0, #0 \n\
-        strb r0, [r4] \n\
-        b lbl_0802f8ba \n\
-        .align 2, 0 \n\
-    lbl_0802f8ac: .4byte gCurrentSprite+0x2d \n\
-    lbl_0802f8b0: \n\
-        add r4, #0x1c \n\
-        ldr r0, lbl_0802f8cc @ =gArmCannonY \n\
-        cmp r4, r0 \n\
-        bhs lbl_0802f8ba \n\
-        b lbl_0802f77e \n\
-    lbl_0802f8ba: \n\
-        add sp, #0x18 \n\
-        pop {r3, r4, r5} \n\
-        mov r8, r3 \n\
-        mov sb, r4 \n\
-        mov sl, r5 \n\
-        pop {r4, r5, r6, r7} \n\
-        pop {r0} \n\
-        bx r0 \n\
-        .align 2, 0 \n\
-    lbl_0802f8cc: .4byte gArmCannonY \n\
-    ");
-}
-#endif
 
 void WorkerRobotStandingInit(void)
 {
