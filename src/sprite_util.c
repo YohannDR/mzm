@@ -7,6 +7,7 @@
 #include "sprites_AI/acid_worm.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
@@ -652,7 +653,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 break;
 
                             case SPOSE_BALLSPARKING:
-                                SoundStop(0x8F);
+                                SoundStop(SOUND_BALLSPARKING);
+
                             case SPOSE_MORPH_BALL_MIDAIR:
                                 pData->yPosition = pSprite->yPosition + 0x3C;
                                 pData->xPosition = pSprite->xPosition;
