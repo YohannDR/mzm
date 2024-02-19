@@ -13,7 +13,7 @@ void unk_378c(u16 musicTrack);
 void CheckPlayTransitionMusicTrack(void);
 void unk_38d8(void);
 void UpdateMusicAfterAlarmDisable(void);
-u16 DetermineNewMusicTrack(u16 musicTrack);
+u32 DetermineNewMusicTrack(u16 musicTrack);
 void unk_39c8(void);
 void PlayMusic(u16 musicTrack, u8 priority);
 void unk_3a6c(void);

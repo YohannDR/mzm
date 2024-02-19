@@ -530,7 +530,7 @@ void PlayFadingSound(u16 sound, u16 timer)
  */
 void InitFadingMusic(struct TrackData* pTrack, const u8* pHeader, u16 timer)
 {
-    init_track(pTrack, pHeader);
+    InitTrack(pTrack, pHeader);
 
     if (timer != 0 && !pTrack->occupied)
     {
@@ -686,7 +686,7 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
                         pTrack2->unk_24 = 0;
                         pTrack2->maxSoundChannels = gMusicInfo.maxSoundChannels;
             
-                        init_track(pTrack1, pHeader);
+                        InitTrack(pTrack1, pHeader);
                         pTrack1->flags = 0x40 | 0x2;
                         pTrack1->maybe_volume = 0;
                         pTrack1->fadingTimer = pTrack2->fadingTimer;

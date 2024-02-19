@@ -371,7 +371,7 @@ lbl_08001354:
     b lbl_080013d4
 lbl_0800137c:
     adds r0, r4, #0
-    bl sub_080020a4
+    bl unk_20a4
     b lbl_080013d4
 lbl_08001384:
     ldrb r0, [r4, #0xd]
@@ -383,7 +383,7 @@ lbl_08001384:
     bne lbl_0800139a
     strb r0, [r4]
     adds r0, r4, #0
-    bl sub_080020a4
+    bl unk_20a4
 lbl_0800139a:
     strb r5, [r4, #0x10]
     lsls r1, r5, #0x10
@@ -949,7 +949,7 @@ lbl_080017ae:
 lbl_080017b6:
     adds r0, r4, #0
     mov r1, r8
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     b lbl_08001834
 lbl_080017c0:
     lsls r0, r2, #0x18
@@ -958,7 +958,7 @@ lbl_080017c0:
     bne lbl_08001834
     adds r0, r4, #0
     mov r1, r8
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     strb r5, [r4]
     b lbl_08001834
 lbl_080017d4:
@@ -1508,7 +1508,7 @@ lbl_08001bc8:
     cmp r0, #0
     beq lbl_08001bde
     ldrb r0, [r6]
-    bl sub_08003d4c
+    bl ReplayQueuedMusic
 lbl_08001bde:
     mov r2, sl
     strb r4, [r2]
@@ -2189,8 +2189,8 @@ lbl_0800207a:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_080020a4
-sub_080020a4: @ 0x080020a4
+    thumb_func_start unk_20a4
+unk_20a4: @ 0x080020a4
     push {lr}
     adds r2, r0, #0
     ldr r0, [r2, #0x28]
@@ -2296,7 +2296,7 @@ sub_08002140: @ 0x08002140
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
     adds r0, r2, #0
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     ldr r0, [r4, #0x4c]
     movs r1, #0
     strb r1, [r0]
@@ -2357,7 +2357,7 @@ sub_080021b0: @ 0x080021b0
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
     adds r0, r2, #0
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     ldr r0, [r4, #0x4c]
     movs r1, #0
     strb r1, [r0]
@@ -2809,8 +2809,8 @@ Music_EmptyCommand: @ 0x080024bc
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_080024c0
-sub_080024c0: @ 0x080024c0
+    thumb_func_start ClearRegistersForPsg
+ClearRegistersForPsg: @ 0x080024c0
     push {lr}
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18

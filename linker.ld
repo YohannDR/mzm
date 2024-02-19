@@ -409,6 +409,9 @@ SECTIONS {
 
         asm/disasm_0x080010c4.o(.text);
         asm/disasm_0x08002a58.o(.text);
+
+        src/music_wrappers.o(.text);
+
         asm/audio_internal.o(.text);
         asm/syscalls.o(.text);
 
