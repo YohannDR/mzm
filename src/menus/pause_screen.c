@@ -32,23 +32,26 @@
 #include "structs/game_state.h"
 #include "structs/text.h"
 
-#ifdef NON_MATCHING
-u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
+/**
+ * @brief 68168 | 60 | To document
+ * 
+ * TODO: document params and return
+ */
+u32 unk_68168(u16 param_1, u8 param_2, s8 param_3)
 {
-    // https://decomp.me/scratch/7coJ2
-
-    s32 _param_3 = (s8)param_3;
+    s32 _param_3 = param_3;
+    u32 _uselessVarForMatching = !sNonGameplayRamPointer;
     
     if (!PAUSE_SCREEN_DATA.unk_7C && param_2 != 0)
     {
         PAUSE_SCREEN_DATA.unk_7C++;
-        
+
         PAUSE_SCREEN_DATA.unk_7D = param_2;
         PAUSE_SCREEN_DATA.unk_7F = _param_3;
 
-        PAUSE_SCREEN_DATA.unk_80 = (param_1 >> 0) & 0x1F;
-        PAUSE_SCREEN_DATA.unk_81 = (param_1 >> 8) & 0x1F;
-        
+        PAUSE_SCREEN_DATA.unk_80 = 0x1F & param_1;
+        PAUSE_SCREEN_DATA.unk_81 = _uselessVarForMatching = (param_1 >> 8) & 0x1F;
+
         PAUSE_SCREEN_DATA.unk_7E = 0;
 
         return TRUE;
@@ -56,63 +59,6 @@ u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
 
     return FALSE;
 }
-#else
-NAKED_FUNCTION
-u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    lsl r7, r0, #0x10 \n\
-    lsr r4, r7, #0x10 \n\
-    lsl r1, r1, #0x18 \n\
-    lsr r1, r1, #0x18 \n\
-    lsl r2, r2, #0x18 \n\
-    asr r2, r2, #0x18 \n\
-    ldr r5, lbl_080681bc @ =sNonGameplayRamPointer \n\
-    ldr r0, [r5] \n\
-    add r3, r0, #0 \n\
-    add r3, #0x7c \n\
-    ldrb r0, [r3] \n\
-    add r6, r0, #0 \n\
-    cmp r6, #0 \n\
-    bne lbl_080681c0 \n\
-    cmp r1, #0 \n\
-    beq lbl_080681c0 \n\
-    add r0, #1 \n\
-    strb r0, [r3] \n\
-    ldr r0, [r5] \n\
-    add r0, #0x7d \n\
-    strb r1, [r0] \n\
-    ldr r0, [r5] \n\
-    add r0, #0x7f \n\
-    strb r2, [r0] \n\
-    ldr r0, [r5] \n\
-    movs r1, #0x1f \n\
-    and r4, r1 \n\
-    add r0, #0x80 \n\
-    strb r4, [r0] \n\
-    ldr r2, [r5] \n\
-    lsr r0, r7, #0x18 \n\
-    movs r1, #0x1f \n\
-    and r0, r1 \n\
-    add r2, #0x81 \n\
-    strb r0, [r2] \n\
-    ldr r0, [r5] \n\
-    add r0, #0x7e \n\
-    strb r6, [r0] \n\
-    movs r0, #1 \n\
-    b lbl_080681c2 \n\
-    .align 2, 0 \n\
-lbl_080681bc: .4byte sNonGameplayRamPointer \n\
-lbl_080681c0: \n\
-    movs r0, #0 \n\
-lbl_080681c2: \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r1} \n\
-    bx r1 \n\
-    ");
-}
-#endif
 
 /**
  * @brief 681c8 | 124 | To document
