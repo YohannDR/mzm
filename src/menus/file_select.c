@@ -1818,7 +1818,7 @@ u32 FileSelectEraseFileSubroutine(void)
                     FILE_SELECT_DATA.subroutineStage = 10;
                     break;
                     #else // !NONMATCHING
-                    goto lbl_case9;
+                    goto lbl_case_9;
                     #endif
                 }
                 else if (gChangedInput & KEY_A)
@@ -1929,7 +1929,7 @@ u32 FileSelectEraseFileSubroutine(void)
         case 9:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN))
             {
-                lbl_case9:
+                lbl_case_9:
                 FILE_SELECT_DATA.subroutineStage = 10;
             }
             break;
