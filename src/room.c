@@ -569,11 +569,13 @@ void RoomSetBackgroundScrolling(void)
     gInGameCutscene.queriedCutscene = 0;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 56b28 | 1f0 | Setups the initial tilemapfor the BG in r0
+ * 
+ * @param bgNumber Background number
+ */
 void RoomSetInitialTilemap(u8 bgNumber)
 {
-    // https://decomp.me/scratch/mY7sw
-    
     s32 properties;
     s32 yPosition;
     u16 xPosition;
@@ -583,7 +585,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
     u16* pDecomp;
     u16 yPos;
     u16 xPos;
-    
+
     u16 xSize;
     u16 ySize;
 
@@ -596,11 +598,15 @@ void RoomSetInitialTilemap(u8 bgNumber)
     u16* dst;
     u16* pTilemap;
 
+    u32 Ox800;
+
     if (bgNumber == 0)
     {
         properties = gCurrentRoomEntry.Bg0Prop;
-        yPosition = gBg0YPosition / BLOCK_SIZE;
-        xPosition = gBg0XPosition / BLOCK_SIZE;
+        do {
+            yPosition = gBg0YPosition / BLOCK_SIZE;
+            xPosition = gBg0XPosition / BLOCK_SIZE;
+        } while (0);
     }
     else if (bgNumber == 1)
     {
@@ -627,7 +633,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
             xSize = gBgPointersAndDimensions.backgrounds[bgNumber].width - offset;
 
         xPos = offset;
-        
+
         ySize = 0x10;
 
         offset = yPosition - 3;
@@ -645,16 +651,18 @@ void RoomSetInitialTilemap(u8 bgNumber)
             iWidth = i * gBgPointersAndDimensions.backgrounds[bgNumber].width;
 
             tmpX = xPos;
-            for (yPosition = 0; yPosition < xSize; iWidth++, yPosition++, tmpX++) 
+            for (yPosition = 0; yPosition < xSize; iWidth++, yPosition++, tmpX++)
             {
                 dst = VRAM_BASE + bgNumber * 0x1000;
 
+                Ox800 = 0x800; // Needed to produce matching assembly.
                 if (tmpX & 0x10)
-                    dst = VRAM_BASE + 0x800 + bgNumber * 0x1000;
+                    dst = VRAM_BASE + Ox800 + bgNumber * 0x1000;
 
                 dst = &dst[(tmpX & 0xF) * 2 + (yPos & 0xF) * 64];
 
-                offset = pDecomp[iWidth] * 4;
+                offset = pDecomp[iWidth];
+                offset *= 4;
                 pTilemap = &gTilemapAndClipPointers.pTilemap[offset];
 
                 dst[0] = *pTilemap++;
@@ -666,286 +674,28 @@ void RoomSetInitialTilemap(u8 bgNumber)
     }
     else
     {
+        s32 *offsetPtr; // Needed to produce matching assembly.
+
         if (properties == 0)
         {
             BitFill(3, 0x40, VRAM_BASE + bgNumber * 0x1000, 0x1000, 16);
             return;
         }
 
+        offsetPtr = &offset;
         if (properties & BG_PROP_LZ77_COMPRESSED && bgNumber == 0)
         {
-            offset = 0x800;
+            *offsetPtr = 0x800;
             if (gCurrentRoomEntry.Bg0Size & 1)
                 offset *= 2;
 
             if (gCurrentRoomEntry.Bg0Size & 2)
                 offset *= 2;
 
-            DmaTransfer(3, gDecompBg0Map, VRAM_BASE, offset, 16);
+            DmaTransfer(3, gDecompBg0Map, VRAM_BASE, *offsetPtr, 16);
         }
     }
 }
-#else
-NAKED_FUNCTION
-void RoomSetInitialTilemap(u8 bgNumber)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, sl \n\
-    mov r6, sb \n\
-    mov r5, r8 \n\
-    push {r5, r6, r7} \n\
-    sub sp, #0x1c \n\
-    lsl r0, r0, #0x18 \n\
-    lsr r0, r0, #0x18 \n\
-    mov sb, r0 \n\
-    cmp r0, #0 \n\
-    bne lbl_08056b58 \n\
-    ldr r1, lbl_08056b4c @ =gCurrentRoomEntry \n\
-    ldrb r2, [r1, #1] \n\
-    ldr r0, lbl_08056b50 @ =gBg0YPosition \n\
-    ldrh r0, [r0] \n\
-    lsr r6, r0, #6 \n\
-    ldr r0, lbl_08056b54 @ =gBg0XPosition \n\
-    b lbl_08056b84 \n\
-    .align 2, 0 \n\
-lbl_08056b4c: .4byte gCurrentRoomEntry \n\
-lbl_08056b50: .4byte gBg0YPosition \n\
-lbl_08056b54: .4byte gBg0XPosition \n\
-lbl_08056b58: \n\
-    mov r0, sb \n\
-    cmp r0, #1 \n\
-    bne lbl_08056b78 \n\
-    ldr r1, lbl_08056b6c @ =gCurrentRoomEntry \n\
-    ldrb r2, [r1, #2] \n\
-    ldr r0, lbl_08056b70 @ =gBg1YPosition \n\
-    ldrh r0, [r0] \n\
-    lsr r6, r0, #6 \n\
-    ldr r0, lbl_08056b74 @ =gBg1XPosition \n\
-    b lbl_08056b84 \n\
-    .align 2, 0 \n\
-lbl_08056b6c: .4byte gCurrentRoomEntry \n\
-lbl_08056b70: .4byte gBg1YPosition \n\
-lbl_08056b74: .4byte gBg1XPosition \n\
-lbl_08056b78: \n\
-    ldr r1, lbl_08056c94 @ =gCurrentRoomEntry \n\
-    ldrb r2, [r1, #3] \n\
-    ldr r0, lbl_08056c98 @ =gBg2YPosition \n\
-    ldrh r0, [r0] \n\
-    lsr r6, r0, #6 \n\
-    ldr r0, lbl_08056c9c @ =gBg2XPosition \n\
-lbl_08056b84: \n\
-    ldrh r0, [r0] \n\
-    lsr r3, r0, #6 \n\
-    movs r7, #0x10 \n\
-    add r0, r2, #0 \n\
-    and r0, r7 \n\
-    cmp r0, #0 \n\
-    bne lbl_08056b94 \n\
-    b lbl_08056cac \n\
-lbl_08056b94: \n\
-    movs r1, #0x15 \n\
-    str r1, [sp, #0xc] \n\
-    sub r4, r3, #3 \n\
-    cmp r4, #0 \n\
-    bge lbl_08056ba0 \n\
-    movs r4, #0 \n\
-lbl_08056ba0: \n\
-    ldr r1, lbl_08056ca0 @ =gBgPointersAndDimensions \n\
-    mov r2, sb \n\
-    lsl r0, r2, #3 \n\
-    add r5, r0, r1 \n\
-    ldrh r1, [r5, #4] \n\
-    sub r0, r1, r4 \n\
-    ldr r3, [sp, #0xc] \n\
-    cmp r3, r0 \n\
-    ble lbl_08056bb8 \n\
-    lsl r0, r0, #0x10 \n\
-    lsr r0, r0, #0x10 \n\
-    str r0, [sp, #0xc] \n\
-lbl_08056bb8: \n\
-    lsl r0, r4, #0x10 \n\
-    lsr r0, r0, #0x10 \n\
-    str r0, [sp, #8] \n\
-    movs r0, #0x10 \n\
-    str r0, [sp, #0x10] \n\
-    sub r4, r6, #3 \n\
-    cmp r4, #0 \n\
-    bge lbl_08056bca \n\
-    movs r4, #0 \n\
-lbl_08056bca: \n\
-    ldrh r0, [r5, #6] \n\
-    sub r0, r0, r4 \n\
-    cmp r7, r0 \n\
-    ble lbl_08056bd8 \n\
-    lsl r0, r0, #0x10 \n\
-    lsr r0, r0, #0x10 \n\
-    str r0, [sp, #0x10] \n\
-lbl_08056bd8: \n\
-    lsl r0, r4, #0x10 \n\
-    lsr r0, r0, #0x10 \n\
-    mul r1, r0, r1 \n\
-    ldr r2, [sp, #8] \n\
-    add r1, r2, r1 \n\
-    lsl r1, r1, #1 \n\
-    ldr r2, [r5] \n\
-    add r2, r2, r1 \n\
-    str r2, [sp, #4] \n\
-    add r1, r0, #0 \n\
-    movs r2, #0 \n\
-    ldr r3, [sp, #0x10] \n\
-    cmp r2, r3 \n\
-    blt lbl_08056bf6 \n\
-    b lbl_08056d02 \n\
-lbl_08056bf6: \n\
-    str r5, [sp, #0x14] \n\
-lbl_08056bf8: \n\
-    ldr r3, [sp, #0x14] \n\
-    ldrh r0, [r3, #4] \n\
-    mul r0, r2, r0 \n\
-    lsl r0, r0, #0x10 \n\
-    lsr r7, r0, #0x10 \n\
-    ldr r5, [sp, #8] \n\
-    add r2, #1 \n\
-    str r2, [sp, #0x18] \n\
-    add r0, r1, #1 \n\
-    mov sl, r0 \n\
-    ldr r2, [sp, #0xc] \n\
-    cmp r2, #0 \n\
-    beq lbl_08056c82 \n\
-    mov r3, sb \n\
-    lsl r3, r3, #0xc \n\
-    mov ip, r3 \n\
-    movs r0, #0xf \n\
-    and r1, r0 \n\
-    lsl r1, r1, #6 \n\
-    mov r8, r1 \n\
-    add r6, r2, #0 \n\
-lbl_08056c22: \n\
-    movs r0, #0xc0 \n\
-    lsl r0, r0, #0x13 \n\
-    mov r1, ip \n\
-    add r3, r1, r0 \n\
-    movs r0, #0x10 \n\
-    and r0, r5 \n\
-    cmp r0, #0 \n\
-    beq lbl_08056c36 \n\
-    ldr r3, lbl_08056ca4 @ =0x06000800 \n\
-    add r3, ip \n\
-lbl_08056c36: \n\
-    add r0, r5, #0 \n\
-    movs r2, #0xf \n\
-    and r0, r2 \n\
-    lsl r0, r0, #1 \n\
-    add r0, r8 \n\
-    lsl r0, r0, #1 \n\
-    add r3, r3, r0 \n\
-    lsl r0, r7, #1 \n\
-    ldr r1, [sp, #4] \n\
-    add r0, r0, r1 \n\
-    ldrh r4, [r0] \n\
-    lsl r1, r4, #3 \n\
-    ldr r2, lbl_08056ca8 @ =gTilemapAndClipPointers \n\
-    ldr r0, [r2] \n\
-    add r0, r0, r1 \n\
-    ldrh r1, [r0] \n\
-    strh r1, [r3] \n\
-    add r0, #2 \n\
-    ldrh r1, [r0] \n\
-    strh r1, [r3, #2] \n\
-    add r0, #2 \n\
-    add r2, r3, #0 \n\
-    add r2, #0x40 \n\
-    ldrh r1, [r0] \n\
-    strh r1, [r2] \n\
-    add r1, r3, #0 \n\
-    add r1, #0x42 \n\
-    ldrh r0, [r0, #2] \n\
-    strh r0, [r1] \n\
-    add r0, r7, #1 \n\
-    lsl r0, r0, #0x10 \n\
-    lsr r7, r0, #0x10 \n\
-    sub r6, #1 \n\
-    add r0, r5, #1 \n\
-    lsl r0, r0, #0x10 \n\
-    lsr r5, r0, #0x10 \n\
-    cmp r6, #0 \n\
-    bne lbl_08056c22 \n\
-lbl_08056c82: \n\
-    ldr r2, [sp, #0x18] \n\
-    mov r3, sl \n\
-    lsl r0, r3, #0x10 \n\
-    lsr r1, r0, #0x10 \n\
-    ldr r0, [sp, #0x10] \n\
-    cmp r2, r0 \n\
-    blt lbl_08056bf8 \n\
-    b lbl_08056d02 \n\
-    .align 2, 0 \n\
-lbl_08056c94: .4byte gCurrentRoomEntry \n\
-lbl_08056c98: .4byte gBg2YPosition \n\
-lbl_08056c9c: .4byte gBg2XPosition \n\
-lbl_08056ca0: .4byte gBgPointersAndDimensions \n\
-lbl_08056ca4: .4byte 0x06000800 \n\
-lbl_08056ca8: .4byte gTilemapAndClipPointers \n\
-lbl_08056cac: \n\
-    cmp r2, #0 \n\
-    bne lbl_08056cca \n\
-    mov r1, sb \n\
-    lsl r2, r1, #0xc \n\
-    movs r0, #0xc0 \n\
-    lsl r0, r0, #0x13 \n\
-    add r2, r2, r0 \n\
-    movs r3, #0x80 \n\
-    lsl r3, r3, #5 \n\
-    str r7, [sp] \n\
-    movs r0, #3 \n\
-    movs r1, #0x40 \n\
-    bl BitFill \n\
-    b lbl_08056d02 \n\
-lbl_08056cca: \n\
-    movs r0, #0x40 \n\
-    and r2, r0 \n\
-    cmp r2, #0 \n\
-    beq lbl_08056d02 \n\
-    mov r2, sb \n\
-    cmp r2, #0 \n\
-    bne lbl_08056d02 \n\
-    movs r4, #0x80 \n\
-    lsl r4, r4, #4 \n\
-    ldrb r1, [r1, #0x18] \n\
-    movs r0, #1 \n\
-    and r0, r1 \n\
-    cmp r0, #0 \n\
-    beq lbl_08056ce8 \n\
-    lsl r4, r4, #1 \n\
-lbl_08056ce8: \n\
-    movs r0, #2 \n\
-    and r0, r1 \n\
-    cmp r0, #0 \n\
-    beq lbl_08056cf2 \n\
-    lsl r4, r4, #1 \n\
-lbl_08056cf2: \n\
-    ldr r1, lbl_08056d14 @ =0x0202a800 \n\
-    movs r2, #0xc0 \n\
-    lsl r2, r2, #0x13 \n\
-    str r7, [sp] \n\
-    movs r0, #3 \n\
-    add r3, r4, #0 \n\
-    bl DmaTransfer \n\
-lbl_08056d02: \n\
-    add sp, #0x1c \n\
-    pop {r3, r4, r5} \n\
-    mov r8, r3 \n\
-    mov sb, r4 \n\
-    mov sl, r5 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_08056d14: .4byte 0x0202a800 \n\
-    ");
-}
-#endif
 
 /**
  * @brief 56d18 | 110 | RLE decompression algorithm
