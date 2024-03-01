@@ -520,21 +520,16 @@ void AcidWormIdleInit(void)
 }
 
 /**
- * @brief 3e030 | c0 | 
+ * @brief 3e030 | c0 | Handles the idle animation and Samus detection
  * 
  */
-#ifdef NON_MATCHING
 void AcidWormIdle(void)
 {
-    // https://decomp.me/scratch/5cYt2
-    
     u32 samusY;
     u32 spritePos;
 
-    do {
     if (gEffectYPosition > gSubSpriteData1.health)
         gEffectYPositionOffset--;
-    }while(0);
 
     samusY = gSamusData.yPosition;
     spritePos = gCurrentSprite.yPosition;
@@ -546,17 +541,23 @@ void AcidWormIdle(void)
     }
 
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer != 0)
-        return;
+    do { // All this code is wrapped in a do while (0) to produce matching ASM.
+        if (gCurrentSprite.timer != 0)
+            return;
 
-    if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 1) >= 239)
-        gSubSpriteData1.workVariable3 = TRUE;
-    else if (gSamusData.xPosition <= gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
-        gSubSpriteData1.workVariable3 = TRUE;
-    else if (gSamusData.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
-        gSubSpriteData1.workVariable3 = FALSE;
-    else
-        gSubSpriteData1.workVariable3 = TRUE;
+        if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 1) >= 239)
+            gSubSpriteData1.workVariable3 = TRUE;
+        else if (gSamusData.xPosition <= gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
+            gSubSpriteData1.workVariable3 = TRUE;
+        else
+        {
+            if (gSamusData.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
+                gSubSpriteData1.workVariable3 = FALSE;
+            else
+                gSubSpriteData1.workVariable3 = TRUE;
+            gSubSpriteData1.health += 0; // This is needed for the code to match :shrug:
+        }
+    } while (0);
 
     gCurrentSprite.pOam = sAcidWormOam_Warning;
     gCurrentSprite.animationDurationCounter = 0;
@@ -567,107 +568,6 @@ void AcidWormIdle(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
     SoundPlay(0x1B5);
 }
-#else
-NAKED_FUNCTION
-void AcidWormIdle(void)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    ldr r3, lbl_0803e068 @ =gEffectYPosition \n\
-    ldr r0, lbl_0803e06c @ =gSubSpriteData1 \n\
-    ldrh r1, [r3] \n\
-    add r6, r0, #0 \n\
-    ldrh r0, [r6, #0xa] \n\
-    cmp r1, r0 \n\
-    bls lbl_0803e048 \n\
-    ldr r1, lbl_0803e070 @ =gEffectYPositionOffset \n\
-    ldrh r0, [r1] \n\
-    sub r0, #1 \n\
-    strh r0, [r1] \n\
-lbl_0803e048: \n\
-    ldr r7, lbl_0803e074 @ =gSamusData \n\
-    ldrh r2, [r7, #0x14] \n\
-    ldr r0, lbl_0803e078 @ =gCurrentSprite \n\
-    ldrh r5, [r0, #2] \n\
-    add r4, r0, #0 \n\
-    ldrh r3, [r3] \n\
-    cmp r2, r3 \n\
-    bhi lbl_0803e05c \n\
-    cmp r2, r5 \n\
-    bls lbl_0803e07c \n\
-lbl_0803e05c: \n\
-    add r1, r4, #0 \n\
-    add r1, #0x2c \n\
-    movs r0, #0x3c \n\
-    strb r0, [r1] \n\
-    b lbl_0803e0dc \n\
-    .align 2, 0 \n\
-lbl_0803e068: .4byte gEffectYPosition \n\
-lbl_0803e06c: .4byte gSubSpriteData1 \n\
-lbl_0803e070: .4byte gEffectYPositionOffset \n\
-lbl_0803e074: .4byte gSamusData \n\
-lbl_0803e078: .4byte gCurrentSprite \n\
-lbl_0803e07c: \n\
-    add r1, r4, #0 \n\
-    add r1, #0x2c \n\
-    ldrb r0, [r1] \n\
-    sub r0, #1 \n\
-    strb r0, [r1] \n\
-    lsl r0, r0, #0x18 \n\
-    lsr r3, r0, #0x18 \n\
-    cmp r3, #0 \n\
-    bne lbl_0803e0dc \n\
-    sub r0, r5, r2 \n\
-    sub r0, #0x51 \n\
-    cmp r0, #0xee \n\
-    bhi lbl_0803e0b4 \n\
-    ldrh r2, [r7, #0x12] \n\
-    ldrh r1, [r4, #8] \n\
-    ldr r5, lbl_0803e0b0 @ =0xfffffe40 \n\
-    add r0, r1, r5 \n\
-    cmp r2, r0 \n\
-    ble lbl_0803e0b4 \n\
-    movs r5, #0xe0 \n\
-    lsl r5, r5, #1 \n\
-    add r0, r1, r5 \n\
-    cmp r2, r0 \n\
-    bge lbl_0803e0b4 \n\
-    strb r3, [r6, #0xf] \n\
-    b lbl_0803e0b8 \n\
-    .align 2, 0 \n\
-lbl_0803e0b0: .4byte 0xfffffe40 \n\
-lbl_0803e0b4: \n\
-    movs r0, #1 \n\
-    strb r0, [r6, #0xf] \n\
-lbl_0803e0b8: \n\
-    ldr r0, lbl_0803e0e4 @ =0x082fc318 \n\
-    str r0, [r4, #0x18] \n\
-    movs r0, #0 \n\
-    strb r0, [r4, #0x1c] \n\
-    strh r0, [r4, #0x16] \n\
-    add r1, r4, #0 \n\
-    add r1, #0x24 \n\
-    movs r0, #0x23 \n\
-    strb r0, [r1] \n\
-    bl SpriteUtilMakeSpriteFaceSamusDirection \n\
-    ldrh r1, [r4] \n\
-    ldr r0, lbl_0803e0e8 @ =0x0000fbff \n\
-    and r0, r1 \n\
-    strh r0, [r4] \n\
-    ldr r0, lbl_0803e0ec @ =0x000001b5 \n\
-    bl SoundPlay \n\
-lbl_0803e0dc: \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_0803e0e4: .4byte sAcidWormOam_Warning \n\
-lbl_0803e0e8: .4byte 0x0000fbff \n\
-lbl_0803e0ec: .4byte 0x000001b5 \n\
-    ");
-}
-
-#endif
 
 /**
  * @brief 3e0f0 | 5c | Checks if the warning animation before extending has ended
