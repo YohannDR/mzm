@@ -1328,11 +1328,8 @@ void DeoremSegmentInit(void)
  * @brief 2235c | 90 | Handles the movement when Deorem is spawning and going down
  * 
  */
-#ifdef NON_MATCHING
 void DeoremSegmentSpawnGoingDown(void)
 {
-    // https://decomp.me/scratch/bFhC3
-
     u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.roomSlot == 0)
@@ -1341,9 +1338,11 @@ void DeoremSegmentSpawnGoingDown(void)
     }
     else
     {
-        u32 a = gSpriteData[ramSlot].yPosition - 0xA8;
-        u32 b = gCurrentSprite.roomSlot * 100;
-        gCurrentSprite.yPosition = a - b;
+        // The following code is written like that to produce matching ASM:
+        u32 tmp1 = gSpriteData[ramSlot].yPosition + -0xA8;
+        u32 tmp2 = gCurrentSprite.roomSlot * 100;
+        gCurrentSprite.yPosition = tmp2;
+        gCurrentSprite.yPosition = (tmp2 = tmp1) - gCurrentSprite.yPosition;
     }
 
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_SPAWN_GOING_UP)
@@ -1358,86 +1357,6 @@ void DeoremSegmentSpawnGoingDown(void)
         }
     }
 }
-#else
-NAKED_FUNCTION
-void DeoremSegmentSpawnGoingDown(void)
-{
-    asm("\n\
-push {r4, r5, r6, lr} \n\
-    ldr r1, lbl_08022384 @ =gCurrentSprite \n\
-    add r0, r1, #0 \n\
-    add r0, #0x23 \n\
-    ldrb r5, [r0] \n\
-    ldrb r0, [r1, #0x1e] \n\
-    mov ip, r1 \n\
-    cmp r0, #0 \n\
-    bne lbl_0802238c \n\
-    ldr r1, lbl_08022388 @ =gSpriteData \n\
-    lsl r2, r5, #3 \n\
-    sub r0, r2, r5 \n\
-    lsl r0, r0, #3 \n\
-    add r0, r0, r1 \n\
-    ldrh r0, [r0, #2] \n\
-    sub r0, #0xa8 \n\
-    mov r3, ip \n\
-    strh r0, [r3, #2] \n\
-    b lbl_080223b0 \n\
-    .align 2, 0 \n\
-lbl_08022384: .4byte gCurrentSprite \n\
-lbl_08022388: .4byte gSpriteData \n\
-lbl_0802238c: \n\
-    ldr r3, lbl_080223e4 @ =gSpriteData \n\
-    lsl r4, r5, #3 \n\
-    sub r0, r4, r5 \n\
-    lsl r0, r0, #3 \n\
-    add r0, r0, r3 \n\
-    ldrh r0, [r0, #2] \n\
-    sub r0, #0xa8 \n\
-    mov r6, ip \n\
-    ldrb r2, [r6, #0x1e] \n\
-    movs r1, #0x64 \n\
-    add r6, r2, #0 \n\
-    mul r6, r1, r6 \n\
-    add r1, r6, #0 \n\
-    sub r0, r0, r1 \n\
-    mov r1, ip \n\
-    strh r0, [r1, #2] \n\
-    add r1, r3, #0 \n\
-    add r2, r4, #0 \n\
-lbl_080223b0: \n\
-    sub r0, r2, r5 \n\
-    lsl r0, r0, #3 \n\
-    add r0, r0, r1 \n\
-    add r0, #0x24 \n\
-    ldrb r0, [r0] \n\
-    cmp r0, #0x22 \n\
-    bne lbl_080223de \n\
-    mov r1, ip \n\
-    add r1, #0x24 \n\
-    movs r0, #9 \n\
-    strb r0, [r1] \n\
-    add r1, #8 \n\
-    movs r0, #6 \n\
-    strb r0, [r1] \n\
-    mov r3, ip \n\
-    ldrb r0, [r3, #0x1e] \n\
-    cmp r0, #0 \n\
-    bne lbl_080223de \n\
-    ldr r0, lbl_080223e8 @ =0x082d7894 \n\
-    str r0, [r3, #0x18] \n\
-    sub r1, #0xa \n\
-    movs r0, #4 \n\
-    strb r0, [r1] \n\
-lbl_080223de: \n\
-    pop {r4, r5, r6} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_080223e4: .4byte gSpriteData \n\
-lbl_080223e8: .4byte sDeoremSegmentOam_Middle \n\
-    ");
-}
-#endif
 
 /**
  * @brief 223ec | 9c80 | Handles the movement when Deorem is spawning, going down
