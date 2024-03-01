@@ -249,7 +249,7 @@ void CheckSetNewMusicTrack(u16 musicTrack)
         gSoundQueue[6].exists = 0;
 
     if (gSoundQueue[8].exists & 3)
-        // The following line is written like that to produce matching code:
+        // The following line is written like that to produce matching ASM:
         do { gSoundQueue[8].exists = 0; } while (0);
 
     pTrack = sMusicTrackDataRom[0].pTrack;
@@ -313,7 +313,7 @@ void unk_378c(u16 musicTrack)
             newTrack = musicTrack - 0x5A;
             if (newTrack >= 10)
             {
-                // The following line is needed to produce matching code:
+                // The following line is needed to produce matching ASM:
                 gSoundQueue[8].exists += 0;
                 var_0 = FALSE;
             }

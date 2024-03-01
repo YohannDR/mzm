@@ -934,7 +934,7 @@ void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u32 interval, u8 intensity)
     CUTSCENE_DATA.specialEffect.s_WrittenToBLDY = bldy;
     CUTSCENE_DATA.specialEffect.s_Intensity = intensity;
 
-    // The following code is written like that to produce matching code:
+    // The following code is written like that to produce matching ASM:
     s_Interval_ptr = &CUTSCENE_DATA.specialEffect.s_Interval;
     interval_as_u8 = interval;
     *s_Interval_ptr = interval_as_u8;
@@ -961,7 +961,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 i
     CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H = bldalphaH;
     CUTSCENE_DATA.specialEffect.bg_Intensity = intensity;
 
-    // The following code is written like that to produce matching code:
+    // The following code is written like that to produce matching ASM:
     bg_Interval_ptr = &CUTSCENE_DATA.specialEffect.bg_Interval;
     interval_as_u8 = interval;
     *bg_Interval_ptr = interval_as_u8;
