@@ -1814,12 +1814,12 @@ u32 FileSelectEraseFileSubroutine(void)
                 }
                 else if (gChangedInput & KEY_B)
                 {
-                    #ifdef NONMATCHING
+                    #ifdef NON_MATCHING
                     FILE_SELECT_DATA.subroutineStage = 10;
                     break;
-                    #else // !NONMATCHING
+                    #else // !NON_MATCHING
                     goto lbl_case_9;
-                    #endif
+                    #endif // NON_MATCHING
                 }
                 else if (gChangedInput & KEY_A)
                 {

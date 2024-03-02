@@ -7430,15 +7430,21 @@ void SamusUpdatePalette(struct SamusData* pData)
         rng = gFrameCounter8Bit % 6;
         
         if (rng >= 0)
+        {
             if (rng <= 1)
                 pBufferPal = pSpeedboostPal;
             else if (rng > 3)
-                goto speedboostPal_extern_else; // Needed to produce matching ASM.
+                #ifdef NON_MATCHING
+                pBufferPal = pSpeedboostPal + 16 * 2;
+                #else // !NON_MATCHING
+                goto speedboostPal_outer_else; // Needed to produce matching ASM.
+                #endif // NON_MATCHING
             else
                 pBufferPal = pSpeedboostPal + 16;
+        }
         else
         {
-            speedboostPal_extern_else:
+            speedboostPal_outer_else:
             pBufferPal = pSpeedboostPal + 16 * 2;
         }
 
