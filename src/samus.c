@@ -7266,11 +7266,13 @@ void SamusUpdateGraphicsOam(struct SamusData* pData, u8 direction)
     pPhysics->pScrewShinesparkGfx = &pGraphics[pPhysics->screwSpeedGfxSize];
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief b46c | 3fc | Updates the palette of Samus
+ * 
+ * @param pData Samus data pointer
+ */
 void SamusUpdatePalette(struct SamusData* pData)
 {
-    // https://decomp.me/scratch/LhP1o
-
     const u16* pDefaultPal;
     const u16* pReleasePal;
     const u16* pFlashingPal;
@@ -7401,18 +7403,20 @@ void SamusUpdatePalette(struct SamusData* pData)
     {
         pData->invincibilityTimer--;
 
-        if ((gFrameCounter8Bit & 3) <= 1)
-            pBufferPal = pFlashingPal;
-        else
-            pBufferPal = pFlashingPal + 16;
-
+        do {
+            if ((gFrameCounter8Bit & 3) <= 1)
+                pBufferPal = pFlashingPal;
+            else
+                pBufferPal = pFlashingPal + 16;
+        } while (0);
+    
         SamusCopyPalette(pBufferPal, 0, 16);
         pBufferPal = pDefaultPal + 16;
         SamusCopyPalette(pBufferPal, 16, 16);
         return;
     }
     
-    if (gSamusHazardDamage.paletteTimer != 0 && MOD_AND(gSamusHazardDamage.paletteTimer, 16) > 7)
+    if (gSamusHazardDamage.paletteTimer != 0 && (gSamusHazardDamage.paletteTimer & 15) > 7)
     {
         pBufferPal = pFlashingPal + 16;
         SamusCopyPalette(pBufferPal, 0, 16);
@@ -7424,18 +7428,19 @@ void SamusUpdatePalette(struct SamusData* pData)
     if (pData->speedboostingShinesparking != 0 || pData->shinesparkTimer != 0)
     {
         rng = gFrameCounter8Bit % 6;
-
+        
         if (rng >= 0)
-        {
             if (rng <= 1)
                 pBufferPal = pSpeedboostPal;
             else if (rng > 3)
-                pBufferPal = pSpeedboostPal + 16 * 2;
+                goto speedboostPal_extern_else; // Needed to produce matching ASM.
             else
                 pBufferPal = pSpeedboostPal + 16;
-        }
         else
+        {
+            speedboostPal_extern_else:
             pBufferPal = pSpeedboostPal + 16 * 2;
+        }
 
         SamusCopyPalette(pBufferPal, 0, 16);
         SamusCopyPalette(pBufferPal, 16, 16);
@@ -7444,7 +7449,7 @@ void SamusUpdatePalette(struct SamusData* pData)
     
     if (pData->pose == SPOSE_SCREW_ATTACKING)
     {
-        if (MOD_AND(pData->currentAnimationFrame, 2))
+        if (pData->currentAnimationFrame & 1)
             pBufferPal = pFlashingPal + 16;
         else
             pBufferPal = pDefaultPal;
@@ -7512,11 +7517,13 @@ void SamusUpdatePalette(struct SamusData* pData)
     pBufferPal = pDefaultPal;
     if (pEquipment->suitType != SUIT_SUITLESS)
     {
-        chargeCounter = pWeapon->chargeCounter;
-        limit = CHARGE_BEAM_THRESHOLD;
+        s32 tmp; // Needed to produce matching ASM.
+
+        chargeCounter = (tmp = pWeapon->chargeCounter);
+        limit = 64;
         if (chargeCounter >= limit)
         {
-            offset = DIV_SHIFT(chargeCounter - limit, 4);
+            offset = (chargeCounter - limit) >> 2;
     
             if (offset != 3)
             {
@@ -7531,510 +7538,18 @@ void SamusUpdatePalette(struct SamusData* pData)
                 else
                     pBufferPal = pChargingPal;
     
-                pBufferPal += MOD_AND(offset, 2) * 16;
+                pBufferPal += (offset & 1) * 16;
             }
         }
     }
 
     SamusCopyPalette(pBufferPal, 0, 16 * 2);
 }
-#else
-NAKED_FUNCTION
-void SamusUpdatePalette(struct SamusData* pData)
-{
-    asm("\n\
-        push {r4, r5, r6, r7, lr} \n\
-        mov r7, sl \n\
-        mov r6, sb \n\
-        mov r5, r8 \n\
-        push {r5, r6, r7} \n\
-        sub sp, #8 \n\
-        add r5, r0, #0 \n\
-        ldr r1, lbl_0800b4d8 @ =gSamusPaletteSize \n\
-        movs r0, #0x40 \n\
-        strh r0, [r1] \n\
-        ldr r1, lbl_0800b4dc @ =gSamusWeaponInfo \n\
-        ldrb r0, [r1, #6] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b48c \n\
-        sub r0, #1 \n\
-        strb r0, [r1, #6] \n\
-    lbl_0800b48c: \n\
-        ldrb r0, [r5, #9] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b496 \n\
-        sub r0, #1 \n\
-        strb r0, [r5, #9] \n\
-    lbl_0800b496: \n\
-        ldr r2, lbl_0800b4e0 @ =gEquipment \n\
-        ldrb r0, [r2, #0x12] \n\
-        add r1, r0, #0 \n\
-        mov r2, sp \n\
-        strb r0, [r2, #4] \n\
-        cmp r1, #1 \n\
-        bne lbl_0800b554 \n\
-        ldr r0, lbl_0800b4e0 @ =gEquipment \n\
-        ldrb r1, [r0, #0xf] \n\
-        movs r0, #0x20 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b508 \n\
-        ldr r1, lbl_0800b4e4 @ =0x082383c8 \n\
-        mov r8, r1 \n\
-        ldr r2, lbl_0800b4e8 @ =0x08238428 \n\
-        mov ip, r2 \n\
-        ldr r6, lbl_0800b4ec @ =0x082384c8 \n\
-        ldr r0, lbl_0800b4f0 @ =0x08238508 \n\
-        mov sl, r0 \n\
-        ldr r1, lbl_0800b4f4 @ =0x08238568 \n\
-        str r1, [sp] \n\
-        ldr r2, lbl_0800b4f8 @ =0x08238608 \n\
-        mov sb, r2 \n\
-        ldr r0, lbl_0800b4fc @ =0x0823a224 \n\
-        ldrb r1, [r5, #0x1d] \n\
-        lsl r1, r1, #2 \n\
-        add r0, r1, r0 \n\
-        ldr r3, [r0] \n\
-        ldr r7, lbl_0800b500 @ =0x082379e8 \n\
-        ldr r0, lbl_0800b504 @ =0x0823a2dc \n\
-        b lbl_0800b624 \n\
-        .align 2, 0 \n\
-    lbl_0800b4d8: .4byte gSamusPaletteSize \n\
-    lbl_0800b4dc: .4byte gSamusWeaponInfo \n\
-    lbl_0800b4e0: .4byte gEquipment \n\
-    lbl_0800b4e4: .4byte sSamusPal_GravitySuit_Default \n\
-    lbl_0800b4e8: .4byte sSamusPal_GravitySuit_BeamRelease \n\
-    lbl_0800b4ec: .4byte sSamusPal_GravitySuit_Flashing \n\
-    lbl_0800b4f0: .4byte sSamusPal_GravitySuit_Speedboost \n\
-    lbl_0800b4f4: .4byte sSamusPal_GravitySuit_Unmorph \n\
-    lbl_0800b4f8: .4byte sSamusPal_GravitySuit_ChargingBeam \n\
-    lbl_0800b4fc: .4byte sSamusPal_GravitySuit_SavingPointers \n\
-    lbl_0800b500: .4byte sSamusPal_GravitySuit_Dying \n\
-    lbl_0800b504: .4byte sSamusPal_GravitySuit_DownloadingMapPointers \n\
-    lbl_0800b508: \n\
-        ldr r0, lbl_0800b530 @ =0x08237fa8 \n\
-        mov r8, r0 \n\
-        ldr r1, lbl_0800b534 @ =0x08238008 \n\
-        mov ip, r1 \n\
-        ldr r6, lbl_0800b538 @ =0x082380a8 \n\
-        ldr r2, lbl_0800b53c @ =0x082380e8 \n\
-        mov sl, r2 \n\
-        ldr r0, lbl_0800b540 @ =0x08238148 \n\
-        str r0, [sp] \n\
-        ldr r1, lbl_0800b544 @ =0x082381e8 \n\
-        mov sb, r1 \n\
-        ldr r0, lbl_0800b548 @ =0x0823a1f8 \n\
-        ldrb r1, [r5, #0x1d] \n\
-        lsl r1, r1, #2 \n\
-        add r0, r1, r0 \n\
-        ldr r3, [r0] \n\
-        ldr r7, lbl_0800b54c @ =0x082379c8 \n\
-        ldr r0, lbl_0800b550 @ =0x0823a2bc \n\
-        b lbl_0800b624 \n\
-        .align 2, 0 \n\
-    lbl_0800b530: .4byte sSamusPal_FullSuit_Default \n\
-    lbl_0800b534: .4byte sSamusPal_FullSuit_BeamRelease \n\
-    lbl_0800b538: .4byte sSamusPal_FullSuit_Flashing \n\
-    lbl_0800b53c: .4byte sSamusPal_FullSuit_Speedboost \n\
-    lbl_0800b540: .4byte sSamusPal_FullSuit_Unmorph \n\
-    lbl_0800b544: .4byte sSamusPal_FullSuit_ChargingBeam \n\
-    lbl_0800b548: .4byte sSamusPal_FullSuit_SavingPointers \n\
-    lbl_0800b54c: .4byte sSamusPal_FullSuit_Dying \n\
-    lbl_0800b550: .4byte sSamusPal_FullSuit_DownloadingMapPointers \n\
-    lbl_0800b554: \n\
-        cmp r1, #0 \n\
-        bne lbl_0800b600 \n\
-        ldr r2, lbl_0800b58c @ =gEquipment \n\
-        ldrb r1, [r2, #0xf] \n\
-        movs r0, #0x10 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b5b4 \n\
-        ldr r0, lbl_0800b590 @ =0x08237be8 \n\
-        mov r8, r0 \n\
-        ldr r1, lbl_0800b594 @ =0x08237c48 \n\
-        mov ip, r1 \n\
-        ldr r6, lbl_0800b598 @ =0x08237ce8 \n\
-        ldr r2, lbl_0800b59c @ =0x08237d28 \n\
-        mov sl, r2 \n\
-        ldr r0, lbl_0800b5a0 @ =0x08237d88 \n\
-        str r0, [sp] \n\
-        ldr r1, lbl_0800b5a4 @ =0x08237e28 \n\
-        mov sb, r1 \n\
-        ldr r0, lbl_0800b5a8 @ =0x0823a1cc \n\
-        ldrb r1, [r5, #0x1d] \n\
-        lsl r1, r1, #2 \n\
-        add r0, r1, r0 \n\
-        ldr r3, [r0] \n\
-        ldr r7, lbl_0800b5ac @ =0x082379a8 \n\
-        ldr r0, lbl_0800b5b0 @ =0x0823a29c \n\
-        b lbl_0800b624 \n\
-        .align 2, 0 \n\
-    lbl_0800b58c: .4byte gEquipment \n\
-    lbl_0800b590: .4byte sSamusPal_VariaSuit_Default \n\
-    lbl_0800b594: .4byte sSamusPal_VariaSuit_BeamRelease \n\
-    lbl_0800b598: .4byte sSamusPal_VariaSuit_Flashing \n\
-    lbl_0800b59c: .4byte sSamusPal_VariaSuit_Speedboost \n\
-    lbl_0800b5a0: .4byte sSamusPal_VariaSuit_Unmorph \n\
-    lbl_0800b5a4: .4byte sSamusPal_VariaSuit_ChargingBeam \n\
-    lbl_0800b5a8: .4byte sSamusPal_VariaSuit_SavingPointers \n\
-    lbl_0800b5ac: .4byte sSamusPal_VariaSuit_Dying \n\
-    lbl_0800b5b0: .4byte sSamusPal_VariaSuit_DownloadingMapPointers \n\
-    lbl_0800b5b4: \n\
-        ldr r2, lbl_0800b5dc @ =0x082376a8 \n\
-        mov r8, r2 \n\
-        ldr r0, lbl_0800b5e0 @ =0x08237708 \n\
-        mov ip, r0 \n\
-        ldr r6, lbl_0800b5e4 @ =0x082377a8 \n\
-        ldr r1, lbl_0800b5e8 @ =0x082377e8 \n\
-        mov sl, r1 \n\
-        ldr r2, lbl_0800b5ec @ =0x08237848 \n\
-        str r2, [sp] \n\
-        ldr r0, lbl_0800b5f0 @ =0x08237a68 \n\
-        mov sb, r0 \n\
-        ldr r0, lbl_0800b5f4 @ =0x0823a1a0 \n\
-        ldrb r1, [r5, #0x1d] \n\
-        lsl r1, r1, #2 \n\
-        add r0, r1, r0 \n\
-        ldr r3, [r0] \n\
-        ldr r7, lbl_0800b5f8 @ =0x08237888 \n\
-        ldr r0, lbl_0800b5fc @ =0x0823a27c \n\
-        b lbl_0800b624 \n\
-        .align 2, 0 \n\
-    lbl_0800b5dc: .4byte sSamusPal_PowerSuit_Default \n\
-    lbl_0800b5e0: .4byte sSamusPal_PowerSuit_BeamRelease \n\
-    lbl_0800b5e4: .4byte sSamusPal_PowerSuit_Flashing \n\
-    lbl_0800b5e8: .4byte sSamusPal_PowerSuit_Speedboost \n\
-    lbl_0800b5ec: .4byte sSamusPal_PowerSuit_Unmorph \n\
-    lbl_0800b5f0: .4byte sSamusPal_PowerSuit_ChargingBeam \n\
-    lbl_0800b5f4: .4byte sSamusPal_PowerSuit_SavingPointers \n\
-    lbl_0800b5f8: .4byte sSamusPal_PowerSuit_Dying \n\
-    lbl_0800b5fc: .4byte sSamusPal_PowerSuit_DownloadingMapPointers \n\
-    lbl_0800b600: \n\
-        ldr r1, lbl_0800b650 @ =0x082387e8 \n\
-        mov r8, r1 \n\
-        ldr r2, lbl_0800b654 @ =0x08238848 \n\
-        mov ip, r2 \n\
-        ldr r6, lbl_0800b658 @ =0x082388e8 \n\
-        ldr r0, lbl_0800b65c @ =0x082377e8 \n\
-        mov sl, r0 \n\
-        ldr r1, lbl_0800b660 @ =0x08237848 \n\
-        str r1, [sp] \n\
-        ldr r2, lbl_0800b664 @ =0x08238988 \n\
-        mov sb, r2 \n\
-        ldr r0, lbl_0800b668 @ =0x0823a250 \n\
-        ldrb r1, [r5, #0x1d] \n\
-        lsl r1, r1, #2 \n\
-        add r0, r1, r0 \n\
-        ldr r3, [r0] \n\
-        ldr r7, lbl_0800b66c @ =0x082378a8 \n\
-        ldr r0, lbl_0800b670 @ =0x0823a2fc \n\
-    lbl_0800b624: \n\
-        add r1, r1, r0 \n\
-        ldr r1, [r1] \n\
-        ldrb r0, [r5] \n\
-        add r4, r0, #0 \n\
-        cmp r4, #0x33 \n\
-        bne lbl_0800b6a0 \n\
-        ldr r4, lbl_0800b674 @ =0x08237888 \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        ldrb r0, [r5, #7] \n\
-        cmp r0, #0 \n\
-        bne lbl_0800b698 \n\
-        ldrb r0, [r5, #0x1d] \n\
-        cmp r0, #0xb \n\
-        beq lbl_0800b64c \n\
-        cmp r0, #0xf \n\
-        bne lbl_0800b678 \n\
-    lbl_0800b64c: \n\
-        add r4, #0x40 \n\
-        b lbl_0800b7d6 \n\
-        .align 2, 0 \n\
-    lbl_0800b650: .4byte sSamusPal_Suitless_Default \n\
-    lbl_0800b654: .4byte sSamusPal_Suitless_BeamRelease \n\
-    lbl_0800b658: .4byte sSamusPal_Suitless_Flashing \n\
-    lbl_0800b65c: .4byte sSamusPal_PowerSuit_Speedboost \n\
-    lbl_0800b660: .4byte sSamusPal_PowerSuit_Unmorph \n\
-    lbl_0800b664: .4byte sSamusPal_Suitless_ChargingBeam \n\
-    lbl_0800b668: .4byte sSamusPal_Suitless_SavingPointers \n\
-    lbl_0800b66c: .4byte sSamusPal_Generic_Dying \n\
-    lbl_0800b670: .4byte sSamusPal_Suitless_DownloadingMapPointers \n\
-    lbl_0800b674: .4byte sSamusPal_PowerSuit_Dying \n\
-    lbl_0800b678: \n\
-        cmp r0, #0xc \n\
-        beq lbl_0800b680 \n\
-        cmp r0, #0xe \n\
-        bne lbl_0800b684 \n\
-    lbl_0800b680: \n\
-        add r4, #0x80 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b684: \n\
-        cmp r0, #0xd \n\
-        bne lbl_0800b68c \n\
-        add r4, #0xc0 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b68c: \n\
-        add r4, #0x20 \n\
-        cmp r0, #0xa \n\
-        bls lbl_0800b694 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b694: \n\
-        add r4, r7, #0 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b698: \n\
-        ldrb r0, [r5, #7] \n\
-        lsl r0, r0, #5 \n\
-        add r4, r0, r4 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b6a0: \n\
-        ldrb r0, [r5, #6] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b6c4 \n\
-        sub r0, #1 \n\
-        strb r0, [r5, #6] \n\
-        ldr r0, lbl_0800b6c0 @ =gFrameCounter8Bit \n\
-        ldrb r1, [r0] \n\
-        movs r0, #3 \n\
-        and r0, r1 \n\
-        add r4, r6, #0 \n\
-        add r4, #0x20 \n\
-        cmp r0, #1 \n\
-        bls lbl_0800b6bc \n\
-        b lbl_0800b7c8 \n\
-    lbl_0800b6bc: \n\
-        add r4, r6, #0 \n\
-        b lbl_0800b7c8 \n\
-        .align 2, 0 \n\
-    lbl_0800b6c0: .4byte gFrameCounter8Bit \n\
-    lbl_0800b6c4: \n\
-        ldr r0, lbl_0800b710 @ =gSamusHazardDamage \n\
-        ldrb r2, [r0, #4] \n\
-        cmp r2, #0 \n\
-        beq lbl_0800b6d4 \n\
-        movs r0, #0xf \n\
-        and r0, r2 \n\
-        cmp r0, #7 \n\
-        bhi lbl_0800b72c \n\
-    lbl_0800b6d4: \n\
-        ldrb r0, [r5, #5] \n\
-        cmp r0, #0 \n\
-        bne lbl_0800b6e0 \n\
-        ldrb r0, [r5, #8] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b718 \n\
-    lbl_0800b6e0: \n\
-        ldr r0, lbl_0800b714 @ =gFrameCounter8Bit \n\
-        ldrb r0, [r0] \n\
-        movs r1, #6 \n\
-        bl __umodsi3 \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        blt lbl_0800b6fe \n\
-        mov r4, sl \n\
-        cmp r0, #1 \n\
-        ble lbl_0800b702 \n\
-        add r4, #0x20 \n\
-        cmp r0, #3 \n\
-        ble lbl_0800b702 \n\
-    lbl_0800b6fe: \n\
-        mov r4, sl \n\
-        add r4, #0x40 \n\
-    lbl_0800b702: \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        b lbl_0800b7d6 \n\
-        .align 2, 0 \n\
-    lbl_0800b710: .4byte gSamusHazardDamage \n\
-    lbl_0800b714: .4byte gFrameCounter8Bit \n\
-    lbl_0800b718: \n\
-        lsl r0, r4, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        cmp r0, #0xf \n\
-        bne lbl_0800b732 \n\
-        ldrb r1, [r5, #0x1d] \n\
-        movs r0, #1 \n\
-        and r0, r1 \n\
-        mov r4, r8 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b7c8 \n\
-    lbl_0800b72c: \n\
-        add r4, r6, #0 \n\
-        add r4, #0x20 \n\
-        b lbl_0800b7c8 \n\
-    lbl_0800b732: \n\
-        cmp r0, #0x2c \n\
-        bne lbl_0800b748 \n\
-        add r4, r3, #0 \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        mov r4, r8 \n\
-        add r4, #0x40 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b748: \n\
-        cmp r0, #0x2d \n\
-        bne lbl_0800b766 \n\
-        ldrb r0, [r5, #0xa] \n\
-        add r4, r1, #0 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b756 \n\
-        mov r4, r8 \n\
-    lbl_0800b756: \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        mov r4, r8 \n\
-        add r4, #0x40 \n\
-        b lbl_0800b7d6 \n\
-    lbl_0800b766: \n\
-        ldr r1, lbl_0800b780 @ =gSamusWeaponInfo \n\
-        ldrb r0, [r1, #6] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b7b2 \n\
-        ldr r2, lbl_0800b784 @ =gEquipment \n\
-        ldrb r1, [r2, #0xd] \n\
-        movs r0, #2 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b788 \n\
-        mov r4, ip \n\
-        add r4, #0x40 \n\
-        b lbl_0800b7c8 \n\
-        .align 2, 0 \n\
-    lbl_0800b780: .4byte gSamusWeaponInfo \n\
-    lbl_0800b784: .4byte gEquipment \n\
-    lbl_0800b788: \n\
-        movs r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b796 \n\
-        mov r4, ip \n\
-        add r4, #0x80 \n\
-        b lbl_0800b7c8 \n\
-    lbl_0800b796: \n\
-        movs r0, #4 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b7a4 \n\
-        mov r4, ip \n\
-        add r4, #0x60 \n\
-        b lbl_0800b7c8 \n\
-    lbl_0800b7a4: \n\
-        movs r0, #1 \n\
-        and r0, r1 \n\
-        mov r4, ip \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b7c8 \n\
-        add r4, #0x20 \n\
-        b lbl_0800b7c8 \n\
-    lbl_0800b7b2: \n\
-        ldrb r0, [r5, #9] \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b7e2 \n\
-        sub r0, #5 \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        ldr r4, [sp] \n\
-        add r4, #0x20 \n\
-        cmp r0, #4 \n\
-        bls lbl_0800b7c8 \n\
-        ldr r4, [sp] \n\
-    lbl_0800b7c8: \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        mov r4, r8 \n\
-        add r4, #0x20 \n\
-    lbl_0800b7d6: \n\
-        add r0, r4, #0 \n\
-        movs r1, #0x10 \n\
-        movs r2, #0x10 \n\
-        bl SamusCopyPalette \n\
-        b lbl_0800b858 \n\
-    lbl_0800b7e2: \n\
-        mov r4, r8 \n\
-        mov r1, sp \n\
-        ldrb r1, [r1, #4] \n\
-        lsl r0, r1, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        cmp r0, #2 \n\
-        beq lbl_0800b84e \n\
-        ldr r2, lbl_0800b814 @ =gSamusWeaponInfo \n\
-        ldrb r0, [r2, #5] \n\
-        cmp r0, #0x40 \n\
-        blo lbl_0800b84e \n\
-        sub r0, #0x40 \n\
-        asr r2, r0, #2 \n\
-        cmp r2, #3 \n\
-        beq lbl_0800b84e \n\
-        ldr r0, lbl_0800b818 @ =gEquipment \n\
-        ldrb r1, [r0, #0xd] \n\
-        movs r0, #2 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b81c \n\
-        mov r4, sb \n\
-        add r4, #0x80 \n\
-        b lbl_0800b846 \n\
-        .align 2, 0 \n\
-    lbl_0800b814: .4byte gSamusWeaponInfo \n\
-    lbl_0800b818: .4byte gEquipment \n\
-    lbl_0800b81c: \n\
-        movs r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b82c \n\
-        movs r4, #0x80 \n\
-        lsl r4, r4, #1 \n\
-        add r4, sb \n\
-        b lbl_0800b846 \n\
-    lbl_0800b82c: \n\
-        movs r0, #4 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b83a \n\
-        mov r4, sb \n\
-        add r4, #0xc0 \n\
-        b lbl_0800b846 \n\
-    lbl_0800b83a: \n\
-        movs r0, #1 \n\
-        and r0, r1 \n\
-        mov r4, sb \n\
-        cmp r0, #0 \n\
-        beq lbl_0800b846 \n\
-        add r4, #0x40 \n\
-    lbl_0800b846: \n\
-        movs r0, #1 \n\
-        and r2, r0 \n\
-        lsl r0, r2, #5 \n\
-        add r4, r4, r0 \n\
-    lbl_0800b84e: \n\
-        add r0, r4, #0 \n\
-        movs r1, #0 \n\
-        movs r2, #0x20 \n\
-        bl SamusCopyPalette \n\
-    lbl_0800b858: \n\
-        add sp, #8 \n\
-        pop {r3, r4, r5} \n\
-        mov r8, r3 \n\
-        mov sb, r4 \n\
-        mov sl, r5 \n\
-        pop {r4, r5, r6, r7} \n\
-        pop {r0} \n\
-        bx r0 \n\
-    ");
-}
-#endif
 
+/**
+ * @brief b868 | 40 | Checks if the low health sound should be played
+ * 
+ */
 void SamusCheckPlayLowHealthSound(void)
 {
     struct SamusData* pData;
@@ -8047,6 +7562,12 @@ void SamusCheckPlayLowHealthSound(void)
         SoundPlay(SOUND_LOW_HEALTH_BEEP);
 }
 
+/**
+ * @brief b8a8 | 68 | Updates the draw distances and the standing status
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ */
 void SamusUpdateDrawDistanceAndStandingStatus(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     u8 offset;
