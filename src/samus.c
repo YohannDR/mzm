@@ -650,11 +650,15 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
     return SPOSE_NONE;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 5c4c | 1d0 | Checks for a block collision to land
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ * @return u8 New pose
+ */
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
-    // https://decomp.me/scratch/zWpei
-    
     u16 hHitbox;
     u16 blockY;
     u16 prevBlockY;
@@ -675,6 +679,7 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
     }
     else
     {
+        hHitbox = pPhysics->hitboxLeftOffset;
         hHitbox = pPhysics->hitboxRightOffset;
     }
 
@@ -714,6 +719,8 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
             }
             else
             {
+                u16 tmpResultSlopeLeft;
+
                 SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition - BLOCK_SIZE,
                     &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
@@ -721,9 +728,8 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
                 if (resultSlopeLeft == SLOPE_NONE)
                     pData->yPosition = resultYLeft + SUB_PIXEL_POSITION_FLAG;
 
-                // Temp
-                pData->currentAnimationFrame = resultSlopeLeft;
-                // pData->currentSlope = resultSlopeLeft;
+                tmpResultSlopeLeft = resultSlopeLeft; // Needed to produce matching ASM.
+                pData->currentSlope = (tmpResultSlopeLeft = resultSlopeLeft);
             }
         }
         else if (collisionRight != CLIPDATA_TYPE_AIR)
@@ -781,258 +787,6 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
 
     return SPOSE_NONE;
 }
-#else
-NAKED_FUNCTION
-u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
-{
-    asm("\n\
-        push {r4, r5, r6, r7, lr} \n\
-        mov r7, sl \n\
-        mov r6, sb \n\
-        mov r5, r8 \n\
-        push {r5, r6, r7} \n\
-        sub sp, #0x24 \n\
-        add r6, r0, #0 \n\
-        mov sb, r1 \n\
-        mov r0, sb \n\
-        add r0, #0x4e \n\
-        ldrb r0, [r0] \n\
-        cmp r0, #1 \n\
-        bne lbl_08005c6e \n\
-        mov r0, sb \n\
-        add r0, #0x50 \n\
-        ldrh r1, [r0] \n\
-        b lbl_08005c76 \n\
-    lbl_08005c6e: \n\
-        mov r0, sb \n\
-        add r0, #0x52 \n\
-        ldrh r1, [r0] \n\
-        sub r0, #2 \n\
-    lbl_08005c76: \n\
-        str r0, [sp, #0x20] \n\
-        ldrh r2, [r6, #0x12] \n\
-        add r2, r1, r2 \n\
-        lsl r2, r2, #0x10 \n\
-        lsr r2, r2, #0x10 \n\
-        add r0, r6, #0 \n\
-        mov r1, sb \n\
-        add r3, sp, #4 \n\
-        bl unk_5604 \n\
-        lsl r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        beq lbl_08005ca0 \n\
-        add r0, sp, #4 \n\
-        ldrh r0, [r0] \n\
-        strh r0, [r6, #0x12] \n\
-        mov r1, sb \n\
-        add r1, #0x58 \n\
-        ldrb r0, [r1] \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08005ca0: \n\
-        ldrb r0, [r6, #1] \n\
-        cmp r0, #1 \n\
-        bne lbl_08005ca8 \n\
-        b lbl_08005e06 \n\
-    lbl_08005ca8: \n\
-        ldrh r0, [r6, #0x14] \n\
-        ldr r1, lbl_08005d2c @ =0x0000ffc0 \n\
-        and r1, r0 \n\
-        str r1, [sp, #0x14] \n\
-        ldr r0, lbl_08005d30 @ =gPreviousYPosition \n\
-        ldrh r0, [r0] \n\
-        ldr r2, lbl_08005d2c @ =0x0000ffc0 \n\
-        mov sl, r2 \n\
-        mov r1, sl \n\
-        and r1, r0 \n\
-        mov sl, r1 \n\
-        ldr r2, [sp, #0x20] \n\
-        str r2, [sp, #0x18] \n\
-        ldrh r0, [r2] \n\
-        ldrh r1, [r6, #0x12] \n\
-        add r0, r0, r1 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        ldrh r1, [r6, #0x14] \n\
-        movs r2, #6 \n\
-        add r2, sp \n\
-        mov r8, r2 \n\
-        add r5, sp, #8 \n\
-        str r5, [sp] \n\
-        add r2, sp, #4 \n\
-        mov r3, r8 \n\
-        bl SamusCheckCollisionAtPosition \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        str r0, [sp, #0x10] \n\
-        mov r0, sb \n\
-        add r0, #0x52 \n\
-        str r0, [sp, #0x1c] \n\
-        ldrh r0, [r0] \n\
-        ldrh r1, [r6, #0x12] \n\
-        add r0, r0, r1 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        ldrh r1, [r6, #0x14] \n\
-        mov r2, sp \n\
-        add r2, #0xa \n\
-        add r4, sp, #0xc \n\
-        mov r7, sp \n\
-        add r7, #0xe \n\
-        str r7, [sp] \n\
-        add r3, r4, #0 \n\
-        bl SamusCheckCollisionAtPosition \n\
-        lsl r0, r0, #0x18 \n\
-        lsr r0, r0, #0x18 \n\
-        ldr r2, [sp, #0x14] \n\
-        cmp r2, sl \n\
-        bls lbl_08005db2 \n\
-        ldr r1, [sp, #0x10] \n\
-        cmp r1, #0 \n\
-        beq lbl_08005d72 \n\
-        ldrh r1, [r5] \n\
-        cmp r1, #0 \n\
-        beq lbl_08005d3c \n\
-        cmp r0, #0 \n\
-        beq lbl_08005d34 \n\
-        ldrh r0, [r4] \n\
-        sub r0, #1 \n\
-        b lbl_08005de6 \n\
-        .align 2, 0 \n\
-    lbl_08005d2c: .4byte 0x0000ffc0 \n\
-    lbl_08005d30: .4byte gPreviousYPosition \n\
-    lbl_08005d34: \n\
-        strh r1, [r6, #0x1a] \n\
-        mov r2, r8 \n\
-        ldrh r0, [r2] \n\
-        b lbl_08005de6 \n\
-    lbl_08005d3c: \n\
-        ldr r1, [sp, #0x18] \n\
-        ldrh r0, [r1] \n\
-        ldrh r2, [r6, #0x12] \n\
-        add r0, r0, r2 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        ldrh r1, [r6, #0x14] \n\
-        sub r1, #0x40 \n\
-        lsl r1, r1, #0x10 \n\
-        lsr r1, r1, #0x10 \n\
-        str r5, [sp] \n\
-        add r2, sp, #4 \n\
-        mov r3, r8 \n\
-        bl SamusCheckCollisionAtPosition \n\
-        mov r0, r8 \n\
-        ldrh r3, [r0] \n\
-        strh r3, [r6, #0x14] \n\
-        ldrh r0, [r5] \n\
-        cmp r0, #0 \n\
-        bne lbl_08005d6c \n\
-        add r0, r3, #0 \n\
-        add r0, #0x3f \n\
-        strh r0, [r6, #0x14] \n\
-    lbl_08005d6c: \n\
-        ldrh r0, [r5] \n\
-        strh r0, [r6, #0x1a] \n\
-        b lbl_08005de8 \n\
-    lbl_08005d72: \n\
-        cmp r0, #0 \n\
-        beq lbl_08005e06 \n\
-        ldrh r0, [r7] \n\
-        cmp r0, #0 \n\
-        bne lbl_08005de2 \n\
-        ldr r1, [sp, #0x1c] \n\
-        ldrh r0, [r1] \n\
-        ldrh r2, [r6, #0x12] \n\
-        add r0, r0, r2 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        ldrh r1, [r6, #0x14] \n\
-        sub r1, #0x40 \n\
-        lsl r1, r1, #0x10 \n\
-        lsr r1, r1, #0x10 \n\
-        str r5, [sp] \n\
-        add r2, sp, #4 \n\
-        mov r3, r8 \n\
-        bl SamusCheckCollisionAtPosition \n\
-        mov r0, r8 \n\
-        ldrh r3, [r0] \n\
-        strh r3, [r6, #0x14] \n\
-        ldrh r0, [r5] \n\
-        cmp r0, #0 \n\
-        bne lbl_08005dac \n\
-        add r0, r3, #0 \n\
-        add r0, #0x3f \n\
-        strh r0, [r6, #0x14] \n\
-    lbl_08005dac: \n\
-        ldrh r0, [r5] \n\
-        strh r0, [r6, #0x1a] \n\
-        b lbl_08005de8 \n\
-    lbl_08005db2: \n\
-        ldr r1, [sp, #0x10] \n\
-        cmp r1, #0 \n\
-        beq lbl_08005dd8 \n\
-        ldrh r0, [r5] \n\
-        cmp r0, #0 \n\
-        beq lbl_08005dc6 \n\
-        strh r0, [r6, #0x1a] \n\
-        mov r2, r8 \n\
-        ldrh r0, [r2] \n\
-        b lbl_08005de6 \n\
-    lbl_08005dc6: \n\
-        ldrh r1, [r6, #0x12] \n\
-        ldr r0, lbl_08005dd4 @ =0x0000ffc0 \n\
-        and r0, r1 \n\
-        ldr r2, [sp, #0x20] \n\
-        ldrh r1, [r2] \n\
-        sub r0, r0, r1 \n\
-        b lbl_08005dfa \n\
-        .align 2, 0 \n\
-    lbl_08005dd4: .4byte 0x0000ffc0 \n\
-    lbl_08005dd8: \n\
-        cmp r0, #0 \n\
-        beq lbl_08005e06 \n\
-        ldrh r0, [r7] \n\
-        cmp r0, #0 \n\
-        beq lbl_08005dec \n\
-    lbl_08005de2: \n\
-        strh r0, [r6, #0x1a] \n\
-        ldrh r0, [r4] \n\
-    lbl_08005de6: \n\
-        strh r0, [r6, #0x14] \n\
-    lbl_08005de8: \n\
-        movs r0, #0xfd \n\
-        b lbl_08005e08 \n\
-    lbl_08005dec: \n\
-        ldrh r1, [r6, #0x12] \n\
-        ldr r0, lbl_08005e18 @ =0x0000ffc0 \n\
-        and r0, r1 \n\
-        ldr r2, [sp, #0x1c] \n\
-        ldrh r1, [r2] \n\
-        sub r0, r0, r1 \n\
-        add r0, #0x3f \n\
-    lbl_08005dfa: \n\
-        strh r0, [r6, #0x12] \n\
-        mov r1, sb \n\
-        add r1, #0x58 \n\
-        ldrb r0, [r1] \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08005e06: \n\
-        movs r0, #0xff \n\
-    lbl_08005e08: \n\
-        add sp, #0x24 \n\
-        pop {r3, r4, r5} \n\
-        mov r8, r3 \n\
-        mov sb, r4 \n\
-        mov sl, r5 \n\
-        pop {r4, r5, r6, r7} \n\
-        pop {r1} \n\
-        bx r1 \n\
-        .align 2, 0 \n\
-    lbl_08005e18: .4byte 0x0000ffc0 \n\
-    ");
-}
-#endif
 
 /**
  * @brief 5e1c | 11c | Checks for top collision
