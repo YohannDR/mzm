@@ -1206,8 +1206,6 @@ void ImagoPartSyncPalette(void)
  */
 void Imago(void)
 {
-    // https://decomp.me/scratch/H8S1t
-    
     u16 xDistance;
     u16 yDistance;
     u32 health;
@@ -1237,6 +1235,7 @@ void Imago(void)
                 xDistance = gSubSpriteData1.xPosition - gSamusData.xPosition;
                 if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 4)
                 {
+                    gSamusData.yPosition += 0; // Needed to produce matching ASM.
                     SoundPlay(0xB5);
                     if (health == 0)
                         SoundPlay(0xBB);
@@ -1278,7 +1277,7 @@ void Imago(void)
             }
         }
     }
-    asm("":::"r6", "r4");
+
     switch (gCurrentSprite.pose)
     {
         case 0:
