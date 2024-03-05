@@ -170,7 +170,7 @@ u32 StatusScreenDrawItems(u8 row)
         if (row == 0 && sStatusScreenRowsData[i][0] == ABILITY_GROUP_SUITS)
             continue;
 
-        false = FALSE; // Needed here for the code to match.
+        false = FALSE; // Needed to produce matching ASM.
         position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
     

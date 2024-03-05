@@ -655,7 +655,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
             {
                 dst = VRAM_BASE + bgNumber * 0x1000;
 
-                Ox800 = 0x800; // Needed to produce matching assembly.
+                Ox800 = 0x800; // Needed to produce matching ASM.
                 if (tmpX & 0x10)
                     dst = VRAM_BASE + Ox800 + bgNumber * 0x1000;
 
@@ -674,7 +674,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
     }
     else
     {
-        s32 *offsetPtr; // Needed to produce matching assembly.
+        s32 *offsetPtr; // Needed to produce matching ASM.
 
         if (properties == 0)
         {
