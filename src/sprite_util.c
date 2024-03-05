@@ -2599,15 +2599,20 @@ u8 SpriteUtilCountDrops(void)
     return count;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 10944 | 254 | Handles a Mecha Ridley missile moving
+ * 
+ * @param samusY Samus Y position
+ * @param samusX Samus X position
+ * @param ySpeed Missile Y speed
+ * @param xSpeed Missile X speed
+ * @param speedDivisor Speed Divisor
+ */
 void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
 {
-    // https://decomp.me/scratch/6NT7r
-    
     u32 flip;
     u16 speed;
     u32 newPos;
-    u32 tmp;
 
     flip = FALSE;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -2660,13 +2665,17 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
                 else
                 {
                     gCurrentSprite.xPosition = newPos;
+                    gCurrentSprite.yPosition += 0; // Needed to produce matching ASM.
                 }
             }
         }
         else
         {
+            u32 cond;
+
             gCurrentSprite.workVariable--;
-            if (gCurrentSprite.workVariable != 0)
+            cond = gCurrentSprite.workVariable != 0; // Needed to produce matching ASM.
+            if (cond)
             {
                 speed = gCurrentSprite.workVariable >> speedDivisor;
                 newPos = gCurrentSprite.xPosition - speed;
@@ -2705,7 +2714,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
                 if (gCurrentSprite.arrayOffset < ySpeed)
                     gCurrentSprite.arrayOffset++;
 
-                gCurrentSprite.yPosition += gCurrentSprite.arrayOffset >> speedDivisor;
+                gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
             }
         }
         else
@@ -2713,7 +2722,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
             gCurrentSprite.timer--;
             if (gCurrentSprite.timer != 0)
             {
-                gCurrentSprite.yPosition += gCurrentSprite.timer >> speedDivisor;
+                gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
             }
             else
                 flip++;
@@ -2773,337 +2782,6 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
         gCurrentSprite.arrayOffset = 1;
     }
 }
-#else
-NAKED_FUNCTION
-void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
-{
-    asm("\n\
-        push {r4, r5, r6, r7, lr} \n\
-        mov r7, sl \n\
-        mov r6, sb \n\
-        mov r5, r8 \n\
-        push {r5, r6, r7} \n\
-        sub sp, #4 \n\
-        ldr r4, [sp, #0x24] \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r0, r0, #0x10 \n\
-        mov sl, r0 \n\
-        lsl r1, r1, #0x10 \n\
-        lsr r5, r1, #0x10 \n\
-        add r7, r5, #0 \n\
-        lsl r2, r2, #0x18 \n\
-        lsr r2, r2, #0x18 \n\
-        str r2, [sp] \n\
-        lsl r3, r3, #0x18 \n\
-        lsr r3, r3, #0x18 \n\
-        mov r8, r3 \n\
-        lsl r4, r4, #0x18 \n\
-        lsr r4, r4, #0x18 \n\
-        movs r0, #0 \n\
-        mov sb, r0 \n\
-        ldr r1, lbl_080109b8 @ =gCurrentSprite \n\
-        mov ip, r1 \n\
-        ldrh r1, [r1] \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #2 \n\
-        and r0, r1 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r6, r0, #0x10 \n\
-        cmp r6, #0 \n\
-        beq lbl_080109d6 \n\
-        mov r2, ip \n\
-        add r2, #0x2d \n\
-        ldrb r0, [r2] \n\
-        cmp r0, #0 \n\
-        bne lbl_080109bc \n\
-        mov r6, ip \n\
-        ldrh r1, [r6, #4] \n\
-        sub r0, r5, #4 \n\
-        cmp r1, r0 \n\
-        bgt lbl_080109ec \n\
-        mov r1, ip \n\
-        add r1, #0x2e \n\
-        ldrb r0, [r1] \n\
-        cmp r0, r3 \n\
-        bhs lbl_080109a8 \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_080109a8: \n\
-        ldrb r0, [r1] \n\
-        asr r0, r4 \n\
-        mov r1, ip \n\
-        ldrh r1, [r1, #4] \n\
-        add r0, r0, r1 \n\
-        mov r2, ip \n\
-        strh r0, [r2, #4] \n\
-        b lbl_08010a54 \n\
-        .align 2, 0 \n\
-    lbl_080109b8: .4byte gCurrentSprite \n\
-    lbl_080109bc: \n\
-        sub r0, #1 \n\
-        strb r0, [r2] \n\
-        lsl r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010a5a \n\
-        ldrb r0, [r2] \n\
-        asr r0, r4 \n\
-        mov r3, ip \n\
-        ldrh r3, [r3, #4] \n\
-        add r0, r0, r3 \n\
-        mov r6, ip \n\
-        strh r0, [r6, #4] \n\
-        b lbl_08010a54 \n\
-    lbl_080109d6: \n\
-        mov r2, ip \n\
-        add r2, #0x2d \n\
-        ldrb r0, [r2] \n\
-        add r5, r0, #0 \n\
-        cmp r5, #0 \n\
-        bne lbl_08010a20 \n\
-        mov r0, ip \n\
-        ldrh r3, [r0, #4] \n\
-        add r0, r7, #4 \n\
-        cmp r3, r0 \n\
-        bge lbl_080109f6 \n\
-    lbl_080109ec: \n\
-        mov r0, ip \n\
-        add r0, #0x2e \n\
-        ldrb r0, [r0] \n\
-        strb r0, [r2] \n\
-        b lbl_08010a54 \n\
-    lbl_080109f6: \n\
-        mov r1, ip \n\
-        add r1, #0x2e \n\
-        ldrb r0, [r1] \n\
-        cmp r0, r8 \n\
-        bhs lbl_08010a04 \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08010a04: \n\
-        ldrb r0, [r1] \n\
-        asr r0, r4 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r1, r0, #0x10 \n\
-        sub r1, r3, r1 \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010a4a \n\
-        movs r1, #1 \n\
-        mov sb, r1 \n\
-        strb r5, [r2] \n\
-        b lbl_08010a54 \n\
-    lbl_08010a20: \n\
-        sub r0, #1 \n\
-        strb r0, [r2] \n\
-        lsl r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010a50 \n\
-        ldrb r0, [r2] \n\
-        asr r0, r4 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r1, r0, #0x10 \n\
-        mov r3, ip \n\
-        ldrh r0, [r3, #4] \n\
-        sub r1, r0, r1 \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010a4a \n\
-        movs r0, #1 \n\
-        mov sb, r0 \n\
-        strb r6, [r2] \n\
-        b lbl_08010a54 \n\
-    lbl_08010a4a: \n\
-        mov r2, ip \n\
-        strh r1, [r2, #4] \n\
-        b lbl_08010a54 \n\
-    lbl_08010a50: \n\
-        movs r3, #1 \n\
-        mov sb, r3 \n\
-    lbl_08010a54: \n\
-        mov r6, sb \n\
-        cmp r6, #0 \n\
-        beq lbl_08010a72 \n\
-    lbl_08010a5a: \n\
-        mov r1, ip \n\
-        ldrh r0, [r1] \n\
-        movs r2, #0x80 \n\
-        lsl r2, r2, #2 \n\
-        add r1, r2, #0 \n\
-        eor r0, r1 \n\
-        mov r3, ip \n\
-        strh r0, [r3] \n\
-        mov r1, ip \n\
-        add r1, #0x2e \n\
-        movs r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08010a72: \n\
-        movs r6, #0 \n\
-        mov sb, r6 \n\
-        mov r0, ip \n\
-        ldrh r1, [r0] \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #3 \n\
-        and r0, r1 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r3, r0, #0x10 \n\
-        cmp r3, #0 \n\
-        beq lbl_08010ae2 \n\
-        mov r3, ip \n\
-        add r3, #0x2c \n\
-        ldrb r0, [r3] \n\
-        cmp r0, #0 \n\
-        bne lbl_08010ac8 \n\
-        mov r2, ip \n\
-        ldrh r1, [r2, #2] \n\
-        mov r0, sl \n\
-        sub r0, #4 \n\
-        cmp r1, r0 \n\
-        ble lbl_08010aa8 \n\
-        mov r0, ip \n\
-        add r0, #0x2f \n\
-        ldrb r0, [r0] \n\
-        strb r0, [r3] \n\
-        b lbl_08010b6a \n\
-    lbl_08010aa8: \n\
-        mov r1, ip \n\
-        add r1, #0x2f \n\
-        ldrb r0, [r1] \n\
-        ldr r3, [sp] \n\
-        cmp r0, r3 \n\
-        bhs lbl_08010ab8 \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08010ab8: \n\
-        ldrb r0, [r1] \n\
-        asr r0, r4 \n\
-        mov r4, ip \n\
-        ldrh r4, [r4, #2] \n\
-        add r0, r0, r4 \n\
-        mov r6, ip \n\
-        strh r0, [r6, #2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010ac8: \n\
-        sub r0, #1 \n\
-        strb r0, [r3] \n\
-        lsl r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010b70 \n\
-        ldrb r0, [r3] \n\
-        asr r0, r4 \n\
-        mov r1, ip \n\
-        ldrh r1, [r1, #2] \n\
-        add r0, r0, r1 \n\
-        mov r2, ip \n\
-        strh r0, [r2, #2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010ae2: \n\
-        mov r2, ip \n\
-        add r2, #0x2c \n\
-        ldrb r0, [r2] \n\
-        add r5, r0, #0 \n\
-        cmp r5, #0 \n\
-        bne lbl_08010b36 \n\
-        mov r6, ip \n\
-        ldrh r3, [r6, #2] \n\
-        mov r0, sl \n\
-        add r0, #4 \n\
-        cmp r3, r0 \n\
-        bge lbl_08010b04 \n\
-        mov r0, ip \n\
-        add r0, #0x2f \n\
-        ldrb r0, [r0] \n\
-        strb r0, [r2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010b04: \n\
-        mov r1, ip \n\
-        add r1, #0x2f \n\
-        ldrb r0, [r1] \n\
-        ldr r6, [sp] \n\
-        cmp r0, r6 \n\
-        bhs lbl_08010b14 \n\
-        add r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08010b14: \n\
-        ldrb r0, [r1] \n\
-        asr r0, r4 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r1, r0, #0x10 \n\
-        sub r1, r3, r1 \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010b30 \n\
-        movs r0, #1 \n\
-        mov sb, r0 \n\
-        strb r5, [r2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010b30: \n\
-        mov r2, ip \n\
-        strh r1, [r2, #2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010b36: \n\
-        sub r0, #1 \n\
-        strb r0, [r2] \n\
-        lsl r0, r0, #0x18 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010b66 \n\
-        ldrb r0, [r2] \n\
-        asr r0, r4 \n\
-        lsl r0, r0, #0x10 \n\
-        lsr r1, r0, #0x10 \n\
-        mov r4, ip \n\
-        ldrh r0, [r4, #2] \n\
-        sub r1, r0, r1 \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #8 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_08010b60 \n\
-        movs r6, #1 \n\
-        mov sb, r6 \n\
-        strb r3, [r2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010b60: \n\
-        mov r0, ip \n\
-        strh r1, [r0, #2] \n\
-        b lbl_08010b6a \n\
-    lbl_08010b66: \n\
-        movs r1, #1 \n\
-        mov sb, r1 \n\
-    lbl_08010b6a: \n\
-        mov r2, sb \n\
-        cmp r2, #0 \n\
-        beq lbl_08010b86 \n\
-    lbl_08010b70: \n\
-        mov r3, ip \n\
-        ldrh r0, [r3] \n\
-        movs r4, #0x80 \n\
-        lsl r4, r4, #3 \n\
-        add r1, r4, #0 \n\
-        eor r0, r1 \n\
-        strh r0, [r3] \n\
-        mov r1, ip \n\
-        add r1, #0x2f \n\
-        movs r0, #1 \n\
-        strb r0, [r1] \n\
-    lbl_08010b86: \n\
-        add sp, #4 \n\
-        pop {r3, r4, r5} \n\
-        mov r8, r3 \n\
-        mov sb, r4 \n\
-        mov sl, r5 \n\
-        pop {r4, r5, r6, r7} \n\
-        pop {r0} \n\
-        bx r0 \n\
-    ");
-}
-#endif
-
 /**
  * @brief 10b98 | 158 | Handles a ridley fireball moving (TODO rename to a more general name)
  * 
