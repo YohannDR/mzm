@@ -117,10 +117,17 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     return FALSE;
 }
 
-#ifdef NON_MATCHING
-void CalculateOamPart4(u16 rotation, s16 scaling, u8 oamSlot)
+/**
+ * @brief 7ff58 | 19c | Calculates the part 4 of the OAM (used for special cases such as cutscenes and menus)
+ * 
+ * @param rotation Rotation
+ * @param scaling Scaling
+ * @param _oamSlot OAM Slot
+ */
+void CalculateOamPart4(u16 rotation, s16 scaling, u16 _oamSlot)
 {
-    // https://decomp.me/scratch/jijJJ
+    s32 negativeScaling = scaling; // Needed to produce matching ASM.
+    u8 oamSlot = _oamSlot; // Needed to produce matching ASM
 
     s32 dy1;
     s32 dmy1;
@@ -128,19 +135,25 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u8 oamSlot)
     s32 dmx1;
     s32 dy2;
     s32 dmy2;
-    
+
+    s32 idx;
+
     dy1 = FixedMultiplication(cos(rotation), FixedInverse(scaling));
-   
-    dmy1 = FixedMultiplication(sin(rotation), FixedInverse(scaling));
+
+    // The following expression writes uselessly first to dmy2 to produce matching ASM:
+    dmy1 = (dmy2 = FixedMultiplication(sin(rotation), FixedInverse(scaling)));
     dx1 = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
 
-    dmx1 = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
+    negativeScaling = -scaling;
 
-    dy2 = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
-    dmy2 = FixedMultiplication(-sin(rotation), FixedInverse(-scaling));
+    dmx1 = FixedMultiplication(cos(rotation), FixedInverse(negativeScaling));
+
+    dy2 = FixedMultiplication(sin(rotation), FixedInverse(negativeScaling));
+    dmy2 = FixedMultiplication(-sin(rotation), FixedInverse(negativeScaling));
 
     gOamData[oamSlot].all.affineParam = dy1;
-    gOamData[oamSlot + 1].all.affineParam = dmy1;
+    idx = oamSlot + 1; // Needed to produce matching ASM.
+    gOamData[idx].all.affineParam = dmy1;
     gOamData[oamSlot + 2].all.affineParam = dx1;
     gOamData[oamSlot + 3].all.affineParam = dy1;
     gOamData[oamSlot + 4].all.affineParam = dmx1;
@@ -156,204 +169,3 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u8 oamSlot)
     gOamData[oamSlot + 14].all.affineParam = dmy2;
     gOamData[oamSlot + 15].all.affineParam = dmx1;
 }
-#else
-NAKED_FUNCTION
-void CalculateOamPart4(u16 rotation, s16 scaling, u8 oamSlot)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, sl \n\
-    mov r6, sb \n\
-    mov r5, r8 \n\
-    push {r5, r6, r7} \n\
-    sub sp, #8 \n\
-    add r4, r0, #0 \n\
-    add r5, r1, #0 \n\
-    lsl r4, r4, #0x10 \n\
-    lsr r4, r4, #0x10 \n\
-    lsl r5, r5, #0x10 \n\
-    asr r5, r5, #0x10 \n\
-    lsl r2, r2, #0x18 \n\
-    lsr r7, r2, #0x18 \n\
-    ldr r6, lbl_080800ec @ =sSineTable \n\
-    add r0, r4, #0 \n\
-    add r0, #0x40 \n\
-    lsl r0, r0, #1 \n\
-    add r0, r0, r6 \n\
-    movs r2, #0 \n\
-    ldrsh r1, [r0, r2] \n\
-    str r1, [sp] \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    ldr r0, [sp] \n\
-    bl FixedMultiplication \n\
-    mov r8, r0 \n\
-    mov r3, r8 \n\
-    lsl r3, r3, #0x10 \n\
-    asr r3, r3, #0x10 \n\
-    mov r8, r3 \n\
-    lsl r4, r4, #1 \n\
-    add r4, r4, r6 \n\
-    movs r1, #0 \n\
-    ldrsh r0, [r4, r1] \n\
-    mov sl, r0 \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    mov r0, sl \n\
-    bl FixedMultiplication \n\
-    lsl r0, r0, #0x10 \n\
-    asr r0, r0, #0x10 \n\
-    str r0, [sp, #4] \n\
-    ldrh r4, [r4] \n\
-    neg r4, r4 \n\
-    lsl r4, r4, #0x10 \n\
-    asr r4, r4, #0x10 \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    add r0, r4, #0 \n\
-    bl FixedMultiplication \n\
-    mov sb, r0 \n\
-    mov r2, sb \n\
-    lsl r2, r2, #0x10 \n\
-    asr r2, r2, #0x10 \n\
-    mov sb, r2 \n\
-    neg r5, r5 \n\
-    lsl r5, r5, #0x10 \n\
-    asr r5, r5, #0x10 \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    ldr r0, [sp] \n\
-    bl FixedMultiplication \n\
-    add r6, r0, #0 \n\
-    lsl r6, r6, #0x10 \n\
-    asr r6, r6, #0x10 \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    mov r0, sl \n\
-    bl FixedMultiplication \n\
-    mov sl, r0 \n\
-    mov r3, sl \n\
-    lsl r3, r3, #0x10 \n\
-    asr r3, r3, #0x10 \n\
-    mov sl, r3 \n\
-    add r0, r5, #0 \n\
-    bl FixedInverse \n\
-    add r1, r0, #0 \n\
-    lsl r1, r1, #0x10 \n\
-    asr r1, r1, #0x10 \n\
-    add r0, r4, #0 \n\
-    bl FixedMultiplication \n\
-    lsl r0, r0, #0x10 \n\
-    asr r0, r0, #0x10 \n\
-    ldr r2, lbl_080800f0 @ =gOamData \n\
-    lsl r1, r7, #3 \n\
-    add r1, r1, r2 \n\
-    mov r4, r8 \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #1 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r3, sp \n\
-    ldrh r3, [r3, #4] \n\
-    strh r3, [r1, #6] \n\
-    add r1, r7, #2 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r4, sb \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #3 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r3, r8 \n\
-    strh r3, [r1, #6] \n\
-    add r1, r7, #4 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r6, [r1, #6] \n\
-    add r1, r7, #5 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r4, sl \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #6 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r3, sb \n\
-    strh r3, [r1, #6] \n\
-    add r1, r7, #7 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r4, r8 \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #8 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #9 \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r3, sp \n\
-    ldrh r3, [r3, #4] \n\
-    strh r3, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #0xa \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r0, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #0xb \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r6, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #0xc \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r6, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #0xd \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    mov r4, sl \n\
-    strh r4, [r1, #6] \n\
-    add r1, r7, #0 \n\
-    add r1, #0xe \n\
-    lsl r1, r1, #3 \n\
-    add r1, r1, r2 \n\
-    strh r0, [r1, #6] \n\
-    add r0, r7, #0 \n\
-    add r0, #0xf \n\
-    lsl r0, r0, #3 \n\
-    add r0, r0, r2 \n\
-    strh r6, [r0, #6] \n\
-    add sp, #8 \n\
-    pop {r3, r4, r5} \n\
-    mov r8, r3 \n\
-    mov sb, r4 \n\
-    mov sl, r5 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_080800ec: .4byte sSineTable \n\
-lbl_080800f0: .4byte gOamData \n\
-    ");
-}
-#endif
