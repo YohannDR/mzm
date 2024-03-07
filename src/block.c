@@ -24,7 +24,7 @@
 #ifdef NON_MATCHING
 u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 {
-    // https://decomp.me/scratch/o1iEv
+    // https://decomp.me/scratch/LL1r2
 
     u32 result;
     u32 bombChainType;

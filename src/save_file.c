@@ -2123,7 +2123,7 @@ void Sram_CheckLoadSaveFile(void)
 #ifdef NON_MATCHING
 void Sram_InitSaveFile(void)
 {
-    // https://decomp.me/scratch/uEm2z
+    // https://decomp.me/scratch/8cG3f
 
     s32 i;
     s32 j;

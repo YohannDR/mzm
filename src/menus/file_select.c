@@ -816,7 +816,7 @@ void FileSelectFileCopyChooseBaseDestinationFile(void)
 #ifdef NON_MATCHING
 u32 FileSelectCopyFileSubroutine(void)
 {
-    // https://decomp.me/scratch/iYyvZ
+    // https://decomp.me/scratch/Rz4bp
 
     u32 ended;
     s32 action;

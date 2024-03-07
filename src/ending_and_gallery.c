@@ -167,7 +167,7 @@ void EndingImageDisplayLinePermanently(u32 line)
 #ifdef NON_MATCHING
 void EndingImageLoadIGTAndPercentageGraphics(void)
 {
-    // https://decomp.me/scratch/vLTLr
+    // https://decomp.me/scratch/KHUC4
 
     s32 hoursTens;
     s32 hoursOnes;
