@@ -1258,7 +1258,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
  *
  * @param pSprite Sprite Data Pointer
  */
-void ParasiteProjectilesCollision(struct SpriteData* pSprite)
+void ParasiteBombCollision(struct SpriteData* pSprite)
 {
     struct ProjectileData* pProj;
     u8 status;
@@ -1285,9 +1285,11 @@ void ParasiteProjectilesCollision(struct SpriteData* pSprite)
 
     yPos = pSprite->yPosition;
     spriteTop = yPos + pSprite->hitboxTopOffset;
+
     spriteBottom = yPos;
     hitboxBottomOffset = pSprite->hitboxBottomOffset;
     spriteBottom += hitboxBottomOffset;
+
     spriteLeft = pSprite->xPosition + pSprite->hitboxLeftOffset;
     spriteRight = pSprite->xPosition + pSprite->hitboxRightOffset;
 
@@ -1339,7 +1341,7 @@ void ParasiteMultiple(void)
     pSprite = &gCurrentSprite;
 
     if (pSprite->invincibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
-        ParasiteProjectilesCollision(pSprite);
+        ParasiteBombCollision(pSprite);
 
     switch (pSprite->pose)
     {
@@ -1427,7 +1429,7 @@ void Parasite(void)
     pSprite = &gCurrentSprite;
 
     if (pSprite->invincibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
-        ParasiteProjectilesCollision(pSprite);
+        ParasiteBombCollision(pSprite);
 
     switch (pSprite->pose)
     {

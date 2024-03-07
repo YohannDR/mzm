@@ -35,7 +35,10 @@
 /**
  * @brief 68168 | 60 | To document
  * 
- * TODO: document params and return
+ * @param param_1 To document
+ * @param param_2 To document
+ * @param param_3 To document
+ * @return u32 bool, suceeded
  */
 u32 unk_68168(u16 param_1, u8 param_2, s8 param_3)
 {

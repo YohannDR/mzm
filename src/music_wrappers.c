@@ -249,8 +249,10 @@ void CheckSetNewMusicTrack(u16 musicTrack)
         gSoundQueue[6].exists = 0;
 
     if (gSoundQueue[8].exists & 3)
+    {
         // The following line is written like that to produce matching ASM:
         do { gSoundQueue[8].exists = 0; } while (0);
+    }
 
     pTrack = sMusicTrackDataRom[0].pTrack;
 
@@ -318,7 +320,9 @@ void unk_378c(u16 musicTrack)
                 var_0 = FALSE;
             }
             else
+            {
                 var_0 = TRUE;
+            }
         }
     }
     else if (gMusicInfo.priority & 0x40)

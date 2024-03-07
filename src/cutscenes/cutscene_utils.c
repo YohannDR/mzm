@@ -868,48 +868,48 @@ void CutsceneUpdateSpecialEffect(void)
         CUTSCENE_DATA.specialEffect.bg_Timer = CUTSCENE_DATA.specialEffect.bg_Interval;
 
         // Update BLDALPHA L
-        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L)
         {
-            if (gWrittenToBLDALPHA_L < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+            if (gWrittenToBLDALPHA_L < CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L)
             {
-                if (gWrittenToBLDALPHA_L + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
-                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L;
+                if (gWrittenToBLDALPHA_L + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L)
+                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L;
                 else
                     gWrittenToBLDALPHA_L += CUTSCENE_DATA.specialEffect.bg_Intensity;
             }
             else
             {
-                if (gWrittenToBLDALPHA_L - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
-                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L;
+                if (gWrittenToBLDALPHA_L - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L)
+                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L;
                 else
                     gWrittenToBLDALPHA_L -= CUTSCENE_DATA.specialEffect.bg_Intensity;
             }
         }
 
         // Update BLDALPHA H
-        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H)
         {
-            if (gWrittenToBLDALPHA_H < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+            if (gWrittenToBLDALPHA_H < CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H)
             {
-                if (gWrittenToBLDALPHA_H + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
-                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H;
+                if (gWrittenToBLDALPHA_H + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H)
+                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H;
                 else
                     gWrittenToBLDALPHA_H += CUTSCENE_DATA.specialEffect.bg_Intensity;
             }
             else
             {
-                if (gWrittenToBLDALPHA_H - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
-                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H;
+                if (gWrittenToBLDALPHA_H - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H)
+                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H;
                 else
                     gWrittenToBLDALPHA_H -= CUTSCENE_DATA.specialEffect.bg_Intensity;
             }
         }
 
         // Check reached destination values
-        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L)
             return;
 
-        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H)
             return;
 
         // Mark as ended
@@ -921,12 +921,15 @@ void CutsceneUpdateSpecialEffect(void)
 /**
  * @brief 61d68 | 60 | Starts a cutscene sprite effect
  * 
- * TODO: Document params
+ * @param bldcnt Bldcnt
+ * @param bldy Bldy target
+ * @param interval Interval between value changes
+ * @param intensity Value change intensity
  */
 void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u32 interval, u8 intensity)
 {
-    u8 interval_as_u8;
-    u8 *s_Interval_ptr;
+    u8 _interval;
+    u8* ptr;
 
     CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_SPRITE_ENDED;
     CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE;
@@ -935,38 +938,42 @@ void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u32 interval, u8 intensity)
     CUTSCENE_DATA.specialEffect.s_Intensity = intensity;
 
     // The following code is written like that to produce matching ASM:
-    s_Interval_ptr = &CUTSCENE_DATA.specialEffect.s_Interval;
-    interval_as_u8 = interval;
-    *s_Interval_ptr = interval_as_u8;
+    ptr = &CUTSCENE_DATA.specialEffect.s_Interval;
+    _interval = interval;
+    *ptr = _interval;
 
-    CUTSCENE_DATA.specialEffect.s_Timer = interval_as_u8;
+    CUTSCENE_DATA.specialEffect.s_Timer = _interval;
 
-    CUTSCENE_DATA.bldcnt = CUTSCENE_DATA.specialEffect.s_BLDCNT = bldcnt;
+    CUTSCENE_DATA.bldcnt = CUTSCENE_DATA.specialEffect.s_Bldcnt = bldcnt;
 }
 
 /**
  * @brief 61dc8 | 70 | Starts a cutscene background effect
  * 
- * TODO: Document params
+ * @param bldcnt Bldcnt
+ * @param bldalphaL Bldqlphq L target
+ * @param bldalphaH Bldqlphq H target
+ * @param interval Interval between value changes
+ * @param intensity Value change intensity
  */
 void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 interval, u8 intensity)
 {
-    u8 interval_as_u8;
-    u8 *bg_Interval_ptr;
+    u8 _interval;
+    u8* ptr;
 
     CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED;
     CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG;
     
-    CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L = bldalphaL;
-    CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H = bldalphaH;
+    CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_L = bldalphaL;
+    CUTSCENE_DATA.specialEffect.bg_WrittenToBldalpha_H = bldalphaH;
     CUTSCENE_DATA.specialEffect.bg_Intensity = intensity;
 
     // The following code is written like that to produce matching ASM:
-    bg_Interval_ptr = &CUTSCENE_DATA.specialEffect.bg_Interval;
-    interval_as_u8 = interval;
-    *bg_Interval_ptr = interval_as_u8;
+    ptr = &CUTSCENE_DATA.specialEffect.bg_Interval;
+    _interval = interval;
+    *ptr = _interval;
     
-    CUTSCENE_DATA.specialEffect.bg_Timer = interval_as_u8;
+    CUTSCENE_DATA.specialEffect.bg_Timer = _interval;
 
     CUTSCENE_DATA.specialEffect.bg_WrittenToBLDCNT = bldcnt;
 

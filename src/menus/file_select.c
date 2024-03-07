@@ -1779,7 +1779,6 @@ u32 FileSelectEraseFileSubroutine(void)
 {
     u32 ended;
     u32 action;
-    void *ewramPtr;
 
     ended = FALSE;
 

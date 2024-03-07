@@ -13,15 +13,16 @@
  * @param xPosition X Position
  * @param yPosition Y Position
  * @param rotation Rotation
- * @param _scaling Scaling
- * @param _doubleSize Double size
- * @param _matrixNum Matrix number
+ * @param scaling Scaling
+ * @param doubleSize Double size
+ * @param matrixNum Matrix number
  * @return u8 0
  */
-u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s16 _scaling, u16 _doubleSize, u16 _matrixNum)
+u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s16 scaling, u16 doubleSize, u16 matrixNum)
 {
-    s32 scaling;
-    u8 doubleSize, matrixNum;
+    s32 _scaling;
+    u8 _doubleSize;
+    u8 _matrixNum;
     
     s32 y;    
     s32 x;
@@ -38,10 +39,9 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     s32 scaledX;
     s32 scaledY;
 
-    scaling = _scaling;
-
-    doubleSize = _doubleSize;
-    matrixNum = _matrixNum;
+    _scaling = scaling;
+    _doubleSize = doubleSize;
+    _matrixNum = matrixNum;
 
     xOffset = (s16)((u16)xPosition + BLOCK_SIZE);
     yOffset = (s16)((u16)yPosition + BLOCK_SIZE);
@@ -58,8 +58,8 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     tmpX = (s16)(x - xOffset + unk_0);
     tmpY = (s16)(y - yOffset + unk_1);
 
-    scaledX = (s16)(Q_24_8_TO_INT(tmpX * scaling) - tmpX);
-    scaledY = (s16)(Q_24_8_TO_INT(tmpY * scaling) - tmpY);
+    scaledX = (s16)(Q_24_8_TO_INT(tmpX * _scaling) - tmpX);
+    scaledY = (s16)(Q_24_8_TO_INT(tmpY * _scaling) - tmpY);
 
     x = (s16)(x + scaledX);
     y = (s16)(y + scaledY);
@@ -70,7 +70,7 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     x = Q_8_8_TO_SHORT(unk_2 * cos(rotation) - unk_3 * sin(rotation));
     y = Q_8_8_TO_SHORT(unk_2 * sin(rotation) + unk_3 * cos(rotation));
 
-    if (!doubleSize)
+    if (!_doubleSize)
     {
         gOamData[oamSlot].split.affineMode = 1;
 
@@ -92,22 +92,22 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     {
         if (gOamData[oamSlot].split.yFlip)
         {
-            gOamData[oamSlot].split.matrixNum = matrixNum + 3;
+            gOamData[oamSlot].split.matrixNum = _matrixNum + 3;
         }
         else
         {
-            gOamData[oamSlot].split.matrixNum = matrixNum + 1;
+            gOamData[oamSlot].split.matrixNum = _matrixNum + 1;
         }
     }
     else
     {
         if (gOamData[oamSlot].split.yFlip)
         {
-            gOamData[oamSlot].split.matrixNum = matrixNum + 2;
+            gOamData[oamSlot].split.matrixNum = _matrixNum + 2;
         }
         else
         {
-            gOamData[oamSlot].split.matrixNum = matrixNum;
+            gOamData[oamSlot].split.matrixNum = _matrixNum;
         }
     }
 
@@ -122,12 +122,12 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
  * 
  * @param rotation Rotation
  * @param scaling Scaling
- * @param _oamSlot OAM Slot
+ * @param oamSlot OAM Slot
  */
-void CalculateOamPart4(u16 rotation, s16 scaling, u16 _oamSlot)
+void CalculateOamPart4(u16 rotation, s16 scaling, u16 oamSlot)
 {
-    s32 negativeScaling = scaling; // Needed to produce matching ASM.
-    u8 oamSlot = _oamSlot; // Needed to produce matching ASM
+    s32 negativeScaling;
+    u8 _oamSlot;
 
     s32 dy1;
     s32 dmy1;
@@ -138,6 +138,8 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u16 _oamSlot)
 
     s32 idx;
 
+    negativeScaling = scaling; // Needed to produce matching ASM.
+    _oamSlot = oamSlot; // Needed to produce matching ASM
     dy1 = FixedMultiplication(cos(rotation), FixedInverse(scaling));
 
     // The following expression writes uselessly first to dmy2 to produce matching ASM:
@@ -151,21 +153,21 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u16 _oamSlot)
     dy2 = FixedMultiplication(sin(rotation), FixedInverse(negativeScaling));
     dmy2 = FixedMultiplication(-sin(rotation), FixedInverse(negativeScaling));
 
-    gOamData[oamSlot].all.affineParam = dy1;
-    idx = oamSlot + 1; // Needed to produce matching ASM.
+    gOamData[_oamSlot].all.affineParam = dy1;
+    idx = _oamSlot + 1; // Needed to produce matching ASM.
     gOamData[idx].all.affineParam = dmy1;
-    gOamData[oamSlot + 2].all.affineParam = dx1;
-    gOamData[oamSlot + 3].all.affineParam = dy1;
-    gOamData[oamSlot + 4].all.affineParam = dmx1;
-    gOamData[oamSlot + 5].all.affineParam = dy2;
-    gOamData[oamSlot + 6].all.affineParam = dx1;
-    gOamData[oamSlot + 7].all.affineParam = dy1;
-    gOamData[oamSlot + 8].all.affineParam = dy1;
-    gOamData[oamSlot + 9].all.affineParam = dmy1;
-    gOamData[oamSlot + 10].all.affineParam = dmy2;
-    gOamData[oamSlot + 11].all.affineParam = dmx1;
-    gOamData[oamSlot + 12].all.affineParam = dmx1;
-    gOamData[oamSlot + 13].all.affineParam = dy2;
-    gOamData[oamSlot + 14].all.affineParam = dmy2;
-    gOamData[oamSlot + 15].all.affineParam = dmx1;
+    gOamData[_oamSlot + 2].all.affineParam = dx1;
+    gOamData[_oamSlot + 3].all.affineParam = dy1;
+    gOamData[_oamSlot + 4].all.affineParam = dmx1;
+    gOamData[_oamSlot + 5].all.affineParam = dy2;
+    gOamData[_oamSlot + 6].all.affineParam = dx1;
+    gOamData[_oamSlot + 7].all.affineParam = dy1;
+    gOamData[_oamSlot + 8].all.affineParam = dy1;
+    gOamData[_oamSlot + 9].all.affineParam = dmy1;
+    gOamData[_oamSlot + 10].all.affineParam = dmy2;
+    gOamData[_oamSlot + 11].all.affineParam = dmx1;
+    gOamData[_oamSlot + 12].all.affineParam = dmx1;
+    gOamData[_oamSlot + 13].all.affineParam = dy2;
+    gOamData[_oamSlot + 14].all.affineParam = dmy2;
+    gOamData[_oamSlot + 15].all.affineParam = dmx1;
 }

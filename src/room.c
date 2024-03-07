@@ -598,27 +598,27 @@ void RoomSetInitialTilemap(u8 bgNumber)
     u16* dst;
     u16* pTilemap;
 
-    u32 Ox800;
+    u32 tmpOffset;
 
     if (bgNumber == 0)
     {
         properties = gCurrentRoomEntry.Bg0Prop;
         do {
-            yPosition = gBg0YPosition / BLOCK_SIZE;
-            xPosition = gBg0XPosition / BLOCK_SIZE;
+            yPosition = SUB_PIXEL_TO_BLOCK(gBg0YPosition);
+            xPosition = SUB_PIXEL_TO_BLOCK(gBg0XPosition);
         } while (0);
     }
     else if (bgNumber == 1)
     {
         properties = gCurrentRoomEntry.Bg1Prop;
-        yPosition = gBg1YPosition / BLOCK_SIZE;
-        xPosition = gBg1XPosition / BLOCK_SIZE;
+        yPosition = SUB_PIXEL_TO_BLOCK(gBg1YPosition);
+        xPosition = SUB_PIXEL_TO_BLOCK(gBg1XPosition);
     }
     else
     {
         properties = gCurrentRoomEntry.Bg2Prop;
-        yPosition = gBg2YPosition / BLOCK_SIZE;
-        xPosition = gBg2XPosition / BLOCK_SIZE;
+        yPosition = SUB_PIXEL_TO_BLOCK(gBg2YPosition);
+        xPosition = SUB_PIXEL_TO_BLOCK(gBg2XPosition);
     }
 
     if (properties & BG_PROP_RLE_COMPRESSED)
@@ -655,9 +655,9 @@ void RoomSetInitialTilemap(u8 bgNumber)
             {
                 dst = VRAM_BASE + bgNumber * 0x1000;
 
-                Ox800 = 0x800; // Needed to produce matching ASM.
+                tmpOffset = 0x800; // Needed to produce matching ASM.
                 if (tmpX & 0x10)
-                    dst = VRAM_BASE + Ox800 + bgNumber * 0x1000;
+                    dst = VRAM_BASE + tmpOffset + bgNumber * 0x1000;
 
                 dst = &dst[(tmpX & 0xF) * 2 + (yPos & 0xF) * 64];
 
@@ -685,14 +685,14 @@ void RoomSetInitialTilemap(u8 bgNumber)
         offsetPtr = &offset;
         if (properties & BG_PROP_LZ77_COMPRESSED && bgNumber == 0)
         {
-            *offsetPtr = 0x800;
+            offset = 0x800;
             if (gCurrentRoomEntry.Bg0Size & 1)
                 offset *= 2;
 
             if (gCurrentRoomEntry.Bg0Size & 2)
                 offset *= 2;
 
-            DmaTransfer(3, gDecompBg0Map, VRAM_BASE, *offsetPtr, 16);
+            DmaTransfer(3, gDecompBg0Map, VRAM_BASE, offset, 16);
         }
     }
 }

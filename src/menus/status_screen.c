@@ -151,7 +151,7 @@ void UpdateSuitType(u8 newSuit)
  * @brief 6ff4c | d4 | Draws the status screen row provided
  * 
  * @param u8 row Row to draw
- * @return u32 bool, TRUE if done drawing, FALSE otherwise
+ * @return u32 bool, done drawing
  */
 u32 StatusScreenDrawItems(u8 row)
 {
@@ -159,8 +159,8 @@ u32 StatusScreenDrawItems(u8 row)
     s32 j;
     u32 position;
     u16* dst;
-    const u8 (*_uselessVarForMatching)[3];
-    u8 false;
+    const u8 (*tmp)[3];
+    u8 tmp2;
 
     if (row >= 8)
         return TRUE;
@@ -170,7 +170,7 @@ u32 StatusScreenDrawItems(u8 row)
         if (row == 0 && sStatusScreenRowsData[i][0] == ABILITY_GROUP_SUITS)
             continue;
 
-        false = FALSE; // Needed to produce matching ASM.
+        tmp2 = FALSE; // Needed to produce matching ASM.
         position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
     
@@ -179,8 +179,7 @@ u32 StatusScreenDrawItems(u8 row)
 
         for (j = 0; ; j++, position++)
         {
-            
-            if (j >= (_uselessVarForMatching = sStatusScreenRowsData)[i][2])
+            if (j >= (tmp = sStatusScreenRowsData)[i][2])
                 break;
 
             dst = VRAM_BASE + 0xC000;
@@ -191,7 +190,7 @@ u32 StatusScreenDrawItems(u8 row)
     if (row >= 7)
         j = TRUE;
     else
-        j = false;
+        j = tmp2;
 
     return j;
 }

@@ -540,24 +540,22 @@ void AcidWormIdle(void)
         return;
     }
 
-    gCurrentSprite.timer--;
-    do { // All this code is wrapped in a do while (0) to produce matching ASM.
+    do {
+        gCurrentSprite.timer--;
         if (gCurrentSprite.timer != 0)
             return;
-
-        if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 1) >= 239)
+    
+        if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL) >= BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE - ONE_SUB_PIXEL)
             gSubSpriteData1.workVariable3 = TRUE;
         else if (gSamusData.xPosition <= gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
             gSubSpriteData1.workVariable3 = TRUE;
+        else if (gSamusData.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
+            gSubSpriteData1.workVariable3 = FALSE;
         else
-        {
-            if (gSamusData.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
-                gSubSpriteData1.workVariable3 = FALSE;
-            else
-                gSubSpriteData1.workVariable3 = TRUE;
-            gSubSpriteData1.health += 0; // This is needed for the code to match :shrug:
-        }
-    } while (0);
+            gSubSpriteData1.workVariable3 = TRUE;
+    
+        gSubSpriteData1.health += 0; // This is needed for the code to match :shrug:
+    } while(0);
 
     gCurrentSprite.pOam = sAcidWormOam_Warning;
     gCurrentSprite.animationDurationCounter = 0;
