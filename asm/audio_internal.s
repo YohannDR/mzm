@@ -608,8 +608,8 @@ lbl_08004b44: .4byte gMusicInfo
 lbl_08004b48: .4byte sDma1ControlPointer
 lbl_08004b4c: .4byte sDma1ControlValue
 
-    thumb_func_start sub_08004b50
-sub_08004b50: @ 0x08004b50
+    thumb_func_start InitTrack
+InitTrack: @ 0x08004b50
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     adds r4, r0, #0
@@ -756,7 +756,7 @@ lbl_08004c4e:
     ands r1, r3
     subs r1, #1
     adds r0, r4, #0
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     movs r3, #0
     strb r3, [r4]
     str r3, [r4, #0x24]
@@ -820,7 +820,7 @@ lbl_08004cbc:
     ands r1, r3
     subs r1, #1
     adds r0, r4, #0
-    bl sub_080024c0
+    bl ClearRegistersForPsg
     movs r3, #0
     strb r3, [r4]
     str r3, [r4, #0x24]
@@ -914,7 +914,7 @@ lbl_08004d5c:
     beq lbl_08004d52
     ldr r0, [r4]
     ldr r1, [r6, #4]
-    bl sub_08004b50
+    bl InitTrack
     movs r0, #0
     str r0, [r6]
     str r0, [r6, #4]
@@ -1222,7 +1222,7 @@ sub_08004f8c: @ 0x08004f8c
     movs r2, #2
     orrs r1, r2
     strb r1, [r4, #0x13]
-    bl sub_080020a4
+    bl unk_20a4
     ldr r0, [r5, #0x48]
     cmp r0, #0
     beq lbl_08004fa8

@@ -107,9 +107,9 @@ struct CutsceneGraphicsData {
 struct CutsceneSpecialEffect {
     u8 status;
     u8 s_WrittenToBLDY;
-    u8 bg_WrittenToBLDALPHA_L;
-    u8 bg_WrittenToBLDALPHA_H;
-    u16 s_BLDCNT;
+    u8 bg_WrittenToBldalpha_L;
+    u8 bg_WrittenToBldalpha_H;
+    u16 s_Bldcnt;
     u8 s_Intensity;
     u8 s_Interval;
     s8 s_Timer;

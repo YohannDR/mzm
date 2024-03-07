@@ -5,7 +5,7 @@
 #include "structs/menu.h"
 #include "structs/cutscene.h"
 
-u32 unk_68168(u16 param_1, u8 param_2, u32 param_3);
+u32 unk_68168(u16 param_1, u8 param_2, s8 param_3);
 u8 unk_681c8(void);
 u32 PauseScreenUpdateOrStartFading(u8 stage);
 void PauseScreenCopyPalramToEwram_Unused(u8 param_1);

@@ -1,4 +1,5 @@
 #include "music_wrappers.h"
+#include "audio.h"
 #include "audio_wrappers.h"
 #include "syscalls.h"
 #include "gba.h"
@@ -130,7 +131,7 @@ void unk_34ac(u8 param_1)
                     {
                         if (pVariables->pSoundPSG != NULL)
                         {
-                            clear_registers_for_psg(pVariables->pSoundPSG, (u8)((pVariables->channel & 7) - 1));
+                            ClearRegistersForPsg(pVariables->pSoundPSG, (u8)((pVariables->channel & 7) - 1));
                         }
 
                         if (pVariables->pChannel == NULL)
@@ -214,10 +215,13 @@ void unk_35d0(u8 param_1)
     }
 }
 
+/**
+ * @brief 36d0 | bc | Checks if r0 is a new music track
+ * 
+ * @param musicTrack Music Track
+ */
 void CheckSetNewMusicTrack(u16 musicTrack)
 {
-    // https://decomp.me/scratch/HGig0
-
     struct TrackData* pTrack;
     u32 newTrack;
 
@@ -245,7 +249,10 @@ void CheckSetNewMusicTrack(u16 musicTrack)
         gSoundQueue[6].exists = 0;
 
     if (gSoundQueue[8].exists & 3)
-        gSoundQueue[8].exists = 0;
+    {
+        // The following line is written like that to produce matching ASM:
+        do { gSoundQueue[8].exists = 0; } while (0);
+    }
 
     pTrack = sMusicTrackDataRom[0].pTrack;
 
@@ -263,10 +270,13 @@ void CheckSetNewMusicTrack(u16 musicTrack)
     gMusicInfo.occupied = FALSE;
 }
 
+/**
+ * @brief 378c | ec | To document
+ * 
+ * @param musicTrack Music Track
+ */
 void unk_378c(u16 musicTrack)
 {
-    // https://decomp.me/scratch/ETNx6
-
     u16 newTrack;
     struct TrackData* pTrack;
     s32 var_0;
@@ -304,9 +314,15 @@ void unk_378c(u16 musicTrack)
         {
             newTrack = musicTrack - 0x5A;
             if (newTrack >= 10)
+            {
+                // The following line is needed to produce matching ASM:
+                gSoundQueue[8].exists += 0;
                 var_0 = FALSE;
+            }
             else
+            {
                 var_0 = TRUE;
+            }
         }
     }
     else if (gMusicInfo.priority & 0x40)
@@ -324,7 +340,7 @@ void unk_378c(u16 musicTrack)
     if (var_0)
     {
         pTrack = sMusicTrackDataRom[0].pTrack;
-        if (sSoundDataEntries[DetermineNewMusicTrack(musicTrack)].pHeader != pTrack->pHeader)
+        if (sSoundDataEntries[(u16)DetermineNewMusicTrack(musicTrack)].pHeader != pTrack->pHeader)
         {
             ApplyMusicSoundFading(pTrack, 30);
             gMusicInfo.musicTrackOnTransition = musicTrack;
@@ -350,7 +366,7 @@ void CheckPlayTransitionMusicTrack(void)
         
         if (gMusicInfo.priority == 0 && gMusicInfo.musicTrackOnTransition != MUSIC_NONE)
         {
-            init_track(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[gMusicInfo.musicTrackOnTransition].pHeader);
+            InitTrack(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[gMusicInfo.musicTrackOnTransition].pHeader);
 
             gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
@@ -367,8 +383,8 @@ void unk_38d8(void)
 {
     if (!(gMusicInfo.priority & 0x40) && gMusicInfo.musicTrackOnTransition != MUSIC_NONE)
     {
-        init_track(sMusicTrackDataRom[0].pTrack,
-            sSoundDataEntries[DetermineNewMusicTrack(gMusicInfo.musicTrackOnTransition)].pHeader);
+        InitTrack(sMusicTrackDataRom[0].pTrack,
+            sSoundDataEntries[(u16)DetermineNewMusicTrack(gMusicInfo.musicTrackOnTransition)].pHeader);
         gMusicInfo.unk_20 = 0;
         gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
     }
@@ -403,9 +419,9 @@ void UpdateMusicAfterAlarmDisable(void)
  * @brief 3980 | 48 | Determines a new music track based on something?
  * 
  * @param musicTrack Music track
- * @return u16 New music track
+ * @return u32 New music track
  */
-u16 DetermineNewMusicTrack(u16 musicTrack)
+u32 DetermineNewMusicTrack(u16 musicTrack)
 {
     switch (musicTrack)
     {
@@ -474,7 +490,7 @@ void PlayMusic(u16 musicTrack, u8 priority)
             gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = musicTrack;
             gMusicInfo.occupied = FALSE;
-            init_track(pTrack, pHeader);
+            InitTrack(pTrack, pHeader);
         }
     }
 
@@ -695,7 +711,7 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
 
             gMusicInfo.unk_20 = 1;
             gMusicInfo.occupied = FALSE;
-            init_track(pTrack, pHeader);
+            InitTrack(pTrack, pHeader);
         }
     }
 
@@ -725,13 +741,13 @@ void ReplayQueuedMusic(u8 queueFlags)
 
     gMusicInfo.unk_20 = 0;
     if ((u16)(gMusicInfo.musicTrack - 0x5A) < 0xA)
-        music = DetermineNewMusicTrack(gMusicInfo.musicTrack);
+        music = (u16)DetermineNewMusicTrack(gMusicInfo.musicTrack);
     else
         music = gMusicInfo.musicTrack;
 
     pHeader = sSoundDataEntries[music].pHeader;
     gMusicInfo.occupied = FALSE;
-    init_track(pTrack, pHeader);
+    InitTrack(pTrack, pHeader);
 
     if (queueFlags & 0x40)
         DelayMusicStart(pTrack, 60);
@@ -810,12 +826,12 @@ void PlayCurrentMusicTrack(void)
     currTrack = gMusicInfo.musicTrack;
     musicTrack = currTrack - 0x5A;
     if (musicTrack < 10)
-        pHeader = sSoundDataEntries[DetermineNewMusicTrack(currTrack)].pHeader;
+        pHeader = sSoundDataEntries[(u16)DetermineNewMusicTrack(currTrack)].pHeader;
     else
         pHeader = sSoundDataEntries[currTrack].pHeader;
 
     gMusicInfo.occupied = FALSE;
-    init_track(pTrack, pHeader);
+    InitTrack(pTrack, pHeader);
     gMusicInfo.occupied = FALSE;
 }
 
@@ -958,7 +974,7 @@ void BackupTrackData2SoundChannels(void)
                 if (!(pVariables->channel & 0xC0))
                 {
                     if (pVariables->pSoundPSG)
-                        clear_registers_for_psg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1); // Undefined, definition required
+                        ClearRegistersForPsg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1);
 
                     if (pVariables->pChannel)
                     {
@@ -1136,7 +1152,7 @@ void unk_42bc(u16 musicTrack)
     if (musicTrack == MUSIC_NONE)
         musicTrack = 0x12B;
 
-    init_track(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[musicTrack].pHeader);
+    InitTrack(sMusicTrackDataRom[0].pTrack, sSoundDataEntries[musicTrack].pHeader);
     
     gMusicInfo.unk_20 = 0;
     gMusicInfo.musicTrack = musicTrack;

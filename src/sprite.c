@@ -820,7 +820,9 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 }
 
 /**
- * @brief df24 | 4c | 
+ * @brief df24 | 4c | Calls : ClearSpriteData, LoadSpriteset,
+ * CheckReloadEscapeDigitsGraphics, LoadLocationText, LoadRoomSprite
+ * and SpawnSpacePiratesWaiting
  * 
  */
 void SpriteLoadAllData(void)
@@ -852,11 +854,12 @@ void SpriteLoadAllData(void)
     gParasiteRelated = 0;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief df84 | 100 | Loads a spriteset
+ * 
+ */
 void SpriteLoadSpriteset(void)
 {
-    // https://decomp.me/scratch/59czd
-
     s32 i;
     s32 j;
     s32 spriteset;
@@ -886,13 +889,18 @@ void SpriteLoadSpriteset(void)
 
     for (j = 0, i = 0; i < MAX_AMOUNT_OF_SPRITE_TYPES; i++)
     {
+        const u32 * const *spritesetGraphicsPointers;
+
         spriteId = sSpritesetPointers[spriteset][j * 2 + 0];
         gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
 
         j++;
         
         if (spriteId == PSPRITE_UNUSED0)
+        {
             break;
+            do { } while (0); // Needed to produce matching ASM.
+        }
 
         gSpritesetSpritesID[i] = spriteId;
         gSpritesetGfxSlots[i] = MOD_AND(gfxSlot, 8);
@@ -906,7 +914,8 @@ void SpriteLoadSpriteset(void)
 
         spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 
-        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteId], VRAM_BASE + 0x14000 + gfxSlot * 2048);
+        spritesetGraphicsPointers = sSpritesGraphicsPointers; // Needed to produce matching ASM.
+        LZ77UncompVRAM(spritesetGraphicsPointers[spriteId], VRAM_BASE + 0x14000 + gfxSlot * 2048);
 
         ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteId])[1];
         ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteId])[2] << 8;
@@ -914,137 +923,6 @@ void SpriteLoadSpriteset(void)
             C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
     }
 }
-#else
-NAKED_FUNCTION
-void SpriteLoadSpriteset(void)
-{
-    asm("\n\
-        push {r4, r5, r6, r7, lr} \n\
-        mov r7, sl \n\
-        mov r6, sb \n\
-        mov r5, r8 \n\
-        push {r5, r6, r7} \n\
-        movs r7, #0 \n\
-        ldr r5, lbl_0800e05c @ =gSpriteset \n\
-        ldr r6, lbl_0800e060 @ =0x0875f31c \n\
-        ldr r4, lbl_0800e064 @ =gSpritesetSpritesID \n\
-        movs r3, #0 \n\
-        movs r2, #0x10 \n\
-        ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots \n\
-    lbl_0800df9c: \n\
-        add r0, r7, r4 \n\
-        strb r2, [r0] \n\
-        add r0, r7, r1 \n\
-        strb r3, [r0] \n\
-        add r7, #1 \n\
-        cmp r7, #0xe \n\
-        ble lbl_0800df9c \n\
-        movs r0, #0xff \n\
-        mov sb, r0 \n\
-        ldrb r1, [r5] \n\
-        cmp r1, #0x70 \n\
-        ble lbl_0800dfc0 \n\
-        ldr r0, lbl_0800e06c @ =gCurrentArea \n\
-        ldrb r0, [r0] \n\
-        movs r1, #0 \n\
-        cmp r0, #7 \n\
-        bls lbl_0800dfc0 \n\
-        movs r1, #0x71 \n\
-    lbl_0800dfc0: \n\
-        movs r7, #0 \n\
-        lsl r0, r1, #2 \n\
-        add r1, r0, r6 \n\
-        ldr r1, [r1] \n\
-        ldrb r5, [r1] \n\
-        ldrb r6, [r1, #1] \n\
-        movs r1, #1 \n\
-        mov r8, r1 \n\
-        mov sl, r0 \n\
-        cmp r5, #0 \n\
-        beq lbl_0800e04e \n\
-    lbl_0800dfd6: \n\
-        ldr r0, lbl_0800e064 @ =gSpritesetSpritesID \n\
-        add r0, r7, r0 \n\
-        strb r5, [r0] \n\
-        ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots \n\
-        add r1, r7, r1 \n\
-        movs r2, #7 \n\
-        add r0, r6, #0 \n\
-        and r0, r2 \n\
-        strb r0, [r1] \n\
-        cmp r6, sb \n\
-        beq lbl_0800e030 \n\
-        mov sb, r6 \n\
-        cmp r6, #8 \n\
-        beq lbl_0800e030 \n\
-        sub r5, #0x10 \n\
-        ldr r4, lbl_0800e070 @ =0x0875ebf8 \n\
-        lsl r5, r5, #2 \n\
-        add r4, r5, r4 \n\
-        ldr r0, [r4] \n\
-        lsl r1, r6, #0xb \n\
-        ldr r2, lbl_0800e074 @ =0x06014000 \n\
-        add r1, r1, r2 \n\
-        bl LZ77UncompVRAM \n\
-        ldr r0, [r4] \n\
-        ldrb r2, [r0, #1] \n\
-        ldrb r1, [r0, #2] \n\
-        lsl r1, r1, #8 \n\
-        ldr r3, lbl_0800e078 @ =0x040000d4 \n\
-        ldr r0, lbl_0800e07c @ =0x0875eef0 \n\
-        add r5, r5, r0 \n\
-        ldr r0, [r5] \n\
-        str r0, [r3] \n\
-        lsl r0, r6, #5 \n\
-        ldr r4, lbl_0800e080 @ =0x05000300 \n\
-        add r0, r0, r4 \n\
-        str r0, [r3, #4] \n\
-        orr r2, r1 \n\
-        asr r0, r2, #0xb \n\
-        lsl r0, r0, #4 \n\
-        movs r1, #0x80 \n\
-        lsl r1, r1, #0x18 \n\
-        orr r0, r1 \n\
-        str r0, [r3, #8] \n\
-        ldr r0, [r3, #8] \n\
-    lbl_0800e030: \n\
-        add r7, #1 \n\
-        cmp r7, #0xe \n\
-        bgt lbl_0800e04e \n\
-        ldr r0, lbl_0800e060 @ =0x0875f31c \n\
-        add r0, sl \n\
-        ldr r1, [r0] \n\
-        mov r2, r8 \n\
-        lsl r0, r2, #1 \n\
-        add r0, r0, r1 \n\
-        ldrb r5, [r0] \n\
-        ldrb r6, [r0, #1] \n\
-        movs r4, #1 \n\
-        add r8, r4 \n\
-        cmp r5, #0 \n\
-        bne lbl_0800dfd6 \n\
-    lbl_0800e04e: \n\
-        pop {r3, r4, r5} \n\
-        mov r8, r3 \n\
-        mov sb, r4 \n\
-        mov sl, r5 \n\
-        pop {r4, r5, r6, r7} \n\
-        pop {r0} \n\
-        bx r0 \n\
-        .align 2, 0 \n\
-    lbl_0800e05c: .4byte gSpriteset \n\
-    lbl_0800e060: .4byte sSpritesetPointers \n\
-    lbl_0800e064: .4byte gSpritesetSpritesID \n\
-    lbl_0800e068: .4byte gSpritesetGfxSlots \n\
-    lbl_0800e06c: .4byte gCurrentArea \n\
-    lbl_0800e070: .4byte sSpritesGraphicsPointers \n\
-    lbl_0800e074: .4byte 0x06014000 \n\
-    lbl_0800e078: .4byte 0x040000d4 \n\
-    lbl_0800e07c: .4byte sSpritesPalettePointers \n\
-    lbl_0800e080: .4byte 0x05000300 \n\
-    ");
-}
-#endif
 
 /**
  * e084 | 2c | Loads the graphics in VRAM for a new sprite

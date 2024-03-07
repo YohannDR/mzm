@@ -961,7 +961,7 @@ void TextStartFileScreen(u8 textID)
 #ifdef NON_MATCHING
 u8 TextProcessFileScreenPopUp(void)
 {
-    // https://decomp.me/scratch/vcoZi
+    // https://decomp.me/scratch/OOQTv
 
     s32 i;
     u32* dst;

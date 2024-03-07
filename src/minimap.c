@@ -549,7 +549,7 @@ void MinimapUpdateForExploredTiles(void)
 #ifdef NON_MATCHING
 void MinimapDraw(void)
 {
-    // https://decomp.me/scratch/qI74Z
+    // https://decomp.me/scratch/EaJoP
 
     s32 yOffset;
     s32 xOffset;

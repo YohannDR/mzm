@@ -53,7 +53,7 @@ void ParasiteDying(struct SpriteData* pSprite);
 void ParasiteMultipleDying(struct SpriteData* pSprite);
 void ParasiteGrabGeron(struct SpriteData* pSprite);
 void ParasiteGeronGrabbed(struct SpriteData* pSprite);
-void ParasiteProjectilesCollision(struct SpriteData* pSprite);
+void ParasiteBombCollision(struct SpriteData* pSprite);
 void ParasiteMultiple(void);
 void Parasite(void);
 

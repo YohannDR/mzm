@@ -1112,7 +1112,7 @@ void unk_89600(struct MultiBootData* pMultiBoot, const u8* src, s32 length, u8 p
  * @brief 896b8 | 14 | To document
  * 
  * @param pMultiBoot Multi boot param pointer
- * @return u8 To document
+ * @return u32 To document
  */
 u32 unk_896b8(struct MultiBootData* pMultiBoot)
 {
@@ -1122,11 +1122,14 @@ u32 unk_896b8(struct MultiBootData* pMultiBoot)
         return FALSE;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 896cc | ec | To document
+ * 
+ * @param pMultiBoot Multi boot param pointer
+ * @return u32 SIOCNT
+ */
 u32 unk_896cc(struct MultiBootData* pMultiBoot)
 {
-    // https://decomp.me/scratch/6M5KZ
-
     s32 i;
     u32 value;
     u16 var_0;
@@ -1140,7 +1143,7 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
             pMultiBoot->systemWork_1[0] = 0x100000;
 
             return CableLinkStartTransfer(pMultiBoot, 0);
-        
+
         default:
             for (i = 3; i != 0; i--)
             {
@@ -1168,7 +1171,8 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
             }
 
             pMultiBoot->systemWork_1[0] /= 32;
-            
+
+            return_in_default_case:
             return CableLinkStartTransfer(pMultiBoot, pMultiBoot->systemWork_1[0]);
 
         case 231:
@@ -1192,143 +1196,14 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
 
             pMultiBoot->systemWork_1[0] = value;
             pMultiBoot->systemWork_1[1] = value;
-            
+
+            #ifndef NON_MATCHING
+            goto return_in_default_case;
+            #else // NON_MATCHING
             return CableLinkStartTransfer(pMultiBoot, pMultiBoot->systemWork_1[0]);
+            #endif // NON_MATCHING
     }
 }
-#else
-NAKED_FUNCTION
-u32 unk_896cc(struct MultiBootData* pMultiBoot)
-{
-    asm(" \n\
-    push {r4, r5, r6, lr} \n\
-    add r3, r0, #0 \n\
-    ldrb r0, [r3, #0x18] \n\
-    cmp r0, #0xe0 \n\
-    beq lbl_080896e8 \n\
-    cmp r0, #0xe0 \n\
-    blt lbl_080896f8 \n\
-    cmp r0, #0xe8 \n\
-    bgt lbl_080896f8 \n\
-    cmp r0, #0xe7 \n\
-    blt lbl_080896f8 \n\
-    movs r4, #3 \n\
-    ldrb r5, [r3, #0x1e] \n\
-    b lbl_08089758 \n\
-lbl_080896e8: \n\
-    movs r1, #0 \n\
-    movs r0, #0xe1 \n\
-    strb r0, [r3, #0x18] \n\
-    str r1, [r3, #4] \n\
-    movs r0, #0x80 \n\
-    lsl r0, r0, #0xd \n\
-    str r0, [r3] \n\
-    b lbl_0808974a \n\
-lbl_080896f8: \n\
-    movs r4, #3 \n\
-    ldrb r5, [r3, #0x1e] \n\
-    movs r6, #1 \n\
-    ldr r1, lbl_08089754 @ =0x04000126 \n\
-lbl_08089700: \n\
-    ldrh r0, [r1] \n\
-    add r2, r0, #0 \n\
-    add r0, r5, #0 \n\
-    asr r0, r4 \n\
-    and r0, r6 \n\
-    cmp r0, #0 \n\
-    beq lbl_08089714 \n\
-    ldr r0, [r3, #4] \n\
-    cmp r2, r0 \n\
-    bne lbl_080896e8 \n\
-lbl_08089714: \n\
-    sub r1, #2 \n\
-    sub r4, #1 \n\
-    cmp r4, #0 \n\
-    bne lbl_08089700 \n\
-    ldrb r0, [r3, #0x18] \n\
-    add r0, #1 \n\
-    strb r0, [r3, #0x18] \n\
-    ldr r1, [r3] \n\
-    ldrh r0, [r3] \n\
-    str r0, [r3, #4] \n\
-    cmp r1, #0 \n\
-    bne lbl_08089742 \n\
-    ldr r0, [r3, #0x28] \n\
-    add r1, r0, #0 \n\
-    add r1, #0xac \n\
-    ldrb r1, [r1] \n\
-    add r0, #0xad \n\
-    ldrb r0, [r0] \n\
-    lsl r0, r0, #8 \n\
-    orr r1, r0 \n\
-    str r1, [r3, #4] \n\
-    lsl r1, r1, #5 \n\
-    str r1, [r3] \n\
-lbl_08089742: \n\
-    ldr r0, [r3] \n\
-    lsr r0, r0, #5 \n\
-    str r0, [r3] \n\
-lbl_08089748: \n\
-    ldrh r1, [r3] \n\
-lbl_0808974a: \n\
-    add r0, r3, #0 \n\
-    bl CableLinkStartTransfer \n\
-    b lbl_080897b0 \n\
-    .align 2, 0 \n\
-lbl_08089754: .4byte 0x04000126 \n\
-lbl_08089758: \n\
-    lsl r0, r4, #1 \n\
-    ldr r1, lbl_080897a0 @ =0x04000120 \n\
-    add r0, r0, r1 \n\
-    ldrh r0, [r0] \n\
-    add r2, r0, #0 \n\
-    add r0, r5, #0 \n\
-    asr r0, r4 \n\
-    movs r1, #1 \n\
-    and r0, r1 \n\
-    cmp r0, #0 \n\
-    beq lbl_08089774 \n\
-    ldr r0, [r3, #4] \n\
-    cmp r2, r0 \n\
-    bne lbl_080897a4 \n\
-lbl_08089774: \n\
-    sub r4, #1 \n\
-    cmp r4, #0 \n\
-    bne lbl_08089758 \n\
-    ldrb r0, [r3, #0x18] \n\
-    add r0, #1 \n\
-    strb r0, [r3, #0x18] \n\
-    lsl r0, r0, #0x18 \n\
-    lsr r0, r0, #0x18 \n\
-    cmp r0, #0xe9 \n\
-    beq lbl_080897ae \n\
-    ldr r0, [r3, #0x28] \n\
-    add r1, r0, #0 \n\
-    add r1, #0xae \n\
-    ldrb r1, [r1] \n\
-    add r0, #0xaf \n\
-    ldrb r0, [r0] \n\
-    lsl r0, r0, #8 \n\
-    orr r1, r0 \n\
-    str r1, [r3] \n\
-    str r1, [r3, #4] \n\
-    b lbl_08089748 \n\
-    .align 2, 0 \n\
-lbl_080897a0: .4byte 0x04000120 \n\
-lbl_080897a4: \n\
-    add r0, r3, #0 \n\
-    bl CableLinkResetTransfer \n\
-    movs r0, #0x71 \n\
-    b lbl_080897b0 \n\
-lbl_080897ae: \n\
-    movs r0, #0 \n\
-lbl_080897b0: \n\
-    pop {r4, r5, r6} \n\
-    pop {r1} \n\
-    bx r1 \n\
-    ");
-}
-#endif
 
 /**
  * @brief 897b8 | 18 | Checks for the current memory region (where execution is)
