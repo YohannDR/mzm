@@ -1472,7 +1472,7 @@ void BlockProcessBombChains(void)
     // Update each bomb chain every 4 frames
     pChain = gBombChains;
     pChain += (gFrameCounter8Bit & 3);
-    
+
     if (pChain->currentOffset == 0)
         return;
 
