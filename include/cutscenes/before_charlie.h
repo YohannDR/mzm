@@ -3,6 +3,23 @@
 
 #include "types.h"
 #include "structs/cutscene.h"
+#include "macros.h"
+
+#include "data/cutscenes/before_charlie_data.h"
+
+struct BeforeCharieEwramData {
+    u16 wallPal[ARRAY_SIZE(sBeforeCharlieChozoWallPal)];
+
+    u8 padding_100[0x300];
+
+    u16 wallPalMonochromeTransition[ARRAY_SIZE(sBeforeCharlieChozoWallPal) * 2];
+    
+    u8 padding_500[0x3200];
+
+    u16 wallPalMonochrome[ARRAY_SIZE(sBeforeCharlieChozoWallPal)];
+};
+
+#define BEFORE_CHARLIE_EWRAM sEwramPointer->beforeCharlie
 
 u8 BeforeCharlieSamusCloseUp(void);
 u8 BeforeCharlieWallAndGreyVoice(void);

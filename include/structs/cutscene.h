@@ -154,12 +154,16 @@ struct CutsceneTimeInfo {
     u8 customTimer;
 };
 
+struct Cutscene_Unused {
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
+};
+
 struct CutsceneData {
     struct CutsceneTimeInfo timeInfo;
-    u8 unk_8; // TODO struct
-    u8 unk_9;
-    u8 unk_A;
-    u8 unk_B;
+    struct Cutscene_Unused unk_8;
     struct CutscenePaletteData paletteData[4];
     u16 dispcnt;
     u16 bldcnt;

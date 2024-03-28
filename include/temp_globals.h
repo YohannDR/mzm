@@ -15,7 +15,9 @@
 #include "structs/fusion_gallery.h"
 #include "structs/chozodia_escape.h"
 #include "structs/tourian_escape.h"
+
 #include "cutscenes/kraid_rising.h"
+#include "cutscenes/before_charlie.h"
 
 
 union NonGameplayRAM {
@@ -37,6 +39,7 @@ union EwramData {
     struct PauseScreenEwramData pauseScreen;
     struct FileSelectEwramData fileSelect;
     struct KraidRisingEwramData kraidRising;
+    struct BeforeCharieEwramData beforeCharlie;
 };
 
 extern u16 unk_02035400;

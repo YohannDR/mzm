@@ -22,7 +22,7 @@
 #include "structs/game_state.h"
 
 /**
- * @brief 60e28 | 4 | Default subroutine for Cutscene that don't have any
+ * @brief 60e28 | 4 | Default subroutine for cutscenes that don't have any
  * 
  * @return u8 1
  */
@@ -1006,7 +1006,7 @@ void CutsceneReset(void)
     gCurrentOamScaling = Q_8_8(1.f);
 
     // Clear structs
-    BitFill(3, 0, &CUTSCENE_DATA.unk_8, 4, 32); // This should be a struct
+    BitFill(3, 0, &CUTSCENE_DATA.unk_8, sizeof(CUTSCENE_DATA.unk_8), 32);
     BitFill(3, 0, CUTSCENE_DATA.graphicsData, sizeof(CUTSCENE_DATA.graphicsData), 32);
     BitFill(3, 0, CUTSCENE_DATA.bgScrolling, sizeof(CUTSCENE_DATA.bgScrolling), 32);
     BitFill(3, 0, CUTSCENE_DATA.paletteData, sizeof(CUTSCENE_DATA.paletteData), 32);
@@ -1019,7 +1019,7 @@ void CutsceneReset(void)
 void unk_61f0c(void)
 {
     CUTSCENE_DATA.dispcnt = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 

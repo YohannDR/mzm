@@ -75,6 +75,14 @@
 
 #define SET_BACKDROP_COLOR(color) (write16(PALRAM_BASE, (color)))
 
+/**
+ * @brief Generic Dma transfer to send palette to pal
+ * 
+ * @param pal Palette data
+ * @param dst Destination address in palram
+ */
+#define SEND_TO_PALRAM(pal, dst) (DmaTransfer(3, pal, dst, sizeof(pal), 16))
+
 #define OAM_PART_SIZE 3
 #define OAM_DATA_SIZE(nbrOfParts) (1 + (nbrOfParts) * OAM_PART_SIZE)
 #define GET_OAM_DATA_SIZE(size) (((size) - 1) / OAM_PART_SIZE)

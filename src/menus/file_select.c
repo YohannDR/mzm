@@ -2775,6 +2775,8 @@ void FileSelectResetIOTransferInfo(void)
 u8 OptionsNesMetroidSubroutine(void)
 {
     u8 i;
+    NesEmuFunc_T func;
+    void* entryPoint;
 
     FILE_SELECT_DATA.subroutineTimer++;
 
@@ -2844,8 +2846,9 @@ u8 OptionsNesMetroidSubroutine(void)
 
             // Give control to some sort of bootloader?
             // Signature : void Func_T(void*)
-            // FIXME : sNesEmuBootLoader(ROM_BASE);
-            ((void*(*)(void*))(0x87d8000))(ROM_BASE);
+            entryPoint = ROM_BASE;
+            func = (NesEmuFunc_T)&sNesEmuBootLoader;
+            func(entryPoint);
             break;
     }
 

@@ -39,7 +39,7 @@ u8 EnterTourianAnimation(void)
             break;
 
         case 1:
-            if (!CUTSCENE_DATA.unk_A)
+            if (!CUTSCENE_DATA.unk_8.unk_2)
             {
                 CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 8, 1);
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -181,7 +181,7 @@ void EnterTourianScrollBackground(void)
 {
     u16* pPosition;
 
-    if (!CUTSCENE_DATA.unk_A)
+    if (!CUTSCENE_DATA.unk_8.unk_2)
         return;
 
     pPosition = CutsceneGetBgHorizontalPointer(sEnterTourianPageData[1].bg);
@@ -189,7 +189,7 @@ void EnterTourianScrollBackground(void)
         *pPosition -= PIXEL_SIZE / 2;
 
     if (*pPosition <= BLOCK_SIZE * 21 + HALF_BLOCK_SIZE)
-        CUTSCENE_DATA.unk_A = FALSE;
+        CUTSCENE_DATA.unk_8.unk_2 = FALSE;
 
     pPosition = CutsceneGetBgHorizontalPointer(sEnterTourianPageData[0].bg);
     *pPosition -= ONE_SUB_PIXEL;
@@ -573,7 +573,7 @@ u8 EnterTourianInit(void)
 
     CUTSCENE_DATA.bldcnt = BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
     gWrittenToBLDY_NonGameplay = 16;
-    CUTSCENE_DATA.unk_A = TRUE;
+    CUTSCENE_DATA.unk_8.unk_2 = TRUE;
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
     DmaTransfer(3, PALRAM_OBJ, (void*)sEwramPointer + 0x3A00, 0x200, 0x10);
