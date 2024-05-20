@@ -7526,7 +7526,7 @@ void SamusUpdatePalette(struct SamusData* pData)
         s32 tmp; // Needed to produce matching ASM.
 
         chargeCounter = (tmp = pWeapon->chargeCounter);
-        limit = 64;
+        limit = CHARGE_BEAM_THRESHOLD;
         if (chargeCounter >= limit)
         {
             offset = (chargeCounter - limit) >> 2;

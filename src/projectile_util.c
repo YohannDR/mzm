@@ -173,7 +173,7 @@ void ProjectileUpdate(void)
     gArmCannonY = PIXEL_TO_SUB_PIXEL(SUB_PIXEL_TO_PIXEL(gSamusData.yPosition) + gSamusPhysics.armCannonYPositionOffset);
     gArmCannonX = PIXEL_TO_SUB_PIXEL(SUB_PIXEL_TO_PIXEL(gSamusData.xPosition) + gSamusPhysics.armCannonXPositionOffset);
 
-    if (gSamusWeaponInfo.chargeCounter == 16 && gEquipment.suitType != SUIT_SUITLESS)
+    if (gSamusWeaponInfo.chargeCounter == CHARGE_BEAM_START_THRESHOLD && gEquipment.suitType != SUIT_SUITLESS)
     {
         checks = FALSE;
 

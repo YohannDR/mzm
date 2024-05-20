@@ -1762,7 +1762,7 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
     pParticle->yPosition = gArmCannonY;
     pParticle->xPosition = gArmCannonX;
 
-    if (gSamusWeaponInfo.chargeCounter < 16)
+    if (gSamusWeaponInfo.chargeCounter < CHARGE_BEAM_START_THRESHOLD)
     {
         pParticle->status = 0;
         ParticleStopBeginToChargeSound();
