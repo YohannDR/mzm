@@ -1011,7 +1011,7 @@ void RoomUpdateBackgroundsPosition(void)
     u16 xPosition;
     u16 yPosition;
     u16 bg3X;
-    u16 bbg3Y;
+    u16 bg3Y;
 
     yOffset = ScreenShakeUpdateVertical();
     xOffset = ScreenShakeUpdateHorizontal();
@@ -1037,17 +1037,17 @@ void RoomUpdateBackgroundsPosition(void)
     }
 
     bg3X = (gBg3XPosition >> 0x2) + gBg3Movement.xOffset & 0x1FF;
-    bbg3Y = gBg3YPosition >> 0x2 & 0x1FF;
+    bg3Y = gBg3YPosition >> 0x2 & 0x1FF;
 
     if (gScreenShakeRelated & 0x800)
     {
         gBackgroundPositions.bg[3].x = bg3X;
-        gBackgroundPositions.bg[3].y = bbg3Y;
+        gBackgroundPositions.bg[3].y = bg3Y;
     }
     else
     {
         gBackgroundPositions.bg[3].x = bg3X + (xOffset >> 0x1);
-        gBackgroundPositions.bg[3].y = bbg3Y + (yOffset >> 0x1);
+        gBackgroundPositions.bg[3].y = bg3Y + (yOffset >> 0x1);
     }
 }
 
