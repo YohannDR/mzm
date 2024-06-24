@@ -26,7 +26,7 @@ void ZebInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-    gCurrentSprite.workVariable = 0x1;
+    gCurrentSprite.work1 = 0x1;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
@@ -67,8 +67,8 @@ void ZebIdle(void)
 
     if (!SpriteUtilCheckHasDrops())
     {
-        if (gCurrentSprite.workVariable != 0x0)
-            gCurrentSprite.workVariable--;
+        if (gCurrentSprite.work1 != 0x0)
+            gCurrentSprite.work1--;
         else
         {
             samusY = gSamusData.yPosition;
@@ -87,7 +87,7 @@ void ZebIdle(void)
                     // Samus in range
                     gCurrentSprite.oamScaling = gSamusData.yPosition;
                     gCurrentSprite.pose = ZEB_POSE_GOING_UP;
-                    gCurrentSprite.timer = 0x2;
+                    gCurrentSprite.work0 = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
 
                     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -109,10 +109,10 @@ void ZebGoingUp(void)
     u16 yPosition;
 
     gCurrentSprite.yPosition -= 0x8;
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
@@ -125,7 +125,7 @@ void ZebGoingUp(void)
         if (yPosition - 0x64 > gCurrentSprite.yPosition)
         {
             gCurrentSprite.pose = ZEB_POSE_MOVING;
-            gCurrentSprite.timer = 0xA;
+            gCurrentSprite.work0 = 0xA;
 
             gCurrentSprite.pOam = sZebOAM_Moving;
             gCurrentSprite.currentAnimationFrame = 0x0;
@@ -148,7 +148,7 @@ void ZebRespawn(void)
 
     ZebIdleInit();
 
-    gCurrentSprite.workVariable = 0x3C;
+    gCurrentSprite.work1 = 0x3C;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
@@ -164,19 +164,19 @@ void ZebRespawn(void)
  */
 void ZebMove(void)
 {
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(0x145);
-            gCurrentSprite.workVariable = 0x0;
+            gCurrentSprite.work1 = 0x0;
         }
     }
     else
     {
-        gCurrentSprite.workVariable++;
+        gCurrentSprite.work1++;
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
             // Check should respawn
@@ -199,7 +199,7 @@ void ZebMove(void)
             else
                 gCurrentSprite.xPosition -= 0xC; // Move
         }
-        if (!(gCurrentSprite.workVariable & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(0x145);
     }
 }

@@ -35,39 +35,39 @@ const u8 sStatueOpening_Padding3ed4b0[4] = {
 
 const struct OamArray sStatueOpeningOam[9] = {
     [0] = {
-        .pOam = sKraidStatueOAM_Idle,
+        .pOam = sKraidStatueOam_Idle,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
     },
     [STATUE_OPENING_OAM_ID_KRAID_IDLE] = {
-        .pOam = sKraidStatueOAM_Idle,
+        .pOam = sKraidStatueOam_Idle,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [STATUE_OPENING_OAM_ID_KRAID_ACTIVATING] = {
-        .pOam = sKraidStatueOAM_Activating,
+        .pOam = sKraidStatueOam_Activating,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [STATUE_OPENING_OAM_ID_KRAID_ACTIVATED] = {
-        .pOam = sKraidStatueOAM_Activated,
+        .pOam = sKraidStatueOam_Activated,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [STATUE_OPENING_OAM_ID_KRAID_OPENED] = {
-        .pOam = sKraidStatueOAM_Opened,
+        .pOam = sKraidStatueOam_Opened,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [STATUE_OPENING_OAM_ID_RIDLEY_IDLE] = {
-        .pOam = sRidleyStatueOAM_Idle,
+        .pOam = sRidleyStatueOam_Idle,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING] = {
-        .pOam = sRidleyStatueOAM_Activating,
+        .pOam = sRidleyStatueOam_Activating,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATED] = {
-        .pOam = sRidleyStatueOAM_Activated,
+        .pOam = sRidleyStatueOam_Activated,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [STATUE_OPENING_OAM_ID_RIDLEY_OPENED] = {
-        .pOam = sRidleyStatueOAM_Opened,
+        .pOam = sRidleyStatueOam_Opened,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
 };

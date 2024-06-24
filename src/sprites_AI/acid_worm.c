@@ -48,14 +48,14 @@ void AcidWormHandleRotation(void)
     else
         offset = PI * 2;
 
-    arrayOffset = gCurrentSprite.arrayOffset;
+    arrayOffset = gCurrentSprite.work3;
     sine = sAcidWormSwingingMovement[arrayOffset];
     if (sine == SHORT_MAX)
     {
         sine = sAcidWormSwingingMovement[0];
         arrayOffset = 0;
     }
-    gCurrentSprite.arrayOffset = arrayOffset + 1;
+    gCurrentSprite.work3 = arrayOffset + 1;
 
     if (gCurrentSprite.health != 0)
         posOffset = (s16)(offset + MUL_SHIFT(sine, 4) * (gCurrentSprite.roomSlot / 4 + 1));
@@ -102,7 +102,7 @@ void AcidWormRandomXMovement(void)
     s32 movement;
     u8 offset;
 
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sAcidWormHeadRandomXVelocity[offset];
     if (movement == SHORT_MAX)
     {
@@ -110,7 +110,7 @@ void AcidWormRandomXMovement(void)
         offset = 20;
     }
 
-    gCurrentSprite.workVariable2 = offset + 1;
+    gCurrentSprite.work2 = offset + 1;
     gCurrentSprite.xPosition += movement;
 }
 
@@ -121,7 +121,7 @@ void AcidWormRandomXMovement(void)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition)
+void AcidWormChangeTwoGroundCcaa(u8 caa, u16 yPosition, u16 xPosition)
 {
     // Left block
     gCurrentClipdataAffectingAction = caa;
@@ -137,7 +137,7 @@ void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition)
  * 
  * @param caa Clipdata affecting action
  */
-void AcidWormChangeBigBlockDownCCAA(u8 caa)
+void AcidWormChangeBigBlockDownCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -164,7 +164,7 @@ void AcidWormChangeBigBlockDownCCAA(u8 caa)
  * 
  * @param caa Clipdata affecting action
  */
-void AcidWormChangeBigBlockMiddleCCAA(u8 caa)
+void AcidWormChangeBigBlockMiddleCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -190,7 +190,7 @@ void AcidWormChangeBigBlockMiddleCCAA(u8 caa)
  * 
  * @param caa Clipdata affecting action
  */
-void AcidWormChangeBigBlockTopCCAA(u8 caa)
+void AcidWormChangeBigBlockTopCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -300,8 +300,8 @@ void AcidWormInit(void)
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES;
 
-    gCurrentSprite.arrayOffset = 0;
-    gCurrentSprite.workVariable2 = 20;
+    gCurrentSprite.work3 = 0;
+    gCurrentSprite.work2 = 20;
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -321,10 +321,10 @@ void AcidWormInit(void)
         // Acid worm killed, remove block and bring liquid down
         gEffectYPositionOffset = BLOCK_SIZE * 9 + HALF_BLOCK_SIZE;
 
-        AcidWormChangeBigBlockDownCCAA(CAA_REMOVE_SOLID);
-        AcidWormChangeBigBlockMiddleCCAA(CAA_REMOVE_SOLID);
-        AcidWormChangeBigBlockTopCCAA(CAA_REMOVE_SOLID);
-        AcidWormChangeTwoGroundCCAA(CAA_REMOVE_SOLID, yPosition, xPosition);
+        AcidWormChangeBigBlockDownCcaa(CAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockMiddleCcaa(CAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockTopCcaa(CAA_REMOVE_SOLID);
+        AcidWormChangeTwoGroundCcaa(CAA_REMOVE_SOLID, yPosition, xPosition);
 
         gCurrentSprite.status = 0;
         return;
@@ -397,10 +397,10 @@ void AcidWormSpawnStart(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gSubSpriteData1.workVariable2 = 0x1;
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_EXTEND;
-        gCurrentSprite.timer = 0;
+        gCurrentSprite.work0 = 0;
 
         // Destroy bottom
-        AcidWormChangeBigBlockDownCCAA(CAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockDownCcaa(CAA_REMOVE_SOLID);
 
         ScreenShakeStartVertical(60, 0x80 | 1);
         ScreenShakeStartHorizontal(60, 0x80 | 1);
@@ -442,11 +442,11 @@ void AcidWormSpawnExtending(void)
         gEffectYPositionOffset++;
 
         // Gradually destroy big block
-        gCurrentSprite.timer++;
-        if (gCurrentSprite.timer == 4)
-            AcidWormChangeBigBlockMiddleCCAA(CAA_REMOVE_SOLID);
-        else if (gCurrentSprite.timer == 8)
-            AcidWormChangeBigBlockTopCCAA(CAA_REMOVE_SOLID);
+        gCurrentSprite.work0++;
+        if (gCurrentSprite.work0 == 4)
+            AcidWormChangeBigBlockMiddleCcaa(CAA_REMOVE_SOLID);
+        else if (gCurrentSprite.work0 == 8)
+            AcidWormChangeBigBlockTopCcaa(CAA_REMOVE_SOLID);
     }
 }
 
@@ -487,7 +487,7 @@ void AcidWormSpawnRetracting(void)
 
         gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0;
-        gCurrentSprite.timer = 60;
+        gCurrentSprite.work0 = 60;
     }
     else
     {
@@ -536,13 +536,13 @@ void AcidWormIdle(void)
     
     if (samusY > gEffectYPosition || samusY > spritePos)
     {
-        gCurrentSprite.timer = 60;
+        gCurrentSprite.work0 = 60;
         return;
     }
 
     do {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer != 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 != 0)
             return;
     
         if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL) >= BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE - ONE_SUB_PIXEL)
@@ -583,7 +583,7 @@ void AcidWormCheckWarningAnimEnded(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = ACID_WORM_POSE_EXTENDING;
-        gCurrentSprite.timer = 8;
+        gCurrentSprite.work0 = 8;
 
         if (gSubSpriteData1.health == gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 3))
             gEffectYPositionOffset = -BLOCK_SIZE;
@@ -605,11 +605,11 @@ void AcidWormExtend(void)
     u8 checks;
 
     spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
         // Delay before moving
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             if (!gSubSpriteData1.workVariable3)
             {
@@ -713,7 +713,7 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 SpriteDebrisInit(0x0, 0x12, yPosition + 0x40, xPosition);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                gCurrentSprite.timer = 0x78; // Timer to stay
+                gCurrentSprite.work0 = 0x78; // Timer to stay
                 SoundPlay(0x1B3);
             }
             else if (gCurrentSprite.health <= spawnHealth / 2)
@@ -725,7 +725,7 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x13, yPosition - 0x5C, xPosition - 0x3E);
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_BIG);
-                gCurrentSprite.timer = 0x8C; // Timer to stay
+                gCurrentSprite.work0 = 0x8C; // Timer to stay
                 SoundPlay(0x1B2);
             }
             else
@@ -735,18 +735,18 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x12, yPosition - 0x42, xPosition - 0x20);
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
-                gCurrentSprite.timer = 0xA0; // Timer to stay
+                gCurrentSprite.work0 = 0xA0; // Timer to stay
                 SoundPlay(0x1B1);
             }
 
             // Update timer based on difficulty
             if (gDifficulty == DIFF_EASY)
-                gCurrentSprite.timer += 60;
+                gCurrentSprite.work0 += 60;
             else if (gDifficulty == DIFF_HARD)
-                gCurrentSprite.timer -= 20;
+                gCurrentSprite.work0 -= 20;
 
             gCurrentSprite.pOam = sAcidWormOam_MouthClosed;
-            gCurrentSprite.workVariable = 0;
+            gCurrentSprite.work1 = 0;
         }
         else
         {
@@ -775,13 +775,13 @@ void AcidWormExtended(void)
         // Hooked to block
         if (!AcidWormCollidingWithSamusWhenExtending())
         {
-            if (MOD_AND(gCurrentSprite.workVariable, 32) == 0)
+            if (MOD_AND(gCurrentSprite.work1, 32) == 0)
                 SoundPlay(0x1B4);
 
-            gCurrentSprite.workVariable++;
+            gCurrentSprite.work1++;
 
-            gCurrentSprite.timer--; // Timer until retracting
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--; // Timer until retracting
+            if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pose = ACID_WORM_POSE_RETRACTING;
                 AcidWormPlayRetractingSound();
@@ -953,19 +953,19 @@ void AcidWormRetracting(void)
                 gCurrentSprite.pOam = sAcidWormOam_Moving;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
-                gCurrentSprite.timer = 40;
+                gCurrentSprite.work0 = 40;
                 SoundPlay(0x1B9);
             }
             else
             {
                 gCurrentSprite.pose = ACID_WORM_POSE_IDLE_INIT;
-                gCurrentSprite.timer = 60 + MOD_AND(gSpriteRng, 8) * 8;
+                gCurrentSprite.work0 = 60 + MOD_AND(gSpriteRng, 8) * 8;
             }
         }
         else
         {
             gCurrentSprite.pose = ACID_WORM_POSE_IDLE_INIT;
-            gCurrentSprite.timer = 80 + MOD_AND(gSpriteRng, 8) * 8;
+            gCurrentSprite.work0 = 80 + MOD_AND(gSpriteRng, 8) * 8;
         }
     }
 }
@@ -981,9 +981,9 @@ void AcidWormRaiseAcid(void)
         ScreenShakeStartHorizontal(10, 0x80 | 1);
 
     // Delay before starting
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
+        gCurrentSprite.work0--;
         return;
     }
 
@@ -1015,7 +1015,7 @@ void AcidWormAcidGoDown(void)
     if (gEffectYPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 3)
     {
         gCurrentSprite.pose = ACID_WORM_POSE_IDLE_INIT;
-        gCurrentSprite.timer = 1;
+        gCurrentSprite.work0 = 1;
         gEffectYPositionOffset = -BLOCK_SIZE;
 
         if (gSubSpriteData1.health == gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
@@ -1069,7 +1069,7 @@ void AcidWormDeathFlashingAnim(void)
 
                 gCurrentSprite.pose = ACID_WORM_POSE_DYING;
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                gCurrentSprite.timer = 1;
+                gCurrentSprite.work0 = 1;
             }
         }    
     }
@@ -1107,11 +1107,11 @@ void AcidWormDying(void)
     }
 
     // Check play effects
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
+        gCurrentSprite.work0--;
 
-        if (gCurrentSprite.timer == 0)
+        if (gCurrentSprite.work0 == 0)
             SoundPlay(0x1BE);
     }
     else
@@ -1142,7 +1142,7 @@ void AcidWormBodyInit(void)
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
-    gCurrentSprite.workVariable2 = 0x14 - (gCurrentSprite.roomSlot * 0x2);
+    gCurrentSprite.work2 = 0x14 - (gCurrentSprite.roomSlot * 0x2);
 
     switch (gCurrentSprite.roomSlot)
     {
@@ -1153,8 +1153,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x10;
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.pOam = sAcidWormBodyOam_AroundMouth;
-            gCurrentSprite.timer = 0x8;
-            gCurrentSprite.arrayOffset = 0x8;
+            gCurrentSprite.work0 = 0x8;
+            gCurrentSprite.work3 = 0x8;
             break;
 
         case ACID_WORM_BODY_PART_WEAK_POINT:
@@ -1164,9 +1164,9 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x30;
             gCurrentSprite.drawOrder = 0x2;
             gCurrentSprite.pOam = sAcidWormBodyOam_WeakPoint;
-            gCurrentSprite.timer = 0x10;
+            gCurrentSprite.work0 = 0x10;
             gCurrentSprite.properties &= ~SP_IMMUNE_TO_PROJECTILES;
-            gCurrentSprite.arrayOffset = 0x10;
+            gCurrentSprite.work3 = 0x10;
             break;
 
         case ACID_WORM_BODY_PART_BELOW_WEAK_POINT:
@@ -1176,8 +1176,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x28;
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.pOam = sAcidWormBodyOam_BelowWeakPoint;
-            gCurrentSprite.timer = 0x18;
-            gCurrentSprite.arrayOffset = 0x18;
+            gCurrentSprite.work0 = 0x18;
+            gCurrentSprite.work3 = 0x18;
             break;
 
         case ACID_WORM_BODY_PART_ABOVE_SEGMENTS:
@@ -1187,8 +1187,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x24;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pOam = sAcidWormBodyOam_AboveSegments;
-            gCurrentSprite.timer = 0x20;
-            gCurrentSprite.arrayOffset = 0x20;
+            gCurrentSprite.work0 = 0x20;
+            gCurrentSprite.work3 = 0x20;
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT1:
@@ -1198,8 +1198,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
-            gCurrentSprite.timer = 0x28;
-            gCurrentSprite.arrayOffset = 0x0;
+            gCurrentSprite.work0 = 0x28;
+            gCurrentSprite.work3 = 0x0;
             break;
             
         case ACID_WORM_BODY_PART_SEGMENT2:
@@ -1209,8 +1209,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
-            gCurrentSprite.timer = 0x30;
-            gCurrentSprite.arrayOffset = 0x8;
+            gCurrentSprite.work0 = 0x30;
+            gCurrentSprite.work3 = 0x8;
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT3:
@@ -1220,8 +1220,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
-            gCurrentSprite.timer = 0x38;
-            gCurrentSprite.arrayOffset = 0x10;
+            gCurrentSprite.work0 = 0x38;
+            gCurrentSprite.work3 = 0x10;
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT4:
@@ -1231,8 +1231,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
-            gCurrentSprite.timer = 0x40;
-            gCurrentSprite.arrayOffset = 0x18;
+            gCurrentSprite.work0 = 0x40;
+            gCurrentSprite.work3 = 0x18;
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT5:
@@ -1242,8 +1242,8 @@ void AcidWormBodyInit(void)
             gCurrentSprite.hitboxRightOffset = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
-            gCurrentSprite.timer = 0x48;
-            gCurrentSprite.arrayOffset = 0x20;
+            gCurrentSprite.work0 = 0x48;
+            gCurrentSprite.work3 = 0x20;
             break;
 
         default:
@@ -1314,7 +1314,7 @@ void AcidWormBodyMainLoop(void)
     u16 health, health2;
 
     slot = gCurrentSprite.primarySpriteRamSlot;
-    timer = gCurrentSprite.timer;
+    timer = gCurrentSprite.work0;
 
     health = gSpriteData[slot].health;
     if (health == 0)
@@ -1420,8 +1420,8 @@ void AcidWormBodyDeath(void)
         return;
     }
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer != 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 != 0)
         return;
 
     roomSlot = gCurrentSprite.roomSlot;
@@ -1441,7 +1441,7 @@ void AcidWormBodyDeath(void)
             ParticleSet(gSpriteData[ramSlot].yPositionSpawn + BLOCK_SIZE, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
 
             // Open path
-            AcidWormChangeTwoGroundCCAA(CAA_REMOVE_SOLID, gSpriteData[ramSlot].yPositionSpawn, gSpriteData[ramSlot].xPositionSpawn);
+            AcidWormChangeTwoGroundCcaa(CAA_REMOVE_SOLID, gSpriteData[ramSlot].yPositionSpawn, gSpriteData[ramSlot].xPositionSpawn);
 
             // Set event and open door
             EventFunction(EVENT_ACTION_SETTING, EVENT_ACID_WORM_KILLED);
@@ -1479,7 +1479,7 @@ void AcidWormSpitInit(void)
     gCurrentSprite.drawOrder = 3;
     gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
 }
@@ -1497,7 +1497,7 @@ void AcidWormSpitMove(void)
     if (gCurrentSprite.roomSlot == 0x2)
     {
         xMovement = 2;
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sAcidWormSpitTwoYVelocity[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -1506,14 +1506,14 @@ void AcidWormSpitMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
     }
     else if (gCurrentSprite.roomSlot == 0x1)
     {
         xMovement = 10;
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sAcidWormSpitOneYVelocity[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -1522,14 +1522,14 @@ void AcidWormSpitMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
     }
     else
     {
         xMovement = 7;
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sAcidWormSpitThreeYVelocity[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -1538,7 +1538,7 @@ void AcidWormSpitMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
     }

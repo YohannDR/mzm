@@ -115,7 +115,7 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
         gCurrentSprite.pose = BARISTUTE_POSE_JUMPING;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.work3 = 0;
         gCurrentSprite.pOam = sBaristuteOam_Jumping;
         
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -132,7 +132,7 @@ void BaristuteJumping(void)
     s32 movement;
     u32 topEdge;
 
-    movement = sBaristuteJumpingYVelocity[gCurrentSprite.arrayOffset / 4];
+    movement = sBaristuteJumpingYVelocity[gCurrentSprite.work3 / 4];
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
@@ -171,8 +171,8 @@ void BaristuteJumping(void)
     gCurrentSprite.yPosition += movement;
 
     // Check update array offset
-    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sBaristuteJumpingYVelocity) * 4 - 1)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < ARRAY_SIZE(sBaristuteJumpingYVelocity) * 4 - 1)
+        gCurrentSprite.work3++;
 
     if (movement >= 1)
     {
@@ -234,7 +234,7 @@ void BaristuteIdleInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.workVariable = MOD_AND(gSpriteRng, 4);
+    gCurrentSprite.work1 = MOD_AND(gSpriteRng, 4);
 }
 
 /**
@@ -275,7 +275,7 @@ void BaristuteIdle(void)
         }
         else if (gCurrentSprite.spriteId != PSPRITE_BARISTUTE_KRAID_LOWER)
         {
-            if (gCurrentSprite.workVariable > 1)
+            if (gCurrentSprite.work1 > 1)
                 gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
             else
                 gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
@@ -306,22 +306,22 @@ void BaristuteWalkingInit(void)
     if (paletteRow == 1)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingFast;
-        gCurrentSprite.workVariable2 = PIXEL_SIZE + PIXEL_SIZE / 2;
+        gCurrentSprite.work2 = PIXEL_SIZE + PIXEL_SIZE / 2;
     }
     else if (paletteRow == 2)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingVeryFast;
-        gCurrentSprite.workVariable2 = PIXEL_SIZE * 2;
+        gCurrentSprite.work2 = PIXEL_SIZE * 2;
     }
     else if (paletteRow == 3)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingExtremelyFast;
-        gCurrentSprite.workVariable2 = PIXEL_SIZE * 2 + PIXEL_SIZE / 2;
+        gCurrentSprite.work2 = PIXEL_SIZE * 2 + PIXEL_SIZE / 2;
     }
     else
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingSlow;
-        gCurrentSprite.workVariable2 = PIXEL_SIZE / 4 * 3;
+        gCurrentSprite.work2 = PIXEL_SIZE / 4 * 3;
     }
 }
 
@@ -333,7 +333,7 @@ void BaristutePlayWalkingSound(void)
 {
     if (gCurrentSprite.animationDurationCounter == 1 && (gCurrentSprite.currentAnimationFrame == 1 || gCurrentSprite.currentAnimationFrame == 4))
     {
-        if (gCurrentSprite.workVariable2 <= PIXEL_SIZE + PIXEL_SIZE / 2)
+        if (gCurrentSprite.work2 <= PIXEL_SIZE + PIXEL_SIZE / 2)
         {
             // Slow or fast
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -358,11 +358,11 @@ void BaristuteWalking(void)
     u16 walkingDistance;
     u16 currentDistance;
 
-    velocity = gCurrentSprite.workVariable2;
+    velocity = gCurrentSprite.work2;
 
     // Determined by RNG
     walkingDistance = BLOCK_SIZE * 6;
-    if (gCurrentSprite.workVariable == 3)
+    if (gCurrentSprite.work1 == 3)
         walkingDistance *= 2;
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -429,7 +429,7 @@ void BaristuteFallingInit(void)
 
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pOam = sBaristuteOam_Jumping;
 }
 
@@ -454,7 +454,7 @@ void BaristuteFalling(void)
     else
     {
         // Update Y position
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         velocity = sBaristuteFallingYVelocity[offset];
         if (velocity == SHORT_MAX)
         {
@@ -464,7 +464,7 @@ void BaristuteFalling(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset = offset + 1;
+            gCurrentSprite.work3 = offset + 1;
             gCurrentSprite.yPosition += velocity;
         }
     }

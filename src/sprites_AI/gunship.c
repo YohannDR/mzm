@@ -21,8 +21,8 @@
 #define GUNSHIP_START_FLYING(flyDuration)       \
 do {                                            \
     gCurrentSprite.pose = GUNSHIP_POSE_FLYING;  \
-    gCurrentSprite.timer = flyDuration;         \
-    gCurrentSprite.arrayOffset = 0x0;           \
+    gCurrentSprite.work0 = flyDuration;         \
+    gCurrentSprite.work3 = 0;                   \
 } while (0)
 
 /**
@@ -36,7 +36,7 @@ void GunshipFlickerFlames(void)
     u8 row;
     u8 offset;
     
-    if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && gCurrentSprite.workVariable2 == 0x4)
+    if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && gCurrentSprite.work2 == 0x4)
     {
         row = gCurrentSprite.oamScaling;
         flag = 0x80;
@@ -76,37 +76,37 @@ void GunshipEntranceFlashingAnim(void)
     u8 row;
     u8 offset;
     
-    if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && --gCurrentSprite.workVariable2 == 0x0)
+    if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && --gCurrentSprite.work2 == 0x0)
     {
         if (gCurrentSprite.pOam == sGunshipOAM_Refilling)
-            gCurrentSprite.workVariable2 = 0x2;
+            gCurrentSprite.work2 = 0x2;
         else if (gCurrentSprite.pOam == sGunshipOAM_Flying)
-            gCurrentSprite.workVariable2 = 0x4;
+            gCurrentSprite.work2 = 0x4;
         else
-            gCurrentSprite.workVariable2 = 0x8;
+            gCurrentSprite.work2 = 0x8;
 
-        row = gCurrentSprite.workVariable;
+        row = gCurrentSprite.work1;
 
         // Update palette row
         if (row & 0x80)
         {
-            if (gCurrentSprite.workVariable > 0x80)
-                gCurrentSprite.workVariable--;
+            if (gCurrentSprite.work1 > 0x80)
+                gCurrentSprite.work1--;
 
-            if (gCurrentSprite.workVariable == 0x80)
-                gCurrentSprite.workVariable = 0x0;
+            if (gCurrentSprite.work1 == 0x80)
+                gCurrentSprite.work1 = 0x0;
         }
         else
         {
-            if (gCurrentSprite.workVariable < 0x4)
-                gCurrentSprite.workVariable++;
+            if (gCurrentSprite.work1 < 0x4)
+                gCurrentSprite.work1++;
 
-            if (gCurrentSprite.workVariable == 0x4)
-                gCurrentSprite.workVariable |= 0x80;
+            if (gCurrentSprite.work1 == 0x4)
+                gCurrentSprite.work1 |= 0x80;
         }
 
         // Transfer palette
-        offset = gCurrentSprite.workVariable & 0x7F;
+        offset = gCurrentSprite.work1 & 0x7F;
         DMA_SET(3, (sGunshipFlashingPal + 0x38 + offset * 16), // Not sure
             (PALRAM_BASE + 0x330), (DMA_ENABLE << 0x10) | 0x8);
     }
@@ -131,7 +131,7 @@ u8 GunshipCheckSamusEnter(void)
             gSamusData.standingStatus = STANDING_ENEMY;
             gSamusData.xPosition = gCurrentSprite.xPosition;
 
-            gCurrentSprite.timer = 0x38;
+            gCurrentSprite.work0 = 0x38;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.standingOnSprite = FALSE;
             gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
@@ -175,10 +175,10 @@ void GunshipInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.workVariable2 = 0x8;
-    gCurrentSprite.workVariable = 0x0;
-    gCurrentSprite.timer = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work2 = 0x8;
+    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work0 = 0x0;
+    gCurrentSprite.work3 = 0x0;
 
     gSubSpriteData1.workVariable3 = FALSE;
 
@@ -193,7 +193,7 @@ void GunshipInit(void)
         // Loading game from gunship
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVE;
-        gCurrentSprite.timer = 0x1E;
+        gCurrentSprite.work0 = 0x1E;
 
         gSamusData.timer = 0x0;
         gSamusData.lastWallTouchedMidAir = 0x1;
@@ -208,7 +208,7 @@ void GunshipInit(void)
         // Landing
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.pose = GUNSHIP_POSE_LANDING;
-        gCurrentSprite.timer = -0x40;
+        gCurrentSprite.work0 = -0x40;
 
         SamusSetPose(SPOSE_SAVING_LOADING_GAME);
         gSamusData.timer = 0x1;
@@ -242,14 +242,14 @@ void GunshipInit(void)
  */
 void GunshipLanding(void)
 {
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
+        gCurrentSprite.work0--;
         gCurrentSprite.yPosition += 0x2;
         gSamusData.yPosition = gCurrentSprite.yPosition - 0x4;
         gSamusData.xPosition = gCurrentSprite.xPosition;
 
-        if (gCurrentSprite.timer == 0x1E)
+        if (gCurrentSprite.work0 == 0x1E)
         {
             // Start intro
             StartEffectForCutscene(EFFECT_CUTSCENE_INTRO_TEXT);
@@ -283,10 +283,10 @@ void GunshipSamusEntering(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_REFILL;
-        gCurrentSprite.timer = 0x41;
+        gCurrentSprite.work0 = 0x41;
 
         // Check close entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
@@ -310,9 +310,9 @@ void GunshipSamusEntering(void)
             }
         }
     }
-    else if (gCurrentSprite.timer < 0x2C)
+    else if (gCurrentSprite.work0 < 0x2C)
         gSamusData.yPosition += 0x4; // move samus
-    else if (gCurrentSprite.timer == 0x2C)
+    else if (gCurrentSprite.work0 == 0x2C)
         SoundPlay(0x11A); // Gunship platform moving 
 }
 
@@ -322,10 +322,10 @@ void GunshipSamusEntering(void)
  */
 void GunshipRefill(void)
 {
-    if (gCurrentSprite.timer > 0x6)
+    if (gCurrentSprite.work0 > 0x6)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x6)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x6)
         {
             gCurrentSprite.pOam = sGunshipOAM_Refilling;
             gCurrentSprite.animationDurationCounter = 0x0;
@@ -333,60 +333,60 @@ void GunshipRefill(void)
             SoundPlay(0x21E);
         }
     }
-    else if (gCurrentSprite.timer == 0x5)
+    else if (gCurrentSprite.work0 == 0x5)
     {
         // Refill energy
         if (!SpriteUtilRefillEnergy())
         {
-            gCurrentSprite.timer--;
+            gCurrentSprite.work0--;
             gEnergyRefillAnimation = 0xD;
         }
     }
-    else if (gCurrentSprite.timer == 0x4)
+    else if (gCurrentSprite.work0 == 0x4)
     {
         // Refill missiles
         if (gEnergyRefillAnimation != 0x0)
             gEnergyRefillAnimation--;
         else if (!SpriteUtilRefillMissiles())
         {
-            gCurrentSprite.timer--;
+            gCurrentSprite.work0--;
             if (gEquipment.maxMissiles != 0x0)
                 gMissileRefillAnimation = 0xD;
         }
     }
-    else if (gCurrentSprite.timer == 0x3)
+    else if (gCurrentSprite.work0 == 0x3)
     {
         // Refill super missiles
         if (gMissileRefillAnimation != 0x0)
             gMissileRefillAnimation--;
         else if (!SpriteUtilRefillSuperMissiles())
         {
-            gCurrentSprite.timer--;
+            gCurrentSprite.work0--;
             if (gEquipment.maxSuperMissiles != 0x0)
                 gSuperMissileRefillAnimation = 0xD;
         }
     }
-    else if (gCurrentSprite.timer == 0x2)
+    else if (gCurrentSprite.work0 == 0x2)
     {
         // Refill power bombs
         if (gSuperMissileRefillAnimation != 0x0)
             gSuperMissileRefillAnimation--;
         else if (!SpriteUtilRefillPowerBombs())
         {
-            gCurrentSprite.timer--;
+            gCurrentSprite.work0--;
             if (gEquipment.maxPowerBombs != 0x0)
                 gPowerBombRefillAnimation = 0xD;
         }
     }
     else if (gPowerBombRefillAnimation != 0x0)
         gPowerBombRefillAnimation--;
-    else if (gCurrentSprite.timer != 0x0)
-        gCurrentSprite.timer--;
+    else if (gCurrentSprite.work0 != 0x0)
+        gCurrentSprite.work0--;
     else
     {
         // Spawn item banner
         gCurrentSprite.pose = GUNSHIP_POSE_AFTER_REFILL;
-        gCurrentSprite.timer = 0x1E;
+        gCurrentSprite.work0 = 0x1E;
 
         gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
             0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
@@ -405,10 +405,10 @@ void GunshipAfterRefill(void)
     ramSlot = gCurrentSprite.oamRotation;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
-        if (gCurrentSprite.timer != 0x0)
+        if (gCurrentSprite.work0 != 0x0)
         {
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
             {
                 // Spawn save prompt
                 gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
@@ -418,18 +418,18 @@ void GunshipAfterRefill(void)
         else
         {
             // Check is save prompt
-            if (gSpriteData[ramSlot].workVariable == TRUE)
+            if (gSpriteData[ramSlot].work1 == TRUE)
             {
                 // Saving
                 gCurrentSprite.pose = GUNSHIP_POSE_SAVING;
-                gCurrentSprite.timer = 0x1E;
+                gCurrentSprite.work0 = 0x1E;
                 SoundPlay(0x21F);
             }
             else
             {
                 // Not saving
                 gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVE;
-                gCurrentSprite.timer = 0x1E;
+                gCurrentSprite.work0 = 0x1E;
             }
         }
     }
@@ -441,8 +441,8 @@ void GunshipAfterRefill(void)
  */
 void GunshipSaving(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_AFTER_SAVE;
         gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
@@ -463,7 +463,7 @@ void GunshipAfterSave(void)
     {
         // Eject samus
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVE;
-        gCurrentSprite.timer = 0x1E;
+        gCurrentSprite.work0 = 0x1E;
     }
 }
 
@@ -475,13 +475,13 @@ void GunshipSamusLeave(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVING;
-        gCurrentSprite.timer = 0x2C;
+        gCurrentSprite.work0 = 0x2C;
         SoundPlay(0x11A); // Gunship platform moving
     }
-    else if (gCurrentSprite.timer == 0xA)
+    else if (gCurrentSprite.work0 == 0xA)
     {
         // Check open entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
@@ -514,13 +514,13 @@ void GunshipSamusLeave(void)
  */
 void GunshipSamusLeaving(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         if (gHideHud)
         {
             gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING;
-            gCurrentSprite.timer = 0x32;
+            gCurrentSprite.work0 = 0x32;
         }
         else
             gCurrentSprite.pose = GUNSHIP_POSE_RELEASE_SAMUS;
@@ -598,10 +598,10 @@ void GunshipSamusEnteringWhenEscaping(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_START_ESCAPING;
-        gCurrentSprite.timer = 0x78;
+        gCurrentSprite.work0 = 0x78;
 
         // Check close entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
@@ -631,9 +631,9 @@ void GunshipSamusEnteringWhenEscaping(void)
             }
         }
     }
-    else if (gCurrentSprite.timer < 0x2C)
+    else if (gCurrentSprite.work0 < 0x2C)
         gSamusData.yPosition += 0x4;
-    else if (gCurrentSprite.timer == 0x2C)
+    else if (gCurrentSprite.work0 == 0x2C)
         SoundPlay(0x11A); // Gunship platform moving 
 }
 
@@ -643,19 +643,19 @@ void GunshipSamusEnteringWhenEscaping(void)
  */
 void GunshipStartEscaping(void)
 {
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.work0 == 0x0)
     {
         // Set taking off
         gCurrentSprite.pose = GUNSHIP_POSE_TAKING_OFF;
-        gCurrentSprite.timer = 0x98;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.work0 = 0x98;
+        gCurrentSprite.work3 = 0x0;
         gCurrentSprite.oamScaling = 0x0;
 
         // Spawn flames
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_HORIZONTAL, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
-    else if (gCurrentSprite.timer == 0x4)
+    else if (gCurrentSprite.work0 == 0x4)
     {
         gCurrentSprite.pOam = sGunshipOAM_Flying;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -675,12 +675,12 @@ void GunshipTakingOff(void)
 
     GunshipFlickerFlames();
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
         GUNSHIP_START_FLYING(0xA0);
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sGunshipTakingOffYVelocity[offset];
         if (movement == SHORT_MAX)
         {
@@ -691,7 +691,7 @@ void GunshipTakingOff(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
             gSamusData.yPosition += movement;
         }
@@ -707,11 +707,11 @@ void GunshipFlying(void)
     u8 offset;
     s32 movement;
 
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.work0 == 0x0)
         gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING_ESCAPE;
     else
     {
-        if (gCurrentSprite.timer == 0x32)
+        if (gCurrentSprite.work0 == 0x32)
         {
             StartEffectForCutscene(EFFECT_CUTSCENE_EXITING_ZEBES);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
@@ -719,7 +719,7 @@ void GunshipFlying(void)
 
         GunshipFlickerFlames();
 
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sGunshipFlyingYVelocity[offset];
         if (movement == SHORT_MAX)
         {
@@ -730,7 +730,7 @@ void GunshipFlying(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset = offset + 0x1;
+            gCurrentSprite.work3 = offset + 0x1;
             gCurrentSprite.yPosition += movement;
             gSamusData.yPosition += movement;
         }
@@ -821,7 +821,7 @@ void GunshipPartInit(void)
             gCurrentSprite.drawOrder = 0xF;
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_HORIZONTAL_FLAMES;
-            gCurrentSprite.timer = 0x50;
+            gCurrentSprite.work0 = 0x50;
             break;
 
         default:
@@ -854,16 +854,16 @@ void GunshipPartCheckSetVerticalFlames(void)
  */
 void GunshipPartCheckSetHorizontalFlames(void)
 {
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
 
-            gCurrentSprite.timer = 0xF;
+            gCurrentSprite.work0 = 0xF;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_VERTICAL_FLAMES_BEFORE_LANDING;
         }
     }
@@ -875,15 +875,15 @@ void GunshipPartCheckSetHorizontalFlames(void)
  */
 void GunshipPartCheckSetVerticalFlamesBeforeLanding(void)
 {
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.timer = 0xA;
+            gCurrentSprite.work0 = 0xA;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_HORIZONTAL_FLAMES_BEFORE_LANDING;
         }
     }
@@ -898,10 +898,10 @@ void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
     u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
             gCurrentSprite.animationDurationCounter = 0x0;
@@ -912,7 +912,7 @@ void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
     if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_UNKNOWN)
     {
         gCurrentSprite.pose = GUNSHIP_PART_POSE_FLICKER_FLAMES_UNUSED;
-        gCurrentSprite.timer = 0x3C;
+        gCurrentSprite.work0 = 0x3C;
     }
 }
 
@@ -923,8 +923,8 @@ void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
 void GunshipPartFlickFlames_Unused(void)
 {
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
         gCurrentSprite.status = 0x0;
 }
 
@@ -1123,7 +1123,7 @@ void GunshipPartCheckPlatformGoUp(void)
     if (ramSlot != 0xFF && gSubSpriteData1.workVariable3 == TRUE && gSpriteData[ramSlot].pOam == sGunshipPartOAM_EntranceBackOpening)
     {
         gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_GO_UP;
-        gCurrentSprite.timer = 0x8;
+        gCurrentSprite.work0 = 0x8;
     }
 }
 
@@ -1136,8 +1136,8 @@ void GunshipPartPlatformGoUp(void)
     u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gCurrentSprite.timer != 0x0)
-        gCurrentSprite.timer--;
+    if (gCurrentSprite.work0 != 0x0)
+        gCurrentSprite.work0--;
     else
     {
         if (gSpriteData[ramSlot].yPosition - (BLOCK_SIZE * 3 + 4) > gCurrentSprite.yPosition)
@@ -1162,13 +1162,13 @@ void GunshipPartCheckPlatformGoDown(void)
     if (!gSubSpriteData1.workVariable3)
     {
         gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_GO_DOWN;
-        gCurrentSprite.timer = 0x8;
+        gCurrentSprite.work0 = 0x8;
     }
-    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING && gSpriteData[ramSlot].timer < 0x2C)
+    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING && gSpriteData[ramSlot].work0 < 0x2C)
         gCurrentSprite.yPosition += 0x4;
-    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_LEAVING && gSpriteData[ramSlot].timer < 0x2C)
+    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_LEAVING && gSpriteData[ramSlot].work0 < 0x2C)
         gCurrentSprite.yPosition -= 0x4;
-    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING_WHEN_ESCAPING && gSpriteData[ramSlot].timer < 0x2C)
+    else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING_WHEN_ESCAPING && gSpriteData[ramSlot].work0 < 0x2C)
         gCurrentSprite.yPosition += 0x4;
 }
 
@@ -1181,8 +1181,8 @@ void GunshipPartPlatformGoDown(void)
     u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gCurrentSprite.timer != 0x0)
-        gCurrentSprite.timer--;
+    if (gCurrentSprite.work0 != 0x0)
+        gCurrentSprite.work0--;
     else
     {
         if (gSpriteData[ramSlot].yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) < gCurrentSprite.yPosition)

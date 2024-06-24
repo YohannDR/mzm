@@ -270,7 +270,7 @@ void ChozoBallRegisterItem(void)
         gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
         gCurrentSprite.pose = CHOZO_BALL_POSE_GETTING;
-        gCurrentSprite.timer = 0;
+        gCurrentSprite.work0 = 0;
 
         spriteId = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId;
         ChozoStatueRegisterItem(spriteId);
@@ -286,7 +286,7 @@ void ChozoBallFlashAnimation(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
-    if (MOD_AND(gCurrentSprite.timer, 2) == 0)
+    if (MOD_AND(gCurrentSprite.work0, 2) == 0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         
     if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)

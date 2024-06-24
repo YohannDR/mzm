@@ -27,7 +27,7 @@ void EscapeShipSpacePirateInit(void)
 
     gCurrentSprite.health = 0x0;
     gCurrentSprite.oamScaling = Q_8_8(1.f);
-    gCurrentSprite.workVariable2 = 0x0;
+    gCurrentSprite.work2 = 0x0;
     gCurrentSprite.oamRotation = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -46,7 +46,7 @@ void EscapeShipSpacePirateInit(void)
 void EscapeShipSpacePirateSpawn(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.timer = 0x6;
+    gCurrentSprite.work0 = 0x6;
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING;
 
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
@@ -61,29 +61,29 @@ void EscapeShipSpacePirateSpawn(void)
  */
 void EscapeShipSpacePirateDelayBeforeJumping(void)
 {
-    gCurrentSprite.timer--;
+    gCurrentSprite.work0--;
 
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.drawOrder = 0x4;
         gCurrentSprite.pose = SPACE_PIRATE_POSE_JUMPING;
 
-        gCurrentSprite.workVariable = 0x3;
+        gCurrentSprite.work1 = 0x3;
 
-        gCurrentSprite.arrayOffset = 0x0;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work3 = 0x0;
+        gCurrentSprite.work0 = 0x0;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_DOUBLE_SIZE;
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (gSamusData.xPosition < gCurrentSprite.xPosition)
-                gCurrentSprite.workVariable2 = 0x0;
+                gCurrentSprite.work2 = 0x0;
         }
         else
         {
             if (gSamusData.xPosition > gCurrentSprite.xPosition)
-                gCurrentSprite.workVariable2 = 0x0;
+                gCurrentSprite.work2 = 0x0;
         }
     }
 }

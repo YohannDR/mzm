@@ -86,7 +86,7 @@ void WorkerRobotInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work1 = 0x0;
     gCurrentSprite.samusCollision = SSC_SOLID;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
@@ -233,13 +233,13 @@ void WorkerRobotWalkingDetectProjectile(void)
         {
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
             if (onSide)
-                gCurrentSprite.workVariable = 60;
+                gCurrentSprite.work1 = 60;
         }
         else
         {
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_MISSILE);
             if (onSide)
-                gCurrentSprite.workVariable = 30;
+                gCurrentSprite.work1 = 30;
         }
 
         pProj->status = 0;
@@ -255,20 +255,20 @@ void WorkerRobotStandingInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
 
-    gCurrentSprite.timer = 0x1E;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work0 = 0x1E;
+    gCurrentSprite.work1 = 0x0;
     gCurrentSprite.hitboxTopOffset = -0x84;
 }
 
 void WorkerRobotStanding(void)
 {
     WorkerRobotWalkingDetectProjectile();
-    if (gCurrentSprite.workVariable != 0x0)
+    if (gCurrentSprite.work1 != 0x0)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_WALKING;
     else
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
             gCurrentSprite.pose = WORKER_ROBOT_POSE_WALKING_INIT;
     }
 }
@@ -302,10 +302,10 @@ void WorkerRobotWalking(void)
             {
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_INIT;
 
-                if (gCurrentSprite.workVariable == 0)
+                if (gCurrentSprite.work1 == 0)
                     return;
 
-                gCurrentSprite.workVariable = collision;
+                gCurrentSprite.work1 = collision;
                 if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                 {
                     if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
@@ -325,7 +325,7 @@ void WorkerRobotWalking(void)
     movement = 1;
     WorkerRobotWalkingDetectProjectile();
 
-    if (gCurrentSprite.workVariable != 0)
+    if (gCurrentSprite.work1 != 0)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
             gCurrentSprite.animationDurationCounter == 6)
@@ -334,15 +334,15 @@ void WorkerRobotWalking(void)
         }
 
         gCurrentSprite.animationDurationCounter += 4;
-        movement = gCurrentSprite.workVariable / 4;
+        movement = gCurrentSprite.work1 / 4;
         if (movement > 8u)
             movement = 8;
         else if (movement == 0)
             movement = 1;
 
-        gCurrentSprite.workVariable--;
+        gCurrentSprite.work1--;
 
-        if (gCurrentSprite.workVariable == 0)
+        if (gCurrentSprite.work1 == 0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
@@ -380,7 +380,7 @@ void WorkerRobotWalking(void)
     {
         if (gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if (gCurrentSprite.workVariable == 0 &&
+            if (gCurrentSprite.work1 == 0 &&
                 SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
             {
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
@@ -390,7 +390,7 @@ void WorkerRobotWalking(void)
             if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 8),
                 gCurrentSprite.xPosition + HALF_BLOCK_SIZE + 8) == COLLISION_SOLID)
             {
-                if (gCurrentSprite.workVariable == 0)
+                if (gCurrentSprite.work1 == 0)
                     gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
                 return;
             }
@@ -404,7 +404,7 @@ void WorkerRobotWalking(void)
     {
         if (gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if (gCurrentSprite.workVariable == 0 &&
+            if (gCurrentSprite.work1 == 0 &&
                 SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR)
             {
                 gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
@@ -414,7 +414,7 @@ void WorkerRobotWalking(void)
             if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 8),
                 gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + 8)) == COLLISION_SOLID)
             {
-                if (gCurrentSprite.workVariable == 0)
+                if (gCurrentSprite.work1 == 0)
                     gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
                 return;
             }
@@ -474,8 +474,8 @@ void WorkerRobotCheckTurningAroundAnimEnded(void)
 void WorkerRobotFallingInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING;
-    gCurrentSprite.arrayOffset = 0x0;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.work1 = 0x0;
 
     gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -503,7 +503,7 @@ void WorkerRobotFalling(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingSpeed[offset];
 
         if (movement == SHORT_MAX)
@@ -513,7 +513,7 @@ void WorkerRobotFalling(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }
@@ -522,8 +522,8 @@ void WorkerRobotFalling(void)
 void WorkerRobotFallingSleepInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_SLEEPING;
-    gCurrentSprite.arrayOffset = 0x0;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.work1 = 0x0;
 }
 
 /**
@@ -545,7 +545,7 @@ void WorkerRobotFallingSleep(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sWorkerRobotSleepingFallingSpeed[offset];
 
         if (movement == SHORT_MAX)
@@ -555,7 +555,7 @@ void WorkerRobotFallingSleep(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }

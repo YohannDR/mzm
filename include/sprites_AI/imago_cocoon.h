@@ -62,10 +62,10 @@
 
 
 void ImagoCocoonSyncSprites(void);
-void ImagoCocoonChangeOneCCAA(u8 caa);
-void ImagoCocoonChangeTwoMiddleCCAA(u8 caa);
-void ImagoCocoonChangeTwoAroundCCAA(u8 caa);
-void ImagoCocoonChangeTwoBlockingCCAA(u8 caa);
+void ImagoCocoonChangeOneCcaa(u8 caa);
+void ImagoCocoonChangeTwoMiddleCcaa(u8 caa);
+void ImagoCocoonChangeTwoAroundCcaa(u8 caa);
+void ImagoCocoonChangeTwoBlockingCcaa(u8 caa);
 void ImagoCocoonChangeOAMScaling(u16 limit, u16 value);
 void ImagoCocoonInit(void);
 void ImagoCocoonFallingMovement(void);

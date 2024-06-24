@@ -119,14 +119,14 @@ void ZiplineUpdateOAM(void)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
         {
-            switch (gCurrentSprite.workVariable)
+            switch (gCurrentSprite.work1)
             {
                 case ZIPLINE_ANIMATION_STATE_RELEASED:
                     gCurrentSprite.pOam = sZiplineOam_OnGrabbingSamus;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
 
-                    gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBING;
+                    gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBING;
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
@@ -136,7 +136,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
                         gCurrentSprite.health = 0x2;
                     }
                     break;
@@ -148,7 +148,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
                     }
                     break;
 
@@ -163,14 +163,14 @@ void ZiplineUpdateOAM(void)
         }
         else
         {
-            switch (gCurrentSprite.workVariable)
+            switch (gCurrentSprite.work1)
             {
                 case ZIPLINE_ANIMATION_STATE_RELEASED:
                     gCurrentSprite.pOam = sZiplineOam_OffGrabbingSamus;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
 
-                    gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBING;
+                    gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBING;
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
@@ -180,7 +180,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
                     }
                     break;
                 
@@ -191,7 +191,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
                     }
                     break;
 
@@ -209,14 +209,14 @@ void ZiplineUpdateOAM(void)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
         {
-            switch (gCurrentSprite.workVariable)
+            switch (gCurrentSprite.work1)
             {
                 case ZIPLINE_ANIMATION_STATE_GRABBED:
                     gCurrentSprite.pOam = sZiplineOam_OnReleasingSamus;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
 
-                    gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASING;
+                    gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASING;
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
@@ -226,7 +226,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
                 
@@ -237,7 +237,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
 
@@ -252,14 +252,14 @@ void ZiplineUpdateOAM(void)
         }
         else
         {
-            switch (gCurrentSprite.workVariable)
+            switch (gCurrentSprite.work1)
             {
                 case ZIPLINE_ANIMATION_STATE_GRABBED:
                     gCurrentSprite.pOam = sZiplineOam_OffReleasingSamus;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
 
-                    gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASING;
+                    gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASING;
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
@@ -269,7 +269,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
                 
@@ -280,7 +280,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.animationDurationCounter = 0;
                         gCurrentSprite.currentAnimationFrame = 0;
 
-                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                        gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_RELEASED;
                     }
                     break;
 
@@ -321,8 +321,8 @@ void ZiplineInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.timer = 0;
-    gCurrentSprite.workVariable = 0;
+    gCurrentSprite.work0 = 0;
+    gCurrentSprite.work1 = 0;
 
     // Set initial direction
     ZiplineCheckColliding();
@@ -352,16 +352,16 @@ void ZiplineUpdate(void)
     if (gCurrentSprite.health == ZIPLINE_HEALTH_MOVING)
     {
         // Move
-        if (MOD_AND(gCurrentSprite.timer, 16) == 0)
+        if (MOD_AND(gCurrentSprite.work0, 16) == 0)
             SoundPlay(0x110);
 
-        gCurrentSprite.timer++;
+        gCurrentSprite.work0++;
 
         if (ZiplineMoving())
         {
             gCurrentSprite.health = ZIPLINE_HEALTH_NOT_MOVING;
             gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.timer = 0;
+            gCurrentSprite.work0 = 0;
             SoundFade(0x110, 4);
         }
     }
@@ -432,7 +432,7 @@ void ZiplineButtonBindZipline(void)
     }
 
     // Bind
-    gCurrentSprite.workVariable = ramSlot;
+    gCurrentSprite.work1 = ramSlot;
     
     // Set behavior
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
@@ -461,7 +461,7 @@ void ZiplineButtonIdle(void)
     u8 ramSlot;
 
     moving = FALSE;
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
 
     if (SPRITE_HAS_ISFT(gCurrentSprite))
     {
@@ -490,7 +490,7 @@ void ZiplineButtonZiplineMoving(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
 
     if (gSpriteData[ramSlot].health == ZIPLINE_HEALTH_NOT_MOVING)
         ZiplineButtonIdleInit(); // Set idle

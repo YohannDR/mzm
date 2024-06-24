@@ -34,7 +34,7 @@ void AreaBannerInit(void)
     {
         // Area name, spawn at bottom
         gCurrentSprite.pOam = sAreaBannerOam_SpawnBottom;
-        gCurrentSprite.workVariable = TRUE;
+        gCurrentSprite.work1 = TRUE;
         gCurrentSprite.yPosition = 0x98;
         gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
     }
@@ -46,7 +46,7 @@ void AreaBannerInit(void)
     {
         // Spawn in middle
         gCurrentSprite.pOam = sAreaBannerOam_SpawnMiddle;
-        gCurrentSprite.workVariable = FALSE;
+        gCurrentSprite.work1 = FALSE;
         gCurrentSprite.yPosition = 0x36;
         gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
     }
@@ -76,18 +76,18 @@ void AreaBannerScrollingUp(void)
         gCurrentSprite.pose = AREA_BANNER_POSE_STATIC;
 
         // Set OAM and timer for how long the message stays
-        if (gCurrentSprite.workVariable) // Position flag, 1 = on bottom, 0 = in middle
+        if (gCurrentSprite.work1) // Position flag, 1 = on bottom, 0 = in middle
         {
             gCurrentSprite.pOam = sAreaBannerOam_StaticBottom;
-            gCurrentSprite.timer = 120;
+            gCurrentSprite.work0 = 120;
         }
         else
         {
             gCurrentSprite.pOam = sAreaBannerOam_StaticMiddle;
             if (gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM)
-                gCurrentSprite.timer = 50;
+                gCurrentSprite.work0 = 50;
             else
-                gCurrentSprite.timer = 90;
+                gCurrentSprite.work0 = 90;
         }
     }
 }
@@ -98,15 +98,15 @@ void AreaBannerScrollingUp(void)
  */
 void AreaBannerStatic(void)
 {
-    gCurrentSprite.timer--; // Timer for how long it stays
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--; // Timer for how long it stays
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = AREA_BANNER_POSE_REMOVING;
 
         // Set OAM
-        if (gCurrentSprite.workVariable)
+        if (gCurrentSprite.work1)
             gCurrentSprite.pOam = sAreaBannerOam_RemovingBottom;
         else
             gCurrentSprite.pOam = sAreaBannerOam_RemovingMiddle;

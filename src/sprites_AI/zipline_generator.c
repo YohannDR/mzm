@@ -18,7 +18,7 @@
  * 
  * @param caa Clipdata affecting action
  */
-void ZiplineGeneratorChangeCCAA(u8 caa)
+void ZiplineGeneratorChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -69,7 +69,7 @@ void ZiplineGeneratorInit(void)
 
     if (ramSlot < MAX_AMOUNT_OF_SPRITES)
     {
-        gCurrentSprite.workVariable = ramSlot;
+        gCurrentSprite.work1 = ramSlot;
         gSpriteData[ramSlot].currentAnimationFrame = 0;
         gSpriteData[ramSlot].animationDurationCounter = 0;
     }
@@ -94,7 +94,7 @@ void ZiplineGeneratorInit(void)
         gSpriteData[ramSlot].pOam = sZiplineGeneratorPartOam_ConductorDeactivated;
     }
 
-    ZiplineGeneratorChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
+    ZiplineGeneratorChangeCcaa(CAA_MAKE_SOLID_GRIPPABLE);
 }
 
 /**
@@ -121,7 +121,7 @@ void ZiplineGeneratorDetectSamus(void)
     {
         // Set activating
         gCurrentSprite.pose = ZIPLINE_GENERATOR_POSE_ACTIVATING;
-        gCurrentSprite.timer = 60 * 2;
+        gCurrentSprite.work0 = 60 * 2;
 
         gCurrentSprite.pOam = sZiplineGeneratorOam_Activating;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -131,7 +131,7 @@ void ZiplineGeneratorDetectSamus(void)
         SamusSetPose(SPOSE_ACTIVATING_ZIPLINES);
 
         // Update conductor
-        ramSlot = gCurrentSprite.workVariable;
+        ramSlot = gCurrentSprite.work1;
         gSpriteData[ramSlot].pOam = sZiplineGeneratorPartOam_ConductorActivating;
         gSpriteData[ramSlot].currentAnimationFrame = 0;
         gSpriteData[ramSlot].animationDurationCounter = 0;
@@ -142,7 +142,7 @@ void ZiplineGeneratorDetectSamus(void)
             gSamusData.yPosition - (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2), gSamusData.xPosition, 0);
 
         if (newRamSlot < MAX_AMOUNT_OF_SPRITES)
-            gCurrentSprite.workVariable2 = newRamSlot;
+            gCurrentSprite.work2 = newRamSlot;
         else
             gCurrentSprite.status = 0;
 
@@ -158,7 +158,7 @@ void ZiplineGeneratorActivating(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
         // Set activated
         gCurrentSprite.pOam = sZiplineGeneratorOam_Activated;
@@ -170,19 +170,19 @@ void ZiplineGeneratorActivating(void)
         SamusSetPose(SPOSE_MORPH_BALL);
 
         // Set conductor activated
-        ramSlot = gCurrentSprite.workVariable;
+        ramSlot = gCurrentSprite.work1;
         gSpriteData[ramSlot].pOam = sZiplineGeneratorPartOam_ConductorActivated;
         gSpriteData[ramSlot].currentAnimationFrame = 0;
         gSpriteData[ramSlot].animationDurationCounter = 0;
 
         // Kill electricity
-        ramSlot = gCurrentSprite.arrayOffset;
+        ramSlot = gCurrentSprite.work3;
         gSpriteData[ramSlot].status = 0;
 
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
     }
-    else if (gCurrentSprite.timer == 90)
+    else if (gCurrentSprite.work0 == 90)
     {
         // Spawn electricity
         ramSlot = SpriteSpawnSecondary(SSPRITE_ZIPLINE_GENERATOR_PART, ZIPLINE_GENERATOR_PART_ELECTRICITY,
@@ -190,14 +190,14 @@ void ZiplineGeneratorActivating(void)
             gCurrentSprite.yPosition - BLOCK_SIZE * 6, gCurrentSprite.xPosition, 0);
 
         if (ramSlot < MAX_AMOUNT_OF_SPRITES)
-            gCurrentSprite.arrayOffset = ramSlot;
+            gCurrentSprite.work3 = ramSlot;
         else
             gCurrentSprite.status = 0;
     }
-    else if (gCurrentSprite.timer == 16)
+    else if (gCurrentSprite.work0 == 16)
     {
         // Set morph symbol activated
-        ramSlot = gCurrentSprite.workVariable2;
+        ramSlot = gCurrentSprite.work2;
         gSpriteData[ramSlot].pOam = sZiplineGeneratorPartOam_MorphSymbolActivated;
         gSpriteData[ramSlot].currentAnimationFrame = 0;
         gSpriteData[ramSlot].animationDurationCounter = 0;

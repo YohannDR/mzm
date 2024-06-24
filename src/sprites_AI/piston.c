@@ -16,7 +16,7 @@
  * 
  * @param caa Clipdata affecting action
  */
-void PistonChangeFourCCAA(u8 caa)
+void PistonChangeFourCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -42,7 +42,7 @@ void PistonChangeFourCCAA(u8 caa)
  * 
  * @param caa Clipdata affecting action
  */
-void PistonChangeOneBelowCCAA(u8 caa)
+void PistonChangeOneBelowCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -59,7 +59,7 @@ void PistonChangeOneBelowCCAA(u8 caa)
  * 
  * @param caa Clipdata affecting action
  */
-void PistonChangeOneUpperCCAA(u8 caa)
+void PistonChangeOneUpperCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -145,7 +145,7 @@ void PistonInit(void)
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
 
     // Set hitbox
-    PistonChangeFourCCAA(CAA_MAKE_NON_POWER_GRIP);
+    PistonChangeFourCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -189,7 +189,7 @@ void PistonCheckProjectile(void)
     }
     else if (!PistonSamusCollision())
     {
-        PistonChangeOneBelowCCAA(CAA_MAKE_NON_POWER_GRIP);
+        PistonChangeOneBelowCcaa(CAA_MAKE_NON_POWER_GRIP);
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     }
@@ -204,7 +204,7 @@ void PistonOpen(void)
     if (gCurrentSprite.currentAnimationFrame == 2 && gCurrentSprite.animationDurationCounter == 1)
     {
         // Remove collision of the bottom part
-        PistonChangeOneBelowCCAA(CAA_REMOVE_SOLID);
+        PistonChangeOneBelowCcaa(CAA_REMOVE_SOLID);
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
     }
 
@@ -231,7 +231,7 @@ void PistonOpened(void)
     if (!(gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) && !PistonCheckSamusIn())
     {
         // Set collision of top part
-        PistonChangeOneUpperCCAA(CAA_MAKE_NON_POWER_GRIP);
+        PistonChangeOneUpperCcaa(CAA_MAKE_NON_POWER_GRIP);
 
         // Set flag to know collision has been set
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;

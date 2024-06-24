@@ -58,15 +58,15 @@ void SavePlatformInit(void)
     gCurrentSprite.hitboxRightOffset = 0x4;
 
     if (gAlarmTimer != 0x0)
-        gCurrentSprite.workVariable2 = TRUE;
+        gCurrentSprite.work2 = TRUE;
     else
-        gCurrentSprite.workVariable2 = FALSE;
+        gCurrentSprite.work2 = FALSE;
 
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = 0xA;
+    gCurrentSprite.work0 = 0xA;
 
-    if (gCurrentSprite.workVariable2 || EscapeDetermineTimer() != ESCAPE_NONE)
+    if (gCurrentSprite.work2 || EscapeDetermineTimer() != ESCAPE_NONE)
     {
         gCurrentSprite.pOam = sSavePlatformOAM_IdleOff;
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_OFF;
@@ -86,7 +86,7 @@ void SavePlatformInit(void)
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_IDLE;
     }
 
-    gCurrentSprite.arrayOffset = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TOP,
+    gCurrentSprite.work3 = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TOP,
         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
         gCurrentSprite.yPosition - BLOCK_SIZE * 8, gCurrentSprite.xPosition, 0x0);
 }
@@ -99,8 +99,8 @@ void SavePlatformSamusDetection(void)
 {
     if (SavePlatformDetectSamus() && !SpriteUtilCheckCrouchingOrMorphed())
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pose = SAVE_PLATFORM_POSE_OPENING;
             gCurrentSprite.pOam = sSavePlatformOAM_Opening;
@@ -110,7 +110,7 @@ void SavePlatformSamusDetection(void)
         }
     }
     else
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
 }
 
 /**
@@ -139,7 +139,7 @@ void SavePlatformSecondSamusDetection(void)
         if (!SpriteUtilCheckCrouchingOrMorphed())
         {
             gCurrentSprite.pose = SAVE_PLATFORM_POSE_SAVE_PROMPT;
-            gCurrentSprite.timer = 0x4;
+            gCurrentSprite.work0 = 0x4;
             gSamusData.xPosition = gCurrentSprite.xPosition;
             if (gSamusData.invincibilityTimer != 0x0)
                 gSamusData.invincibilityTimer = 0x0;
@@ -170,7 +170,7 @@ void SavePlatformCheckClosingAnimEnded(void)
         gCurrentSprite.pOam = sSavePlatformOAM_Idle;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
     }
 }
 
@@ -214,20 +214,20 @@ void SavePlatformSavePrompt(void)
 {
     u8 ramSlot;
 
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
-            gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT, 0x6,
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
+            gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT, 0x6,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     else
     {
         // Item banner
-        ramSlot = gCurrentSprite.workVariable;
+        ramSlot = gCurrentSprite.work1;
         if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
         {
-            if (gSpriteData[ramSlot].workVariable == TRUE)
+            if (gSpriteData[ramSlot].work1 == TRUE)
             {
                 gCurrentSprite.pOam = sSavePlatformOAM_Saving;
                 gCurrentSprite.animationDurationCounter = 0x0;
@@ -237,14 +237,14 @@ void SavePlatformSavePrompt(void)
                 SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TUBE, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
-                gSpriteData[gCurrentSprite.arrayOffset].pose = SAVE_PLATFORM_PART_POSE_TOP_EXTENDING_INIT;
+                gSpriteData[gCurrentSprite.work3].pose = SAVE_PLATFORM_PART_POSE_TOP_EXTENDING_INIT;
                 gSamusData.timer = FALSE;
                 SoundPlay(0x114);
             }
             else
             {
                 gCurrentSprite.pose = SAVE_PLATFORM_POSE_DELAY_BEFORE_RELEASING;
-                gCurrentSprite.timer = 0xA;
+                gCurrentSprite.work0 = 0xA;
             }
         }
     }
@@ -258,7 +258,7 @@ void SavePlatformSaving(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.arrayOffset;
+    ramSlot = gCurrentSprite.work3;
     if (gCurrentSprite.currentAnimationFrame & 0x1)
     {
         gCurrentSprite.paletteRow = 0x0;
@@ -282,9 +282,9 @@ void SavePlatformOpenedOffInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.pose = SAVE_PLATFORM_POSE_SPAWN_SAVE_DONE_MESSAGE;
-    gCurrentSprite.timer = 0x3C;
+    gCurrentSprite.work0 = 0x3C;
     gCurrentSprite.paletteRow = 0x0;
-    gSpriteData[gCurrentSprite.arrayOffset].paletteRow = 0x0;
+    gSpriteData[gCurrentSprite.work3].paletteRow = 0x0;
 }
 
 /**
@@ -293,11 +293,11 @@ void SavePlatformOpenedOffInit(void)
  */
 void SavePlatformSpawnSaveDoneMessage(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_WAIT_FOR_MESSAGE_OUT;
-        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE, 0x6,
+        gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE, 0x6,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
@@ -310,11 +310,11 @@ void SavePlatformCheckMessageBannerOut(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_DELAY_BEFORE_RELEASING;
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
     }
 }
 
@@ -324,8 +324,8 @@ void SavePlatformCheckMessageBannerOut(void)
  */
 void SavePlatformDelayBeforeReleasingSamus(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_RELEASE_SAMUS;
 }
 
@@ -383,7 +383,7 @@ void SavePlatformPartInit(void)
             gCurrentSprite.drawDistanceBottomOffset = 0x0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
             gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_RAY_IDLE;
-            gCurrentSprite.timer = 0x60;
+            gCurrentSprite.work0 = 0x60;
             break;
 
         case SAVE_PLATFORM_PART_TOP:
@@ -480,7 +480,7 @@ void SavePlatformPartTubeSpawning(void)
         gCurrentSprite.pOam = sSavePlatformPartOAM_TubeIdle;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TUBE_SHADOW,
+        gCurrentSprite.work1 = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TUBE_SHADOW,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
@@ -494,7 +494,7 @@ void SavePlatformPartSpawnRay(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
     if (gSpriteData[ramSlot].status == 0x0)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_TUBE_IDLE;
@@ -529,7 +529,7 @@ void SavePlatformPartTubeDespawning(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status = 0x0;
-        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRamSlot].arrayOffset].pose = SAVE_PLATFORM_PART_POSE_TOP_RETRACTING_INIT;
+        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRamSlot].work3].pose = SAVE_PLATFORM_PART_POSE_TOP_RETRACTING_INIT;
     }
 }
 
@@ -550,8 +550,8 @@ void SavePlatformPartTubeShadowIdle(void)
 void SavePlatformPartRayIdle(void)
 {
     gCurrentSprite.yPosition -= 0x4;
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose = SAVE_PLATFORM_POSE_OPENED_OFF_INIT;
         gCurrentSprite.status = 0x0;

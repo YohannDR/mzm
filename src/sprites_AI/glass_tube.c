@@ -16,7 +16,7 @@
  * @brief 4627c | 160 | Removes the clipdata for the glass tube
  * 
  */
-void GlassTubeChangeCCAA(void)
+void GlassTubeChangeCcaa(void)
 {
     u16 yPosition;
     u16 xPosition;
@@ -105,7 +105,7 @@ void GlassTubeInit(void)
         // Set broken behavior
         gCurrentSprite.pOam = sGlassTubeOAM_Broken;
         gCurrentSprite.pose = GLASS_TUBE_POSE_IDLE;
-        GlassTubeChangeCCAA(); // Remove collision
+        GlassTubeChangeCcaa(); // Remove collision
     }
     else
     {
@@ -158,7 +158,7 @@ void GlassTubeCheckPowerBombCollision(void)
         {
             // Set cracking behavior
             gCurrentSprite.pose = GLASS_TUBE_POSE_DELAY_BEFORE_CRACKING;
-            gCurrentSprite.timer = 0x78;
+            gCurrentSprite.work0 = 0x78;
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_GLASS_TUBE_BROKEN);
         }
@@ -170,8 +170,8 @@ void GlassTubeCheckPowerBombCollision(void)
 */
 void GlassTubeDelayBeforeBreaking(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         // Set cracking behavior
         gCurrentSprite.pose = GLASS_TUBE_POSE_CRACKING;
@@ -197,7 +197,7 @@ void GlassTubeCheckCrackingAnimEnded(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
 
         // Remove collision
-        GlassTubeChangeCCAA();
+        GlassTubeChangeCcaa();
 
         // Play effects
         ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition - 0x12C, PE_MEDIUM_DUST);

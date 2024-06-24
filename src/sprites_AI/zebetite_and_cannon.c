@@ -85,9 +85,9 @@ void Zebetite(void)
         gCurrentSprite.pose = 9;
 
         if (gDifficulty == DIFF_EASY)
-            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER * 2;
+            gCurrentSprite.work0 = ZEBETITE_HEAL_TIMER * 2;
         else
-            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER;
+            gCurrentSprite.work0 = ZEBETITE_HEAL_TIMER;
     }
 
     maxHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -98,8 +98,8 @@ void Zebetite(void)
     {
         if (phase != 0)
         {
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
                 gCurrentSprite.health += ZEBETITE_HEALTH_THRESHOLD;
         }
 
@@ -109,9 +109,9 @@ void Zebetite(void)
     if (gCurrentSprite.health < maxHealth)
     {
         if (gDifficulty == DIFF_EASY)
-            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER * 2;
+            gCurrentSprite.work0 = ZEBETITE_HEAL_TIMER * 2;
         else
-            gCurrentSprite.timer = ZEBETITE_HEAL_TIMER;
+            gCurrentSprite.work0 = ZEBETITE_HEAL_TIMER;
     }
 
     gCurrentSprite.oamScaling = gCurrentSprite.health;
@@ -222,7 +222,7 @@ void CannonFireBullet(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.currentAnimationFrame == 1
         && gCurrentSprite.animationDurationCounter == 1)
     {
-        SpriteSpawnSecondary(SSPRITE_CANNON_BULLET, gCurrentSprite.workVariable, gCurrentSprite.spritesetGfxSlot,
+        SpriteSpawnSecondary(SSPRITE_CANNON_BULLET, gCurrentSprite.work1, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }
@@ -233,22 +233,22 @@ void CannonCheckSurroundings(void)
 
     rng = gSpriteRng;
 
-    gCurrentSprite.timer = rng * 8 + 10;
+    gCurrentSprite.work0 = rng * 8 + 10;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + BLOCK_SIZE) != COLLISION_AIR)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.workVariable = CANNON_AIM_DOWN_LEFT;
-        gCurrentSprite.arrayOffset = CANNON_VIEW_LEFT;
+        gCurrentSprite.work1 = CANNON_AIM_DOWN_LEFT;
+        gCurrentSprite.work3 = CANNON_VIEW_LEFT;
         gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
     }
     else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - BLOCK_SIZE) != COLLISION_AIR)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.workVariable = CANNON_AIM_DOWN_RIGHT;
-        gCurrentSprite.arrayOffset = CANNON_VIEW_RIGHT;
+        gCurrentSprite.work1 = CANNON_AIM_DOWN_RIGHT;
+        gCurrentSprite.work3 = CANNON_VIEW_RIGHT;
         gCurrentSprite.pOam = sCannonOam_AimingDownRight;
     }
     else
@@ -260,16 +260,16 @@ void CannonCheckSurroundings(void)
 
         if (rng > 7)
         {
-            gCurrentSprite.workVariable = CANNON_AIM_DOWN_RIGHT;
+            gCurrentSprite.work1 = CANNON_AIM_DOWN_RIGHT;
             gCurrentSprite.pOam = sCannonOam_AimingDownRight;
         }
         else
         {
-            gCurrentSprite.workVariable = CANNON_AIM_DOWN_LEFT;
+            gCurrentSprite.work1 = CANNON_AIM_DOWN_LEFT;
             gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
         }
 
-        gCurrentSprite.arrayOffset = CANNON_VIEW_EVERWHERE;
+        gCurrentSprite.work3 = CANNON_VIEW_EVERWHERE;
     }
 }
 
@@ -426,7 +426,7 @@ void Cannon(void)
             break;
     }
 
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case CANNON_AIM_LEFT:
             if (gCurrentSprite.pOam == sCannonOam_ShootingLeft)
@@ -441,13 +441,13 @@ void Cannon(void)
                     CannonFireBullet();
             }
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 66;
+                gCurrentSprite.work0 = 66;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
-                gCurrentSprite.workVariable++;
+                gCurrentSprite.work1++;
 
                 gCurrentSprite.pOam = sCannonOam_LeftToDownLeftTransition;
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -464,7 +464,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
 
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                 }
                 else
                 {
@@ -473,7 +473,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingLeft;
 
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                 }
 
                 gCurrentSprite.animationDurationCounter = 0;
@@ -494,21 +494,21 @@ void Cannon(void)
                     CannonFireBullet();
             }
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 66;
+                gCurrentSprite.work0 = 66;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                     gCurrentSprite.pOam = sCannonOam_DownLeftToDownTransition;
                 }
                 else
                 {
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                     gCurrentSprite.pOam = sCannonOam_LeftToDownLeftTransition;
                 }
             }
@@ -524,7 +524,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDown;
 
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                 }
                 else
                 {
@@ -533,7 +533,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDownLeft;
 
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                 }
 
                 gCurrentSprite.animationDurationCounter = 0;
@@ -554,24 +554,24 @@ void Cannon(void)
                     CannonFireBullet();
             }
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 66;
+                gCurrentSprite.work0 = 66;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
 
-                if (gCurrentSprite.arrayOffset != CANNON_VIEW_EVERWHERE)
+                if (gCurrentSprite.work3 != CANNON_VIEW_EVERWHERE)
                     gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                     gCurrentSprite.pOam = sCannonOam_DownToDownRightTransition;
                 }
                 else
                 {
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                     gCurrentSprite.pOam = sCannonOam_DownLeftToDownTransition;
                 }
             }
@@ -587,7 +587,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDownRight;
 
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                 }
                 else
                 {
@@ -595,7 +595,7 @@ void Cannon(void)
                         gCurrentSprite.pOam = sCannonOam_ShootingDown;
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDown;
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                 }
 
                 gCurrentSprite.animationDurationCounter = 0;
@@ -616,21 +616,21 @@ void Cannon(void)
                     CannonFireBullet();
             }
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 66;
+                gCurrentSprite.work0 = 66;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                     gCurrentSprite.pOam = sCannonOam_DownRightToRightTransition;
                 }
                 else
                 {
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                     gCurrentSprite.pOam = sCannonOam_DownToDownRightTransition;
                 }
             }
@@ -646,7 +646,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingRight;
 
-                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.work1++;
                 }
                 else
                 {
@@ -655,7 +655,7 @@ void Cannon(void)
                     else
                         gCurrentSprite.pOam = sCannonOam_AimingDownRight;
 
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
                 }
 
                 gCurrentSprite.animationDurationCounter = 0;
@@ -676,14 +676,14 @@ void Cannon(void)
                     CannonFireBullet();
             }
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 66;
+                gCurrentSprite.work0 = 66;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
 
-                gCurrentSprite.workVariable--;
+                gCurrentSprite.work1--;
                 gCurrentSprite.pOam = sCannonOam_DownRightToRightTransition;
 
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;

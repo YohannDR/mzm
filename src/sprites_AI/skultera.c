@@ -114,7 +114,7 @@ void SkulteraIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     // Timer before movement
-    gCurrentSprite.timer = 3;
+    gCurrentSprite.work0 = 3;
 }
 
 /**
@@ -125,8 +125,8 @@ void SkulteraMoving(void)
 {
     u32 nslr;
 
-    gCurrentSprite.timer--; // Timer before movement
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--; // Timer before movement
+    if (gCurrentSprite.work0 == 0)
     {
         if (SkulteraXMovement(SKULTERA_X_MOVEMENT_SPEED)) // Move and check hit solid
         {
@@ -148,7 +148,7 @@ void SkulteraMoving(void)
             }
 
             // Reset timer
-            gCurrentSprite.timer = 3;
+            gCurrentSprite.work0 = 3;
         }
     }
 
@@ -224,13 +224,13 @@ void SkulteraChasingSamus(void)
             gCurrentSprite.yPosition += SKULTERA_Y_MOVEMENT_SPEED;
     }
 
-    gCurrentSprite.timer--; // Timer before movement
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--; // Timer before movement
+    if (gCurrentSprite.work0 == 0)
     {
         if (SkulteraXMovement(SKULTERA_X_MOVEMENT_SPEED))
             gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
         else
-            gCurrentSprite.timer = 2; // Reset timer, 1 frame faster than idle for faster movement
+            gCurrentSprite.work0 = 2; // Reset timer, 1 frame faster than idle for faster movement
     }
 
     // Check samus still in range

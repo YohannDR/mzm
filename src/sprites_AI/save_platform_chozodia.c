@@ -34,15 +34,15 @@ void SavePlatformChozodiaInit(void)
     gCurrentSprite.hitboxRightOffset = 0x4;
 
     if (gAlarmTimer != 0x0)
-        gCurrentSprite.workVariable2 = TRUE;
+        gCurrentSprite.work2 = TRUE;
     else
-        gCurrentSprite.workVariable2 = FALSE;
+        gCurrentSprite.work2 = FALSE;
 
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = 0xA;
+    gCurrentSprite.work0 = 0xA;
 
-    if (gCurrentSprite.workVariable2 || EscapeDetermineTimer() != ESCAPE_NONE)
+    if (gCurrentSprite.work2 || EscapeDetermineTimer() != ESCAPE_NONE)
     {
         gCurrentSprite.pOam = sSavePlatformChozodiaOAM_OpenedOff;
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_OFF;
@@ -63,14 +63,14 @@ void SavePlatformChozodiaInit(void)
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_IDLE;
     }
 
-    gCurrentSprite.arrayOffset = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TOP,
+    gCurrentSprite.work3 = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TOP,
         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
         gCurrentSprite.yPosition - BLOCK_SIZE * 8, gCurrentSprite.xPosition, 0x0);
 
     if (gCurrentSprite.pose == SAVE_PLATFORM_CHOZODIA_POSE_OFF)
     {
         gCurrentSprite.paletteRow = 0x3;
-        gSpriteData[gCurrentSprite.arrayOffset].paletteRow = 0x3;
+        gSpriteData[gCurrentSprite.work3].paletteRow = 0x3;
     }
 
     TransparencyUpdateBldcnt(0x1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
@@ -88,8 +88,8 @@ void SavePlatformChozodiaSamusDetection(void)
 {
     if (SavePlatformDetectSamus() && !SpriteUtilCheckCrouchingOrMorphed())
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_OPENING;
             gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Opening;
@@ -99,7 +99,7 @@ void SavePlatformChozodiaSamusDetection(void)
         }
     }
     else
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
 }
 
 /**
@@ -128,7 +128,7 @@ void SavePlatformChozodiaSecondSamusDetection(void)
         if (!SpriteUtilCheckCrouchingOrMorphed())
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_CHECK_REFILL;
-            gCurrentSprite.timer = 0x4;
+            gCurrentSprite.work0 = 0x4;
             gSamusData.xPosition = gCurrentSprite.xPosition;
 
             if (gSamusData.invincibilityTimer != 0x0)
@@ -161,7 +161,7 @@ void SavePlatformChozodiaCheckClosingAnimEnded(void)
         gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Idle;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
     }
 }
 
@@ -207,8 +207,8 @@ void SavePlatformChozodiaCheckRefill(void)
 
     isFull = FALSE;
 
-    if (gCurrentSprite.timer != 0x0)
-        gCurrentSprite.timer--;
+    if (gCurrentSprite.work0 != 0x0)
+        gCurrentSprite.work0--;
     else
     {
         if (gEquipment.suitType == SUIT_SUITLESS)
@@ -228,14 +228,14 @@ void SavePlatformChozodiaCheckRefill(void)
 
         if (isFull)
         {
-            gCurrentSprite.timer = 0xA;
+            gCurrentSprite.work0 = 0xA;
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_SAVE_PROMPT;
         }
         else
         {
             gSamusData.timer = FALSE;
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_REFILL;
-            gCurrentSprite.timer = 0x5;
+            gCurrentSprite.work0 = 0x5;
 
             SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_REFILL_LIGHT,
                 gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
@@ -255,25 +255,25 @@ void SavePlatformChozodiaRefill(void)
 {
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        if (gCurrentSprite.timer == 0x5)
+        if (gCurrentSprite.work0 == 0x5)
         {
             if (!SpriteUtilRefillEnergy())
             {
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
                 gEnergyRefillAnimation = 0xD;
             }
         }
-        else if (gCurrentSprite.timer == 0x4)
+        else if (gCurrentSprite.work0 == 0x4)
         {
             if (gEnergyRefillAnimation != 0x0)
                 gEnergyRefillAnimation--;
             else
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
         }
-        else if (gCurrentSprite.timer != 0x0)
+        else if (gCurrentSprite.work0 != 0x0)
         {
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
             {
                 gSamusData.timer = TRUE;
                 TransparencySpriteUpdateBLDALPHA(0x0, 0x10, 0x0, 0x10);
@@ -283,56 +283,56 @@ void SavePlatformChozodiaRefill(void)
         else
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL;
-            gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE,
+            gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE,
                 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
     }
     else
     {
-        if (gCurrentSprite.timer == 0x5)
+        if (gCurrentSprite.work0 == 0x5)
         {
             if (!SpriteUtilRefillEnergy())
             {
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
                 gEnergyRefillAnimation = 0xD;
             }
         }
-        else if (gCurrentSprite.timer == 0x4)
+        else if (gCurrentSprite.work0 == 0x4)
         {
             if (gEnergyRefillAnimation != 0x0)
                 gEnergyRefillAnimation--;
             else if (!SpriteUtilRefillMissiles())
             {
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
                 gMissileRefillAnimation = 0xD;
             }
         }
-        else if (gCurrentSprite.timer == 0x3)
+        else if (gCurrentSprite.work0 == 0x3)
         {
             if (gMissileRefillAnimation != 0x0)
                 gMissileRefillAnimation--;
             else if (!SpriteUtilRefillSuperMissiles())
             {
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
                 gSuperMissileRefillAnimation = 0xD;
             }
         }
-        else if (gCurrentSprite.timer == 0x2)
+        else if (gCurrentSprite.work0 == 0x2)
         {
             if (gSuperMissileRefillAnimation != 0x0)
                 gSuperMissileRefillAnimation--;
             else if (!SpriteUtilRefillPowerBombs())
             {
-                gCurrentSprite.timer--;
+                gCurrentSprite.work0--;
                 gPowerBombRefillAnimation = 0xD;
             }
         }
         else if (gPowerBombRefillAnimation != 0x0)
                 gPowerBombRefillAnimation--;
-        else if (gCurrentSprite.timer != 0x0)
+        else if (gCurrentSprite.work0 != 0x0)
         {
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
             {
                 gSamusData.timer = TRUE;
                 TransparencySpriteUpdateBLDALPHA(0x0, 0x10, 0x0, 0x10);
@@ -342,7 +342,7 @@ void SavePlatformChozodiaRefill(void)
         else
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL;
-            gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
+            gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
                 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
     }
@@ -356,10 +356,10 @@ void SavePlatformChozodiaAfterRefill(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
-        gCurrentSprite.timer = 0x14;
+        gCurrentSprite.work0 = 0x14;
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_SAVE_PROMPT;
     }
 }
@@ -372,21 +372,21 @@ void SavePlatformChozodiaSavePrompt(void)
 {
     u8 ramSlot;
 
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
-            gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
+            gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
                 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
     }
     else
     {
-        ramSlot = gCurrentSprite.workVariable;
+        ramSlot = gCurrentSprite.work1;
         if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
         {
-            if (gSpriteData[ramSlot].workVariable == TRUE)
+            if (gSpriteData[ramSlot].work1 == TRUE)
             {
                 gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Saving;
                 gCurrentSprite.animationDurationCounter = 0x0;
@@ -398,14 +398,14 @@ void SavePlatformChozodiaSavePrompt(void)
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition,
                     gCurrentSprite.xPosition, 0x0);
 
-                gSpriteData[gCurrentSprite.arrayOffset].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING_INIT;
+                gSpriteData[gCurrentSprite.work3].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING_INIT;
                 gSamusData.timer = FALSE;
                 SoundPlay(0x114);
             }
             else
             {
                 gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_DELAY_BEFORE_RELEASING;
-                gCurrentSprite.timer = 0xA;
+                gCurrentSprite.work0 = 0xA;
             }
         }
     }
@@ -419,7 +419,7 @@ void SavePlatformChozodiaSaving(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.arrayOffset;
+    ramSlot = gCurrentSprite.work3;
     if (gCurrentSprite.currentAnimationFrame & 0x1)
     {
         gCurrentSprite.paletteRow = 0x0;
@@ -443,9 +443,9 @@ void SavePlatformChozodiaOpenedOffInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_SPAWN_SAVE_DONE_MESSAGE;
-    gCurrentSprite.timer = 0x3C;
+    gCurrentSprite.work0 = 0x3C;
     gCurrentSprite.paletteRow = 0x0;
-    gSpriteData[gCurrentSprite.arrayOffset].paletteRow = 0x0;
+    gSpriteData[gCurrentSprite.work3].paletteRow = 0x0;
 }
 
 /**
@@ -454,11 +454,11 @@ void SavePlatformChozodiaOpenedOffInit(void)
  */
 void SavePlatformChozodiaSpawnSaveDoneMessage(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_WAIT_FOR_MESSAGE_OUT;
-        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
+        gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
             0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
@@ -471,12 +471,12 @@ void SavePlatformChozodiaCheckMessageBannerOut(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
 
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_DELAY_BEFORE_RELEASING;
-        gCurrentSprite.timer = 0xA;
+        gCurrentSprite.work0 = 0xA;
     }
 }
 
@@ -486,8 +486,8 @@ void SavePlatformChozodiaCheckMessageBannerOut(void)
  */
 void SavePlatformChozodiaDelayBeforeReleasingSamus(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_RELEASE_SAMUS;
 }
 
@@ -553,7 +553,7 @@ void SavePlatformChozodiaPartInit(void)
             gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
 
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_RAY_IDLE;
-            gCurrentSprite.timer = 0x60;
+            gCurrentSprite.work0 = 0x60;
             break;
 
         case SAVE_PLATFORM_CHOZODIA_PART_TOP:
@@ -683,7 +683,7 @@ void SavePlatformChozodiaPartTubeSpawning(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TUBE_SHADOW,
+        gCurrentSprite.work1 = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TUBE_SHADOW,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
@@ -696,7 +696,7 @@ void SavePlatformChozodiaPartSpawnRay(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
 
     if (gSpriteData[ramSlot].status == 0x0)
     {
@@ -732,7 +732,7 @@ void SavePlatformChozodiaPartTubeDespawning(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status = 0x0;
-        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRamSlot].arrayOffset].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING_INIT;
+        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRamSlot].work3].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING_INIT;
     }
 }
 
@@ -753,9 +753,9 @@ void SavePlatformChozodiaPartTubeShadowIdle(void)
 void SavePlatformChozodiaPartRayIdle(void)
 {
     gCurrentSprite.yPosition -= 0x4;
-    gCurrentSprite.timer--;
+    gCurrentSprite.work0--;
 
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.work0 == 0x0)
     {
         gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose = SAVE_PLATFORM_CHOZODIA_POSE_OPENED_OFF_INIT;
         gCurrentSprite.status = 0x0;

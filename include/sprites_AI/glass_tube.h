@@ -9,7 +9,7 @@
 #define GLASS_TUBE_POSE_CRACKING 0x25
 #define GLASS_TUBE_POSE_BREAKING 0x27
 
-void GlassTubeChangeCCAA(void);
+void GlassTubeChangeCcaa(void);
 void GlassTubeInit(void);
 void GlassTubeCheckPowerBombCollision(void);
 void GlassTubeDelayBeforeBreaking(void);

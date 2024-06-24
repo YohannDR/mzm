@@ -680,7 +680,7 @@ void BgClipCheckGrabbingCrumbleBlock(u8 dontDestroy)
 }
 
 /**
- * @brief 5af20 | 180 | Checks if a hatch should open depending on the CCAA
+ * @brief 5af20 | 180 | Checks if a hatch should open depending on the Ccaa
  * 
  * @param xPosition X Position
  * @param yPosition Y Position

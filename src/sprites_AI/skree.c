@@ -102,8 +102,8 @@ void SkreeGoingDownInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.arrayOffset = 0;
-    gCurrentSprite.workVariable2 = 0;
+    gCurrentSprite.work3 = 0;
+    gCurrentSprite.work2 = 0;
     gCurrentSprite.pose = SKREE_POSE_GOING_DOWN;
 
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
@@ -133,15 +133,15 @@ void SkreeGoDown(void)
     {
         gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
         gCurrentSprite.pose = SKREE_POSE_CRASHING;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work0 = 0x0;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(0x142);
     }
     else
     {
-        xMovement = gCurrentSprite.workVariable2 / 4;
+        xMovement = gCurrentSprite.work2 / 4;
 
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sSkreeFallingSpeed[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -150,7 +150,7 @@ void SkreeGoDown(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
 
@@ -173,7 +173,7 @@ void SkreeGoDown(void)
 
         // X speed threshold
         if (xMovement < 16)
-            gCurrentSprite.workVariable2++;
+            gCurrentSprite.work2++;
     }
 }
 
@@ -192,9 +192,9 @@ void SkreeCrashGround(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    gCurrentSprite.timer++;
+    gCurrentSprite.work0++;
 
-    switch (gCurrentSprite.timer)
+    switch (gCurrentSprite.work0)
     {
         case 1:
             yPosition += 0x48;

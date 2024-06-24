@@ -51,7 +51,7 @@ void ImagoCocoonSyncSprites(void)
  * 
  * @param caa Clipdata Affecting Action
  */
-void ImagoCocoonChangeOneCCAA(u8 caa)
+void ImagoCocoonChangeOneCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -69,7 +69,7 @@ void ImagoCocoonChangeOneCCAA(u8 caa)
  * 
  * @param caa Clipdata Affecting Action
  */
-void ImagoCocoonChangeTwoMiddleCCAA(u8 caa)
+void ImagoCocoonChangeTwoMiddleCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -94,7 +94,7 @@ void ImagoCocoonChangeTwoMiddleCCAA(u8 caa)
  * 
  * @param caa Clipdata Affecting Action
  */
-void ImagoCocoonChangeTwoAroundCCAA(u8 caa)
+void ImagoCocoonChangeTwoAroundCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -119,7 +119,7 @@ void ImagoCocoonChangeTwoAroundCCAA(u8 caa)
  * 
  * @param caa Clipdata Affecting Action
  */
-void ImagoCocoonChangeTwoBlockingCCAA(u8 caa)
+void ImagoCocoonChangeTwoBlockingCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -144,19 +144,19 @@ void ImagoCocoonChangeTwoBlockingCCAA(u8 caa)
  */
 void ImagoCocoonChangeOAMScaling(u16 limit, u16 value)
 {
-    if (gCurrentSprite.workVariable2) // Check growing/shrinking
+    if (gCurrentSprite.work2) // Check growing/shrinking
     {
         if (gCurrentSprite.oamScaling > (0x100 - limit))
             gCurrentSprite.oamScaling -= value;
         else
-            gCurrentSprite.workVariable2 = FALSE; // Set growing
+            gCurrentSprite.work2 = FALSE; // Set growing
     }
     else
     {
         if (gCurrentSprite.oamScaling < (limit + 0x100))
             gCurrentSprite.oamScaling += value;
         else
-            gCurrentSprite.workVariable2 = TRUE; // Set shrinking
+            gCurrentSprite.work2 = TRUE; // Set shrinking
     }
 }
 
@@ -238,7 +238,7 @@ void ImagoCocoonInit(void)
 
         gCurrentSprite.oamScaling = Q_8_8(1.f);
         gCurrentSprite.oamRotation = 0x0;
-        gCurrentSprite.workVariable2 = FALSE;
+        gCurrentSprite.work2 = FALSE;
 
         gSubSpriteData1.pMultiOam = sImagoCocoonMultiSpriteData_Idle;
         gSubSpriteData1.animationDurationCounter = 0x0;
@@ -249,7 +249,7 @@ void ImagoCocoonInit(void)
         // Number of vines alive
         gSubSpriteData1.health = 0x6;
 
-        gDoorUnlockTimer = 0x1;
+        LOCK_DOORS();
         gCurrentSprite.pose = IMAGO_COCOON_POSE_IDLE;
         gCurrentSprite.roomSlot = IMAGO_COCOON_PART_IMAGO_COCOON;
 
@@ -263,7 +263,7 @@ void ImagoCocoonInit(void)
         // Save RAM slot of self for the spores
         newRamSlot = SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_LEFT_VINE_DECORATIONS,
             gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-        gSpriteData[newRamSlot].workVariable = newRamSlot;
+        gSpriteData[newRamSlot].work1 = newRamSlot;
 
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_CEILING_VINE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_RIGHT_VINE_DECORATIONS, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -290,10 +290,10 @@ void ImagoCocoonFallingMovement(void)
 {
     u32 increment;
 
-    if (gCurrentSprite.arrayOffset < 0x30)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < 0x30)
+        gCurrentSprite.work3++;
 
-    increment = (gCurrentSprite.arrayOffset >> 0x2) + 0x8;
+    increment = (gCurrentSprite.work3 >> 0x2) + 0x8;
     gSubSpriteData1.yPosition += increment;
 }
 
@@ -362,8 +362,8 @@ void ImagoCocoonIdle(void)
         gSubSpriteData1.animationDurationCounter = 0x0;
         gSubSpriteData1.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work3 = 0x0;
         gCurrentSprite.pose = IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS;
 
         // Set falling
@@ -394,11 +394,11 @@ void ImagoCocoonFallingBeforeBlocks(void)
         SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
         if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
-            ImagoCocoonChangeOneCCAA(CAA_REMOVE_SOLID); // Remove middile block
+            ImagoCocoonChangeOneCcaa(CAA_REMOVE_SOLID); // Remove middile block
 
             // Set falling after blocks
             gCurrentSprite.pose = IMAGO_COCOON_POSE_FALLING_AFTER_BLOCKS;
-            gCurrentSprite.timer = 0x0;
+            gCurrentSprite.work0 = 0x0;
             ScreenShakeStartVertical(0x28, 0x81);
             SoundPlay(0x1A4);
         }
@@ -415,7 +415,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
         xPosition = gSubSpriteData1.xPosition;
         rng = gSpriteRng;
         
-        timer = ++gCurrentSprite.timer;
+        timer = ++gCurrentSprite.work0;
         if (!(timer & 0x1F))
         {
             if (timer & 0x20)
@@ -459,12 +459,12 @@ void ImagoCocoonFallingAfterBlocks(void)
     xPosition = gSubSpriteData1.xPosition;
 
     // Destroy ground/set effects
-    gCurrentSprite.timer++;
-    if (gCurrentSprite.timer == 0x4)
-        ImagoCocoonChangeTwoMiddleCCAA(CAA_REMOVE_SOLID);
-    else if (gCurrentSprite.timer == 0x8)
-        ImagoCocoonChangeTwoAroundCCAA(CAA_REMOVE_SOLID);
-    else if (gCurrentSprite.timer == 0xF)
+    gCurrentSprite.work0++;
+    if (gCurrentSprite.work0 == 0x4)
+        ImagoCocoonChangeTwoMiddleCcaa(CAA_REMOVE_SOLID);
+    else if (gCurrentSprite.work0 == 0x8)
+        ImagoCocoonChangeTwoAroundCcaa(CAA_REMOVE_SOLID);
+    else if (gCurrentSprite.work0 == 0xF)
     {
         ParticleSet(yPosition + 0xC0, xPosition + 0x64, PE_TWO_MEDIUM_DUST);
         ParticleSet(yPosition + 0xC0, xPosition - 0x64, PE_TWO_MEDIUM_DUST);
@@ -484,13 +484,13 @@ void ImagoCocoonFallingAfterBlocks(void)
 
         gSubSpriteData1.yPosition = topEdge - IMAGO_COCOON_SIZE;
         gCurrentSprite.pose = IMAGO_COCOON_POSE_UNLOCK_PASSAGE;
-        gCurrentSprite.timer = 0x5A;
+        gCurrentSprite.work0 = 0x5A;
 
         ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x1A5);
 
         gCurrentSprite.oamScaling = Q_8_8(1.f);
-        gCurrentSprite.workVariable2 = FALSE;
+        gCurrentSprite.work2 = FALSE;
 
         FadeMusic(0x55);
     }
@@ -504,11 +504,11 @@ void ImagoCocoonUnlockPassage(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pose = IMAGO_COCOON_POSE_IN_GROUND;
-            ImagoCocoonChangeTwoBlockingCCAA(CAA_REMOVE_SOLID); // Remove blocking collision
+            ImagoCocoonChangeTwoBlockingCcaa(CAA_REMOVE_SOLID); // Remove blocking collision
 
             gDoorUnlockTimer = -0x3C;
             PlayMusic(MUSIC_BOSS_KILLED, 0x0);
@@ -524,7 +524,7 @@ void ImagoCocoonInGround(void)
 {
     if (!(gFrameCounter8Bit & 0x3))
     {
-        if (gCurrentSprite.workVariable2)
+        if (gCurrentSprite.work2)
         {
             // Scale up
             if (gCurrentSprite.oamScaling > 0xFC)
@@ -534,7 +534,7 @@ void ImagoCocoonInGround(void)
             }
             else
             {
-                gCurrentSprite.workVariable2 = FALSE;
+                gCurrentSprite.work2 = FALSE;
                 SoundPlay(0x1A6);
             }
         }
@@ -547,7 +547,7 @@ void ImagoCocoonInGround(void)
                 gSubSpriteData1.yPosition++;
             }
             else
-                gCurrentSprite.workVariable2 = TRUE;
+                gCurrentSprite.work2 = TRUE;
         }
     }
 }
@@ -818,7 +818,7 @@ void ImagoCocoonVineSpawnSpore(void)
 
             // Spawn spores
             gfxSlot = gCurrentSprite.spritesetGfxSlot;
-            ramSlot = gCurrentSprite.workVariable;
+            ramSlot = gCurrentSprite.work1;
             SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, IMAGO_COCOON_SPORE_PART_DOWN, gfxSlot,
                 ramSlot, yPosition, xPosition, status);
             SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, IMAGO_COCOON_SPORE_PART_DIAG_RIGHT_UP, gfxSlot,
@@ -949,7 +949,7 @@ void ImagoCocoonSporeSpawning(void)
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.pose = IMAGO_COCOON_SPORE_POSE_NEST;
-            gCurrentSprite.timer = 0x3C;
+            gCurrentSprite.work0 = 0x3C;
         }
     }
 }
@@ -965,8 +965,8 @@ void ImagoCocoonSporeNest(void)
         gCurrentSprite.pose = IMAGO_COCOON_SPORE_POSE_EXPLODING_INIT; // If imago cocoon is dead, kill the spores
     else
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
 
@@ -1091,7 +1091,7 @@ u8 WingedRipperImagoCollision(void)
 
     colliding = FALSE;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gSpriteData[ramSlot].pose == IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS && gSpriteData[ramSlot].arrayOffset > 0x10)
+    if (gSpriteData[ramSlot].pose == IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS && gSpriteData[ramSlot].work3 > 0x10)
     {
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
@@ -1145,10 +1145,10 @@ void WingedRipperInit(void)
 
     gCurrentSprite.pose = WINGED_RIPPER_POSE_MOVING_INIT;
     gCurrentSprite.oamScaling = 0xC0;
-    gCurrentSprite.workVariable = 0x80;
+    gCurrentSprite.work1 = 0x80;
 
     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x4;
 }
 
@@ -1180,13 +1180,13 @@ void WingedRipperMove(void)
     // Check turning around
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.workVariable == 0)
+        if (gCurrentSprite.work1 == 0)
         {
             gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = PI - 1;
+            gCurrentSprite.work1 = PI - 1;
         }
-        else if (gCurrentSprite.workVariable == PI)
+        else if (gCurrentSprite.work1 == PI)
         {
             if (gCurrentSprite.pOam != sWingedRipperOAM_TurningAround)
             {
@@ -1209,13 +1209,13 @@ void WingedRipperMove(void)
     }
     else
     {
-        if (gCurrentSprite.workVariable == PI)
+        if (gCurrentSprite.work1 == PI)
         {
             gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = 1;
+            gCurrentSprite.work1 = 1;
         }
-        else if (gCurrentSprite.workVariable == 0x0)
+        else if (gCurrentSprite.work1 == 0x0)
         {
             if (gCurrentSprite.pOam != sWingedRipperOAM_TurningAround)
             {
@@ -1238,16 +1238,16 @@ void WingedRipperMove(void)
     }
 
     // Update angle
-    if (gCurrentSprite.arrayOffset & 0x1)
+    if (gCurrentSprite.work3 & 0x1)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            gCurrentSprite.workVariable++;
+            gCurrentSprite.work1++;
         else
-            gCurrentSprite.workVariable--;
+            gCurrentSprite.work1--;
     }
 
     radius = (s16)gCurrentSprite.oamScaling;
-    angle = gCurrentSprite.workVariable;
+    angle = gCurrentSprite.work1;
 
     // Update Y position
     s = sin(angle);
@@ -1476,7 +1476,7 @@ void WingedRipper(void)
     }
 
     // Increment sine offset timer
-    gCurrentSprite.arrayOffset++;
+    gCurrentSprite.work3++;
 }
 
 /**

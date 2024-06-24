@@ -97,7 +97,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     {
         if (gCurrentClipdataAffectingAction == CAA_NONE)
         {
-            // No CCAA, then update current affecting
+            // No Ccaa, then update current affecting
             collision.actorType = CLIPDATA_ACTOR_SPRITE;
             gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
             gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
@@ -105,7 +105,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
         }
         else if (gCurrentClipdataAffectingAction >= CAA_UNUSED)
         {
-            // "Destructing" CCAA (projectiles, samus, bomb chain), then it's a non sprite
+            // "Destructing" Ccaa (projectiles, samus, bomb chain), then it's a non sprite
             collision.actorType = CLIPDATA_ACTOR_NON_SPRITE;
             if (gCurrentClipdataAffectingAction == CAA_UNUSED)
                 gCurrentClipdataAffectingAction = CAA_NONE;
@@ -117,8 +117,8 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
         clipdata = gBgPointersAndDimensions.pClipDecomp[collision.tileY * gBgPointersAndDimensions.clipdataWidth + collision.tileX];
         if (gCurrentClipdataAffectingAction != CAA_NONE)
         {
-            // Apply CCAA if not none
-            BlockApplyCCAA(collision.tileY, collision.tileX, clipdata);
+            // Apply Ccaa if not none
+            BlockApplyCcaa(collision.tileY, collision.tileX, clipdata);
             gCurrentClipdataAffectingAction = CAA_NONE;
         }
 

@@ -17,7 +17,7 @@
 #define ZIPLINE_GENERATOR_PART_MORPH_SYMBOL 0x1
 #define ZIPLINE_GENERATOR_PART_ELECTRICITY 0x2
 
-void ZiplineGeneratorChangeCCAA(u8 caa);
+void ZiplineGeneratorChangeCcaa(u8 caa);
 void ZiplineGeneratorInit(void);
 void ZiplineGeneratorDetectSamus(void);
 void ZiplineGeneratorActivating(void);

@@ -142,8 +142,8 @@ void MellaIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     rng = gSpriteRng;
-    gCurrentSprite.arrayOffset = rng * 4;
-    gCurrentSprite.workVariable2 = rng * 2;
+    gCurrentSprite.work3 = rng * 4;
+    gCurrentSprite.work2 = rng * 2;
 }
 
 /**
@@ -157,7 +157,7 @@ void MellaIdle(void)
     u8 nslr;
 
     // Y movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sMellaIdleYMovement[offset];
     if (movement == SHORT_MAX)
     {
@@ -165,11 +165,11 @@ void MellaIdle(void)
         offset = 0;
     }
 
-    gCurrentSprite.arrayOffset = offset + 1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     // X movement
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sMellaIdleXMovement[offset];
     if (movement == SHORT_MAX)
     {
@@ -177,7 +177,7 @@ void MellaIdle(void)
         offset = 0;
     }
 
-    gCurrentSprite.workVariable2 = offset + 1;
+    gCurrentSprite.work2 = offset + 1;
     gCurrentSprite.xPosition += movement;
 
     if (gSamusData.yPosition - (BLOCK_SIZE + PIXEL_SIZE * 2) >= gCurrentSprite.yPosition)
@@ -201,7 +201,7 @@ void MellaMovingInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sMelloOAM_Moving;
 
-    gCurrentSprite.timer = 7;
+    gCurrentSprite.work0 = 7;
 }
 
 /**
@@ -214,8 +214,8 @@ void MellaDelayBeforeGoingDown(void)
         gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
         SoundPlayNotAlreadyPlaying(0x189);
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         // Set going down behavior
         gCurrentSprite.pose = MELLA_POSE_GOING_DOWN;
@@ -223,8 +223,8 @@ void MellaDelayBeforeGoingDown(void)
 
         SpriteUtilMakeSpriteFaceSamusDirection();
 
-        gCurrentSprite.workVariable2 = 0;
-        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.work2 = 0;
+        gCurrentSprite.work3 = 0;
     }
 }
 
@@ -242,15 +242,15 @@ void MellaGoingDown(void)
         SoundPlayNotAlreadyPlaying(0x189);
 
     // Check increase offsets
-    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sMellaGoingDownYMovement) * 8 - 1)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < ARRAY_SIZE(sMellaGoingDownYMovement) * 8 - 1)
+        gCurrentSprite.work3++;
 
-    if (gCurrentSprite.workVariable2 < ARRAY_SIZE(sMellaMovingXMovement) * 8 - 1)
-        gCurrentSprite.workVariable2++;
+    if (gCurrentSprite.work2 < ARRAY_SIZE(sMellaMovingXMovement) * 8 - 1)
+        gCurrentSprite.work2++;
 
     // Move
-    yMovement = sMellaGoingDownYMovement[gCurrentSprite.arrayOffset / 8];
-    xMovement = sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8];
+    yMovement = sMellaGoingDownYMovement[gCurrentSprite.work3 / 8];
+    xMovement = sMellaMovingXMovement[gCurrentSprite.work2 / 8];
 
     MellaXMovement(xMovement);
 
@@ -259,7 +259,7 @@ void MellaGoingDown(void)
         // Touched floor, set going up behavior
         gCurrentSprite.pose = MELLA_POSE_GOING_UP;
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.work3 = 0;
     }
 }
 
@@ -277,16 +277,16 @@ void MellaGoingUp(void)
         SoundPlayNotAlreadyPlaying(0x189);
 
     // Check increase offsets
-    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sMellaGoingUpYMovement) * 8 - 1)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < ARRAY_SIZE(sMellaGoingUpYMovement) * 8 - 1)
+        gCurrentSprite.work3++;
 
     // Odd arbitrary number
-    if (gCurrentSprite.workVariable2 > 0x18)
-        gCurrentSprite.workVariable2--;
+    if (gCurrentSprite.work2 > 0x18)
+        gCurrentSprite.work2--;
 
     // Move
-    yMovement = sMellaGoingUpYMovement[gCurrentSprite.arrayOffset / 8];
-    xMovement = sMellaMovingXMovement[gCurrentSprite.workVariable2 / 8];
+    yMovement = sMellaGoingUpYMovement[gCurrentSprite.work3 / 8];
+    xMovement = sMellaMovingXMovement[gCurrentSprite.work2 / 8];
 
     MellaXMovement(xMovement);
 

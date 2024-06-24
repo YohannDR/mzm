@@ -141,27 +141,27 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (!hittingSolidX)
         {
             // Not hitting anything, move to right
-            if (gCurrentSprite.workVariable == 0)
+            if (gCurrentSprite.work1 == 0)
             {
                 if (gCurrentSprite.xPosition <= dstX - PIXEL_SIZE)
                 {
                     // Increase speed if below cap
-                    if (gCurrentSprite.workVariable2 < xSpeedCap)
-                        gCurrentSprite.workVariable2++;
+                    if (gCurrentSprite.work2 < xSpeedCap)
+                        gCurrentSprite.work2++;
 
                     // Apply speed
-                    gCurrentSprite.xPosition += (gCurrentSprite.workVariable2 >> speedDivisor);
+                    gCurrentSprite.xPosition += (gCurrentSprite.work2 >> speedDivisor);
                 }
                 else
-                    gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                    gCurrentSprite.work1 = gCurrentSprite.work2;
             }
             else
             {
                 if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
 
-                if (gCurrentSprite.workVariable != 0)
-                    gCurrentSprite.xPosition += (gCurrentSprite.workVariable >> speedDivisor);
+                if (gCurrentSprite.work1 != 0)
+                    gCurrentSprite.xPosition += (gCurrentSprite.work1 >> speedDivisor);
                 else
                     bouncing = 1;
             }
@@ -174,27 +174,27 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (!hittingSolidX)
         {
             // Not hitting anything, move to left
-            if (gCurrentSprite.workVariable == 0)
+            if (gCurrentSprite.work1 == 0)
             {
                 if (gCurrentSprite.xPosition < dstX + PIXEL_SIZE)
-                    gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                    gCurrentSprite.work1 = gCurrentSprite.work2;
                 else
                 {
                     // Increase speed if below cap
-                    if (gCurrentSprite.workVariable2 < xSpeedCap)
-                        gCurrentSprite.workVariable2++;
+                    if (gCurrentSprite.work2 < xSpeedCap)
+                        gCurrentSprite.work2++;
 
                     // Apply speed
-                    gCurrentSprite.xPosition -= (gCurrentSprite.workVariable2 >> speedDivisor);
+                    gCurrentSprite.xPosition -= (gCurrentSprite.work2 >> speedDivisor);
                 }
             }
             else
             {
                 if (MOD_AND(gFrameCounter8Bit, 2) == 0)
-                    gCurrentSprite.workVariable--;
+                    gCurrentSprite.work1--;
 
-                if (gCurrentSprite.workVariable != 0)
-                    gCurrentSprite.xPosition -= (gCurrentSprite.workVariable >> speedDivisor);
+                if (gCurrentSprite.work1 != 0)
+                    gCurrentSprite.xPosition -= (gCurrentSprite.work1 >> speedDivisor);
                 else
                     bouncing = 1;
             }
@@ -210,11 +210,11 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (bouncing == 2)
         {
             // Set bouncing speed
-            gCurrentSprite.workVariable = 0;
-            gCurrentSprite.workVariable2 = 16;
+            gCurrentSprite.work1 = 0;
+            gCurrentSprite.work2 = 16;
         }
         else
-            gCurrentSprite.workVariable2 = 1;
+            gCurrentSprite.work2 = 1;
     }
 
     bouncing = 0;
@@ -223,27 +223,27 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (!hittingSolidY)
         {
             // Not hitting anything, move down
-            if (gCurrentSprite.timer == 0)
+            if (gCurrentSprite.work0 == 0)
             {
                 if (gCurrentSprite.yPosition <= dstY - PIXEL_SIZE)
                 {
                     // Increase speed if below cap
-                    if (gCurrentSprite.arrayOffset < ySpeedCap)
-                        gCurrentSprite.arrayOffset++;
+                    if (gCurrentSprite.work3 < ySpeedCap)
+                        gCurrentSprite.work3++;
 
                     // Apply speed
-                    gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
+                    gCurrentSprite.yPosition += (gCurrentSprite.work3 >> speedDivisor);
                 }
                 else
-                    gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                    gCurrentSprite.work0 = gCurrentSprite.work3;
             }
             else
             {
                 if (MOD_AND(gFrameCounter8Bit, 2))
-                    gCurrentSprite.timer--;
+                    gCurrentSprite.work0--;
 
-                if (gCurrentSprite.timer != 0)
-                    gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
+                if (gCurrentSprite.work0 != 0)
+                    gCurrentSprite.yPosition += (gCurrentSprite.work0 >> speedDivisor);
                 else
                     bouncing = 1;
             }
@@ -256,27 +256,27 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (!hittingSolidY)
         {
             // Not hitting anything, move left
-            if (gCurrentSprite.timer == 0)
+            if (gCurrentSprite.work0 == 0)
             {
                 if (gCurrentSprite.yPosition < dstY + PIXEL_SIZE)
-                    gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                    gCurrentSprite.work0 = gCurrentSprite.work3;
                 else
                 {
                     // Increase speed if below cap
-                    if (gCurrentSprite.arrayOffset < ySpeedCap)
-                        gCurrentSprite.arrayOffset++;
+                    if (gCurrentSprite.work3 < ySpeedCap)
+                        gCurrentSprite.work3++;
 
                     // Apply speed
-                    gCurrentSprite.yPosition -= (gCurrentSprite.arrayOffset >> speedDivisor);
+                    gCurrentSprite.yPosition -= (gCurrentSprite.work3 >> speedDivisor);
                 }
             }
             else
             {
                 if (MOD_AND(gFrameCounter8Bit, 2))
-                    gCurrentSprite.timer--;
+                    gCurrentSprite.work0--;
 
-                if (gCurrentSprite.timer != 0)
-                    gCurrentSprite.yPosition -= (gCurrentSprite.timer >> speedDivisor);
+                if (gCurrentSprite.work0 != 0)
+                    gCurrentSprite.yPosition -= (gCurrentSprite.work0 >> speedDivisor);
                 else
                     bouncing = 1;
             }
@@ -292,11 +292,11 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
         if (bouncing == 2)
         {
             // Set bouncing speed
-            gCurrentSprite.timer = 0;
-            gCurrentSprite.arrayOffset = 16;
+            gCurrentSprite.work0 = 0;
+            gCurrentSprite.work3 = 16;
         }
         else
-            gCurrentSprite.arrayOffset = 1;
+            gCurrentSprite.work3 = 1;
     }
 }
 
@@ -418,8 +418,8 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 {
                     gSpriteData[ramSlot].yPosition -= movement;
                     gSpriteData[ramSlot].status &= ~SPRITE_STATUS_UNKNOWN_400;
-                    gSpriteData[ramSlot].timer = 0;
-                    gSpriteData[ramSlot].arrayOffset = movement * 16;
+                    gSpriteData[ramSlot].work0 = 0;
+                    gSpriteData[ramSlot].work3 = movement * 16;
                 }
             }
             else
@@ -429,8 +429,8 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 {
                     gSpriteData[ramSlot].yPosition += movement;
                     gSpriteData[ramSlot].status |= SPRITE_STATUS_UNKNOWN_400;
-                    gSpriteData[ramSlot].timer = 0;
-                    gSpriteData[ramSlot].arrayOffset = movement * 16;
+                    gSpriteData[ramSlot].work0 = 0;
+                    gSpriteData[ramSlot].work3 = movement * 16;
                 }
             }
 
@@ -441,8 +441,8 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 {
                     gSpriteData[ramSlot].xPosition -= movement;
                     gSpriteData[ramSlot].status &= ~SPRITE_STATUS_FACING_RIGHT;
-                    gSpriteData[ramSlot].workVariable = 0;
-                    gSpriteData[ramSlot].workVariable2 = movement * 16;
+                    gSpriteData[ramSlot].work1 = 0;
+                    gSpriteData[ramSlot].work2 = movement * 16;
                 }
             }
             else
@@ -452,8 +452,8 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 {
                     gSpriteData[ramSlot].xPosition += movement;
                     gSpriteData[ramSlot].status |= SPRITE_STATUS_FACING_RIGHT;
-                    gSpriteData[ramSlot].workVariable = 0;
-                    gSpriteData[ramSlot].workVariable2 = movement * 16;
+                    gSpriteData[ramSlot].work1 = 0;
+                    gSpriteData[ramSlot].work2 = movement * 16;
                 }
             }
             break;
@@ -577,8 +577,8 @@ void MetroidInit(void)
     SpriteUtilMakeSpriteFaceSamusDirection();
 
     gCurrentSprite.pose = METROID_POSE_CHECK_SPAWN;
-    gCurrentSprite.workVariable2 = 0;
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work2 = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.drawOrder = 12;
 
     slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
@@ -605,7 +605,7 @@ void MetroidCheckSpawn(void)
         gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
         gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
-        gCurrentSprite.timer = gSpriteRng * 4 + 1;
+        gCurrentSprite.work0 = gSpriteRng * 4 + 1;
     }
 }
 
@@ -619,30 +619,30 @@ void MetroidSpawning(void)
     u8 offset;
 
     // Y movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sMetroidSpawningYMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sMetroidSpawningYMovement[0]; // 0
         offset = 0;
     }
-    gCurrentSprite.arrayOffset = offset + 1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     // X movement
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sMetroidSpawningXMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sMetroidSpawningXMovement[0]; // 0
         offset = 0;
     }
-    gCurrentSprite.workVariable2 = offset + 1;
+    gCurrentSprite.work2 = offset + 1;
     gCurrentSprite.xPosition += movement;
 
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--; // Timer before spawn
+        gCurrentSprite.work0--; // Timer before spawn
         return;
     }
 
@@ -682,11 +682,11 @@ void MetroidMovingInit(void)
 {
     gCurrentSprite.pose = METROID_POSE_MOVING;
 
-    gCurrentSprite.workVariable = 0;
-    gCurrentSprite.workVariable2 = 1;
+    gCurrentSprite.work1 = 0;
+    gCurrentSprite.work2 = 1;
 
-    gCurrentSprite.timer = 0;
-    gCurrentSprite.arrayOffset = 1;
+    gCurrentSprite.work0 = 0;
+    gCurrentSprite.work3 = 1;
 
     gCurrentSprite.pOam = sMetroidOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0;
@@ -734,8 +734,8 @@ void MetroidSamusGrabbedInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.timer = 4;
-    gCurrentSprite.workVariable = 4;
+    gCurrentSprite.work0 = 4;
+    gCurrentSprite.work1 = 4;
     gCurrentSprite.frozenPaletteRowOffset = 4;
 
     gCurrentSprite.oamRotation = 0;
@@ -755,15 +755,15 @@ void MetroidSamusGrabbed(void)
     MetroidPlaySound();
     MetroidCheckBouncingOnMetroid(0x2);
 
-    gCurrentSprite.timer--; // Delay between palette swap
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--; // Delay between palette swap
+    if (gCurrentSprite.work0 == 0)
     {
-        gCurrentSprite.timer = 4;
-        gCurrentSprite.workVariable++; // Palette row
-        if (gCurrentSprite.workVariable >= ARRAY_SIZE(sMetroidPal_SamusGrabbed) / 16)
-            gCurrentSprite.workVariable = 0;
+        gCurrentSprite.work0 = 4;
+        gCurrentSprite.work1++; // Palette row
+        if (gCurrentSprite.work1 >= ARRAY_SIZE(sMetroidPal_SamusGrabbed) / 16)
+            gCurrentSprite.work1 = 0;
 
-        DMA_SET(3, &sMetroidPal_SamusGrabbed[gCurrentSprite.workVariable * 16], PALRAM_BASE + 0x380, C_32_2_16(DMA_ENABLE, 8));
+        DMA_SET(3, &sMetroidPal_SamusGrabbed[gCurrentSprite.work1 * 16], PALRAM_BASE + 0x380, C_32_2_16(DMA_ENABLE, 8));
     }
 
     // Synchronises position
@@ -788,10 +788,10 @@ void MetroidSamusGrabbed(void)
         gCurrentSprite.ignoreSamusCollisionTimer = 15;
 
         gCurrentSprite.status &= ~(SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES);
-        gCurrentSprite.timer = 0;
-        gCurrentSprite.arrayOffset = velocity;
-        gCurrentSprite.workVariable = 0;
-        gCurrentSprite.workVariable2 = velocity;
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work3 = velocity;
+        gCurrentSprite.work1 = 0;
+        gCurrentSprite.work2 = velocity;
 
         gCurrentSprite.pOam = sMetroidOAM_Moving;
         gCurrentSprite.animationDurationCounter = 0;

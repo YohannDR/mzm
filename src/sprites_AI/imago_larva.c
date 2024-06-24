@@ -55,20 +55,20 @@ void ImagoLarvaUpdatePalette(void)
     if (SPRITE_HAS_ISFT(gCurrentSprite))
         return;
 
-    gCurrentSprite.workVariable2++;
-    timer = gCurrentSprite.workVariable2;
+    gCurrentSprite.work2++;
+    timer = gCurrentSprite.work2;
     timerLimit = 10;
 
     if (timer >= timerLimit)
     {
-        gCurrentSprite.workVariable2 = 0;
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work2 = 0;
+        gCurrentSprite.work3++;
 
-        if (gCurrentSprite.arrayOffset >= ARRAY_SIZE(sImagoLarvaPaletteRows))
-            gCurrentSprite.arrayOffset = 0;
+        if (gCurrentSprite.work3 >= ARRAY_SIZE(sImagoLarvaPaletteRows))
+            gCurrentSprite.work3 = 0;
     }
 
-    gCurrentSprite.absolutePaletteRow = sImagoLarvaPaletteRows[gCurrentSprite.arrayOffset];
+    gCurrentSprite.absolutePaletteRow = sImagoLarvaPaletteRows[gCurrentSprite.work3];
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
 }
 
@@ -138,10 +138,10 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
     gCurrentSprite.hitboxBottomOffset = 0;
 
-    gCurrentSprite.workVariable2 = 0;
-    gCurrentSprite.arrayOffset = 0;
-    gCurrentSprite.timer = 0;
-    gCurrentSprite.workVariable = 0;
+    gCurrentSprite.work2 = 0;
+    gCurrentSprite.work3 = 0;
+    gCurrentSprite.work0 = 0;
+    gCurrentSprite.work1 = 0;
     gCurrentSprite.yPositionSpawn = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -240,7 +240,7 @@ void ImagoLarvaRetreating(struct SubSpriteData* pSub)
 {
     ImagoLarvaUpdatePalette();
 
-    if (gCurrentSprite.timer-- != 0)
+    if (gCurrentSprite.work0-- != 0)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -284,7 +284,7 @@ void ImagoLarvaStunned(struct SubSpriteData* pSub)
 {
     ImagoLarvaUpdatePalette();
 
-    if (gCurrentSprite.workVariable-- == 0)
+    if (gCurrentSprite.work1-- == 0)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_WARNING_INIT;
 }
 
@@ -300,7 +300,7 @@ void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
     pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_WARNING;
-    gCurrentSprite.timer = 60;
+    gCurrentSprite.work0 = 60;
     pSub->workVariable1 = 0;
 
     SoundPlay(0xAD);
@@ -381,7 +381,7 @@ void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
     gCurrentSprite.pose = IMAGO_LARVA_POSE_TAKING_DAMAGE;
 
     // Delay before it automatically attacks
-    gCurrentSprite.timer = 47;
+    gCurrentSprite.work0 = 47;
     pSub->workVariable1 = 0;
 
     SoundFade(0xAE, 10);
@@ -394,8 +394,8 @@ void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
  */
 void ImagoLarvaTakingDamage(struct SubSpriteData* pSub)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_ATTACKING_INIT;
 }
 
@@ -413,8 +413,8 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
     gCurrentSprite.pose = IMAGO_LARVA_POSE_DYING;
 
     // Death animation lasts for 100 frames
-    gCurrentSprite.timer = 100;
-    SPRITE_CLEAR_AND_SET_ISFT(gCurrentSprite, gCurrentSprite.timer);
+    gCurrentSprite.work0 = 100;
+    SPRITE_CLEAR_AND_SET_ISFT(gCurrentSprite, gCurrentSprite.work0);
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.health = 1;
@@ -433,13 +433,13 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
  */
 void ImagoLarvaDying(struct SubSpriteData* pSub)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = IMAGO_LARVA_POSE_DEAD;
 
         // Delay before actual death
-        gCurrentSprite.timer = 2;
+        gCurrentSprite.work0 = 2;
     }
 }
 
@@ -452,9 +452,9 @@ void ImagoLarvaDeath(struct SubSpriteData* pSub)
 {
     u16 yPosition;
     
-    gCurrentSprite.timer--;
+    gCurrentSprite.work0--;
 
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
         return;
 
     if (gCurrentSprite.spriteId == PSPRITE_IMAGO_LARVA_RIGHT)
@@ -667,10 +667,10 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
                 pSub->workVariable1++;
 
             // Set retracting
-            gSpriteData[ramSlot].timer = 16;
+            gSpriteData[ramSlot].work0 = 16;
 
             // Set stunned delay
-            gSpriteData[ramSlot].workVariable = pSub->workVariable1 * 8;
+            gSpriteData[ramSlot].work1 = pSub->workVariable1 * 8;
 
             // Set moving speed
             gSpriteData[ramSlot].yPositionSpawn = speed;

@@ -52,8 +52,8 @@ void ReoIdleInit(void)
     
     gCurrentSprite.pose = REO_POSE_IDLE;
     offset = gSpriteRng * 4;
-    gCurrentSprite.workVariable2 = offset;
-    gCurrentSprite.arrayOffset = gCurrentSprite.workVariable2;
+    gCurrentSprite.work2 = offset;
+    gCurrentSprite.work3 = gCurrentSprite.work2;
 }
 
 /**
@@ -66,25 +66,25 @@ void ReoIdle(void)
     u8 offset;
 
     // Y movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sReoIdleYMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sReoIdleYMovement[0];
         offset = 0x0;
     }
-    gCurrentSprite.arrayOffset = offset + 0x1;
+    gCurrentSprite.work3 = offset + 0x1;
     gCurrentSprite.yPosition += movement;
     
     // X movement
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sReoIdleXMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sReoIdleXMovement[0];
         offset = 0x0;
     }
-    gCurrentSprite.workVariable2 = offset + 0x1;
+    gCurrentSprite.work2 = offset + 0x1;
     gCurrentSprite.xPosition += movement;
 
     // Check samus is in range
@@ -98,10 +98,10 @@ void ReoIdle(void)
  */
 void ReoMovingInit(void)
 {
-    gCurrentSprite.workVariable = 0x0;
-    gCurrentSprite.workVariable2 = 0x1;
-    gCurrentSprite.timer = 0x0;
-    gCurrentSprite.arrayOffset = 0x1;
+    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work2 = 0x1;
+    gCurrentSprite.work0 = 0x0;
+    gCurrentSprite.work3 = 0x1;
 
     gCurrentSprite.xPositionSpawn = gSpriteRng & 0x3;
     gCurrentSprite.pose = REO_POSE_MOVING;
@@ -190,8 +190,8 @@ void ReoMove(void)
     if (collision != COLLISION_AIR)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.workVariable = 0;
-        gCurrentSprite.workVariable2 = 1;
+        gCurrentSprite.work1 = 0;
+        gCurrentSprite.work2 = 1;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
@@ -202,8 +202,8 @@ void ReoMove(void)
     if (collision != COLLISION_AIR)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
-        gCurrentSprite.timer = 0;
-        gCurrentSprite.arrayOffset = 1;
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work3 = 1;
     }
 
     otherY = gSamusData.yPosition - 0x48;
@@ -222,83 +222,83 @@ void ReoMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.workVariable == 0)
+        if (gCurrentSprite.work1 == 0)
         {
             if (gCurrentSprite.xPosition > otherX - 4)
-                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                gCurrentSprite.work1 = gCurrentSprite.work2;
             else
             {
-                if (gCurrentSprite.workVariable2 < xSpeedCap)
-                    gCurrentSprite.workVariable2++;
+                if (gCurrentSprite.work2 < xSpeedCap)
+                    gCurrentSprite.work2++;
 
-                gCurrentSprite.xPosition += gCurrentSprite.workVariable2 >> 2;
+                gCurrentSprite.xPosition += gCurrentSprite.work2 >> 2;
             }
         }
         else
         {
-            if (gCurrentSprite.workVariable-- != 1)
+            if (gCurrentSprite.work1-- != 1)
             {
-                gCurrentSprite.xPosition += gCurrentSprite.workVariable >> 2;
+                gCurrentSprite.xPosition += gCurrentSprite.work1 >> 2;
             }
             else
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-                gCurrentSprite.workVariable2 = 1;
+                gCurrentSprite.work2 = 1;
             }
         }
     }
     else
     {
-        if (gCurrentSprite.workVariable == 0)
+        if (gCurrentSprite.work1 == 0)
         {
             if (gCurrentSprite.xPosition < otherX + 4)
-                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                gCurrentSprite.work1 = gCurrentSprite.work2;
             else
             {
-                if (gCurrentSprite.workVariable2 < xSpeedCap)
-                    gCurrentSprite.workVariable2++;
+                if (gCurrentSprite.work2 < xSpeedCap)
+                    gCurrentSprite.work2++;
 
-                gCurrentSprite.xPosition -= gCurrentSprite.workVariable2 >> 2;
+                gCurrentSprite.xPosition -= gCurrentSprite.work2 >> 2;
             }
         }
         else
         {
-            if (gCurrentSprite.workVariable-- != 1)
+            if (gCurrentSprite.work1-- != 1)
             {
-                gCurrentSprite.xPosition -= gCurrentSprite.workVariable >> 2;
+                gCurrentSprite.xPosition -= gCurrentSprite.work1 >> 2;
             }
             else
             {
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-                gCurrentSprite.workVariable2 = 1;
+                gCurrentSprite.work2 = 1;
             }
         }
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
     {
-        if (gCurrentSprite.timer == 0)
+        if (gCurrentSprite.work0 == 0)
         {
             if (gCurrentSprite.yPosition > otherY - 4)
-                gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                gCurrentSprite.work0 = gCurrentSprite.work3;
             else
             {
-                if (gCurrentSprite.arrayOffset < ySpeedCap)
-                    gCurrentSprite.arrayOffset++;
+                if (gCurrentSprite.work3 < ySpeedCap)
+                    gCurrentSprite.work3++;
 
-                gCurrentSprite.yPosition += gCurrentSprite.arrayOffset >> 2;
+                gCurrentSprite.yPosition += gCurrentSprite.work3 >> 2;
             }
         }
         else
         {
-            if (gCurrentSprite.timer-- != 1)
+            if (gCurrentSprite.work0-- != 1)
             {
-                gCurrentSprite.yPosition += gCurrentSprite.timer >> 2;
+                gCurrentSprite.yPosition += gCurrentSprite.work0 >> 2;
             }
             else
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
-                gCurrentSprite.arrayOffset = 1;
+                gCurrentSprite.work3 = 1;
             }
         }
 
@@ -306,28 +306,28 @@ void ReoMove(void)
     }
     else
     {
-        if (gCurrentSprite.timer == 0)
+        if (gCurrentSprite.work0 == 0)
         {
             if (gCurrentSprite.yPosition < otherY + 4)
-                gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                gCurrentSprite.work0 = gCurrentSprite.work3;
             else
             {
-                if (gCurrentSprite.arrayOffset < ySpeedCap)
-                    gCurrentSprite.arrayOffset++;
+                if (gCurrentSprite.work3 < ySpeedCap)
+                    gCurrentSprite.work3++;
 
-                gCurrentSprite.yPosition -= gCurrentSprite.arrayOffset >> 2;
+                gCurrentSprite.yPosition -= gCurrentSprite.work3 >> 2;
             }
         }
         else
         {
-            if (gCurrentSprite.timer-- != 1)
+            if (gCurrentSprite.work0-- != 1)
             {
-                gCurrentSprite.yPosition -= gCurrentSprite.timer >> 2;
+                gCurrentSprite.yPosition -= gCurrentSprite.work0 >> 2;
             }
             else
             {
                 gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
-                gCurrentSprite.arrayOffset = 1;
+                gCurrentSprite.work3 = 1;
             }
         }
 

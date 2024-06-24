@@ -54,10 +54,10 @@ struct SpriteData {
     u8 drawDistanceHorizontalOffset;
     u8 oamRotation;
     u8 invincibilityStunFlashTimer;
-    u8 timer;
-    u8 workVariable;
-    u8 workVariable2;
-    u8 arrayOffset;
+    u8 work0;
+    u8 work1;
+    u8 work2;
+    u8 work3;
     u8 freezeTimer;
     u8 standingOnSprite;
     u8 properties;

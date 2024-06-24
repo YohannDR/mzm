@@ -43,8 +43,8 @@ void ExplosionZebesEscape(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = 9;
-        gCurrentSprite.arrayOffset = 0;
-        gCurrentSprite.workVariable2 = 7;
+        gCurrentSprite.work3 = 0;
+        gCurrentSprite.work2 = 7;
 
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
@@ -57,8 +57,8 @@ void ExplosionZebesEscape(void)
     rngParam1 = gSpriteRng;
     rngParam2 = rngParam1 & 3;
 
-    particleTimer = gCurrentSprite.arrayOffset++;
-    debrisTimer = gCurrentSprite.workVariable2++;
+    particleTimer = gCurrentSprite.work3++;
+    debrisTimer = gCurrentSprite.work2++;
 
     if (gSamusData.yPosition < yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE))
         yPosition = gSamusData.yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE + 4;

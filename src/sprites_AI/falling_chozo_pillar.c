@@ -42,7 +42,7 @@ void FallingChozoPillar(void)
 
             gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED;
             gCurrentSprite.yPositionSpawn = 0x100;
-            gCurrentSprite.timer = 0x0;
+            gCurrentSprite.work0 = 0x0;
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED:
@@ -65,7 +65,7 @@ void FallingChozoPillar(void)
         case FALLING_CHOZO_PILLAR_POSE_FALLING:
             if (gCurrentSprite.yPositionSpawn != 0x0)
             {
-                if (!(gCurrentSprite.timer++ & 0xF))
+                if (!(gCurrentSprite.work0++ & 0xF))
                 {
                     // Start screen shake/play particle
                     ScreenShakeStartVertical(0x14, 0x81);
@@ -85,13 +85,13 @@ void FallingChozoPillar(void)
                 // Timer done, set fallen behavior
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_FALLEN;
                 ScreenShakeStartVertical(0x3C, 0x81);
-                gCurrentSprite.timer = 0x28;
+                gCurrentSprite.work0 = 0x28;
             }
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_FALLEN:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
             {
                 // Unknown, AI doesn't handle this case, most likely removed code
                 gCurrentSprite.pose = 0x29;

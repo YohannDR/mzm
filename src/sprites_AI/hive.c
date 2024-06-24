@@ -66,7 +66,7 @@ void HiveInit(void)
     gCurrentSprite.drawOrder = 5;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.pose = 9;
-    gCurrentSprite.timer = 0;
+    gCurrentSprite.work0 = 0;
     
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -213,7 +213,7 @@ void HiveDying(void)
         }
     }
 
-    if (gCurrentSprite.pose > 0x62 || gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.pose > 0x62 || gCurrentSprite.work0 != 0x0)
     {
         SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition + 0x48, gCurrentSprite.xPosition,
             TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
@@ -307,11 +307,11 @@ void MellowInit(struct SpriteData* pSprite)
         {
             pSprite->pOam = sMellowOAM_Idle;
             pSprite->pose = 0x9;
-            pSprite->arrayOffset = gSpriteRng << 0x2;
+            pSprite->work3 = gSpriteRng << 0x2;
             if (gSpriteRng & 0x1)
-                pSprite->workVariable2 = 0x14;
+                pSprite->work2 = 0x14;
             else
-                pSprite->workVariable2 = 0x3C;
+                pSprite->work2 = 0x3C;
             
             if (pSprite->xPosition & 0x1)
                 pSprite->drawOrder = 0x3;
@@ -323,10 +323,10 @@ void MellowInit(struct SpriteData* pSprite)
             pSprite->pOam = sMellowOAM_SamusDetected;
             pSprite->bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             pSprite->drawOrder = 0x3;
-            pSprite->workVariable = 0x0;
-            pSprite->workVariable2 = 0x1;
-            pSprite->timer = 0x0;
-            pSprite->arrayOffset = 0x1;
+            pSprite->work1 = 0x0;
+            pSprite->work2 = 0x1;
+            pSprite->work0 = 0x0;
+            pSprite->work3 = 0x1;
             pSprite->xPositionSpawn = gSpriteRng & 0x3;
             pSprite->pose = 0x23;
             pSprite->oamScaling = 0x20;
@@ -350,7 +350,7 @@ void MellowIdle(struct SpriteData* pSprite)
     u8 offset;
 
     // Idle Y
-    offset = pSprite->arrayOffset;
+    offset = pSprite->work3;
     movement = sMellowIdleYVelocity[offset];
 
     if (movement == SHORT_MAX)
@@ -360,10 +360,10 @@ void MellowIdle(struct SpriteData* pSprite)
     }
 
     // Idle X
-    pSprite->arrayOffset = offset + 0x1;
+    pSprite->work3 = offset + 0x1;
     pSprite->yPosition += movement;
 
-    offset = pSprite->workVariable2;
+    offset = pSprite->work2;
     movement = sMellowIdleXVelocity[offset];
 
     if (movement == SHORT_MAX)
@@ -372,10 +372,10 @@ void MellowIdle(struct SpriteData* pSprite)
         offset = 0x0;
     }
 
-    pSprite->workVariable2 = offset + 0x1;
+    pSprite->work2 = offset + 0x1;
     pSprite->xPosition += movement;
 
-    if (pSprite->workVariable2 == 0x1 || pSprite->workVariable2 == 0x29)
+    if (pSprite->work2 == 0x1 || pSprite->work2 == 0x29)
     {
         if (pSprite->drawOrder == 0x3)
             pSprite->drawOrder = 0x6;
@@ -408,13 +408,13 @@ void MellowFleeing(struct SpriteData* pSprite)
 
     rng = gSpriteRng / 4;
     movement = rng + 0x8;
-    if (pSprite->workVariable2 < 0x28)
+    if (pSprite->work2 < 0x28)
         pSprite->xPosition += movement;
     else
         pSprite->xPosition -= movement;
 
     movement = rng + 0x4;
-    if (pSprite->arrayOffset < 0x20)
+    if (pSprite->work3 < 0x20)
         pSprite->yPosition += movement;
     else
         pSprite->yPosition -= movement;
@@ -427,10 +427,10 @@ void MellowFleeing(struct SpriteData* pSprite)
  */
 void MellowSamusDetectedInit(struct SpriteData* pSprite)
 {
-    pSprite->workVariable = 0x0;
-    pSprite->workVariable2 = 0x1;
-    pSprite->timer = 0x0;
-    pSprite->arrayOffset = 0x1;
+    pSprite->work1 = 0x0;
+    pSprite->work2 = 0x1;
+    pSprite->work0 = 0x0;
+    pSprite->work3 = 0x1;
     pSprite->xPositionSpawn = 0x0;
     pSprite->pose = 0x23;
     pSprite->oamScaling = 0x20;
@@ -628,10 +628,10 @@ void MellowMove(struct SpriteData* pSprite)
     
     if (pSprite->status & SPRITE_STATUS_UNKNOWN_400)
     {
-        if (pSprite->timer == 0)
+        if (pSprite->work0 == 0)
         {
             if (pSprite->yPosition > spriteY - 4)
-                pSprite->timer = pSprite->arrayOffset;
+                pSprite->work0 = pSprite->arrayOffset;
             else
             {
                 if (pSprite->arrayOffset < limit)
@@ -642,18 +642,18 @@ void MellowMove(struct SpriteData* pSprite)
         }
         else
         {
-            if (--pSprite->timer != 0)
-                pSprite->yPosition += (pSprite->timer >> 2);
+            if (--pSprite->work0 != 0)
+                pSprite->yPosition += (pSprite->work0 >> 2);
             else
                 flip++;
         }
     }
     else
     {
-        if (pSprite->timer == 0)
+        if (pSprite->work0 == 0)
         {
             if (pSprite->yPosition < spriteY + 4)
-                pSprite->timer = pSprite->arrayOffset;
+                pSprite->work0 = pSprite->arrayOffset;
             else
             {
                 if (pSprite->arrayOffset < limit)
@@ -664,7 +664,7 @@ void MellowMove(struct SpriteData* pSprite)
                 if (newPos & 0x8000)
                 {
                     flip++;
-                    pSprite->timer = 0;
+                    pSprite->work0 = 0;
                     pSprite->yPosition = 0;
                 }
                 else
@@ -673,14 +673,14 @@ void MellowMove(struct SpriteData* pSprite)
         }
         else
         {
-            if (--pSprite->timer != 0)
+            if (--pSprite->work0 != 0)
             {
-                offset = (pSprite->timer >> 2);
+                offset = (pSprite->work0 >> 2);
                 newPos = pSprite->yPosition - offset;
                 if (newPos & 0x8000)
                 {
                     flip++;
-                    pSprite->timer = 0;
+                    pSprite->work0 = 0;
                     pSprite->yPosition = 0;
                 }
                 else
@@ -695,7 +695,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         pSprite->status ^= SPRITE_STATUS_UNKNOWN_400;
         ///pSprite->arrayOffset = 1;
-        gCurrentSprite.arrayOffset = 1;
+        gCurrentSprite.work3 = 1;
     }
 
     pSprite->oamScaling--;
@@ -1268,7 +1268,7 @@ void Hive(void)
     {
         SpriteUtilUpdateFreezeTimer();
         SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_HIVE_ROOTS, gCurrentSprite.primarySpriteRamSlot);
-        gCurrentSprite.timer = gCurrentSprite.freezeTimer;
+        gCurrentSprite.work0 = gCurrentSprite.freezeTimer;
     }
     else
     {
@@ -1422,27 +1422,27 @@ void MellowSwarm(void)
             if (gCurrentSprite.spriteId == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
             {
                 if (gEquipment.currentEnergy >= 0x190)
-                    gCurrentSprite.workVariable2 = 0xF;
+                    gCurrentSprite.work2 = 0xF;
                 else
                 {
                     if (gEquipment.currentEnergy >= 0x12C)
-                        gCurrentSprite.workVariable2 = 0xC;
+                        gCurrentSprite.work2 = 0xC;
                     else
                     {
                         if (gEquipment.currentEnergy >= 0xC8)
-                            gCurrentSprite.workVariable2 = 0x9;
+                            gCurrentSprite.work2 = 0x9;
                         else
                         {
                             if (gEquipment.currentEnergy >= 0x64)
-                                gCurrentSprite.workVariable2 = 0x6;
+                                gCurrentSprite.work2 = 0x6;
                             else
-                                gCurrentSprite.workVariable2 = 0x3;
+                                gCurrentSprite.work2 = 0x3;
                         }
                     }
                 }
             }
             else
-                gCurrentSprite.workVariable2 = 0x5;
+                gCurrentSprite.work2 = 0x5;
         }
     }
     else
@@ -1462,7 +1462,7 @@ void MellowSwarm(void)
 
             if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) == 0x0)
             {
-                if (count >= gCurrentSprite.workVariable2)
+                if (count >= gCurrentSprite.work2)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
                     return;

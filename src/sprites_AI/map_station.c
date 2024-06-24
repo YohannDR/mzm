@@ -119,7 +119,7 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = MAP_STATION_POSE_DOWNLOADING;
-        gCurrentSprite.timer = 60 + 60 / 6;
+        gCurrentSprite.work0 = 60 + 60 / 6;
         gSamusData.timer = 0;
     }
 }
@@ -130,7 +130,7 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
  */
 void MapStationDownloading(void)
 {
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
         // Set retracting
         gCurrentSprite.pOam = sMapStationOAM_Retracting;
@@ -138,9 +138,9 @@ void MapStationDownloading(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = MAP_STATION_POSE_DOWNLOADED;
-        gCurrentSprite.timer = 10;
+        gCurrentSprite.work0 = 10;
     }
-    else if (gCurrentSprite.timer == 10)
+    else if (gCurrentSprite.work0 == 10)
     {
         // Start pause screen download sequence
         gPauseScreenFlag = PAUSE_SCREEN_MAP_DOWNLOAD;
@@ -155,8 +155,8 @@ void MapStationSpawnMessage(void)
 {
     u8 text;
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer != 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 != 0)
         return;
 
     // Get message
@@ -187,7 +187,7 @@ void MapStationSpawnMessage(void)
     }
 
     // Spawn item banner
-    gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 6,
+    gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 6,
         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
     gCurrentSprite.hitboxBottomOffset = -BLOCK_SIZE;
@@ -206,12 +206,12 @@ void MapStationWaitForMessage(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.workVariable;
+    ramSlot = gCurrentSprite.work1;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         // Message was removed, continue animation
         gCurrentSprite.pose = MAP_STATION_POSE_DELAY_BEFORE_RETRACTING;
-        gCurrentSprite.timer = 10;
+        gCurrentSprite.work0 = 10;
     }
 }
 
@@ -221,8 +221,8 @@ void MapStationWaitForMessage(void)
  */
 void MapStationDelayBeforeRetracting(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = MAP_STATION_POSE_RETRACTING;
 }
 

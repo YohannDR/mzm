@@ -13,7 +13,7 @@
 #define MORPH_BALL_LAUNCHER_PART_BACK 0x0
 #define MORPH_BALL_LAUNCHER_PART_ENERGY 0x1
 
-void MorphBallLauncherChangeCCAA(u8 caa);
+void MorphBallLauncherChangeCcaa(u8 caa);
 void MorphBallLauncherInit(void);
 void MorphBallLauncherDetectBomb(void);
 void MorphBallLauncherDelayBeforeLaunching(void);

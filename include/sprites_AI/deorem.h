@@ -20,8 +20,8 @@
 #define DEOREM_POSE_DYING_GOING_DOWN 0x67
 #define DEOREM_POSE_DEATH 0x68
 
-void DeoremChangeLeftCCAA(u8 caa);
-void DeoremChangeRightCCAA(u8 caa);
+void DeoremChangeLeftCcaa(u8 caa);
+void DeoremChangeRightCcaa(u8 caa);
 void DeoremMoveDiagonaly(u8 velocity, u16 dstPosition);
 void DeoremRandomSpriteDebris(u8 rng);
 void DeoremSpriteDebrisSpawn(u16 yPosition, u16 xPosition, u8 timer);

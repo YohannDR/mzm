@@ -54,7 +54,7 @@ void DessgeegaInit(void)
         }
 
         // Lock doors and set samus detection behavior
-        gDoorUnlockTimer = 0x1;
+        LOCK_DOORS();
         gCurrentSprite.pose = DESSGEEGA_POSE_LONG_BEAM_DETECT;
     }
     else
@@ -71,7 +71,7 @@ void DessgeegaInit(void)
     }
 
     // Set hitbox and draw distances based on direction
-    gCurrentSprite.timer = 0x0;
+    gCurrentSprite.work0 = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x8;
@@ -121,14 +121,14 @@ void DessgeegaJumpingInit(void)
     gCurrentSprite.pose = DESSGEEGA_POSE_JUMPING;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.pOam = sDessgeegaOAM_Jumping;
 
     // Set high or low jump depending on RNG
     if (gSpriteRng & 0x1)
-        gCurrentSprite.workVariable2 = TRUE; // Low
+        gCurrentSprite.work2 = TRUE; // Low
     else
-        gCurrentSprite.workVariable2 = FALSE; // High
+        gCurrentSprite.work2 = FALSE; // High
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x15A);
@@ -163,8 +163,8 @@ void DessgeegaIdleInit(void)
         gCurrentSprite.pose = DESSGEEGA_POSE_IDLE;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.workVariable = gSpriteRng & 0x3;
+        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work1 = gSpriteRng & 0x3;
 
         // Set screaming or idle
         if (gSpriteRng >= 0x8)
@@ -187,7 +187,7 @@ void DessgeegaFallingInit(void)
     gCurrentSprite.pose = DESSGEEGA_POSE_FALLING;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.pOam = sDessgeegaOAM_Jumping; // Use same animation as jumping
 }
 
@@ -239,10 +239,10 @@ void DessgeegaJumpingGround(void)
     u32 topEdge;
 
     collision = 0x0;
-    if (gCurrentSprite.workVariable2) // Low jump flag
-        yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.arrayOffset / 4];
+    if (gCurrentSprite.work2) // Low jump flag
+        yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.work3 / 4];
     else
-        yVelocity = sDessgeegaHighJumpYVelocity[gCurrentSprite.arrayOffset / 4];
+        yVelocity = sDessgeegaHighJumpYVelocity[gCurrentSprite.work3 / 4];
 
     // Apply movement
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -277,8 +277,8 @@ void DessgeegaJumpingGround(void)
     // Apply Y
     gCurrentSprite.yPosition += yVelocity;
 
-    if (gCurrentSprite.arrayOffset < 0x27)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < 0x27)
+        gCurrentSprite.work3++;
 
     if (yVelocity >= 0x1)
     {
@@ -363,10 +363,10 @@ void DessgeegaJumpingCeiling(void)
     u32 topEdge;
 
     collision = 0x0;
-    if (gCurrentSprite.workVariable2) // Low jump flag
-        yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.arrayOffset / 4];
+    if (gCurrentSprite.work2) // Low jump flag
+        yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.work3 / 4];
     else
-        yVelocity = sDessgeegaHighJumpYVelocity[gCurrentSprite.arrayOffset / 4];
+        yVelocity = sDessgeegaHighJumpYVelocity[gCurrentSprite.work3 / 4];
 
     // Apply movement
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -401,8 +401,8 @@ void DessgeegaJumpingCeiling(void)
     // Apply Y
     gCurrentSprite.yPosition -= yVelocity;
 
-    if (gCurrentSprite.arrayOffset < 0x27)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < 0x27)
+        gCurrentSprite.work3++;
 
     if (yVelocity < 0x0)
     {
@@ -525,7 +525,7 @@ void DessgeegaFallingGround(void)
     else
     {
         // Update Y position
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingSpeed[offset];
         if (movement == SHORT_MAX)
         {
@@ -535,7 +535,7 @@ void DessgeegaFallingGround(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }
@@ -578,7 +578,7 @@ void DessgeegaFallingCeiling(void)
     else
     {
         // Update Y position
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingCeilingSpeed[offset];
         if (movement == SHORT_MAX)
         {
@@ -588,7 +588,7 @@ void DessgeegaFallingCeiling(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }
@@ -616,7 +616,7 @@ void DessgeegaIdleGround(void)
         }
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.timer++ == gCurrentSprite.workVariable)
+            if (gCurrentSprite.work0++ == gCurrentSprite.work1)
                 DessgeegaJumpWarningInit();
             else
             {
@@ -639,7 +639,7 @@ void DessgeegaIdleCeiling(void)
     {
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.timer++ == gCurrentSprite.workVariable)
+            if (gCurrentSprite.work0++ == gCurrentSprite.work1)
                 DessgeegaJumpWarningInit();
             else
             {
@@ -693,7 +693,7 @@ void DessgeegaLongBeamDetectSamus(void)
         gCurrentSprite.pOam = sDessgeegaOAM_Jumping;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.arrayOffset = FALSE;
+        gCurrentSprite.work3 = FALSE;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
         ScreenShakeStartVertical(0xA, 0x81);
@@ -726,9 +726,9 @@ void DessgeegaLongBeamSpawning(void)
     {
         // Colliding with solid
         // Check hasn't destroyed floor
-        if (!gCurrentSprite.arrayOffset)
+        if (!gCurrentSprite.work3)
         {
-            gCurrentSprite.arrayOffset++; // Set block destroyed flag
+            gCurrentSprite.work3++; // Set block destroyed flag
 
             yPosition = gCurrentSprite.yPosition;
             xPosition = gCurrentSprite.xPosition;

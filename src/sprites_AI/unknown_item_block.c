@@ -16,7 +16,7 @@
  * 
  * @param caa Clipdata affecting action
  */
-void UnknownItemBlockChangeCCAA(u8 caa)
+void UnknownItemBlockChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -76,7 +76,7 @@ void UnknownItemBlock(void)
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
 
-            UnknownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
+            UnknownItemBlockChangeCcaa(CAA_MAKE_SOLID_GRIPPABLE);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
             // Check activate block
@@ -172,7 +172,7 @@ void UnknownItemBlock(void)
 
             gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
 
-            UnknownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
+            UnknownItemBlockChangeCcaa(CAA_REMOVE_SOLID); // Remove collision
 
             // Play sound, most likely planned to have a different sound for each block
             if (spriteId == PSPRITE_PLASMA_BEAM_BLOCK)

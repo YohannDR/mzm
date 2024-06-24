@@ -88,7 +88,7 @@ void Geron(void)
             gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.arrayOffset = 0;
+            gCurrentSprite.work3 = 0;
 
             if (destroyed)
             {
@@ -140,7 +140,7 @@ void Geron(void)
                     if (spriteBottom > yPosition && spriteTop < yPosition && spriteRight > xPosition && spriteLeft < xPosition)
                     {
                         // Assign geron
-                        pSprite->workVariable = gCurrentSprite.primarySpriteRamSlot;
+                        pSprite->work1 = gCurrentSprite.primarySpriteRamSlot;
 
                         // Set grabbed behavior
                         pSprite->pose = PARASITE_POSE_GERON_GRABBED_INIT;
@@ -150,12 +150,12 @@ void Geron(void)
                         pSprite->samusCollision = SSC_NONE;
 
                         // Increase amount of parasites
-                        gCurrentSprite.arrayOffset++;
+                        gCurrentSprite.work3++;
                     }
                 }
             }
 
-            if (gCurrentSprite.arrayOffset >= 4)
+            if (gCurrentSprite.work3 >= 4)
             {
                 // Set getting destroyed
                 gCurrentSprite.pose = GERON_POSE_GETTING_DESTROYED;
@@ -164,7 +164,7 @@ void Geron(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
-                gCurrentSprite.timer = 200;
+                gCurrentSprite.work0 = 200;
                 SoundPlayNotAlreadyPlaying(0x26C);
             }
             else
@@ -195,8 +195,8 @@ void Geron(void)
             break;
         
         case GERON_POSE_GETTING_DESTROYED:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.pose = GERON_POSE_DELAY_BEFORE_DESTROYED;

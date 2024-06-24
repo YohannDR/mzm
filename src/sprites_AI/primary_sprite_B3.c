@@ -41,37 +41,37 @@ void PrimarySpriteB3(void)
 
         if (gAlarmTimer != 0)
         {
-            gCurrentSprite.workVariable2 = FALSE;
-            gCurrentSprite.arrayOffset = 16;
+            gCurrentSprite.work2 = FALSE;
+            gCurrentSprite.work3 = 16;
         }
         else
         {
-            gCurrentSprite.workVariable2 = TRUE;
-            gCurrentSprite.arrayOffset = 8;
+            gCurrentSprite.work2 = TRUE;
+            gCurrentSprite.work3 = 8;
         }
     }
 
     if (gAlarmTimer != 0)
     {
-        if (gCurrentSprite.workVariable2)
+        if (gCurrentSprite.work2)
         {
-            gCurrentSprite.workVariable2--;
-            if (!gCurrentSprite.workVariable2 && gCurrentSprite.arrayOffset < 16)
+            gCurrentSprite.work2--;
+            if (!gCurrentSprite.work2 && gCurrentSprite.work3 < 16)
             {
-                gCurrentSprite.arrayOffset++;
-                gCurrentSprite.workVariable2 = TRUE;
+                gCurrentSprite.work3++;
+                gCurrentSprite.work2 = TRUE;
             }
         }
     }
 
     else
     {
-        if (gCurrentSprite.arrayOffset != 8)
+        if (gCurrentSprite.work3 != 8)
         {
-            gCurrentSprite.arrayOffset = 8;
-            gCurrentSprite.workVariable2 = TRUE;
+            gCurrentSprite.work3 = 8;
+            gCurrentSprite.work2 = TRUE;
         }
     }
 
-    TransparencySpriteUpdateBLDALPHA(0, gCurrentSprite.arrayOffset, 0, 16);
+    TransparencySpriteUpdateBLDALPHA(0, gCurrentSprite.work3, 0, 16);
 }

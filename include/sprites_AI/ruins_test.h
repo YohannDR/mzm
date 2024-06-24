@@ -99,7 +99,7 @@
 #define RUINS_TEST_TRANSFER_DYNAMIC_PAL(pal, size) DMA_SET(3, pal, RUINS_TEST_DYNAMIC_PAL_ADDR, C_32_2_16(DMA_ENABLE, size))
 
 void RuinsTestCalculateDelay(u8 delay);
-void RuinsTestChangeCCAA(u8 caa);
+void RuinsTestChangeCcaa(u8 caa);
 void RuinsTestMoveToPosition(u16 yTarget, u16 xTarget, u16 yPosition, u16 xPosition, u16 speedMultiplier, u16 speed);
 u8 RuinsTestProjectileCollision(void);
 u8 RuinsTestCheckHitByChargedPistol(void);

@@ -85,24 +85,24 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidX)
         {
-            if (gCurrentSprite.workVariable == 0)
+            if (gCurrentSprite.work1 == 0)
             {
                 if (gCurrentSprite.xPosition <= (dstX - 4))
                 {
                     limit = 20;
-                    if (gCurrentSprite.workVariable2 < limit)
-                        gCurrentSprite.workVariable2++;
+                    if (gCurrentSprite.work2 < limit)
+                        gCurrentSprite.work2++;
 
-                    gCurrentSprite.xPosition += (gCurrentSprite.workVariable2 >> speedDivisor);
+                    gCurrentSprite.xPosition += (gCurrentSprite.work2 >> speedDivisor);
                 }
                 else
-                    gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                    gCurrentSprite.work1 = gCurrentSprite.work2;
             }
             else
             {
-                gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable != 0)
-                    gCurrentSprite.xPosition += (gCurrentSprite.workVariable >> speedDivisor);
+                gCurrentSprite.work1--;
+                if (gCurrentSprite.work1 != 0)
+                    gCurrentSprite.xPosition += (gCurrentSprite.work1 >> speedDivisor);
                 else
                     flip = TRUE;
             }
@@ -114,24 +114,24 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidX)
         {
-            if (gCurrentSprite.workVariable == 0)
+            if (gCurrentSprite.work1 == 0)
             {
                 if (gCurrentSprite.xPosition < (dstX + 4))
-                    gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                    gCurrentSprite.work1 = gCurrentSprite.work2;
                 else
                 {
                     limit = 20;
-                    if (gCurrentSprite.workVariable2 < limit)
-                        gCurrentSprite.workVariable2++;
+                    if (gCurrentSprite.work2 < limit)
+                        gCurrentSprite.work2++;
 
-                    gCurrentSprite.xPosition -= (gCurrentSprite.workVariable2 >> speedDivisor);
+                    gCurrentSprite.xPosition -= (gCurrentSprite.work2 >> speedDivisor);
                 }
             }
             else
             {
-                gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable != 0)
-                    gCurrentSprite.xPosition -= (gCurrentSprite.workVariable >> speedDivisor);
+                gCurrentSprite.work1--;
+                if (gCurrentSprite.work1 != 0)
+                    gCurrentSprite.xPosition -= (gCurrentSprite.work1 >> speedDivisor);
                 else
                     flip = TRUE;
             }
@@ -143,7 +143,7 @@ void AtomicSmoothMovement(void)
     if (flip)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.workVariable2 = 1;
+        gCurrentSprite.work2 = 1;
     }
 
     
@@ -152,24 +152,24 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidY)
         {
-            if (gCurrentSprite.timer == 0)
+            if (gCurrentSprite.work0 == 0)
             {
                 if (gCurrentSprite.yPosition <= (dstY - 4))
                 {
                     limit = 20;
-                    if (gCurrentSprite.arrayOffset < limit)
-                        gCurrentSprite.arrayOffset++;
+                    if (gCurrentSprite.work3 < limit)
+                        gCurrentSprite.work3++;
 
-                    gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
+                    gCurrentSprite.yPosition += (gCurrentSprite.work3 >> speedDivisor);
                 }
                 else
-                    gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                    gCurrentSprite.work0 = gCurrentSprite.work3;
             }
             else
             {
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer != 0)
-                    gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 != 0)
+                    gCurrentSprite.yPosition += (gCurrentSprite.work0 >> speedDivisor);
                 else
                     flip = TRUE;
             }
@@ -181,24 +181,24 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidY)
         {
-            if (gCurrentSprite.timer == 0)
+            if (gCurrentSprite.work0 == 0)
             {
                 if (gCurrentSprite.yPosition < (dstY + 4))
-                    gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                    gCurrentSprite.work0 = gCurrentSprite.work3;
                 else
                 {
                     limit = 20;
-                    if (gCurrentSprite.arrayOffset < limit)
-                        gCurrentSprite.arrayOffset++;
+                    if (gCurrentSprite.work3 < limit)
+                        gCurrentSprite.work3++;
 
-                    gCurrentSprite.yPosition -= (gCurrentSprite.arrayOffset >> speedDivisor);
+                    gCurrentSprite.yPosition -= (gCurrentSprite.work3 >> speedDivisor);
                 }
             }
             else
             {
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer != 0)
-                    gCurrentSprite.yPosition -= (gCurrentSprite.timer >> speedDivisor);
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 != 0)
+                    gCurrentSprite.yPosition -= (gCurrentSprite.work0 >> speedDivisor);
                 else
                     flip = TRUE;
             }
@@ -210,7 +210,7 @@ void AtomicSmoothMovement(void)
     if (flip)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
-        gCurrentSprite.arrayOffset = 0x1;
+        gCurrentSprite.work3 = 0x1;
     }
 }
 
@@ -252,8 +252,8 @@ void AtomicUpdateDirectionToFleeSamus(void)
 
         // Set moving behavior
         gCurrentSprite.pose = ATOMIC_POSE_MOVE;
-        gCurrentSprite.arrayOffset = 0x4;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work3 = 0x4;
+        gCurrentSprite.work0 = 0x0;
     }
 }
 
@@ -271,7 +271,7 @@ void AtomicCheckShootElectricity(void)
         gCurrentSprite.oamScaling--;
         if (gCurrentSprite.oamScaling == 0x0)
         {
-            gCurrentSprite.workVariable = 0x0;
+            gCurrentSprite.work1 = 0x0;
             gCurrentSprite.oamRotation = 0x1;
 
             SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
@@ -283,7 +283,7 @@ void AtomicCheckShootElectricity(void)
         gCurrentSprite.oamRotation--;
         if (gCurrentSprite.oamRotation == 0x0)
         {
-            offset = gCurrentSprite.workVariable++;
+            offset = gCurrentSprite.work1++;
 
             palette = sAtomicDynamicPaletteData[offset][0];
             gCurrentSprite.absolutePaletteRow = palette;
@@ -346,8 +346,8 @@ void AtomicIdleInit(void)
     gCurrentSprite.pOam = sAtomicOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
-    gCurrentSprite.workVariable2 = 0x0;
+    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.work2 = 0x0;
 }
 
 /**
@@ -367,25 +367,25 @@ void AtomicIdle(void)
     }
 
     // Y movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sAtomicIdleYMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sAtomicIdleYMovement[0]; // 0
         offset = 0;
     }
-    gCurrentSprite.arrayOffset = offset + 1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     // X movement
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sAtomicIdleXMovement[offset];
     if (movement == SHORT_MAX)
     {
         movement = sAtomicIdleXMovement[0]; // 0
         offset = 0;
     }
-    gCurrentSprite.workVariable2 = offset + 1;
+    gCurrentSprite.work2 = offset + 1;
     gCurrentSprite.xPosition += movement;
 
     AtomicUpdateDirectionToFleeSamus();
@@ -413,15 +413,15 @@ void AtomicMove(void)
         xPosition = gCurrentSprite.xPosition;
 
         // Timer for how long to move
-        if (++gCurrentSprite.timer > 0x50)
+        if (++gCurrentSprite.work0 > 0x50)
             gCurrentSprite.pose = ATOMIC_POSE_MOVE_BACK_IDLE;
         else
         {
             // Gradually decrease speed
-            if (!(gCurrentSprite.timer & 0xF) && gCurrentSprite.arrayOffset != 0x0)
-                gCurrentSprite.arrayOffset--;
+            if (!(gCurrentSprite.work0 & 0xF) && gCurrentSprite.work3 != 0x0)
+                gCurrentSprite.work3--;
 
-            movement = gCurrentSprite.arrayOffset;
+            movement = gCurrentSprite.work3;
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             {
                 // Move down
@@ -553,10 +553,10 @@ void AtomicChasingSamusInit(void)
     gCurrentSprite.pose = ATOMIC_POSE_CHASING_SAMUS;
     gCurrentSprite.absolutePaletteRow = 0x0;
     gCurrentSprite.paletteRow = 0x0;
-    gCurrentSprite.workVariable = 0x0;
-    gCurrentSprite.workVariable2 = 0x1;
-    gCurrentSprite.timer = 0x0;
-    gCurrentSprite.arrayOffset = 0x1;
+    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work2 = 0x1;
+    gCurrentSprite.work0 = 0x0;
+    gCurrentSprite.work3 = 0x1;
 }
 
 void AtomicChaseSamus(void)
@@ -566,7 +566,7 @@ void AtomicChaseSamus(void)
         gCurrentSprite.pose = ATOMIC_POSE_IDLE_INIT;
         if (gCurrentSprite.oamScaling == 0x0)
         {
-            gCurrentSprite.workVariable = 0x0;
+            gCurrentSprite.work1 = 0x0;
             gCurrentSprite.oamRotation = 0x1;
         }
     }
@@ -676,7 +676,7 @@ void AtomicElectricitySpawn(void)
         {
             // Shooting horizontally
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingHorizontal;
-            gCurrentSprite.workVariable = 0x1; // Direction
+            gCurrentSprite.work1 = 0x1; // Direction
             gCurrentSprite.hitboxTopOffset = -0x1C;
             gCurrentSprite.hitboxBottomOffset = 0x1C;
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
@@ -694,7 +694,7 @@ void AtomicElectricitySpawn(void)
         {
             // Shooting vertically
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingVertical;
-            gCurrentSprite.workVariable = 0x2; // Direction
+            gCurrentSprite.work1 = 0x2; // Direction
             gCurrentSprite.hitboxLeftOffset = -0x1C;
             gCurrentSprite.hitboxRightOffset = 0x1C;
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
@@ -712,7 +712,7 @@ void AtomicElectricitySpawn(void)
         {
             // Shooting diagonally
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingDiagonal;
-            gCurrentSprite.workVariable = 0x0; // Direction
+            gCurrentSprite.work1 = 0x0; // Direction
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
@@ -749,7 +749,7 @@ void AtomicElectricityMove(void)
 
     speed = 0x14;
     // Check move Y
-    if (!(gCurrentSprite.workVariable & 0x1))
+    if (!(gCurrentSprite.work1 & 0x1))
     {
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
             gCurrentSprite.yPosition += speed;
@@ -758,7 +758,7 @@ void AtomicElectricityMove(void)
     }
 
     // Check move X
-    if (!(gCurrentSprite.workVariable & 0x2))
+    if (!(gCurrentSprite.work1 & 0x2))
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             gCurrentSprite.xPosition += speed;
@@ -781,7 +781,7 @@ void AtomicElectricityMove(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        if (gCurrentSprite.workVariable != 0x0)
+        if (gCurrentSprite.work1 != 0x0)
             gCurrentSprite.pOam = sAtomicElectricityOAM_ExplodingNonDiagonal;
         else
             gCurrentSprite.pOam = sAtomicElectricityOAM_ExplodingDiagonal;

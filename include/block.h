@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/block.h"
 
-u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock);
+u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock);
 u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock);
 u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock);
 u32 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock);
@@ -15,7 +15,7 @@ void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition);
 void BlockShiftNeverReformBlocks(void);
 u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock);
 u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock);
-u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip);
+u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip);
 u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition);
 u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosition, u16 action);
 void BlockUpdateBrokenBlocks(void);

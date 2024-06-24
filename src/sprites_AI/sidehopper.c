@@ -45,7 +45,7 @@ void SidehopperInit(void)
         gCurrentSprite.yPosition -= BLOCK_SIZE;
     }
 
-    gCurrentSprite.timer = 0x0;
+    gCurrentSprite.work0 = 0x0;
     gCurrentSprite.pose = SIDEHOPPER_POSE_IDLE;
 
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
@@ -99,13 +99,13 @@ void SidehopperJumpingInit(void)
 
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.pOam = sSidehopperOAM_Jumping;
 
     if (gSpriteRng & 0x1)
-        gCurrentSprite.workVariable2 = TRUE;
+        gCurrentSprite.work2 = TRUE;
     else
-        gCurrentSprite.workVariable2 = FALSE;
+        gCurrentSprite.work2 = FALSE;
 
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         gCurrentSprite.hitboxBottomOffset = 0x70;
@@ -150,9 +150,9 @@ void SidehopperIdleInit(void)
         gCurrentSprite.pose = SIDEHOPPER_POSE_IDLE;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work0 = 0x0;
 
-        gCurrentSprite.workVariable = gSpriteRng & 0x3;
+        gCurrentSprite.work1 = gSpriteRng & 0x3;
 
         if (gSpriteRng > 0x7)
             gCurrentSprite.pOam = sSidehopperOAM_Idle;
@@ -174,7 +174,7 @@ void SidehopperFallingInit(void)
     gCurrentSprite.pose = SIDEHOPPER_POSE_FALLING;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.pOam = sSidehopperOAM_Jumping;
 }
 
@@ -225,10 +225,10 @@ void SidehopperJumpingGround(void)
 
     colliding = FALSE;
 
-    if (gCurrentSprite.workVariable2)
-        movement = sSidehopperLowJumpVelocity[gCurrentSprite.arrayOffset / 4];
+    if (gCurrentSprite.work2)
+        movement = sSidehopperLowJumpVelocity[gCurrentSprite.work3 / 4];
     else
-        movement = sSidehopperHighJumpVelocity[gCurrentSprite.arrayOffset / 4];
+        movement = sSidehopperHighJumpVelocity[gCurrentSprite.work3 / 4];
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
@@ -262,8 +262,8 @@ void SidehopperJumpingGround(void)
     }
 
     gCurrentSprite.yPosition += movement;
-    if (gCurrentSprite.arrayOffset < 0x27)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < 0x27)
+        gCurrentSprite.work3++;
 
     if (movement > 0x0)
     {
@@ -342,10 +342,10 @@ void SidehopperJumpingCeiling(void)
 
     colliding = FALSE;
 
-    if (gCurrentSprite.workVariable2)
-        movement = sSidehopperLowJumpVelocity[gCurrentSprite.arrayOffset / 4];
+    if (gCurrentSprite.work2)
+        movement = sSidehopperLowJumpVelocity[gCurrentSprite.work3 / 4];
     else
-        movement = sSidehopperHighJumpVelocity[gCurrentSprite.arrayOffset / 4];
+        movement = sSidehopperHighJumpVelocity[gCurrentSprite.work3 / 4];
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
@@ -379,8 +379,8 @@ void SidehopperJumpingCeiling(void)
     }
 
     gCurrentSprite.yPosition -= movement;
-    if (gCurrentSprite.arrayOffset < 0x27)
-        gCurrentSprite.arrayOffset++;
+    if (gCurrentSprite.work3 < 0x27)
+        gCurrentSprite.work3++;
 
     if (movement < 0x0)
     {
@@ -494,7 +494,7 @@ void SidehopperFallingGround(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingSpeed[offset];
 
         if (movement == SHORT_MAX)
@@ -504,7 +504,7 @@ void SidehopperFallingGround(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }
@@ -548,7 +548,7 @@ void SidehopperFallingCeiling(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingCeilingSpeed[offset];
 
         if (movement == SHORT_MAX)
@@ -558,7 +558,7 @@ void SidehopperFallingCeiling(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += movement;
         }
     }
@@ -587,7 +587,7 @@ void SidehopperIdleGround(void)
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.timer++ == gCurrentSprite.workVariable)
+            if (gCurrentSprite.work0++ == gCurrentSprite.work1)
                 SidehopperJumpWarningInit();
             else
             {
@@ -610,7 +610,7 @@ void SidehopperIdleCeiling(void)
     {
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.timer++ == gCurrentSprite.workVariable)
+            if (gCurrentSprite.work0++ == gCurrentSprite.work1)
                 SidehopperJumpWarningInit();
             else
             {

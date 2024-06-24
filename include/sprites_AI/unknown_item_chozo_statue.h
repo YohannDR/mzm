@@ -81,7 +81,7 @@ void UnknownItemChozoStatuePartLegIdle(void);
 void UnknownItemChozoStatue(void);
 void UnknownItemChozoStatuePart(void);
 void UnknownItemChozoStatueRefill(void);
-void ChozoStatueStandingChangeCCAA(u8 bodyCaa, u8 handCaa);
-void ChozoStatueSeatedChangeCCAA(u8 caa);
+void ChozoStatueStandingChangeCcaa(u8 bodyCaa, u8 handCaa);
+void ChozoStatueSeatedChangeCcaa(u8 caa);
 
 #endif /* UNKNOWN_ITEM_CHOZO_STATUE_AI_H */

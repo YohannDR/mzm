@@ -26,7 +26,7 @@ void GametInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-    gCurrentSprite.workVariable = 0x1;
+    gCurrentSprite.work1 = 0x1;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
@@ -76,8 +76,8 @@ void GametIdle(void)
         SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_GAMET_BLUE_FOLLOWER) == 0x0)
         && !SpriteUtilCheckHasDrops())
     {
-        if (gCurrentSprite.workVariable != 0x0)
-            gCurrentSprite.workVariable--;
+        if (gCurrentSprite.work1 != 0x0)
+            gCurrentSprite.work1--;
         else
         {
             samusY = gSamusData.yPosition;
@@ -95,7 +95,7 @@ void GametIdle(void)
                     // Samus in range, set going up
                     gCurrentSprite.oamScaling = gSamusData.yPosition;
                     gCurrentSprite.pose = GAMET_POSE_GOING_UP;
-                    gCurrentSprite.timer = 0x2;
+                    gCurrentSprite.work0 = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     
                     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -114,7 +114,7 @@ void GametIdle(void)
                         if (ramSlot != 0xFF)
                         {
                             gSpriteData[ramSlot].oamScaling = gCurrentSprite.oamScaling;
-                            gSpriteData[ramSlot].timer = 0xA;
+                            gSpriteData[ramSlot].work0 = 0xA;
     
                             // Second follower
                             ramSlot = SpriteSpawnDropFollowers(PSPRITE_GAMET_BLUE_FOLLOWER, gCurrentSprite.roomSlot,
@@ -125,7 +125,7 @@ void GametIdle(void)
                             if (ramSlot != 0xFF)
                             {
                                 gSpriteData[ramSlot].oamScaling = gCurrentSprite.oamScaling;
-                                gSpriteData[ramSlot].timer = 0x12;
+                                gSpriteData[ramSlot].work0 = 0x12;
                             }
                         }
                     }
@@ -147,10 +147,10 @@ void GametGoingUp(void)
     gCurrentSprite.yPosition -= 0x8;
 
     // Damage delay
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
@@ -164,7 +164,7 @@ void GametGoingUp(void)
         {
             // Reached samus, set moving
             gCurrentSprite.pose = GAMET_POSE_MOVING;
-            gCurrentSprite.timer = 0xA;
+            gCurrentSprite.work0 = 0xA;
 
             gCurrentSprite.pOam = sGametOAM_Moving;
             gCurrentSprite.currentAnimationFrame = 0x0;
@@ -191,7 +191,7 @@ void GametRespawn(void)
 
         GametIdleInit();
 
-        gCurrentSprite.workVariable = 0x3C;
+        gCurrentSprite.work1 = 0x3C;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.invincibilityStunFlashTimer = 0x0;
@@ -209,20 +209,20 @@ void GametRespawn(void)
  */
 void GametMove(void)
 {
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.work0 != 0x0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(0x17A);
 
-            gCurrentSprite.workVariable = 0x0;
+            gCurrentSprite.work1 = 0x0;
         }
     }
     else
     {
-        gCurrentSprite.workVariable++;
+        gCurrentSprite.work1++;
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
             // Check should respawn
@@ -246,7 +246,7 @@ void GametMove(void)
                 gCurrentSprite.xPosition -= 0xC; // Move
         }
 
-        if (!(gCurrentSprite.workVariable & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(0x17A);
     }
 }

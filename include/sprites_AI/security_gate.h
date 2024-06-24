@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-void SecurityGateChangeCCAA(u8 caa);
+void SecurityGateChangeCcaa(u8 caa);
 void SecurityGateOpen(void);
 void SecurityGateStartClosing(void);
 void SecurityGateDefaultOpenInit(void);

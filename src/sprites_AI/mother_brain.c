@@ -120,11 +120,11 @@ void MotherBrainInit(void)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.workVariable = 0x0;
+        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work1 = 0x0;
         gCurrentSprite.oamScaling = 0x0;
         gCurrentSprite.oamRotation = 0x0;
-        gCurrentSprite.workVariable2 = 0x0;
+        gCurrentSprite.work2 = 0x0;
         
         gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteData;
         gSubSpriteData1.animationDurationCounter = 0x0;
@@ -223,8 +223,8 @@ void MotherBrainMainLoop(void)
     if (gCurrentSprite.pOam == sMotherBrainOAM_ChargingBeam)
     {
         // delay before charging
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sMotherBrainOAM_Idle;
             gCurrentSprite.animationDurationCounter = 0x0;
@@ -263,7 +263,7 @@ void MotherBrainMainLoop(void)
                     gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
                     gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
                     SoundPlay(0x2BA); // Mother brain eye closing
-                    gCurrentSprite.workVariable2 = 0x1;
+                    gCurrentSprite.work2 = 0x1;
                 }
             }
         }
@@ -284,16 +284,16 @@ void MotherBrainMainLoop(void)
         // Check should start charging beam
         if (gSubSpriteData1.yPosition + (BLOCK_SIZE * 2) >= gSamusData.yPosition)
         {
-            gCurrentSprite.workVariable2--; // Delay
-            if (gCurrentSprite.workVariable2 == 0x0)
+            gCurrentSprite.work2--; // Delay
+            if (gCurrentSprite.work2 == 0x0)
             {
                 // Set charging beam behavior
                 gCurrentSprite.pOam = sMotherBrainOAM_ChargingBeam;
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
 
-                gCurrentSprite.workVariable = 0x48;
-                gCurrentSprite.timer = 0x48;
+                gCurrentSprite.work1 = 0x48;
+                gCurrentSprite.work0 = 0x48;
                 gCurrentSprite.oamScaling = 0x0;
                 gCurrentSprite.oamRotation = 0x0;
             }
@@ -301,7 +301,7 @@ void MotherBrainMainLoop(void)
     }
     else if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOAM_EyeOpening)
     {
-        if (gCurrentSprite.workVariable == 0x0)
+        if (gCurrentSprite.work1 == 0x0)
         {
             // Check should close eye
             if (gSubSpriteData1.yPosition + (BLOCK_SIZE * 2) < gSamusData.yPosition)
@@ -312,17 +312,17 @@ void MotherBrainMainLoop(void)
                 gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
                 gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
                 SoundPlay(0x2BA); // Mother brain eye close
-                gCurrentSprite.workVariable2 = 0x3C;
+                gCurrentSprite.work2 = 0x3C;
             }
             return;
         }
     }
 
-    if (gCurrentSprite.workVariable == 0x0)
+    if (gCurrentSprite.work1 == 0x0)
         return;
    
     // Shooting beam
-    if (gCurrentSprite.workVariable-- == 0x1)
+    if (gCurrentSprite.work1-- == 0x1)
     {
         if (palette != 0xE)
         {
@@ -334,7 +334,7 @@ void MotherBrainMainLoop(void)
     }
     else
     {
-        if (gCurrentSprite.workVariable == 0xC)
+        if (gCurrentSprite.work1 == 0xC)
         {
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BEAM, 0x0, gCurrentSprite.spritesetGfxSlot,
@@ -344,7 +344,7 @@ void MotherBrainMainLoop(void)
             // Hide beam shooter
             gSpriteData[beamShooterRamSlot].status |= SPRITE_STATUS_NOT_DRAWN;
         }
-        else if (gCurrentSprite.workVariable == 0x14)
+        else if (gCurrentSprite.work1 == 0x14)
         {
             // Open eye
             gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeOpening;
@@ -354,7 +354,7 @@ void MotherBrainMainLoop(void)
             gSpriteData[eyeRamSlot].properties &= ~SP_IMMUNE_TO_PROJECTILES;
             SoundPlay(0x2B9); // Mother brain eye open
         }
-        else if (gCurrentSprite.workVariable == 0x18)
+        else if (gCurrentSprite.work1 == 0x18)
         {
             // Set beam shooter behavior
             gSpriteData[beamShooterRamSlot].pOam = sMotherBrainPartOAM_BeamSpawning;
@@ -398,7 +398,7 @@ void MotherBrainDeath(void)
         gSpriteData[eyeRamSlot].status = 0x0;
         gSpriteData[bottomRamSlot].status = 0x0;
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_START_ESCAPE;
-        gCurrentSprite.timer = 0x3C;
+        gCurrentSprite.work0 = 0x3C;
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         ParticleSet(gSubSpriteData1.yPosition + 0x46, gSubSpriteData1.xPosition - 0x3C, PE_MAIN_BOSS_DEATH);
         ParticleSet(gSubSpriteData1.yPosition + 0x3C, gSubSpriteData1.xPosition + 0x50, PE_MAIN_BOSS_DEATH);
@@ -414,8 +414,8 @@ void MotherBrainDeath(void)
  */
 void MotherBrainStartEscape(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         // Kill sprite
         gCurrentSprite.status = 0x0;
@@ -801,7 +801,7 @@ void MotherBrainBeam(void)
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             gCurrentSprite.health = 0x1;
-            gCurrentSprite.timer = 0x10;
+            gCurrentSprite.work0 = 0x10;
 
         case 0x9:
             gCurrentSprite.xPosition += 0xC;

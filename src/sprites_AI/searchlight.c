@@ -58,7 +58,7 @@ void Searchlight(void)
             {
                 // Alarm active, set activating behavior
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_ACTIVATING;
-                gCurrentSprite.timer = 0xA;
+                gCurrentSprite.work0 = 0xA;
                 gCurrentSprite.samusCollision = SSC_NONE;
             }
             else
@@ -105,8 +105,8 @@ void Searchlight(void)
 
         case SEARCHLIGHT_POSE_ACTIVATING:
             gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN; // Hide
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_ACTIVATE_ALARM;

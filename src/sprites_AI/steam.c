@@ -29,7 +29,7 @@ void Steam(void)
         if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE)
             isLarge = TRUE;
 
-        gCurrentSprite.workVariable = isLarge;
+        gCurrentSprite.work1 = isLarge;
 
         // Check for walls
 
@@ -155,7 +155,7 @@ void Steam(void)
     if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 2
         && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        if (gCurrentSprite.workVariable) // Is large flag
+        if (gCurrentSprite.work1) // Is large flag
             SoundPlayNotAlreadyPlaying(SOUND_STEAM_LARGE);
         else
             SoundPlayNotAlreadyPlaying(SOUND_STEAM_SMALL);
@@ -175,7 +175,7 @@ void SteamDiagonal(void)
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.pose = STEAM_POSE_IDLE;
-        gCurrentSprite.workVariable = FALSE; // Not large by default
+        gCurrentSprite.work1 = FALSE; // Not large by default
 
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
             gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
@@ -185,7 +185,7 @@ void SteamDiagonal(void)
 
         if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_UP)
         {
-            gCurrentSprite.workVariable = TRUE; // Is large flag
+            gCurrentSprite.work1 = TRUE; // Is large flag
 
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
             gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
@@ -201,7 +201,7 @@ void SteamDiagonal(void)
         }
         else if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_DOWN)
         {
-            gCurrentSprite.workVariable = TRUE; // Is large flag
+            gCurrentSprite.work1 = TRUE; // Is large flag
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
@@ -240,7 +240,7 @@ void SteamDiagonal(void)
     if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 2
         && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        if (gCurrentSprite.workVariable) // Is large flag
+        if (gCurrentSprite.work1) // Is large flag
             SoundPlayNotAlreadyPlaying(SOUND_STEAM_LARGE);
         else
             SoundPlayNotAlreadyPlaying(SOUND_STEAM_SMALL);

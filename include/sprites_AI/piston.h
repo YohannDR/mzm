@@ -8,9 +8,9 @@
 #define PISTON_POSE_OPENING 0x23
 #define PISTON_POSE_OPENED 0x25
 
-void PistonChangeFourCCAA(u8 caa);
-void PistonChangeOneBelowCCAA(u8 caa);
-void PistonChangeOneUpperCCAA(u8 caa);
+void PistonChangeFourCcaa(u8 caa);
+void PistonChangeOneBelowCcaa(u8 caa);
+void PistonChangeOneUpperCcaa(u8 caa);
 u8 PistonSamusCollision(void);
 u8 PistonCheckSamusIn(void);
 void PistonInit(void);

@@ -95,21 +95,21 @@ void MechaRidleyPartGreenGlow(void)
     u8 palRow;
     u8 stage;
 
-    if (gCurrentSprite.timer != 0)
-        gCurrentSprite.timer--;
+    if (gCurrentSprite.work0 != 0)
+        gCurrentSprite.work0--;
     else
     {
-        stage = gCurrentSprite.workVariable++;
+        stage = gCurrentSprite.work1++;
 
         palRow = sMechaRidleyGreenGlowPaletteData[stage][0];
         if (palRow == SCHAR_MAX + 1)
         {
-            gCurrentSprite.workVariable = 1;
+            gCurrentSprite.work1 = 1;
             stage = 0;
             palRow = sMechaRidleyGreenGlowPaletteData[stage][0];
         }
 
-        gCurrentSprite.timer = sMechaRidleyGreenGlowPaletteData[stage][1];
+        gCurrentSprite.work0 = sMechaRidleyGreenGlowPaletteData[stage][1];
 
         DMA_SET(3, &sMechaRidleyGreenGlowPal[palRow * 16],
             PALRAM_BASE + 0x31A + gCurrentSprite.absolutePaletteRow * 32,
@@ -128,13 +128,13 @@ void MechaRidleyLoadFireballsGfx(void)
     // Check has no missiles, and at least a fireball active
     if (gBossWork.work6 == 0 && gBossWork.work8 != 0)
     {
-        gCurrentSprite.workVariable2++;
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work2++;
+        gCurrentSprite.work3++;
 
-        if (gCurrentSprite.arrayOffset > 3)
-            gCurrentSprite.arrayOffset = 0;
+        if (gCurrentSprite.work3 > 3)
+            gCurrentSprite.work3 = 0;
 
-        stage = gCurrentSprite.arrayOffset;
+        stage = gCurrentSprite.work3;
 
         // Load graphics
         DMA_SET(3, &sMechaRidleyWeaponsGfx[3 * 32 +stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
@@ -155,13 +155,13 @@ void MechaRidleyLoadMissilesGfx(void)
     // Check has no firebals, and at least a missile active
     if (gBossWork.work8 == 0 && gBossWork.work6 != 0)
     {
-        gCurrentSprite.workVariable2++;
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work2++;
+        gCurrentSprite.work3++;
 
-        if (gCurrentSprite.arrayOffset > 2)
-            gCurrentSprite.arrayOffset = 0;
+        if (gCurrentSprite.work3 > 2)
+            gCurrentSprite.work3 = 0;
 
-        stage = gCurrentSprite.arrayOffset;
+        stage = gCurrentSprite.work3;
 
         // Load graphics
         DMA_SET(3, &sMechaRidleyWeaponsGfx[stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
@@ -329,7 +329,7 @@ void MechaRidleyClawAttackInit(u8 leftArmSlot)
         gSubSpriteData1.animationDurationCounter = 0;
         gSubSpriteData1.currentAnimationFrame = 0;
 
-        gCurrentSprite.timer = 6;
+        gCurrentSprite.work0 = 6;
     }
     else if (gSubSpriteData1.pMultiOam == sMechaRidleyMultiSpriteData_StandingLow)
     {
@@ -337,10 +337,10 @@ void MechaRidleyClawAttackInit(u8 leftArmSlot)
         gSubSpriteData1.animationDurationCounter = 0;
         gSubSpriteData1.currentAnimationFrame = 0;
 
-        gCurrentSprite.timer = 12;
+        gCurrentSprite.work0 = 12;
     }
     else
-        gCurrentSprite.timer = 0;
+        gCurrentSprite.work0 = 0;
 
     // Set left arm oam
     gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmSwingingAtCloseGround;
@@ -424,7 +424,7 @@ void MechaRidleyInit(void)
 
         // Set delay before crawling
         gCurrentSprite.yPositionSpawn = 60 * 5;
-        gCurrentSprite.arrayOffset = gSpriteRng;
+        gCurrentSprite.work3 = gSpriteRng;
         gCurrentSprite.oamRotation = 0;
 
         // Set crawling
@@ -528,10 +528,10 @@ void MechaRidleyCrawling(void)
             gSubSpriteData1.animationDurationCounter = 0;
             gSubSpriteData1.currentAnimationFrame = 0;
 
-            gCurrentSprite.timer = 0;
+            gCurrentSprite.work0 = 0;
 
             // Timer before the battle actually starts (music/fade)
-            gCurrentSprite.workVariable = 32;
+            gCurrentSprite.work1 = 32;
             gBossWork.work4 = EYE_STATE_BLINKING_INIT;
         }
     }
@@ -570,10 +570,10 @@ void MechaRidleyStartBattle(void)
 {
     u8 palRow;
 
-    if (--gCurrentSprite.workVariable == 0)
+    if (--gCurrentSprite.work1 == 0)
     {
-        gCurrentSprite.workVariable = 2;
-        palRow = ++gCurrentSprite.timer;
+        gCurrentSprite.work1 = 2;
+        palRow = ++gCurrentSprite.work0;
         
         if (palRow > 6)
         {
@@ -607,7 +607,7 @@ void MechaRidleyStartBattle(void)
  */
 u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 {
-    if (!(gCurrentSprite.arrayOffset & 0x3F))
+    if (!(gCurrentSprite.work3 & 0x3F))
     {
         if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gSpriteRng < 8)
             MechaRidleyClawAttackInit(ramSlot); // Start claw attack
@@ -660,10 +660,10 @@ void MechaRidleyClawAttack(void)
     coreSpawnHealth = gBossWork.work9;
 
     // Check standing timer
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             // Set standing high
             gSubSpriteData1.pMultiOam = sMechaRidleyMultiSpriteData_StandingHigh;
@@ -700,14 +700,14 @@ void MechaRidleyClawAttack(void)
         if (gSubSpriteData1.workVariable3 >= HEALTH_THRESHOLD_COVER_BROKEN)
         {
             if (gSubSpriteData1.health < coreSpawnHealth / 2)
-                gCurrentSprite.timer = 40;
+                gCurrentSprite.work0 = 40;
             else if (gSubSpriteData1.health < coreSpawnHealth * 3 / 4)
-                gCurrentSprite.timer = 80;
+                gCurrentSprite.work0 = 80;
             else
-                gCurrentSprite.timer = 120;
+                gCurrentSprite.work0 = 120;
         }
         else
-            gCurrentSprite.timer = 160;
+            gCurrentSprite.work0 = 160;
 
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_STANDING_UP;
         gBossWork.work7 = gSubSpriteData1.health;
@@ -725,10 +725,10 @@ void MechaRidleyStandingUp(void)
     leftArmSlot = gSubSpriteData1.workVariable5;
 
     // Delay before raising arm
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             // Raise arm
             gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmHoldingUp;
@@ -906,7 +906,7 @@ void MechaRidleyCheckOpeningMouthAnimEnded(void)
         gSubSpriteData1.currentAnimationFrame = 0;
 
         // Fireball attack duration timer
-        gCurrentSprite.timer = 128;
+        gCurrentSprite.work0 = 128;
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_FIREBALL_ATTACK;
     }
 }
@@ -918,10 +918,10 @@ void MechaRidleyCheckOpeningMouthAnimEnded(void)
 void MechaRidleyFireballsAttack(void)
 {
     // Spawn fireball every 15 frames
-    if (!(gCurrentSprite.timer & 15))
+    if (!(gCurrentSprite.work0 & 15))
     {
         // Alternate between low and high fireball
-        if (gCurrentSprite.timer & 16)
+        if (gCurrentSprite.work0 & 16)
         {
             SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_LOW, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
@@ -937,8 +937,8 @@ void MechaRidleyFireballsAttack(void)
         SoundPlay(0x2A9);
     }
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         // End attack, set closing mouth
         gSubSpriteData1.pMultiOam = sMechaRidleyMultiSpriteData_ClosingMouthHigh;
@@ -1048,7 +1048,7 @@ void MechaRidleyDying(void)
         gSubSpriteData1.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_DYING_GLOW_FADING;
-        gCurrentSprite.timer = 0;
+        gCurrentSprite.work0 = 0;
 
         SoundPlay(0x2AE);
 
@@ -1064,7 +1064,7 @@ void MechaRidleyDying(void)
 void MechaRidleyGlowFading(void)
 {
     // Set destroyed graphics
-    switch (gCurrentSprite.timer++)
+    switch (gCurrentSprite.work0++)
     {
         case 0:
             DMA_SET(3, sMechaRidleyDestroyedGfx, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
@@ -1103,10 +1103,10 @@ void MechaRidleyGlowFading(void)
             break;
     }
 
-    if (gCurrentSprite.timer > 200)
+    if (gCurrentSprite.work0 > 200)
     {
         gCurrentSprite.yPositionSpawn = 0;
-        gCurrentSprite.timer = 0;
+        gCurrentSprite.work0 = 0;
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_SPAWN_DROPS;
         gBossWork.work4 = EYE_STATE_LASER_SET_INACTIVE;
     }
@@ -1131,9 +1131,9 @@ void MechaRidleySpawnDrops(void)
     partNumber = gSpriteRng;
     rngParam1 = gSpriteRng * 8;
     partNumber &= 3;
-    rngParam2 = (gCurrentSprite.timer & 15) * 8;
+    rngParam2 = (gCurrentSprite.work0 & 15) * 8;
     spriteId = PSPRITE_MULTIPLE_LARGE_ENERGY;
-    gCurrentSprite.timer++;
+    gCurrentSprite.work0++;
 
     // Update palette and spawn drops (10 in total)
     switch (gCurrentSprite.yPositionSpawn++)
@@ -1192,9 +1192,9 @@ void MechaRidleySpawnDrops(void)
     if (gCurrentSprite.yPositionSpawn > 60 * 6)
     {
         // Set first eye glow
-        gCurrentSprite.timer = 30;
-        gCurrentSprite.workVariable = 0;
-        gCurrentSprite.workVariable2 = 4;
+        gCurrentSprite.work0 = 30;
+        gCurrentSprite.work1 = 0;
+        gCurrentSprite.work2 = 4;
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_FIRST_EYE_GLOW;
     }
 }
@@ -1205,30 +1205,30 @@ void MechaRidleySpawnDrops(void)
  */
 void MechaRidleyFirstEyeGlow(void)
 {
-    if (--gCurrentSprite.workVariable2 == 0)
+    if (--gCurrentSprite.work2 == 0)
     {
-        gCurrentSprite.workVariable2 = 4;
+        gCurrentSprite.work2 = 4;
 
         // Update palette
-        if (gCurrentSprite.workVariable != 0)
+        if (gCurrentSprite.work1 != 0)
         {
-            gCurrentSprite.workVariable = 0;
+            gCurrentSprite.work1 = 0;
             DMA_SET(3, &sMechaRidleyGreenGlowPal[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
-            gCurrentSprite.workVariable = 1;
+            gCurrentSprite.work1 = 1;
             DMA_SET(3, &sMechaRidleyGreenGlowPal[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
         // Set second eye glow
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_SECOND_EYE_GLOW;
-        gCurrentSprite.timer = 200;
-        gCurrentSprite.workVariable = 0;
-        gCurrentSprite.workVariable2 = 4;
+        gCurrentSprite.work0 = 200;
+        gCurrentSprite.work1 = 0;
+        gCurrentSprite.work2 = 4;
         gBossWork.work4 = EYE_STATE_LASER_SET_DYING;
         SoundPlay(0x2B1);
     }
@@ -1240,27 +1240,27 @@ void MechaRidleyFirstEyeGlow(void)
  */
 void MechaRidleySecondEyeGlow(void)
 {
-    if (--gCurrentSprite.workVariable2 == 0)
+    if (--gCurrentSprite.work2 == 0)
     {
-        gCurrentSprite.workVariable2 = 4;
+        gCurrentSprite.work2 = 4;
 
         // Update palette
-        if (gCurrentSprite.workVariable != 0)
+        if (gCurrentSprite.work1 != 0)
         {
-            gCurrentSprite.workVariable = 0;
+            gCurrentSprite.work1 = 0;
             DMA_SET(3, &sMechaRidleyGreenGlowPal[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
-            gCurrentSprite.workVariable = 1;
+            gCurrentSprite.work1 = 1;
             DMA_SET(3, sMechaRidley_8323b4a_Pal, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_MECHA_RIDLEY_KILLED);
@@ -1357,10 +1357,10 @@ void MechaRidleyPartInit(void)
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pose = MECHA_RIDLEY_PART_POSE_HEAD_IDLE;
 
-            gCurrentSprite.timer = 0;
-            gCurrentSprite.workVariable = 0;
-            gCurrentSprite.workVariable2 = 0;
-            gCurrentSprite.arrayOffset = 0;
+            gCurrentSprite.work0 = 0;
+            gCurrentSprite.work1 = 0;
+            gCurrentSprite.work2 = 0;
+            gCurrentSprite.work3 = 0;
             break;
 
         case MECHA_RIDLEY_PART_NECK:
@@ -1461,8 +1461,8 @@ void MechaRidleyPartInit(void)
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.drawOrder = 14;
 
-            gCurrentSprite.workVariable2 = 0;
-            gCurrentSprite.arrayOffset = 0;
+            gCurrentSprite.work2 = 0;
+            gCurrentSprite.work3 = 0;
             gCurrentSprite.pose = MECHA_RIDLEY_PART_POSE_MISSILE_LAUNCHER_IDLE;
             break;
 
@@ -1562,15 +1562,15 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 gCurrentSprite.animationDurationCounter = 0;
 
                 gBossWork.work5 = MISSILE_LAUNCHER_STATE_OPENED;
-                gCurrentSprite.timer = MISSILE_LAUNCHER_STATE_OPENED;
+                gCurrentSprite.work0 = MISSILE_LAUNCHER_STATE_OPENED;
             }
             break;
 
         case MISSILE_LAUNCHER_STATE_OPENED:
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer == 0)
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 == 0)
                 {
                     // Set closing
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_MissileLauncherClosing;
@@ -1585,13 +1585,13 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 // Spawn missiles
                 if (gCurrentSprite.currentAnimationFrame == 1 && gCurrentSprite.animationDurationCounter == 1)
                 {
-                    if (gCurrentSprite.timer == 1)
+                    if (gCurrentSprite.work0 == 1)
                     {
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 0, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE,
                             gCurrentSprite.xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE), 0);
                     }
-                    else if (gCurrentSprite.timer == 2)
+                    else if (gCurrentSprite.work0 == 2)
                     {
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 1, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
@@ -1658,16 +1658,16 @@ void MechaRidleyPartEyeIdle(void)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
 
-            gCurrentSprite.timer = 40;
+            gCurrentSprite.work0 = 40;
             gBossWork.work4 = EYE_STATE_LASER_ATTACK;
             break;
 
         case EYE_STATE_LASER_ATTACK:
-            if (gCurrentSprite.timer != 0)
+            if (gCurrentSprite.work0 != 0)
             {
                 // Delay before attack
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer != 0)
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 != 0)
                     break;
 
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -1677,22 +1677,22 @@ void MechaRidleyPartEyeIdle(void)
                 if (rng > 11)
                 {
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserSlightlyDown;
-                    gCurrentSprite.workVariable = LASER_DIRECTION_SLIGHTLY_DOWN;
+                    gCurrentSprite.work1 = LASER_DIRECTION_SLIGHTLY_DOWN;
                 }
                 else if (rng > 7)
                 {
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserSlightlyUp;
-                    gCurrentSprite.workVariable = LASER_DIRECTION_SLIGHTLY_UP;
+                    gCurrentSprite.work1 = LASER_DIRECTION_SLIGHTLY_UP;
                 }
                 else if (rng > 3)
                 {
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserDown;
-                    gCurrentSprite.workVariable = LASER_DIRECTION_DOWN;
+                    gCurrentSprite.work1 = LASER_DIRECTION_DOWN;
                 }
                 else
                 {
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserForward;
-                    gCurrentSprite.workVariable = LASER_DIRECTION_FORWARD;
+                    gCurrentSprite.work1 = LASER_DIRECTION_FORWARD;
                 }
 
                 SoundPlay(0x2AA);
@@ -1700,7 +1700,7 @@ void MechaRidleyPartEyeIdle(void)
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 // Spawn laser
-                direction = gCurrentSprite.workVariable;
+                direction = gCurrentSprite.work1;
                 switch (direction)
                 {
                     case LASER_DIRECTION_SLIGHTLY_DOWN:
@@ -2495,7 +2495,7 @@ void MechaRidley(void)
             gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_THREE_QUARTERS;
     }
 
-    gCurrentSprite.arrayOffset++;
+    gCurrentSprite.work3++;
     if (gCurrentSprite.pose == MECHA_RIDLEY_POSE_IDLE || gCurrentSprite.pose == MECHA_RIDLEY_POSE_CURLED_UP)
         gSubSpriteData1.workVariable2++; // Missile attack timer
 
@@ -2813,7 +2813,7 @@ void MechaRidleyMissile(void)
             gCurrentSprite.oamRotation = 0xA0;
             gCurrentSprite.oamScaling = Q_8_8(1.f);
             
-            gCurrentSprite.timer = 30;
+            gCurrentSprite.work0 = 30;
             gCurrentSprite.pose = 9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.drawOrder = 2;
@@ -2824,7 +2824,7 @@ void MechaRidleyMissile(void)
         case 9:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            movement = gCurrentSprite.timer / 2;
+            movement = gCurrentSprite.work0 / 2;
             if (gCurrentSprite.roomSlot == 1)
                 movement -= 2;
             else if (gCurrentSprite.roomSlot == 2)
@@ -2840,14 +2840,14 @@ void MechaRidleyMissile(void)
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition);
             }
 
-            gCurrentSprite.timer -= 2;
-            if (gCurrentSprite.timer < 2)
+            gCurrentSprite.work0 -= 2;
+            if (gCurrentSprite.work0 < 2)
             {
                 gCurrentSprite.pose = 0x23;
-                gCurrentSprite.workVariable = 0;
-                gCurrentSprite.workVariable2 = 1;
-                gCurrentSprite.timer = 0;
-                gCurrentSprite.arrayOffset = 1;
+                gCurrentSprite.work1 = 0;
+                gCurrentSprite.work2 = 1;
+                gCurrentSprite.work0 = 0;
+                gCurrentSprite.work3 = 1;
             }
             break;
 
@@ -2916,7 +2916,7 @@ void MechaRidleyFireball(void)
             gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
-            gCurrentSprite.timer = 30;
+            gCurrentSprite.work0 = 30;
             gCurrentSprite.pose = 9;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;

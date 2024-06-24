@@ -85,7 +85,7 @@ void SqueeptIdleInit(void)
     SqueeptGoingUpInit();
 
     // Timer before it checks for samus
-    gCurrentSprite.timer = 30;
+    gCurrentSprite.work0 = 30;
 }
 
 /**
@@ -96,9 +96,9 @@ void SqueeptIdle(void)
 {
     u8 nsab;
 
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
+        gCurrentSprite.work0--;
         return;
     }
 
@@ -108,7 +108,7 @@ void SqueeptIdle(void)
     {
         // Set going up
         gCurrentSprite.pose = SQUEEPT_POSE_GOING_UP;
-        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.work3 = 0;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     }
 }
@@ -151,7 +151,7 @@ void SqueeptGoUp(void)
         }
     }
 
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sSqueeptRisingMovement[offset];
 
     if (movement == SHORT_MAX)
@@ -161,7 +161,7 @@ void SqueeptGoUp(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += movement;
     }
 
@@ -181,7 +181,7 @@ void SqueeptTurningAround(void)
         // Set going down
         SqueeptGoingDownInit();
         gCurrentSprite.pose = SQUEEPT_POSE_GOING_DOWN;
-        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.work3 = 0;
     }
 }
 
@@ -197,7 +197,7 @@ void SqueeptGoDown(void)
     u8 offset;
 
     oldY = gCurrentSprite.yPosition;
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sSqueeptFallingMovement[offset];
 
     if (movement == SHORT_MAX)
@@ -207,7 +207,7 @@ void SqueeptGoDown(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += movement;
     }
 

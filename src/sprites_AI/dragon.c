@@ -81,7 +81,7 @@ void DragonIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
-    gCurrentSprite.timer = 100;
+    gCurrentSprite.work0 = 100;
 }
 
 /**
@@ -94,8 +94,8 @@ void DragonGoUp(void)
     u16 xPosition;
     u16 yPosition;
 
-    if (gCurrentSprite.timer != 0)
-        gCurrentSprite.timer--;
+    if (gCurrentSprite.work0 != 0)
+        gCurrentSprite.work0--;
 
     DragonYMovement();
     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
@@ -128,7 +128,7 @@ void DragonGoUp(void)
         return;
     }
 
-    if (gCurrentSprite.timer == 0)
+    if (gCurrentSprite.work0 == 0)
     {
         yPosition = gCurrentSprite.yPosition - 0x88;
 
@@ -201,7 +201,7 @@ void DragonWarningInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
-    gCurrentSprite.timer = 30;
+    gCurrentSprite.work0 = 30;
 }
 
 /**
@@ -212,8 +212,8 @@ void DragonWarning(void)
 {
     DragonYMovement();
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = DRAGON_POSE_SPIT;
 
@@ -221,7 +221,7 @@ void DragonWarning(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
 
-        gCurrentSprite.timer = 8;
+        gCurrentSprite.work0 = 8;
     }
 }
 
@@ -234,8 +234,8 @@ void DragonSpit(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         DragonIdleInit();
 
@@ -290,7 +290,7 @@ void DragonFireballInit(void)
 
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
     gCurrentSprite.oamScaling = Q_8_8(1.f);
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work3 = 0;
 
     SoundPlay(0x14C);
 }
@@ -310,7 +310,7 @@ void DragonFireballMove(void)
 
     xMovement = PIXEL_SIZE * 3;
     oldY = gCurrentSprite.yPosition;
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
 
     yMovement = sDragonFireballYMovement[offset];
     rotation = sDragonFireballOamRotation[offset];
@@ -323,7 +323,7 @@ void DragonFireballMove(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += yMovement;
     }
 

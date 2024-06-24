@@ -206,7 +206,7 @@ void ImagoInit(void)
     else
     {
         // Lock door, store initial max supers
-        gDoorUnlockTimer = 0x1;
+        LOCK_DOORS();
         gSubSpriteData1.workVariable4 = gEquipment.maxSuperMissiles;
 
         // Set in ceiling
@@ -236,7 +236,7 @@ void ImagoInit(void)
         gCurrentSprite.oamRotation = 0x0;
 
         gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
-        gCurrentSprite.timer = 0x50;
+        gCurrentSprite.work0 = 0x50;
         health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.health = health;
         gSubSpriteData1.health = health;
@@ -298,8 +298,8 @@ void ImagoWaitForLastEgg(void)
  */
 void ImagoSpawn(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
@@ -330,24 +330,24 @@ void ImagoComingDownInit(void)
         gSubSpriteData1.currentAnimationFrame = 0x0;
     }
 
-    gCurrentSprite.timer = 0x0;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work0 = 0x0;
+    gCurrentSprite.work1 = 0x0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.workVariable2 = 0x0;
+        gCurrentSprite.work2 = 0x0;
     else
     {
         // Set base X velocity
         health = gSubSpriteData1.health;
         if (gCurrentSprite.health < gSubSpriteData1.health / 3)
-            gCurrentSprite.workVariable2 = 0x8;
+            gCurrentSprite.work2 = 0x8;
         else if (gCurrentSprite.health < health * 2 / 3)
-            gCurrentSprite.workVariable2 = 0x8;
+            gCurrentSprite.work2 = 0x8;
         else
-            gCurrentSprite.workVariable2 = 0x0;
+            gCurrentSprite.work2 = 0x0;
     }
 
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN;
     ImagoSetSidesHitbox();
 }
@@ -364,11 +364,11 @@ void ImagoComingDown(void)
     checkGround = FALSE;
 
     // Move X
-    if (!(gCurrentSprite.timer++ & 0xF) && gCurrentSprite.workVariable2 < 0xC)
-        gCurrentSprite.workVariable2++;
+    if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0xC)
+        gCurrentSprite.work2++;
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gSubSpriteData1.xPosition += gCurrentSprite.workVariable2;
+        gSubSpriteData1.xPosition += gCurrentSprite.work2;
 
     // Check should check ground
     if (gSubSpriteData1.yPosition + IMAGO_SIZE > gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 14)
@@ -413,8 +413,8 @@ void ImagoMoveHorizontally(void)
     // Move X
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        if (!(gCurrentSprite.timer++ & 0xF) && gCurrentSprite.workVariable2 < 0x18)
-            gCurrentSprite.workVariable2++;
+        if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0x18)
+            gCurrentSprite.work2++;
 
         ySpeedMask = 0x1;
 
@@ -425,15 +425,15 @@ void ImagoMoveHorizontally(void)
             if (gSubSpriteData1.xPosition > gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 36)
                 movementStage = 0x1;
 
-            gSubSpriteData1.xPosition += gCurrentSprite.workVariable2;
+            gSubSpriteData1.xPosition += gCurrentSprite.work2;
         }
     }
     else
     {
         if (gCurrentSprite.health < gSubSpriteData1.health / 3)
         {
-            if (!(gCurrentSprite.timer++ & 0x7) && gCurrentSprite.workVariable2 < 0x18)
-                gCurrentSprite.workVariable2++;
+            if (!(gCurrentSprite.work0++ & 0x7) && gCurrentSprite.work2 < 0x18)
+                gCurrentSprite.work2++;
 
             ySpeedMask = 0x3;
 
@@ -444,13 +444,13 @@ void ImagoMoveHorizontally(void)
                 if (gSubSpriteData1.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 22)
                     movementStage = 0x1;
 
-                gSubSpriteData1.xPosition -= gCurrentSprite.workVariable2;
+                gSubSpriteData1.xPosition -= gCurrentSprite.work2;
             }
         }
         else if (gCurrentSprite.health < gSubSpriteData1.health * 2 / 3)
         {
-            if (!(gCurrentSprite.timer++ & 0xF) && gCurrentSprite.workVariable2 < 0x18)
-                gCurrentSprite.workVariable2++;
+            if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0x18)
+                gCurrentSprite.work2++;
 
             ySpeedMask = 0x3;
 
@@ -461,13 +461,13 @@ void ImagoMoveHorizontally(void)
                 if (gSubSpriteData1.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 16)
                     movementStage = 0x1;
 
-                gSubSpriteData1.xPosition -= gCurrentSprite.workVariable2;
+                gSubSpriteData1.xPosition -= gCurrentSprite.work2;
             }
         }
         else
         {
-            if (!(gCurrentSprite.timer++ & 0xF) && gCurrentSprite.workVariable2 < 0x10)
-                gCurrentSprite.workVariable2++;
+            if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0x10)
+                gCurrentSprite.work2++;
 
             ySpeedMask = 0x3;
 
@@ -478,17 +478,17 @@ void ImagoMoveHorizontally(void)
                 if (gSubSpriteData1.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 11)
                     movementStage = 0x1;
 
-                gSubSpriteData1.xPosition -= gCurrentSprite.workVariable2;
+                gSubSpriteData1.xPosition -= gCurrentSprite.work2;
             }
         }
     }
 
     if (movementStage != 0x0)
     {
-        if (!(ySpeedMask & gCurrentSprite.workVariable++) && gCurrentSprite.arrayOffset < 0xC)
-            gCurrentSprite.arrayOffset++;
+        if (!(ySpeedMask & gCurrentSprite.work1++) && gCurrentSprite.work3 < 0xC)
+            gCurrentSprite.work3++;
 
-        gSubSpriteData1.yPosition -= gCurrentSprite.arrayOffset;
+        gSubSpriteData1.yPosition -= gCurrentSprite.work3;
         if (movementStage == IMAGO_MOVEMENT_STAGE_GO_UP)
         {
             gCurrentSprite.pose = IMAGO_POSE_GOING_UP;
@@ -548,8 +548,8 @@ void ImagoMoveHorizontally(void)
 void ImagoGoingUp(void)
 {
     // Check increase Y velocity
-    if (!(gCurrentSprite.workVariable++ & 0x3) && gCurrentSprite.arrayOffset < 0xC)
-        gCurrentSprite.arrayOffset++;
+    if (!(gCurrentSprite.work1++ & 0x3) && gCurrentSprite.work3 < 0xC)
+        gCurrentSprite.work3++;
 
     if (gSubSpriteData1.yPosition < gCurrentSprite.yPositionSpawn)
     {
@@ -564,7 +564,7 @@ void ImagoGoingUp(void)
             {
                 // Set attacking
                 gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 46;
-                gCurrentSprite.workVariable2 = 0x0;
+                gCurrentSprite.work2 = 0x0;
                 gCurrentSprite.pose = IMAGO_POSE_ATTACKING_INIT;
             }
             else
@@ -582,7 +582,7 @@ void ImagoGoingUp(void)
             if (gSubSpriteData1.xPosition + BLOCK_SIZE * 2 > gSamusData.xPosition && gCurrentSprite.health != 0x0)
             {
                 // Set attacking
-                gCurrentSprite.workVariable2 = 0x18;
+                gCurrentSprite.work2 = 0x18;
                 gCurrentSprite.pose = IMAGO_POSE_ATTACKING_INIT;
             }
             else
@@ -594,7 +594,7 @@ void ImagoGoingUp(void)
         }
     }
     else
-        gSubSpriteData1.yPosition -= gCurrentSprite.arrayOffset; // Move
+        gSubSpriteData1.yPosition -= gCurrentSprite.work3; // Move
 }
 
 /**
@@ -623,7 +623,7 @@ void ImagoAttackingGoingDown(void)
     checkGround = FALSE;
 
     // Move X
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sImagoAttackingXVelocity[offset];
     if (movement == SHORT_MAX)
     {
@@ -631,7 +631,7 @@ void ImagoAttackingGoingDown(void)
         offset = 0x0;
     }
 
-    gCurrentSprite.workVariable2 = offset + 0x1;
+    gCurrentSprite.work2 = offset + 0x1;
     gSubSpriteData1.xPosition += movement * 2;
 
     // Check should check for ground
@@ -652,7 +652,7 @@ void ImagoAttackingGoingDown(void)
             // Touched ground, set going up
             gSubSpriteData1.yPosition = blockTop - movement;
             gCurrentSprite.pose = IMAGO_POSE_ATTACKING_GOING_UP;
-            gCurrentSprite.arrayOffset = 0xC;
+            gCurrentSprite.work3 = 0xC;
             return;
         }
     }
@@ -672,14 +672,14 @@ void ImagoAttackingGoingUp(void)
     u32 blockTop;
 
     // Move X
-    offset = gCurrentSprite.workVariable2;
+    offset = gCurrentSprite.work2;
     movement = sImagoAttackingXVelocity[offset];
     if (movement == SHORT_MAX)
     {
         movement = sImagoAttackingXVelocity[0]; // -1
         offset = 0x0;
     }
-    gCurrentSprite.workVariable2 = offset + 0x1;
+    gCurrentSprite.work2 = offset + 0x1;
     gSubSpriteData1.xPosition += movement * 2;
 
     if (gSubSpriteData1.yPosition < gCurrentSprite.yPositionSpawn)
@@ -805,7 +805,7 @@ void ImagoChargeThroughWall(void)
     {
         ScreenShakeStartHorizontal(0x1E, 0x81);
         gCurrentSprite.pose = IMAGO_POSE_DESTROY_WALL;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work0 = 0x0;
 
         // Right part
         gCurrentClipdataAffectingAction = caa;
@@ -853,7 +853,7 @@ void ImagoDestroyWall(void)
     yPosition = gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPositionSpawn;
 
-    switch (gCurrentSprite.timer++)
+    switch (gCurrentSprite.work0++)
     {
         case 0x0:
             gCurrentClipdataAffectingAction = caa;
@@ -970,7 +970,7 @@ void ImagoDestroyWall(void)
         case 0x1C:
             // Reached indestructible wall
             gCurrentSprite.pose = IMAGO_POSE_DYING;
-            gCurrentSprite.timer = 0x0;
+            gCurrentSprite.work0 = 0x0;
             ScreenShakeStartVertical(0x1E, 0x81);
             ScreenShakeStartHorizontal(0x3C, 0x81);
             FadeMusic(0x38);
@@ -988,15 +988,15 @@ void ImagoDestroyWall(void)
  */
 void ImagoDying(void)
 {
-    if (!(gCurrentSprite.timer & 0xF))
+    if (!(gCurrentSprite.work0 & 0xF))
     {
-        if (gCurrentSprite.timer & 0x10)
+        if (gCurrentSprite.work0 & 0x10)
             ParticleSet(gSubSpriteData1.yPosition + 0x60, gSubSpriteData1.xPosition - 0x46, PE_TWO_MEDIUM_DUST);
         else
             ParticleSet(gSubSpriteData1.yPosition + 0x48, gSubSpriteData1.xPosition - 0x32, PE_MEDIUM_DUST);
     }
 
-    switch (gCurrentSprite.timer++)
+    switch (gCurrentSprite.work0++)
     {
         case 0x0:
             ParticleSet(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
@@ -1563,17 +1563,17 @@ void ImagoDamagedStinger(void)
             gCurrentSprite.frozenPaletteRowOffset = 0x1;
             gCurrentSprite.drawOrder = 0xC;
             gCurrentSprite.pose = IMAGO_DAMAGED_STINGER_POSE_FALLING;
-            gCurrentSprite.timer = 0x0;
-            gCurrentSprite.workVariable2 = 0xA;
-            gCurrentSprite.arrayOffset = 0x0;
+            gCurrentSprite.work0 = 0x0;
+            gCurrentSprite.work2 = 0xA;
+            gCurrentSprite.work3 = 0x0;
             SoundPlay(0xC1);
 
         case IMAGO_DAMAGED_STINGER_POSE_FALLING:
-            if (!(gCurrentSprite.timer & 0x7))
+            if (!(gCurrentSprite.work0 & 0x7))
                 ParticleSet(gCurrentSprite.yPosition - BLOCK_SIZE, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_BIG);
 
             // Move Y
-            offset = gCurrentSprite.arrayOffset;
+            offset = gCurrentSprite.work3;
             movement = sImagoDamagedStingerFallingYVelocity[offset];
             if (movement == SHORT_MAX)
             {
@@ -1582,33 +1582,33 @@ void ImagoDamagedStinger(void)
             }
             else
             {
-                gCurrentSprite.arrayOffset++;
+                gCurrentSprite.work3++;
                 gCurrentSprite.yPosition += movement;
             }
 
-            gCurrentSprite.timer++;
-            if (gCurrentSprite.workVariable2 != 0x0)
-                gCurrentSprite.workVariable2--;
+            gCurrentSprite.work0++;
+            if (gCurrentSprite.work2 != 0x0)
+                gCurrentSprite.work2--;
             else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
             {
                 // Touched ground
-                gCurrentSprite.timer = 0x3C;
+                gCurrentSprite.work0 = 0x3C;
                 gCurrentSprite.pose = IMAGO_DAMAGED_STINGER_POSE_DISAPPEARING;
                 ScreenShakeStartVertical(0xA, 0x81);
             }
             break;
 
         case IMAGO_DAMAGED_STINGER_POSE_DISAPPEARING:
-            if (--gCurrentSprite.timer == 0x0)
+            if (--gCurrentSprite.work0 == 0x0)
             {
                 ParticleSet(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                 gCurrentSprite.status = 0x0;
                 SoundPlay(0xC2);
             }
-            else if (gCurrentSprite.timer < 0x29 && !(gCurrentSprite.timer & 0x3))
+            else if (gCurrentSprite.work0 < 0x29 && !(gCurrentSprite.work0 & 0x3))
             {
                 // Make blink
-                if (gCurrentSprite.timer & 0x4)
+                if (gCurrentSprite.work0 & 0x4)
                     gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
                 else
                     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
@@ -1670,16 +1670,16 @@ void ImagoEgg(void)
                 gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
                 gCurrentSprite.samusCollision = SSC_NONE;
                 gCurrentSprite.pose = IMAGO_EGG_POSE_DISAPPEARING;
-                gCurrentSprite.timer = 0xB4;
+                gCurrentSprite.work0 = 0xB4;
             }
             break;
 
         case IMAGO_EGG_POSE_DISAPPEARING:
-            if (gCurrentSprite.timer < 0x3C)
+            if (gCurrentSprite.work0 < 0x3C)
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0x0)
                 gCurrentSprite.status = 0x0;
             break;
 

@@ -116,7 +116,7 @@ void PowerBombExplosion(void)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionTop * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
                         if (clipdata != 0)
-                            BlockApplyCCAA(yPositionTop, horizontalAxis, clipdata);
+                            BlockApplyCcaa(yPositionTop, horizontalAxis, clipdata);
 
                         yPositionTop = (s16)(yPositionTop - 1);
                     }
@@ -127,7 +127,7 @@ void PowerBombExplosion(void)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionBottom * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
                         if (clipdata != 0)
-                            BlockApplyCCAA(yPositionBottom, horizontalAxis, clipdata);
+                            BlockApplyCcaa(yPositionBottom, horizontalAxis, clipdata);
 
                         yPositionBottom = (s16)(yPositionBottom + 1);
                     }
@@ -157,7 +157,7 @@ void PowerBombExplosion(void)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
                         if (clipdata != 0)
-                            BlockApplyCCAA(verticalAxis, xPositionLeft, clipdata);
+                            BlockApplyCcaa(verticalAxis, xPositionLeft, clipdata);
                         
                         xPositionLeft = (s16)(xPositionLeft - 1);
                     }
@@ -168,7 +168,7 @@ void PowerBombExplosion(void)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionRight];
                         if (clipdata != 0)
-                            BlockApplyCCAA(verticalAxis, xPositionRight, clipdata);
+                            BlockApplyCcaa(verticalAxis, xPositionRight, clipdata);
 
                         xPositionRight = (s16)(xPositionRight + 1);
                     }

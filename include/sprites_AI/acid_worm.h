@@ -42,10 +42,10 @@
 
 void AcidWormHandleRotation(void);
 void AcidWormRandomXMovement(void);
-void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition);
-void AcidWormChangeBigBlockDownCCAA(u8 caa);
-void AcidWormChangeBigBlockMiddleCCAA(u8 caa);
-void AcidWormChangeBigBlockTopCCAA(u8 caa);
+void AcidWormChangeTwoGroundCcaa(u8 caa, u16 yPosition, u16 xPosition);
+void AcidWormChangeBigBlockDownCcaa(u8 caa);
+void AcidWormChangeBigBlockMiddleCcaa(u8 caa);
+void AcidWormChangeBigBlockTopCcaa(u8 caa);
 void AcidWormPlayRetractingSound(void);
 u8 AcidWormCollidingWithSamusWhenExtending(void);
 void AcidWormInit(void);

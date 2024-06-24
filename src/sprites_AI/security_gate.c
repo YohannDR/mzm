@@ -15,7 +15,7 @@
  * 
  * @param caa Clipdata affecting action
  */
-void SecurityGateChangeCCAA(u8 caa)
+void SecurityGateChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -48,7 +48,7 @@ void SecurityGateOpen(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
-    SecurityGateChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
+    SecurityGateChangeCcaa(CAA_REMOVE_SOLID); // Remove collision
     SoundPlayNotAlreadyPlaying(0x225);
 }
 
@@ -76,8 +76,8 @@ void SecurityGateDefaultOpenInit(void)
     {
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
+        gCurrentSprite.work0 = 0x1;
+        SecurityGateChangeCcaa(CAA_MAKE_NON_POWER_GRIP); // Set collision
     }
     else
     {
@@ -123,8 +123,8 @@ void SecurityGateCheckClosingAnimEnded(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work3 = 0x0;
     }
 }
 
@@ -134,20 +134,20 @@ void SecurityGateCheckClosingAnimEnded(void)
  */
 void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
-    if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
+    if (gCurrentSprite.work0 == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
-        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
-        gCurrentSprite.timer++;
+        SecurityGateChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
+        gCurrentSprite.work0++;
     }
 
     if (gAlarmTimer == 0x0)
     {
-        gCurrentSprite.arrayOffset++;
-        if (gCurrentSprite.arrayOffset > 0x28)
+        gCurrentSprite.work3++;
+        if (gCurrentSprite.work3 > 0x28)
             SecurityGateOpen();
     }
     else
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.work3 = 0x0;
 }
 
 /**
@@ -174,7 +174,7 @@ void SecurityGateDeath(void)
     u16 yPosition;
     u16 xPosition;
 
-    SecurityGateChangeCCAA(CAA_REMOVE_SOLID);
+    SecurityGateChangeCcaa(CAA_REMOVE_SOLID);
     yPosition = gCurrentSprite.yPosition - 0x40;
     xPosition = gCurrentSprite.xPosition;
     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
@@ -197,8 +197,8 @@ void SecurityGateDefaultClosedInit(void)
     {
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
+        gCurrentSprite.work0 = 0x1;
+        SecurityGateChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
     }
 
     gCurrentSprite.hitboxTopOffset = -0x100;
@@ -232,10 +232,10 @@ void SecurityGateDefaultClosedCheckAlarm(void)
  */
 void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
-    if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
+    if (gCurrentSprite.work0 == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
-        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
-        gCurrentSprite.timer++;
+        SecurityGateChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
+        gCurrentSprite.work0++;
     }
 
     if (gAlarmTimer != 0x0)

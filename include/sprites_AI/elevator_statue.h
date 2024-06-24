@@ -15,14 +15,14 @@
 
 #define ELEVATOR_STATUE_DEBRIS_POSE_IDLE 0x9
 
-void ElevatorStatueChangeTwoGroundCCAA(u8 caa);
+void ElevatorStatueChangeTwoGroundCcaa(u8 caa);
 void KraidElevatorStatueChangeCAA(u8 caa);
 void KraidElevatorStatueFallenInit(void);
 void KraidElevatorStatueInit(void);
 void KraidElevatorStatueCheckShouldFall(void);
 void KraidElevatorStatueDelayBeforeFalling(void);
 void KraidElevatorStatueFalling(void);
-void RidleyElevatorStatueChangeCCAA(u8 caa);
+void RidleyElevatorStatueChangeCcaa(u8 caa);
 void RidleyElevatorStatueFallenInit(void);
 void RidleyElevatorStatueInit(void);
 void RidleyElevatorStatueCheckShouldFall(void);

@@ -57,14 +57,14 @@ void ItemBannerInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.yPositionSpawn = 9;
-    gCurrentSprite.timer = 1;
-    gCurrentSprite.workVariable2 = FALSE;
+    gCurrentSprite.work0 = 1;
+    gCurrentSprite.work2 = FALSE;
 
     // Flag if the message is the save prompt
     if (message == MESSAGE_SAVE_PROMPT)
-        gCurrentSprite.workVariable = TRUE;
+        gCurrentSprite.work1 = TRUE;
     else
-        gCurrentSprite.workVariable = FALSE;
+        gCurrentSprite.work1 = FALSE;
 
     gfxSlot = 0x80; // Default
 
@@ -132,13 +132,13 @@ void ItemBannerPopUp(void)
     gPreventMovementTimer = SAMUS_ITEM_PMT;
 
     msg = gCurrentSprite.roomSlot;
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
         gCurrentSprite.animationDurationCounter--;
         if (TextProcessItemBanner()) // Process text
         {
             // If done processing
-            gCurrentSprite.timer = 0;
+            gCurrentSprite.work0 = 0;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             if (msg == MESSAGE_LONG_BEAM || msg == MESSAGE_CHARGE_BEAM || msg == MESSAGE_ICE_BEAM ||
@@ -148,7 +148,7 @@ void ItemBannerPopUp(void)
                 msg == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP || msg == MESSAGE_POWER_GRIP)
             {
                 // New item
-                gCurrentSprite.workVariable2 = TRUE;
+                gCurrentSprite.work2 = TRUE;
                 BackupTrackData2SoundChannels();
 
                 // Play item jingle
@@ -160,7 +160,7 @@ void ItemBannerPopUp(void)
             else if (msg == MESSAGE_FIRST_MISSILE_TANK || msg == MESSAGE_FIRST_SUPER_MISSILE_TANK || msg == MESSAGE_FIRST_POWER_BOMB_TANK)
             {
                 // New tank
-                gCurrentSprite.workVariable2 = TRUE;
+                gCurrentSprite.work2 = TRUE;
                 BackupTrackData2SoundChannels();
                 InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0);
             }
@@ -181,7 +181,7 @@ void ItemBannerPopUp(void)
             }
             
             // Check is one line message (new item/ability, save complete, map text)
-            if (gCurrentSprite.workVariable2 || msg == MESSAGE_SAVE_COMPLETE ||
+            if (gCurrentSprite.work2 || msg == MESSAGE_SAVE_COMPLETE ||
                 (msg == MESSAGE_BRINSTAR_MAP_ACQUIRED || msg == MESSAGE_KRAID_MAP_ACQUIRED ||
                 msg == MESSAGE_NORFAIR_MAP_ACQUIRED || msg == MESSAGE_RIDLEY_MAP_ACQUIRED ||
                 msg == MESSAGE_MOTHER_SHIP_MAP_ACQUIRED || msg == MESSAGE_FULLY_POWERED_SUIT))
@@ -308,7 +308,7 @@ void ItemBannerRemovalAnimation(void)
 
         gPreventMovementTimer = 0;
 
-        if (gCurrentSprite.workVariable2)
+        if (gCurrentSprite.work2)
             gPauseScreenFlag = PAUSE_SCREEN_ITEM_ACQUISITION;
     }
 }
@@ -419,7 +419,7 @@ void SaveYesNoCursor(void)
                 {
                     // On left, "yes" option selected
                     SoundPlay(0x208);
-                    gSpriteData[ramSlot].workVariable = TRUE;
+                    gSpriteData[ramSlot].work1 = TRUE;
                     if (gSpriteData[ramSlot].roomSlot == MESSAGE_SAVE_PROMPT)
                     {
                         gCurrentSprite.pose = SAVE_YES_NO_CURSOR_POSE_SAVING;
@@ -432,7 +432,7 @@ void SaveYesNoCursor(void)
                 {
                     // On right, "no" option selected
                     SoundPlay(0x209);
-                    gSpriteData[ramSlot].workVariable = FALSE;
+                    gSpriteData[ramSlot].work1 = FALSE;
                 }
 
                 gCurrentSprite.status = 0;

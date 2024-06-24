@@ -28,28 +28,28 @@ void SecurityLaserInit(void)
             gCurrentSprite.pOam = sSecurityLaserOAM_VerticalSmall;
             gCurrentSprite.drawDistanceTopOffset = 0x20;
             gCurrentSprite.hitboxTopOffset = -0x64;
-            gCurrentSprite.workVariable = SECURITY_LASER_VERTICAL | SECURITY_LASER_SMALL;
+            gCurrentSprite.work1 = SECURITY_LASER_VERTICAL | SECURITY_LASER_SMALL;
         }
         else if (SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_VerticalMedium;
             gCurrentSprite.drawDistanceTopOffset = 0x30;
             gCurrentSprite.hitboxTopOffset = -0xA4;
-            gCurrentSprite.workVariable = SECURITY_LASER_VERTICAL | SECURITY_LASER_MEDIUM;
+            gCurrentSprite.work1 = SECURITY_LASER_VERTICAL | SECURITY_LASER_MEDIUM;
         }
         else if (SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE), xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_VerticalLarge;
             gCurrentSprite.drawDistanceTopOffset = 0x40;
             gCurrentSprite.hitboxTopOffset = -0xE4;
-            gCurrentSprite.workVariable = SECURITY_LASER_VERTICAL | SECURITY_LASER_LARGE;
+            gCurrentSprite.work1 = SECURITY_LASER_VERTICAL | SECURITY_LASER_LARGE;
         }
         else
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_VerticalVeryLarge;
             gCurrentSprite.drawDistanceTopOffset = 0x50;
             gCurrentSprite.hitboxTopOffset = -0x124;
-            gCurrentSprite.workVariable = SECURITY_LASER_VERTICAL | SECURITY_LASER_VERY_LARGE;
+            gCurrentSprite.work1 = SECURITY_LASER_VERTICAL | SECURITY_LASER_VERY_LARGE;
         }
 
         gCurrentSprite.drawDistanceBottomOffset = 0x0;
@@ -68,28 +68,28 @@ void SecurityLaserInit(void)
             gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalSmall;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
             gCurrentSprite.hitboxRightOffset = 0x44;
-            gCurrentSprite.workVariable = SECURITY_LASER_SMALL;
+            gCurrentSprite.work1 = SECURITY_LASER_SMALL;
         }
         else if (SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 3) != COLLISION_AIR)
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalMedium;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
             gCurrentSprite.hitboxRightOffset = 0x84;
-            gCurrentSprite.workVariable = SECURITY_LASER_MEDIUM;
+            gCurrentSprite.work1 = SECURITY_LASER_MEDIUM;
         }
         else if (SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 4) != COLLISION_AIR)
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalLarge;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x38;
             gCurrentSprite.hitboxRightOffset = 0xC4;
-            gCurrentSprite.workVariable = SECURITY_LASER_LARGE;
+            gCurrentSprite.work1 = SECURITY_LASER_LARGE;
         }
         else
         {
             gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalVeryLarge;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x48;
             gCurrentSprite.hitboxRightOffset = 0x104;
-            gCurrentSprite.workVariable = SECURITY_LASER_VERY_LARGE;
+            gCurrentSprite.work1 = SECURITY_LASER_VERY_LARGE;
         }
 
         gCurrentSprite.drawDistanceTopOffset = 0x10;
@@ -114,15 +114,15 @@ void SecurityLaserInit(void)
         // Set aware
         gCurrentSprite.pose = SECURITY_LASER_POSE_SET_ALARM;
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.workVariable2 = FALSE;
-        gCurrentSprite.arrayOffset = 0x10;
+        gCurrentSprite.work2 = FALSE;
+        gCurrentSprite.work3 = 0x10;
     }
     else
     {
         // Set idle
         gCurrentSprite.pose = SECURITY_LASER_POSE_IDLE;
-        gCurrentSprite.workVariable2 = TRUE;
-        gCurrentSprite.arrayOffset = 0x8;
+        gCurrentSprite.work2 = TRUE;
+        gCurrentSprite.work3 = 0x8;
     }
 }
 
@@ -155,7 +155,7 @@ void SecurityLaserIdle(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     // Set disappearing OAM
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case SECURITY_LASER_SMALL:
             gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalSmallDisappearing;
@@ -212,7 +212,7 @@ void SecurityLaserCheckDespawnAnimEnded(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
 
-        switch (gCurrentSprite.workVariable)
+        switch (gCurrentSprite.work1)
         {
             case SECURITY_LASER_SMALL:
                 gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalSmall;
@@ -276,7 +276,7 @@ void SecurityLaser_Unused(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
 
-        switch (gCurrentSprite.workVariable)
+        switch (gCurrentSprite.work1)
         {
             case SECURITY_LASER_SMALL:
                 gCurrentSprite.pOam = sSecurityLaserOAM_HorizontalSmall;
@@ -348,22 +348,22 @@ void SecurityLaser(void)
     {
         if (gAlarmTimer != 0x0)
         {
-            if (gCurrentSprite.workVariable2)
+            if (gCurrentSprite.work2)
             {
-                gCurrentSprite.workVariable2--;
-                if (gCurrentSprite.workVariable2 == 0x0 && gCurrentSprite.arrayOffset < 0x10)
+                gCurrentSprite.work2--;
+                if (gCurrentSprite.work2 == 0x0 && gCurrentSprite.work3 < 0x10)
                 {
-                    gCurrentSprite.arrayOffset++;
-                    gCurrentSprite.workVariable2 = TRUE;
+                    gCurrentSprite.work3++;
+                    gCurrentSprite.work2 = TRUE;
                 }
             }
         }
-        else if (gCurrentSprite.arrayOffset != 0x8)            
+        else if (gCurrentSprite.work3 != 0x8)            
         {
-            gCurrentSprite.arrayOffset = 0x8;
-            gCurrentSprite.workVariable2 = TRUE;
+            gCurrentSprite.work3 = 0x8;
+            gCurrentSprite.work2 = TRUE;
         }
 
-        TransparencySpriteUpdateBLDALPHA(0x0, gCurrentSprite.arrayOffset, 0x0, 0x10);
+        TransparencySpriteUpdateBLDALPHA(0x0, gCurrentSprite.work3, 0x0, 0x10);
     }
 }

@@ -329,7 +329,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
                 }
                 else
                 {
@@ -338,7 +338,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
                     }
                     else
                         gCurrentSprite.yPosition += speed;
@@ -351,7 +351,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
                 }
                 else
                 {
@@ -360,7 +360,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
                     }
                     else
                         gCurrentSprite.yPosition -= speed;
@@ -376,7 +376,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER;
                 }
                 else
                 {
@@ -385,7 +385,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE;
                     }
                     else
                         gCurrentSprite.yPosition += speed;
@@ -398,7 +398,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE;
                 }
                 else
                 {
@@ -407,7 +407,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER;
                     }
                     else
                         gCurrentSprite.yPosition -= speed;
@@ -426,7 +426,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
                 }
                 else
                 {
@@ -435,7 +435,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER;
                     }
                     else
                         gCurrentSprite.xPosition += speed;
@@ -448,7 +448,7 @@ void ZeelaMove(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                    gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER;
                 }
                 else
                 {
@@ -457,7 +457,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
                     }
                     else
                         gCurrentSprite.xPosition -= speed;
@@ -484,7 +484,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
                     }
                     else
                     {
@@ -493,7 +493,7 @@ void ZeelaMove(void)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             turning = TRUE;
-                            gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                            gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE;
                         }
                         else
                             gCurrentSprite.xPosition += speed;
@@ -506,7 +506,7 @@ void ZeelaMove(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                        gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE;
                     }
                     else
                     {
@@ -515,7 +515,7 @@ void ZeelaMove(void)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             turning = TRUE;
-                            gCurrentSprite.workVariable = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                            gCurrentSprite.work1 = ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
                         }
                         else
                             gCurrentSprite.xPosition -= speed;
@@ -596,7 +596,7 @@ void ZeelaTurningAroundInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -694,7 +694,7 @@ void ZeelaTurning(void)
 
     gCurrentSprite.pose = ZEELA_POSE_IDLE;
 
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
@@ -841,7 +841,7 @@ void ZeelaFallingInit(void)
         gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
    
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400);
 
     ZeelaUpdateHitbox();
@@ -863,7 +863,7 @@ void ZeelaFalling(void)
     gCurrentSprite.animationDurationCounter++;
     oldY = gCurrentSprite.yPosition;
 
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sSpritesFallingSpeed[offset];
     
     if (movement == SHORT_MAX)
@@ -873,7 +873,7 @@ void ZeelaFalling(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += movement;
     }
 
@@ -946,7 +946,7 @@ void ZeelaEyesInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pose = ZEELA_EYES_POSE_MOVING;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 3;
@@ -954,12 +954,12 @@ void ZeelaEyesInit(void)
     // Setup rotation, choose random direction
     if (MOD_AND(gSpriteRng, 2))
     {
-        gCurrentSprite.workVariable = TRUE;
+        gCurrentSprite.work1 = TRUE;
         gCurrentSprite.oamRotation = PI;
     }
     else
     {
-        gCurrentSprite.workVariable = FALSE;
+        gCurrentSprite.work1 = FALSE;
         gCurrentSprite.oamRotation = 0;
     }
 }
@@ -984,7 +984,7 @@ void ZeelaEyesMove(void)
 
     if (gCurrentSprite.roomSlot == 0)
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sZeelaEyesFallingFromUpSpeed[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -993,7 +993,7 @@ void ZeelaEyesMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
 
@@ -1001,7 +1001,7 @@ void ZeelaEyesMove(void)
     }
     else if (gCurrentSprite.roomSlot == 1)
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sZeelaEyesFallingFromBottomSpeed[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -1010,7 +1010,7 @@ void ZeelaEyesMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
 
@@ -1018,7 +1018,7 @@ void ZeelaEyesMove(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         yMovement = sZeelaEyesFallingFromUpSpeed[offset];
         if (yMovement == SHORT_MAX)
         {
@@ -1027,7 +1027,7 @@ void ZeelaEyesMove(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.work3++;
             gCurrentSprite.yPosition += yMovement;
         }
 
@@ -1040,7 +1040,7 @@ void ZeelaEyesMove(void)
         gCurrentSprite.xPosition -= xMovement;
 
     // Rotate
-    if (gCurrentSprite.workVariable)
+    if (gCurrentSprite.work1)
         gCurrentSprite.oamRotation -= PI / 6 - PI / PI;
     else
         gCurrentSprite.oamRotation += PI / 6 - PI / PI;

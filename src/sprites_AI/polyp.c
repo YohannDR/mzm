@@ -43,7 +43,7 @@ void PolypIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     // Delay before spitting
-    gCurrentSprite.timer = POLYP_SHOOT_DELAY;
+    gCurrentSprite.work0 = POLYP_SHOOT_DELAY;
 }
 
 /**
@@ -52,8 +52,8 @@ void PolypIdleInit(void)
  */
 void PolypCheckSpawnProjectile(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer != 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 != 0)
         return;
 
     // Shoot if on screen, not already shooted and projectile doesn't have an active drop
@@ -74,7 +74,7 @@ void PolypCheckSpawnProjectile(void)
     else
     {
         // Can't shoot, reset timer
-        gCurrentSprite.timer = POLYP_SHOOT_DELAY;
+        gCurrentSprite.work0 = POLYP_SHOOT_DELAY;
     }
 }
 
@@ -93,7 +93,7 @@ void PolypCheckWarningEnded(void)
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
 
-        gCurrentSprite.timer = POLYP_SPIT_DURATION;
+        gCurrentSprite.work0 = POLYP_SPIT_DURATION;
     }
 }
 
@@ -103,7 +103,7 @@ void PolypCheckWarningEnded(void)
  */
 void PolypSpawnProjectile(void)
 {
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
         // Set after spitting behavior
         gCurrentSprite.pose = POLYP_POSE_AFTER_SPITTING;
@@ -112,7 +112,7 @@ void PolypSpawnProjectile(void)
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
-    else if (gCurrentSprite.timer == POLYP_SPIT_DURATION / 5)
+    else if (gCurrentSprite.work0 == POLYP_SPIT_DURATION / 5)
     {
         // Spawn projectile
         SpriteSpawnSecondary(SSPRITE_POLYP_PROJECTILE, gCurrentSprite.roomSlot,
@@ -189,8 +189,8 @@ void PolypProjectileInit(void)
     else
         gCurrentSprite.pOam = sPolypProjectileOam_Left;
 
-    gCurrentSprite.timer = 4;
-    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.work0 = 4;
+    gCurrentSprite.work3 = 0;
 }
 
 /**
@@ -199,8 +199,8 @@ void PolypProjectileInit(void)
  */
 void PolypProjectileSpawn(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = POLYP_PROJECTILE_POSE_MOVING;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
@@ -224,7 +224,7 @@ void PolypProjectileMove(void)
     xMovement = PIXEL_SIZE;
 
     // Y movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     yMovement = sPolypProjectileYVelocity[offset];
     if (yMovement == SHORT_MAX)
     {
@@ -233,7 +233,7 @@ void PolypProjectileMove(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += yMovement;
     }
 

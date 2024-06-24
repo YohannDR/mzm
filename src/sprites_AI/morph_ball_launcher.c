@@ -19,7 +19,7 @@
  * 
  * @param caa Clipdata Affecting Action
  */
-void MorphBallLauncherChangeCCAA(u8 caa)
+void MorphBallLauncherChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -80,7 +80,7 @@ void MorphBallLauncherInit(void)
         gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
     // Set hitbox
-    MorphBallLauncherChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
+    MorphBallLauncherChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -122,7 +122,7 @@ void MorphBallLauncherDetectBomb(void)
     if (hasBomb)
     {
         gCurrentSprite.pose = MORPH_BALL_LAUNCHER_POSE_DELAY_BEFORE_LAUNCHING;
-        gCurrentSprite.timer = 32;
+        gCurrentSprite.work0 = 32;
     }
 }
 
@@ -132,18 +132,18 @@ void MorphBallLauncherDetectBomb(void)
  */
 void MorphBallLauncherDelayBeforeLaunching(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pOam = sMorphBallLauncherOam_Launching;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = MORPH_BALL_LAUNCHER_POSE_LAUNCHING;
-        gCurrentSprite.timer = 60;
+        gCurrentSprite.work0 = 60;
 
         // Has launched flag
-        gCurrentSprite.workVariable = FALSE;
+        gCurrentSprite.work1 = FALSE;
     }
 }
 
@@ -154,17 +154,17 @@ void MorphBallLauncherDelayBeforeLaunching(void)
 void MorphBallLauncherLaunchSamus(void)
 {
     // Check hasn't launched and samus is ready
-    if (!gCurrentSprite.workVariable && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
+    if (!gCurrentSprite.work1 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
         SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_PART, MORPH_BALL_LAUNCHER_PART_ENERGY, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gSamusData.yPosition - QUARTER_BLOCK_SIZE, gSamusData.xPosition, 0);
 
         // Has launched flag
-        gCurrentSprite.workVariable = TRUE;
+        gCurrentSprite.work1 = TRUE;
     }
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pOam = sMorphBallLauncherOam_Idle;
         gCurrentSprite.animationDurationCounter = 0;
@@ -245,15 +245,15 @@ void MorphBallLauncherPart(void)
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_ENERGY;
 
                 // Lifetime
-                gCurrentSprite.timer = 60;
+                gCurrentSprite.work0 = 60;
             }
             else
                 gCurrentSprite.status = 0;
             break;
 
         case MORPH_BALL_LAUNCHER_PART_POSE_ENERGY:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
                 gCurrentSprite.status = 0;
     }
 }

@@ -134,7 +134,7 @@ void HoltzInit(void)
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.pose = HOLTZ_POSE_IDLE_INIT;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
 }
 
 /**
@@ -165,14 +165,14 @@ void HoltzIdle(void)
     u8 nslr;
 
     // Y idle movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sHoltzIdleYVelocity[offset];
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;
     }
-    gCurrentSprite.arrayOffset = offset + 0x1;
+    gCurrentSprite.work3 = offset + 0x1;
     gCurrentSprite.yPosition += movement;
 
     // Detect samus
@@ -206,14 +206,14 @@ void HoltzCheckWarningAnimEnded(void)
     s32 movement;
 
     // Y idle movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sHoltzIdleYVelocity[offset];
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;
     }
-    gCurrentSprite.arrayOffset = offset + 0x1;
+    gCurrentSprite.work3 = offset + 0x1;
     gCurrentSprite.yPosition += movement;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -226,8 +226,8 @@ void HoltzCheckWarningAnimEnded(void)
         // Set going down flag (they could've used the facing down flag?)
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         SpriteUtilMakeSpriteFaceSamusDirection();
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.workVariable2 = 0x2; // Initial X speed
+        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work2 = 0x2; // Initial X speed
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(0x186);
     }
@@ -240,11 +240,11 @@ void HoltzCheckWarningAnimEnded(void)
 void HoltzGoingDownMove(void)
 {
     // Gradually increase X movement
-    gCurrentSprite.timer++;
-    if (gCurrentSprite.workVariable2 < 0xC && !(gCurrentSprite.timer & 0x1))
-        gCurrentSprite.workVariable2++;
+    gCurrentSprite.work0++;
+    if (gCurrentSprite.work2 < 0xC && !(gCurrentSprite.work0 & 0x1))
+        gCurrentSprite.work2++;
 
-    HoltzXMovement(gCurrentSprite.workVariable2);
+    HoltzXMovement(gCurrentSprite.work2);
     if (HoltzYMovement(0xC)) // Y movement
     {
         // Touched ground, set sliding behavior
@@ -261,7 +261,7 @@ void HoltzGoingDownMove(void)
  */
 void HoltzSlidingMove(void)
 {
-    HoltzXMovement(gCurrentSprite.workVariable2); // X Movement
+    HoltzXMovement(gCurrentSprite.work2); // X Movement
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
@@ -272,7 +272,7 @@ void HoltzSlidingMove(void)
         gCurrentSprite.pOam = sHoltzOAM_GoingUp;
         // Remove going down flag
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.work0 = 0x0;
     }
 }
 
@@ -290,11 +290,11 @@ void HoltzGoingUpMove(void)
     }
 
     // Gradually decrease X movement
-    gCurrentSprite.timer++;
-    if (gCurrentSprite.workVariable2 > 0x2 && !(gCurrentSprite.timer & 0x1))
-        gCurrentSprite.workVariable2--;
+    gCurrentSprite.work0++;
+    if (gCurrentSprite.work2 > 0x2 && !(gCurrentSprite.work0 & 0x1))
+        gCurrentSprite.work2--;
 
-    HoltzXMovement(gCurrentSprite.workVariable2); // X movement
+    HoltzXMovement(gCurrentSprite.work2); // X movement
     if (HoltzYMovement(0xC)) // Y movement
     {
         // Touching ceiling, set bonking behavior
@@ -304,7 +304,7 @@ void HoltzGoingUpMove(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pOam = sHoltzOAM_BonkingOnCeiling;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.work3 = 0x0;
     }
 }
 
@@ -318,14 +318,14 @@ void HoltzBackToCeiling(void)
     u8 offset;
 
     // Y idle movement
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sHoltzIdleYVelocity[offset];
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;
     }
-    gCurrentSprite.arrayOffset = offset + 0x1;
+    gCurrentSprite.work3 = offset + 0x1;
     gCurrentSprite.yPosition += movement;
 
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())

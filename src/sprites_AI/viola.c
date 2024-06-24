@@ -79,9 +79,9 @@ void ViolaInit(void)
 
     // Set speed
     if (gCurrentSprite.spriteId == PSPRITE_VIOLA_ORANGE)
-        gCurrentSprite.workVariable2 = 0x4;
+        gCurrentSprite.work2 = 0x4;
     else
-        gCurrentSprite.workVariable2 = 0x2;
+        gCurrentSprite.work2 = 0x2;
 }
 
 /**
@@ -95,7 +95,7 @@ void ViolaMoveRight(void)
     u16 xPosition;
     u32 topEdge;
 
-    velocity = gCurrentSprite.workVariable2;
+    velocity = gCurrentSprite.work2;
     yPosition = gCurrentSprite.yPosition + 0x18;
     xPosition = gCurrentSprite.xPosition;
 
@@ -208,7 +208,7 @@ void ViolaMoveLeft(void)
     blockY = gCurrentSprite.yPosition &= 0xFFC0;
     gCurrentSprite.yPosition += 0x18;
 
-    velocity = gCurrentSprite.workVariable2;
+    velocity = gCurrentSprite.work2;
     yPosition = blockY - 0x4;
     xPosition = gCurrentSprite.xPosition;
 
@@ -293,7 +293,7 @@ void ViolaMoveDown(void)
     blockX = gCurrentSprite.xPosition &= 0xFFC0;
     gCurrentSprite.xPosition += 0x18;
 
-    velocity = gCurrentSprite.workVariable2;
+    velocity = gCurrentSprite.work2;
     yPosition = gCurrentSprite.yPosition;
     xPosition = blockX - 0x4;
 
@@ -378,7 +378,7 @@ void ViolaMoveUp(void)
     blockX = gCurrentSprite.xPosition &= 0xFFC0;
     gCurrentSprite.xPosition += 0x28;
 
-    velocity = gCurrentSprite.workVariable2;
+    velocity = gCurrentSprite.work2;
     yPosition = gCurrentSprite.yPosition;
     xPosition = blockX + BLOCK_SIZE;
 
@@ -456,7 +456,7 @@ void ViolaMoveUp(void)
 void ViolaFallingInit(void)
 {
     gCurrentSprite.pose = VIOLA_POSE_FALLING;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
 }
 
 /**
@@ -478,7 +478,7 @@ void ViolaFalling(void)
     }
     else
     {
-        offset = gCurrentSprite.arrayOffset;
+        offset = gCurrentSprite.work3;
         movement = sSpritesFallingSpeed[offset];
         if (movement == SHORT_MAX)
         {
@@ -487,7 +487,7 @@ void ViolaFalling(void)
         }
         else
         {
-            gCurrentSprite.arrayOffset = offset + 0x1;
+            gCurrentSprite.work3 = offset + 0x1;
             gCurrentSprite.yPosition += movement;
         }
     }

@@ -57,7 +57,7 @@ void WaterDrop(void)
 
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-            gCurrentSprite.timer = gSpriteRng * 8;
+            gCurrentSprite.work0 = gSpriteRng * 8;
             break;
 
         case WATER_DROP_POSE_CHECK_SPAWNING_ENDED:
@@ -67,8 +67,8 @@ void WaterDrop(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
-                gCurrentSprite.workVariable = FALSE;
-                gCurrentSprite.arrayOffset = 0;
+                gCurrentSprite.work1 = FALSE;
+                gCurrentSprite.work3 = 0;
                 gCurrentSprite.pose = WATER_DROP_POSE_FALLING;
             }
             break;
@@ -82,7 +82,7 @@ void WaterDrop(void)
                 {
                     // Splashing on room effect
                     gCurrentSprite.yPosition = gEffectYPosition;
-                    gCurrentSprite.workVariable = TRUE;
+                    gCurrentSprite.work1 = TRUE;
                 }
                 else
                 {
@@ -103,7 +103,7 @@ void WaterDrop(void)
                 }
 
                 // Fall
-                offset = gCurrentSprite.arrayOffset;
+                offset = gCurrentSprite.work3;
                 movement = sSpritesFallingSpeed[offset]; 
                 if (movement == SHORT_MAX)
                 {
@@ -112,7 +112,7 @@ void WaterDrop(void)
                 }
                 else
                 {
-                    gCurrentSprite.arrayOffset++;
+                    gCurrentSprite.work3++;
                     gCurrentSprite.yPosition += movement;
                 }
             }
@@ -126,20 +126,20 @@ void WaterDrop(void)
             gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING;
 
         case WATER_DROP_POSE_SPLASHING:
-            if (gCurrentSprite.workVariable)
+            if (gCurrentSprite.work1)
                 gCurrentSprite.yPosition = gEffectYPosition;
 
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-                gCurrentSprite.timer = 100 + gSpriteRng * 8;
+                gCurrentSprite.work0 = 100 + gSpriteRng * 8;
             }
             break;
 
         case WATER_DROP_POSE_SPAWNING:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pOam = sWaterDropOam_Spawning;
                 gCurrentSprite.currentAnimationFrame = 0;

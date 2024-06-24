@@ -36,13 +36,13 @@ void RinkaInit(void)
     gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Get spawn tile position
-    gCurrentSprite.arrayOffset = (gCurrentSprite.yPosition - (HALF_BLOCK_SIZE)) >> 6;
-    gCurrentSprite.workVariable2 = (gCurrentSprite.xPosition - (HALF_BLOCK_SIZE)) >> 6;
+    gCurrentSprite.work3 = (gCurrentSprite.yPosition - (HALF_BLOCK_SIZE)) >> 6;
+    gCurrentSprite.work2 = (gCurrentSprite.xPosition - (HALF_BLOCK_SIZE)) >> 6;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.work1 = 0x0;
 
     if (gCurrentSprite.spriteId != PSPRITE_RINKA_GREEN && gCurrentSprite.spriteId != PSPRITE_RINKA_ORANGE)
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -74,8 +74,8 @@ void RinkaSpawningInit(void)
 void RinkaRespawn(void)
 {
     // Set spawn position
-    gCurrentSprite.yPosition = (gCurrentSprite.arrayOffset * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
-    gCurrentSprite.xPosition = (gCurrentSprite.workVariable2 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
+    gCurrentSprite.yPosition = (gCurrentSprite.work3 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
+    gCurrentSprite.xPosition = (gCurrentSprite.work2 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
 
     RinkaSpawningInit();
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -89,9 +89,9 @@ void RinkaRespawn(void)
 
     // Set spawn delay
     if (gCurrentSprite.status & SPRITE_STATUS_MOSAIC)
-        gCurrentSprite.workVariable = 0x14; // Green rinka
+        gCurrentSprite.work1 = 0x14; // Green rinka
     else
-        gCurrentSprite.workVariable = 0x3C; // Orange rinka
+        gCurrentSprite.work1 = 0x3C; // Orange rinka
 
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     // Duplicated code
@@ -110,10 +110,10 @@ void RinkaSpawning(void)
     u16 spriteX;
 
     // Spawn delay
-    if (gCurrentSprite.workVariable != 0x0)
+    if (gCurrentSprite.work1 != 0x0)
     {
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-        gCurrentSprite.workVariable--;
+        gCurrentSprite.work1--;
     }
     else
     {
@@ -125,17 +125,17 @@ void RinkaSpawning(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.timer = 0xB;
+                gCurrentSprite.work0 = 0xB;
             }
         }
         else
         {
             // Vulnerability delay
-            if (gCurrentSprite.timer != 0x0)
+            if (gCurrentSprite.work0 != 0x0)
             {
                 gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer == 0x0)
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -203,8 +203,8 @@ void RinkaMove(void)
     acceleration = ++gCurrentSprite.oamScaling;
     velocity *= (acceleration);
 
-    spawnY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
-    spawnX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spawnY = gCurrentSprite.work3 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spawnX = gCurrentSprite.work2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
@@ -319,8 +319,8 @@ void RinkaMotherBrainRespawn(void)
     s32 offset;
     u8* pSprite;
 
-    spriteY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
-    spriteX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spriteY = gCurrentSprite.work3 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spriteX = gCurrentSprite.work2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     samusX = gSamusData.xPosition;
 
     // Check should be first or second place
@@ -394,7 +394,7 @@ void RinkaMotherBrainRespawn(void)
     gCurrentSprite.absolutePaletteRow = 0x0;
     pSprite = &gCurrentSprite.ignoreSamusCollisionTimer;
     gCurrentSprite.freezeTimer = 0x0;
-    gCurrentSprite.workVariable = 0x3C;
+    gCurrentSprite.work1 = 0x3C;
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     *pSprite = 0x1;
 }
@@ -411,10 +411,10 @@ void RinkaMotherBrainSpawning(void)
     u16 spriteX;
 
     // Spawn delay
-    if (gCurrentSprite.workVariable != 0x0)
+    if (gCurrentSprite.work1 != 0x0)
     {
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-        gCurrentSprite.workVariable--;
+        gCurrentSprite.work1--;
     }
     else
     {
@@ -426,7 +426,7 @@ void RinkaMotherBrainSpawning(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.timer = 0xB;
+                gCurrentSprite.work0 = 0xB;
             }
             else
                 RinkaMotherBrainRespawn();
@@ -434,11 +434,11 @@ void RinkaMotherBrainSpawning(void)
         else
         {
             // Vulnerability delay
-            if (gCurrentSprite.timer != 0x0)
+            if (gCurrentSprite.work0 != 0x0)
             {
                 gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer == 0x0)
+                gCurrentSprite.work0--;
+                if (gCurrentSprite.work0 == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -501,8 +501,8 @@ void RinkaMotherBrainMove(void)
     acceleration = ++gCurrentSprite.oamScaling;
     velocity = acceleration * 4;
 
-    tileX = gCurrentSprite.workVariable2;
-    tileY = gCurrentSprite.arrayOffset;
+    tileX = gCurrentSprite.work2;
+    tileY = gCurrentSprite.work3;
 
     // Check spawn at second place
     switch (gCurrentSprite.spriteId)

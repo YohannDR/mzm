@@ -16,13 +16,13 @@
 #include "structs/power_bomb_explosion.h"
 
 /**
- * @brief 590b0 | 214 | Checks if soemthing should happen to a block depending on the CCAA
+ * @brief 590b0 | 214 | Checks if soemthing should happen to a block depending on the Ccaa
  * 
  * @param pClipBlock Clipdata Block Data Pointer
  * @return u32 1 if detroyed, 0 otherwise
  */
 #ifdef NON_MATCHING
-u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
+u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
 {
     // https://decomp.me/scratch/LL1r2
 
@@ -184,7 +184,7 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 }
 #else
 NAKED_FUNCTION
-u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
+u32 BlockCheckCcaa(struct ClipdataBlockData* pClipBlock)
 {
     asm(" \n\
         push {r4, r5, r6, r7, lr} \n\
@@ -826,14 +826,14 @@ u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 }
 
 /**
- * @brief 5987c | 164 | Applies the CCAA (Current Clipdata Affecting Action)
+ * @brief 5987c | 164 | Applies the Ccaa (Current Clipdata Affecting Action)
  * 
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param trueClip True clipdata block value
  * @return u32 1 if a block changed, 0 otherwise
  */
-u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
+u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip)
 {
     struct ClipdataBlockData clipBlock;
     u32 result;
@@ -860,14 +860,14 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
             else
             {
                 // Check on block
-                if (BlockCheckCCAA(&clipBlock))
+                if (BlockCheckCcaa(&clipBlock))
                     result = TRUE;
             }
             break;
 
         case CAA_SPEEDBOOSTER:
         case CAA_SPEEDBOOSTER_ON_GROUND:
-            if (BlockCheckCCAA(&clipBlock))
+            if (BlockCheckCcaa(&clipBlock))
             {
                 SoundPlayNotAlreadyPlaying(0x135);
                 result = TRUE;
@@ -875,7 +875,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
             break;
 
         case CAA_SCREW_ATTACK:
-            if (BlockCheckCCAA(&clipBlock))
+            if (BlockCheckCcaa(&clipBlock))
             {
                 SoundPlayNotAlreadyPlaying(0x139);
                 result = TRUE;
@@ -884,7 +884,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 
         case CAA_BOMB_CHAIN:
         case CAA_BOMB_CHAIN_UNUSED:
-            if (BlockCheckCCAA(&clipBlock))
+            if (BlockCheckCcaa(&clipBlock))
                 result = TRUE;
             break;
 
@@ -1000,7 +1000,7 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
 
     if (blockX < gBgPointersAndDimensions.clipdataWidth && blockY < gBgPointersAndDimensions.clipdataHeight)
     {
-        // Set CCAA
+        // Set Ccaa
         if (action == DESTRUCTING_ACTION_SPEED)
             gCurrentClipdataAffectingAction = CAA_SPEEDBOOSTER;
         else if (action == DESTRUCTING_ACTION_SCREW)
@@ -1019,20 +1019,20 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
         if (clipdata != 0)
         {
             // Apply first
-            result = BlockApplyCCAA(blockY, blockX, clipdata);
+            result = BlockApplyCcaa(blockY, blockX, clipdata);
 
             if (!result && action == DESTRUCTING_ACTION_SPEED_SCREW)
             {
                 // Apply second
                 gCurrentClipdataAffectingAction = CAA_SPEEDBOOSTER;
-                BlockApplyCCAA(blockY, blockX, clipdata);
+                BlockApplyCcaa(blockY, blockX, clipdata);
             }
         }
     }
     else
         return FALSE;
 
-    // Clear CCAA
+    // Clear Ccaa
     gCurrentClipdataAffectingAction = CAA_NONE;
     
     return result;
@@ -1621,7 +1621,7 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     // Check the current position
     clipdata = gBgPointersAndDimensions.pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition];
     if (clipdata != 0)
-        BlockApplyCCAA(yPosition, xPosition, clipdata);
+        BlockApplyCcaa(yPosition, xPosition, clipdata);
 
     for (i = 0; i < 2; i++)
     {
@@ -1640,7 +1640,7 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
 
         // Apply to block
         if (clipdata != 0)
-            BlockApplyCCAA(yOffset, xOffset, clipdata);
+            BlockApplyCcaa(yOffset, xOffset, clipdata);
     }
 
     // Clear CAA

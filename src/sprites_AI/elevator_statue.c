@@ -17,7 +17,7 @@
  * 
  * @param caa Clipdata Affecting Action
  */
-void ElevatorStatueChangeTwoGroundCCAA(u8 caa)
+void ElevatorStatueChangeTwoGroundCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -76,7 +76,7 @@ void KraidElevatorStatueFallenInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
-    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
+    ElevatorStatueChangeTwoGroundCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -126,7 +126,7 @@ void KraidElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.timer = 16; // Delay before falling
+        gCurrentSprite.work0 = 16; // Delay before falling
     }
 }
 
@@ -136,8 +136,8 @@ void KraidElevatorStatueCheckShouldFall(void)
  */
 void KraidElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sKraidElevatorStatueOAM_Falling;
@@ -208,7 +208,7 @@ void KraidElevatorStatueFalling(void)
  * 
  * @param caa Clipdata Affecting Action
  */
-void RidleyElevatorStatueChangeCCAA(u8 caa)
+void RidleyElevatorStatueChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -248,7 +248,7 @@ void RidleyElevatorStatueFallenInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
-    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
+    ElevatorStatueChangeTwoGroundCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -284,7 +284,7 @@ void RidleyElevatorStatueInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
-    RidleyElevatorStatueChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
+    RidleyElevatorStatueChangeCcaa(CAA_MAKE_NON_POWER_GRIP); // Set collision
 }
 
 /**
@@ -298,7 +298,7 @@ void RidleyElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.timer = 16; // Timer before falling
+        gCurrentSprite.work0 = 16; // Timer before falling
     }
 }
 
@@ -308,8 +308,8 @@ void RidleyElevatorStatueCheckShouldFall(void)
  */
 void RidleyElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Falling;
@@ -322,7 +322,7 @@ void RidleyElevatorStatueDelayBeforeFalling(void)
         EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_ELEVATOR_STATUE_DESTROYED);
 
         // Remove collision
-        RidleyElevatorStatueChangeCCAA(CAA_REMOVE_SOLID);
+        RidleyElevatorStatueChangeCcaa(CAA_REMOVE_SOLID);
 
         // Play effects
         ScreenShakeStartHorizontal(10, 0x80 | 1);

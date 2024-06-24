@@ -236,7 +236,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
                 }
                 else
                 {
@@ -245,7 +245,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
                     }
                     else
                         gCurrentSprite.yPosition += speed;
@@ -258,7 +258,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
                 }
                 else
                 {
@@ -267,7 +267,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
                     }
                     else
                         gCurrentSprite.yPosition -= speed;
@@ -283,7 +283,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
                 }
                 else
                 {
@@ -292,7 +292,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
                     }
                     else
                         gCurrentSprite.yPosition += speed;
@@ -305,7 +305,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
                 }
                 else
                 {
@@ -314,7 +314,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
                     }
                     else
                         gCurrentSprite.yPosition -= speed;
@@ -333,7 +333,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
                 }
                 else
                 {
@@ -342,7 +342,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
                     }
                     else
                         gCurrentSprite.xPosition += speed;
@@ -355,7 +355,7 @@ void ZoomerCrawling(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                    gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
                 }
                 else
                 {
@@ -364,7 +364,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
                     }
                     else
                         gCurrentSprite.xPosition -= speed;
@@ -391,7 +391,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
                     }
                     else
                     {
@@ -400,7 +400,7 @@ void ZoomerCrawling(void)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             turning = TRUE;
-                            gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                            gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
                         }
                         else
                             gCurrentSprite.xPosition += speed;
@@ -413,7 +413,7 @@ void ZoomerCrawling(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                        gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
                     }
                     else
                     {
@@ -422,7 +422,7 @@ void ZoomerCrawling(void)
                         {
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             turning = TRUE;
-                            gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                            gCurrentSprite.work1 = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
                         }
                         else
                             gCurrentSprite.xPosition -= speed;
@@ -505,7 +505,7 @@ void ZoomerTurningAroundInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -603,7 +603,7 @@ void ZoomerTurningAround(void)
 
     gCurrentSprite.pose = ZOOMER_POSE_IDLE;
 
-    switch (gCurrentSprite.workVariable)
+    switch (gCurrentSprite.work1)
     {
         case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
             if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
@@ -748,7 +748,7 @@ void ZoomerFallingInit(void)
         gCurrentSprite.yPosition += 0x28;
 
     gCurrentSprite.pose = ZOOMER_POSE_FALLING;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.work3 = 0x0;
     gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400);
 
     ZoomerUpdateHitbox();
@@ -769,7 +769,7 @@ void ZoomerFalling(void)
 
     yPosition = gCurrentSprite.yPosition;
 
-    offset = gCurrentSprite.arrayOffset;
+    offset = gCurrentSprite.work3;
     movement = sSpritesFallingSpeed[offset];
 
     if (movement == SHORT_MAX)
@@ -779,7 +779,7 @@ void ZoomerFalling(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.work3++;
         gCurrentSprite.yPosition += movement;
     }
 

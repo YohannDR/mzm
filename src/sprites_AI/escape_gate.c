@@ -16,7 +16,7 @@
  * 
  * @param caa Clipdata Affecting Action
  */
-void EscapeGateChangeCCAA(u8 caa)
+void EscapeGateChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -90,12 +90,12 @@ void EscapeGate(void)
             gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.pose = ESCAPE_GATE_POSE_LOAD_GRAPHICS;
-            gCurrentSprite.workVariable = 0;
-            gCurrentSprite.workVariable2 = 1;
+            gCurrentSprite.work1 = 0;
+            gCurrentSprite.work2 = 1;
             gCurrentSprite.drawOrder = 3;
 
             gSubSpriteData1.workVariable3 = 0;
-            EscapeGateChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE); // Set gate collision
+            EscapeGateChangeCcaa(CAA_MAKE_SOLID_GRIPPABLE); // Set gate collision
             break;
 
         case ESCAPE_GATE_POSE_LOAD_GRAPHICS:
@@ -156,7 +156,7 @@ void EscapeGate(void)
             else
             {
                 if (gCurrentSprite.currentAnimationFrame == 4 && gCurrentSprite.animationDurationCounter == 10)
-                    EscapeGateChangeCCAA(CAA_REMOVE_SOLID);
+                    EscapeGateChangeCcaa(CAA_REMOVE_SOLID);
             }
             break;
 
@@ -186,30 +186,30 @@ void EscapeGate(void)
     // Update animated palette
     if (spriteId == PSPRITE_ESCAPE_GATE1)
     {
-        timer = --gCurrentSprite.workVariable2;
+        timer = --gCurrentSprite.work2;
         if (timer == 0)
         {
-            gCurrentSprite.workVariable2 = delay;
-            row = gCurrentSprite.workVariable;
+            gCurrentSprite.work2 = delay;
+            row = gCurrentSprite.work1;
             flag = 0x80;
             if (row & flag)
             {
-                if (gCurrentSprite.workVariable > 0x80)
-                    gCurrentSprite.workVariable--;
+                if (gCurrentSprite.work1 > 0x80)
+                    gCurrentSprite.work1--;
 
-                if (gCurrentSprite.workVariable == 0x80)
-                    gCurrentSprite.workVariable = timer;
+                if (gCurrentSprite.work1 == 0x80)
+                    gCurrentSprite.work1 = timer;
             }
             else
             {
-                if (gCurrentSprite.workVariable < 5)
-                    gCurrentSprite.workVariable++;
+                if (gCurrentSprite.work1 < 5)
+                    gCurrentSprite.work1++;
 
-                if (gCurrentSprite.workVariable == 2)
-                    gCurrentSprite.workVariable |= flag;
+                if (gCurrentSprite.work1 == 2)
+                    gCurrentSprite.work1 |= flag;
             }
 
-            offset = MOD_AND(gCurrentSprite.workVariable, 128);
+            offset = MOD_AND(gCurrentSprite.work1, 128);
             DMA_SET(3, &sEscapeGateFlashingPal[offset * 16], PALRAM_BASE + 0x3E0, (DMA_ENABLE << 16) | 16);
         }
     }

@@ -40,7 +40,7 @@ void RuinsTestCalculateDelay(u8 delay)
  * 
  * @param caa Clipdata Affecting Action
  */
-void RuinsTestChangeCCAA(u8 caa)
+void RuinsTestChangeCcaa(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -417,12 +417,12 @@ void RuinsTestGhostMove(u8 dAngle)
     s32 temp2;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.workVariable += dAngle;
+        gCurrentSprite.work1 += dAngle;
     else
-        gCurrentSprite.workVariable -= dAngle;
+        gCurrentSprite.work1 -= dAngle;
 
     radius = (s16)gCurrentSprite.oamScaling;
-    angle = gCurrentSprite.workVariable;
+    angle = gCurrentSprite.work1;
 
     temp = s = sin(angle);
     if (temp < 0)
@@ -478,7 +478,7 @@ void RuinsTestInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = RUINS_TEST_POSE_SPAWNING;
-    gCurrentSprite.timer = 0;
+    gCurrentSprite.work0 = 0;
     gCurrentSprite.yPosition += QUARTER_BLOCK_SIZE;
 
     yPosition = gCurrentSprite.yPosition;
@@ -525,13 +525,13 @@ void RuinsTestInit(void)
  */
 void RuinsTestSpawning(void)
 {
-    if (gCurrentSprite.timer == 0)
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.animationDurationCounter = 0;
         return;
     }
 
-    if (gCurrentSprite.timer == 2)
+    if (gCurrentSprite.work0 == 2)
     {
         gCurrentSprite.pOam = sRuinsTestOam_TurningIntoReflection;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -569,7 +569,7 @@ void RuinsTestTurningIntoReflection(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = RUINS_TEST_POSE_FREE_SAMUS;
-        gCurrentSprite.timer = 32;
+        gCurrentSprite.work0 = 32;
     }
 }
 
@@ -579,10 +579,10 @@ void RuinsTestTurningIntoReflection(void)
  */
 void RuinsTestFreeSamus(void)
 {
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             // Allow turning
             gSamusData.lastWallTouchedMidAir = FALSE;
@@ -619,7 +619,7 @@ void RuinsTestMotionless(void)
         if (RuinsTestUpdateSymbol() || gSubSpriteData1.health != 0)
         {
             gCurrentSprite.pose = RUINS_TEST_POSE_SPAWN_GHOST;
-            gCurrentSprite.timer = 120;
+            gCurrentSprite.work0 = 120;
             SpriteUtilChooseRandomXDirection();
         }
     }
@@ -633,18 +633,18 @@ void RuinsTestSpawnGhost(void)
 {
     if (gSubSpriteData1.health == 0 || gBossWork.work7 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 84)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 84)
         {
             SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST_OUTLINE, RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         }
-        else if (gCurrentSprite.timer == 64)
+        else if (gCurrentSprite.work0 == 64)
         {
             SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST, RUINS_TEST_GHOST_PART_GHOST, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         }
-        else if (gCurrentSprite.timer == 0)
+        else if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.pose = RUINS_TEST_POSE_MOVING_INIT;
             gBossWork.work3 = 1200;
@@ -658,7 +658,7 @@ void RuinsTestSpawnGhost(void)
  */
 void RuinsTestMovingInit(void)
 {
-    gCurrentSprite.workVariable = 0x40;
+    gCurrentSprite.work1 = 0x40;
     gCurrentSprite.oamScaling = 0;
     gCurrentSprite.pose = RUINS_TEST_POSE_MOVING_CIRCLE_PATTERN;
     gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
@@ -710,22 +710,22 @@ void RuinsTestMoveCirclePattern(void)
     {
         // Try move to atom pattern
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        if ((u8)(gCurrentSprite.workVariable + 0x41) < 0x3 && gCurrentSprite.oamScaling == PI + PI / 2)
+        if ((u8)(gCurrentSprite.work1 + 0x41) < 0x3 && gCurrentSprite.oamScaling == PI + PI / 2)
         {
             // In a "corner", set atom pattern
             gCurrentSprite.pose = RUINS_TEST_POSE_MOVING_ATOM_PATTERN;
-            gCurrentSprite.workVariable2 = 0;
+            gCurrentSprite.work2 = 0;
             gBossWork.work3 = 1200;
 
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
             }
             else
             {
-                gCurrentSprite.workVariable = PI;
+                gCurrentSprite.work1 = PI;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
             }
@@ -780,16 +780,16 @@ void RuinsTestMoveAtomPattern(void)
     if (!gBossWork.work4)
         RuinsTestGhostMove(speed);
 
-    angle = flag & gCurrentSprite.workVariable;
+    angle = flag & gCurrentSprite.work1;
 
     // Check bouncing and set new destination
-    if (gCurrentSprite.workVariable2 == 0)
+    if (gCurrentSprite.work2 == 0)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == PI)
             {
-                gCurrentSprite.workVariable = PI + PI / 2;
+                gCurrentSprite.work1 = PI + PI / 2;
                 gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                 bouncing++;
@@ -799,20 +799,20 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (angle == 0)
             {
-                gCurrentSprite.workVariable = PI + PI / 2;
+                gCurrentSprite.work1 = PI + PI / 2;
                 gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                 bouncing++;
             }
         }
     }
-    else if (gCurrentSprite.workVariable2 == 1)
+    else if (gCurrentSprite.work2 == 1)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == PI / 2)
             {
-                gCurrentSprite.workVariable = PI;
+                gCurrentSprite.work1 = PI;
                 gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                 bouncing++;
@@ -822,20 +822,20 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (angle == PI / 2)
             {
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
                 gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                 bouncing++;
             }
         }
     }
-    else if (gCurrentSprite.workVariable2 == 2)
+    else if (gCurrentSprite.work2 == 2)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == 0)
             {
-                gCurrentSprite.workVariable = PI;
+                gCurrentSprite.work1 = PI;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
                 bouncing++;
             }
@@ -844,19 +844,19 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (angle == PI)
             {
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
                 bouncing++;
             }
         }
     }
-    else if (gCurrentSprite.workVariable2 == 3)
+    else if (gCurrentSprite.work2 == 3)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == 0)
             {
-                gCurrentSprite.workVariable = PI / 2;
+                gCurrentSprite.work1 = PI / 2;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                 bouncing++;
@@ -866,20 +866,20 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (angle == PI)
             {
-                gCurrentSprite.workVariable = PI / 2;
+                gCurrentSprite.work1 = PI / 2;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                 bouncing++;
             }
         }
     }
-    else if (gCurrentSprite.workVariable2 == 4)
+    else if (gCurrentSprite.work2 == 4)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == PI + PI / 2)
             {
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                 bouncing++;
@@ -889,37 +889,37 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (angle == PI + PI / 2)
             {
-                gCurrentSprite.workVariable = PI;
+                gCurrentSprite.work1 = PI;
                 gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                 bouncing++;
             }
         }
     }
-    else if (gCurrentSprite.workVariable2 == 5)
+    else if (gCurrentSprite.work2 == 5)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (angle == PI)
             {
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
                 gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
-                gCurrentSprite.workVariable2 = 0;
+                gCurrentSprite.work2 = 0;
             }
         }
         else
         {
             if (angle == 0)
             {
-                gCurrentSprite.workVariable = PI;
+                gCurrentSprite.work1 = PI;
                 gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
-                gCurrentSprite.workVariable2 = 0;
+                gCurrentSprite.work2 = 0;
             }
         }
     }
 
     if (bouncing)
-        gCurrentSprite.workVariable2++;
+        gCurrentSprite.work2++;
 
     // Update position and symbol
     gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
@@ -983,10 +983,10 @@ void RuinsTestCheckIsGhostDisappearing(void)
     if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_GHOST_STARTING_TO_DISAPPEAR)
     {
         gCurrentSprite.pose = RUINS_TEST_POSE_DESPAWN;
-        gCurrentSprite.timer = 100;
+        gCurrentSprite.work0 = 100;
 
         // Samus reflection end delay
-        gCurrentSprite.workVariable = 34;
+        gCurrentSprite.work1 = 34;
     }
 }
 
@@ -996,20 +996,20 @@ void RuinsTestCheckIsGhostDisappearing(void)
  */
 void RuinsTestDespawn(void)
 {
-    if (gCurrentSprite.timer != 0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.pOam = sRuinsTestOam_Despawn;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
         }
     }
-    else if (gCurrentSprite.workVariable != 0)
+    else if (gCurrentSprite.work1 != 0)
     {
-        gCurrentSprite.workVariable--;
-        if (gCurrentSprite.workVariable == 0)
+        gCurrentSprite.work1--;
+        if (gCurrentSprite.work1 == 0)
         {
             // Spawn reflection end
             SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SAMUS_REFLECTION_END, 0, gCurrentSprite.spritesetGfxSlot,
@@ -1023,7 +1023,7 @@ void RuinsTestDespawn(void)
         gCurrentSprite.pose = RUINS_TEST_POSE_DEAD;
 
         // Remove ceiling hitbox
-        RuinsTestChangeCCAA(CAA_REMOVE_SOLID);
+        RuinsTestChangeCcaa(CAA_REMOVE_SOLID);
 
         // Set event and IGT
         EventFunction(EVENT_ACTION_SETTING, EVENT_FULLY_POWERED_SUIT_OBTAINED);
@@ -1069,9 +1069,9 @@ void RuinsTestGhostInit(void)
 
         TransparencySpriteUpdateBLDALPHA(16, 0, 0, 16);
 
-        gCurrentSprite.timer = 0;
-        gCurrentSprite.workVariable = 16;
-        gCurrentSprite.workVariable2 = 0;
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work1 = 16;
+        gCurrentSprite.work2 = 0;
     }
     else
     {
@@ -1101,8 +1101,8 @@ void RuinsTestGhostInit(void)
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 
         gCurrentSprite.oamScaling = 0;
-        gCurrentSprite.timer = 4;
-        gCurrentSprite.workVariable = 0;
+        gCurrentSprite.work0 = 4;
+        gCurrentSprite.work1 = 0;
     }
 }
 
@@ -1112,17 +1112,17 @@ void RuinsTestGhostInit(void)
  */
 void RuinsTestGhostSpawn(void)
 {    
-    if (MOD_AND(++gCurrentSprite.workVariable2, 4) == 0)
+    if (MOD_AND(++gCurrentSprite.work2, 4) == 0)
     {
-        if (gCurrentSprite.timer < 8)
+        if (gCurrentSprite.work0 < 8)
         {
-            gCurrentSprite.timer++;
-            TransparencySpriteUpdateBLDALPHA(0x10, gCurrentSprite.timer, 0, 16);
+            gCurrentSprite.work0++;
+            TransparencySpriteUpdateBLDALPHA(0x10, gCurrentSprite.work0, 0, 16);
         }
-        else if (gCurrentSprite.workVariable > 9)
+        else if (gCurrentSprite.work1 > 9)
         {
-            gCurrentSprite.workVariable--;
-            TransparencySpriteUpdateBLDALPHA(gCurrentSprite.workVariable, 8, 0, 16);
+            gCurrentSprite.work1--;
+            TransparencySpriteUpdateBLDALPHA(gCurrentSprite.work1, 8, 0, 16);
         }
         else
         {
@@ -1148,16 +1148,16 @@ void RuinsTestGhostIdle(void)
     {
         if (gCurrentSprite.invincibilityStunFlashTimer == 0)
         {
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
-                gCurrentSprite.timer = 0xA;
-                if (gCurrentSprite.workVariable++ < 0x10)
-                    TransparencySpriteUpdateBLDALPHA(gCurrentSprite.workVariable, 0x10, 0, 0x10);
+                gCurrentSprite.work0 = 0xA;
+                if (gCurrentSprite.work1++ < 0x10)
+                    TransparencySpriteUpdateBLDALPHA(gCurrentSprite.work1, 0x10, 0, 0x10);
                 else
                 {
                     gCurrentSprite.pose = RUINS_TEST_GHOST_POSE_GHOST_DESPAWN;
-                    gCurrentSprite.workVariable = 0x10;
+                    gCurrentSprite.work1 = 0x10;
                     TransparencyUpdateBldcnt(0x1, BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
                 }
             }
@@ -1178,8 +1178,8 @@ void RuinsTestGhostIdle(void)
         if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_GHOST_AT_CENTER)
         {
             gSubSpriteData1.workVariable3 = RUINS_TEST_FIGHT_STAGE_GHOST_FADING_BACK;
-            gCurrentSprite.workVariable = 9;
-            gCurrentSprite.timer = 10;
+            gCurrentSprite.work1 = 9;
+            gCurrentSprite.work0 = 10;
 
             gCurrentSprite.pOam = sRuinsTestGhostOam_NotMoving;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -1197,12 +1197,12 @@ void RuinsTestGhostIdle(void)
  */
 void RuinsTestGhostDespawn(void)
 {
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
-        gCurrentSprite.timer = 10;
+        gCurrentSprite.work0 = 10;
 
-        if (gCurrentSprite.workVariable-- != 0)
-            TransparencySpriteUpdateBLDALPHA(gCurrentSprite.workVariable, 16, 0, 16);
+        if (gCurrentSprite.work1-- != 0)
+            TransparencySpriteUpdateBLDALPHA(gCurrentSprite.work1, 16, 0, 16);
         else
             gCurrentSprite.status = 0;
     }
@@ -1220,10 +1220,10 @@ void RuinsTestGhostMoveSymbolToPlace(void)
     u16 targetX;
 
     // Update palette
-    if (--gCurrentSprite.timer == 0)
+    if (--gCurrentSprite.work0 == 0)
     {
-        gCurrentSprite.timer = 4;
-        switch (gCurrentSprite.workVariable++)
+        gCurrentSprite.work0 = 4;
+        switch (gCurrentSprite.work1++)
         {
             case 0:
                 RUINS_TEST_TRANSFER_DYNAMIC_PAL(&sRuinsTestPal[16 * 6], 8);
@@ -1266,7 +1266,7 @@ void RuinsTestGhostMoveSymbolToPlace(void)
                 break;
 
             case 11:
-                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.work1 = 0;
 
             case 1:
                 RUINS_TEST_TRANSFER_DYNAMIC_PAL(sRuinsTestPal_SymbolShot_Frame1, ARRAY_SIZE(sRuinsTestPal_SymbolShot_Frame1));
@@ -1435,7 +1435,7 @@ void RuinsTestGhostSymbolWaitForEndOfFight(void)
 {
     if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_GHOST_STARTING_TO_DISAPPEAR)
     {
-        gCurrentSprite.timer = 80;
+        gCurrentSprite.work0 = 80;
         gCurrentSprite.pose = RUINS_TEST_GHOST_POSE_SYMBOL_DELAY_BEFORE_PLACING_END_OF_FIGHT;
     }
 }
@@ -1446,8 +1446,8 @@ void RuinsTestGhostSymbolWaitForEndOfFight(void)
  */
 void RuinsTestGhostSymbolDelayBeforePlacingAtEndOfFight(void)
 {
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0)
+    gCurrentSprite.work0--;
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = RUINS_TEST_GHOST_POSE_SYMBOL_PLACING_END_OF_FIGHT;
         gCurrentSprite.pOam = sRuinsTestGhostOam_SymbolPlacing;
@@ -1596,15 +1596,15 @@ void RuinsTestSymbol(void)
 
             gCurrentSprite.pose = RUINS_TEST_SYMBOL_POSE_DELAY_BEFORE_MUSIC;
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.timer = 60;
+            gCurrentSprite.work0 = 60;
             gCurrentSprite.drawOrder = 13;
 
             gDisablePause = TRUE;
             break;
 
         case RUINS_TEST_SYMBOL_POSE_DELAY_BEFORE_MUSIC:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pose = RUINS_TEST_SYMBOL_POSE_UPDATE_PALETTE;
                 gCurrentSprite.currentAnimationFrame = 1;
@@ -1662,7 +1662,7 @@ void RuinsTestSymbol(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.pose = RUINS_TEST_SYMBOL_POSE_MERGING;
-                gCurrentSprite.timer = 120;
+                gCurrentSprite.work0 = 120;
             }
             break;
 
@@ -1679,7 +1679,7 @@ void RuinsTestSymbol(void)
                 }
             }
 
-            if (--gCurrentSprite.timer == 0)
+            if (--gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pOam = sRuinsTestSymbolOam_Disappearing;
                 gCurrentSprite.currentAnimationFrame = 0;
@@ -1688,10 +1688,10 @@ void RuinsTestSymbol(void)
                 break;
             }
 
-            if (gCurrentSprite.timer == 60)
-                gSpriteData[ramSlot].timer = 2;
-            else if (gCurrentSprite.timer == 110)
-                gSpriteData[ramSlot].timer = 1;
+            if (gCurrentSprite.work0 == 60)
+                gSpriteData[ramSlot].work0 = 2;
+            else if (gCurrentSprite.work0 == 110)
+                gSpriteData[ramSlot].work0 = 1;
             break;
 
         case RUINS_TEST_SYMBOL_POSE_DISAPPEARING:
@@ -1749,14 +1749,14 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.drawOrder = 3;
 
             DMA_SET(3, sRuinsTestPal_SamusReflection, (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
-            gCurrentSprite.timer = 1;
+            gCurrentSprite.work0 = 1;
             break;
 
         case RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_GFX_PAL:
-            if (gCurrentSprite.timer < 16)
+            if (gCurrentSprite.work0 < 16)
             {
                 // Update palette
-                timer = gCurrentSprite.timer++;
+                timer = gCurrentSprite.work0++;
                 if (timer > 14)
                 {
                     DMA_SET(3, &sRuinsTestPal[16 * 7], (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
@@ -1771,7 +1771,7 @@ void RuinsTestSamusReflectionStart(void)
             if (gSamusData.pose != SPOSE_FACING_THE_BACKGROUND_SUITLESS)
             {
                 gDisablePause = FALSE;
-                gCurrentSprite.timer = 2;
+                gCurrentSprite.work0 = 2;
                 gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_START_POSE_SPAWN_PARTICLE;
 
                 // Transfer turning graphics
@@ -1789,8 +1789,8 @@ void RuinsTestSamusReflectionStart(void)
             break;
 
         case RUINS_TEST_SAMUS_REFLECTION_START_POSE_SPAWN_PARTICLE:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
                 // Spawn particle
                 gCurrentSprite.status = 0;
@@ -2131,43 +2131,43 @@ void RuinsTestSamusReflectionEnd(void)
             DMA_SET(3, sRuinsTestGfx_SamusReflectionSuitlessBottom, (VRAM_BASE + 0x14680), C_32_2_16(DMA_ENABLE, 128));
             DMA_SET(3, sRuinsTestPal_SamusReflection, (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
 
-            gCurrentSprite.timer = 0;
-            gCurrentSprite.workVariable = 0;
-            gCurrentSprite.workVariable2 = 8;
-            gCurrentSprite.arrayOffset = 0;
+            gCurrentSprite.work0 = 0;
+            gCurrentSprite.work1 = 0;
+            gCurrentSprite.work2 = 8;
+            gCurrentSprite.work3 = 0;
             break;
 
         case RUINS_TEST_SAMUS_REFLECTION_END_POSE_SUITLESS:
             // Update palette
-            if (--gCurrentSprite.workVariable2 == 0)
+            if (--gCurrentSprite.work2 == 0)
             {
-                gCurrentSprite.workVariable2 = 8;
-                if (!gCurrentSprite.workVariable)
+                gCurrentSprite.work2 = 8;
+                if (!gCurrentSprite.work1)
                 {
-                    if (++gCurrentSprite.timer > 9)
-                        gCurrentSprite.workVariable = TRUE;
+                    if (++gCurrentSprite.work0 > 9)
+                        gCurrentSprite.work1 = TRUE;
                 }
                 else
                 {
-                    if (--gCurrentSprite.timer == 0)
+                    if (--gCurrentSprite.work0 == 0)
                     {
-                        gCurrentSprite.workVariable = 0;
-                        if (gCurrentSprite.arrayOffset != 0)
+                        gCurrentSprite.work1 = 0;
+                        if (gCurrentSprite.work3 != 0)
                             gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_FULLSUIT;
                     }
                 }
 
-                offset = gCurrentSprite.timer;
+                offset = gCurrentSprite.work0;
                 DMA_SET(3, (sRuinsTestPal_SamusReflection + offset * 16), (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
             }
 
             if (gCurrentSprite.pose == RUINS_TEST_SAMUS_REFLECTION_END_POSE_FULLSUIT)
             {
-                gCurrentSprite.timer = 31;
+                gCurrentSprite.work0 = 31;
                 break;
             }
 
-            if (gCurrentSprite.arrayOffset != 0)
+            if (gCurrentSprite.work3 != 0)
                 break;
 
             if (gCurrentSprite.xPosition - (QUARTER_BLOCK_SIZE - PIXEL_SIZE) < gSamusData.xPosition &&
@@ -2178,22 +2178,22 @@ void RuinsTestSamusReflectionEnd(void)
                 gSamusData.xPosition = gCurrentSprite.xPosition;
                 SamusSetPose(SPOSE_TURNING_FROM_FACING_THE_BACKGROUND_SUITLESS);
                 gSamusData.lastWallTouchedMidAir = TRUE;
-                gCurrentSprite.arrayOffset++;
+                gCurrentSprite.work3++;
                 gDisablePause = TRUE;
             }
             break;
 
         case RUINS_TEST_SAMUS_REFLECTION_END_POSE_FULLSUIT:
-            if (--gCurrentSprite.timer == 0x0)
+            if (--gCurrentSprite.work0 == 0x0)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 DMA_SET(3, sRuinsTestPal_SamusReflectionFullSuit, (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
                 gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_UPDATE_PALETTE;
-                gCurrentSprite.timer = 0x1;
-                gCurrentSprite.workVariable = 0xC;
+                gCurrentSprite.work0 = 0x1;
+                gCurrentSprite.work1 = 0xC;
                 FadeMusic(0xC8);
             }
-            else if (gCurrentSprite.timer == 0x1E)
+            else if (gCurrentSprite.work0 == 0x1E)
             {
                 // Transfer fullsuit Gfx
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -2204,23 +2204,23 @@ void RuinsTestSamusReflectionEnd(void)
 
         case RUINS_TEST_SAMUS_REFLECTION_END_POSE_UPDATE_PALETTE:
             // Update palette
-            gCurrentSprite.workVariable--;
-            if (gCurrentSprite.workVariable == 0)
+            gCurrentSprite.work1--;
+            if (gCurrentSprite.work1 == 0)
             {
-                gCurrentSprite.workVariable = 12;
-                offset = gCurrentSprite.timer++;
+                gCurrentSprite.work1 = 12;
+                offset = gCurrentSprite.work0++;
                 DMA_SET(3, &sRuinsTestPal_SamusReflectionFullSuit[offset * 16], (PALRAM_BASE + 0x3E0), C_32_2_16(DMA_ENABLE, 16));
                 if (offset > 8)
                 {
                     gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_SET_FADING_STARTED;
-                    gCurrentSprite.timer = 20;
+                    gCurrentSprite.work0 = 20;
                 }
             }
             break;
 
         case RUINS_TEST_SAMUS_REFLECTION_END_POSE_SET_FADING_STARTED:
-            gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0)
+            gCurrentSprite.work0--;
+            if (gCurrentSprite.work0 == 0)
             {
                 gSubSpriteData1.workVariable3 = RUINS_TEST_FIGHT_STAGE_STARTING_CUTSCENE_FADE;
                 gCurrentSprite.pose = 0;
@@ -2291,7 +2291,7 @@ void RuinsTestLightning(void)
             {
                 // Right lightning, directly on ground
                 RuinsTestLightningOnGroundInit();
-                gCurrentSprite.timer = 0;
+                gCurrentSprite.work0 = 0;
             }
 
             gCurrentSprite.drawOrder = 1;
@@ -2351,7 +2351,7 @@ void RuinsTestLightning(void)
         case RUINS_TEST_LIGHTNING_POSE_ON_GROUND_HORIZONTAL:
             if (gCurrentSprite.roomSlot == RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT)
             {
-                if (MOD_AND(gCurrentSprite.timer++, 32) == 0)
+                if (MOD_AND(gCurrentSprite.work0++, 32) == 0)
                     SoundPlay(0x1DE);
             }
 
@@ -2389,7 +2389,7 @@ void RuinsTestLightning(void)
         case RUINS_TEST_LIGHTNING_POSE_ON_GROUND_VERTICAL:
             if (gCurrentSprite.roomSlot == RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT)
             {
-                if (MOD_AND(gCurrentSprite.timer++, 32) == 0)
+                if (MOD_AND(gCurrentSprite.work0++, 32) == 0)
                     SoundPlay(0x1DE);
             }
             // Move

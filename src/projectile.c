@@ -266,10 +266,10 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
     u16 yPosition;
     u16 xPosition;
     u8 nbrBlocks;
-    u8 ccaa;
+    u8 caa;
 
     nbrBlocks = 0x0;
-    ccaa = CAA_BEAM;
+    caa = CAA_BEAM;
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
 
@@ -278,29 +278,29 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
         case ACD_DIAGONALLY_DOWN:
             if (pProj->status & PROJ_STATUS_XFLIP)
             {
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition - 0x2D, xPosition + 0x2D))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition + 0x2D, xPosition - 0x2D))
                     nbrBlocks++;
             }
             else
             {
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition - 0x2D, xPosition - 0x2D))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition + 0x2D, xPosition + 0x2D))
                     nbrBlocks++;
             }
@@ -309,29 +309,29 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
         case ACD_DIAGONALLY_UP:
             if (pProj->status & PROJ_STATUS_XFLIP)
             {
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition - 0x2D, xPosition - 0x2D))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition + 0x2D, xPosition + 0x2D))
                     nbrBlocks++;
             }
             else
             {
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition - 0x2D, xPosition + 0x2D))
                     nbrBlocks++;
 
-                gCurrentClipdataAffectingAction = ccaa;
+                gCurrentClipdataAffectingAction = caa;
                 if (ProjectileCheckHittingSolidBlock(yPosition + 0x2D, xPosition - 0x2D))
                     nbrBlocks++;
             }
@@ -339,28 +339,28 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 
         case ACD_UP:
         case ACD_DOWN:
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                 nbrBlocks++;
 
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition, xPosition + 0x40))
                 nbrBlocks++;
 
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition, xPosition - 0x40))
                 nbrBlocks++;
             break;
 
         case ACD_FORWARD:
         default:
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition, xPosition))
                 nbrBlocks++;
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition + 0x40, xPosition))
                 nbrBlocks++;
-            gCurrentClipdataAffectingAction = ccaa;
+            gCurrentClipdataAffectingAction = caa;
             if (ProjectileCheckHittingSolidBlock(yPosition - 0x40, xPosition))
                 nbrBlocks++;
             break;
