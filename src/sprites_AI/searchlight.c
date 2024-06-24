@@ -104,7 +104,7 @@ void Searchlight(void)
             break;
 
         case SEARCHLIGHT_POSE_ACTIVATING:
-            gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;;
+            gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.timer--;
             if (gCurrentSprite.timer == 0x0)
             {

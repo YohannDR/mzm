@@ -302,7 +302,7 @@ void MellowInit(struct SpriteData* pSprite)
         pSprite->currentAnimationFrame = 0x0;
         pSprite->samusCollision = SSC_MELLOW;
         
-        pSprite->health = GET_PSPRITE_HEALTH(pSprite->spriteId);;
+        pSprite->health = GET_PSPRITE_HEALTH(pSprite->spriteId);
         if (pSprite->roomSlot != 0x88)
         {
             pSprite->pOam = sMellowOAM_Idle;

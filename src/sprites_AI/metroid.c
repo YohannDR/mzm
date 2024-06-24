@@ -549,7 +549,7 @@ void MetroidInit(void)
 
     // Lock doors if in a metroid room
     if (metroidState == 1)
-        gDoorUnlockTimer = 1;
+        LOCK_DOORS();
     
     gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1096,7 +1096,7 @@ void MetroidDoorLock(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         if (SpriteUtilCountPrimarySprites(PSPRITE_METROID) != 0)
-            gDoorUnlockTimer = 1;
+            LOCK_DOORS();
         else
             gCurrentSprite.status = 0;
     }

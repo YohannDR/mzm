@@ -5,6 +5,7 @@
 #include "data/sprite_data.h"
 #include "data/generic_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
@@ -15,10 +16,12 @@
 #include "structs/connection.h"
 #include "structs/sprite.h"
 
+#define JUMPING_X_VELOCITY (PIXEL_SIZE * 2 + PIXEL_SIZE / 2)
+
 /**
  * @brief 47600 | 20 | Checks if samus is near the baristute (8 blocks range on each side)
  * 
- * @return u8 1 if near, 0 otherwise
+ * @return bool, samus is near
  */
 u8 BaristuteCheckSamusInRange(void)
 {
@@ -27,6 +30,7 @@ u8 BaristuteCheckSamusInRange(void)
         SpriteUtilMakeSpriteFaceSamusDirection();
         return TRUE;
     }
+
     return FALSE;
 }
 
@@ -42,27 +46,27 @@ void BaristuteInit(void)
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_BARISTUTES_KILLED))
         {
             // Kill if already dead
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
 
-        gDoorUnlockTimer = 0x1; // Lock doors
+        LOCK_DOORS();
     }
 
     gCurrentSprite.pose = BARISTUTE_POSE_IDLE_INIT;
 
-    gCurrentSprite.pOam = sBaristuteOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sBaristuteOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x30;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0xA0;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x54;
-    gCurrentSprite.hitboxRightOffset = 0x54;
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -77,12 +81,12 @@ void BaristuteJumpWarningInit(void)
 {
     gCurrentSprite.pose = BARISTUTE_POSE_CHECK_WARNING_ENDED;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.pOam = sBaristuteOAM_Warning;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.pOam = sBaristuteOam_Warning;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x18C);
+        SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_JUMP_WARNING);
 }
 
 /**
@@ -102,21 +106,20 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
         && SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
     {
         gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT; // Set falling
+        return;
     }
-    else
+
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        if (SpriteUtilCheckEndCurrentSpriteAnim())
-        {
-            // Set jumping behavior
-            gCurrentSprite.pose = BARISTUTE_POSE_JUMPING;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.arrayOffset = 0x0;
-            gCurrentSprite.pOam = sBaristuteOAM_Jumping;
-            
-            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x18D);
-        }
+        // Set jumping behavior
+        gCurrentSprite.pose = BARISTUTE_POSE_JUMPING;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.pOam = sBaristuteOam_Jumping;
+        
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_JUMPING);
     }
 }
 
@@ -134,38 +137,44 @@ void BaristuteJumping(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check wall on right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 0x4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE);
+
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            gCurrentSprite.xPosition -= 0xA;
+            gCurrentSprite.xPosition -= JUMPING_X_VELOCITY;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
             gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
             return;
         }
-        gCurrentSprite.xPosition += 0xA;
+
+        gCurrentSprite.xPosition += JUMPING_X_VELOCITY;
     }
     else
     {
         // Check wall on left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 0x4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE);
+
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            gCurrentSprite.xPosition += 0xA;
+            gCurrentSprite.xPosition += JUMPING_X_VELOCITY;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
             return;
         }
-        gCurrentSprite.xPosition -= 0xA;
+
+        gCurrentSprite.xPosition -= JUMPING_X_VELOCITY;
     }
 
     // Apply y movement
     gCurrentSprite.yPosition += movement;
 
     // Check update array offset
-    if (gCurrentSprite.arrayOffset < 0x27)
+    if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sBaristuteJumpingYVelocity) * 4 - 1)
         gCurrentSprite.arrayOffset++;
 
-    if (movement >= 0x1)
+    if (movement >= 1)
     {
         // Check landing if velocity is positive
         topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -192,14 +201,14 @@ void BaristuteLandingInit(void)
 {
     gCurrentSprite.pose = BARISTUTE_POSE_LANDING;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.pOam = sBaristuteOAM_Landing;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.pOam = sBaristuteOam_Landing;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        ScreenShakeStartVertical(0xA, 0x81);
-        SoundPlayNotAlreadyPlaying(0x18E);
+        ScreenShakeStartVertical(10, 0x80 | 1);
+        SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_LANDING);
     }
 }
 
@@ -221,11 +230,11 @@ void BaristuteIdleInit(void)
 {
     gCurrentSprite.pose = BARISTUTE_POSE_IDLE;
 
-    gCurrentSprite.pOam = sBaristuteOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sBaristuteOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.workVariable = gSpriteRng & 0x3;
+    gCurrentSprite.workVariable = MOD_AND(gSpriteRng, 4);
 }
 
 /**
@@ -244,34 +253,36 @@ void BaristuteIdle(void)
         && SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
     {
         gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
+        return;
     }
-    else
-    {
-        if (SpriteUtilCheckNearEndCurrentSpriteAnim())
-        {
-            SpriteUtilMakeSpriteFaceSamusDirection();
-            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            else
-                gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-            // TODO make macro
-            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
-                ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
-                : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
-            {
-                if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
-                    gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
-                else if (gCurrentSprite.spriteId != PSPRITE_BARISTUTE_KRAID_LOWER)
-                {
-                    if (gCurrentSprite.workVariable > 0x1)
-                        gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
-                    else
-                        gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
-                }
-                else
-                    gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
-            }
+    if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
+        return;
+
+    SpriteUtilMakeSpriteFaceSamusDirection();
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+    else
+        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+
+    if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
+        ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
+        : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
+    {
+        if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
+        {
+            gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
+        }
+        else if (gCurrentSprite.spriteId != PSPRITE_BARISTUTE_KRAID_LOWER)
+        {
+            if (gCurrentSprite.workVariable > 1)
+                gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
+            else
+                gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
+        }
+        else
+        {
+            gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
         }
     }
 }
@@ -285,31 +296,32 @@ void BaristuteWalkingInit(void)
     u8 paletteRow;
     
     gCurrentSprite.pose = BARISTUTE_POSE_WALKING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 
     paletteRow = gCurrentSprite.absolutePaletteRow;
+
     // Set OAM and walking speed based on palette row (affected by health)
-    if (paletteRow == 0x1)
+    if (paletteRow == 1)
     {
-        gCurrentSprite.pOam = sBaristuteOAM_WalkingFast;
-        gCurrentSprite.workVariable2 = 0x6;
+        gCurrentSprite.pOam = sBaristuteOam_WalkingFast;
+        gCurrentSprite.workVariable2 = PIXEL_SIZE + PIXEL_SIZE / 2;
     }
-    else if (paletteRow == 0x2)
+    else if (paletteRow == 2)
     {
-        gCurrentSprite.pOam = sBaristuteOAM_WalkingVeryFast;
-        gCurrentSprite.workVariable2 = 0x8;
+        gCurrentSprite.pOam = sBaristuteOam_WalkingVeryFast;
+        gCurrentSprite.workVariable2 = PIXEL_SIZE * 2;
     }
-    else if (paletteRow == 0x3)
+    else if (paletteRow == 3)
     {
-        gCurrentSprite.pOam = sBaristuteOAM_WalkingExtremelyFast;
-        gCurrentSprite.workVariable2 = 0xA;
+        gCurrentSprite.pOam = sBaristuteOam_WalkingExtremelyFast;
+        gCurrentSprite.workVariable2 = PIXEL_SIZE * 2 + PIXEL_SIZE / 2;
     }
     else
     {
-        gCurrentSprite.pOam = sBaristuteOAM_WalkingSlow;
-        gCurrentSprite.workVariable2 = 0x3;
+        gCurrentSprite.pOam = sBaristuteOam_WalkingSlow;
+        gCurrentSprite.workVariable2 = PIXEL_SIZE / 4 * 3;
     }
 }
 
@@ -319,18 +331,19 @@ void BaristuteWalkingInit(void)
  */
 void BaristutePlayWalkingSound(void)
 {
-    if (gCurrentSprite.animationDurationCounter == 0x1 &&
-        (gCurrentSprite.currentAnimationFrame == 0x1 || gCurrentSprite.currentAnimationFrame == 0x4))
+    if (gCurrentSprite.animationDurationCounter == 1 && (gCurrentSprite.currentAnimationFrame == 1 || gCurrentSprite.currentAnimationFrame == 4))
     {
-        if (gCurrentSprite.workVariable2 < 0x7) // Slow or fast
+        if (gCurrentSprite.workVariable2 <= PIXEL_SIZE + PIXEL_SIZE / 2)
         {
+            // Slow or fast
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x18F);
+                SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_MOVING_SLOW);
         }
-        else // Very fast or extremely fast
+        else
         {
+            // Very fast or extremely fast
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x258);
+                SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_MOVING_FAST);
         }
     }
 }
@@ -343,22 +356,27 @@ void BaristuteWalking(void)
 {
     u16 velocity;
     u16 walkingDistance;
+    u16 currentDistance;
 
     velocity = gCurrentSprite.workVariable2;
 
     // Determined by RNG
     walkingDistance = BLOCK_SIZE * 6;
-    if (gCurrentSprite.workVariable == 0x3)
+    if (gCurrentSprite.workVariable == 3)
         walkingDistance *= 2;
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 0x4) == COLLISION_AIR
-            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 0x4) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_AIR
+            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_SOLID)
         {
-            if ((u16)(gCurrentSprite.xPosition - gCurrentSprite.xPositionSpawn) > walkingDistance)
-                gCurrentSprite.pose = BARISTUTE_POSE_IDLE_INIT; // Walking distance reached, set idle
+            currentDistance = gCurrentSprite.xPosition - gCurrentSprite.xPositionSpawn;
+            if (currentDistance > walkingDistance)
+            {
+                // Walking distance reached, set idle
+                gCurrentSprite.pose = BARISTUTE_POSE_IDLE_INIT;
+            }
             else
             {
                 // Walk
@@ -376,11 +394,15 @@ void BaristuteWalking(void)
     else
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 0x4) == COLLISION_AIR
-            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 0x4) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_AIR
+            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_SOLID)
         {
-            if ((u16)(gCurrentSprite.xPositionSpawn - gCurrentSprite.xPosition) > walkingDistance)
-                gCurrentSprite.pose = BARISTUTE_POSE_IDLE_INIT; // Walking distance reached, set idle
+            currentDistance = gCurrentSprite.xPositionSpawn - gCurrentSprite.xPosition;
+            if (currentDistance > walkingDistance)
+            {
+                // Walking distance reached, set idle
+                gCurrentSprite.pose = BARISTUTE_POSE_IDLE_INIT;
+            }
             else
             {
                 // Walk
@@ -405,10 +427,10 @@ void BaristuteFallingInit(void)
 {
     gCurrentSprite.pose = BARISTUTE_POSE_FALLING;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.arrayOffset = 0x0;
-    gCurrentSprite.pOam = sBaristuteOAM_Jumping;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.pOam = sBaristuteOam_Jumping;
 }
 
 /**
@@ -464,55 +486,60 @@ void BaristuteDeath(void)
     // Check for the second baristute in Kraid
 
     // Get sprite ID
-    spriteId = 0x0;
+    spriteId = 0;
     if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
         spriteId = PSPRITE_BARISTUTE_KRAID_LOWER;
     else if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)
         spriteId = PSPRITE_BARISTUTE_KRAID_UPPER;
 
-    if (spriteId != 0x0)
+    if (spriteId != 0)
     {
         // Check if dead
-        count = 0x0;
+        count = 0;
         for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
         {
-            if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE)
-                && pSprite->spriteId == spriteId && pSprite->health != 0x0)
-                count++; // Baristute found
+            if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE))
+            {
+                if (pSprite->spriteId == spriteId && pSprite->health != 0)
+                    count++; // Baristute found
+            }
         }
 
-        if (count == 0x0)
+        if (count == 0)
         {
             // Both baristutes dead
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_BARISTUTES_KILLED);
+
              // Unlock doors
-            gDoorUnlockTimer = -0x14;
+            gDoorUnlockTimer = -20;
         }
     }
 
-    yPosition = gCurrentSprite.yPosition - 0x60;
+    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition;
-    rng = (u8)(gSpriteRng * 2);
+    rng = gSpriteRng * 2;
 
     // Kill sprite
     SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     if (gCurrentSprite.status)
     {
         // Has drop, spawn 2 other drops
-        if (gSpriteRng & 0x1)
+        if (MOD_AND(gSpriteRng, 2))
             spriteId = PSPRITE_LARGE_ENERGY_DROP;
         else
             spriteId = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
+        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0, gCurrentSprite.primarySpriteRamSlot,
+            yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE) + rng, xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE) - rng, 0);
         
-        if (sRandomNumberTable[gSpriteRng] & 0x1)
+        if (MOD_AND(sRandomNumberTable[gSpriteRng], 2))
             spriteId = PSPRITE_LARGE_ENERGY_DROP;
         else
             spriteId = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition + 0x14 - rng, xPosition - 0x48 + rng, 0x0);
+        SpriteSpawnDropFollowers(spriteId, gCurrentSprite.roomSlot, 0, gCurrentSprite.primarySpriteRamSlot,
+            yPosition + (QUARTER_BLOCK_SIZE + PIXEL_SIZE) - rng, xPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE) + rng, 0);
     }
 }
 
@@ -530,27 +557,27 @@ void Baristute(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x259);
+            SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_DAMAGED);
     }
 
-    //Check update palette
-    if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+    // Check update palette
+    if (SPRITE_HAS_ISFT(gCurrentSprite))
     {
         // Damaged
         spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         health = gCurrentSprite.health;
 
         if (health <= spawnHealth / 4)
-            gCurrentSprite.absolutePaletteRow = 0x3;
+            gCurrentSprite.absolutePaletteRow = 3;
         else if (health <= spawnHealth / 2)
-            gCurrentSprite.absolutePaletteRow = 0x2;
+            gCurrentSprite.absolutePaletteRow = 2;
         else if (health <= (spawnHealth * 3) / 4)
-            gCurrentSprite.absolutePaletteRow = 0x1;
+            gCurrentSprite.absolutePaletteRow = 1;
     }
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             BaristuteInit();
             break;
 
@@ -558,7 +585,7 @@ void Baristute(void)
             BaristuteJumpWarningInit();
 
         case BARISTUTE_POSE_CHECK_WARNING_ENDED:
-            BaristuteCheckBeforeJumpingAnimEnded();;
+            BaristuteCheckBeforeJumpingAnimEnded();
             break;
 
         case BARISTUTE_POSE_JUMPING:

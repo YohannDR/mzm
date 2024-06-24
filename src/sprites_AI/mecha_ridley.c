@@ -434,7 +434,7 @@ void MechaRidleyInit(void)
         gSubSpriteData1.workVariable2 = 0;
         gSubSpriteData1.workVariable3 = 0;
 
-        gDoorUnlockTimer = 1;
+        LOCK_DOORS();
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_CRAWLING_INIT;
         gCurrentSprite.roomSlot = MECHA_RIDLEY_PART_CORE;
 

@@ -497,7 +497,7 @@ void RidleyInit(void)
     }
 
     // Lock doors
-    gDoorUnlockTimer = 1;
+    LOCK_DOORS();
 
     gCurrentSprite.drawOrder = 8;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
@@ -2631,7 +2631,7 @@ void RidleyFireballMoveDescendingPattern(void)
     movement = gCurrentSprite.workVariable2++;
 
     if (gCurrentSprite.oamScaling < Q_8_8(.94f))
-        gCurrentSprite.oamScaling += Q_8_8(.065f);;
+        gCurrentSprite.oamScaling += Q_8_8(.065f);
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.xPosition += movement;

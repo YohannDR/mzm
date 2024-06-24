@@ -3346,7 +3346,7 @@ void SpacePirateClimbingDown(void)
     if (SpriteUtilGetCollisionAtPosition(yPosition + 0x3C, xPosition) != COLLISION_AIR)
     {
         gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP_INIT;
-        gCurrentSprite.workVariable = 0x0;;
+        gCurrentSprite.workVariable = 0x0;
         gCurrentSprite.timer = FALSE;
         return;
     }
@@ -3366,7 +3366,7 @@ void SpacePirateClimbingDown(void)
         if (collision == COLLISION_AIR)
         {
             gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP_INIT;
-            gCurrentSprite.workVariable = 0x0;;
+            gCurrentSprite.workVariable = 0x0;
             gCurrentSprite.timer = FALSE;
             return;
         }
@@ -3661,7 +3661,7 @@ void SpacePirateTurningAroundToWallJump(void)
     if (gCurrentSprite.timer)
     {
         if (SpriteUtilCheckNearEndCurrentSpriteAnim())
-            gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;;
+            gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;
     }
     else
     {
@@ -3703,13 +3703,13 @@ void SpacePirateDelayBeforeLaunchingFromWall(void)
 
         if (collision == COLLISION_AIR)
         {
-            gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;;
+            gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;
             return;
         }
     }
 
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
-        gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;;
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL_INIT;
 }
 
 /**

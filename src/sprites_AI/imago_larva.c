@@ -114,7 +114,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
 
         // Lock doors
-        gDoorUnlockTimer = 1;
+        LOCK_DOORS();
 
         // Play fight music
         PlayMusic(MUSIC_CATTERPILLARS_BATTLE_2, 0);

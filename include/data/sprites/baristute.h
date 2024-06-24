@@ -11,44 +11,44 @@ extern const s16 sBaristuteJumpingYVelocity[10];
 extern const u32 sBaristuteGfx[596];
 extern const u16 sBaristutePal[80];
 
-extern const u16 sBaristuteOAM_Idle_Frame0[49];
+extern const u16 sBaristuteOam_Idle_Frame0[49];
 
-extern const u16 sBaristuteOAM_Walking_Frame1[52];
+extern const u16 sBaristuteOam_Walking_Frame1[52];
 
-extern const u16 sBaristuteOAM_Walking_Frame2[52];
+extern const u16 sBaristuteOam_Walking_Frame2[52];
 
-extern const u16 sBaristuteOAM_Walking_Frame3[52];
+extern const u16 sBaristuteOam_Walking_Frame3[52];
 
-extern const u16 sBaristuteOAM_Walking_Frame4[52];
+extern const u16 sBaristuteOam_Walking_Frame4[52];
 
-extern const u16 sBaristuteOAM_Walking_Frame5[49];
+extern const u16 sBaristuteOam_Walking_Frame5[49];
 
-extern const u16 sBaristuteOAM_Warning_Frame1[55];
+extern const u16 sBaristuteOam_Warning_Frame1[55];
 
-extern const u16 sBaristuteOAM_Warning_Frame2[55];
+extern const u16 sBaristuteOam_Warning_Frame2[55];
 
-extern const u16 sBaristuteOAM_Jumping_Frame0[49];
+extern const u16 sBaristuteOam_Jumping_Frame0[49];
 
-extern const u16 sBaristuteOAM_Jumping_Frame1[49];
+extern const u16 sBaristuteOam_Jumping_Frame1[49];
 
-extern const u16 sBaristuteOAM_Idle_Frame2[61];
+extern const u16 sBaristuteOam_Idle_Frame2[61];
 
-extern const u16 sBaristuteOAM_Idle_Frame1[55];
+extern const u16 sBaristuteOam_Idle_Frame1[55];
 
-extern const struct FrameData sBaristuteOAM_Idle[5];
+extern const struct FrameData sBaristuteOam_Idle[5];
 
-extern const struct FrameData sBaristuteOAM_Warning[4];
+extern const struct FrameData sBaristuteOam_Warning[4];
 
-extern const struct FrameData sBaristuteOAM_Jumping[3];
+extern const struct FrameData sBaristuteOam_Jumping[3];
 
-extern const struct FrameData sBaristuteOAM_Landing[4];
+extern const struct FrameData sBaristuteOam_Landing[4];
 
-extern const struct FrameData sBaristuteOAM_WalkingSlow[7];
+extern const struct FrameData sBaristuteOam_WalkingSlow[7];
 
-extern const struct FrameData sBaristuteOAM_WalkingFast[7];
+extern const struct FrameData sBaristuteOam_WalkingFast[7];
 
-extern const struct FrameData sBaristuteOAM_WalkingVeryFast[7];
+extern const struct FrameData sBaristuteOam_WalkingVeryFast[7];
 
-extern const struct FrameData sBaristuteOAM_WalkingExtremelyFast[7];
+extern const struct FrameData sBaristuteOam_WalkingExtremelyFast[7];
 
 #endif

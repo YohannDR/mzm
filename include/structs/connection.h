@@ -114,4 +114,6 @@ extern u8 gNumberOfValidHatchesInRoom;
 
 extern struct HatchFlashingAnimation gHatchFlashingAnimation;
 
-#endif
+#define LOCK_DOORS() gDoorUnlockTimer = 1
+
+#endif /* CONNECTION_STRUCT_H */

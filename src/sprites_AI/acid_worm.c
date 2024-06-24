@@ -336,7 +336,7 @@ void AcidWormInit(void)
         return;
     }
 
-    gDoorUnlockTimer = 1; // Lock doors
+    LOCK_DOORS(); // Lock doors
     gSubSpriteData1.health = gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 2); // Acid base position
     gCurrentSprite.roomSlot = 0;
 
