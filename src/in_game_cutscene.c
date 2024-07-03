@@ -840,7 +840,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
 }
 
 /**
- * @brief 60800 | 74 | Try to query an in game cutscene
+ * @brief 60760 | a0 | Try to query an in game cutscene
  * 
  * @param cutscene Cutscene
  * @return u8 bool, was queried
