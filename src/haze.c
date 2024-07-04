@@ -10,6 +10,7 @@
 #include "constants/haze.h"
 #include "constants/game_state.h"
 #include "constants/room.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -344,7 +345,7 @@ u32 HazeProcess(void)
                 // Expanding ended, setup retracting
                 gCurrentHazeValue = HAZE_VALUE_POWER_BOMB_RETRACTING;
                 HazeSetupCode(HAZE_VALUE_POWER_BOMB_RETRACTING);
-                gCurrentPowerBomb.animationState = 4;
+                gCurrentPowerBomb.animationState = PB_STATE_IMPLODING;
 
                 if (gAnimatedGraphicsEntry.palette == 0)
                 {
@@ -366,7 +367,7 @@ u32 HazeProcess(void)
             if (gHazeProcessCodePointer())
             {
                 gIoRegistersBackup.unk_12 = gIoRegistersBackup.BG0CNT;
-                gCurrentPowerBomb.animationState = 5;
+                gCurrentPowerBomb.animationState = PB_STATE_ENDING;
                 gCurrentPowerBomb.stage = 0;
 
                 HazeSetupCode(HAZE_VALUE_AFTER_POWER_BOMB);

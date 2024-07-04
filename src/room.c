@@ -17,6 +17,7 @@
 #include "constants/samus.h"
 #include "constants/room.h"
 #include "constants/in_game_cutscene.h"
+#include "constants/power_bomb_explosion.h"
 #include "constants/menus/pause_screen.h"
 
 #include "structs/audio.h"
@@ -391,7 +392,7 @@ void RoomReset(void)
     gColorFading.stage = 0;
     gColorFading.unk_6 = 0;
 
-    if (gCurrentPowerBomb.animationState != 0)
+    if (gCurrentPowerBomb.animationState != PB_STATE_NONE)
         gScreenShakeX = sScreenShake_Empty;
 
     gCurrentPowerBomb = sPowerBomb_Empty;
@@ -886,7 +887,7 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
         dontUpdateGraphics = TRUE;
     }
 
-    if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == 0)
+    if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == PB_STATE_NONE)
         BackgroundEffectUpdate();
 
     if (!dontUpdateGraphics)

@@ -12,6 +12,7 @@
 #include "constants/menus/pause_screen.h"
 #include "constants/samus.h"
 #include "constants/in_game_cutscene.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/display.h"
 #include "structs/hud.h"
@@ -727,7 +728,7 @@ void InGameCutsceneInit(void)
 
         case IGC_GETTING_VARIA:
         case IGC_GETTING_FULLY_POWERED:
-            if (gCurrentPowerBomb.animationState == 0 && !gCurrentPowerBomb.powerBombPlaced)
+            if (gCurrentPowerBomb.animationState == PB_STATE_NONE && !gCurrentPowerBomb.powerBombPlaced)
                 exists = TRUE;
             break;
     }
