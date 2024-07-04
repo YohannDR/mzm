@@ -63,6 +63,7 @@ private:
     void RemoveComments();
     std::string ReadConstant();
     void SkipWhitespace();
+    bool AcceptNewline();
 };
 
 CharmapReader::CharmapReader(std::string filename) : m_filename(filename)
@@ -109,15 +110,8 @@ Lhs CharmapReader::ReadLhs()
     {
         SkipWhitespace();
 
-        if (m_buffer[m_pos] == '\n')
-        {
-            m_pos++;
-            m_lineNum++;
-        }
-        else
-        {
+        if (!AcceptNewline())
             break;
-        }
     }
     
     if (m_buffer[m_pos] == '\'')
@@ -286,16 +280,7 @@ void CharmapReader::ExpectEmptyRestOfLine()
         if (m_pos < m_size)
             RaiseError("unexpected null character");
     }
-    else if (m_buffer[m_pos] == '\n')
-    {
-        m_pos++;
-        m_lineNum++;
-    }
-    else if (m_buffer[m_pos] == '\r')
-    {
-        RaiseError("only Unix-style LF newlines are supported");
-    }
-    else
+    else if (!AcceptNewline())
     {
         RaiseError("junk at end of line");
     }
@@ -341,7 +326,7 @@ void CharmapReader::RemoveComments()
         }
         else if (m_buffer[pos] == '@')
         {
-            while (m_buffer[pos] != '\n' && m_buffer[pos] != 0)
+            while (!AcceptNewline() && m_buffer[pos] != 0)
                 m_buffer[pos++] = ' ';
         }
         else
@@ -367,6 +352,27 @@ void CharmapReader::SkipWhitespace()
 {
     while (m_buffer[m_pos] == '\t' || m_buffer[m_pos] == ' ')
         m_pos++;
+}
+
+bool CharmapReader::AcceptNewline()
+{
+    if (m_buffer[m_pos] == '\r')
+    {
+        if (m_buffer[m_pos + 1] != '\n')
+            RaiseError("expected line feed (LF) after carriage return (CR)");
+        m_pos += 2;
+    }
+    else if (m_buffer[m_pos] == '\n')
+    {
+        m_pos++;
+    }
+    else
+    {
+        return false;
+    }
+
+    m_lineNum++;
+    return true;
 }
 
 Charmap::Charmap(std::string filename)
