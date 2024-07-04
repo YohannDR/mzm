@@ -16,8 +16,8 @@ void InGameCutsceneProcess(void);
 void InGameCutsceneInit(void);
 void InGameCutsceneCheckPlayOnTransition(void);
 
-u32 InGameCutsceneTryQuery(u8 param_1);
-void InGameCutsceneCheckStartQueried(void);
+u32 InGameCutsceneTryQueue(u8 param_1);
+void InGameCutsceneCheckStartQueued(void);
 
 void UpdateAnimatedPaletteAfterTransitionOrReload(void);
 u32 InGameCutsceneCheckFlag(u8 setting, u8 param_2);

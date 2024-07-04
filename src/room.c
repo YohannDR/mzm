@@ -66,7 +66,7 @@ void RoomLoad(void)
             gSamusData.yPosition = BLOCK_SIZE * 8 - 1;
 
             gInGameCutscene.stage = 0;
-            gInGameCutscene.queriedCutscene = IGC_GETTING_VARIA;
+            gInGameCutscene.queuedCutscene = IGC_GETTING_VARIA;
             InGameCutsceneStart(IGC_GETTING_VARIA);
 
             gDisablePause = TRUE;
@@ -83,7 +83,7 @@ void RoomLoad(void)
         gSamusData.yPosition = BLOCK_SIZE * 31 - 1;
 
         gInGameCutscene.stage = 0;
-        gInGameCutscene.queriedCutscene = IGC_GETTING_FULLY_POWERED;
+        gInGameCutscene.queuedCutscene = IGC_GETTING_FULLY_POWERED;
         InGameCutsceneStart(IGC_GETTING_FULLY_POWERED);
 
         gDisablePause = TRUE;
@@ -136,7 +136,7 @@ void RoomLoad(void)
         gPreviousYPosition = gSamusData.yPosition;
     }
 
-    InGameCutsceneCheckStartQueried();
+    InGameCutsceneCheckStartQueued();
 
     // Update rain sound effect
     if (gRainSoundEffect != RAIN_SOUND_NONE)
@@ -442,7 +442,7 @@ void RoomReset(void)
 
     gDISPCNTBackup = 0;
     gInGameCutscene.cutsceneNumber = 0;
-    gInGameCutscene.queriedCutscene = 0;
+    gInGameCutscene.queuedCutscene = 0;
 
     gEffectYPosition = 0;
     gHatchesState.unlocking = FALSE;
@@ -566,7 +566,7 @@ void RoomSetBackgroundScrolling(void)
     else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD)
         gBg0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
 
-    gInGameCutscene.queriedCutscene = 0;
+    gInGameCutscene.queuedCutscene = 0;
 }
 
 /**
