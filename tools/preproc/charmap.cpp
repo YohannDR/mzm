@@ -326,7 +326,7 @@ void CharmapReader::RemoveComments()
         }
         else if (m_buffer[pos] == '@')
         {
-            while (!AcceptNewline() && m_buffer[pos] != 0)
+            while (m_buffer[pos] != '\n' && m_buffer[pos] != 0)
                 m_buffer[pos++] = ' ';
         }
         else
