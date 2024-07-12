@@ -5,6 +5,7 @@
 
 #include "constants/room.h"
 #include "constants/game_state.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/power_bomb_explosion.h"
 #include "structs/game_state.h"
@@ -601,7 +602,7 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
     newValue = FALSE;
     if (gWrittenToBLDALPHA != 0)
         newValue = TRUE;
-    else if (gCurrentPowerBomb.animationState != 0)
+    else if (gCurrentPowerBomb.animationState != PB_STATE_NONE)
         newValue = TRUE;
     else if (pBldalpha->activeFlag & 0x80)
         newValue = TRUE;
@@ -684,7 +685,7 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
     newValue = FALSE;
     if (gWrittenToBLDY >= 0)
         newValue = TRUE;
-    else if (gCurrentPowerBomb.animationState != 0)
+    else if (gCurrentPowerBomb.animationState != PB_STATE_NONE)
         newValue = TRUE;
     else if (pBldy->activeFlag & 0x80)
         newValue = TRUE;
@@ -747,7 +748,7 @@ void unk_55e60(void)
 
     switch (gCurrentPowerBomb.animationState)
     {
-        case 1:
+        case PB_STATE_UNK_1:
             gTransparencyRelated.unk_2 = 0;
             gTransparencyRelated.unk_1 = 2;
 
@@ -755,7 +756,7 @@ void unk_55e60(void)
             gWrittenToBLDALPHA = C_16_2_8(coef, 16 - coef);
             break;
 
-        case 0:
+        case PB_STATE_NONE:
             gTransparencyRelated.unk_2++;
             if (gTransparencyRelated.unk_0 != 2)
             {

@@ -6,6 +6,7 @@
 #include "constants/sprite.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -138,7 +139,7 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 spriteRight;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED)
-        && gCurrentPowerBomb.animationState != 0x0 && gEquipment.maxPowerBombs != 0x0)
+        && gCurrentPowerBomb.animationState != PB_STATE_NONE && gEquipment.maxPowerBombs != 0x0)
     {
         bombY = gCurrentPowerBomb.yPosition;
         bombX = gCurrentPowerBomb.xPosition;

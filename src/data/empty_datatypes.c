@@ -3,6 +3,7 @@
 
 #include "constants/block.h"
 #include "constants/connection.h"
+#include "constants/power_bomb_explosion.h"
 
 // 345868
 
@@ -63,7 +64,7 @@ const struct BombChain sBombChain_Empty = {
 };
 
 const struct PowerBomb sPowerBomb_Empty = {
-    .animationState = 0,
+    .animationState = PB_STATE_NONE,
     .stage = 0,
     .semiMinorAxis = 0,
     .unk_3 = 0,

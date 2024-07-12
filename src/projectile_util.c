@@ -12,6 +12,7 @@
 #include "constants/sprite.h"
 #include "constants/particle.h"
 #include "constants/projectile.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -437,7 +438,7 @@ void ProjectileUpdate(void)
             break;
 
         case PROJECTILE_CATEGORY_POWER_BOMB:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) && gCurrentPowerBomb.animationState == 0x0
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) && gCurrentPowerBomb.animationState == PB_STATE_NONE
                 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition))
                 gSamusWeaponInfo.cooldown = 0x5;
             gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
@@ -1143,7 +1144,7 @@ void ProjectileCheckHittingSprite(void)
 
     pEquipment = &gEquipment;
 
-    if (gCurrentPowerBomb.animationState != 0 && pEquipment->maxPowerBombs != 0)
+    if (gCurrentPowerBomb.animationState != PB_STATE_NONE && pEquipment->maxPowerBombs != 0)
     {
         o1y = gCurrentPowerBomb.yPosition;
         o1x = gCurrentPowerBomb.xPosition;

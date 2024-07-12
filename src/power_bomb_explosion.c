@@ -7,6 +7,7 @@
 #include "constants/haze.h"
 #include "constants/game_state.h"
 #include "constants/room.h"
+#include "constants/power_bomb_explosion.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -22,14 +23,14 @@
  */
 void PowerBombExplosionProcess(void)
 {
-    if (gCurrentPowerBomb.animationState > 1)
+    if (gCurrentPowerBomb.animationState > PB_STATE_UNK_1)
     {
         PowerBombExplosionSet0x12To0();
         if (gCurrentPowerBomb.unk_12 == 0) // Most likely a cancelled feature
         {
-            if (gCurrentPowerBomb.animationState == 2)
+            if (gCurrentPowerBomb.animationState == PB_STATE_UNK_2)
                 PowerBombExplosionBegin();
-            else if (gCurrentPowerBomb.animationState == 5)
+            else if (gCurrentPowerBomb.animationState == PB_STATE_ENDING)
                 PowerBombExplosionEnd();
             else if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
                 PowerBombExplosion();
@@ -49,8 +50,8 @@ void PowerBombExplosion(void)
     s32 hitboxBottom;
     s32 hitboxLeft;
     s32 hitboxRight;
-    s32 xLoop;
-    s32 yLoop;
+    s32 outerLoop;
+    s32 innerLoop;
     s32 xPositionLeft;
     s32 xPositionRight;
     s32 yPositionTop;
@@ -67,20 +68,26 @@ void PowerBombExplosion(void)
     hitboxTop = (s16)-verticalAxis;
     hitboxBottom = (s16)verticalAxis;
 
+    // Check if left edge of explosion is past left side of room. Can only be true while in-bounds
     horizontalAxis = hitboxLeft;
     if (gCurrentPowerBomb.xPosition + horizontalAxis < 0)
         hitboxLeft = (s16)-gCurrentPowerBomb.xPosition;
 
-    verticalAxis = hitboxTop;    
+    // Check if top edge of explosion is past top side of room. Can only be true while in-bounds
+    verticalAxis = hitboxTop;
     if (gCurrentPowerBomb.yPosition + verticalAxis < 0)
         hitboxTop = (s16)-gCurrentPowerBomb.yPosition;
 
+    // Check if right edge of explosion is past right side of room
+    // BUG: If far enough out-of-bounds, integer underflow will occur from the subtraction
     horizontalAxis = hitboxRight;
-    if (gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE < (gCurrentPowerBomb.xPosition + horizontalAxis))
+    if ((gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE) < (gCurrentPowerBomb.xPosition + horizontalAxis))
         hitboxRight = (s16)(gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE - gCurrentPowerBomb.xPosition);
 
+    // Check if bottom edge of explosion is past bottom side of room
+    // BUG: If far enough out-of-bounds, integer underflow will occur from the subtraction
     verticalAxis = hitboxBottom;
-    if (gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE < (gCurrentPowerBomb.yPosition + verticalAxis))
+    if ((gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) < (gCurrentPowerBomb.yPosition + verticalAxis))
         hitboxBottom = (s16)(gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - gCurrentPowerBomb.yPosition);
 
     gCurrentPowerBomb.hitboxLeftOffset = hitboxLeft;
@@ -88,7 +95,7 @@ void PowerBombExplosion(void)
     gCurrentPowerBomb.hitboxTopOffset = hitboxTop;
     gCurrentPowerBomb.hitboxBottomOffset = hitboxBottom;
 
-    if (gCurrentPowerBomb.animationState < 4)
+    if (gCurrentPowerBomb.animationState < PB_STATE_IMPLODING)
     {
         hitboxLeft = DIV_SHIFT(hitboxLeft + gCurrentPowerBomb.xPosition, BLOCK_SIZE);
         hitboxRight = DIV_SHIFT(hitboxRight + gCurrentPowerBomb.xPosition, BLOCK_SIZE);
@@ -99,19 +106,21 @@ void PowerBombExplosion(void)
         {
             gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
-            for (xLoop = 0; xLoop < 2; xLoop++)
+            // Do 2 loops, one for left side and one for right side
+            for (outerLoop = 0; outerLoop < 2; outerLoop++)
             {
-                if (xLoop == 0)
+                if (outerLoop == 0)
                     horizontalAxis = hitboxLeft;
                 else
                     horizontalAxis = hitboxRight;
 
+                // BUG: yPosition is not checked if out-of-bounds, which can lead to memory corruption
                 yPositionTop = gCurrentPowerBomb.yPosition / BLOCK_SIZE;
                 yPositionBottom = yPositionTop;
 
-                for (yLoop = 0; yLoop != 2;)
+                for (innerLoop = 0; innerLoop != 2;)
                 {
-                    yLoop = 0;
+                    innerLoop = 0;
                     if (yPositionTop >= hitboxTop)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionTop * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
@@ -121,7 +130,7 @@ void PowerBombExplosion(void)
                         yPositionTop = (s16)(yPositionTop - 1);
                     }
                     else
-                        yLoop = 0x1;
+                        innerLoop++;
                     
                     if ((s32)yPositionBottom <= hitboxBottom)
                     {
@@ -132,7 +141,7 @@ void PowerBombExplosion(void)
                         yPositionBottom = (s16)(yPositionBottom + 1);
                     }
                     else
-                        yLoop++;
+                        innerLoop++;
                 }
             }
         }
@@ -140,19 +149,21 @@ void PowerBombExplosion(void)
         {
             gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
-            for (xLoop = 0; xLoop < 2; xLoop++)
+            // Do 2 loops, one for top side and one for bottom side
+            for (outerLoop = 0; outerLoop < 2; outerLoop++)
             {
-                if (xLoop == 0)
+                if (outerLoop == 0)
                     verticalAxis = hitboxTop;
                 else
                     verticalAxis = hitboxBottom;
 
+                // BUG: xPosition is not checked if out-of-bounds, which can lead to memory corruption
                 xPositionRight = gCurrentPowerBomb.xPosition / BLOCK_SIZE;
                 xPositionLeft = xPositionRight;
 
-                for (yLoop = 0; yLoop != 2; )
+                for (innerLoop = 0; innerLoop != 2;)
                 {
-                    yLoop = 0;
+                    innerLoop = 0;
                     if (xPositionLeft >= hitboxLeft)
                     {
                         clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
@@ -162,7 +173,7 @@ void PowerBombExplosion(void)
                         xPositionLeft = (s16)(xPositionLeft - 1);
                     }
                     else
-                        yLoop++;
+                        innerLoop++;
                     
                     if (xPositionRight <= hitboxRight)
                     {
@@ -173,7 +184,7 @@ void PowerBombExplosion(void)
                         xPositionRight = (s16)(xPositionRight + 1);
                     }
                     else
-                        yLoop++;
+                        innerLoop++;
                 }
             }
         }
@@ -194,14 +205,14 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
         return;
 
     PowerBombExplosionSet0x12To0();
-    if (gCurrentPowerBomb.animationState == 0) // Check if there isn't already an explosion
+    if (gCurrentPowerBomb.animationState == PB_STATE_NONE) // Check if there isn't already an explosion
     {
         gCurrentPowerBomb.xPosition = xPosition;
         gCurrentPowerBomb.yPosition = yPosition;
         gCurrentPowerBomb.owner = owner;
 
         if (gCurrentPowerBomb.unk_12 != 0)
-            gCurrentPowerBomb.animationState = 2;
+            gCurrentPowerBomb.animationState = PB_STATE_UNK_2;
         else
             PowerBombExplosionBegin();
     }
@@ -225,7 +236,7 @@ void PowerBombExplosionBegin(void)
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
         return;
 
-    gCurrentPowerBomb.animationState = 3;
+    gCurrentPowerBomb.animationState = PB_STATE_EXPLODING;
     gCurrentPowerBomb.powerBombPlaced = FALSE;
 
     DMA_SET(3, PALRAM_BASE, EWRAM_BASE + 0x9000, C_32_2_16(DMA_ENABLE, PALRAM_SIZE / 4));
@@ -324,7 +335,7 @@ void PowerBombExplosionEnd(void)
     else if (gCurrentPowerBomb.stage == 2)
     {
         // Kill the power bomb
-        gCurrentPowerBomb.animationState = 0;
+        gCurrentPowerBomb.animationState = PB_STATE_NONE;
         gCurrentPowerBomb.owner = 0;
         gCurrentPowerBomb.stage = 0;
     }
