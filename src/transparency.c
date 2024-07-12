@@ -29,7 +29,7 @@ void TransparencySetRoomEffectsTransparency(void)
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
     {
-        if (gInGameCutscene.queriedCutscene == 0)
+        if (gInGameCutscene.queuedCutscene == 0)
         {
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
@@ -450,7 +450,7 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
 }
 
 /**
- * @brief 55b24 | 78 | Queries a bldalpha update (for sprites)
+ * @brief 55b24 | 78 | Queues a bldalpha update (for sprites)
  * 
  * @param eva Eva coefficient
  * @param evb Evb coefficient
@@ -493,7 +493,7 @@ void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, s32 delay, u32 intensity)
 }
 
 /**
- * @brief 55b9c | 34 | Queries a bldy update
+ * @brief 55b9c | 34 | Queues a bldy update
  * 
  * @param value Destination value
  * @param delay Delay
@@ -524,7 +524,7 @@ void TransparencyUpdateBLDY(u8 value, s32 delay, u32 intensity)
 }
 
 /**
- * @brief 55bd0 | 54 | Queries a bldalpha update
+ * @brief 55bd0 | 54 | Queues a bldalpha update
  * 
  * @param eva Eva coefficient
  * @param evb Evb coefficient

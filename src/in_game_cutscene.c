@@ -752,7 +752,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
     s32 i;
 
     // Try to trigger an in game cutscene if none
-    if (gInGameCutscene.queriedCutscene == 0)
+    if (gInGameCutscene.queuedCutscene == 0)
     {
         for (i = 0; i < ARRAY_SIZE(sInGameCutsceneData); i++)
         {
@@ -763,14 +763,14 @@ void InGameCutsceneCheckPlayOnTransition(void)
                 continue;
             }
 
-            // Check not set, in the correct area, and could query the cutscene
-            if (InGameCutsceneCheckFlag(FALSE, i) && sInGameCutsceneData[i].area == gCurrentArea && InGameCutsceneTryQuery(i))
+            // Check not set, in the correct area, and could queue the cutscene
+            if (InGameCutsceneCheckFlag(FALSE, i) && sInGameCutsceneData[i].area == gCurrentArea && InGameCutsceneTryQueue(i))
                 break;
         }
     }
 
-    // Apply queried cutscene
-    switch (gInGameCutscene.queriedCutscene)
+    // Apply queued cutscene
+    switch (gInGameCutscene.queuedCutscene)
     {
         case IGC_CLOSE_UP:
             if (gPauseScreenFlag)
@@ -779,7 +779,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             gDisablePause = TRUE;
             gDisplayLocationText = FALSE;
 
-            // Query brinstar and play loading jingle
+            // Queue brinstar and play loading jingle
             PlayMusic(MUSIC_BRINSTAR, 0);
             InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, 1);
 
@@ -841,54 +841,54 @@ void InGameCutsceneCheckPlayOnTransition(void)
 }
 
 /**
- * @brief 60760 | a0 | Try to query an in game cutscene
+ * @brief 60760 | a0 | Try to queue an in game cutscene
  * 
  * @param cutscene Cutscene
- * @return u8 bool, was queried
+ * @return u8 bool, was queued
  */
-u32 InGameCutsceneTryQuery(u8 cutscene)
+u32 InGameCutsceneTryQueue(u8 cutscene)
 {
-    u8 queried;
+    u8 queued;
 
-    queried = FALSE;
+    queued = FALSE;
 
     switch (cutscene)
     {
         case IGC_CLOSE_UP:
             if (gCurrentRoom == 0 && gLastDoorUsed == 0 && !gIsLoadingFile && gGameModeSub3 == 0 && !gDebugFlag && gDemoState == 0)
-                queried = TRUE;
+                queued = TRUE;
             break;
 
         case 6:
             if (gCurrentRoom == 5)
-                queried = TRUE;
+                queued = TRUE;
             break;
 
         case IGC_LONG_BEAM_HINT:
             if (gCurrentRoom == 2)
-                queried = TRUE;
+                queued = TRUE;
             break;
     }
 
-    if (queried)
-        gInGameCutscene.queriedCutscene = cutscene;
+    if (queued)
+        gInGameCutscene.queuedCutscene = cutscene;
 
-    return queried;
+    return queued;
 }
 
 /**
- * @brief 60800 | 28 | Checks if the queried in game cutscene should play
+ * @brief 60800 | 28 | Checks if the queued in game cutscene should play
  * 
  */
-void InGameCutsceneCheckStartQueried(void)
+void InGameCutsceneCheckStartQueued(void)
 {
     if (gPauseScreenFlag == 0)
     {
         gInGameCutscene.stage = 0;
 
-        // Start the queried cutscene, if there's any
-        if (gInGameCutscene.queriedCutscene != 0)
-            InGameCutsceneStart(gInGameCutscene.queriedCutscene);
+        // Start the queued cutscene, if there's any
+        if (gInGameCutscene.queuedCutscene != 0)
+            InGameCutsceneStart(gInGameCutscene.queuedCutscene);
     }
 }
 

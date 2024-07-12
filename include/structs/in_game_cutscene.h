@@ -17,7 +17,7 @@ struct InGameCutscene {
     u16 timer;
     u8 stage;
     u8 cutsceneNumber;
-    u8 queriedCutscene;
+    u8 queuedCutscene;
     u8 unknown;
     InGameCutsceneFunc_T pSubroutine;
 };
