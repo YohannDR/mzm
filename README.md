@@ -29,7 +29,7 @@ This produces the following ROMs:
 - **WINDOWS ONLY** : Install and setup [WSL](https://docs.microsoft.com/en-us/windows/wsl/install)
 - Install the dependencies (an `apt update` might be necessary for binutils)
 - Build agbcc (run `./build.sh`)
-- Add agbcc to your path (export PATH="agbcc path:$PATH")
+- Add agbcc to your path (`export PATH="<agbcc_path>:$PATH"`, where `<agbcc_path>` is the full path to the agbcc directory)
 - Build preproc (run `make` in tools/preproc)
 
 ## Build
@@ -38,5 +38,5 @@ This produces the following ROMs:
 - Run the data extractor if necessary:
    * Compile: `cd tools && . compile_c_extractor.sh && cd ..`
    * Run: `tools/c_extractor`
-   * If the C version doesn't work, run the C# version `tools/extractor`
+   * If the C version doesn't work, run the C# version `tools/extractor` (may require `chmod +x tools/extractor` first)
 - Run `make` (using the -j option is recommended to speed up the process)

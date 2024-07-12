@@ -1,1 +1,1 @@
-- [ ] I have read and understood the contitions outlined in [CONTRIBUTING.md](CONTRIBUTING.md)
+- [ ] I have read and understood the conditions outlined in [CONTRIBUTING.md](CONTRIBUTING.md)
