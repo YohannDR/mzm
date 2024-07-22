@@ -129,28 +129,35 @@ void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
         return;
     }
 
-    xPosition--;
-    gLastAreaNameVisited.mapX = xPosition;
-    yPosition--;
-    gLastAreaNameVisited.mapY = yPosition;
+    do {
+    gLastAreaNameVisited.mapX = --xPosition;
+    }while(0);
+    gLastAreaNameVisited.mapY = --yPosition;
 
-    pMap = &gDecompressedMinimapData[actualX + actualY * MINIMAP_SIZE];
+    //pMap = &gDecompressedMinimapData[actualX + actualY * MINIMAP_SIZE];
+    pMap = &((u16*)(0x02034800))[actualX + actualY * MINIMAP_SIZE];
 
     offset = area * MINIMAP_SIZE + actualY;
 
     for (j = 0, i = 0; i < MINIMAP_SIZE; i++, pMap++)
     {
-        tile = (*pMap & 0x3FF) - 0x141;
+        set = *pMap & 0x3FF;
+        tile = set - 0x141;
         if (tile <= 0x1D)
         {
             sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[actualX + j];
             j++;
         }
+        else
+        {
+            break;
+        }
     }
 
     if (afterTransition)
     {
-        sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + gLastAreaNameVisited.mapY] |= sExploredMinimapBitFlags[gLastAreaNameVisited.mapX];
+        offset = area * MINIMAP_SIZE + gLastAreaNameVisited.mapY;
+        sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[gLastAreaNameVisited.mapX];
         gLastAreaNameVisited.flags = 0;
     }
 }
