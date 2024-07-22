@@ -1,4 +1,6 @@
 #include "screen_shake.h"
+#include "macros.h"
+
 #include "structs/screen_shake.h"
 
 /**
@@ -101,8 +103,7 @@ s32 ScreenShakeUpdateVertical(void)
             offset = 2;
     }
 
-    do {
-    }while(0);
+    EMPTY_DO_WHILE
 
     gScreenShakeY.direction ^= TRUE;
     if (gScreenShakeY.timer < 16)
@@ -148,8 +149,7 @@ s32 ScreenShakeUpdateHorizontal(void)
             offset = 2;
     }
 
-    do {
-    }while(0);
+    EMPTY_DO_WHILE
 
     gScreenShakeX.direction ^= TRUE;
     if (gScreenShakeX.timer < 16)

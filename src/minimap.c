@@ -446,8 +446,8 @@ void MinimapCheckForUnexploredTile(void)
     samusX /= BLOCK_SIZE;
     samusY /= BLOCK_SIZE;
 
-    samusX /= 15;
-    samusY /= 10;
+    samusX /= SCREEN_SIZE_X_BLOCKS;
+    samusY /= SCREEN_SIZE_Y_BLOCKS;
 
     // Check update X coords
     if (gMinimapX != samusX + gCurrentRoomEntry.mapX)
@@ -1031,8 +1031,8 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 
     if (gCurrentArea < MAX_AMOUNT_OF_AREAS)
     {
-        itemX = (xPosition - 2) / 15 + gCurrentRoomEntry.mapX;
-        itemY = (yPosition - 2) / 10 + gCurrentRoomEntry.mapY;
+        itemX = (xPosition - SCREEN_X_PADDING) / SCREEN_SIZE_X_BLOCKS + gCurrentRoomEntry.mapX;
+        itemY = (yPosition - SCREEN_Y_PADDING) / SCREEN_SIZE_Y_BLOCKS + gCurrentRoomEntry.mapY;
 
         offset = gCurrentArea * MINIMAP_SIZE;
         ptr = (u32*)(0x2033800) + offset; // gMinimapTilesWithObtainedItems
@@ -1067,15 +1067,13 @@ u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
 
     if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
         return 1;
-    else
-    {
-        offset = gCurrentArea * MINIMAP_SIZE;
-        mapX = (xPosition - 0x2) / 0xF + gCurrentRoomEntry.mapX;
-        mapY = (yPosition - 0x2) / 0xA + gCurrentRoomEntry.mapY;
 
-        tileOffset = mapY + offset;
-        return sVisitedMinimapTilesPointer[tileOffset] & sExploredMinimapBitFlags[mapX];
-    }
+    offset = gCurrentArea * MINIMAP_SIZE;
+    mapX = (xPosition - SCREEN_X_PADDING) / SCREEN_SIZE_X_BLOCKS + gCurrentRoomEntry.mapX;
+    mapY = (yPosition - SCREEN_Y_PADDING) / SCREEN_SIZE_Y_BLOCKS + gCurrentRoomEntry.mapY;
+
+    tileOffset = mapY + offset;
+    return sVisitedMinimapTilesPointer[tileOffset] & sExploredMinimapBitFlags[mapX];
 }
 
 /**
@@ -1108,8 +1106,8 @@ void MinimapLoadTilesWithObtainedItems(void)
             if (pItem->room == UCHAR_MAX)
                 break;
 
-            xPosition = (pItem->xPosition - 2) / 15;
-            yPosition = (pItem->yPosition - 2) / 10;
+            xPosition = (pItem->xPosition - SCREEN_X_PADDING) / SCREEN_SIZE_X_BLOCKS;
+            yPosition = (pItem->yPosition - SCREEN_Y_PADDING) / SCREEN_SIZE_Y_BLOCKS;
 
             xOffset = xPosition + sAreaRoomEntryPointers[i][pItem->room].mapX;
             yOffset = yPosition + sAreaRoomEntryPointers[i][pItem->room].mapY;

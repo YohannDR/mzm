@@ -531,35 +531,35 @@ const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
 
 const struct BombChainReverseData sBombChainReverseData[8] = {
     [BOMB_CHAIN_TYPE_VERTICAL1] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_VERTICAL1),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_VERTICAL1),
         .behavior = CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1
     },
     [BOMB_CHAIN_TYPE_VERTICAL2] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_VERTICAL2),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_VERTICAL2),
         .behavior = CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2
     },
     [BOMB_CHAIN_TYPE_VERTICAL3] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_VERTICAL3),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_VERTICAL3),
         .behavior = CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3
     },
     [BOMB_CHAIN_TYPE_VERTICAL4] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_VERTICAL4),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_VERTICAL4),
         .behavior = CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4
     },
     [BOMB_CHAIN_TYPE_HORIZONTAL1] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_HORIZONTAL1),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_HORIZONTAL1),
         .behavior = CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1
     },
     [BOMB_CHAIN_TYPE_HORIZONTAL2] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_HORIZONTAL2),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_HORIZONTAL2),
         .behavior = CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2
     },
     [BOMB_CHAIN_TYPE_HORIZONTAL3] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_HORIZONTAL3),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_HORIZONTAL3),
         .behavior = CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3
     },
     [BOMB_CHAIN_TYPE_HORIZONTAL4] = {
-        .typeFlag = bomb_chain_type_to_flag(BOMB_CHAIN_TYPE_HORIZONTAL4),
+        .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_HORIZONTAL4),
         .behavior = CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4
     },
 };

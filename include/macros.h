@@ -5,7 +5,7 @@
 #define BEHAVIOR_TO_GROUND_EFFECT(behavior) (behavior - 0x50)
 #define BEHAVIOR_TO_DOOR(behavior) (behavior - 0x7F)
 
-#define bomb_chain_type_to_flag(type) (1 << type)
+#define BOMB_CHAIN_TYPE_TO_FLAG(type) (1 << type)
 
 #define LOW_BYTE(value) ((value) & UCHAR_MAX)
 #define HIGH_BYTE(value) (((value) & UCHAR_MAX << 8) >> 8)
@@ -63,6 +63,7 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
+#define EMPTY_DO_WHILE {do {} while(0);}
 
 #define RED(c) ((c) & COLOR_MASK)
 #define GREEN(c) (((c) & (COLOR_MASK << 5)) >> 5)
@@ -174,6 +175,11 @@
 
 #define SCREEN_SIZE_X_BLOCKS (SUB_PIXEL_TO_BLOCK(SCREEN_SIZE_X_SUB_PIXEL))
 #define SCREEN_SIZE_Y_BLOCKS (SUB_PIXEL_TO_BLOCK(SCREEN_SIZE_Y_SUB_PIXEL))
+
+#define SCREEN_X_PADDING 2
+#define SCREEN_X_BLOCK_PADDING (BLOCK_SIZE * SCREEN_X_PADDING)
+#define SCREEN_Y_PADDING 2
+#define SCREEN_Y_BLOCK_PADDING (BLOCK_SIZE * SCREEN_Y_PADDING)
 
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)

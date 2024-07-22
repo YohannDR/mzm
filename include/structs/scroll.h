@@ -4,8 +4,28 @@
 #include "types.h"
 #include "macros.h"
 
-#define SCROLL_SUB_DATA_SIZE 8
-#define SCROLL_DATA_SIZE(nbrScrolls) (2 + SCROLL_SUB_DATA_SIZE * nbrScrolls)
+enum ScrollSubData {
+    // Left bound
+    SCROLL_SUB_DATA_X_START,
+    // Right bound
+    SCROLL_SUB_DATA_X_END,
+    // Top bound
+    SCROLL_SUB_DATA_Y_START,
+    // Bottom bound
+    SCROLL_SUB_DATA_Y_END,
+    // Breakable block X position
+    SCROLL_SUB_DATA_BREAKABLE_X,
+    // Breakable block Y position
+    SCROLL_SUB_DATA_BREAKABLE_Y,
+    // Which direction 
+    SCROLL_SUB_DATA_EXTENDED_DIRECTION,
+    SCROLL_SUB_DATA_EXTENDED_VALUE,
+
+    SCROLL_SUB_DATA_END
+};
+
+#define SCROLL_DATA_SIZE(nbrScrolls) (2 + SCROLL_SUB_DATA_END * nbrScrolls)
+
 
 #define SCROLL_NOT_WITHIN_FLAG 0
 #define SCROLL_WITHIN_FLAG 2

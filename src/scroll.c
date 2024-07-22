@@ -221,11 +221,13 @@ void ScrollLoad(void)
     }
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 584d8 | 138 | Updates the current scrolls
+ * 
+ * @param pCoords Center coordinates
+ */
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
-    // https://decomp.me/scratch/VHsfW
-
     u16 xPosition;
     u16 yPosition;
     const u8* src;
@@ -233,95 +235,116 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     s32 nbrScrolls;
     s32 i;
     s32 bounds[4];
-    s32 bound;
-    s32 bound2;
-    s32 limit;
-    s32 value;
     s32 position;
-    
+
+    // Reset 2 scrolls
     gCurrentScrolls[0].within = SCROLL_NOT_WITHIN_FLAG;
     gCurrentScrolls[1].within = SCROLL_NOT_WITHIN_FLAG;
 
-    xPosition = pCoords->x / BLOCK_SIZE;
-    yPosition = (u32)(pCoords->y - 1) / BLOCK_SIZE;
+    xPosition = SUB_PIXEL_TO_BLOCK(pCoords->x);
+    yPosition = SUB_PIXEL_TO_BLOCK((u32)(pCoords->y - 1));
 
     src = gCurrentRoomScrollDataPointer;
+
+    // Ignore room id field
     src++;
+
+    // Fetch total number of scrolls in the current room
     nbrScrolls = *src;
+
+    // Get pointer to the start of the scroll sub data
     data = src + 1;
-    
-    for (i = 0; nbrScrolls != 0; nbrScrolls--)
+
+    // Loop over each scroll in the room
+    for (i = 0; nbrScrolls != 0; data += SCROLL_SUB_DATA_END, nbrScrolls--)
     {
+        // Won't need to process if the current scroll is already filled
         if (i == ARRAY_SIZE(gCurrentScrolls))
             return;
-        
-        bounds[0] = 0;
-        bounds[1] = 1;
-        bounds[2] = 2;
-        bounds[3] = 3;
 
-        if (data[4] != UCHAR_MAX && data[7] != UCHAR_MAX)
+        // Initialize bound indexes for the scroll, the default bounds are used, but that can change
+        bounds[SCROLL_SUB_DATA_X_START] = SCROLL_SUB_DATA_X_START;
+        bounds[SCROLL_SUB_DATA_X_END] = SCROLL_SUB_DATA_X_END;
+        bounds[SCROLL_SUB_DATA_Y_START] = SCROLL_SUB_DATA_Y_START;
+        bounds[SCROLL_SUB_DATA_Y_END] = SCROLL_SUB_DATA_Y_END;
+
+        // Check for breakable block
+        if (data[SCROLL_SUB_DATA_BREAKABLE_X] != UCHAR_MAX && data[SCROLL_SUB_DATA_EXTENDED_VALUE] != UCHAR_MAX)
         {
-            limit = data[5] * gBgPointersAndDimensions.clipdataWidth + data[4];
-            if (gBgPointersAndDimensions.pClipDecomp[limit] == 0 && data[6] != UCHAR_MAX)
-                bounds[data[6]] = 7;
+            // Get breakable block position
+            position = data[SCROLL_SUB_DATA_BREAKABLE_Y] * gBgPointersAndDimensions.clipdataWidth + data[SCROLL_SUB_DATA_BREAKABLE_X];
+
+            // Check for clipdata, and that the extended direction is valid
+            if (gBgPointersAndDimensions.pClipDecomp[position] == 0 && data[SCROLL_SUB_DATA_EXTENDED_DIRECTION] != UCHAR_MAX)
+            {
+                // Change the bound of the extended direction to use the extended value
+                bounds[data[SCROLL_SUB_DATA_EXTENDED_DIRECTION]] = SCROLL_SUB_DATA_EXTENDED_VALUE;
+            }
         }
         else
         {
-            if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && data[7] != UCHAR_MAX && (data[6] == 2 || data[6] == 3))
-                bounds[data[6]] = 7;
+            // Check for extended bound without a breakable block, can only work when samus is using an elevator
+            if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && data[SCROLL_SUB_DATA_EXTENDED_VALUE] != UCHAR_MAX)
+            {
+                // An elevator extended bound can only be vertical
+                if ((data[SCROLL_SUB_DATA_EXTENDED_DIRECTION] == SCROLL_SUB_DATA_Y_START || data[SCROLL_SUB_DATA_EXTENDED_DIRECTION] == SCROLL_SUB_DATA_Y_END))
+                {
+                    // Change the bound of the extended direction to use the extended value
+                    bounds[data[SCROLL_SUB_DATA_EXTENDED_DIRECTION]] = SCROLL_SUB_DATA_EXTENDED_VALUE;
+                }
+            }
         }
 
-        if (data[bounds[0]] <= xPosition && xPosition <= data[bounds[1]] && data[bounds[2]] <= yPosition && yPosition <= data[bounds[3]] && gCurrentScrolls[i].within == SCROLL_NOT_WITHIN_FLAG)
+        // Check is within the bounds
+        if (data[bounds[SCROLL_SUB_DATA_X_START]] <= xPosition && xPosition <= data[bounds[SCROLL_SUB_DATA_X_END]] &&
+            data[bounds[SCROLL_SUB_DATA_Y_START]] <= yPosition && yPosition <= data[bounds[SCROLL_SUB_DATA_Y_END]])
         {
-            limit = BLOCK_SIZE * 2;
-            value = data[bounds[0]] * BLOCK_SIZE;
-            if (value < limit)
-                value = limit;
+            if (gCurrentScrolls[i].within)
+            {
+                // This scroll already exists, abort processing
+                continue;
+            }
 
-            gCurrentScrolls[i].xStart = value;
+            // Set X start (left bound), check isn't below the X screen padding
+            {
+                s32 upper = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_X_START]]);
+                
+                gCurrentScrolls[i].xStart = SCREEN_X_BLOCK_PADDING < upper ? upper : SCREEN_X_BLOCK_PADDING;
+            }
 
-            limit = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE - BLOCK_SIZE * 2;
-            value = (data[bounds[1]] + 1) * BLOCK_SIZE;
-            if (value < 0)
-                value = 0;
-
-            if (value < limit)
-                bound = value;
-            else
-                bound = limit;
+            // Set X end (right bound), check isn't after the size of the room
+            {
+                s32 upper = position = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataWidth) - SCREEN_X_BLOCK_PADDING;
+                s32 lower = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_X_END]] + 1);
+                
+                gCurrentScrolls[i].xEnd = lower >= position ? upper : lower;
+            }
             
-            gCurrentScrolls[i].xEnd = bound;
+            EMPTY_DO_WHILE
+
+            // Set Y start (top bound), check isn't below the Y screen padding
+            {
+                s32 upper = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_Y_START]]);
+                
+                gCurrentScrolls[i].yStart = SCREEN_Y_BLOCK_PADDING < upper ? upper : SCREEN_Y_BLOCK_PADDING;
+            } 
+
+            // Set Y end (bottom bound), check isn't after the size of the room
+            {
+                s32 upper = position = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataHeight) - SCREEN_Y_BLOCK_PADDING;
+                s32 lower = BLOCK_TO_SUB_PIXEL(data[bounds[SCROLL_SUB_DATA_Y_END]] + 1);
+                
+                gCurrentScrolls[i].yEnd = lower >= position ? upper : lower;
+            }
             
-            limit = BLOCK_SIZE * 2;
-            value = data[bounds[2]] * BLOCK_SIZE;
-            if (value < 0)
-                value = 0;
-            else if (value < limit)
-                value = limit;
-
-            gCurrentScrolls[i].yStart = value;
-
-            limit = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - BLOCK_SIZE * 2;
-            value = (data[bounds[3]] + 1) * BLOCK_SIZE;
-            if (value < 0)
-                value = 0;
-
-            if (value < limit)
-                bound2 = value;
-            else
-                bound2 = limit;
-            
-            gCurrentScrolls[i].yEnd = bound2;
+            EMPTY_DO_WHILE
             
             gCurrentScrolls[i].within = SCROLL_WITHIN_FLAG;
             i++;
         }
-
-        data += SCROLL_SUB_DATA_SIZE;
     }
 
-    if (gCurrentScrolls[0].within == SCROLL_NOT_WITHIN_FLAG && gCurrentScrolls[1].within == SCROLL_NOT_WITHIN_FLAG)
+    if (!gCurrentScrolls[0].within && !gCurrentScrolls[1].within)
     {
         gCurrentScrolls[0].within = SCROLL_NOT_WITHIN_FLAG;
         gCurrentScrolls[0].xEnd = 0;
@@ -330,204 +353,6 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
         gCurrentScrolls[0].yEnd = 0;
     }
 }
-#else
-NAKED_FUNCTION
-void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, sb \n\
-    mov r6, r8 \n\
-    push {r6, r7} \n\
-    sub sp, #0x10 \n\
-    ldr r2, lbl_08058554 @ =gCurrentScrolls \n\
-    movs r1, #0 \n\
-    strb r1, [r2] \n\
-    strb r1, [r2, #0xc] \n\
-    ldrh r1, [r0] \n\
-    lsr r1, r1, #6 \n\
-    mov r8, r1 \n\
-    ldrh r0, [r0, #2] \n\
-    sub r0, #1 \n\
-    lsl r0, r0, #0xa \n\
-    lsr r0, r0, #0x10 \n\
-    mov ip, r0 \n\
-    ldr r0, lbl_08058558 @ =gCurrentRoomScrollDataPointer \n\
-    ldr r0, [r0] \n\
-    add r0, #1 \n\
-    ldrb r5, [r0] \n\
-    add r4, r0, #1 \n\
-    add r7, r2, #0 \n\
-    cmp r5, #0 \n\
-    bne lbl_0805850c \n\
-    b lbl_08058616 \n\
-lbl_0805850c: \n\
-    ldr r6, lbl_0805855c @ =gBgPointersAndDimensions \n\
-    mov sb, r7 \n\
-lbl_08058510: \n\
-    mov r0, sb \n\
-    add r0, #0x18 \n\
-    cmp r2, r0 \n\
-    bne lbl_0805851a \n\
-    b lbl_0805862c \n\
-lbl_0805851a: \n\
-    movs r0, #0 \n\
-    str r0, [sp] \n\
-    movs r0, #1 \n\
-    str r0, [sp, #4] \n\
-    movs r0, #2 \n\
-    str r0, [sp, #8] \n\
-    movs r0, #3 \n\
-    str r0, [sp, #0xc] \n\
-    ldrb r0, [r4, #4] \n\
-    cmp r0, #0xff \n\
-    beq lbl_08058560 \n\
-    ldrb r0, [r4, #7] \n\
-    cmp r0, #0xff \n\
-    beq lbl_08058560 \n\
-    ldrb r1, [r4, #5] \n\
-    ldrh r0, [r6, #0x1c] \n\
-    mul r0, r1, r0 \n\
-    ldrb r1, [r4, #4] \n\
-    add r3, r0, r1 \n\
-    ldr r1, [r6, #0x18] \n\
-    lsl r0, r3, #1 \n\
-    add r0, r0, r1 \n\
-    ldrh r0, [r0] \n\
-    cmp r0, #0 \n\
-    bne lbl_08058586 \n\
-    ldrb r0, [r4, #6] \n\
-    cmp r0, #0xff \n\
-    beq lbl_08058586 \n\
-    b lbl_0805857c \n\
-    .align 2, 0 \n\
-lbl_08058554: .4byte gCurrentScrolls \n\
-lbl_08058558: .4byte gCurrentRoomScrollDataPointer \n\
-lbl_0805855c: .4byte gBgPointersAndDimensions \n\
-lbl_08058560: \n\
-    ldr r0, lbl_0805863c @ =gSamusData \n\
-    ldrb r0, [r0] \n\
-    cmp r0, #0x1d \n\
-    bne lbl_08058586 \n\
-    ldrb r0, [r4, #7] \n\
-    cmp r0, #0xff \n\
-    beq lbl_08058586 \n\
-    ldrb r0, [r4, #6] \n\
-    sub r0, #2 \n\
-    lsl r0, r0, #0x18 \n\
-    lsr r0, r0, #0x18 \n\
-    cmp r0, #1 \n\
-    bhi lbl_08058586 \n\
-    ldrb r0, [r4, #6] \n\
-lbl_0805857c: \n\
-    lsl r0, r0, #2 \n\
-    mov r3, sp \n\
-    add r1, r3, r0 \n\
-    movs r0, #7 \n\
-    str r0, [r1] \n\
-lbl_08058586: \n\
-    ldr r0, [sp] \n\
-    add r0, r4, r0 \n\
-    ldrb r1, [r0] \n\
-    cmp r1, r8 \n\
-    bhi lbl_0805860c \n\
-    ldr r0, [sp, #4] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    cmp r8, r0 \n\
-    bhi lbl_0805860c \n\
-    ldr r0, [sp, #8] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    cmp r0, ip \n\
-    bhi lbl_0805860c \n\
-    ldr r0, [sp, #0xc] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    cmp ip, r0 \n\
-    bhi lbl_0805860c \n\
-    ldrb r0, [r2] \n\
-    cmp r0, #0 \n\
-    bne lbl_0805860c \n\
-    lsl r0, r1, #6 \n\
-    cmp r0, #0x80 \n\
-    bge lbl_080585bc \n\
-    movs r0, #0x80 \n\
-lbl_080585bc: \n\
-    strh r0, [r2, #4] \n\
-    ldrh r0, [r6, #0x1c] \n\
-    lsl r0, r0, #6 \n\
-    add r3, r0, #0 \n\
-    sub r3, #0x80 \n\
-    ldr r0, [sp, #4] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    add r0, #1 \n\
-    lsl r0, r0, #6 \n\
-    add r1, r3, #0 \n\
-    cmp r0, r3 \n\
-    bge lbl_080585d8 \n\
-    add r1, r0, #0 \n\
-lbl_080585d8: \n\
-    strh r1, [r2, #2] \n\
-    ldr r0, [sp, #8] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    lsl r0, r0, #6 \n\
-    cmp r0, #0x80 \n\
-    bge lbl_080585e8 \n\
-    movs r0, #0x80 \n\
-lbl_080585e8: \n\
-    strh r0, [r2, #6] \n\
-    ldrh r0, [r6, #0x1e] \n\
-    lsl r0, r0, #6 \n\
-    add r3, r0, #0 \n\
-    sub r3, #0x80 \n\
-    ldr r0, [sp, #0xc] \n\
-    add r0, r4, r0 \n\
-    ldrb r0, [r0] \n\
-    add r0, #1 \n\
-    lsl r0, r0, #6 \n\
-    add r1, r3, #0 \n\
-    cmp r0, r3 \n\
-    bge lbl_08058604 \n\
-    add r1, r0, #0 \n\
-lbl_08058604: \n\
-    strh r1, [r2, #8] \n\
-    movs r0, #2 \n\
-    strb r0, [r2] \n\
-    add r2, #0xc \n\
-lbl_0805860c: \n\
-    add r4, #8 \n\
-    sub r5, #1 \n\
-    cmp r5, #0 \n\
-    beq lbl_08058616 \n\
-    b lbl_08058510 \n\
-lbl_08058616: \n\
-    ldrb r0, [r7] \n\
-    cmp r0, #0 \n\
-    bne lbl_0805862c \n\
-    ldrb r0, [r7, #0xc] \n\
-    cmp r0, #0 \n\
-    bne lbl_0805862c \n\
-    strb r0, [r7] \n\
-    strh r0, [r7, #2] \n\
-    strh r0, [r7, #4] \n\
-    strh r0, [r7, #6] \n\
-    strh r0, [r7, #8] \n\
-lbl_0805862c: \n\
-    add sp, #0x10 \n\
-    pop {r3, r4} \n\
-    mov r8, r3 \n\
-    mov sb, r4 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_0805863c: .4byte gSamusData \n\
-    ");
-}
-#endif
 
 /**
  * @brief 58640 | 1f4 | Processes the general scrolling
@@ -720,8 +545,10 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
     yPosition = pCoords->y;
     offsetY = gScreenYOffset;
 
-    if (yPosition < BLOCK_SIZE * 8 - offsetY)
-        yOffset = BLOCK_SIZE * 2;
+    if (yPosition < (SCREEN_SIZE_Y_SUB_PIXEL - SCREEN_Y_BLOCK_PADDING) - offsetY)
+    {
+        yOffset = SCREEN_Y_BLOCK_PADDING;
+    }
     else
     {
         clipPosition = (gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - SCROLL_Y_ANCHOR;
@@ -767,17 +594,19 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     if (gLockScreen.lock == LOCK_SCREEN_TYPE_NONE && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
     {
         if (gSamusData.direction & KEY_RIGHT)
-            xOffset = BLOCK_SIZE * 2;
+            xOffset = SCREEN_X_BLOCK_PADDING;
         else if (gSamusData.direction & KEY_LEFT)
-            xOffset = -(BLOCK_SIZE * 2);
+            xOffset = -(SCREEN_X_BLOCK_PADDING);
     }
 
     gScreenXOffset = xOffset;
-        
+
     xPosition = pCoords->x;
     offsetX = gScreenXOffset;
     if (xPosition < (BLOCK_SIZE * 9 + HALF_BLOCK_SIZE) - offsetX)
-        xOffset = BLOCK_SIZE * 2;
+    {
+        xOffset = SCREEN_X_BLOCK_PADDING;
+    }
     else
     {
         do {
@@ -1061,16 +890,16 @@ void ScrollBg3(void)
     if (xScrolling != BG3_SCROLLING_TYPE_NONE)
     {
         if (xScrolling == BG3_SCROLLING_TYPE_NORMAL)
-            gBg3XPosition = gBg1XPosition - BLOCK_SIZE * 2;
+            gBg3XPosition = gBg1XPosition - SCREEN_X_BLOCK_PADDING;
         else if (xScrolling == BG3_SCROLLING_TYPE_HALVED)
-            gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 2);
+            gBg3XPosition = DIV_SHIFT(gBg1XPosition - SCREEN_X_BLOCK_PADDING, 2);
         else if (xScrolling == BG3_SCROLLING_TYPE_QUARTERED)
-            gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 4);
+            gBg3XPosition = DIV_SHIFT(gBg1XPosition - SCREEN_X_BLOCK_PADDING, 4);
     }
 
     if (gCurrentRoomEntry.BG3FromBottomFlag)
     {
-        size = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataHeight - (SCREEN_SIZE_Y_BLOCKS + 2));
+        size = BLOCK_TO_SUB_PIXEL(gBgPointersAndDimensions.clipdataHeight - (SCREEN_SIZE_Y_BLOCKS + SCREEN_Y_PADDING));
 
         if (gCurrentRoomEntry.Bg3Size & 2)
             offset = 0x800;
@@ -1099,11 +928,11 @@ void ScrollBg3(void)
         if (yScrolling == BG3_SCROLLING_TYPE_NONE)
             gBg3YPosition = 0;
         else if (yScrolling == BG3_SCROLLING_TYPE_NORMAL)
-            gBg3YPosition = gBg1YPosition - BLOCK_SIZE * 2;
+            gBg3YPosition = gBg1YPosition - SCREEN_Y_BLOCK_PADDING;
         else if (yScrolling == BG3_SCROLLING_TYPE_HALVED)
-            gBg3YPosition = DIV_SHIFT(gBg1YPosition - BLOCK_SIZE * 2, 2);
+            gBg3YPosition = DIV_SHIFT(gBg1YPosition - SCREEN_Y_BLOCK_PADDING, 2);
         else
-            gBg3YPosition = DIV_SHIFT(gBg1YPosition - BLOCK_SIZE * 2, 4);
+            gBg3YPosition = DIV_SHIFT(gBg1YPosition - SCREEN_Y_BLOCK_PADDING, 4);
     }
 }
 
@@ -1120,9 +949,9 @@ void ScrollBg3Related(void)
     if (xScroll == BG3_SCROLLING_TYPE_NONE)
         gBg3XPosition = 0;
     else if (xScroll == BG3_SCROLLING_TYPE_HALVED)
-        gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 2);
+        gBg3XPosition = DIV_SHIFT(gBg1XPosition - SCREEN_X_BLOCK_PADDING, 2);
     else if (xScroll == BG3_SCROLLING_TYPE_QUARTERED)
-        gBg3XPosition = DIV_SHIFT(gBg1XPosition - BLOCK_SIZE * 2, 4);
+        gBg3XPosition = DIV_SHIFT(gBg1XPosition - SCREEN_X_BLOCK_PADDING, 4);
 }
 
 /**
