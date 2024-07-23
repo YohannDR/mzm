@@ -2079,16 +2079,22 @@ void StatusScreenMoveCursor(void)
     }
 }
 
+/**
+ * @brief 71e7c | f4 | Determines the destination slot of the status screen cursor
+ * 
+ * @param offset Movement direction
+ * @param previousSlot Previous slot
+ * @return u32 New slot
+ */
 u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
 {
-    // https://decomp.me/scratch/cAUPk
-    
     s32 newSlot;
     u8 prevSlot;
     s32 upperLimit;
     s32 lowerLimit;
     s32 var_2;
     s32 off;
+    s32 v;
 
     off = (s8)offset;
     newSlot = (u8)previousSlot;
@@ -2097,6 +2103,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
     if (off == 0)
         return newSlot;
 
+    v = -1;
     if (off >= 2)
     {
         if (prevSlot > 7)
@@ -2180,23 +2187,14 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             lowerLimit = 1;
         }
 
-        #ifndef NON_MATCHING
-        // The code here should not have any effect on the program whatsoever,
-        //  since it can only produce a modification to r0, and later in the
-        // function r0 is always overwritten before it is read again.
-        // Whatever the original C code for this was, the compiler should have
-        // optimized it out.
-        // Ironically, any attempt made at replicating this asm was optimized
-        // out by the compiler, or produced incorrect code (which modified the
-        // program's state in a different, noticeable way).
         if (off != 1)
         {
-            asm(
-                "movs r0, #1\n"
-                "neg r0, r0\n"
-            );
+            switch (v)
+            {
+                case -1:
+                    v = 0;
+            }
         }
-        #endif // !NON_MATCHING
 
         var_2 = newSlot;
 
