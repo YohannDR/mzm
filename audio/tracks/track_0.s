@@ -1,5 +1,7 @@
 .align 2
 
+.section .rodata
+
 .global track_0
 
 track_0:
