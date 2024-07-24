@@ -1,8 +1,5 @@
-.include "audio/m_play_def.s"
-
 .align 2
 
-.section .rodata
 .global track_284
 
 track_284_0:
