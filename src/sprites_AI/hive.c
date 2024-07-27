@@ -279,7 +279,7 @@ void HiveRootsMove(void)
 /**
  * @brief 24e78 | 150 | Initializes a mellow sprite
  * 
- * @param pSprite 
+ * @param pSprite Sprite data pointer
  */
 void MellowInit(struct SpriteData* pSprite)
 {
@@ -340,9 +340,9 @@ void MellowInit(struct SpriteData* pSprite)
 }
 
 /**
- * @brief 24fc8 | c0 |
+ * @brief 24fc8 | c0 | Handles a mellow being idle
  * 
- * @param pSprite 
+ * @param pSprite Sprite data pointer
  */
 void MellowIdle(struct SpriteData* pSprite)
 {
@@ -399,7 +399,7 @@ void MellowIdle(struct SpriteData* pSprite)
 /**
  * @brief 25088 | 48 | Handles the mellow fleeing
  * 
- * @param pSprite 
+ * @param pSprite Sprite data pointer
  */
 void MellowFleeing(struct SpriteData* pSprite)
 {
@@ -423,7 +423,7 @@ void MellowFleeing(struct SpriteData* pSprite)
 /**
  * @brief 250d0 | 68 | Initializes a mellow sprite to be in samus detected behavior
  * 
- * @param pSprite 
+ * @param pSprite Sprite data pointer
  */
 void MellowSamusDetectedInit(struct SpriteData* pSprite)
 {
@@ -462,7 +462,7 @@ void MellowMove(struct SpriteData* pSprite)
     u8 ramSlot;
 
     flip = FALSE;
-    offset = 0x18;
+    offset = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
     spriteTop = pSprite->yPosition - offset;
     spriteBottom = pSprite->yPosition + offset;
@@ -473,27 +473,30 @@ void MellowMove(struct SpriteData* pSprite)
     
     for (pMellow = gSpriteData + ramSlot; pMellow < gSpriteData + MAX_AMOUNT_OF_SPRITES; pMellow++)
     {
-        if (pMellow->status & SPRITE_STATUS_EXISTS && pMellow->samusCollision == SSC_MELLOW)
-        {
-            spriteY = pMellow->yPosition;
-            spriteX = pMellow->xPosition;
-            if (spriteBottom > spriteY - offset && spriteTop < spriteY + offset
-                && spriteRight > spriteX - offset && spriteLeft < spriteX + offset)
-            {
-                if (pMellow->freezeTimer == 0)
-                {
-                    if (pSprite->yPosition > spriteY)
-                        pMellow->yPosition -= 4;
-                    else
-                        pMellow->yPosition += 4;
+        if (!(pMellow->status & SPRITE_STATUS_EXISTS))
+            continue;
 
-                    if (pSprite->xPosition > spriteX)
-                        pMellow->xPosition -= 4;
-                    else
-                        pMellow->xPosition += 4;
-                }
-                break;
+        if (pMellow->samusCollision != SSC_MELLOW)
+            continue;
+
+        spriteY = pMellow->yPosition;
+        spriteX = pMellow->xPosition;
+        if (spriteBottom > spriteY - offset && spriteTop < spriteY + offset &&
+            spriteRight > spriteX - offset && spriteLeft < spriteX + offset)
+        {
+            if (pMellow->freezeTimer == 0)
+            {
+                if (pSprite->yPosition > spriteY)
+                    pMellow->yPosition -= PIXEL_SIZE;
+                else
+                    pMellow->yPosition += PIXEL_SIZE;
+
+                if (pSprite->xPosition > spriteX)
+                    pMellow->xPosition -= PIXEL_SIZE;
+                else
+                    pMellow->xPosition += PIXEL_SIZE;
             }
+            break;
         }
     }
 
@@ -533,62 +536,62 @@ void MellowMove(struct SpriteData* pSprite)
         switch (pSprite->xPositionSpawn)
         {
             case 1:
-                spriteY -= HALF_BLOCK_SIZE;
+                spriteY -= BLOCK_SIZE / 2;
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX += BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+                    spriteX += BLOCK_SIZE - BLOCK_SIZE / 4;
                 else
-                    spriteX -= BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+                    spriteX -= BLOCK_SIZE - BLOCK_SIZE / 4;
                 break;
 
             case 3:
-                spriteY += HALF_BLOCK_SIZE;
+                spriteY += BLOCK_SIZE / 2;
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX -= BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+                    spriteX -= BLOCK_SIZE - BLOCK_SIZE / 4;
                 else
-                    spriteX += BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+                    spriteX += BLOCK_SIZE - BLOCK_SIZE / 4;
                 break;
         }
     }
 
     if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (pSprite->workVariable == 0)
+        if (pSprite->work1 == 0)
         {
             if (pSprite->xPosition <= spriteX - 4)
             {
-                if (pSprite->workVariable2 < offset)
-                    pSprite->workVariable2++;
+                if (pSprite->work2 < offset)
+                    pSprite->work2++;
 
-                pSprite->xPosition += (pSprite->workVariable2 >> 2);
+                pSprite->xPosition += (pSprite->work2 >> 2);
             }
             else
-                pSprite->workVariable = pSprite->workVariable2;
+                pSprite->work1 = pSprite->work2;
         }
         else
         {
-            if (--pSprite->workVariable != 0)
-                pSprite->xPosition += (pSprite->workVariable >> 2);
+            if (--pSprite->work1 != 0)
+                pSprite->xPosition += (pSprite->work1 >> 2);
             else
                 flip++;
         }
     }
     else
     {
-        if (pSprite->workVariable == 0)
+        if (pSprite->work1 == 0)
         {
             if (pSprite->xPosition < spriteX + 4)
-                pSprite->workVariable = pSprite->workVariable2;
+                pSprite->work1 = pSprite->work2;
             else
             {
-                if (pSprite->workVariable2 < offset)
-                    pSprite->workVariable2++;
+                if (pSprite->work2 < offset)
+                    pSprite->work2++;
 
-                offset = (pSprite->workVariable2 >> 2);
+                offset = (pSprite->work2 >> 2);
                 newPos = pSprite->xPosition - offset;
                 if (newPos & 0x8000)
                 {
                     flip++;
-                    pSprite->workVariable2 = 0;
+                    pSprite->work1 = 0;
                     pSprite->xPosition = 0;
                 }
                 else
@@ -597,14 +600,14 @@ void MellowMove(struct SpriteData* pSprite)
         }
         else
         {
-            if (--pSprite->workVariable != 0)
+            if (--pSprite->work1 != 0)
             {
-                offset = (pSprite->workVariable >> 2);
+                offset = (pSprite->work1 >> 2);
                 newPos = pSprite->xPosition - offset;
                 if (newPos & 0x8000)
                 {
                     flip++;
-                    pSprite->workVariable = 0x0;
+                    pSprite->work1 = 0x0;
                     pSprite->xPosition = 0x0;
                 }
                 else
@@ -618,7 +621,7 @@ void MellowMove(struct SpriteData* pSprite)
     if (flip)
     {
         pSprite->status ^= SPRITE_STATUS_FACING_RIGHT;
-        pSprite->workVariable2 = 1;
+        pSprite->work2 = 1;
         pSprite->xPositionSpawn++;
         if (pSprite->xPositionSpawn > 3)
             pSprite->xPositionSpawn = 0;
@@ -631,13 +634,13 @@ void MellowMove(struct SpriteData* pSprite)
         if (pSprite->work0 == 0)
         {
             if (pSprite->yPosition > spriteY - 4)
-                pSprite->work0 = pSprite->arrayOffset;
+                pSprite->work0 = pSprite->work3;
             else
             {
-                if (pSprite->arrayOffset < limit)
-                    pSprite->arrayOffset++;
+                if (pSprite->work3 < limit)
+                    pSprite->work3++;
 
-                pSprite->yPosition += (pSprite->arrayOffset >> 2);
+                pSprite->yPosition += (pSprite->work3 >> 2);
             }
         }
         else
@@ -653,13 +656,13 @@ void MellowMove(struct SpriteData* pSprite)
         if (pSprite->work0 == 0)
         {
             if (pSprite->yPosition < spriteY + 4)
-                pSprite->work0 = pSprite->arrayOffset;
+                pSprite->work0 = pSprite->work3;
             else
             {
-                if (pSprite->arrayOffset < limit)
-                    pSprite->arrayOffset++;
+                if (pSprite->work3 < limit)
+                    pSprite->work3++;
 
-                offset = (pSprite->arrayOffset >> 2);
+                offset = (pSprite->work3 >> 2);
                 newPos = pSprite->yPosition - offset;
                 if (newPos & 0x8000)
                 {
@@ -694,7 +697,7 @@ void MellowMove(struct SpriteData* pSprite)
     if (flip)
     {
         pSprite->status ^= SPRITE_STATUS_UNKNOWN_400;
-        ///pSprite->arrayOffset = 1;
+        ///pSprite->work3 = 1;
         gCurrentSprite.work3 = 1;
     }
 

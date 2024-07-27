@@ -248,7 +248,6 @@ void PowerBombYellowTint(u8 paletteRow)
 void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
 {
     s32 i;
-    u16 color;
     s32 result;
     u16 r;
     u16 g;
@@ -256,13 +255,9 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
 
     for (i = 0; i <= UCHAR_MAX; i++, src++, dst++)
     {
-        color = *src;
-
-        r = RED(color);
-        g = GREEN(color);
-        do {
-            b = BLUE(color);
-        }while(0);
+        r = RED(*src);
+        g = GREEN(*src);
+        b = BLUE(*src);
 
         // Get average
         result = (r + g + b) / 3 + additionalValue;

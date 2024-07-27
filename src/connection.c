@@ -890,23 +890,23 @@ void ConnectionCheckHatchLockEvents(void)
             if (eventCheck)
             {
                 // Seriously
-                hatchesToLock |= pLock->hatchesToLock1;
-                hatchesToLock |= pLock->hatchesToLock2 << 1;
-                hatchesToLock |= pLock->hatchesToLock3 << 2;
-                hatchesToLock |= pLock->hatchesToLock4 << 3;
-                hatchesToLock |= pLock->hatchesToLock5 << 4;
-                hatchesToLock |= pLock->hatchesToLock6 << 5;
-                hatchesToLock |= pLock->hatchesToLock7 << 6;
-                hatchesToLock |= pLock->hatchesToLock8 << 7;
+                hatchesToLock |= pLock->hatchesToLock_0;
+                hatchesToLock |= pLock->hatchesToLock_1 << 1;
+                hatchesToLock |= pLock->hatchesToLock_2 << 2;
+                hatchesToLock |= pLock->hatchesToLock_3 << 3;
+                hatchesToLock |= pLock->hatchesToLock_4 << 4;
+                hatchesToLock |= pLock->hatchesToLock_5 << 5;
+                hatchesToLock |= pLock->hatchesToLock_6 << 6;
+                hatchesToLock |= pLock->hatchesToLock_7 << 7;
 
-                hatchesToLock |= pLock->hatchesToLockPart2_1 << 8;
-                hatchesToLock |= pLock->hatchesToLockPart2_2 << 9;
-                hatchesToLock |= pLock->hatchesToLockPart2_3 << 10;
-                hatchesToLock |= pLock->hatchesToLockPart2_4 << 11;
-                hatchesToLock |= pLock->hatchesToLockPart2_5 << 12;
-                hatchesToLock |= pLock->hatchesToLockPart2_6 << 13;
-                hatchesToLock |= pLock->hatchesToLockPart2_7 << 14;
-                hatchesToLock |= pLock->hatchesToLockPart2_8 << 15;
+                hatchesToLock |= pLock->hatchesToLock_8 << 8;
+                hatchesToLock |= pLock->hatchesToLock_9 << 9;
+                hatchesToLock |= pLock->hatchesToLock_10 << 10;
+                hatchesToLock |= pLock->hatchesToLock_11 << 11;
+                hatchesToLock |= pLock->hatchesToLock_12 << 12;
+                hatchesToLock |= pLock->hatchesToLock_13 << 13;
+                hatchesToLock |= pLock->hatchesToLock_14 << 14;
+                hatchesToLock |= pLock->hatchesToLock_15 << 15;
             }
         }
 

@@ -28,22 +28,22 @@ struct HatchLockEvent {
     u8 room;
     u8 event;
     u8 isBefore;
-    u8 hatchesToLock1:1;
-    u8 hatchesToLock2:1;
-    u8 hatchesToLock3:1;
-    u8 hatchesToLock4:1;
-    u8 hatchesToLock5:1;
-    u8 hatchesToLock6:1;
-    u8 hatchesToLock7:1;
-    u8 hatchesToLock8:1;
-    u8 hatchesToLockPart2_1:1;
-    u8 hatchesToLockPart2_2:1;
-    u8 hatchesToLockPart2_3:1;
-    u8 hatchesToLockPart2_4:1;
-    u8 hatchesToLockPart2_5:1;
-    u8 hatchesToLockPart2_6:1;
-    u8 hatchesToLockPart2_7:1;
-    u8 hatchesToLockPart2_8:1;
+    u8 hatchesToLock_0:1;
+    u8 hatchesToLock_1:1;
+    u8 hatchesToLock_2:1;
+    u8 hatchesToLock_3:1;
+    u8 hatchesToLock_4:1;
+    u8 hatchesToLock_5:1;
+    u8 hatchesToLock_6:1;
+    u8 hatchesToLock_7:1;
+    u8 hatchesToLock_8:1;
+    u8 hatchesToLock_9:1;
+    u8 hatchesToLock_10:1;
+    u8 hatchesToLock_11:1;
+    u8 hatchesToLock_12:1;
+    u8 hatchesToLock_13:1;
+    u8 hatchesToLock_14:1;
+    u8 hatchesToLock_15:1;
 };
 
 struct HatchData {
@@ -51,7 +51,7 @@ struct HatchData {
     u16 exists:1;
     u16 currentAnimationFrame:3;
     u16 facingRight:1;
-    u16 padding:3;
+    u16 securityLevel:3; // Left over from fusion
     /* 1 */
     u8 opening:2;
     u16 locked:2;
