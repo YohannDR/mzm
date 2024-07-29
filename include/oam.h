@@ -48,6 +48,8 @@ struct FrameData {
     .timer = 0\
 }
 
+#define FRAME_DATA_LAST_ANIM_FRAME(oam) (ARRAY_SIZE((oam)) - 2)
+
 union OamData {
     struct {
     /*0x00*/ u32 y:8;

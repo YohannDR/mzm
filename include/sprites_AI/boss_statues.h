@@ -7,7 +7,7 @@
 #define BOSS_STATUE_POSE_OPENING 0xB
 #define BOSS_STATUE_POSE_IDLE 0xF
 
-void BossStatueVerticalLignChangeCcaa(u8 caa);
+void BossStatusSetWallBehindSamusCollision(u8 caa);
 void KraidStatueHorizontalLignThreeChangeCcaa(u8 caa);
 void KraidStatueInsideChangeCcaa(u8 caa);
 void KraidStatueOpenedInit(void);

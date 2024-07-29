@@ -107,7 +107,7 @@ s32 ScreenShakeUpdateVertical(void)
 
     gScreenShakeY.direction ^= TRUE;
     if (gScreenShakeY.timer < 16)
-        offset >>= 1;
+        offset = DIV_SHIFT(offset, 2);
 
     gScreenShakeYOffset = offset;
 
@@ -153,7 +153,7 @@ s32 ScreenShakeUpdateHorizontal(void)
 
     gScreenShakeX.direction ^= TRUE;
     if (gScreenShakeX.timer < 16)
-        offset >>= 1;
+        offset = DIV_SHIFT(offset, 2);
 
     gScreenShakeXOffset = offset;
 

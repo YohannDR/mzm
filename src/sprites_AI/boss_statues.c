@@ -21,11 +21,11 @@
 #include "structs/game_state.h"
 
 /**
- * @brief 49184 | 80 | Changes the clipdata of a 6 blocks vertical lign
+ * @brief 49184 | 80 | Sets the collision of the wall behind Samus to lock here in the screen
  * 
  * @param caa Clipdata Affecting Action
  */
-void BossStatueVerticalLignChangeCcaa(u8 caa)
+void BossStatusSetWallBehindSamusCollision(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -34,17 +34,22 @@ void BossStatueVerticalLignChangeCcaa(u8 caa)
     xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
     
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition, xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 0, xPosition + BLOCK_SIZE * 8);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 8);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 8);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 3), xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition + BLOCK_SIZE * 8);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 4), xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 8);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 5), xPosition + (BLOCK_SIZE * 8));
+    ClipdataProcess(yPosition - BLOCK_SIZE * 5, xPosition + BLOCK_SIZE * 8);
 }
 
 /**
@@ -62,8 +67,10 @@ void KraidStatueHorizontalLignThreeChangeCcaa(u8 caa)
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 2);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 3);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 4);
 }
@@ -82,20 +89,26 @@ void KraidStatueInsideChangeCcaa(u8 caa)
     xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 2);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 2);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 3);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 3);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 4);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 4);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 5);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition + BLOCK_SIZE * 5);
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 2);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 3);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 4);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition + BLOCK_SIZE * 3);
 }
@@ -109,6 +122,7 @@ void KraidStatueOpenedInit(void)
     gCurrentSprite.pOam = sKraidStatueOam_Opened;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
+
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
     KraidStatueHorizontalLignThreeChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
@@ -161,6 +175,7 @@ void KraidStatueInit(void)
         gCurrentSprite.pOam = sKraidStatueOam_Idle;
         gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
     }
+
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
@@ -181,12 +196,14 @@ void KraidStatueCheckBackgroundLocked(void)
         SoundPlay(0x12A);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
-    spriteX /= 4;
+    spriteX = SUB_PIXEL_TO_PIXEL(spriteX);
 
-    bgX = gBg1XPosition / 4;
+    bgX = SUB_PIXEL_TO_PIXEL(gBg1XPosition);
 
     distance = spriteX - bgX;
-    if (distance == BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE) // Sprite is also 2 blocks from lock screen center
+
+    // Check if the sprite reached the middle of the screen with the scrolling
+    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2)) 
     {
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
@@ -199,7 +216,7 @@ void KraidStatueCheckBackgroundLocked(void)
         gCurrentSprite.work2 = 0;
         SoundPlay(0x12B);
 
-        BossStatueVerticalLignChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
+        BossStatusSetWallBehindSamusCollision(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 
@@ -216,7 +233,7 @@ void KraidStatueOpening(void)
     u16 xPosition;
 
     if (gSamusData.xPosition > gCurrentSprite.xPosition + (BLOCK_SIZE * 8 + HALF_BLOCK_SIZE))
-        BossStatueVerticalLignChangeCcaa(CAA_REMOVE_SOLID);
+        BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
 
     if (gCurrentSprite.currentAnimationFrame == 29 && gCurrentSprite.animationDurationCounter == 1)
         KraidStatueInsideChangeCcaa(CAA_REMOVE_SOLID);
@@ -225,20 +242,24 @@ void KraidStatueOpening(void)
     {
         // Set opened
         KraidStatueOpenedInit();
+
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_STATUE_OPENED);
+
         // Check should open doors
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_KILLED) || EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))
         {
             gDoorUnlockTimer = -20;
-            BossStatueVerticalLignChangeCcaa(CAA_REMOVE_SOLID);
+            BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
         }
+
+        return;
     }
-    else if ((u16)(gCurrentSprite.currentAnimationFrame - 0x9) < 0x1F)
+    else if (gCurrentSprite.currentAnimationFrame > 8 && gCurrentSprite.currentAnimationFrame < 40)
     {
         gCurrentSprite.work2++;
-        if (!(gCurrentSprite.work1++ & 0x1F))
-            ScreenShakeStartVertical(0xA, 0x81);
+        if (MOD_AND(gCurrentSprite.work1++, 32) == 0)
+            ScreenShakeStartVertical(10, 0x80 | 1);
 
         // Set debris
         rngParam1 = gCurrentSprite.work1;
@@ -253,7 +274,6 @@ void KraidStatueOpening(void)
         {
             if (rngParam2 & 0x20)
             {
-                
                 SpriteDebrisInit(0, 0x5, yPosition, xPosition + 0x78 - rngParam3 * 0x10);
                 SpriteDebrisInit(0, 0x8, yPosition, xPosition - 0x190 + rngParam3 * 0x8);
             }
@@ -315,13 +335,14 @@ void RidleyStatueInsideChangeCcaa(u8 caa)
     xPosition = gCurrentSprite.xPosition - HALF_BLOCK_SIZE;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition - BLOCK_SIZE * 0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition - BLOCK_SIZE);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 1, xPosition - BLOCK_SIZE * 1);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition - BLOCK_SIZE * 0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition - BLOCK_SIZE);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition - BLOCK_SIZE * 1);
 }
 
 /**
@@ -333,6 +354,7 @@ void RidleyStatueOpenedInit(void)
     gCurrentSprite.pOam = sRidleyStatueOam_Opened;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
+
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
     RidleyStatueChangeThreeCcaa(CAA_MAKE_NON_POWER_GRIP);
 }
@@ -345,9 +367,9 @@ void RidleyStatueInit(void)
 {
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x58;
-    gCurrentSprite.drawDistanceBottomOffset = 0;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
 
     gCurrentSprite.hitboxTopOffset = 0;
     gCurrentSprite.hitboxBottomOffset = 0;
@@ -394,21 +416,25 @@ void RidleyStatueCheckBackgroundLocked(void)
 {
     u16 spriteX;
     u16 bgX;
+    u16 distance;
 
     if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
         SoundPlay(0x12A);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
-    spriteX /= 4;
+    spriteX = SUB_PIXEL_TO_PIXEL(spriteX);
 
-    bgX = gBg1XPosition / 4;
+    bgX = SUB_PIXEL_TO_PIXEL(gBg1XPosition);
 
-    if ((u16)(spriteX - bgX) == 0x78) // Sprite is 0x78 pixels from lock screen center
+    distance = spriteX - bgX;
+
+    // Check if the sprite reached the middle of the screen with the scrolling
+    if (distance == SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2)) 
     {
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
-        gCurrentSprite.work0 = 0x3C;
-        BossStatueVerticalLignChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
+        gCurrentSprite.work0 = 60;
+        BossStatusSetWallBehindSamusCollision(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 
@@ -424,8 +450,8 @@ void RidleyStatueOpening(void)
     u16 yPosition;
     u16 xPosition;
 
-    if (gSamusData.xPosition > gCurrentSprite.xPosition + 0x220)
-        BossStatueVerticalLignChangeCcaa(CAA_REMOVE_SOLID);
+    if (gSamusData.xPosition > gCurrentSprite.xPosition + BLOCK_SIZE * 8 + HALF_BLOCK_SIZE)
+        BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
     
     if (gCurrentSprite.work0 != 0)
     {
@@ -454,18 +480,19 @@ void RidleyStatueOpening(void)
         {
             // Set opened
             RidleyStatueOpenedInit();
+
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_STATUE_OPENED);
 
             // Unlock doors
             gDoorUnlockTimer = -20;
-            BossStatueVerticalLignChangeCcaa(CAA_REMOVE_SOLID);
+            BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
         }
-        else if ((u16)(gCurrentSprite.currentAnimationFrame - 0x9) < 0x1F)
+        else if (gCurrentSprite.currentAnimationFrame > 8 && gCurrentSprite.currentAnimationFrame < 40)
         {
             // Set random debris
             gCurrentSprite.work2++;
-            if (!(gCurrentSprite.work1++ & 0x1F))
+            if (MOD_AND(gCurrentSprite.work1++, 32) == 0)
                 ScreenShakeStartVertical(10, 0x80 | 1);
 
             rngParam1 = gCurrentSprite.work1;

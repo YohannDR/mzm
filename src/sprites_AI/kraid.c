@@ -2364,13 +2364,8 @@ void KraidNailMovement(void)
  * @brief 1aa3c | 474 | Kraid AI
  * 
  */
-#ifdef NON_MATCHING
 void Kraid(void)
 {
-    // https://decomp.me/scratch/AWjiU
-
-    struct SubSpriteData* pSub;
-
     if (gCurrentSprite.pose != 0 && gSubSpriteData1.health != 0)
         KraidOpenCloseRoutineAndProjectileCollision();
 
@@ -2432,83 +2427,88 @@ void Kraid(void)
         SpriteUtilUpdateSubSprite1Anim();
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
 
-        pSub = &gSubSpriteData1;
-        if (pSub->animationDurationCounter == 1)
+        if (gSubSpriteData1.animationDurationCounter == 1)
         {
-            if (pSub->pMultiOam == sKraidMultiSpriteData_Rising ||
-                pSub->pMultiOam == sKraidMultiSpriteData_Standing ||
-                pSub->pMultiOam == sKraidMultiSpriteData_StandingBetweenSteps)
+            if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_Rising ||
+                gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_Standing)
             {
-                if (pSub->currentAnimationFrame == 1)
+                if (gSubSpriteData1.currentAnimationFrame == 1)
                     gBg2Movement.yOffset -= 4;
-                else if (pSub->currentAnimationFrame == 2)
+                else if (gSubSpriteData1.currentAnimationFrame == 2)
                     gBg2Movement.yOffset += 4;
             }
-            else if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight ||
-                pSub->pMultiOam == sKraidMultiSpriteData_MovingRightFeetToLeft)
+            else if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_StandingBetweenSteps)
             {
-                if (pSub->currentAnimationFrame == 1)
-                    gBg2Movement.xOffset -= 4;
-                else if (pSub->currentAnimationFrame == 2)
-                    gBg2Movement.xOffset -= 4;
-                else if (pSub->currentAnimationFrame == 3)
-                    gBg2Movement.xOffset -= 4;
-                else if (pSub->currentAnimationFrame == 4)
+                if (gSubSpriteData1.currentAnimationFrame == 1)
                     gBg2Movement.yOffset -= 4;
-                else if (pSub->currentAnimationFrame == 5)
+                else if (gSubSpriteData1.currentAnimationFrame == 2)
+                    gBg2Movement.yOffset += 4;
+            }
+            else if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight ||
+                gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingRightFeetToLeft)
+            {
+                if (gSubSpriteData1.currentAnimationFrame == 1)
+                    gBg2Movement.xOffset -= 4;
+                else if (gSubSpriteData1.currentAnimationFrame == 2)
+                    gBg2Movement.xOffset -= 4;
+                else if (gSubSpriteData1.currentAnimationFrame == 3)
+                    gBg2Movement.xOffset -= 4;
+                else if (gSubSpriteData1.currentAnimationFrame == 4)
+                    gBg2Movement.yOffset -= 4;
+                else if (gSubSpriteData1.currentAnimationFrame == 5)
                 {
                     gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
-                    if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
+                    if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition - (HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition - (HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
 
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition - (BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition - (BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
 
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition + (BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition + (BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
-            else if (pSub->pMultiOam == sKraidMultiSpriteData_MovingRightFeetToRight ||
-                pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
+            else if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingRightFeetToRight ||
+                gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
             {
-                if (pSub->currentAnimationFrame == 1)
+                if (gSubSpriteData1.currentAnimationFrame == 1)
                     gBg2Movement.xOffset += 4;
-                else if (pSub->currentAnimationFrame == 2)
+                else if (gSubSpriteData1.currentAnimationFrame == 2)
                     gBg2Movement.xOffset += 4;
-                else if (pSub->currentAnimationFrame == 3)
+                else if (gSubSpriteData1.currentAnimationFrame == 3)
                     gBg2Movement.xOffset += 4;
-                else if (pSub->currentAnimationFrame == 4)
+                else if (gSubSpriteData1.currentAnimationFrame == 4)
                     gBg2Movement.yOffset -= 4;
-                else if (pSub->currentAnimationFrame == 5)
+                else if (gSubSpriteData1.currentAnimationFrame == 5)
                 {
                     gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
-                    if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
+                    if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + 4), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + 4), PE_SECOND_MEDIUM_DUST);
 
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition - (BLOCK_SIZE * 3 + 8), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition - (BLOCK_SIZE * 3 + 8), PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition + (BLOCK_SIZE * 4 + 10), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition + (BLOCK_SIZE * 4 + 10), PE_SECOND_MEDIUM_DUST);
 
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-                            pSub->xPosition + (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 14), PE_SECOND_MEDIUM_DUST);
+                            gSubSpriteData1.xPosition + (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 14), PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
@@ -2532,474 +2532,6 @@ void Kraid(void)
     else
         gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
 }
-#else
-NAKED_FUNCTION
-void Kraid(void)
-{
-    asm(" \n\
-        push {r4, r5, r6, lr} \n\
-        ldr r0, lbl_0801aa6c @ =gCurrentSprite \n\
-        add r0, #0x24 \n\
-        ldrb r0, [r0] \n\
-        cmp r0, #0 \n\
-        beq lbl_0801aa54 \n\
-        ldr r0, lbl_0801aa70 @ =gSubSpriteData1 \n\
-        ldrh r0, [r0, #0xa] \n\
-        cmp r0, #0 \n\
-        beq lbl_0801aa54 \n\
-        bl KraidOpenCloseRoutineAndProjectileCollision \n\
-    lbl_0801aa54: \n\
-        ldr r0, lbl_0801aa6c @ =gCurrentSprite \n\
-        add r0, #0x24 \n\
-        ldrb r0, [r0] \n\
-        cmp r0, #0x68 \n\
-        bls lbl_0801aa60 \n\
-        b lbl_0801ac64 \n\
-    lbl_0801aa60: \n\
-        lsl r0, r0, #2 \n\
-        ldr r1, lbl_0801aa74 @ =lbl_0801aa78 \n\
-        add r0, r0, r1 \n\
-        ldr r0, [r0] \n\
-        mov pc, r0 \n\
-        .align 2, 0 \n\
-    lbl_0801aa6c: .4byte gCurrentSprite \n\
-    lbl_0801aa70: .4byte gSubSpriteData1 \n\
-    lbl_0801aa74: .4byte lbl_0801aa78 \n\
-    lbl_0801aa78: @ jump table \n\
-        .4byte lbl_0801ac1c @ case 0 \n\
-        .4byte lbl_0801ac22 @ case 1 \n\
-        .4byte lbl_0801ac28 @ case 2 \n\
-        .4byte lbl_0801ac64 @ case 3 \n\
-        .4byte lbl_0801ac64 @ case 4 \n\
-        .4byte lbl_0801ac64 @ case 5 \n\
-        .4byte lbl_0801ac64 @ case 6 \n\
-        .4byte lbl_0801ac64 @ case 7 \n\
-        .4byte lbl_0801ac2e @ case 8 \n\
-        .4byte lbl_0801ac32 @ case 9 \n\
-        .4byte lbl_0801ac64 @ case 10 \n\
-        .4byte lbl_0801ac64 @ case 11 \n\
-        .4byte lbl_0801ac64 @ case 12 \n\
-        .4byte lbl_0801ac64 @ case 13 \n\
-        .4byte lbl_0801ac42 @ case 14 \n\
-        .4byte lbl_0801ac46 @ case 15 \n\
-        .4byte lbl_0801ac4c @ case 16 \n\
-        .4byte lbl_0801ac50 @ case 17 \n\
-        .4byte lbl_0801ac64 @ case 18 \n\
-        .4byte lbl_0801ac64 @ case 19 \n\
-        .4byte lbl_0801ac64 @ case 20 \n\
-        .4byte lbl_0801ac64 @ case 21 \n\
-        .4byte lbl_0801ac64 @ case 22 \n\
-        .4byte lbl_0801ac64 @ case 23 \n\
-        .4byte lbl_0801ac64 @ case 24 \n\
-        .4byte lbl_0801ac64 @ case 25 \n\
-        .4byte lbl_0801ac64 @ case 26 \n\
-        .4byte lbl_0801ac64 @ case 27 \n\
-        .4byte lbl_0801ac64 @ case 28 \n\
-        .4byte lbl_0801ac64 @ case 29 \n\
-        .4byte lbl_0801ac64 @ case 30 \n\
-        .4byte lbl_0801ac64 @ case 31 \n\
-        .4byte lbl_0801ac64 @ case 32 \n\
-        .4byte lbl_0801ac64 @ case 33 \n\
-        .4byte lbl_0801ac38 @ case 34 \n\
-        .4byte lbl_0801ac3c @ case 35 \n\
-        .4byte lbl_0801ac64 @ case 36 \n\
-        .4byte lbl_0801ac64 @ case 37 \n\
-        .4byte lbl_0801ac64 @ case 38 \n\
-        .4byte lbl_0801ac64 @ case 39 \n\
-        .4byte lbl_0801ac64 @ case 40 \n\
-        .4byte lbl_0801ac64 @ case 41 \n\
-        .4byte lbl_0801ac64 @ case 42 \n\
-        .4byte lbl_0801ac64 @ case 43 \n\
-        .4byte lbl_0801ac64 @ case 44 \n\
-        .4byte lbl_0801ac64 @ case 45 \n\
-        .4byte lbl_0801ac64 @ case 46 \n\
-        .4byte lbl_0801ac64 @ case 47 \n\
-        .4byte lbl_0801ac64 @ case 48 \n\
-        .4byte lbl_0801ac64 @ case 49 \n\
-        .4byte lbl_0801ac64 @ case 50 \n\
-        .4byte lbl_0801ac64 @ case 51 \n\
-        .4byte lbl_0801ac64 @ case 52 \n\
-        .4byte lbl_0801ac64 @ case 53 \n\
-        .4byte lbl_0801ac64 @ case 54 \n\
-        .4byte lbl_0801ac64 @ case 55 \n\
-        .4byte lbl_0801ac64 @ case 56 \n\
-        .4byte lbl_0801ac64 @ case 57 \n\
-        .4byte lbl_0801ac64 @ case 58 \n\
-        .4byte lbl_0801ac64 @ case 59 \n\
-        .4byte lbl_0801ac64 @ case 60 \n\
-        .4byte lbl_0801ac64 @ case 61 \n\
-        .4byte lbl_0801ac64 @ case 62 \n\
-        .4byte lbl_0801ac64 @ case 63 \n\
-        .4byte lbl_0801ac64 @ case 64 \n\
-        .4byte lbl_0801ac64 @ case 65 \n\
-        .4byte lbl_0801ac64 @ case 66 \n\
-        .4byte lbl_0801ac64 @ case 67 \n\
-        .4byte lbl_0801ac64 @ case 68 \n\
-        .4byte lbl_0801ac64 @ case 69 \n\
-        .4byte lbl_0801ac64 @ case 70 \n\
-        .4byte lbl_0801ac64 @ case 71 \n\
-        .4byte lbl_0801ac64 @ case 72 \n\
-        .4byte lbl_0801ac64 @ case 73 \n\
-        .4byte lbl_0801ac64 @ case 74 \n\
-        .4byte lbl_0801ac64 @ case 75 \n\
-        .4byte lbl_0801ac64 @ case 76 \n\
-        .4byte lbl_0801ac64 @ case 77 \n\
-        .4byte lbl_0801ac64 @ case 78 \n\
-        .4byte lbl_0801ac64 @ case 79 \n\
-        .4byte lbl_0801ac64 @ case 80 \n\
-        .4byte lbl_0801ac64 @ case 81 \n\
-        .4byte lbl_0801ac64 @ case 82 \n\
-        .4byte lbl_0801ac64 @ case 83 \n\
-        .4byte lbl_0801ac64 @ case 84 \n\
-        .4byte lbl_0801ac64 @ case 85 \n\
-        .4byte lbl_0801ac64 @ case 86 \n\
-        .4byte lbl_0801ac64 @ case 87 \n\
-        .4byte lbl_0801ac64 @ case 88 \n\
-        .4byte lbl_0801ac64 @ case 89 \n\
-        .4byte lbl_0801ac64 @ case 90 \n\
-        .4byte lbl_0801ac64 @ case 91 \n\
-        .4byte lbl_0801ac64 @ case 92 \n\
-        .4byte lbl_0801ac64 @ case 93 \n\
-        .4byte lbl_0801ac64 @ case 94 \n\
-        .4byte lbl_0801ac64 @ case 95 \n\
-        .4byte lbl_0801ac64 @ case 96 \n\
-        .4byte lbl_0801ac64 @ case 97 \n\
-        .4byte lbl_0801ac56 @ case 98 \n\
-        .4byte lbl_0801ac64 @ case 99 \n\
-        .4byte lbl_0801ac64 @ case 100 \n\
-        .4byte lbl_0801ac64 @ case 101 \n\
-        .4byte lbl_0801ac64 @ case 102 \n\
-        .4byte lbl_0801ac5a @ case 103 \n\
-        .4byte lbl_0801ac60 @ case 104 \n\
-    lbl_0801ac1c: \n\
-        bl KraidInit \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac22: \n\
-        bl KraidGoUp \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac28: \n\
-        bl KraidCheckFullyUp \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac2e: \n\
-        bl KraidFirstStepInit \n\
-    lbl_0801ac32: \n\
-        bl KraidFirstStep \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac38: \n\
-        bl KraidSecondStepInit \n\
-    lbl_0801ac3c: \n\
-        bl KraidSecondStep \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac42: \n\
-        bl KraidStandingInit \n\
-    lbl_0801ac46: \n\
-        bl KraidStanding \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac4c: \n\
-        bl KraidStandingBetweenStepsInit \n\
-    lbl_0801ac50: \n\
-        bl KraidStandingBetweenSteps \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac56: \n\
-        bl KraidDyingInit \n\
-    lbl_0801ac5a: \n\
-        bl KraidDying \n\
-        b lbl_0801ac64 \n\
-    lbl_0801ac60: \n\
-        bl KraidBeforeDeath \n\
-    lbl_0801ac64: \n\
-        ldr r5, lbl_0801acac @ =gCurrentSprite \n\
-        ldrb r0, [r5, #0x1d] \n\
-        cmp r0, #0x6f \n\
-        beq lbl_0801ac6e \n\
-        b lbl_0801aea0 \n\
-    lbl_0801ac6e: \n\
-        bl SpriteUtilUpdateSubSprite1Anim \n\
-        bl SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position \n\
-        ldr r6, lbl_0801acb0 @ =gSubSpriteData1 \n\
-        ldrb r0, [r6, #0xc] \n\
-        cmp r0, #1 \n\
-        beq lbl_0801ac80 \n\
-        b lbl_0801ae26 \n\
-    lbl_0801ac80: \n\
-        ldr r1, [r6] \n\
-        ldr r0, lbl_0801acb4 @ =sKraidMultiSpriteData_Rising \n\
-        cmp r1, r0 \n\
-        beq lbl_0801ac94 \n\
-        ldr r0, lbl_0801acb8 @ =sKraidMultiSpriteData_Standing \n\
-        cmp r1, r0 \n\
-        beq lbl_0801ac94 \n\
-        ldr r0, lbl_0801acbc @ =sKraidMultiSpriteData_StandingBetweenSteps \n\
-        cmp r1, r0 \n\
-        bne lbl_0801acc4 \n\
-    lbl_0801ac94: \n\
-        ldrh r0, [r6, #4] \n\
-        cmp r0, #1 \n\
-        bne lbl_0801ac9c \n\
-        b lbl_0801ad98 \n\
-    lbl_0801ac9c: \n\
-        cmp r0, #2 \n\
-        beq lbl_0801aca2 \n\
-        b lbl_0801ae26 \n\
-    lbl_0801aca2: \n\
-        ldr r1, lbl_0801acc0 @ =gBg2Movement \n\
-        ldrh r0, [r1, #2] \n\
-        add r0, #4 \n\
-        strh r0, [r1, #2] \n\
-        b lbl_0801ae26 \n\
-        .align 2, 0 \n\
-    lbl_0801acac: .4byte gCurrentSprite \n\
-    lbl_0801acb0: .4byte gSubSpriteData1 \n\
-    lbl_0801acb4: .4byte sKraidMultiSpriteData_Rising \n\
-    lbl_0801acb8: .4byte sKraidMultiSpriteData_Standing \n\
-    lbl_0801acbc: .4byte sKraidMultiSpriteData_StandingBetweenSteps \n\
-    lbl_0801acc0: .4byte gBg2Movement \n\
-    lbl_0801acc4: \n\
-        ldr r4, lbl_0801ace8 @ =sKraidMultiSpriteData_MovingLeftFeetToRight \n\
-        cmp r1, r4 \n\
-        beq lbl_0801acd0 \n\
-        ldr r0, lbl_0801acec @ =sKraidMultiSpriteData_MovingRightFeetToLeft \n\
-        cmp r1, r0 \n\
-        bne lbl_0801ad64 \n\
-    lbl_0801acd0: \n\
-        ldrh r0, [r6, #4] \n\
-        cmp r0, #1 \n\
-        beq lbl_0801acde \n\
-        cmp r0, #2 \n\
-        beq lbl_0801acde \n\
-        cmp r0, #3 \n\
-        bne lbl_0801acf4 \n\
-    lbl_0801acde: \n\
-        ldr r1, lbl_0801acf0 @ =gBg2Movement \n\
-        ldrh r0, [r1] \n\
-        sub r0, #4 \n\
-        strh r0, [r1] \n\
-        b lbl_0801ae26 \n\
-        .align 2, 0 \n\
-    lbl_0801ace8: .4byte sKraidMultiSpriteData_MovingLeftFeetToRight \n\
-    lbl_0801acec: .4byte sKraidMultiSpriteData_MovingRightFeetToLeft \n\
-    lbl_0801acf0: .4byte gBg2Movement \n\
-    lbl_0801acf4: \n\
-        cmp r0, #4 \n\
-        beq lbl_0801ad98 \n\
-        cmp r0, #5 \n\
-        beq lbl_0801acfe \n\
-        b lbl_0801ae26 \n\
-    lbl_0801acfe: \n\
-        ldr r1, lbl_0801ad38 @ =gBg2Movement \n\
-        ldrh r0, [r1, #2] \n\
-        add r0, #4 \n\
-        strh r0, [r1, #2] \n\
-        movs r0, #0xa \n\
-        movs r1, #0x81 \n\
-        bl ScreenShakeStartVertical \n\
-        movs r0, #0xe6 \n\
-        lsl r0, r0, #1 \n\
-        bl SoundPlay \n\
-        ldr r0, [r6] \n\
-        cmp r0, r4 \n\
-        bne lbl_0801ad3c \n\
-        ldrh r0, [r5, #6] \n\
-        movs r4, #0xf0 \n\
-        lsl r4, r4, #1 \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        sub r1, #0x2c \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-        ldrh r0, [r5, #6] \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        sub r1, #0x90 \n\
-        b lbl_0801ade8 \n\
-        .align 2, 0 \n\
-    lbl_0801ad38: .4byte gBg2Movement \n\
-    lbl_0801ad3c: \n\
-        ldr r5, lbl_0801ad60 @ =gCurrentSprite \n\
-        ldrh r0, [r5, #6] \n\
-        movs r4, #0xf0 \n\
-        lsl r4, r4, #1 \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        add r1, #0xec \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-        ldrh r0, [r5, #6] \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        movs r2, #0xa8 \n\
-        lsl r2, r2, #1 \n\
-        add r1, r1, r2 \n\
-        b lbl_0801ade8 \n\
-        .align 2, 0 \n\
-    lbl_0801ad60: .4byte gCurrentSprite \n\
-    lbl_0801ad64: \n\
-        ldr r0, lbl_0801ad88 @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-        cmp r1, r0 \n\
-        beq lbl_0801ad70 \n\
-        ldr r0, lbl_0801ad8c @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-        cmp r1, r0 \n\
-        bne lbl_0801ae26 \n\
-    lbl_0801ad70: \n\
-        ldrh r0, [r6, #4] \n\
-        cmp r0, #1 \n\
-        beq lbl_0801ad7e \n\
-        cmp r0, #2 \n\
-        beq lbl_0801ad7e \n\
-        cmp r0, #3 \n\
-        bne lbl_0801ad94 \n\
-    lbl_0801ad7e: \n\
-        ldr r1, lbl_0801ad90 @ =gBg2Movement \n\
-        ldrh r0, [r1] \n\
-        add r0, #4 \n\
-        strh r0, [r1] \n\
-        b lbl_0801ae26 \n\
-        .align 2, 0 \n\
-    lbl_0801ad88: .4byte sKraidMultiSpriteData_MovingRightFeetToRight \n\
-    lbl_0801ad8c: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-    lbl_0801ad90: .4byte gBg2Movement \n\
-    lbl_0801ad94: \n\
-        cmp r0, #4 \n\
-        bne lbl_0801ada8 \n\
-    lbl_0801ad98: \n\
-        ldr r1, lbl_0801ada4 @ =gBg2Movement \n\
-        ldrh r0, [r1, #2] \n\
-        sub r0, #4 \n\
-        strh r0, [r1, #2] \n\
-        b lbl_0801ae26 \n\
-        .align 2, 0 \n\
-    lbl_0801ada4: .4byte gBg2Movement \n\
-    lbl_0801ada8: \n\
-        cmp r0, #5 \n\
-        bne lbl_0801ae26 \n\
-        ldr r1, lbl_0801adf0 @ =gBg2Movement \n\
-        ldrh r0, [r1, #2] \n\
-        add r0, #4 \n\
-        strh r0, [r1, #2] \n\
-        movs r0, #0xa \n\
-        movs r1, #0x81 \n\
-        bl ScreenShakeStartVertical \n\
-        movs r0, #0xe6 \n\
-        lsl r0, r0, #1 \n\
-        bl SoundPlay \n\
-        ldr r1, [r6] \n\
-        ldr r0, lbl_0801adf4 @ =sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-        cmp r1, r0 \n\
-        bne lbl_0801adfc \n\
-        ldr r5, lbl_0801adf8 @ =gCurrentSprite \n\
-        ldrh r0, [r5, #6] \n\
-        movs r4, #0xf0 \n\
-        lsl r4, r4, #1 \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        sub r1, #0x64 \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-        ldrh r0, [r5, #6] \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        sub r1, #0xc8 \n\
-    lbl_0801ade8: \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-        b lbl_0801ae26 \n\
-        .align 2, 0 \n\
-    lbl_0801adf0: .4byte gBg2Movement \n\
-    lbl_0801adf4: .4byte sKraidMultiSpriteData_MovingLeftFeetToLeft \n\
-    lbl_0801adf8: .4byte gCurrentSprite \n\
-    lbl_0801adfc: \n\
-        ldr r5, lbl_0801ae74 @ =gCurrentSprite \n\
-        ldrh r0, [r5, #6] \n\
-        movs r4, #0xf0 \n\
-        lsl r4, r4, #1 \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        movs r3, #0x85 \n\
-        lsl r3, r3, #1 \n\
-        add r1, r1, r3 \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-        ldrh r0, [r5, #6] \n\
-        add r0, r0, r4 \n\
-        ldrh r1, [r6, #8] \n\
-        movs r2, #0xb7 \n\
-        lsl r2, r2, #1 \n\
-        add r1, r1, r2 \n\
-        movs r2, #0x38 \n\
-        bl ParticleSet \n\
-    lbl_0801ae26: \n\
-        ldr r1, lbl_0801ae78 @ =gSubSpriteData1 \n\
-        ldrb r0, [r1, #0xd] \n\
-        cmp r0, #0 \n\
-        beq lbl_0801ae34 \n\
-        ldrb r0, [r1, #0xc] \n\
-        add r0, #4 \n\
-        strb r0, [r1, #0xc] \n\
-    lbl_0801ae34: \n\
-        ldr r1, lbl_0801ae7c @ =gLockScreen \n\
-        movs r0, #1 \n\
-        strb r0, [r1] \n\
-        ldr r2, lbl_0801ae80 @ =gSamusData \n\
-        ldrh r0, [r2, #0x14] \n\
-        strh r0, [r1, #4] \n\
-        ldr r3, lbl_0801ae84 @ =0xfffffec0 \n\
-        add r0, r3, #0 \n\
-        ldrh r2, [r2, #0x12] \n\
-        add r0, r0, r2 \n\
-        strh r0, [r1, #2] \n\
-        ldr r3, lbl_0801ae74 @ =gCurrentSprite \n\
-        add r0, r3, #0 \n\
-        add r0, #0x20 \n\
-        ldrb r2, [r0] \n\
-        add r0, #0x13 \n\
-        ldrb r1, [r0] \n\
-        movs r0, #0xe \n\
-        sub r0, r0, r1 \n\
-        cmp r2, r0 \n\
-        bne lbl_0801ae88 \n\
-        ldrh r1, [r3] \n\
-        movs r2, #0x80 \n\
-        lsl r2, r2, #3 \n\
-        add r0, r2, #0 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        bne lbl_0801aea6 \n\
-        add r0, r2, #0 \n\
-        orr r0, r1 \n\
-        strh r0, [r3] \n\
-        b lbl_0801aea6 \n\
-        .align 2, 0 \n\
-    lbl_0801ae74: .4byte gCurrentSprite \n\
-    lbl_0801ae78: .4byte gSubSpriteData1 \n\
-    lbl_0801ae7c: .4byte gLockScreen \n\
-    lbl_0801ae80: .4byte gSamusData \n\
-    lbl_0801ae84: .4byte 0xfffffec0 \n\
-    lbl_0801ae88: \n\
-        ldrh r1, [r3] \n\
-        movs r0, #0x80 \n\
-        lsl r0, r0, #3 \n\
-        and r0, r1 \n\
-        cmp r0, #0 \n\
-        beq lbl_0801aea6 \n\
-        ldr r0, lbl_0801ae9c @ =0x0000fbff \n\
-        and r0, r1 \n\
-        strh r0, [r3] \n\
-        b lbl_0801aea6 \n\
-        .align 2, 0 \n\
-    lbl_0801ae9c: .4byte 0x0000fbff \n\
-    lbl_0801aea0: \n\
-        ldr r1, lbl_0801aeac @ =gLockScreen \n\
-        movs r0, #0 \n\
-        strb r0, [r1] \n\
-    lbl_0801aea6: \n\
-        pop {r4, r5, r6} \n\
-        pop {r0} \n\
-        bx r0 \n\
-        .align 2, 0 \n\
-    lbl_0801aeac: .4byte gLockScreen \n\
-    ");
-}
-#endif
 
 /**
  * @brief 1aeb0 | 198 | Kraid part AI

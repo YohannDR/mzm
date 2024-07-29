@@ -4368,34 +4368,24 @@ void SpacePirate(void)
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     {
-                        if (gSpriteDrawOrder[1] == TRUE)
-                        {
-                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
-                            {
-                                gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
-                                goto lasercheck;
-                            }
-                        }
-
-                        gSpriteDrawOrder[2] = FALSE;
+                        if (gSpriteDrawOrder[1] == TRUE && !(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+                            gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
+                        else
+                            gSpriteDrawOrder[2] = FALSE;
                     }
                     else
                     {
-                        if (gSpriteDrawOrder[1] == FALSE)
-                        {
-                            if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
-                            {
-                                gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
-                                goto lasercheck;
-                            }
-                        }
-
-                        gSpriteDrawOrder[2] = FALSE;
+                        if (gSpriteDrawOrder[1] == FALSE && !(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+                            gCurrentSprite.spriteId = PSPRITE_SPACE_PIRATE;
+                        else
+                            gSpriteDrawOrder[2] = FALSE;
                     }
                 }
             }
             else if (gAlarmTimer == 0)
+            {
                 gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            }
 
         }
         else
@@ -4404,7 +4394,6 @@ void SpacePirate(void)
                 gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
         }
 
-        lasercheck:
         SpacePirateCheckCollidingWithLaser();
     }
 

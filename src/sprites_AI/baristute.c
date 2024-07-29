@@ -17,6 +17,7 @@
 #include "structs/sprite.h"
 
 #define JUMPING_X_VELOCITY (PIXEL_SIZE * 2 + PIXEL_SIZE / 2)
+#define WALKING_SPEED (ONE_SUB_PIXEL * 3)
 
 /**
  * @brief 47600 | 20 | Checks if samus is near the baristute (8 blocks range on each side)
@@ -102,10 +103,11 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Check if there's still ground under the baristute
-    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR
-        && SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
+    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR &&
+        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
     {
-        gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT; // Set falling
+        // Set falling
+        gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
         return;
     }
 
@@ -130,7 +132,7 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
 void BaristuteJumping(void)
 {
     s32 movement;
-    u32 topEdge;
+    u32 blockTop;
 
     movement = sBaristuteJumpingYVelocity[gCurrentSprite.work3 / 4];
 
@@ -174,13 +176,13 @@ void BaristuteJumping(void)
     if (gCurrentSprite.work3 < ARRAY_SIZE(sBaristuteJumpingYVelocity) * 4 - 1)
         gCurrentSprite.work3++;
 
-    if (movement >= 1)
+    if (movement > 0)
     {
         // Check landing if velocity is positive
-        topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+        blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
         {
-            gCurrentSprite.yPosition = topEdge;
+            gCurrentSprite.yPosition = blockTop;
             gCurrentSprite.pose = BARISTUTE_POSE_LANDING_INIT;
         }
     }
@@ -234,6 +236,7 @@ void BaristuteIdleInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
+    // Random variable to determine behavior after being idle
     gCurrentSprite.work1 = MOD_AND(gSpriteRng, 4);
 }
 
@@ -249,40 +252,48 @@ void BaristuteIdle(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR
-        && SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
+    // Check if there's still ground under the baristute
+    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR &&
+        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
     {
+        // Set falling
         gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
         return;
     }
 
+    // Wait for the idle animatio to end
     if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
         return;
 
+    // Face samus
     SpriteUtilMakeSpriteFaceSamusDirection();
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
     else
         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
+    // Check should walk or jump, get the collision in front of the baristute
     if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
         ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
         : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
     {
         if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
         {
+            // The upper kraid baristute can't jump, so always walk
             gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
         }
-        else if (gCurrentSprite.spriteId != PSPRITE_BARISTUTE_KRAID_LOWER)
+        else if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)
         {
-            if (gCurrentSprite.work1 > 1)
-                gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
-            else
-                gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
+            // The upper kraid baristute can't walk, so always jump
+            gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
         }
         else
         {
-            gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
+            // Is a normal baristute, so have random behavior, 50/50 to either wlak or jump
+            if (gCurrentSprite.work1 >= 2)
+                gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
+            else
+                gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
         }
     }
 }
@@ -306,22 +317,22 @@ void BaristuteWalkingInit(void)
     if (paletteRow == 1)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingFast;
-        gCurrentSprite.work2 = PIXEL_SIZE + PIXEL_SIZE / 2;
+        gCurrentSprite.work2 = WALKING_SPEED * 2;
     }
     else if (paletteRow == 2)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingVeryFast;
-        gCurrentSprite.work2 = PIXEL_SIZE * 2;
+        gCurrentSprite.work2 = WALKING_SPEED * 2.8f;
     }
     else if (paletteRow == 3)
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingExtremelyFast;
-        gCurrentSprite.work2 = PIXEL_SIZE * 2 + PIXEL_SIZE / 2;
+        gCurrentSprite.work2 = WALKING_SPEED * 3.5f;
     }
     else
     {
         gCurrentSprite.pOam = sBaristuteOam_WalkingSlow;
-        gCurrentSprite.work2 = PIXEL_SIZE / 4 * 3;
+        gCurrentSprite.work2 = WALKING_SPEED * 1;
     }
 }
 
@@ -333,7 +344,7 @@ void BaristutePlayWalkingSound(void)
 {
     if (gCurrentSprite.animationDurationCounter == 1 && (gCurrentSprite.currentAnimationFrame == 1 || gCurrentSprite.currentAnimationFrame == 4))
     {
-        if (gCurrentSprite.work2 <= PIXEL_SIZE + PIXEL_SIZE / 2)
+        if (gCurrentSprite.work2 <= WALKING_SPEED * 2)
         {
             // Slow or fast
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -368,8 +379,8 @@ void BaristuteWalking(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_AIR
-            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_AIR &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_SOLID)
         {
             currentDistance = gCurrentSprite.xPosition - gCurrentSprite.xPositionSpawn;
             if (currentDistance > walkingDistance)
@@ -394,8 +405,8 @@ void BaristuteWalking(void)
     else
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_AIR
-            && SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_AIR &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_SOLID)
         {
             currentDistance = gCurrentSprite.xPositionSpawn - gCurrentSprite.xPosition;
             if (currentDistance > walkingDistance)
@@ -439,16 +450,16 @@ void BaristuteFallingInit(void)
  */
 void BaristuteFalling(void)
 {
-    u32 topEdge;
+    u32 blockTop;
     s32 velocity;
     u8 offset;
 
-    topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
 
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
     {
         // Touching ground
-        gCurrentSprite.yPosition = topEdge;
+        gCurrentSprite.yPosition = blockTop;
         gCurrentSprite.pose = BARISTUTE_POSE_LANDING_INIT;
     }
     else
@@ -486,7 +497,7 @@ void BaristuteDeath(void)
     // Check for the second baristute in Kraid
 
     // Get sprite ID
-    spriteId = 0;
+    spriteId = PSPRITE_UNUSED0;
     if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
         spriteId = PSPRITE_BARISTUTE_KRAID_LOWER;
     else if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)

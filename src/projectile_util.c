@@ -993,15 +993,11 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
     u16 xPosition;
     u16 yPosition;
     u16 movement;
-    u16 diagMovement;
-    u32 tmp1;
-    u32 tmp2;
 
     if (gFrameCounter8Bit & delay)
         return;
 
     movement = HALF_BLOCK_SIZE;
-    diagMovement = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
@@ -1017,25 +1013,21 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
             break;
 
         case ACD_DIAGONALLY_UP:
-            tmp1 = BLOCK_SIZE;
-            yPosition += diagMovement;
+            yPosition += FRACT_MUL(movement, 3, 4);
 
             if (pProj->status & PROJ_STATUS_XFLIP)
-                xPosition -= diagMovement;
+                xPosition -= FRACT_MUL(movement, 3, 4);
             else
-                xPosition += diagMovement;
-            movement = tmp1;
+                xPosition += FRACT_MUL(movement, 3, 4);
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            tmp2 = BLOCK_SIZE;
-            yPosition -= diagMovement;
+            yPosition -= FRACT_MUL(movement, 3, 4);
             
             if (pProj->status & PROJ_STATUS_XFLIP)
-                xPosition -= diagMovement;
+                xPosition -= FRACT_MUL(movement, 3, 4);
             else
-                xPosition += diagMovement;
-            movement = tmp2;
+                xPosition += FRACT_MUL(movement, 3, 4);
             break;
 
         default:
@@ -1062,7 +1054,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
 
     if (!(pProj->status & PROJ_STATUS_ON_SCREEN))
     {
-        pProj->status = 0x0;
+        pProj->status = 0;
         return;
     }
 

@@ -43,24 +43,24 @@
 u32 unk_68168(u16 param_1, u8 param_2, s8 param_3)
 {
     s32 _param_3 = param_3;
-    u32 _uselessVarForMatching = !sNonGameplayRamPointer;
-    
-    if (!PAUSE_SCREEN_DATA.unk_7C && param_2 != 0)
-    {
-        PAUSE_SCREEN_DATA.unk_7C++;
 
-        PAUSE_SCREEN_DATA.unk_7D = param_2;
-        PAUSE_SCREEN_DATA.unk_7F = _param_3;
+    if (PAUSE_SCREEN_DATA.unk_7C)
+        return FALSE;
 
-        PAUSE_SCREEN_DATA.unk_80 = 0x1F & param_1;
-        PAUSE_SCREEN_DATA.unk_81 = _uselessVarForMatching = (param_1 >> 8) & 0x1F;
+    if (param_2 == 0)
+        return FALSE;
 
-        PAUSE_SCREEN_DATA.unk_7E = 0;
+    PAUSE_SCREEN_DATA.unk_7C++;
 
-        return TRUE;
-    }
+    PAUSE_SCREEN_DATA.unk_7D = param_2;
+    PAUSE_SCREEN_DATA.unk_7F = _param_3;
 
-    return FALSE;
+    PAUSE_SCREEN_DATA.unk_80 = param_1 & 0x1F;
+    PAUSE_SCREEN_DATA.unk_81 = (param_1 >> 8) & 0x1F;
+
+    PAUSE_SCREEN_DATA.unk_7E = 0;
+
+    return TRUE;
 }
 
 /**
