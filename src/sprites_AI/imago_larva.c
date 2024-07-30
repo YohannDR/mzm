@@ -22,25 +22,25 @@
  */
 void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = pSub->pMultiOam[pSub->currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sImagoLarvaFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sImagoLarvaFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sImagoLarvaFrameDataPointers[offset];
+        gCurrentSprite.pOam = sImagoLarvaFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = pSub->xPosition - pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = pSub->xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -497,7 +497,7 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
             gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
@@ -517,7 +517,7 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
             gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
@@ -537,7 +537,7 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
             gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
@@ -697,11 +697,11 @@ void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
     {
         // Set disappearing
         if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_RIGHT_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotDisappearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotDisappearing;
         else if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_MIDDLE_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotDisappearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotDisappearing;
         else
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotDisappearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotDisappearing;
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -724,11 +724,11 @@ void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pSub)
     {
         // Set visible, but won't be drawn
         if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_RIGHT_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotVisible;
         else if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_MIDDLE_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotVisible;
         else
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotVisible;
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -754,11 +754,11 @@ void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
     {
         // Set appearing
         if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_RIGHT_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotAppearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotAppearing;
         else if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_MIDDLE_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotAppearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotAppearing;
         else
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotAppearing;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotAppearing;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
@@ -780,11 +780,11 @@ void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
     {
         // Set visible
         if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_RIGHT_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotVisible;
         else if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_MIDDLE_DOT)
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotVisible;
         else
-            gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
+            gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotVisible;
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;

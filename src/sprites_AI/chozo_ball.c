@@ -5,6 +5,7 @@
 #include "data/sprites/chozo_statue.h"
 #include "data/sprites/unknown_item_chozo_statue.h"
 
+#include "constants/audio.h"
 #include "constants/samus.h"
 #include "constants/sprite.h"
 #include "constants/text.h"
@@ -76,8 +77,9 @@ void ChozoBallSpawnItemBanner(u8 spriteId)
  * 
  * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetClosedOAM(u8 spriteId)
+void ChozoBallSetClosedOam(u8 spriteId)
 {
+    // Check whether to use the normal of unknown version
     switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
@@ -113,8 +115,9 @@ void ChozoBallSetClosedOAM(u8 spriteId)
  * 
  * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetRevealingOAM(u8 spriteId)
+void ChozoBallSetRevealingOam(u8 spriteId)
 {
+    // Check whether to use the normal of unknown version
     switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
@@ -150,8 +153,9 @@ void ChozoBallSetRevealingOAM(u8 spriteId)
  * 
  * @param spriteId Chozo statue sprite ID
  */
-void ChozoBallSetRevealedOAM(u8 spriteId)
+void ChozoBallSetRevealedOam(u8 spriteId)
 {
+    // Check whether to use the normal of unknown version
     switch (spriteId)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
@@ -206,7 +210,7 @@ void ChozoBallInit(void)
     gCurrentSprite.health = 1;
     gCurrentSprite.pose = CHOZO_BALL_POSE_DO_NOTHING;
 
-    ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+    ChozoBallSetClosedOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
 }
 
 /**
@@ -235,8 +239,8 @@ void ChozoBallRevealingInit(void)
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     SPRITE_CLEAR_ISFT(gCurrentSprite);
 
-    ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
-    SoundPlay(0x11D);
+    ChozoBallSetRevealingOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+    SoundPlay(SOUND_CHOZO_BALL_REVEALING);
 }
 
 /**
@@ -251,7 +255,7 @@ void ChozoBallCheckRevealingAnimEnded(void)
 
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
+        ChozoBallSetRevealedOam(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId);
     }
 }
 
@@ -322,6 +326,7 @@ void ChozoBall(void)
             break;
 
         default:
+            // If code reached here, it means that the chozo ball was "killed", thus it needs to start revealing
             ChozoBallRevealingInit();
     }
 }

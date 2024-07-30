@@ -4,8 +4,8 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
-extern const struct RawCoordsX sRidleyInSpaceShipLeavingPosition;
-extern const struct RawCoordsX sRidleyInSpaceShipsStartPosition[3];
+extern const struct Coordinates sRidleyInSpaceShipLeavingPosition;
+extern const struct Coordinates sRidleyInSpaceShipsStartPosition[3];
 
 extern const s8 sRidleyInSpaceShipsYMovementOffsets[8];
 

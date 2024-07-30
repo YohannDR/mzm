@@ -15,21 +15,22 @@
  */
 void CrocomireSyncSubSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sCrocomireFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sCrocomireFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sCrocomireFrameDataPointers[offset];
+        gCurrentSprite.pOam = sCrocomireFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
-    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**

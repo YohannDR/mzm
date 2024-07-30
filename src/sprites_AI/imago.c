@@ -24,25 +24,25 @@
  */
 void ImagoSyncSubSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamidx;
 
-    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+    oamidx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sImagoFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sImagoFrameDataPointers[oamidx])
     {
-        gCurrentSprite.pOam = sImagoFrameDataPointers[offset];
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sImagoFrameDataPointers[oamidx];
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -55,7 +55,7 @@ void ImagoShootNeedles(void)
     u8 inRange;
 
     health = gCurrentSprite.health;
-    if (health == 0x0)
+    if (health == 0)
         return;
 
     inRange = FALSE;
@@ -68,17 +68,19 @@ void ImagoShootNeedles(void)
                 inRange = TRUE;
         }
         else
+        {
             if (gSubSpriteData1.xPosition > gSamusData.xPosition)
                 inRange = TRUE;
+        }
 
         // Check should shoot needles (health < 2/3) or no ammo, and in range
         if ((gCurrentSprite.health < gSubSpriteData1.health * 2 / 3 ||
-            gEquipment.currentMissiles + gEquipment.currentSuperMissiles == 0x0) && inRange)
+            gEquipment.currentMissiles + gEquipment.currentSuperMissiles == 0) && inRange)
         {
             // Set shooting
             gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_ShootingNeedles;
-            gSubSpriteData1.animationDurationCounter = 0x0;
-            gSubSpriteData1.currentAnimationFrame = 0x0;
+            gSubSpriteData1.animationDurationCounter = 0;
+            gSubSpriteData1.currentAnimationFrame = 0;
         }
     }
     else if (gSubSpriteData1.pMultiOam == sImagoMultiSpriteData_ShootingNeedles)
@@ -108,8 +110,8 @@ void ImagoShootNeedles(void)
         {
             // Set recharging needles
             gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_RechargingNeedles;
-            gSubSpriteData1.animationDurationCounter = 0x0;
-            gSubSpriteData1.currentAnimationFrame = 0x0;
+            gSubSpriteData1.animationDurationCounter = 0;
+            gSubSpriteData1.currentAnimationFrame = 0;
         }
     }
     else if (gSubSpriteData1.pMultiOam == sImagoMultiSpriteData_RechargingNeedles)
@@ -122,8 +124,8 @@ void ImagoShootNeedles(void)
         {
             // Set idle
             gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Idle;
-            gSubSpriteData1.animationDurationCounter = 0x0;
-            gSubSpriteData1.currentAnimationFrame = 0x0;
+            gSubSpriteData1.animationDurationCounter = 0;
+            gSubSpriteData1.currentAnimationFrame = 0;
         }
     }
 }
@@ -141,7 +143,7 @@ void ImagoCoreFlashingAnim(void)
     if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
     {
         // Update delay
-        if (gCurrentSprite.oamScaling != 0x0)
+        if (gCurrentSprite.oamScaling != 0)
             gCurrentSprite.oamScaling--;
         else
         {
@@ -155,7 +157,7 @@ void ImagoCoreFlashingAnim(void)
             {
                 // Reset offset
                 gCurrentSprite.oamRotation = 0x1;
-                offset = 0x0;
+                offset = 0;
                 palette = sImagoDynamicPaletteData[offset][0];
             }
 
@@ -202,7 +204,7 @@ void ImagoInit(void)
     u16 health;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_KILLED))
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
     else
     {
         // Lock door, store initial max supers
@@ -232,8 +234,8 @@ void ImagoInit(void)
         ImagoSetSidesHitbox();
 
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
-        gCurrentSprite.oamScaling = 0x0;
-        gCurrentSprite.oamRotation = 0x0;
+        gCurrentSprite.oamScaling = 0;
+        gCurrentSprite.oamRotation = 0;
 
         gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
         gCurrentSprite.work0 = 0x50;
@@ -242,12 +244,12 @@ void ImagoInit(void)
         gSubSpriteData1.health = health;
 
         gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Idle;
-        gSubSpriteData1.animationDurationCounter = 0x0;
-        gSubSpriteData1.currentAnimationFrame = 0x0;
+        gSubSpriteData1.animationDurationCounter = 0;
+        gSubSpriteData1.currentAnimationFrame = 0;
 
         // Last egg destroyed flag
         gSubSpriteData1.workVariable3 = FALSE;
-        gSubSpriteData1.workVariable2 = 0x0;
+        gSubSpriteData1.workVariable2 = 0;
         gCurrentSprite.pose = IMAGO_POSE_WAIT_FOR_LAST_EGG;
         gCurrentSprite.drawOrder = 0x5;
         gCurrentSprite.roomSlot = IMAGO_PART_IMAGO;
@@ -266,15 +268,15 @@ void ImagoInit(void)
 
         // Spawn eggs
         SpriteSpawnSecondary(SSPRITE_IMAGO_EGG, IMAGO_EGG_PART_LAST, gfxSlot, ramSlot,
-            yPosition + BLOCK_SIZE * 14, xPosition + BLOCK_SIZE * 3, 0x0);
+            yPosition + BLOCK_SIZE * 14, xPosition + BLOCK_SIZE * 3, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_EGG, IMAGO_EGG_PART_NORMAL, gfxSlot, ramSlot,
-            yPosition + BLOCK_SIZE * 15, xPosition + BLOCK_SIZE * 7, 0x0);
+            yPosition + BLOCK_SIZE * 15, xPosition + BLOCK_SIZE * 7, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_EGG, IMAGO_EGG_PART_NORMAL, gfxSlot, ramSlot,
-            yPosition + BLOCK_SIZE * 16, xPosition + BLOCK_SIZE * 12, 0x0);
+            yPosition + BLOCK_SIZE * 16, xPosition + BLOCK_SIZE * 12, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_EGG, IMAGO_EGG_PART_NORMAL, gfxSlot, ramSlot,
-            yPosition + BLOCK_SIZE * 18, xPosition + BLOCK_SIZE * 22, 0x0);
+            yPosition + BLOCK_SIZE * 18, xPosition + BLOCK_SIZE * 22, 0);
         SpriteSpawnSecondary(SSPRITE_IMAGO_EGG, IMAGO_EGG_PART_NORMAL, gfxSlot, ramSlot,
-            yPosition + BLOCK_SIZE * 22, xPosition + BLOCK_SIZE * 42, 0x0);
+            yPosition + BLOCK_SIZE * 22, xPosition + BLOCK_SIZE * 42, 0);
     }
 }
 
@@ -299,11 +301,11 @@ void ImagoWaitForLastEgg(void)
 void ImagoSpawn(void)
 {
     gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0x0)
+    if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
-        PlayMusic(MUSIC_IMAGO_BATTLE, 0x0);
+        PlayMusic(MUSIC_IMAGO_BATTLE, 0);
     }
 }
 
@@ -315,7 +317,7 @@ void ImagoComingDownInit(void)
 {
     s32 health;
 
-    if (gCurrentSprite.health == 0x0)
+    if (gCurrentSprite.health == 0)
     {
         if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
         {
@@ -326,15 +328,15 @@ void ImagoComingDownInit(void)
     else
     {
         gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Idle;
-        gSubSpriteData1.animationDurationCounter = 0x0;
-        gSubSpriteData1.currentAnimationFrame = 0x0;
+        gSubSpriteData1.animationDurationCounter = 0;
+        gSubSpriteData1.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.work0 = 0x0;
-    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work0 = 0;
+    gCurrentSprite.work1 = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.work2 = 0x0;
+        gCurrentSprite.work2 = 0;
     else
     {
         // Set base X velocity
@@ -344,10 +346,10 @@ void ImagoComingDownInit(void)
         else if (gCurrentSprite.health < health * 2 / 3)
             gCurrentSprite.work2 = 0x8;
         else
-            gCurrentSprite.work2 = 0x0;
+            gCurrentSprite.work2 = 0;
     }
 
-    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN;
     ImagoSetSidesHitbox();
 }
@@ -483,7 +485,7 @@ void ImagoMoveHorizontally(void)
         }
     }
 
-    if (movementStage != 0x0)
+    if (movementStage != 0)
     {
         if (!(ySpeedMask & gCurrentSprite.work1++) && gCurrentSprite.work3 < 0xC)
             gCurrentSprite.work3++;
@@ -560,11 +562,11 @@ void ImagoGoingUp(void)
             // Set X destination
             gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 48;
             // Check if Samus in range for the attack
-            if (gSubSpriteData1.xPosition < gSamusData.xPosition && gCurrentSprite.health != 0x0)
+            if (gSubSpriteData1.xPosition < gSamusData.xPosition && gCurrentSprite.health != 0)
             {
                 // Set attacking
                 gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 46;
-                gCurrentSprite.work2 = 0x0;
+                gCurrentSprite.work2 = 0;
                 gCurrentSprite.pose = IMAGO_POSE_ATTACKING_INIT;
             }
             else
@@ -579,7 +581,7 @@ void ImagoGoingUp(void)
             // Set X destination
             gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn;
             // Check if Samus in range for the attack
-            if (gSubSpriteData1.xPosition + BLOCK_SIZE * 2 > gSamusData.xPosition && gCurrentSprite.health != 0x0)
+            if (gSubSpriteData1.xPosition + BLOCK_SIZE * 2 > gSamusData.xPosition && gCurrentSprite.health != 0)
             {
                 // Set attacking
                 gCurrentSprite.work2 = 0x18;
@@ -604,8 +606,8 @@ void ImagoGoingUp(void)
 void ImagoAttackingInit(void)
 {
     gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Idle;
-    gSubSpriteData1.animationDurationCounter = 0x0;
-    gSubSpriteData1.currentAnimationFrame = 0x0;
+    gSubSpriteData1.animationDurationCounter = 0;
+    gSubSpriteData1.currentAnimationFrame = 0;
     gCurrentSprite.pose = IMAGO_POSE_ATTACKING_GOING_DOWN;
 }
 
@@ -628,7 +630,7 @@ void ImagoAttackingGoingDown(void)
     if (movement == SHORT_MAX)
     {
         movement = sImagoAttackingXVelocity[0]; // -1
-        offset = 0x0;
+        offset = 0;
     }
 
     gCurrentSprite.work2 = offset + 0x1;
@@ -677,7 +679,7 @@ void ImagoAttackingGoingUp(void)
     if (movement == SHORT_MAX)
     {
         movement = sImagoAttackingXVelocity[0]; // -1
-        offset = 0x0;
+        offset = 0;
     }
     gCurrentSprite.work2 = offset + 0x1;
     gSubSpriteData1.xPosition += movement * 2;
@@ -689,7 +691,7 @@ void ImagoAttackingGoingUp(void)
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
             // Check should attack again
-            if (gSubSpriteData1.xPosition < gSamusData.xPosition && gCurrentSprite.health != 0x0)
+            if (gSubSpriteData1.xPosition < gSamusData.xPosition && gCurrentSprite.health != 0)
             {
                 // In range, set attacking
                 gCurrentSprite.pose = IMAGO_POSE_ATTACKING_GOING_DOWN;
@@ -705,7 +707,7 @@ void ImagoAttackingGoingUp(void)
         else
         {
             // Check should attack again
-            if (gSubSpriteData1.xPosition + BLOCK_SIZE * 2 > gSamusData.xPosition && gCurrentSprite.health != 0x0)
+            if (gSubSpriteData1.xPosition + BLOCK_SIZE * 2 > gSamusData.xPosition && gCurrentSprite.health != 0)
             {
                 // In range, set attacking
                 gCurrentSprite.pose = IMAGO_POSE_ATTACKING_GOING_DOWN;
@@ -745,10 +747,10 @@ void ImagoDyingInit(void)
 
     // Set dying
     gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Dying;
-    gSubSpriteData1.animationDurationCounter = 0x0;
-    gSubSpriteData1.currentAnimationFrame = 0x0;
+    gSubSpriteData1.animationDurationCounter = 0;
+    gSubSpriteData1.currentAnimationFrame = 0;
 
-    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxBottomOffset = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
     // Retrieve previous pose
     gCurrentSprite.pose = gSubSpriteData1.workVariable2;
@@ -805,7 +807,7 @@ void ImagoChargeThroughWall(void)
     {
         ScreenShakeStartHorizontal(0x1E, 0x81);
         gCurrentSprite.pose = IMAGO_POSE_DESTROY_WALL;
-        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work0 = 0;
 
         // Right part
         gCurrentClipdataAffectingAction = caa;
@@ -855,7 +857,7 @@ void ImagoDestroyWall(void)
 
     switch (gCurrentSprite.work0++)
     {
-        case 0x0:
+        case 0:
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition + BLOCK_SIZE * 5, xPosition);
 
@@ -970,7 +972,7 @@ void ImagoDestroyWall(void)
         case 0x1C:
             // Reached indestructible wall
             gCurrentSprite.pose = IMAGO_POSE_DYING;
-            gCurrentSprite.work0 = 0x0;
+            gCurrentSprite.work0 = 0;
             ScreenShakeStartVertical(0x1E, 0x81);
             ScreenShakeStartHorizontal(0x3C, 0x81);
             FadeMusic(0x38);
@@ -998,7 +1000,7 @@ void ImagoDying(void)
 
     switch (gCurrentSprite.work0++)
     {
-        case 0x0:
+        case 0:
             ParticleSet(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
             break;
 
@@ -1027,7 +1029,7 @@ void ImagoDying(void)
             gCurrentSprite.pose = IMAGO_POSE_SET_EVENT;
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
             SoundPlay(0xC5);
-            PlayMusic(MUSIC_BOSS_KILLED, 0x0);
+            PlayMusic(MUSIC_BOSS_KILLED, 0);
     }
 }
 
@@ -1043,7 +1045,7 @@ void ImagoSetEvent(void)
         // More supers than at the beginning of the fight
         // Unlock doors
         gDoorUnlockTimer = -0x3C;
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_IMAGO_KILLED);
     }
@@ -1085,10 +1087,10 @@ void ImagoPartInit(void)
             gCurrentSprite.drawDistanceBottomOffset = 0x8;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
             
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
             gCurrentSprite.drawOrder = 0x2;
             gCurrentSprite.samusCollision = SSC_NONE;
@@ -1100,7 +1102,7 @@ void ImagoPartInit(void)
             gCurrentSprite.drawDistanceHorizontalOffset = 0x3C;
 
             gCurrentSprite.hitboxTopOffset = -0x80;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             ImagoPartSetBodySidesHitbox();
 
             gCurrentSprite.drawOrder = 0x3;
@@ -1113,13 +1115,13 @@ void ImagoPartInit(void)
         case IMAGO_PART_RIGHT_WING_INTERNAL:
         case IMAGO_PART_RIGHT_WING_EXTERNAL:
             gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x48;
             
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
@@ -1129,10 +1131,10 @@ void ImagoPartInit(void)
             gCurrentSprite.drawDistanceBottomOffset = 0x10;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
             
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -1140,7 +1142,7 @@ void ImagoPartInit(void)
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
@@ -1390,7 +1392,7 @@ void ImagoPart(void)
     else
         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-    if (gSpriteData[ramSlot].health == 0x0)
+    if (gSpriteData[ramSlot].health == 0)
     {
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1451,14 +1453,14 @@ void ImagoPart(void)
                 break;
 
             default:
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
         }
     }
     else
     {
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case 0:
                 ImagoPartInit();
                 break;
 
@@ -1486,7 +1488,7 @@ void ImagoNeedle(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.drawDistanceTopOffset = 0x8;
             gCurrentSprite.drawDistanceBottomOffset = 0x8;
@@ -1498,9 +1500,9 @@ void ImagoNeedle(void)
             gCurrentSprite.hitboxRightOffset = 0xC;
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
-            gCurrentSprite.pOam = sImagoNeedleOAM;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sImagoNeedleOam;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.pose = IMAGO_NEEDLE_POSE_MOVING;
@@ -1522,7 +1524,7 @@ void ImagoNeedle(void)
         case IMAGO_NEEDLE_POSE_EXPLODING:
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
             SoundPlay(0x12C); // Sprite explosion small
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             break;
 
         default:
@@ -1543,7 +1545,7 @@ void ImagoDamagedStinger(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.drawDistanceTopOffset = 0x20;
@@ -1555,17 +1557,17 @@ void ImagoDamagedStinger(void)
             gCurrentSprite.hitboxLeftOffset = -0x20;
             gCurrentSprite.hitboxRightOffset = 0x20;
 
-            gCurrentSprite.pOam = sImagoDamagedStingerOAM;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sImagoDamagedStingerOam;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x1;
             gCurrentSprite.drawOrder = 0xC;
             gCurrentSprite.pose = IMAGO_DAMAGED_STINGER_POSE_FALLING;
-            gCurrentSprite.work0 = 0x0;
+            gCurrentSprite.work0 = 0;
             gCurrentSprite.work2 = 0xA;
-            gCurrentSprite.work3 = 0x0;
+            gCurrentSprite.work3 = 0;
             SoundPlay(0xC1);
 
         case IMAGO_DAMAGED_STINGER_POSE_FALLING:
@@ -1587,7 +1589,7 @@ void ImagoDamagedStinger(void)
             }
 
             gCurrentSprite.work0++;
-            if (gCurrentSprite.work2 != 0x0)
+            if (gCurrentSprite.work2 != 0)
                 gCurrentSprite.work2--;
             else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
             {
@@ -1599,10 +1601,10 @@ void ImagoDamagedStinger(void)
             break;
 
         case IMAGO_DAMAGED_STINGER_POSE_DISAPPEARING:
-            if (--gCurrentSprite.work0 == 0x0)
+            if (--gCurrentSprite.work0 == 0)
             {
                 ParticleSet(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
                 SoundPlay(0xC2);
             }
             else if (gCurrentSprite.work0 < 0x29 && !(gCurrentSprite.work0 & 0x3))
@@ -1625,22 +1627,22 @@ void ImagoEgg(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             
             gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
 
             gCurrentSprite.hitboxTopOffset = -0x44;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = -0x1C;
             gCurrentSprite.hitboxRightOffset = 0x1C;
 
             gCurrentSprite.health = 0x1;
-            gCurrentSprite.pOam = sImagoEggOAM_Standing;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sImagoEggOam_Standing;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_IMAGO_EGG;
             gCurrentSprite.pose = IMAGO_EGG_POSE_IDLE;
@@ -1649,13 +1651,13 @@ void ImagoEgg(void)
         case IMAGO_EGG_POSE_IDLE:
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
             {
-                gCurrentSprite.pOam = sImagoEggOAM_Breaking;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.pOam = sImagoEggOam_Breaking;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
 
                 gCurrentSprite.pose = IMAGO_EGG_POSE_BREAKING;
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-                gCurrentSprite.health = 0x0;
+                gCurrentSprite.health = 0;
 
                 SoundPlay(0xB3);
                 // Set last egg broken flag
@@ -1679,8 +1681,8 @@ void ImagoEgg(void)
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.work0--;
-            if (gCurrentSprite.work0 == 0x0)
-                gCurrentSprite.status = 0x0;
+            if (gCurrentSprite.work0 == 0)
+                gCurrentSprite.status = 0;
             break;
 
         default:
@@ -1689,6 +1691,6 @@ void ImagoEgg(void)
                 gSubSpriteData1.workVariable3 = TRUE;
             
             SpriteUtilSpriteDeath(DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP, gCurrentSprite.yPosition - 0x18, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }

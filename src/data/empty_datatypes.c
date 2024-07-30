@@ -24,7 +24,7 @@ const struct HatchData sHatchData_Empty = {
     .sourceDoor = UCHAR_MAX,
 };
 
-const struct RawCoordsX sCoordsX_Empty = {
+const struct Coordinates sCoordsX_Empty = {
     .x = USHORT_MAX,
     .y = USHORT_MAX
 };

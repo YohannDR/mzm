@@ -4,9 +4,9 @@
 #include "types.h"
 
 void ChozoBallSpawnItemBanner(u8 spriteId);
-void ChozoBallSetClosedOAM(u8 spriteId);
-void ChozoBallSetRevealingOAM(u8 spriteId);
-void ChozoBallSetRevealedOAM(u8 spriteId);
+void ChozoBallSetClosedOam(u8 spriteId);
+void ChozoBallSetRevealingOam(u8 spriteId);
+void ChozoBallSetRevealedOam(u8 spriteId);
 void ChozoBallInit(void);
 void ChozoBallEmpty(void);
 void ChozoBallRevealingInit(void);

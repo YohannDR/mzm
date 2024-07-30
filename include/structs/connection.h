@@ -98,7 +98,7 @@ struct HatchFlashingAnimation {
 extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][16];
 
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
-extern struct RawCoordsX gDoorPositionStart;
+extern struct Coordinates gDoorPositionStart;
 extern u8 gUseMotherShipDoors;
 extern u8 gCurrentArea;
 extern u8 gAreaBeforeTransition;

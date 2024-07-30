@@ -433,7 +433,7 @@ void RidleyStatueCheckBackgroundLocked(void)
     {
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
-        gCurrentSprite.work0 = 60;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f);
         BossStatusSetWallBehindSamusCollision(CAA_MAKE_NON_POWER_GRIP);
     }
 }
@@ -458,7 +458,7 @@ void RidleyStatueOpening(void)
         if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
             SoundPlay(0x12A);
 
-        gCurrentSprite.work0--;
+        APPLY_DELTA_TIME(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
             // Set opening

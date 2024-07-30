@@ -4,160 +4,61 @@
 #include "types.h"
 #include "oam.h"
 
-extern const s16 sChozoStatueMultiSpriteData_Standing_Frame0[15];
+#include "structs/sprite.h"
 
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame0[15];
+enum ChozoStatueOam {
+    CHOZO_STATUE_OAM_LEG_STANDING,
+    CHOZO_STATUE_OAM_LEG_SITTING,
+    CHOZO_STATUE_OAM_LEG_SEATED,
+    CHOZO_STATUE_OAM_IDLE,
+    CHOZO_STATUE_OAM_EYE_OPENED,
+    CHOZO_STATUE_OAM_EYE_CLOSING,
+    CHOZO_STATUE_OAM_EYE_OPENING,
+    CHOZO_STATUE_OAM_EYE_CLOSED,
+    CHOZO_STATUE_OAM_ARM_IDLE,
+    CHOZO_STATUE_OAM_ARM_GLOW,
+    CHOZO_STATUE_OAM_ARM_SAMUS_GRABBED,
+    CHOZO_STATUE_OAM_BALL_NORMAL_CLOSED,
+    CHOZO_STATUE_OAM_BALL_NORMAL_REVEALING,
+    CHOZO_STATUE_OAM_BALL_NORMAL_REVEALED,
+    CHOZO_STATUE_OAM_REFILL,
+    CHOZO_STATUE_OAM_REFILL_GLOW_IDLE,
 
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame1[15];
+    CHOZO_STATUE_OAM_END
+};
 
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame2[15];
+extern const struct MultiSpriteData sChozoStatueMultiSpriteData_Standing[2];
 
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame3[15];
+extern const struct MultiSpriteData sChozoStatueMultiSpriteData_Sitting[11];
 
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame5[15];
-
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame6[15];
-
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame7[15];
-
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame8[15];
-
-extern const s16 sChozoStatueMultiSpriteData_Sitting_Frame9[15];
-
-extern const s16 sChozoStatueMultiSpriteData_Seated_Frame0[15];
-
-extern const struct FrameData sChozoStatueMultiSpriteData_Standing[2];
-
-extern const struct FrameData sChozoStatueMultiSpriteData_Sitting[11];
-
-extern const struct FrameData sChozoStatueMultiSpriteData_Seated[2];
+extern const struct MultiSpriteData sChozoStatueMultiSpriteData_Seated[2];
 
 extern const u8 sChozoStatueFlashingPaletteRows[4];
 
 extern const u32 sChozoStatueLongBeamGfx[1335];
-extern const u16 sChozoStatueLongBeamPal[80];
+extern const  u16 sChozoStatueLongBeamPal[80];
 
-extern const u16 sChozoStatuePartOAM_LegStanding_Frame0[16];
+extern const struct FrameData sChozoStatuePartOam_LegStanding[2];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame0[16];
+extern const struct FrameData sChozoStatuePartOam_LegSitting[10];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame1[16];
+extern const struct FrameData sChozoStatuePartOam_LegSeated[2];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame2[16];
+extern const struct FrameData sChozoStatueOam_Idle[2];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame3[16];
+extern const struct FrameData sChozoStatuePartOam_EyeOpened[2];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame5[13];
+extern const struct FrameData sChozoStatuePartOam_EyeClosing[3];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame6[16];
+extern const struct FrameData sChozoStatuePartOam_EyeOpening[3];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame7[16];
+extern const struct FrameData sChozoStatuePartOam_EyeClosed[2];
 
-extern const u16 sChozoStatuePartOAM_LegSitting_Frame8[16];
+extern const struct FrameData sChozoStatuePartOam_ArmIdle[2];
 
-extern const u16 sChozoStatuePartOAM_LegSeated_Frame0[19];
+extern const struct FrameData sChozoStatuePartOam_ArmGlow[9];
 
-extern const u16 sChozoStatueOAM_Idle_Frame0[13];
-
-extern const u16 sChozoStatuePartOAM_EyeClosing_Frame0[4];
-
-extern const u16 sChozoStatuePartOAM_EyeClosing_Frame1[4];
-
-extern const u16 sChozoStatuePartOAM_EyeClosed_Frame0[4];
-
-extern const u16 sChozoStatuePartOAM_ArmIdle_Frame0[13];
-
-extern const u16 sChozoStatuePartOAM_ArmGlow_Frame1[19];
-
-extern const u16 sChozoStatuePartOAM_ArmGlow_Frame2[19];
-
-extern const u16 sChozoStatuePartOAM_ArmGlow_Frame3[19];
-
-extern const u16 sChozoStatuePartOAM_ArmGlow_Frame4[19];
-
-extern const u16 sChozoStatuePartOAM_ArmSamusGrabbed_Frame0[13];
-
-extern const u16 sChozoBallOam_NormalClosed_Frame0[10];
-
-extern const u16 sChozoBallOam_NormalClosed_Frame1[10];
-
-extern const u16 sChozoBallOam_NormalClosed_Frame3[10];
-
-extern const u16 sChozoBallOam_NormalRevealing_Frame0[16];
-
-extern const u16 sChozoBallOam_NormalRevealing_Frame1[16];
-
-extern const u16 sChozoBallOam_NormalRevealing_Frame2[16];
-
-extern const u16 sChozoBallOam_NormalRevealed_Frame0[7];
-
-extern const u16 sChozoBallOam_NormalRevealed_Frame1[7];
-
-extern const u16 sChozoBallOam_NormalRevealed_Frame2[7];
-
-extern const u16 sChozoStatueRefillOAM_Frame0[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame2[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame4[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame10[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame12[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame18[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame20[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame26[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame28[13];
-
-extern const u16 sChozoStatueRefillOAM_Frame34[13];
-
-extern const u16 sChozoStatuePartOAM_EyeOpened_Frame0[4];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame0[7];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame4[13];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame8[19];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame12[25];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame16[31];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame20[37];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame24[37];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame28[31];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame32[25];
-
-extern const u16 sChozoStatuePartOAM_GlowIdle_Frame36[13];
-
-extern const struct FrameData sChozoStatuePartOAM_LegStanding[2];
-
-extern const struct FrameData sChozoStatuePartOAM_LegSitting[10];
-
-extern const struct FrameData sChozoStatuePartOAM_LegSeated[2];
-
-extern const struct FrameData sChozoStatueOAM_Idle[2];
-
-extern const struct FrameData sChozoStatuePartOAM_EyeOpened[2];
-
-extern const struct FrameData sChozoStatuePartOAM_EyeClosing[3];
-
-extern const struct FrameData sChozoStatuePartOAM_EyeOpening[3];
-
-extern const struct FrameData sChozoStatuePartOAM_EyeClosed[2];
-
-extern const struct FrameData sChozoStatuePartOAM_ArmIdle[2];
-
-extern const struct FrameData sChozoStatuePartOAM_ArmGlow[9];
-
-extern const struct FrameData sChozoStatuePartOAM_ArmSamusGrabbed[2];
+extern const struct FrameData sChozoStatuePartOam_ArmSamusGrabbed[2];
 
 extern const struct FrameData sChozoBallOam_NormalClosed[5];
 
@@ -165,9 +66,9 @@ extern const struct FrameData sChozoBallOam_NormalRevealing[4];
 
 extern const struct FrameData sChozoBallOam_NormalRevealed[5];
 
-extern const struct FrameData sChozoStatueRefillOAM[41];
+extern const struct FrameData sChozoStatueRefillOam[41];
 
-extern const struct FrameData sChozoStatuePartOAM_GlowIdle[41];
+extern const struct FrameData sChozoStatuePartOam_GlowIdle[41];
 
 extern const u32 sChozoStatueIceBeamGfx[1335];
 extern const u16 sChozoStatueIceBeamPal[80];
@@ -190,4 +91,4 @@ extern const u16 sChozoStatueScrewAttackPal[80];
 extern const u32 sChozoStatueVariaGfx[1348];
 extern const u16 sChozoStatueVariaPal[80];
 
-#endif
+#endif /* CHOZO_STATUE_H */

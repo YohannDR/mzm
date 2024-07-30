@@ -29,21 +29,21 @@
  */
 void MotherBrainSyncSubSpritesPosition(void)
 {
-    const u16 (*pFrame)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pFrame = (const u16 (*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pFrame[gCurrentSprite.roomSlot][0]; // Frame data ID
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
 
-    if (gCurrentSprite.pOam != sMotheBrainFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sMotheBrainFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sMotheBrainFrameDataPointers[offset];
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sMotheBrainFrameDataPointers[oamIdx];
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pFrame[gCurrentSprite.roomSlot][1]; // Y offset
-    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pFrame[gCurrentSprite.roomSlot][2]; // X offset
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -56,7 +56,7 @@ void MotherBrainUpdatePalette(void)
     u8 offset;
     u8 newTimer;
 
-    if (gCurrentSprite.oamScaling != 0x0)
+    if (gCurrentSprite.oamScaling != 0)
     {
         gCurrentSprite.oamScaling--;
         gCurrentSprite.paletteRow = sMotherBrainDynamicPaletteData[gCurrentSprite.oamRotation][0];
@@ -68,12 +68,12 @@ void MotherBrainUpdatePalette(void)
         if (timer == 0x80)
         {
             gCurrentSprite.oamRotation = 0x1;
-            offset = 0x0;
+            offset = 0;
             timer = sMotherBrainDynamicPaletteData[offset][0];
         }
 
         newTimer = sMotherBrainDynamicPaletteData[offset][1];
-        if (offset == 0x0 || offset == 0x6)
+        if (offset == 0 || offset == 0x6)
             SoundPlay(0x2BB);
 
         gCurrentSprite.paletteRow = timer;
@@ -93,7 +93,7 @@ void MotherBrainInit(void)
     u16 xPosition;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES) || EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
     else
     {
         gCurrentSprite.xPosition += 0x20;
@@ -104,9 +104,9 @@ void MotherBrainInit(void)
         xPosition = gSubSpriteData1.xPosition;
         gBossWork.work1 = yPosition;
         gBossWork.work2 = xPosition;
-        gBossWork.work3 = 0x0;
-        gBossWork.work4 = 0x0;
-        gBossWork.work5 = 0x0;
+        gBossWork.work3 = 0;
+        gBossWork.work4 = 0;
+        gBossWork.work5 = 0;
 
         gCurrentSprite.drawDistanceTopOffset = 0x28;
         gCurrentSprite.drawDistanceBottomOffset = 0x20;
@@ -120,31 +120,31 @@ void MotherBrainInit(void)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-        gCurrentSprite.work0 = 0x0;
-        gCurrentSprite.work1 = 0x0;
-        gCurrentSprite.oamScaling = 0x0;
-        gCurrentSprite.oamRotation = 0x0;
-        gCurrentSprite.work2 = 0x0;
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work1 = 0;
+        gCurrentSprite.oamScaling = 0;
+        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.work2 = 0;
         
         gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteData;
-        gSubSpriteData1.animationDurationCounter = 0x0;
-        gSubSpriteData1.currentAnimationFrame = 0x0;
-        gSubSpriteData1.workVariable3 = 0x0;
+        gSubSpriteData1.animationDurationCounter = 0;
+        gSubSpriteData1.currentAnimationFrame = 0;
+        gSubSpriteData1.workVariable3 = 0;
 
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_WAITING_GLASS;
-        gCurrentSprite.roomSlot = 0x1;
+        gCurrentSprite.roomSlot = MOTHER_BRAIN_PART_BODY;
 
         gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         gSubSpriteData1.workVariable4 = SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_PART, MOTHER_BRAIN_PART_BEAM_SHOOTER,
-            gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+            gfxSlot, ramSlot, yPosition, xPosition, 0);
 
         gSubSpriteData1.workVariable5 = SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_PART, MOTHER_BRAIN_PART_EYE,
-            gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+            gfxSlot, ramSlot, yPosition, xPosition, 0);
 
         gSubSpriteData1.workVariable6 = SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_PART, MOTHER_BRAIN_PART_BOTTOM,
-            gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+            gfxSlot, ramSlot, yPosition, xPosition, 0);
     }
 }
 
@@ -163,9 +163,9 @@ void MotherBrainCheckGlassBreaked(void)
         gSpriteData[eyeRamSlot].health = gCurrentSprite.health;
         gBossWork.work4 = gCurrentSprite.health;
         // Open eye
-        gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeOpening;
-        gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-        gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+        gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeOpening;
+        gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+        gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
         SoundPlay(0x2B9); // Mother brain eye open
     }
 }
@@ -190,29 +190,29 @@ void MotherBrainMainLoop(void)
     gCurrentSprite.paletteRow = palette;
     gSpriteData[bottomRamSlot].paletteRow = palette;
 
-    if (gSpriteData[eyeRamSlot].health == 0x0)
+    if (gSpriteData[eyeRamSlot].health == 0)
     {
         // Set dying behavior
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_DYING;
-        gCurrentSprite.pOam = sMotherBrainOAM_ChargingBeam;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sMotherBrainOam_ChargingBeam;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.invincibilityStunFlashTimer = 0x78;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.health = 0x1;
-        gCurrentSprite.paletteRow = 0x0;
+        gCurrentSprite.paletteRow = 0;
 
-        gSpriteData[eyeRamSlot].paletteRow = 0x0;
-        gSpriteData[bottomRamSlot].paletteRow = 0x0;
+        gSpriteData[eyeRamSlot].paletteRow = 0;
+        gSpriteData[bottomRamSlot].paletteRow = 0;
                
-        gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeDying;
-        gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-        gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+        gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeDying;
+        gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+        gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
         gSpriteData[eyeRamSlot].samusCollision = SSC_NONE;
 
-        gSpriteData[beamShooterRamSlot].status = 0x0;
+        gSpriteData[beamShooterRamSlot].status = 0;
         gSubSpriteData1.workVariable3 = 0x2;
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_MOTHER_BRAIN_KILLED);
@@ -220,15 +220,15 @@ void MotherBrainMainLoop(void)
         return;
     }
 
-    if (gCurrentSprite.pOam == sMotherBrainOAM_ChargingBeam)
+    if (gCurrentSprite.pOam == sMotherBrainOam_ChargingBeam)
     {
         // delay before charging
         gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        if (gCurrentSprite.work0 == 0)
         {
-            gCurrentSprite.pOam = sMotherBrainOAM_Idle;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sMotherBrainOam_Idle;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
     }
     else
@@ -257,10 +257,10 @@ void MotherBrainMainLoop(void)
                 if (gBossWork.work5 >= counter)
                 {
                     // Set closing behavior
-                    gBossWork.work5 = 0x0;
-                    gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeClosing;
-                    gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-                    gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+                    gBossWork.work5 = 0;
+                    gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeClosing;
+                    gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+                    gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
                     gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
                     SoundPlay(0x2BA); // Mother brain eye closing
                     gCurrentSprite.work2 = 0x1;
@@ -269,47 +269,47 @@ void MotherBrainMainLoop(void)
         }
     }
 
-    if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOAM_EyeClosing)
+    if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOam_EyeClosing)
     {
         // Check should close
         if (SpriteUtilCheckEndSpriteAnim(eyeRamSlot))
         {
-            gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeClosed;
-            gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-            gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+            gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeClosed;
+            gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+            gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
         }
     }
-    else if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOAM_EyeClosed)
+    else if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOam_EyeClosed)
     {
         // Check should start charging beam
         if (gSubSpriteData1.yPosition + (BLOCK_SIZE * 2) >= gSamusData.yPosition)
         {
             gCurrentSprite.work2--; // Delay
-            if (gCurrentSprite.work2 == 0x0)
+            if (gCurrentSprite.work2 == 0)
             {
                 // Set charging beam behavior
-                gCurrentSprite.pOam = sMotherBrainOAM_ChargingBeam;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.pOam = sMotherBrainOam_ChargingBeam;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
 
                 gCurrentSprite.work1 = 0x48;
                 gCurrentSprite.work0 = 0x48;
-                gCurrentSprite.oamScaling = 0x0;
-                gCurrentSprite.oamRotation = 0x0;
+                gCurrentSprite.oamScaling = 0;
+                gCurrentSprite.oamRotation = 0;
             }
         }
     }
-    else if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOAM_EyeOpening)
+    else if (gSpriteData[eyeRamSlot].pOam == sMotherBrainPartOam_EyeOpening)
     {
-        if (gCurrentSprite.work1 == 0x0)
+        if (gCurrentSprite.work1 == 0)
         {
             // Check should close eye
             if (gSubSpriteData1.yPosition + (BLOCK_SIZE * 2) < gSamusData.yPosition)
             {
                 // Samus fell below the blocks, set closing behavior
-                gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeClosing;
-                gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-                gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+                gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeClosing;
+                gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+                gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
                 gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
                 SoundPlay(0x2BA); // Mother brain eye close
                 gCurrentSprite.work2 = 0x3C;
@@ -318,7 +318,7 @@ void MotherBrainMainLoop(void)
         }
     }
 
-    if (gCurrentSprite.work1 == 0x0)
+    if (gCurrentSprite.work1 == 0)
         return;
    
     // Shooting beam
@@ -327,9 +327,9 @@ void MotherBrainMainLoop(void)
         if (palette != 0xE)
         {
             // Set normal palette
-            gCurrentSprite.paletteRow = 0x0;
-            gSpriteData[eyeRamSlot].paletteRow = 0x0;
-            gSpriteData[bottomRamSlot].paletteRow = 0x0;
+            gCurrentSprite.paletteRow = 0;
+            gSpriteData[eyeRamSlot].paletteRow = 0;
+            gSpriteData[bottomRamSlot].paletteRow = 0;
         }
     }
     else
@@ -337,9 +337,9 @@ void MotherBrainMainLoop(void)
         if (gCurrentSprite.work1 == 0xC)
         {
             // Spawn beam
-            SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BEAM, 0x0, gCurrentSprite.spritesetGfxSlot,
+            SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BEAM, 0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gSpriteData[beamShooterRamSlot].yPosition,
-                gSpriteData[beamShooterRamSlot].xPosition + 0xCC, 0x0);
+                gSpriteData[beamShooterRamSlot].xPosition + 0xCC, 0);
 
             // Hide beam shooter
             gSpriteData[beamShooterRamSlot].status |= SPRITE_STATUS_NOT_DRAWN;
@@ -347,9 +347,9 @@ void MotherBrainMainLoop(void)
         else if (gCurrentSprite.work1 == 0x14)
         {
             // Open eye
-            gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOAM_EyeOpening;
-            gSpriteData[eyeRamSlot].animationDurationCounter = 0x0;
-            gSpriteData[eyeRamSlot].currentAnimationFrame = 0x0;
+            gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeOpening;
+            gSpriteData[eyeRamSlot].animationDurationCounter = 0;
+            gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
             // Make eye vulnerable
             gSpriteData[eyeRamSlot].properties &= ~SP_IMMUNE_TO_PROJECTILES;
             SoundPlay(0x2B9); // Mother brain eye open
@@ -357,9 +357,9 @@ void MotherBrainMainLoop(void)
         else if (gCurrentSprite.work1 == 0x18)
         {
             // Set beam shooter behavior
-            gSpriteData[beamShooterRamSlot].pOam = sMotherBrainPartOAM_BeamSpawning;
-            gSpriteData[beamShooterRamSlot].animationDurationCounter = 0x0;
-            gSpriteData[beamShooterRamSlot].currentAnimationFrame = 0x0;
+            gSpriteData[beamShooterRamSlot].pOam = sMotherBrainPartOam_BeamSpawning;
+            gSpriteData[beamShooterRamSlot].animationDurationCounter = 0;
+            gSpriteData[beamShooterRamSlot].currentAnimationFrame = 0;
             gSpriteData[beamShooterRamSlot].status &= ~SPRITE_STATUS_NOT_DRAWN;
             SoundPlay(0x2BC);
         }
@@ -386,7 +386,7 @@ void MotherBrainDeath(void)
     eyeRamSlot = gSubSpriteData1.workVariable5;
     bottomRamSlot = gSubSpriteData1.workVariable6;
 
-    if (gCurrentSprite.invincibilityStunFlashTimer != 0x0)
+    if (gCurrentSprite.invincibilityStunFlashTimer != 0)
     {
         gSpriteData[eyeRamSlot].paletteRow = gCurrentSprite.paletteRow;
         gSpriteData[bottomRamSlot].paletteRow = gCurrentSprite.paletteRow;
@@ -395,8 +395,8 @@ void MotherBrainDeath(void)
     }
     else
     {
-        gSpriteData[eyeRamSlot].status = 0x0;
-        gSpriteData[bottomRamSlot].status = 0x0;
+        gSpriteData[eyeRamSlot].status = 0;
+        gSpriteData[bottomRamSlot].status = 0;
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_START_ESCAPE;
         gCurrentSprite.work0 = 0x3C;
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -415,13 +415,13 @@ void MotherBrainDeath(void)
 void MotherBrainStartEscape(void)
 {
     gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0x0)
+    if (gCurrentSprite.work0 == 0)
     {
         // Kill sprite
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
         // Spawn banner and effects
-        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ZEBES_ESCAPE, 0x0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-        SpriteSpawnPrimary(PSPRITE_EXPLOSION_ZEBES_ESCAPE, 0x0, 0x0, gCurrentSprite.yPosition + (BLOCK_SIZE * 4), gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ZEBES_ESCAPE, 0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+        SpriteSpawnPrimary(PSPRITE_EXPLOSION_ZEBES_ESCAPE, 0, 0, gCurrentSprite.yPosition + (BLOCK_SIZE * 4), gCurrentSprite.xPosition, 0);
         PlayMusic(MUSIC_ESCAPE, 0x40);
         SoundPlay(0x120);
         gSubSpriteData1.workVariable3 = 0x3;
@@ -494,7 +494,7 @@ void MotherBrainPartInit(void)
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
@@ -567,8 +567,8 @@ void MotherBrainSpawnBlock(void)
 
     if (gSamusData.xPosition < (xPosition - 0x3C))
     {
-        SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BLOCK, 0x0, 0x6, gCurrentSprite.primarySpriteRamSlot,
-            yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BLOCK, 0, 0x6, gCurrentSprite.primarySpriteRamSlot,
+            yPosition, xPosition, 0);
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_1;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     }
@@ -580,7 +580,7 @@ void MotherBrainSpawnBlock(void)
  */
 void MotherBrainPartGlassStage1(void)
 {
-    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0;
     // 3/4 of health
     if (gCurrentSprite.health <= (gBossWork.work3 * 3) >> 2)
     {
@@ -597,7 +597,7 @@ void MotherBrainPartGlassStage1(void)
  */
 void MotherBrainPartGlassStage2(void)
 {
-    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0;
     // 2/4 of health
     if (gCurrentSprite.health <= gBossWork.work3 / 2)
     {
@@ -614,7 +614,7 @@ void MotherBrainPartGlassStage2(void)
  */
 void MotherBrainPartGlassStage3(void)
 {
-    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0;
     // 1/4 of health
     if (gCurrentSprite.health <= gBossWork.work3 / 4)
     {
@@ -631,7 +631,7 @@ void MotherBrainPartGlassStage3(void)
  */
 void MotherBrainPartISFT(void)
 {
-    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0;
 }
 
 /**
@@ -640,12 +640,12 @@ void MotherBrainPartISFT(void)
  */
 void MotherBrainPartSpawnGlassBreaking(void)
 {
-    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0;
     gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_BROKEN;
     gSubSpriteData1.workVariable3 = 0x1;
     // Spawn glass
-    SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_GLASS_BREAKING, 0x0, gCurrentSprite.spritesetGfxSlot,
-        gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_GLASS_BREAKING, 0, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0);
     // Remove in BG
     BgClipCallMotherBrainUpdateGlass(0x4);
     SoundPlay(0x2B8);
@@ -661,7 +661,7 @@ void MotherBrain(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             MotherBrainInit();
             break;
 
@@ -700,7 +700,7 @@ void MotherBrain(void)
         gLockScreen.yPositionCenter = gBossWork.work1;
         gLockScreen.xPositionCenter = gSubSpriteData1.xPosition + (BLOCK_SIZE * 5);
 
-        if (gSubSpriteData1.workVariable3 == 0x0)
+        if (gSubSpriteData1.workVariable3 == 0)
             mbSize = 0xDC;
         else
             mbSize = 0xA0;
@@ -720,7 +720,7 @@ void MotherBrainPart(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             MotherBrainPartInit();
             MotherBrainSyncSubSpritesPosition();
             return;
@@ -779,7 +779,7 @@ void MotherBrainBeam(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= (SP_KILL_OFF_SCREEN | SP_IMMUNE_TO_PROJECTILES);
 
@@ -792,9 +792,9 @@ void MotherBrainBeam(void)
             gCurrentSprite.hitboxLeftOffset = -0x20;
             gCurrentSprite.hitboxRightOffset = 0x20;
 
-            gCurrentSprite.pOam = sMotherBrainBeamOAM_Moving;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sMotherBrainBeamOam_Moving;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_MOTHER_BRAIN_BEAM;
@@ -809,7 +809,7 @@ void MotherBrainBeam(void)
             if (gPreviousCollisionCheck != COLLISION_AIR)
             {
                 ParticleSet(gCurrentSprite.yPosition + 0x1C, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_BIG);
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
                 SoundPlay(0x2C3);
             }
     }
@@ -821,7 +821,7 @@ void MotherBrainBeam(void)
  */
 void MotherBrainBlock(void)
 {
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x10;
         gCurrentSprite.drawDistanceBottomOffset = 0x10;
@@ -833,8 +833,8 @@ void MotherBrainBlock(void)
         gCurrentSprite.hitboxRightOffset = 0x20;
 
         gCurrentSprite.pOam = sMotherBrainBlockOAM;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
@@ -847,8 +847,8 @@ void MotherBrainBlock(void)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             
             gCurrentClipdataAffectingAction = CAA_MAKE_NON_POWER_GRIP;
             ClipdataProcess(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -864,7 +864,7 @@ void MotherBrainGlassBreaking(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
@@ -872,14 +872,14 @@ void MotherBrainGlassBreaking(void)
             gCurrentSprite.drawDistanceBottomOffset = 0x30;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
-            gCurrentSprite.pOam = sMotherBrainGlassBreakingOAM_Breaking;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sMotherBrainGlassBreakingOam_Breaking;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_NONE;
@@ -889,6 +889,6 @@ void MotherBrainGlassBreaking(void)
 
         case 0x9:
             if (SpriteUtilCheckEndCurrentSpriteAnim())
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
     }
 }

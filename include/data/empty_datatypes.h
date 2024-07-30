@@ -14,7 +14,7 @@
 
 extern const struct HatchData sHatchData_Empty;
 
-extern const struct RawCoordsX sCoordsX_Empty;
+extern const struct Coordinates sCoordsX_Empty;
 
 extern const struct LockScreen sLockScreen_Empty;
 

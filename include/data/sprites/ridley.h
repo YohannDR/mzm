@@ -4,131 +4,73 @@
 #include "types.h"
 #include "oam.h"
 
-extern const s16 sRidleyMultiSpriteData_Idle_Frame0[18];
+#include "structs/sprite.h"
 
-extern const s16 sRidleyMultiSpriteData_Idle_Frame1[18];
+enum RidleyOam {
+    RIDLEY_OAM_IDLE,
+    RIDLEY_OAM_SPITTING_FIREBALLS,
+    RIDLEY_OAM_TURNING_AROUND_FIRST_PART,
+    RIDLEY_OAM_TURNING_AROUND_SECOND_PART,
+    RIDLEY_OAM_HEAD_IDLE,
+    RIDLEY_OAM_OPENING_MOUTH,
+    RIDLEY_OAM_MOUTH_OPENED,
+    RIDLEY_OAM_HEAD_DYING,
+    RIDLEY_OAM_HEAD_TURNING_AROUND,
+    RIDLEY_OAM_CLAW_IDLE,
+    RIDLEY_OAM_CLAW_SPITTING_FIREBALLS,
+    RIDLEY_OAM_CLAW_TURNING_AROUND_FIRST_PART,
+    RIDLEY_OAM_CLAW_TURNING_AROUND_SECOND_PART,
+    RIDLEY_OAM_CLAW_CARRYING_SAMUS,
+    RIDLEY_OAM_CLAW_LIFTING_SAMUS,
+    RIDLEY_OAM_CLAW_SAMUS_LIFTED,
+    RIDLEY_OAM_CLAW_RELEASING_SAMUS,
+    RIDLEY_OAM_LEFT_WING_IDLE,
+    RIDLEY_OAM_RIGHT_WING_IDLE,
+    RIDLEY_OAM_LEFT_WING_UNUSED,
+    RIDLEY_OAM_RIGHT_WING_UNUSED,
+    RIDLEY_OAM_LEFT_WING_SPITTING_FIREBALLS,
+    RIDLEY_OAM_RIGHT_WING_SPITTING_FIREBALLS,
+    RIDLEY_OAM_TAIL_PART,
+    RIDLEY_OAM_TAIL_TIP_POINTING_DOWN,
+    RIDLEY_OAM_TAIL_TIP_POINTING_UP,
+    RIDLEY_OAM_TAIL_TIP_POINTING_DIAGONALLY_DOWN_RIGHT,
+    RIDLEY_OAM_TAIL_TIP_POINTING_DIAGONALLY_UP_RIGHT,
+    RIDLEY_OAM_TAIL_TIP_POINTING_DIAGONALLY_DOWN_LEFT,
+    RIDLEY_OAM_TAIL_TIP_POINTING_DIAGONALLY_UP_LEFT,
+    RIDLEY_OAM_SQUARE,
+    RIDLEY_OAM_FIREBALL_SMALL,
+    RIDLEY_OAM_FIREBALL_BIG,
 
-extern const s16 sRidleyMultiSpriteData_Idle_Frame2[18];
+    RIDLEY_OAM_END
+};
 
-extern const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18];
+extern const struct MultiSpriteData sRidleyMultiSpriteData_Idle[6];
 
-extern const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18];
+extern const struct MultiSpriteData sRidleyMultiSpriteData_SpittingFireballs[3];
 
-extern const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18];
+extern const struct MultiSpriteData sRidleyMultiSpriteData_TurningAroundFirstPart[3];
 
-extern const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18];
+extern const struct MultiSpriteData sRidleyMultiSpriteData_TurningAroundSecondPart[3];
 
-extern const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_Idle[16];
 
-extern const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_Dying[16];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame0[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_MoveToAttack[12];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame1[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_SettingUpDiagonalTailAttack[12];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame2[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack[12];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame3[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_DiagonalTailAttack[21];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame4[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_ChargingVerticalTailAttack[13];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame5[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_VerticalTailAttack[11];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame6[24];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_LastVerticalAttack[17];
 
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame7[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame8[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame9[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame10[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame11[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame12[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame13[24];
-
-extern const s16 sRidleyTailMultiSpriteData_Idle_Frame14[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24];
-
-extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24];
-
-extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame11[24];
-
-extern const struct FrameData sRidleyMultiSpriteData_Idle[6];
-
-extern const struct FrameData sRidleyMultiSpriteData_SpittingFireballs[3];
-
-extern const struct FrameData sRidleyMultiSpriteData_TurningAroundFirstPart[3];
-
-extern const struct FrameData sRidleyMultiSpriteData_TurningAroundSecondPart[3];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_Idle[16];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_Dying[16];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_MoveToAttack[12];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_SettingUpDiagonalTailAttack[12];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack[12];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_DiagonalTailAttack[21];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_ChargingVerticalTailAttack[13];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_VerticalTailAttack[11];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_LastVerticalAttack[17];
-
-extern const struct FrameData sRidleyTailMultiSpriteData_BackToIdle[4];
+extern const struct MultiSpriteData sRidleyTailMultiSpriteData_BackToIdle[4];
 
 extern const s16 sRidleySpawningSpittingFireballsYOffsets[81];
 
@@ -311,4 +253,4 @@ extern const struct FrameData sRidleyFireballOam_Small[2];
 
 extern const struct FrameData sRidleyFireballOam_Big[2];
 
-#endif
+#endif /* RIDLEY_DATA_H */

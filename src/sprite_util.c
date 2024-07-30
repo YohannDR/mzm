@@ -3353,7 +3353,7 @@ void SpriteUtilUpdateSubSprite1Timer(void)
  */
 void SpriteUtilUpdateSubSprite1Anim(void)
 {
-    ++gSubSpriteData1.animationDurationCounter;
+    gSubSpriteData1.animationDurationCounter++;
 
     if (gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].timer < gSubSpriteData1.animationDurationCounter)
     {
@@ -3371,26 +3371,26 @@ void SpriteUtilUpdateSubSprite1Anim(void)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 {
-    const u16* pOam;
+    MultiSpriteDataInfo_T pData;
 
-    pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 1];
-    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
-void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void)
+void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam(void)
 {
-    const u16* pOam;
+    MultiSpriteDataInfo_T pData;
 
-    pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 1];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -3399,7 +3399,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void)
  */
 void SpriteUtilUpdateSubSprite2Anim(void)
 {
-    ++gSubSpriteData2.animationDurationCounter;
+    gSubSpriteData2.animationDurationCounter++;
 
     if (gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].timer < gSubSpriteData2.animationDurationCounter)
     {
@@ -3417,23 +3417,21 @@ void SpriteUtilUpdateSubSprite2Anim(void)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 {
-    const u16* pOam;
+    MultiSpriteDataInfo_T pData;
 
-    pOam = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pFrame;
+    pData = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pData;
 
-    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 1];
+    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
 {
-    u32 adc;
-
-    ++pSub->animationDurationCounter;
+    pSub->animationDurationCounter++;
 
     if (pSub->pMultiOam[pSub->currentAnimationFrame].timer < pSub->animationDurationCounter)
     {
@@ -3452,12 +3450,12 @@ void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteData* pSub)
 {
-    const u16* pOam;
+    MultiSpriteDataInfo_T pData;
 
-    pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
+    pData = pSub->pMultiOam[pSub->currentAnimationFrame].pData;
 
-    gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 1];
-    gCurrentSprite.xPosition = pSub->xPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+    gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
+    gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -3467,16 +3465,16 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(struct SubSpriteData* pSub)
 {
-    const u16* pOam;
+    MultiSpriteDataInfo_T pData;
 
-    pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
+    pData = pSub->pMultiOam[pSub->currentAnimationFrame].pData;
 
-    gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 1];
+    gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = pSub->xPosition - pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = pSub->xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = pSub->xPosition + pOam[gCurrentSprite.roomSlot * OAM_PART_SIZE + 2];
+        gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 u8 SpriteCheckCollidingWithSamusDrawing(void)

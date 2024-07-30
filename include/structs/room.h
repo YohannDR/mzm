@@ -84,8 +84,8 @@ struct TilesetEntry {
 };
 
 struct BackgroundPositions {
-    struct RawCoordsX bg[4];
-    struct RawCoordsX doorTransition;
+    struct Coordinates bg[4];
+    struct Coordinates doorTransition;
 };
 
 struct WaterMovement {
@@ -133,7 +133,7 @@ extern u16 gDecompBg3Map[2048];
 
 extern u8 gSpriteset;
 extern u8 gSpritesetEntryUsed;
-extern struct RawCoordsX gWaitingSpacePiratesPosition;
+extern struct Coordinates gWaitingSpacePiratesPosition;
 extern struct BG3Movement gBg3Movement;
 extern struct BG0Movement gBg0Movement;
 extern u16 gRainSoundEffect;

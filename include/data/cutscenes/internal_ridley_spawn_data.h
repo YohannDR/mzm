@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
-extern const struct RawCoordsX sRidleySpawnRidleyPositions[3];
+extern const struct Coordinates sRidleySpawnRidleyPositions[3];
 
 extern const struct CutsceneSubroutineData sRidleySpawnSubroutineData[5];
 

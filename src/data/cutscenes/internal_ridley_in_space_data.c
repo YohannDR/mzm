@@ -3,12 +3,12 @@
 #include "cutscenes/cutscene_utils.h"
 #include "macros.h"
 
-const struct RawCoordsX sRidleyInSpaceShipLeavingPosition = {
+const struct Coordinates sRidleyInSpaceShipLeavingPosition = {
     .x = -(BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE),
     .y = BLOCK_SIZE * 6 + HALF_BLOCK_SIZE
 };
 
-const struct RawCoordsX sRidleyInSpaceShipsStartPosition[3] = {
+const struct Coordinates sRidleyInSpaceShipsStartPosition[3] = {
     [RIDLEY_IN_SPACE_LEFT_SHIP_SLOT] = {
         .x = -(BLOCK_SIZE + HALF_BLOCK_SIZE),
         .y = BLOCK_SIZE * 10 - PIXEL_SIZE * 2

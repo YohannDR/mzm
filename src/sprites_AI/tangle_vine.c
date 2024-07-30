@@ -18,25 +18,25 @@
  */
 void TangleVineSyncSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sTangleVineFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sTangleVineFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sTangleVineFrameDataPointers[offset];
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sTangleVineFrameDataPointers[oamIdx];
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -59,15 +59,15 @@ void TangleVineGeruta(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    counter = 0x0;
-    if (gCurrentSprite.pose == 0x0)
+    counter = 0;
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x40;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
+        gCurrentSprite.drawDistanceBottomOffset = 0;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
 
         gCurrentSprite.hitboxTopOffset = -0xE0;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0;
         gCurrentSprite.hitboxLeftOffset = -0x1C;
         gCurrentSprite.hitboxRightOffset = 0x1C;
 
@@ -75,13 +75,13 @@ void TangleVineGeruta(void)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         gCurrentSprite.pose = 0x9;
 
-        gCurrentSprite.pOam = sTangleVineGerutaOAM_Root;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sTangleVineGerutaOam_Root;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
 
         gSubSpriteData1.pMultiOam = sTangleVineGerutaMultiSpriteData_Idle;
-        gSubSpriteData1.animationDurationCounter = 0x0;
-        gSubSpriteData1.currentAnimationFrame = 0x0;
+        gSubSpriteData1.animationDurationCounter = 0;
+        gSubSpriteData1.currentAnimationFrame = 0;
 
         gSubSpriteData1.health = TANGLE_VINE_GERUTA_STATUS_VINE_DEAD;
         gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
@@ -97,19 +97,19 @@ void TangleVineGeruta(void)
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         newRamSlot = SpriteSpawnSecondary(SSPRITE_TANGLE_VINE_GERUTA_PART, TANGLE_VINE_GERUTA_PART_GRIP, gfxSlot,
-            ramSlot, yPosition, xPosition, 0x0);
+            ramSlot, yPosition, xPosition, 0);
 
         if (newRamSlot >= MAX_AMOUNT_OF_SPRITES)
             counter = TRUE;
 
         newRamSlot = SpriteSpawnSecondary(SSPRITE_TANGLE_VINE_GERUTA_PART, TANGLE_VINE_GERUTA_PART_GERUTA, gfxSlot,
-            ramSlot, yPosition, xPosition, 0x0);
+            ramSlot, yPosition, xPosition, 0);
 
         if (newRamSlot >= MAX_AMOUNT_OF_SPRITES)
             counter++;
 
-        if (counter != 0x0)
-            gCurrentSprite.status = 0x0;
+        if (counter != 0)
+            gCurrentSprite.status = 0;
         else
             gSubSpriteData1.health = TANGLE_VINE_GERUTA_STATUS_FULL;
     }
@@ -125,16 +125,16 @@ void TangleVineGeruta(void)
 
         if (gCurrentSprite.pose == 0x9 && gSubSpriteData1.health == TANGLE_VINE_GERUTA_STATUS_GERUTA_DEAD)
         {
-            gCurrentSprite.pOam = sTangleVineGerutaOAM_Full;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sTangleVineGerutaOam_Full;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = 0x23;
         }
     }
 
     SpriteUtilUpdateSubSprite1Anim();
-    SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM();
+    SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam();
 }
 
 /**
@@ -147,7 +147,7 @@ void TangleVineGerutaPart(void)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.pose = 0xF;
@@ -155,15 +155,15 @@ void TangleVineGerutaPart(void)
         if (gCurrentSprite.roomSlot == TANGLE_VINE_GERUTA_PART_GRIP)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x40;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
-            gCurrentSprite.health = 0x0;
+            gCurrentSprite.health = 0;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x3;
         }
@@ -182,14 +182,14 @@ void TangleVineGerutaPart(void)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         }
         else
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 
     if (gCurrentSprite.roomSlot == TANGLE_VINE_GERUTA_PART_GRIP)
     {
         if (gSubSpriteData1.health != TANGLE_VINE_GERUTA_STATUS_FULL)
         {
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
         else
@@ -197,19 +197,19 @@ void TangleVineGerutaPart(void)
     }
     else if (gCurrentSprite.roomSlot == TANGLE_VINE_GERUTA_PART_GERUTA)
     {
-        if (gCurrentSprite.health == 0x0)
+        if (gCurrentSprite.health == 0)
         {
             gSubSpriteData1.health = TANGLE_VINE_GERUTA_STATUS_GERUTA_DEAD;
             ParticleSet(gCurrentSprite.yPosition + 0x8, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
             SoundPlay(0x12D);
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
         
         if (gSubSpriteData1.health == TANGLE_VINE_GERUTA_STATUS_VINE_DEAD)
         {
-            SpriteSpawnPrimary(PSPRITE_GERUTA_RED, 0x80, 0x5, gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
-            gCurrentSprite.status = 0x0;
+            SpriteSpawnPrimary(PSPRITE_GERUTA_RED, 0x80, 0x5, gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0);
+            gCurrentSprite.status = 0;
             return;
         }
     }
@@ -230,23 +230,23 @@ void TangleVineRedGeruta(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x48;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
+        gCurrentSprite.drawDistanceBottomOffset = 0;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
 
         gCurrentSprite.hitboxTopOffset = -0x110;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0;
         gCurrentSprite.hitboxLeftOffset = -0x24;
         gCurrentSprite.hitboxRightOffset = 0x24;
 
-        gCurrentSprite.pOam = sTangleVineRedGerutaOAM;
+        gCurrentSprite.pOam = sTangleVineRedGerutaOam;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
@@ -273,7 +273,7 @@ void TangleVineLarvaRight(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.yPosition -= QUARTER_BLOCK_SIZE;
 
@@ -282,16 +282,16 @@ void TangleVineLarvaRight(void)
         gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
         gCurrentSprite.hitboxTopOffset = -0xC0;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-        gCurrentSprite.hitboxLeftOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0;
+        gCurrentSprite.hitboxLeftOffset = 0;
         gCurrentSprite.hitboxRightOffset = 0x24;
 
-        gCurrentSprite.pOam = sTangleVineLarvaRightOAM;
+        gCurrentSprite.pOam = sTangleVineLarvaRightOam;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
@@ -317,7 +317,7 @@ void TangleVineLarvaLeft(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.xPosition -= QUARTER_BLOCK_SIZE;
 
@@ -326,16 +326,16 @@ void TangleVineLarvaLeft(void)
         gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
         gCurrentSprite.hitboxTopOffset = -0xC0;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0;
         gCurrentSprite.hitboxLeftOffset = -0x24;
-        gCurrentSprite.hitboxRightOffset = 0x0;
+        gCurrentSprite.hitboxRightOffset = 0;
 
-        gCurrentSprite.pOam = sTangleVineLarvaLeftOAM;
+        gCurrentSprite.pOam = sTangleVineLarvaLeftOam;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
@@ -364,33 +364,33 @@ void TangleVineTall(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x40;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
             gCurrentSprite.hitboxTopOffset = -0xF8;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.pOam = sTangleVineTallOAM_OnGround;
+            gCurrentSprite.pOam = sTangleVineTallOam_OnGround;
         }
         else
         {
-            gCurrentSprite.drawDistanceTopOffset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = 0;
             gCurrentSprite.drawDistanceBottomOffset = 0x40;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0xF8;
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.pOam = sTangleVineTallOAM_OnCeiling;
+            gCurrentSprite.pOam = sTangleVineTallOam_OnCeiling;
 
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -399,8 +399,8 @@ void TangleVineTall(void)
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -431,33 +431,33 @@ void TangleVineMedium(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
             gCurrentSprite.hitboxTopOffset = -0xB8;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.pOam = sTangleVineMediumOAM_OnGround;
+            gCurrentSprite.pOam = sTangleVineMediumOam_OnGround;
         }
         else
         {
-            gCurrentSprite.drawDistanceTopOffset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = 0;
             gCurrentSprite.drawDistanceBottomOffset = 0x30;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0xB8;
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.pOam = sTangleVineMediumOAM_OnCeiling;
+            gCurrentSprite.pOam = sTangleVineMediumOam_OnCeiling;
 
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -466,8 +466,8 @@ void TangleVineMedium(void)
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -498,33 +498,33 @@ void TangleVineCurved(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x28;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
             gCurrentSprite.hitboxTopOffset = -0x80;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.pOam = sTangleVineCurvedOAM_OnGround;
+            gCurrentSprite.pOam = sTangleVineCurvedOam_OnGround;
         }
         else
         {
-            gCurrentSprite.drawDistanceTopOffset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = 0;
             gCurrentSprite.drawDistanceBottomOffset = 0x28;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0x80;
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.pOam = sTangleVineCurvedOAM_OnCeiling;
+            gCurrentSprite.pOam = sTangleVineCurvedOam_OnCeiling;
 
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -533,8 +533,8 @@ void TangleVineCurved(void)
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -565,33 +565,33 @@ void TangleVineShort(void)
             SoundPlayNotAlreadyPlaying(0x264);
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x28;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceBottomOffset = 0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
             gCurrentSprite.hitboxTopOffset = -0x88;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.pOam = sTangleVineShortOAM_OnGround;
+            gCurrentSprite.pOam = sTangleVineShortOam_OnGround;
         }
         else
         {
-            gCurrentSprite.drawDistanceTopOffset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = 0;
             gCurrentSprite.drawDistanceBottomOffset = 0x28;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0x88;
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.pOam = sTangleVineShortOAM_OnCeiling;
+            gCurrentSprite.pOam = sTangleVineShortOam_OnCeiling;
 
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -600,8 +600,8 @@ void TangleVineShort(void)
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
 
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozenPaletteRowOffset = 0x1;

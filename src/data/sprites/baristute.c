@@ -13,7 +13,7 @@ const s16 sBaristuteJumpingYVelocity[10] = {
 const u32 sBaristuteGfx[596] = INCBIN_U32("data/sprites/Baristute.gfx.lz");
 const u16 sBaristutePal[80] = INCBIN_U16("data/sprites/Baristute.pal");
 
-const u16 sBaristuteOam_Idle_Frame0[OAM_DATA_SIZE(16)] = {
+static const u16 sBaristuteOam_Idle_Frame0[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x200,
@@ -33,7 +33,7 @@ const u16 sBaristuteOam_Idle_Frame0[OAM_DATA_SIZE(16)] = {
     0xf5, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Walking_Frame1[OAM_DATA_SIZE(17)] = {
+static const u16 sBaristuteOam_Walking_Frame1[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_SIZE_16x32 | 0x1e2, OBJ_SPRITE_OAM | 0x20c,
     0xd7, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x207,
@@ -54,7 +54,7 @@ const u16 sBaristuteOam_Walking_Frame1[OAM_DATA_SIZE(17)] = {
     0xf1, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Walking_Frame2[OAM_DATA_SIZE(17)] = {
+static const u16 sBaristuteOam_Walking_Frame2[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x200,
@@ -75,7 +75,7 @@ const u16 sBaristuteOam_Walking_Frame2[OAM_DATA_SIZE(17)] = {
     0xeb, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Walking_Frame3[OAM_DATA_SIZE(17)] = {
+static const u16 sBaristuteOam_Walking_Frame3[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xd9, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xd9, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x200,
@@ -96,7 +96,7 @@ const u16 sBaristuteOam_Walking_Frame3[OAM_DATA_SIZE(17)] = {
     0xf6, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Walking_Frame4[OAM_DATA_SIZE(17)] = {
+static const u16 sBaristuteOam_Walking_Frame4[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xd7, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xd7, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x200,
@@ -117,7 +117,7 @@ const u16 sBaristuteOam_Walking_Frame4[OAM_DATA_SIZE(17)] = {
     0xf4, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Walking_Frame5[OAM_DATA_SIZE(16)] = {
+static const u16 sBaristuteOam_Walking_Frame5[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x200,
@@ -137,7 +137,7 @@ const u16 sBaristuteOam_Walking_Frame5[OAM_DATA_SIZE(16)] = {
     0xf3, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Warning_Frame1[OAM_DATA_SIZE(18)] = {
+static const u16 sBaristuteOam_Warning_Frame1[OAM_DATA_SIZE(18)] = {
     0x12,
     0xe6, 0x1fc, OBJ_SPRITE_OAM | 0x25a,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
@@ -159,7 +159,7 @@ const u16 sBaristuteOam_Warning_Frame1[OAM_DATA_SIZE(18)] = {
     0xf3, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Warning_Frame2[OAM_DATA_SIZE(18)] = {
+static const u16 sBaristuteOam_Warning_Frame2[OAM_DATA_SIZE(18)] = {
     0x12,
     0xe9, 0x1fc, OBJ_SPRITE_OAM | 0x25b,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
@@ -181,7 +181,7 @@ const u16 sBaristuteOam_Warning_Frame2[OAM_DATA_SIZE(18)] = {
     0xf6, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Jumping_Frame0[OAM_DATA_SIZE(16)] = {
+static const u16 sBaristuteOam_Jumping_Frame0[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x1e5, OBJ_SPRITE_OAM | 0x207,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0xb, OBJ_SPRITE_OAM | 0x207,
@@ -201,7 +201,7 @@ const u16 sBaristuteOam_Jumping_Frame0[OAM_DATA_SIZE(16)] = {
     0xe4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sBaristuteOam_Jumping_Frame1[OAM_DATA_SIZE(16)] = {
+static const u16 sBaristuteOam_Jumping_Frame1[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1e5, OBJ_SPRITE_OAM | 0x207,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0xb, OBJ_SPRITE_OAM | 0x207,
@@ -221,7 +221,7 @@ const u16 sBaristuteOam_Jumping_Frame1[OAM_DATA_SIZE(16)] = {
     0xe3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sBaristuteOam_Idle_Frame2[OAM_DATA_SIZE(20)] = {
+static const u16 sBaristuteOam_Idle_Frame2[OAM_DATA_SIZE(20)] = {
     0x14,
     0xe8, 0x1fc, OBJ_SPRITE_OAM | 0x25b,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
@@ -245,7 +245,7 @@ const u16 sBaristuteOam_Idle_Frame2[OAM_DATA_SIZE(20)] = {
     0xf5, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sBaristuteOam_Idle_Frame1[OAM_DATA_SIZE(18)] = {
+static const u16 sBaristuteOam_Idle_Frame1[OAM_DATA_SIZE(18)] = {
     0x12,
     0xe7, 0x1fc, OBJ_SPRITE_OAM | 0x25a,
     OBJ_SHAPE_VERTICAL | 0xd9, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
@@ -274,7 +274,7 @@ const struct FrameData sBaristuteOam_Idle[5] = {
     },
     [1] = {
         .pFrame = sBaristuteOam_Idle_Frame1,
-        .timer = 6
+        .timer = CONVERT_SECONDS(.1f)
     },
     [2] = {
         .pFrame = sBaristuteOam_Idle_Frame2,
@@ -282,7 +282,7 @@ const struct FrameData sBaristuteOam_Idle[5] = {
     },
     [3] = {
         .pFrame = sBaristuteOam_Idle_Frame1,
-        .timer = 6
+        .timer = CONVERT_SECONDS(.1f)
     },
     [4] = FRAME_DATA_TERMINATOR
 };
@@ -290,7 +290,7 @@ const struct FrameData sBaristuteOam_Idle[5] = {
 const struct FrameData sBaristuteOam_Warning[4] = {
     [0] = {
         .pFrame = sBaristuteOam_Idle_Frame0,
-        .timer = 6
+        .timer = CONVERT_SECONDS(.1f)
     },
     [1] = {
         .pFrame = sBaristuteOam_Warning_Frame1,
@@ -318,7 +318,7 @@ const struct FrameData sBaristuteOam_Jumping[3] = {
 const struct FrameData sBaristuteOam_Landing[4] = {
     [0] = {
         .pFrame = sBaristuteOam_Idle_Frame0,
-        .timer = 6
+        .timer = CONVERT_SECONDS(.1f)
     },
     [1] = {
         .pFrame = sBaristuteOam_Warning_Frame2,
@@ -390,27 +390,27 @@ const struct FrameData sBaristuteOam_WalkingFast[7] = {
 const struct FrameData sBaristuteOam_WalkingVeryFast[7] = {
     [0] = {
         .pFrame = sBaristuteOam_Idle_Frame0,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [1] = {
         .pFrame = sBaristuteOam_Walking_Frame1,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [2] = {
         .pFrame = sBaristuteOam_Walking_Frame2,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [3] = {
         .pFrame = sBaristuteOam_Walking_Frame3,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [4] = {
         .pFrame = sBaristuteOam_Walking_Frame4,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [5] = {
         .pFrame = sBaristuteOam_Walking_Frame5,
-        .timer = 3
+        .timer = CONVERT_SECONDS(0.05f)
     },
     [6] = FRAME_DATA_TERMINATOR
 };

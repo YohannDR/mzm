@@ -2,7 +2,7 @@
 #include "cutscenes/ridley_spawn.h"
 #include "cutscenes/cutscene_utils.h"
 
-const struct RawCoordsX sRidleySpawnRidleyPositions[3] = {
+const struct Coordinates sRidleySpawnRidleyPositions[3] = {
     [0] = {
         .x = BLOCK_SIZE * 9,
         .y = BLOCK_SIZE * 5 + 0x34

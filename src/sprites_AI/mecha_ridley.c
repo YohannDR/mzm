@@ -69,21 +69,21 @@ if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
  */
 void MechaRidleySyncSubSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
-    
-    if (gCurrentSprite.pOam != sMechaRidleyFrameDataPointers[offset])
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
+
+    if (gCurrentSprite.pOam != sMechaRidleyFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sMechaRidleyFrameDataPointers[offset];
+        gCurrentSprite.pOam = sMechaRidleyFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
-    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -287,11 +287,11 @@ void MechaRidleyCrawlingBackwardsInit(u8 leftArmSlot)
     if (gSubSpriteData1.pMultiOam == sMechaRidleyMultiSpriteData_StandingLow)
     {
         // Low, start crawling backwards
-        gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOAM_RightArmCrawlingBackwards;
+        gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOam_RightArmCrawlingBackwards;
         gSpriteData[rightArmSlot].animationDurationCounter = 0;
         gSpriteData[rightArmSlot].currentAnimationFrame = 0;
 
-        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmCrawlingBackwards;
+        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmCrawlingBackwards;
         gSpriteData[leftArmSlot].animationDurationCounter = 0;
         gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
@@ -343,7 +343,7 @@ void MechaRidleyClawAttackInit(u8 leftArmSlot)
         gCurrentSprite.work0 = 0;
 
     // Set left arm oam
-    gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmSwingingAtCloseGround;
+    gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmSwingingAtCloseGround;
     gSpriteData[leftArmSlot].animationDurationCounter = 0;
     gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
@@ -692,7 +692,7 @@ void MechaRidleyClawAttack(void)
         // Set forward position
         gSubSpriteData1.xPosition = gBossWork.work2 - BLOCK_SIZE;
 
-        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmTrembling;
+        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmTrembling;
         gSpriteData[leftArmSlot].animationDurationCounter = 0;
         gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
@@ -731,7 +731,7 @@ void MechaRidleyStandingUp(void)
         if (gCurrentSprite.work0 == 0)
         {
             // Raise arm
-            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmHoldingUp;
+            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmHoldingUp;
             gSpriteData[leftArmSlot].animationDurationCounter = 0;
             gSpriteData[leftArmSlot].currentAnimationFrame = 0;
         }
@@ -741,7 +741,7 @@ void MechaRidleyStandingUp(void)
         if (SpriteUtilCheckEndSpriteAnim(leftArmSlot))
         {
             // Set curled up
-            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmHeldUp;
+            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmHeldUp;
             gSpriteData[leftArmSlot].animationDurationCounter = 0;
             gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
@@ -792,11 +792,11 @@ void MechaRidleyRetracting(void)
     if (SpriteUtilCheckEndSubSprite1Anim())
     {
         // Set crawling backwards
-        gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOAM_RightArmCrawlingBackwards;
+        gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOam_RightArmCrawlingBackwards;
         gSpriteData[rightArmSlot].animationDurationCounter = 0;
         gSpriteData[rightArmSlot].currentAnimationFrame = 0;
 
-        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmCrawlingBackwards;
+        gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmCrawlingBackwards;
         gSpriteData[leftArmSlot].animationDurationCounter = 0;
         gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
@@ -838,12 +838,12 @@ void MechaRidleyCrawlingBack(void)
             gCurrentSprite.pose = MECHA_RIDLEY_POSE_IDLE;
 
             // Set right arm trembling
-            gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOAM_RightArmTrembling;
+            gSpriteData[rightArmSlot].pOam = sMechaRidleyPartOam_RightArmTrembling;
             gSpriteData[rightArmSlot].animationDurationCounter = 0;
             gSpriteData[rightArmSlot].currentAnimationFrame = 0;
 
             // Set left arm raised
-            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOAM_LeftArmHeldUp;
+            gSpriteData[leftArmSlot].pOam = sMechaRidleyPartOam_LeftArmHeldUp;
             gSpriteData[leftArmSlot].animationDurationCounter = 0;
             gSpriteData[leftArmSlot].currentAnimationFrame = 0;
         }
@@ -1542,7 +1542,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 gEquipment.currentMissiles + gEquipment.currentSuperMissiles == 0)
             {
                 // Set opening
-                gCurrentSprite.pOam = sMechaRidleyPartOAM_MissileLauncherOpening;
+                gCurrentSprite.pOam = sMechaRidleyPartOam_MissileLauncherOpening;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
@@ -1557,7 +1557,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 // Set opened
-                gCurrentSprite.pOam = sMechaRidleyPartOAM_MissileLauncherOpened;
+                gCurrentSprite.pOam = sMechaRidleyPartOam_MissileLauncherOpened;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
@@ -1573,7 +1573,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 if (gCurrentSprite.work0 == 0)
                 {
                     // Set closing
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_MissileLauncherClosing;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_MissileLauncherClosing;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
 
@@ -1613,7 +1613,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 // Set closed
-                gCurrentSprite.pOam = sMechaRidleyPartOAM_MissileLauncherClosed;
+                gCurrentSprite.pOam = sMechaRidleyPartOam_MissileLauncherClosed;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
@@ -1637,8 +1637,8 @@ void MechaRidleyPartEyeIdle(void)
     switch (gBossWork.work4)
     {
         case EYE_STATE_BLINKING_INIT:
-            if (gCurrentSprite.pOam != sMechaRidleyPartOAM_EyeIdle)
-                gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeIdle;
+            if (gCurrentSprite.pOam != sMechaRidleyPartOam_EyeIdle)
+                gCurrentSprite.pOam = sMechaRidleyPartOam_EyeIdle;
 
             // Set blinking animation
             gCurrentSprite.currentAnimationFrame = 1;
@@ -1654,7 +1654,7 @@ void MechaRidleyPartEyeIdle(void)
             }
 
             // Set glowing
-            gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeGlowing;
+            gCurrentSprite.pOam = sMechaRidleyPartOam_EyeGlowing;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
 
@@ -1676,22 +1676,22 @@ void MechaRidleyPartEyeIdle(void)
                 // Get direction
                 if (rng > 11)
                 {
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserSlightlyDown;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeShootingLaserSlightlyDown;
                     gCurrentSprite.work1 = LASER_DIRECTION_SLIGHTLY_DOWN;
                 }
                 else if (rng > 7)
                 {
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserSlightlyUp;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeShootingLaserSlightlyUp;
                     gCurrentSprite.work1 = LASER_DIRECTION_SLIGHTLY_UP;
                 }
                 else if (rng > 3)
                 {
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserDown;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeShootingLaserDown;
                     gCurrentSprite.work1 = LASER_DIRECTION_DOWN;
                 }
                 else
                 {
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeShootingLaserForward;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeShootingLaserForward;
                     gCurrentSprite.work1 = LASER_DIRECTION_FORWARD;
                 }
 
@@ -1737,7 +1737,7 @@ void MechaRidleyPartEyeIdle(void)
                 }
 
                 // Set idle
-                gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeIdle;
+                gCurrentSprite.pOam = sMechaRidleyPartOam_EyeIdle;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gBossWork.work4 = EYE_STATE_IDLE;
@@ -1768,14 +1768,14 @@ void MechaRidleyPartRightArmIdle(void)
     rightHitbox = 0;
 
     // Update hitbox based on animation
-    if (gCurrentSprite.pOam == sMechaRidleyPartOAM_RightArmTrembling)
+    if (gCurrentSprite.pOam == sMechaRidleyPartOam_RightArmTrembling)
     {
         topHitbox = BLOCK_SIZE * 2;
         bottomHitbox = BLOCK_SIZE * 3;
         leftHitbox = -0xE8;
         rightHitbox = BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_RightArmHoldingUp)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_RightArmHoldingUp)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -1797,7 +1797,7 @@ void MechaRidleyPartRightArmIdle(void)
                 break;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_RightArmCrawlingForward)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_RightArmCrawlingForward)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -1851,7 +1851,7 @@ void MechaRidleyPartRightArmIdle(void)
                 rightHitbox = BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_RightArmCrawlingBackwards)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_RightArmCrawlingBackwards)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -1937,21 +1937,21 @@ void MechaRidleyPartLeftArmIdle(void)
     rightHitbox = 0;
 
     // Update hitbox based on animation
-    if (gCurrentSprite.pOam == sMechaRidleyPartOAM_LeftArmHeldUp)
+    if (gCurrentSprite.pOam == sMechaRidleyPartOam_LeftArmHeldUp)
     {
         topHitbox = HALF_BLOCK_SIZE;
         bottomHitbox = BLOCK_SIZE * 2;
         leftHitbox = -(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
         rightHitbox = BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_LeftArmTrembling)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_LeftArmTrembling)
     {
         topHitbox = BLOCK_SIZE * 2;
         bottomHitbox = BLOCK_SIZE * 3;
         leftHitbox = -BLOCK_SIZE * 5;
         rightHitbox = BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_LeftArmSwingingAtCloseGround)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_LeftArmSwingingAtCloseGround)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -2031,7 +2031,7 @@ void MechaRidleyPartLeftArmIdle(void)
                 rightHitbox = -BLOCK_SIZE * 3;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_LeftArmHoldingUp)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_LeftArmHoldingUp)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -2067,7 +2067,7 @@ void MechaRidleyPartLeftArmIdle(void)
                 break;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_LeftArmCrawlingForward)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_LeftArmCrawlingForward)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
@@ -2144,35 +2144,35 @@ void MechaRidleyPartNeckIdle(void)
     rightHitbox = 0;
 
     // Update hitbox based on animation
-    if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckLow)
+    if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckLow)
     {
         topHitbox = -HALF_BLOCK_SIZE;
         bottomHitbox = BLOCK_SIZE + HALF_BLOCK_SIZE;
         leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckLow_2)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckLow_2)
     {
         topHitbox = -HALF_BLOCK_SIZE;
         bottomHitbox = BLOCK_SIZE + HALF_BLOCK_SIZE;
         leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle || gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle_2)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckMiddle || gCurrentSprite.pOam == sMechaRidleyPartOam_NeckMiddle_2)
     {
         topHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
         bottomHitbox = QUARTER_BLOCK_SIZE;
         leftHitbox = -BLOCK_SIZE * 2;
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh || gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh_2)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckHigh || gCurrentSprite.pOam == sMechaRidleyPartOam_NeckHigh_2)
     {
         topHitbox = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
         bottomHitbox = QUARTER_BLOCK_SIZE;
         leftHitbox = -BLOCK_SIZE;
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckLowToMiddle)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckLowToMiddle)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2192,7 +2192,7 @@ void MechaRidleyPartNeckIdle(void)
             rightHitbox = HALF_BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddleToHigh)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckMiddleToHigh)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2212,7 +2212,7 @@ void MechaRidleyPartNeckIdle(void)
             rightHitbox = HALF_BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHighToMiddle)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckHighToMiddle)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2232,7 +2232,7 @@ void MechaRidleyPartNeckIdle(void)
             rightHitbox = HALF_BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddleToLow)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckMiddleToLow)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2252,7 +2252,7 @@ void MechaRidleyPartNeckIdle(void)
             rightHitbox = HALF_BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckLowToHigh)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckLowToHigh)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2286,7 +2286,7 @@ void MechaRidleyPartNeckIdle(void)
             rightHitbox = HALF_BLOCK_SIZE;
         }
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHighToLow)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOam_NeckHighToLow)
     {
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
@@ -2562,7 +2562,7 @@ void MechaRidleyPart(void)
             switch (gBossWork.work4)
             {
                 case 4:
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeIdle;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeIdle;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
 
@@ -2570,7 +2570,7 @@ void MechaRidleyPart(void)
                     break;
 
                 case EYE_STATE_LASER_SET_INACTIVE:
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeInactive;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeInactive;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
 
@@ -2578,7 +2578,7 @@ void MechaRidleyPart(void)
                     break;
 
                 case EYE_STATE_LASER_SET_DYING:
-                    gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeDying;
+                    gCurrentSprite.pOam = sMechaRidleyPartOam_EyeDying;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
 
@@ -2725,23 +2725,23 @@ void MechaRidleyLaser(void)
         switch (gCurrentSprite.roomSlot)
         {
             case LASER_DIRECTION_SLIGHTLY_DOWN:
-                gCurrentSprite.pOam = sMechaRidleyLaserOAM_SlightlyDown;
+                gCurrentSprite.pOam = sMechaRidleyLaserOam_SlightlyDown;
                 break;
 
             case LASER_DIRECTION_DOWN:
-                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Down;
+                gCurrentSprite.pOam = sMechaRidleyLaserOam_Down;
                 break;
 
             case LASER_DIRECTION_SLIGHTLY_UP:
-                gCurrentSprite.pOam = sMechaRidleyLaserOAM_SlightlyUp;
+                gCurrentSprite.pOam = sMechaRidleyLaserOam_SlightlyUp;
                 break;
 
             case LASER_DIRECTION_UP:
-                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Up;
+                gCurrentSprite.pOam = sMechaRidleyLaserOam_Up;
                 break;
 
             default:
-                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Forward;
+                gCurrentSprite.pOam = sMechaRidleyLaserOam_Forward;
                 break;
         }
     }
@@ -2805,7 +2805,7 @@ void MechaRidleyMissile(void)
             gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
             gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
 
-            gCurrentSprite.pOam = sMechaRidleyMissileOAM;
+            gCurrentSprite.pOam = sMechaRidleyMissileOam;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
@@ -2911,7 +2911,7 @@ void MechaRidleyFireball(void)
             gCurrentSprite.hitboxLeftOffset = -0x1C;
             gCurrentSprite.hitboxRightOffset = 0x1C;
 
-            gCurrentSprite.pOam = sMechaRidleyFireballOAM;
+            gCurrentSprite.pOam = sMechaRidleyFireballOam;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 

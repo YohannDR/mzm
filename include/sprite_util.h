@@ -77,7 +77,7 @@ u8 SpriteUtilShouldFall(void);
 void SpriteUtilUpdateSubSprite1Timer(void);
 void SpriteUtilUpdateSubSprite1Anim(void);
 void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void);
-void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void);
+void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam(void);
 void SpriteUtilUpdateSubSprite2Anim(void);
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void);
 void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub);

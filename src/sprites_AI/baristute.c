@@ -16,6 +16,18 @@
 #include "structs/connection.h"
 #include "structs/sprite.h"
 
+#define BARISTUTE_POSE_JUMP_WARNING_INIT 0x8
+#define BARISTUTE_POSE_CHECK_WARNING_ENDED 0x9
+#define BARISTUTE_POSE_IDLE_INIT 0xE
+#define BARISTUTE_POSE_IDLE 0xF
+#define BARISTUTE_POSE_FALLING_INIT 0x1E
+#define BARISTUTE_POSE_FALLING 0x1F
+#define BARISTUTE_POSE_JUMPING 0x23
+#define BARISTUTE_POSE_LANDING_INIT 0x24
+#define BARISTUTE_POSE_LANDING 0x25
+#define BARISTUTE_POSE_WALKING_INIT 0x26
+#define BARISTUTE_POSE_WALKING 0x27
+
 #define JUMPING_X_VELOCITY (PIXEL_SIZE * 2 + PIXEL_SIZE / 2)
 #define WALKING_SPEED (ONE_SUB_PIXEL * 3)
 
@@ -523,7 +535,7 @@ void BaristuteDeath(void)
             EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_BARISTUTES_KILLED);
 
              // Unlock doors
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
         }
     }
 
@@ -533,7 +545,7 @@ void BaristuteDeath(void)
 
     // Kill sprite
     SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-    if (gCurrentSprite.status)
+    if (gCurrentSprite.status != 0)
     {
         // Has drop, spawn 2 other drops
         if (MOD_AND(gSpriteRng, 2))
@@ -582,7 +594,7 @@ void Baristute(void)
             gCurrentSprite.absolutePaletteRow = 3;
         else if (health <= spawnHealth / 2)
             gCurrentSprite.absolutePaletteRow = 2;
-        else if (health <= (spawnHealth * 3) / 4)
+        else if (health <= FRACT_MUL(spawnHealth, 3, 4))
             gCurrentSprite.absolutePaletteRow = 1;
     }
 

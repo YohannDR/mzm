@@ -8,8 +8,23 @@
 
 // Structs
 
+enum MultiSpriteDataElements {
+    MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX,
+    MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET,
+    MULTI_SPRITE_DATA_ELEMENT_X_OFFSET,
+
+    MULTI_SPRITE_DATA_ELEMENT_END
+};
+
+typedef const s16 (*MultiSpriteDataInfo_T)[MULTI_SPRITE_DATA_ELEMENT_END];
+
+struct MultiSpriteData {
+    MultiSpriteDataInfo_T pData;
+    u8 timer;
+};
+
 struct SubSpriteData {
-    const struct FrameData* pMultiOam;
+    const struct MultiSpriteData* pMultiOam;
     u16 currentAnimationFrame;
     u16 yPosition;
     u16 xPosition;
@@ -94,10 +109,16 @@ struct BossWork {
 
 // Globals
 
+#define MULTI_SPRITE_DATA_TERMINATOR \
+{\
+    .pData = NULL,\
+    .timer = 0\
+}
+
 #define MAX_AMOUNT_OF_SPRITES 24
 #define MAX_AMOUNT_OF_SPRITE_TYPES 15
 
-#define ALARM_TIMER_ACTIVE_TIMER (60 * 8)
+#define ALARM_TIMER_ACTIVE_TIMER (CONVERT_SECONDS(8.f))
 
 extern u16 gAlarmTimer;
 extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];

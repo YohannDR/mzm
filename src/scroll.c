@@ -20,7 +20,7 @@
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollProcess(struct RawCoordsX* pCoords)
+void ScrollProcess(struct Coordinates* pCoords)
 {
     s32 screenX;
     s32 screenY;
@@ -136,7 +136,7 @@ void ScrollScreen(u16 screenX, u16 screenY)
  * @param pCoords Coordinates pointer
  * @return s32 Screen X
  */
-s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+s32 ScrollProcessX(struct Scroll* pScroll, struct Coordinates* pCoords)
 {
     // Check is on the far left of the scroll, i.e. if the distance between the start and the coords X is smaller than the anchor
     if (pCoords->x < pScroll->xStart + SCROLL_X_ANCHOR)
@@ -163,7 +163,7 @@ s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
  * @param pCoords Coordinates pointer
  * @return s32 Screen Y
  */
-s32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+s32 ScrollProcessY(struct Scroll* pScroll, struct Coordinates* pCoords)
 {
     if (pScroll->within == SCROLL_WITHIN_FLAG)
     {
@@ -226,7 +226,7 @@ void ScrollLoad(void)
  * 
  * @param pCoords Center coordinates
  */
-void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
+void ScrollUpdateCurrent(struct Coordinates* pCoords)
 {
     u16 xPosition;
     u16 yPosition;
@@ -360,7 +360,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
  */
 void ScrollProcessGeneral(void)
 {
-    struct RawCoordsX coords;
+    struct Coordinates coords;
     s32 distance;
 
     u32 x;
@@ -503,7 +503,7 @@ void ScrollProcessGeneral(void)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
+void ScrollWithNoScrolls(struct Coordinates* pCoords)
 {
     ScrollWithNoScrollsX(pCoords);
     ScrollWithNoScrollsY(pCoords);
@@ -514,7 +514,7 @@ void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
+void ScrollWithNoScrollsY(struct Coordinates* pCoords)
 {
     s32 yOffset;
     s32 clipPosition;
@@ -583,7 +583,7 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
+void ScrollWithNoScrollsX(struct Coordinates* pCoords)
 {
     s32 xOffset;
     s32 clipPosition;
@@ -643,7 +643,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
+void ScrollUpdateEffectAndHazePosition(struct Coordinates* pCoords)
 {
     u32 var_0;
     s32 position;
@@ -974,7 +974,7 @@ void ScrollAutoBg3(void)
  * 
  * @param pCoords Coordinates pointer
  */
-void ScrollBg2(struct RawCoordsX* pCoords)
+void ScrollBg2(struct Coordinates* pCoords)
 {
     s32 size;
     s32 position;
@@ -1030,7 +1030,7 @@ void ScrollBg2(struct RawCoordsX* pCoords)
  * 
  * @param pCoords Coords pointer
  */
-void ScrollFreeMovementDebugCameraLock(struct RawCoordsX* pCoords)
+void ScrollFreeMovementDebugCameraLock(struct Coordinates* pCoords)
 {
     if (pCoords->x < BLOCK_SIZE * 7 + HALF_BLOCK_SIZE)
     {

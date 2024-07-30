@@ -30,31 +30,53 @@ typedef volatile signed int vs32;
 #define INT_MAX (2147483647)
 #define UINT_MAX ((u32)0xFFFFFFFF)
 
+// The amount of sub pixels a single visible pixel contains
 #define SUB_PIXEL_RATIO 4
-#define SUB_PIXEL_NUMBER 16
+// The amount of visible pixels a block contains
+#define PIXEL_PER_BLOCK 16
 
-#define BLOCK_SIZE (SUB_PIXEL_NUMBER * SUB_PIXEL_RATIO)
+// Size of a block, in sub pixels
+#define BLOCK_SIZE (PIXEL_PER_BLOCK * SUB_PIXEL_RATIO)
+// Shorthand for half a block, in sub pixels
 #define HALF_BLOCK_SIZE (BLOCK_SIZE / 2)
+// Shorthand for a quarter of a block, in sub pixels
 #define QUARTER_BLOCK_SIZE (BLOCK_SIZE / 4)
+// Shorthand for an eighth of a block, in sub pixels
 #define EIGHTH_BLOCK_SIZE (BLOCK_SIZE / 8)
-#define PIXEL_SIZE (BLOCK_SIZE / SUB_PIXEL_NUMBER)
-#define BLOCK_POSITION_FLAG ((u16)~BLOCK_SIZE + ONE_SUB_PIXEL)
-#define SUB_PIXEL_POSITION_FLAG (BLOCK_SIZE - ONE_SUB_PIXEL)
+// Size of a visible pixel, in sub pixels
+#define PIXEL_SIZE (BLOCK_SIZE / PIXEL_PER_BLOCK)
+// Size of a single sub pixel
 #define ONE_SUB_PIXEL (PIXEL_SIZE / PIXEL_SIZE)
+// Mask to filter out the sub pixel coordinates, effectively clamping to a block
+#define BLOCK_POSITION_FLAG ((u16)~BLOCK_SIZE + ONE_SUB_PIXEL)
+// Mask to filter out the block coordinates, resulting in only the sub pixels coordinates in the current block
+#define SUB_PIXEL_POSITION_FLAG (BLOCK_SIZE - ONE_SUB_PIXEL)
 
+// Width of the screen, in pixels
 #define SCREEN_SIZE_X 240
+// Height of the screen, in pixels
 #define SCREEN_SIZE_Y 160
 
-struct RawCoordsX {
+// Target FPS
+#define FRAMES_PER_SECOND 60
+// Amount of time that happens in one frame
+#define DELTA_TIME 1
+// Converts a floating point value of seconds to an amount of frames (CONVERT_SECONDS(1.f) == FRAMES_PER_SECOND)
+#define CONVERT_SECONDS(s) ((s32)((s) * FRAMES_PER_SECOND))
+#define APPLY_DELTA_TIME(v) ((v) -= DELTA_TIME)
+
+// Shorthand for one third of a second
+#define ONE_THIRD_SECOND (CONVERT_SECONDS(1.f / 3.f))
+// Shorthand for two thirds of a second
+#define TWO_THIRD_SECOND (CONVERT_SECONDS(1.f / 3.f) * 2)
+
+// Generic coordinates struct
+struct Coordinates {
     u16 x;
     u16 y;
 };
 
-struct RawCoordsY {
-    u16 y;
-    u16 x;
-};
-
+// void, void function pointer
 typedef void (*Func_T)(void);
 
 #endif /* TYPES_H */

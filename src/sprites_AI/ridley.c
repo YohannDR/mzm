@@ -30,25 +30,25 @@
  */
 void RidleySyncSubSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sRidleyFrameDataPointers[offset];
+        gCurrentSprite.pOam = sRidleyFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 
     if (gCurrentSprite.roomSlot == RIDLEY_PART_TAIL)
     {
@@ -63,25 +63,25 @@ void RidleySyncSubSprites(void)
  */
 void RidleyTailSyncSubSprites(void)
 {
-    u16 (*pData)[3];
-    u32 offset;
+    MultiSpriteDataInfo_T pData;
+    u16 oamIdx;
 
-    pData = (u16(*)[3])gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pFrame;
-    offset = pData[gCurrentSprite.roomSlot][0];
+    pData = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pData;
+    oamIdx = pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_OAM_INDEX];
     
-    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[offset])
+    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[oamIdx])
     {
-        gCurrentSprite.pOam = sRidleyFrameDataPointers[offset];
+        gCurrentSprite.pOam = sRidleyFrameDataPointers[oamIdx];
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
 
-    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
-        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][2];
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
 }
 
 /**
@@ -3005,7 +3005,7 @@ void RidleyPart(void)
 
         case RIDLEY_PART_HEAD:
             RidleyPartSyncPalette(ramSlot);
-            SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM();
+            SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam();
             break;
 
         default:
