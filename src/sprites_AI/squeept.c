@@ -17,8 +17,8 @@
  */
 void SqueeptGoingUpInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sSqueeptOam_GoingUp;
     gCurrentSprite.animationDurationCounter = 0;
@@ -31,8 +31,8 @@ void SqueeptGoingUpInit(void)
  */
 void SqueeptTurningAroundInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sSqueeptOam_TurningAround;
     gCurrentSprite.animationDurationCounter = 0;
@@ -45,8 +45,8 @@ void SqueeptTurningAroundInit(void)
  */
 void SqueeptGoingDownInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
 
     gCurrentSprite.pOam = sSqueeptOam_GoingDown;
     gCurrentSprite.animationDurationCounter = 0;
@@ -59,12 +59,12 @@ void SqueeptGoingDownInit(void)
  */
 void SqueeptInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);

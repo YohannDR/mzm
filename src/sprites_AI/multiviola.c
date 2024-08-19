@@ -17,14 +17,14 @@
  */
 void MultiviolaInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0xC;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x20;
+    gCurrentSprite.drawDistanceBottom = 0xC;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-    gCurrentSprite.hitboxTopOffset = -0x20;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0x20;
-    gCurrentSprite.hitboxRightOffset = 0x20;
+    gCurrentSprite.hitboxTop = -0x20;
+    gCurrentSprite.hitboxBottom = 0x20;
+    gCurrentSprite.hitboxLeft = -0x20;
+    gCurrentSprite.hitboxRight = 0x20;
 
     gCurrentSprite.pOam = sMultiviolaOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -51,7 +51,7 @@ void MultiviolaMove(void)
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         // Move right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition += 0x3;
         else
@@ -64,7 +64,7 @@ void MultiviolaMove(void)
     else
     {
         // Move left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition -= 0x3;
         else
@@ -75,29 +75,29 @@ void MultiviolaMove(void)
         }
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         // Move up
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset, gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition -= yMovement;
         else
         {
             // Bounce Y
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             isBouncing++;
         }
     }
     else
     {
         // Move down
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset, gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition += yMovement;
         else
         {
             // Bounce Y
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             isBouncing++;
         }
     }

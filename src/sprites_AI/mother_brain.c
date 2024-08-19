@@ -56,18 +56,18 @@ void MotherBrainUpdatePalette(void)
     u8 offset;
     u8 newTimer;
 
-    if (gCurrentSprite.oamScaling != 0)
+    if (gCurrentSprite.scaling != 0)
     {
-        gCurrentSprite.oamScaling--;
-        gCurrentSprite.paletteRow = sMotherBrainDynamicPaletteData[gCurrentSprite.oamRotation][0];
+        gCurrentSprite.scaling--;
+        gCurrentSprite.paletteRow = sMotherBrainDynamicPaletteData[gCurrentSprite.rotation][0];
     }
     else
     {
-        offset = gCurrentSprite.oamRotation++;
+        offset = gCurrentSprite.rotation++;
         timer = sMotherBrainDynamicPaletteData[offset][0];
         if (timer == 0x80)
         {
-            gCurrentSprite.oamRotation = 0x1;
+            gCurrentSprite.rotation = 0x1;
             offset = 0;
             timer = sMotherBrainDynamicPaletteData[offset][0];
         }
@@ -77,7 +77,7 @@ void MotherBrainUpdatePalette(void)
             SoundPlay(0x2BB);
 
         gCurrentSprite.paletteRow = timer;
-        gCurrentSprite.oamScaling = newTimer;
+        gCurrentSprite.scaling = newTimer;
     }
 }
 
@@ -108,22 +108,22 @@ void MotherBrainInit(void)
         gBossWork.work4 = 0;
         gBossWork.work5 = 0;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x20;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+        gCurrentSprite.drawDistanceTop = 0x28;
+        gCurrentSprite.drawDistanceBottom = 0x20;
+        gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-        gCurrentSprite.hitboxTopOffset = -0x70;
-        gCurrentSprite.hitboxBottomOffset = 0x60;
-        gCurrentSprite.hitboxLeftOffset = -0xA0;
-        gCurrentSprite.hitboxRightOffset = 0x80;
+        gCurrentSprite.hitboxTop = -0x70;
+        gCurrentSprite.hitboxBottom = 0x60;
+        gCurrentSprite.hitboxLeft = -0xA0;
+        gCurrentSprite.hitboxRight = 0x80;
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
         gCurrentSprite.work0 = 0;
         gCurrentSprite.work1 = 0;
-        gCurrentSprite.oamScaling = 0;
-        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.scaling = 0;
+        gCurrentSprite.rotation = 0;
         gCurrentSprite.work2 = 0;
         
         gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteData;
@@ -294,8 +294,8 @@ void MotherBrainMainLoop(void)
 
                 gCurrentSprite.work1 = 0x48;
                 gCurrentSprite.work0 = 0x48;
-                gCurrentSprite.oamScaling = 0;
-                gCurrentSprite.oamRotation = 0;
+                gCurrentSprite.scaling = 0;
+                gCurrentSprite.rotation = 0;
             }
         }
     }
@@ -439,14 +439,14 @@ void MotherBrainPartInit(void)
     switch (gCurrentSprite.roomSlot)
     {
         case MOTHER_BRAIN_PART_BEAM_SHOOTER:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x40;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x40;
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4,
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4,
+            gCurrentSprite.hitboxRight = 0x4;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x3;
@@ -459,14 +459,14 @@ void MotherBrainPartInit(void)
 
         case MOTHER_BRAIN_PART_EYE:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-            gCurrentSprite.hitboxTopOffset = -0x28;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x28;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x4;
             
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x5;
@@ -475,14 +475,14 @@ void MotherBrainPartInit(void)
 
         case MOTHER_BRAIN_PART_BOTTOM:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x14;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x14;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
-            gCurrentSprite.hitboxTopOffset = -0xF8;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0xB0;
-            gCurrentSprite.hitboxRightOffset = 0xB0;
+            gCurrentSprite.hitboxTop = -0xF8;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0xB0;
+            gCurrentSprite.hitboxRight = 0xB0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x6;
@@ -506,7 +506,7 @@ void MotherBrainPartHitboxInit(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     }
     else
@@ -515,31 +515,31 @@ void MotherBrainPartHitboxInit(void)
         switch (gCurrentSprite.currentAnimationFrame)
         {
             case 0x1:
-                gCurrentSprite.hitboxTopOffset = -0x10;
-                gCurrentSprite.hitboxBottomOffset = 0x10;
-                gCurrentSprite.hitboxLeftOffset = 0x20;
-                gCurrentSprite.hitboxRightOffset = 0x60;
+                gCurrentSprite.hitboxTop = -0x10;
+                gCurrentSprite.hitboxBottom = 0x10;
+                gCurrentSprite.hitboxLeft = 0x20;
+                gCurrentSprite.hitboxRight = 0x60;
                 break;
 
             case 0x2:
-                gCurrentSprite.hitboxTopOffset = -0x20;
-                gCurrentSprite.hitboxBottomOffset = 0x20;
-                gCurrentSprite.hitboxLeftOffset = 0x40;
-                gCurrentSprite.hitboxRightOffset = 0xA0;
+                gCurrentSprite.hitboxTop = -0x20;
+                gCurrentSprite.hitboxBottom = 0x20;
+                gCurrentSprite.hitboxLeft = 0x40;
+                gCurrentSprite.hitboxRight = 0xA0;
                 break;
 
             case 0x3:
-                gCurrentSprite.hitboxTopOffset = -0x30;
-                gCurrentSprite.hitboxBottomOffset = 0x30;
-                gCurrentSprite.hitboxLeftOffset = 0xA0;
-                gCurrentSprite.hitboxRightOffset = 0xE0;
+                gCurrentSprite.hitboxTop = -0x30;
+                gCurrentSprite.hitboxBottom = 0x30;
+                gCurrentSprite.hitboxLeft = 0xA0;
+                gCurrentSprite.hitboxRight = 0xE0;
                 break;
 
             default:
-                gCurrentSprite.hitboxTopOffset = -0x8;
-                gCurrentSprite.hitboxBottomOffset = 0x8;
-                gCurrentSprite.hitboxLeftOffset = -0x4;
-                gCurrentSprite.hitboxRightOffset = 0x20;
+                gCurrentSprite.hitboxTop = -0x8;
+                gCurrentSprite.hitboxBottom = 0x8;
+                gCurrentSprite.hitboxLeft = -0x4;
+                gCurrentSprite.hitboxRight = 0x20;
         }
     }
 }
@@ -773,7 +773,7 @@ void MotherBrainBeam(void)
 {
     if (gSubSpriteData1.workVariable3 > 0x1)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     }
 
@@ -783,14 +783,14 @@ void MotherBrainBeam(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= (SP_KILL_OFF_SCREEN | SP_IMMUNE_TO_PROJECTILES);
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-            gCurrentSprite.hitboxTopOffset = -0x30;
-            gCurrentSprite.hitboxBottomOffset = 0x30;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x30;
+            gCurrentSprite.hitboxBottom = 0x30;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
 
             gCurrentSprite.pOam = sMotherBrainBeamOam_Moving;
             gCurrentSprite.animationDurationCounter = 0;
@@ -823,14 +823,14 @@ void MotherBrainBlock(void)
 {
     if (gCurrentSprite.pose == 0)
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x10;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+        gCurrentSprite.drawDistanceTop = 0x10;
+        gCurrentSprite.drawDistanceBottom = 0x10;
+        gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-        gCurrentSprite.hitboxTopOffset = -0x20;
-        gCurrentSprite.hitboxBottomOffset = 0x20;
-        gCurrentSprite.hitboxLeftOffset = -0x20;
-        gCurrentSprite.hitboxRightOffset = 0x20;
+        gCurrentSprite.hitboxTop = -0x20;
+        gCurrentSprite.hitboxBottom = 0x20;
+        gCurrentSprite.hitboxLeft = -0x20;
+        gCurrentSprite.hitboxRight = 0x20;
 
         gCurrentSprite.pOam = sMotherBrainBlockOAM;
         gCurrentSprite.animationDurationCounter = 0;
@@ -868,14 +868,14 @@ void MotherBrainGlassBreaking(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x30;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
+            gCurrentSprite.drawDistanceTop = 0x30;
+            gCurrentSprite.drawDistanceBottom = 0x30;
+            gCurrentSprite.drawDistanceHorizontal = 0x50;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sMotherBrainGlassBreakingOam_Breaking;
             gCurrentSprite.animationDurationCounter = 0;

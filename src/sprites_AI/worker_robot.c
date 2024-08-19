@@ -46,8 +46,8 @@ u8 WorkerRobotCheckSamusInFront(void)
 
         samusY = gSamusData.yPosition;
         samusX = gSamusData.xPosition;
-        samusTop = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
-        samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+        samusTop = gSamusData.yPosition + gSamusPhysics.drawDistanceTop;
+        samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottom;
         samusLeft = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
         samusRight = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
 
@@ -72,14 +72,14 @@ u8 WorkerRobotCheckSamusInFront(void)
 
 void WorkerRobotInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x74;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x1C;
-    gCurrentSprite.hitboxRightOffset = 0x1C;
+    gCurrentSprite.hitboxTop = -0x74;
+    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxLeft = -0x1C;
+    gCurrentSprite.hitboxRight = 0x1C;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x28;
-    gCurrentSprite.drawDistanceBottomOffset = 0x0;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x28;
+    gCurrentSprite.drawDistanceBottom = 0x0;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
 
     gCurrentSprite.pOam = sWorkerRobotOAM_Sleeping;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -158,10 +158,10 @@ void WorkerRobotWalkingDetectProjectile(void)
     onSide = FALSE;
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
@@ -175,10 +175,10 @@ void WorkerRobotWalkingDetectProjectile(void)
 
         projY = pProj->yPosition;
         projX = pProj->xPosition;
-        projTop = projY + pProj->hitboxTopOffset;
-        projBottom = projY + pProj->hitboxBottomOffset;
-        projLeft = projX + pProj->hitboxLeftOffset;
-        projRight = projX + pProj->hitboxRightOffset;
+        projTop = projY + pProj->hitboxTop;
+        projBottom = projY + pProj->hitboxBottom;
+        projLeft = projX + pProj->hitboxLeft;
+        projRight = projX + pProj->hitboxRight;
             
         if (!SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
             continue;
@@ -257,7 +257,7 @@ void WorkerRobotStandingInit(void)
 
     gCurrentSprite.work0 = 0x1E;
     gCurrentSprite.work1 = 0x0;
-    gCurrentSprite.hitboxTopOffset = -0x84;
+    gCurrentSprite.hitboxTop = -0x84;
 }
 
 void WorkerRobotStanding(void)
@@ -444,7 +444,7 @@ void WorkerRobotCheckBackToSleepAnimEnded(void)
         gCurrentSprite.pOam = sWorkerRobotOAM_GoingToSleep;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.hitboxTopOffset = -0x74;
+        gCurrentSprite.hitboxTop = -0x74;
     }
 }
 

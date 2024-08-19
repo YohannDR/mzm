@@ -41,10 +41,10 @@ void BlackSpacePirateProjectileCollision(void)
     spriteY = pSprite->yPosition;
     spriteX = pSprite->xPosition;
 
-    spriteTop = spriteY + pSprite->hitboxTopOffset;
-    spriteBottom = spriteY + pSprite->hitboxBottomOffset;
-    spriteLeft = spriteX + pSprite->hitboxLeftOffset;
-    spriteRight = spriteX + pSprite->hitboxRightOffset;
+    spriteTop = spriteY + pSprite->hitboxTop;
+    spriteBottom = spriteY + pSprite->hitboxBottom;
+    spriteLeft = spriteX + pSprite->hitboxLeft;
+    spriteRight = spriteX + pSprite->hitboxRight;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
@@ -227,10 +227,10 @@ void BlackSpacePirateCollidingWithLaser(void)
 
     pirateY = gCurrentSprite.yPosition;
     pirateX = gCurrentSprite.xPosition;
-    pirateTop = pirateY + gCurrentSprite.hitboxTopOffset;
-    pirateBottom = pirateY + gCurrentSprite.hitboxBottomOffset;
-    pirateLeft = pirateX + gCurrentSprite.hitboxLeftOffset;
-    pirateRight = pirateX + gCurrentSprite.hitboxRightOffset;
+    pirateTop = pirateY + gCurrentSprite.hitboxTop;
+    pirateBottom = pirateY + gCurrentSprite.hitboxBottom;
+    pirateLeft = pirateX + gCurrentSprite.hitboxLeft;
+    pirateRight = pirateX + gCurrentSprite.hitboxRight;
 
     laserSize = 4;
 
@@ -266,20 +266,20 @@ void BlackSpacePirateInit(void)
 
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x40;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTop = 0x40;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x28;
 
-    gCurrentSprite.hitboxTopOffset = -0xA0;
-    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxTop = -0xA0;
+    gCurrentSprite.hitboxBottom = 0;
 
     health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.health = health;
     gCurrentSprite.yPositionSpawn = health;
 
-    gCurrentSprite.oamScaling = Q_8_8(1.f);
+    gCurrentSprite.scaling = Q_8_8(1.f);
     gCurrentSprite.work2 = 0;
-    gCurrentSprite.oamRotation = 0;
+    gCurrentSprite.rotation = 0;
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
 
     gCurrentSprite.absolutePaletteRow = 2;
@@ -466,7 +466,7 @@ void BlackSpacePirateJumping(void)
         if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
             return;
 
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             if (SpacePirateCheckSamusInShootingRange())
                 return;
@@ -531,7 +531,7 @@ void BlackSpacePirateJumping(void)
             return;
         }
 
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             speed = gCurrentSprite.work2 / 4;
             if (speed <= 5)
@@ -580,7 +580,7 @@ void BlackSpacePirateJumping(void)
             gCurrentSprite.xPosition -= speed;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (collisions != 0)
         {
@@ -630,7 +630,7 @@ void BlackSpacePirateJumping(void)
             }
             else
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
                 {
                     if (gSpriteDrawOrder[3] == TRUE)
                     {
@@ -812,7 +812,7 @@ void BlackSpacePirateWalkingAlerted(void)
                 gCurrentSprite.work2 = 0;
             }
 
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             {
                 unk_f978(gCurrentSprite.work2 / 4);
 
@@ -869,7 +869,7 @@ void BlackSpacePirateHitByLaser(void)
 {
     u8 timer;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     gCurrentSprite.animationDurationCounter--;
     timer = --gCurrentSprite.work0;
@@ -899,7 +899,7 @@ void BlackSpacePirate(void)
 
     BlackSpacePirateProjectileCollision();
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         alerted = TRUE;
     else
         alerted = FALSE;
@@ -908,17 +908,17 @@ void BlackSpacePirate(void)
     {
         SpacePirateSamusDetection();
 
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             if (gSpriteDrawOrder[2] == TRUE)
                 gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
             else if (gAlarmTimer == 0)
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
         }
         else
         {
             if (gAlarmTimer != 0 && gCurrentSprite.pose != 0)
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
         }
 
         BlackSpacePirateCollidingWithLaser();
@@ -1177,6 +1177,6 @@ void BlackSpacePirate(void)
             BlackSpacePirateDeath(TRUE);
     }
 
-    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400))
+    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN))
         SoundPlayNotAlreadyPlaying(0x169);
 }

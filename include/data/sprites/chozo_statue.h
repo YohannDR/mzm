@@ -36,7 +36,7 @@ extern const struct MultiSpriteData sChozoStatueMultiSpriteData_Seated[2];
 extern const u8 sChozoStatueFlashingPaletteRows[4];
 
 extern const u32 sChozoStatueLongBeamGfx[1335];
-extern const  u16 sChozoStatueLongBeamPal[80];
+extern const u16 sChozoStatueLongBeamPal[80];
 
 extern const struct FrameData sChozoStatuePartOam_LegStanding[2];
 

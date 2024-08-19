@@ -9,20 +9,20 @@
  */
 void ImagoLarvaRightSide(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.pose == 0x0)
     {
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-        gCurrentSprite.hitboxTopOffset = -0x4;
-        gCurrentSprite.hitboxBottomOffset = 0x4;
-        gCurrentSprite.hitboxLeftOffset = -0x4;
-        gCurrentSprite.hitboxRightOffset = 0x4;
+        gCurrentSprite.hitboxTop = -0x4;
+        gCurrentSprite.hitboxBottom = 0x4;
+        gCurrentSprite.hitboxLeft = -0x4;
+        gCurrentSprite.hitboxRight = 0x4;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x30;
-        gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+        gCurrentSprite.drawDistanceTop = 0x30;
+        gCurrentSprite.drawDistanceBottom = 0x8;
+        gCurrentSprite.drawDistanceHorizontal = 0x30;
 
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.pOam = sImagoLarvaRightSideOAM;

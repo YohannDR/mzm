@@ -12,10 +12,10 @@ struct PowerBomb {
     u8 unk_3;
     u16 xPosition;
     u16 yPosition;
-    s16 hitboxLeftOffset;
-    s16 hitboxRightOffset;
-    s16 hitboxTopOffset;
-    s16 hitboxBottomOffset;
+    s16 hitboxLeft;
+    s16 hitboxRight;
+    s16 hitboxTop;
+    s16 hitboxBottom;
     u8 powerBombPlaced;
     u8 owner;
     u8 unk_12;

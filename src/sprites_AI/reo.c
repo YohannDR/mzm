@@ -18,14 +18,14 @@
  */
 void ReoInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x18;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTop = 0x18;
+    gCurrentSprite.drawDistanceBottom = 0x18;
+    gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-    gCurrentSprite.hitboxTopOffset = -0x20;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0x38;
-    gCurrentSprite.hitboxRightOffset = 0x38;
+    gCurrentSprite.hitboxTop = -0x20;
+    gCurrentSprite.hitboxBottom = 0x20;
+    gCurrentSprite.hitboxLeft = -0x38;
+    gCurrentSprite.hitboxRight = 0x38;
 
     gCurrentSprite.pOam = sReoOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -37,7 +37,7 @@ void ReoInit(void)
     SpriteUtilChooseRandomXDirection();
 
     if (0x8 < gSpriteRng)
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
     gCurrentSprite.pose = REO_POSE_IDLE_INIT;
 }
@@ -105,7 +105,7 @@ void ReoMovingInit(void)
 
     gCurrentSprite.xPositionSpawn = gSpriteRng & 0x3;
     gCurrentSprite.pose = REO_POSE_MOVING;
-    gCurrentSprite.oamScaling = 0x20;
+    gCurrentSprite.scaling = 0x20;
 
     gCurrentSprite.pOam = sReoOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -113,10 +113,10 @@ void ReoMovingInit(void)
 
     SpriteUtilMakeSpriteFaceSamusDirection();
 
-    if (gCurrentSprite.yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+    if (gCurrentSprite.yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTop)
+        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     else
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 }
 
 /**
@@ -194,14 +194,14 @@ void ReoMove(void)
         gCurrentSprite.work2 = 1;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
     else
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
 
     if (collision != COLLISION_AIR)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_DOWN;
         gCurrentSprite.work0 = 0;
         gCurrentSprite.work3 = 1;
     }
@@ -275,7 +275,7 @@ void ReoMove(void)
         }
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.work0 == 0)
         {
@@ -297,7 +297,7 @@ void ReoMove(void)
             }
             else
             {
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
                 gCurrentSprite.work3 = 1;
             }
         }
@@ -326,7 +326,7 @@ void ReoMove(void)
             }
             else
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                 gCurrentSprite.work3 = 1;
             }
         }
@@ -334,10 +334,10 @@ void ReoMove(void)
         SpriteUtilCheckOutOfRoomEffect(yPosition, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
     }
 
-    gCurrentSprite.oamScaling--;
-    if (gCurrentSprite.oamScaling == 0)
+    gCurrentSprite.scaling--;
+    if (gCurrentSprite.scaling == 0)
     {
-        gCurrentSprite.oamScaling = 0x20;
+        gCurrentSprite.scaling = 0x20;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(0x158);
     }

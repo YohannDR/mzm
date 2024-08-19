@@ -206,14 +206,14 @@ void RisingChozoPillar(void)
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
             gCurrentSprite.animationDurationCounter = 0;
@@ -225,17 +225,17 @@ void RisingChozoPillar(void)
             if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_GRIP_OBTAINED))
             {
                 gCurrentSprite.pose = RISING_CHOZO_PILLAR_POSE_EXTENDING;
-                gCurrentSprite.oamScaling = 704;
+                gCurrentSprite.scaling = 704;
                 SoundPlay(0x125);
             }
             break;
 
         case RISING_CHOZO_PILLAR_POSE_EXTENDING:
-            if (MOD_AND(gCurrentSprite.oamScaling, 32) == 0)
+            if (MOD_AND(gCurrentSprite.scaling, 32) == 0)
                 ScreenShakeStartVertical(30, 0x80 | 1);
 
-            gCurrentSprite.oamScaling--;
-            if (gCurrentSprite.oamScaling != 0)
+            gCurrentSprite.scaling--;
+            if (gCurrentSprite.scaling != 0)
             {
                 gBg2Movement.yOffset += 2;
             }
@@ -247,8 +247,8 @@ void RisingChozoPillar(void)
 
             debrisY = yPosition + HALF_BLOCK_SIZE;
             debrisX = xPosition + BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
-            RisingChozoPillarRandomSpriteDebris(debrisY, debrisX, MOD_AND(gCurrentSprite.oamScaling, 16));
-            RisingChozoPillarRandomParticles(debrisY, debrisX, MOD_AND(gCurrentSprite.oamScaling, 128));
+            RisingChozoPillarRandomSpriteDebris(debrisY, debrisX, MOD_AND(gCurrentSprite.scaling, 16));
+            RisingChozoPillarRandomParticles(debrisY, debrisX, MOD_AND(gCurrentSprite.scaling, 128));
             break;
 
         case RISING_CHOZO_PILLAR_POSE_SPAWN_3_PLATFORMS:
@@ -282,7 +282,7 @@ void RisingChozoPillar(void)
  */
 void ChozoPillarPlatform(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -292,14 +292,14 @@ void ChozoPillarPlatform(void)
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -357,7 +357,7 @@ void ChozoPillarPlatform(void)
  */
 void ChozoPillarPlatformShadow(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.pose == 0)
     {
@@ -365,14 +365,14 @@ void ChozoPillarPlatformShadow(void)
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = 0;
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = 0;
-        gCurrentSprite.hitboxRightOffset = 0;
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = 0;
+        gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.pose = 8;
 

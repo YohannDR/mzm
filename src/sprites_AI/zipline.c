@@ -101,7 +101,7 @@ u8 ZiplineMoving(void)
         // Release samus
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
 
-        gCurrentSprite.ignoreSamusCollisionTimer = 15;
+        gCurrentSprite.ignoreSamusCollisionTimer = CONVERT_SECONDS(0.25f);
 
         SamusSetPose(SPOSE_MID_AIR_REQUEST);
     }
@@ -302,14 +302,14 @@ void ZiplineUpdateOAM(void)
  */
 void ZiplineInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxTop = -BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.drawDistanceTop = 0x10;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x8;
 
     gCurrentSprite.samusCollision = SSC_ZIPLINE;
     gCurrentSprite.health = ZIPLINE_HEALTH_NOT_MOVING;
@@ -345,7 +345,7 @@ void ZiplineUpdate(void)
     if (!SpriteUtilCheckOnZipline() && gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.ignoreSamusCollisionTimer = 15;
+        gCurrentSprite.ignoreSamusCollisionTimer = CONVERT_SECONDS(0.25f);
     }
 
     ZiplineUpdateOAM();
@@ -380,14 +380,14 @@ void ZiplineButtonInit(void)
 
     gCurrentSprite.yPosition -= BLOCK_SIZE * 2;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + PIXEL_SIZE);
 
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;

@@ -118,14 +118,14 @@ u8 HoltzXMovement(u16 movement)
 void HoltzInit(void)
 {
     SpriteUtilMakeSpriteFaceSamusDirection();
-    gCurrentSprite.drawDistanceTopOffset = 0xC;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTop = 0xC;
+    gCurrentSprite.drawDistanceBottom = 0x18;
+    gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-    gCurrentSprite.hitboxTopOffset = -0x20;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0x28;
-    gCurrentSprite.hitboxRightOffset = 0x28;
+    gCurrentSprite.hitboxTop = -0x20;
+    gCurrentSprite.hitboxBottom = 0x20;
+    gCurrentSprite.hitboxLeft = -0x28;
+    gCurrentSprite.hitboxRight = 0x28;
 
     gCurrentSprite.pOam = sHoltzOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;

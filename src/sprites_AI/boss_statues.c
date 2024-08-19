@@ -135,14 +135,14 @@ void KraidStatueInit(void)
 {
     gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
-    gCurrentSprite.drawDistanceBottomOffset = 0;
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+    gCurrentSprite.drawDistanceBottom = 0;
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = 0;
-    gCurrentSprite.hitboxRightOffset = 0;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = 0;
+    gCurrentSprite.hitboxRight = 0;
 
     gCurrentSprite.bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
     gCurrentSprite.drawOrder = 1;
@@ -367,14 +367,14 @@ void RidleyStatueInit(void)
 {
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = 0;
-    gCurrentSprite.hitboxRightOffset = 0;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = 0;
+    gCurrentSprite.hitboxRight = 0;
 
     gCurrentSprite.bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
     gCurrentSprite.drawOrder = 1;
@@ -542,7 +542,7 @@ void KraidStatue(void)
 {
     struct ProjectileData* pProj;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -607,7 +607,7 @@ void KraidStatue(void)
  */
 void RidleyStatue(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {

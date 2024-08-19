@@ -140,10 +140,10 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
             pProj->type = type;
             pProj->yPosition = yPosition;
             pProj->xPosition = xPosition;
-            pProj->hitboxTopOffset = -0x1;
-            pProj->hitboxBottomOffset = hitbox;
-            pProj->hitboxLeftOffset = -0x1;
-            pProj->hitboxRightOffset = hitbox;
+            pProj->hitboxTop = -0x1;
+            pProj->hitboxBottom = hitbox;
+            pProj->hitboxLeft = -0x1;
+            pProj->hitboxRight = hitbox;
             pProj->movementStage = 0x0;
             pProj->timer = pProj->movementStage;
             pProj->direction = pData->armCannonDirection;
@@ -1140,10 +1140,10 @@ void ProjectileCheckHittingSprite(void)
     {
         o1y = gCurrentPowerBomb.yPosition;
         o1x = gCurrentPowerBomb.xPosition;
-        o1Top = o1y + gCurrentPowerBomb.hitboxTopOffset;
-        o1Bottom = o1y + gCurrentPowerBomb.hitboxBottomOffset;
-        o1Left = o1x + gCurrentPowerBomb.hitboxLeftOffset;
-        o1Right = o1x + gCurrentPowerBomb.hitboxRightOffset;
+        o1Top = o1y + gCurrentPowerBomb.hitboxTop;
+        o1Bottom = o1y + gCurrentPowerBomb.hitboxBottom;
+        o1Left = o1x + gCurrentPowerBomb.hitboxLeft;
+        o1Right = o1x + gCurrentPowerBomb.hitboxRight;
 
         statusCheck = SPRITE_STATUS_EXISTS | SPRITE_STATUS_IGNORE_PROJECTILES;
 
@@ -1153,10 +1153,10 @@ void ProjectileCheckHittingSprite(void)
             {
                 o2y = pSprite->yPosition;
                 o2x = pSprite->xPosition;
-                o2Top = o2y + pSprite->hitboxTopOffset;
-                o2Bottom = o2y + pSprite->hitboxBottomOffset;
-                o2Left = o2x + pSprite->hitboxLeftOffset;
-                o2Right = o2x + pSprite->hitboxRightOffset;
+                o2Top = o2y + pSprite->hitboxTop;
+                o2Bottom = o2y + pSprite->hitboxBottom;
+                o2Left = o2x + pSprite->hitboxLeft;
+                o2Right = o2x + pSprite->hitboxRight;
 
                 if (SpriteUtilCheckObjectsTouching(o2Top, o2Bottom, o2Left, o2Right, o1Top, o1Bottom, o1Left, o1Right))
                     ProjectilePowerBombDealDamage(pSprite);
@@ -1186,10 +1186,10 @@ void ProjectileCheckHittingSprite(void)
             {
                 o1y = pSprite->yPosition;
                 o1x = pSprite->xPosition;
-                o1Top = o1y + pSprite->hitboxTopOffset;
-                o1Bottom = o1y + pSprite->hitboxBottomOffset;
-                o1Left = o1x + pSprite->hitboxLeftOffset;
-                o1Right = o1x + pSprite->hitboxRightOffset;
+                o1Top = o1y + pSprite->hitboxTop;
+                o1Bottom = o1y + pSprite->hitboxBottom;
+                o1Left = o1x + pSprite->hitboxLeft;
+                o1Right = o1x + pSprite->hitboxRight;
 
                 statusCheck = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
                 for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
@@ -1199,10 +1199,10 @@ void ProjectileCheckHittingSprite(void)
                     
                     o2y = pProj->yPosition;
                     o2x = pProj->xPosition;
-                    o2Top = o2y + pProj->hitboxTopOffset;
-                    o2Bottom = o2y + pProj->hitboxBottomOffset;
-                    o2Left = o2x + pProj->hitboxLeftOffset;
-                    o2Right = o2x + pProj->hitboxRightOffset;
+                    o2Top = o2y + pProj->hitboxTop;
+                    o2Bottom = o2y + pProj->hitboxBottom;
+                    o2Left = o2x + pProj->hitboxLeft;
+                    o2Right = o2x + pProj->hitboxRight;
 
                     if (!SpriteUtilCheckObjectsTouching(o1Top, o1Bottom, o1Left, o1Right, o2Top, o2Bottom, o2Left, o2Right))
                         continue;
@@ -1450,7 +1450,7 @@ void ProjectileCheckHittingSprite(void)
                         case PROJ_TYPE_CHARGED_PISTOL:
                             if (pSprite->samusCollision == SSC_SPACE_PIRATE)
                             {
-                                pSprite->standingOnSprite = FALSE;
+                                pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
                                 pSprite->freezeTimer = 60;
                                 pSprite->paletteRow = 1;
                                 pSprite->absolutePaletteRow = 1;
@@ -1524,10 +1524,10 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->paletteRow = 0x0;
-        if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
+        if (pSprite->standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
-            pSprite->standingOnSprite = FALSE;
+            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         }
         pSprite->pose = SPRITE_POSE_DESTROYED;
         pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -1559,10 +1559,10 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->paletteRow = 0x0;
-        if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
+        if (pSprite->standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
-            pSprite->standingOnSprite = FALSE;
+            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         }
         pSprite->pose = SPRITE_POSE_DESTROYED;
         pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -1638,10 +1638,10 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                     pSprite->properties |= SP_DESTROYED;
                     pSprite->freezeTimer = 0x0;
                     pSprite->paletteRow = 0x0;
-                    if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
+                    if (pSprite->standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
                     {
                         gSamusData.standingStatus = STANDING_MIDAIR;
-                        pSprite->standingOnSprite = FALSE;
+                        pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
                     }
                     pSprite->pose = SPRITE_POSE_DESTROYED;
                     pSprite->ignoreSamusCollisionTimer = 0x1;

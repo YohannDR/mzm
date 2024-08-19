@@ -50,22 +50,22 @@ void SidehopperInit(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x8;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.hitboxTopOffset = 0x0;
-        gCurrentSprite.hitboxBottomOffset = 0x5C;
+        gCurrentSprite.drawDistanceTop = 0x8;
+        gCurrentSprite.drawDistanceBottom = 0x28;
+        gCurrentSprite.hitboxTop = 0x0;
+        gCurrentSprite.hitboxBottom = 0x5C;
     }
     else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.hitboxTopOffset = -0x5C;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.drawDistanceTop = 0x28;
+        gCurrentSprite.drawDistanceBottom = 0x8;
+        gCurrentSprite.hitboxTop = -0x5C;
+        gCurrentSprite.hitboxBottom = 0x0;
     }
 
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x1C;
-    gCurrentSprite.hitboxLeftOffset = -0x48;
-    gCurrentSprite.hitboxRightOffset = 0x48;
+    gCurrentSprite.drawDistanceHorizontal = 0x1C;
+    gCurrentSprite.hitboxLeft = -0x48;
+    gCurrentSprite.hitboxRight = 0x48;
 
     gCurrentSprite.pOam = sSidehopperOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -108,9 +108,9 @@ void SidehopperJumpingInit(void)
         gCurrentSprite.work2 = FALSE;
 
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-        gCurrentSprite.hitboxBottomOffset = 0x70;
+        gCurrentSprite.hitboxBottom = 0x70;
     else
-        gCurrentSprite.hitboxTopOffset = -0x70;
+        gCurrentSprite.hitboxTop = -0x70;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x17F);
@@ -129,9 +129,9 @@ void SidehopperLandingInit(void)
     gCurrentSprite.pOam = sSidehopperOAM_Landing;
 
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
-        gCurrentSprite.hitboxBottomOffset = 0x5C;
+        gCurrentSprite.hitboxBottom = 0x5C;
     else
-        gCurrentSprite.hitboxTopOffset = -0x5C;
+        gCurrentSprite.hitboxTop = -0x5C;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x180);
@@ -186,10 +186,10 @@ void SidehopperJumpWarningGround(void)
 {
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == COLLISION_AIR)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousCollisionCheck == COLLISION_AIR)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 SidehopperFallingInit();
@@ -233,7 +233,7 @@ void SidehopperJumpingGround(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 0x4);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 0x4);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -248,7 +248,7 @@ void SidehopperJumpingGround(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 0x4);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 0x4);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -280,12 +280,12 @@ void SidehopperJumpingGround(void)
 
         if (!colliding)
         {
-            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
             else
             {
-                blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
                 if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                     colliding++;
             }
@@ -301,8 +301,8 @@ void SidehopperJumpingGround(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop,
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
 
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
@@ -313,8 +313,8 @@ void SidehopperJumpingGround(void)
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop,
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
 
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
@@ -350,7 +350,7 @@ void SidehopperJumpingCeiling(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 0x4);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 0x4);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -365,7 +365,7 @@ void SidehopperJumpingCeiling(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 0x4);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 0x4);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -386,8 +386,8 @@ void SidehopperJumpingCeiling(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom,
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
 
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
@@ -398,8 +398,8 @@ void SidehopperJumpingCeiling(void)
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom,
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
 
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
@@ -427,12 +427,12 @@ void SidehopperJumpingCeiling(void)
 
         if (!colliding)
         {
-            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (gPreviousVerticalCollisionCheck & 0xF)
                 colliding++;
             else
             {
-                blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
                 if (gPreviousVerticalCollisionCheck & 0xF)
                     colliding++;
             }
@@ -475,13 +475,13 @@ void SidehopperFallingGround(void)
     else
     {
         blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }
@@ -529,13 +529,13 @@ void SidehopperFallingCeiling(void)
     else
     {
         blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }
@@ -574,10 +574,10 @@ void SidehopperIdleGround(void)
         SidehopperJumpWarningInit();
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousCollisionCheck == COLLISION_AIR)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 SidehopperFallingInit();

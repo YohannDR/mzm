@@ -21,13 +21,13 @@ void SkulteraSetSidesHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.hitboxLeftOffset = -SKULTERA_TAIL_HITBOX;
-        gCurrentSprite.hitboxRightOffset = SKULTERA_HEAD_HITBOX;
+        gCurrentSprite.hitboxLeft = -SKULTERA_TAIL_HITBOX;
+        gCurrentSprite.hitboxRight = SKULTERA_HEAD_HITBOX;
     }
     else
     {
-        gCurrentSprite.hitboxLeftOffset = -SKULTERA_HEAD_HITBOX;
-        gCurrentSprite.hitboxRightOffset = SKULTERA_TAIL_HITBOX;
+        gCurrentSprite.hitboxLeft = -SKULTERA_HEAD_HITBOX;
+        gCurrentSprite.hitboxRight = SKULTERA_TAIL_HITBOX;
     }
 }
 
@@ -79,12 +79,12 @@ void SkulteraInit(void)
     // Random direction
     SpriteUtilChooseRandomXFlip();
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
 
     SkulteraSetSidesHitbox();
 
@@ -201,7 +201,7 @@ void SkulteraChasingSamus(void)
     u16 spriteY;
     u32 nslr;
 
-    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop / 2;
     spriteY = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
 
     // Check move vertically

@@ -502,12 +502,12 @@ void RidleyInit(void)
     gCurrentSprite.drawOrder = 8;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x40;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTop = 0x20;
+    gCurrentSprite.drawDistanceBottom = 0x40;
+    gCurrentSprite.drawDistanceHorizontal = 0x28;
 
-    gCurrentSprite.hitboxTopOffset = -0xA0;
-    gCurrentSprite.hitboxBottomOffset = 0x80;
+    gCurrentSprite.hitboxTop = -0xA0;
+    gCurrentSprite.hitboxBottom = 0x80;
     
     // Move in ceiling
     gCurrentSprite.yPosition -= BLOCK_SIZE * 8;
@@ -593,7 +593,7 @@ void RidleyCheckPlayCutscene(void)
 
     inRange = FALSE;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gSamusData.yPosition == RIDLEY_GROUND_POSITION)
     {
@@ -621,7 +621,7 @@ void RidleyCheckPlayCutscene(void)
             gCurrentSprite.work3 = 0;
 
             // Timer
-            gCurrentSprite.oamScaling = 300;
+            gCurrentSprite.scaling = 300;
 
             StartEffectForCutscene(EFFECT_CUTSCENE_RIDLEY_SPAWN);
         }
@@ -730,12 +730,12 @@ void RidleySpawning(void)
 
         case RIDLEY_SPAWNING_ACTION_SPITTING_FIREBALLS:
             // Spawn fireballs
-            if (MOD_AND(gCurrentSprite.oamScaling, 16) == 0)
-                RidleySpawnAscendingFireball(gCurrentSprite.oamScaling);
+            if (MOD_AND(gCurrentSprite.scaling, 16) == 0)
+                RidleySpawnAscendingFireball(gCurrentSprite.scaling);
 
-            if (gCurrentSprite.oamScaling != 0)
+            if (gCurrentSprite.scaling != 0)
             {
-                gCurrentSprite.oamScaling--;
+                gCurrentSprite.scaling--;
 
                 // Check turn if samus is behind
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -1431,7 +1431,7 @@ void RidleySmallFireballsAttackInit(void)
     gCurrentSprite.pose = RIDLEY_POSE_SMALL_FIREBALLS_ATTACK;
     gCurrentSprite.work1 = RIDLEY_SMALL_FIREBALLS_ATTACK_ACTION_GOING_DOWN;
     gCurrentSprite.work3 = 0;
-    gCurrentSprite.oamScaling = 0xB4;
+    gCurrentSprite.scaling = 0xB4;
 }
 
 /**
@@ -1509,12 +1509,12 @@ void RidleySmallFireballsAttack(void)
 
         case RIDLEY_SMALL_FIREBALLS_ATTACK_ACTION_SPITTING_FIREBALLS:
             // Spawn fireball
-            if (!(gCurrentSprite.oamScaling & 0xF))
-                RidleySpawnAscendingFireball(gCurrentSprite.oamScaling);
+            if (!(gCurrentSprite.scaling & 0xF))
+                RidleySpawnAscendingFireball(gCurrentSprite.scaling);
 
-            if (gCurrentSprite.oamScaling != 0)
+            if (gCurrentSprite.scaling != 0)
             {
-                gCurrentSprite.oamScaling--;
+                gCurrentSprite.scaling--;
                 // Check stop attack if samus is behind Ridley
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
@@ -1753,7 +1753,7 @@ void RidleyDying(void)
     u8 rngParam1;
     u8 rngParam2;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.work2 != 0)
     {
@@ -1858,14 +1858,14 @@ void RidleyPartInit(void)
         case RIDLEY_PART_LEFT_WING:
             gCurrentSprite.drawOrder = 0x6;
             
-            gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+            gCurrentSprite.drawDistanceTop = 0x38;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
@@ -1873,14 +1873,14 @@ void RidleyPartInit(void)
         case RIDLEY_PART_HEAD:
             gCurrentSprite.drawOrder = 0x7;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+            gCurrentSprite.drawDistanceTop = 0x20;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x28;
 
-            gCurrentSprite.hitboxTopOffset = -0x40;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x40;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             break;
@@ -1888,14 +1888,14 @@ void RidleyPartInit(void)
         case RIDLEY_PART_CLAW:
             gCurrentSprite.drawOrder = 0x9;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x30;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x30;
+            gCurrentSprite.drawDistanceHorizontal = 0x58;
 
-            gCurrentSprite.hitboxTopOffset = 0x60;
-            gCurrentSprite.hitboxBottomOffset = 0xA0;
-            gCurrentSprite.hitboxLeftOffset = -0xE0;
-            gCurrentSprite.hitboxRightOffset = -0xA0;
+            gCurrentSprite.hitboxTop = 0x60;
+            gCurrentSprite.hitboxBottom = 0xA0;
+            gCurrentSprite.hitboxLeft = -0xE0;
+            gCurrentSprite.hitboxRight = -0xA0;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.work1 = 0;
@@ -1904,14 +1904,14 @@ void RidleyPartInit(void)
         case RIDLEY_PART_TAIL:
             gCurrentSprite.drawOrder = 0x8;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x1;
-            gCurrentSprite.drawDistanceBottomOffset = 0x1;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x1;
+            gCurrentSprite.drawDistanceTop = 0x1;
+            gCurrentSprite.drawDistanceBottom = 0x1;
+            gCurrentSprite.drawDistanceHorizontal = 0x1;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
@@ -1919,14 +1919,14 @@ void RidleyPartInit(void)
         case RIDLEY_PART_RIGHT_WING:
             gCurrentSprite.drawOrder = 0xA;
             
-            gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x38;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
@@ -1995,13 +1995,13 @@ void RidleyPartClawUpdateSidesHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.hitboxLeftOffset = 0xA0;
-        gCurrentSprite.hitboxRightOffset = 0xE0;
+        gCurrentSprite.hitboxLeft = 0xA0;
+        gCurrentSprite.hitboxRight = 0xE0;
     }
     else
     {
-        gCurrentSprite.hitboxLeftOffset = -0xE0;
-        gCurrentSprite.hitboxRightOffset = -0xA0;
+        gCurrentSprite.hitboxLeft = -0xE0;
+        gCurrentSprite.hitboxRight = -0xA0;
     }
 }
 
@@ -2085,26 +2085,26 @@ void RidleyTailInit(void)
 
         gCurrentSprite.yPositionSpawn = 0;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x10;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+        gCurrentSprite.drawDistanceTop = 0x10;
+        gCurrentSprite.drawDistanceBottom = 0x10;
+        gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-        gCurrentSprite.hitboxTopOffset = -0x30;
-        gCurrentSprite.hitboxBottomOffset = 0x30;
-        gCurrentSprite.hitboxLeftOffset = -0x30;
-        gCurrentSprite.hitboxRightOffset = 0x30;
+        gCurrentSprite.hitboxTop = -0x30;
+        gCurrentSprite.hitboxBottom = 0x30;
+        gCurrentSprite.hitboxLeft = -0x30;
+        gCurrentSprite.hitboxRight = 0x30;
     }
     else
     {
         // Initialize parts
-        gCurrentSprite.drawDistanceTopOffset = 0x8;
-        gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+        gCurrentSprite.drawDistanceTop = 0x8;
+        gCurrentSprite.drawDistanceBottom = 0x8;
+        gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-        gCurrentSprite.hitboxTopOffset = -0x20;
-        gCurrentSprite.hitboxBottomOffset = 0x20;
-        gCurrentSprite.hitboxLeftOffset = -0x20;
-        gCurrentSprite.hitboxRightOffset = 0x20;
+        gCurrentSprite.hitboxTop = -0x20;
+        gCurrentSprite.hitboxBottom = 0x20;
+        gCurrentSprite.hitboxLeft = -0x20;
+        gCurrentSprite.hitboxRight = 0x20;
     }
 }
 
@@ -2464,14 +2464,14 @@ void RidleyFireballCheckSlideOnWall(void)
         {
             // Check wall on right
             if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset) != COLLISION_AIR)
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxRight) != COLLISION_AIR)
                 gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_SLIDE_ON_WALL_INIT;
         }
         else
         {
             // Check wall on left
             if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset) != COLLISION_AIR)
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft) != COLLISION_AIR)
                 gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_SLIDE_ON_WALL_INIT;
         }
     }
@@ -2493,28 +2493,28 @@ void RidleyFireballInit(void)
     if (gCurrentSprite.spriteId == SSPRITE_RIDLEY_BIG_FIREBALL)
     {
         // Big fireball
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.hitboxBottomOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxBottom = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxRight = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
         gCurrentSprite.pOam = sRidleyFireballOam_Big;
     }
     else
     {
         // Small fireball
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -0x1C;
-        gCurrentSprite.hitboxBottomOffset = 0x1C;
-        gCurrentSprite.hitboxLeftOffset = -0x1C;
-        gCurrentSprite.hitboxRightOffset = 0x1C;
+        gCurrentSprite.hitboxTop = -0x1C;
+        gCurrentSprite.hitboxBottom = 0x1C;
+        gCurrentSprite.hitboxLeft = -0x1C;
+        gCurrentSprite.hitboxRight = 0x1C;
 
         gCurrentSprite.pOam = sRidleyFireballOam_Small;
     }
@@ -2523,7 +2523,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
-    gCurrentSprite.oamRotation = 0;
+    gCurrentSprite.rotation = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -2533,14 +2533,14 @@ void RidleyFireballInit(void)
     {
         // Diagonal pattern (when Samus is grabbed)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_NO_KNOCKBACK;
-        gCurrentSprite.oamScaling = Q_8_8(.5f);
+        gCurrentSprite.scaling = Q_8_8(.5f);
         gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_MOVE_DIAGONAL_PATTERN;
     }
     else if (gCurrentSprite.roomSlot & RIDLEY_FIREBALL_PART_FLOATING_PATTERN)
     {
         // Floating pattern (big fireballs)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
-        gCurrentSprite.oamScaling = Q_8_8(1.f);
+        gCurrentSprite.scaling = Q_8_8(1.f);
         gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_MOVE_FLOATING_PATTERN;
     }
     else
@@ -2548,14 +2548,14 @@ void RidleyFireballInit(void)
         // Descending pattern (small fireballs)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
 
-        gCurrentSprite.oamScaling = Q_8_8(.5f);
+        gCurrentSprite.scaling = Q_8_8(.5f);
 
         gCurrentSprite.work0 = 16;
         gCurrentSprite.work2 = 0;
         gCurrentSprite.pose = RIDLEY_FIREBALL_POSE_MOVE_DESCENDING_PATTERN;
 
         if (gCurrentSprite.yPosition < gSamusData.yPosition)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
     }
 }
 
@@ -2565,10 +2565,10 @@ void RidleyFireballInit(void)
  */
 void RidleyFireballMoveDiagonalPattern(void)
 {
-    if (gCurrentSprite.oamScaling < Q_8_8(.94f))
+    if (gCurrentSprite.scaling < Q_8_8(.94f))
     {
         gCurrentSprite.yPosition = gSpriteData[gCurrentSprite.primarySpriteRamSlot].yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE);
-        gCurrentSprite.oamScaling += Q_8_8(.065f);
+        gCurrentSprite.scaling += Q_8_8(.065f);
     }
     else
     {
@@ -2630,8 +2630,8 @@ void RidleyFireballMoveDescendingPattern(void)
     
     movement = gCurrentSprite.work2++;
 
-    if (gCurrentSprite.oamScaling < Q_8_8(.94f))
-        gCurrentSprite.oamScaling += Q_8_8(.065f);
+    if (gCurrentSprite.scaling < Q_8_8(.94f))
+        gCurrentSprite.scaling += Q_8_8(.065f);
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.xPosition += movement;
@@ -2787,13 +2787,13 @@ void Ridley(void)
 
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            gCurrentSprite.hitboxLeftOffset = -0x60;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxLeft = -0x60;
+            gCurrentSprite.hitboxRight = 0x80;
         }
         else
         {
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = 0x60;
         }
 
         if (gSamusData.yPosition < (BLOCK_SIZE * 13 - 1) && !(gSpriteData[gSubSpriteData1.workVariable5].status & SPRITE_STATUS_SAMUS_COLLIDING))
@@ -2836,7 +2836,7 @@ void RidleyTail(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_NOT_DRAWN))
             gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
@@ -2983,7 +2983,7 @@ void RidleyPart(void)
 
     if (part != RIDLEY_PART_TAIL && gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_NOT_DRAWN))
             gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
@@ -3064,7 +3064,7 @@ void RidleyFireball(void)
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.oamRotation += 0x20;
+        gCurrentSprite.rotation += 0x20;
     else
-        gCurrentSprite.oamRotation -= 0x20;
+        gCurrentSprite.rotation -= 0x20;
 }

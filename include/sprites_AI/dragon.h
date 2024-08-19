@@ -18,10 +18,10 @@
 void DragonYMovement(void);
 void DragonInit(void);
 void DragonIdleInit(void);
-void DragonGoUp(void);
+void DragonIdle(void);
 void DragonTurningAroundInit(void);
-void DragonCheckTurningAroundFirstHalfAnimEnded(void);
-void DragonCheckTurningAroundSecondHalfAnimEnded(void);
+void DragonTurningAroundFirstHalf(void);
+void DragonTurningAroundSecondHalf(void);
 void DragonWarningInit(void);
 void DragonWarning(void);
 void DragonSpit(void);

@@ -16,10 +16,10 @@
  */
 void WaterDropInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 1;
@@ -36,7 +36,7 @@ void WaterDrop(void)
     u32 block;
     s32 movement;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -45,9 +45,9 @@ void WaterDrop(void)
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.pOam = sWaterDropOam_Spawning;

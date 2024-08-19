@@ -85,10 +85,10 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0x8;
-        pProj->hitboxBottomOffset = 0x8;
-        pProj->hitboxLeftOffset = -0x8;
-        pProj->hitboxRightOffset = 0x8;
+        pProj->hitboxTop = -0x8;
+        pProj->hitboxBottom = 0x8;
+        pProj->hitboxLeft = -0x8;
+        pProj->hitboxRight = 0x8;
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
     }
@@ -163,10 +163,10 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
        pProj->animationDurationCounter = 0x0;
        pProj->currentAnimationFrame = 0x0;
-       pProj->hitboxTopOffset = -0xC;
-       pProj->hitboxBottomOffset = 0xC;
-       pProj->hitboxLeftOffset = -0xC;
-       pProj->hitboxRightOffset = 0xC;
+       pProj->hitboxTop = -0xC;
+       pProj->hitboxBottom = 0xC;
+       pProj->hitboxLeft = -0xC;
+       pProj->hitboxRight = 0xC;
        pProj->movementStage = 0x1;
        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
        pProj->timer++;
@@ -242,10 +242,10 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0x14;
-        pProj->hitboxBottomOffset = 0x14;
-        pProj->hitboxLeftOffset = -0x14;
-        pProj->hitboxRightOffset = 0x14;
+        pProj->hitboxTop = -0x14;
+        pProj->hitboxBottom = 0x14;
+        pProj->hitboxLeft = -0x14;
+        pProj->hitboxRight = 0x14;
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
     }
@@ -401,27 +401,27 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
                 pProj->pOam = sWaveBeamOAM_Diagonal;
-                pProj->hitboxTopOffset = -0x10;
-                pProj->hitboxBottomOffset = 0x40;
-                pProj->hitboxLeftOffset = -0x28;
-                pProj->hitboxRightOffset = 0x28;
+                pProj->hitboxTop = -0x10;
+                pProj->hitboxBottom = 0x40;
+                pProj->hitboxLeft = -0x28;
+                pProj->hitboxRight = 0x28;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
                 pProj->pOam = sWaveBeamOAM_Vertical;
-                pProj->hitboxTopOffset = -0x14;
-                pProj->hitboxBottomOffset = 0x14;
-                pProj->hitboxLeftOffset = -0x40;
-                pProj->hitboxRightOffset = 0x40;
+                pProj->hitboxTop = -0x14;
+                pProj->hitboxBottom = 0x14;
+                pProj->hitboxLeft = -0x40;
+                pProj->hitboxRight = 0x40;
                 break;
             default:
             case ACD_FORWARD:
                 pProj->pOam = sWaveBeamOAM_Horizontal;
-                pProj->hitboxTopOffset = -0x40;
-                pProj->hitboxBottomOffset = 0x40;
-                pProj->hitboxLeftOffset = -0x14;
-                pProj->hitboxRightOffset = 0x14;
+                pProj->hitboxTop = -0x40;
+                pProj->hitboxBottom = 0x40;
+                pProj->hitboxLeft = -0x14;
+                pProj->hitboxRight = 0x14;
         }
 
         pProj->drawDistanceOffset = 0xA0;
@@ -486,10 +486,10 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sPlasmaBeamOAM_Diagonal_Wave;
-                    pProj->hitboxTopOffset = -0x10;
-                    pProj->hitboxBottomOffset = 0x40;
-                    pProj->hitboxLeftOffset = -0x30;
-                    pProj->hitboxRightOffset = 0x30;
+                    pProj->hitboxTop = -0x10;
+                    pProj->hitboxBottom = 0x40;
+                    pProj->hitboxLeft = -0x30;
+                    pProj->hitboxRight = 0x30;
                 }
                 else
                     pProj->pOam = sPlasmaBeamOAM_Diagonal_NoWave;
@@ -501,10 +501,10 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sPlasmaBeamOAM_Vertical_Wave;
-                    pProj->hitboxTopOffset = -0x20;
-                    pProj->hitboxBottomOffset = 0x20;
-                    pProj->hitboxLeftOffset = -0x40;
-                    pProj->hitboxRightOffset = 0x40;
+                    pProj->hitboxTop = -0x20;
+                    pProj->hitboxBottom = 0x20;
+                    pProj->hitboxLeft = -0x40;
+                    pProj->hitboxRight = 0x40;
                 }
                 else
                     pProj->pOam = sPlasmaBeamOAM_Vertical_NoWave;
@@ -515,10 +515,10 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sPlasmaBeamOAM_Horizontal_Wave;
-                    pProj->hitboxTopOffset = -0x40;
-                    pProj->hitboxBottomOffset = 0x40;
-                    pProj->hitboxLeftOffset = -0x20;
-                    pProj->hitboxRightOffset = 0x20;
+                    pProj->hitboxTop = -0x40;
+                    pProj->hitboxBottom = 0x40;
+                    pProj->hitboxLeft = -0x20;
+                    pProj->hitboxRight = 0x20;
                 }
                 else
                     pProj->pOam = sPlasmaBeamOAM_Horizontal_NoWave;
@@ -532,10 +532,10 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
         else
         {
             pProj->drawDistanceOffset = 0x50;
-            pProj->hitboxTopOffset = -0x14;
-            pProj->hitboxBottomOffset = 0x14;
-            pProj->hitboxLeftOffset = -0x14;
-            pProj->hitboxRightOffset = 0x14;
+            pProj->hitboxTop = -0x14;
+            pProj->hitboxBottom = 0x14;
+            pProj->hitboxLeft = -0x14;
+            pProj->hitboxRight = 0x14;
         }
 
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
@@ -614,10 +614,10 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0x4;
-        pProj->hitboxBottomOffset = 0x4;
-        pProj->hitboxLeftOffset = -0x4;
-        pProj->hitboxRightOffset = 0x4;
+        pProj->hitboxTop = -0x4;
+        pProj->hitboxBottom = 0x4;
+        pProj->hitboxLeft = -0x4;
+        pProj->hitboxRight = 0x4;
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
         pProj->timer++;
@@ -684,10 +684,10 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
 
-        pProj->hitboxTopOffset = -0xC;
-        pProj->hitboxBottomOffset = 0xC;
-        pProj->hitboxLeftOffset = -0xC;
-        pProj->hitboxRightOffset= 0xC;
+        pProj->hitboxTop = -0xC;
+        pProj->hitboxBottom = 0xC;
+        pProj->hitboxLeft = -0xC;
+        pProj->hitboxRight= 0xC;
 
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
@@ -757,10 +757,10 @@ void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
 
-        pProj->hitboxTopOffset = -0x10;
-        pProj->hitboxBottomOffset = 0x10;
-        pProj->hitboxLeftOffset = -0x10;
-        pProj->hitboxRightOffset = 0x10;
+        pProj->hitboxTop = -0x10;
+        pProj->hitboxBottom = 0x10;
+        pProj->hitboxLeft = -0x10;
+        pProj->hitboxRight = 0x10;
 
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
@@ -832,10 +832,10 @@ void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
 
-        pProj->hitboxTopOffset = -0x18;
-        pProj->hitboxBottomOffset = 0x18;
-        pProj->hitboxLeftOffset = -0x18;
-        pProj->hitboxRightOffset = 0x18;
+        pProj->hitboxTop = -0x18;
+        pProj->hitboxBottom = 0x18;
+        pProj->hitboxLeft = -0x18;
+        pProj->hitboxRight = 0x18;
 
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
@@ -882,10 +882,10 @@ void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
             case ACD_DIAGONALLY_UP:
                 pProj->pOam = sChargedWaveBeamOAM_Diagonal;
 
-                pProj->hitboxTopOffset = -0x10;
-                pProj->hitboxBottomOffset = 0x48;
-                pProj->hitboxLeftOffset = -0x30;
-                pProj->hitboxRightOffset = 0x30;
+                pProj->hitboxTop = -0x10;
+                pProj->hitboxBottom = 0x48;
+                pProj->hitboxLeft = -0x30;
+                pProj->hitboxRight = 0x30;
                 break;
 
             case ACD_DOWN:
@@ -893,20 +893,20 @@ void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
             case ACD_UP:
                 pProj->pOam = sChargedWaveBeamOAM_Vertical;
 
-                pProj->hitboxTopOffset = -0x14;
-                pProj->hitboxBottomOffset = 0x14;
-                pProj->hitboxLeftOffset = -0x48;
-                pProj->hitboxRightOffset = 0x48;
+                pProj->hitboxTop = -0x14;
+                pProj->hitboxBottom = 0x14;
+                pProj->hitboxLeft = -0x48;
+                pProj->hitboxRight = 0x48;
                 break;
 
             case ACD_FORWARD:
             default:
                 pProj->pOam = sChargedWaveBeamOAM_Horizontal;
 
-                pProj->hitboxTopOffset = -0x48;
-                pProj->hitboxBottomOffset = 0x48;
-                pProj->hitboxLeftOffset = -0x14;
-                pProj->hitboxRightOffset = 0x14;
+                pProj->hitboxTop = -0x48;
+                pProj->hitboxBottom = 0x48;
+                pProj->hitboxLeft = -0x14;
+                pProj->hitboxRight = 0x14;
         }
 
         pProj->drawDistanceOffset = 0xC0;
@@ -984,10 +984,10 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sChargedPlasmaBeamOAM_Diagonal_Wave;
-                    pProj->hitboxTopOffset = -0x10;
-                    pProj->hitboxBottomOffset = 0x48;
-                    pProj->hitboxLeftOffset = -0x38;
-                    pProj->hitboxRightOffset = 0x38;
+                    pProj->hitboxTop = -0x10;
+                    pProj->hitboxBottom = 0x48;
+                    pProj->hitboxLeft = -0x38;
+                    pProj->hitboxRight = 0x38;
                 }
                 else
                     pProj->pOam = sChargedPlasmaBeamOAM_Diagonal_NoWave;
@@ -999,10 +999,10 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sChargedPlasmaBeamOAM_Vertical_Wave;
-                    pProj->hitboxTopOffset = -0x24;
-                    pProj->hitboxBottomOffset = 0x24;
-                    pProj->hitboxLeftOffset = -0x48;
-                    pProj->hitboxRightOffset = 0x48;
+                    pProj->hitboxTop = -0x24;
+                    pProj->hitboxBottom = 0x24;
+                    pProj->hitboxLeft = -0x48;
+                    pProj->hitboxRight = 0x48;
                 }
                 else
                     pProj->pOam = sChargedPlasmaBeamOAM_Vertical_NoWave;
@@ -1013,10 +1013,10 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
                 if (hasWave)
                 {
                     pProj->pOam = sChargedPlasmaBeamOAM_Horizontal_Wave;
-                    pProj->hitboxTopOffset = -0x48;
-                    pProj->hitboxBottomOffset = 0x48;
-                    pProj->hitboxLeftOffset = -0x24;
-                    pProj->hitboxRightOffset = 0x24;
+                    pProj->hitboxTop = -0x48;
+                    pProj->hitboxBottom = 0x48;
+                    pProj->hitboxLeft = -0x24;
+                    pProj->hitboxRight = 0x24;
                 }
                 else
                     pProj->pOam = sChargedPlasmaBeamOAM_Horizontal_NoWave;
@@ -1035,10 +1035,10 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
         else
         {
             pProj->drawDistanceOffset = 0xC0;
-            pProj->hitboxTopOffset = -0x18;
-            pProj->hitboxBottomOffset = 0x18;
-            pProj->hitboxLeftOffset = -0x18;
-            pProj->hitboxRightOffset = 0x18;
+            pProj->hitboxTop = -0x18;
+            pProj->hitboxBottom = 0x18;
+            pProj->hitboxLeft = -0x18;
+            pProj->hitboxRight = 0x18;
         }
     }
 
@@ -1113,10 +1113,10 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0xC;
-        pProj->hitboxBottomOffset = 0xC;
-        pProj->hitboxLeftOffset = -0xC;
-        pProj->hitboxRightOffset = 0xC;
+        pProj->hitboxTop = -0xC;
+        pProj->hitboxBottom = 0xC;
+        pProj->hitboxLeft = -0xC;
+        pProj->hitboxRight = 0xC;
         pProj->movementStage = 0x1;
         ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
         pProj->timer++;
@@ -1207,10 +1207,10 @@ void ProjectileProcessMissile(struct ProjectileData* pProj)
         ProjectileDecrementMissileCounter(pProj);
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0x8;
-        pProj->hitboxBottomOffset = 0x8;
-        pProj->hitboxLeftOffset = -0x8;
-        pProj->hitboxRightOffset = 0x8;
+        pProj->hitboxTop = -0x8;
+        pProj->hitboxBottom = 0x8;
+        pProj->hitboxLeft = -0x8;
+        pProj->hitboxRight = 0x8;
         pProj->movementStage++;
         ProjectileCheckHitBlock(pProj, CAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
     }
@@ -1306,10 +1306,10 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
         ProjectileDecrementSuperMissileCounter(pProj);
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
-        pProj->hitboxTopOffset = -0xC;
-        pProj->hitboxBottomOffset = 0xC;
-        pProj->hitboxLeftOffset = -0xC;
-        pProj->hitboxRightOffset = 0xC;
+        pProj->hitboxTop = -0xC;
+        pProj->hitboxBottom = 0xC;
+        pProj->hitboxLeft = -0xC;
+        pProj->hitboxRight = 0xC;
         pProj->movementStage++;
         ProjectileCheckHitBlock(pProj, CAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
     }
@@ -1343,17 +1343,17 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 
     samusY = gSamusData.yPosition;
     samusX = gSamusData.xPosition;
-    samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
-    samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+    samusTop = samusY + gSamusPhysics.drawDistanceTop;
+    samusBottom = samusY + gSamusPhysics.drawDistanceBottom;
     samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
     samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
 
     projY = pProj->yPosition;
     projX = pProj->xPosition;
-    projTop = projY + pProj->hitboxTopOffset;
-    projBottom = projY + pProj->hitboxBottomOffset;
-    projLeft = projX + pProj->hitboxLeftOffset;
-    projRight = projX + pProj->hitboxRightOffset;
+    projTop = projY + pProj->hitboxTop;
+    projBottom = projY + pProj->hitboxBottom;
+    projLeft = projX + pProj->hitboxLeft;
+    projRight = projX + pProj->hitboxRight;
 
     if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight, projTop, projBottom, projLeft, projRight) && gSamusData.invincibilityTimer == 0x0)
     {
@@ -1398,17 +1398,17 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
         !(ClipdataProcess(samusY - (BLOCK_SIZE + HALF_BLOCK_SIZE), samusX) & CLIPDATA_TYPE_SOLID_FLAG))
     {
         previousX = gPreviousXPosition;
-        samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
-        samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+        samusTop = samusY + gSamusPhysics.drawDistanceTop;
+        samusBottom = samusY + gSamusPhysics.drawDistanceBottom;
         samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
         samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
 
         projY = pProj->yPosition;
         projX = pProj->xPosition;
-        projTop = projY + pProj->hitboxTopOffset;
-        projBottom = projY + pProj->hitboxBottomOffset;
-        projLeft = projX + pProj->hitboxLeftOffset;
-        projRight = projX + pProj->hitboxRightOffset;
+        projTop = projY + pProj->hitboxTop;
+        projBottom = projY + pProj->hitboxBottom;
+        projLeft = projX + pProj->hitboxLeft;
+        projRight = projX + pProj->hitboxRight;
 
         if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight,
             projTop, projBottom, projLeft, projRight))
@@ -1452,10 +1452,10 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
             pProj->animationDurationCounter = 0x0;
             pProj->currentAnimationFrame = 0x0;
             pProj->drawDistanceOffset = 0x20;
-            pProj->hitboxTopOffset = -0x3C;
-            pProj->hitboxBottomOffset = 0x30;
-            pProj->hitboxLeftOffset = -0x30;
-            pProj->hitboxRightOffset = 0x30;
+            pProj->hitboxTop = -0x3C;
+            pProj->hitboxBottom = 0x30;
+            pProj->hitboxLeft = -0x30;
+            pProj->hitboxRight = 0x30;
             pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_XFLIP); // Clear Not Drawn and X Flip status, X Flip is cleared to make it always face the same way, cancelling the automatic X Flip if samus is facing right
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
             pProj->timer = 0x10; // Timer before the bomb starts spinning faster
@@ -1598,10 +1598,10 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             pProj->animationDurationCounter = 0x0;
             pProj->currentAnimationFrame = 0x0;
             pProj->drawDistanceOffset = 0x20;
-            pProj->hitboxTopOffset = -0x10;
-            pProj->hitboxBottomOffset = 0x10;
-            pProj->hitboxLeftOffset = -0x10;
-            pProj->hitboxRightOffset = 0x10;
+            pProj->hitboxTop = -0x10;
+            pProj->hitboxBottom = 0x10;
+            pProj->hitboxLeft = -0x10;
+            pProj->hitboxRight = 0x10;
             pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_XFLIP);
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
             pProj->timer = 0x36;

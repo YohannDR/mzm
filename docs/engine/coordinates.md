@@ -9,7 +9,7 @@ The following table describes the convertion between them :
 | 4            | 1         | 0.0625     |
 | 64           | 16        | 1          |
 
-Conversions can be made between each unit with simple multiplciation and division, however there are macros defined in [macros.h](../../include/macros.h) that can be used to do the conversions.
+Conversions can be made between each unit with simple multiplication and division, however there are macros defined in [macros.h](../../include/macros.h#L165) that can be used to do the conversions.
 
 Most of the coordinates used in the game are in sub-pixel units (position, hitboxes).
 There are a few coordinates that are in block units (doors, hatches).

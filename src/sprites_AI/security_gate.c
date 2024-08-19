@@ -86,13 +86,13 @@ void SecurityGateDefaultOpenInit(void)
         gCurrentSprite.pose = 0x9;
     }
 
-    gCurrentSprite.hitboxTopOffset = -0x100;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x18;
-    gCurrentSprite.hitboxRightOffset = 0x18;
-    gCurrentSprite.drawDistanceTopOffset = 0x40;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.hitboxTop = -0x100;
+    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxLeft = -0x18;
+    gCurrentSprite.hitboxRight = 0x18;
+    gCurrentSprite.drawDistanceTop = 0x40;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x8;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;
@@ -201,13 +201,13 @@ void SecurityGateDefaultClosedInit(void)
         SecurityGateChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
     }
 
-    gCurrentSprite.hitboxTopOffset = -0x100;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x18;
-    gCurrentSprite.hitboxRightOffset = 0x18;
-    gCurrentSprite.drawDistanceTopOffset = 0x40;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.hitboxTop = -0x100;
+    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxLeft = -0x18;
+    gCurrentSprite.hitboxRight = 0x18;
+    gCurrentSprite.drawDistanceTop = 0x40;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x8;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;
@@ -248,7 +248,7 @@ void SecurityGateDefaultClosedCloseAfterAlarm(void)
  */
 void SecurityGateDefaultOpen(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
@@ -277,7 +277,7 @@ void SecurityGateDefaultOpen(void)
  */
 void SecurityGateDefaultClosed(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

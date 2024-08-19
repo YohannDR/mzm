@@ -74,22 +74,22 @@ void DessgeegaInit(void)
     gCurrentSprite.work0 = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x8;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.hitboxTopOffset = 0x0;
-        gCurrentSprite.hitboxBottomOffset = 0x58;
+        gCurrentSprite.drawDistanceTop = 0x8;
+        gCurrentSprite.drawDistanceBottom = 0x28;
+        gCurrentSprite.hitboxTop = 0x0;
+        gCurrentSprite.hitboxBottom = 0x58;
     }
     else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.hitboxTopOffset = -0x58;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.drawDistanceTop = 0x28;
+        gCurrentSprite.drawDistanceBottom = 0x8;
+        gCurrentSprite.hitboxTop = -0x58;
+        gCurrentSprite.hitboxBottom = 0x0;
     }
 
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
-    gCurrentSprite.hitboxLeftOffset = -0x40;
-    gCurrentSprite.hitboxRightOffset = 0x40;
+    gCurrentSprite.drawDistanceHorizontal = 0x18;
+    gCurrentSprite.hitboxLeft = -0x40;
+    gCurrentSprite.hitboxRight = 0x40;
 
     gCurrentSprite.pOam = sDessgeegaOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -201,11 +201,11 @@ void DessgeegaJumpWarningGround(void)
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == COLLISION_AIR)
     {
         // Check right block
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousCollisionCheck == COLLISION_AIR)
         {
             // Check left block
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 DessgeegaFallingInit();
@@ -248,7 +248,7 @@ void DessgeegaJumpingGround(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check colliding with wall on right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
@@ -262,7 +262,7 @@ void DessgeegaJumpingGround(void)
     else
     {
         // Check colliding with wall on left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
@@ -300,12 +300,12 @@ void DessgeegaJumpingGround(void)
         {
             // Block on right
             topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (gPreviousVerticalCollisionCheck == COLLISION_AIR)
             {
                 // Block on left
                 topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                    gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                    gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
                 if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                     collision = TRUE;
 
@@ -324,7 +324,7 @@ void DessgeegaJumpingGround(void)
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             // Check block on top right
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
                 // Set falling behavior
@@ -336,7 +336,7 @@ void DessgeegaJumpingGround(void)
         else
         {
             // Check block on top left
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
                 // Set falling behavior
@@ -372,7 +372,7 @@ void DessgeegaJumpingCeiling(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check colliding with wall on right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
@@ -386,7 +386,7 @@ void DessgeegaJumpingCeiling(void)
     else
     {
         // Check colliding with wall on left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
@@ -410,7 +410,7 @@ void DessgeegaJumpingCeiling(void)
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             // Check block on bottom right
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
                 // Set falling behavior
@@ -422,7 +422,7 @@ void DessgeegaJumpingCeiling(void)
         else
         {
             // Check block on bottom left
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_SOLID)
             {
                 // Set falling behavior
@@ -456,12 +456,12 @@ void DessgeegaJumpingCeiling(void)
         {
             // Block on right
             topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
             if (!(gPreviousVerticalCollisionCheck & 0xF))
             {
                 // Block on left
                 topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                    gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                    gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
                 if (gPreviousVerticalCollisionCheck & 0xF)
                     collision = TRUE;
 
@@ -505,13 +505,13 @@ void DessgeegaFallingGround(void)
     else
     {
         topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
             topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
-                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }
@@ -559,12 +559,12 @@ void DessgeegaFallingCeiling(void)
         colliding++;
     else
     {
-        topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
-            topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }
@@ -604,10 +604,10 @@ void DessgeegaIdleGround(void)
         DessgeegaJumpWarningInit();
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
         if (gPreviousCollisionCheck == COLLISION_AIR)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 DessgeegaFallingInit();
@@ -682,7 +682,7 @@ void DessgeegaLongBeamDetectSamus(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     // Detect samus

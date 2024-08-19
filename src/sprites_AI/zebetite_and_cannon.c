@@ -61,14 +61,14 @@ void Zebetite(void)
             return;
         }
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3);
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 3);
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
         gCurrentSprite.frozenPaletteRowOffset = 1;
         gCurrentSprite.samusCollision = SSC_ZEBETITE;
@@ -80,7 +80,7 @@ void Zebetite(void)
         gCurrentSprite.drawOrder = 5;
         spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.health = spawnHealth;
-        gCurrentSprite.oamScaling = spawnHealth;
+        gCurrentSprite.scaling = spawnHealth;
 
         gCurrentSprite.pose = 9;
 
@@ -94,7 +94,7 @@ void Zebetite(void)
 
     phase = (maxHealth - gCurrentSprite.health) / ZEBETITE_HEALTH_THRESHOLD;
 
-    if (gCurrentSprite.health == gCurrentSprite.oamScaling)
+    if (gCurrentSprite.health == gCurrentSprite.scaling)
     {
         if (phase != 0)
         {
@@ -114,7 +114,7 @@ void Zebetite(void)
             gCurrentSprite.work0 = ZEBETITE_HEAL_TIMER;
     }
 
-    gCurrentSprite.oamScaling = gCurrentSprite.health;
+    gCurrentSprite.scaling = gCurrentSprite.health;
 
     switch (phase)
     {
@@ -285,7 +285,7 @@ void Cannon(void)
     u16 samusX;
     u16 range;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
     {
@@ -300,14 +300,14 @@ void Cannon(void)
 
     if (gCurrentSprite.pose == 0)
     {
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-        gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-        gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+        gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+        gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+        gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
         gCurrentSprite.frozenPaletteRowOffset = 1;
         gCurrentSprite.samusCollision = SSC_NONE;
@@ -709,14 +709,14 @@ void CannonBullet(void)
                 gCurrentSprite.drawOrder = 2,
                 gCurrentSprite.health = 0;
 
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-                gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-                gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-                gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-                gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+                gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+                gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+                gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+                gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
                 gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
                 gCurrentSprite.pose = 9;

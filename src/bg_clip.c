@@ -187,7 +187,7 @@ void BgClipApplyClipdataChangingTransparency(void)
     xPosition = position >> 6;
 
     // Get Y position
-    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 1);
+    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTop >> 1);
     CLAMP2(position, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
     yPosition = position >> 6;
 
@@ -280,7 +280,7 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
 
     xPosition = (u32)behavior / BLOCK_SIZE;
 
-    behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+    behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottom;
     yPosition = (u32)(behavior + 2) / BLOCK_SIZE;
 
     if (yPosition > gBgPointersAndDimensions.clipdataHeight)
@@ -344,11 +344,11 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     // Get Y position
     if (!goingDown)
     {
-        position = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset + BLOCK_SIZE * 2;
+        position = gSamusData.yPosition + gSamusPhysics.drawDistanceBottom + BLOCK_SIZE * 2;
     }
     else
     {
-        position = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset - BLOCK_SIZE * 2;
+        position = gSamusData.yPosition + gSamusPhysics.drawDistanceTop - BLOCK_SIZE * 2;
     }
 
     behavior = position;
@@ -417,17 +417,17 @@ void BgClipCheckTouchingTransitionOrTank(void)
 
     // Get Y positions
     // Center
-    j = (gSamusPhysics.drawDistanceTopOffset >> 1) + gSamusData.yPosition;
+    j = (gSamusPhysics.drawDistanceTop >> 1) + gSamusData.yPosition;
     CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
     yPositions[0] = j >> 6;
 
     // Bottom
-    j = (gSamusPhysics.drawDistanceTopOffset >> 2) + gSamusData.yPosition;
+    j = (gSamusPhysics.drawDistanceTop >> 2) + gSamusData.yPosition;
     CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
     yPositions[1] = j >> 6;
 
     // Top
-    j = (gSamusPhysics.drawDistanceTopOffset >> 2) + (gSamusPhysics.drawDistanceTopOffset >> 1) + gSamusData.yPosition;
+    j = (gSamusPhysics.drawDistanceTop >> 2) + (gSamusPhysics.drawDistanceTop >> 1) + gSamusData.yPosition;
     CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
     yPositions[2] = j >> 6;
 

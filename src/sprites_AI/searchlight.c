@@ -20,14 +20,14 @@ void Searchlight(void)
                 gCurrentSprite.status = 0x0; // Kill if alarm is active
             else
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x20;
-                gCurrentSprite.drawDistanceBottomOffset = 0x20;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+                gCurrentSprite.drawDistanceTop = 0x20;
+                gCurrentSprite.drawDistanceBottom = 0x20;
+                gCurrentSprite.drawDistanceHorizontal = 0x20;
 
-                gCurrentSprite.hitboxTopOffset = -0x30;
-                gCurrentSprite.hitboxBottomOffset = 0x30;
-                gCurrentSprite.hitboxLeftOffset = -0x30;
-                gCurrentSprite.hitboxRightOffset = 0x30;
+                gCurrentSprite.hitboxTop = -0x30;
+                gCurrentSprite.hitboxBottom = 0x30;
+                gCurrentSprite.hitboxLeft = -0x30;
+                gCurrentSprite.hitboxRight = 0x30;
 
                 gCurrentSprite.pOam = sSearchlightOAM_Moving;
                 gCurrentSprite.animationDurationCounter = 0x0;
@@ -40,9 +40,9 @@ void Searchlight(void)
 
                 // Set initial direction based on sprite ID
                 if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT)
-                    gCurrentSprite.status |= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_UNKNOWN_400);
+                    gCurrentSprite.status |= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_FACING_DOWN);
                 else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT2)
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                 else if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT3)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             }
@@ -82,12 +82,12 @@ void Searchlight(void)
                         gCurrentSprite.xPosition -= 0x2;
                 }
 
-                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
                 {
                     // Move down
                     SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition);
                     if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-                        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400; // Change direction if colliding with stop enemy
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN; // Change direction if colliding with stop enemy
                     else
                         gCurrentSprite.yPosition += 0x2;
                 }
@@ -96,7 +96,7 @@ void Searchlight(void)
                     // Move up
                     SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - BLOCK_SIZE, gCurrentSprite.xPosition);
                     if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400; // Change direction if colliding with stop enemy
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN; // Change direction if colliding with stop enemy
                     else
                         gCurrentSprite.yPosition -= 0x2;
                 }

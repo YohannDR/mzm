@@ -110,14 +110,14 @@ u8 MellaXMovement(u16 movement)
  */
 void MellaInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sMellaOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0;

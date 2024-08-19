@@ -21,14 +21,14 @@ void AreaBannerInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
 
-    gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -142,7 +142,7 @@ void AreaBannerLeaving(void)
  */
 void AreaBanner(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {

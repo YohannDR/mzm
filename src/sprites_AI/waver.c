@@ -17,14 +17,14 @@
  */
 void WaverInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sWaverOAM;
     gCurrentSprite.animationDurationCounter = 0;
@@ -53,7 +53,7 @@ void WaverMove(void)
     // Move horizontaly
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxRightOffset + gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxRight + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition += xSpeed;
         else
@@ -61,7 +61,7 @@ void WaverMove(void)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxLeftOffset + gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxLeft + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition -= xSpeed;
         else
@@ -69,21 +69,21 @@ void WaverMove(void)
     }
 
     // Move vertically
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTop + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition -= ySpeed;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxBottom + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.yPosition += ySpeed;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
     }
 }
 

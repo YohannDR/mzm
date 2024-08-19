@@ -1405,8 +1405,8 @@ u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition)
 
     // Check in Y
     inY = FALSE;
-    if ((gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset) >> 6 <= yPosition &&
-        yPosition <= (gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset) >> 6)
+    if ((gSamusData.yPosition + gSamusPhysics.drawDistanceTop) >> 6 <= yPosition &&
+        yPosition <= (gSamusData.yPosition + gSamusPhysics.drawDistanceBottom) >> 6)
         inY = TRUE;
 
     inBlock = FALSE;

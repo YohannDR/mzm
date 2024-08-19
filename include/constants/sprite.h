@@ -11,7 +11,7 @@
 #define SPRITE_STATUS_UNKNOWN_80         (1 << 7)
 #define SPRITE_STATUS_YFLIP              (1 << 8)
 #define SPRITE_STATUS_FACING_RIGHT       (1 << 9)
-#define SPRITE_STATUS_UNKNOWN_400        (1 << 10)
+#define SPRITE_STATUS_FACING_DOWN        (1 << 10)
 #define SPRITE_STATUS_SAMUS_COLLIDING    (1 << 11)
 #define SPRITE_STATUS_SAMUS_ON_TOP       (1 << 12)
 #define SPRITE_STATUS_ALPHA_BLENDING     (1 << 13)
@@ -360,6 +360,14 @@ enum SamusSpriteCollision {
     SSC_MULTIPLE_LARGE_ENERGY_DROP,
 
     SSC_END
+};
+
+enum SamusStandingOnSpriteStatus {
+    SAMUS_STANDING_ON_SPRITE_OFF,
+    SAMUS_STANDING_ON_SPRITE_RELEASING,
+    SAMUS_STANDING_ON_SPRITE_ON,
+
+    SAMUS_STANDING_ON_SPRITE_END
 };
 
 

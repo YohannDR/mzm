@@ -72,14 +72,14 @@ void BaristuteInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxRight = (BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE);
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -115,8 +115,8 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Check if there's still ground under the baristute
-    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR &&
-        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
+    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRight) == COLLISION_AIR &&
+        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeft) == COLLISION_AIR)
     {
         // Set falling
         gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
@@ -152,7 +152,7 @@ void BaristuteJumping(void)
     {
         // Check wall on right
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + PIXEL_SIZE);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -168,7 +168,7 @@ void BaristuteJumping(void)
     {
         // Check wall on left
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
-            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE);
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - PIXEL_SIZE);
 
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
@@ -201,7 +201,7 @@ void BaristuteJumping(void)
     else
     {
         // Check for ceiling if velocity is negative
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset, gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + gCurrentSprite.hitboxTop, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
     }
@@ -265,8 +265,8 @@ void BaristuteIdle(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Check if there's still ground under the baristute
-    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRightOffset) == COLLISION_AIR &&
-        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeftOffset) == COLLISION_AIR)
+    if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxRight) == COLLISION_AIR &&
+        SpriteUtilGetCollisionAtPosition(yPosition, xPosition + gCurrentSprite.hitboxLeft) == COLLISION_AIR)
     {
         // Set falling
         gCurrentSprite.pose = BARISTUTE_POSE_FALLING_INIT;
@@ -286,8 +286,8 @@ void BaristuteIdle(void)
 
     // Check should walk or jump, get the collision in front of the baristute
     if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
-        ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
-        : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
+        ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRight + QUARTER_BLOCK_SIZE)
+        : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeft - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
     {
         if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
         {
@@ -391,8 +391,8 @@ void BaristuteWalking(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_AIR &&
-            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset + PIXEL_SIZE) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + PIXEL_SIZE) == COLLISION_AIR &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + PIXEL_SIZE) == COLLISION_SOLID)
         {
             currentDistance = gCurrentSprite.xPosition - gCurrentSprite.xPositionSpawn;
             if (currentDistance > walkingDistance)
@@ -417,8 +417,8 @@ void BaristuteWalking(void)
     else
     {
         // Check collision
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_AIR &&
-            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset - PIXEL_SIZE) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - PIXEL_SIZE) == COLLISION_AIR &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - PIXEL_SIZE) == COLLISION_SOLID)
         {
             currentDistance = gCurrentSprite.xPositionSpawn - gCurrentSprite.xPosition;
             if (currentDistance > walkingDistance)

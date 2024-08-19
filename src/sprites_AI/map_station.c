@@ -24,13 +24,13 @@ void MapStationInit(void)
 {
     gCurrentSprite.yPosition += BLOCK_SIZE * 2;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 8);
-    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 8);
+    gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 4;
@@ -41,7 +41,7 @@ void MapStationInit(void)
     // Check set inactive
     if (HAS_AREA_MAP(gCurrentArea) || gAlarmTimer != 0)
     {
-        gCurrentSprite.hitboxBottomOffset = -BLOCK_SIZE;
+        gCurrentSprite.hitboxBottom = -BLOCK_SIZE;
         gCurrentSprite.pose = MAP_STATION_POSE_DO_NOTHING;
 
         gCurrentSprite.pOam = sMapStationOAM_Inactive;
@@ -50,7 +50,7 @@ void MapStationInit(void)
     }
     else
     {
-        gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
+        gCurrentSprite.hitboxBottom = BLOCK_SIZE;
         gCurrentSprite.pose = MAP_STATION_POSE_IDLE;
 
         gCurrentSprite.pOam = sMapStationOAM_Idle;
@@ -190,7 +190,7 @@ void MapStationSpawnMessage(void)
     gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 6,
         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
-    gCurrentSprite.hitboxBottomOffset = -BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = -BLOCK_SIZE;
     gCurrentSprite.pose = MAP_STATION_POSE_WAIT_FOR_MESSAGE;
     gSamusData.currentAnimationFrame = 0;
     gSamusData.timer = 1;
@@ -248,7 +248,7 @@ void MapStationRetracting(void)
  */
 void MapStation(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -293,7 +293,7 @@ void MapStationPart(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
@@ -306,14 +306,14 @@ void MapStationPart(void)
             gCurrentSprite.drawOrder = 3;
             gCurrentSprite.bgPriority = 1;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;

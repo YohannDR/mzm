@@ -90,10 +90,10 @@ void PowerBombExplosion(void)
     if ((gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) < (gCurrentPowerBomb.yPosition + verticalAxis))
         hitboxBottom = (s16)(gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - gCurrentPowerBomb.yPosition);
 
-    gCurrentPowerBomb.hitboxLeftOffset = hitboxLeft;
-    gCurrentPowerBomb.hitboxRightOffset = hitboxRight;
-    gCurrentPowerBomb.hitboxTopOffset = hitboxTop;
-    gCurrentPowerBomb.hitboxBottomOffset = hitboxBottom;
+    gCurrentPowerBomb.hitboxLeft = hitboxLeft;
+    gCurrentPowerBomb.hitboxRight = hitboxRight;
+    gCurrentPowerBomb.hitboxTop = hitboxTop;
+    gCurrentPowerBomb.hitboxBottom = hitboxBottom;
 
     if (gCurrentPowerBomb.animationState < PB_STATE_IMPLODING)
     {
@@ -247,10 +247,10 @@ void PowerBombExplosionBegin(void)
     gCurrentPowerBomb.stage = 0;
     gCurrentPowerBomb.semiMinorAxis = 0x4;
 
-    gCurrentPowerBomb.hitboxLeftOffset = 0;
-    gCurrentPowerBomb.hitboxRightOffset = 0;
-    gCurrentPowerBomb.hitboxTopOffset = 0;
-    gCurrentPowerBomb.hitboxBottomOffset = 0;
+    gCurrentPowerBomb.hitboxLeft = 0;
+    gCurrentPowerBomb.hitboxRight = 0;
+    gCurrentPowerBomb.hitboxTop = 0;
+    gCurrentPowerBomb.hitboxBottom = 0;
 
     gCurrentPowerBomb.unk_12 = 0;
     gCurrentPowerBomb.unk_3 = 0;

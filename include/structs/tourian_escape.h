@@ -28,7 +28,7 @@ struct TourianEscapeData {
     u8 oamPriorities[TOURIAN_ESCAPE_MAX_OBJECTS];
 
     u16 unk_82;
-    u16 oamScaling;
+    u16 scaling;
 
     u8 padding_86[16];
 

@@ -34,7 +34,7 @@ struct ChozodiaEscapeData {
     s16 oamYOffset;
 
     u8 padding_51[18];
-    u16 oamScaling;
+    u16 scaling;
     u8 padding_64[8];
 
     u8 hblankCode[128];

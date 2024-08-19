@@ -39,7 +39,7 @@ const u16 sGameOverSamusHeadYPositions[2] = {
     [TRUE] = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE
 };
 
-const u8 sGameOverSamusHeadOamIds[3][3] = {
+const u8 sGameOverSamusHeadOamIds[SUIT_END][SAMUS_CURSOR_ACTION_END] = {
     [SUIT_NORMAL] = {
         [SAMUS_CURSOR_ACTION_LOADING] = GAME_OVER_OAM_ID_SUIT_LOADING,
         [SAMUS_CURSOR_ACTION_MOVING] = GAME_OVER_OAM_ID_SUIT_MOVING,

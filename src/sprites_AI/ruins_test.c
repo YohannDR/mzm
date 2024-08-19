@@ -114,12 +114,12 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
     if (yTarget > yStart)
     {
         distanceY = yTarget - yStart;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
     }
     else
     {
         distanceY = yStart - yTarget;
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     }
 
     if (xTarget > xStart)
@@ -135,7 +135,7 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0)
@@ -156,7 +156,7 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0)
@@ -202,10 +202,10 @@ u8 RuinsTestProjectileCollision(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
@@ -290,7 +290,7 @@ u8 RuinsTestCheckSymbolShooted(void)
             gCurrentSprite.pose = RUINS_TEST_POSE_BACK_TO_CENTER;
             gSubSpriteData1.workVariable3 = RUINS_TEST_FIGHT_STAGE_LAST_SYMBOL_HIT;
             gSubSpriteData1.workVariable1 = 1;
-            gCurrentSprite.oamScaling = 0;
+            gCurrentSprite.scaling = 0;
             gCurrentSprite.samusCollision = SSC_NONE;
 
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -421,7 +421,7 @@ void RuinsTestGhostMove(u8 dAngle)
     else
         gCurrentSprite.work1 -= dAngle;
 
-    radius = (s16)gCurrentSprite.oamScaling;
+    radius = (s16)gCurrentSprite.scaling;
     angle = gCurrentSprite.work1;
 
     temp = s = sin(angle);
@@ -458,14 +458,14 @@ void RuinsTestInit(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxBottomOffset = (BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = (BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxLeft = -(BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxRight = (BLOCK_SIZE + PIXEL_SIZE);
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
@@ -659,7 +659,7 @@ void RuinsTestSpawnGhost(void)
 void RuinsTestMovingInit(void)
 {
     gCurrentSprite.work1 = 0x40;
-    gCurrentSprite.oamScaling = 0;
+    gCurrentSprite.scaling = 0;
     gCurrentSprite.pose = RUINS_TEST_POSE_MOVING_CIRCLE_PATTERN;
     gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
 }
@@ -689,13 +689,13 @@ void RuinsTestMoveCirclePattern(void)
         speed = 1;
 
     // Update radius
-    if (gCurrentSprite.oamScaling < PI + PI / 2)
+    if (gCurrentSprite.scaling < PI + PI / 2)
     {
-        gCurrentSprite.oamScaling += 3;
+        gCurrentSprite.scaling += 3;
         gBossWork.work6 = 0;
     }
     else
-        gCurrentSprite.oamScaling = PI + PI / 2;
+        gCurrentSprite.scaling = PI + PI / 2;
 
     // Move 
     if (!gBossWork.work4)
@@ -710,7 +710,7 @@ void RuinsTestMoveCirclePattern(void)
     {
         // Try move to atom pattern
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        if ((u8)(gCurrentSprite.work1 + 0x41) < 0x3 && gCurrentSprite.oamScaling == PI + PI / 2)
+        if ((u8)(gCurrentSprite.work1 + 0x41) < 0x3 && gCurrentSprite.scaling == PI + PI / 2)
         {
             // In a "corner", set atom pattern
             gCurrentSprite.pose = RUINS_TEST_POSE_MOVING_ATOM_PATTERN;
@@ -970,7 +970,7 @@ void RuinsTestMoveToCenter(void)
     else
     {
         RuinsTestMoveToPosition(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition,
-            targetY, targetX, gCurrentSprite.oamScaling++, PIXEL_SIZE);
+            targetY, targetX, gCurrentSprite.scaling++, PIXEL_SIZE);
     }
 }
 
@@ -1044,14 +1044,14 @@ void RuinsTestGhostInit(void)
 
     if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_PART_GHOST)
     {
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 4);
-        gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-        gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 4);
+        gCurrentSprite.hitboxBottom = BLOCK_SIZE;
+        gCurrentSprite.hitboxLeft = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+        gCurrentSprite.hitboxRight = (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
         gCurrentSprite.drawOrder = 13;
         gCurrentSprite.pOam = sRuinsTestGhostOam_NotMoving;
@@ -1079,14 +1079,14 @@ void RuinsTestGhostInit(void)
 
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
-        gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
-        gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+        gCurrentSprite.hitboxTop = -BLOCK_SIZE;
+        gCurrentSprite.hitboxBottom = BLOCK_SIZE;
+        gCurrentSprite.hitboxLeft = -BLOCK_SIZE;
+        gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
         gCurrentSprite.drawOrder = 1;
         gCurrentSprite.pOam = sRuinsTestGhostOam_SymbolShot;
@@ -1100,7 +1100,7 @@ void RuinsTestGhostInit(void)
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 
-        gCurrentSprite.oamScaling = 0;
+        gCurrentSprite.scaling = 0;
         gCurrentSprite.work0 = 4;
         gCurrentSprite.work1 = 0;
     }
@@ -1328,7 +1328,7 @@ void RuinsTestGhostMoveSymbolToPlace(void)
     {
         // Move
         RuinsTestMoveToPosition(gCurrentSprite.yPositionSpawn, gCurrentSprite.xPositionSpawn,
-            targetY, targetX, gCurrentSprite.oamScaling++, PIXEL_SIZE);
+            targetY, targetX, gCurrentSprite.scaling++, PIXEL_SIZE);
     }
 }
 
@@ -1581,14 +1581,14 @@ void RuinsTestSymbol(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sRuinsTestSymbolOam_FourSymbols;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -1731,14 +1731,14 @@ void RuinsTestSamusReflectionStart(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sRuinsTestSamusReflectionOAM;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -1815,14 +1815,14 @@ void RuinsTestReflectionCover(void)
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_10;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sRuinsTestReflectionCoverOAM;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -1863,14 +1863,14 @@ void RuinsTestGhostOutline(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
@@ -1952,14 +1952,14 @@ void RuinsTestShootableSymbol(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sRuinsTestShootableSymbolOam_Spawning;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -2110,14 +2110,14 @@ void RuinsTestSamusReflectionEnd(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
             
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sRuinsTestSamusReflectionOAM;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -2238,10 +2238,10 @@ void RuinsTestLightningOnGroundInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
-    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxTop = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = (BLOCK_SIZE + HALF_BLOCK_SIZE);
 
     gCurrentSprite.pose = RUINS_TEST_LIGHTNING_POSE_ON_GROUND_HORIZONTAL;
 }
@@ -2267,19 +2267,19 @@ void RuinsTestLightning(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x20;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+            gCurrentSprite.drawDistanceTop = 0x50;
+            gCurrentSprite.drawDistanceBottom = 0x20;
+            gCurrentSprite.drawDistanceHorizontal = 0x28;
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
             if (gCurrentSprite.roomSlot != RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT)
             {
                 // Normal lightning
-                gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 4);
-                gCurrentSprite.hitboxBottomOffset = 0;
-                gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
-                gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 4);
+                gCurrentSprite.hitboxBottom = 0;
+                gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE;
 
                 gCurrentSprite.pOam = sRuinsTestLightningOam_InAir;
                 gCurrentSprite.currentAnimationFrame = 0x0;
@@ -2325,11 +2325,11 @@ void RuinsTestLightning(void)
             {
                 // Move
                 gCurrentSprite.yPosition += velocity;
-                if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
+                if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN))
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     {
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                         SoundPlay(0x1DC);
                     }
                 }
@@ -2368,10 +2368,10 @@ void RuinsTestLightning(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
-                gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.hitboxBottomOffset = (BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
-                gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxTop = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.hitboxBottom = (BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE;
 
                 gCurrentSprite.pose = RUINS_TEST_LIGHTNING_POSE_ON_GROUND_VERTICAL;
 

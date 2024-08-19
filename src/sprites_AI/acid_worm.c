@@ -39,9 +39,9 @@ void AcidWormHandleRotation(void)
     u8 angle;
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        angle = gCurrentSprite.oamRotation + PI;
+        angle = gCurrentSprite.rotation + PI;
     else
-        angle = gCurrentSprite.oamRotation;
+        angle = gCurrentSprite.rotation;
 
     if (gSubSpriteData1.workVariable3 == TRUE)
         offset = PI * 3;
@@ -280,14 +280,14 @@ void AcidWormInit(void)
     u8 gfxSlot;
     u8 ramSlot;
 
-    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-    gCurrentSprite.hitboxBottomOffset = (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
     gCurrentSprite.pOam = sAcidWormOam_Idle;
     gCurrentSprite.animationDurationCounter = 0;
@@ -298,7 +298,7 @@ void AcidWormInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES;
+    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES;
 
     gCurrentSprite.work3 = 0;
     gCurrentSprite.work2 = 20;
@@ -485,8 +485,8 @@ void AcidWormSpawnRetracting(void)
         // Enable rotation/scaling
         gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
 
-        gCurrentSprite.oamScaling = Q_8_8(1.f);
-        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.scaling = Q_8_8(1.f);
+        gCurrentSprite.rotation = 0;
         gCurrentSprite.work0 = 60;
     }
     else
@@ -516,7 +516,7 @@ void AcidWormIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = ACID_WORM_POSE_IDLE;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 }
 
 /**
@@ -563,7 +563,7 @@ void AcidWormIdle(void)
     
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
     SpriteUtilMakeSpriteFaceSamusDirection();
-    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     SoundPlay(0x1B5);
 }
 
@@ -651,10 +651,10 @@ void AcidWormExtend(void)
     checks = 0;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.oamRotation >= PI / 2 - 1)
+        if (gCurrentSprite.rotation >= PI / 2 - 1)
             checks++; // Fully rotated
         else
-            gCurrentSprite.oamRotation += speed;
+            gCurrentSprite.rotation += speed;
 
         if (gSubSpriteData1.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE)
             gSubSpriteData1.xPosition += speed;
@@ -663,10 +663,10 @@ void AcidWormExtend(void)
     }
     else
     {
-        if ((u8)(gCurrentSprite.oamRotation - 1) <= PI + PI / 2 - 1)
+        if ((u8)(gCurrentSprite.rotation - 1) <= PI + PI / 2 - 1)
             checks++; // Fully rotated
         else
-            gCurrentSprite.oamRotation -= speed;
+            gCurrentSprite.rotation -= speed;
 
         if (gSubSpriteData1.xPosition > gCurrentSprite.xPositionSpawn - BLOCK_SIZE)
             gSubSpriteData1.xPosition -= speed;
@@ -872,14 +872,14 @@ void AcidWormRetracting(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.oamRotation < 0x3)
+        if (gCurrentSprite.rotation < 0x3)
         {
             // Finished rotation
             checks++;
-            gCurrentSprite.oamRotation = 0x0;
+            gCurrentSprite.rotation = 0x0;
         }
         else
-            gCurrentSprite.oamRotation -= 0x2;
+            gCurrentSprite.rotation -= 0x2;
 
         if (gSubSpriteData1.xPosition > gCurrentSprite.xPositionSpawn)
         {
@@ -893,15 +893,15 @@ void AcidWormRetracting(void)
     }
     else
     {
-        if (gCurrentSprite.oamRotation < 0x3)
+        if (gCurrentSprite.rotation < 0x3)
         {
             // Finished rotation
             checks++;
-            gCurrentSprite.oamRotation = 0x0;
+            gCurrentSprite.rotation = 0x0;
         }
         else
         {
-            gCurrentSprite.oamRotation += 0x2;
+            gCurrentSprite.rotation += 0x2;
         }
 
         if (gSubSpriteData1.xPosition < gCurrentSprite.xPositionSpawn)
@@ -1045,7 +1045,7 @@ void AcidWormDeathFlashingAnim(void)
 {
     u8 isft;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     AcidWormHandleRotation();
 
@@ -1139,18 +1139,18 @@ void AcidWormBodyInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.health = 0x400;
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x10;
+    gCurrentSprite.drawDistanceBottom = 0x10;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
     gCurrentSprite.work2 = 0x14 - (gCurrentSprite.roomSlot * 0x2);
 
     switch (gCurrentSprite.roomSlot)
     {
         case ACID_WORM_BODY_PART_AROUND_MOUTH:
-            gCurrentSprite.hitboxTopOffset = -0x10;
-            gCurrentSprite.hitboxBottomOffset = 0x10;
-            gCurrentSprite.hitboxLeftOffset = -0x10;
-            gCurrentSprite.hitboxRightOffset = 0x10;
+            gCurrentSprite.hitboxTop = -0x10;
+            gCurrentSprite.hitboxBottom = 0x10;
+            gCurrentSprite.hitboxLeft = -0x10;
+            gCurrentSprite.hitboxRight = 0x10;
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.pOam = sAcidWormBodyOam_AroundMouth;
             gCurrentSprite.work0 = 0x8;
@@ -1158,10 +1158,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_WEAK_POINT:
-            gCurrentSprite.hitboxTopOffset = -0x30;
-            gCurrentSprite.hitboxBottomOffset = 0x30;
-            gCurrentSprite.hitboxLeftOffset = -0x30;
-            gCurrentSprite.hitboxRightOffset = 0x30;
+            gCurrentSprite.hitboxTop = -0x30;
+            gCurrentSprite.hitboxBottom = 0x30;
+            gCurrentSprite.hitboxLeft = -0x30;
+            gCurrentSprite.hitboxRight = 0x30;
             gCurrentSprite.drawOrder = 0x2;
             gCurrentSprite.pOam = sAcidWormBodyOam_WeakPoint;
             gCurrentSprite.work0 = 0x10;
@@ -1170,10 +1170,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_BELOW_WEAK_POINT:
-            gCurrentSprite.hitboxTopOffset = -0x30;
-            gCurrentSprite.hitboxBottomOffset = 0x30;
-            gCurrentSprite.hitboxLeftOffset = -0x28;
-            gCurrentSprite.hitboxRightOffset = 0x28;
+            gCurrentSprite.hitboxTop = -0x30;
+            gCurrentSprite.hitboxBottom = 0x30;
+            gCurrentSprite.hitboxLeft = -0x28;
+            gCurrentSprite.hitboxRight = 0x28;
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.pOam = sAcidWormBodyOam_BelowWeakPoint;
             gCurrentSprite.work0 = 0x18;
@@ -1181,10 +1181,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_ABOVE_SEGMENTS:
-            gCurrentSprite.hitboxTopOffset = -0x24;
-            gCurrentSprite.hitboxBottomOffset = 0x24;
-            gCurrentSprite.hitboxLeftOffset = -0x24;
-            gCurrentSprite.hitboxRightOffset = 0x24;
+            gCurrentSprite.hitboxTop = -0x24;
+            gCurrentSprite.hitboxBottom = 0x24;
+            gCurrentSprite.hitboxLeft = -0x24;
+            gCurrentSprite.hitboxRight = 0x24;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pOam = sAcidWormBodyOam_AboveSegments;
             gCurrentSprite.work0 = 0x20;
@@ -1192,10 +1192,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT1:
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
             gCurrentSprite.work0 = 0x28;
@@ -1203,10 +1203,10 @@ void AcidWormBodyInit(void)
             break;
             
         case ACID_WORM_BODY_PART_SEGMENT2:
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
             gCurrentSprite.work0 = 0x30;
@@ -1214,10 +1214,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT3:
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
             gCurrentSprite.work0 = 0x38;
@@ -1225,10 +1225,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT4:
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
             gCurrentSprite.work0 = 0x40;
@@ -1236,10 +1236,10 @@ void AcidWormBodyInit(void)
             break;
 
         case ACID_WORM_BODY_PART_SEGMENT5:
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sAcidWormBodyOam_Segment;
             gCurrentSprite.work0 = 0x48;
@@ -1282,8 +1282,8 @@ void AcidWormBodyMove(void) {
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
-        gCurrentSprite.oamScaling = Q_8_8(1.f);
-        gCurrentSprite.oamRotation = 0x0;
+        gCurrentSprite.scaling = Q_8_8(1.f);
+        gCurrentSprite.rotation = 0x0;
     }
     if (0x42 < gSpriteData[slot].pose)
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1330,15 +1330,15 @@ void AcidWormBodyMainLoop(void)
     if (gSpriteData[slot].status & SPRITE_STATUS_FACING_RIGHT)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.oamRotation = gSpriteData[slot].oamRotation - timer;
+        gCurrentSprite.rotation = gSpriteData[slot].rotation - timer;
     }
     else
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.oamRotation = timer + gSpriteData[slot].oamRotation;
+        gCurrentSprite.rotation = timer + gSpriteData[slot].rotation;
     }
 
-    if (!(gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN_400))
+    if (!(gSpriteData[slot].status & SPRITE_STATUS_FACING_DOWN))
     {
         oldY = gCurrentSprite.yPosition;
         AcidWormHandleRotation();
@@ -1386,14 +1386,14 @@ void AcidWormBodyMainLoop(void)
 
             gCurrentSprite.health = 0;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            gCurrentSprite.ignoreSamusCollisionTimer = 1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
             SoundPlay(0x1BD);
             return;
         }
     }
 
-    if (gSpriteData[slot].oamRotation != 0)
+    if (gSpriteData[slot].rotation != 0)
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     else
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1410,7 +1410,7 @@ void AcidWormBodyDeath(void)
     u8 effect;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    gCurrentSprite.ignoreSamusCollisionTimer = 1; // Remove collision
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME; // Remove collision
 
     AcidWormHandleRotation();
 
@@ -1463,14 +1463,14 @@ void AcidWormSpitInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sAcidWormSpitOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0;
@@ -1586,7 +1586,7 @@ void AcidWormSpitExplodingGfxInit(void)
  */
 void AcidWormSpitCheckExplodingAnimEnded(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0; // Kill sprite
 }
@@ -1599,7 +1599,7 @@ void AcidWormSpitCheckExplodingOnAcidAnimEnded(void)
 {
     gCurrentSprite.yPosition = gEffectYPosition; // Sync position
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0; // Kill sprite

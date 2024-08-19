@@ -18,14 +18,14 @@
  */
 void Ripper2Init(void)
 {
-    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE);
-    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE * 2;
-    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE * 2;
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
     gCurrentSprite.pOam = sRipper2Oam_Moving;
     gCurrentSprite.animationDurationCounter = 0;

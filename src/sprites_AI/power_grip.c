@@ -32,14 +32,14 @@ void PowerGrip(void)
                 break;
             }
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
-            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
-            gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
-            gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxBottom = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
 
             gCurrentSprite.pOam = sPowerGripOAM_Idle;
             gCurrentSprite.animationDurationCounter = 0;
@@ -60,7 +60,7 @@ void PowerGrip(void)
             {
                 gPreventMovementTimer = SAMUS_ITEM_PMT;
                 gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-                gCurrentSprite.ignoreSamusCollisionTimer = 1;
+                gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
                 gCurrentSprite.pose = POWER_GRIP_POSE_BEING_ACQUIRED;
                 gCurrentSprite.work0 = 0;
                 gEquipment.suitMisc |= SMF_POWER_GRIP;
@@ -72,7 +72,7 @@ void PowerGrip(void)
             break;
 
         case POWER_GRIP_POSE_BEING_ACQUIRED:
-            gCurrentSprite.ignoreSamusCollisionTimer = 1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
             // Flicker
             if (MOD_AND(gCurrentSprite.work0, 2) == 0)
@@ -95,14 +95,14 @@ void PowerGripGlow(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pOam = sPowerGripGlowOAM_Idle;
             gCurrentSprite.animationDurationCounter = 0;

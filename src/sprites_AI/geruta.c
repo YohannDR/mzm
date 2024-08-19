@@ -83,14 +83,14 @@ void GerutaInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     SpriteUtilMakeSpriteFaceSamusDirection();
 
-    gCurrentSprite.drawDistanceTopOffset = 0x18;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTop = 0x18;
+    gCurrentSprite.drawDistanceBottom = 0x18;
+    gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-    gCurrentSprite.hitboxTopOffset = -0x20;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0x30;
-    gCurrentSprite.hitboxRightOffset = 0x30;
+    gCurrentSprite.hitboxTop = -0x20;
+    gCurrentSprite.hitboxBottom = 0x20;
+    gCurrentSprite.hitboxLeft = -0x30;
+    gCurrentSprite.hitboxRight = 0x30;
 
     gCurrentSprite.pOam = sGerutaOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;

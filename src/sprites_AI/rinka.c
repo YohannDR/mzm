@@ -23,14 +23,14 @@
  */
 void RinkaInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x14;
-    gCurrentSprite.hitboxBottomOffset = 0x14;
-    gCurrentSprite.hitboxLeftOffset = -0x14;
-    gCurrentSprite.hitboxRightOffset = 0x14;
+    gCurrentSprite.hitboxTop = -0x14;
+    gCurrentSprite.hitboxBottom = 0x14;
+    gCurrentSprite.hitboxLeft = -0x14;
+    gCurrentSprite.hitboxRight = 0x14;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.drawDistanceTop = 0x8;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x8;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
@@ -84,7 +84,7 @@ void RinkaRespawn(void)
     gCurrentSprite.frozenPaletteRowOffset = 0x0;
     gCurrentSprite.absolutePaletteRow = 0x0;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.freezeTimer = 0x0;
 
     // Set spawn delay
@@ -95,7 +95,7 @@ void RinkaRespawn(void)
 
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     // Duplicated code
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 }
 
 /**
@@ -112,14 +112,14 @@ void RinkaSpawning(void)
     // Spawn delay
     if (gCurrentSprite.work1 != 0x0)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.work1--;
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
         {
-            gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
@@ -133,7 +133,7 @@ void RinkaSpawning(void)
             // Vulnerability delay
             if (gCurrentSprite.work0 != 0x0)
             {
-                gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+                gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
                 gCurrentSprite.work0--;
                 if (gCurrentSprite.work0 == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -148,7 +148,7 @@ void RinkaSpawning(void)
                 gCurrentSprite.pose = RINKA_POSE_MOVING;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.oamScaling = 0x0;
+                gCurrentSprite.scaling = 0x0;
 
                 samusY = gSamusData.yPosition - 0x3C;
                 samusX = gSamusData.xPosition;
@@ -161,9 +161,9 @@ void RinkaSpawning(void)
 
                 // Set direction
                 if (samusY < spriteY)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
                 else
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
                     
                 if (samusX < spriteX)
@@ -200,13 +200,13 @@ void RinkaMove(void)
     else
         velocity = 0x4;
 
-    acceleration = ++gCurrentSprite.oamScaling;
+    acceleration = ++gCurrentSprite.scaling;
     velocity *= (acceleration);
 
     spawnY = gCurrentSprite.work3 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     spawnX = gCurrentSprite.work2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -218,7 +218,7 @@ void RinkaMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -239,7 +239,7 @@ void RinkaMove(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -413,14 +413,14 @@ void RinkaMotherBrainSpawning(void)
     // Spawn delay
     if (gCurrentSprite.work1 != 0x0)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.work1--;
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
         {
-            gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
@@ -436,7 +436,7 @@ void RinkaMotherBrainSpawning(void)
             // Vulnerability delay
             if (gCurrentSprite.work0 != 0x0)
             {
-                gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+                gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
                 gCurrentSprite.work0--;
                 if (gCurrentSprite.work0 == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -448,7 +448,7 @@ void RinkaMotherBrainSpawning(void)
                 gCurrentSprite.pose = RINKA_POSE_MOVING;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.oamScaling = 0x0;
+                gCurrentSprite.scaling = 0x0;
 
                 samusY = gSamusData.yPosition - 0x3C;
                 samusX = gSamusData.xPosition;
@@ -461,9 +461,9 @@ void RinkaMotherBrainSpawning(void)
 
                 // Set direction
                 if (samusY < spriteY)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
                 else
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
                     
                 if (samusX < spriteX)
@@ -498,7 +498,7 @@ void RinkaMotherBrainMove(void)
 
     respawn = FALSE;
 
-    acceleration = ++gCurrentSprite.oamScaling;
+    acceleration = ++gCurrentSprite.scaling;
     velocity = acceleration * 4;
 
     tileX = gCurrentSprite.work2;
@@ -542,7 +542,7 @@ void RinkaMotherBrainMove(void)
     spawnY = tileY * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     spawnX = tileX * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -554,7 +554,7 @@ void RinkaMotherBrainMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -575,7 +575,7 @@ void RinkaMotherBrainMove(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
@@ -691,10 +691,10 @@ void RinkaMotherBrain(void)
                 ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
         }
 
-        if (gCurrentSprite.standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
+        if (gCurrentSprite.standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
-            gCurrentSprite.standingOnSprite = FALSE;
+            gCurrentSprite.standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         }
 
         gCurrentSprite.status = 0x0;

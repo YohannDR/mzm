@@ -17,14 +17,14 @@
  */
 void PolypInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE - PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = -(BLOCK_SIZE - PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (BLOCK_SIZE - PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     gCurrentSprite.samusCollision = SSC_KNOCKS_BACK_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -160,14 +160,14 @@ void PolypProjectileInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE;
 
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -273,7 +273,7 @@ void PolypProjectileExplodingInit(void)
  */
 void PolypProjectileCheckExplodingAnimEnded(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0; // Kill sprite

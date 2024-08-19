@@ -49,14 +49,14 @@ void ZiplineGeneratorInit(void)
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = 0;
-    gCurrentSprite.hitboxRightOffset = 0;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = 0;
+    gCurrentSprite.hitboxRight = 0;
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -245,26 +245,26 @@ void ZiplineGeneratorPart(void)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.pose = ZIPLINE_GENERATOR_PART_POSE_IDLE;
 
             if (gCurrentSprite.roomSlot == ZIPLINE_GENERATOR_PART_CONDUCTOR)
             {
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
                 gCurrentSprite.drawOrder = 13;
             }
             else if (gCurrentSprite.roomSlot == ZIPLINE_GENERATOR_PART_MORPH_SYMBOL)
             {
                 gCurrentSprite.pOam = sZiplineGeneratorPartOam_MorphSymbolActivating;
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
                 gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
                 gCurrentSprite.drawOrder = 3;
@@ -272,9 +272,9 @@ void ZiplineGeneratorPart(void)
             else if (gCurrentSprite.roomSlot == ZIPLINE_GENERATOR_PART_ELECTRICITY)
             {
                 gCurrentSprite.pOam = sZiplineGeneratorPartOam_ElectricityActivating;
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
                 gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
                 gCurrentSprite.drawOrder = 2;

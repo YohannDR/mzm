@@ -68,10 +68,10 @@ void KraidCheckProjectilesCollidingWithBelly(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
@@ -283,10 +283,10 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
 
     spriteY = pSprite->yPosition;
     spriteX = pSprite->xPosition;
-    spriteTop = spriteY + pSprite->hitboxTopOffset;
-    spriteBottom = spriteY + pSprite->hitboxBottomOffset;
-    spriteLeft = spriteX + pSprite->hitboxLeftOffset;
-    spriteRight = spriteX + pSprite->hitboxRightOffset;
+    spriteTop = spriteY + pSprite->hitboxTop;
+    spriteBottom = spriteY + pSprite->hitboxBottom;
+    spriteLeft = spriteX + pSprite->hitboxLeft;
+    spriteRight = spriteX + pSprite->hitboxRight;
 
     // Loop through every projectile for custom collision
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
@@ -539,10 +539,10 @@ void KraidRandomSpriteDebrisOnCeiling(u8 timer)
  */
 void KraidPartHitboxChange_1Unused(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x60;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = 0xE0;
-    gCurrentSprite.hitboxRightOffset = 0x108;
+    gCurrentSprite.hitboxTop = -0x60;
+    gCurrentSprite.hitboxBottom = 0x20;
+    gCurrentSprite.hitboxLeft = 0xE0;
+    gCurrentSprite.hitboxRight = 0x108;
 }
 
 /**
@@ -557,73 +557,73 @@ void KraidPartUpdateRightArmIdlingHitbox(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 0:
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x108;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x108;
             break;
 
         case 0x1:
-            gCurrentSprite.hitboxTopOffset = -0x48;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x48;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x2:
-            gCurrentSprite.hitboxTopOffset = -0x30;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x30;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x3:
-            gCurrentSprite.hitboxTopOffset = -0x18;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x18;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x4:
-            gCurrentSprite.hitboxTopOffset = -0x18;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x18;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x5:
-            gCurrentSprite.hitboxTopOffset = -0x18;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x100;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x18;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = 0x100;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x6:
-            gCurrentSprite.hitboxTopOffset = -0x28;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x28;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x7:
-            gCurrentSprite.hitboxTopOffset = -0x40;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x15C;
+            gCurrentSprite.hitboxTop = -0x40;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x15C;
             break;
 
         case 0x8:
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x110;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x110;
             break;
 
         case 0x9:
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x120;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x120;
             break;
     }
 }
@@ -640,89 +640,89 @@ void KraidPartUpdateRightArmAttackingHitbox(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 0:
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0xD0;
-            gCurrentSprite.hitboxRightOffset = 0x120;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0xD0;
+            gCurrentSprite.hitboxRight = 0x120;
             SoundPlay(0x1C2);
             break;
 
         case 0x1:
-            gCurrentSprite.hitboxTopOffset = -0x80;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0xC0;
-            gCurrentSprite.hitboxRightOffset = 0x120;
+            gCurrentSprite.hitboxTop = -0x80;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0xC0;
+            gCurrentSprite.hitboxRight = 0x120;
             break;
 
         case 0x2:
-            gCurrentSprite.hitboxTopOffset = -0xC0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x98;
-            gCurrentSprite.hitboxRightOffset = 0xC8;
+            gCurrentSprite.hitboxTop = -0xC0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x98;
+            gCurrentSprite.hitboxRight = 0xC8;
             break;
 
         case 0x3:
-            gCurrentSprite.hitboxTopOffset = -0x100;
-            gCurrentSprite.hitboxBottomOffset = -0x60;
-            gCurrentSprite.hitboxLeftOffset = 0x80;
-            gCurrentSprite.hitboxRightOffset = 0xB8;
+            gCurrentSprite.hitboxTop = -0x100;
+            gCurrentSprite.hitboxBottom = -0x60;
+            gCurrentSprite.hitboxLeft = 0x80;
+            gCurrentSprite.hitboxRight = 0xB8;
             break;
 
         case 0x4:
-            gCurrentSprite.hitboxTopOffset = -0x140;
-            gCurrentSprite.hitboxBottomOffset = -0xA0;
-            gCurrentSprite.hitboxLeftOffset = 0x70;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTop = -0x140;
+            gCurrentSprite.hitboxBottom = -0xA0;
+            gCurrentSprite.hitboxLeft = 0x70;
+            gCurrentSprite.hitboxRight = 0xA0;
             SoundPlay(0x1C3);
             break;
 
         case 0x5:
-            gCurrentSprite.hitboxTopOffset = -0x140;
-            gCurrentSprite.hitboxBottomOffset = -0xC0;
-            gCurrentSprite.hitboxLeftOffset = 0x100;
-            gCurrentSprite.hitboxRightOffset = 0x128;
+            gCurrentSprite.hitboxTop = -0x140;
+            gCurrentSprite.hitboxBottom = -0xC0;
+            gCurrentSprite.hitboxLeft = 0x100;
+            gCurrentSprite.hitboxRight = 0x128;
             break;
 
         case 0x6:
-            gCurrentSprite.hitboxTopOffset = -0x140;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0x120;
-            gCurrentSprite.hitboxRightOffset = 0x1B8;
+            gCurrentSprite.hitboxTop = -0x140;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0x120;
+            gCurrentSprite.hitboxRight = 0x1B8;
             break;
 
         case 0x7:
-            gCurrentSprite.hitboxTopOffset = 0x8;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x100;
-            gCurrentSprite.hitboxRightOffset = 0x1A0;
+            gCurrentSprite.hitboxTop = 0x8;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = 0x100;
+            gCurrentSprite.hitboxRight = 0x1A0;
             break;
 
         case 0x8:
-            gCurrentSprite.hitboxTopOffset = 0x60;
-            gCurrentSprite.hitboxBottomOffset = 0x80;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x180;
+            gCurrentSprite.hitboxTop = 0x60;
+            gCurrentSprite.hitboxBottom = 0x80;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x180;
             break;
 
         case 0x9:
-            gCurrentSprite.hitboxTopOffset = 0x68;
-            gCurrentSprite.hitboxBottomOffset = 0xA0;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x140;
+            gCurrentSprite.hitboxTop = 0x68;
+            gCurrentSprite.hitboxBottom = 0xA0;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x140;
             break;
 
         case 0xA:
-            gCurrentSprite.hitboxTopOffset = 0x20;
-            gCurrentSprite.hitboxBottomOffset = 0xA0;
-            gCurrentSprite.hitboxLeftOffset = 0xE0;
-            gCurrentSprite.hitboxRightOffset = 0x120;
+            gCurrentSprite.hitboxTop = 0x20;
+            gCurrentSprite.hitboxBottom = 0xA0;
+            gCurrentSprite.hitboxLeft = 0xE0;
+            gCurrentSprite.hitboxRight = 0x120;
             break;
 
         case 0xB:
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0x80;
-            gCurrentSprite.hitboxLeftOffset = 0xE8;
-            gCurrentSprite.hitboxRightOffset = 0x118;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0x80;
+            gCurrentSprite.hitboxLeft = 0xE8;
+            gCurrentSprite.hitboxRight = 0x118;
             break;
     }
 }
@@ -735,10 +735,10 @@ void KraidPartHitboxChange_2Unused(void)
 {
     if (gCurrentSprite.animationDurationCounter == 0x1)
     {
-        gCurrentSprite.hitboxTopOffset = -0xA0;
-        gCurrentSprite.hitboxBottomOffset = -0x20;
-        gCurrentSprite.hitboxLeftOffset = 0x8;
-        gCurrentSprite.hitboxRightOffset = 0x88;
+        gCurrentSprite.hitboxTop = -0xA0;
+        gCurrentSprite.hitboxBottom = -0x20;
+        gCurrentSprite.hitboxLeft = 0x8;
+        gCurrentSprite.hitboxRight = 0x88;
     }
 }
 
@@ -755,73 +755,73 @@ void KraidPartUpdateLeftArmIdlingHitbox(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 0:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x8;
-            gCurrentSprite.hitboxRightOffset = 0x88;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x8;
+            gCurrentSprite.hitboxRight = 0x88;
             break;
 
         case 0x1:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x8;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x8;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x2:
-            gCurrentSprite.hitboxTopOffset = -0xA4;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x8;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA4;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x8;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x3:
-            gCurrentSprite.hitboxTopOffset = -0xA8;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA8;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x4:
-            gCurrentSprite.hitboxTopOffset = -0xA8;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTop = -0xA8;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0xA0;
             break;
 
         case 0x5:
-            gCurrentSprite.hitboxTopOffset = -0xA8;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA8;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x6:
-            gCurrentSprite.hitboxTopOffset = -0xA8;
-            gCurrentSprite.hitboxBottomOffset = -0x28;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA8;
+            gCurrentSprite.hitboxBottom = -0x28;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x7:
-            gCurrentSprite.hitboxTopOffset = -0x98;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0x98;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x8:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
 
         case 0x9:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
     }
 }
@@ -838,75 +838,75 @@ void KraidPartUpdateLeftArmDyingHitbox(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 0:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x8;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x8;
+            gCurrentSprite.hitboxRight = 0x80;
             SoundPlay(0x1C0);
             break;
 
         case 0x1:
-            gCurrentSprite.hitboxTopOffset = -0xC0;
-            gCurrentSprite.hitboxBottomOffset = -0x60;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxTop = -0xC0;
+            gCurrentSprite.hitboxBottom = -0x60;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x60;
             break;
 
         case 0x2:
-            gCurrentSprite.hitboxTopOffset = -0xE0;
-            gCurrentSprite.hitboxBottomOffset = -0x60;
-            gCurrentSprite.hitboxLeftOffset = -0x40;
-            gCurrentSprite.hitboxRightOffset = 0x50;
+            gCurrentSprite.hitboxTop = -0xE0;
+            gCurrentSprite.hitboxBottom = -0x60;
+            gCurrentSprite.hitboxLeft = -0x40;
+            gCurrentSprite.hitboxRight = 0x50;
             break;
 
         case 0x3:
-            gCurrentSprite.hitboxTopOffset = -0x160;
-            gCurrentSprite.hitboxBottomOffset = -0xE0;
-            gCurrentSprite.hitboxLeftOffset = -0x40;
-            gCurrentSprite.hitboxRightOffset = 0x30;
+            gCurrentSprite.hitboxTop = -0x160;
+            gCurrentSprite.hitboxBottom = -0xE0;
+            gCurrentSprite.hitboxLeft = -0x40;
+            gCurrentSprite.hitboxRight = 0x30;
             break;
 
         case 0x4:
-            gCurrentSprite.hitboxTopOffset = -0x1E0;
-            gCurrentSprite.hitboxBottomOffset = -0x180;
-            gCurrentSprite.hitboxLeftOffset = -0x40;
-            gCurrentSprite.hitboxRightOffset = 0x40;
+            gCurrentSprite.hitboxTop = -0x1E0;
+            gCurrentSprite.hitboxBottom = -0x180;
+            gCurrentSprite.hitboxLeft = -0x40;
+            gCurrentSprite.hitboxRight = 0x40;
             SoundPlay(0x1C1);
             break;
 
         case 0x5:
-            gCurrentSprite.hitboxTopOffset = -0x1C0;
-            gCurrentSprite.hitboxBottomOffset = -0x140;
-            gCurrentSprite.hitboxLeftOffset = 0x60;
-            gCurrentSprite.hitboxRightOffset = 0xE0;
+            gCurrentSprite.hitboxTop = -0x1C0;
+            gCurrentSprite.hitboxBottom = -0x140;
+            gCurrentSprite.hitboxLeft = 0x60;
+            gCurrentSprite.hitboxRight = 0xE0;
             break;
 
         case 0x6:
-            gCurrentSprite.hitboxTopOffset = -0x120;
-            gCurrentSprite.hitboxBottomOffset = -0xC0;
-            gCurrentSprite.hitboxLeftOffset = 0xC0;
-            gCurrentSprite.hitboxRightOffset = 0x120;
+            gCurrentSprite.hitboxTop = -0x120;
+            gCurrentSprite.hitboxBottom = -0xC0;
+            gCurrentSprite.hitboxLeft = 0xC0;
+            gCurrentSprite.hitboxRight = 0x120;
             break;
 
         case 0x7:
-            gCurrentSprite.hitboxTopOffset = -0xE0;
-            gCurrentSprite.hitboxBottomOffset = -0x60;
-            gCurrentSprite.hitboxLeftOffset = 0x40;
-            gCurrentSprite.hitboxRightOffset = 0xC0;
+            gCurrentSprite.hitboxTop = -0xE0;
+            gCurrentSprite.hitboxBottom = -0x60;
+            gCurrentSprite.hitboxLeft = 0x40;
+            gCurrentSprite.hitboxRight = 0xC0;
             break;
 
         case 0x8:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x80;
             break;
 
         case 0x9:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = -0x10;
-            gCurrentSprite.hitboxRightOffset = 0x70;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = -0x10;
+            gCurrentSprite.hitboxRight = 0x70;
             break;
     }
 }
@@ -923,146 +923,146 @@ void KraidPartUpdateLeftArmAttackingHitbox(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 0:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0x80;
             SoundPlay(0x1C4);
             break;
 
         case 0x1:
-            gCurrentSprite.hitboxTopOffset = -0x98;
-            gCurrentSprite.hitboxBottomOffset = -0x38;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxTop = -0x98;
+            gCurrentSprite.hitboxBottom = -0x38;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x60;
             break;
 
         case 0x2:
-            gCurrentSprite.hitboxTopOffset = -0xB0;
-            gCurrentSprite.hitboxBottomOffset = -0x30;
-            gCurrentSprite.hitboxLeftOffset = -0x60;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0xB0;
+            gCurrentSprite.hitboxBottom = -0x30;
+            gCurrentSprite.hitboxLeft = -0x60;
+            gCurrentSprite.hitboxRight = 0x20;
             break;
 
         case 0x3:
-            gCurrentSprite.hitboxTopOffset = -0xE0;
-            gCurrentSprite.hitboxBottomOffset = -0x60;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = -0x20;
+            gCurrentSprite.hitboxTop = -0xE0;
+            gCurrentSprite.hitboxBottom = -0x60;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = -0x20;
             break;
 
         case 0x4:
-            gCurrentSprite.hitboxTopOffset = -0x100;
-            gCurrentSprite.hitboxBottomOffset = -0x80;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = -0x20;
+            gCurrentSprite.hitboxTop = -0x100;
+            gCurrentSprite.hitboxBottom = -0x80;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = -0x20;
             break;
 
         case 0x5:
-            gCurrentSprite.hitboxTopOffset = -0x100;
-            gCurrentSprite.hitboxBottomOffset = -0xA0;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = -0x20;
+            gCurrentSprite.hitboxTop = -0x100;
+            gCurrentSprite.hitboxBottom = -0xA0;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = -0x20;
             break;
 
         case 0x6:
-            gCurrentSprite.hitboxTopOffset = -0x180;
-            gCurrentSprite.hitboxBottomOffset = -0x100;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = -0x8;
+            gCurrentSprite.hitboxTop = -0x180;
+            gCurrentSprite.hitboxBottom = -0x100;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = -0x8;
             SoundPlay(0x1C5);
             break;
 
         case 0x7:
-            gCurrentSprite.hitboxTopOffset = -0x160;
-            gCurrentSprite.hitboxBottomOffset = -0x108;
-            gCurrentSprite.hitboxLeftOffset = 0x8;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0x160;
+            gCurrentSprite.hitboxBottom = -0x108;
+            gCurrentSprite.hitboxLeft = 0x8;
+            gCurrentSprite.hitboxRight = 0x80;
             break;
 
         case 0x8:
-            gCurrentSprite.hitboxTopOffset = -0x100;
-            gCurrentSprite.hitboxBottomOffset = -0xC0;
-            gCurrentSprite.hitboxLeftOffset = 0x40;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTop = -0x100;
+            gCurrentSprite.hitboxBottom = -0xC0;
+            gCurrentSprite.hitboxLeft = 0x40;
+            gCurrentSprite.hitboxRight = 0xA0;
             break;
 
         case 0x9:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x30;
-            gCurrentSprite.hitboxLeftOffset = 0x60;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x30;
+            gCurrentSprite.hitboxLeft = 0x60;
+            gCurrentSprite.hitboxRight = 0xA0;
             break;
 
         case 0xA:
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = -0x4;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = -0x4;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x60;
             break;
 
         case 0xB:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x60;
             break;
 
         case 0xC:
-            gCurrentSprite.hitboxTopOffset = -0x80;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x60;
+            gCurrentSprite.hitboxTop = -0x80;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x60;
             break;
 
         case 0xD:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x70;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x70;
             break;
 
         case 0xE:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x80;
             break;
 
         case 0xF:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x90;
             SoundPlay(0x1C6);
             break;
 
         case 0x10:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0xA0;
             break;
 
         case 0x11:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x10;
-            gCurrentSprite.hitboxRightOffset = 0x98;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x10;
+            gCurrentSprite.hitboxRight = 0x98;
             break;
 
         case 0x12:
-            gCurrentSprite.hitboxTopOffset = -0x98;
-            gCurrentSprite.hitboxBottomOffset = -0x40;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0x98;
+            gCurrentSprite.hitboxBottom = -0x40;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x80;
             break;
 
         case 0x13:
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = -0x20;
-            gCurrentSprite.hitboxLeftOffset = 0x4;
-            gCurrentSprite.hitboxRightOffset = 0x90;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = -0x20;
+            gCurrentSprite.hitboxLeft = 0x4;
+            gCurrentSprite.hitboxRight = 0x90;
             break;
     }
 }
@@ -1112,14 +1112,14 @@ void KraidInit(void)
     gCurrentSprite.yPositionSpawn = yPosition;
     gCurrentSprite.xPositionSpawn = xPosition;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x30;
-    gCurrentSprite.drawDistanceBottomOffset = 0x1A;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x38;
+    gCurrentSprite.drawDistanceTop = 0x30;
+    gCurrentSprite.drawDistanceBottom = 0x1A;
+    gCurrentSprite.drawDistanceHorizontal = 0x38;
 
-    gCurrentSprite.hitboxTopOffset = -0x70;
-    gCurrentSprite.hitboxBottomOffset = 0x70;
-    gCurrentSprite.hitboxLeftOffset = -0xA0;
-    gCurrentSprite.hitboxRightOffset = 0x70;
+    gCurrentSprite.hitboxTop = -0x70;
+    gCurrentSprite.hitboxBottom = 0x70;
+    gCurrentSprite.hitboxLeft = -0xA0;
+    gCurrentSprite.hitboxRight = 0x70;
     
     gCurrentSprite.work0 = 0x78;
     gCurrentSprite.work1 = 0;
@@ -1553,7 +1553,7 @@ void KraidDying(void)
     KraidRandomSpriteDebrisOnCeiling(gCurrentSprite.work1);
     KraidPreventSamusGoingThrough();
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.work1++;
 
     // Set dust effects
@@ -1619,7 +1619,7 @@ void KraidBeforeDeath(void)
     KraidRandomSpriteDebrisOnCeiling(gCurrentSprite.work1);
     KraidPreventSamusGoingThrough();
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     rng = gSpriteRng;
     gCurrentSprite.work1++;
@@ -1683,14 +1683,14 @@ void KraidPartInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.samusCollision = SSC_KRAID;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x80;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
+            gCurrentSprite.drawDistanceTop = 0x30;
+            gCurrentSprite.drawDistanceBottom = 0x80;
+            gCurrentSprite.drawDistanceHorizontal = 0x50;
 
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = 0x1E0;
-            gCurrentSprite.hitboxLeftOffset = -0x120;
-            gCurrentSprite.hitboxRightOffset = 0xD0;
+            gCurrentSprite.hitboxTop = -0xA0;
+            gCurrentSprite.hitboxBottom = 0x1E0;
+            gCurrentSprite.hitboxLeft = -0x120;
+            gCurrentSprite.hitboxRight = 0xD0;
 
             gCurrentSprite.drawOrder = 0x1;
             gCurrentSprite.pose = KRAID_PART_POSE_CHECK_PROJECTILES;
@@ -1701,14 +1701,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x40;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x40;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
 
             gCurrentSprite.drawOrder = 0xB;
             gCurrentSprite.pose = KRAID_PART_POSE_CHECK_SPAWN_SPIKES;
@@ -1720,14 +1720,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x4;
 
             gCurrentSprite.drawOrder = 0xD;
             break;
@@ -1736,14 +1736,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x14;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x14;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = -0x50;
-            gCurrentSprite.hitboxBottomOffset = 0x50;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x30;
+            gCurrentSprite.hitboxTop = -0x50;
+            gCurrentSprite.hitboxBottom = 0x50;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x30;
 
             gCurrentSprite.drawOrder = 0xB;
             gCurrentSprite.pose = KRAID_PART_POSE_CHECK_SPAWN_SPIKES;
@@ -1755,14 +1755,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x14;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x14;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x4;
 
             gCurrentSprite.drawOrder = 0xD;
             break;
@@ -1771,14 +1771,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x14;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x14;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -0x50;
-            gCurrentSprite.hitboxBottomOffset = 0xD0;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x50;
+            gCurrentSprite.hitboxBottom = 0xD0;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
 
             gCurrentSprite.drawOrder = 0xB;
             gCurrentSprite.pose = KRAID_PART_POSE_CHECK_SPAWN_SPIKES;
@@ -1790,14 +1790,14 @@ void KraidPartInit(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x4;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x4;
 
             gCurrentSprite.drawOrder = 0xD;
             break;
@@ -1806,9 +1806,9 @@ void KraidPartInit(void)
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             
-            gCurrentSprite.drawDistanceTopOffset = 0x80;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
+            gCurrentSprite.drawDistanceTop = 0x80;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x60;
 
             gCurrentSprite.drawOrder = 0x2;
             gCurrentSprite.pOam = sKraidPartOam_LeftArmIdle;
@@ -1822,9 +1822,9 @@ void KraidPartInit(void)
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x60;
-            gCurrentSprite.drawDistanceBottomOffset = 0x38;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x78;
+            gCurrentSprite.drawDistanceTop = 0x60;
+            gCurrentSprite.drawDistanceBottom = 0x38;
+            gCurrentSprite.drawDistanceHorizontal = 0x78;
 
             gCurrentSprite.drawOrder = 0xF;
             gCurrentSprite.bgPriority = 0x3;
@@ -1841,14 +1841,14 @@ void KraidPartInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x36;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x38;
+            gCurrentSprite.drawDistanceTop = 0x36;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x38;
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x4;
 
             gCurrentSprite.drawOrder = 0x3;
             break;
@@ -1856,14 +1856,14 @@ void KraidPartInit(void)
         case KRAID_PART_RIGHT_FEET:
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x36;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
+            gCurrentSprite.drawDistanceTop = 0x36;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x70;
 
-            gCurrentSprite.hitboxTopOffset = 0x80;
-            gCurrentSprite.hitboxBottomOffset = 0xA0;
-            gCurrentSprite.hitboxLeftOffset = 0xC0;
-            gCurrentSprite.hitboxRightOffset = 0x170;
+            gCurrentSprite.hitboxTop = 0x80;
+            gCurrentSprite.hitboxBottom = 0xA0;
+            gCurrentSprite.hitboxLeft = 0xC0;
+            gCurrentSprite.hitboxRight = 0x170;
 
             gCurrentSprite.drawOrder = 0xE;
             gCurrentSprite.bgPriority = 0x3;
@@ -2174,8 +2174,8 @@ void KraidPartDyingSinking(void)
                 gCurrentSprite.pOam = sKraidPartOam_RightArmIdle;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
-                gCurrentSprite.drawDistanceTopOffset = 0x28;
-                gCurrentSprite.drawDistanceBottomOffset = 0x18;
+                gCurrentSprite.drawDistanceTop = 0x28;
+                gCurrentSprite.drawDistanceBottom = 0x18;
                 gCurrentSprite.pose = KRAID_PART_POSE_DYING_STATIONNARY;
             }
         }
@@ -2186,8 +2186,8 @@ void KraidPartDyingSinking(void)
                 gCurrentSprite.pOam = sKraidPartOam_LeftArmIdle;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
-                gCurrentSprite.drawDistanceTopOffset = 0x40;
-                gCurrentSprite.drawDistanceBottomOffset = 0x18;
+                gCurrentSprite.drawDistanceTop = 0x40;
+                gCurrentSprite.drawDistanceBottom = 0x18;
                 gCurrentSprite.pose = KRAID_PART_POSE_DYING_STATIONNARY;
             }
         }
@@ -2306,7 +2306,7 @@ void KraidNailMovement(void)
     spawnY = gCurrentSprite.work3 * BLOCK_SIZE;
     spawnX = gCurrentSprite.work2 * BLOCK_SIZE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
     else
         distanceYDown = spawnY - gCurrentSprite.yPositionSpawn;
@@ -2318,7 +2318,7 @@ void KraidNailMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0)
@@ -2339,7 +2339,7 @@ void KraidNailMovement(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0)
@@ -2523,11 +2523,11 @@ void Kraid(void)
 
         if (gCurrentSprite.paletteRow == 0xE - gCurrentSprite.frozenPaletteRowOffset)
         {
-            if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN))
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
         }
-        else if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+        else if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     }
     else
         gLockScreen.lock = LOCK_SCREEN_TYPE_NONE;
@@ -2548,7 +2548,7 @@ void KraidPart(void)
 
     if (gSubSpriteData1.health == 0)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         if (gCurrentSprite.pose < KRAID_PART_POSE_DYING_INIT)
         {
             gCurrentSprite.pose = KRAID_PART_POSE_DYING_INIT;
@@ -2607,7 +2607,7 @@ void KraidPart(void)
         else if (gCurrentSprite.pOam == sKraidPartOam_2cadc4)
             KraidPartHitboxChange_1Unused();
         else
-            gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     }
@@ -2622,7 +2622,7 @@ void KraidPart(void)
         else if (gCurrentSprite.pOam == sKraidPartOam_2cac5c)
             KraidPartHitboxChange_2Unused();
         else
-            gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     }
@@ -2673,14 +2673,14 @@ void KraidSpike(void)
             gCurrentSprite.pose = KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-            gCurrentSprite.hitboxTopOffset = -0x20;
-            gCurrentSprite.hitboxBottomOffset = 0x20;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0x8;
+            gCurrentSprite.hitboxTop = -0x20;
+            gCurrentSprite.hitboxBottom = 0x20;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0x8;
 
             gCurrentSprite.drawOrder = 0xC;
             gCurrentSprite.pOam = sKraidSpikeOam;
@@ -2695,19 +2695,19 @@ void KraidSpike(void)
             if (caf < 0x5)
             {
                 if (caf == 0x1)
-                    gCurrentSprite.hitboxRightOffset = 0x20;
+                    gCurrentSprite.hitboxRight = 0x20;
                 else if (caf == 0x2)
-                    gCurrentSprite.hitboxRightOffset = 0x40;
+                    gCurrentSprite.hitboxRight = 0x40;
                 else if (caf == 0x3)
-                    gCurrentSprite.hitboxRightOffset = 0x60;
+                    gCurrentSprite.hitboxRight = 0x60;
                 else if (caf == 0x4)
-                    gCurrentSprite.hitboxRightOffset = 0x80;
+                    gCurrentSprite.hitboxRight = 0x80;
             }
             else
             {
                 gCurrentSprite.samusCollision = SSC_KRAID_SPIKE;
-                gCurrentSprite.hitboxLeftOffset = 0x10;
-                gCurrentSprite.hitboxRightOffset = 0xA0;
+                gCurrentSprite.hitboxLeft = 0x10;
+                gCurrentSprite.hitboxRight = 0xA0;
                 if (gCurrentSprite.work0 != 0)
                     gCurrentSprite.work0--;
                 else
@@ -2844,7 +2844,7 @@ void KraidSpike(void)
             break;
 
         default:
-            if (gCurrentSprite.standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
+            if (gCurrentSprite.standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
                 gSamusData.standingStatus = STANDING_MIDAIR;
             gCurrentSprite.status = 0;
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x50, PE_SPRITE_EXPLOSION_HUGE);
@@ -2870,14 +2870,14 @@ void KraidNail(void)
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = -0x1C;
-            gCurrentSprite.hitboxBottomOffset = 0x1C;
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x1C;
+            gCurrentSprite.hitboxBottom = 0x1C;
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
 
             gCurrentSprite.pOam = sKraidNailOam;
             gCurrentSprite.animationDurationCounter = 0;
@@ -2886,7 +2886,7 @@ void KraidNail(void)
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = 0x1;
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
-            gCurrentSprite.oamScaling = Q_8_8(1.f);
+            gCurrentSprite.scaling = Q_8_8(1.f);
             gCurrentSprite.work1 = 0;
 
             gCurrentSprite.work3 = gCurrentSprite.yPosition >> 0x6;
@@ -2895,20 +2895,20 @@ void KraidNail(void)
             if (gCurrentSprite.roomSlot != 0)
             {
                 dstY = gSamusData.yPosition;
-                gCurrentSprite.oamRotation = 0x40;
+                gCurrentSprite.rotation = 0x40;
             }
             else
             {
                 dstY = gSamusData.yPosition - (BLOCK_SIZE * 2 + (HALF_BLOCK_SIZE));
-                gCurrentSprite.oamRotation = 0;
+                gCurrentSprite.rotation = 0;
             }
 
             dstX = gSamusData.xPosition;
 
             if (dstY < (gCurrentSprite.work3 * BLOCK_SIZE))
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             else
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
             if (dstX < gCurrentSprite.xPosition)
                 dstX = gSamusData.xPosition + BLOCK_SIZE;
@@ -2930,16 +2930,16 @@ void KraidNail(void)
                 if (gDifficulty == DIFF_HARD)
                 {
                     if (gCurrentSprite.roomSlot != 0)
-                        gCurrentSprite.oamRotation += 0x14;
+                        gCurrentSprite.rotation += 0x14;
                     else
-                        gCurrentSprite.oamRotation += 0x16;
+                        gCurrentSprite.rotation += 0x16;
                 }
                 else
                 {
                     if (gCurrentSprite.roomSlot != 0)
-                        gCurrentSprite.oamRotation += 0xC;
+                        gCurrentSprite.rotation += 0xC;
                     else
-                        gCurrentSprite.oamRotation += 0xE;
+                        gCurrentSprite.rotation += 0xE;
                 }
 
                 if (gCurrentSprite.health == 0)

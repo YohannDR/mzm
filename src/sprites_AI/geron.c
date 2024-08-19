@@ -28,7 +28,7 @@ void Geron(void)
     u32 eventCheck;
     struct SpriteData* pSprite;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -74,14 +74,14 @@ void Geron(void)
                 break;
             }
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3);
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE * 3);
-            gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE * 3);
 
             gCurrentSprite.drawOrder = 5;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -122,10 +122,10 @@ void Geron(void)
             break;
 
         case GERON_POSE_IDLE:
-            spriteTop = gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset;
+            spriteTop = gCurrentSprite.yPosition + gCurrentSprite.hitboxTop;
             spriteBottom = gCurrentSprite.yPosition + PIXEL_SIZE * 2;
-            spriteLeft = gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset;
-            spriteRight = gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset;
+            spriteLeft = gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft;
+            spriteRight = gCurrentSprite.xPosition + gCurrentSprite.hitboxRight;
 
             // Check make parasites grab geron
             for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)

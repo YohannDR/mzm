@@ -52,7 +52,7 @@ void SpriteUtilInitLocationText(void)
         gSpriteData[0].ignoreSamusCollisionTimer = 1;
         gSpriteData[0].primarySpriteRamSlot = 0;
         gSpriteData[0].freezeTimer = 0;
-        gSpriteData[0].standingOnSprite = FALSE;
+        gSpriteData[0].standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
     }
 }
 
@@ -235,8 +235,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
     samusX = pData->xPosition;
     previousX = gPreviousXPosition;
 
-    samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
-    samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+    samusTop = samusY + gSamusPhysics.drawDistanceTop;
+    samusBottom = samusY + gSamusPhysics.drawDistanceBottom;
     samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
     samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
 
@@ -284,10 +284,10 @@ void SpriteUtilSamusAndSpriteCollision(void)
         spriteY = pSprite->yPosition;
         spriteX = pSprite->xPosition;
 
-        spriteTop = pSprite->yPosition + pSprite->hitboxTopOffset;
-        spriteBottom = pSprite->yPosition + pSprite->hitboxBottomOffset;
-        spriteLeft = pSprite->xPosition + pSprite->hitboxLeftOffset;
-        spriteRight = pSprite->xPosition + pSprite->hitboxRightOffset;
+        spriteTop = pSprite->yPosition + pSprite->hitboxTop;
+        spriteBottom = pSprite->yPosition + pSprite->hitboxBottom;
+        spriteLeft = pSprite->xPosition + pSprite->hitboxLeft;
+        spriteRight = pSprite->xPosition + pSprite->hitboxRight;
 
         if (!SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight, spriteTop, spriteBottom, spriteLeft, spriteRight))
             continue;
@@ -325,20 +325,20 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 {
                     if ((samusY - 0x18) < spriteTop)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + ONE_SUB_PIXEL + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + ONE_SUB_PIXEL + gSamusPhysics.drawDistanceTop, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                         {
                             pData->yPosition = spriteTop + ONE_SUB_PIXEL;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                            pSprite->standingOnSprite = 0x2;
+                            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_ON;
                         }
                     }
                     else if (samusTop + QUARTER_BLOCK_SIZE > spriteBottom)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteBottom - gSamusPhysics.drawDistanceTopOffset, samusX);
+                        SpriteUtilCheckCollisionAtPosition(spriteBottom - gSamusPhysics.drawDistanceTop, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR)
                         {
-                            pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTopOffset;
+                            pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTop;
                             if (pData->yVelocity > 0 && gEquipment.currentEnergy != 0)
                                 pData->yVelocity = 0;
                         }
@@ -369,20 +369,20 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         if (samusY - 0x18 < spriteTop)
                         {
-                            SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                            SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTop, samusX);
                             if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                             {
                                 pData->yPosition = spriteTop + ONE_SUB_PIXEL;
                                 pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                                pSprite->standingOnSprite = 2;
+                                pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_ON;
                             }
                         }
                         else if (samusTop + 0x10 > spriteBottom)
                         {
-                            SpriteUtilCheckCollisionAtPosition(spriteBottom - gSamusPhysics.drawDistanceTopOffset, samusX);
+                            SpriteUtilCheckCollisionAtPosition(spriteBottom - gSamusPhysics.drawDistanceTop, samusX);
                             if (gPreviousCollisionCheck == COLLISION_AIR)
                             {
-                                pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTopOffset;
+                                pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTop;
                                 if (pData->yVelocity > 0 && gEquipment.currentEnergy != 0)
                                     pData->yVelocity = 0;
                             }
@@ -400,12 +400,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_ESCAPE_SHIP:
                     if (!SpriteUtilCheckPullingSelfUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE && samusY - 0x18 < spriteTop)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTop, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                         {
                             pData->yPosition = spriteTop + 1;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                            pSprite->standingOnSprite = 2;
+                            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_ON;
                         }
                     }
                     break;
@@ -417,12 +417,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         {
                             if (!SpriteUtilCheckPullingSelfUp() && pData->invincibilityTimer < 40)
                             {
-                                SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                                SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTop, samusX);
                                 if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
                                 {
                                     pData->yPosition = spriteTop + 1;
                                     pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                                    pSprite->standingOnSprite = 2;
+                                    pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_ON;
                                 }
                             }
                         }
@@ -457,12 +457,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     }
                     else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSelfUp() && pData->invincibilityTimer < 38)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTop, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
                         {
                             pData->yPosition = spriteTop + 1;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                            pSprite->standingOnSprite = 2;
+                            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_ON;
 
                         }
                     }
@@ -484,7 +484,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
                         {
-                            if ((u8)(pSprite->oamRotation - 0x21) <= 0x1E)
+                            if ((u8)(pSprite->rotation - 0x21) <= 0x1E)
                             {
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                 if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
@@ -497,7 +497,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         }
                         else
                         {
-                            if ((u8)(pSprite->oamRotation + 0x3F) <= 0x1E)
+                            if ((u8)(pSprite->rotation + 0x3F) <= 0x1E)
                             {
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                 if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
@@ -724,7 +724,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         }
                         else if (gPreviousCollisionCheck == COLLISION_AIR)
                         {
-                            SpriteUtilCheckCollisionAtPosition(samusY + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                            SpriteUtilCheckCollisionAtPosition(samusY + 0x1 + gSamusPhysics.drawDistanceTop, samusX);
                             if (gPreviousCollisionCheck == COLLISION_AIR)
                             {
                                 SamusSetPose(SPOSE_KNOCKBACK_REQUEST);
@@ -1013,22 +1013,22 @@ void unk_f608(void)
     u16 xPosition;
     u32 blockTop;
 
-    yPosition = gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset;
+    yPosition = gCurrentSprite.yPosition + gCurrentSprite.hitboxBottom;
     xPosition = gCurrentSprite.xPosition;
 
     blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - 0x4, xPosition);
     if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
-        gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+        gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
     else
     {
         blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
         if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
-            gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+            gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
         else
         {
             blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + 0x4, xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
-                gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+                gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
         }
     }
 }
@@ -1313,26 +1313,26 @@ void unk_f9e4(s16 movement)
 /**
  * @brief fa78 | 150 | Calcultes the new oam rotation to rotate a sprite towards a target
  * 
- * @param oamRotation Current rotation
+ * @param rotation Current rotation
  * @param targetY Target Y
  * @param targetX Target X
  * @param spriteY Current Y
  * @param spriteX Current X
  * @return u8 New rotation
  */
-u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 oamRotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX)
+u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 rotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX)
 {
     s32 var_0;
     u16 var_1;
     s32 intensity;
 
-    s32 rotation;
+    s32 _rotation;
     s32 dstY;
     s32 dstX;
     s32 y;
     s32 x;
     
-    rotation = (s16)oamRotation;
+    _rotation = (s16)rotation;
     dstY = (s16)targetY;
     dstX = (s16)targetX;
     y = (s16)spriteY;
@@ -1387,62 +1387,62 @@ u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 oamRotation, s32 targetY, s32 targe
 
     if (var_0 == 0)
     {
-        if ((u16)(rotation - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
-        else if (rotation >+ BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
+        if ((u16)(_rotation - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
+        else if (_rotation >+ BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
     }
     else if (var_0 == HALF_BLOCK_SIZE)
     {
-        if ((u16)(rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
-        else if ((u16)(rotation - HALF_BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
+        if ((u16)(_rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
+        else if ((u16)(_rotation - HALF_BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE)
     {
-        if ((u16)(rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
-        else if ((u16)(rotation - BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
+        if ((u16)(_rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
+        else if ((u16)(_rotation - BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE + HALF_BLOCK_SIZE)
     {
-        if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
-        else if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE)) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
+        if ((u16)(_rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
+        else if ((u16)(_rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE)) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE * 2)
     {
-        if ((u16)(rotation - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
-        else if (rotation > BLOCK_SIZE * 2)
-            rotation = (s16)(rotation - intensity);
+        if ((u16)(_rotation - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
+        else if (_rotation > BLOCK_SIZE * 2)
+            _rotation = (s16)(_rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 2 + HALF_BLOCK_SIZE)
     {
-        if ((u16)(rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
-        else if ((u16)(rotation - HALF_BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
+        if ((u16)(_rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
+        else if ((u16)(_rotation - HALF_BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 3)
     {
-        if ((u16)(rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
-        else if ((u16)(rotation - BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
+        if ((u16)(_rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
+        else if ((u16)(_rotation - BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 3 + HALF_BLOCK_SIZE)
     {
-        if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation + intensity);
-        else if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) > BLOCK_SIZE * 2 - 1)
-            rotation = (s16)(rotation - intensity);
+        if ((u16)(_rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation + intensity);
+        else if ((u16)(_rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) > BLOCK_SIZE * 2 - 1)
+            _rotation = (s16)(_rotation - intensity);
     }
 
-    return rotation;
+    return _rotation;
 }
 
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
@@ -1629,7 +1629,7 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
     result = NSLR_OUT_OF_RANGE;
 
     // Get samus middle position visually
-    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop / 2;
     samusX = gSamusData.xPosition;
 
     // Get sprite position
@@ -1685,7 +1685,7 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
     result = NSAB_OUT_OF_RANGE;
 
     // Get samus middle position visually
-    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop / 2;
     samusX = gSamusData.xPosition;
 
     // Get sprite position
@@ -1744,7 +1744,7 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
     xFlip = FALSE;
 
     // Get samus middle position visually
-    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop / 2;
     samusX = gSamusData.xPosition;
 
     // Get sprite position
@@ -1813,8 +1813,6 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
  */
 void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
 {
-    u8 standing;
-
     if (pSprite->status & SPRITE_STATUS_SAMUS_ON_TOP)
     {
         if (gSamusData.standingStatus != STANDING_ENEMY)
@@ -1829,21 +1827,18 @@ void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
         return;
     }
 
-    standing = pSprite->standingOnSprite;
-    if (standing != 0x1)
-    {            
-        if (standing == 0x2)
-        {
-            pSprite->standingOnSprite = TRUE;
-            if (gSamusDataCopy.yPosition <= gSamusData.yPosition)
-                gSamusData.yPosition = pSprite->yPosition + pSprite->hitboxTopOffset + ONE_SUB_PIXEL;
-        }
-    }
-    else
+    switch (pSprite->standingOnSprite)
     {
-        pSprite->standingOnSprite = FALSE;
-        if (gSamusData.standingStatus == STANDING_ENEMY)
-            gSamusData.standingStatus = STANDING_MIDAIR;
+        case SAMUS_STANDING_ON_SPRITE_ON:
+            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_RELEASING;
+            if (gSamusDataCopy.yPosition <= gSamusData.yPosition)
+                gSamusData.yPosition = pSprite->yPosition + pSprite->hitboxTop + ONE_SUB_PIXEL;
+            break;
+
+        case SAMUS_STANDING_ON_SPRITE_RELEASING:
+            pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
+            if (gSamusData.standingStatus == STANDING_ENEMY)
+                gSamusData.standingStatus = STANDING_MIDAIR;
     }
 }
 
@@ -2359,10 +2354,10 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             pSprite->paletteRow = 0;
 
             // Update samus if she was standing on it
-            if (pSprite->standingOnSprite && pData->standingStatus == STANDING_ENEMY)
+            if (pSprite->standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && pData->standingStatus == STANDING_ENEMY)
             {
                 pData->standingStatus = STANDING_MIDAIR;
-                pSprite->standingOnSprite = FALSE;
+                pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
             }
 
             // Set destructed pose
@@ -2697,7 +2692,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
     }
 
     flip = FALSE;
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.work0 == 0)
         {
@@ -2772,7 +2767,7 @@ void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpe
 
     if (flip)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_DOWN;
         gCurrentSprite.work3 = 1;
     }
 }
@@ -2809,7 +2804,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
 
     flip = FALSE;
     
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.work0 == 0)
         {
@@ -2893,7 +2888,7 @@ void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8
 
     if (flip)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_DOWN;
         gCurrentSprite.work3 = 1;
     }
 }
@@ -3273,7 +3268,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             gCurrentSprite.paletteRow = 0;
             gCurrentSprite.frozenPaletteRowOffset = 0;
             gCurrentSprite.absolutePaletteRow = 0;
-            gCurrentSprite.ignoreSamusCollisionTimer = 1;
+            gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
             gCurrentSprite.freezeTimer = 0;
         }
     }
@@ -3495,16 +3490,16 @@ u8 SpriteCheckCollidingWithSamusDrawing(void)
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
 
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
 
     samusY = gSamusData.yPosition;
     samusX = gSamusData.xPosition;
 
-    samusTop = gSamusPhysics.drawDistanceTopOffset + gSamusData.yPosition;
-    samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+    samusTop = gSamusPhysics.drawDistanceTop + gSamusData.yPosition;
+    samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottom;
     samusLeft = gSamusPhysics.drawDistanceLeftOffset + gSamusData.xPosition;
     samusRight = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
 

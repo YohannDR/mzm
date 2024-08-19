@@ -17,14 +17,14 @@
  */
 void GeegaInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x1C;
-    gCurrentSprite.hitboxBottomOffset = 0x1C;
-    gCurrentSprite.hitboxLeftOffset = -0x18;
-    gCurrentSprite.hitboxRightOffset = 0x18;
+    gCurrentSprite.hitboxTop = -0x1C;
+    gCurrentSprite.hitboxBottom = 0x1C;
+    gCurrentSprite.hitboxLeft = -0x18;
+    gCurrentSprite.hitboxRight = 0x18;
 
-    gCurrentSprite.drawDistanceTopOffset = 0xA;
-    gCurrentSprite.drawDistanceBottomOffset = 0xA;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+    gCurrentSprite.drawDistanceTop = 0xA;
+    gCurrentSprite.drawDistanceBottom = 0xA;
+    gCurrentSprite.drawDistanceHorizontal = 0xC;
 
     gCurrentSprite.work1 = 0x1;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -94,7 +94,7 @@ void GeegaIdle(void)
                 else
                 {
                     // Samus in range, set going up
-                    gCurrentSprite.oamScaling = gSamusData.yPosition;
+                    gCurrentSprite.scaling = gSamusData.yPosition;
                     gCurrentSprite.pose = GEEGA_POSE_GOING_UP;
                     gCurrentSprite.work0 = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
@@ -114,7 +114,7 @@ void GeegaIdle(void)
     
                         if (ramSlot != 0xFF)
                         {
-                            gSpriteData[ramSlot].oamScaling = gCurrentSprite.oamScaling;
+                            gSpriteData[ramSlot].scaling = gCurrentSprite.scaling;
                             gSpriteData[ramSlot].work0 = 0x12;
                         }
                     }
@@ -141,8 +141,8 @@ void GeegaGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
-            positionRange = gCurrentSprite.oamScaling;
+        if (gCurrentSprite.scaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
+            positionRange = gCurrentSprite.scaling;
         else
             positionRange = gSamusData.yPosition;
 
@@ -183,7 +183,7 @@ void GeegaRespawn(void)
         gCurrentSprite.paletteRow = 0x0;
         gCurrentSprite.frozenPaletteRowOffset = 0x0;
         gCurrentSprite.absolutePaletteRow = 0x0;
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.freezeTimer = 0x0;
     }
 }

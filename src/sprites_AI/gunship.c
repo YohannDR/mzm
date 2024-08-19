@@ -38,29 +38,29 @@ void GunshipFlickerFlames(void)
     
     if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && gCurrentSprite.work2 == 0x4)
     {
-        row = gCurrentSprite.oamScaling;
+        row = gCurrentSprite.scaling;
         flag = 0x80;
 
         // Update palette row
         if (row & flag)
         {
             if (row > 0x80)
-                gCurrentSprite.oamScaling--;
+                gCurrentSprite.scaling--;
 
-            if (gCurrentSprite.oamScaling == 0x80)
-                gCurrentSprite.oamScaling = 0x0;
+            if (gCurrentSprite.scaling == 0x80)
+                gCurrentSprite.scaling = 0x0;
         }
         else
         {
             if (row < 0x2)
-                gCurrentSprite.oamScaling++;
+                gCurrentSprite.scaling++;
 
-            if (gCurrentSprite.oamScaling == 0x2)
-                gCurrentSprite.oamScaling |= flag;
+            if (gCurrentSprite.scaling == 0x2)
+                gCurrentSprite.scaling |= flag;
         }
 
         // Transfer palette
-        offset = gCurrentSprite.oamScaling & 0x7F;
+        offset = gCurrentSprite.scaling & 0x7F;
         DMA_SET(3, (sGunshipFlashingPal + offset * 16),
             (PALRAM_BASE + 0x340), (DMA_ENABLE << 0x10) | 0x10);
     }
@@ -133,7 +133,7 @@ u8 GunshipCheckSamusEnter(void)
 
             gCurrentSprite.work0 = 0x38;
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.standingOnSprite = FALSE;
+            gCurrentSprite.standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
             gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
             return TRUE;
         }
@@ -162,14 +162,14 @@ void GunshipInit(void)
 
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
-    gCurrentSprite.hitboxTopOffset = -0xC4;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x40;
-    gCurrentSprite.hitboxRightOffset = 0x40;
+    gCurrentSprite.hitboxTop = -0xC4;
+    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxLeft = -0x40;
+    gCurrentSprite.hitboxRight = 0x40;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x30;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x78;
+    gCurrentSprite.drawDistanceTop = 0x30;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x78;
 
     gCurrentSprite.pOam = sGunshipOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -388,7 +388,7 @@ void GunshipRefill(void)
         gCurrentSprite.pose = GUNSHIP_POSE_AFTER_REFILL;
         gCurrentSprite.work0 = 0x1E;
 
-        gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
+        gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
             0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         SoundFade(0x21E, 0xF);
     }
@@ -402,7 +402,7 @@ void GunshipAfterRefill(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.oamRotation;
+    ramSlot = gCurrentSprite.rotation;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         if (gCurrentSprite.work0 != 0x0)
@@ -411,7 +411,7 @@ void GunshipAfterRefill(void)
             if (gCurrentSprite.work0 == 0x0)
             {
                 // Spawn save prompt
-                gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
+                gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
                     0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
         }
@@ -445,7 +445,7 @@ void GunshipSaving(void)
     if (gCurrentSprite.work0 == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_AFTER_SAVE;
-        gCurrentSprite.oamRotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
+        gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
             0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
@@ -458,7 +458,7 @@ void GunshipAfterSave(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.oamRotation;
+    ramSlot = gCurrentSprite.rotation;
     if (gSpriteData[ramSlot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         // Eject samus
@@ -649,7 +649,7 @@ void GunshipStartEscaping(void)
         gCurrentSprite.pose = GUNSHIP_POSE_TAKING_OFF;
         gCurrentSprite.work0 = 0x98;
         gCurrentSprite.work3 = 0x0;
-        gCurrentSprite.oamScaling = 0x0;
+        gCurrentSprite.scaling = 0x0;
 
         // Spawn flames
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_HORIZONTAL, gCurrentSprite.spritesetGfxSlot,
@@ -752,17 +752,17 @@ void GunshipPartInit(void)
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-    gCurrentSprite.hitboxTopOffset = 0x0;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = 0x0;
-    gCurrentSprite.hitboxRightOffset = 0x0;
+    gCurrentSprite.hitboxTop = 0x0;
+    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxLeft = 0x0;
+    gCurrentSprite.hitboxRight = 0x0;
 
     switch (gCurrentSprite.roomSlot)
     {
         case GUNSHIP_PART_ENTRANCE_FRONT:
-            gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+            gCurrentSprite.drawDistanceTop = 0x38;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x28;
             
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosed;
 
@@ -773,9 +773,9 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_ENTRANCE_BACK:
-            gCurrentSprite.drawDistanceTopOffset = 0x40;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x40;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
             gCurrentSprite.drawOrder = 0xE;
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosed;
@@ -787,9 +787,9 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_PLATFORM:
-            gCurrentSprite.drawDistanceTopOffset = 0x0;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x0;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
             gCurrentSprite.drawOrder = 0xD;
             gCurrentSprite.pOam = sGunshipPartOAM_Platform;
@@ -804,9 +804,9 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_FLAMES_HORIZONTAL:
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x30;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
+            gCurrentSprite.drawDistanceTop = 0x18;
+            gCurrentSprite.drawDistanceBottom = 0x30;
+            gCurrentSprite.drawDistanceHorizontal = 0x60;
 
             gCurrentSprite.drawOrder = 0xF;
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
@@ -814,9 +814,9 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_FLAMES_VERTICAL:
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x30;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
+            gCurrentSprite.drawDistanceTop = 0x18;
+            gCurrentSprite.drawDistanceBottom = 0x30;
+            gCurrentSprite.drawDistanceHorizontal = 0x60;
 
             gCurrentSprite.drawOrder = 0xF;
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;

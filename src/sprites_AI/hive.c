@@ -47,14 +47,14 @@ void HiveInit(void)
         return;
     }
 
-    gCurrentSprite.drawDistanceTopOffset = 0x28;
-    gCurrentSprite.drawDistanceBottomOffset = 0x28;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
+    gCurrentSprite.drawDistanceTop = 0x28;
+    gCurrentSprite.drawDistanceBottom = 0x28;
+    gCurrentSprite.drawDistanceHorizontal = 0x14;
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2);
-    gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE * 2;
-    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 2);
+    gCurrentSprite.hitboxBottom = BLOCK_SIZE * 2;
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
     gCurrentSprite.frozenPaletteRowOffset = 1;
@@ -237,7 +237,7 @@ void HiveDying(void)
  */
 void HiveIgnoreSamusCollision(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 }
 
 /**
@@ -248,13 +248,13 @@ void HiveRootsInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.drawDistanceTopOffset = 0x0;
-    gCurrentSprite.drawDistanceBottomOffset = 0x20;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
-    gCurrentSprite.hitboxTopOffset = -0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.drawDistanceTop = 0x0;
+    gCurrentSprite.drawDistanceBottom = 0x20;
+    gCurrentSprite.drawDistanceHorizontal = 0x14;
+    gCurrentSprite.hitboxTop = -0x4;
+    gCurrentSprite.hitboxBottom = 0x4;
+    gCurrentSprite.hitboxLeft = -0x4;
+    gCurrentSprite.hitboxRight = 0x4;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.pOam = sHiveRootsOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -289,14 +289,14 @@ void MellowInit(struct SpriteData* pSprite)
     {
         pSprite->status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-        pSprite->drawDistanceTopOffset = 0x8;
-        pSprite->drawDistanceBottomOffset = 0x8;
-        pSprite->drawDistanceHorizontalOffset = 0xC;
+        pSprite->drawDistanceTop = 0x8;
+        pSprite->drawDistanceBottom = 0x8;
+        pSprite->drawDistanceHorizontal = 0xC;
 
-        pSprite->hitboxTopOffset = -0xC;
-        pSprite->hitboxBottomOffset = 0xC;
-        pSprite->hitboxLeftOffset = -0x20;
-        pSprite->hitboxRightOffset = 0x20;
+        pSprite->hitboxTop = -0xC;
+        pSprite->hitboxBottom = 0xC;
+        pSprite->hitboxLeft = -0x20;
+        pSprite->hitboxRight = 0x20;
 
         pSprite->animationDurationCounter = 0x0;
         pSprite->currentAnimationFrame = 0x0;
@@ -329,12 +329,12 @@ void MellowInit(struct SpriteData* pSprite)
             pSprite->work3 = 0x1;
             pSprite->xPositionSpawn = gSpriteRng & 0x3;
             pSprite->pose = 0x23;
-            pSprite->oamScaling = 0x20;
+            pSprite->scaling = 0x20;
             SpriteUtilMakeSpriteFaceSamusDirection();
-            if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-                pSprite->status &= ~SPRITE_STATUS_UNKNOWN_400;
+            if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTop)
+                pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
             else
-                pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
+                pSprite->status |= SPRITE_STATUS_FACING_DOWN;
         }
     }
 }
@@ -433,12 +433,12 @@ void MellowSamusDetectedInit(struct SpriteData* pSprite)
     pSprite->work3 = 0x1;
     pSprite->xPositionSpawn = 0x0;
     pSprite->pose = 0x23;
-    pSprite->oamScaling = 0x20;
+    pSprite->scaling = 0x20;
     SpriteUtilMakeSpriteFaceSamusDirection();
-    if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-        pSprite->status &= ~SPRITE_STATUS_UNKNOWN_400;
+    if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTop)
+        pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
     else
-        pSprite->status |= SPRITE_STATUS_UNKNOWN_400;
+        pSprite->status |= SPRITE_STATUS_FACING_DOWN;
 }
 
 #ifdef NON_MATCHING
@@ -528,7 +528,7 @@ void MellowMove(struct SpriteData* pSprite)
     }
     else
     {
-        spriteY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
+        spriteY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop;
         spriteX = gSamusData.xPosition;
         limit = 0x1E;
         offset = 0x28;
@@ -629,7 +629,7 @@ void MellowMove(struct SpriteData* pSprite)
 
     flip = FALSE;
     
-    if (pSprite->status & SPRITE_STATUS_UNKNOWN_400)
+    if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
     {
         if (pSprite->work0 == 0)
         {
@@ -696,15 +696,15 @@ void MellowMove(struct SpriteData* pSprite)
 
     if (flip)
     {
-        pSprite->status ^= SPRITE_STATUS_UNKNOWN_400;
+        pSprite->status ^= SPRITE_STATUS_FACING_DOWN;
         ///pSprite->work3 = 1;
         gCurrentSprite.work3 = 1;
     }
 
-    pSprite->oamScaling--;
-    if (pSprite->oamScaling == 0)
+    pSprite->scaling--;
+    if (pSprite->scaling == 0)
     {
-        pSprite->oamScaling = 32;
+        pSprite->scaling = 32;
         if (pSprite->status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(0x15E);
     }
@@ -1310,7 +1310,7 @@ void HiveRoots(void)
     u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     if (gSpriteData[ramSlot].spriteId == PSPRITE_HIVE)
     {
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
@@ -1398,7 +1398,7 @@ void MellowSwarm(void)
     u16 y_pos;
 
     count = 0x0;
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     if (gCurrentSprite.pose == 0x0)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
@@ -1406,13 +1406,13 @@ void MellowSwarm(void)
         else
         {
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
-            gCurrentSprite.drawDistanceTopOffset = 0x1;
-            gCurrentSprite.drawDistanceBottomOffset = 0x1;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x1;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x4;
+            gCurrentSprite.drawDistanceTop = 0x1;
+            gCurrentSprite.drawDistanceBottom = 0x1;
+            gCurrentSprite.drawDistanceHorizontal = 0x1;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pOam = sMellowOAM_Idle;
             gCurrentSprite.currentAnimationFrame = 0x0;
@@ -1450,7 +1450,7 @@ void MellowSwarm(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400 && gCurrentSprite.yPositionSpawn != 0x0)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN && gCurrentSprite.yPositionSpawn != 0x0)
             gCurrentSprite.yPositionSpawn--;
         else
         {
@@ -1463,11 +1463,11 @@ void MellowSwarm(void)
                 pSprite++;
             }
 
-            if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN) == 0x0)
             {
                 if (count >= gCurrentSprite.work2)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                     return;
                 }
             }

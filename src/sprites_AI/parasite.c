@@ -55,14 +55,14 @@ void ParasiteInit(struct SpriteData* pSprite)
     u16 yPosition;
     u16 xPosition;
 
-    pSprite->hitboxTopOffset = -0x4;
-    pSprite->hitboxBottomOffset = 0x0;
-    pSprite->hitboxLeftOffset = -0x4;
-    pSprite->hitboxRightOffset = 0x4;
+    pSprite->hitboxTop = -0x4;
+    pSprite->hitboxBottom = 0x0;
+    pSprite->hitboxLeft = -0x4;
+    pSprite->hitboxRight = 0x4;
 
-    pSprite->drawDistanceTopOffset = 0x8;
-    pSprite->drawDistanceBottomOffset = 0x4;
-    pSprite->drawDistanceHorizontalOffset = 0x8;
+    pSprite->drawDistanceTop = 0x8;
+    pSprite->drawDistanceBottom = 0x4;
+    pSprite->drawDistanceHorizontal = 0x8;
 
     pSprite->pOam = sParasiteOAM_Idle;
     pSprite->animationDurationCounter = 0x0;
@@ -129,7 +129,7 @@ void ParasiteGrabSamus(struct SpriteData* pSprite)
     pSprite->work0 = 0x0;
 
     // Get samus position
-    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop;
     samusX = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
 
     // Get Y offset
@@ -181,7 +181,7 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
         // Check update vertical direction
         if (pSprite->status & SPRITE_STATUS_YFLIP)
         {
-            if (gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset < pSprite->yPosition + 0x8)
+            if (gSamusData.yPosition + gSamusPhysics.drawDistanceBottom < pSprite->yPosition + 0x8)
             {
                 pSprite->status &= ~SPRITE_STATUS_YFLIP;
                 pSprite->work0 = gSpriteRng;
@@ -189,7 +189,7 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
         }
         else
         {
-            if (gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset > pSprite->yPosition - 0x8)
+            if (gSamusData.yPosition + gSamusPhysics.drawDistanceTop > pSprite->yPosition - 0x8)
             {
                 pSprite->status |= SPRITE_STATUS_YFLIP;
                 pSprite->work0 = gSpriteRng;
@@ -245,7 +245,7 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
             pSprite->work0--;
 
         // Get samus position
-        samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
+        samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTop;
         samusX = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
         
         // Update position
@@ -1123,8 +1123,8 @@ void ParasiteGrabGeron(struct SpriteData* pSprite)
     ramSlot = pSprite->work1;
 
     // Get geron position
-    geronY = gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTopOffset;
-    geronX = gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeftOffset;
+    geronY = gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTop;
+    geronX = gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeft;
 
     // Get Y offset
     if (pSprite->yPosition < geronY)
@@ -1188,7 +1188,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
         }
         else
         {
-            if (gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTopOffset > pSprite->yPosition - 0x8)
+            if (gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTop > pSprite->yPosition - 0x8)
             {
                 pSprite->status |= SPRITE_STATUS_YFLIP;
                 pSprite->work0 = gSpriteRng;
@@ -1198,7 +1198,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
         // Check update horizontal direction
         if (pSprite->status & SPRITE_STATUS_XFLIP)
         {
-            if (gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxRightOffset < pSprite->xPosition + 0x8)
+            if (gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxRight < pSprite->xPosition + 0x8)
             {
                 pSprite->status &= ~SPRITE_STATUS_XFLIP;
                 pSprite->work0 = gSpriteRng;
@@ -1206,7 +1206,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
         }
         else
         {
-            if (gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeftOffset > pSprite->xPosition - 0x8)
+            if (gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeft > pSprite->xPosition - 0x8)
             {
                 pSprite->status |= SPRITE_STATUS_XFLIP;
                 pSprite->work0 = gSpriteRng;
@@ -1244,8 +1244,8 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
             pSprite->work0--;
 
         // Get geron position
-        geronY = gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTopOffset;
-        geronX = gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeftOffset;
+        geronY = gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTop;
+        geronX = gSpriteData[ramSlot].xPosition + gSpriteData[ramSlot].hitboxLeft;
         
         // Update position
         pSprite->yPosition = geronY + pSprite->yPositionSpawn;
@@ -1273,7 +1273,7 @@ void ParasiteBombCollision(struct SpriteData* pSprite)
     u16 spriteLeft;
     u16 spriteRight;
 
-    u16 yPos, hitboxBottomOffset;
+    u16 yPos, hitboxBottom;
 
     if (pSprite->invincibilityStunFlashTimer & 0x80)
     {
@@ -1284,24 +1284,24 @@ void ParasiteBombCollision(struct SpriteData* pSprite)
     kill = FALSE;
 
     yPos = pSprite->yPosition;
-    spriteTop = yPos + pSprite->hitboxTopOffset;
+    spriteTop = yPos + pSprite->hitboxTop;
 
     spriteBottom = yPos;
-    hitboxBottomOffset = pSprite->hitboxBottomOffset;
-    spriteBottom += hitboxBottomOffset;
+    hitboxBottom = pSprite->hitboxBottom;
+    spriteBottom += hitboxBottom;
 
-    spriteLeft = pSprite->xPosition + pSprite->hitboxLeftOffset;
-    spriteRight = pSprite->xPosition + pSprite->hitboxRightOffset;
+    spriteLeft = pSprite->xPosition + pSprite->hitboxLeft;
+    spriteRight = pSprite->xPosition + pSprite->hitboxRight;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         status = pProj->status;
         if (status & PROJ_STATUS_EXISTS && pProj->type == PROJ_TYPE_BOMB && pProj->movementStage == BOMB_STAGE_EXPLODING)
         {
-            projTop = pProj->yPosition + pProj->hitboxTopOffset;
-            projBottom = pProj->yPosition + pProj->hitboxBottomOffset;
-            projLeft = pProj->xPosition + pProj->hitboxLeftOffset;
-            projRight = pProj->xPosition + pProj->hitboxRightOffset;
+            projTop = pProj->yPosition + pProj->hitboxTop;
+            projBottom = pProj->yPosition + pProj->hitboxBottom;
+            projLeft = pProj->xPosition + pProj->hitboxLeft;
+            projRight = pProj->xPosition + pProj->hitboxRight;
 
             if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
             {

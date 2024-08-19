@@ -143,12 +143,12 @@ void ImagoCoreFlashingAnim(void)
     if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
     {
         // Update delay
-        if (gCurrentSprite.oamScaling != 0)
-            gCurrentSprite.oamScaling--;
+        if (gCurrentSprite.scaling != 0)
+            gCurrentSprite.scaling--;
         else
         {
             // Update offset
-            offset = gCurrentSprite.oamRotation++;
+            offset = gCurrentSprite.rotation++;
 
             // Get palette row
             palette = sImagoDynamicPaletteData[offset][0];
@@ -156,7 +156,7 @@ void ImagoCoreFlashingAnim(void)
             if (palette == 0x80)
             {
                 // Reset offset
-                gCurrentSprite.oamRotation = 0x1;
+                gCurrentSprite.rotation = 0x1;
                 offset = 0;
                 palette = sImagoDynamicPaletteData[offset][0];
             }
@@ -167,7 +167,7 @@ void ImagoCoreFlashingAnim(void)
             // Update palette and delay
             gCurrentSprite.absolutePaletteRow = palette;
             gCurrentSprite.paletteRow = palette;
-            gCurrentSprite.oamScaling = delay;
+            gCurrentSprite.scaling = delay;
         }
     }
 }
@@ -180,13 +180,13 @@ void ImagoSetSidesHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.hitboxLeftOffset = -0x40;
-        gCurrentSprite.hitboxRightOffset = 0x18;
+        gCurrentSprite.hitboxLeft = -0x40;
+        gCurrentSprite.hitboxRight = 0x18;
     }
     else
     {
-        gCurrentSprite.hitboxLeftOffset = -0x18;
-        gCurrentSprite.hitboxRightOffset = 0x40;
+        gCurrentSprite.hitboxLeft = -0x18;
+        gCurrentSprite.hitboxRight = 0x40;
     }
 }
 
@@ -225,17 +225,17 @@ void ImagoInit(void)
 
         gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_IGNORE_PROJECTILES);
 
-        gCurrentSprite.drawDistanceTopOffset = 0x20;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x1A;
+        gCurrentSprite.drawDistanceTop = 0x20;
+        gCurrentSprite.drawDistanceBottom = 0x28;
+        gCurrentSprite.drawDistanceHorizontal = 0x1A;
 
-        gCurrentSprite.hitboxTopOffset = -0x4;
-        gCurrentSprite.hitboxBottomOffset = 0x80;
+        gCurrentSprite.hitboxTop = -0x4;
+        gCurrentSprite.hitboxBottom = 0x80;
         ImagoSetSidesHitbox();
 
         gCurrentSprite.frozenPaletteRowOffset = 0x1;
-        gCurrentSprite.oamScaling = 0;
-        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.scaling = 0;
+        gCurrentSprite.rotation = 0;
 
         gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
         gCurrentSprite.work0 = 0x50;
@@ -750,7 +750,7 @@ void ImagoDyingInit(void)
     gSubSpriteData1.animationDurationCounter = 0;
     gSubSpriteData1.currentAnimationFrame = 0;
 
-    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxBottom = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
     // Retrieve previous pose
     gCurrentSprite.pose = gSubSpriteData1.workVariable2;
@@ -1039,7 +1039,7 @@ void ImagoDying(void)
  */
 void ImagoSetEvent(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     if (gEquipment.maxSuperMissiles > gSubSpriteData1.workVariable4)
     {
         // More supers than at the beginning of the fight
@@ -1059,13 +1059,13 @@ void ImagoPartSetBodySidesHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.hitboxLeftOffset = -0x28;
-        gCurrentSprite.hitboxRightOffset = 0xC0;
+        gCurrentSprite.hitboxLeft = -0x28;
+        gCurrentSprite.hitboxRight = 0xC0;
     }
     else
     {
-        gCurrentSprite.hitboxLeftOffset = -0xC0;
-        gCurrentSprite.hitboxRightOffset = 0x28;
+        gCurrentSprite.hitboxLeft = -0xC0;
+        gCurrentSprite.hitboxRight = 0x28;
     }
 }
 
@@ -1083,26 +1083,26 @@ void ImagoPartInit(void)
     {
         case IMAGO_PART_LEFT_WING_INTERNAL:
         case IMAGO_PART_LEFT_WING_EXTERNAL:
-            gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+            gCurrentSprite.drawDistanceTop = 0x38;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x28;
             
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.drawOrder = 0x2;
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
 
         case IMAGO_PART_BODY:
-            gCurrentSprite.drawDistanceTopOffset = 0x28;
-            gCurrentSprite.drawDistanceBottomOffset = 0x20;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x3C;
+            gCurrentSprite.drawDistanceTop = 0x28;
+            gCurrentSprite.drawDistanceBottom = 0x20;
+            gCurrentSprite.drawDistanceHorizontal = 0x3C;
 
-            gCurrentSprite.hitboxTopOffset = -0x80;
-            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxTop = -0x80;
+            gCurrentSprite.hitboxBottom = 0;
             ImagoPartSetBodySidesHitbox();
 
             gCurrentSprite.drawOrder = 0x3;
@@ -1114,27 +1114,27 @@ void ImagoPartInit(void)
 
         case IMAGO_PART_RIGHT_WING_INTERNAL:
         case IMAGO_PART_RIGHT_WING_EXTERNAL:
-            gCurrentSprite.drawDistanceTopOffset = 0x38;
-            gCurrentSprite.drawDistanceBottomOffset = 0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x48;
+            gCurrentSprite.drawDistanceTop = 0x38;
+            gCurrentSprite.drawDistanceBottom = 0;
+            gCurrentSprite.drawDistanceHorizontal = 0x48;
             
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
 
         case IMAGO_PART_CORE:
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x20;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
             
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.frozenPaletteRowOffset = 0x1;
@@ -1394,7 +1394,7 @@ void ImagoPart(void)
 
     if (gSpriteData[ramSlot].health == 0)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         
         if (gSpriteData[ramSlot].pose >= IMAGO_POSE_CHARGING_THROUGH_WALL)
@@ -1490,14 +1490,14 @@ void ImagoNeedle(void)
     {
         case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
-            gCurrentSprite.hitboxTopOffset = -0xC;
-            gCurrentSprite.hitboxBottomOffset = 0xC;
-            gCurrentSprite.hitboxLeftOffset = -0xC;
-            gCurrentSprite.hitboxRightOffset = 0xC;
+            gCurrentSprite.hitboxTop = -0xC;
+            gCurrentSprite.hitboxBottom = 0xC;
+            gCurrentSprite.hitboxLeft = -0xC;
+            gCurrentSprite.hitboxRight = 0xC;
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             gCurrentSprite.pOam = sImagoNeedleOam;
@@ -1541,21 +1541,21 @@ void ImagoDamagedStinger(void)
     s32 movement;
     u8 offset;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
         case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x20;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x20;
+            gCurrentSprite.drawDistanceBottom = 0x20;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-            gCurrentSprite.hitboxTopOffset = -0x60;
-            gCurrentSprite.hitboxBottomOffset = 0x60;
-            gCurrentSprite.hitboxLeftOffset = -0x20;
-            gCurrentSprite.hitboxRightOffset = 0x20;
+            gCurrentSprite.hitboxTop = -0x60;
+            gCurrentSprite.hitboxBottom = 0x60;
+            gCurrentSprite.hitboxLeft = -0x20;
+            gCurrentSprite.hitboxRight = 0x20;
 
             gCurrentSprite.pOam = sImagoDamagedStingerOam;
             gCurrentSprite.animationDurationCounter = 0;
@@ -1630,14 +1630,14 @@ void ImagoEgg(void)
         case 0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x18;
+            gCurrentSprite.drawDistanceBottom = 0;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-            gCurrentSprite.hitboxTopOffset = -0x44;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x44;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
 
             gCurrentSprite.health = 0x1;
             gCurrentSprite.pOam = sImagoEggOam_Standing;
@@ -1669,7 +1669,7 @@ void ImagoEgg(void)
         case IMAGO_EGG_POSE_BREAKING:
             if (gCurrentSprite.currentAnimationFrame > 0x2)
             {
-                gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+                gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
                 gCurrentSprite.samusCollision = SSC_NONE;
                 gCurrentSprite.pose = IMAGO_EGG_POSE_DISAPPEARING;
                 gCurrentSprite.work0 = 0xB4;

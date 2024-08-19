@@ -110,7 +110,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     }
 
     // Check for Y collision
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         SpriteUtilCheckCollisionAtPosition(yPosition + (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2), xPosition - HALF_BLOCK_SIZE);
         if (gPreviousCollisionCheck != COLLISION_AIR)
@@ -218,7 +218,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     }
 
     bouncing = 0;
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (!hittingSolidY)
         {
@@ -288,7 +288,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
     if (bouncing)
     {
         // Bouncing, flip
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_DOWN;
         if (bouncing == 2)
         {
             // Set bouncing speed
@@ -325,10 +325,10 @@ u8 MetroidBombDetection(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
     status = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
 
     for (i = 0; i < MAX_AMOUNT_OF_PROJECTILES; i++)
@@ -338,10 +338,10 @@ u8 MetroidBombDetection(void)
         {
             projY = pProj->yPosition;
             projX = pProj->xPosition;
-            projTop = projY + pProj->hitboxTopOffset;
-            projBottom = projY + pProj->hitboxBottomOffset;
-            projLeft = projX + pProj->hitboxLeftOffset;
-            projRight = projX + pProj->hitboxRightOffset;
+            projTop = projY + pProj->hitboxTop;
+            projBottom = projY + pProj->hitboxBottom;
+            projLeft = projX + pProj->hitboxLeft;
+            projRight = projX + pProj->hitboxRight;
 
             if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
                 return TRUE;
@@ -417,7 +417,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                     gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                 {
                     gSpriteData[ramSlot].yPosition -= movement;
-                    gSpriteData[ramSlot].status &= ~SPRITE_STATUS_UNKNOWN_400;
+                    gSpriteData[ramSlot].status &= ~SPRITE_STATUS_FACING_DOWN;
                     gSpriteData[ramSlot].work0 = 0;
                     gSpriteData[ramSlot].work3 = movement * 16;
                 }
@@ -428,7 +428,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                     gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                 {
                     gSpriteData[ramSlot].yPosition += movement;
-                    gSpriteData[ramSlot].status |= SPRITE_STATUS_UNKNOWN_400;
+                    gSpriteData[ramSlot].status |= SPRITE_STATUS_FACING_DOWN;
                     gSpriteData[ramSlot].work0 = 0;
                     gSpriteData[ramSlot].work3 = movement * 16;
                 }
@@ -555,17 +555,17 @@ void MetroidInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
-    gCurrentSprite.oamScaling = Q_8_8(.25f);
-    gCurrentSprite.oamRotation = 0;
+    gCurrentSprite.scaling = Q_8_8(.25f);
+    gCurrentSprite.rotation = 0;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE + PIXEL_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
     gCurrentSprite.pOam = sMetroidOAM_Spanwing;
     gCurrentSprite.animationDurationCounter = 0;
@@ -601,9 +601,9 @@ void MetroidCheckSpawn(void)
         // Set spawning behavior
         gCurrentSprite.pose = METROID_POSE_SPAWNING;
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
         gCurrentSprite.work0 = gSpriteRng * 4 + 1;
     }
@@ -646,15 +646,15 @@ void MetroidSpawning(void)
         return;
     }
 
-    if (gCurrentSprite.oamScaling < Q_8_8(1.f))
+    if (gCurrentSprite.scaling < Q_8_8(1.f))
     {
         // Make metroid bigger
-        gCurrentSprite.oamScaling += Q_8_8(.0175f);
+        gCurrentSprite.scaling += Q_8_8(.0175f);
 
         // Update palette accordingly
-        if (gCurrentSprite.oamScaling >= Q_8_8(.82f))
+        if (gCurrentSprite.scaling >= Q_8_8(.82f))
             gCurrentSprite.paletteRow = 1;
-        else if (gCurrentSprite.oamScaling >= Q_8_8(.63f))
+        else if (gCurrentSprite.scaling >= Q_8_8(.63f))
             gCurrentSprite.paletteRow = 2;
     }
     else
@@ -718,7 +718,7 @@ void MetroidMovement(void)
 
     // Move
     MetroidCheckBouncingOnMetroid(1);
-    MetroidMove(gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset, gSamusData.xPosition,
+    MetroidMove(gSamusData.yPosition + gSamusPhysics.drawDistanceTop, gSamusData.xPosition,
         HALF_BLOCK_SIZE - PIXEL_SIZE / 2, HALF_BLOCK_SIZE + PIXEL_SIZE * 2, 2);
 }
 
@@ -738,7 +738,7 @@ void MetroidSamusGrabbedInit(void)
     gCurrentSprite.work1 = 4;
     gCurrentSprite.frozenPaletteRowOffset = 4;
 
-    gCurrentSprite.oamRotation = 0;
+    gCurrentSprite.rotation = 0;
     gEquipment.grabbedByMetroid = TRUE;
 }
 
@@ -772,7 +772,7 @@ void MetroidSamusGrabbed(void)
     else
         gCurrentSprite.xPosition = gSamusData.xPosition;
 
-    gCurrentSprite.yPosition = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
+    gCurrentSprite.yPosition = gSamusData.yPosition + gSamusPhysics.drawDistanceTop;
 
     if (MetroidBombDetection())
     {
@@ -785,9 +785,9 @@ void MetroidSamusGrabbed(void)
         // Set moving behavior
         gCurrentSprite.pose = METROID_POSE_MOVING;
         gCurrentSprite.paletteRow = 0;
-        gCurrentSprite.ignoreSamusCollisionTimer = 15;
+        gCurrentSprite.ignoreSamusCollisionTimer = CONVERT_SECONDS(.25f);
 
-        gCurrentSprite.status &= ~(SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES);
+        gCurrentSprite.status &= ~(SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.work0 = 0;
         gCurrentSprite.work3 = velocity;
         gCurrentSprite.work1 = 0;
@@ -803,7 +803,7 @@ void MetroidSamusGrabbed(void)
     else
     {
         // Check play sucking sound
-        if (MOD_AND(gCurrentSprite.oamRotation, 32) == 0)
+        if (MOD_AND(gCurrentSprite.rotation, 32) == 0)
         {
             SoundPlayNotAlreadyPlaying(0x81);
 
@@ -819,7 +819,7 @@ void MetroidSamusGrabbed(void)
                 SoundPlay(0x16E);
         }
 
-        gCurrentSprite.oamRotation++; // Sound counter
+        gCurrentSprite.rotation++; // Sound counter
     }
 }
 
@@ -942,10 +942,10 @@ void Metroid(void)
     if (gCurrentSprite.freezeTimer != 0)
     {
         // Set frozen metroid behavior
-        gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE * 3);
-        gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
-        gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
-        gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+        gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE * 3);
+        gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
+        gCurrentSprite.hitboxLeft = -BLOCK_SIZE;
+        gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
         MetroidCheckBouncingOnMetroid(1);
 
@@ -961,10 +961,10 @@ void Metroid(void)
     if (gCurrentSprite.spriteId == PSPRITE_FROZEN_METROID)
     {
         // Unfreeze, set movement behavior
-        gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.hitboxRight = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
         gCurrentSprite.spriteId = PSPRITE_METROID;
 
@@ -1019,7 +1019,7 @@ void MetroidShell(void)
     u16 xPosition;
 
     slot = gCurrentSprite.primarySpriteRamSlot;
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.paletteRow = gSpriteData[slot].paletteRow;
 
     if (gSpriteData[slot].health == 0)
@@ -1043,14 +1043,14 @@ void MetroidShell(void)
     {
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-        gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-        gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+        gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+        gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+        gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.drawOrder = 3;
@@ -1073,21 +1073,21 @@ void MetroidShell(void)
  */
 void MetroidDoorLock(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = 0;
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = 0;
-        gCurrentSprite.hitboxRightOffset = 0;
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = 0;
+        gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.pose = 0x8;
 

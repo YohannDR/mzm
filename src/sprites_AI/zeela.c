@@ -18,7 +18,7 @@
  */
 void ZeelaSpawnEyes(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -75,7 +75,7 @@ u8 ZeelaCheckCollidingWithAir(void)
 {
     u8 result = FALSE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -131,23 +131,23 @@ u8 ZeelaCheckCollidingWithAir(void)
  */
 void ZeelaUpdateHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
             // On right wall
-            gCurrentSprite.hitboxTopOffset = -ZEELA_RIGHT_HITBOX;
-            gCurrentSprite.hitboxBottomOffset = ZEELA_LEFT_HITBOX;
-            gCurrentSprite.hitboxLeftOffset = -ZEELA_EYES_HITBOX;
-            gCurrentSprite.hitboxRightOffset = ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxTop = -ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxBottom = ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxLeft = -ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxRight = ZEELA_LEGS_HITBOX;
         }
         else
         {
             // On left wall
-            gCurrentSprite.hitboxTopOffset = -ZEELA_LEFT_HITBOX;
-            gCurrentSprite.hitboxBottomOffset = ZEELA_RIGHT_HITBOX;
-            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEGS_HITBOX;
-            gCurrentSprite.hitboxRightOffset = ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxTop = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxBottom = ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxLeft = -ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxRight = ZEELA_EYES_HITBOX;
         }
     }
     else
@@ -155,18 +155,18 @@ void ZeelaUpdateHitbox(void)
         if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         {
             // On ceiling
-            gCurrentSprite.hitboxTopOffset = -ZEELA_LEGS_HITBOX;
-            gCurrentSprite.hitboxBottomOffset = ZEELA_EYES_HITBOX;
-            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEFT_HITBOX;
-            gCurrentSprite.hitboxRightOffset = ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxTop = -ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxBottom = ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxLeft = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxRight = ZEELA_RIGHT_HITBOX;
         }
         else
         {
             // On ground
-            gCurrentSprite.hitboxTopOffset = -ZEELA_EYES_HITBOX;
-            gCurrentSprite.hitboxBottomOffset = ZEELA_LEGS_HITBOX;
-            gCurrentSprite.hitboxLeftOffset = -ZEELA_LEFT_HITBOX;
-            gCurrentSprite.hitboxRightOffset = ZEELA_RIGHT_HITBOX;
+            gCurrentSprite.hitboxTop = -ZEELA_EYES_HITBOX;
+            gCurrentSprite.hitboxBottom = ZEELA_LEGS_HITBOX;
+            gCurrentSprite.hitboxLeft = -ZEELA_LEFT_HITBOX;
+            gCurrentSprite.hitboxRight = ZEELA_RIGHT_HITBOX;
         }
     }
 }
@@ -177,7 +177,7 @@ void ZeelaUpdateHitbox(void)
  */
 void ZeelaSetCrawlingOam(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         gCurrentSprite.pOam = sZeelaOam_OnWall;
     }
@@ -201,7 +201,7 @@ void ZeelaSetCrawlingOam(void)
  */
 void ZeelaSetFallingOam(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         gCurrentSprite.pOam = sZeelaOam_FallingOnWall;
     else
         gCurrentSprite.pOam = sZeelaOam_FallingOnGround;
@@ -222,14 +222,14 @@ void ZeelaInit(void)
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousCollisionCheck & 0xF0)
     {
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     }
     else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + PIXEL_SIZE), gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & 0xF0)
         {
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
@@ -240,7 +240,7 @@ void ZeelaInit(void)
 
             if (gPreviousCollisionCheck & 0xF0)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                 gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                 gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
             }
@@ -251,7 +251,7 @@ void ZeelaInit(void)
 
                 if (gPreviousCollisionCheck & 0xF0)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                     gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -270,9 +270,9 @@ void ZeelaInit(void)
     ZeelaUpdateHitbox();
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     if (gCurrentSprite.spriteId == PSPRITE_ZEELA_RED)
     {
@@ -312,13 +312,13 @@ void ZeelaMove(void)
 
     if (SpriteUtilShouldFall())
     {
-        if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400))
+        if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN))
             gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;
 
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -704,7 +704,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE:
@@ -716,7 +716,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
@@ -727,7 +727,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER:
@@ -739,7 +739,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE:
@@ -753,7 +753,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
             gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
         
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
@@ -767,7 +767,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
             gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER:
@@ -778,7 +778,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
         
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
@@ -789,7 +789,7 @@ void ZeelaTurning(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         default:
@@ -830,7 +830,7 @@ void ZeelaLanding(void)
  */
 void ZeelaFallingInit(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
@@ -842,7 +842,7 @@ void ZeelaFallingInit(void)
    
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
     gCurrentSprite.work3 = 0;
-    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400);
+    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN);
 
     ZeelaUpdateHitbox();
     ZeelaSetFallingOam();
@@ -900,7 +900,7 @@ void ZeelaDeath(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             xPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
@@ -930,17 +930,17 @@ void ZeelaEyesInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
-    gCurrentSprite.oamScaling = Q_8_8(1.f);
+    gCurrentSprite.scaling = Q_8_8(1.f);
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -(PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = -(PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = -(PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (PIXEL_SIZE * 2);
 
     gCurrentSprite.pOam = sZeelaEyesOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0;
@@ -955,12 +955,12 @@ void ZeelaEyesInit(void)
     if (MOD_AND(gSpriteRng, 2))
     {
         gCurrentSprite.work1 = TRUE;
-        gCurrentSprite.oamRotation = PI;
+        gCurrentSprite.rotation = PI;
     }
     else
     {
         gCurrentSprite.work1 = FALSE;
-        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.rotation = 0;
     }
 }
 
@@ -1041,9 +1041,9 @@ void ZeelaEyesMove(void)
 
     // Rotate
     if (gCurrentSprite.work1)
-        gCurrentSprite.oamRotation -= PI / 6 - PI / PI;
+        gCurrentSprite.rotation -= PI / 6 - PI / PI;
     else
-        gCurrentSprite.oamRotation += PI / 6 - PI / PI;
+        gCurrentSprite.rotation += PI / 6 - PI / PI;
 }
 
 /**
@@ -1068,7 +1068,7 @@ void ZeelaEyesExplodingInit(void)
  */
 void ZeelaEyesExploding(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0;

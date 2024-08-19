@@ -3,10 +3,12 @@
 
 #include "types.h"
 
-#define CHOZO_STATUE_BEHAVIOR_ITEM 0x0
-#define CHOZO_STATUE_BEHAVIOR_REFILL 0x1
-#define CHOZO_STATUE_BEHAVIOR_HINT 0x2
-#define CHOZO_STATUE_BEHAVIOR_HINT_TAKEN 0x3
+enum ChozoStatueBehavior {
+    CHOZO_STATUE_BEHAVIOR_ITEM,
+    CHOZO_STATUE_BEHAVIOR_REFILL,
+    CHOZO_STATUE_BEHAVIOR_HINT,
+    CHOZO_STATUE_BEHAVIOR_HINT_TAKEN,
+};
 
 #define CHOZO_STATUE_POSE_IDLE 0x9
 #define CHOZO_STATUE_POSE_DO_NOTHING 0xF
@@ -34,9 +36,6 @@ enum ChozoStatuePart {
     CHOZO_STATUE_PART_END
 };
 
-#define CHOZO_STATUE_HAND_X_OFFSET 0x38
-#define CHOZO_STATUE_HAND_Y_OFFSET 0x11
-
 #define CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT 0x9
 #define CHOZO_STATUE_PART_POSE_LEG_IDLE 0xF
 #define CHOZO_STATUE_PART_POSE_ARM_SITTING 0x23
@@ -59,6 +58,7 @@ enum ChozoStatuePart {
 #define CHOZO_BALL_POSE_GETTING 0x23
 #define CHOZO_BALL_POSE_REVEALING 0x67
 
+#ifndef CHOZO_STATUE_IGNORE_FUNCTIONS
 void ChozoStatueSyncSubSprites(void);
 void ChozoStatueRegisterItem(u8 spriteId);
 void ChozoStatueSetDirection(void);
@@ -95,5 +95,6 @@ void ChozoStatuePartLegIdle(void);
 void ChozoStatue(void);
 void ChozoStatuePart(void);
 void ChozoStatueRefill(void);
+#endif /* CHOZO_STATUE_IGNORE_FUNCTIONS */
 
 #endif /* CHOZO_STATUE_AI_H */

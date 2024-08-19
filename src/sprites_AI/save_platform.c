@@ -48,14 +48,14 @@ void SavePlatformInit(void)
     gCurrentSprite.yPositionSpawn = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTop = 0x10;
+    gCurrentSprite.drawDistanceBottom = 0x10;
+    gCurrentSprite.drawDistanceHorizontal = 0x28;
 
-    gCurrentSprite.hitboxTopOffset = -0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = -0x4;
+    gCurrentSprite.hitboxBottom = 0x4;
+    gCurrentSprite.hitboxLeft = -0x4;
+    gCurrentSprite.hitboxRight = 0x4;
 
     if (gAlarmTimer != 0x0)
         gCurrentSprite.work2 = TRUE;
@@ -341,19 +341,19 @@ void SavePlatformPartInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.hitboxTopOffset = -0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = -0x4;
+    gCurrentSprite.hitboxBottom = 0x4;
+    gCurrentSprite.hitboxLeft = -0x4;
+    gCurrentSprite.hitboxRight = 0x4;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     switch (gCurrentSprite.roomSlot)
     {
         case SAVE_PLATFORM_PART_TUBE:
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x50;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
             if (gSpriteData[ramSlot].pose == SAVE_PLATFORM_POSE_RELEASE_SAMUS)
             {
                 gCurrentSprite.pOam = sSavePlatformPartOAM_TubeIdle;
@@ -370,27 +370,27 @@ void SavePlatformPartInit(void)
         case SAVE_PLATFORM_PART_TUBE_SHADOW:
             gCurrentSprite.drawOrder = 0xC;
             gCurrentSprite.pOam = sSavePlatformPartOAM_TubeShadow;
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x50;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
             gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_TUBE_SHADOW_IDLE;
             break;
 
         case SAVE_PLATFORM_PART_RAY:
             gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.pOam = sSavePlatformPartOAM_Ray;
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
             gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_RAY_IDLE;
             gCurrentSprite.work0 = 0x60;
             break;
 
         case SAVE_PLATFORM_PART_TOP:
             gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x40;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x20;
+            gCurrentSprite.drawDistanceBottom = 0x40;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
             gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_TOP_IDLE;
             if (gSpriteData[ramSlot].pose == SAVE_PLATFORM_POSE_RELEASE_SAMUS)
                 gCurrentSprite.pOam = sSavePlatformPartOAM_TopExtended;
@@ -564,7 +564,7 @@ void SavePlatformPartRayIdle(void)
  */
 void SavePlatform(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
@@ -626,7 +626,7 @@ void SavePlatform(void)
  */
 void SavePlatformPart(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

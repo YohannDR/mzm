@@ -68,14 +68,14 @@ void ViolaInit(void)
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x10;
+    gCurrentSprite.drawDistanceBottom = 0x10;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-    gCurrentSprite.hitboxTopOffset = -0x14;
-    gCurrentSprite.hitboxBottomOffset = 0x14;
-    gCurrentSprite.hitboxLeftOffset = -0x14;
-    gCurrentSprite.hitboxRightOffset = 0x14;
+    gCurrentSprite.hitboxTop = -0x14;
+    gCurrentSprite.hitboxBottom = 0x14;
+    gCurrentSprite.hitboxLeft = -0x14;
+    gCurrentSprite.hitboxRight = 0x14;
 
     // Set speed
     if (gCurrentSprite.spriteId == PSPRITE_VIOLA_ORANGE)

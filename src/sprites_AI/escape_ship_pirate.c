@@ -18,17 +18,17 @@
  */
 void EscapeShipSpacePirateInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x40;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTop = 0x40;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x28;
 
-    gCurrentSprite.hitboxTopOffset = -0xA0;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxTop = -0xA0;
+    gCurrentSprite.hitboxBottom = 0x0;
 
     gCurrentSprite.health = 0x0;
-    gCurrentSprite.oamScaling = Q_8_8(1.f);
+    gCurrentSprite.scaling = Q_8_8(1.f);
     gCurrentSprite.work2 = 0x0;
-    gCurrentSprite.oamRotation = 0x0;
+    gCurrentSprite.rotation = 0x0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
     gCurrentSprite.pOam = sSpacePirateOAM_Jumping;
@@ -97,7 +97,7 @@ void EscapeShipSpacePirate(void)
     u8 alerted;
     u8 freezeTimer;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         alerted = TRUE;
     else
         alerted = FALSE;
@@ -129,7 +129,7 @@ void EscapeShipSpacePirate(void)
                         gCurrentSprite.absolutePaletteRow = 0x0;
                     }
                 }
-                gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+                gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
             }
             else
                 SpriteUtilUpdateFreezeTimer();
@@ -141,17 +141,17 @@ void EscapeShipSpacePirate(void)
         {
             SpacePirateSamusDetection();
 
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             {
                 if (gSpriteDrawOrder[2] == TRUE)
                     gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
                 else if (gAlarmTimer == 0x0)
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             }
             else
             {
                 if (gAlarmTimer != 0x0 && gCurrentSprite.pose != 0x0)
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             }
 
             SpacePirateCheckCollidingWithLaser();
@@ -403,6 +403,6 @@ void EscapeShipSpacePirate(void)
             SpacePirateDeath(TRUE);
     }
 
-    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400 | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN_400))
+    if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN))
         SoundPlayNotAlreadyPlaying(0x169);
 }

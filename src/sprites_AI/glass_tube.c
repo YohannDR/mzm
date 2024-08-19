@@ -88,14 +88,14 @@ void GlassTubeChangeCcaa(void)
  */
 void GlassTubeInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x30;
-    gCurrentSprite.drawDistanceBottomOffset = 0x30;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
+    gCurrentSprite.drawDistanceTop = 0x30;
+    gCurrentSprite.drawDistanceBottom = 0x30;
+    gCurrentSprite.drawDistanceHorizontal = 0x70;
 
-    gCurrentSprite.hitboxTopOffset = -0x80;
-    gCurrentSprite.hitboxBottomOffset = 0x80;
-    gCurrentSprite.hitboxLeftOffset = -0x100;
-    gCurrentSprite.hitboxRightOffset = 0x100;
+    gCurrentSprite.hitboxTop = -0x80;
+    gCurrentSprite.hitboxBottom = 0x80;
+    gCurrentSprite.hitboxLeft = -0x100;
+    gCurrentSprite.hitboxRight = 0x100;
 
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
@@ -143,17 +143,17 @@ void GlassTubeCheckPowerBombCollision(void)
     {
         bombY = gCurrentPowerBomb.yPosition;
         bombX = gCurrentPowerBomb.xPosition;
-        bombTop = gCurrentPowerBomb.hitboxTopOffset + bombY;
-        bombBottom = gCurrentPowerBomb.hitboxBottomOffset + bombY;
-        bombLeft = gCurrentPowerBomb.hitboxLeftOffset + bombX;
-        bombRight = gCurrentPowerBomb.hitboxRightOffset + bombX;
+        bombTop = gCurrentPowerBomb.hitboxTop + bombY;
+        bombBottom = gCurrentPowerBomb.hitboxBottom + bombY;
+        bombLeft = gCurrentPowerBomb.hitboxLeft + bombX;
+        bombRight = gCurrentPowerBomb.hitboxRight + bombX;
         
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
-        spriteTop = gCurrentSprite.hitboxTopOffset + spriteY;
-        spriteBottom = gCurrentSprite.hitboxBottomOffset + spriteY;
-        spriteLeft = gCurrentSprite.hitboxLeftOffset + spriteX;
-        spriteRight = gCurrentSprite.hitboxRightOffset + spriteX;
+        spriteTop = gCurrentSprite.hitboxTop + spriteY;
+        spriteBottom = gCurrentSprite.hitboxBottom + spriteY;
+        spriteLeft = gCurrentSprite.hitboxLeft + spriteX;
+        spriteRight = gCurrentSprite.hitboxRight + spriteX;
 
         if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, bombTop, bombBottom, bombLeft, bombRight))
         {
@@ -232,7 +232,7 @@ void GlassTubeCheckBreakingAnimEnded(void)
  */
 void GlassTube(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

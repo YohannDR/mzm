@@ -348,7 +348,7 @@ void MechaRidleyClawAttackInit(u8 leftArmSlot)
     gSpriteData[leftArmSlot].currentAnimationFrame = 0;
 
     gCurrentSprite.pose = MECHA_RIDLEY_POSE_CLAW_ATTACK;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
     gBossWork.work4 = EYE_STATE_BLINKING_INIT;
 }
 
@@ -399,14 +399,14 @@ void MechaRidleyInit(void)
         yPosition = gSubSpriteData1.yPosition;
         xPosition = gSubSpriteData1.xPosition;
 
-        gCurrentSprite.drawDistanceTopOffset = 8;
-        gCurrentSprite.drawDistanceBottomOffset = 8;
-        gCurrentSprite.drawDistanceHorizontalOffset = 8;
+        gCurrentSprite.drawDistanceTop = 8;
+        gCurrentSprite.drawDistanceBottom = 8;
+        gCurrentSprite.drawDistanceHorizontal = 8;
 
-        gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
         gCurrentSprite.frozenPaletteRowOffset = 5;
         gCurrentSprite.drawOrder = 10;
@@ -425,7 +425,7 @@ void MechaRidleyInit(void)
         // Set delay before crawling
         gCurrentSprite.yPositionSpawn = 60 * 5;
         gCurrentSprite.work3 = gSpriteRng;
-        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.rotation = 0;
 
         // Set crawling
         gSubSpriteData1.pMultiOam = sMechaRidleyMultiSpriteData_CrawlingForwardLow;
@@ -609,11 +609,11 @@ u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 {
     if (!(gCurrentSprite.work3 & 0x3F))
     {
-        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400) && gSpriteRng < 8)
+        if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN) && gSpriteRng < 8)
             MechaRidleyClawAttackInit(ramSlot); // Start claw attack
         else
         {
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
 
             if (gSubSpriteData1.workVariable3 == HEALTH_THRESHOLD_COVER_DAMAGED && gBossWork.work6 == 0)
             {
@@ -1297,14 +1297,14 @@ void MechaRidleyPartInit(void)
     switch (gCurrentSprite.roomSlot)
     {
         case MECHA_RIDLEY_PART_RIGHT_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x38;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+            gCurrentSprite.drawDistanceTop = 0x18;
+            gCurrentSprite.drawDistanceBottom = 0x38;
+            gCurrentSprite.drawDistanceHorizontal = 0x58;
 
-            gCurrentSprite.hitboxTopOffset = -4;
-            gCurrentSprite.hitboxBottomOffset = 4;
-            gCurrentSprite.hitboxLeftOffset = -4;
-            gCurrentSprite.hitboxRightOffset = 4;
+            gCurrentSprite.hitboxTop = -4;
+            gCurrentSprite.hitboxBottom = 4;
+            gCurrentSprite.hitboxLeft = -4;
+            gCurrentSprite.hitboxRight = 4;
 
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.drawOrder = 0x3;
@@ -1312,14 +1312,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_LEFT_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x38;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
+            gCurrentSprite.drawDistanceTop = 0x50;
+            gCurrentSprite.drawDistanceBottom = 0x38;
+            gCurrentSprite.drawDistanceHorizontal = 0x70;
 
-            gCurrentSprite.hitboxTopOffset = -4;
-            gCurrentSprite.hitboxBottomOffset = 4;
-            gCurrentSprite.hitboxLeftOffset = -4;
-            gCurrentSprite.hitboxRightOffset = 4;
+            gCurrentSprite.hitboxTop = -4;
+            gCurrentSprite.hitboxBottom = 4;
+            gCurrentSprite.hitboxLeft = -4;
+            gCurrentSprite.hitboxRight = 4;
 
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.drawOrder = 0xD;
@@ -1327,14 +1327,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_EYE:
-            gCurrentSprite.drawDistanceTopOffset = 8;
-            gCurrentSprite.drawDistanceBottomOffset = 8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 8;
+            gCurrentSprite.drawDistanceTop = 8;
+            gCurrentSprite.drawDistanceBottom = 8;
+            gCurrentSprite.drawDistanceHorizontal = 8;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x4;
@@ -1343,14 +1343,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_HEAD:
-            gCurrentSprite.drawDistanceTopOffset = 0x28;
-            gCurrentSprite.drawDistanceBottomOffset = 0x28;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x38;
+            gCurrentSprite.drawDistanceTop = 0x28;
+            gCurrentSprite.drawDistanceBottom = 0x28;
+            gCurrentSprite.drawDistanceHorizontal = 0x38;
 
-            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.hitboxBottomOffset = (BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottom = (BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
             gCurrentSprite.health = 0x1;
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -1364,14 +1364,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_NECK:
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x20;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x40;
+            gCurrentSprite.drawDistanceTop = 0x30;
+            gCurrentSprite.drawDistanceBottom = 0x20;
+            gCurrentSprite.drawDistanceHorizontal = 0x40;
 
-            gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
             gCurrentSprite.health = 0x1;
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -1380,14 +1380,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_COVER:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -0x28;
-            gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
-            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -0x28;
+            gCurrentSprite.hitboxBottom = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
+            gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
 
@@ -1404,28 +1404,28 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_TORSO:
-            gCurrentSprite.drawDistanceTopOffset = 0x28;
-            gCurrentSprite.drawDistanceBottomOffset = 0x18;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x28;
+            gCurrentSprite.drawDistanceBottom = 0x18;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-            gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
-            gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
-            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -QUARTER_BLOCK_SIZE;
+            gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
             gCurrentSprite.drawOrder = 11;
             break;
 
         case MECHA_RIDLEY_PART_WAISTBAND:
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x18;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+            gCurrentSprite.drawDistanceTop = 0x18;
+            gCurrentSprite.drawDistanceBottom = 0x18;
+            gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-            gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
-            gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
-            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -BLOCK_SIZE;
+            gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
             gCurrentSprite.health = 1;
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -1433,14 +1433,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_TAIL:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-            gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
-            gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 3);
-            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 3;
+            gCurrentSprite.hitboxTop = -BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -(BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxRight = BLOCK_SIZE * 3;
 
             gCurrentSprite.health = 1;
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -1448,14 +1448,14 @@ void MechaRidleyPartInit(void)
             break;
 
         case MECHA_RIDLEY_PART_MISSILE_LAUNCHER:
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x20;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x20;
+            gCurrentSprite.drawDistanceBottom = 0x20;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
-            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE + HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottom = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxRight = BLOCK_SIZE + HALF_BLOCK_SIZE;
 
             gCurrentSprite.health = 1;
             gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
@@ -1912,12 +1912,12 @@ void MechaRidleyPartRightArmIdle(void)
         }
     }
 
-    gCurrentSprite.hitboxTopOffset = topHitbox;
-    gCurrentSprite.hitboxBottomOffset = bottomHitbox;
-    gCurrentSprite.hitboxLeftOffset = leftHitbox;
+    gCurrentSprite.hitboxTop = topHitbox;
+    gCurrentSprite.hitboxBottom = bottomHitbox;
+    gCurrentSprite.hitboxLeft = leftHitbox;
 
     rHitbox = rightHitbox;
-    gCurrentSprite.hitboxRightOffset = rHitbox;
+    gCurrentSprite.hitboxRight = rHitbox;
 }
 
 /**
@@ -2119,10 +2119,10 @@ void MechaRidleyPartLeftArmIdle(void)
         }
     }
 
-    gCurrentSprite.hitboxTopOffset = topHitbox;
-    gCurrentSprite.hitboxBottomOffset = bottomHitbox;
-    gCurrentSprite.hitboxLeftOffset = leftHitbox;
-    gCurrentSprite.hitboxRightOffset = rightHitbox;
+    gCurrentSprite.hitboxTop = topHitbox;
+    gCurrentSprite.hitboxBottom = bottomHitbox;
+    gCurrentSprite.hitboxLeft = leftHitbox;
+    gCurrentSprite.hitboxRight = rightHitbox;
 }
 
 /**
@@ -2321,12 +2321,12 @@ void MechaRidleyPartNeckIdle(void)
         }
     }
 
-    gCurrentSprite.hitboxTopOffset = topHitbox;
-    gCurrentSprite.hitboxBottomOffset = bottomHitbox;
-    gCurrentSprite.hitboxLeftOffset = leftHitbox;
+    gCurrentSprite.hitboxTop = topHitbox;
+    gCurrentSprite.hitboxBottom = bottomHitbox;
+    gCurrentSprite.hitboxLeft = leftHitbox;
 
     rHitbox = rightHitbox;
-    gCurrentSprite.hitboxRightOffset = rHitbox;
+    gCurrentSprite.hitboxRight = rHitbox;
 }
 
 /**
@@ -2352,15 +2352,15 @@ void MechaRidley(void)
 
         if (samusY > spriteY)
         {
-            if (gCurrentSprite.oamRotation == 0)
+            if (gCurrentSprite.rotation == 0)
             {
                 if (gBossWork.work3 != MECHA_RIDLEY_SAMUS_POSITION_LOW)
-                    gCurrentSprite.oamRotation = 120;
+                    gCurrentSprite.rotation = 120;
             }
             else
             {
-                gCurrentSprite.oamRotation--;
-                if (gCurrentSprite.oamRotation == 0)
+                gCurrentSprite.rotation--;
+                if (gCurrentSprite.rotation == 0)
                     gBossWork.work3 = MECHA_RIDLEY_SAMUS_POSITION_LOW;
             }
         }
@@ -2370,15 +2370,15 @@ void MechaRidley(void)
                 gBossWork.work3 = MECHA_RIDLEY_SAMUS_POSITION_HIGH;
             else if (gBossWork.work3 != MECHA_RIDLEY_SAMUS_POSITION_LOW)
             {
-                if (gCurrentSprite.oamRotation == 0)
+                if (gCurrentSprite.rotation == 0)
                 {
                     if (gBossWork.work3 != MECHA_RIDLEY_SAMUS_POSITION_MIDDLE)
-                        gCurrentSprite.oamRotation = 120;
+                        gCurrentSprite.rotation = 120;
                 }
                 else
                 {
-                    gCurrentSprite.oamRotation--;
-                    if (gCurrentSprite.oamRotation == 0)
+                    gCurrentSprite.rotation--;
+                    if (gCurrentSprite.rotation == 0)
                         gBossWork.work3 = MECHA_RIDLEY_SAMUS_POSITION_MIDDLE;
                 }
             }
@@ -2517,7 +2517,7 @@ void MechaRidleyPart(void)
 
     if (gSpriteData[ramSlot].pose > 0x61)
     {
-        gCurrentSprite.ignoreSamusCollisionTimer = 1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
 
@@ -2705,14 +2705,14 @@ void MechaRidleyLaser(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-        gCurrentSprite.drawDistanceTopOffset = 8;
-        gCurrentSprite.drawDistanceBottomOffset = 8;
-        gCurrentSprite.drawDistanceHorizontalOffset = 8;
+        gCurrentSprite.drawDistanceTop = 8;
+        gCurrentSprite.drawDistanceBottom = 8;
+        gCurrentSprite.drawDistanceHorizontal = 8;
 
-        gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-        gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.drawOrder = 3;
@@ -2796,22 +2796,22 @@ void MechaRidleyMissile(void)
         case 0:
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
-            gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxLeft = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
             gCurrentSprite.pOam = sMechaRidleyMissileOam;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
-            gCurrentSprite.oamRotation = 0xA0;
-            gCurrentSprite.oamScaling = Q_8_8(1.f);
+            gCurrentSprite.rotation = 0xA0;
+            gCurrentSprite.scaling = Q_8_8(1.f);
             
             gCurrentSprite.work0 = 30;
             gCurrentSprite.pose = 9;
@@ -2835,7 +2835,7 @@ void MechaRidleyMissile(void)
 
             if (movement < 3)
             {
-                gCurrentSprite.oamRotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.oamRotation,
+                gCurrentSprite.rotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.rotation,
                     gSamusData.yPosition - BLOCK_SIZE, gSamusData.xPosition,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition);
             }
@@ -2861,7 +2861,7 @@ void MechaRidleyMissile(void)
             
             SpriteUtilMoveSpriteTowardsSamus(gSamusData.yPosition - HALF_BLOCK_SIZE, gSamusData.xPosition, 0x28, 0x28, 2);
             
-            gCurrentSprite.oamRotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.oamRotation,
+            gCurrentSprite.rotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.rotation,
                 gSamusData.yPosition - movement, gSamusData.xPosition,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition);
 
@@ -2902,14 +2902,14 @@ void MechaRidleyFireball(void)
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x14;
-            gCurrentSprite.drawDistanceBottomOffset = 0x14;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
+            gCurrentSprite.drawDistanceTop = 0x14;
+            gCurrentSprite.drawDistanceBottom = 0x14;
+            gCurrentSprite.drawDistanceHorizontal = 0x14;
             
-            gCurrentSprite.hitboxTopOffset = -0x1C;
-            gCurrentSprite.hitboxBottomOffset = 0x1C;
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x1C;
+            gCurrentSprite.hitboxBottom = 0x1C;
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
 
             gCurrentSprite.pOam = sMechaRidleyFireballOam;
             gCurrentSprite.animationDurationCounter = 0;
@@ -2921,12 +2921,12 @@ void MechaRidleyFireball(void)
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.drawOrder = 2;
-            gCurrentSprite.oamScaling = Q_8_8(1.f);
+            gCurrentSprite.scaling = Q_8_8(1.f);
 
             if (gCurrentSprite.roomSlot != FIREBALL_LOW)
-                gCurrentSprite.oamRotation = 0x28;
+                gCurrentSprite.rotation = 0x28;
             else
-                gCurrentSprite.oamRotation = 0;
+                gCurrentSprite.rotation = 0;
 
             gBossWork.work8++;
             break;

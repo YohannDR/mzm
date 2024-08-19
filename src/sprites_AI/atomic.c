@@ -61,7 +61,7 @@ void AtomicSmoothMovement(void)
             hittingSolidX++;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX) != COLLISION_AIR)
             hittingSolidY++;
@@ -148,7 +148,7 @@ void AtomicSmoothMovement(void)
 
     
     flip = FALSE;
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (!hittingSolidY)
         {
@@ -209,7 +209,7 @@ void AtomicSmoothMovement(void)
 
     if (flip)
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_DOWN;
         gCurrentSprite.work3 = 0x1;
     }
 }
@@ -240,9 +240,9 @@ void AtomicUpdateDirectionToFleeSamus(void)
     {
         // Set opposite vertical direction
         if (spriteY > samusY)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
 
         // Set opposite horizontal direction
         if (spriteX > samusX)
@@ -266,13 +266,13 @@ void AtomicCheckShootElectricity(void)
     u8 palette;
     u8 offset;
 
-    if (gCurrentSprite.oamScaling != 0x0)
+    if (gCurrentSprite.scaling != 0x0)
     {
-        gCurrentSprite.oamScaling--;
-        if (gCurrentSprite.oamScaling == 0x0)
+        gCurrentSprite.scaling--;
+        if (gCurrentSprite.scaling == 0x0)
         {
             gCurrentSprite.work1 = 0x0;
-            gCurrentSprite.oamRotation = 0x1;
+            gCurrentSprite.rotation = 0x1;
 
             SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
@@ -280,8 +280,8 @@ void AtomicCheckShootElectricity(void)
     }
     else
     {
-        gCurrentSprite.oamRotation--;
-        if (gCurrentSprite.oamRotation == 0x0)
+        gCurrentSprite.rotation--;
+        if (gCurrentSprite.rotation == 0x0)
         {
             offset = gCurrentSprite.work1++;
 
@@ -291,13 +291,13 @@ void AtomicCheckShootElectricity(void)
 
             if (sAtomicDynamicPaletteData[offset][1] != 0x0)
             {
-                gCurrentSprite.oamRotation = sAtomicDynamicPaletteData[offset][1];
+                gCurrentSprite.rotation = sAtomicDynamicPaletteData[offset][1];
                 if (offset == 0x10 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     SoundPlayNotAlreadyPlaying(0x260);
             }
             else
             {
-                gCurrentSprite.oamScaling = 0xC8;
+                gCurrentSprite.scaling = 0xC8;
             }
         }
     }
@@ -313,14 +313,14 @@ void AtomicInit(void)
         gCurrentSprite.status = 0x0;
     else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0xC;
-        gCurrentSprite.drawDistanceBottomOffset = 0xC;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+        gCurrentSprite.drawDistanceTop = 0xC;
+        gCurrentSprite.drawDistanceBottom = 0xC;
+        gCurrentSprite.drawDistanceHorizontal = 0xC;
 
-        gCurrentSprite.hitboxTopOffset = -0x20;
-        gCurrentSprite.hitboxBottomOffset = 0x20;
-        gCurrentSprite.hitboxLeftOffset = -0x20;
-        gCurrentSprite.hitboxRightOffset = 0x20;
+        gCurrentSprite.hitboxTop = -0x20;
+        gCurrentSprite.hitboxBottom = 0x20;
+        gCurrentSprite.hitboxLeft = -0x20;
+        gCurrentSprite.hitboxRight = 0x20;
 
         gCurrentSprite.pOam = sAtomicOAM_Idle;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -332,7 +332,7 @@ void AtomicInit(void)
 
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
-        gCurrentSprite.oamScaling = gSpriteRng * 16;
+        gCurrentSprite.scaling = gSpriteRng * 16;
     }
 }
 
@@ -422,14 +422,14 @@ void AtomicMove(void)
                 gCurrentSprite.work3--;
 
             movement = gCurrentSprite.work3;
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             {
                 // Move down
                 SpriteUtilCheckCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition += movement;
                 else
-                    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             }
             else
             {
@@ -438,7 +438,7 @@ void AtomicMove(void)
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition -= movement;
                 else
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             }
 
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -494,9 +494,9 @@ void AtomicMaybeMoveBackToIdle(void)
 
         // Set directions
         if ((ySpawn & mask) < (yPosition & mask))
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
         else if ((ySpawn & mask) > (yPosition & mask))
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
         if ((xSpawn & mask) < (xPosition & mask))
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -505,7 +505,7 @@ void AtomicMaybeMoveBackToIdle(void)
 
         // Move
         movement = 0x2;
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             SpriteUtilCheckCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -564,10 +564,10 @@ void AtomicChaseSamus(void)
     if (gSamusWeaponInfo.chargeCounter == 0x0)
     {
         gCurrentSprite.pose = ATOMIC_POSE_IDLE_INIT;
-        if (gCurrentSprite.oamScaling == 0x0)
+        if (gCurrentSprite.scaling == 0x0)
         {
             gCurrentSprite.work1 = 0x0;
-            gCurrentSprite.oamRotation = 0x1;
+            gCurrentSprite.rotation = 0x1;
         }
     }
     else
@@ -604,14 +604,14 @@ void AtomicElectriciytInit(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x30;
-        gCurrentSprite.drawDistanceBottomOffset = 0x30;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+        gCurrentSprite.drawDistanceTop = 0x30;
+        gCurrentSprite.drawDistanceBottom = 0x30;
+        gCurrentSprite.drawDistanceHorizontal = 0x30;
 
-        gCurrentSprite.hitboxTopOffset = -0x4;
-        gCurrentSprite.hitboxBottomOffset = 0x4;
-        gCurrentSprite.hitboxLeftOffset = -0x4;
-        gCurrentSprite.hitboxRightOffset = 0x4;
+        gCurrentSprite.hitboxTop = -0x4;
+        gCurrentSprite.hitboxBottom = 0x4;
+        gCurrentSprite.hitboxLeft = -0x4;
+        gCurrentSprite.hitboxRight = 0x4;
 
         gCurrentSprite.pOam = sAtomicElectricityOAM_Charging;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -647,7 +647,7 @@ void AtomicElectricitySpawn(void)
     // Sync position
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
-    if (gSpriteData[ramSlot].oamScaling == 0xC8)
+    if (gSpriteData[ramSlot].scaling == 0xC8)
     {
         // Charging done, set moving behavior
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -670,24 +670,24 @@ void AtomicElectricitySpawn(void)
         if (spriteY > samusY)
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
         if ((spriteY + BLOCK_SIZE) > samusY && (spriteY - BLOCK_SIZE) < samusY)
         {
             // Shooting horizontally
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingHorizontal;
             gCurrentSprite.work1 = 0x1; // Direction
-            gCurrentSprite.hitboxTopOffset = -0x1C;
-            gCurrentSprite.hitboxBottomOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x1C;
+            gCurrentSprite.hitboxBottom = 0x1C;
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                gCurrentSprite.hitboxLeftOffset = 0x0;
-                gCurrentSprite.hitboxRightOffset = 0xA0;
+                gCurrentSprite.hitboxLeft = 0x0;
+                gCurrentSprite.hitboxRight = 0xA0;
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -0xA0;
-                gCurrentSprite.hitboxRightOffset = 0x0;
+                gCurrentSprite.hitboxLeft = -0xA0;
+                gCurrentSprite.hitboxRight = 0x0;
             }
         }
         else if ((spriteX + BLOCK_SIZE) > samusX && (spriteX - BLOCK_SIZE) < samusX)
@@ -695,17 +695,17 @@ void AtomicElectricitySpawn(void)
             // Shooting vertically
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingVertical;
             gCurrentSprite.work1 = 0x2; // Direction
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             {
-                gCurrentSprite.hitboxTopOffset = 0x0;
-                gCurrentSprite.hitboxBottomOffset = 0xA0;
+                gCurrentSprite.hitboxTop = 0x0;
+                gCurrentSprite.hitboxBottom = 0xA0;
             }
             else
             {
-                gCurrentSprite.hitboxTopOffset = -0xA0;
-                gCurrentSprite.hitboxBottomOffset = 0x0;
+                gCurrentSprite.hitboxTop = -0xA0;
+                gCurrentSprite.hitboxBottom = 0x0;
             }
         }
         else
@@ -716,24 +716,24 @@ void AtomicElectricitySpawn(void)
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                gCurrentSprite.hitboxLeftOffset = 0x20;
-                gCurrentSprite.hitboxRightOffset = 0x60;
+                gCurrentSprite.hitboxLeft = 0x20;
+                gCurrentSprite.hitboxRight = 0x60;
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -0x60;
-                gCurrentSprite.hitboxRightOffset = -0x20;
+                gCurrentSprite.hitboxLeft = -0x60;
+                gCurrentSprite.hitboxRight = -0x20;
             }
 
-            if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             {
-                gCurrentSprite.hitboxTopOffset = 0x60;
-                gCurrentSprite.hitboxBottomOffset = 0x20;
+                gCurrentSprite.hitboxTop = 0x60;
+                gCurrentSprite.hitboxBottom = 0x20;
             }
             else
             {
-                gCurrentSprite.hitboxTopOffset = -0x20;
-                gCurrentSprite.hitboxBottomOffset = -0x60;
+                gCurrentSprite.hitboxTop = -0x20;
+                gCurrentSprite.hitboxBottom = -0x60;
             }
         }
     }
@@ -751,7 +751,7 @@ void AtomicElectricityMove(void)
     // Check move Y
     if (!(gCurrentSprite.work1 & 0x1))
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
             gCurrentSprite.yPosition += speed;
         else
             gCurrentSprite.yPosition -= speed;
@@ -772,12 +772,12 @@ void AtomicElectricityMove(void)
         gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
         gCurrentSprite.pose = ATOMIC_ELECTRICITY_POSE_EXPLODING;
 
-        gCurrentSprite.hitboxTopOffset = -0x60;
-        gCurrentSprite.hitboxBottomOffset = 0x60;
-        gCurrentSprite.hitboxLeftOffset = -0x60;
-        gCurrentSprite.hitboxRightOffset = 0x60;
+        gCurrentSprite.hitboxTop = -0x60;
+        gCurrentSprite.hitboxBottom = 0x60;
+        gCurrentSprite.hitboxLeft = -0x60;
+        gCurrentSprite.hitboxRight = 0x60;
 
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
@@ -797,15 +797,15 @@ void AtomicElectricityMove(void)
 void AtomicElectricityExploding(void)
 {
     if (gCurrentSprite.currentAnimationFrame < 0x4)
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.hitboxTopOffset = -0x10;
-        gCurrentSprite.hitboxBottomOffset = 0x10;
-        gCurrentSprite.hitboxLeftOffset = -0x10;
-        gCurrentSprite.hitboxRightOffset = 0x10;
+        gCurrentSprite.hitboxTop = -0x10;
+        gCurrentSprite.hitboxBottom = 0x10;
+        gCurrentSprite.hitboxLeft = -0x10;
+        gCurrentSprite.hitboxRight = 0x10;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.pOam = sAtomicElectricityOAM_Charging;
         gCurrentSprite.animationDurationCounter = 0x0;

@@ -30,14 +30,14 @@ void SearchlightEyeInit(void)
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3 + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
 
-    gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -(PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxRightOffset = (PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxRight = (PIXEL_SIZE * 3);
 
     gCurrentSprite.bgPriority = 1;
     gCurrentSprite.pOam = sSearchlightEyeOAM_Idle;
@@ -59,7 +59,7 @@ void SearchlightEyeInit(void)
     }
 
     if (gCurrentSprite.spriteId == PSPRITE_SEARCHLIGHT_EYE)
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
     if (gAlarmTimer != 0)
     {
@@ -108,7 +108,7 @@ void SearchlightEyeMove(void)
     else
         xPosition += QUARTER_BLOCK_SIZE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         // Move down
         gCurrentSprite.yPosition += ONE_SUB_PIXEL;
@@ -116,7 +116,7 @@ void SearchlightEyeMove(void)
         SpriteUtilGetCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
 
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400; // Change direction
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN; // Change direction
     }
     else
     {
@@ -126,7 +126,7 @@ void SearchlightEyeMove(void)
         SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition);
 
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400; // Change direction
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN; // Change direction
     }
 }
 
@@ -227,14 +227,14 @@ void SearchlightEyeBeamInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(SEARCHLIGHT_EYE_BEAM_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(SEARCHLIGHT_EYE_BEAM_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -EIGHTH_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = EIGHTH_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -SEARCHLIGHT_EYE_BEAM_SIZE;
-    gCurrentSprite.hitboxRightOffset = SEARCHLIGHT_EYE_BEAM_SIZE;
+    gCurrentSprite.hitboxTop = -EIGHTH_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = EIGHTH_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -SEARCHLIGHT_EYE_BEAM_SIZE;
+    gCurrentSprite.hitboxRight = SEARCHLIGHT_EYE_BEAM_SIZE;
 
     gCurrentSprite.bgPriority = 3;
     gCurrentSprite.drawOrder = 12;
@@ -347,7 +347,7 @@ void SearchlightEyeBeamDetectSamus(void)
  */
 void SearchlightEyeBeamDisappear(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     // Flicker
     if (MOD_AND(gCurrentSprite.work0, 4) == 0)
@@ -364,7 +364,7 @@ void SearchlightEyeBeamDisappear(void)
  */
 void SearchlightEye(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -436,12 +436,12 @@ void SearchlightEyeProjectile(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
-            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+            gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottom = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
             gCurrentSprite.pOam = sSearchlightEyeProjectileOAM_Moving;
             gCurrentSprite.animationDurationCounter = 0;
@@ -454,13 +454,13 @@ void SearchlightEyeProjectile(void)
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                gCurrentSprite.hitboxLeftOffset = 0;
-                gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                gCurrentSprite.hitboxLeft = 0;
+                gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
-                gCurrentSprite.hitboxRightOffset = 0;
+                gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+                gCurrentSprite.hitboxRight = 0;
             }
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)

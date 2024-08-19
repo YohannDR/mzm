@@ -23,7 +23,7 @@ u8 SovaCheckCollidingWithAir(void)
 
     result = FALSE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -79,38 +79,38 @@ u8 SovaCheckCollidingWithAir(void)
  */
 void SovaUpdateHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            gCurrentSprite.hitboxTopOffset = -0x1C;
-            gCurrentSprite.hitboxBottomOffset = 0x1C;
-            gCurrentSprite.hitboxLeftOffset = -0x34;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTop = -0x1C;
+            gCurrentSprite.hitboxBottom = 0x1C;
+            gCurrentSprite.hitboxLeft = -0x34;
+            gCurrentSprite.hitboxRight = 0x4;
         }
         else
         {
-            gCurrentSprite.hitboxTopOffset = -0x1C;
-            gCurrentSprite.hitboxBottomOffset = 0x1C;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x34;
+            gCurrentSprite.hitboxTop = -0x1C;
+            gCurrentSprite.hitboxBottom = 0x1C;
+            gCurrentSprite.hitboxLeft = -0x4;
+            gCurrentSprite.hitboxRight = 0x34;
         }
     }
     else
     {
         if (gCurrentSprite.work2)
         {
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x34;
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x4;
+            gCurrentSprite.hitboxBottom = 0x34;
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
         }
         else
         {
-            gCurrentSprite.hitboxTopOffset = -0x34;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x1C;
-            gCurrentSprite.hitboxRightOffset = 0x1C;
+            gCurrentSprite.hitboxTop = -0x34;
+            gCurrentSprite.hitboxBottom = 0x4;
+            gCurrentSprite.hitboxLeft = -0x1C;
+            gCurrentSprite.hitboxRight = 0x1C;
         }
     }
 }
@@ -121,7 +121,7 @@ void SovaUpdateHitbox(void)
  */
 void SovaSetCrawlingOAM(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             gCurrentSprite.pOam = sSovaOam_WalkingOnRight;
@@ -157,13 +157,13 @@ void SovaInit(void)
 
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousCollisionCheck & 0xF0)
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
     else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 0x4), gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & 0xF0)
         {
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.work2 = TRUE;
         }
@@ -173,7 +173,7 @@ void SovaInit(void)
                 gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + 0x4));
             if (gPreviousCollisionCheck & 0xF0)
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                 gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                 gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
             }
@@ -183,7 +183,7 @@ void SovaInit(void)
                     gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
                 if (gPreviousCollisionCheck & 0xF0)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                     gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -197,7 +197,7 @@ void SovaInit(void)
         }
     }
 
-    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400))
+    if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN))
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -210,9 +210,9 @@ void SovaInit(void)
     SovaUpdateHitbox();
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x10;
+    gCurrentSprite.drawDistanceBottom = 0x10;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
 
     if (gCurrentSprite.spriteId == PSPRITE_SOVA_ORANGE)
     {
@@ -275,12 +275,12 @@ void SovaMove(void)
 
     if (SpriteUtilShouldFall())
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400 || gCurrentSprite.work2 != 0)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN || gCurrentSprite.work2 != 0)
             gCurrentSprite.pose = SOVA_POSE_FALLING_INIT;
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -673,7 +673,7 @@ void SovaTurningAround(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_RIGHT_EDGE:
@@ -685,7 +685,7 @@ void SovaTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case SOVA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
@@ -696,7 +696,7 @@ void SovaTurningAround(void)
             }
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_RIGHT_CORNER:
@@ -708,7 +708,7 @@ void SovaTurningAround(void)
             }
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_LEFT_EDGE:
@@ -725,7 +725,7 @@ void SovaTurningAround(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             }
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
         
         case SOVA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
@@ -742,7 +742,7 @@ void SovaTurningAround(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             }
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_LEFT_CORNER:
@@ -755,7 +755,7 @@ void SovaTurningAround(void)
             else
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.work2 = TRUE;
             break;
         
@@ -769,7 +769,7 @@ void SovaTurningAround(void)
             else
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.work2 = TRUE;
             break;
 
@@ -819,7 +819,7 @@ void SovaLanding(void)
  */
 void SovaFallingInit(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
@@ -835,7 +835,7 @@ void SovaFallingInit(void)
     gCurrentSprite.pose = SOVA_POSE_FALLING;
     gCurrentSprite.work3 = 0;
     gCurrentSprite.work2 = 0;
-    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN_400);
+    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN);
 
     SovaUpdateHitbox();
 
@@ -893,7 +893,7 @@ void SovaDeath(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             xPosition -= 0x28;

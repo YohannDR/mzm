@@ -18,7 +18,7 @@ void Steam(void)
     u8 isLarge;
     u32 collision;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     isLarge = FALSE;
 
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
@@ -37,19 +37,19 @@ void Steam(void)
         if (collision & COLLISION_FLAGS_UNKNOWN)
         {
             // Steam on ground
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
 
             if (isLarge)
             {
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             }
             else
             {
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             }
         }
         else
@@ -58,36 +58,36 @@ void Steam(void)
             if (collision & COLLISION_FLAGS_UNKNOWN)
             {
                 // Steam on ceiling
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_400;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
                 gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
                 gCurrentSprite.yPosition -= BLOCK_SIZE;
 
                 if (isLarge)
                 {
-                    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
                 }
                 else
                 {
-                    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
                 }
             }
             else
             {
                 if (isLarge)
                 {
-                    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
                 }
                 else
                 {
-                    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-                    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+                    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
                 }
 
                 collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
@@ -95,7 +95,7 @@ void Steam(void)
                 if (collision & COLLISION_FLAGS_UNKNOWN)
                 {
                     // Steam on left wall
-                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                     gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
                 }
@@ -106,7 +106,7 @@ void Steam(void)
                     if (collision & COLLISION_FLAGS_UNKNOWN)
                     {
                         // Steam on right wall
-                        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_400;
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
                         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                         gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -122,7 +122,7 @@ void Steam(void)
         }
 
         // Set OAM
-        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN_400)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
             if (isLarge)
                 gCurrentSprite.pOam = sSteamOam_HorizontalLarge;
@@ -142,10 +142,10 @@ void Steam(void)
         // desyncs the steams and allows them to be already blowing on room load
         gCurrentSprite.currentAnimationFrame = MOD_AND(gSpriteRng, 8);
         
-        gCurrentSprite.hitboxTopOffset = 0;
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = 0;
-        gCurrentSprite.hitboxRightOffset = 0;
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = 0;
+        gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -170,7 +170,7 @@ void SteamDiagonal(void)
 {
     u8 collision;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
@@ -187,16 +187,16 @@ void SteamDiagonal(void)
         {
             gCurrentSprite.work1 = TRUE; // Is large flag
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
             gCurrentSprite.pOam = sSteamDiagonalOam_Large;
         }
         else if (gCurrentSprite.spriteId == PSPRITE_STEAM_SMALL_DIAGONAL_UP)
         {
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.pOam = sSteamDiagonalOam_Small;
         }
         else if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_DOWN)
@@ -204,17 +204,17 @@ void SteamDiagonal(void)
             gCurrentSprite.work1 = TRUE; // Is large flag
 
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
             gCurrentSprite.pOam = sSteamDiagonalOam_Large;
         }
         else if (gCurrentSprite.spriteId == PSPRITE_STEAM_SMALL_DIAGONAL_DOWN)
         {
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.pOam = sSteamDiagonalOam_Small;
         }
         else
@@ -228,10 +228,10 @@ void SteamDiagonal(void)
         // desyncs the steams and allows them to be already blowing on room load
         gCurrentSprite.currentAnimationFrame = MOD_AND(gSpriteRng, 8);
 
-        gCurrentSprite.hitboxTopOffset = 0;
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = 0;
-        gCurrentSprite.hitboxRightOffset = 0;
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = 0;
+        gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;

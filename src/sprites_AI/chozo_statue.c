@@ -20,6 +20,14 @@
 #include "structs/samus.h"
 #include "structs/scroll.h"
 
+#define CHOZO_STATUE_HAND_X_OFFSET (BLOCK_SIZE - EIGHTH_BLOCK_SIZE)
+#define CHOZO_STATUE_HAND_Y_OFFSET (QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL)
+
+#define CHOZO_BALL_OFFSET_Y (BLOCK_SIZE + HALF_BLOCK_SIZE)
+#define CHOZO_BALL_OFFSET_X (BLOCK_SIZE - EIGHTH_BLOCK_SIZE)
+
+#define DELAY_BEFORE_HINT (CONVERT_SECONDS(2.f))
+
 /**
  * @brief 13850 | 88 | Synchronize the sub sprites of a chozo statue
  * 
@@ -318,21 +326,22 @@ void ChozoStatueInit(void)
 
     gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x20;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = 0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = 0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = PIXEL_SIZE;
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
-    gCurrentSprite.drawOrder = 0x3;
+    gCurrentSprite.drawOrder = 3;
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.health = 0x1;
+    gCurrentSprite.health = 1;
 
     gSubSpriteData1.animationDurationCounter = 0;
     gSubSpriteData1.currentAnimationFrame = 0;
+
     gSubSpriteData1.workVariable2 = 0;
     gSubSpriteData1.workVariable3 = FALSE;
 
@@ -370,18 +379,21 @@ void ChozoStatueInit(void)
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
                 SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0, gCurrentSprite.spritesetGfxSlot,
-                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
-                    gSubSpriteData1.xPosition + 0x38, 0);
+                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - CHOZO_BALL_OFFSET_Y,
+                    gSubSpriteData1.xPosition + CHOZO_BALL_OFFSET_X, 0);
             }
             else
             {
                 SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0, gCurrentSprite.spritesetGfxSlot,
-                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
-                    gSubSpriteData1.xPosition - 0x38, 0);
+                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - CHOZO_BALL_OFFSET_Y,
+                    gSubSpriteData1.xPosition - CHOZO_BALL_OFFSET_X, 0);
             }
         }
         else
-            gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE; // Refill
+        {
+            // Refill
+            gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
+        }
     }
 
     gCurrentSprite.roomSlot = CHOZO_STATUE_PART_HEAD;
@@ -406,6 +418,7 @@ void ChozoStatueInit(void)
     // Spawn glow
     newRamSlot = SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, CHOZO_STATUE_PART_GLOW, gfxSlot,
         ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+
     gSpriteData[newRamSlot].work1 = behavior;
 }
 
@@ -431,19 +444,22 @@ void ChozoStatueRegisterHint(void)
     gSpriteData[eyeSlot].pose = CHOZO_STATUE_PART_POSE_EYE_OPENING_INIT;
 
     gCurrentSprite.pose = CHOZO_STATUE_POSE_HINT_FLASHING;
-    gCurrentSprite.work0 = 0x78;
-    gCurrentSprite.work2 = 0xC;
+
+    gCurrentSprite.work0 = DELAY_BEFORE_HINT;
+    gCurrentSprite.work2 = CONVERT_SECONDS(.2f);
     gCurrentSprite.work3 = 0;
 
     if (gCurrentSprite.spriteId == PSPRITE_CHOZO_STATUE_LONG_HINT)
     {
         MakeBackgroundFlash(BG_FLASH_CHOZO_LONG_TRANSPARENCY);
-        gCurrentSprite.work0 += 0x28;
+
+        // Increase timer to have time for the background fade
+        gCurrentSprite.work0 += TWO_THIRD_SECOND;
     }
 
     // Register hint
     ChozoStatueRegisterItem(gCurrentSprite.spriteId);
-    FadeMusic(0x3C);
+    FadeMusic(CONVERT_SECONDS(1.f));
 }
 
 /**
@@ -452,13 +468,13 @@ void ChozoStatueRegisterHint(void)
  */
 void ChozoStatueHintFlashing(void)
 {
-    u8 ramSlot;
+    u8 eyeSlot;
 
-    ramSlot = gCurrentSprite.work1;
+    eyeSlot = gCurrentSprite.work1;
 
-    if (gSpriteData[ramSlot].pose == 0x61)
+    if (gSpriteData[eyeSlot].pose == CHOZO_STATUE_PART_POSE_DO_NOTHING)
     {
-        gCurrentSprite.work0--;
+        APPLY_DELTA_TIME(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.pose = CHOZO_STATUE_POSE_SITTING_INIT;
@@ -471,25 +487,29 @@ void ChozoStatueHintFlashing(void)
         }
         else
         {
-            if (gCurrentSprite.work0 == 0x77)
+            if (gCurrentSprite.work0 == (DELAY_BEFORE_HINT - DELTA_TIME))
             {
                 MakeBackgroundFlash(BG_FLASH_SLIGHT_YELLOW);
-                SoundPlay(0x11B); // Chozo hint
+                SoundPlay(SOUND_CHOZO_STATUE_HINT);
             }
-            else if (gCurrentSprite.work0 > 0x77)
+            else if (gCurrentSprite.work0 > (DELAY_BEFORE_HINT - DELTA_TIME))
+            {
                 return;
+            }
 
             // Update palette
-            gCurrentSprite.work2--;
+            APPLY_DELTA_TIME(gCurrentSprite.work2);
+
             if (gCurrentSprite.work2 == 0)
             {
                 // Reset delay
-                gCurrentSprite.work2 = 0xC;
+                gCurrentSprite.work2 = CONVERT_SECONDS(.2f);
+
                 // Change row
                 gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.work3];
                 
                 // Update offset
-                if (gCurrentSprite.work3 > 0x2)
+                if (gCurrentSprite.work3 >= ARRAY_SIZE(sChozoStatueFlashingPaletteRows) - 1)
                     gCurrentSprite.work3 = 0;
                 else
                     gCurrentSprite.work3++;
@@ -513,7 +533,7 @@ void ChozoStatueSittingInit(void)
     ChozoStatueStandingChangeCcaa(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
     SoundPlay(0x11C);
 
-    gSlowScrollingTimer = 0x3C;
+    gSlowScrollingTimer = CONVERT_SECONDS(1.f);
 }
 
 /**
@@ -533,7 +553,7 @@ void ChozoStatueSitting(void)
         gSubSpriteData1.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_AFTER_SITTING;
-        gCurrentSprite.work0 = 0x1E;
+        gCurrentSprite.work0 = CONVERT_SECONDS(.5f);
 
         ChozoStatueSeatedChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
     }
@@ -545,7 +565,7 @@ void ChozoStatueSitting(void)
  */
 void ChozoStatueDelayBeforeRefillAfterHint(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;   
 }
@@ -561,7 +581,7 @@ void ChozoStatueWaitForItemToBeCollected(void)
     {
         // Hint behavior, thus item was took
         gCurrentSprite.pose = CHOZO_STATUE_POSE_TIMER_AFTER_ITEM;
-        gCurrentSprite.work0 = 0x28;
+        gCurrentSprite.work0 = TWO_THIRD_SECOND;
     }
 }
 
@@ -571,7 +591,7 @@ void ChozoStatueWaitForItemToBeCollected(void)
  */
 void ChozoStatueTimerAfterItemGrabbed(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
 }
@@ -583,7 +603,7 @@ void ChozoStatueTimerAfterItemGrabbed(void)
 void ChozoStatueRefillInit(void)
 {
     gCurrentSprite.pose = CHOZO_STATUE_POSE_REFILL;
-    gCurrentSprite.work2 = 0x4;
+    gCurrentSprite.work2 = CONVERT_SECONDS(1.f / 15);
     gCurrentSprite.work3 = 0;
 
     SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_REFILL, 0, gCurrentSprite.spritesetGfxSlot,
@@ -597,16 +617,17 @@ void ChozoStatueRefillInit(void)
 void ChozoStatueRefillSamus(void)
 {
     // Update palette
-    gCurrentSprite.work2--;
+    APPLY_DELTA_TIME(gCurrentSprite.work2);
     if (gCurrentSprite.work2 == 0)
     {
         // Reset delay
-        gCurrentSprite.work2 = 0x4;
+        gCurrentSprite.work2 = CONVERT_SECONDS(1.f / 15);
+
         // Change row
         gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.work3];
         
         // Update offset
-        if (gCurrentSprite.work3 > 0x2)
+        if (gCurrentSprite.work3 >= ARRAY_SIZE(sChozoStatueFlashingPaletteRows) - 1)
             gCurrentSprite.work3 = 0;
         else
             gCurrentSprite.work3++;
@@ -621,7 +642,7 @@ void ChozoStatueSleepingInit(void)
 {
     gCurrentSprite.pose = CHOZO_STATUE_POSE_SLEEPING;
     gCurrentSprite.paletteRow = 0;
-    gCurrentSprite.work0 = 0x46;
+    gCurrentSprite.work0 = CONVERT_SECONDS(1.f + 1.f / 6);
 }
 
 /**
@@ -630,14 +651,14 @@ void ChozoStatueSleepingInit(void)
  */
 void ChozoStatueSleeping(void)
 {
-    u8 ramSlot;
+    u8 eyeSlot;
 
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Close eye
-        ramSlot = gCurrentSprite.work1;
-        gSpriteData[ramSlot].pose = CHOZO_STATUE_PART_POSE_EYE_CLOSING_INIT;
+        eyeSlot = gCurrentSprite.work1;
+        gSpriteData[eyeSlot].pose = CHOZO_STATUE_PART_POSE_EYE_CLOSING_INIT;
 
         gCurrentSprite.pose = CHOZO_STATUE_POSE_DO_NOTHING;
 
@@ -663,21 +684,21 @@ void ChozoStatuePartInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.drawOrder = 0x2;
+    gCurrentSprite.drawOrder = 2;
     
-    gCurrentSprite.hitboxTopOffset = 0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = 0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = PIXEL_SIZE;
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
     behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId);
 
     switch (gCurrentSprite.roomSlot)
     {
         case CHOZO_STATUE_PART_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x1E;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 - EIGHTH_BLOCK_SIZE);
 
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
@@ -694,9 +715,9 @@ void ChozoStatuePartInit(void)
             break;
     
         case CHOZO_STATUE_PART_LEG:
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
 
             if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
                 gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_LEG_IDLE;
@@ -705,9 +726,9 @@ void ChozoStatuePartInit(void)
             break;
 
         case CHOZO_STATUE_PART_EYE:
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
             gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
             gCurrentSprite.animationDurationCounter = 0;
@@ -720,9 +741,9 @@ void ChozoStatuePartInit(void)
             break;
 
         case CHOZO_STATUE_PART_GLOW:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x1;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
             gCurrentSprite.pOam = sChozoStatuePartOam_GlowIdle;
             gCurrentSprite.animationDurationCounter = 0;
@@ -758,8 +779,11 @@ void ChozoStatuePartGlowIdle(void)
             gCurrentSprite.currentAnimationFrame = 0;
         }
     }
-    else if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
-        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+    else
+    {
+        if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+            gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+    }
 }
 
 /**
@@ -781,10 +805,14 @@ void ChozoStatuePartArmCheckGrabSamusHint(void)
         xPosition -= CHOZO_STATUE_HAND_X_OFFSET;
 
     // In range, chozo statue is idle, either morph ball or rolling
-    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_IDLE &&
-        gSamusData.yPosition == gCurrentSprite.yPosition - CHOZO_STATUE_HAND_Y_OFFSET &&
-        gSamusData.xPosition > xPosition - QUARTER_BLOCK_SIZE && gSamusData.xPosition < xPosition + QUARTER_BLOCK_SIZE &&
-        (u8)(gSamusData.pose - SPOSE_MORPH_BALL) < (SPOSE_UNMORPHING - SPOSE_MORPH_BALL))
+    if (gSpriteData[ramSlot].pose != CHOZO_STATUE_POSE_IDLE)
+        return;
+
+    if (gSamusData.yPosition != gCurrentSprite.yPosition - CHOZO_STATUE_HAND_Y_OFFSET)
+        return;
+
+    if (gSamusData.xPosition > xPosition - QUARTER_BLOCK_SIZE && gSamusData.xPosition < xPosition + QUARTER_BLOCK_SIZE &&
+        (gSamusData.pose == SPOSE_MORPH_BALL || gSamusData.pose == SPOSE_ROLLING))
     {
         // Set pose
         SamusSetPose(SPOSE_GRABBED_BY_CHOZO_STATUE);
@@ -872,7 +900,9 @@ void ChozoStatuePartArmCheckGrabSamusRefill(void)
     // Update OAM
     if (gCurrentSprite.pOam == sChozoStatuePartOam_ArmIdle && gPreventMovementTimer == 0 &&
         ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId) != CHOZO_STATUE_BEHAVIOR_ITEM)
+    {
         gCurrentSprite.pOam = sChozoStatuePartOam_ArmGlow;
+    }
 
     isGrabbed = FALSE;
     xPosition = gCurrentSprite.xPosition;
@@ -908,7 +938,7 @@ void ChozoStatuePartArmCheckGrabSamusRefill(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.work0 = 0x1E;
+            gCurrentSprite.work0 = CONVERT_SECONDS(.5f);
         }
     }
 }
@@ -930,7 +960,7 @@ void ChozoStatuePartArmRefill(void)
             // Refill energy
             if (!SpriteUtilRefillEnergy())
             {
-                gCurrentSprite.work0--;
+                APPLY_DELTA_TIME(gCurrentSprite.work0);
                 gEnergyRefillAnimation = 0xD;
             }
         }
@@ -938,10 +968,12 @@ void ChozoStatuePartArmRefill(void)
         {
             // Refill missiles
             if (gEnergyRefillAnimation != 0)
+            {
                 gEnergyRefillAnimation--;
+            }
             else if (!SpriteUtilRefillMissiles())
             {
-                gCurrentSprite.work0--;
+                APPLY_DELTA_TIME(gCurrentSprite.work0);
                 gMissileRefillAnimation = 0xD;
             }
         }
@@ -949,10 +981,12 @@ void ChozoStatuePartArmRefill(void)
         {
             // Refill super missiles
             if (gMissileRefillAnimation != 0)
+            {
                 gMissileRefillAnimation--;
+            }
             else if (!SpriteUtilRefillSuperMissiles())
             {
-                gCurrentSprite.work0--;
+                APPLY_DELTA_TIME(gCurrentSprite.work0);
                 gSuperMissileRefillAnimation = 0xD;
             }
         }
@@ -960,10 +994,12 @@ void ChozoStatuePartArmRefill(void)
         {
             // Refill power bombs
             if (gSuperMissileRefillAnimation != 0)
+            {
                 gSuperMissileRefillAnimation--;
+            }
             else if (!SpriteUtilRefillPowerBombs())
             {
-                gCurrentSprite.work0--;
+                APPLY_DELTA_TIME(gCurrentSprite.work0);
                 gPowerBombRefillAnimation = 0xD;
             }
         }
@@ -971,9 +1007,13 @@ void ChozoStatuePartArmRefill(void)
         {
             // Check refill anim ended
             if (gPowerBombRefillAnimation != 0)
+            {
                 gPowerBombRefillAnimation--;
+            }
             else if (gCurrentSprite.work0 != 0)
-                gCurrentSprite.work0--; // Update timer
+            {
+                APPLY_DELTA_TIME(gCurrentSprite.work0);
+            }
             else
             {
                 // Set sleeping
@@ -984,13 +1024,13 @@ void ChozoStatuePartArmRefill(void)
                 if (gEquipment.maxMissiles == 0 && gEquipment.maxSuperMissiles == 0 && gEquipment.maxPowerBombs == 0)
                 {
                     // Only energy
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
                 else
                 {
                     // Energy and weapons
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
             }
@@ -1116,7 +1156,9 @@ void ChozoStatuePartLegIdle(void)
             SpawnChozoStatueMovement(gSubSpriteData1.workVariable2);
     }
     else if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_DELAY_AFTER_SITTING)
+    {
         gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
+    }
 }
 
 /**
@@ -1125,11 +1167,11 @@ void ChozoStatuePartLegIdle(void)
  */
 void ChozoStatue(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ChozoStatueInit();
             break;
 
@@ -1193,12 +1235,12 @@ void ChozoStatuePart(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ChozoStatuePartInit();
             break;
 
@@ -1274,25 +1316,25 @@ void ChozoStatueRefill(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
         gCurrentSprite.samusCollision = SSC_NONE;
-        gCurrentSprite.drawOrder = 0x1;
+        gCurrentSprite.drawOrder = 1;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x10;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         
-        gCurrentSprite.hitboxTopOffset = 0x4;
-        gCurrentSprite.hitboxBottomOffset = 0x4;
-        gCurrentSprite.hitboxLeftOffset = 0x4;
-        gCurrentSprite.hitboxRightOffset = 0x4;
+        gCurrentSprite.hitboxTop = PIXEL_SIZE;
+        gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeft = PIXEL_SIZE;
+        gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
         gCurrentSprite.pose = 0x9;
 
@@ -1300,11 +1342,11 @@ void ChozoStatueRefill(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sChozoStatueRefillOam;
 
-        SoundPlay(0x10F); // Chozo statue refill
+        SoundPlay(SOUND_CHOZO_STATUE_REFILL);
     }
     else if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SLEEPING)
     {
         gCurrentSprite.status = 0;
-        SoundFade(0x10F, 0x1E); // Chozo statue refill
+        SoundFade(SOUND_CHOZO_STATUE_REFILL, CONVERT_SECONDS(.5f));
     }
 }

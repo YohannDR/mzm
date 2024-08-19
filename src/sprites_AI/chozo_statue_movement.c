@@ -63,9 +63,9 @@ void SpawnChozoStatueMovement(u8 stage)
         gSpriteData[i].animationDurationCounter = 0;
 
         gSpriteData[i].currentAnimationFrame = gCurrentSprite.currentAnimationFrame;
-        gSpriteData[i].drawDistanceTopOffset = gCurrentSprite.drawDistanceTopOffset;
-        gSpriteData[i].drawDistanceBottomOffset = gCurrentSprite.drawDistanceBottomOffset;
-        gSpriteData[i].drawDistanceHorizontalOffset = gCurrentSprite.drawDistanceHorizontalOffset;
+        gSpriteData[i].drawDistanceTop = gCurrentSprite.drawDistanceTop;
+        gSpriteData[i].drawDistanceBottom = gCurrentSprite.drawDistanceBottom;
+        gSpriteData[i].drawDistanceHorizontal = gCurrentSprite.drawDistanceHorizontal;
         break;
     }
 }
@@ -76,7 +76,7 @@ void SpawnChozoStatueMovement(u8 stage)
  */
 void ChozoStatueMovement(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.animationDurationCounter--;
     gCurrentSprite.work0--;

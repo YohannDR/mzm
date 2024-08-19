@@ -26,14 +26,14 @@ void ExplosionZebesEscape(void)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         
-        gCurrentSprite.drawDistanceTopOffset = 1;
-        gCurrentSprite.drawDistanceBottomOffset = 1;
-        gCurrentSprite.drawDistanceHorizontalOffset = 1;
+        gCurrentSprite.drawDistanceTop = 1;
+        gCurrentSprite.drawDistanceBottom = 1;
+        gCurrentSprite.drawDistanceHorizontal = 1;
 
-        gCurrentSprite.hitboxTopOffset = 0;
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = 0;
-        gCurrentSprite.hitboxRightOffset = 0;
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = 0;
+        gCurrentSprite.hitboxRight = 0;
 
         gCurrentSprite.samusCollision = SSC_NONE;
         

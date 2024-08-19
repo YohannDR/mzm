@@ -20,14 +20,14 @@
 void SkreeInit(void)
 {
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE + HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = BLOCK_SIZE + HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -126,12 +126,12 @@ void SkreeGoDown(void)
     u32 yMovement;
     u32 offset;
 
-    blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition,
+    blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.hitboxBottom + gCurrentSprite.yPosition,
         gCurrentSprite.xPosition);
 
     if (gPreviousVerticalCollisionCheck != 0)
     {
-        gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+        gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
         gCurrentSprite.pose = SKREE_POSE_CRASHING;
         gCurrentSprite.work0 = 0x0;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -251,14 +251,14 @@ void SkreeExplosionInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxBottomOffset = (PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxLeftOffset = -(PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxRightOffset = (PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxTop = -(PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxBottom = (PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxLeft = -(PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxRight = (PIXEL_SIZE * 3);
     
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -270,8 +270,8 @@ void SkreeExplosionInit(void)
     
     gCurrentSprite.yPosition += HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
     gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING;
-    gCurrentSprite.oamScaling = Q_8_8(1.f);
-    gCurrentSprite.oamRotation = 0;
+    gCurrentSprite.scaling = Q_8_8(1.f);
+    gCurrentSprite.rotation = 0;
 
     if (gCurrentSprite.roomSlot != SKREE_EXPLOSION_PART_GOING_UP)
         gCurrentSprite.pOam = sSkreeExplosionOAM_GoingDown;
@@ -286,17 +286,17 @@ void SkreeExplosionInit(void)
 void SkreeExplosionMove(void)
 {
     if (gCurrentSprite.currentAnimationFrame > 1)
-        gCurrentSprite.ignoreSamusCollisionTimer = 1;
+        gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         gCurrentSprite.xPosition += PIXEL_SIZE * 2;
-        gCurrentSprite.oamRotation += PI / 4;
+        gCurrentSprite.rotation += PI / 4;
     }
     else
     {
         gCurrentSprite.xPosition -= PIXEL_SIZE * 2;
-        gCurrentSprite.oamRotation -= PI / 4;
+        gCurrentSprite.rotation -= PI / 4;
     }
 
     if (gCurrentSprite.roomSlot != SKREE_EXPLOSION_PART_GOING_UP)

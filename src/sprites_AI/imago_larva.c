@@ -109,8 +109,8 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     {
         // Left larva
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-        gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_TAIL_HITBOX;
-        gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_HEAD_HITBOX;
+        gCurrentSprite.hitboxLeft = -IMAGO_LARVA_TAIL_HITBOX;
+        gCurrentSprite.hitboxRight = IMAGO_LARVA_HEAD_HITBOX;
         gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
 
         // Lock doors
@@ -122,8 +122,8 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     else
     {
         // Right larva
-        gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_HEAD_HITBOX;
-        gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_TAIL_HITBOX;
+        gCurrentSprite.hitboxLeft = -IMAGO_LARVA_HEAD_HITBOX;
+        gCurrentSprite.hitboxRight = IMAGO_LARVA_TAIL_HITBOX;
 
         // Move to cocoon
         pSub->xPosition += BLOCK_SIZE * 11;
@@ -131,12 +131,12 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_DETECT_SAMUS;
     }
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
-    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
 
     gCurrentSprite.work2 = 0;
     gCurrentSprite.work3 = 0;
@@ -488,14 +488,14 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_RIGHT_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOam_RightDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
@@ -508,14 +508,14 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_MIDDLE_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOam_MiddleDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
@@ -528,14 +528,14 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_LEFT_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOam_LeftDotVisible;
             gCurrentSprite.animationDurationCounter = 0;
@@ -546,22 +546,22 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
             break;
 
         case IMAGO_LARVA_PART_SHELL:
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE);
-            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottom = 0;
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_SHELL_TAIL_HITBOX;
-                gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_SHELL_HEAD_HITBOX;
+                gCurrentSprite.hitboxLeft = -IMAGO_LARVA_SHELL_TAIL_HITBOX;
+                gCurrentSprite.hitboxRight = IMAGO_LARVA_SHELL_HEAD_HITBOX;
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_SHELL_HEAD_HITBOX;
-                gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_SHELL_TAIL_HITBOX;
+                gCurrentSprite.hitboxLeft = -IMAGO_LARVA_SHELL_HEAD_HITBOX;
+                gCurrentSprite.hitboxRight = IMAGO_LARVA_SHELL_TAIL_HITBOX;
             }
 
             gCurrentSprite.samusCollision = SSC_KRAID;
@@ -573,14 +573,14 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_CLAWS:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 3;
@@ -623,9 +623,9 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
         // This allows for the larva to be hit with precise missile shots
         if (pSub->xPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE) < gSamusData.xPosition &&
             pSub->xPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE) > gSamusData.xPosition)
-            gCurrentSprite.hitboxBottomOffset = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxBottom = -HALF_BLOCK_SIZE;
         else
-            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxBottom = 0;
 
         if (SPRITE_HAS_ISFT(gCurrentSprite))
         {
@@ -871,7 +871,7 @@ void ImagoLarva(void)
     else
         pSub = &gSubSpriteData1;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if ((u8)(gCurrentSprite.pose - 1) < IMAGO_LARVA_POSE_DYING_INIT - 1)
     {

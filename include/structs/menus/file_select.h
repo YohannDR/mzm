@@ -2,6 +2,9 @@
 #define FILE_SELECT_STRUCT_H
 
 #include "types.h"
+
+#include "constants/samus.h"
+
 #include "structs/menu.h"
 
 #define FILE_SELECT_DATA sNonGameplayRamPointer->fileSelect
@@ -23,7 +26,7 @@ struct FileSelectCursorOamData {
     u16 xPosition;
     u16 yPosition;
     u8 unk_4;
-    u8 oamIds[3];
+    u8 oamIds[SUIT_END];
 };
 
 struct OptionsSubroutineInfo {

@@ -91,9 +91,9 @@ struct SamusPhysics {
     u16 armCannonYPositionOffset;
     u8 horizontalMovingDirection;
     u8 verticalMovingDirection;
-    s16 hitboxLeftOffset;
-    s16 hitboxRightOffset;
-    s16 hitboxTopOffset;
+    s16 hitboxLeft;
+    s16 hitboxRight;
+    s16 hitboxTop;
     u8 standingStatus;
     u8 hitboxType;
     u8 touchingSideBlock;
@@ -110,9 +110,9 @@ struct SamusPhysics {
     s16 midairXVelocityCap;
     s16 midairMorphedXVelocityCap;
     s16 drawDistanceLeftOffset;
-    s16 drawDistanceTopOffset;
+    s16 drawDistanceTop;
     s16 drawDistanceRightOffset;
-    s16 drawDistanceBottomOffset;
+    s16 drawDistanceBottom;
 };
 
 struct ScrewSpeedAnimation {

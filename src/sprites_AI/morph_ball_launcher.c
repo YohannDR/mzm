@@ -56,14 +56,14 @@ void MorphBallLauncherInit(void)
 {
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
 
-    gCurrentSprite.hitboxTopOffset = 0;
-    gCurrentSprite.hitboxBottomOffset = 0;
-    gCurrentSprite.hitboxLeftOffset = 0;
-    gCurrentSprite.hitboxRightOffset = 0;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = 0;
+    gCurrentSprite.hitboxRight = 0;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
 
     gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -180,7 +180,7 @@ void MorphBallLauncherLaunchSamus(void)
  */
 void MorphBallLauncher(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -217,17 +217,17 @@ void MorphBallLauncherPart(void)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             if (gCurrentSprite.roomSlot == MORPH_BALL_LAUNCHER_PART_BACK)
             {
                 gCurrentSprite.pOam = sMorphBallLauncherPartOam_Back;
-                gCurrentSprite.drawDistanceTopOffset = PIXEL_SIZE * 2;
-                gCurrentSprite.drawDistanceBottomOffset = 0;
-                gCurrentSprite.drawDistanceHorizontalOffset = QUARTER_BLOCK_SIZE;
+                gCurrentSprite.drawDistanceTop = PIXEL_SIZE * 2;
+                gCurrentSprite.drawDistanceBottom = 0;
+                gCurrentSprite.drawDistanceHorizontal = QUARTER_BLOCK_SIZE;
 
                 gCurrentSprite.bgPriority = MOD_AND(MOD_AND(gIoRegistersBackup.BG1CNT, 4) + 1, 4);
                 gCurrentSprite.drawOrder = 12;
@@ -236,9 +236,9 @@ void MorphBallLauncherPart(void)
             else if (gCurrentSprite.roomSlot == MORPH_BALL_LAUNCHER_PART_ENERGY)
             {
                 gCurrentSprite.pOam = sMorphBallLauncherPartOam_Energy;
-                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
                 gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
                 gCurrentSprite.drawOrder = 1;

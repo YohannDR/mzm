@@ -327,10 +327,10 @@ void unk_818cc(void)
             *dst++ = *src++;
             dst++;
 
-            ProcessComplexOam(currSlot, xPosition, yPosition, 0, TOURIAN_ESCAPE_DATA.oamScaling, TRUE, 4);
+            ProcessComplexOam(currSlot, xPosition, yPosition, 0, TOURIAN_ESCAPE_DATA.scaling, TRUE, 4);
         }
 
-        CalculateOamPart4(0, TOURIAN_ESCAPE_DATA.oamScaling, 16);
+        CalculateOamPart4(0, TOURIAN_ESCAPE_DATA.scaling, 16);
     }
 
     for (i = 4; i < TOURIAN_ESCAPE_MAX_OBJECTS; i++)
@@ -1511,7 +1511,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
             TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
             TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x78;
             TOURIAN_ESCAPE_DATA.oamYPositions[1] = HALF_BLOCK_SIZE;
-            TOURIAN_ESCAPE_DATA.oamScaling = Q_8_8(1.f);
+            TOURIAN_ESCAPE_DATA.scaling = Q_8_8(1.f);
 
             TOURIAN_ESCAPE_DATA.unk_8[4] = TRUE;
             TOURIAN_ESCAPE_DATA.unk_8[5] = 2;
@@ -1681,7 +1681,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
     if (TOURIAN_ESCAPE_DATA.unk_8[1])
     {
         var_1 = 0;
-        if (TOURIAN_ESCAPE_DATA.oamScaling > Q_8_8(.625f))
+        if (TOURIAN_ESCAPE_DATA.scaling > Q_8_8(.625f))
         {
             if (TOURIAN_ESCAPE_DATA.oamFrames[1] > 26)
                 TOURIAN_ESCAPE_DATA.oamFrames[1] = 0;
@@ -1692,11 +1692,11 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
         TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47cf88[var_1];
 
         if (TOURIAN_ESCAPE_DATA.unk_8[1] == 1)
-            TOURIAN_ESCAPE_DATA.oamScaling -= Q_8_8(.005f);
+            TOURIAN_ESCAPE_DATA.scaling -= Q_8_8(.005f);
         else
-            TOURIAN_ESCAPE_DATA.oamScaling -= Q_8_8(.01f);
+            TOURIAN_ESCAPE_DATA.scaling -= Q_8_8(.01f);
 
-        if (TOURIAN_ESCAPE_DATA.oamScaling < Q_8_8(.035f))
+        if (TOURIAN_ESCAPE_DATA.scaling < Q_8_8(.035f))
             TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
 
         TOURIAN_ESCAPE_DATA.oamFrames[1]++;

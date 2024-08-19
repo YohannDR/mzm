@@ -43,14 +43,14 @@ void ItemBannerInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.properties |= (SP_ALWAYS_ACTIVE | SP_ABSOLUTE_POSITION);
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
 
-    gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+    gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
     gCurrentSprite.pOam = sItemBannerOAM_TwoLinesSpawn;
     gCurrentSprite.animationDurationCounter = 0;
@@ -319,7 +319,7 @@ void ItemBannerRemovalAnimation(void)
  */
 void ItemBanner(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -357,7 +357,7 @@ void SaveYesNoCursor(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
@@ -371,14 +371,14 @@ void SaveYesNoCursor(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.properties |= (SP_ALWAYS_ACTIVE | SP_ABSOLUTE_POSITION);
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxTop = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sSaveYesNoCursorOAM_Idle;
             gCurrentSprite.animationDurationCounter = 0;

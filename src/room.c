@@ -524,7 +524,7 @@ void RoomReset(void)
             gSamusDoorPositionOffset = 0;
         else
         {
-            temp = gSamusPhysics.drawDistanceTopOffset;
+            temp = gSamusPhysics.drawDistanceTop;
             yOffset = (u16)-temp;
             temp = (u16)yOffset;
             if (temp + gSamusDoorPositionOffset > UCHAR_MAX)

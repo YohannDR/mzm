@@ -132,12 +132,12 @@ u8 PistonCheckSamusIn(void)
  */
 void PistonInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
 
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.health = 256;
@@ -160,8 +160,8 @@ void PistonGfxInit(void)
 
     gCurrentSprite.pose = PISTON_POSE_CHECK_FOR_PROJECTILES;
 
-    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
-    gCurrentSprite.hitboxBottomOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = -(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
 }
 
 /**
@@ -216,8 +216,8 @@ void PistonOpen(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = PISTON_POSE_OPENED;
-        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
-        gCurrentSprite.hitboxBottomOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
+        gCurrentSprite.hitboxBottom = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
     }
 }
 

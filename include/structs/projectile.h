@@ -18,10 +18,10 @@ struct ProjectileData {
     u8 movementStage;
     u8 drawDistanceOffset;
     u8 timer;
-    s16 hitboxTopOffset;
-    s16 hitboxBottomOffset;
-    s16 hitboxLeftOffset;
-    s16 hitboxRightOffset;
+    s16 hitboxTop;
+    s16 hitboxBottom;
+    s16 hitboxLeft;
+    s16 hitboxRight;
 };
 
 // Globals

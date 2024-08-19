@@ -108,10 +108,10 @@ void EscapeShipPirateCollision(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
@@ -119,10 +119,10 @@ void EscapeShipPirateCollision(void)
         {
             pirateY = pSprite->yPosition;
             pirateX = pSprite->xPosition;
-            pirateTop = pirateY + pSprite->hitboxTopOffset;
-            pirateBottom = pirateY + pSprite->hitboxBottomOffset;
-            pirateLeft = pirateX + pSprite->hitboxLeftOffset;
-            pirateRight = pirateX + pSprite->hitboxRightOffset;
+            pirateTop = pirateY + pSprite->hitboxTop;
+            pirateBottom = pirateY + pSprite->hitboxBottom;
+            pirateLeft = pirateX + pSprite->hitboxLeft;
+            pirateRight = pirateX + pSprite->hitboxRight;
 
             if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight,
                 pirateTop, pirateBottom, pirateLeft, pirateRight))
@@ -158,10 +158,10 @@ void EscapeShipCheckCollidingWithLaser(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
-    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
-    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTop;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottom;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeft;
+    spriteRight = spriteX + gCurrentSprite.hitboxRight;
     offset = 0x4;
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
@@ -200,14 +200,14 @@ void EscapeShip(void)
     switch (gCurrentSprite.pose)
     {
         case 0:
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+            gCurrentSprite.drawDistanceTop = 0x30;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x58;
 
-            gCurrentSprite.hitboxTopOffset = -0x2C;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0x38;
-            gCurrentSprite.hitboxRightOffset = 0x68;
+            gCurrentSprite.hitboxTop = -0x2C;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0x38;
+            gCurrentSprite.hitboxRight = 0x68;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 11;
@@ -254,7 +254,7 @@ void EscapeShip(void)
         case ESCAPE_SHIP_POSE_OPENED:
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP)
             {
-                gCurrentSprite.standingOnSprite = FALSE;
+                gCurrentSprite.standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
                 gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
                 gCurrentSprite.drawOrder = 4;
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_DELAY_BEFORE_CLOSING;
@@ -271,10 +271,10 @@ void EscapeShip(void)
 
                 EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_CHOZODIA);
 
-                gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                gCurrentSprite.hitboxBottomOffset = 0;
-                gCurrentSprite.hitboxLeftOffset = 0;
-                gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 5;
+                gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+                gCurrentSprite.hitboxBottom = 0;
+                gCurrentSprite.hitboxLeft = 0;
+                gCurrentSprite.hitboxRight = BLOCK_SIZE * 5;
             }
             break;
 
@@ -476,10 +476,10 @@ void EscapeShipPart(void)
             gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.hitboxTopOffset = 0;
-            gCurrentSprite.hitboxBottomOffset = 0;
-            gCurrentSprite.hitboxLeftOffset = 0;
-            gCurrentSprite.hitboxRightOffset = 0;
+            gCurrentSprite.hitboxTop = 0;
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = 0;
+            gCurrentSprite.hitboxRight = 0;
 
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
@@ -487,9 +487,9 @@ void EscapeShipPart(void)
 
             if (roomSlot == ESCAPE_SHIP_PART_TOP)
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x30;
-                gCurrentSprite.drawDistanceBottomOffset = 0x8;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+                gCurrentSprite.drawDistanceTop = 0x30;
+                gCurrentSprite.drawDistanceBottom = 0x8;
+                gCurrentSprite.drawDistanceHorizontal = 0x58;
 
                 gCurrentSprite.drawOrder = 10;
                 gCurrentSprite.pOam = sEscapeShipPartOAM_Top;
@@ -497,9 +497,9 @@ void EscapeShipPart(void)
             }
             else if (roomSlot == ESCAPE_SHIP_PART_TAIL)
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x30;
-                gCurrentSprite.drawDistanceBottomOffset = 0;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
+                gCurrentSprite.drawDistanceTop = 0x30;
+                gCurrentSprite.drawDistanceBottom = 0;
+                gCurrentSprite.drawDistanceHorizontal = 0x70;
 
                 gCurrentSprite.drawOrder = 13;
                 gCurrentSprite.pOam = sEscapeShipPartOAM_Tail;
@@ -509,9 +509,9 @@ void EscapeShipPart(void)
             }
             else if (roomSlot == ESCAPE_SHIP_PART_FLAMES)
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x10;
-                gCurrentSprite.drawDistanceBottomOffset = 0x8;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
+                gCurrentSprite.drawDistanceTop = 0x10;
+                gCurrentSprite.drawDistanceBottom = 0x8;
+                gCurrentSprite.drawDistanceHorizontal = 0x60;
 
                 gCurrentSprite.drawOrder = 14;
                 gCurrentSprite.pOam = sEscapeShipPartOAM_Flames;

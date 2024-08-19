@@ -17,14 +17,14 @@
  */
 void ZebInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x8;
-    gCurrentSprite.hitboxBottomOffset = 0x14;
-    gCurrentSprite.hitboxLeftOffset = -0x1C;
-    gCurrentSprite.hitboxRightOffset = 0x1C;
+    gCurrentSprite.hitboxTop = -0x8;
+    gCurrentSprite.hitboxBottom = 0x14;
+    gCurrentSprite.hitboxLeft = -0x1C;
+    gCurrentSprite.hitboxRight = 0x1C;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTop = 0x8;
+    gCurrentSprite.drawDistanceBottom = 0x8;
+    gCurrentSprite.drawDistanceHorizontal = 0x10;
 
     gCurrentSprite.work1 = 0x1;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -85,7 +85,7 @@ void ZebIdle(void)
                 else
                 {
                     // Samus in range
-                    gCurrentSprite.oamScaling = gSamusData.yPosition;
+                    gCurrentSprite.scaling = gSamusData.yPosition;
                     gCurrentSprite.pose = ZEB_POSE_GOING_UP;
                     gCurrentSprite.work0 = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
@@ -117,8 +117,8 @@ void ZebGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
-            yPosition = gCurrentSprite.oamScaling;
+        if (gCurrentSprite.scaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
+            yPosition = gCurrentSprite.scaling;
         else
             yPosition = gSamusData.yPosition;
 
@@ -154,7 +154,7 @@ void ZebRespawn(void)
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;
     gCurrentSprite.absolutePaletteRow = 0x0;
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.freezeTimer = 0x0;
 }
 

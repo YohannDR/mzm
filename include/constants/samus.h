@@ -21,9 +21,13 @@
 
 #define SMF_ALL_SUITS (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)
 
-#define SUIT_NORMAL 0x0
-#define SUIT_FULLY_POWERED 0x1
-#define SUIT_SUITLESS 0x2
+enum SamusSuit {
+    SUIT_NORMAL,
+    SUIT_FULLY_POWERED,
+    SUIT_SUITLESS,
+
+    SUIT_END,
+};
 
 #define DIAG_AIM_NONE 0x0
 #define DIAG_AIM_UP 0x1
@@ -116,7 +120,7 @@ enum SamusPose {
     SPOSE_NONE = UCHAR_MAX
 };
 
-enum StandingStatus {
+enum SamusStandingStatus {
     STANDING_GROUND,
     STANDING_ENEMY,
     STANDING_MIDAIR,

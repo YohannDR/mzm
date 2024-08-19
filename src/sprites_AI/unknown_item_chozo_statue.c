@@ -1,4 +1,6 @@
 #include "sprites_AI/unknown_item_chozo_statue.h"
+#define CHOZO_STATUE_IGNORE_FUNCTIONS
+#include "sprites_AI/chozo_statue.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/unknown_item_chozo_statue.h"
@@ -69,14 +71,14 @@ void UnknownItemChozoStatueInit(void)
 
     gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x20;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTop = 0x20;
+    gCurrentSprite.drawDistanceBottom = 0x20;
+    gCurrentSprite.drawDistanceHorizontal = 0x18;
 
-    gCurrentSprite.hitboxTopOffset = 0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = 0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = 0x4;
+    gCurrentSprite.hitboxBottom = 0x4;
+    gCurrentSprite.hitboxLeft = 0x4;
+    gCurrentSprite.hitboxRight = 0x4;
 
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.samusCollision = SSC_NONE;
@@ -88,11 +90,11 @@ void UnknownItemChozoStatueInit(void)
     gSubSpriteData1.workVariable3 = FALSE;
 
     behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteId);
-    if (behavior > UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_REFILL)
+    if (behavior > CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Is hint
         gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_POSE_IDLE;
-        if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_HINT_TAKEN)
+        if (behavior == CHOZO_STATUE_BEHAVIOR_HINT_TAKEN)
         {
             // Set seated
             gSubSpriteData1.pMultiOam = sUnknownItemChozoStatueMultiSpriteData_Seated;
@@ -112,7 +114,7 @@ void UnknownItemChozoStatueInit(void)
         gSubSpriteData1.pMultiOam = sUnknownItemChozoStatueMultiSpriteData_Seated;
         ChozoStatueSeatedChangeCcaa(CAA_MAKE_NON_POWER_GRIP);
 
-        if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_ITEM)
+        if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
         {
             // Item
             gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_POSE_WAIT_FOR_ITEM_TO_BE_COLLECTED;
@@ -300,7 +302,7 @@ void UnknownItemChozoStatueWaitForItemToBeCollected(void)
 {
     u8 behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteId);
     // Check behavior
-    if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_REFILL)
+    if (behavior == CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Hint behavior, thus item was took
         gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_POSE_TIMER_AFTER_ITEM;
@@ -408,64 +410,64 @@ void UnknownItemChozoStatuePartInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x2;
     
-    gCurrentSprite.hitboxTopOffset = 0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = 0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTop = 0x4;
+    gCurrentSprite.hitboxBottom = 0x4;
+    gCurrentSprite.hitboxLeft = 0x4;
+    gCurrentSprite.hitboxRight = 0x4;
 
     behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId);
 
     switch (gCurrentSprite.roomSlot)
     {
         case UNKNOWN_ITEM_CHOZO_STATUE_PART_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x1E;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x10;
+            gCurrentSprite.drawDistanceHorizontal = 0x1E;
 
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_HINT)
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
                 gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
             else
                 gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL;
 
-            if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_ITEM)
+            if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
                 gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_ArmIdle;
             else
                 gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_ArmGlow;
             break;
     
         case UNKNOWN_ITEM_CHOZO_STATUE_PART_LEG:
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x30;
+            gCurrentSprite.drawDistanceBottom = 0;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
-            if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_HINT)
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
                 gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_LEG_IDLE;
             else
                 gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_DO_NOTHING;
             break;
 
         case UNKNOWN_ITEM_CHOZO_STATUE_PART_EYE:
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTop = 0x8;
+            gCurrentSprite.drawDistanceBottom = 0x8;
+            gCurrentSprite.drawDistanceHorizontal = 0x8;
 
             gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_PART_POSE_DO_NOTHING;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            if (behavior == UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_HINT)
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
                 gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_EyeClosed;
             else
                 gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_EyeOpened;
             break;
 
         case UNKNOWN_ITEM_CHOZO_STATUE_PART_GLOW:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x1;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+            gCurrentSprite.drawDistanceTop = 0x10;
+            gCurrentSprite.drawDistanceBottom = 0x1;
+            gCurrentSprite.drawDistanceHorizontal = 0xC;
 
             gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_GlowIdle;
             gCurrentSprite.animationDurationCounter = 0;
@@ -614,8 +616,10 @@ void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
 
     // Update oam
     if (gCurrentSprite.pOam == sUnknownItemChozoStatuePartOam_ArmIdle && gPreventMovementTimer == 0 &&
-        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId) != UNKNOWN_ITEM_CHOZO_STATUE_BEHAVIOR_ITEM)
+        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteId) != CHOZO_STATUE_BEHAVIOR_ITEM)
+    {
         gCurrentSprite.pOam = sUnknownItemChozoStatuePartOam_ArmGlow;
+    }
 
     isGrabbed = FALSE;
     xPosition = gCurrentSprite.xPosition;
@@ -868,7 +872,7 @@ void UnknownItemChozoStatuePartLegIdle(void)
  */
 void UnknownItemChozoStatue(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
@@ -936,7 +940,7 @@ void UnknownItemChozoStatuePart(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
@@ -1017,7 +1021,7 @@ void UnknownItemChozoStatueRefill(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.pose == 0)
@@ -1028,14 +1032,14 @@ void UnknownItemChozoStatueRefill(void)
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawOrder = 0x1;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x10;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+        gCurrentSprite.drawDistanceTop = 0x10;
+        gCurrentSprite.drawDistanceBottom = 0x10;
+        gCurrentSprite.drawDistanceHorizontal = 0x10;
         
-        gCurrentSprite.hitboxTopOffset = 0x4;
-        gCurrentSprite.hitboxBottomOffset = 0x4;
-        gCurrentSprite.hitboxLeftOffset = 0x4;
-        gCurrentSprite.hitboxRightOffset = 0x4;
+        gCurrentSprite.hitboxTop = 0x4;
+        gCurrentSprite.hitboxBottom = 0x4;
+        gCurrentSprite.hitboxLeft = 0x4;
+        gCurrentSprite.hitboxRight = 0x4;
 
         gCurrentSprite.pose = 0x9;
 

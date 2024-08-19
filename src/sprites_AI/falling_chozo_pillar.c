@@ -24,14 +24,14 @@ void FallingChozoPillar(void)
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.xPosition += 0x20;
 
-            gCurrentSprite.hitboxTopOffset = -0x100;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = 0x80;
+            gCurrentSprite.hitboxTop = -0x100;
+            gCurrentSprite.hitboxBottom = 0x0;
+            gCurrentSprite.hitboxLeft = -0x80;
+            gCurrentSprite.hitboxRight = 0x80;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x40;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+            gCurrentSprite.drawDistanceTop = 0x40;
+            gCurrentSprite.drawDistanceBottom = 0x0;
+            gCurrentSprite.drawDistanceHorizontal = 0x20;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;

@@ -557,8 +557,8 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 
         if (status_unk3)
         {
-            rotation = pSprite->oamRotation;
-            scaling = pSprite->oamScaling;
+            rotation = pSprite->rotation;
+            scaling = pSprite->scaling;
 
             // Rotation matrix (column major mode) :
             // [ cos / scaling, -sin / scaling ]
@@ -583,8 +583,8 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     }
     else
     {
-        rotation = pSprite->oamRotation;
-        scaling = pSprite->oamScaling;
+        rotation = pSprite->rotation;
+        scaling = pSprite->scaling;
 
         mosaic = pSprite->status & SPRITE_STATUS_MOSAIC;
 
@@ -781,14 +781,14 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
     bgYRange = bgBaseY + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
     spriteYRange = spriteY + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
-    spriteBottom = bgYRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceBottomOffset);
-    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceTopOffset) + SCREEN_SIZE_Y_SUB_PIXEL;
+    spriteBottom = bgYRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceBottom);
+    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceTop) + SCREEN_SIZE_Y_SUB_PIXEL;
     spriteTop = bgYRange + drawOffset;
 
     bgXRange = bgBaseX + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
     spriteXRange = spriteX + BLOCK_TO_SUB_PIXEL(CEIL(SCREEN_SIZE_X_BLOCKS / 2));
-    spriteLeft = bgXRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset);
-    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontalOffset) + SCREEN_SIZE_X_SUB_PIXEL;
+    spriteLeft = bgXRange - PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontal);
+    drawOffset = PIXEL_TO_SUB_PIXEL(pSprite->drawDistanceHorizontal) + SCREEN_SIZE_X_SUB_PIXEL;
     spriteRight = bgXRange + drawOffset;
 
     if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)
@@ -963,7 +963,7 @@ void SpriteClearData(void)
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
         gSpriteData[i].status = 0;
-        gSpriteData[i].standingOnSprite = FALSE;
+        gSpriteData[i].standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         gSpriteData[i].roomSlot = UCHAR_MAX;
     }
 
@@ -1066,7 +1066,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
         pSprite->ignoreSamusCollisionTimer = 1;
         pSprite->primarySpriteRamSlot = ramSlot;
         pSprite->freezeTimer = 0;
-        pSprite->standingOnSprite = FALSE;
+        pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         break;
     }
 }
@@ -1119,7 +1119,7 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
         pSprite->primarySpriteRamSlot = ramSlot;
 
         pSprite->freezeTimer = 0;
-        pSprite->standingOnSprite = FALSE;
+        pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
 
         return newSlot;
     }
@@ -1174,7 +1174,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
         pSprite->primarySpriteRamSlot = newSlot;
 
         pSprite->freezeTimer = 0;
-        pSprite->standingOnSprite = FALSE;
+        pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
 
         return newSlot;
     }
@@ -1230,7 +1230,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
         pSprite->primarySpriteRamSlot = ramSlot;
 
         pSprite->freezeTimer = 0;
-        pSprite->standingOnSprite = FALSE;
+        pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
 
         return newSlot;
     }

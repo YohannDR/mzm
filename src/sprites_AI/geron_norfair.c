@@ -20,7 +20,7 @@ void GeronNorfair(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
@@ -30,14 +30,14 @@ void GeronNorfair(void)
             return;
         }
 
-        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
-        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
-        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3);
-        gCurrentSprite.hitboxBottomOffset = 0;
-        gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE * 3);
-        gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE * 3);
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 3);
+        gCurrentSprite.hitboxBottom = 0;
+        gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE * 3);
+        gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE * 3);
 
         gCurrentSprite.drawOrder = 5;
 

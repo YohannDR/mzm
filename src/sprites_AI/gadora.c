@@ -68,14 +68,14 @@ void GadoraInit(void)
 
     gCurrentSprite.pose = GADORA_POSE_IDLE_INIT;
 
-    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0x78;
-    gCurrentSprite.hitboxBottomOffset = 0x78;
-    gCurrentSprite.hitboxLeftOffset = -0x14;
-    gCurrentSprite.hitboxRightOffset = 0x14;
+    gCurrentSprite.hitboxTop = -0x78;
+    gCurrentSprite.hitboxBottom = 0x78;
+    gCurrentSprite.hitboxLeft = -0x14;
+    gCurrentSprite.hitboxRight = 0x14;
 
     gCurrentSprite.pOam = sGadoraOAM_EyeClosed;
     gCurrentSprite.animationDurationCounter = 0;
@@ -365,7 +365,7 @@ void GadoraEye(void)
     u32 rng;
     u32 yOffset;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
     if (gCurrentSprite.properties & SP_DAMAGED)
     {
@@ -395,14 +395,14 @@ void GadoraEye(void)
                 gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
             }
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x28;
-            gCurrentSprite.hitboxBottomOffset = 0x28;
-            gCurrentSprite.hitboxLeftOffset = -0x10;
-            gCurrentSprite.hitboxRightOffset = 0x10;
+            gCurrentSprite.hitboxTop = -0x28;
+            gCurrentSprite.hitboxBottom = 0x28;
+            gCurrentSprite.hitboxLeft = -0x10;
+            gCurrentSprite.hitboxRight = 0x10;
 
             gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy; // No graphics
             gCurrentSprite.animationDurationCounter = 0.;
@@ -460,12 +460,12 @@ void GadoraBeam(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE * 3);
-            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxBottom = (QUARTER_BLOCK_SIZE * 3);
 
             gCurrentSprite.pOam = sGadoraBeamOAM_Moving;
             gCurrentSprite.animationDurationCounter = 0;
@@ -478,8 +478,8 @@ void GadoraBeam(void)
             gCurrentSprite.health = 1;
 
             gCurrentSprite.work0 = 16; // Delay before it starts actually moving
-            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
-            gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
+            gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
 
         case GADORA_BEAM_POSE_MOVING:
             if (gCurrentSprite.work0 != 0)
