@@ -230,7 +230,7 @@ void ChozoBallRevealingInit(void)
 {
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.health = 1;
-    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
     gCurrentSprite.pose = CHOZO_BALL_POSE_REVEALING;
 
     gCurrentSprite.animationDurationCounter = 0;

@@ -100,7 +100,7 @@ void SecurityLaserInit(void)
         gCurrentSprite.hitboxLeft = -0x4;
     }
 
-    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
     gCurrentSprite.drawOrder = 0x2;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;

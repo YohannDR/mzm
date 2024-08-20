@@ -42,7 +42,7 @@ Note :
 | **drawOrder** | Draw order | `u8` | Determines the draw order between sprites, the minimum value is 1 and the maximum is 16. There also seems to be 2 groups (1 to 8 and 9 to 16), however it's unknown how that affects draw order.
 | **primarySpriteRamSlot** | Primary sprite ram/array slot | `u8` | If the sprite is a primary sprite, then this field contains it's index in the global sprite table. If it's a secondary sprite, then it should contains the index in the global sprite table of the parent primary sprite.
 | **pose** | Pose/behavior | `u8` | What behavior the sprite is currently on, some values have [special meaning](#poses), otherwise most are free.
-| **samusCollision** | Samus collision type | `u8` | Determines how the collision between the sprite and Samus should behave.
+| **samusCollision** | Samus collision type | `u8` | Determines how the collision between the sprite and Samus should behave, more details in the [Samus/sprite collision](#samus-collision) section.
 | **ignoreSamusCollisionTimer** | Ignore samus collision timer | `u8` | Decrementing timer that makes the sprite ignore collision with Samus.
 | **drawDistanceTop** | Draw distance top offset | `u8` | In pixels, how far the sprite extends visually upwards, used to determine whether it's on screen or not.
 | **drawDistanceBottom** | Draw distance bottom offset | `u8` | In pixels, how far the sprite extends visually downwards, used to determine whether it's on screen or not.
@@ -109,4 +109,42 @@ Most of the pose values are free to use, however there are a few that have a par
 
 ## Samus collision
 
-**TODO**
+| Name    | Value | Explanation |
+|---------|-------|-------------|
+| SSC_NONE | 0 | No collision.
+| SSC_SOLID | 1 | Solid collision.
+| SSC_CAN_STAND_ON_TOP | 2 | No collision, can stand on top.
+| SSC_HURTS_SAMUS_CAN_STAND_ON_TOP | 3 | Hurts, except can stand on top.
+| SSC_HURTS_SAMUS | 4 | Hurts.
+| SSC_HURTS_SAMUS_A_LOT | 5 | Hurts, 5x damage multiplier and slightly more knockback.
+| SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT | 6 | Hurts, sprite is set to the SPRITE_POSE_STOPPED pose.
+| SSC_KNOCKS_BACK_SAMUS | 7 | Knocks back.
+| SSC_8 | 8 | No collision, unused.
+| SSC_HURTS_SAMUS_NO_KNOCKBACK | 9 | Hurts, no knockback.
+| SSC_HURTS_KNOCKBACK_IF_INVINCIBLE | 10 | Hurts. If invincible, solid and knocks back.
+| SSC_HURTS_SAMUS_SOLID | 11 | Hurts, solid.
+| SSC_SOLID_SIDEWAYS | 12 | Solid from the side, pushes back from the top and bottom.
+| SSC_HURTS_BIG_KNOCKBACK | 13 | Hurts, big knockback.
+| SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_BIG_KNOCKBACK | 14 | Hurts, big knockback, sprite is set to the SPRITE_POSE_STOPPED pose.
+| SSC_HURTS_SAMUS_IGNORE_INVINCIBILITY | 15 | Hurts, ignore Samus' invincibility.
+| SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_NO_KNOCKBACK | 16 | Hurts, no knockback, sprite is set to the SPRITE_POSE_STOPPED pose.
+| SSC_HURTS_SAMUS_NO_KNOCKBACK_NO_CONTACT_DAMAGE | 17 | Hurts, no knockback, contact damage from Samus isn't registered.
+| SSC_MELLOW | 18 | Same as SSC_HURTS, simply used as a mellow identifier.
+| SSC_SPACE_PIRATE_LASER | 19 | Same as SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT, simply used as a space pirate laster identifier.
+| SSC_SPACE_PIRATE | 20 | Same as SSC_HURTS, simply used as a space pirate identifier.
+| SSC_HURTS_SAMUS_IGNORE_INVINCIBILITY_NO_CONTACT_DAMAGE | 21 | Hurts, ignore Samus' invincibility, contact damage from Samus isn't registered.
+| SSC_ACID_WORM_MOUTH | 22 | Special collision that takes into account rotation and poses, only used by the acid worm mouth.
+| SSC_PARASITE | 23 | Special collision used by parasites.
+| SSC_METROID | 24 | Special collision used by metroids.
+| SSC_HURTS_RIGHT_CAN_STAND_ON_TOP | 25 | Can stand on top, hurts from the right.
+| SSC_ZIPLINE | 26 | Special collision used by ziplines.
+| SSC_SOLID_CHECK_COLLIDING | 27 | Solid, sets the SPRITE_STATUS_SAMUS_COLLIDING flag.
+| SSC_RIDLEY_CLAW | 28 | Special collision used by ridley's claw.
+| SSC_MECHA_RIDLEY | 29 | Special collision used by mecha ridley.
+| SSC_CHECK_COLLIDING | 30 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag.
+| SSC_SMALL_ENERGY_DROP | 31 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by small energy drop only.
+| SSC_LARGE_ENERGY_DROP | 32 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by large energy drop only.
+| SSC_MISSILE_DROP | 33 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by missile drop only.
+| SSC_SUPER_MISSILE_DROP | 34 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by super missile drop only.
+| SSC_POWER_BOMB_DROP | 35 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by power bomb drop only.
+| SSC_MULTIPLE_LARGE_ENERGY_DROP | 36 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by multiple large energy drop only.

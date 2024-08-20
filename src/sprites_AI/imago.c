@@ -237,7 +237,7 @@ void ImagoInit(void)
         gCurrentSprite.scaling = 0;
         gCurrentSprite.rotation = 0;
 
-        gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
+        gCurrentSprite.samusCollision = SSC_HURTS_BIG_KNOCKBACK;
         gCurrentSprite.work0 = 0x50;
         health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
         gCurrentSprite.health = health;
@@ -1644,7 +1644,7 @@ void ImagoEgg(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.samusCollision = SSC_IMAGO_EGG;
+            gCurrentSprite.samusCollision = SSC_SOLID_CHECK_COLLIDING;
             gCurrentSprite.pose = IMAGO_EGG_POSE_IDLE;
             break;
 

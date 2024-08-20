@@ -655,7 +655,7 @@ void AtomicElectricitySpawn(void)
 
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.samusCollision = SSC_ATOMIC_DISCHARGE;
+        gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_A_LOT;
         gCurrentSprite.pose = ATOMIC_ELECTRICITY_POSE_MOVE;
 
         spriteY = gCurrentSprite.yPosition;

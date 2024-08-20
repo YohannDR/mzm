@@ -1133,7 +1133,7 @@ void AcidWormBodyInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-    gCurrentSprite.samusCollision = SSC_ACID_WORM;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_IGNORE_INVINCIBILITY_NO_CONTACT_DAMAGE;
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;

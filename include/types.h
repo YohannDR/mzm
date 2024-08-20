@@ -63,7 +63,10 @@ typedef volatile signed int vs32;
 #define DELTA_TIME 1
 // Converts a floating point value of seconds to an amount of frames (CONVERT_SECONDS(1.f) == FRAMES_PER_SECOND)
 #define CONVERT_SECONDS(s) ((s32)((s) * FRAMES_PER_SECOND))
-#define APPLY_DELTA_TIME(v) ((v) -= DELTA_TIME)
+// Applies the delta time to a value via decrementation
+#define APPLY_DELTA_TIME_DEC(v) ((v) -= DELTA_TIME)
+// Applies the delta time to a value via incrementation
+#define APPLY_DELTA_TIME_INC(v) ((v) += DELTA_TIME)
 
 // Shorthand for one third of a second
 #define ONE_THIRD_SECOND (CONVERT_SECONDS(1.f / 3.f))

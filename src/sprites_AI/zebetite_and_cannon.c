@@ -71,7 +71,7 @@ void Zebetite(void)
         gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE;
 
         gCurrentSprite.frozenPaletteRowOffset = 1;
-        gCurrentSprite.samusCollision = SSC_ZEBETITE;
+        gCurrentSprite.samusCollision = SSC_SOLID_SIDEWAYS;
 
         gCurrentSprite.pOam = sZebetiteOam_Phase1;
         gCurrentSprite.animationDurationCounter = 0;

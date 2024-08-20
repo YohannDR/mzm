@@ -227,7 +227,7 @@ void GunshipInit(void)
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
         
         gCurrentSprite.yPositionSpawn = 0x0;
-        gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
+        gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
             gCurrentSprite.pose = GUNSHIP_POSE_CHECK_ESCAPE;
         else
@@ -552,7 +552,7 @@ void GunshipSamusReleased(void)
     if (gSamusData.pose != SPOSE_FACING_THE_FOREGROUND)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_CHECK_SAMUS_ON_TOP_AFTER_RELEASED;
-        gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
+        gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
     }
 }
 

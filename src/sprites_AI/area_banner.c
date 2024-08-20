@@ -110,7 +110,7 @@ void AreaBannerSpawning(void)
  */
 void AreaBannerStatic(void)
 {
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
 
     if (gCurrentSprite.work0 == 0)
     {

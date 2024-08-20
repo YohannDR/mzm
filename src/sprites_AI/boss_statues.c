@@ -458,7 +458,7 @@ void RidleyStatueOpening(void)
         if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
             SoundPlay(0x12A);
 
-        APPLY_DELTA_TIME(gCurrentSprite.work0);
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
             // Set opening

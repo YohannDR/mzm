@@ -244,7 +244,7 @@ void SearchlightEyeBeamInit(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = SEARCHLIGHT_EYE_BEAM_POSE_IDLE;
-    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
 }
 
 /**

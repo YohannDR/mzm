@@ -36,7 +36,7 @@ void MorphBallInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
     gCurrentSprite.health = 1;
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
     gCurrentSprite.pose = MORPH_BALL_POSE_IDLE;

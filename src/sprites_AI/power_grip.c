@@ -45,7 +45,7 @@ void PowerGrip(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+            gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
             gCurrentSprite.health = 1;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.pose = POWER_GRIP_POSE_IDLE;

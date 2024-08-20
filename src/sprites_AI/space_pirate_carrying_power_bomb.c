@@ -148,7 +148,7 @@ void FakePowerBombEventTrigger(void)
         }
         
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-        gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+        gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
 
         gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);

@@ -29,7 +29,7 @@ u32 ParasiteCount(void)
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_BUG)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_PARASITE)
         {
             if (pSprite->pose == PARASITE_POSE_SAMUS_GRABBED)
                 count++;
@@ -68,7 +68,7 @@ void ParasiteInit(struct SpriteData* pSprite)
     pSprite->animationDurationCounter = 0x0;
     pSprite->currentAnimationFrame = 0x0;
 
-    pSprite->samusCollision = SSC_BUG;
+    pSprite->samusCollision = SSC_PARASITE;
     pSprite->health = 0x1;
 
     gSubSpriteData1.workVariable2 = 0x0;
@@ -1169,7 +1169,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
             xVelocity = 0x6;
 
         pSprite->work2 = xVelocity;
-        pSprite->samusCollision = SSC_BUG;
+        pSprite->samusCollision = SSC_PARASITE;
         pSprite->status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     }
     else

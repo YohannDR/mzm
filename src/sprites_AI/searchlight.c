@@ -33,7 +33,7 @@ void Searchlight(void)
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
 
-                gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+                gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_IDLE;
                 gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
                 gCurrentSprite.drawOrder = 0x1;

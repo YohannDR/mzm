@@ -797,7 +797,7 @@ void MotherBrainBeam(void)
             gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = 0x9;
-            gCurrentSprite.samusCollision = SSC_MOTHER_BRAIN_BEAM;
+            gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_IGNORE_INVINCIBILITY;
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             gCurrentSprite.health = 0x1;
@@ -837,7 +837,7 @@ void MotherBrainBlock(void)
         gCurrentSprite.currentAnimationFrame = 0;
         
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+        gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
     }
     else if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
     {

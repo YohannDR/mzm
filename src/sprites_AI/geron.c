@@ -131,7 +131,7 @@ void Geron(void)
             for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
             {
                 // Check not already grabbed
-                if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_BUG)
+                if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_PARASITE)
                 {
                     yPosition = pSprite->yPosition;
                     xPosition = pSprite->xPosition;

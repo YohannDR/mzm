@@ -56,7 +56,7 @@ void HiveInit(void)
     gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
     gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
 
-    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_SOLID;
     gCurrentSprite.frozenPaletteRowOffset = 1;
 
     gCurrentSprite.pOam = sHiveOAM_Idle;

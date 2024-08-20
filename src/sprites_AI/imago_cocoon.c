@@ -1556,7 +1556,7 @@ void EventTriggerDiscoveredImagoPassage(void)
             return;
         }
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES;
-        gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+        gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
 
         gCurrentSprite.drawDistanceTop = 0x10;
         gCurrentSprite.drawDistanceBottom = 0x0;

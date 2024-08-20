@@ -1123,7 +1123,7 @@ void KraidInit(void)
     
     gCurrentSprite.work0 = 0x78;
     gCurrentSprite.work1 = 0;
-    gCurrentSprite.samusCollision = SSC_KRAID;
+    gCurrentSprite.samusCollision = SSC_HURTS_KNOCKBACK_IF_INVINCIBLE;
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -1681,7 +1681,7 @@ void KraidPartInit(void)
     {
         case KRAID_PART_BELLY:
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.samusCollision = SSC_KRAID;
+            gCurrentSprite.samusCollision = SSC_HURTS_KNOCKBACK_IF_INVINCIBLE;
 
             gCurrentSprite.drawDistanceTop = 0x30;
             gCurrentSprite.drawDistanceBottom = 0x80;
@@ -2705,7 +2705,7 @@ void KraidSpike(void)
             }
             else
             {
-                gCurrentSprite.samusCollision = SSC_KRAID_SPIKE;
+                gCurrentSprite.samusCollision = SSC_HURTS_RIGHT_CAN_STAND_ON_TOP;
                 gCurrentSprite.hitboxLeft = 0x10;
                 gCurrentSprite.hitboxRight = 0xA0;
                 if (gCurrentSprite.work0 != 0)

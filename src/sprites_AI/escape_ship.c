@@ -247,7 +247,7 @@ void EscapeShip(void)
             if (gCurrentSprite.currentAnimationFrame > 6)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_OPENED;
-                gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
+                gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
             }
             break;
 

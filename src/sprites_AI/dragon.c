@@ -108,7 +108,7 @@ void DragonIdle(void)
     u16 yPosition;
 
     if (gCurrentSprite.work0 != 0)
-        APPLY_DELTA_TIME(gCurrentSprite.work0);
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
 
     // Move vertically
     DragonYMovement();
@@ -243,7 +243,7 @@ void DragonWarning(void)
 {
     DragonYMovement();
 
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
 
     if (gCurrentSprite.work0 == 0)
     {
@@ -266,7 +266,7 @@ void DragonSpit(void)
     u16 yPosition;
     u16 xPosition;
 
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         DragonIdleInit();

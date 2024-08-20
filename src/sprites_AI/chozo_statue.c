@@ -474,7 +474,7 @@ void ChozoStatueHintFlashing(void)
 
     if (gSpriteData[eyeSlot].pose == CHOZO_STATUE_PART_POSE_DO_NOTHING)
     {
-        APPLY_DELTA_TIME(gCurrentSprite.work0);
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.pose = CHOZO_STATUE_POSE_SITTING_INIT;
@@ -498,7 +498,7 @@ void ChozoStatueHintFlashing(void)
             }
 
             // Update palette
-            APPLY_DELTA_TIME(gCurrentSprite.work2);
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work2);
 
             if (gCurrentSprite.work2 == 0)
             {
@@ -565,7 +565,7 @@ void ChozoStatueSitting(void)
  */
 void ChozoStatueDelayBeforeRefillAfterHint(void)
 {
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;   
 }
@@ -591,7 +591,7 @@ void ChozoStatueWaitForItemToBeCollected(void)
  */
 void ChozoStatueTimerAfterItemGrabbed(void)
 {
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
 }
@@ -617,7 +617,7 @@ void ChozoStatueRefillInit(void)
 void ChozoStatueRefillSamus(void)
 {
     // Update palette
-    APPLY_DELTA_TIME(gCurrentSprite.work2);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work2);
     if (gCurrentSprite.work2 == 0)
     {
         // Reset delay
@@ -653,7 +653,7 @@ void ChozoStatueSleeping(void)
 {
     u8 eyeSlot;
 
-    APPLY_DELTA_TIME(gCurrentSprite.work0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Close eye
@@ -960,7 +960,7 @@ void ChozoStatuePartArmRefill(void)
             // Refill energy
             if (!SpriteUtilRefillEnergy())
             {
-                APPLY_DELTA_TIME(gCurrentSprite.work0);
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
                 gEnergyRefillAnimation = 0xD;
             }
         }
@@ -973,7 +973,7 @@ void ChozoStatuePartArmRefill(void)
             }
             else if (!SpriteUtilRefillMissiles())
             {
-                APPLY_DELTA_TIME(gCurrentSprite.work0);
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
                 gMissileRefillAnimation = 0xD;
             }
         }
@@ -986,7 +986,7 @@ void ChozoStatuePartArmRefill(void)
             }
             else if (!SpriteUtilRefillSuperMissiles())
             {
-                APPLY_DELTA_TIME(gCurrentSprite.work0);
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
                 gSuperMissileRefillAnimation = 0xD;
             }
         }
@@ -999,7 +999,7 @@ void ChozoStatuePartArmRefill(void)
             }
             else if (!SpriteUtilRefillPowerBombs())
             {
-                APPLY_DELTA_TIME(gCurrentSprite.work0);
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
                 gPowerBombRefillAnimation = 0xD;
             }
         }
@@ -1012,7 +1012,7 @@ void ChozoStatuePartArmRefill(void)
             }
             else if (gCurrentSprite.work0 != 0)
             {
-                APPLY_DELTA_TIME(gCurrentSprite.work0);
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             }
             else
             {

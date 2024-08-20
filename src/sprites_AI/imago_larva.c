@@ -564,7 +564,7 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
                 gCurrentSprite.hitboxRight = IMAGO_LARVA_SHELL_TAIL_HITBOX;
             }
 
-            gCurrentSprite.samusCollision = SSC_KRAID;
+            gCurrentSprite.samusCollision = SSC_HURTS_KNOCKBACK_IF_INVINCIBLE;
             gCurrentSprite.drawOrder = 5;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_SHELL_IDLE;
             gCurrentSprite.health = UCHAR_MAX;
