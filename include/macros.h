@@ -116,7 +116,7 @@
 #define Q_24_8_TO_INT(n) ((s32)((n) >> 8))
 
 /**
- * @brief Performs a modulo (value % mod) operation on a value using the and operation (WARNING only use a value for mod that is divisble by 2)
+ * @brief Performs a modulo (value % mod) operation on a value using the and operation (WARNING only use a value for mod that is a power of 2)
  * 
  * @param value Value
  * @param mod Modulo
@@ -124,7 +124,7 @@
 #define MOD_AND(value, mod) ((value) & ((mod) - 1))
 
 /**
- * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2 and <= 1024)
+ * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is a power of 2 and <= 1024)
  * 
  * @param value Value
  * @param div Divisor
@@ -132,7 +132,7 @@
 #define DIV_SHIFT(value, div) ((value) >> ((div) == 2 ? 1 : ((div) == 4 ? 2 : ((div) == 8 ? 3 : ((div) == 16 ? 4 : ((div) == 32 ? 5 : ((div) == 64 ? 6 : ((div) == 128 ? 7 : ((div) == 256 ? 8 : ((div) == 512 ? 9 : ((div) == 1024 ? 10 : 0)))))))))))
 
 /**
- * @brief Performs a multiplaction (value * mul) operation on a value using the left shift operation (WARNING only use a value for div that is divisble by 2 and <= 256)
+ * @brief Performs a multiplaction (value * mul) operation on a value using the left shift operation (WARNING only use a value for div that is a power of 2 and <= 256)
  * 
  * @param value Value
  * @param mul Multiplier
