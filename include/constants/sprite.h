@@ -390,4 +390,7 @@ enum SamusStandingOnSpriteStatus {
 
 #define PSPRITE_OFFSET_FOR_GRAPHICS(id) ((id) - PSPRITE_UNUSED16)
 
+// Represents a 100% drop change for a sprite
+#define SPRITE_DROP_MAX_PROB (1024)
+
 #endif /* SPRITE_CONSTANTS_H */

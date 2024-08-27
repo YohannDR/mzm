@@ -4,6 +4,7 @@
 #include "data/sprites/zebetite_and_cannon.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/event.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
@@ -175,7 +176,7 @@ void Zebetite(void)
             ParticleSet(gCurrentSprite.yPosition - (BLOCK_SIZE + PIXEL_SIZE * 2), gCurrentSprite.xPosition,
                 PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 
-            SoundPlay(0x12F);
+            SoundPlay(SOUND_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 
             switch (gCurrentSprite.spriteId)
             {
@@ -798,7 +799,7 @@ void CannonBullet(void)
                 ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
 
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlay(0x12C);
+                    SoundPlay(SOUND_SPRITE_EXPLOSION_SMALL);
 
                 gCurrentSprite.status = 0;
                 break;

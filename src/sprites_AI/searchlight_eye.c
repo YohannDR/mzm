@@ -4,6 +4,7 @@
 #include "data/sprites/searchlight_eye.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
@@ -482,7 +483,7 @@ void SearchlightEyeProjectile(void)
                 gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x12D);
+                SoundPlay(SOUND_SPRITE_EXPLOSION_MEDIUM);
 
             gCurrentSprite.status = 0;
             break;

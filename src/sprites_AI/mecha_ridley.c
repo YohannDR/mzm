@@ -1524,7 +1524,7 @@ void MechaRidleyPartCoreCoverExplosion(void)
     gCurrentSprite.pose = MECHA_RIDLEY_PART_POSE_COVER_BROKEN;
 
     ParticleSet(gCurrentSprite.yPosition + 12, gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE, PE_SPRITE_EXPLOSION_HUGE);
-    SoundPlay(0x12F);
+    SoundPlay(SOUND_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
 /**
@@ -2880,7 +2880,7 @@ void MechaRidleyMissile(void)
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
             gCurrentSprite.status = 0;
             gBossWork.work6--;
-            SoundPlay(0x12C);
+            SoundPlay(SOUND_SPRITE_EXPLOSION_SMALL);
             break;
 
         default:

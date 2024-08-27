@@ -13,7 +13,7 @@ extern const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS];
 
 extern const struct TankList sStartingHealthAmmo;
 
-extern const struct TankList sTankIncreaseAmount[MAX_AMOUNT_OF_DIFFICULTIES];
+extern const struct TankList sTankIncreaseAmount[DIFF_END];
 
 extern const u16 sClipdataAffectingActionDamageTypes[MAX_AMOUNT_OF_CAA];
 

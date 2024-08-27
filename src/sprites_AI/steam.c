@@ -34,7 +34,7 @@ void Steam(void)
         // Check for walls
 
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-        if (collision & COLLISION_FLAGS_UNKNOWN)
+        if (collision & COLLISION_FLAGS_UNKNOWN_F0)
         {
             // Steam on ground
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -55,7 +55,7 @@ void Steam(void)
         else
         {
             collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + PIXEL_SIZE), gCurrentSprite.xPosition);
-            if (collision & COLLISION_FLAGS_UNKNOWN)
+            if (collision & COLLISION_FLAGS_UNKNOWN_F0)
             {
                 // Steam on ceiling
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -92,7 +92,7 @@ void Steam(void)
 
                 collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
                     gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
-                if (collision & COLLISION_FLAGS_UNKNOWN)
+                if (collision & COLLISION_FLAGS_UNKNOWN_F0)
                 {
                     // Steam on left wall
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -103,7 +103,7 @@ void Steam(void)
                 {
                     collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
                         gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
-                    if (collision & COLLISION_FLAGS_UNKNOWN)
+                    if (collision & COLLISION_FLAGS_UNKNOWN_F0)
                     {
                         // Steam on right wall
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -180,7 +180,7 @@ void SteamDiagonal(void)
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
             gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
 
-        if (!(collision & COLLISION_FLAGS_UNKNOWN))
+        if (!(collision & COLLISION_FLAGS_UNKNOWN_F0))
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP; // Flip if wall on left
 
         if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_UP)

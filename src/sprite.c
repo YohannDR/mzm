@@ -178,7 +178,7 @@ void SpriteUpdate(void)
         DecrementChozodiaAlarm();
 
         if (gParasiteRelated != 0)
-            gParasiteRelated--;
+            APPLY_DELTA_TIME_DEC(gParasiteRelated);
     }
     else
     {
@@ -226,7 +226,7 @@ void SpriteUpdateAnimation(struct SpriteData* pSprite)
         return;
 
     // Update adc
-    pSprite->animationDurationCounter++;
+    APPLY_DELTA_TIME_INC(pSprite->animationDurationCounter);
 
     // Check reached the end of the current frame
     if (pSprite->pOam[pSprite->currentAnimationFrame].timer < pSprite->animationDurationCounter)
@@ -1063,7 +1063,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
         pSprite->frozenPaletteRowOffset = 0;
         pSprite->absolutePaletteRow = 0;
 
-        pSprite->ignoreSamusCollisionTimer = 1;
+        pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
         pSprite->primarySpriteRamSlot = ramSlot;
         pSprite->freezeTimer = 0;
         pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
@@ -1075,7 +1075,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
  * e258 | c4 | Spawns a new secondary sprite with the given parameters
  * 
  * @param spriteId The ID of the sprite to spawn
- * @param roomSlot The room slot
+ * @param partNumber Part number
  * @param gfxSlot The sprite graphics slot (usually the same as the primary sprite)
  * @param ramSlot The RAM slot of the secondary sprite's parent
  * @param yPosition Y Position
@@ -1083,7 +1083,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnSecondary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnSecondary(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
@@ -1101,7 +1101,7 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
         pSprite->spriteId = spriteId;
         pSprite->yPosition = yPosition;
         pSprite->xPosition = xPosition;
-        pSprite->roomSlot = roomSlot;
+        pSprite->roomSlot = partNumber;
 
         pSprite->bgPriority = 2;
         pSprite->drawOrder = 4;
@@ -1131,14 +1131,14 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
  * e31c | b8 | Spawns a new primary sprite with the given parameters
  * 
  * @param spriteId The ID of the sprite to spawn
- * @param roomSlot The room slot
+ * @param partNumber Part number
  * @param gfxSlot The sprite graphics slot
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF if the sprite couldn't spawn
  */
-u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnPrimary(u8 spriteId, u8 partNumber, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
@@ -1156,7 +1156,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
         pSprite->spriteId = spriteId;
         pSprite->yPosition = yPosition;
         pSprite->xPosition = xPosition;
-        pSprite->roomSlot = roomSlot;
+        pSprite->roomSlot = partNumber;
 
         pSprite->bgPriority = 2;
         pSprite->drawOrder = 4;
@@ -1169,7 +1169,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
         pSprite->frozenPaletteRowOffset = 0;
         pSprite->absolutePaletteRow = 0;
 
-        pSprite->ignoreSamusCollisionTimer = 1;
+        pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
 
         pSprite->primarySpriteRamSlot = newSlot;
 
@@ -1186,7 +1186,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
  * e3d4 | b8 | Spawns a new primary sprite with the given parameters (used only for the drops and the followers sprite)
  * 
  * @param spriteId The ID of the sprite to spawn
- * @param roomSlot The room slot
+ * @param partNumber The room slot
  * @param gfxSlot The sprite graphics slot
  * @param ramSlot The RAM slot of the sprite's parent
  * @param yPosition Y Position
@@ -1194,7 +1194,7 @@ u8 SpriteSpawnPrimary(u8 spriteId, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
  * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnDropFollowers(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
+u8 SpriteSpawnDropFollowers(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 newSlot;
     struct SpriteData* pSprite;
@@ -1212,7 +1212,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
         pSprite->spriteId = spriteId;
         pSprite->yPosition = yPosition;
         pSprite->xPosition = xPosition;
-        pSprite->roomSlot = roomSlot;
+        pSprite->roomSlot = partNumber;
 
         pSprite->bgPriority = 2;
         pSprite->drawOrder = 4;
@@ -1225,7 +1225,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteId, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
         pSprite->frozenPaletteRowOffset = 0;
         pSprite->absolutePaletteRow = 0;
 
-        pSprite->ignoreSamusCollisionTimer = 1;
+        pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
 
         pSprite->primarySpriteRamSlot = ramSlot;
 

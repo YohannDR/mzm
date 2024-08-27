@@ -10,11 +10,15 @@
 #define NSFB_IN_FRONT 0x3
 #define NSFB_BEHIND 0xC
 
-#define DCT_NONE 0x0
-#define DCT_SHINESPARK 0x1
-#define DCT_SPEEDBOOSTER 0x2
-#define DCT_SCREW_ATTACK 0x3
-#define DCT_SUDO_SCREW 0x4
+enum DamageContactType {
+    DCT_NONE,
+    DCT_SHINESPARK,
+    DCT_SPEEDBOOSTER,
+    DCT_SCREW_ATTACK,
+    DCT_SUDO_SCREW,
+
+    DCT_END
+};
 
 #define DEATH_NORMAL 0x0
 #define DEATH_RESPAWNING 0x1

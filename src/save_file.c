@@ -1950,7 +1950,7 @@ void SramWrite_FileInfo(void)
             gSaveFilesInfo[i].language = pFile->gameCompletion.language;
             gSaveFilesInfo[i].timeAttack = pFile->timeAttack;
 
-            if (pFile->difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
+            if (pFile->difficulty >= DIFF_END)
                 gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
             else
                 gSaveFilesInfo[i].difficulty = pFile->difficulty;

@@ -1,8 +1,6 @@
 #include "data/sprite_data.h"
 #include "constants/sprite.h"
 
-// 2b0c94
-
 const u8 sOamXFlipOffsets[3][4] = {
     { 1, 2, 4, 8 },
     { 2, 4, 4, 8 },
@@ -19,7 +17,7 @@ const u8 sSpriteRandomNumberTable[32] = {
     13, 2, 6, 8, 7, 9, 14, 10,
     2, 4, 14, 4, 12, 15, 13, 12,
     11, 1, 3, 15, 0, 6, 7, 8,
-    11, 5, 0, 3, 5, 1, 9, 10,
+    11, 5, 0, 3, 5, 1, 9, 10
 };
 
 const u8 sSpriteRandomNumberTable_2[24] = {

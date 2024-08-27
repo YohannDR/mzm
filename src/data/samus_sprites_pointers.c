@@ -234,7 +234,7 @@ const SamusFunc_T sSamusPoseGfxFunctionPointers[SPOSE_END] = {
     [SPOSE_TURNING_TO_ENTER_ESCAPE_SHIP] = SamusTurningToEnterEscapeShipGfx,
 };
 
-const Func_T sPrimarySpritesAIPointers[206] = {
+const Func_T sPrimarySpritesAIPointers[PSPRITE_END] = {
     [PSPRITE_UNUSED0] = UnusedSprites,
     [PSPRITE_UNUSED1] = UnusedSprites,
     [PSPRITE_UNUSED2] = UnusedSprites,
@@ -443,7 +443,7 @@ const Func_T sPrimarySpritesAIPointers[206] = {
     [PSPRITE_RINKA_MOTHER_BRAIN6] = RinkaMotherBrain 
 };
 
-const u32* const sSpritesGraphicsPointers[190] = {
+const u32* const sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_END)] = {
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_UNUSED16)] = sUnusedSpritesGfx,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ITEM_BANNER)] = sItemBannerGfx,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ZOOMER_YELLOW)] = sZoomerGfx,
@@ -636,7 +636,7 @@ const u32* const sSpritesGraphicsPointers[190] = {
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_RINKA_MOTHER_BRAIN6)] = sRinkaZebetiteAndCannonGfx
 };
 
-const u16* const sSpritesPalettePointers[190] = {
+const u16* const sSpritesPalettePointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_END)] = {
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_UNUSED16)] = sUnusedSpritesPal,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ITEM_BANNER)] = sItemBannerPal,
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_ZOOMER_YELLOW)] = sZoomerPal,
@@ -829,7 +829,7 @@ const u16* const sSpritesPalettePointers[190] = {
     [PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_RINKA_MOTHER_BRAIN6)] = sRinkaZebetiteAndCannonPal
 };
 
-const Func_T sSecondarySpritesAIPointers[77] = {
+const Func_T sSecondarySpritesAIPointers[SSPRITE_END] = {
     [SSPRITE_CHOZO_BALL] = ChozoBall,
     [SSPRITE_CHOZO_STATUE_PART] = ChozoStatuePart,
     [SSPRITE_CHOZO_STATUE_REFILL] = ChozoStatueRefill,

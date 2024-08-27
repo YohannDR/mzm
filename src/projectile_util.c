@@ -1539,12 +1539,11 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
 }
 
 /**
- * 50424 | 88 | 
- * Handles a projectile dealing damage to a sprite
+ * 50424 | 88 | Handles a projectile dealing damage to a sprite
  * 
  * @param pSprite Sprite Data Pointer to Sprite Data Pointer
  * @param damage Damage to inflict 
- * @return 1 if dead, 0 otherwise
+ * @return bool, dead
  */
 u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 {
@@ -1552,26 +1551,31 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 
     isDead = FALSE;
     if (pSprite->health > damage)
+    {
         pSprite->health -= damage;
+    }
     else
     {
-        pSprite->health = 0x0;
+        pSprite->health = 0;
         pSprite->properties |= SP_DESTROYED;
-        pSprite->freezeTimer = 0x0;
-        pSprite->paletteRow = 0x0;
+        pSprite->freezeTimer = 0;
+        pSprite->paletteRow = 0;
+
         if (pSprite->standingOnSprite != SAMUS_STANDING_ON_SPRITE_OFF && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
             pSprite->standingOnSprite = SAMUS_STANDING_ON_SPRITE_OFF;
         }
+
         pSprite->pose = SPRITE_POSE_DESTROYED;
-        pSprite->ignoreSamusCollisionTimer = 0x1;
+        pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
+
         isDead++;
     }
 
-    pSprite->invincibilityStunFlashTimer &= 0x80; 
-    pSprite->invincibilityStunFlashTimer |= 0x11;
+    SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(.285f));
     pSprite->properties |= SP_DAMAGED;
+
     return isDead;
 }
 

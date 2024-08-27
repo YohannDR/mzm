@@ -6,8 +6,8 @@
 #include "structs/samus.h"
 
 void SpriteUtilInitLocationText(void);
-void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition);
-void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 yPosition, u16 xPosition);
+void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 samusY, u16 spriteX);
+void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 samusY, u16 spriteX);
 u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmgMultiplier);
 u32 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 o1Right, u16 o2Top, u16 o2Bottom, u16 o2Left, u16 o2Right);
 void SpriteUtilSamusAndSpriteCollision(void);
@@ -16,7 +16,7 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
 void unk_f594(void);
 void unk_f608(void);
 void SpriteUtilCheckCollisionAtPosition(u32 yPosition, u32 xPosition);
-u32 SpriteUtilGetCollisionAtPosition(u32 yPosition, u32 xPosition);
+u32 SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition);
 void SpriteUtilCurrentSpriteFall(void);
 void SpriteUtilChooseRandomXFlip(void);
 void SpriteUtilChooseRandomXDirection(void);
@@ -30,12 +30,12 @@ void unk_f9e4(s16 movement);
 u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 rotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX);
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void);
 u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void);
-u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot);
-u8 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot);
+u32 SpriteUtilCheckEndSpriteAnim(u8 ramSlot);
+u32 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot);
 u8 SpriteUtilCheckEndSubSprite1Anim(void);
 u8 SpriteUtilCheckNearEndSubSprite1Anim(void);
-u8 SpriteUtilCheckEndSubSprite2Anim(void);
-u8 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub);
+u32 SpriteUtilCheckEndSubSprite2Anim(void);
+u32 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub);
 u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub);
 u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange);
 u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange);

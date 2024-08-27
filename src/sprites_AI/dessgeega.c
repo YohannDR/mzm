@@ -61,7 +61,7 @@ void DessgeegaInit(void)
     {
         // Check is on ceiling
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 4), gCurrentSprite.xPosition);
-        if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN)
+        if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
         {
             gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.yPosition -= BLOCK_SIZE;

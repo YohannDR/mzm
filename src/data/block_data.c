@@ -66,7 +66,7 @@ const struct TankList sStartingHealthAmmo = {
     .powerBomb = 0,
 };
 
-const struct TankList sTankIncreaseAmount[MAX_AMOUNT_OF_DIFFICULTIES] = {
+const struct TankList sTankIncreaseAmount[DIFF_END] = {
     [DIFF_EASY] = {
         .energy = 100,
         .missile = 5,

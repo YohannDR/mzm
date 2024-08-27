@@ -73,6 +73,8 @@ typedef volatile signed int vs32;
 // Shorthand for two thirds of a second
 #define TWO_THIRD_SECOND (CONVERT_SECONDS(1.f / 3.f) * 2)
 
+#define NBR_OF_PALETTE_ROWS 15
+
 // Generic coordinates struct
 struct Coordinates {
     u16 x;

@@ -148,6 +148,16 @@
  */
 #define FRACT_MUL(value, num, den) ((value) * (num) / (den))
 
+/**
+ * @brief Performs a semi-modulo (value & mod) operation on a value using the and operation (WARNING only use a value for mod that is a power of 2)
+ * This creates a cyclic value of the modulo, that swaps every "mod" times.
+ * e.g., with mod = 4, and value starting from 0 and incremeting, the macro will yield 0, 4 times, then 4, 4 times, then 0 again 4 times...
+ * 
+ * @param value Value
+ * @param mod Modulo
+ */
+#define MOD_BLOCK_AND(value, mod) ((value) & (mod))
+
 // PI is half a rotation on the unit circle, a full rotation is Q_8_8(1.f)
 #define PI Q_8_8(.5f)
 #define sin(a) (sSineTable[(a)])
@@ -189,6 +199,9 @@
     SPRITE_CLEAR_ISFT(sprite);                  \
     SPRITE_SET_ISFT(sprite, value);             \
 }
+
+#define SPRITE_FREEZE_PALETTE_OFFSET 0
+#define SPRITE_STUN_PALETTE_OFFSET 1
 
 #define SPRITESET_IDX(idx) (16 + idx + 1)
 

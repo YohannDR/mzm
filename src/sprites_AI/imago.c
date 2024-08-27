@@ -1523,7 +1523,7 @@ void ImagoNeedle(void)
 
         case IMAGO_NEEDLE_POSE_EXPLODING:
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
-            SoundPlay(0x12C); // Sprite explosion small
+            SoundPlay(SOUND_SPRITE_EXPLOSION_SMALL);
             gCurrentSprite.status = 0;
             break;
 

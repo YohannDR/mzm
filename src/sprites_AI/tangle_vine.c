@@ -5,6 +5,7 @@
 #include "data/sprites/tangle_vine.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -201,7 +202,7 @@ void TangleVineGerutaPart(void)
         {
             gSubSpriteData1.health = TANGLE_VINE_GERUTA_STATUS_GERUTA_DEAD;
             ParticleSet(gCurrentSprite.yPosition + 0x8, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
-            SoundPlay(0x12D);
+            SoundPlay(SOUND_SPRITE_EXPLOSION_MEDIUM);
             gCurrentSprite.status = 0;
             return;
         }

@@ -9,6 +9,17 @@ A sprite refers broadly to entities during gameplay that aren't one of the follo
 They mostly consist of enemies, gimmicks or triggers placed in a room.\
 Their AI can be found in the `sprites_AI` folders, both in `include` and `src`, with their data being in `include/data/sprites` and `src/data/sprites`.
 
+- [Sprites](#sprites)
+  - [Sprite data](#sprite-data)
+  - [Status](#status)
+  - [Properties](#properties)
+  - [Poses](#poses)
+  - [Samus collision](#samus-collision)
+- [Difference between primary and secondary sprites](#difference-between-primary-and-secondary-sprites)
+- [Creating a new sprite](#creating-a-new-sprite)
+- [Spawning a new sprite](#spawning-a-new-sprite)
+
+
 ## Sprite data
 
 `SpriteData` is a struct that contains everything needed for a sprite to work, it is located in [include/structs/sprite.h](../../include/structs/sprite.h#L42).
@@ -148,3 +159,40 @@ Most of the pose values are free to use, however there are a few that have a par
 | SSC_SUPER_MISSILE_DROP | 34 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by super missile drop only.
 | SSC_POWER_BOMB_DROP | 35 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by power bomb drop only.
 | SSC_MULTIPLE_LARGE_ENERGY_DROP | 36 | Only sets the SPRITE_STATUS_SAMUS_COLLIDING flag, used by multiple large energy drop only.
+
+# Difference between primary and secondary sprites
+
+Primary and secondary sprites work mostly the same, however there are a few differences :
+
+- Secondary sprites can only be spawned at runtime, they can't be placed in a room.
+- Secondary sprites don't have dedicated graphics, they have to "borrow" it from their parent primary sprite.
+- They use a different set of sprite id, meaning they also use a different set of AIs.
+
+The main purpose of the secondary sprites is to complement a primary sprite, they mostly consist of either enemy projectiles, or parts to form a bigger sprite.
+
+# Creating a new sprite
+
+In order to create a new sprite, 3 components are necessary :
+
+- A main AI, which should be have a signature like this : `void MySprite(void)`
+- Graphics, LZ77 compressed.
+- Palette, raw 16-bit gba colors.
+
+It's also necessary to create a sprite id, simply adding an entry to the already existing enum ([PrimarySprite](../../include/constants/sprite.h#L30) or [SecondaySprite](../../include/constants/sprite.h#L241)) works, though there is an upper limit of 255 due to sprite id being stored in an `u8`.
+
+Once created, the 3 components simply need to be added to their respective arrays, namely :
+
+- [sPrimarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#237) or [sSecondarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#832)
+- [sSpritesGraphicsPointers](../../src/data/samus_sprites_pointers.c#446)
+- [sSpritesPalettePointers](../../src/data/samus_sprites_pointers.c#639)
+
+# Spawning a new sprite
+
+There are 3 functions used to spawn sprites at runtime, they are declared in `sprite.h` :
+
+- `SpriteSpawnPrimary` : Spawns a primary sprite with the given parameters.
+- `SpriteSpawnSecondary` : Spawns a secondary sprite with the given parameters.
+- `SpriteSpawnDropFollowers` : Spawns a primary sprite with the given parameters.
+
+The parameters for each functions are detailed in their headers.
+Each function returns the slot in the global sprite array, or 0xFF if the array is already full.

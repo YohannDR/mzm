@@ -19,9 +19,9 @@ extern const SamusFunc_T sSamusPoseGfxFunctionPointers[SPOSE_END];
 
 extern const Func_T sPrimarySpritesAIPointers[PSPRITE_END];
 
-extern const u32* const sSpritesGraphicsPointers[PSPRITE_END - 16];
+extern const u32* const sSpritesGraphicsPointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_END)];
 
-extern const u16* const sSpritesPalettePointers[PSPRITE_END - 16];
+extern const u16* const sSpritesPalettePointers[PSPRITE_OFFSET_FOR_GRAPHICS(PSPRITE_END)];
 
 extern const Func_T sSecondarySpritesAIPointers[SSPRITE_END];
 

@@ -12,11 +12,13 @@
 #define PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS 8
 #define PAUSE_SCREEN_UNKNOWN_9 9
 
-#define MAX_AMOUNT_OF_DIFFICULTIES 3
+enum Difficulty {
+    DIFF_EASY,
+    DIFF_NORMAL,
+    DIFF_HARD,
 
-#define DIFF_EASY 0
-#define DIFF_NORMAL 1
-#define DIFF_HARD 2
+    DIFF_END
+};
 
 enum Language {
     LANGUAGE_JAPANESE,

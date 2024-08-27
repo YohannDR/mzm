@@ -2922,7 +2922,7 @@ void KraidNail(void)
             {
                 ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlay(0x12C);
+                    SoundPlay(SOUND_SPRITE_EXPLOSION_SMALL);
                 gCurrentSprite.status = 0;
             }
             else
