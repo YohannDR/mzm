@@ -1948,7 +1948,7 @@ void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosi
 /**
  * 50914 | 60 | Sets the projectile to a tumbling state (reserved for missile and super missile)
  * 
- * @param pSprite Sprite data pointere
+ * @param pSprite Sprite data pointer
  * @param pProj Projectile data pointer
  * @param type The type of the projectile
  */
