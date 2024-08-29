@@ -1219,9 +1219,9 @@ void SpriteUtilCurrentSpriteFall(void)
 void SpriteUtilChooseRandomXFlip(void)
 {
     if (MOD_AND(gSpriteRng, 2))
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
 }
 
 /**
@@ -1255,9 +1255,9 @@ void SpriteUtilChooseRandomXDirectionRoomSlot(u8 roomSlot)
 void SpriteUtilMakeSpriteFaceSamusXFlip(void)
 {
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
 }
 
 /**
@@ -1279,9 +1279,9 @@ void SpriteUtilMakeSpriteFaceSamusDirection(void)
 void SpriteUtilMakeSpriteFaceAwayFromSamusXFlip(void)
 {
     if (gCurrentSprite.xPosition > gSamusData.xPosition)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 }
 
 /**
@@ -1337,7 +1337,7 @@ void unk_f9e4(s16 movement)
     velocity = movement;
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         if (gPreviousCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
             velocity = (s16)FRACT_MUL(velocity, 2, 3);
@@ -1355,7 +1355,7 @@ void unk_f9e4(s16 movement)
     if (velocity == 0)
         velocity = 1;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition += velocity;
     else
         gCurrentSprite.xPosition -= velocity;
@@ -1847,7 +1847,7 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
     }
 
     // Get is flipped, this assume that when flipped the sprite faced right
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xFlip = TRUE;
     
     // Check X position
@@ -2469,7 +2469,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
         else
         {
             isft = CONVERT_SECONDS(.05f);
-            if (SPRITE_HAS_ISFT(*pSprite) < isft)
+            if (SPRITE_GET_ISFT(*pSprite) < isft)
             {
                 SPRITE_CLEAR_AND_SET_ISFT(*pSprite, isft);
             }
@@ -3000,7 +3000,7 @@ void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
 {
     u8 isft;
 
-    if (!SPRITE_HAS_ISFT(*pSprite))
+    if (SPRITE_GET_ISFT(*pSprite) == 0)
         return;
 
     isft = APPLY_DELTA_TIME_DEC(pSprite->invincibilityStunFlashTimer);
@@ -3412,7 +3412,7 @@ u8 SpriteUtilIsSpriteStunned(void)
     else
         stunTimer = CONVERT_SECONDS(.24f);
 
-    if (SPRITE_HAS_ISFT(gCurrentSprite) > stunTimer && gCurrentSprite.pose < SPRITE_POSE_DESTROYED)
+    if (SPRITE_GET_ISFT(gCurrentSprite) > stunTimer && gCurrentSprite.pose < SPRITE_POSE_DESTROYED)
     {
         if (gCurrentSprite.animationDurationCounter != 0)
             APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
@@ -3500,7 +3500,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOam(void)
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -3536,7 +3536,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 
     gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -3589,7 +3589,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(struct SubSp
 
     gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = pSub->xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];

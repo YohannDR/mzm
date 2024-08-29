@@ -51,13 +51,13 @@ void WaverMove(void)
     xSpeed = PIXEL_SIZE;
 
     // Move horizontaly
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxRight + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition += xSpeed;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
     }
     else
     {
@@ -65,7 +65,7 @@ void WaverMove(void)
         if (gPreviousCollisionCheck == COLLISION_AIR)
             gCurrentSprite.xPosition -= xSpeed;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     }
 
     // Move vertically

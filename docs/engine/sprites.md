@@ -80,9 +80,9 @@ Note :
 | SPRITE_STATUS_ROTATION_SCALING | 1 << 3 | Enables affine transformation when drawing the sprite.
 | SPRITE_STATUS_UNKNOWN_10 | 1 << 4 | Unknown purpose, related to draw order.
 | SPRITE_STATUS_MOSAIC | 1 << 5 | Whether mosaic is enabled, left over from fusion, doesn't seem to work properly.
-| SPRITE_STATUS_XFLIP | 1 << 6 | Whether the sprite is X-flipped when drawn.
+| SPRITE_STATUS_X_FLIP | 1 << 6 | Whether the sprite is X-flipped when drawn.
 | SPRITE_STATUS_UNKNOWN_80 | 1 << 7 | Unknown purpose, related to obj affine.
-| SPRITE_STATUS_YFLIP | 1 << 8 | Whether the sprite is Y-flipped when drawn.
+| SPRITE_STATUS_Y_FLIP | 1 << 8 | Whether the sprite is Y-flipped when drawn.
 | SPRITE_STATUS_FACING_RIGHT | 1 << 9 | Whether the sprite is facing right, purely informative and only used in the engine in the movement functions.
 | SPRITE_STATUS_FACING_DOWN | 1 << 10 | Whether the sprite is facing down, purely informative and only used in the engine in the movement functions.
 | SPRITE_STATUS_SAMUS_COLLIDING | 1 << 11 | Whether the sprite is colliding with Samus, only used on some [sprite/samus collision](#samus-collision).

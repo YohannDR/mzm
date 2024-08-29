@@ -43,7 +43,7 @@ void GadoraInit(void)
         return;
     }
 
-    gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+    gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     gCurrentSprite.xPosition += PIXEL_SIZE * 3;
 
     yPosition = gCurrentSprite.yPosition;
@@ -52,7 +52,7 @@ void GadoraInit(void)
     // Disable hatch
     GadoraHatchUpdate(xPosition, yPosition, FALSE);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xPosition += QUARTER_BLOCK_SIZE;
     else
         xPosition -= QUARTER_BLOCK_SIZE;
@@ -176,7 +176,7 @@ void GadoraCheckOpeningEyeAnimEnded(void)
 
             // Spawn beam
             xPosition = gCurrentSprite.xPosition + QUARTER_BLOCK_SIZE;
-            status = SPRITE_STATUS_XFLIP;
+            status = SPRITE_STATUS_X_FLIP;
 
             SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, xPosition, status);
@@ -440,7 +440,7 @@ void GadoraEye(void)
             {
                 // Make vulnerable
                 gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-                if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x10)
+                if (SPRITE_GET_ISFT(gCurrentSprite) == 0x10)
                     gSpriteData[ramSlot].work0 = 0; // Force close eye if hit
             }
             else

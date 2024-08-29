@@ -56,7 +56,7 @@ void SpacePirateCarryingPowerBomb(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_SPAWNING;
 
-            gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+            gCurrentSprite.status |= (SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
             break;
 
         case SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_SPAWNING:

@@ -844,7 +844,7 @@ void MetroidDeath(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         yPosition += rng;
     else 
         yPosition -= rng;
@@ -927,7 +927,7 @@ void Metroid(void)
     }
     else
     {
-        if (SPRITE_HAS_ISFT(gCurrentSprite) == 2)
+        if (SPRITE_GET_ISFT(gCurrentSprite) == 2)
         {
             if (gCurrentSprite.health == gCurrentSprite.yPositionSpawn)
             {
@@ -1028,7 +1028,7 @@ void MetroidShell(void)
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
 
-        if (gSpriteData[slot].status & SPRITE_STATUS_XFLIP)
+        if (gSpriteData[slot].status & SPRITE_STATUS_X_FLIP)
             yPosition -= rng;
         else
             yPosition += rng;

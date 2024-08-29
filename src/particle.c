@@ -120,7 +120,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
         else
             bgPriority = 0;
 
-        xFlipped = pParticle->status & PARTICLE_STATUS_XFLIP;
+        xFlipped = pParticle->status & PARTICLE_STATUS_X_FLIP;
 
         for (i = 0; i < partCount; i++)
         {
@@ -603,7 +603,7 @@ void ParticleShootingBeamRight(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
-        pParticle->status |= PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY;
+        pParticle->status |= PARTICLE_STATUS_X_FLIP | PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -647,7 +647,7 @@ void ParticleShootingBeamDiagUpRight(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
-        pParticle->status |= PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY;
+        pParticle->status |= PARTICLE_STATUS_X_FLIP | PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -691,7 +691,7 @@ void ParticleShootingBeamDiagDownRight(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
-        pParticle->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
+        pParticle->status |= (PARTICLE_STATUS_X_FLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -735,7 +735,7 @@ void ParticleShootingBeamUpRight(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
-        pParticle->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
+        pParticle->status |= (PARTICLE_STATUS_X_FLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -779,7 +779,7 @@ void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage++;
-        pParticle->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
+        pParticle->status |= (PARTICLE_STATUS_X_FLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -1890,7 +1890,7 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0)
     {
         pParticle->stage = 1;
-        pParticle->status |= PARTICLE_STATUS_LIVE_OFF_SCREEN | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP; // Init status
+        pParticle->status |= PARTICLE_STATUS_LIVE_OFF_SCREEN | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_X_FLIP; // Init status
     }
 
     // Copy the main samus body oam

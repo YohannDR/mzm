@@ -191,18 +191,6 @@
 #define SCREEN_Y_PADDING 2
 #define SCREEN_Y_BLOCK_PADDING (BLOCK_SIZE * SCREEN_Y_PADDING)
 
-#define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
-#define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)
-#define SPRITE_SET_ISFT(sprite, value) ((sprite).invincibilityStunFlashTimer |= (value))
-#define SPRITE_CLEAR_AND_SET_ISFT(sprite, value)\
-{                                               \
-    SPRITE_CLEAR_ISFT(sprite);                  \
-    SPRITE_SET_ISFT(sprite, value);             \
-}
-
-#define SPRITE_FREEZE_PALETTE_OFFSET 0
-#define SPRITE_STUN_PALETTE_OFFSET 1
-
 #define SPRITESET_IDX(idx) (16 + idx + 1)
 
 

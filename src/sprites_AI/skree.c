@@ -225,13 +225,13 @@ void SkreeCrashGround(void)
                 yPosition - (PIXEL_SIZE * 2), xPosition, 0);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
-                yPosition - (PIXEL_SIZE * 2), xPosition, SPRITE_STATUS_XFLIP);
+                yPosition - (PIXEL_SIZE * 2), xPosition, SPRITE_STATUS_X_FLIP);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
                 yPosition + (PIXEL_SIZE * 2), xPosition - (PIXEL_SIZE * 3), 0);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
-                yPosition + (PIXEL_SIZE * 2), xPosition + (PIXEL_SIZE * 3), SPRITE_STATUS_XFLIP);
+                yPosition + (PIXEL_SIZE * 2), xPosition + (PIXEL_SIZE * 3), SPRITE_STATUS_X_FLIP);
 
            
             gCurrentSprite.status = 0;
@@ -288,7 +288,7 @@ void SkreeExplosionMove(void)
     if (gCurrentSprite.currentAnimationFrame > 1)
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.xPosition += PIXEL_SIZE * 2;
         gCurrentSprite.rotation += PI / 4;

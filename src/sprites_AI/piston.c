@@ -172,7 +172,7 @@ void PistonCheckProjectile(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x10)
+        if (SPRITE_GET_ISFT(gCurrentSprite) == 0x10)
         {
             // Projectile detected
             SPRITE_CLEAR_ISFT(gCurrentSprite);

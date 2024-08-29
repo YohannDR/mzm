@@ -54,7 +54,7 @@ u8 WorkerRobotCheckSamusInFront(void)
         if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight,
             samusTop, samusBottom, samusLeft, samusRight))
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 if (spriteX < samusX)
                     return TRUE;
@@ -92,7 +92,7 @@ void WorkerRobotInit(void)
 
     SpriteUtilMakeSpriteFaceAwayFromSamusXFlip();
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
 
     gCurrentSprite.pose = WORKER_ROBOT_POSE_SLEEPING;
@@ -193,12 +193,12 @@ void WorkerRobotWalkingDetectProjectile(void)
         
         if (onSide)
         {
-            if (pProj->status & PROJ_STATUS_XFLIP)
+            if (pProj->status & PROJ_STATUS_X_FLIP)
             {
                 projX = spriteLeft;
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
 
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 {
                     if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
                         gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
@@ -214,7 +214,7 @@ void WorkerRobotWalkingDetectProjectile(void)
                 projX = spriteRight;
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
 
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 {
                     if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
                         gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
@@ -306,7 +306,7 @@ void WorkerRobotWalking(void)
                     return;
 
                 gCurrentSprite.work1 = collision;
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 {
                     if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -344,7 +344,7 @@ void WorkerRobotWalking(void)
 
         if (gCurrentSprite.work1 == 0)
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -452,10 +452,10 @@ void WorkerRobotTurningAround(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-            gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
+            gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
         else
-            gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+            gCurrentSprite.status |= (SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
 
         gCurrentSprite.pose = WORKER_ROBOT_POSE_CHECK_TURNING_AROUND_ENDED;
 

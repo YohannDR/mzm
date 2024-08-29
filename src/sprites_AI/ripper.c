@@ -65,7 +65,7 @@ void RipperMove(void)
     else
         speed = 2;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         // Move right
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
@@ -110,7 +110,7 @@ void RipperTurnAroundFirstPart(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
         gCurrentSprite.pose = RIPPER_POSE_TURNING_AROUND_SECOND_PART;
 
         gCurrentSprite.pOam = sRipperOam_TurningAroundPart2;

@@ -59,7 +59,7 @@ void Steam(void)
             {
                 // Steam on ceiling
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-                gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+                gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
                 gCurrentSprite.yPosition -= BLOCK_SIZE;
 
                 if (isLarge)
@@ -107,7 +107,7 @@ void Steam(void)
                     {
                         // Steam on right wall
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
-                        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
                         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                         gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
                     }
@@ -181,7 +181,7 @@ void SteamDiagonal(void)
             gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
 
         if (!(collision & COLLISION_FLAGS_UNKNOWN_F0))
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP; // Flip if wall on left
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP; // Flip if wall on left
 
         if (gCurrentSprite.spriteId == PSPRITE_STEAM_LARGE_DIAGONAL_UP)
         {
@@ -203,7 +203,7 @@ void SteamDiagonal(void)
         {
             gCurrentSprite.work1 = TRUE; // Is large flag
 
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
@@ -211,7 +211,7 @@ void SteamDiagonal(void)
         }
         else if (gCurrentSprite.spriteId == PSPRITE_STEAM_SMALL_DIAGONAL_DOWN)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);

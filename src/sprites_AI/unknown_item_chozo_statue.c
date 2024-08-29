@@ -42,7 +42,7 @@ void UnknownItemChozoStatueSyncSubSprites(void)
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -64,7 +64,7 @@ void UnknownItemChozoStatueInit(void)
     gCurrentSprite.properties |= (SP_ALWAYS_ACTIVE | SP_SOLID_FOR_PROJECTILES);
 
     ChozoStatueSetDirection();
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gSubSpriteData1.xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
     else
         gSubSpriteData1.xPosition = gCurrentSprite.xPosition - HALF_BLOCK_SIZE;
@@ -120,7 +120,7 @@ void UnknownItemChozoStatueInit(void)
             gCurrentSprite.pose = UNKNOWN_ITEM_CHOZO_STATUE_POSE_WAIT_FOR_ITEM_TO_BE_COLLECTED;
 
             // Spawn chozo ball
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
@@ -146,19 +146,19 @@ void UnknownItemChozoStatueInit(void)
 
     // Spawn eye
     gCurrentSprite.work1 = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_EYE,
-        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
 
     // Spawn arm
     behavior = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_ARM,
-        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        gfxSlot, ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
 
     // Spawn leg
     SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_LEG, gfxSlot, ramSlot,
-        yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
 
     // Spawn glow
     newRamSlot = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_PART, UNKNOWN_ITEM_CHOZO_STATUE_PART_GLOW, gfxSlot,
-        ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        ramSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     gSpriteData[newRamSlot].work1 = behavior;
 }
 
@@ -520,7 +520,7 @@ void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Get X offset
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xPosition += UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
     else
         xPosition -= UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
@@ -556,7 +556,7 @@ void UnknownItemChozoStatuePartSyncSamusPosition(void)
 {
     gSamusData.yPosition = gCurrentSprite.yPosition - UNKNOWN_ITEM_CHOZO_STATUE_HAND_Y_OFFSET;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gSamusData.xPosition = gCurrentSprite.xPosition + UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
     else
         gSamusData.xPosition = gCurrentSprite.xPosition - UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
@@ -625,7 +625,7 @@ void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Get X offset
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xPosition += UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
     else
         xPosition -= UNKNOWN_ITEM_CHOZO_STATUE_HAND_X_OFFSET;
@@ -1070,7 +1070,7 @@ void ChozoStatueStandingChangeCcaa(u8 bodyCaa, u8 handCaa)
     yPosition = gSubSpriteData1.yPosition;
     xPosition = gSubSpriteData1.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         xPosition += HALF_BLOCK_SIZE;
 
@@ -1122,7 +1122,7 @@ void ChozoStatueSeatedChangeCcaa(u8 caa)
     yPosition = gSubSpriteData1.yPosition;
     xPosition = gSubSpriteData1.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentClipdataAffectingAction = caa;
         ClipdataProcess(yPosition - HALF_BLOCK_SIZE, xPosition + HALF_BLOCK_SIZE);

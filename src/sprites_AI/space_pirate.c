@@ -161,13 +161,13 @@ void SpacePirateFlip(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         gCurrentSprite.hitboxLeft = -0x18;
         gCurrentSprite.hitboxRight = 0x40;
     }
     else
     {
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
         gCurrentSprite.hitboxLeft = -0x40;
         gCurrentSprite.hitboxRight = 0x18;
     }
@@ -888,23 +888,23 @@ void SpacePirateFireLaserGround(void)
         if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_FORWARD)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-                yPosition - 0x34, xPosition + 0x44, SPRITE_STATUS_XFLIP);
+                yPosition - 0x34, xPosition + 0x44, SPRITE_STATUS_X_FLIP);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-                yPosition - 0x78, xPosition + 0x78, SPRITE_STATUS_XFLIP);
+                yPosition - 0x78, xPosition + 0x78, SPRITE_STATUS_X_FLIP);
         }
         else if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_UP)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_UP, gfxSlot, ramSlot,
-                yPosition - 0x98, xPosition + 0x44, SPRITE_STATUS_XFLIP);
+                yPosition - 0x98, xPosition + 0x44, SPRITE_STATUS_X_FLIP);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_UP, gfxSlot, ramSlot,
-                yPosition - 0x5E, xPosition + 0x58, SPRITE_STATUS_XFLIP);
+                yPosition - 0x5E, xPosition + 0x58, SPRITE_STATUS_X_FLIP);
         }
         else if (gCurrentSprite.work1 == SPACE_PIRATE_AIM_DIAGONALLY_DOWN)
         {
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN, gfxSlot, ramSlot,
-                yPosition - 0x1C, xPosition + 0x44, SPRITE_STATUS_XFLIP);
+                yPosition - 0x1C, xPosition + 0x44, SPRITE_STATUS_X_FLIP);
             SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN, gfxSlot, ramSlot,
-                yPosition - 0x60, xPosition + 0x58, SPRITE_STATUS_XFLIP);
+                yPosition - 0x60, xPosition + 0x58, SPRITE_STATUS_X_FLIP);
         }
     }
     else
@@ -959,9 +959,9 @@ void SpacePirateFireLaserWall(void)
     else
     {
         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-            yPosition - 0x94, xPosition + 0x44, SPRITE_STATUS_XFLIP);
+            yPosition - 0x94, xPosition + 0x44, SPRITE_STATUS_X_FLIP);
         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, SPACE_PIRATE_LASER_PART_FORWARD, gfxSlot, ramSlot,
-            yPosition - 0x4E, xPosition + 0x44, SPRITE_STATUS_XFLIP);
+            yPosition - 0x4E, xPosition + 0x44, SPRITE_STATUS_X_FLIP);
     }
 }
 
@@ -3111,7 +3111,7 @@ void SpacePirateWaitingAtDoor(void)
                     {
                         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x50,
-                            gCurrentSprite.xPosition, SPRITE_STATUS_XFLIP);
+                            gCurrentSprite.xPosition, SPRITE_STATUS_X_FLIP);
                     }
                     else
                     {
@@ -4182,7 +4182,7 @@ u8 roomSlot;
     else if (roomSlot == SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN)
     {
         gCurrentSprite.pOam = sSpacePirateLaserOAM_Diagonal;
-        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
     }
     else
     {
@@ -4256,7 +4256,7 @@ void SpacePirateLaserMove(void)
         case SPACE_PIRATE_LASER_PART_DIAGONALLY_UP:
             gCurrentSprite.yPosition -= 0xF;
             
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += 0xF;
             else
                 gCurrentSprite.xPosition -= 0xF;
@@ -4265,14 +4265,14 @@ void SpacePirateLaserMove(void)
         case SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN:
             gCurrentSprite.yPosition += 0xF;
             
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += 0xF;
             else
                 gCurrentSprite.xPosition -= 0xF;
             break;
 
         default:
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += 0x14;
             else
                 gCurrentSprite.xPosition -= 0x14;

@@ -6,6 +6,8 @@
 #include "data/demo_data.h"
 
 #include "constants/connection.h"
+#include "constants/particle.h"
+#include "constants/projectile.h"
 
 #include "structs/connection.h"
 #include "structs/projectile.h"
@@ -13,9 +15,9 @@
 #include "structs/color_effects.h"
 #include "structs/block.h"
 
-extern const ProjFunc_T sProcessProjectileFunctionPointers[16];
+extern const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END];
 
-extern const ParticleFunc_T sProcessParticleFunctionPointers[61];
+extern const ParticleFunc_T sProcessParticleFunctionPointers[PE_END];
 
 extern const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1];
 

@@ -48,7 +48,7 @@ void MultiviolaMove(void)
     isBouncing = FALSE;
     yMovement = 0x3;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         // Move right
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
@@ -57,7 +57,7 @@ void MultiviolaMove(void)
         else
         {
             // Bounce X
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             isBouncing++;
         }
     }
@@ -70,7 +70,7 @@ void MultiviolaMove(void)
         else
         {
             // Bounce X
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             isBouncing++;
         }
     }

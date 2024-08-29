@@ -45,7 +45,7 @@ void RidleySyncSubSprites(void)
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -78,7 +78,7 @@ void RidleyTailSyncSubSprites(void)
 
     gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -150,7 +150,7 @@ void RidleyUpdateHealth(void)
             break;
 
         default:
-            if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x10)
+            if (SPRITE_GET_ISFT(gCurrentSprite) == 0x10)
                 SoundPlayNotAlreadyPlaying(0x1ED);
 
             if (gCurrentSprite.health == 0 && gSubSpriteData1.health != 0)
@@ -269,7 +269,7 @@ void RidleyPartClawIdle(u8 ramSlot)
             updatePosition++;
 
             yPosition = gCurrentSprite.yPosition + BLOCK_SIZE * 4;
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE);
             else
                 xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE);
@@ -282,7 +282,7 @@ void RidleyPartClawIdle(u8 ramSlot)
             {
                 case 0:
                     yPosition = gCurrentSprite.yPosition + 0xEC;
-                    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                         xPosition = gCurrentSprite.xPosition + 0xB8;
                     else
                         xPosition = gCurrentSprite.xPosition - 0xB8;
@@ -290,7 +290,7 @@ void RidleyPartClawIdle(u8 ramSlot)
                 
                 case 1:
                     yPosition = gCurrentSprite.yPosition + 0xDC;
-                    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                         xPosition = gCurrentSprite.xPosition + 0xD0;
                     else
                         xPosition = gCurrentSprite.xPosition - 0xD0;
@@ -298,7 +298,7 @@ void RidleyPartClawIdle(u8 ramSlot)
                 
                 case 2:
                     yPosition = gCurrentSprite.yPosition + 0xC0;
-                    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                         xPosition = gCurrentSprite.xPosition + 0xEC;
                     else
                         xPosition = gCurrentSprite.xPosition - 0xEC;
@@ -306,7 +306,7 @@ void RidleyPartClawIdle(u8 ramSlot)
                 
                 case 3:
                     yPosition = gCurrentSprite.yPosition + 0x9C;
-                    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                         xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE);
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE);
@@ -314,7 +314,7 @@ void RidleyPartClawIdle(u8 ramSlot)
                 
                 case 4:
                     yPosition = gCurrentSprite.yPosition + 0x7C;
-                    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                         xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE);
                     else
                         xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE);
@@ -329,7 +329,7 @@ void RidleyPartClawIdle(u8 ramSlot)
 
             yPosition = gCurrentSprite.yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE;
 
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 xPosition = gCurrentSprite.xPosition + BLOCK_SIZE * 4;
             else
                 xPosition = gCurrentSprite.xPosition - BLOCK_SIZE * 4;
@@ -434,7 +434,7 @@ void RidleySpawnAscendingFireball(u16 timer)
     u16 xPosition;
     u16 yPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         status = SPRITE_STATUS_FACING_RIGHT;
         xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
@@ -528,7 +528,7 @@ void RidleyInit(void)
     gSubSpriteData1.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = RIDLEY_POSE_CHECK_PLAY_CUTSCENE;
-    gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_IGNORE_PROJECTILES;
+    gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.roomSlot = RIDLEY_PART_BODY;
 
     yPosition = gSubSpriteData1.yPosition;
@@ -538,47 +538,47 @@ void RidleyInit(void)
 
     // Spawn left wing
     SpriteSpawnSecondary(SSPRITE_RIDLEY_PART, RIDLEY_PART_LEFT_WING, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     // Spawn head
     gSubSpriteData1.workVariable4 = SpriteSpawnSecondary(SSPRITE_RIDLEY_PART, RIDLEY_PART_HEAD,
-        gfxSlot, ramSlot, yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        gfxSlot, ramSlot, yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     // Spawn tail
     SpriteSpawnSecondary(SSPRITE_RIDLEY_PART, RIDLEY_PART_TAIL, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_TIP, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_LEFT_MOST, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_LEFT_MIDDLE, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_LEFT_RIGHT, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_RIGHT_MOST, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_RIGHT_MIDDLE, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_RIGHT_LEFT, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     SpriteSpawnSecondary(SSPRITE_RIDLEY_TAIL, RIDLEY_TAIL_PART_BODY_ATTACHMENT, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     // Spawn claw
     gSubSpriteData1.workVariable5 = SpriteSpawnSecondary(SSPRITE_RIDLEY_PART, RIDLEY_PART_CLAW,
-        gfxSlot, ramSlot, yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        gfxSlot, ramSlot, yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 
     // Spawn right wing
     SpriteSpawnSecondary(SSPRITE_RIDLEY_PART, RIDLEY_PART_RIGHT_WING, gfxSlot, ramSlot,
-        yPosition, xPosition, SPRITE_STATUS_XFLIP);
+        yPosition, xPosition, SPRITE_STATUS_X_FLIP);
 }
 
 /**
@@ -840,9 +840,9 @@ void RidleySpawning(void)
                 gCurrentSprite.work1++;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                    gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                    gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
                 else
-                    gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             }
             break;
             
@@ -919,9 +919,9 @@ void RidleySpawning(void)
             if (--gCurrentSprite.work2 == 0)
             {
                 if (gSubSpriteData1.xPosition < gSamusData.xPosition)
-                    gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+                    gCurrentSprite.status |= (SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
                 else
-                    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+                    gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_FACING_RIGHT);
                 
                 gCurrentSprite.work1 = RIDLEY_SPAWNING_ACTION_GOING_DOWN;
             }
@@ -1076,7 +1076,7 @@ void RidleyIdle(void)
         {
             if (MOD_AND(gSpriteData[clawSlot].work0++, 16) == 0)
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 {
                     SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, RIDLEY_FIREBALL_PART_SAMUS_GRABBED,
                         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
@@ -1373,9 +1373,9 @@ void RidleyTurningAroundFirstPart(void)
         // Flip
         gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
         if(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
     }
 }
 
@@ -1715,7 +1715,7 @@ void RidleyBigFireballsAttack(void)
     }
     else if (gCurrentSprite.work0 == 0x14)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             status = SPRITE_STATUS_FACING_RIGHT;
             xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
@@ -1993,7 +1993,7 @@ void RidleyPartSyncPalette(u8 ramSlot)
  */
 void RidleyPartClawUpdateSidesHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.hitboxLeft = 0xA0;
         gCurrentSprite.hitboxRight = 0xE0;
@@ -2199,7 +2199,7 @@ void RidleyTailChargingAttack(void)
         gSpriteData[ramSlot].pose = RIDLEY_POSE_TAIL_ATTACKS;
 
         // Flip and check do diagonal attack or not
-        if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
+        if (gSpriteData[ramSlot].status & SPRITE_STATUS_X_FLIP)
         {
             if (gSubSpriteData1.xPosition - BLOCK_SIZE * 2 > gSamusData.xPosition)
                 gSpriteData[ramSlot].status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -2443,7 +2443,7 @@ void RidleyTailCheckBackToIdleAnimEnded(void)
         gCurrentSprite.pose = RIDLEY_TAIL_POSE_IDLE;
         gSpriteData[ramSlot].pose = RIDLEY_POSE_IDLE_INIT;
 
-        if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
+        if (gSpriteData[ramSlot].status & SPRITE_STATUS_X_FLIP)
             gSpriteData[ramSlot].status |= SPRITE_STATUS_FACING_RIGHT;
         else
             gSpriteData[ramSlot].status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -2526,7 +2526,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.rotation = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
 
     // Set pattern
     if (gCurrentSprite.roomSlot == RIDLEY_FIREBALL_PART_SAMUS_GRABBED)
@@ -2785,7 +2785,7 @@ void Ridley(void)
             }
         }
 
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             gCurrentSprite.hitboxLeft = -0x60;
             gCurrentSprite.hitboxRight = 0x80;
@@ -2842,10 +2842,10 @@ void RidleyTail(void)
     }
 
     // Sync flip
-    if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+    if (gSpriteData[ramSlot].status & SPRITE_STATUS_X_FLIP)
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
     if (gCurrentSprite.roomSlot != RIDLEY_TAIL_PART_TIP)
     {
@@ -2976,10 +2976,10 @@ void RidleyPart(void)
     }
 
     // Sync flip
-    if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+    if (gSpriteData[ramSlot].status & SPRITE_STATUS_X_FLIP)
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
     if (part != RIDLEY_PART_TAIL && gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
     {

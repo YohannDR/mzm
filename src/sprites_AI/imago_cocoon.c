@@ -273,7 +273,7 @@ void ImagoCocoonInit(void)
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_LEFT_RIGHT, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         
         // Spawn winged ripper
-        newRamSlot = SpriteSpawnSecondary(SSPRITE_WINGED_RIPPER, 0x0, gfxSlot, ramSlot, yPosition + BLOCK_SIZE * 4, xPosition, SPRITE_STATUS_XFLIP);
+        newRamSlot = SpriteSpawnSecondary(SSPRITE_WINGED_RIPPER, 0x0, gfxSlot, ramSlot, yPosition + BLOCK_SIZE * 4, xPosition, SPRITE_STATUS_X_FLIP);
         // Set destination of winged ripper
         gSpriteData[newRamSlot].yPositionSpawn = yPosition + BLOCK_SIZE * 6;
         gSpriteData[newRamSlot].xPositionSpawn = xPosition - BLOCK_SIZE * 3;
@@ -813,7 +813,7 @@ void ImagoCocoonVineSpawnSpore(void)
                 // Spore on the right
                 yPosition = gCurrentSprite.yPosition - IMAGO_COCOON_SPORE_RIGHT_Y_OFFSET;
                 xPosition = gCurrentSprite.xPosition + IMAGO_COCOON_SPORE_RIGHT_X_OFFSET;
-                status = SPRITE_STATUS_XFLIP;
+                status = SPRITE_STATUS_X_FLIP;
             }
 
             // Spawn spores
@@ -881,7 +881,7 @@ void ImagoCocoonSporeSyncPosition(void)
     u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_RIGHT_Y_OFFSET;
         gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition + IMAGO_COCOON_SPORE_RIGHT_X_OFFSET;
@@ -1197,14 +1197,14 @@ void WingedRipperMove(void)
         }
         else if (gCurrentSprite.pOam == sWingedRipperOam_TurningAround && SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 gCurrentSprite.pOam = sWingedRipperOam_Moving;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
             }
             else
-                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         }
     }
     else
@@ -1226,8 +1226,8 @@ void WingedRipperMove(void)
         }
         else if (gCurrentSprite.pOam == sWingedRipperOam_TurningAround && SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
+                gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             else
             {
                 gCurrentSprite.pOam = sWingedRipperOam_Moving;

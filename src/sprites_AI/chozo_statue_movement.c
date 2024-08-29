@@ -21,12 +21,12 @@ void SpawnChozoStatueMovement(u8 stage)
 
         if (MOD_AND(stage, 2))
         {
-            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_IGNORE_PROJECTILES));
         }
         else
         {
-            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES));
         }
 

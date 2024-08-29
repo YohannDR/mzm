@@ -941,7 +941,7 @@ void RuinsTestMoveToCenter(void)
     u16 spriteY;
     u16 targetY;
 
-    if (SPRITE_HAS_ISFT(gCurrentSprite))
+    if (SPRITE_GET_ISFT(gCurrentSprite))
         return;
 
     targetY = gBossWork.work1;
@@ -2344,7 +2344,7 @@ void RuinsTestLightning(void)
                 // Spawn right lightning
                 SpriteSpawnSecondary(SSPRITE_RUINS_TEST_LIGHTNING, RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT,
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPRITE_STATUS_XFLIP);
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPRITE_STATUS_X_FLIP);
             }
             break;
 
@@ -2356,7 +2356,7 @@ void RuinsTestLightning(void)
             }
 
             // Move
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += velocity;
             else
                 gCurrentSprite.xPosition -= velocity;
@@ -2376,7 +2376,7 @@ void RuinsTestLightning(void)
                 gCurrentSprite.pose = RUINS_TEST_LIGHTNING_POSE_ON_GROUND_VERTICAL;
 
                 // Update position
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                     gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
                 else
                 {

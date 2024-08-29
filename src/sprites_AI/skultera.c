@@ -19,7 +19,7 @@
  */
 void SkulteraSetSidesHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.hitboxLeft = -SKULTERA_TAIL_HITBOX;
         gCurrentSprite.hitboxRight = SKULTERA_HEAD_HITBOX;
@@ -42,7 +42,7 @@ u8 SkulteraXMovement(u16 movement)
     s16 negMovement;
 
     negMovement = movement;
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
             gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 2));
@@ -136,7 +136,7 @@ void SkulteraMoving(void)
         else
         {
             // Check out of movement territory, if out set turning around
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 if (gCurrentSprite.xPositionSpawn + SKULTERA_TERRITORY_RANGE < gCurrentSprite.xPosition)
                     gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
@@ -160,7 +160,7 @@ void SkulteraMoving(void)
 
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 3, BLOCK_SIZE * 5);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         // Check on right
         if (nslr == NSLR_RIGHT)
@@ -241,7 +241,7 @@ void SkulteraChasingSamus(void)
 
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 3, BLOCK_SIZE * 5);
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         if (nslr != NSLR_RIGHT)
         {
@@ -291,7 +291,7 @@ void SkulteraCheckTurningAroundAnimEnded(void)
         SkulteraIdleInit();
 
         // Flip and set hitbox
-        gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
 
         SkulteraSetSidesHitbox();
     }

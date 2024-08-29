@@ -134,7 +134,7 @@ void DragonIdle(void)
     // Check should turn around
     if (nslr == NSLR_RIGHT)
     {
-        if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
+        if (!(gCurrentSprite.status & SPRITE_STATUS_X_FLIP))
         {
             gCurrentSprite.pose = DRAGON_POSE_TURN_AROUND_INIT;
             return;
@@ -142,7 +142,7 @@ void DragonIdle(void)
     }
     else if (nslr == NSLR_LEFT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             gCurrentSprite.pose = DRAGON_POSE_TURN_AROUND_INIT;
             return;
@@ -160,7 +160,7 @@ void DragonIdle(void)
         // In fact, the fireball never colldes with the block that's checked here 
         yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + EIGHTH_BLOCK_SIZE);
 
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
         else
             xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
@@ -201,7 +201,7 @@ void DragonTurningAroundFirstHalf(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
 
-        gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
     }
 }
 
@@ -272,14 +272,14 @@ void DragonSpit(void)
         DragonIdleInit();
 
         yPosition = gCurrentSprite.yPosition - DRAGON_SPIT_Y_OFFSET;
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             xPosition = gCurrentSprite.xPosition + DRAGON_SPIT_X_OFFSET;
         else
             xPosition = gCurrentSprite.xPosition - DRAGON_SPIT_X_OFFSET;
 
         // Spawn projectile
         SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+            gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     }
 }
 
@@ -311,11 +311,11 @@ void DragonFireballInit(void)
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
     gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteId);
     
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
         gCurrentSprite.rotation = PI / 2;
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
     }
     else
     {

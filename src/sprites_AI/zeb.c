@@ -177,7 +177,7 @@ void ZebMove(void)
     else
     {
         gCurrentSprite.work1++;
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should respawn
             if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)

@@ -808,7 +808,7 @@ void AcidWormExtended(void)
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_XFLIP);
+                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_X_FLIP);
         }
         else
         {
@@ -822,7 +822,7 @@ void AcidWormExtended(void)
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_XFLIP);
+                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_X_FLIP);
         }
         else
         {
@@ -836,7 +836,7 @@ void AcidWormExtended(void)
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_XFLIP);
+                gCurrentSprite.yPosition, gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3), SPRITE_STATUS_X_FLIP);
         }
         else
         {
@@ -1049,7 +1049,7 @@ void AcidWormDeathFlashingAnim(void)
 
     AcidWormHandleRotation();
 
-    if (!SPRITE_HAS_ISFT(gCurrentSprite))
+    if (!SPRITE_GET_ISFT(gCurrentSprite))
         return;
 
     isft = --gCurrentSprite.invincibilityStunFlashTimer;
@@ -1543,7 +1543,7 @@ void AcidWormSpitMove(void)
         }
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition += xMovement;
     else
         gCurrentSprite.xPosition -= xMovement;

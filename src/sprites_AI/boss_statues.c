@@ -570,7 +570,7 @@ void KraidStatue(void)
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         if (pProj->status & PROJ_STATUS_EXISTS)
-            pProj->status |= PROJ_STATUS_UNKNOWN;
+            pProj->status |= PROJ_STATUS_UNKNOWN_80;
     }
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_STATUE_OPENED) && EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))

@@ -55,7 +55,7 @@ void SearchlightEyeInit(void)
     }
     else
     {
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
     }
 
@@ -79,10 +79,10 @@ void SearchlightEyeInit(void)
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn beam
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_BEAM2, 0, gfxSlot,
-                ramSlot, yPosition, xPosition + SEARCHLIGHT_EYE_BEAM_SIZE, SPRITE_STATUS_XFLIP);
+                ramSlot, yPosition, xPosition + SEARCHLIGHT_EYE_BEAM_SIZE, SPRITE_STATUS_X_FLIP);
         }
         else
         {
@@ -104,7 +104,7 @@ void SearchlightEyeMove(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         xPosition -= QUARTER_BLOCK_SIZE;
     else
         xPosition += QUARTER_BLOCK_SIZE;
@@ -204,7 +204,7 @@ void SearchlightEyeShoot(void)
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         {
             // Custom and for some reason
-            status = gCurrentSprite.status & SPRITE_STATUS_XFLIP ? SPRITE_STATUS_XFLIP : 0;
+            status = gCurrentSprite.status & SPRITE_STATUS_X_FLIP ? SPRITE_STATUS_X_FLIP : 0;
             
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_PROJECTILE, 0,
@@ -278,7 +278,7 @@ void SearchlightEyeBeamDetectSamus(void)
         foundBlock = FALSE;
 
         // Check for block
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // X start
             xPosition = gCurrentSprite.xPosition + -(BLOCK_SIZE * 6 + HALF_BLOCK_SIZE - PIXEL_SIZE);
@@ -453,7 +453,7 @@ void SearchlightEyeProjectile(void)
             gCurrentSprite.drawOrder = 3;
             gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
 
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 gCurrentSprite.hitboxLeft = 0;
                 gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
@@ -468,7 +468,7 @@ void SearchlightEyeProjectile(void)
                 SoundPlay(0x26D);
 
         case 9:
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += PIXEL_SIZE * 3;
             else
                 gCurrentSprite.xPosition -= PIXEL_SIZE * 3;

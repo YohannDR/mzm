@@ -665,10 +665,10 @@ void AtomicElectricitySpawn(void)
 
         // Set direction
         if (spriteX <= samusX)
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
 
         if (spriteY > samusY)
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
         else
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
@@ -679,7 +679,7 @@ void AtomicElectricitySpawn(void)
             gCurrentSprite.work1 = 0x1; // Direction
             gCurrentSprite.hitboxTop = -0x1C;
             gCurrentSprite.hitboxBottom = 0x1C;
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 gCurrentSprite.hitboxLeft = 0x0;
                 gCurrentSprite.hitboxRight = 0xA0;
@@ -714,7 +714,7 @@ void AtomicElectricitySpawn(void)
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingDiagonal;
             gCurrentSprite.work1 = 0x0; // Direction
 
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 gCurrentSprite.hitboxLeft = 0x20;
                 gCurrentSprite.hitboxRight = 0x60;
@@ -760,7 +760,7 @@ void AtomicElectricityMove(void)
     // Check move X
     if (!(gCurrentSprite.work1 & 0x2))
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             gCurrentSprite.xPosition += speed;
         else
             gCurrentSprite.xPosition -= speed;

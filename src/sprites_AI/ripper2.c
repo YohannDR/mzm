@@ -58,7 +58,7 @@ void Ripper2MovingInit(void)
  */
 void Ripper2Move(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
             gCurrentSprite.xPosition + (HALF_BLOCK_SIZE + PIXEL_SIZE * 3));
@@ -104,7 +104,7 @@ void Ripper2TurnAroundPart1(void)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
         gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_SECOND_PART;
 
         gCurrentSprite.pOam = sRipper2Oam_TurningAroundPart2;

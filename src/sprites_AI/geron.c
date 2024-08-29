@@ -170,9 +170,9 @@ void Geron(void)
             else
             {
                 // Check should shake 
-                if (SPRITE_HAS_ISFT(gCurrentSprite))
+                if (SPRITE_GET_ISFT(gCurrentSprite))
                 {
-                    if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x2)
+                    if (SPRITE_GET_ISFT(gCurrentSprite) == 0x2)
                     {
                         // Set shaking
                         gCurrentSprite.pOam = sGeronOAM_Shaking;

@@ -109,7 +109,7 @@ void EscapeGate(void)
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition - (BLOCK_SIZE * 2), 0);
 
                 SpriteSpawnPrimary(PSPRITE_BLACK_SPACE_PIRATE, 0x80, gCurrentSprite.spritesetGfxSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition - (BLOCK_SIZE * 10), SPRITE_STATUS_XFLIP);
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition - (BLOCK_SIZE * 10), SPRITE_STATUS_X_FLIP);
             }
             gCurrentSprite.pose = ESCAPE_GATE_POSE_IDLE;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;

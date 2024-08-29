@@ -456,11 +456,11 @@ void SpriteDraw(struct SpriteData* pSprite, s32 slot)
     xPosition = SUB_PIXEL_TO_PIXEL_(pSprite->xPosition) - SUB_PIXEL_TO_PIXEL(gBg1XPosition);
 
     // Shortcuts for status
-    xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
+    xFlip = pSprite->status & SPRITE_STATUS_X_FLIP;
     status_unk3 = pSprite->status & SPRITE_STATUS_UNKNOWN_80;
     doubleSize = pSprite->status & SPRITE_STATUS_DOUBLE_SIZE;
     alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
-    yFlip = pSprite->status & SPRITE_STATUS_YFLIP;
+    yFlip = pSprite->status & SPRITE_STATUS_Y_FLIP;
 
     // Get graphical data
     // Palette offset by spriteset slot

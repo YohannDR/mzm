@@ -7,9 +7,9 @@
 #define SPRITE_STATUS_ROTATION_SCALING   (1 << 3)
 #define SPRITE_STATUS_UNKNOWN_10         (1 << 4)
 #define SPRITE_STATUS_MOSAIC             (1 << 5)
-#define SPRITE_STATUS_XFLIP              (1 << 6)
+#define SPRITE_STATUS_X_FLIP              (1 << 6)
 #define SPRITE_STATUS_UNKNOWN_80         (1 << 7)
-#define SPRITE_STATUS_YFLIP              (1 << 8)
+#define SPRITE_STATUS_Y_FLIP              (1 << 8)
 #define SPRITE_STATUS_FACING_RIGHT       (1 << 9)
 #define SPRITE_STATUS_FACING_DOWN        (1 << 10)
 #define SPRITE_STATUS_SAMUS_COLLIDING    (1 << 11)
@@ -392,5 +392,21 @@ enum SamusStandingOnSpriteStatus {
 
 // Represents a 100% drop change for a sprite
 #define SPRITE_DROP_MAX_PROB (1024)
+
+#define SPRITE_ISFT_POWER_BOMB_STUNNED (1 << 7)
+
+#define SPRITE_GET_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
+#define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)
+#define SPRITE_SET_ISFT(sprite, value) ((sprite).invincibilityStunFlashTimer |= (value))
+#define SPRITE_CLEAR_AND_SET_ISFT(sprite, value)\
+{                                               \
+    SPRITE_CLEAR_ISFT(sprite);                  \
+    SPRITE_SET_ISFT(sprite, value);             \
+}
+
+#define SPRITE_FREEZE_PALETTE_OFFSET 0
+#define SPRITE_STUN_PALETTE_OFFSET 1
+
+#define SPRITE_FREEZE_TIMER (CONVERT_SECONDS(4.f))
 
 #endif /* SPRITE_CONSTANTS_H */

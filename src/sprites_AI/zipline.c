@@ -463,7 +463,7 @@ void ZiplineButtonIdle(void)
     moving = FALSE;
     ramSlot = gCurrentSprite.work1;
 
-    if (SPRITE_HAS_ISFT(gCurrentSprite))
+    if (SPRITE_GET_ISFT(gCurrentSprite))
     {
         // Button hit, set moving
         gSpriteData[ramSlot].health = ZIPLINE_HEALTH_MOVING;

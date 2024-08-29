@@ -25,10 +25,8 @@
 #include "constants/animated_graphics.h"
 #include "constants/haze.h"
 #include "constants/room.h"
-#include "constants/particle.h"
-#include "constants/projectile.h"
 
-const ProjFunc_T sProcessProjectileFunctionPointers[16] = {
+const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END] = {
     [PROJ_TYPE_BEAM] = ProjectileProcessNormalBeam,
     [PROJ_TYPE_LONG_BEAM] = ProjectileProcessLongBeam,
     [PROJ_TYPE_ICE_BEAM] = ProjectileProcessIceBeam,
@@ -47,7 +45,7 @@ const ProjFunc_T sProcessProjectileFunctionPointers[16] = {
     [PROJ_TYPE_POWER_BOMB] = ProjectileProcessPowerBomb
 };
 
-const ParticleFunc_T sProcessParticleFunctionPointers[61] = {
+const ParticleFunc_T sProcessParticleFunctionPointers[PE_END] = {
     [PE_SPRITE_SPLASH_WATER_SMALL] = ParticleSpriteSplashWaterSmall,
     [PE_SPRITE_SPLASH_WATER_BIG] = ParticleSpriteSplashWaterBig,
     [PE_SPRITE_SPLASH_WATER_HUGE] = ParticleSpriteSplashWaterHuge,

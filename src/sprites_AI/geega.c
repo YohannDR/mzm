@@ -110,7 +110,7 @@ void GeegaIdle(void)
                         ramSlot = SpriteSpawnDropFollowers(PSPRITE_GEEGA_FOLLOWER, gCurrentSprite.roomSlot,
                             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
-                            gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+                            gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     
                         if (ramSlot != 0xFF)
                         {
@@ -208,7 +208,7 @@ void GeegaMove(void)
     else
     {
         gCurrentSprite.work1++;
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should respawn
             if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)

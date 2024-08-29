@@ -297,7 +297,7 @@ void BlackSpacePirateInit(void)
 
     if (gCurrentSprite.roomSlot & 0x80)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
     }
     else

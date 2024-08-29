@@ -305,7 +305,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
 
             // Check collide with mouth interior
             if (projY > (spriteY - yTopOffset) && projY < (spriteY + yBottomOffset) &&
-                pProj->direction == ACD_FORWARD && !(pProj->status & PROJ_STATUS_XFLIP))
+                pProj->direction == ACD_FORWARD && !(pProj->status & PROJ_STATUS_X_FLIP))
             {
                 // Get damage and particle effect
                 // Plasma beam isn't taken into account and is treated the same as doing nothing

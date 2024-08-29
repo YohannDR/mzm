@@ -20,7 +20,7 @@ void ZeelaSpawnEyes(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x18,
@@ -34,16 +34,16 @@ void ZeelaSpawnEyes(void)
         {
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x18,
-                gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
+                gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_X_FLIP);
 
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x18,
-                gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
+                gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_X_FLIP);
         }
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         {
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x30,
@@ -51,7 +51,7 @@ void ZeelaSpawnEyes(void)
 
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x30,
-                gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_XFLIP);
+                gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_X_FLIP);
         }
         else
         {
@@ -61,7 +61,7 @@ void ZeelaSpawnEyes(void)
 
             SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x2, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x30,
-                gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_XFLIP);
+                gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_X_FLIP);
         }
     }
 }
@@ -77,7 +77,7 @@ u8 ZeelaCheckCollidingWithAir(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -100,7 +100,7 @@ u8 ZeelaCheckCollidingWithAir(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         {
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -133,7 +133,7 @@ void ZeelaUpdateHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // On right wall
             gCurrentSprite.hitboxTop = -ZEELA_RIGHT_HITBOX;
@@ -152,7 +152,7 @@ void ZeelaUpdateHitbox(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         {
             // On ceiling
             gCurrentSprite.hitboxTop = -ZEELA_LEGS_HITBOX;
@@ -184,9 +184,9 @@ void ZeelaSetCrawlingOam(void)
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
         gCurrentSprite.pOam = sZeelaOam_OnGround;
     }
@@ -230,7 +230,7 @@ void ZeelaInit(void)
         if (gPreviousCollisionCheck & 0xF0)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
         else
@@ -252,7 +252,7 @@ void ZeelaInit(void)
                 if (gPreviousCollisionCheck & 0xF0)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
-                    gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                    gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
                     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
                     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
                 }
@@ -312,7 +312,7 @@ void ZeelaMove(void)
 
     if (SpriteUtilShouldFall())
     {
-        if (gCurrentSprite.status & (SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN))
+        if (gCurrentSprite.status & (SPRITE_STATUS_Y_FLIP | SPRITE_STATUS_FACING_DOWN))
             gCurrentSprite.pose = ZEELA_POSE_FALLING_INIT;
 
         return;
@@ -320,7 +320,7 @@ void ZeelaMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
@@ -417,7 +417,7 @@ void ZeelaMove(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
@@ -530,7 +530,7 @@ void ZeelaMove(void)
                     {
                         if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
-                            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+                            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
                             gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
                             gCurrentSprite.animationDurationCounter = 0;
                             gCurrentSprite.currentAnimationFrame = 0;
@@ -542,7 +542,7 @@ void ZeelaMove(void)
                     {
                         if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
-                            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
                             gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
                             gCurrentSprite.animationDurationCounter = 0;
                             gCurrentSprite.currentAnimationFrame = 0;
@@ -557,7 +557,7 @@ void ZeelaMove(void)
                     {
                         if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
-                            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
                             gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
                             gCurrentSprite.animationDurationCounter = 0;
                             gCurrentSprite.currentAnimationFrame = 0;
@@ -569,7 +569,7 @@ void ZeelaMove(void)
                     {
                         if (gCurrentSprite.pOam != sZeelaOam_WalkingOnSlope)
                         {
-                            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+                            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
                             gCurrentSprite.pOam = sZeelaOam_WalkingOnSlope;
                             gCurrentSprite.animationDurationCounter = 0;
                             gCurrentSprite.currentAnimationFrame = 0;
@@ -604,8 +604,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_EDGE:
@@ -614,8 +614,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningCornerRight;
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
@@ -624,8 +624,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_RIGHT_CORNER:
@@ -634,8 +634,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningEdgeLeft;
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
         
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_EDGE:
@@ -644,8 +644,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
@@ -654,8 +654,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_TOP_LEFT_CORNER:
@@ -664,8 +664,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningEdgeRight;
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
 
         case ZEELA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
@@ -674,8 +674,8 @@ void ZeelaTurningAroundInit(void)
             else
                 gCurrentSprite.pOam = sZeelaOam_TurningCornerLeft;
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             break;
 
         default:
@@ -703,7 +703,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
             }
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -715,7 +715,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition += BLOCK_SIZE;
             }
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -726,7 +726,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
             }
 
-            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -738,7 +738,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition += BLOCK_SIZE;
             }
 
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -752,7 +752,7 @@ void ZeelaTurning(void)
             else
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
-            gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
+            gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP);
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
         
@@ -766,7 +766,7 @@ void ZeelaTurning(void)
             else
                 gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
 
-            gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP);
+            gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP);
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -777,7 +777,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition += 0x1C;
             }
 
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
         
@@ -788,7 +788,7 @@ void ZeelaTurning(void)
                 gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
             }
 
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_Y_FLIP;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
@@ -832,17 +832,17 @@ void ZeelaFallingInit(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
         else
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+    else if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
    
     gCurrentSprite.pose = ZEELA_POSE_FALLING;
     gCurrentSprite.work3 = 0;
-    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN);
+    gCurrentSprite.status &= ~(SPRITE_STATUS_X_FLIP | SPRITE_STATUS_Y_FLIP | SPRITE_STATUS_FACING_DOWN);
 
     ZeelaUpdateHitbox();
     ZeelaSetFallingOam();
@@ -902,14 +902,14 @@ void ZeelaDeath(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             xPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
         else
             xPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
             yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
         else
             yPosition -= HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
@@ -1034,7 +1034,7 @@ void ZeelaEyesMove(void)
         xMovement = 3;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition += xMovement;
     else
         gCurrentSprite.xPosition -= xMovement;

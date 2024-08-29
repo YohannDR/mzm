@@ -280,9 +280,9 @@ void BaristuteIdle(void)
     // Face samus
     SpriteUtilMakeSpriteFaceSamusDirection();
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
     // Check should walk or jump, get the collision in front of the baristute
     if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
@@ -584,7 +584,7 @@ void Baristute(void)
     }
 
     // Check update palette
-    if (SPRITE_HAS_ISFT(gCurrentSprite))
+    if (SPRITE_GET_ISFT(gCurrentSprite))
     {
         // Damaged
         spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);

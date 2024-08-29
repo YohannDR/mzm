@@ -39,7 +39,7 @@ void ImagoSyncSubSprites(void)
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_Y_OFFSET];
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
     else
         gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][MULTI_SPRITE_DATA_ELEMENT_X_OFFSET];
@@ -62,7 +62,7 @@ void ImagoShootNeedles(void)
     if (gSubSpriteData1.pMultiOam == sImagoMultiSpriteData_Idle)
     {
         // Check samus in range for the needles
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             if (gSubSpriteData1.xPosition < gSamusData.xPosition)
                 inRange = TRUE;
@@ -88,11 +88,11 @@ void ImagoShootNeedles(void)
         if (gCurrentSprite.currentAnimationFrame == 0x9 && gCurrentSprite.animationDurationCounter == 0x1)
         {
             // Spawn needle
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
+                    gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_X_FLIP);
             }
             else
             {
@@ -178,7 +178,7 @@ void ImagoCoreFlashingAnim(void)
  */
 void ImagoSetSidesHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.hitboxLeft = -0x40;
         gCurrentSprite.hitboxRight = 0x18;
@@ -223,7 +223,7 @@ void ImagoInit(void)
         gCurrentSprite.xPositionSpawn = xPosition;
 
 
-        gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_IGNORE_PROJECTILES);
+        gCurrentSprite.status |= (SPRITE_STATUS_X_FLIP | SPRITE_STATUS_IGNORE_PROJECTILES);
 
         gCurrentSprite.drawDistanceTop = 0x20;
         gCurrentSprite.drawDistanceBottom = 0x28;
@@ -256,7 +256,7 @@ void ImagoInit(void)
 
         gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
-        status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
+        status = gCurrentSprite.status & SPRITE_STATUS_X_FLIP;
 
         // Spawn parts
         SpriteSpawnSecondary(SSPRITE_IMAGO_PART, IMAGO_PART_LEFT_WING_INTERNAL, gfxSlot, ramSlot, yPosition, xPosition, status);
@@ -319,7 +319,7 @@ void ImagoComingDownInit(void)
 
     if (gCurrentSprite.health == 0)
     {
-        if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
+        if (!(gCurrentSprite.status & SPRITE_STATUS_X_FLIP))
         {
             gCurrentSprite.pose = IMAGO_POSE_CHECK_SAMUS_AT_SUPER_MISSILE;
             return;
@@ -335,7 +335,7 @@ void ImagoComingDownInit(void)
     gCurrentSprite.work0 = 0;
     gCurrentSprite.work1 = 0;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gCurrentSprite.work2 = 0;
     else
     {
@@ -369,7 +369,7 @@ void ImagoComingDown(void)
     if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0xC)
         gCurrentSprite.work2++;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gSubSpriteData1.xPosition += gCurrentSprite.work2;
 
     // Check should check ground
@@ -390,7 +390,7 @@ void ImagoComingDown(void)
     }
     
     // Move Y
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         gSubSpriteData1.yPosition += 0xC;
     else
         gSubSpriteData1.yPosition += 0x14;
@@ -413,7 +413,7 @@ void ImagoMoveHorizontally(void)
     movementStage = IMAGO_MOVEMENT_STAGE_MOVING_HORIZONTALLY;
 
     // Move X
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         if (!(gCurrentSprite.work0++ & 0xF) && gCurrentSprite.work2 < 0x18)
             gCurrentSprite.work2++;
@@ -523,7 +523,7 @@ void ImagoMoveHorizontally(void)
         return;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition - QUARTER_BLOCK_SIZE);
         if (gPreviousVerticalCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
@@ -557,7 +557,7 @@ void ImagoGoingUp(void)
     {
         // Arrived at ceiling
         gSubSpriteData1.yPosition = gCurrentSprite.yPositionSpawn;
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Set X destination
             gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 48;
@@ -572,7 +572,7 @@ void ImagoGoingUp(void)
             else
             {
                 // Set coming down
-                gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
                 gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
             }
         }
@@ -590,7 +590,7 @@ void ImagoGoingUp(void)
             else
             {
                 // Set coming down
-                gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
                 gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
             }
         }
@@ -643,7 +643,7 @@ void ImagoAttackingGoingDown(void)
     if (checkGround)
     {
         // Check for ground
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
             movement = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
         else
             movement = IMAGO_SIZE;
@@ -688,7 +688,7 @@ void ImagoAttackingGoingUp(void)
     {
         // Arrived at ceiling
         gSubSpriteData1.yPosition = gCurrentSprite.yPositionSpawn;
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should attack again
             if (gSubSpriteData1.xPosition < gSamusData.xPosition && gCurrentSprite.health != 0)
@@ -700,7 +700,7 @@ void ImagoAttackingGoingUp(void)
             {
                 // Out of range or dying, set coming down
                 gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 48;
-                gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
                 gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
             }
         }
@@ -716,7 +716,7 @@ void ImagoAttackingGoingUp(void)
             {
                 // Out of range or dying, set coming down
                 gSubSpriteData1.xPosition = gCurrentSprite.xPositionSpawn;
-                gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status ^= SPRITE_STATUS_X_FLIP;
                 gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
             }
         }
@@ -732,11 +732,11 @@ void ImagoAttackingGoingUp(void)
 void ImagoDyingInit(void)
 {
     // Spawn damaged stinger
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-            gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
+            gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_X_FLIP);
     }
     else
     {
@@ -1057,7 +1057,7 @@ void ImagoSetEvent(void)
  */
 void ImagoPartSetBodySidesHitbox(void)
 {
-    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
         gCurrentSprite.hitboxLeft = -0x28;
         gCurrentSprite.hitboxRight = 0xC0;
@@ -1353,7 +1353,7 @@ void Imago(void)
         {
             if (!(gFrameCounter8Bit & 3))
             {
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                     ParticleSet(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition - BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
                 else
                     ParticleSet(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition + BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
@@ -1387,10 +1387,10 @@ void ImagoPart(void)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
-        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+    if (gSpriteData[ramSlot].status & SPRITE_STATUS_X_FLIP)
+        gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
     else
-        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+        gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
     if (gSpriteData[ramSlot].health == 0)
     {
@@ -1510,7 +1510,7 @@ void ImagoNeedle(void)
             break;
 
         case IMAGO_NEEDLE_POSE_MOVING:
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 gCurrentSprite.xPosition += 0x18;
             else
                 gCurrentSprite.xPosition -= 0x18;

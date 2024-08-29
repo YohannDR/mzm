@@ -1419,7 +1419,7 @@ void MellowSwarm(void)
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.pose = 0x9;
             if (0x78 < (gSamusData.xPosition >> 0x2) -(gBg1XPosition >> 0x2))
-                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status |= SPRITE_STATUS_X_FLIP;
             gCurrentSprite.yPositionSpawn = 0xF0;
 
             if (gCurrentSprite.spriteId == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
@@ -1479,7 +1479,7 @@ void MellowSwarm(void)
                     return;
             }
 
-            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 x_pos = gSamusData.xPosition + (gSpriteRng * 0x20);
             else
                 x_pos = gSamusData.xPosition + (gSpriteRng * -0x20);
