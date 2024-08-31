@@ -566,7 +566,7 @@ u8 TourianEscapeZebesExploding(void)
                 TOURIAN_ESCAPE_DATA.oamYPositions[i] = sTourianEscape_47cf50[TOURIAN_ESCAPE_DATA.oamFrames[i]][1];
             }
 
-            SoundPlay(0x23E);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_FIRST_ROOM_EXPLODING);
             break;
 
         case 64:
@@ -581,15 +581,15 @@ u8 TourianEscapeZebesExploding(void)
             break;
 
         case 65:
-            SoundPlay(0x23F);
+            SoundPlay(SOUND_23F);
             break;
 
         case 137:
-            SoundPlay(0x241);
+            SoundPlay(SOUND_241);
             break;
 
         case 209:
-            SoundPlay(0x243);
+            SoundPlay(SOUND_243);
             break;
 
         case 104:
@@ -605,7 +605,7 @@ u8 TourianEscapeZebesExploding(void)
                 TOURIAN_ESCAPE_DATA.oamYPositions[i] = sTourianEscape_47cf50[TOURIAN_ESCAPE_DATA.oamFrames[i]][1];
             }
 
-            SoundPlay(0x240);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_OTHER_ROOMS_EXPLODING);
             break;
 
         case 176:
@@ -621,7 +621,7 @@ u8 TourianEscapeZebesExploding(void)
                 TOURIAN_ESCAPE_DATA.oamYPositions[i] = sTourianEscape_47cf50[TOURIAN_ESCAPE_DATA.oamFrames[i]][1];
             }
 
-            SoundPlay(0x240);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_OTHER_ROOMS_EXPLODING);
             break;
 
         case 246:
@@ -674,7 +674,7 @@ u8 TourianEscapeZebesExploding(void)
             gWrittenToBLDALPHA_H = 6;
 
             var_0 = 2;
-            SoundPlay(0x244);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_LEAVING_PLANET);
             break;
 
         case 512:
@@ -936,7 +936,7 @@ u8 TourianEscapeSamusInHerShip(void)
             TOURIAN_ESCAPE_DATA.win0v_L = 0x51;
 
             TOURIAN_ESCAPE_DATA.unk_2++;
-            SoundPlay(0x245);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_REMOVING_SUIT_1);
             break;
 
         case 160:
@@ -955,7 +955,7 @@ u8 TourianEscapeSamusInHerShip(void)
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
             TOURIAN_ESCAPE_DATA.unk_2++;
 
-            SoundPlay(0x246);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_REMOVING_SUIT_2);
             break;
 
         case 200:
@@ -963,7 +963,7 @@ u8 TourianEscapeSamusInHerShip(void)
             gWrittenToBLDALPHA_L = 16;
 
             TOURIAN_ESCAPE_DATA.unk_2++;
-            SoundPlay(0x247);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_REMOVING_SUIT_3);
             break;
 
         case 352:
@@ -1215,7 +1215,7 @@ u8 TourianEscapeSamusFlyingIn(void)
             write16(REG_IME, TRUE);
 
             LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_OBJ);
-            SoundPlay(0x235);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_FLYING_IN);
             break;
 
         case 1:
@@ -1369,7 +1369,7 @@ u8 TourianEscapeSamusChasedByPirates(void)
 
         case 40:
             TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
-            SoundPlay(0x236);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_FLEEING_RIGHT_TO_LEFT);
             break;
 
         case 64:
@@ -1377,7 +1377,7 @@ u8 TourianEscapeSamusChasedByPirates(void)
             TOURIAN_ESCAPE_DATA.unk_8[2] = TRUE;
             TOURIAN_ESCAPE_DATA.unk_8[3] = TRUE;
 
-            SoundPlay(0x237);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_FLEEING_LEFT_TO_RIGHT);
             break;
 
         case 72:
@@ -1407,12 +1407,12 @@ u8 TourianEscapeSamusChasedByPirates(void)
 
         case 160:
             TOURIAN_ESCAPE_DATA.unk_8[0] = 2;
-            SoundPlay(0x238);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_PIRATES_CHASING_RIGHT_TO_LEFT);
             break;
 
         case 176:
             TOURIAN_ESCAPE_DATA.unk_8[1] = 2;
-            SoundPlay(0x239);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_PIRATES_CHASING_LEFT_TO_RIGHT);
             break;
 
         case 182:
@@ -1534,8 +1534,8 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
 
         case 2:
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
-            SoundPlay(0x23A);
-            SoundPlay(0x248);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_DODGING_SHOTS);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_PIRATES_FIRING);
             break;
 
         case 120:
@@ -1555,7 +1555,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
             break;
 
         case 368:
-            SoundPlay(0x23B);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_FLYING_AFTER_SHOTS);
             break;
 
         case 384:
@@ -1782,7 +1782,7 @@ u8 TourianEscapeSamusGettingShot(void)
             write16(REG_BG1CNT, 0x1E09);
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG1 | DCNT_OBJ;
             TOURIAN_ESCAPE_DATA.unk_8[0] = 0;
-            SoundPlay(0x23C);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_DECISIVE_SHOT);
             break;
 
         case 400:
@@ -1979,7 +1979,7 @@ u8 TourianEscapeSamusGoingToCrash(void)
             TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL |
                 BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                 BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
-            SoundPlay(0x23D);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SHIP_FREE_FALLING);
             break;
 
         case 6:
@@ -2057,7 +2057,7 @@ u8 TourianEscapeSamusCrashing(void)
             gBg0XPosition = 0;
             gBg0YPosition = 0;
 
-            SoundPlay(0x249);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_CRASHING_FALLING);
             break;
 
         case 5:
@@ -2088,7 +2088,7 @@ u8 TourianEscapeSamusCrashing(void)
                 BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
                 BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
-            SoundPlay(0x24A);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_CRASHING_COLLISION);
             break;
 
         case 288:
@@ -2176,7 +2176,7 @@ u8 TourianEscapeSamusLookingAtSky(void)
             TOURIAN_ESCAPE_DATA.oamYPositions[0] = BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE;
             TOURIAN_ESCAPE_DATA.oamPriorities[0] = 2;
 
-            SoundPlay(0x24B);
+            SoundPlay(SOUND_TOURIAN_ESCAPE_PIRATES_FLYING_OVER);
             break;
 
         case 24:

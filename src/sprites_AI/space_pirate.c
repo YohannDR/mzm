@@ -2063,7 +2063,7 @@ void SpacePirateFalling(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x167);
+            SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_LANDING);
 
         return;
     }
@@ -2195,7 +2195,7 @@ void SpacePirateWalking(void)
                     gCurrentSprite.scaling++;
 
                 if (gCurrentSprite.animationDurationCounter > 0x5 && !(gCurrentSprite.currentAnimationFrame & 0x3) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x165);
+                    SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_FOOTSTEPS);
             }
 
         }
@@ -2619,7 +2619,7 @@ void SpacePirateWalkingAlerted(void)
                     gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING;
 
                 if (gCurrentSprite.animationDurationCounter > 0x5 && !(gCurrentSprite.currentAnimationFrame & 0x3) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x165);
+                    SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_FOOTSTEPS);
             }
         }
     }
@@ -2850,7 +2850,7 @@ void SpacePirateJumping(void)
     }
 
     if (gCurrentSprite.work3 == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x166);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_JUMPING);
 
     if (gCurrentSprite.work1 == 0x1)
     {
@@ -2895,7 +2895,7 @@ void SpacePirateJumping(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x167);
+                SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_LANDING);
         }
     }
     else
@@ -3304,7 +3304,9 @@ void SpacePirateClimbingUp(void)
 
     if (gCurrentSprite.animationDurationCounter > 0x9 && !(gCurrentSprite.currentAnimationFrame & 0x3) &&
         gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x16C);
+    {
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_CLIMBING);
+    }
 }
 
 /**
@@ -3405,7 +3407,9 @@ void SpacePirateClimbingDown(void)
 
     if (gCurrentSprite.animationDurationCounter > 0x9 && !(gCurrentSprite.currentAnimationFrame & 0x3) &&
         gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x16C);
+    {
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_CLIMBING);
+    }
 }
 
 /**
@@ -3869,7 +3873,7 @@ void SpacePirateCrawling(void)
             gCurrentSprite.xPosition -= movement;
 
         if (gCurrentSprite.animationDurationCounter > 0x9 && !(gCurrentSprite.currentAnimationFrame & 0x3) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x16B);
+            SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_CRAWLING);
     }
 }
 
@@ -4080,7 +4084,7 @@ void SpacePirateDeath(u8 playSound)
     u8 type;
 
     if (playSound && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x16A);
+        SoundPlay(SOUND_SPACE_PIRATE_DYING);
 
     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     if (gAlarmTimer != 0x0)
@@ -4106,7 +4110,7 @@ void SpacePirateDeath(u8 playSound)
 void SpacePirateHitByLaserInit(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x16A);
+        SoundPlay(SOUND_SPACE_PIRATE_DYING);
 
     gCurrentSprite.pose = SPACE_PIRATE_POSE_HIT_BY_LASER;
     gCurrentSprite.health = 0x0;
@@ -4147,7 +4151,7 @@ void SpacePirateHitByLaser(void)
  */
 void SpacePirateLaserInit(void)
 {
-u8 roomSlot;
+    u8 roomSlot;
     
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -4204,7 +4208,7 @@ u8 roomSlot;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x168);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_FIRING_LASER);
 }
 
 /**
@@ -4226,7 +4230,7 @@ void SpacePirateLaserExplodingInit(void)
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
         gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-        SoundPlayNotAlreadyPlaying(0x25F);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_LASER_EXPLODING);
     }
 }
 
@@ -4635,7 +4639,7 @@ void SpacePirate(void)
     }
 
     if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN))
-        SoundPlayNotAlreadyPlaying(0x169);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_GETTING_ALERTED);
 }
 
 /**

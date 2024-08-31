@@ -326,7 +326,7 @@ void DragonFireballInit(void)
     gCurrentSprite.scaling = Q_8_8(1.f);
     gCurrentSprite.work3 = 0;
 
-    SoundPlay(0x14C);
+    SoundPlay(SOUND_DRAGON_SPITTING);
 }
 
 /**

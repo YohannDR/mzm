@@ -3,6 +3,7 @@
 
 #include "data/sprites/elevator_statue.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
@@ -154,7 +155,7 @@ void KraidElevatorStatueDelayBeforeFalling(void)
 
         // Play effects
         ScreenShakeStartHorizontal(10, 0x80 | 1);
-        SoundPlay(0x11E);
+        SoundPlay(SOUND_KRAID_ELEVATOR_STATUE_CRUMBLING);
     }
 }
 
@@ -326,7 +327,7 @@ void RidleyElevatorStatueDelayBeforeFalling(void)
 
         // Play effects
         ScreenShakeStartHorizontal(10, 0x80 | 1);
-        SoundPlay(0x11F);
+        SoundPlay(SOUND_RIDLEY_ELEVATOR_STATUE_CRUMBLING);
     }
 }
 

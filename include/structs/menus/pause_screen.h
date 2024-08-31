@@ -269,7 +269,7 @@ struct PauseScreenData {
     u8 padding_D9[16];
 
     s8 easySleepTextState;
-    u8 unk_EA;
+    u8 notPlayingEnablingNormalItemSound;
 
     struct BossFlameData bossFlameData[2];
 

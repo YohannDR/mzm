@@ -399,7 +399,7 @@ void SaveYesNoCursor(void)
                 // Check not already on left
                 if (gCurrentSprite.xPosition != SAVE_YES_NO_CURSOR_LEFT_POSITION)
                 {
-                    SoundPlay(0x207);
+                    SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
                     gCurrentSprite.xPosition = SAVE_YES_NO_CURSOR_LEFT_POSITION;
                 }
             }
@@ -408,7 +408,7 @@ void SaveYesNoCursor(void)
                 // Check not already on right
                 if (gCurrentSprite.xPosition != SAVE_YES_NO_CURSOR_RIGHT_POSITION)
                 {
-                    SoundPlay(0x207);
+                    SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
                     gCurrentSprite.xPosition = SAVE_YES_NO_CURSOR_RIGHT_POSITION;
                 }
             }
@@ -418,7 +418,7 @@ void SaveYesNoCursor(void)
                 if (gCurrentSprite.xPosition == SAVE_YES_NO_CURSOR_LEFT_POSITION)
                 {
                     // On left, "yes" option selected
-                    SoundPlay(0x208);
+                    SoundPlay(SOUND_YES_NO_CURSOR_SELECTING_YES);
                     gSpriteData[ramSlot].work1 = TRUE;
                     if (gSpriteData[ramSlot].roomSlot == MESSAGE_SAVE_PROMPT)
                     {
@@ -431,7 +431,7 @@ void SaveYesNoCursor(void)
                 else
                 {
                     // On right, "no" option selected
-                    SoundPlay(0x209);
+                    SoundPlay(SOUND_REFUSE_MENU);
                     gSpriteData[ramSlot].work1 = FALSE;
                 }
 

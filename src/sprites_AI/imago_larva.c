@@ -303,7 +303,7 @@ void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
     gCurrentSprite.work0 = 60;
     pSub->workVariable1 = 0;
 
-    SoundPlay(0xAD);
+    SoundPlay(SOUND_IMAGO_LARVA_WARNING);
 }
 
 /**
@@ -331,7 +331,7 @@ void ImagoLarvaAttackingInit(struct SubSpriteData* pSub)
     pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_ATTACKING;
-    SoundPlay(0xAE);
+    SoundPlay(SOUND_IMAGO_LARVA_ATTACKING);
 }
 
 /**
@@ -351,7 +351,7 @@ void ImagoLarvaAttacking(struct SubSpriteData* pSub)
             // Reached spawn position, set idle
             pSub->xPosition = gCurrentSprite.xPositionSpawn;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE_INIT;
-            SoundFade(0xAE, 10);
+            SoundFade(SOUND_IMAGO_LARVA_ATTACKING, CONVERT_SECONDS(1.f / 6));
         }
     }
     else
@@ -362,7 +362,7 @@ void ImagoLarvaAttacking(struct SubSpriteData* pSub)
             // Reached spawn position, set idle
             pSub->xPosition = gCurrentSprite.xPositionSpawn;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE_INIT;
-            SoundFade(0xAE, 10);
+            SoundFade(SOUND_IMAGO_LARVA_ATTACKING, CONVERT_SECONDS(1.f / 6));
         }
     }
 }
@@ -384,7 +384,7 @@ void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
     gCurrentSprite.work0 = 47;
     pSub->workVariable1 = 0;
 
-    SoundFade(0xAE, 10);
+    SoundFade(SOUND_IMAGO_LARVA_ATTACKING, CONVERT_SECONDS(1.f / 6));
 }
 
 /**
@@ -413,17 +413,17 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
     gCurrentSprite.pose = IMAGO_LARVA_POSE_DYING;
 
     // Death animation lasts for 100 frames
-    gCurrentSprite.work0 = 100;
+    gCurrentSprite.work0 = CONVERT_SECONDS(1.f) + TWO_THIRD_SECOND;
     SPRITE_CLEAR_AND_SET_ISFT(gCurrentSprite, gCurrentSprite.work0);
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.health = 1;
 
-    SoundFade(0xAE, 10);
-    SoundPlay(0xB0);
+    SoundFade(SOUND_IMAGO_LARVA_ATTACKING, CONVERT_SECONDS(1.f / 6));
+    SoundPlay(SOUND_IMAGO_LARVA_DYING);
 
     if (gCurrentSprite.spriteId == PSPRITE_IMAGO_LARVA_RIGHT)
-        FadeMusic(10);
+        FadeMusic(CONVERT_SECONDS(1.f / 6));
 }
 
 /**
@@ -613,7 +613,7 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
         if (MOD_AND(gCurrentSprite.currentAnimationFrame, 2) && gCurrentSprite.animationDurationCounter == 1)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0xAA);
+                SoundPlay(SOUND_IMAGO_LARVA_IDLE);
         }
     }
 
@@ -658,9 +658,9 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
                 speed = 1;
 
             if (speed > 1)
-                SoundPlay(0xAC);
+                SoundPlay(SOUND_IMAGO_LARVA_CRAWLING_FAST);
             else
-                SoundPlay(0xAB);
+                SoundPlay(SOUND_IMAGO_LARVA_CRAWLING_SLOW);
 
             // Update retreating counter
             if (pSub->workVariable1 < 8)
@@ -881,7 +881,7 @@ void ImagoLarva(void)
         {
             gCurrentSprite.properties &= ~SP_DAMAGED;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0xAF);
+                SoundPlay(SOUND_IMAGO_LARVA_DAMAGED);
         }
 
         // Check took damage

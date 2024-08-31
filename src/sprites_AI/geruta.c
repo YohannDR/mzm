@@ -4,8 +4,9 @@
 #include "data/sprites/geruta.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -150,7 +151,7 @@ void GerutaWarningInit(void)
     gCurrentSprite.pOam = sGerutaOAM_Warning;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x150);
+        SoundPlay(SOUND_GERUTA_WARNING);
 }
 
 /**
@@ -184,7 +185,7 @@ void GerutaCheckLaunchingAnimEnded(void)
 
         SpriteUtilMakeSpriteFaceSamusDirection();
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x14E);
+            SoundPlayNotAlreadyPlaying(SOUND_GERUTA_GOING_DOWN);
     }
 }
 
@@ -224,8 +225,8 @@ void GerutaCheckBouncingAnimEnded(void)
         gCurrentSprite.pOam = sGerutaOAM_GoingUp;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN))
-            SoundPlayNotAlreadyPlaying(0x14F);
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlayNotAlreadyPlaying(SOUND_GERUTA_GOING_UP);
     }
 }
 
@@ -239,7 +240,7 @@ void GerutaGoingUp(void)
     if (GerutaYMovement(0xC))
     {
         gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG);
-        gCurrentSprite.yPosition  += 0x34;
+        gCurrentSprite.yPosition += 0x34;
         gCurrentSprite.pose = GERUTA_POSE_BOUNCING_ON_CEILING;
 
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -268,7 +269,7 @@ void Geruta(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x151);
+            SoundPlayNotAlreadyPlaying(SOUND_GERUTA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

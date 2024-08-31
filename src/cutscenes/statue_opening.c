@@ -77,7 +77,7 @@ u8 StatueOpeningOpening(void)
                 else if (gCurrentArea == AREA_RIDLEY)
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
 
-                SoundPlay(0x231);
+                SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
             }

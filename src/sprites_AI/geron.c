@@ -4,9 +4,10 @@
 
 #include "data/sprites/geron.h"
 
-#include "constants/sprite.h"
-#include "constants/event.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/sprite.h"
 
 #include "structs/sprite.h"
 #include "structs/clipdata.h"
@@ -165,7 +166,7 @@ void Geron(void)
                 gCurrentSprite.animationDurationCounter = 0;
 
                 gCurrentSprite.work0 = 200;
-                SoundPlayNotAlreadyPlaying(0x26C);
+                SoundPlayNotAlreadyPlaying(SOUND_GERON_BREAKING);
             }
             else
             {
@@ -178,7 +179,7 @@ void Geron(void)
                         gCurrentSprite.pOam = sGeronOAM_Shaking;
                         gCurrentSprite.currentAnimationFrame = 0;
                         gCurrentSprite.animationDurationCounter = 0;
-                        SoundPlayNotAlreadyPlaying(0x26B);
+                        SoundPlayNotAlreadyPlaying(SOUND_GERON_SHAKING);
                     }
                 }
                 else

@@ -174,7 +174,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             pSprite->animationDurationCounter = 0;
             pSprite->currentAnimationFrame = 0;
 
-            SoundPlay(0x1CE);
+            SoundPlay(SOUND_KRAID_OPENING_MOUTH);
         }
         else if (SpriteUtilCheckEndCurrentSpriteAnim() && gSpriteRng < 5)
         {
@@ -194,7 +194,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             pSprite->animationDurationCounter = 0;
             pSprite->currentAnimationFrame = 0;
 
-            SoundPlay(0x1CE);
+            SoundPlay(SOUND_KRAID_OPENING_MOUTH);
         }
         else if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
@@ -242,7 +242,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 pSprite->animationDurationCounter = 0;
                 pSprite->currentAnimationFrame = 0;
 
-                SoundPlay(0x1CE);
+                SoundPlay(SOUND_KRAID_OPENING_MOUTH);
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
@@ -392,7 +392,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 {
                     pSprite->invincibilityStunFlashTimer &= 0x80;
                     pSprite->invincibilityStunFlashTimer |= 0x11;
-                    SoundPlay(0x1CF);
+                    SoundPlay(SOUND_KRAID_DAMAGED);
                 }
                 else
                 {
@@ -644,7 +644,7 @@ void KraidPartUpdateRightArmAttackingHitbox(void)
             gCurrentSprite.hitboxBottom = 0;
             gCurrentSprite.hitboxLeft = 0xD0;
             gCurrentSprite.hitboxRight = 0x120;
-            SoundPlay(0x1C2);
+            SoundPlay(SOUND_KRAID_RIGHT_ARM_DYING_1);
             break;
 
         case 0x1:
@@ -673,7 +673,7 @@ void KraidPartUpdateRightArmAttackingHitbox(void)
             gCurrentSprite.hitboxBottom = -0xA0;
             gCurrentSprite.hitboxLeft = 0x70;
             gCurrentSprite.hitboxRight = 0xA0;
-            SoundPlay(0x1C3);
+            SoundPlay(SOUND_KRAID_RIGHT_ARM_DYING_2);
             break;
 
         case 0x5:
@@ -842,7 +842,7 @@ void KraidPartUpdateLeftArmDyingHitbox(void)
             gCurrentSprite.hitboxBottom = -0x40;
             gCurrentSprite.hitboxLeft = 0x8;
             gCurrentSprite.hitboxRight = 0x80;
-            SoundPlay(0x1C0);
+            SoundPlay(SOUND_KRAID_LEFT_ARM_DYING_1);
             break;
 
         case 0x1:
@@ -871,7 +871,7 @@ void KraidPartUpdateLeftArmDyingHitbox(void)
             gCurrentSprite.hitboxBottom = -0x180;
             gCurrentSprite.hitboxLeft = -0x40;
             gCurrentSprite.hitboxRight = 0x40;
-            SoundPlay(0x1C1);
+            SoundPlay(SOUND_KRAID_LEFT_ARM_DYING_2);
             break;
 
         case 0x5:
@@ -927,7 +927,7 @@ void KraidPartUpdateLeftArmAttackingHitbox(void)
             gCurrentSprite.hitboxBottom = -0x20;
             gCurrentSprite.hitboxLeft = 0;
             gCurrentSprite.hitboxRight = 0x80;
-            SoundPlay(0x1C4);
+            SoundPlay(SOUND_KRAID_LEFT_ARM_ATTACKING_1);
             break;
 
         case 0x1:
@@ -970,7 +970,7 @@ void KraidPartUpdateLeftArmAttackingHitbox(void)
             gCurrentSprite.hitboxBottom = -0x100;
             gCurrentSprite.hitboxLeft = -0x80;
             gCurrentSprite.hitboxRight = -0x8;
-            SoundPlay(0x1C5);
+            SoundPlay(SOUND_KRAID_LEFT_ARM_ATTACKING_2);
             break;
 
         case 0x7:
@@ -1034,7 +1034,7 @@ void KraidPartUpdateLeftArmAttackingHitbox(void)
             gCurrentSprite.hitboxBottom = -0x40;
             gCurrentSprite.hitboxLeft = 0x10;
             gCurrentSprite.hitboxRight = 0x90;
-            SoundPlay(0x1C6);
+            SoundPlay(SOUND_KRAID_LEFT_ARM_ATTACKING_3);
             break;
 
         case 0x10:
@@ -1202,7 +1202,7 @@ u8 KraidMoveUp(void)
 void KraidGoUp(void)
 {
     if (gCurrentSprite.work1 == 0)
-        SoundPlay(0x1BF);
+        SoundPlay(SOUND_KRAID_RISING);
 
     gCurrentSprite.work1++;
 
@@ -1266,7 +1266,7 @@ u8 KraidMoveFeet(void)
                 SpriteDebrisInit(0, 0x12, yPosition, xPosition + 0xC);
                 SpriteDebrisInit(0, 0x13, yPosition - 0x2A, xPosition + 0x14);
                 SpriteDebrisInit(0, 0x4, yPosition - 0x18, xPosition - 0x1e);
-                SoundPlay(0x138);
+                SoundPlay(SOUND_138);
                 yPosition -= (BLOCK_SIZE * 8);
                 xPosition -= BLOCK_SIZE;
 
@@ -1531,7 +1531,7 @@ void KraidDyingInit(void)
     gCurrentSprite.drawOrder = 0xC;
     EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_KILLED);
     MinimapUpdateChunk(EVENT_KRAID_KILLED);
-    SoundPlay(0x1D0);
+    SoundPlay(SOUND_KRAID_DYING_1);
 }
 
 /**
@@ -1574,7 +1574,7 @@ void KraidDying(void)
             if (gCurrentSprite.work2 == 0x1)
                 StartEffectForCutscene(EFFECT_CUTSCENE_STATUE_OPENING); // Statue opening
             else if (gCurrentSprite.work2 == 0)
-                SoundPlay(0x1D2);
+                SoundPlay(SOUND_KRAID_DYING_3);
         }
 
         // Play effects
@@ -1596,7 +1596,7 @@ void KraidDying(void)
         {
             gCurrentSprite.pose = KRAID_POSE_DEAD_STATIONARY;
             gCurrentSprite.work0 = 0x78;
-            SoundPlay(0x1D1);
+            SoundPlay(SOUND_KRAID_DYING_2);
         }
         else
         {
@@ -2459,7 +2459,7 @@ void Kraid(void)
                 {
                     gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
-                    SoundPlay(0x1CC);
+                    SoundPlay(SOUND_KRAID_STOMPING_FEET);
                     if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
@@ -2493,7 +2493,7 @@ void Kraid(void)
                 {
                     gBg2Movement.yOffset += 4;
                     ScreenShakeStartVertical(10, 0x80 | 1);
-                    SoundPlay(0x1CC);
+                    SoundPlay(SOUND_KRAID_STOMPING_FEET);
                     if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
                     {
                         ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
@@ -2688,7 +2688,7 @@ void KraidSpike(void)
             gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.work0 = 0x14;
-            SoundPlay(0x1C7);
+            SoundPlay(SOUND_KRAID_SPIKE_SPAWNING);
             
         case KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING:
             caf = gCurrentSprite.currentAnimationFrame;
@@ -2714,7 +2714,7 @@ void KraidSpike(void)
                 {
                     gCurrentSprite.pose = KRAID_SPIKE_POSE_MOVING;
                     gCurrentSprite.work0 = 0x4;
-                    SoundPlay(0x1C8);
+                    SoundPlay(SOUND_KRAID_SPIKE_EMERGING);
                 }
             }
 
@@ -2758,7 +2758,7 @@ void KraidSpike(void)
                         if (!(gSubSpriteData1.workVariable3 & 0x1))
                         {
                             gSubSpriteData1.workVariable3 |= 0x1;
-                            SoundPlay(0x1C9);
+                            SoundPlay(SOUND_KRAID_SPIKE_DESTROYING_PLATFORM);
                         }
                     }
                     else if (gCurrentSprite.roomSlot == KRAID_PART_MIDDLE_HOLE_LEFT)
@@ -2766,7 +2766,7 @@ void KraidSpike(void)
                         if (!(gSubSpriteData1.workVariable3 & 0x2))
                         {
                             gSubSpriteData1.workVariable3 |= 0x2;
-                            SoundPlay(0x1CA);
+                            SoundPlay(SOUND_KRAID_SPIKE_DESTROYING_BLOCKS);
                         }
                         gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                         ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
@@ -2779,7 +2779,7 @@ void KraidSpike(void)
                         if (!(gSubSpriteData1.workVariable3 & 0x4))
                         {
                             gSubSpriteData1.workVariable3 |= 0x4;
-                            SoundPlay(0x1CA);
+                            SoundPlay(SOUND_KRAID_SPIKE_DESTROYING_BLOCKS);
                         }
                         gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                         ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
@@ -2823,7 +2823,7 @@ void KraidSpike(void)
                     gCurrentSprite.yPositionSpawn = 0x168;
                     gCurrentSprite.pose = KRAID_SPIKE_POSE_IN_WALL;
                     gCurrentSprite.drawOrder = 0x4;
-                    SoundPlay(0x1CB);
+                    SoundPlay(SOUND_KRAID_SPIKE_HITTING_WALL);
                 }
             }
             break;
@@ -2848,7 +2848,7 @@ void KraidSpike(void)
                 gSamusData.standingStatus = STANDING_MIDAIR;
             gCurrentSprite.status = 0;
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x50, PE_SPRITE_EXPLOSION_HUGE);
-            SoundPlay(0x138);
+            SoundPlay(SOUND_138);
             break;
     }
 }

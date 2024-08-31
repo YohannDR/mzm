@@ -10,6 +10,7 @@
 #include "data/menus/pause_screen_sub_menus_data.h"
 #include "data/menus/internal_pause_screen_sub_menus_data.h"
 
+#include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/event.h"
 #include "constants/menus/pause_screen.h"
@@ -33,13 +34,13 @@ u32 PauseScreenEasySleepSubroutine(void)
             // On NO option
             if (gChangedInput & KEY_A)
             {
-                SoundPlay(0x209);
+                SoundPlay(SOUND_REFUSE_MENU);
                 action = 2;
             }
             else if (gChangedInput & KEY_LEFT)
             {
                 // Goto YES option
-                SoundPlay(0x207);
+                SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
                 PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE;
             }
@@ -54,14 +55,14 @@ u32 PauseScreenEasySleepSubroutine(void)
             // On YES option
             if (gChangedInput & KEY_A)
             {
-                SoundPlay(0x208);
+                SoundPlay(SOUND_YES_NO_CURSOR_SELECTING_YES);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage = 2;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             }
             else if (gChangedInput & KEY_RIGHT)
             {
                 // Goto NO option
-                SoundPlay(0x207);
+                SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
                 PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE;
             }
@@ -116,7 +117,7 @@ u32 PauseScreenEasySleepSubroutine(void)
             break;
 
         case 5:
-            if (gButtonInput == 0)
+            if (gButtonInput == KEY_NONE)
                 PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
             break;
     }
@@ -127,7 +128,7 @@ u32 PauseScreenEasySleepSubroutine(void)
         PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
 
         if (action == 1)
-            SoundPlay(0x206);
+            SoundPlay(SOUND_CLOSING_EASY_SLEEP_SCREEN);
     }
 
     return action;

@@ -11,6 +11,7 @@
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
+#include "constants/in_game_cutscene.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
@@ -279,7 +280,7 @@ u8 RuinsTestCheckSymbolShooted(void)
 {
     if (gCurrentSprite.invincibilityStunFlashTimer != 0 && gCurrentSprite.health != 100)
     {
-        SoundPlay(0x1D9);
+        SoundPlay(SOUND_RUINS_TEST_SHOOTABLE_SYMBOL_SHOT);
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.health = 100;
 
@@ -538,7 +539,7 @@ void RuinsTestSpawning(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = RUINS_TEST_POSE_TURNING_INTO_REFLECTION;
-        SoundPlay(0x1D5);
+        SoundPlay(SOUND_RUINS_TEST_TURNING_INTO_FIRST_REFLECTION);
     }
 }
 
@@ -1131,7 +1132,7 @@ void RuinsTestGhostSpawn(void)
             gCurrentSprite.pOam = sRuinsTestGhostOam_Moving;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.animationDurationCounter = 0;
-            SoundPlay(0x1D7);
+            SoundPlay(SOUND_RUINS_TEST_GHOST_SPANWING);
         }
     }
 }
@@ -1186,7 +1187,7 @@ void RuinsTestGhostIdle(void)
             gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.status |= SPRITE_STATUS_ALPHA_BLENDING;
-            SoundPlay(0x1DF);
+            SoundPlay(SOUND_RUINS_TEST_GHOST_FADING_OUT);
         }
     }
 }
@@ -1322,7 +1323,7 @@ void RuinsTestGhostMoveSymbolToPlace(void)
 
         gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN_10;
         gCurrentSprite.drawOrder = 14;
-        SoundPlay(0x1DA);
+        SoundPlay(SOUND_RUINS_TEST_SYMBOL_PLACED);
     }
     else
     {
@@ -1453,7 +1454,7 @@ void RuinsTestGhostSymbolDelayBeforePlacingAtEndOfFight(void)
         gCurrentSprite.pOam = sRuinsTestGhostOam_SymbolPlacing;
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
-        SoundPlay(0x1E0);
+        SoundPlay(SOUND_RUINS_TEST_SYMBOLS_LIGHTING_UP);
     }
 }
 
@@ -1610,7 +1611,7 @@ void RuinsTestSymbol(void)
                 gCurrentSprite.currentAnimationFrame = 1;
                 gCurrentSprite.animationDurationCounter = 0;
                 PlayMusic(MUSIC_RUINS_TEST_BATTLE_WITH_INTRO, 0);
-                SoundPlay(0x1D3);
+                SoundPlay(SOUND_RUINS_TEST_SPAWNING);
             }
             break;
 
@@ -1651,7 +1652,7 @@ void RuinsTestSymbol(void)
                     case 10:
                         RUINS_TEST_TRANSFER_DYNAMIC_PAL(sRuinsTestPal_SymbolShot_Frame3, ARRAY_SIZE(sRuinsTestPal_SymbolShot_Frame3));
 
-                        SoundPlay(0x1D4);
+                        SoundPlay(SOUND_RUINS_TEST_SYMBOLS_MERGING);
                         break;
                 }
             }
@@ -1885,13 +1886,13 @@ void RuinsTestGhostOutline(void)
                 else
                     gCurrentSprite.pOam = sRuinsTestGhostOutlineOam_Spawning;
 
-                SoundPlay(0x1DB);
+                SoundPlay(SOUND_RUINS_TEST_LIGHTNING_WARNING);
             }
             else
             {
                 gCurrentSprite.drawOrder = 13;
                 gCurrentSprite.pOam = sRuinsTestGhostOutlineOam_Spawning;
-                SoundPlay(0x1D6);
+                SoundPlay(SOUND_RUINS_TEST_OUTLINE_SPAWNING);
             }
 
             gCurrentSprite.pose = 0x9;
@@ -1901,7 +1902,7 @@ void RuinsTestGhostOutline(void)
             if (gCurrentSprite.roomSlot != RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE && gCurrentSprite.currentAnimationFrame == 4 &&
                 gCurrentSprite.animationDurationCounter == 8)
             {
-                MakeBackgroundFlash(0x3); // Undefined || Quick flash
+                MakeBackgroundFlash(BG_FLASH_QUICK_YELLOW);
 
                 // Spawn lightning
                 if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_GROUND_LIGHTNING)
@@ -1967,7 +1968,7 @@ void RuinsTestShootableSymbol(void)
 
             gCurrentSprite.pose = RUINS_TEST_SHOOTABLE_SYMBOL_POSE_SPAWNING;
             gCurrentSprite.samusCollision = SSC_NONE;
-            SoundPlay(0x1D8);
+            SoundPlay(SOUND_RUINS_TEST_SHOOTABLE_SYMBOL);
             break;
 
         case RUINS_TEST_SHOOTABLE_SYMBOL_POSE_SPAWNING:
@@ -1989,7 +1990,7 @@ void RuinsTestShootableSymbol(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.pose = RUINS_TEST_SHOOTABLE_SYMBOL_POSE_DESPAWNING;
-                SoundFade(0x1D8, 0x28);
+                SoundFade(SOUND_RUINS_TEST_SHOOTABLE_SYMBOL, TWO_THIRD_SECOND);
             }
             break;
 
@@ -2308,7 +2309,7 @@ void RuinsTestLightning(void)
                     // Static lightning, kill
                     gCurrentSprite.status = 0;
                     ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
-                    SoundPlay(0x1DD);
+                    SoundPlay(SOUND_RUINS_TEST_STATIC_LIGHTNING_HITTING_GROUND);
                 }
                 else
                 {
@@ -2318,7 +2319,7 @@ void RuinsTestLightning(void)
                     gCurrentSprite.animationDurationCounter = 0;
 
                     gCurrentSprite.pose = RUINS_TEST_LIGHTNING_POSE_GOING_ON_GROUND;
-                    SoundPlay(0x1DE);
+                    SoundPlay(SOUND_RUINS_TEST_GROUND_LIGHTNING_MOVING);
                 }
             }
             else
@@ -2330,7 +2331,7 @@ void RuinsTestLightning(void)
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
-                        SoundPlay(0x1DC);
+                        SoundPlay(SOUND_RUINS_TEST_SHOOTING_LIGHTNING);
                     }
                 }
             }
@@ -2352,7 +2353,7 @@ void RuinsTestLightning(void)
             if (gCurrentSprite.roomSlot == RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT)
             {
                 if (MOD_AND(gCurrentSprite.work0++, 32) == 0)
-                    SoundPlay(0x1DE);
+                    SoundPlay(SOUND_RUINS_TEST_GROUND_LIGHTNING_MOVING);
             }
 
             // Move
@@ -2390,7 +2391,7 @@ void RuinsTestLightning(void)
             if (gCurrentSprite.roomSlot == RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT)
             {
                 if (MOD_AND(gCurrentSprite.work0++, 32) == 0)
-                    SoundPlay(0x1DE);
+                    SoundPlay(SOUND_RUINS_TEST_GROUND_LIGHTNING_MOVING);
             }
             // Move
             gCurrentSprite.yPosition -= velocity;

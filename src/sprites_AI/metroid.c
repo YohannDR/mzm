@@ -6,6 +6,7 @@
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -483,14 +484,16 @@ u8 MetroidCheckSamusGrabbed(void)
 }
 
 /**
- * @brief 359a4 | 2c | Plays the metroid sound
+ * @brief 359a4 | 2c | Plays the metroid moving sound
  * 
  */
-void MetroidPlaySound(void)
+void MetroidPlayMovingSound(void)
 {
-    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1
-        && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x170);
+    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlayNotAlreadyPlaying(SOUND_METROID_MOVING);
+    }
 }
 
 /**
@@ -699,7 +702,7 @@ void MetroidMovingInit(void)
  */
 void MetroidMovement(void)
 {
-    MetroidPlaySound();
+    MetroidPlayMovingSound();
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         // Colliding with samus
@@ -752,7 +755,7 @@ void MetroidSamusGrabbed(void)
     u8 flags;
     u8 suits;
 
-    MetroidPlaySound();
+    MetroidPlayMovingSound();
     MetroidCheckBouncingOnMetroid(0x2);
 
     gCurrentSprite.work0--; // Delay between palette swap
@@ -805,18 +808,18 @@ void MetroidSamusGrabbed(void)
         // Check play sucking sound
         if (MOD_AND(gCurrentSprite.rotation, 32) == 0)
         {
-            SoundPlayNotAlreadyPlaying(0x81);
+            SoundPlayNotAlreadyPlaying(SOUND_METROID_LEECHING);
 
             flags = gEquipment.suitMiscActivation;
             velocity = SMF_ALL_SUITS;
             velocity &= flags;
 
-            if (!velocity)
-                SoundPlay(0x16D);
+            if (velocity == SMF_NONE)
+                SoundPlay(SOUND_METROID_SUCKING_NO_SUIT);
             else if (velocity == SMF_ALL_SUITS)
-                SoundPlay(0x16F);
+                SoundPlay(SOUND_METROID_SUCKING_ALL_SUITS);
             else
-                SoundPlay(0x16E);
+                SoundPlay(SOUND_METROID_SUCKING_ONE_SUIT);
         }
 
         gCurrentSprite.rotation++; // Sound counter
@@ -923,7 +926,7 @@ void Metroid(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x172);
+            SoundPlayNotAlreadyPlaying(SOUND_METROID_DAMAGED);
     }
     else
     {
@@ -932,7 +935,7 @@ void Metroid(void)
             if (gCurrentSprite.health == gCurrentSprite.yPositionSpawn)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x171);
+                    SoundPlayNotAlreadyPlaying(SOUND_METROID_DETACHED);
             }
             else
                 gCurrentSprite.yPositionSpawn = gCurrentSprite.health;

@@ -3,8 +3,9 @@
 
 #include "data/sprites/piston.h"
 
-#include "constants/sprite.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/sprite.h"
 
 #include "structs/display.h"
 #include "structs/sprite.h"
@@ -184,7 +185,7 @@ void PistonCheckProjectile(void)
 
             gCurrentSprite.pose = PISTON_POSE_OPENING;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            SoundPlay(0x173);
+            SoundPlay(SOUND_PISTON_EXTENDING);
         }
     }
     else if (!PistonSamusCollision())

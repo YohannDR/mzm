@@ -4,8 +4,9 @@
 #include "data/sprites/zoomer.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -834,7 +835,7 @@ void Zoomer(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x147);
+            SoundPlayNotAlreadyPlaying(SOUND_ZOOMER_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

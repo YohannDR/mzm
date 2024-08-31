@@ -81,10 +81,10 @@ void CutsceneUpdateMusicAfterSkip(void)
             break;
 
         case CUTSCENE_RIDLEY_SPAWNING:
-            SoundPlay(0x24C);
+            SoundPlay(SOUND_RIDLEY_SPAWN_ROAR);
     }
 
-    FadeAllSounds(10);
+    FadeAllSounds(CONVERT_SECONDS(1.f / 6));
 }
 
 /**
@@ -119,12 +119,12 @@ void CutsceneEnd(void)
         case CUTSCENE_STATUE_OPENING:
             if (gCurrentArea == AREA_KRAID)
             {
-                SoundStop(0x1C);
+                SoundStop(MUSIC_STATUE_ROOM_OPENED);
                 unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, 60);
             }
             else if (gCurrentArea == AREA_RIDLEY)
             {
-                SoundStop(0x1C);
+                SoundStop(MUSIC_STATUE_ROOM_OPENED);
                 unk_3bd0(MUSIC_RIDLEY_BATTLE, 60);
             }
     }

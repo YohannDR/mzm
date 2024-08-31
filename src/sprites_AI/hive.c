@@ -4,9 +4,10 @@
 #include "data/sprites/hive.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
+#include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
-#include "constants/event.h"
 #include "constants/sprite_util.h"
 
 #include "structs/bg_clip.h"
@@ -131,7 +132,7 @@ void HivePhase1(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x23;
-        SoundPlayNotAlreadyPlaying(0x160);
+        SoundPlayNotAlreadyPlaying(SOUND_HIVE_SHRINKING);
         HiveSpawnParticle();
     }
 }
@@ -155,7 +156,7 @@ void HivePhase2(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x25;
-        SoundPlayNotAlreadyPlaying(0x160);
+        SoundPlayNotAlreadyPlaying(SOUND_HIVE_SHRINKING);
         HiveSpawnParticle();
     }
 }
@@ -226,7 +227,7 @@ void HiveDying(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.samusCollision = SSC_NONE;
-        SoundPlayNotAlreadyPlaying(0x161);
+        SoundPlayNotAlreadyPlaying(SOUND_HIVE_DEAD);
         HiveSpawnParticle();
     }
 }
@@ -706,7 +707,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         pSprite->scaling = 32;
         if (pSprite->status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x15E);
+            SoundPlayNotAlreadyPlaying(SOUND_MELLOW_MOVING);
     }
 }
 #else
@@ -1351,7 +1352,7 @@ void Mellow(void)
     {
         pSprite->properties &= ~SP_DAMAGED;
         if (pSprite->status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x15F);
+            SoundPlayNotAlreadyPlaying(SOUND_MELLOW_DAMAGED);
     }
     
     if (pSprite->freezeTimer != 0x0)

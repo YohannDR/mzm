@@ -149,6 +149,15 @@
 #define FRACT_MUL(value, num, den) ((value) * (num) / (den))
 
 /**
+ * @brief Multiplies a number by a floating point using a fraction. The float value must only have one floating digit.
+ * 
+ * @param value Value
+ * @param f Floating point value
+ * 
+ */
+#define FLOAT_MUL(value, f) ((value) * ((s32)((f) * 10)) / 10)
+
+/**
  * @brief Performs a semi-modulo (value & mod) operation on a value using the and operation (WARNING only use a value for mod that is a power of 2)
  * This creates a cyclic value of the modulo, that swaps every "mod" times.
  * e.g., with mod = 4, and value starting from 0 and incremeting, the macro will yield 0, 4 times, then 4, 4 times, then 0 again 4 times...

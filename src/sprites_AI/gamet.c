@@ -4,6 +4,7 @@
 #include "data/sprites/gamet.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -101,7 +102,7 @@ void GametIdle(void)
                     SpriteUtilMakeSpriteFaceSamusXFlip();
     
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                        SoundPlay(0x179);
+                        SoundPlay(SOUND_GAMET_RISING);
     
                     if (gCurrentSprite.spriteId == PSPRITE_GAMET_BLUE_LEADER)
                     {
@@ -215,7 +216,7 @@ void GametMove(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x17A);
+                SoundPlay(SOUND_GAMET_MOVING);
 
             gCurrentSprite.work1 = 0x0;
         }
@@ -247,7 +248,7 @@ void GametMove(void)
         }
 
         if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x17A);
+            SoundPlay(SOUND_GAMET_MOVING);
     }
 }
 
@@ -261,7 +262,7 @@ void Gamet(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x17B);
+            SoundPlayNotAlreadyPlaying(SOUND_GAMET_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

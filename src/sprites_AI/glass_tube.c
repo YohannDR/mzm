@@ -2,6 +2,7 @@
 
 #include "data/sprites/glass_tube.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/clipdata.h"
@@ -116,7 +117,7 @@ void GlassTubeInit(void)
     }
 
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-        SoundPlay(0x122);
+        SoundPlay(SOUND_RAIN_HITTING_GROUND);
 }
 
 /**
@@ -179,7 +180,7 @@ void GlassTubeDelayBeforeBreaking(void)
         gCurrentSprite.pOam = sGlassTubeOAM_Cracking;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x27A);
+        SoundPlay(SOUND_GLASS_TUBE_BREAKING);
     }
 }
 

@@ -1,13 +1,17 @@
 #include "sprites_AI/geron.h"
 #include "sprites_AI/parasite.h"
+
 #include "data/sprites/parasite.h"
 #include "data/sprite_data.h"
+
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
 #include "constants/projectile.h"
 #include "constants/sprite_util.h"
 #include "constants/samus.h"
+
 #include "structs/connection.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
@@ -750,11 +754,11 @@ void ParasiteIdle(struct SpriteData* pSprite)
             {
                 timer = pSprite->work3;
                 if (timer < 0x8)
-                    SoundPlayNotAlreadyPlaying(0x174);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_1);
                 else if (timer > 0xB)
-                    SoundPlayNotAlreadyPlaying(0x176);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_3);
                 else
-                    SoundPlayNotAlreadyPlaying(0x175);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_2);
             }
         }
         else
@@ -859,11 +863,11 @@ void ParasiteMultipleIdle(struct SpriteData* pSprite)
             {
                 timer = pSprite->work3;
                 if (timer < 0x8)
-                    SoundPlayNotAlreadyPlaying(0x174);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_1);
                 else if (timer > 0xB)
-                    SoundPlayNotAlreadyPlaying(0x176);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_3);
                 else
-                    SoundPlayNotAlreadyPlaying(0x175);
+                    SoundPlayNotAlreadyPlaying(SOUND_PARASITE_JUMPING_2);
             }
         }
         else

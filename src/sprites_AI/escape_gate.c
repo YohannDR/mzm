@@ -4,6 +4,7 @@
 
 #include "data/sprites/escape_gate.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -138,7 +139,7 @@ void EscapeGate(void)
                 gCurrentSprite.animationDurationCounter = 0;
 
                 gCurrentSprite.pose = ESCAPE_GATE_POSE_OPENING;
-                SoundPlay(0x24D);
+                SoundPlay(SOUND_ESCAPE_GATE_OPENING);
             }
             break;
 

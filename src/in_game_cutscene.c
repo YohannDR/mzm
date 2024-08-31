@@ -349,9 +349,9 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             gSuitFlashEffect.timer = 0;
 
             if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_VARIA)
-                SoundPlay(0x222); // Varia upgrade sound
+                SoundPlay(SOUND_ACQUIRING_VARIA);
             else if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_GRAVITY)
-                SoundPlay(0x223); // Gravity upgrade sound
+                SoundPlay(SOUND_ACQUIRING_GRAVITY);
 
             changeStage = TRUE;
             break;

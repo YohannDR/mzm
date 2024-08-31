@@ -236,12 +236,12 @@ void AcidWormPlayRetractingSound(void)
     if (gSubSpriteData1.workVariable3 == FALSE)
     {
         // Extended into block
-        SoundPlay(0x1B0);
+        SoundPlay(SOUND_ACID_WORM_RETRACT);
     }
     else
     {
         // Extended above block
-        SoundPlay(0x1AC);
+        SoundPlay(SOUND_ACID_WORM_RETRACT_FROM_SPIT);
     }
 }
 
@@ -402,11 +402,11 @@ void AcidWormSpawnStart(void)
         // Destroy bottom
         AcidWormChangeBigBlockDownCcaa(CAA_REMOVE_SOLID);
 
-        ScreenShakeStartVertical(60, 0x80 | 1);
-        ScreenShakeStartHorizontal(60, 0x80 | 1);
+        ScreenShakeStartVertical(CONVERT_SECONDS(1.f), 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f), 0x80 | 1);
 
-        SoundPlay(0x1A7);
-        SoundPlay(0x1A8);
+        SoundPlay(SOUND_ACID_WORM_DESTROYING_BLOCKS);
+        SoundPlay(SOUND_ACID_WORM_STRAIGHT_EXTEND);
 
         PlayMusic(MUSIC_WORMS_BATTLE, 0);
     }
@@ -423,20 +423,20 @@ void AcidWormSpawnExtending(void)
     oldY = gCurrentSprite.yPosition;
 
     // Check if extended 7 blocks
-    if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 7))
+    if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 7)
     {
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_ON_TOP;
         gCurrentSprite.pOam = sAcidWormOam_SpawnOnTop;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        SoundPlay(0x1AA);
+        SoundPlay(SOUND_ACID_WORM_SCREAM);
     }
     else
     {
         // Go up and play going out of acid effect
         gCurrentSprite.yPosition -= QUARTER_BLOCK_SIZE;
         if (SpriteUtilCheckOutOfRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
-            SoundPlay(0x1BB);
+            SoundPlay(SOUND_ACID_WORM_SPLASHING);
 
         // Lower acid
         gEffectYPositionOffset++;
@@ -462,7 +462,7 @@ void AcidWormSpawnStayingOnTop(void)
         gCurrentSprite.pOam = sAcidWormOam_MouthClosed;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
-        SoundPlay(0x1A9);
+        SoundPlay(SOUND_ACID_WORM_STRAIGHT_GOING_DOWN);
     }
 }
 
@@ -496,7 +496,7 @@ void AcidWormSpawnRetracting(void)
         // Go down
         gCurrentSprite.yPosition += QUARTER_BLOCK_SIZE;
         if (SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
-            SoundPlay(0x1BB);
+            SoundPlay(SOUND_ACID_WORM_SPLASHING);
 
         // Check should rise liquid
         if (gEffectYPosition > gSubSpriteData1.health)
@@ -564,7 +564,7 @@ void AcidWormIdle(void)
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
     SpriteUtilMakeSpriteFaceSamusDirection();
     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-    SoundPlay(0x1B5);
+    SoundPlay(SOUND_ACID_WORM_OPENING_MOUTH);
 }
 
 /**
@@ -614,14 +614,14 @@ void AcidWormExtend(void)
             if (!gSubSpriteData1.workVariable3)
             {
                 if (gCurrentSprite.health <= spawnHealth / 4)
-                    SoundPlay(0x1AF);
+                    SoundPlay(SOUND_ACID_WORM_EXTEND_FAST);
                 else if (gCurrentSprite.health <= spawnHealth / 2)
-                    SoundPlay(0x1AE);
+                    SoundPlay(SOUND_ACID_WORM_EXTEND_NORMAL);
                 else
-                    SoundPlay(0x1AD);
+                    SoundPlay(SOUND_ACID_WORM_EXTEND_SLOW);
             }
             else
-                SoundPlay(0x1AB);
+                SoundPlay(SOUND_ACID_WORM_EXTEND_TO_SPIT);
         }
 
         return;
@@ -683,7 +683,7 @@ void AcidWormExtend(void)
     AcidWormHandleRotation();
 
     if (SpriteUtilCheckOutOfRoomEffect(yPosition, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
-        SoundPlay(0x1BB);
+        SoundPlay(SOUND_ACID_WORM_SPLASHING);
 
     if (!AcidWormCollidingWithSamusWhenExtending() && checks == 3) // Everything done
     {
@@ -714,7 +714,7 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x12, yPosition + 0x40, xPosition);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                 gCurrentSprite.work0 = 0x78; // Timer to stay
-                SoundPlay(0x1B3);
+                SoundPlay(SOUND_ACID_WORM_CRASHING_FAST);
             }
             else if (gCurrentSprite.health <= spawnHealth / 2)
             {
@@ -726,7 +726,7 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_BIG);
                 gCurrentSprite.work0 = 0x8C; // Timer to stay
-                SoundPlay(0x1B2);
+                SoundPlay(SOUND_ACID_WORM_CRASHING_NORMAL);
             }
             else
             {
@@ -736,7 +736,7 @@ void AcidWormExtend(void)
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
                 gCurrentSprite.work0 = 0xA0; // Timer to stay
-                SoundPlay(0x1B1);
+                SoundPlay(SOUND_ACID_WORM_CRASHING_SLOW);
             }
 
             // Update timer based on difficulty
@@ -776,7 +776,7 @@ void AcidWormExtended(void)
         if (!AcidWormCollidingWithSamusWhenExtending())
         {
             if (MOD_AND(gCurrentSprite.work1, 32) == 0)
-                SoundPlay(0x1B4);
+                SoundPlay(SOUND_ACID_WORM_HOOKED_ON_BLOCK);
 
             gCurrentSprite.work1++;
 
@@ -799,9 +799,9 @@ void AcidWormExtended(void)
         finishedThrowing++;
 
     if (gCurrentSprite.currentAnimationFrame == 1 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlay(0x1B6);
+        SoundPlay(SOUND_ACID_WORM_OPENING_MOUTH_TO_SPIT);
     else if (gCurrentSprite.currentAnimationFrame == 2 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlay(0x1B7);
+        SoundPlay(SOUND_ACID_WORM_SPITTING);
     else if (gCurrentSprite.currentAnimationFrame == 5 && gCurrentSprite.animationDurationCounter == 1)
     {
         // First spit
@@ -933,7 +933,7 @@ void AcidWormRetracting(void)
     AcidWormHandleRotation();
 
     if (SpriteUtilCheckInRoomEffect(spriteY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
-        SoundPlay(0x1BB);
+        SoundPlay(SOUND_ACID_WORM_SPLASHING);
 
     samusY = gSamusData.yPosition;
     spriteY = gCurrentSprite.yPosition;
@@ -954,7 +954,7 @@ void AcidWormRetracting(void)
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.work0 = 40;
-                SoundPlay(0x1B9);
+                SoundPlay(SOUND_ACID_WORM_RAISING_ACID);
             }
             else
             {
@@ -994,7 +994,7 @@ void AcidWormRaiseAcid(void)
     if (gEffectYPosition < gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 5)
     {
         gCurrentSprite.pose = ACID_WORM_POSE_BRINGING_DOWN_ACID;
-        SoundPlay(0x1BA);
+        SoundPlay(SOUND_ACID_WORM_LOWERING_ACID);
     }
 }
 
@@ -1112,15 +1112,15 @@ void AcidWormDying(void)
         gCurrentSprite.work0--;
 
         if (gCurrentSprite.work0 == 0)
-            SoundPlay(0x1BE);
+            SoundPlay(SOUND_ACID_WORM_DEAD);
     }
     else
     {
         gEffectYPositionOffset++;
         if (MOD_AND(gFrameCounter8Bit, 16) == 0)
         {
-            ScreenShakeStartVertical(10, 0x80 | 1);
-            ScreenShakeStartHorizontal(10, 0x80 | 1);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
+            ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
         }
     }
 }
@@ -1322,7 +1322,7 @@ void AcidWormBodyMainLoop(void)
         gCurrentSprite.pose = 0x67;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.health = health;
-            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
         return;
     }
@@ -1376,7 +1376,7 @@ void AcidWormBodyMainLoop(void)
             else if (gSpriteData[slot].health <= DIV_SHIFT(GET_PSPRITE_HEALTH(gSpriteData[slot].spriteId), 2))
                 gSpriteData[slot].absolutePaletteRow = 1;
 
-            SoundPlay(0x1BC);
+            SoundPlay(SOUND_ACID_WORM_HURT);
         }
         else
         {
@@ -1388,7 +1388,7 @@ void AcidWormBodyMainLoop(void)
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
-            SoundPlay(0x1BD);
+            SoundPlay(SOUND_ACID_WORM_DYING);
             return;
         }
     }
@@ -1577,7 +1577,7 @@ void AcidWormSpitExplodingGfxInit(void)
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-    SoundPlay(0x1B8);
+    SoundPlay(SOUND_ACID_WORM_SPIT_EXPLODING);
 }
 
 /**

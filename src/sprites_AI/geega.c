@@ -4,6 +4,7 @@
 #include "data/sprites/geega.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -102,7 +103,7 @@ void GeegaIdle(void)
                     SpriteUtilMakeSpriteFaceSamusXFlip();
     
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                        SoundPlay(0x183);
+                        SoundPlay(SOUND_GEEGA_RISING);
     
                     if (gCurrentSprite.spriteId == PSPRITE_GEEGA_LEADER)
                     {
@@ -200,7 +201,7 @@ void GeegaMove(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x184);
+                SoundPlay(SOUND_GEEGA_MOVING);
 
             gCurrentSprite.work1 = 0x0;
         }
@@ -232,7 +233,7 @@ void GeegaMove(void)
         }
 
         if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x184);
+            SoundPlay(SOUND_GEEGA_MOVING);
     }
 }
 
@@ -246,7 +247,7 @@ void Geega(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x185);
+            SoundPlayNotAlreadyPlaying(SOUND_GEEGA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

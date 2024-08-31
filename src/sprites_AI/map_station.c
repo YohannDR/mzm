@@ -5,6 +5,7 @@
 
 #include "data/sprites/map_station.h"
 
+#include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
@@ -101,7 +102,7 @@ void MapStationIdle(void)
         else
             SamusSetPose(SPOSE_DOWNLOADING_MAP_DATA);
 
-        SoundPlay(0x123);
+        SoundPlay(SOUND_USING_MAP_STATION);
     }
 }
 
@@ -195,7 +196,7 @@ void MapStationSpawnMessage(void)
     gSamusData.currentAnimationFrame = 0;
     gSamusData.timer = 1;
 
-    SoundFade(0x123, 10);
+    SoundFade(SOUND_USING_MAP_STATION, CONVERT_SECONDS(1.f / 6));
 }
 
 /**
@@ -239,7 +240,7 @@ void MapStationRetracting(void)
     gCurrentSprite.animationDurationCounter = 0;
 
     SamusSetPose(SPOSE_STANDING);
-    SoundPlay(0x124);
+    SoundPlay(SOUND_MAP_STATION_RETRACTING);
 }
 
 /**

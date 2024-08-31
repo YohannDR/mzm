@@ -7,6 +7,7 @@
 #include "data/menus/internal_pause_screen_data.h"
 #include "data/menus/internal_status_screen_data.h"
 
+#include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/demo.h"
 #include "constants/samus.h"
@@ -1108,7 +1109,7 @@ u32 StatusScreenSuitlessItems(void)
                     case ITEM_ACQUISITION_GRAVITY:
                     case ITEM_ACQUISITION_SPACE_JUMP:
                         // Play unknown item sound
-                        SoundPlay(0x20F);
+                        SoundPlay(SOUND_UNKNOWN_ITEM_ACQUISITION);
                         break;
     
                     case ITEM_ACQUISITION_MISSILES:
@@ -1120,7 +1121,7 @@ u32 StatusScreenSuitlessItems(void)
                         
                     default:
                         // Play normal item sound
-                        SoundPlay(0x1F7);
+                        SoundPlay(SOUND_TOGGLING_ITEM_ON);
                         break;
                 }
                 
@@ -1368,7 +1369,7 @@ u32 StatusScreenFullyPoweredItems(void)
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
-                PAUSE_SCREEN_DATA.unk_EA = TRUE;
+                PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound = TRUE;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
@@ -1379,8 +1380,8 @@ u32 StatusScreenFullyPoweredItems(void)
             if (result == 2)
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
-                if (!PAUSE_SCREEN_DATA.unk_EA)
-                    SoundFade(0x215, 15);
+                if (!PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound)
+                    SoundFade(SOUND_ENABLING_NORMAL_ITEM, CONVERT_SECONDS(.25f));
             }
 
             // If it found an unknown item, it'll stay on this stage, if it found a normal item it'll go to stage 3,
@@ -1407,10 +1408,10 @@ u32 StatusScreenFullyPoweredItems(void)
                 PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
 
             // Check play sound
-            if (PAUSE_SCREEN_DATA.unk_EA)
+            if (PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound)
             {
-                SoundPlay(0x215);
-                PAUSE_SCREEN_DATA.unk_EA = FALSE;
+                SoundPlay(SOUND_ENABLING_NORMAL_ITEM);
+                PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound = FALSE;
             }
 
             // Goto next slot
@@ -1456,7 +1457,7 @@ u32 StatusScreenFullyPoweredItems(void)
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group][2] + 1) * HALF_BLOCK_SIZE;
 
             StatusScreenUpdateUnknownItemPalette(0);
-            SoundPlay(0x214);
+            SoundPlay(SOUND_ENABLING_UNKNOWN_ITEM);
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
@@ -1478,7 +1479,7 @@ u32 StatusScreenFullyPoweredItems(void)
             // Update cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
-            SoundPlay(0x1F7);
+            SoundPlay(SOUND_TOGGLING_ITEM_ON);
 
             if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -1591,9 +1592,9 @@ void StatusScreenSubroutine(void)
 
                 // Play result sound
                 if (toggleResult == TRUE)
-                    SoundPlay(0x1F7); // Turning item ON
+                    SoundPlay(SOUND_TOGGLING_ITEM_ON);
                 else if (toggleResult == FALSE)
-                    SoundPlay(0x1F8); // Turning item OFF
+                    SoundPlay(SOUND_TOGGLING_ITEM_OFF);
             }
             else
             {
@@ -2075,7 +2076,7 @@ void StatusScreenMoveCursor(void)
         StatusScreenUpdateCursorPosition(statusSlot);
         StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING);
         UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
-        SoundPlay(0x1F6);
+        SoundPlay(SOUND_STATUS_SCREEN_CURSOR_MOVING);
     }
 }
 

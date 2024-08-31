@@ -4,6 +4,7 @@
 
 #include "data/sprites/save_platform_chozodia.h"
 
+#include "constants/audio.h"
 #include "constants/escape.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
@@ -95,7 +96,7 @@ void SavePlatformChozodiaSamusDetection(void)
             gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Opening;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            SoundPlay(0x127);
+            SoundPlay(SOUND_CHOZODIA_SAVE_PLATFORM_OPENING);
         }
     }
     else
@@ -145,7 +146,7 @@ void SavePlatformChozodiaSecondSamusDetection(void)
         gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Closing;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x128);
+        SoundPlay(SOUND_CHOZODIA_SAVE_PLATFORM_CLOSING);
     }
 }
 
@@ -193,7 +194,7 @@ void SavePlatformChozodiaSamusDetectionOut(void)
         gCurrentSprite.pOam = sSavePlatformChozodiaOAM_Closing;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x128);
+        SoundPlay(SOUND_CHOZODIA_SAVE_PLATFORM_CLOSING);
     }
 }
 
@@ -242,7 +243,7 @@ void SavePlatformChozodiaCheckRefill(void)
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
             TransparencySpriteUpdateBLDALPHA(0x7, 0x10, 0x0, 0x10);
-            SoundPlay(0x129);
+            SoundPlay(SOUND_CHOZODIA_SAVE_PLATFORM_REFILL);
         }
     }
 }
@@ -277,7 +278,7 @@ void SavePlatformChozodiaRefill(void)
             {
                 gSamusData.timer = TRUE;
                 TransparencySpriteUpdateBLDALPHA(0x0, 0x10, 0x0, 0x10);
-                SoundFade(0x129, 0x14);
+                SoundFade(SOUND_CHOZODIA_SAVE_PLATFORM_REFILL, ONE_THIRD_SECOND);
             }
         }
         else
@@ -336,7 +337,7 @@ void SavePlatformChozodiaRefill(void)
             {
                 gSamusData.timer = TRUE;
                 TransparencySpriteUpdateBLDALPHA(0x0, 0x10, 0x0, 0x10);
-                SoundFade(0x129, 0x14);
+                SoundFade(SOUND_CHOZODIA_SAVE_PLATFORM_REFILL, ONE_THIRD_SECOND);
             }
         }
         else
@@ -400,7 +401,7 @@ void SavePlatformChozodiaSavePrompt(void)
 
                 gSpriteData[gCurrentSprite.work3].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING_INIT;
                 gSamusData.timer = FALSE;
-                SoundPlay(0x114);
+                SoundPlay(SOUND_SAVING);
             }
             else
             {
@@ -650,7 +651,7 @@ void SavePlatformChozodiaPartTopRetractingInit(void)
     gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING;
 
     gSamusData.timer = TRUE;
-    SoundPlay(0x115);
+    SoundPlay(SOUND_SAVE_PLATFORM_RETRACTING);
 }
 
 /**

@@ -5,6 +5,7 @@
 #include "data/sprite_data.h"
 #include "data/sprites/space_pirate.h"
 
+#include "constants/audio.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
 
@@ -404,5 +405,5 @@ void EscapeShipSpacePirate(void)
     }
 
     if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN))
-        SoundPlayNotAlreadyPlaying(0x169);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_GETTING_ALERTED);
 }

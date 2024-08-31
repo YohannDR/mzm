@@ -4,8 +4,9 @@
 #include "data/sprites/holtz.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -229,7 +230,7 @@ void HoltzCheckWarningAnimEnded(void)
         gCurrentSprite.work0 = 0x0;
         gCurrentSprite.work2 = 0x2; // Initial X speed
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x186);
+            SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_GOING_DOWN);
     }
 }
 
@@ -286,7 +287,7 @@ void HoltzGoingUpMove(void)
         (gCurrentSprite.currentAnimationFrame == 0x0 || gCurrentSprite.currentAnimationFrame == 0x3)
         && gCurrentSprite.animationDurationCounter == 0x1)
     {
-        SoundPlayNotAlreadyPlaying(0x187);
+        SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_GOING_UP);
     }
 
     // Gradually decrease X movement
@@ -342,7 +343,7 @@ void Holtz(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x188);
+            SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

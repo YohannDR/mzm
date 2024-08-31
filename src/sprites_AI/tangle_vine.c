@@ -57,7 +57,7 @@ void TangleVineGeruta(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     counter = 0;
@@ -228,7 +228,7 @@ void TangleVineRedGeruta(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -271,7 +271,7 @@ void TangleVineLarvaRight(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -315,7 +315,7 @@ void TangleVineLarvaLeft(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -362,7 +362,7 @@ void TangleVineTall(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -429,7 +429,7 @@ void TangleVineMedium(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -496,7 +496,7 @@ void TangleVineCurved(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)
@@ -563,7 +563,7 @@ void TangleVineShort(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x264);
+            SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
     if (gCurrentSprite.pose == 0)

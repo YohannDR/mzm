@@ -8,6 +8,7 @@
 #include "data/menus/pause_screen_map_data.h"
 #include "data/menus/internal_pause_screen_data.h"
 
+#include "constants/audio.h"
 #include "constants/block.h"
 #include "constants/connection.h"
 #include "constants/minimap.h"
@@ -997,9 +998,9 @@ void MapScreenSubroutine(void)
         {
             // Play movement sound
             if (PAUSE_SCREEN_DATA.onWorldMap)
-                SoundPlay(0x201);
+                SoundPlay(SOUND_MOVING_MAP_MUFFLED);
             else
-                SoundPlay(0x200);
+                SoundPlay(SOUND_MOVING_MAP);
         }
         else if (action == 0)
         {
@@ -1013,7 +1014,7 @@ void MapScreenSubroutine(void)
             else if (gChangedInput & KEY_L)
             {
                 // Easy sleep
-                SoundPlay(0x205);
+                SoundPlay(SOUND_OPENING_EASY_SLEEP_SCREEN);
                 PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_INIT;
                 action = 2;
             }
@@ -1027,7 +1028,6 @@ void MapScreenSubroutine(void)
                 MapScreenTogglehWorldMap(TRUE);
             }
         }
-
     }
 
     if (action != 0)
@@ -1080,7 +1080,7 @@ void MapScreenTogglehWorldMap(u8 forceOff)
 
         // Setup oam
         PauseScreenUpdateWorldMap(TRUE);
-        SoundPlay(0x202);
+        SoundPlay(SOUND_OPENING_WORLD_MAP);
     }
     else
     {
@@ -1091,7 +1091,7 @@ void MapScreenTogglehWorldMap(u8 forceOff)
         DmaTransfer(3, &sMinimapTilesPal[1], PALRAM_BASE + 2, sizeof(sMinimapTilesPal) - 2, 16);
 
         if (!forceOff)
-            SoundPlay(0x203);
+            SoundPlay(SOUND_CLOSING_WORLD_MAP);
     }
 
     PauseScreenUpdateBottomVisorOverlay(1, 0);
@@ -1152,7 +1152,7 @@ void MapScreenChangeMap(void)
             // Disable samus icon
             PAUSE_SCREEN_DATA.samusIconOam[0].exists = FALSE;
             PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6E;
-            SoundPlay(0x204);
+            SoundPlay(SOUND_MAP_SCREEN_CHANGE_MAP);
             PAUSE_SCREEN_DATA.changingMinimapStage++;
             break;
 

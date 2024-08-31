@@ -4,6 +4,7 @@
 #include "data/sprites/dessgeega.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
@@ -131,7 +132,7 @@ void DessgeegaJumpingInit(void)
         gCurrentSprite.work2 = FALSE; // High
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x15A);
+        SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_JUMPING);
 }
 
 /**
@@ -146,7 +147,7 @@ void DessgeegaLandingInit(void)
     gCurrentSprite.pOam = sDessgeegaOAM_Landing;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x15B);
+        SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_LANDING);
 }
 
 /**
@@ -173,7 +174,7 @@ void DessgeegaIdleInit(void)
         {
             gCurrentSprite.pOam = sDessgeegaOAM_Screaming;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x15C);
+                SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_SCREAMING);
         }
     }
 }
@@ -621,7 +622,7 @@ void DessgeegaIdleGround(void)
             else
             {
                 if (gCurrentSprite.pOam == sDessgeegaOAM_Screaming && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x15C);
+                    SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_SCREAMING);
             }
         }
     }
@@ -644,7 +645,7 @@ void DessgeegaIdleCeiling(void)
             else
             {
                 if (gCurrentSprite.pOam == sDessgeegaOAM_Screaming && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x15C);
+                    SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_SCREAMING);
             }
         }
     } 
@@ -705,7 +706,7 @@ void DessgeegaLongBeamDetectSamus(void)
         SpriteDebrisInit(0x0, 0x7, yPosition + 0x10, xPosition + 0x1A);
         SpriteDebrisInit(0x0, 0x8, yPosition + 0x40, xPosition - 0x5A);
         SpriteDebrisInit(0x0, 0x6, yPosition + 0x20, xPosition - 0x10);
-        SoundPlay(0x220);
+        SoundPlay(SOUND_DESSGEEGA_LONG_BEAM_SPAWNING);
     }
 }
 
@@ -754,7 +755,7 @@ void DessgeegaLongBeamSpawning(void)
             SpriteDebrisInit(0x0, 0x12, yPosition - 0x20, xPosition + 0x3E);
             SpriteDebrisInit(0x0, 0x13, yPosition - 0x28, xPosition - 0x5C);
             SpriteDebrisInit(0x0, 0x4, yPosition - 0x48, xPosition + 0x1E);
-            SoundPlay(0x13A);
+            SoundPlay(SOUND_DESSGEEGA_DESTROYING_FLOOR);
         }
         else
         {
@@ -778,7 +779,7 @@ void Dessgeega(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x15D);
+            SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

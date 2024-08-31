@@ -4,6 +4,7 @@
 #include "data/sprites/mella.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -212,7 +213,7 @@ void MellaDelayBeforeGoingDown(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
         gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlayNotAlreadyPlaying(0x189);
+        SoundPlayNotAlreadyPlaying(SOUND_MELLA_MOVING);
 
     gCurrentSprite.work0--;
     if (gCurrentSprite.work0 == 0)
@@ -239,7 +240,7 @@ void MellaGoingDown(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
         gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlayNotAlreadyPlaying(0x189);
+        SoundPlayNotAlreadyPlaying(SOUND_MELLA_MOVING);
 
     // Check increase offsets
     if (gCurrentSprite.work3 < ARRAY_SIZE(sMellaGoingDownYMovement) * 8 - 1)
@@ -274,7 +275,7 @@ void MellaGoingUp(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
         gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlayNotAlreadyPlaying(0x189);
+        SoundPlayNotAlreadyPlaying(SOUND_MELLA_MOVING);
 
     // Check increase offsets
     if (gCurrentSprite.work3 < ARRAY_SIZE(sMellaGoingUpYMovement) * 8 - 1)
@@ -308,7 +309,7 @@ void Mella(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x18B);
+            SoundPlayNotAlreadyPlaying(SOUND_MELLA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)

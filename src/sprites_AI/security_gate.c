@@ -2,6 +2,7 @@
 
 #include "data/sprites/security_gate.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -49,7 +50,7 @@ void SecurityGateOpen(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
     SecurityGateChangeCcaa(CAA_REMOVE_SOLID); // Remove collision
-    SoundPlayNotAlreadyPlaying(0x225);
+    SoundPlayNotAlreadyPlaying(SOUND_SECURITY_GATE_OPENING);
 }
 
 /**
@@ -63,7 +64,7 @@ void SecurityGateStartClosing(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
-    SoundPlayNotAlreadyPlaying(0x109);
+    SoundPlayNotAlreadyPlaying(SOUND_SECURITY_GATE_CLOSING);
 }
 
 /**

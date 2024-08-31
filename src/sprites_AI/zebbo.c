@@ -4,6 +4,7 @@
 #include "data/sprites/zebbo.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -102,7 +103,7 @@ void ZebboIdle(void)
                     SpriteUtilMakeSpriteFaceSamusXFlip();
     
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                        SoundPlay(0x162);
+                        SoundPlay(SOUND_ZEBBO_RISING);
     
                     if (gCurrentSprite.spriteId == PSPRITE_ZEBBO_GREEN_LEADER)
                     {
@@ -212,7 +213,7 @@ void ZebboMove(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x163);
+                SoundPlay(SOUND_ZEBBO_MOVING);
 
             gCurrentSprite.work1 = 0x0;
         }
@@ -244,7 +245,7 @@ void ZebboMove(void)
         }
 
         if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x163);
+            SoundPlay(SOUND_ZEBBO_MOVING);
     }
 }
 
@@ -258,7 +259,7 @@ void Zebbo(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x164);
+            SoundPlayNotAlreadyPlaying(SOUND_ZEBBO_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

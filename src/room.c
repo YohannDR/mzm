@@ -148,13 +148,13 @@ void RoomLoad(void)
             {
                 if (!(gRainSoundEffect & RAIN_SOUND_ENABLED))
                 {
-                    SoundFade(0x121, 0xA); // Rain
+                    SoundFade(SOUND_RAIN, CONVERT_SECONDS(1.f / 6));
                     gRainSoundEffect &= ~RAIN_SOUND_PLAYING;
                 }
             }
             else if (gRainSoundEffect & RAIN_SOUND_ENABLED)
             {
-                SoundPlayNotAlreadyPlaying(0x121); // Rain
+                SoundPlayNotAlreadyPlaying(SOUND_RAIN);
                 gRainSoundEffect |= RAIN_SOUND_PLAYING;
             }
         }

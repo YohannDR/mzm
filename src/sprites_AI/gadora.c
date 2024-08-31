@@ -5,11 +5,12 @@
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
-#include "constants/event.h"
 
 #include "structs/display.h"
 #include "structs/sprite.h"
@@ -148,7 +149,7 @@ void GadoraCheckWarningAnimEnded(void)
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
 
-        SoundPlay(0x25A);
+        SoundPlay(SOUND_GADORA_OPENING_EYE);
     }
 }
 
@@ -199,7 +200,7 @@ void GadoraEyeOpened(void)
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
 
-        SoundPlay(0x25B);
+        SoundPlay(SOUND_GADORA_CLOSING_EYE);
         return;
     }
 
@@ -371,7 +372,7 @@ void GadoraEye(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x25E);
+            SoundPlay(SOUND_GADORA_EYE_DAMAGED);
     }
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
@@ -486,7 +487,7 @@ void GadoraBeam(void)
             {
                 gCurrentSprite.work0--;
                 if (gCurrentSprite.work0 == 0)
-                    SoundPlay(0x25C);
+                    SoundPlay(SOUND_GADORA_BEAM_EMERGING);
             }
             else
             {
@@ -500,7 +501,7 @@ void GadoraBeam(void)
                     PE_SPRITE_EXPLOSION_BIG);
 
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlay(0x25D);
+                    SoundPlay(SOUND_GADORA_BEAM_MOVING);
 
                 gCurrentSprite.status = 0;
             }

@@ -526,12 +526,12 @@ u8 ChozodiaEscapeShipLeaving(void)
     switch (CHOZODIA_ESCAPE_DATA.timer++)
     {
         case 0:
-            SoundPlay(0x255);
+            SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_DOOR_OPENING);
             break;
 
         case 160:
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP]++;
-            SoundPlay(0x256);
+            SoundPlay(SOUND_CHOZODIA_ESCAPE_BLUE_SHIP_TAKING_OFF);
             break;
 
         case 294:
@@ -629,7 +629,7 @@ u8 ChozodiaEscapeShipHeatingUp(void)
         case 0:
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MOTHER_SHIP_DOOR] = 1;
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR] = 1;
-            SoundPlay(0x257);
+            SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_HEATING_UP);
             break;
 
         case 152:
@@ -643,7 +643,7 @@ u8 ChozodiaEscapeShipHeatingUp(void)
                 BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
                 BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
             CHOZODIA_ESCAPE_DATA.unk_1++;
-            SoundPlay(0x28B);
+            SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_BLOWING_AURA);
             break;
 
         case 224:
@@ -788,7 +788,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
             CHOZODIA_ESCAPE_DATA.oamTypes[3]++;
             CHOZODIA_ESCAPE_DATA.oamXPositions[3] = BLOCK_SIZE * 2 - 8;
             CHOZODIA_ESCAPE_DATA.oamYPositions[3] = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
-            SoundPlay(0x28C);
+            SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_BLOWING_UP);
             break;
 
         case 32:

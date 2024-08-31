@@ -3,6 +3,7 @@
 
 #include "data/sprites/enemy_drop.h"
 
+#include "constants/audio.h"
 #include "constants/sprite.h"
 
 #include "structs/display.h"
@@ -106,7 +107,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentEnergy > gEquipment.maxEnergy)
                     gEquipment.currentEnergy = gEquipment.maxEnergy;
 
-                SoundPlay(0x86);
+                SoundPlay(SOUND_GETTING_SMALL_ENERGY_DROP);
                 break;
 
             case SSC_LARGE_ENERGY_DROP:
@@ -115,7 +116,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentEnergy > gEquipment.maxEnergy)
                     gEquipment.currentEnergy = gEquipment.maxEnergy;
 
-                SoundPlay(0x87);
+                SoundPlay(SOUND_GETTING_LARGE_ENERGY_DROP);
                 break;
 
             case SSC_MISSILE_DROP:
@@ -124,7 +125,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentMissiles > gEquipment.maxMissiles)
                     gEquipment.currentMissiles = gEquipment.maxMissiles;
 
-                SoundPlay(0x88);
+                SoundPlay(SOUND_GETTING_MISSILE_DROP);
                 break;
 
             case SSC_SUPER_MISSILE_DROP:
@@ -133,7 +134,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentSuperMissiles > gEquipment.maxSuperMissiles)
                     gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
 
-                SoundPlay(0x89);
+                SoundPlay(SOUND_GETTING_SUPER_MISSILE_DROP);
                 break;
 
             case SSC_POWER_BOMB_DROP:
@@ -142,7 +143,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentPowerBombs > gEquipment.maxPowerBombs)
                     gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
 
-                SoundPlay(0x8A);
+                SoundPlay(SOUND_GETTING_POWER_BOMB_DROP);
                 break;
 
             case SSC_MULTIPLE_LARGE_ENERGY_DROP:
@@ -151,7 +152,7 @@ void EnemyDropIdle(void)
                 if (gEquipment.currentEnergy > gEquipment.maxEnergy)
                     gEquipment.currentEnergy = gEquipment.maxEnergy;
 
-                SoundPlay(0x87);
+                SoundPlay(SOUND_GETTING_LARGE_ENERGY_DROP);
                 break;
         }
 

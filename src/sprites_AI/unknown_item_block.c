@@ -3,6 +3,7 @@
 
 #include "data/sprites/unknown_item_block.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
@@ -176,11 +177,11 @@ void UnknownItemBlock(void)
 
             // Play sound, most likely planned to have a different sound for each block
             if (spriteId == PSPRITE_PLASMA_BEAM_BLOCK)
-                SoundPlayNotAlreadyPlaying(0x13B);
+                SoundPlayNotAlreadyPlaying(SOUND_UNKNOWN_ITEM_BLOCK_BREAKING);
             else if (spriteId == PSPRITE_GRAVITY_SUIT_BLOCK)
-                SoundPlayNotAlreadyPlaying(0x13B);
+                SoundPlayNotAlreadyPlaying(SOUND_UNKNOWN_ITEM_BLOCK_BREAKING);
             else if (spriteId == PSPRITE_SPACE_JUMP_BLOCK)
-                SoundPlayNotAlreadyPlaying(0x13B);
+                SoundPlayNotAlreadyPlaying(SOUND_UNKNOWN_ITEM_BLOCK_BREAKING);
             break;
     }
 }

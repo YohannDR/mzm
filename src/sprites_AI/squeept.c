@@ -4,6 +4,7 @@
 #include "data/sprites/squeept.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -167,7 +168,9 @@ void SqueeptGoUp(void)
 
     if (SpriteUtilCheckOutOfRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL) &&
         gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x155);
+    {
+        SoundPlay(SOUND_SQUEEPT_LEAVING_LAVA);
+    }
 }
 
 /**
@@ -213,7 +216,9 @@ void SqueeptGoDown(void)
 
     if (SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG) &&
         gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x156);
+    {
+        SoundPlay(SOUND_SQUEEPT_ENTERING_LAVA);
+    }
 
     if (gCurrentSprite.yPositionSpawn < gCurrentSprite.yPosition)
     {
@@ -232,7 +237,7 @@ void Squeept(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x157);
+            SoundPlayNotAlreadyPlaying(SOUND_SQUEEPT_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)

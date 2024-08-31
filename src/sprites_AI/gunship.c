@@ -4,6 +4,7 @@
 
 #include "data/sprites/gunship.h"
 
+#include "constants/audio.h"
 #include "constants/color_fading.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -157,7 +158,7 @@ void GunshipInit(void)
     {
         introCutscene = TRUE;
         gCurrentSprite.yPosition -= BLOCK_SIZE * 6;
-        SoundPlay(0x232);
+        SoundPlay(SOUND_GUNSHIP_LANDING);
     }
 
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -305,15 +306,15 @@ void GunshipSamusEntering(void)
                 gSpriteData[ramSlot].currentAnimationFrame = 0x0;
                 gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_BACK_OPENING_CLOSING;
 
-                SoundPlay(0x119); // Gunship closing
-                SoundFade(0x11A, 0xA); // Gunship platform moving 
+                SoundPlay(SOUND_GUNSHIP_CLOSING);
+                SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6)); 
             }
         }
     }
     else if (gCurrentSprite.work0 < 0x2C)
         gSamusData.yPosition += 0x4; // move samus
     else if (gCurrentSprite.work0 == 0x2C)
-        SoundPlay(0x11A); // Gunship platform moving 
+        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
 }
 
 /**
@@ -330,7 +331,7 @@ void GunshipRefill(void)
             gCurrentSprite.pOam = sGunshipOAM_Refilling;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            SoundPlay(0x21E);
+            SoundPlay(SOUND_GUNSHIP_REFILL);
         }
     }
     else if (gCurrentSprite.work0 == 0x5)
@@ -390,7 +391,7 @@ void GunshipRefill(void)
 
         gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
             0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-        SoundFade(0x21E, 0xF);
+        SoundFade(SOUND_GUNSHIP_REFILL, CONVERT_SECONDS(.25f));
     }
 }
 
@@ -423,7 +424,7 @@ void GunshipAfterRefill(void)
                 // Saving
                 gCurrentSprite.pose = GUNSHIP_POSE_SAVING;
                 gCurrentSprite.work0 = 0x1E;
-                SoundPlay(0x21F);
+                SoundPlay(SOUND_GUNSHIP_SAVING);
             }
             else
             {
@@ -479,7 +480,7 @@ void GunshipSamusLeave(void)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVING;
         gCurrentSprite.work0 = 0x2C;
-        SoundPlay(0x11A); // Gunship platform moving
+        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING);
     }
     else if (gCurrentSprite.work0 == 0xA)
     {
@@ -502,7 +503,7 @@ void GunshipSamusLeave(void)
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
 
-                SoundPlay(0x118); // Gunship opening
+                SoundPlay(SOUND_GUNSHIP_OPENING);
             }
         }
     }
@@ -524,7 +525,7 @@ void GunshipSamusLeaving(void)
         }
         else
             gCurrentSprite.pose = GUNSHIP_POSE_RELEASE_SAMUS;
-        SoundFade(0x11A, 0xA);
+        SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6));
     }
     else
         gSamusData.yPosition -= 0x4;
@@ -585,7 +586,7 @@ void GunshipCheckEscapeZebes(void)
         // Set event and update minimap
         EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
         MinimapUpdateChunk(EVENT_ESCAPED_ZEBES);
-        SoundFade(0x120, 0x3C);
+        SoundFade(SOUND_ESCAPE_BEEP, CONVERT_SECONDS(1.f));
         UpdateMusicPriority(0x0);
     }
 }
@@ -625,8 +626,8 @@ void GunshipSamusEnteringWhenEscaping(void)
                 {
                     gSpriteData[ramSlot].status = 0x0;
 
-                    SoundPlay(0x119); // Gunship closing
-                    SoundFade(0x11A, 0xA); // Gunship platform moving
+                    SoundPlay(SOUND_GUNSHIP_CLOSING);
+                    SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6));
                 }
             }
         }
@@ -634,7 +635,7 @@ void GunshipSamusEnteringWhenEscaping(void)
     else if (gCurrentSprite.work0 < 0x2C)
         gSamusData.yPosition += 0x4;
     else if (gCurrentSprite.work0 == 0x2C)
-        SoundPlay(0x11A); // Gunship platform moving 
+        SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
 }
 
 /**
@@ -660,7 +661,7 @@ void GunshipStartEscaping(void)
         gCurrentSprite.pOam = sGunshipOAM_Flying;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x234);
+        SoundPlay(SOUND_GUNSHIP_FLYING_OFF);
     }
 }
 
@@ -1031,7 +1032,7 @@ void GunshipPartEntranceBackIdle(void)
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x118); // Ship opening
+                SoundPlay(SOUND_GUNSHIP_OPENING);
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackOpening)
         {
@@ -1049,7 +1050,7 @@ void GunshipPartEntranceBackIdle(void)
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackOpening;
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
-                SoundPlay(0x118); // Ship opening
+                SoundPlay(SOUND_GUNSHIP_OPENING);
             }
         }
     }
@@ -1060,7 +1061,7 @@ void GunshipPartEntranceBackIdle(void)
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosing;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            SoundPlay(0x119); // Ship closing
+            SoundPlay(SOUND_GUNSHIP_CLOSING);
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackClosing)
         {
@@ -1078,7 +1079,7 @@ void GunshipPartEntranceBackIdle(void)
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosing;
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
-                SoundPlay(0x119); // Ship closing
+                SoundPlay(SOUND_GUNSHIP_CLOSING);
             }
         }
     }

@@ -133,17 +133,17 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
     if ((flags & SMF_ALL_SUITS) == SMF_ALL_SUITS)
     {
         // Multiply damage by 0.5
-        damage = FRACT_MUL(damage, 1, 2);
+        damage /= 2;
     }
     else if (flags & SMF_GRAVITY_SUIT)
     {
         // Multiply damage by 0.7
-        damage = FRACT_MUL(damage, 7, 10);
+        damage = FLOAT_MUL(damage, .7f);
     }
     else if (flags & SMF_VARIA_SUIT)
     {
         // Multiply damage by 0.8
-        damage = FRACT_MUL(damage, 8, 10);
+        damage = FLOAT_MUL(damage, .8f);
     }
 
     // Apply changes based on difficuly
@@ -846,7 +846,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         pSprite->samusCollision = SSC_NONE;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                         SamusSetPose(SPOSE_MIDAIR);
-                        SoundPlay(0x1E3);
+                        SoundPlay(SOUND_RIDLEY_GRABBING_SAMUS);
                     }
                     else
                     {

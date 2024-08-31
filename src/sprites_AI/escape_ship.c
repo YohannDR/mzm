@@ -3,10 +3,11 @@
 
 #include "data/sprites/escape_ship.h"
 
+#include "constants/audio.h"
+#include "constants/color_fading.h"
+#include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/samus.h"
-#include "constants/event.h"
-#include "constants/color_fading.h"
 #include "constants/sprite.h"
 
 #include "structs/samus.h"
@@ -239,7 +240,7 @@ void EscapeShip(void)
 
                 SpriteSpawnPrimary(PSPRITE_ESCAPE_SHIP_SPACE_PIRATE, gCurrentSprite.roomSlot,
                     0x0, gCurrentSprite.yPosition - 4, gCurrentSprite.xPosition + (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), 0);
-                SoundPlay(0x24E);
+                SoundPlay(SOUND_ESCAPE_SHIP_OPENING);
             }
             break;
 
@@ -286,7 +287,7 @@ void EscapeShip(void)
                 gCurrentSprite.pOam = sEscapeShipOAM_Closing;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
-                SoundPlay(0x24F);
+                SoundPlay(SOUND_ESCAPE_SHIP_CLOSING);
             }
             break;
 
@@ -322,7 +323,7 @@ void EscapeShip(void)
                 {
                     SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_FLAMES,
                         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
-                    SoundPlay(0x250);
+                    SoundPlay(SOUND_ESCAPE_SHIP_FLYING);
                     break;
                 }
                 
@@ -382,7 +383,7 @@ void EscapeShip(void)
                     gCurrentSprite.pOam = sEscapeShipOAM_Flying;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
-                    SoundPlay(0x251);
+                    SoundPlay(SOUND_ESCAPE_SHIP_SHUTTER_OPENING);
                 }
                 else if (gCurrentSprite.work0 == 60 + 60 / 3 * 2)
                     gSubSpriteData1.workVariable3 = 2;
@@ -397,7 +398,7 @@ void EscapeShip(void)
                     gCurrentSprite.pose = ESCAPE_SHIP_POSE_ESCAPING;
                     gCurrentSprite.yPositionSpawn = 60 * 3 + 60 / 3;
                     gCurrentSprite.work1 = 4;
-                    SoundPlay(0x252);
+                    SoundPlay(SOUND_ESCAPE_SHIP_FLYING_FAST);
                 }
             }
 

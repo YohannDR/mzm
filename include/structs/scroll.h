@@ -44,7 +44,7 @@ enum ScrollSubData {
 #define BG3_SCROLLING_TYPE_QUARTERED 3
 
 #define SCROLL_X_ANCHOR (SCREEN_SIZE_X_SUB_PIXEL / 2)
-#define SCROLL_Y_ANCHOR (FRACT_MUL(SCREEN_SIZE_Y_SUB_PIXEL, 3, 5))
+#define SCROLL_Y_ANCHOR ((s32)(SCREEN_SIZE_Y_SUB_PIXEL * .6f))
 
 struct Scroll {
     u8 within;

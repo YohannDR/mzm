@@ -3,6 +3,7 @@
 
 #include "data/sprites/zipline_generator.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
@@ -146,7 +147,7 @@ void ZiplineGeneratorDetectSamus(void)
         else
             gCurrentSprite.status = 0;
 
-        SoundPlay(0x21D);
+        SoundPlay(SOUND_ACTIVATING_ZIPLINES);
     }
 }
 

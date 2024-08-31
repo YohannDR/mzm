@@ -4,8 +4,9 @@
 #include "data/sprites/multiviola.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -103,7 +104,7 @@ void MultiviolaMove(void)
     }
 
     if (isBouncing && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x152);
+        SoundPlayNotAlreadyPlaying(SOUND_MULTIVIOLA_BOUNCING);
 }
 
 /**
@@ -135,7 +136,7 @@ void Multiviola(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x153);
+            SoundPlayNotAlreadyPlaying(SOUND_MULTIVIOLA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

@@ -5,6 +5,7 @@
 #include "data/sprite_data.h"
 #include "data/sprites/space_pirate.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/projectile.h"
@@ -669,7 +670,7 @@ void BlackSpacePirateJumping(void)
     }
 
     if (gCurrentSprite.work3 == 0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x166);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_JUMPING);
 
     if (gCurrentSprite.work1 == 1)
     {
@@ -718,7 +719,7 @@ void BlackSpacePirateJumping(void)
             gCurrentSprite.currentAnimationFrame = 0;
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x167);
+                SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_LANDING);
         }
     }
     else
@@ -824,7 +825,7 @@ void BlackSpacePirateWalkingAlerted(void)
 
             if (gCurrentSprite.animationDurationCounter > 5 && (gCurrentSprite.currentAnimationFrame & 3) == 0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             {
-                SoundPlayNotAlreadyPlaying(0x165);
+                SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_FOOTSTEPS);
             }
         }
     }
@@ -838,7 +839,7 @@ void BlackSpacePirateWalkingAlerted(void)
 void BlackSpacePirateDeath(u8 playSound)
 {
     if (playSound && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x16A);
+        SoundPlay(SOUND_SPACE_PIRATE_DYING);
 
     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
         gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
@@ -851,7 +852,7 @@ void BlackSpacePirateDeath(u8 playSound)
 void BlackSpacePirateHitByLaserInit(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x16A);
+        SoundPlay(SOUND_SPACE_PIRATE_DYING);
 
     gCurrentSprite.pose = SPACE_PIRATE_POSE_HIT_BY_LASER;
     gCurrentSprite.health = 0;
@@ -1178,5 +1179,5 @@ void BlackSpacePirate(void)
     }
 
     if (!alerted && (gCurrentSprite.status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_IGNORE_PROJECTILES)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_FACING_DOWN))
-        SoundPlayNotAlreadyPlaying(0x169);
+        SoundPlayNotAlreadyPlaying(SOUND_SPACE_PIRATE_GETTING_ALERTED);
 }

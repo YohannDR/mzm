@@ -835,7 +835,7 @@ void ImagoChargeThroughWall(void)
         ClipdataProcess(yPosition + BLOCK_SIZE * 8, xPosition + BLOCK_SIZE * 1);
 
         ParticleSet(yPosition + BLOCK_SIZE * 7, xPosition + BLOCK_SIZE * 1, PE_SPRITE_EXPLOSION_HUGE);
-        SoundPlay(0xC4);
+        SoundPlay(SOUND_IMAGO_DESTROYING_WALL);
     }
     else
         gSubSpriteData1.xPosition -= 0x10; // Move
@@ -1028,7 +1028,7 @@ void ImagoDying(void)
             ParticleSet(gSubSpriteData1.yPosition + QUARTER_BLOCK_SIZE, gSubSpriteData1.xPosition - 0xAC, PE_SPRITE_EXPLOSION_HUGE);
             gCurrentSprite.pose = IMAGO_POSE_SET_EVENT;
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-            SoundPlay(0xC5);
+            SoundPlay(SOUND_IMAGO_DYING);
             PlayMusic(MUSIC_BOSS_KILLED, 0);
     }
 }
@@ -1217,7 +1217,7 @@ void Imago(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0xC3);
+            SoundPlayNotAlreadyPlaying(SOUND_IMAGO_DAMAGED);
     }
 
     if (!(gFrameCounter8Bit & 15))
@@ -1238,21 +1238,21 @@ void Imago(void)
                 if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 4)
                 {
                     gSamusData.yPosition += 0; // Needed to produce matching ASM.
-                    SoundPlay(0xB5);
+                    SoundPlay(SOUND_IMAGO_BUZZING_FAR_RIGHT);
                     if (health == 0)
-                        SoundPlay(0xBB);
+                        SoundPlay(SOUND_IMAGO_BURNING_FAR_RIGHT);
                 }
                 else if (xDistance < BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 10)
                 {
-                    SoundPlay(0xB9);
+                    SoundPlay(SOUND_IMAGO_BUZZING_CLOSE_RIGHT);
                     if (health == 0)
-                        SoundPlay(0xBF);
+                        SoundPlay(SOUND_IMAGO_BURNING_CLOSE_RIGHT);
                 }
                 else
                 {
-                    SoundPlay(0xB7);
+                    SoundPlay(SOUND_IMAGO_BUZZING_NEAR_RIGHT);
                     if (health == 0)
-                        SoundPlay(0xBD);
+                        SoundPlay(SOUND_IMAGO_BURNING_NEAR_RIGHT);
                 }
             }
             else
@@ -1260,21 +1260,21 @@ void Imago(void)
                 xDistance = gSamusData.xPosition - gSubSpriteData1.xPosition;
                 if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 4)
                 {
-                    SoundPlay(0xB4);
+                    SoundPlay(SOUND_IMAGO_BUZZING_FAR_LEFT);
                     if (health == 0)
-                        SoundPlay(0xBA);
+                        SoundPlay(SOUND_IMAGO_BURNING_FAR_LEFT);
                 }
                 else if (xDistance < BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 10)
                 {
-                    SoundPlay(0xB8);
+                    SoundPlay(SOUND_IMAGO_BUZZING_CLOSE_LEFT);
                     if (health == 0)
-                        SoundPlay(0xBE);
+                        SoundPlay(SOUND_IMAGO_BURNING_CLOSE_LEFT);
                 }
                 else
                 {
-                    SoundPlay(0xB6);
+                    SoundPlay(SOUND_IMAGO_BUZZING_NEAR_LEFT);
                     if (health == 0)
-                        SoundPlay(0xBC);
+                        SoundPlay(SOUND_IMAGO_BURNING_NEAR_LEFT);
                 }
             }
         }
@@ -1506,7 +1506,7 @@ void ImagoNeedle(void)
 
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.pose = IMAGO_NEEDLE_POSE_MOVING;
-            SoundPlay(0xC0);
+            SoundPlay(SOUND_IMAGO_NEEDLE_SHOT);
             break;
 
         case IMAGO_NEEDLE_POSE_MOVING:
@@ -1568,7 +1568,7 @@ void ImagoDamagedStinger(void)
             gCurrentSprite.work0 = 0;
             gCurrentSprite.work2 = 0xA;
             gCurrentSprite.work3 = 0;
-            SoundPlay(0xC1);
+            SoundPlay(SOUND_IMAGO_DAMAGED_STINGER_DETACHING);
 
         case IMAGO_DAMAGED_STINGER_POSE_FALLING:
             if (!(gCurrentSprite.work0 & 0x7))
@@ -1605,7 +1605,7 @@ void ImagoDamagedStinger(void)
             {
                 ParticleSet(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                 gCurrentSprite.status = 0;
-                SoundPlay(0xC2);
+                SoundPlay(SOUND_IMAGO_DAMAGED_STINGER_EXPLODING);
             }
             else if (gCurrentSprite.work0 < 0x29 && !(gCurrentSprite.work0 & 0x3))
             {
@@ -1659,7 +1659,7 @@ void ImagoEgg(void)
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.health = 0;
 
-                SoundPlay(0xB3);
+                SoundPlay(SOUND_IMAGO_EGG_BREAKING);
                 // Set last egg broken flag
                 if (gCurrentSprite.roomSlot == IMAGO_EGG_PART_LAST)
                     gSubSpriteData1.workVariable3 = TRUE;

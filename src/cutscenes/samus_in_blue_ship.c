@@ -4,6 +4,7 @@
 #include "data/cutscenes/samus_in_blue_ship_data.h"
 #include "data/cutscenes/internal_samus_in_blue_ship_data.h"
 
+#include "constants/audio.h"
 #include "constants/cutscene.h"
 
 #include "structs/display.h"
@@ -45,7 +46,7 @@ u8 SamusInBlueShipPoweringUp(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > 30)
             {
-                SoundPlay(0x254);
+                SoundPlay(SOUND_BLUE_SHIP_POWERING_UP);
                 CUTSCENE_DATA.graphicsData[0].active = TRUE;
                 CUTSCENE_DATA.graphicsData[0].timer = 0;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -108,7 +109,7 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
 
         case 1:
             UpdateCutsceneOamDataID(pOam, 2);
-            SoundPlay(0x253);
+            SoundPlay(SOUND_BLUE_SHIP_TURNING_ON);
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
             pOam->actions++;

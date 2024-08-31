@@ -3,6 +3,7 @@
 
 #include "data/sprites/boss_statues.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -193,7 +194,7 @@ void KraidStatueCheckBackgroundLocked(void)
     u16 distance;
 
     if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlay(0x12A);
+        SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
     spriteX = SUB_PIXEL_TO_PIXEL(spriteX);
@@ -214,7 +215,7 @@ void KraidStatueCheckBackgroundLocked(void)
 
         gCurrentSprite.work1 = 0;
         gCurrentSprite.work2 = 0;
-        SoundPlay(0x12B);
+        SoundPlay(SOUND_BOSS_STATUES_KRAID_STATUE_OPENING);
 
         BossStatusSetWallBehindSamusCollision(CAA_MAKE_NON_POWER_GRIP);
     }
@@ -419,7 +420,7 @@ void RidleyStatueCheckBackgroundLocked(void)
     u16 distance;
 
     if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-        SoundPlay(0x12A);
+        SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
     spriteX = SUB_PIXEL_TO_PIXEL(spriteX);
@@ -456,7 +457,7 @@ void RidleyStatueOpening(void)
     if (gCurrentSprite.work0 != 0)
     {
         if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
-            SoundPlay(0x12A);
+            SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
         APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
@@ -468,7 +469,7 @@ void RidleyStatueOpening(void)
 
             gCurrentSprite.work1 = 0;
             gCurrentSprite.work2 = 0;
-            SoundPlay(0x21C);
+            SoundPlay(SOUND_BOSS_STATUES_RIDLEY_STATUE_OPENING);
         }
     }
     else

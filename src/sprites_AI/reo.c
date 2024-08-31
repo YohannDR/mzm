@@ -4,6 +4,7 @@
 #include "data/sprites/reo.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -339,7 +340,7 @@ void ReoMove(void)
     {
         gCurrentSprite.scaling = 0x20;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x158);
+            SoundPlayNotAlreadyPlaying(SOUND_REO_MOVING);
     }
 }
 
@@ -353,7 +354,7 @@ void Reo(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x159);
+            SoundPlayNotAlreadyPlaying(SOUND_REO_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

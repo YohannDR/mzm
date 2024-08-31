@@ -1,5 +1,6 @@
 #include "data/menus/erase_sram_data.h"
 #include "macros.h"
+#include "constants/audio.h"
 #include "constants/menus/erase_sram.h"
 
 const u16 sEraseSramMenuObjectsPal[7 * 16] = INCBIN_U16("data/menus/EraseSram/Objects.pal");
@@ -324,7 +325,7 @@ const u8 sEraseSramConfirmWindowNoSelectedOamId = ERASE_SRAM_OAM_ID_CONFIRM_WIND
 const u8 sEraseSramConfirmWindowYesSelectedOamId = ERASE_SRAM_OAM_ID_CONFIRM_WINDOW_YES_SELECTED;
 
 const u16 sEraseSramMenuSoundsID[5] = {
-    0, 0x1FC, 0x208, 0x209, 0x1FA
+    0, SOUND_ACCEPT_CONFIRM_MENU, SOUND_YES_NO_CURSOR_SELECTING_YES, SOUND_REFUSE_MENU, SOUND_SUB_MENU_CURSOR
 };
 
 const u16 sEraseSramMenuCursorPosition[2][2] = {

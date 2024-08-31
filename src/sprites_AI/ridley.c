@@ -151,7 +151,7 @@ void RidleyUpdateHealth(void)
 
         default:
             if (SPRITE_GET_ISFT(gCurrentSprite) == 0x10)
-                SoundPlayNotAlreadyPlaying(0x1ED);
+                SoundPlayNotAlreadyPlaying(SOUND_RIDLEY_DAMAGED);
 
             if (gCurrentSprite.health == 0 && gSubSpriteData1.health != 0)
             {
@@ -678,7 +678,7 @@ void RidleySpawning(void)
 
                     ParticleSet(yPosition + HALF_BLOCK_SIZE, xPosition - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE), PE_SPRITE_EXPLOSION_HUGE);
                     ParticleSet(yPosition + HALF_BLOCK_SIZE, xPosition + (BLOCK_SIZE * 6 + HALF_BLOCK_SIZE), PE_SPRITE_EXPLOSION_HUGE);
-                    SoundPlay(0x1F2);
+                    SoundPlay(SOUND_RIDLEY_EXPLODING_GROUND);
                 }
 
                 gSubSpriteData1.yPosition = RIDLEY_GROUND_POSITION - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
@@ -688,7 +688,7 @@ void RidleySpawning(void)
                 gCurrentSprite.work0 = 30;
                 gCurrentSprite.work3 = 0;
 
-                SoundPlay(0x1E6);
+                SoundPlay(SOUND_RIDLEY_HITTING_GROUND);
             }
             break;
 
@@ -700,7 +700,7 @@ void RidleySpawning(void)
                 gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
 
-                SoundPlay(0x1E5);
+                SoundPlay(SOUND_RIDLEY_OPENING_MOUTH);
                 gCurrentSprite.work0 = 5;
                 gCurrentSprite.work1++;
             }
@@ -724,7 +724,7 @@ void RidleySpawning(void)
                 gSpriteData[gSubSpriteData1.workVariable5].currentAnimationFrame = 0;
 
                 gCurrentSprite.work1++;
-                SoundPlay(0x1E7);
+                SoundPlay(SOUND_RIDLEY_SPITTING_FIREBALLS);
             }
             break;
 
@@ -759,7 +759,7 @@ void RidleySpawning(void)
 
             gCurrentSprite.work0 = 5;
             gCurrentSprite.work1++;
-            SoundFade(0x1E7, 30);
+            SoundFade(SOUND_RIDLEY_SPITTING_FIREBALLS, CONVERT_SECONDS(.5f));
             break;
 
         case RIDLEY_SPAWNING_ACTION_CLOSING_MOUTH:
@@ -1024,7 +1024,7 @@ void RidleyIdle(void)
 
                 gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_LIFTING_SAMUS;
                 gSpriteData[clawSlot].work0 = 28;
-                SoundPlay(0x1E4);
+                SoundPlay(SOUND_RIDLEY_LIFTING_SAMUS);
             }
         }
         else if (action == RIDLEY_SAMUS_GRABBED_ACTION_LIFTING_SAMUS)
@@ -1049,7 +1049,7 @@ void RidleyIdle(void)
                 gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
                 
-                SoundPlay(0x1E5);
+                SoundPlay(SOUND_RIDLEY_OPENING_MOUTH);
                 gSpriteData[clawSlot].work1 = RIDLEY_SAMUS_GRABBED_ACTION_OPENING_MOUTH;
                 gSpriteData[clawSlot].work0 = 5;
             }
@@ -1091,7 +1091,7 @@ void RidleyIdle(void)
                         gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), 0);
                 }
 
-                SoundPlay(0x1E8);
+                SoundPlay(SOUND_RIDLEY_SPITTING_FIREBALLS_ON_SAMUS);
             }
 
             // Update release timer
@@ -1468,7 +1468,7 @@ void RidleySmallFireballsAttack(void)
                 gCurrentSprite.work0 = 0x1E;
                 gCurrentSprite.work3 = 0;
 
-                SoundPlay(0x1E6);
+                SoundPlay(SOUND_RIDLEY_HITTING_GROUND);
             }
             break;
 
@@ -1481,7 +1481,7 @@ void RidleySmallFireballsAttack(void)
                 gSpriteData[gSubSpriteData1.workVariable4].animationDurationCounter = 0;
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
 
-                SoundPlay(0x1E5);
+                SoundPlay(SOUND_RIDLEY_OPENING_MOUTH);
                 gCurrentSprite.work0 = 0x5;
                 gCurrentSprite.work1++;
             }
@@ -1503,7 +1503,7 @@ void RidleySmallFireballsAttack(void)
                 gSpriteData[gSubSpriteData1.workVariable4].currentAnimationFrame = 0;
 
                 gCurrentSprite.work1++;
-                SoundPlay(0x1E7);
+                SoundPlay(SOUND_RIDLEY_SPITTING_FIREBALLS);
             }
             break;
 
@@ -1538,7 +1538,7 @@ void RidleySmallFireballsAttack(void)
 
             gCurrentSprite.work0 = 0x5;
             gCurrentSprite.work1++;
-            SoundFade(0x1E7, 0x1E);
+            SoundFade(SOUND_RIDLEY_SPITTING_FIREBALLS, CONVERT_SECONDS(.5f));
             break;
 
         case RIDLEY_SMALL_FIREBALLS_ATTACK_ACTION_CLOSING_MOUTH:
@@ -1672,7 +1672,7 @@ void RidleyBigFireballsAttackInit(void)
         gCurrentSprite.work1 = 0x96;
         gCurrentSprite.work2 = 0xB4;
         gCurrentSprite.work3 = 0x1;
-        SoundPlay(0x1EE);
+        SoundPlay(SOUND_RIDLEY_DYING_1);
     }
     else
     {
@@ -1740,7 +1740,7 @@ void RidleyBigFireballsAttack(void)
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_BOTTOM,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
 
-        SoundPlay(0x1E9);
+        SoundPlay(SOUND_RIDLEY_SPITTING_BIG_FIREBALLS);
     }
 }
 
@@ -1840,7 +1840,7 @@ void RidleyDying(void)
             PlayMusic(MUSIC_BOSS_KILLED, 0);
         }
         else if (gCurrentSprite.work1 == 0x95)
-            SoundPlay(0x1EF);
+            SoundPlay(SOUND_RIDLEY_DYING_2);
     }
 }
 
@@ -1950,9 +1950,9 @@ void RidleyPartWingPlaySound(u8 ramSlot)
         gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 0x1)
     {
         if (gCurrentSprite.pOam == sRidleyPartOam_LeftWingIdle)
-            SoundPlay(0x1E1);
+            SoundPlay(SOUND_RIDLEY_WINGS_FLAPPING);
         else if (gCurrentSprite.pOam == sRidleyPartOam_LeftWingSpittingFireballs)
-            SoundPlay(0x1E2);
+            SoundPlay(SOUND_RIDLEY_WINGS_FLAPPING_FAST);
     }
 }
 
@@ -2054,7 +2054,7 @@ void RidleyTailDead(void)
         case RIDLEY_TAIL_PART_TIP:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gSubSpriteData1.yPosition + 0x78 + rng,
                 gSubSpriteData1.xPosition - 0x78 + rng * 2, FALSE, PE_SPRITE_EXPLOSION_MEDIUM);
-            SoundPlay(0x1F0);
+            SoundPlay(SOUND_RIDLEY_TAIL_DYING);
             break;
 
         default:
@@ -2158,7 +2158,7 @@ void RidleyTailCheckMovingToAttackAnimEnded(void)
 void RidleyTailSettingUpAttack(void)
 {
     if (gSubSpriteData2.currentAnimationFrame == 0x3 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EA);
+        SoundPlay(SOUND_RIDLEY_TAIL_SPINNING);
 
     if (SpriteUtilCheckEndSubSprite2Anim())
     {
@@ -2189,7 +2189,7 @@ void RidleyTailChargingAttack(void)
     u8 doDiagonal;
 
     if (gSubSpriteData2.currentAnimationFrame == 0x3 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EA);
+        SoundPlay(SOUND_RIDLEY_TAIL_SPINNING);
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     doDiagonal = FALSE;
@@ -2261,7 +2261,7 @@ void RidleyTailChargingAttack(void)
 void RidleyTailFirstVerticalAttack(void)
 {
     if (gSubSpriteData2.currentAnimationFrame == 0x3 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EC);
+        SoundPlay(SOUND_RIDLEY_TAIL_VERTICAL_SWIPE);
 
     if (SpriteUtilCheckEndSubSprite2Anim())
     {
@@ -2292,7 +2292,7 @@ void RidleyTailVerticalAttack(void)
     u8 ramSlot;
 
     if (gSubSpriteData2.currentAnimationFrame == 0 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EC);
+        SoundPlay(SOUND_RIDLEY_TAIL_VERTICAL_SWIPE);
 
     stopAttack = FALSE;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
@@ -2345,7 +2345,7 @@ void RidleyTailVerticalAttack(void)
 void RidleyTailLastVerticalAttack(void)
 {
     if (gSubSpriteData2.currentAnimationFrame == 0 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EC);
+        SoundPlay(SOUND_RIDLEY_TAIL_VERTICAL_SWIPE);
 
     if (SpriteUtilCheckEndSubSprite2Anim())
     {
@@ -2384,24 +2384,23 @@ void RidleyTailLastVerticalAttack(void)
  */
 void RidleyTailDiagonalAttack(void)
 {
-    struct SpriteData* pSprite;
-
     if (gSubSpriteData2.currentAnimationFrame == 0x3 && gSubSpriteData2.animationDurationCounter == 0x1)
-        SoundPlay(0x1EB);
+        SoundPlay(SOUND_RIDLEY_TAIL_DIAGONAL_SWIPE);
 
-    // Why
-    pSprite = &gCurrentSprite;
+    // Commented out code probably
+    if (gCurrentSprite.status) {}
+
     if (SpriteUtilCheckEndSubSprite2Anim())
     {
         // Decrement swipe counter
-        pSprite->work0--;
-        if (pSprite->work0 == 0)
+        gCurrentSprite.work0--;
+        if (gCurrentSprite.work0 == 0)
         {
             // No more swipes, set back to idle
             gSubSpriteData2.pMultiOam = sRidleyTailMultiSpriteData_BackToIdle;
             gSubSpriteData2.animationDurationCounter = 0;
             gSubSpriteData2.currentAnimationFrame = 0;
-            pSprite->pose = RIDLEY_TAIL_POSE_BACK_TO_IDLE;
+            gCurrentSprite.pose = RIDLEY_TAIL_POSE_BACK_TO_IDLE;
         }
         else
         {
@@ -2409,7 +2408,7 @@ void RidleyTailDiagonalAttack(void)
             gSubSpriteData2.pMultiOam = sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack;
             gSubSpriteData2.animationDurationCounter = 0;
             gSubSpriteData2.currentAnimationFrame = 0;
-            pSprite->pose = RIDLEY_TAIL_POSE_CHARGING_ATTACK;
+            gCurrentSprite.pose = RIDLEY_TAIL_POSE_CHARGING_ATTACK;
         }
     }
     else
@@ -3052,7 +3051,7 @@ void RidleyFireball(void)
         case RIDLEY_FIREBALL_POSE_DESTROY:
             gCurrentSprite.status = 0;
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
-            SoundPlay(0x1F1);
+            SoundPlay(SOUND_RIDLEY_FIREBALL_EXPLODING);
             return;
 
         default:

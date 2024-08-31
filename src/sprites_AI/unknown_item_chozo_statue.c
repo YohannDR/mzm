@@ -220,7 +220,7 @@ void UnknownItemChozoStatueHintFlashing(void)
             if (gCurrentSprite.work0 == 0x77)
             {
                 MakeBackgroundFlash(BG_FLASH_SLIGHT_YELLOW);
-                SoundPlay(0x11B); // Chozo hint
+                SoundPlay(SOUND_CHOZO_STATUE_HINT);
             }
             else if (gCurrentSprite.work0 > 0x77)
                 return;
@@ -257,7 +257,7 @@ void UnknownItemChozoStatueSittingInit(void)
     gSubSpriteData1.currentAnimationFrame = 0;
 
     ChozoStatueStandingChangeCcaa(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
-    SoundPlay(0x11C);
+    SoundPlay(SOUND_CHOZO_STATUE_SITTING_DOWN);
     gSlowScrollingTimer = 0x3C;
 }
 
@@ -1047,12 +1047,12 @@ void UnknownItemChozoStatueRefill(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sUnknownItemChozoStatueRefillOam;
 
-        SoundPlay(0x10F); // Chozo statue refill
+        SoundPlay(SOUND_CHOZO_STATUE_REFILL);
     }
     else if (gSpriteData[ramSlot].pose == UNKNOWN_ITEM_CHOZO_STATUE_POSE_SLEEPING)
     {
         gCurrentSprite.status = 0;
-        SoundFade(0x10F, 0x1E); // Chozo statue refill
+        SoundFade(SOUND_CHOZO_STATUE_REFILL, CONVERT_SECONDS(.5f));
     }
 }
 

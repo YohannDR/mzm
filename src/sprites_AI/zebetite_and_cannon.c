@@ -122,7 +122,7 @@ void Zebetite(void)
         case 0:
             if (gCurrentSprite.pOam != sZebetiteOam_Phase1)
             {
-                SoundPlayNotAlreadyPlaying(0x266);
+                SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
                 
                 gCurrentSprite.pOam = sZebetiteOam_Phase1;
                 gCurrentSprite.animationDurationCounter = 0;
@@ -135,9 +135,9 @@ void Zebetite(void)
             if (gCurrentSprite.pOam != sZebetiteOam_Phase2)
             {
                 if (gCurrentSprite.pOam == sZebetiteOam_Phase1)
-                    SoundPlayNotAlreadyPlaying(0x265);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
                 else if (gCurrentSprite.pOam == sZebetiteOam_Phase4)
-                    SoundPlayNotAlreadyPlaying(0x266);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
                 
                 gCurrentSprite.pOam = sZebetiteOam_Phase2;
                 gCurrentSprite.animationDurationCounter = 0;
@@ -150,9 +150,9 @@ void Zebetite(void)
             if (gCurrentSprite.pOam != sZebetiteOam_Phase4)
             {
                 if (gCurrentSprite.pOam == sZebetiteOam_Phase2)
-                    SoundPlayNotAlreadyPlaying(0x265);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
                 else if (gCurrentSprite.pOam == sZebetiteOam_Phase6)
-                    SoundPlayNotAlreadyPlaying(0x266);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_2);
                 
                 gCurrentSprite.pOam = sZebetiteOam_Phase4;
                 gCurrentSprite.animationDurationCounter = 0;
@@ -164,7 +164,7 @@ void Zebetite(void)
         case 6:
             if (gCurrentSprite.pOam != sZebetiteOam_Phase6)
             {
-                SoundPlayNotAlreadyPlaying(0x265);
+                SoundPlayNotAlreadyPlaying(SOUND_ZEBETITE_HURT_1);
                 
                 gCurrentSprite.pOam = sZebetiteOam_Phase6;
                 gCurrentSprite.animationDurationCounter = 0;

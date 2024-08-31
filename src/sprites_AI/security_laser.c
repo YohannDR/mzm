@@ -1,8 +1,12 @@
-#include "gba.h"
 #include "sprites_AI/security_laser.h"
+#include "gba.h"
+
 #include "data/sprites/security_laser.h"
+
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
+
 #include "structs/sprite.h"
 
 /**
@@ -190,11 +194,11 @@ void SecurityLaserIdle(void)
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
     }
 
-    SoundPlay(0x10A);
+    SoundPlay(SOUND_SECURITY_LASER_TRIPPED);
 }
 
 /**

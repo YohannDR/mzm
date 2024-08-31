@@ -4,6 +4,7 @@
 #include "data/sprites/atomic.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
@@ -293,7 +294,7 @@ void AtomicCheckShootElectricity(void)
             {
                 gCurrentSprite.rotation = sAtomicDynamicPaletteData[offset][1];
                 if (offset == 0x10 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x260);
+                    SoundPlayNotAlreadyPlaying(SOUND_260);
             }
             else
             {
@@ -624,7 +625,7 @@ void AtomicElectriciytInit(void)
 }
 
 /**
- * @brief 3c1fc | 1ac | 
+ * @brief 3c1fc | 1ac | Handles an atomic electricy spawning
  * 
  */
 void AtomicElectricitySpawn(void)
@@ -651,7 +652,7 @@ void AtomicElectricitySpawn(void)
     {
         // Charging done, set moving behavior
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x261);
+            SoundPlayNotAlreadyPlaying(SOUND_ATOMIC_ELECTRICITY_SHOOTING);
 
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -672,7 +673,7 @@ void AtomicElectricitySpawn(void)
         else
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
 
-        if ((spriteY + BLOCK_SIZE) > samusY && (spriteY - BLOCK_SIZE) < samusY)
+        if (spriteY + BLOCK_SIZE > samusY && spriteY - BLOCK_SIZE < samusY)
         {
             // Shooting horizontally
             gCurrentSprite.pOam = sAtomicElectricityOAM_MovingHorizontal;
@@ -786,7 +787,7 @@ void AtomicElectricityMove(void)
         else
             gCurrentSprite.pOam = sAtomicElectricityOAM_ExplodingDiagonal;
 
-        SoundPlay(0x262);
+        SoundPlay(SOUND_ATOMIC_ELECTRICITY_EXPLODING);
     }
 }
 
@@ -833,7 +834,7 @@ void Atomic(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x263);
+            SoundPlayNotAlreadyPlaying(SOUND_ATOMIC_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

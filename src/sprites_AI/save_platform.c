@@ -3,6 +3,7 @@
 
 #include "data/sprites/save_platform.h"
 
+#include "constants/audio.h"
 #include "constants/escape.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
@@ -106,7 +107,7 @@ void SavePlatformSamusDetection(void)
             gCurrentSprite.pOam = sSavePlatformOAM_Opening;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            SoundPlay(0x112);
+            SoundPlay(SOUND_SAVE_PLATFORM_OPENING);
         }
     }
     else
@@ -154,7 +155,7 @@ void SavePlatformSecondSamusDetection(void)
         gCurrentSprite.pOam = sSavePlatformOAM_Closing;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x113);
+        SoundPlay(SOUND_SAVE_PLATFORM_CLOSING);
     }
 }
 
@@ -202,7 +203,7 @@ void SavePlatformSamusDetectionOut(void)
         gCurrentSprite.pOam = sSavePlatformOAM_Closing;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        SoundPlay(0x113);
+        SoundPlay(SOUND_SAVE_PLATFORM_CLOSING);
     }
 }
 
@@ -239,7 +240,7 @@ void SavePlatformSavePrompt(void)
 
                 gSpriteData[gCurrentSprite.work3].pose = SAVE_PLATFORM_PART_POSE_TOP_EXTENDING_INIT;
                 gSamusData.timer = FALSE;
-                SoundPlay(0x114);
+                SoundPlay(SOUND_SAVING);
             }
             else
             {
@@ -450,7 +451,7 @@ void SavePlatformPartTopRetractingInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = SAVE_PLATFORM_PART_POSE_TOP_RETRACTING;
     gSamusData.timer = TRUE;
-    SoundPlay(0x115);
+    SoundPlay(SOUND_SAVE_PLATFORM_RETRACTING);
 }
 
 /**

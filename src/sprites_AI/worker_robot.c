@@ -4,6 +4,7 @@
 #include "data/sprites/worker_robot.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -123,7 +124,7 @@ void WorkerRobotWakingUpInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x26F);
+        SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_WAKING_UP);
 }
 
 void WorkerRobotChecWakingUpAnimEnded(void)
@@ -330,7 +331,7 @@ void WorkerRobotWalking(void)
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
             gCurrentSprite.animationDurationCounter == 6)
         {
-            SoundPlayNotAlreadyPlaying(0x26E);
+            SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_FOOTSTEPS);
         }
 
         gCurrentSprite.animationDurationCounter += 4;
@@ -366,7 +367,7 @@ void WorkerRobotWalking(void)
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
             gCurrentSprite.animationDurationCounter == 8)
         {
-            SoundPlayNotAlreadyPlaying(0x26E);
+            SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_FOOTSTEPS);
         }
 
         if (WorkerRobotCheckSamusInFront())
@@ -433,7 +434,7 @@ void WorkerRobotBackToSleepInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x270);
+        SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_FALLING_ASLEEP);
 }
 
 void WorkerRobotCheckBackToSleepAnimEnded(void)
@@ -499,7 +500,7 @@ void WorkerRobotFalling(void)
     {
         gCurrentSprite.yPosition = blockTop;
         gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
-        SoundPlay(0x271);
+        SoundPlay(SOUND_WORKER_ROBOT_LANDING);
     }
     else
     {
@@ -541,7 +542,7 @@ void WorkerRobotFallingSleep(void)
     {
         gCurrentSprite.yPosition = blockTop;
         gCurrentSprite.pose = WORKER_ROBOT_POSE_SLEEPING_INIT;
-        SoundPlay(0x271);
+        SoundPlay(SOUND_WORKER_ROBOT_LANDING);
     }
     else
     {

@@ -482,9 +482,9 @@ void MechaRidleyInit(void)
 void MechaRidleyStartWalking(void)
 {
     gCurrentSprite.pose = MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING;
-    SoundPlay(0x2B3);
+    SoundPlay(SOUND_MECHA_RIDLEY_ENTRANCE_CRAWL);
 
-    DMA_SET(3, sMechaRidleyFadingPal, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
+    DMA_SET(3, sMechaRidleyFadingPal, PALRAM_BASE + 0x300, C_32_2_16(DMA_ENABLE, 13));
 
     TransparencyUpdateBldcnt(1,
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
@@ -588,7 +588,7 @@ void MechaRidleyStartBattle(void)
         else
         {
             if (palRow == 1)
-                SoundPlay(0x2AD);
+                SoundPlay(SOUND_2AD);
 
             // Palette fading
             DMA_SET(3, &sMechaRidleyFadingPal[palRow * 16],
@@ -681,7 +681,7 @@ void MechaRidleyClawAttack(void)
         if ((u16)(gSpriteData[leftArmSlot].currentAnimationFrame - 4) < 4)
         {
             if (gSpriteData[leftArmSlot].currentAnimationFrame == 4 && gSpriteData[leftArmSlot].animationDurationCounter == 1)
-                SoundPlay(0x29E);
+                SoundPlay(SOUND_MECHA_RIDLEY_CLAW_ATTACK);
 
             gSubSpriteData1.xPosition -= 4;
         }
@@ -805,7 +805,7 @@ void MechaRidleyRetracting(void)
         gSubSpriteData1.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_CRAWLING_BACKWARDS;
-        SoundPlay(0x29F);
+        SoundPlay(SOUND_MECHA_RIDLEY_CRAWLING_BACKWARDS);
     }
 }
 
@@ -888,7 +888,7 @@ void MechaRidleyStandingForFireballs(void)
         gSubSpriteData1.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_OPENING_MOUTH;
-        SoundPlay(0x2A8);
+        SoundPlay(SOUND_MECHA_RIDLEY_OPENING_MOUTH);
     }
 }
 
@@ -934,7 +934,7 @@ void MechaRidleyFireballsAttack(void)
                 gSubSpriteData1.xPosition - BLOCK_SIZE, 0);
         }
 
-        SoundPlay(0x2A9);
+        SoundPlay(SOUND_MECHA_RIDLEY_SPITTING_FIREBALL);
     }
 
     gCurrentSprite.work0--;
@@ -1006,8 +1006,8 @@ void MechaRidleyDyingInit(void)
     gBossWork.work4 = EYE_STATE_LASER_SET_IDLE;
 
     ParticleSet(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition, PE_MAIN_BOSS_DEATH);
-    SoundPlay(0x2B0);
-    FadeMusic(60);
+    SoundPlay(SOUND_MECHA_RIDLEY_DEATH_EXPLOSIONS);
+    FadeMusic(CONVERT_SECONDS(1.f));
 }
 
 /**
@@ -1050,7 +1050,7 @@ void MechaRidleyDying(void)
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_DYING_GLOW_FADING;
         gCurrentSprite.work0 = 0;
 
-        SoundPlay(0x2AE);
+        SoundPlay(SOUND_MECA_RIDLEY_POWERING_OFF);
 
         // Disable alarm
         gDisableAnimatedPalette = -1;
@@ -1230,7 +1230,7 @@ void MechaRidleyFirstEyeGlow(void)
         gCurrentSprite.work1 = 0;
         gCurrentSprite.work2 = 4;
         gBossWork.work4 = EYE_STATE_LASER_SET_DYING;
-        SoundPlay(0x2B1);
+        SoundPlay(SOUND_MECHA_RIDLEY_EYE_BEEPING);
     }
 }
 
@@ -1490,7 +1490,7 @@ void MechaRidleyPartCoverIdle(void)
     u16 maxHealth;
 
     if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
-        SoundPlay(0x2AF);
+        SoundPlay(SOUND_MECHA_RIDLEY_DAMAGED);
 
     // Spawn health of cover
     maxHealth = gBossWork.work10;
@@ -1547,7 +1547,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 gCurrentSprite.animationDurationCounter = 0;
 
                 gBossWork.work5 = MISSILE_LAUNCHER_STATE_OPENING;
-                SoundPlay(0x2A6);
+                SoundPlay(SOUND_MECHA_RIDLEY_OPENING_MISSILE_LAUNCHER);
             }
             else
                 gBossWork.work5 = MISSILE_LAUNCHER_STATE_IDLE; // Cancel attack
@@ -1603,7 +1603,7 @@ void MechaRidleyPartMissileLauncherIdle(void)
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
                             gCurrentSprite.xPosition - 0x24, 0);
 
-                        SoundPlay(0x2A7);
+                        SoundPlay(SOUND_MECHA_RIDLEY_FIRING_MISSILE_LAUNCHER);
                     }
                 }
             }
@@ -1695,7 +1695,7 @@ void MechaRidleyPartEyeIdle(void)
                     gCurrentSprite.work1 = LASER_DIRECTION_FORWARD;
                 }
 
-                SoundPlay(0x2AA);
+                SoundPlay(SOUND_MECHA_RIDLEY_PREPARING_LASER);
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
@@ -1803,7 +1803,7 @@ void MechaRidleyPartRightArmIdle(void)
         {
             case 0:
                 if (gCurrentSprite.animationDurationCounter == 1 && gSpriteData[ramSlot].pose > 7)
-                    SoundPlay(0x2B2);
+                    SoundPlay(SOUND_MECHA_RIDLEY_RIGHT_ARM_CRAWLING);
 
                 topHitbox = BLOCK_SIZE;
                 bottomHitbox = BLOCK_SIZE * 3;
@@ -1889,7 +1889,7 @@ void MechaRidleyPartRightArmIdle(void)
             
             case 7:
                 if (gCurrentSprite.animationDurationCounter == 1 && gSpriteData[ramSlot].pose > 7)
-                    SoundPlay(0x2B2);
+                    SoundPlay(SOUND_MECHA_RIDLEY_RIGHT_ARM_CRAWLING);
 
                 topHitbox = BLOCK_SIZE;
                 bottomHitbox = (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
@@ -1957,7 +1957,7 @@ void MechaRidleyPartLeftArmIdle(void)
         {
             case 0:
                 if (gCurrentSprite.animationDurationCounter == 1)
-                    SoundPlay(0x2A4);
+                    SoundPlay(SOUND_MECHA_RIDLEY_ARM_SWIPE_PREPARING);
 
                 topHitbox = -BLOCK_SIZE;
                 bottomHitbox = BLOCK_SIZE;
@@ -1981,7 +1981,7 @@ void MechaRidleyPartLeftArmIdle(void)
 
             case 3:
                 if (gCurrentSprite.animationDurationCounter == 20)
-                    SoundPlay(0x2A5);
+                    SoundPlay(SOUND_MECHA_RIDLEY_ARM_SWIPE);
 
                 topHitbox = -(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
                 bottomHitbox = 0;
@@ -2014,7 +2014,7 @@ void MechaRidleyPartLeftArmIdle(void)
                 if (gCurrentSprite.animationDurationCounter == 1)
                 {
                     ScreenShakeStartVertical(20, 0x81);
-                    SoundPlay(0x2A0);
+                    SoundPlay(SOUND_MECHA_RIDLEY_ARM_SWIPE_HITTING_GROUND);
                 }
 
             case 8:
@@ -2044,7 +2044,8 @@ void MechaRidleyPartLeftArmIdle(void)
 
             case 1:
                 if (gCurrentSprite.animationDurationCounter == 8)
-                    SoundPlay(0x2A3);
+                    SoundPlay(SOUND_MECHA_RIDLEY_HOLDING_UP_ARM);
+
                 topHitbox = BLOCK_SIZE * 2;
                 bottomHitbox = BLOCK_SIZE * 3;
                 leftHitbox = -BLOCK_SIZE * 5;
@@ -2177,7 +2178,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2AB);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_MIDDLE_UP_MOVEMENT);
 
             topHitbox = -BLOCK_SIZE;
             bottomHitbox = BLOCK_SIZE;
@@ -2197,7 +2198,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2AB);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_MIDDLE_UP_MOVEMENT);
 
             topHitbox = -BLOCK_SIZE * 2;
             bottomHitbox = 0;
@@ -2217,7 +2218,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2AC);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_MIDDLE_DOWN_MOVEMENT);
 
             topHitbox = -BLOCK_SIZE * 2;
             bottomHitbox = 0;
@@ -2237,7 +2238,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2AC);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_MIDDLE_DOWN_MOVEMENT);
 
             topHitbox = -BLOCK_SIZE;
             bottomHitbox = BLOCK_SIZE;
@@ -2257,7 +2258,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2A1);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_LOW_TO_HIGH);
 
             topHitbox = -BLOCK_SIZE;
             bottomHitbox = BLOCK_SIZE;
@@ -2291,7 +2292,7 @@ void MechaRidleyPartNeckIdle(void)
         if (gCurrentSprite.currentAnimationFrame == 0)
         {
             if (gCurrentSprite.animationDurationCounter == 1)
-                SoundPlay(0x2A2);
+                SoundPlay(SOUND_MECHA_RIDLEY_NECK_HIGH_TO_LOW);
 
             topHitbox = -BLOCK_SIZE * 2;
             bottomHitbox = 0;
@@ -2342,7 +2343,7 @@ void MechaRidley(void)
     if (gCurrentSprite.properties & SP_DAMAGED)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
-        SoundPlay(0x2AF);
+        SoundPlay(SOUND_MECHA_RIDLEY_DAMAGED);
     }
 
     if (gCurrentSprite.pose != 0)
@@ -2779,7 +2780,7 @@ void MechaRidleyLaser(void)
         // Destroy
         gCurrentSprite.status = 0;
         ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
-        SoundPlay(0x2C1);
+        SoundPlay(SOUND_MECHA_RIDLEY_LASER_EXPLODING);
     }
 }
 
@@ -2869,11 +2870,11 @@ void MechaRidleyMissile(void)
                 gCurrentSprite.pose = 0x44;
             break;
 
-        case 0x42:
+        case SPRITE_POSE_STOPPED:
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
             gCurrentSprite.status = 0;
             gBossWork.work6--;
-            SoundPlay(0x2C2);
+            SoundPlay(SOUND_MECHA_RIDLEY_MISSILE_EXPLODING);
             break;
 
         case 0x44:
@@ -2946,18 +2947,18 @@ void MechaRidleyFireball(void)
         case 0x23:
             break;
 
-        case 0x42:
+        case SPRITE_POSE_STOPPED:
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
             gCurrentSprite.status = 0;
             gBossWork.work8--;
-            SoundPlay(0x2B4);
+            SoundPlay(SOUND_MECHA_RIDLEY_FIREBALL_EXPLODING);
             break;
 
         case 0x44:
             ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
             gCurrentSprite.status = 0;
             gBossWork.work8--;
-            SoundPlay(0x2B4);
+            SoundPlay(SOUND_MECHA_RIDLEY_FIREBALL_EXPLODING);
             break;
 
         default:

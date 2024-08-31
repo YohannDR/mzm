@@ -32,7 +32,7 @@ u8 EnterTourianAnimation(void)
         case 0:
             if (unk_61f44())
             {
-                SoundPlay(0x295);
+                SoundPlay(SOUND_ENTER_TOURIAN_METROIDS_SUCKING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -61,7 +61,7 @@ u8 EnterTourianAnimation(void)
             if (CUTSCENE_DATA.timeInfo.timer == 8)
             {
                 CUTSCENE_DATA.oam[1].actions |= 2;
-                SoundPlay(0x296);
+                SoundPlay(SOUND_ENTER_TOURIAN_METROIDS_FLYING);
             }
             else if (CUTSCENE_DATA.timeInfo.timer == 90)
             {
@@ -101,7 +101,7 @@ u8 EnterTourianAnimation(void)
         case 6:
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
-                SoundPlay(0x297);
+                SoundPlay(SOUND_ENTER_TOURIAN_METROID_JUMPSCARE);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }

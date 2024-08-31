@@ -516,7 +516,7 @@ void OptionsUpdateCursor(u8 cursorPose)
     switch (cursorPose)
     {
         case CURSOR_OPTIONS_POSE_ENTERING:
-            SoundPlay(0x1FA);
+            SoundPlay(SOUND_SUB_MENU_CURSOR);
 
         case CURSOR_OPTIONS_POSE_MOVING:
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].xPosition = sOptionsCursorPosition[gOptionsOptionSelected][0];
@@ -533,7 +533,7 @@ void OptionsUpdateCursor(u8 cursorPose)
             break;
 
         case CURSOR_OPTIONS_POSE_SELECTING:
-            SoundPlay(0x1FC);
+            SoundPlay(SOUND_ACCEPT_CONFIRM_MENU);
 
         case 4:
             if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].oamID != OPTIONS_OAM_ID_CURSOR_SELECTED)
@@ -885,7 +885,7 @@ u32 FileSelectCopyFileSubroutine(void)
                 
                 if (gSaveFilesInfo[FILE_SELECT_DATA.copySourceFile].timeAttack)
                 {
-                    SoundPlay(0x209);
+                    SoundPlay(SOUND_REFUSE_MENU);
                     unk_790cc(0, 4);
                     FILE_SELECT_DATA.subroutineStage = 9;
                 }
@@ -920,7 +920,7 @@ u32 FileSelectCopyFileSubroutine(void)
                     }
                     else
                     {
-                        SoundPlay(0x209);
+                        SoundPlay(SOUND_REFUSE_MENU);
                         FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_DEFAULT, FILE_SELECT_DATA.copySourceFile);
                         FileSelectUpdateCopyArrow(ARROW_COPY_POSE_KILL, FILE_SELECT_DATA.currentFile);
     
@@ -1011,7 +1011,7 @@ u32 FileSelectCopyFileSubroutine(void)
             break;
 
         case 7:
-            SoundPlay(0x209);
+            SoundPlay(SOUND_REFUSE_MENU);
             unk_7e3fc(4, 0x81);
             FileSelectUpdateTilemap(TILEMAP_REQUEST_COPY_OVERRIDE_DESPAWN_INIT);
             FILE_SELECT_DATA.subroutineStage++;
@@ -1836,7 +1836,7 @@ u32 FileSelectEraseFileSubroutine(void)
             }
             else if (action == 2)
             {
-                SoundPlay(0x210);
+                SoundPlay(SOUND_SELECTING_FILE_TO_DELETE);
                 FileSelectUpdateEraseCursor(CURSOR_ERASE_POSE_SELECTING_FILE, FILE_SELECT_DATA.eraseFile);
                 FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_SPAWN_INIT);
                 FILE_SELECT_DATA.subroutineStage = 3;
@@ -1864,7 +1864,7 @@ u32 FileSelectEraseFileSubroutine(void)
                     else
                     {
                         action = 0x80;
-                        SoundPlay(0x20D);
+                        SoundPlay(SOUND_FILE_DELETE);
                         FILE_SELECT_DATA.subroutineStage = 7;
                     }
                 }
@@ -1897,7 +1897,7 @@ u32 FileSelectEraseFileSubroutine(void)
             break;
 
         case 5:
-            SoundPlay(0x209);
+            SoundPlay(SOUND_REFUSE_MENU);
             unk_7e3fc(3, 0x81);
             FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN_INIT);
             FILE_SELECT_DATA.subroutineStage++;
@@ -2671,7 +2671,7 @@ u8 OptionsSubroutine(void)
             if (gChangedInput & KEY_B)
             {
                 // Set exiting 
-                SoundPlay(0x209);
+                SoundPlay(SOUND_REFUSE_MENU);
                 FILE_SELECT_DATA.currentSubMenu = 4;
             }
             else if (gChangedInput & KEY_A)
@@ -2921,7 +2921,7 @@ u8 OptionsStereoSubroutine(void)
             if (gChangedInput & (KEY_A | KEY_B))
             {
                 // Exit menu
-                SoundPlay(0x1FC);
+                SoundPlay(SOUND_ACCEPT_CONFIRM_MENU);
                 FILE_SELECT_DATA.subroutineStage++;
                 break;
             }
@@ -2948,7 +2948,7 @@ u8 OptionsStereoSubroutine(void)
                 break;
 
             // Update OAM and apply new choice
-            SoundPlay(0x1FA);
+            SoundPlay(SOUND_SUB_MENU_CURSOR);
             OptionsUpdateStereoOam(STEREO_UPDATE_FLAGS_SPEAKER_EFFECT);
             FileSelectApplyStereo();
             break;
@@ -2989,7 +2989,7 @@ u8 OptionsSoundTestSubroutine(void)
             
             // Draw number
             OptionsSoundTestUpdateIdGfx();
-            SoundPlay(0x1FD);
+            SoundPlay(SOUND_OPEN_SUB_MENU);
             
             // Spawn panel
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_PANEL], OPTIONS_OAM_ID_SMALL_PANEL);
@@ -3068,7 +3068,7 @@ u8 OptionsSoundTestSubroutine(void)
 
             if (action)
             {
-                SoundPlay(0x20E);
+                SoundPlay(SOUND_SOUND_TEST_CURSOR_MOVING);
                 // Play music and update number
                 PlaySoundTest(sSoundTestSoundIds[FILE_SELECT_DATA.soundTestId]);
                 OptionsSoundTestUpdateIdGfx();
@@ -3109,7 +3109,7 @@ u8 OptionsSoundTestSubroutine(void)
             break;
 
         case 6:
-            SoundPlay(0x1FE);
+            SoundPlay(SOUND_CLOSE_SUB_MENU);
 
             // Kill number and arrows
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_ID], 0);
@@ -3296,7 +3296,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL], OPTIONS_OAM_ID_HUGE_PANEL);
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
 
-            SoundPlay(0x1FD);
+            SoundPlay(SOUND_OPEN_SUB_MENU);
             FILE_SELECT_DATA.subroutineStage = 7;
             break;
 
@@ -3399,15 +3399,14 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
 
-            SoundPlay(0x211);
+            SoundPlay(SOUND_CHANGE_TIME_ATTACK_PANEL);
 
             FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
             FILE_SELECT_DATA.subroutineStage = 7;
-
             break;
 
         case 10:
-            SoundPlay(0x1FE);
+            SoundPlay(SOUND_CLOSE_SUB_MENU);
 
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
@@ -5311,7 +5310,7 @@ u8 FileSelectProcessFileSelection(void)
                     action = 0x80;
 
                     if (FILE_SELECT_DATA.fileSelectCursors.confirmOverwritingCompleted != 0)
-                        SoundPlay(0x209);
+                        SoundPlay(SOUND_REFUSE_MENU);
                     else
                         FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
 
@@ -5321,7 +5320,7 @@ u8 FileSelectProcessFileSelection(void)
                 {
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     action = 0x81;
-                    SoundPlay(0x209);
+                    SoundPlay(SOUND_REFUSE_MENU);
                     FILE_SELECT_DATA.subroutineStage = 19;
                 }
                 else if (gChangedInput & KEY_LEFT)
@@ -7931,7 +7930,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             break;
 
         case 0x26:
-            SoundPlay(0x1FD);
+            SoundPlay(SOUND_OPEN_SUB_MENU);
 
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
@@ -7959,7 +7958,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             break;
 
         case 0x28:
-            SoundPlay(0x1FE);
+            SoundPlay(SOUND_CLOSE_SUB_MENU);
             FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_MEDIUM_PANEL + 1;
             break;

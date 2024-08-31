@@ -5,6 +5,7 @@
 #include "data/block_data.h"
 #include "data/engine_pointers.h"
 
+#include "constants/audio.h"
 #include "constants/block.h"
 #include "constants/clipdata.h"
 #include "constants/samus.h"
@@ -542,7 +543,7 @@ u32 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
 
     // Play sound
     if (gCurrentClipdataAffectingAction != CAA_SPEEDBOOSTER)
-        SoundPlayNotAlreadyPlaying(0x137);
+        SoundPlayNotAlreadyPlaying(SOUND_SQUARE_BLOCK_DESTROYED);
 
     return TRUE;
 }
@@ -869,7 +870,7 @@ u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_SPEEDBOOSTER_ON_GROUND:
             if (BlockCheckCcaa(&clipBlock))
             {
-                SoundPlayNotAlreadyPlaying(0x135);
+                SoundPlayNotAlreadyPlaying(SOUND_BLOCK_DESTROYED_WITH_SPEEDBOOSTER);
                 result = TRUE;
             }
             break;
@@ -877,7 +878,7 @@ u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_SCREW_ATTACK:
             if (BlockCheckCcaa(&clipBlock))
             {
-                SoundPlayNotAlreadyPlaying(0x139);
+                SoundPlayNotAlreadyPlaying(SOUND_BLOCK_DESTROYED_WITH_SCREW_ATTACK);
                 result = TRUE;
             }
             break;
@@ -1453,7 +1454,7 @@ u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
 
     // Check play bomb chain sound
     if (couldSpawn && gActiveBombChainTypes == sBombChainReverseData[type].typeFlag)
-        SoundPlayNotAlreadyPlaying(0x136);
+        SoundPlayNotAlreadyPlaying(SOUND_BOMB_CHAIN);
 
     return couldSpawn;
 }
@@ -1595,7 +1596,7 @@ void BlockProcessBombChains(void)
 
         // Fade sound if no bomb chains active
         if (gActiveBombChainTypes == 0)
-            SoundFade(0x136, 10);
+            SoundFade(SOUND_BOMB_CHAIN, CONVERT_SECONDS(1.f / 6));
     }
 }
 

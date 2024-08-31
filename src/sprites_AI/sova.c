@@ -4,6 +4,7 @@
 #include "data/sprites/sova.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -921,7 +922,7 @@ void Sova(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x154);
+            SoundPlayNotAlreadyPlaying(SOUND_SOVA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

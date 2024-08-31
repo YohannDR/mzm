@@ -5,6 +5,7 @@
 #include "data/sprite_data.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -113,7 +114,7 @@ void SidehopperJumpingInit(void)
         gCurrentSprite.hitboxTop = -0x70;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x17F);
+        SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_JUMPING);
 }
 
 /**
@@ -134,7 +135,7 @@ void SidehopperLandingInit(void)
         gCurrentSprite.hitboxTop = -0x5C;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x180);
+        SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_LANDING);
 }
 
 /**
@@ -160,7 +161,7 @@ void SidehopperIdleInit(void)
         {
             gCurrentSprite.pOam = sSidehopperOAM_ShakingHead;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x181);
+                SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_SHAKING_HEAD);
         }
     }
 }
@@ -592,7 +593,7 @@ void SidehopperIdleGround(void)
             else
             {
                 if (gCurrentSprite.pOam == sSidehopperOAM_ShakingHead && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x181);
+                    SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_SHAKING_HEAD);
             }
         }
     }
@@ -615,7 +616,7 @@ void SidehopperIdleCeiling(void)
             else
             {
                 if (gCurrentSprite.pOam == sSidehopperOAM_ShakingHead && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    SoundPlayNotAlreadyPlaying(0x181);
+                    SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_SHAKING_HEAD);
             }
         }
     }
@@ -647,7 +648,7 @@ void Sidehopper(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x182);
+            SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

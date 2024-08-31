@@ -100,10 +100,10 @@ u8 RidleyInSpaceShipLeaving(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
-                SoundPlay(0x28E);
+                SoundPlay(SOUND_RIDLEY_IN_SPACE_MOTHER_SHIP_FLYING);
 
                 // Start mother ship animation
-                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions = SHIP_ACTION_MOVE_HORIZONTALLY | SHIP_ACTION_MOVE_VERTICALLY;
+                CUTSCENE_DATA.oam[RIDLEY_IN_SPACE_MOTHER_SHIP_SLOT].actions = MOTHER_SHIP_ACTION_MOVE_HORIZONTALLY | MOTHER_SHIP_ACTION_MOVE_VERTICALLY;
 
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;

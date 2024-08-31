@@ -262,7 +262,7 @@ u8 DeoremCheckLeaving(u8 ramSlot)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottom = 0x40;
             gSpriteData[ramSlot].status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            SoundPlay(0x199);
+            SoundPlay(SOUND_DEOREM_CLOSING_JAW);
         }
         
         return TRUE;
@@ -459,7 +459,7 @@ void DeoremSpawnGoingDown(void)
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0, gfxRow, ramSlot, yPosition, xPosition, 0);
         
         ScreenShakeStartVertical(0x28, 0x81);
-        SoundPlay(0x193);
+        SoundPlay(SOUND_DEOREM_MOVING);
         
         DeoremChangeLeftCcaa(CAA_MAKE_SOLID_GRIPPABLE);
         DeoremChangeRightCcaa(CAA_MAKE_SOLID_GRIPPABLE);
@@ -497,8 +497,8 @@ void DeoremSpawnGoingDownAnim(void)
         if (timer == 0)
         {
             ParticleSet(yPosition + BLOCK_SIZE, xPosition, PE_TWO_MEDIUM_DUST);
-            SoundPlay(0x191);
-            SoundPlay(0x19C);
+            SoundPlay(SOUND_DEOREM_SPAWN_GOING_DOWN);
+            SoundPlay(SOUND_DEOREM_SCREAMING);
             PlayMusic(MUSIC_WORMS_BATTLE, 0x0);
         }
     }
@@ -520,7 +520,7 @@ void DeoremSpawnGoingDownAnim(void)
         }
 
         ScreenShakeStartVertical(0x28, 0x81);
-        SoundPlay(0x193);
+        SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
 
@@ -552,7 +552,7 @@ void DeoremSpawnGoingUp(void)
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         ScreenShakeStartVertical(0x28, 0x81);
-        SoundPlay(0x193);
+        SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
 
@@ -607,7 +607,7 @@ void DeoremSpawnGoingUpAnim(void)
         }
 
         ScreenShakeStartVertical(0x28, 0x81);
-        SoundPlay(0x193);
+        SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
 
@@ -694,7 +694,7 @@ void DeoremAfterSpawn(void)
             
             gSpriteData[ramSlot].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            SoundPlay(0x198);
+            SoundPlay(SOUND_DEOREM_OPENING_JAW);
         }
     }
 }
@@ -740,7 +740,7 @@ void DeoremMainLoop(void)
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.status &= ~SPRITE_STATUS_MOSAIC;
-                SoundPlay(0x19D);
+                SoundPlay(SOUND_DEOREM_WARNING);
                 gCurrentSprite.rotation = 0;
             
                 if (health == 60)
@@ -771,7 +771,7 @@ void DeoremMainLoop(void)
                 gCurrentSprite.hitboxBottom = BLOCK_SIZE;
     
                 gSpriteData[spriteOffset].status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-                SoundPlay(0x199);
+                SoundPlay(SOUND_DEOREM_CLOSING_JAW);
             }
         }
     }
@@ -828,9 +828,9 @@ void DeoremMainLoop(void)
                 gCurrentSprite.rotation += 1;
                 
                 if (8 < movement)
-                    SoundPlay(0x194);
+                    SoundPlay(SOUND_DEOREM_MOVEMENT_SMALL);
                 else
-                    SoundPlay(0x19E);
+                    SoundPlay(SOUND_DEOREM_MOVEMENT_LONG);
             }
             else
             {
@@ -842,7 +842,7 @@ void DeoremMainLoop(void)
                 gCurrentSprite.hitboxBottom = 0;
             
                 gSpriteData[spriteOffset].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-                SoundPlay(0x198);
+                SoundPlay(SOUND_DEOREM_OPENING_JAW);
             }
         }
     }
@@ -878,7 +878,7 @@ void DeoremRetracting(void)
         else if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-            SoundPlay(0x195);
+            SoundPlay(SOUND_DEOREM_RETRACTED);
         }
     }
     else
@@ -940,7 +940,7 @@ void DeoremThrowingThorns(void)
     }
 
     if (!(gCurrentSprite.rotation & 15))
-        SoundPlay(0x196);
+        SoundPlay(SOUND_DEOREM_THROWING_THORNS);
 
     gCurrentSprite.rotation++;
 
@@ -953,7 +953,7 @@ void DeoremThrowingThorns(void)
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottom = BLOCK_SIZE;
             gSpriteData[spriteOffset].status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            SoundPlay(0x199);
+            SoundPlay(SOUND_DEOREM_CLOSING_JAW);
         }
         else if (gCurrentSprite.pOam == sDeoremOam_Closing
             && SpriteUtilCheckEndCurrentSpriteAnim())
@@ -1017,7 +1017,7 @@ void DeoremDying(void)
         EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
     }
 
-    SoundPlay(0x19B);
+    SoundPlay(SOUND_DEOREM_DYING);
     FadeCurrentMusicAndQueueNextMusic(0x32, MUSIC_BRINSTAR, 0);
 }
 
@@ -1143,7 +1143,7 @@ void DeoremLeaving(void)
                 EventFunction(EVENT_ACTION_CLEARING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
                 EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
             }
-            SoundPlay(0x192);
+            SoundPlay(SOUND_DEOREM_LEAVING);
             FadeCurrentMusicAndQueueNextMusic(0x32, MUSIC_BRINSTAR, 0);
         }
     }
@@ -2324,7 +2324,7 @@ void DeoremEyeDyingMovingAnim(void)
             {
                 gCurrentSprite.status = 0;
                 DeoremSpawnChargeBeam(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-                SoundPlay(0x221);
+                SoundPlay(SOUND_DEOREM_SPAWNING_CHARGE_BEAM);
             }
         }
     }
@@ -2390,7 +2390,7 @@ void DeoremThornSpawning(void)
     if (gCurrentSprite.work3 == 0)
     {
         gCurrentSprite.pose = 0x23; // TODO: Pose names
-        SoundPlay(0x197);
+        SoundPlay(SOUND_DEOREM_THORN_EJECTING);
     }
     
     arrayOffset = gCurrentSprite.work3;
@@ -2688,7 +2688,7 @@ void DeoremEye(void)
                 if (gCurrentSprite.health < 0x15)
                     gSpriteData[ramSlot].absolutePaletteRow = 0x2;
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-                SoundPlay(0x19A);
+                SoundPlay(SOUND_DEOREM_CLOSING_JAW_FAST);
             }
         }
     }

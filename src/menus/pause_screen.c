@@ -18,6 +18,7 @@
 #include "data/menus/internal_pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
 
+#include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -3160,7 +3161,7 @@ s32 PauseScreenStatusScreenInit(void)
             // Update top overlay
             PauseScreenUpdateTopVisorOverlay(OVERLAY_OAM_ID_R_PROMPT_PRESSED);
             stage = UCHAR_MAX + 1;
-            SoundPlay(0x1F4);
+            SoundPlay(SOUND_OPENING_STATUS_SCREEN);
             break;
 
         case 2:
@@ -3260,7 +3261,7 @@ s32 PauseScreenQuitStatusScreen(void)
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
         case 0:
-            SoundPlay(0x1F5);
+            SoundPlay(SOUND_LEAVING_STATUS_SCREEN);
             PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
             PauseScreenUpdateTopVisorOverlay(0);
             stage = UCHAR_MAX + 1;

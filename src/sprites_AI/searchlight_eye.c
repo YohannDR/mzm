@@ -465,7 +465,7 @@ void SearchlightEyeProjectile(void)
             }
 
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x26D);
+                SoundPlay(SOUND_SEARCHLIGHT_EYE_PROJECTILE_EMERGING);
 
         case 9:
             if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)

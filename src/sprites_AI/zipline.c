@@ -3,6 +3,7 @@
 
 #include "data/sprites/zipline.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
@@ -353,7 +354,7 @@ void ZiplineUpdate(void)
     {
         // Move
         if (MOD_AND(gCurrentSprite.work0, 16) == 0)
-            SoundPlay(0x110);
+            SoundPlay(SOUND_ZIPLING_MOVING);
 
         gCurrentSprite.work0++;
 
@@ -362,7 +363,7 @@ void ZiplineUpdate(void)
             gCurrentSprite.health = ZIPLINE_HEALTH_NOT_MOVING;
             gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
             gCurrentSprite.work0 = 0;
-            SoundFade(0x110, 4);
+            SoundFade(SOUND_ZIPLING_MOVING, CONVERT_SECONDS(1.f / 15));
         }
     }
 }
@@ -468,7 +469,7 @@ void ZiplineButtonIdle(void)
         // Button hit, set moving
         gSpriteData[ramSlot].health = ZIPLINE_HEALTH_MOVING;
         moving = TRUE;
-        SoundPlay(0x111);
+        SoundPlay(SOUND_ZIPLING_CALLED);
     }
     else if (gSpriteData[ramSlot].health == ZIPLINE_HEALTH_MOVING)
         moving = TRUE; // Already moving

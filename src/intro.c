@@ -7,6 +7,7 @@
 #include "data/intro_data.h"
 #include "data/internal_intro_data.h"
 
+#include "constants/audio.h"
 #include "constants/game_state.h"
 #include "constants/intro.h"
 #include "constants/text.h"
@@ -248,7 +249,7 @@ u8 IntroProcessText(u8 action, u16 indent)
             else
             {
                 INTRO_DATA.charDrawerX += 8;
-                SoundPlay(0x226);
+                SoundPlay(SOUND_INTRO_TEXT_LETTER);
             }
             return 0;
 
@@ -317,7 +318,7 @@ u8 IntroProcessText(u8 action, u16 indent)
     }
 
     if (previousY != INTRO_DATA.charDrawerX && action != INTRO_TEXT_ACTION_SPACE)
-        SoundPlay(0x226);
+        SoundPlay(SOUND_INTRO_TEXT_LETTER);
 
     if (flag_unk3 != 0)
         return 1;
@@ -458,8 +459,8 @@ u8 IntroShipFlyingTowardsCamera(void)
 
         case 1:
             INTRO_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
-            SoundPlay(4);
-            SoundPlay(0x227);
+            SoundPlay(MUSIC_INTRO);
+            SoundPlay(SOUND_INTRO_SHIP_FLYING_TOWARDS_CAMERA);
             break;
 
         case 0x20:
@@ -505,12 +506,12 @@ u8 IntroSamusInHerShip(void)
 
         case 3:
             INTRO_DATA.dispcnt = DCNT_BG0;
-            SoundPlay(0x228);
+            SoundPlay(SOUND_INTRO_SHIP_INTERIOR);
             break;
 
         case 0x50:
             INTRO_DATA.dispcnt = 0;
-            SoundFade(0x228, 0);
+            SoundFade(SOUND_INTRO_SHIP_INTERIOR, 0);
             INTRO_DATA.stage++;
             ended = TRUE;
     }
@@ -697,13 +698,13 @@ u8 IntroViewOfZebes(void)
             write16(REG_BLDALPHA, C_16_2_8(7, 9));
             INTRO_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
             INTRO_DATA.bldcnt = BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL;
-            SoundPlay(0x229);
+            SoundPlay(SOUND_INTRO_SHIP_FLYING_DOWN);
             break;
 
         case 80:
             INTRO_DATA.dispcnt = 0;
             INTRO_DATA.bldcnt = 0;
-            SoundFade(0x229, 0);
+            SoundFade(SOUND_INTRO_SHIP_FLYING_DOWN, 0);
             INTRO_DATA.stage++;
             ended = TRUE;
     }
@@ -810,12 +811,12 @@ u8 IntroMotherBrain(void)
         case 3:
             DMA_SET(3, sIntroMotherBrainPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroMotherBrainPal)));
             INTRO_DATA.dispcnt = DCNT_BG0;
-            SoundPlay(0x22A);
-            SoundPlay(0x39);
+            SoundPlay(SOUND_INTRO_MOTHER_BRAIN_JAR);
+            SoundPlay(MUSIC_INTRO_MOTHER_BRAIN);
             break;
 
         case 0xBF:
-            SoundFade(0x22A, 0);
+            SoundFade(SOUND_INTRO_MOTHER_BRAIN_JAR, 0);
             break;
 
         case 0xC0:
@@ -889,7 +890,7 @@ u8 IntroFuzz(void)
             return TRUE;
 
         case 0:
-            SoundPlay(0x22B);
+            SoundPlay(SOUND_INTRO_FUZZ);
             break;
 
         case 1:

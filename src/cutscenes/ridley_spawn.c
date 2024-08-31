@@ -98,7 +98,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         }
         else if (pOam->oamID != RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING && gCurrentOamScaling >= Q_8_8(1.44f))
         {
-            SoundPlay(0x24C); // Ridley cutscene roar
+            SoundPlay(SOUND_RIDLEY_SPAWN_ROAR);
             UpdateCutsceneOamDataID(pOam, RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING);
         }
     }

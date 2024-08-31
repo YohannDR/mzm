@@ -16,7 +16,7 @@ void MetroidMove(u16 samusY, u16 samusX, u8 speedY, u8 speedX, u8 speedDivisor);
 u8 MetroidBombDetection(void);
 void MetroidCheckBouncingOnMetroid(u16 movement);
 u8 MetroidCheckSamusGrabbed(void);
-void MetroidPlaySound(void);
+void MetroidPlayMovingSound(void);
 void MetroidInit(void);
 void MetroidCheckSpawn(void);
 void MetroidSpawning(void);

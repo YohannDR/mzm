@@ -936,7 +936,7 @@ u32 TitleScreenSubroutine(void)
                     UpdateMusicPriority(4);
                 else
                 {
-                    SoundPlay(0x213);
+                    SoundPlay(SOUND_TITLE_SCREEN_PRESSING_START);
                     TITLE_SCREEN_DATA.animatedPalettes[2] = sTitleScreenAnimatedPaletteTemplates[3];
                 }
                 gGameModeSub1 = 3;

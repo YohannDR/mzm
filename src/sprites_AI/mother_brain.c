@@ -74,7 +74,7 @@ void MotherBrainUpdatePalette(void)
 
         newTimer = sMotherBrainDynamicPaletteData[offset][1];
         if (offset == 0 || offset == 0x6)
-            SoundPlay(0x2BB);
+            SoundPlay(SOUND_MOTHER_BRAIN_CHARGING);
 
         gCurrentSprite.paletteRow = timer;
         gCurrentSprite.scaling = newTimer;
@@ -166,7 +166,7 @@ void MotherBrainCheckGlassBreaked(void)
         gSpriteData[eyeRamSlot].pOam = sMotherBrainPartOam_EyeOpening;
         gSpriteData[eyeRamSlot].animationDurationCounter = 0;
         gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
-        SoundPlay(0x2B9); // Mother brain eye open
+        SoundPlay(SOUND_MOTHER_BRAIN_EYE_OPENING);
     }
 }
 
@@ -216,7 +216,7 @@ void MotherBrainMainLoop(void)
         gSubSpriteData1.workVariable3 = 0x2;
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_MOTHER_BRAIN_KILLED);
-        SoundPlay(0x2BF); // Mother brain dying
+        SoundPlay(SOUND_MOTHER_BRAIN_DYING);
         return;
     }
 
@@ -234,11 +234,11 @@ void MotherBrainMainLoop(void)
     else
     {
         if (gCurrentSprite.currentAnimationFrame == 0x1 && gCurrentSprite.animationDurationCounter == 0x1)
-            SoundPlay(0x2BD); // Mother brain idle
+            SoundPlay(SOUND_MOTHER_BRAIN_IDLE);
 
         if ((gSpriteData[eyeRamSlot].invincibilityStunFlashTimer & 0x7F) == 0x10)
         {
-            SoundPlay(0x2BE); // Mother brain hurt
+            SoundPlay(SOUND_MOTHER_BRAIN_DAMAGED);
             if (gSpriteData[eyeRamSlot].health < gBossWork.work4)
             {
                 // Damage dealt, check should close eye
@@ -262,7 +262,7 @@ void MotherBrainMainLoop(void)
                     gSpriteData[eyeRamSlot].animationDurationCounter = 0;
                     gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
                     gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
-                    SoundPlay(0x2BA); // Mother brain eye closing
+                    SoundPlay(SOUND_MOTHER_BRAIN_EYE_CLOSING);
                     gCurrentSprite.work2 = 0x1;
                 }
             }
@@ -311,7 +311,7 @@ void MotherBrainMainLoop(void)
                 gSpriteData[eyeRamSlot].animationDurationCounter = 0;
                 gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
                 gSpriteData[eyeRamSlot].properties |= SP_IMMUNE_TO_PROJECTILES;
-                SoundPlay(0x2BA); // Mother brain eye close
+                SoundPlay(SOUND_MOTHER_BRAIN_EYE_CLOSING);
                 gCurrentSprite.work2 = 0x3C;
             }
             return;
@@ -352,7 +352,7 @@ void MotherBrainMainLoop(void)
             gSpriteData[eyeRamSlot].currentAnimationFrame = 0;
             // Make eye vulnerable
             gSpriteData[eyeRamSlot].properties &= ~SP_IMMUNE_TO_PROJECTILES;
-            SoundPlay(0x2B9); // Mother brain eye open
+            SoundPlay(SOUND_MOTHER_BRAIN_EYE_OPENING);
         }
         else if (gCurrentSprite.work1 == 0x18)
         {
@@ -361,7 +361,7 @@ void MotherBrainMainLoop(void)
             gSpriteData[beamShooterRamSlot].animationDurationCounter = 0;
             gSpriteData[beamShooterRamSlot].currentAnimationFrame = 0;
             gSpriteData[beamShooterRamSlot].status &= ~SPRITE_STATUS_NOT_DRAWN;
-            SoundPlay(0x2BC);
+            SoundPlay(SOUND_MOTHER_BRAIN_SHOOTING);
         }
 
         if (palette != 0xE)
@@ -403,7 +403,7 @@ void MotherBrainDeath(void)
         ParticleSet(gSubSpriteData1.yPosition + 0x46, gSubSpriteData1.xPosition - 0x3C, PE_MAIN_BOSS_DEATH);
         ParticleSet(gSubSpriteData1.yPosition + 0x3C, gSubSpriteData1.xPosition + 0x50, PE_MAIN_BOSS_DEATH);
         gInGameTimerAtBosses[1] = gInGameTimer;
-        SoundPlay(0x2C0); // Mother brain death explosion
+        SoundPlay(SOUND_MOTHER_BRAIN_DEATH_EXPLOSION);
         MakeBackgroundFlash(BG_FLASH_QUICK_YELLOW);
     }
 }
@@ -423,7 +423,7 @@ void MotherBrainStartEscape(void)
         SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ZEBES_ESCAPE, 0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         SpriteSpawnPrimary(PSPRITE_EXPLOSION_ZEBES_ESCAPE, 0, 0, gCurrentSprite.yPosition + (BLOCK_SIZE * 4), gCurrentSprite.xPosition, 0);
         PlayMusic(MUSIC_ESCAPE, 0x40);
-        SoundPlay(0x120);
+        SoundPlay(SOUND_ESCAPE_BEEP);
         gSubSpriteData1.workVariable3 = 0x3;
     }
 }
@@ -587,7 +587,7 @@ void MotherBrainPartGlassStage1(void)
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_2;
         // Edit BG
         BgClipCallMotherBrainUpdateGlass(0x1);
-        SoundPlay(0x2B5);
+        SoundPlay(SOUND_MOTHER_BRAIN_JAR_DAMAGE_1);
     }
 }
 
@@ -604,7 +604,7 @@ void MotherBrainPartGlassStage2(void)
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_3;
         // Edit BG
         BgClipCallMotherBrainUpdateGlass(0x2);
-        SoundPlay(0x2B6);
+        SoundPlay(SOUND_MOTHER_BRAIN_JAR_DAMAGE_2);
     }
 }
 
@@ -621,7 +621,7 @@ void MotherBrainPartGlassStage3(void)
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_BROKEN;
         // Edit BG
         BgClipCallMotherBrainUpdateGlass(0x3);
-        SoundPlay(0x2B7);
+        SoundPlay(SOUND_MOTHER_BRAIN_JAR_DAMAGE_3);
     }
 }
 
@@ -648,7 +648,7 @@ void MotherBrainPartSpawnGlassBreaking(void)
         gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0);
     // Remove in BG
     BgClipCallMotherBrainUpdateGlass(0x4);
-    SoundPlay(0x2B8);
+    SoundPlay(SOUND_MOTHER_BRAIN_JAR_SHATTER);
 }
 
 /**
@@ -810,7 +810,7 @@ void MotherBrainBeam(void)
             {
                 ParticleSet(gCurrentSprite.yPosition + 0x1C, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_BIG);
                 gCurrentSprite.status = 0;
-                SoundPlay(0x2C3);
+                SoundPlay(SOUND_MOTHER_BRAIN_LASER_EXPLODING);
             }
     }
 }

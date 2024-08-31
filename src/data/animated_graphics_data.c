@@ -12,6 +12,7 @@
 #include "data/tilesets/tilesets_set7.h"
 
 #include "constants/animated_graphics.h"
+#include "constants/audio.h"
 
 
 const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
@@ -506,7 +507,7 @@ const struct BackgroundEffectColorData sBackgroundEffectColorData[9] = {
 
 const u16 sBackgroundEffectBehavior_Lightning[34][3] = {
     { BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_RANDOM, 60 * 5, 0 },
-    { BACKGROUND_EFFECT_COMMAND_PLAY_SOUND, 0, 0xA6 }, // Thunder sound
+    { BACKGROUND_EFFECT_COMMAND_PLAY_SOUND, 0, SOUND_THUNDER },
     { BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_FIRST_COLOR, 0, 12 },
     { BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_BEFORE, 3, 0 },
     { BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_FIRST_COLOR, 0, 8 },

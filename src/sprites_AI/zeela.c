@@ -4,6 +4,7 @@
 #include "data/sprites/zeela.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -1084,7 +1085,7 @@ void Zeela(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x148);
+            SoundPlayNotAlreadyPlaying(SOUND_ZEELA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)

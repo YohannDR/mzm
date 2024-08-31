@@ -1,7 +1,11 @@
 #include "sprites_AI/explosion_zebes_escape.h"
+
 #include "data/sprites/enemy_drop.h"
+
+#include "constants/AUDIO.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
+
 #include "structs/bg_clip.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -73,13 +77,13 @@ void ExplosionZebesEscape(void)
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE + 12) + rngParam1 * 8,
                         xPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) + (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_HUGE);
-                    SoundPlayNotAlreadyPlaying(0xA4);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_1);
                 }
                 else
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 6) + rngParam1 * 8,
                         xPosition + (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                    SoundPlayNotAlreadyPlaying(0x276);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_3);
                 }
             }
             else
@@ -88,13 +92,13 @@ void ExplosionZebesEscape(void)
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE + 12) + rngParam1 * 8,
                         xPosition - (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_HUGE);
-                    SoundPlayNotAlreadyPlaying(0xA4);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_1);
                 }
                 else
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 6) + rngParam1 * 8,
                         xPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) - (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_BIG);
-                    SoundPlayNotAlreadyPlaying(0x276);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_3);
                 }
             }
         }
@@ -109,13 +113,13 @@ void ExplosionZebesEscape(void)
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 5) + rngParam1 * 16,
                         xPosition + (BLOCK_SIZE * 3) + (rngParam1 << rngParam2), PE_TWO_MEDIUM_DUST);
-                    SoundPlayNotAlreadyPlaying(0xA5);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_2);
                 }
                 else
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE + 8) + rngParam1 * 16,
                         xPosition + (rngParam1 << rngParam2), PE_MEDIUM_DUST);
-                    SoundPlayNotAlreadyPlaying(0x277);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_4);
                 }
             }
             else
@@ -124,13 +128,13 @@ void ExplosionZebesEscape(void)
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 8) + rngParam1 * 16,
                         xPosition - (BLOCK_SIZE * 3) - (rngParam1 << rngParam2), PE_MEDIUM_DUST);
-                    SoundPlayNotAlreadyPlaying(0x277);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_4);
                 }
                 else
                 {
                     ParticleSet(yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE + 12) + rngParam1 * 16,
                         xPosition - (rngParam1 << rngParam2), PE_TWO_MEDIUM_DUST);
-                    SoundPlayNotAlreadyPlaying(0xA5);
+                    SoundPlayNotAlreadyPlaying(SOUND_ZEBES_ESCAPE_EXPLOSION_2);
                 }
             }
         }

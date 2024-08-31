@@ -7,6 +7,7 @@
 #include "data/cutscenes/story_text_cutscene_data.h"
 #include "data/cutscenes/internal_story_text_cutscene_data.h"
 
+#include "constants/audio.h"
 #include "constants/cutscene.h"
 #include "constants/text.h"
 
@@ -186,7 +187,7 @@ u8 StoryTextCutsceneFadeIn(void)
 
             // Check play landing sound effect (footsteps, running...)
             if (gCurrentCutscene == CUTSCENE_INTRO_TEXT)
-                SoundPlay(0x233);
+                SoundPlay(SOUND_INTRO_TEXT_LANDING);
 
             CUTSCENE_DATA.timeInfo.subStage++;
             break;

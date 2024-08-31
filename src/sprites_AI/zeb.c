@@ -4,6 +4,7 @@
 #include "data/sprites/zeb.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -93,7 +94,7 @@ void ZebIdle(void)
                     SpriteUtilMakeSpriteFaceSamusXFlip();
 
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                        SoundPlay(0x144);
+                        SoundPlay(SOUND_ZEB_RISING);
                 }
             }   
         }
@@ -170,7 +171,7 @@ void ZebMove(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x145);
+                SoundPlay(SOUND_ZEB_MOVING);
             gCurrentSprite.work1 = 0x0;
         }
     }
@@ -200,7 +201,7 @@ void ZebMove(void)
                 gCurrentSprite.xPosition -= 0xC; // Move
         }
         if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x145);
+            SoundPlay(SOUND_ZEB_MOVING);
     }
 }
 
@@ -214,7 +215,7 @@ void Zeb(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x146);
+            SoundPlayNotAlreadyPlaying(SOUND_ZEB_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

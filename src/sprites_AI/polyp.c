@@ -4,6 +4,7 @@
 #include "data/sprites/polyp.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
@@ -69,7 +70,7 @@ void PolypCheckSpawnProjectile(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x17C);
+            SoundPlay(SOUND_POLYP_WARNING);
     }
     else
     {
@@ -207,7 +208,7 @@ void PolypProjectileSpawn(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x17D);
+            SoundPlay(SOUND_POLYP_SPITTING);
     }
 }
 
@@ -264,7 +265,7 @@ void PolypProjectileExplodingInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x17E);
+        SoundPlay(SOUND_POLYP_PROJECTILE_EXPLODING);
 }
 
 /**

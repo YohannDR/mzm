@@ -17143,7 +17143,7 @@ const struct RoomEntryROM sChozodiaRoomEntries[99] = {
 		.mapY = 0,
 		.effect = EFFECT_NONE,
 		.effectY = UCHAR_MAX,
-		.musicTrack = MUSIC_UNKNOWN
+		.musicTrack = MUSIC_54
 	},
 	[73] = {
 		.tileset = 44,

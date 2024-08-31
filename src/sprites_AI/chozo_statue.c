@@ -531,7 +531,7 @@ void ChozoStatueSittingInit(void)
     gSubSpriteData1.currentAnimationFrame = 0;
 
     ChozoStatueStandingChangeCcaa(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
-    SoundPlay(0x11C);
+    SoundPlay(SOUND_CHOZO_STATUE_SITTING_DOWN);
 
     gSlowScrollingTimer = CONVERT_SECONDS(1.f);
 }

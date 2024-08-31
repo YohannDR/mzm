@@ -333,9 +333,9 @@ void ImagoCocoonIdle(void)
     {
         switch (caf)
         {
-            case 0x0:
-            case 0x2:
-                SoundPlay(0x19F);
+            case 0:
+            case 2:
+                SoundPlay(SOUND_IMAGO_COCOON_IDLE);
         }
     }
 
@@ -368,7 +368,7 @@ void ImagoCocoonIdle(void)
 
         // Set falling
         EventFunction(EVENT_ACTION_SETTING, EVENT_IMAGO_COCOON_KILLED);
-        SoundPlay(0x1A3);
+        SoundPlay(SOUND_IMAGO_COCOON_VINES_CRACKING);
     }
 }
 
@@ -394,13 +394,13 @@ void ImagoCocoonFallingBeforeBlocks(void)
         SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
         if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
-            ImagoCocoonChangeOneCcaa(CAA_REMOVE_SOLID); // Remove middile block
+            ImagoCocoonChangeOneCcaa(CAA_REMOVE_SOLID); // Remove middle block
 
             // Set falling after blocks
             gCurrentSprite.pose = IMAGO_COCOON_POSE_FALLING_AFTER_BLOCKS;
             gCurrentSprite.work0 = 0x0;
             ScreenShakeStartVertical(0x28, 0x81);
-            SoundPlay(0x1A4);
+            SoundPlay(SOUND_IMAGO_COCOON_DESTROYING_BLOCKS);
         }
     }
     else
@@ -487,7 +487,7 @@ void ImagoCocoonFallingAfterBlocks(void)
         gCurrentSprite.work0 = 0x5A;
 
         ScreenShakeStartVertical(0x28, 0x81);
-        SoundPlay(0x1A5);
+        SoundPlay(SOUND_IMAGO_COCOON_CRASHING);
 
         gCurrentSprite.scaling = Q_8_8(1.f);
         gCurrentSprite.work2 = FALSE;
@@ -535,7 +535,7 @@ void ImagoCocoonInGround(void)
             else
             {
                 gCurrentSprite.work2 = FALSE;
-                SoundPlay(0x1A6);
+                SoundPlay(SOUND_IMAGO_COCOON_IN_GROUND);
             }
         }
         else
@@ -725,7 +725,7 @@ void ImagoCocoonVineCheckPlayDamagedSound(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x1A2);
+            SoundPlayNotAlreadyPlaying(SOUND_IMAGO_COCOON_VINE_DAMAGED);
     }
 }
 
@@ -940,7 +940,7 @@ void ImagoCocoonSporeSpawning(void)
     {
         if (gCurrentSprite.roomSlot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
             gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1)
-            SoundPlay(0x1A0);
+            SoundPlay(SOUND_IMAGO_COCOON_SPORE_SPAWNING);
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
@@ -979,7 +979,7 @@ void ImagoCocoonSporeNest(void)
             gCurrentSprite.pose = IMAGO_COCOON_SPORE_POSE_MOVING;
 
             if (gCurrentSprite.roomSlot == IMAGO_COCOON_SPORE_PART_DOWN && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x1A1);
+                SoundPlay(SOUND_IMAGO_COCOON_SPORE_NEST_SPAWNING);
         }
     }
 }
@@ -1611,9 +1611,9 @@ void ImagoCocoonAfterFight(void)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
-            case 0x0:
-            case 0x4:
-                SoundPlay(0x212);
+            case 0:
+            case 4:
+                SoundPlay(SOUND_IMAGO_COCOON_IN_GROUND_IDLE);
         }
     }
 }

@@ -7,6 +7,7 @@
 #include "data/cutscenes/mecha_sees_samus_data.h"
 #include "data/shortcut_pointers.h"
 
+#include "constants/audio.h"
 #include "constants/cutscene.h"
 
 /**
@@ -29,7 +30,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 30)
             {
-                SoundPlay(0x293);
+                SoundPlay(SOUND_MECHA_SEES_SAMUS_EYE_OPENING);
                 UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], 2);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -47,7 +48,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer > 4)
             {
-                SoundPlay(0x294);
+                SoundPlay(SOUND_MECHA_SEES_SAMUS_EYE_FOCUSING);
                 UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 4);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;

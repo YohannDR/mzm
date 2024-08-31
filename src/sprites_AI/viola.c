@@ -4,6 +4,7 @@
 #include "data/sprites/viola.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -503,7 +504,7 @@ void Viola(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x178);
+            SoundPlayNotAlreadyPlaying(SOUND_VIOLA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

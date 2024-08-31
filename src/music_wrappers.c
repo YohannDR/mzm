@@ -257,7 +257,7 @@ void CheckSetNewMusicTrack(u16 musicTrack)
     pTrack = sMusicTrackDataRom[0].pTrack;
 
     if (musicTrack == 0)
-        musicTrack = 0xA9;
+        musicTrack = SOUND_A9;
 
     newTrack = DetermineNewMusicTrack(musicTrack);
 
@@ -841,7 +841,7 @@ void PlayCurrentMusicTrack(void)
  */
 void DecreaseMusicVolume(void)
 {
-    SoundPlay(0x63);
+    SoundPlay(SOUND_63);
     unk_34ac(FALSE);
 
     gMusicInfo.volumeDownFlag |= (1 << 7);

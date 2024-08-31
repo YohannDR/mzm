@@ -4,6 +4,7 @@
 #include "data/sprites/rising_chozo_pillar.h"
 #include "data/sprites/enemy_drop.h"
 
+#include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
@@ -226,7 +227,7 @@ void RisingChozoPillar(void)
             {
                 gCurrentSprite.pose = RISING_CHOZO_PILLAR_POSE_EXTENDING;
                 gCurrentSprite.scaling = 704;
-                SoundPlay(0x125);
+                SoundPlay(SOUND_RISING_CHOZO_PILLAR_RISING);
             }
             break;
 
@@ -242,7 +243,7 @@ void RisingChozoPillar(void)
             else
             {
                 gCurrentSprite.pose = RISING_CHOZO_PILLAR_POSE_SPAWN_3_PLATFORMS;
-                SoundFade(0x125, 10);
+                SoundFade(SOUND_RISING_CHOZO_PILLAR_RISING, CONVERT_SECONDS(1.f / 6));
             }
 
             debrisY = yPosition + HALF_BLOCK_SIZE;
@@ -324,7 +325,7 @@ void ChozoPillarPlatform(void)
                 else
                     gCurrentSprite.pOam = sRisingChozoPillarPlatformOam_Slot0Spawning;
 
-                SoundPlay(0x126);
+                SoundPlay(SOUND_RISING_CHOZO_PILLAR_PLATFORM_SPAWNING);
             }
             break;
 

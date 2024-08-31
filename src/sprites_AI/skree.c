@@ -4,8 +4,9 @@
 #include "data/sprites/skree.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -26,8 +27,8 @@ void SkreeInit(void)
 
     gCurrentSprite.hitboxTop = 0;
     gCurrentSprite.hitboxBottom = BLOCK_SIZE + HALF_BLOCK_SIZE;
-    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
-    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.yPosition -= BLOCK_SIZE;
@@ -112,7 +113,7 @@ void SkreeGoingDownInit(void)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlay(0x141);
+        SoundPlay(SOUND_SKREE_GOING_DOWN);
 }
 
 /**
@@ -135,7 +136,7 @@ void SkreeGoDown(void)
         gCurrentSprite.pose = SKREE_POSE_CRASHING;
         gCurrentSprite.work0 = 0x0;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0x142);
+            SoundPlay(SOUND_SKREE_CRASHING);
     }
     else
     {
@@ -199,13 +200,13 @@ void SkreeCrashGround(void)
         case 1:
             yPosition += 0x48;
             SpriteDebrisInit(0, 17, yPosition - QUARTER_BLOCK_SIZE, xPosition);
-            SpriteDebrisInit(0, 18, yPosition, xPosition + (PIXEL_SIZE * 3));
+            SpriteDebrisInit(0, 18, yPosition, xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE));
 
-            SpriteDebrisInit(0, 19, yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE * 2 + PIXEL_SIZE / 2),
+            SpriteDebrisInit(0, 19, yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2),
                 xPosition + (QUARTER_BLOCK_SIZE + PIXEL_SIZE));
 
-            SpriteDebrisInit(0, 4, yPosition - (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2),
-                xPosition - (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3 + PIXEL_SIZE / 2));
+            SpriteDebrisInit(0, 4, yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
+                xPosition - (QUARTER_BLOCK_SIZE + (QUARTER_BLOCK_SIZE - PIXEL_SIZE) + PIXEL_SIZE / 2));
             break;
 
         case 40:
@@ -222,22 +223,21 @@ void SkreeCrashGround(void)
                 spriteId = SSPRITE_SKREE_EXPLOSION;
             
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
-                yPosition - (PIXEL_SIZE * 2), xPosition, 0);
+                yPosition - EIGHTH_BLOCK_SIZE, xPosition, 0);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_UP, gfxSlot, ramSlot,
-                yPosition - (PIXEL_SIZE * 2), xPosition, SPRITE_STATUS_X_FLIP);
+                yPosition - EIGHTH_BLOCK_SIZE, xPosition, SPRITE_STATUS_X_FLIP);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
-                yPosition + (PIXEL_SIZE * 2), xPosition - (PIXEL_SIZE * 3), 0);
+                yPosition + EIGHTH_BLOCK_SIZE, xPosition - (QUARTER_BLOCK_SIZE - PIXEL_SIZE), 0);
 
             SpriteSpawnSecondary(spriteId, SKREE_EXPLOSION_PART_GOING_DOWN, gfxSlot, ramSlot,
-                yPosition + (PIXEL_SIZE * 2), xPosition + (PIXEL_SIZE * 3), SPRITE_STATUS_X_FLIP);
+                yPosition + EIGHTH_BLOCK_SIZE, xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE), SPRITE_STATUS_X_FLIP);
 
-           
             gCurrentSprite.status = 0;
 
             ParticleSet(yPosition + HALF_BLOCK_SIZE + PIXEL_SIZE, xPosition, PE_SPRITE_EXPLOSION_HUGE);
-            SoundPlay(0x134);
+            SoundPlay(SOUND_SKREE_EXPLODING);
     }
 }
 
@@ -255,10 +255,10 @@ void SkreeExplosionInit(void)
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTop = -(PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxBottom = (PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxLeft = -(PIXEL_SIZE * 3);
-    gCurrentSprite.hitboxRight = (PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE - PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE - PIXEL_SIZE);
+    gCurrentSprite.hitboxRight = (QUARTER_BLOCK_SIZE - PIXEL_SIZE);
     
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
@@ -268,7 +268,7 @@ void SkreeExplosionInit(void)
     gCurrentSprite.drawOrder = 3;
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
     
-    gCurrentSprite.yPosition += HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
+    gCurrentSprite.yPosition += HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING;
     gCurrentSprite.scaling = Q_8_8(1.f);
     gCurrentSprite.rotation = 0;
@@ -290,12 +290,12 @@ void SkreeExplosionMove(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
     {
-        gCurrentSprite.xPosition += PIXEL_SIZE * 2;
+        gCurrentSprite.xPosition += EIGHTH_BLOCK_SIZE;
         gCurrentSprite.rotation += PI / 4;
     }
     else
     {
-        gCurrentSprite.xPosition -= PIXEL_SIZE * 2;
+        gCurrentSprite.xPosition -= EIGHTH_BLOCK_SIZE;
         gCurrentSprite.rotation -= PI / 4;
     }
 
@@ -318,7 +318,7 @@ void Skree(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x143);
+            SoundPlayNotAlreadyPlaying(SOUND_SKREE_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)

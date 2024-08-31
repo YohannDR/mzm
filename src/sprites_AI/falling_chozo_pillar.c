@@ -3,6 +3,7 @@
 
 #include "data/sprites/falling_chozo_pillar.h"
 
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 
@@ -58,7 +59,7 @@ void FallingChozoPillar(void)
             {
                 // Start falling when on screen
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_FALLING;
-                SoundPlay(0x10B);
+                SoundPlay(SOUND_CHOZO_PILLAR_FALLING);
             }
             break;
 
@@ -95,7 +96,7 @@ void FallingChozoPillar(void)
             {
                 // Unknown, AI doesn't handle this case, most likely removed code
                 gCurrentSprite.pose = 0x29;
-                SoundPlay(0xA7);
+                SoundPlay(SOUND_CHOZO_PILLAR_FELL);
             }
             break;
     }

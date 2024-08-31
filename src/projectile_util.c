@@ -838,8 +838,10 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
             return;
 
         case ACD_DIAGONALLY_UP:
-            distance = FRACT_MUL(distance, 7, 10);
+            distance = FLOAT_MUL(distance, .7f);
+
             pProj->yPosition -= distance;
+
             if (pProj->status & PROJ_STATUS_X_FLIP)
                 pProj->xPosition += distance;
             else
@@ -847,8 +849,10 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            distance = FRACT_MUL(distance, 7, 10);
+            distance = FLOAT_MUL(distance, .7f);
+
             pProj->yPosition += distance;
+
             if (pProj->status & PROJ_STATUS_X_FLIP)
                 pProj->xPosition += distance;
             else

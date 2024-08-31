@@ -5579,7 +5579,7 @@ u8 SamusUsingAnElevator(struct SamusData* pData)
         pData->currentAnimationFrame++;
         pData->animationDurationCounter = 0;
         pData->yVelocity = 0;
-        SoundFade(0x10E, 10);
+        SoundFade(SOUND_ELEVATOR, CONVERT_SECONDS(1.f / 6));
     }
 
     return SPOSE_NONE;

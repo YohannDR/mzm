@@ -52,7 +52,7 @@ u8 RidleyLandingRidleyFlying(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
-                SoundPlay(0x292);
+                SoundPlay(SOUND_RIDLEY_LANDING_RIDLEY_SCREAMING);
                 CUTSCENE_DATA.oam[1].actions |= (1 | 2);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -171,7 +171,7 @@ u8 RidleyLandingShipLanding(void)
             CUTSCENE_DATA.timeInfo.subStage++;
 
         case 1:
-            SoundPlay(0x290);
+            SoundPlay(SOUND_RIDLEY_LANDING_SHIP_LOWERING);
             CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 4, 1);
             CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[0], sRidleyLandingPageData[1].bg);
 
@@ -207,7 +207,7 @@ u8 RidleyLandingShipLanding(void)
         case 3:
             if (!CUTSCENE_DATA.oam[6].actions)
             {
-                SoundPlay(0x291);
+                SoundPlay(SOUND_RIDLEY_LANDING_SHIP_LANDING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -433,7 +433,7 @@ u8 RidleyLandingInit(void)
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE);
 
     PlayMusic(MUSIC_RIDLEY_LANDING, 0);
-    SoundPlay(0x28F);
+    SoundPlay(SOUND_RIDLEY_LANDING_SHIP_FLYING);
 
     CUTSCENE_DATA.dispcnt = sRidleyLandingPageData[0].bg | DCNT_OBJ;
     CUTSCENE_DATA.timeInfo.timer = 0;

@@ -4,8 +4,9 @@
 #include "data/sprites/skultera.h"
 #include "data/sprite_data.h"
 
-#include "constants/particle.h"
+#include "constants/audio.h"
 #include "constants/clipdata.h"
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -276,7 +277,7 @@ void SkulteraTurningAroundInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        SoundPlayNotAlreadyPlaying(0x269);
+        SoundPlayNotAlreadyPlaying(SOUND_SKULTERA_TURNING_AROUND);
 }
 
 /**
@@ -307,7 +308,7 @@ void Skultera(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlayNotAlreadyPlaying(0x26A);
+            SoundPlayNotAlreadyPlaying(SOUND_SKULTERA_DAMAGED);
     }
 
     if (gCurrentSprite.freezeTimer != 0)
