@@ -2,7 +2,7 @@
 
 #include "data/sprites/enemy_drop.h"
 
-#include "constants/AUDIO.h"
+#include "constants/audio.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 
