@@ -658,7 +658,7 @@ const struct TilesetEntry sTilesetEntries[79] = {
 		.pTileGraphics = sTileset_78_Gfx,
 		.pPalette = sTileset_42_Pal,
 		.pBackgroundGraphics = sTileset_42_Bg_Gfx,
-		.pTilemap = (const u8*)0x85e0d24,
+		.pTilemap = sTileset_78_Tilemap,
 		.animatedTileset = 0,
 		.animatedPalette = 16
 	}
