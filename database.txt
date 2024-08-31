@@ -2389,7 +2389,8 @@ rooms/chozodia/Chozodia_10_Clipdata.gfx;122;0x72fd4a;1
 rooms/chozodia/Chozodia_10_Bg2.gfx;178;0x72fdc4;1
 rooms/chozodia/Chozodia_10_Bg1.gfx;465;0x72fe76;1
 
-rooms/chozodia/Chozodia_11_Clipdata.gfx;109;0x73005a;1
+rooms/chozodia/Chozodia_11_Clipdata.gfx;95;0x73005a;1
+rooms/chozodia/Chozodia_11_Bg2_Unused.gfx;14;0x7300b9;1
 rooms/chozodia/Chozodia_11_Bg1.gfx;221;0x7300c7;1
 
 rooms/chozodia/Chozodia_12_Clipdata.gfx;276;0x7301be;1

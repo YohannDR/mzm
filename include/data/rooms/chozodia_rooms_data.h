@@ -79,7 +79,8 @@ extern const u8 sChozodia_10_Bg1[465];
 extern const u8 sChozodia_10_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(3)];
 
 extern const u8 sChozodia_7_Scrolls[SCROLL_DATA_SIZE(1)];
-extern const u8 sChozodia_11_Clipdata[109];
+extern const u8 sChozodia_11_Clipdata[95];
+extern const u8 sChozodia_11_Bg2_Unused[14];
 extern const u8 sChozodia_11_Bg1[221];
 extern const u8 sChozodia_11_Spriteset0[ENEMY_ROOM_DATA_ARRAY_SIZE(2)];
 
