@@ -31,9 +31,9 @@ enum Sound {
     MUSIC_ESCAPE_SUCCESFUL, // 0x1A
     MUSIC_CREDITS, // 0x1B
     MUSIC_STATUE_ROOM_OPENED, // 0x1C
-    MUSIC_1d, // 0x1d
-    MUSIC_1e, // 0x1e
-    MUSIC_1f, // 0x1f
+    MUSIC_1D, // 0x1d
+    MUSIC_1E, // 0x1e
+    MUSIC_1F, // 0x1f
     MUSIC_20, // 0x20
     MUSIC_21, // 0x21
     MUSIC_22, // 0x22
@@ -44,12 +44,12 @@ enum Sound {
     MUSIC_27, // 0x27
     MUSIC_28, // 0x28
     MUSIC_29, // 0x29
-    MUSIC_2a, // 0x2a
-    MUSIC_2b, // 0x2b
-    MUSIC_2c, // 0x2c
-    MUSIC_2d, // 0x2d
-    MUSIC_2e, // 0x2e
-    MUSIC_2f, // 0x2f
+    MUSIC_2A, // 0x2a
+    MUSIC_2B, // 0x2b
+    MUSIC_2C, // 0x2c
+    MUSIC_2D, // 0x2d
+    MUSIC_2E, // 0x2e
+    MUSIC_2F, // 0x2f
     MUSIC_30, // 0x30
     MUSIC_31, // 0x31
     MUSIC_RIDLEY, // 0x32
