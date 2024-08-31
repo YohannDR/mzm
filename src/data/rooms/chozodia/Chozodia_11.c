@@ -13,7 +13,9 @@ const u8 sChozodia_7_Scrolls[SCROLL_DATA_SIZE(1)] = {
 	UCHAR_MAX, // Breakeable block Y bound extension
 };
 
-const u8 sChozodia_11_Clipdata[109] = INCBIN_U8("data/rooms/chozodia/Chozodia_11_Clipdata.gfx");
+const u8 sChozodia_11_Clipdata[95] = INCBIN_U8("data/rooms/chozodia/Chozodia_11_Clipdata.gfx");
+
+const u8 sChozodia_11_Bg2_Unused[14] = INCBIN_U8("data/rooms/chozodia/Chozodia_11_Bg2_Unused.gfx");
 
 const u8 sChozodia_11_Bg1[221] = INCBIN_U8("data/rooms/chozodia/Chozodia_11_Bg1.gfx");
 
