@@ -15,12 +15,11 @@
 #include "cutscenes/story_text_cutscene.h"
 #include "cutscenes/cutscene_utils.h"
 
-#include "constants/cutscene.h"
 #include "constants/event.h"
 #include "constants/color_fading.h"
 #include "constants/text.h"
 
-const struct CutsceneInfo sCutsceneData[15] = {
+const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
     [CUTSCENE_NONE] = {
         .unk_0 = 0,
         .type = 1,
@@ -67,7 +66,7 @@ const struct CutsceneInfo sCutsceneData[15] = {
         .storyText = 0,
         .pFunction = MotherBrainCloseUpSubroutine,
         .preBgFading = COLOR_FADING_DOOR_TRANSITION,
-        .fadingTimer = 50,
+        .fadingTimer = CONVERT_SECONDS(5.f / 6),
         .bgFading = COLOR_FADING_SLOW_BLACK,
         .event = EVENT_ENTER_NORFAIR_DEMO_PLAYED
     },
@@ -97,7 +96,7 @@ const struct CutsceneInfo sCutsceneData[15] = {
         .storyText = 0,
         .pFunction = RidleyInSpaceSubroutine,
         .preBgFading = COLOR_FADING_DOOR_TRANSITION,
-        .fadingTimer = 40,
+        .fadingTimer = TWO_THIRD_SECOND,
         .bgFading = COLOR_FADING_CANCEL,
         .event = EVENT_EXIT_KRAID_DEMO_PLAYED
     },
@@ -107,7 +106,7 @@ const struct CutsceneInfo sCutsceneData[15] = {
         .storyText = 0,
         .pFunction = RidleyLandingSubroutine,
         .preBgFading = COLOR_FADING_DOOR_TRANSITION,
-        .fadingTimer = 40,
+        .fadingTimer = TWO_THIRD_SECOND,
         .bgFading = COLOR_FADING_CANCEL,
         .event = EVENT_ENTER_RIDLEY_DEMO_PLAYED
     },
@@ -127,7 +126,7 @@ const struct CutsceneInfo sCutsceneData[15] = {
         .storyText = 0,
         .pFunction = EnterTourianSubroutine,
         .preBgFading = COLOR_FADING_DOOR_TRANSITION,
-        .fadingTimer = 40,
+        .fadingTimer = TWO_THIRD_SECOND,
         .bgFading = COLOR_FADING_CANCEL,
         .event = EVENT_ENTER_TOURIAN_DEMO_PLAYED 
     },

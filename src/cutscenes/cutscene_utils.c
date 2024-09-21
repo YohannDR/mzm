@@ -77,10 +77,12 @@ void CutsceneUpdateMusicAfterSkip(void)
     switch (gCurrentCutscene)
     {
         case CUTSCENE_KRAID_RISING:
+            // Properly start the fight music
             PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
             break;
 
         case CUTSCENE_RIDLEY_SPAWNING:
+            // Play roar anyways
             SoundPlay(SOUND_RIDLEY_SPAWN_ROAR);
     }
 
@@ -96,6 +98,7 @@ void CutsceneEnd(void)
     switch (gCurrentCutscene)
     {
         case CUTSCENE_RIDLEY_LANDING:
+            // Set the event for the ridley in space cutscene, in case it was skipped
             EventFunction(EVENT_ACTION_SETTING, sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
             break;
 
@@ -108,10 +111,12 @@ void CutsceneEnd(void)
             break;
 
         case CUTSCENE_GETTING_FULLY_POWERED:
+            // Start fully powered items
             gPauseScreenFlag = PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS;
             break;
 
         case CUTSCENE_COULD_I_SURVIVE:
+            // Start suitless items
             gPauseScreenFlag = PAUSE_SCREEN_SUITLESS_ITEMS;
             gMusicTrackInfo.pauseScreenFlag = PAUSE_SCREEN_SUITLESS_ITEMS;
             break;
@@ -120,22 +125,27 @@ void CutsceneEnd(void)
             if (gCurrentArea == AREA_KRAID)
             {
                 SoundStop(MUSIC_STATUE_ROOM_OPENED);
-                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, 60);
+                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, CONVERT_SECONDS(1.f));
             }
             else if (gCurrentArea == AREA_RIDLEY)
             {
                 SoundStop(MUSIC_STATUE_ROOM_OPENED);
-                unk_3bd0(MUSIC_RIDLEY_BATTLE, 60);
+                unk_3bd0(MUSIC_RIDLEY_BATTLE, CONVERT_SECONDS(1.f));
             }
     }
 
+    // Play post cutscene bg fading
     ColorFadingStart(sCutsceneData[gCurrentCutscene].bgFading);
+
+    // Check should set event
     if (sCutsceneData[gCurrentCutscene].event != EVENT_NONE)
         EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
 
     if (sCutsceneData[gCurrentCutscene].isElevator)
     {
+        // Fade in the elevator sound
         PlayFadingSound(SOUND_ELEVATOR, sCutsceneData[gCurrentCutscene].fadingTimer);
+        // Fade in the room music
         CheckPlayFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
     }
 }
@@ -152,28 +162,28 @@ u8 CutsceneSubroutine(void)
 
     switch (gSubGameModeStage)
     {
-        case 0:
+        case CUTSCENE_STAGE_STARTING:
             CallbackSetVBlank(CutsceneLoadingVBlank);
             if (CutsceneStartBackgroundFading(sCutsceneData[gCurrentCutscene].preBgFading))
-                gSubGameModeStage = 2;
+                gSubGameModeStage = CUTSCENE_STAGE_INIT;
             else
-                gSubGameModeStage = 1;
+                gSubGameModeStage = CUTSCENE_STAGE_FADING_IN;
             break;
 
-        case 1:
+        case CUTSCENE_STAGE_FADING_IN:
             unk_61f60();
             if (CutsceneUpdateFading())
                 gSubGameModeStage++;
             break;
             
-        case 2:
+        case CUTSCENE_STAGE_INIT:
             CutsceneInit();
             CallbackSetVBlank(CutsceneVBlank);
 
             gSubGameModeStage++;
             break;
             
-        case 3:
+        case CUTSCENE_STAGE_ONGOING:
             CUTSCENE_DATA.timeInfo.timer++;
             CutsceneUpdateSpecialEffect();
 
@@ -196,22 +206,23 @@ u8 CutsceneSubroutine(void)
             }
             break;
             
-        case 4:
+        case CUTSCENE_STAGE_ENDING:
             if (CUTSCENE_DATA.fadingType == 3)
-                BitFill(3, SHORT_MAX, PALRAM_BASE, PALRAM_SIZE, 0x10);
+                BitFill(3, SHORT_MAX, PALRAM_BASE, PALRAM_SIZE, 16);
             else
-                BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 0x10);
+                BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
 
-            BitFill(3, 0x40, VRAM_BASE, 0x10000, 0x10);
-            BitFill(3, 0, VRAM_OBJ, 0x8000, 0x10);
-            BitFill(3, 0xFF, OAM_BASE, OAM_SIZE, 0x20);
+            BitFill(3, 0x40, VRAM_BASE, 0x10000, 16);
+            BitFill(3, 0, VRAM_OBJ, 0x8000, 16);
+            BitFill(3, UCHAR_MAX, OAM_BASE, OAM_SIZE, 32);
 
             CutsceneEnd();
 
             if (sCutsceneData[gCurrentCutscene].skippable)
                 gCutsceneToSkip = gCurrentCutscene;
 
-            gSubGameModeStage = 0;
+            // Reset stage for the next cutscene
+            gSubGameModeStage = CUTSCENE_STAGE_STARTING;
 
             if (sCutsceneData[gCurrentCutscene].unk_0 == 0)
                 gCurrentCutscene = CUTSCENE_NONE;
