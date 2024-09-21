@@ -22,7 +22,6 @@
 #include "tourian_escape.h"
 #include "cutscenes/cutscene_utils.h"
 
-#include "constants/animated_graphics.h"
 #include "constants/haze.h"
 #include "constants/room.h"
 
@@ -405,17 +404,16 @@ u8 sHazeData[13][4] = {
     }
 };
 
-// FIXME use pointer to u16[3]
-const u16* const sBackgroundEffectBehaviorPointers[9] = {
-    [0] = (const u16* const)sBackgroundEffectBehavior_Lightning,
-    [BACKGROUND_EFFECT_LIGHTNING] = (const u16* const)sBackgroundEffectBehavior_Lightning,
-    [BACKGROUND_EFFECT_SLIGHT_YELLOW] = (const u16* const)sBackgroundEffectBehavior_SlightYellow,
-    [BACKGROUND_EFFECT_HEAVY_YELLOW] = (const u16* const)sBackgroundEffectBehavior_HeavyYellow,
-    [BACKGROUND_EFFECT_EXIT_ZEBES_FADE] = (const u16* const)sBackgroundEffectBehavior_ExitZebes,
-    [BACKGROUND_EFFECT_INTRO_TEXT_FADE] = (const u16* const)sBackgroundEffectBehavior_IntroText,
-    [BACKGROUND_EFFECT_QUICK_FLASH] = (const u16* const)sBackgroundEffectBehavior_QuickFlash,
-    [BACKGROUND_EFFECT_ALL_BLACK] = (const u16* const)sBackgroundEffectBehavior_AllBlackWhite,
-    [BACKGROUND_EFFECT_ALL_WHITE] = (const u16* const)sBackgroundEffectBehavior_AllBlackWhite,
+const BackgroundEffectBehaviorEntry_T* const sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_END] = {
+    [BACKGROUND_EFFECT_NONE] = sBackgroundEffectBehavior_Lightning,
+    [BACKGROUND_EFFECT_LIGHTNING] = sBackgroundEffectBehavior_Lightning,
+    [BACKGROUND_EFFECT_SLIGHT_YELLOW] = sBackgroundEffectBehavior_SlightYellow,
+    [BACKGROUND_EFFECT_HEAVY_YELLOW] = sBackgroundEffectBehavior_HeavyYellow,
+    [BACKGROUND_EFFECT_EXIT_ZEBES_FADE] = sBackgroundEffectBehavior_ExitZebes,
+    [BACKGROUND_EFFECT_INTRO_TEXT_FADE] = sBackgroundEffectBehavior_IntroText,
+    [BACKGROUND_EFFECT_QUICK_FLASH] = sBackgroundEffectBehavior_QuickFlash,
+    [BACKGROUND_EFFECT_ALL_BLACK] = sBackgroundEffectBehavior_AllBlackWhite,
+    [BACKGROUND_EFFECT_ALL_WHITE] = sBackgroundEffectBehavior_AllBlackWhite,
 };
 
 const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {

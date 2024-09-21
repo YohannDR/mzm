@@ -65,6 +65,7 @@
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 #define EMPTY_DO_WHILE {do {} while(0);}
 
+#define COLOR_MASK 0x1F
 #define RED(c) ((c) & COLOR_MASK)
 #define GREEN(c) (((c) & (COLOR_MASK << 5)) >> 5)
 #define BLUE(c) (((c) & (COLOR_MASK << 10)) >> 10)
@@ -72,7 +73,12 @@
 #define COLOR_GRAD(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
 #define COLOR_WHITE COLOR(COLOR_MASK, COLOR_MASK, COLOR_MASK)
 #define COLOR_BLACK COLOR(0, 0, 0)
-#define COLOR_MASK 0x1F
+#define COLOR_RED COLOR(COLOR_MASK, 0, 0)
+#define COLOR_GREEN COLOR(0, COLOR_MASK, 0)
+#define COLOR_BLUE COLOR(0, 0, COLOR_MASK)
+#define COLOR_YELLOW COLOR(COLOR_MASK, COLOR_MASK, 0)
+#define COLOR_PURPLE COLOR(COLOR_MASK, 0, COLOR_MASK)
+#define COLOR_LIGHT_BLUE COLOR(0, COLOR_MASK, COLOR_MASK)
 
 #define SET_BACKDROP_COLOR(color) (write16(PALRAM_BASE, (color)))
 

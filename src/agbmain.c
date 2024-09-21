@@ -9,8 +9,6 @@
 
 void agbmain(void)
 {
-    u8 psf;
-
     InitializeGame();
 
     while (TRUE)
@@ -24,8 +22,8 @@ void agbmain(void)
         UpdateInput();
         SoftresetCheck();
 
-        gFrameCounter8Bit++;
-        gFrameCounter16Bit++;
+        APPLY_DELTA_TIME_INC(gFrameCounter8Bit);
+        APPLY_DELTA_TIME_INC(gFrameCounter16Bit);
 
         switch (gMainGameMode)
         {
@@ -50,7 +48,7 @@ void agbmain(void)
                 {
                     if (gGameModeSub2 == 1)
                     {
-                        gMainGameMode = GM_FILESELECT;
+                        gMainGameMode = GM_FILE_SELECT;
                     }
                     else if (gGameModeSub2 == 2)
                     {
@@ -68,7 +66,7 @@ void agbmain(void)
                 }
                 break;
 
-            case GM_FILESELECT:
+            case GM_FILE_SELECT:
                 if (FileSelectMenuSubroutine())
                 {
                     if (gGameModeSub2 == 1)
@@ -183,13 +181,11 @@ void agbmain(void)
                 if (CutsceneSubroutine())
                 {
                     gGameModeSub1 = 0;
-                    psf = gPauseScreenFlag - 7;
-                    if (psf <= 1)
-                    {
+
+                    if (gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
                         gMainGameMode = GM_MAP_SCREEN;
-                        break;
-                    }
-                    gMainGameMode = GM_INGAME;
+                    else
+                        gMainGameMode = GM_INGAME;
                 }
                 break;
 
@@ -220,7 +216,7 @@ void agbmain(void)
                 if (GallerySubroutine())
                 {
                     gGameModeSub1 = 0;
-                    gMainGameMode = GM_FILESELECT;
+                    gMainGameMode = GM_FILE_SELECT;
                 }
                 break;
 
@@ -228,7 +224,7 @@ void agbmain(void)
                 if (FusionGallerySubroutine())
                 {
                     gGameModeSub1 = 0;
-                    gMainGameMode = GM_FILESELECT;
+                    gMainGameMode = GM_FILE_SELECT;
                 }
                 break;
 

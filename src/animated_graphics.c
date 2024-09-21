@@ -120,7 +120,7 @@ void AnimatedGraphicsUpdate(void)
 
             case ANIMATED_GFX_TYPE_NORMAL:
                 // Standard animation progression
-                pGraphics->animationDurationCounter++;
+                APPLY_DELTA_TIME_INC(pGraphics->animationDurationCounter);
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
                     update = TRUE;
@@ -137,7 +137,7 @@ void AnimatedGraphicsUpdate(void)
                 // Play the animation normally, but only once (no looping)
                 if (pGraphics->currentAnimationFrame != pGraphics->numberOfStates - 1)
                 {
-                    pGraphics->animationDurationCounter++;
+                    APPLY_DELTA_TIME_INC(pGraphics->animationDurationCounter);
                     if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                     {
                         update = TRUE;
@@ -149,7 +149,7 @@ void AnimatedGraphicsUpdate(void)
                 break;
 
             case ANIMATED_GFX_TYPE_ALTERNATE:
-                pGraphics->animationDurationCounter++;
+                APPLY_DELTA_TIME_INC(pGraphics->animationDurationCounter);
 
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
@@ -168,7 +168,7 @@ void AnimatedGraphicsUpdate(void)
                 // Standard animation progression, just played backwards and played once (no looping)
                 if (pGraphics->currentAnimationFrame != 0)
                 {
-                    pGraphics->animationDurationCounter++;
+                    APPLY_DELTA_TIME_INC(pGraphics->animationDurationCounter);
 
                     if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                     {
@@ -182,7 +182,7 @@ void AnimatedGraphicsUpdate(void)
 
             case ANIMATED_GFX_TYPE_REVERSE:
                 // Standard animation progression, just played backwards
-                pGraphics->animationDurationCounter++;
+                APPLY_DELTA_TIME_INC(pGraphics->animationDurationCounter);
 
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
@@ -267,7 +267,7 @@ void AnimatedGraphicsLoad(void)
         src = &pGraphics->pGraphics[pGraphics->currentAnimationFrame * ANIMATED_GFX_SIZE];
         dst = ANIMATED_GFX_VRAM_POS(i);
 
-        DMA_SET(3, src, dst, DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+        DMA_SET(3, src, dst, C_32_2_16(DMA_ENABLE, ANIMATED_GFX_SIZE_16_BITS));
 
         // Check enable rain sound
         if (gPauseScreenFlag == 0 && pGraphics->graphicsEntry == ANIMATED_GFX_ID_RAIN)
@@ -284,16 +284,16 @@ void AnimatedGraphicsLoad(void)
  */
 void AnimatedGraphicsTanksAnimationReset(void)
 {
-    gTankAnimations[0].timer = 1;
+    gTankAnimations[0].timer = DELTA_TIME * 1;
     gTankAnimations[0].frame = 0;
 
-    gTankAnimations[1].timer = 2;
+    gTankAnimations[1].timer = DELTA_TIME * 2;
     gTankAnimations[1].frame = 0;
 
-    gTankAnimations[2].timer = 3;
+    gTankAnimations[2].timer = DELTA_TIME * 3;
     gTankAnimations[2].frame = 0;
 
-    gTankAnimations[3].timer = 4;
+    gTankAnimations[3].timer = DELTA_TIME * 4;
     gTankAnimations[3].frame = 0;
 }
 
@@ -308,10 +308,10 @@ void AnimatedGraphicsTanksAnimationUpdate(void)
     for (i = ARRAY_SIZE(gTankAnimations) - 1; i >= 0; i--)
     {
         // Update timer
-        gTankAnimations[i].timer++;
+        APPLY_DELTA_TIME_INC(gTankAnimations[i].timer);
 
         // Swap animation frame every 5 frames
-        if (gTankAnimations[i].timer < ANIMATED_GFX_TANK_FRAME_DELAY)
+        if (gTankAnimations[i].timer <= ANIMATED_GFX_TANK_FRAME_DELAY)
             continue;
 
         gTankAnimations[i].timer = 0;
@@ -352,7 +352,7 @@ void AnimatedPaletteUpdate(void)
     update = FALSE;
 
     // Update timer
-    gAnimatedPaletteTiming.timer++;
+    APPLY_DELTA_TIME_INC(gAnimatedPaletteTiming.timer);
 
     switch (sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].type)
     {
@@ -505,8 +505,8 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
 void BackgroundEffectUpdate(void)
 {
     u16 color;
-    
-    gBackgroundEffect.timer++;
+
+    APPLY_DELTA_TIME_INC(gBackgroundEffect.timer);
 
     // Process
     color = BackgroundEffectProcess();
@@ -520,7 +520,7 @@ void BackgroundEffectUpdate(void)
         ? sBackgroundEffectColorData[gBackgroundEffect.type].color_2
         : sBackgroundEffectColorData[gBackgroundEffect.type].color_1;
 
-    if (color & 0x8000)
+    if (color & BACKGROUND_EFFECT_NO_COLOR)
         return;
 
     // Apply on background
@@ -544,44 +544,43 @@ u16 BackgroundEffectProcess(void)
 
     colorId = 0;
 
-    // Behavior is an array of 3 u16
-    pBehavior = &sBackgroundEffectBehaviorPointers[gBackgroundEffect.type][gBackgroundEffect.stage * sizeof(u16[3]) / sizeof(u16)];
+    pBehavior = sBackgroundEffectBehaviorPointers[gBackgroundEffect.type][gBackgroundEffect.stage];
 
     // Execute command
-    switch (pBehavior[0])
+    switch (pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE])
     {
-        case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_RANDOM:
+        case BACKGROUND_EFFECT_CMD_WAIT_FOR_TIMER_RANDOM:
             // Wait for a set + random amount of time
-            if (gBackgroundEffect.timer > pBehavior[1] + gFrameCounter8Bit + gFrameCounter16Bit / 16)
+            if (gBackgroundEffect.timer > pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] + gFrameCounter8Bit + gFrameCounter16Bit / 16)
             {
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
             }
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER:
+        case BACKGROUND_EFFECT_CMD_WAIT_FOR_TIMER:
             // Wait for a set amount of time
-            if (gBackgroundEffect.timer > pBehavior[1])
+            if (gBackgroundEffect.timer > pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER])
             {
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
             }
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_BEFORE:
+        case BACKGROUND_EFFECT_CMD_WAIT_FOR_TIMER_BEFORE:
             // Wait for just before a set amount of time
-            if (gBackgroundEffect.timer >= pBehavior[1] - 1)
+            if (gBackgroundEffect.timer >= pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER] - DELTA_TIME)
             {
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
             }
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_FIRST_COLOR:
+        case BACKGROUND_EFFECT_CMD_CHECK_APPLY_FIRST_COLOR:
             if (gColorFading.status == 0)
             {
                 // Set color stage
-                gBackgroundEffect.colorStage = pBehavior[2];
+                gBackgroundEffect.colorStage = pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_ARG];
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
 
@@ -590,11 +589,11 @@ u16 BackgroundEffectProcess(void)
             }
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_SECOND_COLOR:
+        case BACKGROUND_EFFECT_CMD_CHECK_APPLY_SECOND_COLOR:
             if (gColorFading.status == 0)
             {
                 // Set color stage
-                gBackgroundEffect.colorStage = pBehavior[2];
+                gBackgroundEffect.colorStage = pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_ARG];
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
 
@@ -603,26 +602,26 @@ u16 BackgroundEffectProcess(void)
             }
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_PLAY_SOUND:
+        case BACKGROUND_EFFECT_CMD_PLAY_SOUND:
             // Play sound
-            if (pBehavior[2] != 0)
-                SoundPlay(pBehavior[2]);
+            if (pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_ARG] != 0)
+                SoundPlay(pBehavior[BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_ARG]);
 
             gBackgroundEffect.stage++;
             gBackgroundEffect.timer = 0;
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_END_AND_KILL:
+        case BACKGROUND_EFFECT_CMD_FINISH_AND_KILL:
             // Kill
             gBackgroundEffect.type = 0;
 
-        case BACKGROUND_EFFECT_COMMAND_END:
+        case BACKGROUND_EFFECT_CMD_FINISH:
             // End
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_END_EXIT_ZEBES:
+        case BACKGROUND_EFFECT_CMD_FINISH_EXIT_ZEBES:
             // End
             gBackgroundEffect.type = 0;
             gBackgroundEffect.stage = 0;
@@ -633,7 +632,7 @@ u16 BackgroundEffectProcess(void)
             gGameModeSub1 = 3;
             break;
 
-        case BACKGROUND_EFFECT_COMMAND_END_BEFORE_INTRO_TEXT:
+        case BACKGROUND_EFFECT_CMD_FINISH_BEFORE_INTRO_TEXT:
             // End
             gBackgroundEffect.type = 0;
             gBackgroundEffect.stage = 0;
@@ -656,7 +655,7 @@ u16 BackgroundEffectProcess(void)
  */
 u32 BackgroundEffectStart(u8 effect)
 {
-    if (gBackgroundEffect.type == 0 && effect != UCHAR_MAX)
+    if (gBackgroundEffect.type == BACKGROUND_EFFECT_NONE && effect != UCHAR_MAX)
     {
         gBackgroundEffect.type = effect;
         gBackgroundEffect.colorStage = 0;

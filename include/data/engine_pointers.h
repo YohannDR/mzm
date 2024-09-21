@@ -5,10 +5,12 @@
 
 #include "data/demo_data.h"
 
+#include "constants/animated_graphics.h"
 #include "constants/connection.h"
 #include "constants/particle.h"
 #include "constants/projectile.h"
 
+#include "structs/animated_graphics.h"
 #include "structs/connection.h"
 #include "structs/projectile.h"
 #include "structs/particle.h"
@@ -45,7 +47,7 @@ extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
 extern u8 sHazeData[13][4];
 
 
-extern const u16* const sBackgroundEffectBehaviorPointers[9];
+extern const BackgroundEffectBehaviorEntry_T* const sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_END];
 
 extern const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
 

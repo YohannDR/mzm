@@ -54,6 +54,16 @@ struct AnimatedPaletteData {
     const u16* pPalette;
 };
 
+enum BackgroundEffectBehaviorField {
+    BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TYPE,
+    BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_TIMER,
+    BACKGROUND_EFFECT_BEHAVIOR_FIELD_CMD_ARG,
+
+    BACKGROUND_EFFECT_BEHAVIOR_FIELD_END
+};
+
+typedef const u16 (BackgroundEffectBehaviorEntry_T)[BACKGROUND_EFFECT_BEHAVIOR_FIELD_END];
+
 extern struct BackgroundEffect gBackgroundEffect;
 extern struct AnimatedTiming gTankAnimations[4];
 extern struct AnimatedGraphicsInfo gAnimatedGraphicsData[16];
