@@ -403,7 +403,7 @@ void RoomReset(void)
     if (gGameModeSub3 == 0)
     {
         gMusicTrackInfo.currentRoomTrack = MUSIC_NONE;
-        gMusicTrackInfo.unk = 0;
+        gMusicTrackInfo.unk = FALSE;
         gMusicTrackInfo.pauseScreenFlag = PAUSE_SCREEN_NONE;
 
         gCurrentClipdataAffectingAction = CAA_NONE;

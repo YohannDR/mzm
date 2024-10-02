@@ -487,17 +487,17 @@ u32 unk_5c3ac(void)
         switch (sColorFadingData[gColorFading.type].unk_16)
         {
             case 1:
-                if (gMusicTrackInfo.unk == 0)
+                if (!gMusicTrackInfo.unk)
                     CheckPlayTransitionMusicTrack();
                 break;
 
             case 2:
                 if (gMusicTrackInfo.pauseScreenFlag)
-                    UpdateMusicAfterPause(); // Undefined
+                    UpdateMusicAfterPause();
                 break;
         }
 
-        gMusicTrackInfo.unk = 0;
+        gMusicTrackInfo.unk = FALSE;
         gMusicTrackInfo.pauseScreenFlag = 0;
 
         ColorFadingStart(COLOR_FADING_CANCEL);

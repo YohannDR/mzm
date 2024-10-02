@@ -16,6 +16,8 @@
 #define VRAM_BASE (void *)0x06000000
 #define VRAM_OBJ (void *)0x06010000
 #define VRAM_SIZE (96 * 0x400)
+#define VRAM_BG_SIZE (0x10000)
+#define VRAM_OBJ_SIZE (0x8000)
 
 #define OAM_BASE (void *)0x07000000
 #define OAM_SIZE 0x400

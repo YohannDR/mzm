@@ -103,6 +103,7 @@ void CutsceneEnd(void)
             break;
 
         case CUTSCENE_INTRO_TEXT:
+            // Set spawn location
             gCurrentArea = AREA_BRINSTAR;
             gCurrentRoom = 0;
             gLastDoorUsed = 0;
@@ -122,6 +123,7 @@ void CutsceneEnd(void)
             break;
 
         case CUTSCENE_STATUE_OPENING:
+            // Play fight music
             if (gCurrentArea == AREA_KRAID)
             {
                 SoundStop(MUSIC_STATUE_ROOM_OPENED);
@@ -153,7 +155,7 @@ void CutsceneEnd(void)
 /**
  * @brief 61044 | 1e4 | Subroutine for a cutscene
  * 
- * @return u8 1 if ended, 0 otherwise
+ * @return u8 bool, ended
  */
 u8 CutsceneSubroutine(void)
 {
@@ -163,11 +165,19 @@ u8 CutsceneSubroutine(void)
     switch (gSubGameModeStage)
     {
         case CUTSCENE_STAGE_STARTING:
+            // Set dummy empty vblank
             CallbackSetVBlank(CutsceneLoadingVBlank);
+
+            // Start the pre cutscene background fading
             if (CutsceneStartBackgroundFading(sCutsceneData[gCurrentCutscene].preBgFading))
+            {
+                // Fade couldn't start, skip it
                 gSubGameModeStage = CUTSCENE_STAGE_INIT;
+            }
             else
+            {
                 gSubGameModeStage = CUTSCENE_STAGE_FADING_IN;
+            }
             break;
 
         case CUTSCENE_STAGE_FADING_IN:
@@ -208,18 +218,21 @@ u8 CutsceneSubroutine(void)
             
         case CUTSCENE_STAGE_ENDING:
             if (CUTSCENE_DATA.fadingType == 3)
-                BitFill(3, SHORT_MAX, PALRAM_BASE, PALRAM_SIZE, 16);
+                BitFill(3, COLOR_WHITE, PALRAM_BASE, PALRAM_SIZE, 16);
             else
                 BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
 
-            BitFill(3, 0x40, VRAM_BASE, 0x10000, 16);
-            BitFill(3, 0, VRAM_OBJ, 0x8000, 16);
+            BitFill(3, 0x40, VRAM_BASE, VRAM_BG_SIZE, 16);
+            BitFill(3, 0, VRAM_OBJ, VRAM_OBJ_SIZE, 16);
             BitFill(3, UCHAR_MAX, OAM_BASE, OAM_SIZE, 32);
 
             CutsceneEnd();
 
             if (sCutsceneData[gCurrentCutscene].skippable)
+            {
+                // Save the cutscene number, such that the next time this specific cutscene happens, it can be skipped
                 gCutsceneToSkip = gCurrentCutscene;
+            }
 
             // Reset stage for the next cutscene
             gSubGameModeStage = CUTSCENE_STAGE_STARTING;
@@ -1076,7 +1089,7 @@ void unk_61f60(void)
  * @brief 61fa0 | 230 | Starts a cutscene background fading
  * 
  * @param type Type
- * @return u8 To document
+ * @return u8 bool, couldn't start
  */
 u8 CutsceneStartBackgroundFading(u8 type)
 {
