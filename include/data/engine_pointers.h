@@ -31,7 +31,7 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 
 extern const s8 sWaterLoopCounterArray[8][2];
 
-extern const u8* const * const sAreaScrollPointers[AREA_END];
+extern const u8* const * const sAreaScrollPointers[AREA_COUNT];
 
 extern const BlockFunc_T sNonReformDestroyFunctionPointers[5];
 

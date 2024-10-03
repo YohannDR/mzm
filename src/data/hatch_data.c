@@ -4,26 +4,25 @@
 
 #include "constants/event.h"
 #include "constants/clipdata.h"
-#include "constants/connection.h"
 
 // 360130
 
-const u8 sHatchTypeTable[MAX_AMOUNT_OF_HATCH_TYPES] = {
-    [0] = HATCH_NONE,
+const u8 sHatchTypeTable[HATCH_COUNT] = {
+    [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_NO_DOOR)] = HATCH_NONE,
     [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_GRAY_DOOR)] = HATCH_LOCKED,
     [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_REGULAR_DOOR)] = HATCH_NORMAL,
     [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_MISSILE_DOOR)] = HATCH_MISSILE,
     [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_SUPER_MISSILE_DOOR)] = HATCH_SUPER_MISSILE,
     [BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_POWER_BOMB_DOOR)] = HATCH_POWER_BOMB,
     [6] = HATCH_LOCKED,
-    [7] = HATCH_LOCKED_AND_LOCK_DESTINATION,
+    [7] = HATCH_LOCKED_NAVIGATION,
 };
 
 const struct HatchLockEvent sHatchLockEventsBrinstar[1] = {
     {
         .room = 9,
         .event = EVENT_VIEWED_STATUE_ROOM,
-        .isBefore = TRUE,
+        .type = HATCH_LOCK_EVENT_TYPE_BEFORE,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -47,7 +46,7 @@ const struct HatchLockEvent sHatchLockEventsKraid[1] = {
     {
         .room = 4,
         .event = EVENT_ACID_WORM_KILLED,
-        .isBefore = TRUE,
+        .type = HATCH_LOCK_EVENT_TYPE_BEFORE,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -67,11 +66,11 @@ const struct HatchLockEvent sHatchLockEventsKraid[1] = {
     }
 };
 
-const struct HatchLockEvent sHatchLockEventsNorfair[2] = {
+const struct HatchLockEvent sHatchLockEventsCrateria[2] = {
     {
         .room = 0,
         .event = EVENT_MOTHER_BRAIN_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = TRUE,
@@ -92,7 +91,7 @@ const struct HatchLockEvent sHatchLockEventsNorfair[2] = {
     {
         .room = 8,
         .event = EVENT_BUGS_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -116,7 +115,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 13,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -137,7 +136,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 13,
         .event = EVENT_HARD,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -158,7 +157,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 44,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -179,7 +178,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 46,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -200,7 +199,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 51,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -221,7 +220,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 52,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = TRUE,
@@ -242,7 +241,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 53,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -263,7 +262,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 58,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -284,7 +283,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 59,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -305,7 +304,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 60,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = TRUE,
@@ -326,7 +325,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 69,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -347,7 +346,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 70,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -368,7 +367,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 71,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -389,7 +388,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 92,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = TRUE,
         .hatchesToLock_1 = FALSE,
         .hatchesToLock_2 = FALSE,
@@ -410,7 +409,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     {
         .room = 96,
         .event = EVENT_MECHA_RIDLEY_KILLED,
-        .isBefore = FALSE,
+        .type = HATCH_LOCK_EVENT_TYPE_AFTER,
         .hatchesToLock_0 = FALSE,
         .hatchesToLock_1 = TRUE,
         .hatchesToLock_2 = FALSE,
@@ -430,393 +429,398 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
     }
 };
 
-const u8 sEventBasedConnections[MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS][4] = {
+const u8 sEventBasedConnections[41][EVENT_BASED_CONNECTION_FIELD_COUNT] = {
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 198, // Source door
-        [2] = EVENT_HARD, // Event
-        [3] = 212 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 198,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_HARD,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 212
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 195, // Source door
-        [2] = EVENT_HARD, // Event
-        [3] = 235 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 195,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_HARD,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 235
     },
     {
-        [0] = AREA_NORFAIR, // Source area
-        [1] = 66, // Source door
-        [2] = EVENT_ENTER_RIDLEY_DEMO_PLAYED, // Event
-        [3] = 95 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 66,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_ENTER_RIDLEY_DEMO_PLAYED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 95
     },
     {
-        [0] = AREA_NORFAIR, // Source area
-        [1] = 69, // Source door
-        [2] = EVENT_ENTER_RIDLEY_DEMO_PLAYED, // Event
-        [3] = 96 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 69,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_ENTER_RIDLEY_DEMO_PLAYED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 96
     },
     {
-        [0] = AREA_CRATERIA, // Source area
-        [1] = 30, // Source door
-        [2] = EVENT_POWER_GRIP_OBTAINED, // Event
-        [3] = 29 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 30,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_POWER_GRIP_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 29
     },
     {
-        [0] = AREA_CRATERIA, // Source area
-        [1] = 19, // Source door
-        [2] = EVENT_CHOZO_PILLAR_FULLY_EXTENDED, // Event
-        [3] = 47 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 19,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_CHOZO_PILLAR_FULLY_EXTENDED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 47
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 132, // Source door
-        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
-        [3] = 202 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 132,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_SPACE_JUMP_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 202
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 136, // Source door
-        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
-        [3] = 203 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 136,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_SPACE_JUMP_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 203
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 153, // Source door
-        [2] = EVENT_SPACE_JUMP_OBTAINED, // Event
-        [3] = 208 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 153,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_SPACE_JUMP_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 208
     },
     {
-        [0] = AREA_KRAID, // Source area
-        [1] = 70, // Source door
-        [2] = EVENT_KRAID_KILLED, // Event
-        [3] = 89 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_KRAID,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 70,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_KRAID_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 89
     },
     {
-        [0] = AREA_NORFAIR, // Source area
-        [1] = 94, // Source door
-        [2] = EVENT_CATERPILLAR_KILLED, // Event
-        [3] = 93 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 94,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_CATERPILLAR_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 93
     },
     {
-        [0] = AREA_RIDLEY, // Source area
-        [1] = 74, // Source door
-        [2] = EVENT_IMAGO_TUNNEL_DISCOVERED, // Event
-        [3] = 66 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_RIDLEY,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 74,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_IMAGO_TUNNEL_DISCOVERED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 66
     },
     {
-        [0] = AREA_RIDLEY, // Source area
-        [1] = 43, // Source door
-        [2] = EVENT_IMAGO_KILLED, // Event
-        [3] = 59 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_RIDLEY,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 43,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_IMAGO_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 59
     },
     {
-        [0] = AREA_RIDLEY, // Source area
-        [1] = 63, // Source door
-        [2] = EVENT_IMAGO_KILLED, // Event
-        [3] = 65 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_RIDLEY,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 63,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_IMAGO_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 65
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 88, // Source door
-        [2] = EVENT_REPEL_MACHINE_KILLED, // Event
-        [3] = 93 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 88,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_REPEL_MACHINE_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 93
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 91, // Source door
-        [2] = EVENT_REPEL_MACHINE_KILLED, // Event
-        [3] = 92 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 91,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_REPEL_MACHINE_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 92
     },
     {
-        [0] = AREA_TOURIAN, // Source area
-        [1] = 13, // Source door
-        [2] = EVENT_ESCAPED_ZEBES, // Event
-        [3] = 20 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_TOURIAN,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 13,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_ESCAPED_ZEBES,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 20
     },
     {
-        [0] = AREA_CRATERIA, // Source area
-        [1] = 27, // Source door
-        [2] = EVENT_ESCAPED_ZEBES, // Event
-        [3] = 14 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 27,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_ESCAPED_ZEBES,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 14
     },
     {
-        [0] = AREA_CRATERIA, // Source area
-        [1] = 4, // Source door
-        [2] = EVENT_ESCAPED_ZEBES, // Event
-        [3] = 46 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 4,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_ESCAPED_ZEBES,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 46
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 161, // Source door
-        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
-        [3] = 228 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 161,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 228
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 164, // Source door
-        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
-        [3] = 229 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 164,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 229
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 188, // Source door
-        [2] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP, // Event
-        [3] = 227 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 188,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 227
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 82, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 192 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 82,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 192
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 85, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 191 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 85,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 191
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 46, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 224 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 46,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 224
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 53, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 169 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 53,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 169
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 176, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 201 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 176,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 201
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 57, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 118 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 57,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 118
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 76, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 121 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 76,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 121
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 64, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 120 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 64,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 120
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 67, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 119 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 67,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 119
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 86, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 209 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 86,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 209
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 54, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 148 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 54,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 148
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 79, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 147 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 79,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 147
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 238, // Source door
-        [2] = EVENT_FULLY_POWERED_SUIT_OBTAINED, // Event
-        [3] = 242 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 238,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_FULLY_POWERED_SUIT_OBTAINED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 242
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 172, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 215 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 172,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 215
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 96, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 216 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 96,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 216
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 100, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 217 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 100,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 217
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 104, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 218 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 104,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 218
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 128, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 233 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 128,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 233
     },
     {
-        [0] = AREA_CHOZODIA, // Source area
-        [1] = 152, // Source door
-        [2] = EVENT_MECHA_RIDLEY_KILLED, // Event
-        [3] = 234 // Destination door
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR] = 152,
+        [EVENT_BASED_CONNECTION_FIELD_EVENT] = EVENT_MECHA_RIDLEY_KILLED,
+        [EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR] = 234
     }
 };
 
-const u8 sAreaConnections[26][3] = {
+const u8 sAreaConnections[][AREA_CONNECTION_FIELD_COUNT] = {
     {
-        AREA_NORFAIR,
-        70,
-        AREA_RIDLEY
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 70,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_RIDLEY
     },
     {
-        AREA_RIDLEY,
-        0,
-        AREA_NORFAIR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_RIDLEY,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 0,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NORFAIR
     },
     {
-        AREA_BRINSTAR,
-        57,
-        AREA_NORFAIR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_BRINSTAR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 57,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NORFAIR
     },
     {
-        AREA_NORFAIR,
-        0,
-        AREA_BRINSTAR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 0,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_BRINSTAR
     },
     {
-        AREA_BRINSTAR,
-        61,
-        AREA_TOURIAN
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_BRINSTAR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 61,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_TOURIAN
     },
     {
-        AREA_TOURIAN,
-        0,
-        AREA_BRINSTAR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_TOURIAN,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 0,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_BRINSTAR
     },
     {
-        AREA_BRINSTAR,
-        9,
-        AREA_KRAID
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_BRINSTAR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 9,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_KRAID
     },
     {
-        AREA_KRAID,
-        0,
-        AREA_BRINSTAR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_KRAID,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 0,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_BRINSTAR
     },
     {
-        AREA_BRINSTAR,
-        0,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_BRINSTAR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 0,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_CRATERIA,
-        11,
-        AREA_BRINSTAR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 11,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_BRINSTAR
     },
     {
-        AREA_CRATERIA,
-        13,
-        AREA_TOURIAN
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 13,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_TOURIAN
     },
     {
-        AREA_TOURIAN,
-        11,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_TOURIAN,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 11,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_CRATERIA,
-        17,
-        AREA_NORFAIR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 17,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NORFAIR
     },
     {
-        AREA_NORFAIR,
-        76,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 76,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_CRATERIA,
-        33,
-        AREA_CHOZODIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 33,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CHOZODIA
     },
     {
-        AREA_CHOZODIA,
-        150,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 150,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_TOURIAN,
-        21,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_TOURIAN,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 21,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_NORFAIR,
-        108,
-        AREA_RIDLEY
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 108,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_RIDLEY
     },
     {
-        AREA_RIDLEY,
-        60,
-        AREA_NORFAIR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_RIDLEY,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 60,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NORFAIR
     },
     {
-        AREA_CHOZODIA,
-        220,
-        AREA_CRATERIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CHOZODIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 220,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CRATERIA
     },
     {
-        AREA_CRATERIA,
-        24,
-        AREA_CHOZODIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 24,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CHOZODIA
     },
     {
-        AREA_CRATERIA,
-        49,
-        AREA_CHOZODIA
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 49,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_CHOZODIA
     },
     {
-        AREA_NORFAIR,
-        129,
-        AREA_KRAID
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NORFAIR,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 129,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_KRAID
     },
     {
-        AREA_KRAID,
-        103,
-        AREA_NORFAIR
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_KRAID,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 103,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NORFAIR
     },
     {
-        AREA_CRATERIA,
-        51,
-        AREA_TOURIAN
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_CRATERIA,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = 51,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_TOURIAN
     },
     {
-        AREA_NONE,
-        UCHAR_MAX,
-        AREA_NONE
+        [AREA_CONNECTION_FIELD_SOURCE_AREA] = AREA_NONE,
+        [AREA_CONNECTION_FIELD_SOURCE_DOOR] = UCHAR_MAX,
+        [AREA_CONNECTION_FIELD_DESTINATION_AREA] = AREA_NONE
     }
 };
 
 const u8 sHatchesAnimationDurationCounter[6] = {
-    3, 3, 3, 3, 3, UCHAR_MAX
+    [0] = CONVERT_SECONDS(.05f),
+    [1] = CONVERT_SECONDS(.05f),
+    [2] = CONVERT_SECONDS(.05f),
+    [3] = CONVERT_SECONDS(.05f),
+    [4] = CONVERT_SECONDS(.05f),
+    [5] = UCHAR_MAX
 };
 
-const u16 sHatchesTilemapValues[MAX_AMOUNT_OF_HATCH_TYPES] = {
+const u16 sHatchesTilemapValues[HATCH_COUNT] = {
     [HATCH_NONE] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NO_HATCH_DOOR_TOP_LEFT,
     [HATCH_UNUSED] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_GRAY_DOOR_TOP_LEFT,
     [HATCH_NORMAL] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_REGULAR_DOOR_TOP_LEFT,
@@ -824,16 +828,16 @@ const u16 sHatchesTilemapValues[MAX_AMOUNT_OF_HATCH_TYPES] = {
     [HATCH_SUPER_MISSILE] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SUPER_MISSILE_DOOR_TOP_LEFT,
     [HATCH_POWER_BOMB] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_POWER_BOMB_DOOR_TOP_LEFT,
     [HATCH_LOCKED] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_GRAY_DOOR_TOP_LEFT,
-    [HATCH_LOCKED_AND_LOCK_DESTINATION] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_CLOSED_DOOR_TOP_LEFT
+    [HATCH_LOCKED_NAVIGATION] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_CLOSED_DOOR_TOP_LEFT
 };
 
 const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
-    [AREA_BRINSTAR] = 1,
-    [AREA_KRAID] = 1,
+    [AREA_BRINSTAR] = ARRAY_SIZE(sHatchLockEventsBrinstar),
+    [AREA_KRAID] = ARRAY_SIZE(sHatchLockEventsKraid),
     [AREA_NORFAIR] = 0,
     [AREA_RIDLEY] = 0,
     [AREA_TOURIAN] = 0,
-    [AREA_CRATERIA] = 2,
-    [AREA_CHOZODIA] = 15,
+    [AREA_CRATERIA] = ARRAY_SIZE(sHatchLockEventsCrateria),
+    [AREA_CHOZODIA] = ARRAY_SIZE(sHatchLockEventsChozodia),
     [AREA_DEBUG_1] = 0
 };

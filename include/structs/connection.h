@@ -2,6 +2,7 @@
 #define CONNECTION_STRUCT_H
 
 #include "types.h"
+#include "macros.h"
 
 // Structs
 
@@ -27,7 +28,7 @@ struct EventBasedConnection {
 struct HatchLockEvent {
     u8 room;
     u8 event;
-    u8 isBefore;
+    u8 type;
     u8 hatchesToLock_0:1;
     u8 hatchesToLock_1:1;
     u8 hatchesToLock_2:1;
@@ -53,7 +54,7 @@ struct HatchData {
     u16 facingRight:1;
     u16 securityLevel:3; // Left over from fusion
     /* 1 */
-    u8 opening:2;
+    u8 state:2;
     u16 locked:2;
     u16 flashingTimer:4;
     /* 2 */
@@ -75,10 +76,10 @@ struct LastElevatorUsed {
 
 struct HatchesState {
     s8 unlocking;
-    s8 unk;
+    s8 navigationDoorsUnlocking;
     u16 hatchesLockedWithTimer;
     u16 hatchesLockedWithEvent;
-    u16 unk2;
+    u16 hatchesLockedWithEventUnlockeable;
 };
 
 struct HatchFlashingAnimation {
@@ -90,12 +91,27 @@ struct HatchFlashingAnimation {
     s8 navigation_paletteRow;
 };
 
+enum AreaConnectionField {
+    AREA_CONNECTION_FIELD_SOURCE_AREA,
+    AREA_CONNECTION_FIELD_SOURCE_DOOR,
+    AREA_CONNECTION_FIELD_DESTINATION_AREA,
+
+    AREA_CONNECTION_FIELD_COUNT
+};
+
+enum EventBasedConnectionField {
+    EVENT_BASED_CONNECTION_FIELD_SOURCE_AREA,
+    EVENT_BASED_CONNECTION_FIELD_SOURCE_DOOR,
+    EVENT_BASED_CONNECTION_FIELD_EVENT,
+    EVENT_BASED_CONNECTION_FIELD_DESTINATION_DOOR,
+
+    EVENT_BASED_CONNECTION_FIELD_COUNT,
+};
+
 #define MAX_AMOUNT_OF_HATCHES 16
 #define MAX_AMOUNT_OF_AREAS 8
-#define MAX_AMOUNT_OF_HATCH_TYPES 8
-#define MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS 41
 
-extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][16];
+#define gHatchesOpened CAST_TO_ARRAY(u32, [MAX_AMOUNT_OF_AREAS][8], EWRAM_BASE + 0x37C00)
 
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
 extern struct Coordinates gDoorPositionStart;

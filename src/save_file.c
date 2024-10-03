@@ -1156,14 +1156,9 @@ void SramRead_Arrays(void)
     pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
     src = &pFile->worldData;
 
-    DmaTransfer(3, src->visitedMinimapTiles,
-        gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
-
-    DmaTransfer(3, src->hatchesOpened,
-        gHatchesOpened, sizeof(gHatchesOpened) / 2, 16);
-
-    DmaTransfer(3, src->eventsTriggered,
-        gEventsTriggered, sizeof(gEventsTriggered), 16);
+    DmaTransfer(3, src->visitedMinimapTiles, gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
+    DmaTransfer(3, src->hatchesOpened, gHatchesOpened, sizeof(gHatchesOpened), 16);
+    DmaTransfer(3, src->eventsTriggered, gEventsTriggered, sizeof(gEventsTriggered), 16);
 
     BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
     BitFill(3, USHORT_MAX, gItemsCollected, sizeof(gItemsCollected), 16);
@@ -1743,8 +1738,7 @@ void SramWrite_ToEwram_DemoRam(void)
 
     // 0x2037400 = gVisitedMinimapTiles
     DmaTransfer(3, (u32*)0x2037400 + gCurrentArea * MINIMAP_SIZE, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
-    // 0x2037c00 = gHatchesOpened
-    DmaTransfer(3, (u8*)0x2037c00 + gCurrentArea * 32, pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
+    DmaTransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
 
     pFile->text[0] = 'A';
     pFile->text[1] = 'T';
@@ -1780,8 +1774,7 @@ void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
         // 0x02037400 = gVisitedMinimapTiles
         DmaTransfer(3, pDemo->visitedMinimapTiles, (u32*)0x02037400 + gCurrentArea * MINIMAP_SIZE,
             sizeof(pDemo->visitedMinimapTiles), 16);
-        // 0x2037c00 = gHatchesOpened
-        DmaTransfer(3, pDemo->hatchesOpened, (u16*)0x2037c00 + gCurrentArea * 16, sizeof(pDemo->hatchesOpened), 16);
+        DmaTransfer(3, pDemo->hatchesOpened, gHatchesOpened[gCurrentArea], sizeof(pDemo->hatchesOpened), 16);
     } 
     else if (loadSamusData == TRUE)
     {

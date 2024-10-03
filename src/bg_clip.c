@@ -693,66 +693,66 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
-        if (gHatchData[i].exists && !gHatchData[i].opening)
+        if (!gHatchData[i].exists || gHatchData[i].state != HATCH_STATE_CLOSED)
+            continue;
+
+        action = HATCH_OPENING_ACTION_NOT_OPENING;
+
+        // Check touches hatch and hatch is weak
+        if (gHatchData[i].xPosition == xPosition && gHatchData[i].yPosition <= yPosition &&
+            yPosition <= gHatchData[i].yPosition + (HATCH_VERTICAL_SIZE - 1) &&
+            sHatchBehaviors[gHatchData[i].type][0] &
+            sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction])
         {
-            action = HATCH_OPENING_ACTION_NOT_OPENING;
+            // Increase hits
+            gHatchData[i].hits++;
+            action = HATCH_OPENING_ACTION_OPENING;
 
-            // Check touches hatch and hatch is weak
-            if (gHatchData[i].xPosition == xPosition && gHatchData[i].yPosition <= yPosition &&
-                yPosition <= gHatchData[i].yPosition + (HATCH_VERTICAL_SIZE - 1) &&
-                sHatchBehaviors[gHatchData[i].type][0] &
-                sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction])
+            // Check for a special action
+            if (gHatchData[i].type == HATCH_LOCKED)
             {
-                // Increase hits
-                gHatchData[i].hits++;
-                action = HATCH_OPENING_ACTION_OPENING;
-
-                // Check for a special action
-                if (gHatchData[i].type == HATCH_LOCKED)
-                {
-                    // Check hatches are unlocked
-                    if (!gHatchesState.unlocking)
-                        action = HATCH_OPENING_ACTION_LOCKED;
-                }
-                else if (gHatchData[i].type == HATCH_LOCKED_AND_LOCK_DESTINATION)
-                {
-                    if (!gHatchesState.unk)
-                        action = HATCH_OPENING_ACTION_LOCKED;
-                }
-                else if (gHatchData[i].type == HATCH_MISSILE)
-                {
-                    // Check instantly open
-                    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & CAA_DAMAGE_TYPE_SUPER_MISSILE)
-                        gHatchData[i].hits = sHatchBehaviors[HATCH_MISSILE][1]; // Set max health
-                }
+                // Check hatches are unlocked
+                if (!gHatchesState.unlocking)
+                    action = HATCH_OPENING_ACTION_LOCKED;
             }
-            
-            if (action != HATCH_OPENING_ACTION_NOT_OPENING)
+            else if (gHatchData[i].type == HATCH_LOCKED_NAVIGATION)
             {
-                if (action == HATCH_OPENING_ACTION_OPENING)
+                if (!gHatchesState.navigationDoorsUnlocking)
+                    action = HATCH_OPENING_ACTION_LOCKED;
+            }
+            else if (gHatchData[i].type == HATCH_MISSILE)
+            {
+                // Check instantly open
+                if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & CAA_DAMAGE_TYPE_SUPER_MISSILE)
+                    gHatchData[i].hits = sHatchBehaviors[HATCH_MISSILE][1]; // Set max health
+            }
+        }
+        
+        if (action != HATCH_OPENING_ACTION_NOT_OPENING)
+        {
+            if (action == HATCH_OPENING_ACTION_OPENING)
+            {
+                // Check enough hits
+                if (gHatchData[i].hits >= sHatchBehaviors[gHatchData[i].type][1])
                 {
-                    // Check enough hits
-                    if (gHatchData[i].hits >= sHatchBehaviors[gHatchData[i].type][1])
-                    {
-                        // Unlock
-                        gHatchData[i].flashingTimer = FALSE;
-                        gHatchData[i].opening = TRUE;
+                    // Unlock
+                    gHatchData[i].flashingTimer = FALSE;
+                    gHatchData[i].state = TRUE;
 
-                        // Set hatch as opened
-                        if (gHatchData[i].type >= HATCH_MISSILE)
-                            ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION, gHatchData[i].sourceDoor);
-                        else
-                            ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE, gHatchData[i].sourceDoor);
-                    }
+                    // Set hatch as opened
+                    if (gHatchData[i].type >= HATCH_MISSILE)
+                        ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION, gHatchData[i].sourceDoor);
                     else
-                        gHatchData[i].flashingTimer = 1; // Set flashing
+                        ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE, gHatchData[i].sourceDoor);
                 }
                 else
-                    gHatchData[i].hits = 0; // Locked, reset
-
-                gHatchData[i].hitTimer = 0;
-                break;
+                    gHatchData[i].flashingTimer = 1; // Set flashing
             }
+            else
+                gHatchData[i].hits = 0; // Locked, reset
+
+            gHatchData[i].hitTimer = 0;
+            break;
         }
     }
 

@@ -110,7 +110,7 @@ const u8* const sStatusScreenFlagsOrderPointers[4] = {
     [ABILITY_GROUP_MISC] = sStatusScreenMiscFlagsOrder,
 };
 
-const u32* const sMinimapDataPointers[AREA_END] = {
+const u32* const sMinimapDataPointers[AREA_COUNT] = {
     [AREA_BRINSTAR] = sBrinstarMinimap,
     [AREA_KRAID] = sKraidMinimap,
     [AREA_NORFAIR] = sNorfairMinimap,

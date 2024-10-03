@@ -22,7 +22,7 @@ extern u16 sPauseScreenCompletionInfoOamData[6][5];
 
 extern const u8* const sStatusScreenFlagsOrderPointers[4];
 
-extern const u32* const sMinimapDataPointers[AREA_END];
+extern const u32* const sMinimapDataPointers[AREA_COUNT];
 
 extern const u32 sExploredMinimapBitFlags[32];
 extern const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4];

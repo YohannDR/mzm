@@ -448,9 +448,9 @@ void RoomReset(void)
     gEffectYPosition = 0;
     gHatchesState.unlocking = FALSE;
     gHatchesState.hatchesLockedWithTimer = 0;
-    gHatchesState.unk = FALSE;
+    gHatchesState.navigationDoorsUnlocking = FALSE;
     gHatchesState.hatchesLockedWithEvent = 0;
-    gHatchesState.unk2 = FALSE;
+    gHatchesState.hatchesLockedWithEventUnlockeable = 0;
     gDoorUnlockTimer = 0;
 
     pDoor = &sAreaDoorsPointers[gCurrentArea][0];
@@ -932,8 +932,8 @@ void RoomUpdateHatchFlashingAnimation(void)
         }
     }
 
-    // Left over code?
-    if (gHatchesState.unk)
+    // Left over code from fusion
+    if (gHatchesState.navigationDoorsUnlocking)
     {
         gHatchFlashingAnimation.navigation_delay++;
         if (gHatchFlashingAnimation.navigation_delay > 7)

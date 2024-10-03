@@ -4,6 +4,7 @@
 #include "types.h"
 
 #include "constants/clipdata.h"
+#include "constants/connection.h"
 #include "constants/game_state.h"
 
 #include "structs/block.h"
@@ -29,7 +30,7 @@ extern const struct BombChainReverseData sBombChainReverseData[8];
 
 extern const struct TankBehavior sTankBehaviors[MAX_AMOUNT_OF_TANK_TYPES];
 
-extern const u16 sHatchBehaviors[MAX_AMOUNT_OF_HATCH_TYPES][2];
+extern const u16 sHatchBehaviors[HATCH_COUNT][2];
 
 extern const u16 sBldalphaValuesForClipdata[11];
 

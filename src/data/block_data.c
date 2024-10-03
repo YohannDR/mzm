@@ -2,9 +2,7 @@
 
 #include "macros.h"
 
-
 #include "constants/block.h"
-#include "constants/connection.h"
 #include "constants/text.h"
 
 const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS] = {
@@ -639,7 +637,7 @@ const struct TankBehavior sTankBehaviors[MAX_AMOUNT_OF_TANK_TYPES] = {
     },
 };
 
-const u16 sHatchBehaviors[MAX_AMOUNT_OF_HATCH_TYPES][2] = {
+const u16 sHatchBehaviors[HATCH_COUNT][2] = {
     // 0 : Weakness
     // 2 : Health
     [HATCH_NONE] = {
@@ -670,7 +668,7 @@ const u16 sHatchBehaviors[MAX_AMOUNT_OF_HATCH_TYPES][2] = {
         CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB,
         0
     },
-    [HATCH_LOCKED_AND_LOCK_DESTINATION] = {
+    [HATCH_LOCKED_NAVIGATION] = {
         CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB,
         0
     },

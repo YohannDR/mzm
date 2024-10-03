@@ -534,7 +534,7 @@ void BaristuteDeath(void)
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_BARISTUTES_KILLED);
 
-             // Unlock doors
+            // Unlock doors
             gDoorUnlockTimer = -ONE_THIRD_SECOND;
         }
     }

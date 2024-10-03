@@ -33,7 +33,6 @@ SECTIONS {
         . = 0x00035c00; gNeverReformBlocks = .;
         . = 0x00036c00; gItemsCollected = .;
         . = 0x00037400; gVisitedMinimapTiles = .;
-        . = 0x00037c00; gHatchesOpened = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00037e20; gMinimapTilesGfx = .;
         . = 0x00038000; gSram = .;

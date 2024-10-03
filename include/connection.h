@@ -21,6 +21,6 @@ void ConnectionLoadDoors(void);
 void ConnectionLockHatchesWithTimer(void);
 void ConnectionCheckHatchLockEvents(void);
 void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne);
-void ConnectionCheckPlayCutsceneDuringElevator(void);
+void ConnectionCheckPlayCutsceneDuringAreaConnection(void);
 
 #endif /* CONNECTION_H */

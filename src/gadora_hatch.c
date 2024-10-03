@@ -33,13 +33,13 @@ u32 GadoraHatchUpdate(u16 xPosition, u16 yPosition, u8 action)
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
-        if (gHatchData[i].opening)
+        if (gHatchData[i].state != HATCH_STATE_CLOSED)
             continue;
         
         // Try find door at position
         if (gHatchData[i].xPosition + xOffset >= SUB_PIXEL_TO_BLOCK(xPosition) &&
             gHatchData[i].xPosition - xOffset <= SUB_PIXEL_TO_BLOCK(xPosition) &&
-            gHatchData[i].yPosition + 3 >= SUB_PIXEL_TO_BLOCK(yPosition) &&
+            gHatchData[i].yPosition + (HATCH_VERTICAL_SIZE - 1) >= SUB_PIXEL_TO_BLOCK(yPosition) &&
             gHatchData[i].yPosition - yOffset <= SUB_PIXEL_TO_BLOCK(yPosition))
         {
             found = TRUE;

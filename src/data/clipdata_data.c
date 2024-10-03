@@ -2,7 +2,6 @@
 #include "macros.h"
 
 #include "constants/clipdata.h"
-#include "constants/connection.h"
 #include "constants/room.h"
 
 const u16 sMovementClipdataValues[16] = {
@@ -47,7 +46,7 @@ const u8 sGroundEffectsClipdataValues[8] = {
     [BEHAVIOR_TO_GROUND_EFFECT(CLIP_BEHAVIOR_GROUND_EFFECT_UNUSED3)] = GROUND_EFFECT_NONE,
 };
 
-const struct ElevatorPair sElevatorRoomPairs[9] = {
+const struct ElevatorPair sElevatorRoomPairs[ELEVATOR_ROUTE_COUNT] = {
     [ELEVATOR_ROUTE_NONE] = {
         .area1 = 11,
         .room1 = 0,

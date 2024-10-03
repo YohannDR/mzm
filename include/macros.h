@@ -40,6 +40,9 @@
 #define C_S8_2_S16(value) ((value) & 0x80 ? 0x100 + (value) : (value))
 #define C_S9_2_S16(value) ((value) & 0x100 ? 0x200 + (value) : (value))
 
+
+#define CAST_TO_ARRAY(type, sizes, ptr) (*((type (*)sizes)((ptr))))
+
 #define OPPOSITE_DIRECTION(dir) ((dir) ^ (KEY_RIGHT | KEY_LEFT))
 #define ARRAY_SIZE(a) ((s32)(sizeof((a)) / sizeof((a)[0])))
 #define ARRAY_ACCESS(a, o) (a[(u32)(o) % ARRAY_SIZE(a)])
