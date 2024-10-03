@@ -14,16 +14,17 @@ u32 EventFunction(u8 action, u8 event)
     u32 previous;
     u32 newEvent;
     u32 isSet;
-    
-    if ((u8)(event - 1) > EVENT_BOMBATE)
+
+    // Check is a valid event
+    if (event == EVENT_NONE || event >= EVENT_COUNT)
         return FALSE;
 
     // Get event chunk
     pEvent = gEventsTriggered;
-    pEvent += (event / 32);
+    pEvent += event / 32;
 
     // Get correct bit for the requested event
-    newEvent = 1 << (event & 31);
+    newEvent = 1 << (event % 32);
     // Get previous event
     previous = *pEvent;
 
