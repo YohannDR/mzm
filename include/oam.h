@@ -19,6 +19,10 @@
 #define OAM_OBJ_MODE_SEMI_TRANSPARENT 1
 #define OAM_OBJ_MODE_WINDOW 2
 
+#define OAM_SHAPE_SQUARE 0
+#define OAM_SHAPE_HORIZONTAL 1
+#define OAM_SHAPE_VERTICAL 2
+
 // Attribute 1
 
 #define OBJ_X_FLIP 0x1000
@@ -32,6 +36,21 @@
 #define OBJ_SIZE_64x64 0xC000
 #define OBJ_SIZE_64x32 0xC000
 #define OBJ_SIZE_32x64 0xC000
+
+#define OAM_SIZE_S_8x8 0
+#define OAM_SIZE_S_16x16 1
+#define OAM_SIZE_S_32x32 2
+#define OAM_SIZE_S_64x64 3
+
+#define OAM_SIZE_H_16x8 0
+#define OAM_SIZE_H_32x8 1
+#define OAM_SIZE_H_32x16 2
+#define OAM_SIZE_H_64x32 3
+
+#define OAM_SIZE_V_8x16 0
+#define OAM_SIZE_V_8x32 1
+#define OAM_SIZE_V_16x32 2
+#define OAM_SIZE_V_32x64 3
 
 // Attribute 2
 

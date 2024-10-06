@@ -291,129 +291,129 @@ const u8 sArray_45fd30[3][4] = {
 
 const u8 sIntroEmergencyOrderActions[16] = {
     INTRO_TEXT_ACTION_START,
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // G
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // C
-    INTRO_TEXT_ACTION_NONE,     // Y
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // D
-    INTRO_TEXT_ACTION_UNKNOWN,  // E
-    INTRO_TEXT_ACTION_END,      // R
+    INTRO_TEXT_ACTION_NONE,            // E
+    INTRO_TEXT_ACTION_NONE,            // M
+    INTRO_TEXT_ACTION_NONE,            // E
+    INTRO_TEXT_ACTION_NONE,            // R
+    INTRO_TEXT_ACTION_NONE,            // G
+    INTRO_TEXT_ACTION_NONE,            // E
+    INTRO_TEXT_ACTION_NONE,            // N
+    INTRO_TEXT_ACTION_NONE,            // C
+    INTRO_TEXT_ACTION_NONE,            // Y
+    INTRO_TEXT_ACTION_SPACE,           // 
+    INTRO_TEXT_ACTION_NONE,            // O
+    INTRO_TEXT_ACTION_NONE,            // R
+    INTRO_TEXT_ACTION_NONE,            // D
+    INTRO_TEXT_ACTION_SKIP_CHARACTER,  // E
+    INTRO_TEXT_ACTION_END,             // R
 };
 
 const u8 sIntroExterminateAllActions[52] = {
     INTRO_TEXT_ACTION_START,
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // X
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // I
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // L
-    INTRO_TEXT_ACTION_NONE,     // L
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_UNKNOWN,  // I
-    INTRO_TEXT_ACTION_NEW_LINE, // D
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // G
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // I
-    INTRO_TEXT_ACTION_NONE,     // S
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // S
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // P
-    INTRO_TEXT_ACTION_NONE,     // L
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // Z
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // B
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // S
-    INTRO_TEXT_ACTION_NONE,     // .
-    INTRO_TEXT_ACTION_UNKNOWN,  // .
-    INTRO_TEXT_ACTION_END,      // .
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // X
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // I
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // L
+    INTRO_TEXT_ACTION_NONE,             // L
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_NONE,             // O
+    INTRO_TEXT_ACTION_SKIP_CHARACTER,   // I
+    INTRO_TEXT_ACTION_NEW_LINE,         // D
+    INTRO_TEXT_ACTION_NONE,             // O
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_NONE,             // G
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_NONE,             // I
+    INTRO_TEXT_ACTION_NONE,             // S
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // S
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // O
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // P
+    INTRO_TEXT_ACTION_NONE,             // L
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // Z
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // B
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // S
+    INTRO_TEXT_ACTION_NONE,             // .
+    INTRO_TEXT_ACTION_SKIP_CHARACTER,   // .
+    INTRO_TEXT_ACTION_END,              // .
 };
 
 const u8 sIntroDefeatTheActions[50] = {
     INTRO_TEXT_ACTION_START,
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // D
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // D
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // F
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_NONE,     // H
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // C
-    INTRO_TEXT_ACTION_NONE,     // H
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // N
-    INTRO_TEXT_ACTION_NONE,     // I
-    INTRO_TEXT_ACTION_NONE,     // C
-    INTRO_TEXT_ACTION_UNKNOWN,  // A
-    INTRO_TEXT_ACTION_NEW_LINE, // L
-    INTRO_TEXT_ACTION_NONE,     // L
-    INTRO_TEXT_ACTION_NONE,     // I
-    INTRO_TEXT_ACTION_NONE,     // F
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // -
-    INTRO_TEXT_ACTION_NONE,     // F
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // ,
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // M
-    INTRO_TEXT_ACTION_NONE,     // O
-    INTRO_TEXT_ACTION_NONE,     // T
-    INTRO_TEXT_ACTION_NONE,     // H
-    INTRO_TEXT_ACTION_NONE,     // E
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_SPACE,    // 
-    INTRO_TEXT_ACTION_NONE,     // B
-    INTRO_TEXT_ACTION_NONE,     // R
-    INTRO_TEXT_ACTION_NONE,     // A
-    INTRO_TEXT_ACTION_NONE,     // I
-    INTRO_TEXT_ACTION_UNKNOWN,  // N
-    INTRO_TEXT_ACTION_END,      // .
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_NONE,             // D
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // D
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // F
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_NONE,             // H
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // C
+    INTRO_TEXT_ACTION_NONE,             // H
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // N
+    INTRO_TEXT_ACTION_NONE,             // I
+    INTRO_TEXT_ACTION_NONE,             // C
+    INTRO_TEXT_ACTION_SKIP_CHARACTER,   // A
+    INTRO_TEXT_ACTION_NEW_LINE,         // 
+    INTRO_TEXT_ACTION_NONE,             // L
+    INTRO_TEXT_ACTION_NONE,             // I
+    INTRO_TEXT_ACTION_NONE,             // F
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // -
+    INTRO_TEXT_ACTION_NONE,             // F
+    INTRO_TEXT_ACTION_NONE,             // O
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // ,
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // M
+    INTRO_TEXT_ACTION_NONE,             // O
+    INTRO_TEXT_ACTION_NONE,             // T
+    INTRO_TEXT_ACTION_NONE,             // H
+    INTRO_TEXT_ACTION_NONE,             // E
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_SPACE,            // 
+    INTRO_TEXT_ACTION_NONE,             // B
+    INTRO_TEXT_ACTION_NONE,             // R
+    INTRO_TEXT_ACTION_NONE,             // A
+    INTRO_TEXT_ACTION_NONE,             // I
+    INTRO_TEXT_ACTION_SKIP_CHARACTER,   // N
+    INTRO_TEXT_ACTION_END,              // .
 };
 
 

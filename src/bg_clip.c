@@ -749,7 +749,9 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
                     gHatchData[i].flashingTimer = 1; // Set flashing
             }
             else
+            {
                 gHatchData[i].hits = 0; // Locked, reset
+            }
 
             gHatchData[i].hitTimer = 0;
             break;

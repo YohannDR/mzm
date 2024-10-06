@@ -9,7 +9,7 @@ struct IntroData {
     u8 stage; // 0
     u8 currentCharacter; // 1
     u8 characterPalette; // 2
-    u8 nextCharacter; // 3
+    u8 finalCharacter; // 3
     
     s16 charDrawerX; // 4
     u16 charDrawerY; // 6

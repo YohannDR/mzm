@@ -900,7 +900,7 @@ void UpdateAnimatedPaletteAfterTransitionOrReload(void)
 {
     if (gPauseScreenFlag)
     {
-        if (gAnimatedGraphicsEntry.palette != 0) // FIXME add symbol for ewram address
+        if (gAnimatedGraphicsEntry.palette != 0)
             DMA_SET(3, ANIMATED_PALETTE_EWRAM, ANIMATED_PALETTE_PALRAM, C_32_2_16(DMA_ENABLE, 16));
     }
     else

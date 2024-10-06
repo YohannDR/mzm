@@ -47,19 +47,20 @@ u8 EscapeDetermineTimer(void)
  */
 u8 EscapeCheckHasEscaped(void)
 {
+
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
     {
+        // Chozodia escape
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA))
             return TRUE;
     }
-    else
+    else if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
     {
-        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
-            return FALSE;
-            
+        // Tourian escape
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES))
             return TRUE;
     }
+
     return FALSE;
 }
 
@@ -90,7 +91,7 @@ void EscapeCheckReloadGraphics(void)
 {
     if (EscapeDetermineTimer() != ESCAPE_NONE)
     {
-        DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, C_32_2_16(DMA_ENABLE, sizeof(sEscapeTimerDigitsGfx) / 2));
+        DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_OBJ + 0x7800, C_32_2_16(DMA_ENABLE, sizeof(sEscapeTimerDigitsGfx) / 2));
     }
 }
 
@@ -100,8 +101,8 @@ void EscapeCheckReloadGraphics(void)
  */
 void EscapeStart(void)
 {
-    DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, C_32_2_16(DMA_ENABLE, 0xB0));
-    DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, C_32_2_16(DMA_ENABLE, 0xB0));
+    DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_OBJ + 0x7800, C_32_2_16(DMA_ENABLE, 0xB0));
+    DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_OBJ + 0x7C00, C_32_2_16(DMA_ENABLE, 0xB0));
 
     // Setup oam
     DMA_SET(3, sParticleEscapeOam, gParticleEscapeOamFrames, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(gParticleEscapeOamFrames)));
@@ -176,9 +177,9 @@ void EscaepUpdateTimer(void)
     if (gPreventMovementTimer != 0)
         return;
 
-    counter = ++gEscapeTimerCounter;
+    counter = APPLY_DELTA_TIME_INC(gEscapeTimerCounter);
 
-    if (counter % 2)
+    if (counter % CONVERT_SECONDS(1.f / 30))
     {
         if (gEscapeTimerDigits.hundredths > 1)
         {
@@ -211,7 +212,7 @@ void EscaepUpdateTimer(void)
         }
     }
 
-    if (counter % 64 == 0)
+    if (counter % SIMULATED_FPS == 0)
     {
         gEscapeTimerDigits.hundredths = 99 / 10;
         gEscapeTimerDigits.tenths = 99 % 10;

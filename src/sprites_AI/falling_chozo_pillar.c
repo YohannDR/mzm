@@ -1,5 +1,8 @@
 #include "sprites_AI/falling_chozo_pillar.h"
 #include "sprites_AI/ruins_test.h"
+#include "macros.h"
+
+#include "gba/display.h"
 
 #include "data/sprites/falling_chozo_pillar.h"
 
@@ -21,33 +24,34 @@ void FallingChozoPillar(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.xPosition += 0x20;
+            gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 
-            gCurrentSprite.hitboxTop = -0x100;
-            gCurrentSprite.hitboxBottom = 0x0;
-            gCurrentSprite.hitboxLeft = -0x80;
-            gCurrentSprite.hitboxRight = 0x80;
+            gCurrentSprite.hitboxTop = -(BLOCK_SIZE * 4);
+            gCurrentSprite.hitboxBottom = 0;
+            gCurrentSprite.hitboxLeft = -(BLOCK_SIZE * 2);
+            gCurrentSprite.hitboxRight = BLOCK_SIZE * 2;
 
-            gCurrentSprite.drawDistanceTop = 0x40;
-            gCurrentSprite.drawDistanceBottom = 0x0;
-            gCurrentSprite.drawDistanceHorizontal = 0x20;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = BGCNT_GET_PRIORITY(gIoRegistersBackup.BG1CNT);
 
             gCurrentSprite.pOam = sFallingChozoPillarOAM_Falling;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED;
-            gCurrentSprite.yPositionSpawn = 0x100;
-            gCurrentSprite.work0 = 0x0;
+            gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(4.25f + 1.f / 60);
+            gCurrentSprite.work0 = 0;
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED:
-            if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_SUIT_ANIM_ENDED) // Check suit animation ended
+            // Check suit animation ended
+            if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_SUIT_ANIM_ENDED)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_ON_SCREEN;
@@ -64,38 +68,39 @@ void FallingChozoPillar(void)
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_FALLING:
-            if (gCurrentSprite.yPositionSpawn != 0x0)
+            if (gCurrentSprite.yPositionSpawn != 0)
             {
                 if (!(gCurrentSprite.work0++ & 0xF))
                 {
                     // Start screen shake/play particle
-                    ScreenShakeStartVertical(0x14, 0x81);
-                    if (gFrameCounter8Bit & 0x1)
+                    ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
+                    if (MOD_AND(gFrameCounter8Bit, CONVERT_SECONDS(1.f / 30)))
                         effect = PE_SECOND_MEDIUM_DUST;
                     else
                         effect = PE_SECOND_TWO_MEDIUM_DUST;
 
-                    ParticleSet(gCurrentSprite.yPosition - 0x100, gCurrentSprite.xPosition - 0x38 + gSpriteRng * 0x8, effect);
+                    ParticleSet(gCurrentSprite.yPosition - BLOCK_SIZE * 4,
+                        gCurrentSprite.xPosition - (BLOCK_SIZE - EIGHTH_BLOCK_SIZE) + gSpriteRng * EIGHTH_BLOCK_SIZE, effect);
                 }
 
-                gCurrentSprite.yPositionSpawn--; // Timer
+                // Timer
+                APPLY_DELTA_TIME_DEC(gCurrentSprite.yPositionSpawn);
                 gCurrentSprite.yPosition++; // Move down
             }
             else
             {
                 // Timer done, set fallen behavior
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_FALLEN;
-                ScreenShakeStartVertical(0x3C, 0x81);
-                gCurrentSprite.work0 = 0x28;
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f), 0x80 | 1);
+                gCurrentSprite.work0 = TWO_THIRD_SECOND;
             }
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_FALLEN:
-            gCurrentSprite.work0--;
-            if (gCurrentSprite.work0 == 0x0)
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+            if (gCurrentSprite.work0 == 0)
             {
-                // Unknown, AI doesn't handle this case, most likely removed code
-                gCurrentSprite.pose = 0x29;
+                gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_IDLE;
                 SoundPlay(SOUND_CHOZO_PILLAR_FELL);
             }
             break;

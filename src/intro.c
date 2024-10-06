@@ -73,8 +73,8 @@ void IntroInit(void)
     DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT, sizeof(gNonGameplayRAM) / 4));
 
     INTRO_DATA.scaling = Q_8_8(.125f);
-    INTRO_DATA.charDrawerX = 0x38;
-    INTRO_DATA.charDrawerY = 0x60;
+    INTRO_DATA.charDrawerX = 56;
+    INTRO_DATA.charDrawerY = SCREEN_SIZE_Y / 2 + 16;
 
     ClearGfxRam();
 
@@ -116,12 +116,12 @@ void IntroInit(void)
     INTRO_DATA.dispcnt = DCNT_OBJ;
     INTRO_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     IntroVBlank();
 }
 
-void IntroTextProcessOAM(void)
+void IntroTextProcessOam(void)
 {
     const u16* src;
     u16* dst;
@@ -150,17 +150,17 @@ void IntroTextProcessOAM(void)
 
     dst = (u16*)gOamData;
     i = 0;
-    yPosition = BLOCK_SIZE * 2;
-    xPosition = BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 2;
+    yPosition = SCREEN_SIZE_Y * 0.8f;
+    xPosition = SCREEN_SIZE_X / 2;
 
-    if (INTRO_DATA.nextCharacter != 0)
+    if (INTRO_DATA.finalCharacter != 0)
     {
         src = INTRO_DATA.pTextOamFramePointer;
         partCount = *src++;
         for (; i < partCount; i++)
         {
             // Brackets are necesary
-            if (i >= INTRO_DATA.nextCharacter) 
+            if (i >= INTRO_DATA.finalCharacter) 
             {
                 break;
             }
@@ -176,7 +176,7 @@ void IntroTextProcessOAM(void)
             gOamData[i].split.x = MOD_AND(part + xPosition, 512);
             *dst++ = *src++;
 
-            if (i == INTRO_DATA.nextCharacter - 1)
+            if (i == INTRO_DATA.finalCharacter - 1)
                 gOamData[i].split.paletteNum = INTRO_DATA.characterPalette;
             else
                 gOamData[i].split.paletteNum = 0;
@@ -222,21 +222,21 @@ void IntroTextProcessOAM(void)
 u8 IntroProcessText(u8 action, u16 indent)
 {
     u8 dontProcess;
-    u8 flag_unk2;
+    u8 skipCharacter;
     u8 newLine;
     u8 flag_unk3;
-    s32 previousY;
+    s32 previousX;
     s32 newY;
 
     // TODO macro
     do{newY = (s16)indent;}while(0);
 
     dontProcess = FALSE;
-    flag_unk2 = FALSE;
+    skipCharacter = FALSE;
     newLine = FALSE;
     flag_unk3 = FALSE;
 
-    previousY = INTRO_DATA.charDrawerX;
+    previousX = INTRO_DATA.charDrawerX;
 
     switch (action)
     {
@@ -256,7 +256,7 @@ u8 IntroProcessText(u8 action, u16 indent)
         case INTRO_TEXT_ACTION_START:
             if (INTRO_DATA.unk_A > 3)
             {
-                INTRO_DATA.nextCharacter += 2;
+                INTRO_DATA.finalCharacter += 2;
                 INTRO_DATA.currentCharacter++;
                 flag_unk3++;
             }
@@ -265,10 +265,12 @@ u8 IntroProcessText(u8 action, u16 indent)
 
         case INTRO_TEXT_ACTION_SPACE:
             if (INTRO_DATA.unk_A == 1)
+            {
                 INTRO_DATA.charDrawerX += 8;
+            }
             else if (INTRO_DATA.unk_A > 3)
             {
-                INTRO_DATA.nextCharacter++;
+                INTRO_DATA.finalCharacter++;
                 INTRO_DATA.currentCharacter++;
                 flag_unk3++;
             }
@@ -279,8 +281,8 @@ u8 IntroProcessText(u8 action, u16 indent)
         case INTRO_TEXT_ACTION_NEW_LINE:
             newLine++;
 
-        case INTRO_TEXT_ACTION_UNKNOWN:
-            flag_unk2++;
+        case INTRO_TEXT_ACTION_SKIP_CHARACTER:
+            skipCharacter++;
     }
 
     if (!dontProcess)
@@ -297,10 +299,10 @@ u8 IntroProcessText(u8 action, u16 indent)
                 if (newLine)
                 {
                     INTRO_DATA.charDrawerX = newY;
-                    INTRO_DATA.charDrawerY += 0x18;
+                    INTRO_DATA.charDrawerY += 24;
                 }
                 else
-                    INTRO_DATA.charDrawerX += 0x8;
+                    INTRO_DATA.charDrawerX += 8;
                 break;
 
             case 4:
@@ -309,15 +311,16 @@ u8 IntroProcessText(u8 action, u16 indent)
 
             case 5:
                 INTRO_DATA.currentCharacter++;
-                if (flag_unk2)
-                    INTRO_DATA.nextCharacter += 2;
+                if (skipCharacter)
+                    INTRO_DATA.finalCharacter += 2;
                 else
-                    INTRO_DATA.nextCharacter++;
+                    INTRO_DATA.finalCharacter++;
                 flag_unk3++;
         }
     }
 
-    if (previousY != INTRO_DATA.charDrawerX && action != INTRO_TEXT_ACTION_SPACE)
+    // Check play letter sound
+    if (previousX != INTRO_DATA.charDrawerX && action != INTRO_TEXT_ACTION_SPACE)
         SoundPlay(SOUND_INTRO_TEXT_LETTER);
 
     if (flag_unk3 != 0)
@@ -354,7 +357,7 @@ u8 IntroEmergencyOrder(void)
     if (textResult == 2)
     {
         INTRO_DATA.stage++;
-        INTRO_DATA.nextCharacter = 0;
+        INTRO_DATA.finalCharacter = 0;
         INTRO_DATA.currentCharacter = 0;
         INTRO_DATA.unk_A = 0;
         INTRO_DATA.timer = 0;
@@ -367,7 +370,7 @@ u8 IntroEmergencyOrder(void)
     else
     {
         INTRO_DATA.pTextOamFramePointer = sIntroEmergencyOrderTextOAM;
-        IntroTextProcessOAM();
+        IntroTextProcessOam();
         if (textResult != 0)
             INTRO_DATA.unk_A = 0;
         else
@@ -381,7 +384,7 @@ u8 IntroEmergencyOrder(void)
  * @brief 807b8 | 134 | Processes the OAM for the ship flying towards the camera
  * 
  */
-void IntroShipFlyingTowardsCameraProcessOAM(void)
+void IntroShipFlyingTowardsCameraProcessOam(void)
 {
     const u16* src;
     u16* dst;
@@ -393,15 +396,15 @@ void IntroShipFlyingTowardsCameraProcessOAM(void)
 
     dst = (u16*)gOamData;
 
-    if (INTRO_DATA.timer < 4)
+    if (INTRO_DATA.timer < CONVERT_SECONDS(1.f / 15))
         INTRO_DATA.shipFlyingTowardsCameraY += 8;
-    else if (INTRO_DATA.timer < 8)
+    else if (INTRO_DATA.timer < CONVERT_SECONDS(2.f / 15))
         INTRO_DATA.shipFlyingTowardsCameraY += 6;
-    else if (INTRO_DATA.timer < 16)
+    else if (INTRO_DATA.timer < CONVERT_SECONDS(4.f / 15))
         INTRO_DATA.shipFlyingTowardsCameraY += 3;
-    else if (INTRO_DATA.timer < 20)
+    else if (INTRO_DATA.timer < CONVERT_SECONDS(5.f / 15))
         INTRO_DATA.shipFlyingTowardsCameraY += 1;
-    else if (INTRO_DATA.timer < 28)
+    else if (INTRO_DATA.timer < CONVERT_SECONDS(7.f / 15))
         INTRO_DATA.shipFlyingTowardsCameraY -= 1;
 
     if (INTRO_DATA.scaling < Q_8_8(.5f))
@@ -457,24 +460,24 @@ u8 IntroShipFlyingTowardsCamera(void)
             gWrittenToBLDALPHA_H = 7;
             break;
 
-        case 1:
+        case DELTA_TIME:
             INTRO_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
             SoundPlay(MUSIC_INTRO);
             SoundPlay(SOUND_INTRO_SHIP_FLYING_TOWARDS_CAMERA);
             break;
 
-        case 0x20:
+        case CONVERT_SECONDS(.5f + 1.f / 30):
             INTRO_DATA.dispcnt = 0;
             INTRO_DATA.bldcnt = 0;
             INTRO_DATA.stage++;
             ended = TRUE;
     }
 
-    IntroShipFlyingTowardsCameraProcessOAM();
+    IntroShipFlyingTowardsCameraProcessOam();
     if (ended)
         INTRO_DATA.timer = 0;
     else
-        INTRO_DATA.timer++;
+        APPLY_DELTA_TIME_INC(INTRO_DATA.timer);
 
     return FALSE;
 }
@@ -496,20 +499,20 @@ u8 IntroSamusInHerShip(void)
             LZ77UncompVRAM(sIntroSamusInHerShipGfx, VRAM_BASE);
             break;
 
-        case 1:
+        case DELTA_TIME * 1:
             LZ77UncompVRAM(sIntroSamusInHerShipTileTable, VRAM_BASE + 0x8000);
             break;
 
-        case 2:
+        case DELTA_TIME * 2:
             DMA_SET(3, sIntroSamusInHerShipPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroSamusInHerShipPal)));
             break;
 
-        case 3:
+        case DELTA_TIME * 3:
             INTRO_DATA.dispcnt = DCNT_BG0;
             SoundPlay(SOUND_INTRO_SHIP_INTERIOR);
             break;
 
-        case 0x50:
+        case CONVERT_SECONDS(1.f) + ONE_THIRD_SECOND:
             INTRO_DATA.dispcnt = 0;
             SoundFade(SOUND_INTRO_SHIP_INTERIOR, 0);
             INTRO_DATA.stage++;
@@ -534,7 +537,9 @@ u8 IntroSamusInHerShip(void)
         INTRO_DATA.unk_A = 0;
     }
     else
-        INTRO_DATA.timer++;
+    {
+        APPLY_DELTA_TIME_INC(INTRO_DATA.timer);
+    }
 
     return FALSE;
 }
@@ -568,7 +573,7 @@ u8 IntroExterminate(void)
     if (textResult == 2)
     {
         INTRO_DATA.stage++;
-        INTRO_DATA.nextCharacter = 0;
+        INTRO_DATA.finalCharacter = 0;
         INTRO_DATA.currentCharacter = 0;
         INTRO_DATA.unk_A = 0;
         INTRO_DATA.timer = 0;
@@ -580,7 +585,7 @@ u8 IntroExterminate(void)
     else
     {
         INTRO_DATA.pTextOamFramePointer = sIntroExterminateAllTextOAM;
-        IntroTextProcessOAM();
+        IntroTextProcessOam();
         if (textResult != 0)
             INTRO_DATA.unk_A = 0;
         else
@@ -761,7 +766,7 @@ u8 IntroDefeat(void)
     if (textResult == 2)
     {
         INTRO_DATA.stage++;
-        INTRO_DATA.nextCharacter = 0;
+        INTRO_DATA.finalCharacter = 0;
         INTRO_DATA.currentCharacter = 0;
         INTRO_DATA.unk_A = 0;
         INTRO_DATA.timer = 0;
@@ -771,7 +776,7 @@ u8 IntroDefeat(void)
     else
     {
         INTRO_DATA.pTextOamFramePointer = sIntroDefeatTheTextOAM;
-        IntroTextProcessOAM();
+        IntroTextProcessOam();
         if (textResult != 0)
             INTRO_DATA.unk_A = 0;
         else

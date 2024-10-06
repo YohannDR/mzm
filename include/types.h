@@ -59,6 +59,8 @@ typedef volatile signed int vs32;
 
 // Target FPS
 #define FRAMES_PER_SECOND 60
+// The amount of frames the games considers 1 second internally (used by detailed timers)
+#define SIMULATED_FPS 64
 // Amount of time that happens in one frame
 #define DELTA_TIME 1
 // Converts a floating point value of seconds to an amount of frames (CONVERT_SECONDS(1.f) == FRAMES_PER_SECOND)

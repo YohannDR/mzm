@@ -6,10 +6,10 @@
 void IntroVBlank(void);
 void IntroFuzzVBlank(void);
 void IntroInit(void);
-void IntroTextProcessOAM(void);
+void IntroTextProcessOam(void);
 u8 IntroProcessText(u8 action, u16 indent);
 u8 IntroEmergencyOrder(void);
-void IntroShipFlyingTowardsCameraProcessOAM(void);
+void IntroShipFlyingTowardsCameraProcessOam(void);
 u8 IntroShipFlyingTowardsCamera(void);
 u8 IntroSamusInHerShip(void);
 u8 IntroExterminate(void);
