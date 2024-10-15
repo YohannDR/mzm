@@ -4744,7 +4744,7 @@ u8 SamusScrewAttackingGfx(struct SamusData* pData)
 }
 
 /**
- * @brief 9150 | c0 | Samus morphing subroutine
+ * @brief 9210 | 20 | Samus morphing subroutine
  * 
  * @param pData Samus data pointer
  * @return u8 New pose
