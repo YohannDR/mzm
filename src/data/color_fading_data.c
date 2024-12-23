@@ -3,7 +3,7 @@
 #include "color_fading.h"
 #include "macros.h"
 
-const struct ColorFadingData sColorFadingData[25] = {
+const struct ColorFadingData sColorFadingData[COLOR_FADING_END] = {
     [0] = {
         .isWhite = FALSE,
         .unk_4 = NULL,

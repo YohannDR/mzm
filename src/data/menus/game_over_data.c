@@ -57,7 +57,7 @@ const u8 sGameOverSamusHeadOamIds[SUIT_END][SAMUS_CURSOR_ACTION_END] = {
     }
 };
 
-const struct OamArray sGameOverOam[9] = {
+const struct OamArray sGameOverOam[GAME_OVER_OAM_ID_END] = {
     [0] = {
         .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

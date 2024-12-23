@@ -1,23 +1,23 @@
 #ifndef SAMUS_CONSTANTS_H
 #define SAMUS_CONSTANTS_H
 
-#define BBF_NONE 0x0
-#define BBF_LONG_BEAM 0x1
-#define BBF_ICE_BEAM 0x2
-#define BBF_WAVE_BEAM 0x4
-#define BBF_PLASMA_BEAM 0x8
-#define BBF_CHARGE_BEAM 0x10
-#define BBF_BOMBS 0x80
+#define BBF_NONE        0
+#define BBF_LONG_BEAM   (1 << 0)
+#define BBF_ICE_BEAM    (1 << 1)
+#define BBF_WAVE_BEAM   (1 << 2)
+#define BBF_PLASMA_BEAM (1 << 3)
+#define BBF_CHARGE_BEAM (1 << 4)
+#define BBF_BOMBS       (1 << 7)
 
-#define SMF_NONE 0x0
-#define SMF_HIGH_JUMP 0x1
-#define SMF_SPEEDBOOSTER 0x2
-#define SMF_SPACE_JUMP 0x4
-#define SMF_SCREW_ATTACK 0x8
-#define SMF_VARIA_SUIT 0x10
-#define SMF_GRAVITY_SUIT 0x20
-#define SMF_MORPH_BALL 0x40
-#define SMF_POWER_GRIP 0x80
+#define SMF_NONE         0
+#define SMF_HIGH_JUMP    (1 << 0)
+#define SMF_SPEEDBOOSTER (1 << 1)
+#define SMF_SPACE_JUMP   (1 << 2)
+#define SMF_SCREW_ATTACK (1 << 3)
+#define SMF_VARIA_SUIT   (1 << 4)
+#define SMF_GRAVITY_SUIT (1 << 5)
+#define SMF_MORPH_BALL   (1 << 6)
+#define SMF_POWER_GRIP   (1 << 7)
 
 #define SMF_ALL_SUITS (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)
 
@@ -33,10 +33,10 @@ enum SamusSuit {
 #define DIAG_AIM_UP 0x1
 #define DIAG_AIM_DOWN 0x2
 
-#define WH_NONE 0x0
-#define WH_MISSILE 0x1
-#define WH_SUPER_MISSILE 0x2
-#define WH_POWER_BOMB 0x4
+#define WH_NONE          0
+#define WH_MISSILE       (1 << 0)
+#define WH_SUPER_MISSILE (1 << 1)
+#define WH_POWER_BOMB    (1 << 2)
 
 enum SamusPose {
     SPOSE_RUNNING,
@@ -240,10 +240,14 @@ enum EnvEffect {
 
 #define FORCED_MOVEMENT_DAMAGED_BY_RUINS_TEST UCHAR_MAX
 
-#define SAMUS_HITBOX_TYPE_STANDING 0
-#define SAMUS_HITBOX_TYPE_CROUCHED 1
-#define SAMUS_HITBOX_TYPE_MORPHED 2
-#define SAMUS_HITBOX_TYPE_ZIPLINE 3
+enum SamusHitboxType {
+    SAMUS_HITBOX_TYPE_STANDING,
+    SAMUS_HITBOX_TYPE_CROUCHED,
+    SAMUS_HITBOX_TYPE_MORPHED,
+    SAMUS_HITBOX_TYPE_ZIPLINE,
+
+    SAMUS_HITBOX_TYPE_END
+};
 
 #define SAMUS_HITBOX_LEFT 0
 #define SAMUS_HITBOX_RIGHT 1

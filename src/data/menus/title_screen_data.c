@@ -6,116 +6,138 @@
 const u16 sTitleScreenPal[15 * 16] = INCBIN_U16("data/menus/TitleScreen/Palette.pal");
 const u16 sTitleScreenPromptPal[5 * 16] = INCBIN_U16("data/menus/TitleScreen/Prompt.pal");
 
-static const u16 sTitleScreenOAM_Comet_Frame0[4] = {
+static const u16 sTitleScreenOam_Comet_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x6000
 };
 
-static const u16 sTitleScreenOAM_Comet_Frame1[4] = {
+static const u16 sTitleScreenOam_Comet_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x6002
 };
 
-static const u16 sTitleScreenOAM_Comet_Frame2[4] = {
+static const u16 sTitleScreenOam_Comet_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x6004
 };
 
-static const u16 sTitleScreenOAM_CometFlying_Frame0[7] = {
+static const u16 sTitleScreenOam_CometFlying_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf8, 0x0, OBJ_SPRITE_OAM | 0x6008,
     0x0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x6026
 };
 
-static const u16 sTitleScreenOAM_SparkleIdle_Frame0[4] = {
+static const u16 sTitleScreenOam_SparkleIdle_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600a
 };
 
-static const u16 sTitleScreenOAM_SparkleIdle_Frame1[4] = {
+static const u16 sTitleScreenOam_SparkleIdle_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600c
 };
 
-static const u16 sTitleScreenOAM_SparkleIdle_Frame2[4] = {
+static const u16 sTitleScreenOam_SparkleIdle_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600e
 };
 
-static const u16 sTitleScreenOAM_SparkleIdle_Frame3[4] = {
+static const u16 sTitleScreenOam_SparkleIdle_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x6010
 };
 
-static const u16 sTitleScreenOAM_SparkleDisappearing_Frame0[4] = {
+static const u16 sTitleScreenOam_SparkleDisappearing_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600a
 };
 
-static const u16 sTitleScreenOAM_SparkleDisappearing_Frame1[4] = {
+static const u16 sTitleScreenOam_SparkleDisappearing_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600c
 };
 
-static const u16 sTitleScreenOAM_SparkleDisappearing_Frame2[4] = {
+static const u16 sTitleScreenOam_SparkleDisappearing_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x600e
 };
 
-static const u16 sTitleScreenOAM_SparkleDisappearing_Frame3[4] = {
+static const u16 sTitleScreenOam_SparkleDisappearing_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x6012
 };
 
-static const u16 sTitleScreenOAM_SparkleDisappearing_Frame4[4] = {
+static const u16 sTitleScreenOam_SparkleDisappearing_Frame4[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x6016
 };
 
-static const struct FrameData sTitleScreenOAM_Comet[4] = {
-    sTitleScreenOAM_Comet_Frame0,
-    4,
-    sTitleScreenOAM_Comet_Frame1,
-    4,
-    sTitleScreenOAM_Comet_Frame2,
-    4,
-    NULL,
-    0
+static const struct FrameData sTitleScreenOam_Comet[4] = {
+    [0] = {
+        .pFrame = sTitleScreenOam_Comet_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sTitleScreenOam_Comet_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sTitleScreenOam_Comet_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sTitleScreenOAM_CometFlying[2] = {
-    sTitleScreenOAM_CometFlying_Frame0,
-    4,
-    NULL,
-    0
+static const struct FrameData sTitleScreenOam_CometFlying[2] = {
+    [0] = {
+        .pFrame = sTitleScreenOam_CometFlying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sTitleScreenOAM_SparkleIdle[5] = {
-    sTitleScreenOAM_SparkleIdle_Frame0,
-    4,
-    sTitleScreenOAM_SparkleIdle_Frame1,
-    4,
-    sTitleScreenOAM_SparkleIdle_Frame2,
-    4,
-    sTitleScreenOAM_SparkleIdle_Frame3,
-    4,
-    NULL,
-    0
+static const struct FrameData sTitleScreenOam_SparkleIdle[5] = {
+    [0] = {
+        .pFrame = sTitleScreenOam_SparkleIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sTitleScreenOam_SparkleIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sTitleScreenOam_SparkleIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sTitleScreenOam_SparkleIdle_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sTitleScreenOAM_SparkleDisappearing[6] = {
-    sTitleScreenOAM_SparkleDisappearing_Frame0,
-    4,
-    sTitleScreenOAM_SparkleDisappearing_Frame1,
-    4,
-    sTitleScreenOAM_SparkleDisappearing_Frame2,
-    4,
-    sTitleScreenOAM_SparkleDisappearing_Frame3,
-    4,
-    sTitleScreenOAM_SparkleDisappearing_Frame4,
-    4,
-    NULL,
-    0
+static const struct FrameData sTitleScreenOam_SparkleDisappearing[6] = {
+    [0] = {
+        .pFrame = sTitleScreenOam_SparkleDisappearing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sTitleScreenOam_SparkleDisappearing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sTitleScreenOam_SparkleDisappearing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sTitleScreenOam_SparkleDisappearing_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sTitleScreenOam_SparkleDisappearing_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const u32 sTitleScreenTitleGfx[1095] = INCBIN_U32("data/menus/TitleScreen/Title.gfx.lz");
@@ -192,33 +214,33 @@ const struct MenuOamData sTitleScreenBottomSparkleBaseOam = {
     .unk_E = 0 
 };
 
-const struct OamArray sTitleScreenOam[7] = {
+const struct OamArray sTitleScreenOam[TITLE_SCREEN_OAM_ID_END] = {
     [0] = {
-        .pOam = sTitleScreenOAM_Comet,
+        .pOam = sTitleScreenOam_Comet,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
     },
     [TITLE_SCREEN_OAM_ID_COMET_SPAWNING] = {
-        .pOam = sTitleScreenOAM_Comet,
+        .pOam = sTitleScreenOam_Comet,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [TITLE_SCREEN_OAM_ID_COMET_APPEARING] = {
-        .pOam = sTitleScreenOAM_Comet,
+        .pOam = sTitleScreenOam_Comet,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [TITLE_SCREEN_OAM_ID_COMET_FLYING] = {
-        .pOam = sTitleScreenOAM_CometFlying,
+        .pOam = sTitleScreenOam_CometFlying,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [TITLE_SCREEN_OAM_ID_SPARKLE_IDLE] = {
-        .pOam = sTitleScreenOAM_SparkleIdle,
+        .pOam = sTitleScreenOam_SparkleIdle,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [TITLE_SCREEN_OAM_ID_SPARKLE_GROWING] = {
-        .pOam = sTitleScreenOAM_SparkleIdle,
+        .pOam = sTitleScreenOam_SparkleIdle,
         .preAction = OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END
     },
     [TITLE_SCREEN_OAM_ID_SPARKLE_DISAPPEARING] = {
-        .pOam = sTitleScreenOAM_SparkleDisappearing,
+        .pOam = sTitleScreenOam_SparkleDisappearing,
         .preAction = OAM_ARRAY_PRE_ACTION_KILL_AFTER_END
     },
 };

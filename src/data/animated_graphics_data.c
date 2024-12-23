@@ -15,7 +15,7 @@
 #include "constants/audio.h"
 
 
-const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
+const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_END] = {
     [ANIMATED_GFX_ID_CRYSTAL] = {
         .type = ANIMATED_GFX_TYPE_NONE,
         .framesPerState = 0,

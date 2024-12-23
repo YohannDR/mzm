@@ -85,7 +85,7 @@ const struct TankList sTankIncreaseAmount[DIFF_END] = {
     }
 };
 
-const u16 sClipdataAffectingActionDamageTypes[MAX_AMOUNT_OF_CAA] = {
+const u16 sClipdataAffectingActionDamageTypes[CAA_COUNT] = {
     [CAA_NONE] =                   CAA_DAMAGE_TYPE_NONE,
     [CAA_REMOVE_SOLID] =           CAA_DAMAGE_TYPE_NONE,
     [CAA_MAKE_SOLID_GRIPPABLE] =   CAA_DAMAGE_TYPE_NONE,
@@ -408,7 +408,7 @@ const struct BlockBehavior sBlockBehaviors[MAX_AMOUNT_OF_BLOCKS] = {
     },
 };
 
-const u16 sBlockWeaknesses[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
+const u16 sBlockWeaknesses[BLOCK_TYPE_COUNT] = {
     [BLOCK_TYPE_NONE] = CAA_DAMAGE_TYPE_NONE,
     [BLOCK_TYPE_SHOT_BLOCK_REFORM] = USHORT_MAX,
     [BLOCK_TYPE_BOMB_BLOCK_REFORM] = CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_POWER_BOMB | CAA_DAMAGE_TYPE_SPEEDBOOST | CAA_DAMAGE_TYPE_SCREW_ATTACK,
@@ -433,7 +433,7 @@ const u16 sBlockWeaknesses[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
     [BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4] = CAA_DAMAGE_TYPE_BOMB_CHAIN | CAA_DAMAGE_TYPE_POWER_BOMB | CAA_DAMAGE_TYPE_BOMB_PISTOL
 };
 
-const u16 sReformingBlocksTilemapValue[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
+const u16 sReformingBlocksTilemapValue[BLOCK_TYPE_COUNT] = {
     [BLOCK_TYPE_NONE] =                         CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_AIR,
     [BLOCK_TYPE_SHOT_BLOCK_REFORM] =            CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SHOT_BLOCK_REFORM,
     [BLOCK_TYPE_BOMB_BLOCK_REFORM] =            CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_BOMB_BLOCK_REFORM,
@@ -458,7 +458,7 @@ const u16 sReformingBlocksTilemapValue[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
     [BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4] =       CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_HORIZONTAL_BOMB_CHAIN4
 };
 
-const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
+const u8 sBrokenBlocksTimers[BLOCK_TYPE_COUNT][13] = {
     [BLOCK_TYPE_NONE] = {
         0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0
     },
@@ -527,7 +527,7 @@ const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
     }
 };
 
-const struct BombChainReverseData sBombChainReverseData[8] = {
+const struct BombChainReverseData sBombChainReverseData[BOMB_CHAIN_TYPE_END] = {
     [BOMB_CHAIN_TYPE_VERTICAL1] = {
         .typeFlag = BOMB_CHAIN_TYPE_TO_FLAG(BOMB_CHAIN_TYPE_VERTICAL1),
         .behavior = CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1

@@ -38,11 +38,11 @@ extern const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6];
 extern const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6];
 extern const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11];
 
-extern const u32* const sEndingImagesTopGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesBottomGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesTopTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
+extern const u32* const sEndingImagesTopGfxPointers[ENGING_IMAGE_COUNT];
+extern const u32* const sEndingImagesBottomGfxPointers[ENGING_IMAGE_COUNT];
+extern const u32* const sEndingImagesTopTileTablePointers[ENGING_IMAGE_COUNT];
+extern const u32* const sEndingImagesHalfTileTablePointers[ENGING_IMAGE_COUNT];
+extern const u16* const sEndingImagesPalPointers[ENGING_IMAGE_COUNT];
 
 extern const struct CreditsEntry sCredits[240];
 

@@ -5,7 +5,7 @@
 #include "constants/connection.h"
 #include "constants/samus.h"
 
-const struct ChozoStatueTarget sChozoStatueTargets[16] = {
+const struct ChozoStatueTarget sChozoStatueTargets[TARGET_END] = {
     [TARGET_LONG_BEAM] = {
         .statueArea = AREA_BRINSTAR,
         .statueXStart = 9,
@@ -200,7 +200,7 @@ const struct ChozoStatueTarget sChozoStatueTargets[16] = {
     },
 };
 
-const u8 sChozoStatueTargetConditions[16][2] = {
+const u8 sChozoStatueTargetConditions[TARGET_END][2] = {
     [TARGET_LONG_BEAM] = {
         CHOZO_STATUE_HINT_CONDITION_TYPE_BEAM_BOMBS,
         BBF_LONG_BEAM
@@ -267,7 +267,7 @@ const u8 sChozoStatueTargetConditions[16][2] = {
     }
 };
 
-const u8 sChozoStatueHintEvents[16] = {
+const u8 sChozoStatueHintEvents[TARGET_END] = {
     [TARGET_LONG_BEAM] = EVENT_STATUE_LONG_BEAM_GRABBED,
     [TARGET_BOMBS] = EVENT_STATUE_BOMBS_GRABBED,
     [TARGET_ICE_BEAM] = EVENT_STATUE_ICE_BEAM_GRABBED,

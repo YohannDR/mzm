@@ -6,7 +6,7 @@
 const u16 sEraseSramMenuObjectsPal[7 * 16] = INCBIN_U16("data/menus/EraseSram/Objects.pal");
 const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1] = INCBIN_U16("data/menus/EraseSram/Background.pal");
 
-static const u16 sEraseSramOAM_ConfirmWindowNoSelected_Frame0[52] = {
+static const u16 sEraseSramOam_ConfirmWindowNoSelected_Frame0[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_HORIZONTAL | 0x18, OBJ_SIZE_32x16 | 0x1b8, 0x2098,
     OBJ_SHAPE_HORIZONTAL | 0x18, OBJ_SIZE_32x16 | 0x1d8, 0x209c,
@@ -27,7 +27,7 @@ static const u16 sEraseSramOAM_ConfirmWindowNoSelected_Frame0[52] = {
     0x20, OBJ_SIZE_32x32 | 0x10, 0x3204
 };
 
-static const u16 sEraseSramOAM_ConfirmWindowYesSelected_Frame0[52] = {
+static const u16 sEraseSramOam_ConfirmWindowYesSelected_Frame0[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_HORIZONTAL | 0x18, OBJ_SIZE_32x16 | 0x1b8, 0x5098,
     OBJ_SHAPE_HORIZONTAL | 0x18, OBJ_SIZE_32x16 | 0x1d8, 0x509c,
@@ -48,57 +48,57 @@ static const u16 sEraseSramOAM_ConfirmWindowYesSelected_Frame0[52] = {
     0x20, OBJ_SIZE_32x32 | 0x10, 0x3204
 };
 
-static const u16 sEraseSramOAM_CursorIdle_Frame0[4] = {
+static const u16 sEraseSramOam_CursorIdle_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x8, 0x410d
 };
 
-static const u16 sEraseSramOAM_CursorIdle_Frame1[4] = {
+static const u16 sEraseSramOam_CursorIdle_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x9, 0x410d
 };
 
-static const u16 sEraseSramOAM_CursorIdle_Frame2[4] = {
+static const u16 sEraseSramOam_CursorIdle_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0xa, 0x410d
 };
 
-static const u16 sEraseSramOAM_CursorSelecting_Frame1[4] = {
+static const u16 sEraseSramOam_CursorSelecting_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x8, 0x410e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118d6[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118d6[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x9, 0x410e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118de[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118de[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0xa, 0x410e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118e6[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118e6[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf7, 0xc, 0x415d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118ee[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118ee[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf7, 0xd, 0x415e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118f6[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118f6[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf7, 0xa, 0x415f
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4118fe[4] = {
+static const u16 sEraseSramOam_UnusedFrame_4118fe[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c
 };
 
-static const u16 sEraseSramOAM_QuestionWindowNoSelected_Frame0[13] = {
+static const u16 sEraseSramOam_QuestionWindowNoSelected_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1b8, 0x2018,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1d8, 0x201c,
@@ -106,7 +106,7 @@ static const u16 sEraseSramOAM_QuestionWindowNoSelected_Frame0[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x30, 0x505c
 };
 
-static const u16 sEraseSramOAM_QuestionWindowYesSelected_Frame0[13] = {
+static const u16 sEraseSramOam_QuestionWindowYesSelected_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1b8, 0x5018,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1d8, 0x501c,
@@ -114,200 +114,220 @@ static const u16 sEraseSramOAM_QuestionWindowYesSelected_Frame0[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x30, 0x205c
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_41193a[10] = {
+static const u16 sEraseSramOam_UnusedFrame_41193a[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4191,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4193,
     OBJ_SHAPE_VERTICAL | 0xef, 0xa, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_41194e[10] = {
+static const u16 sEraseSramOam_UnusedFrame_41194e[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4194,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4196,
     OBJ_SHAPE_VERTICAL | 0xef, 0xb, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411962[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411962[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4197,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4199,
     0xf7, 0xc, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411976[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411976[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x419a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x419c,
     0xf7, 0xb, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_41198a[10] = {
+static const u16 sEraseSramOam_UnusedFrame_41198a[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     OBJ_SHAPE_VERTICAL | 0xef, 0xa, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_41199e[10] = {
+static const u16 sEraseSramOam_UnusedFrame_41199e[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     OBJ_SHAPE_VERTICAL | 0xef, 0xb, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4119b2[10] = {
+static const u16 sEraseSramOam_UnusedFrame_4119b2[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     0xf7, 0xc, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4119c6[10] = {
+static const u16 sEraseSramOam_UnusedFrame_4119c6[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     0xf7, 0xb, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4119da[10] = {
+static const u16 sEraseSramOam_UnusedFrame_4119da[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     OBJ_SHAPE_VERTICAL | 0xef, 0xa, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_4119ee[10] = {
+static const u16 sEraseSramOam_UnusedFrame_4119ee[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     OBJ_SHAPE_VERTICAL | 0xef, 0xb, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a02[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a02[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c,
     0xf7, 0xc, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a16[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a16[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, 0xb, 0x411e,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a2a[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a2a[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xef, 0xa, 0x411d,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a3e[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a3e[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xef, 0xb, 0x411d,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4157,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4159
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a52[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a52[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, 0xc, 0x411e,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4117,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4119
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a66[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a66[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, 0xb, 0x411e,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4117,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4119
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a7a[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a7a[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4117,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4119,
     OBJ_SHAPE_VERTICAL | 0xef, 0xa, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411a8e[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411a8e[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4117,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4119,
     OBJ_SHAPE_VERTICAL | 0xef, 0xb, 0x411d
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411aa2[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411aa2[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x4157,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x4159,
     0xf7, 0xc, 0x411e
 };
 
-static const u16 sEraseSramOAM_UnusedFrame_411ab6[10] = {
+static const u16 sEraseSramOam_UnusedFrame_411ab6[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, 0xb, 0x411e,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, 0x411a,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, 0x411c
 };
 
-static const struct FrameData sEraseSramOAM_CursorIdle[4] = {
-    sEraseSramOAM_CursorIdle_Frame0,
-    6,
-    sEraseSramOAM_CursorIdle_Frame1,
-    6,
-    sEraseSramOAM_CursorIdle_Frame2,
-    6,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_CursorIdle[4] = {
+    [0] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame0,
+        .timer = CONVERT_SECONDS(.1f)
+    },
+    [1] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame1,
+        .timer = CONVERT_SECONDS(.1f)
+    },
+    [2] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame2,
+        .timer = CONVERT_SECONDS(.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sEraseSramOAM_CursorSelecting[7] = {
-    sEraseSramOAM_CursorIdle_Frame0,
-    4,
-    sEraseSramOAM_CursorSelecting_Frame1,
-    4,
-    sEraseSramOAM_CursorIdle_Frame0,
-    4,
-    sEraseSramOAM_CursorSelecting_Frame1,
-    4,
-    sEraseSramOAM_CursorIdle_Frame0,
-    4,
-    sEraseSramOAM_CursorSelecting_Frame1,
-    4,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_CursorSelecting[7] = {
+    [0] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sEraseSramOam_CursorSelecting_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sEraseSramOam_CursorSelecting_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sEraseSramOam_CursorIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sEraseSramOam_CursorSelecting_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sEraseSramOAM_QuestionWindowNoSelected[2] = {
-    sEraseSramOAM_QuestionWindowNoSelected_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_QuestionWindowNoSelected[2] = {
+    [0] = {
+        .pFrame = sEraseSramOam_QuestionWindowNoSelected_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sEraseSramOAM_QuestionWindowYesSelected[2] = {
-    sEraseSramOAM_QuestionWindowYesSelected_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_QuestionWindowYesSelected[2] = {
+    [0] = {
+        .pFrame = sEraseSramOam_QuestionWindowYesSelected_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sEraseSramOAM_ConfirmWindowNoSelected[2] = {
-    sEraseSramOAM_ConfirmWindowNoSelected_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_ConfirmWindowNoSelected[2] = {
+    [0] = {
+        .pFrame = sEraseSramOam_ConfirmWindowNoSelected_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-static const struct FrameData sEraseSramOAM_ConfirmWindowYesSelected[2] = {
-    sEraseSramOAM_ConfirmWindowYesSelected_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0
+static const struct FrameData sEraseSramOam_ConfirmWindowYesSelected[2] = {
+    [0] = {
+        .pFrame = sEraseSramOam_ConfirmWindowYesSelected_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const u32 sEraseSramMenuObjectsGfx[477] = INCBIN_U32("data/menus/EraseSram/Objects.gfx.lz");
@@ -337,7 +357,7 @@ const u16 sEraseSramMenuCursorPosition[2][2] = {
     }
 };
 
-const u16 sEraseSramMenuCursorPositionOffset[4][2] = {
+const u16 sEraseSramMenuCursorPositionOffset[ERASE_SRAM_OPTION_END][2] = {
     [ERASE_SRAM_OPTION_QUESTION_NO] = {
         -(BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE), -8
     },
@@ -352,33 +372,33 @@ const u16 sEraseSramMenuCursorPositionOffset[4][2] = {
     }
 };
 
-const struct OamArray sEraseSramMenuOam[7] = {
+const struct OamArray sEraseSramMenuOam[ERASE_SRAM_OAM_ID_END] = {
     [0] = {
-        .pOam = sEraseSramOAM_CursorIdle,
+        .pOam = sEraseSramOam_CursorIdle,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
     },
     [ERASE_SRAM_OAM_ID_CURSOR_IDLE] = {
-        .pOam = sEraseSramOAM_CursorIdle,
+        .pOam = sEraseSramOam_CursorIdle,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [ERASE_SRAM_OAM_ID_CURSOR_SELECTING] = {
-        .pOam = sEraseSramOAM_CursorSelecting,
+        .pOam = sEraseSramOam_CursorSelecting,
         .preAction = OAM_ARRAY_PRE_ACTION_CHANGE_FRAME
     },
     [ERASE_SRAM_OAM_ID_QUESTION_WINDOW_NO_SELECTED] = {
-        .pOam = sEraseSramOAM_QuestionWindowNoSelected,
+        .pOam = sEraseSramOam_QuestionWindowNoSelected,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [ERASE_SRAM_OAM_ID_QUESTION_WINDOW_YES_SELECTED] = {
-        .pOam = sEraseSramOAM_QuestionWindowYesSelected,
+        .pOam = sEraseSramOam_QuestionWindowYesSelected,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [ERASE_SRAM_OAM_ID_CONFIRM_WINDOW_NO_SELECTED] = {
-        .pOam = sEraseSramOAM_ConfirmWindowNoSelected,
+        .pOam = sEraseSramOam_ConfirmWindowNoSelected,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
     [ERASE_SRAM_OAM_ID_CONFIRM_WINDOW_YES_SELECTED] = {
-        .pOam = sEraseSramOAM_ConfirmWindowYesSelected,
+        .pOam = sEraseSramOam_ConfirmWindowYesSelected,
         .preAction = OAM_ARRAY_PRE_ACTION_RESET_FRAME
     },
 };

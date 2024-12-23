@@ -196,14 +196,18 @@
 
 // ----
 
-#define OPTION_NONE 0
-#define OPTION_STEREO_SELECT 1
-#define OPTION_SOUND_TEST 2
-#define OPTION_TIME_ATTACK 3
-#define OPTION_GALLERY 4
-#define OPTION_FUSION_GALLERY 5
-#define OPTION_FUSION_LINK 6
-#define OPTION_NES_METROID 7
+enum OptionId {
+    OPTION_NONE,
+    OPTION_STEREO_SELECT,
+    OPTION_SOUND_TEST,
+    OPTION_TIME_ATTACK,
+    OPTION_GALLERY,
+    OPTION_FUSION_GALLERY,
+    OPTION_FUSION_LINK,
+    OPTION_NES_METROID,
+
+    OPTION_END
+};
 
 // Sound request ids for FileSelectPlayMenuSound
 
@@ -227,11 +231,11 @@ enum MenuSoundRequest {
 
 // Enabled menus flags
 
-#define MENU_FLAG_FILE_A 0x1
-#define MENU_FLAG_FILE_B 0x2
-#define MENU_FLAG_FILE_C 0x4
-#define MENU_FLAG_COPY 0x8
-#define MENU_FLAG_ERASE 0x10
-#define MENU_FLAG_OPTIONS 0x20
+#define MENU_FLAG_FILE_A  (1 << 0)
+#define MENU_FLAG_FILE_B  (1 << 1)
+#define MENU_FLAG_FILE_C  (1 << 2)
+#define MENU_FLAG_COPY    (1 << 3)
+#define MENU_FLAG_ERASE   (1 << 4)
+#define MENU_FLAG_OPTIONS (1 << 5)
 
 #endif /* FILE_SELECT_CONSTANTS_H */
