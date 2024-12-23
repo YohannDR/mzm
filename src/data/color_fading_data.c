@@ -1,5 +1,4 @@
 #include "data/color_fading_data.h"
-#include "constants/color_fading.h"
 #include "color_fading.h"
 #include "macros.h"
 

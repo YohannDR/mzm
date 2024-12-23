@@ -43,7 +43,7 @@ enum EndingImage {
     ENDING_IMAGE_SIX,    // Normal, Low%, Samus in her orange two-piece, partially sitting on a window sill
     ENDING_IMAGE_SEVEN,  // Hard, Low%, Samus in her Gravity Suit and orange two-piece, ready for battle
 
-    ENGING_IMAGE_COUNT
+    ENDING_IMAGE_COUNT
 };
 
 #define ENDING_OAM_TYPE_NONE 0

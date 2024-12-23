@@ -1,6 +1,5 @@
 #include "data/menus/pause_screen_sub_menus_data.h"
 
-#include "constants/menus/pause_screen.h"
 #include "constants/event.h"
 #include "constants/connection.h"
 #include "constants/samus.h"

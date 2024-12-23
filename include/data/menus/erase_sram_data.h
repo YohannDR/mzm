@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "structs/cutscene.h"
+#include "constants/menus/erase_sram.h"
 
 extern const u16 sEraseSramMenuObjectsPal[7 * 16];
 extern const u16 sEraseSramMenuBackgroundPal[15 * 16 - 1];
@@ -24,7 +25,7 @@ extern const u8 sEraseSramConfirmWindowNoSelectedOamId;
 extern const u8 sEraseSramConfirmWindowYesSelectedOamId;
 extern const u16 sEraseSramMenuSoundsID[5];
 extern const u16 sEraseSramMenuCursorPosition[2][2];
-extern const u16 sEraseSramMenuCursorPositionOffset[4][2];
-extern const struct OamArray sEraseSramMenuOam[7];
+extern const u16 sEraseSramMenuCursorPositionOffset[ERASE_SRAM_OPTION_END][2];
+extern const struct OamArray sEraseSramMenuOam[ERASE_SRAM_OAM_ID_END];
 
 #endif /* ERASE_SRAM_MENU_DATA_H */

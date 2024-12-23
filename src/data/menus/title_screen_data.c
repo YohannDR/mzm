@@ -1,5 +1,4 @@
 #include "data/menus/title_screen_data.h"
-#include "constants/menus/title_screen.h"
 #include "gba.h"
 #include "macros.h"
 

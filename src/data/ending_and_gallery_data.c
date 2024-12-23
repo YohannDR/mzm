@@ -1042,7 +1042,7 @@ extern const u32 sEndingImage_TopTileTable_7[577];
 extern const u32 sEndingImage_BottomGfx_7[3901];
 extern const u32 sEndingImage_BottomTileTable_7[577];
 
-const u32* const sEndingImagesTopGfxPointers[ENGING_IMAGE_COUNT] = {
+const u32* const sEndingImagesTopGfxPointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_ZERO]  = sEndingImage_TopGfx_0,
     [ENDING_IMAGE_ONE]   = sEndingImage_TopGfx_1,
     [ENDING_IMAGE_TWO]   = sEndingImage_TopGfx_2,
@@ -1053,7 +1053,7 @@ const u32* const sEndingImagesTopGfxPointers[ENGING_IMAGE_COUNT] = {
     [ENDING_IMAGE_SEVEN] = sEndingImage_TopGfx_7
 };
 
-const u32* const sEndingImagesBottomGfxPointers[ENGING_IMAGE_COUNT] = {
+const u32* const sEndingImagesBottomGfxPointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_ZERO]  = sEndingImage_BottomGfx_0,
     [ENDING_IMAGE_ONE]   = sEndingImage_BottomGfx_1,
     [ENDING_IMAGE_TWO]   = sEndingImage_BottomGfx_2,
@@ -1064,7 +1064,7 @@ const u32* const sEndingImagesBottomGfxPointers[ENGING_IMAGE_COUNT] = {
     [ENDING_IMAGE_SEVEN] = sEndingImage_BottomGfx_7
 };
 
-const u32* const sEndingImagesTopTileTablePointers[ENGING_IMAGE_COUNT] = {
+const u32* const sEndingImagesTopTileTablePointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_ZERO]  = sEndingImage_TopTileTable_0,
     [ENDING_IMAGE_ONE]   = sEndingImage_TopTileTable_1,
     [ENDING_IMAGE_TWO]   = sEndingImage_TopTileTable_2,
@@ -1075,7 +1075,7 @@ const u32* const sEndingImagesTopTileTablePointers[ENGING_IMAGE_COUNT] = {
     [ENDING_IMAGE_SEVEN] = sEndingImage_TopTileTable_7
 };
 
-const u32* const sEndingImagesHalfTileTablePointers[ENGING_IMAGE_COUNT] = {
+const u32* const sEndingImagesHalfTileTablePointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_ZERO]  = sEndingImage_BottomTileTable_0,
     [ENDING_IMAGE_ONE]   = sEndingImage_BottomTileTable_1,
     [ENDING_IMAGE_TWO]   = sEndingImage_BottomTileTable_2,
@@ -1087,7 +1087,7 @@ const u32* const sEndingImagesHalfTileTablePointers[ENGING_IMAGE_COUNT] = {
 };
 
 
-const u16* const sEndingImagesPalPointers[ENGING_IMAGE_COUNT] = {
+const u16* const sEndingImagesPalPointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_ZERO]  = sEndingImage_Palette_0,
     [ENDING_IMAGE_ONE]   = sEndingImage_Palette_1,
     [ENDING_IMAGE_TWO]   = sEndingImage_Palette_2,

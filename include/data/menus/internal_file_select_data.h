@@ -4,7 +4,6 @@
 #include "types.h"
 
 #include "constants/menus/file_select.h"
-
 #include "structs/menus/file_select.h"
 
 extern const s8 sSaveFileAreasId[12];
@@ -20,8 +19,8 @@ extern const u16 sStereoOamData[2][4];
 extern const u16 sSoundTestSoundIds[24];
 
 extern u32* const sFileSelect_760bdc[4];
-extern const u16 sOptionsOptionsTilemapOffsets[8];
-extern const struct OptionsSubroutineInfo sOptionsSubroutineInfo[9];
+extern const u16 sOptionsOptionsTilemapOffsets[OPTION_END];
+extern const struct OptionsSubroutineInfo sOptionsSubroutineInfo[OPTION_END + 1];
 
 extern const u8 sFileSelectDefaultPassword[8];
 extern const u16 sMenuSounds[MENU_SOUND_REQUEST_END];

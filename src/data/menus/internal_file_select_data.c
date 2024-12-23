@@ -7,7 +7,6 @@
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
-#include "constants/menus/file_select.h"
 
 const s8 sSaveFileAreasId[12] = {
     [0] = AREA_KRAID,

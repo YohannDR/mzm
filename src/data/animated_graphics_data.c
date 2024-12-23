@@ -11,7 +11,6 @@
 #include "data/tilesets/tilesets_set6.h"
 #include "data/tilesets/tilesets_set7.h"
 
-#include "constants/animated_graphics.h"
 #include "constants/audio.h"
 
 

@@ -3,7 +3,6 @@
 #include "gba.h"
 
 #include "constants/connection.h"
-#include "constants/menus/pause_screen.h"
 #include "constants/event.h"
 #include "constants/samus.h"
 #include "constants/text.h"
@@ -3222,7 +3221,7 @@ const struct OamArray sPauseScreenBossIconsOam[BOSS_ICON_OAM_ID_END] = {
     }
 };
 
-const struct OamArray sPauseScreenTargetsOam[16] = {
+const struct OamArray sPauseScreenTargetsOam[TARGET_OAM_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
