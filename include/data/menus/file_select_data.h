@@ -2,6 +2,7 @@
 #define FILE_SELECT_MENU_DATA_H
 
 #include "types.h"
+#include "constants/menus/file_select.h"
 #include "structs/menu.h"
 #include "structs/cutscene.h"
 #include "structs/text.h"
@@ -29,8 +30,8 @@ extern const u32 sFileSelect2Big1SmallPanelsTileTable[230];
 
 extern const struct MenuOamData sFileSelectOamData_Empty[2];
 
-extern const struct OamArray sFileSelectOam[40];
-extern const struct OamArray sOptionsOam[22];
+extern const struct OamArray sFileSelectOam[FILE_SELECT_OAM_ID_END];
+extern const struct OamArray sOptionsOam[OPTIONS_OAM_ID_END];
 
 extern const u8 sFileScreenMessagesInfo[33][3];
 extern const struct Message sFileScreenMessage_Empty;

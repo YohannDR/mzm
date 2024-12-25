@@ -4,7 +4,7 @@
 #include "macros.h"
 #include "constants/intro.h"
 
-const u16 sIntroEmergencyOrderTextOAM[52] = {
+const u16 sIntroEmergencyOrderTextOAM[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xc8, 0x1b8, 0x1003,
     OBJ_SHAPE_VERTICAL | 0xc8, 0x1c0, 0x1008,
@@ -25,7 +25,7 @@ const u16 sIntroEmergencyOrderTextOAM[52] = {
     OBJ_SHAPE_VERTICAL | 0xc8, 0x38, 0x101c
 };
 
-const u16 sIntroExterminateAllTextOAM[163] = {
+const u16 sIntroExterminateAllTextOAM[OAM_DATA_SIZE(54)] = {
     0x36,
     OBJ_SHAPE_VERTICAL | 0xb8, 0x198, 0x1003,
     OBJ_SHAPE_VERTICAL | 0xb8, 0x1a0, 0x1008,
@@ -83,7 +83,7 @@ const u16 sIntroExterminateAllTextOAM[163] = {
     OBJ_SHAPE_VERTICAL | 0xd0, 0x68, 0x101f
 };
 
-const u16 sIntroDefeatTheTextOAM[157] = {
+const u16 sIntroDefeatTheTextOAM[OAM_DATA_SIZE(52)] = {
     0x34,
     OBJ_SHAPE_VERTICAL | 0xb8, 0x198, 0x1003,
     OBJ_SHAPE_VERTICAL | 0xb8, 0x1a0, 0x1004,
@@ -139,14 +139,14 @@ const u16 sIntroDefeatTheTextOAM[157] = {
     OBJ_SHAPE_VERTICAL | 0xd0, 0x60, 0x105f
 };
 
-const u16 sIntroTextMarkerOAM[10] = {
+const u16 sIntroTextMarkerOAM[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf8, 0x1f8, 0x1020,
     0xf8, 0x0, 0x1021,
     0xf8, 0x8, 0x1022
 };
 
-const u16 sIntroShipFlyingTowardsCameraOam_1[19] = {
+const u16 sIntroShipFlyingTowardsCameraOam_1[OAM_DATA_SIZE(6)] = {
     0x6,
     0xd8, OBJ_SIZE_64x64 | 0x1c0, 0x3041,
     0xd8, OBJ_SIZE_64x64 | 0x0, 0x3049,
@@ -156,7 +156,7 @@ const u16 sIntroShipFlyingTowardsCameraOam_1[19] = {
     OBJ_MODE_SEMI_TRANSPARENT | 0xd8, OBJ_X_FLIP | OBJ_SIZE_64x64 | 0x1f8, 0x4052
 };
 
-const u16 sIntroShipFlyingTowardsCameraOam_2[28] = {
+const u16 sIntroShipFlyingTowardsCameraOam_2[OAM_DATA_SIZE(9)] = {
     0x9,
     0xd8, OBJ_SIZE_64x64 | 0x1c0, 0x3041,
     0xd8, OBJ_SIZE_64x64 | 0x0, 0x3049,
@@ -169,7 +169,7 @@ const u16 sIntroShipFlyingTowardsCameraOam_2[28] = {
     OBJ_MODE_SEMI_TRANSPARENT | 0xd8, OBJ_X_FLIP | OBJ_SIZE_64x64 | 0x1f8, 0x4160
 };
 
-const u16 sIntroViewOfZebesShipOAM[13] = {
+const u16 sIntroViewOfZebesShipOAM[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xd8, OBJ_SIZE_64x32 | 0x1f0, 0x3040,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_SIZE_8x32 | 0x30, 0x3048,
@@ -177,7 +177,7 @@ const u16 sIntroViewOfZebesShipOAM[13] = {
     OBJ_SHAPE_VERTICAL | 0xf8, 0x10, 0x30c4
 };
 
-const u16 sIntroViewOfZebesHeatOAM_2[37] = {
+const u16 sIntroViewOfZebesHeatOAM_2[OAM_DATA_SIZE(12)] = {
     0xc,
     0xa0, OBJ_SIZE_64x64 | 0x0, 0x4050,
     0xa0, OBJ_SIZE_64x64 | 0x40, 0x4058,
@@ -194,7 +194,7 @@ const u16 sIntroViewOfZebesHeatOAM_2[37] = {
     
 };
 
-const u16 sIntroViewOfZebesHeatOAM_1[73] = {
+const u16 sIntroViewOfZebesHeatOAM_1[OAM_DATA_SIZE(24)] = {
     0x18,
     OBJ_SHAPE_HORIZONTAL | 0xa0, OBJ_SIZE_64x32 | 0x0, 0x4210,
     OBJ_SHAPE_HORIZONTAL | 0xa0, OBJ_SIZE_64x32 | 0x40, 0x4218,
@@ -222,7 +222,7 @@ const u16 sIntroViewOfZebesHeatOAM_1[73] = {
     OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_SIZE_32x8 | 0x60, 0x43bc
 };
 
-const u16 sIntroFuzzOAM[52] = {
+const u16 sIntroFuzzOAM[OAM_DATA_SIZE(17)] = {
     0x11,
     0x80, OBJ_SIZE_64x64 | 0x180, 0x0,
     0x80, OBJ_SIZE_64x64 | 0x1c0, 0x8,

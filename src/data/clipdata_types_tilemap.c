@@ -1,9 +1,8 @@
 #include "data/clipdata_types_tilemap.h"
 
-#include "constants/clipdata.h"
 #include "macros.h"
 
-const u16 sClipdataBehaviorTypes_Tilemap[208] = {
+const u16 sClipdataBehaviorTypes_Tilemap[CLIPDATA_TILEMAP_END] = {
     [CLIPDATA_TILEMAP_AIR] = CLIP_BEHAVIOR_NONE, // 0x0
     [CLIPDATA_TILEMAP_SOLID] = CLIP_BEHAVIOR_NONE, // 0x1
     [CLIPDATA_TILEMAP_SHOT_BLOCK_REFORM] = CLIP_BEHAVIOR_SHOT_BLOCK_REFORM, // 0x5
@@ -97,7 +96,7 @@ const u16 sClipdataBehaviorTypes_Tilemap[208] = {
     [CLIPDATA_TILEMAP_NO_HATCH_DOOR_BOTTOM_RIGHT] = CLIP_BEHAVIOR_MISSILE_DOOR, // 0xCB
 };
 
-const u8 sClipdataCollisionTypes_Tilemap[208] = {
+const u8 sClipdataCollisionTypes_Tilemap[CLIPDATA_TILEMAP_END] = {
     [CLIPDATA_TILEMAP_AIR] = CLIPDATA_TYPE_AIR, // 0x0
     [CLIPDATA_TILEMAP_SOLID] = CLIPDATA_TYPE_SOLID, // 0x1
     [CLIPDATA_TILEMAP_SHOT_BLOCK_REFORM] = CLIPDATA_TYPE_SOLID, // 0x5
@@ -241,7 +240,7 @@ const u8 sClipdataCollisionTypes_Tilemap[208] = {
 
 const u16 sCommonTilemap[832] = INCBIN_U16("data/common/CommonTilemap.tt");
 
-const u8 sClipdataCollisionTypes_Debug[160] = {
+const u8 sClipdataCollisionTypes_Debug[CLIPDATA_DEBUG_END] = {
     [CLIPDATA_DEBUG_AIR] = CLIPDATA_TYPE_AIR, // 0x0
     [CLIPDATA_DEBUG_SOLID] = CLIPDATA_TYPE_SOLID, // 0x1
     [CLIPDATA_DEBUG_WATER] = CLIPDATA_TYPE_AIR, // 0x2
@@ -320,7 +319,7 @@ const u8 sClipdataCollisionTypes_Debug[160] = {
     [CLIPDATA_DEBUG_BG0_TRIGGER_BRIGHTER4] = CLIPDATA_TYPE_AIR, // 0x9B
 };
 
-const u16 sClipdataBehaviorTypes_Debug[160] = {
+const u16 sClipdataBehaviorTypes_Debug[CLIPDATA_DEBUG_END] = {
     [CLIPDATA_DEBUG_AIR] = CLIP_BEHAVIOR_NONE, // 0x0
     [CLIPDATA_DEBUG_SOLID] = CLIP_BEHAVIOR_NONE, // 0x1
     [CLIPDATA_DEBUG_WATER] = CLIP_BEHAVIOR_WATER, // 0x2

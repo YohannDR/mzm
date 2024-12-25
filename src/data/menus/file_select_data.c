@@ -1,5 +1,4 @@
 #include "data/menus/file_select_data.h"
-#include "constants/menus/file_select.h"
 #include "constants/text.h"
 #include "macros.h"
 #include "gba.h"
@@ -1652,7 +1651,7 @@ const struct MenuOamData sFileSelectOamData_Empty[2] = {
     }
 };
 
-const struct OamArray sFileSelectOam[40] = {
+const struct OamArray sFileSelectOam[FILE_SELECT_OAM_ID_END] = {
     [0] = {
         .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -1815,7 +1814,7 @@ const struct OamArray sFileSelectOam[40] = {
     }
 };
 
-const struct OamArray sOptionsOam[22] = {
+const struct OamArray sOptionsOam[OPTIONS_OAM_ID_END] = {
     [0] = {
         .pOam = sFileSelectOam_SamusHeadTurningOn,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

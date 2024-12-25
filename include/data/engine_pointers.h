@@ -9,6 +9,7 @@
 #include "constants/connection.h"
 #include "constants/particle.h"
 #include "constants/projectile.h"
+#include "constants/room.h"
 
 #include "structs/animated_graphics.h"
 #include "structs/connection.h"
@@ -21,9 +22,9 @@ extern const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END];
 
 extern const ParticleFunc_T sProcessParticleFunctionPointers[PE_END];
 
-extern const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1];
+extern const struct Door* const sAreaDoorsPointers[AREA_NORMAL_COUNT];
 
-extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1];
+extern const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_NORMAL_COUNT];
 
 // More...
 
@@ -44,12 +45,12 @@ extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
  * 2 : BG0 water moving flag
  * 3 : Power bomb related
  */
-extern u8 sHazeData[13][4];
+extern u8 sHazeData[EFFECT_HAZE_END][4];
 
 
 extern const BackgroundEffectBehaviorEntry_T* const sBackgroundEffectBehaviorPointers[BACKGROUND_EFFECT_END];
 
-extern const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
+extern const struct HatchLockEvent* const sHatchLockEventsPointers[AREA_NORMAL_COUNT];
 
 extern const struct SaveDemo* const sDemoRamDataPointers[MAX_AMOUNT_OF_DEMOS];
 

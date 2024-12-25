@@ -23,7 +23,6 @@
 #include "cutscenes/cutscene_utils.h"
 
 #include "constants/haze.h"
-#include "constants/room.h"
 
 const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END] = {
     [PROJ_TYPE_BEAM] = ProjectileProcessNormalBeam,
@@ -108,7 +107,7 @@ const ParticleFunc_T sProcessParticleFunctionPointers[PE_END] = {
     [PE_ESCAPE] = ParticleEscape,
 };
 
-const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+const struct Door* const sAreaDoorsPointers[AREA_NORMAL_COUNT] = {
     [AREA_BRINSTAR] = sBrinstarDoors,
     [AREA_KRAID] = sKraidDoors,
     [AREA_NORFAIR] = sNorfairDoors,
@@ -118,7 +117,7 @@ const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_CHOZODIA] = sChozodiaDoors
 };
 
-const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_NORMAL_COUNT] = {
     [AREA_BRINSTAR] = sBrinstarRoomEntries,
     [AREA_KRAID] = sKraidRoomEntries,
     [AREA_NORFAIR] = sNorfairRoomEntries,
@@ -362,7 +361,7 @@ const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
  * 3 : Power bomb related
  */
 FORCE_RODATA
-u8 sHazeData[13][4] = {
+u8 sHazeData[EFFECT_HAZE_END][4] = {
     [EFFECT_NONE] = {
         HAZE_VALUE_NONE, EFFECT_NONE, FALSE, 0
     },
@@ -416,7 +415,7 @@ const BackgroundEffectBehaviorEntry_T* const sBackgroundEffectBehaviorPointers[B
     [BACKGROUND_EFFECT_ALL_WHITE] = sBackgroundEffectBehavior_AllBlackWhite,
 };
 
-const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+const struct HatchLockEvent* const sHatchLockEventsPointers[AREA_NORMAL_COUNT] = {
     [AREA_BRINSTAR] = sHatchLockEventsBrinstar,
     [AREA_KRAID] = sHatchLockEventsKraid,
     [AREA_NORFAIR] = sHatchLockEventsCrateria,

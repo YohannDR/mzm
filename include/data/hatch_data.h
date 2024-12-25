@@ -19,7 +19,7 @@ extern const struct HatchLockEvent sHatchLockEventsCrateria[2];
 
 extern const struct HatchLockEvent sHatchLockEventsChozodia[15];
 
-extern const u8 sEventBasedConnections[41][4];
+extern const u8 sEventBasedConnections[41][EVENT_BASED_CONNECTION_FIELD_COUNT];
 
 extern const u8 sAreaConnections[][AREA_CONNECTION_FIELD_COUNT];
 
