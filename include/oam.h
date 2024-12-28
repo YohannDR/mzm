@@ -5,50 +5,50 @@
 
 // Attribute 0
 
-#define OBJ_ROTATION_SCALING 0x100
-#define OBJ_DOUBLE_SIZE 0x200
-#define OBJ_DISABLE 0x200
-#define OBJ_MODE_SEMI_TRANSPARENT 0x400
-#define OBJ_MODE_OBJ_WINDOW 0x800
-#define OBJ_MOSAIC 0x1000
-#define OBJ_COLOR_256_1 0x2000
-#define OBJ_SHAPE_HORIZONTAL 0x4000
-#define OBJ_SHAPE_VERTICAL 0x8000
+#define OBJ_ROTATION_SCALING      (1 << 8)
+#define OBJ_DOUBLE_SIZE           (1 << 9)
+#define OBJ_DISABLE               (1 << 9)
+#define OBJ_MODE_SEMI_TRANSPARENT (1 << 10)
+#define OBJ_MODE_OBJ_WINDOW       (1 << 11)
+#define OBJ_MOSAIC                (1 << 12)
+#define OBJ_COLOR_256_1           (1 << 13)
+#define OBJ_SHAPE_HORIZONTAL      (1 << 14)
+#define OBJ_SHAPE_VERTICAL        (1 << 15)
 
-#define OAM_OBJ_MODE_NORMAL 0
+#define OAM_OBJ_MODE_NORMAL           0
 #define OAM_OBJ_MODE_SEMI_TRANSPARENT 1
-#define OAM_OBJ_MODE_WINDOW 2
+#define OAM_OBJ_MODE_WINDOW           2
 
-#define OAM_SHAPE_SQUARE 0
+#define OAM_SHAPE_SQUARE     0
 #define OAM_SHAPE_HORIZONTAL 1
-#define OAM_SHAPE_VERTICAL 2
+#define OAM_SHAPE_VERTICAL   2
 
 // Attribute 1
 
-#define OBJ_X_FLIP 0x1000
-#define OBJ_Y_FLIP 0x2000
-#define OBJ_SIZE_16x16 0x4000
-#define OBJ_SIZE_32x8 0x4000
-#define OBJ_SIZE_8x32 0x4000
-#define OBJ_SIZE_32x32 0x8000
-#define OBJ_SIZE_32x16 0x8000
-#define OBJ_SIZE_16x32 0x8000
-#define OBJ_SIZE_64x64 0xC000
-#define OBJ_SIZE_64x32 0xC000
-#define OBJ_SIZE_32x64 0xC000
+#define OBJ_X_FLIP     (1 << 12)
+#define OBJ_Y_FLIP     (1 << 13)
+#define OBJ_SIZE_16x16 (1 << 14)
+#define OBJ_SIZE_32x8  (1 << 14)
+#define OBJ_SIZE_8x32  (1 << 14)
+#define OBJ_SIZE_32x32 (1 << 15)
+#define OBJ_SIZE_32x16 (1 << 15)
+#define OBJ_SIZE_16x32 (1 << 15)
+#define OBJ_SIZE_64x64 ((1 << 15) | (1 << 14))
+#define OBJ_SIZE_64x32 ((1 << 15) | (1 << 14))
+#define OBJ_SIZE_32x64 ((1 << 15) | (1 << 14))
 
-#define OAM_SIZE_S_8x8 0
+#define OAM_SIZE_S_8x8   0
 #define OAM_SIZE_S_16x16 1
 #define OAM_SIZE_S_32x32 2
 #define OAM_SIZE_S_64x64 3
 
-#define OAM_SIZE_H_16x8 0
-#define OAM_SIZE_H_32x8 1
+#define OAM_SIZE_H_16x8  0
+#define OAM_SIZE_H_32x8  1
 #define OAM_SIZE_H_32x16 2
 #define OAM_SIZE_H_64x32 3
 
-#define OAM_SIZE_V_8x16 0
-#define OAM_SIZE_V_8x32 1
+#define OAM_SIZE_V_8x16  0
+#define OAM_SIZE_V_8x32  1
 #define OAM_SIZE_V_16x32 2
 #define OAM_SIZE_V_32x64 3
 
