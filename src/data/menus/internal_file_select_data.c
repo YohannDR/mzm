@@ -7,7 +7,6 @@
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
-#include "constants/menus/file_select.h"
 
 const s8 sSaveFileAreasId[12] = {
     [0] = AREA_KRAID,
@@ -218,7 +217,7 @@ u32* const sFileSelect_760bdc[4] = {
     VRAM_BASE + 0x7000
 };
 
-const u16 sOptionsOptionsTilemapOffsets[8] = {
+const u16 sOptionsOptionsTilemapOffsets[OPTION_END] = {
     [OPTION_NONE] = 0,
     [OPTION_STEREO_SELECT] = 0,
     [OPTION_SOUND_TEST] = BLOCK_SIZE * 10,
@@ -229,7 +228,7 @@ const u16 sOptionsOptionsTilemapOffsets[8] = {
     [OPTION_NES_METROID] = BLOCK_SIZE * 15
 };
 
-const struct OptionsSubroutineInfo sOptionsSubroutineInfo[9] = {
+const struct OptionsSubroutineInfo sOptionsSubroutineInfo[OPTION_END + 1] = {
     [OPTION_NONE] = {
         .pFunction = OptionsSubMenu_Empty,
         .gameMode = 0

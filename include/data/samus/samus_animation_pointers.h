@@ -29,7 +29,7 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Screw
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_AimingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ShootingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_UsingAnElevator[2][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Shinesparking[3][2];
+extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_OnZipline[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ShootingOnZipline[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_TurningOnZipline[5][2];
@@ -49,7 +49,7 @@ extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_La
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_AimingWhileHanging[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_ShootingWhileHanging[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_UsingAnElevator[2][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shinesparking[3][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_OnZipline[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_ShootingOnZipline[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningOnZipline[5][2];
@@ -77,7 +77,7 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ScrewA
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_AimingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ShootingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_UsingAnElevator[2][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Shinesparking[3][2];
+extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_OnZipline[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ShootingOnZipline[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_TurningOnZipline[5][2];
@@ -169,14 +169,14 @@ extern const u8* const sArmCannonGfxPointers_Lower_Right_Armed_OnZipline[5];
 // Samus effects pointers
 
 extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Speedboosting[1][2];
-extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Shinesparking[3][2];
-extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparking[3][2];
+extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2];
+extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparking[FORCED_MOVEMENT_SHINESPARK_END][2];
 
 
 
-extern const s16 sSamusDrawDistanceOffsets[4][4];
-extern const s16 sSamusHitboxData[3][3];
-extern const s16 sSamusHitboxData_Above[3];
+extern const s16 sSamusDrawDistanceOffsets[SAMUS_HITBOX_TYPE_END][4];
+extern const s16 sSamusHitboxData[SAMUS_HITBOX_TYPE_NORMAL_END][SAMUS_HITBOX_END];
+extern const s16 sSamusHitboxData_Above[SAMUS_HITBOX_END];
 extern const struct FrameData* const sSamusEnvEffectsFrameDataPointers[ENV_EFFECT_END - 1];
 extern const u16 sSamusPullingSelfUpVelocity[4];
 

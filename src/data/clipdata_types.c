@@ -1,9 +1,8 @@
 #include "data/clipdata_types.h"
 
-#include "constants/clipdata.h"
 #include "macros.h"
 
-const u8 sClipdataCollisionTypes[176] = {
+const u8 sClipdataCollisionTypes[CLIPDATA_END] = {
     [CLIPDATA_AIR] = CLIPDATA_TYPE_AIR,
     [CLIPDATA_PASS_THROUGH_BOTTOM] = CLIPDATA_TYPE_PASS_THROUGH_BOTTOM,
     [CLIPDATA_NON_POWER_GRIP] = CLIPDATA_TYPE_SOLID,
@@ -102,7 +101,7 @@ const u8 sClipdataCollisionTypes[176] = {
     [CLIPDATA_ACID] = CLIPDATA_TYPE_AIR
 };
 
-const u16 sClipdataBehaviorTypes[176] = {
+const u16 sClipdataBehaviorTypes[CLIPDATA_END] = {
     [CLIPDATA_AIR] = CLIP_BEHAVIOR_NONE,
     [CLIPDATA_PASS_THROUGH_BOTTOM] = CLIP_BEHAVIOR_NONE,
     [CLIPDATA_NON_POWER_GRIP] = CLIP_BEHAVIOR_NON_POWER_GRIP,

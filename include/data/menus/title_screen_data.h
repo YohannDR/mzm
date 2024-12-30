@@ -5,6 +5,7 @@
 #include "structs/cutscene.h"
 #include "structs/menus/title_screen.h"
 #include "structs/menu.h"
+#include "constants/menus/title_screen.h"
 
 extern const u16 sTitleScreenPal[15 * 16];
 extern const u16 sTitleScreenPromptPal[5 * 16];
@@ -28,6 +29,6 @@ extern const struct TitleScreenPageData sTitleScreenPageData[2];
 extern const struct MenuOamData sTitleScreenTopSparkleBaseOam;
 extern const struct MenuOamData sTitleScreenBottomSparkleBaseOam;
 
-extern const struct OamArray sTitleScreenOam[7];
+extern const struct OamArray sTitleScreenOam[TITLE_SCREEN_OAM_ID_END];
 
 #endif /* TITLE_SCREEN_DATA_H */

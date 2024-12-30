@@ -451,7 +451,7 @@ const u16 sEndingPosingPal_White4[5 * 16] = INCBIN_U16("data/ending/Posing_White
 
 const u16 sUnlockedOptionsPal[1 * 16] = INCBIN_U16("data/ending/UnlockedOptions.pal");
 
-const struct EndingImageOam sEndingImageOam_FullLines_English[6] = {
+const struct EndingImageOam sEndingImageOam_FullLines_English[ENDING_IMAGE_LINE_END] = {
     [ENDING_IMAGE_LINE_CLEAR_TIME] = {
         .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
@@ -807,7 +807,7 @@ const struct EndingImageOam sEndingImageOam_Collecting_English[17] = {
     },
 };
 
-const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6] = {
+const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[ENDING_IMAGE_LINE_END] = {
     [ENDING_IMAGE_LINE_CLEAR_TIME] = {
         .type = ENDING_OAM_TYPE_LINE,
         .spawnDelay = 0,
@@ -1042,60 +1042,60 @@ extern const u32 sEndingImage_TopTileTable_7[577];
 extern const u32 sEndingImage_BottomGfx_7[3901];
 extern const u32 sEndingImage_BottomTileTable_7[577];
 
-const u32* const sEndingImagesTopGfxPointers[NUMBER_OF_ENDING_IMAGES] = {
-    [0] = sEndingImage_TopGfx_0,
-    [1] = sEndingImage_TopGfx_1,
-    [2] = sEndingImage_TopGfx_2,
-    [3] = sEndingImage_TopGfx_3,
-    [4] = sEndingImage_TopGfx_4,
-    [5] = sEndingImage_TopGfx_5,
-    [6] = sEndingImage_TopGfx_6,
-    [7] = sEndingImage_TopGfx_7
+const u32* const sEndingImagesTopGfxPointers[ENDING_IMAGE_COUNT] = {
+    [ENDING_IMAGE_ZERO]  = sEndingImage_TopGfx_0,
+    [ENDING_IMAGE_ONE]   = sEndingImage_TopGfx_1,
+    [ENDING_IMAGE_TWO]   = sEndingImage_TopGfx_2,
+    [ENDING_IMAGE_THREE] = sEndingImage_TopGfx_3,
+    [ENDING_IMAGE_FOUR]  = sEndingImage_TopGfx_4,
+    [ENDING_IMAGE_FIVE]  = sEndingImage_TopGfx_5,
+    [ENDING_IMAGE_SIX]   = sEndingImage_TopGfx_6,
+    [ENDING_IMAGE_SEVEN] = sEndingImage_TopGfx_7
 };
 
-const u32* const sEndingImagesBottomGfxPointers[NUMBER_OF_ENDING_IMAGES] = {
-    [0] = sEndingImage_BottomGfx_0,
-    [1] = sEndingImage_BottomGfx_1,
-    [2] = sEndingImage_BottomGfx_2,
-    [3] = sEndingImage_BottomGfx_3,
-    [4] = sEndingImage_BottomGfx_4,
-    [5] = sEndingImage_BottomGfx_5,
-    [6] = sEndingImage_BottomGfx_6,
-    [7] = sEndingImage_BottomGfx_7
+const u32* const sEndingImagesBottomGfxPointers[ENDING_IMAGE_COUNT] = {
+    [ENDING_IMAGE_ZERO]  = sEndingImage_BottomGfx_0,
+    [ENDING_IMAGE_ONE]   = sEndingImage_BottomGfx_1,
+    [ENDING_IMAGE_TWO]   = sEndingImage_BottomGfx_2,
+    [ENDING_IMAGE_THREE] = sEndingImage_BottomGfx_3,
+    [ENDING_IMAGE_FOUR]  = sEndingImage_BottomGfx_4,
+    [ENDING_IMAGE_FIVE]  = sEndingImage_BottomGfx_5,
+    [ENDING_IMAGE_SIX]   = sEndingImage_BottomGfx_6,
+    [ENDING_IMAGE_SEVEN] = sEndingImage_BottomGfx_7
 };
 
-const u32* const sEndingImagesTopTileTablePointers[NUMBER_OF_ENDING_IMAGES] = {
-    [0] = sEndingImage_TopTileTable_0,
-    [1] = sEndingImage_TopTileTable_1,
-    [2] = sEndingImage_TopTileTable_2,
-    [3] = sEndingImage_TopTileTable_3,
-    [4] = sEndingImage_TopTileTable_4,
-    [5] = sEndingImage_TopTileTable_5,
-    [6] = sEndingImage_TopTileTable_6,
-    [7] = sEndingImage_TopTileTable_7
+const u32* const sEndingImagesTopTileTablePointers[ENDING_IMAGE_COUNT] = {
+    [ENDING_IMAGE_ZERO]  = sEndingImage_TopTileTable_0,
+    [ENDING_IMAGE_ONE]   = sEndingImage_TopTileTable_1,
+    [ENDING_IMAGE_TWO]   = sEndingImage_TopTileTable_2,
+    [ENDING_IMAGE_THREE] = sEndingImage_TopTileTable_3,
+    [ENDING_IMAGE_FOUR]  = sEndingImage_TopTileTable_4,
+    [ENDING_IMAGE_FIVE]  = sEndingImage_TopTileTable_5,
+    [ENDING_IMAGE_SIX]   = sEndingImage_TopTileTable_6,
+    [ENDING_IMAGE_SEVEN] = sEndingImage_TopTileTable_7
 };
 
-const u32* const sEndingImagesHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES] = {
-    [0] = sEndingImage_BottomTileTable_0,
-    [1] = sEndingImage_BottomTileTable_1,
-    [2] = sEndingImage_BottomTileTable_2,
-    [3] = sEndingImage_BottomTileTable_3,
-    [4] = sEndingImage_BottomTileTable_4,
-    [5] = sEndingImage_BottomTileTable_5,
-    [6] = sEndingImage_BottomTileTable_6,
-    [7] = sEndingImage_BottomTileTable_7
+const u32* const sEndingImagesHalfTileTablePointers[ENDING_IMAGE_COUNT] = {
+    [ENDING_IMAGE_ZERO]  = sEndingImage_BottomTileTable_0,
+    [ENDING_IMAGE_ONE]   = sEndingImage_BottomTileTable_1,
+    [ENDING_IMAGE_TWO]   = sEndingImage_BottomTileTable_2,
+    [ENDING_IMAGE_THREE] = sEndingImage_BottomTileTable_3,
+    [ENDING_IMAGE_FOUR]  = sEndingImage_BottomTileTable_4,
+    [ENDING_IMAGE_FIVE]  = sEndingImage_BottomTileTable_5,
+    [ENDING_IMAGE_SIX]   = sEndingImage_BottomTileTable_6,
+    [ENDING_IMAGE_SEVEN] = sEndingImage_BottomTileTable_7
 };
 
 
-const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES] = {
-    [0] = sEndingImage_Palette_0,
-    [1] = sEndingImage_Palette_1,
-    [2] = sEndingImage_Palette_2,
-    [3] = sEndingImage_Palette_3,
-    [4] = sEndingImage_Palette_4,
-    [5] = sEndingImage_Palette_5,
-    [6] = sEndingImage_Palette_6,
-    [7] = sEndingImage_Palette_7
+const u16* const sEndingImagesPalPointers[ENDING_IMAGE_COUNT] = {
+    [ENDING_IMAGE_ZERO]  = sEndingImage_Palette_0,
+    [ENDING_IMAGE_ONE]   = sEndingImage_Palette_1,
+    [ENDING_IMAGE_TWO]   = sEndingImage_Palette_2,
+    [ENDING_IMAGE_THREE] = sEndingImage_Palette_3,
+    [ENDING_IMAGE_FOUR]  = sEndingImage_Palette_4,
+    [ENDING_IMAGE_FIVE]  = sEndingImage_Palette_5,
+    [ENDING_IMAGE_SIX]   = sEndingImage_Palette_6,
+    [ENDING_IMAGE_SEVEN] = sEndingImage_Palette_7
 };
 
 const struct CreditsEntry sCredits[240] = {

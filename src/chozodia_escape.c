@@ -169,7 +169,8 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
 /**
  * @brief 87aec | 11c | Calculates the item count and ending number
  * 
- * @return u32 Result
+ * @return u32 Bits 3-0 is ending image, bits 7-4 is ability tank count, bits 11-8 is power bomb tank count,
+ *             bits 15-12 is super missile tank count, bits 23-16 is missile tank count, bits 31-24 is energy tank count
  */
 u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 {

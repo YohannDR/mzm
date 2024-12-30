@@ -1500,11 +1500,11 @@ void EndingImageInit(void)
 {
     u32 zero;
     u32 endingNumber;
-    u32 part1;
-    u32 part2;
-    u32 part3;
-    u32 part4;
-    u32 part5;
+    u32 energyNbr;
+    u32 missilesNbr;
+    u32 superMissilesNbr;
+    u32 powerBombNbr;
+    u32 abilityCount;
     u32 pen;
     u32 mask;
 
@@ -1526,12 +1526,12 @@ void EndingImageInit(void)
 
     mask = 0xFF;
     // TODO figure out how PEN is structured
-    part1 = pen >> 0x18;
-    part2 = (pen >> 0x10) & mask;
+    energyNbr = pen >> 24;
+    missilesNbr = (pen >> 16) & mask;
 
-    part3 = (pen >> 0xC) & 0xF;
-    part4 = (pen >> 0x8) & 0xF;
-    part5 = (pen >> 0x4) & 0xF;
+    superMissilesNbr = (pen >> 12) & 0xF;
+    powerBombNbr = (pen >> 8) & 0xF;
+    abilityCount = (pen >> 4) & 0xF;
 
     endingNumber = pen & 0xF;
         
@@ -1542,7 +1542,7 @@ void EndingImageInit(void)
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 0x20);
     DMA_SET(3, sEndingImagesPalPointers[endingNumber], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
 
-    ENDING_DATA.completionPercentage = part1 + part2 + part3 + part4 + part5;
+    ENDING_DATA.completionPercentage = energyNbr + missilesNbr + superMissilesNbr + powerBombNbr + abilityCount;
 
     LZ77UncompVRAM(sEndingImageNumbersMiscGfx, VRAM_OBJ);
 

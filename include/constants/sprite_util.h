@@ -1,3 +1,6 @@
+#ifndef SPRITE_UTIL_CONSTANTS_H
+#define SPRITE_UTIL_CONSTANTS_H
+
 #define NSLR_OUT_OF_RANGE 0x0
 #define NSLR_LEFT 0x4
 #define NSLR_RIGHT 0x8
@@ -24,13 +27,17 @@ enum DamageContactType {
 #define DEATH_RESPAWNING 0x1
 #define DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP 0x2
 
-#define SPLASH_NONE 0x0
-#define SPLASH_SMALL 0x1
-#define SPLASH_BIG 0x2
-#define SPLASH_HUGE 0x3
+enum SplashSize {
+    SPLASH_NONE,
+    SPLASH_SMALL,
+    SPLASH_BIG,
+    SPLASH_HUGE,
+};
 
 #define SPRITE_COLLISION_FLAG_NONE      0
 #define SPRITE_COLLISION_FLAG_ON_TOP    (1 << 0)
 #define SPRITE_COLLISION_FLAG_ON_BOTTOM (1 << 1)
 #define SPRITE_COLLISION_FLAG_ON_LEFT   (1 << 2)
 #define SPRITE_COLLISION_FLAG_ON_RIGHT  (1 << 3)
+
+#endif

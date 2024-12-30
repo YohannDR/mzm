@@ -3,7 +3,6 @@
 #include "gba.h"
 
 #include "constants/connection.h"
-#include "constants/menus/pause_screen.h"
 #include "constants/event.h"
 #include "constants/samus.h"
 #include "constants/text.h"
@@ -2798,7 +2797,7 @@ const u16 sMapChunksToUpdate[3] = {
 
 
 
-const struct OamArray sPauseScreenMiscOam[56] = {
+const struct OamArray sPauseScreenMiscOam[MISC_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3025,7 +3024,7 @@ const struct OamArray sPauseScreenMiscOam[56] = {
     }
 };
 
-const struct OamArray sPauseScreenOverlayOam[33] = {
+const struct OamArray sPauseScreenOverlayOam[OVERLAY_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3160,7 +3159,7 @@ const struct OamArray sPauseScreenOverlayOam[33] = {
     }
 };
 
-const struct OamArray sPauseScreenBorderArrowsOam[5] = {
+const struct OamArray sPauseScreenBorderArrowsOam[BORDER_ARROW_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3183,7 +3182,7 @@ const struct OamArray sPauseScreenBorderArrowsOam[5] = {
     }
 };
 
-const struct OamArray sPauseScreenSamusIconOam[3] = {
+const struct OamArray sPauseScreenSamusIconOam[SAMUS_ICON_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3198,7 +3197,7 @@ const struct OamArray sPauseScreenSamusIconOam[3] = {
     }
 };
 
-const struct OamArray sPauseScreenBossIconsOam[5] = {
+const struct OamArray sPauseScreenBossIconsOam[BOSS_ICON_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3221,7 +3220,7 @@ const struct OamArray sPauseScreenBossIconsOam[5] = {
     }
 };
 
-const struct OamArray sPauseScreenTargetsOam[16] = {
+const struct OamArray sPauseScreenTargetsOam[TARGET_OAM_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -3288,7 +3287,7 @@ const struct OamArray sPauseScreenTargetsOam[16] = {
     }
 };
 
-const struct OamArray sPauseScreenWorldMapOam[18] = {
+const struct OamArray sPauseScreenWorldMapOam[WORLD_MAP_OAM_ID_END] = {
     [0] = {
         .pOam = sSamusIconOam_Suit,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

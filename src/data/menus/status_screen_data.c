@@ -6,7 +6,7 @@
 const u16 sStatusScreen_40dd10[6 * 16] = INCBIN_U16("data/menus/PauseScreen/40dd10.pal");
 const u16 sStatusScreen_40ddd0[4 * 16] = INCBIN_U16("data/menus/PauseScreen/40ddd0.pal");
 
-const u8 sStatusScreenGroupsData[13][5] = {
+const u8 sStatusScreenGroupsData[ABILITY_GROUP_END][5] = {
     [ABILITY_GROUP_BEAMS] = {
         4, 10, 0, 7, 0
     },
@@ -192,7 +192,7 @@ const struct StatusScreenItemData sStatusScreenItemsData[18] = {
     }
 };
 
-const struct StatusScreenItemAcquisitionData sStatusScreenItemsAcquisitionData[22] = {
+const struct StatusScreenItemAcquisitionData sStatusScreenItemsAcquisitionData[ITEM_ACQUISITION_END] = {
     [0] = {
         .unk_0 = 0,
         .group = ABILITY_GROUP_BEAMS,
