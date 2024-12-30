@@ -1212,7 +1212,7 @@ menus/PauseScreen/40ddd0.pal;64;0x40ddd0;2
 
 menus/PauseScreen/3fcef0.pal;176;0x3fcef0;2
 menus/PauseScreen/TankIcons.pal;256;0x3fd050;2
-menus/PauseScreen/3fd252.pal;79;0x3fd252;2
+menus/PauseScreen/3fd250.pal;80;0x3fd250;2
 menus/PauseScreen/MinimapAnimated.pal;16;0x3fd2f0;2
 menus/PauseScreen/SamusWireframe.pal;64;0x3fd310;2
 
