@@ -3,10 +3,10 @@
 
 #include "types.h"
 
-extern const u16 sCommonTilesPal[1 * 16 - 1];
-extern const u16 sDoorTransitionPal[15 * 16 + 1];
+extern const u16 sCommonTilesPal[1 * 16];
+extern const u16 sDoorTransitionPal[15 * 16];
 
-extern const u16 sCommonTilesMotherShipPal[1 * 16 - 1];
+extern const u16 sCommonTilesMotherShipPal[1 * 16];
 extern const u16 sDoorTransitionMotherShipPal[15 * 16];
 
 extern const u16 sHatchFlashingMotherShipPal[16 * 16];

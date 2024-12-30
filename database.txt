@@ -597,9 +597,9 @@ common/CommonTiles.gfx;4096;0x5d940c;1
 common/CommonTilesMotherShip.gfx;4096;0x5da40c;1
 common/CommonTilemap.tt;832;0x3655a0;2
 
-common/CommonTiles.pal;15;0x5dfe22;2
-common/DoorTransition.pal;241;0x5dfe40;2
-common/CommonTilesMotherShip.pal;15;0x5e0022;2
+common/CommonTiles.pal;16;0x5dfe20;2
+common/DoorTransition.pal;240;0x5dfe40;2
+common/CommonTilesMotherShip.pal;16;0x5e0020;2
 common/DoorTransitionMotherShip.pal;240;0x5e0040;2
 
 common/HatchFlashingMotherShip.pal;256;0x5e0220;2
@@ -1212,7 +1212,7 @@ menus/PauseScreen/40ddd0.pal;64;0x40ddd0;2
 
 menus/PauseScreen/3fcef0.pal;176;0x3fcef0;2
 menus/PauseScreen/TankIcons.pal;256;0x3fd050;2
-menus/PauseScreen/3fd252.pal;79;0x3fd252;2
+menus/PauseScreen/3fd250.pal;80;0x3fd250;2
 menus/PauseScreen/MinimapAnimated.pal;16;0x3fd2f0;2
 menus/PauseScreen/SamusWireframe.pal;64;0x3fd310;2
 
@@ -3093,7 +3093,7 @@ tilesets/animated_palettes/7.pal;64;0x5df9e0;2
 tilesets/animated_palettes/16.pal;128;0x5dfa60;2
 tilesets/animated_palettes/0.pal;64;0x5dfb60;2
 
-tilesets/animated_palettes/5.pal;65;0x5dfda0;2
+tilesets/animated_palettes/5.pal;64;0x5dfda0;2
 
 tilesets/animated_palettes/2.pal;192;0x62b8b8;2
 tilesets/animated_palettes/3.pal;128;0x62bdb8;2

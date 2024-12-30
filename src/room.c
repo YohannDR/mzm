@@ -201,12 +201,14 @@ void RoomLoadTileset(void)
     if (gUseMotherShipDoors == TRUE)
     {
         DmaTransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
-        DmaTransfer(3, sCommonTilesMotherShipPal, PALRAM_BASE + 2, 0x5E, 0x10);
+        // Don't overwrite first color in PALRAM
+        DmaTransfer(3, sCommonTilesMotherShipPal + 1, PALRAM_BASE + 2, 0x5E, 0x10);
     }
     else
     {
         DmaTransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
-        DmaTransfer(3, sCommonTilesPal, PALRAM_BASE + 2, 0x5E, 0x10);
+        // Don't overwrite first color in PALRAM
+        DmaTransfer(3, sCommonTilesPal + 1, PALRAM_BASE + 2, 0x5E, 0x10);
     }
 
     gTilesetTransparentColor.transparentColor = *entry.pPalette;
