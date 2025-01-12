@@ -70,7 +70,7 @@ extern const struct FrameData sGettingFullyPoweredSuitOam_RingBottom[3];
 extern const struct FrameData sGettingFullyPoweredSuitOam_RingTop[3];
 extern const struct FrameData sGettingFullyPoweredSuitOam_SparkleAroundRing2[9];
 
-const struct OamArray sGettingFullyPoweredSuitCutsceneOam[6] = {
+const struct OamArray sGettingFullyPoweredSuitCutsceneOam[GETTING_FULLY_POWERED_SUIT_OAM_ID_END] = {
     [0] = {
         .pOam = sGettingFullyPoweredSuitOam_SparkleGoingUp,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

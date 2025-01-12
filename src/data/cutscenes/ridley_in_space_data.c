@@ -144,7 +144,7 @@ extern const struct FrameData sRidleyInSpaceOAM_39d7e8[2];
 extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5];
 extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5];
 
-const struct OamArray sRidleyInSpaceCutsceneOAM[11] = {
+const struct OamArray sRidleyInSpaceCutsceneOAM[RIDLEY_IN_SPACE_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleyInSpaceOAM_39d7e8,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
