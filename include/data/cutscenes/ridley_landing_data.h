@@ -5,12 +5,13 @@
 #include "types.h"
 
 #include "structs/cutscene.h"
+#include "cutscenes/ridley_landing.h"
 
 extern const struct CutscenePageData sRidleyLandingPageData[5];
 
 extern const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3];
 
-extern const struct OamArray sRidleyLandingCutsceneOAM[11];
+extern const struct OamArray sRidleyLandingCutsceneOAM[RIDLEY_LANDING_OAM_ID_END];
 
 extern const u16 sCutscene_3a09d4_Pal[9 * 16];
 extern const u16 sCutsceneZebesPal[13 * 16];

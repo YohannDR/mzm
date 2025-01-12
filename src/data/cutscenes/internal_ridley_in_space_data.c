@@ -8,7 +8,7 @@ const struct Coordinates sRidleyInSpaceShipLeavingPosition = {
     .y = BLOCK_SIZE * 6 + HALF_BLOCK_SIZE
 };
 
-const struct Coordinates sRidleyInSpaceShipsStartPosition[3] = {
+const struct Coordinates sRidleyInSpaceShipsStartPosition[RIDLEY_INSPACE_SHIP_SLOT_END] = {
     [RIDLEY_IN_SPACE_LEFT_SHIP_SLOT] = {
         .x = -(BLOCK_SIZE + HALF_BLOCK_SIZE),
         .y = BLOCK_SIZE * 10 - PIXEL_SIZE * 2

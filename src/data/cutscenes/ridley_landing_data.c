@@ -99,7 +99,7 @@ const struct FrameData sRidleyLandingOAM_Ridley[2] = {
     0
 };
 
-const struct OamArray sRidleyLandingCutsceneOAM[11] = {
+const struct OamArray sRidleyLandingCutsceneOAM[RIDLEY_LANDING_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleyLandingOAM_ShipInSpace,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

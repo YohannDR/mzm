@@ -5,6 +5,7 @@
 #include "types.h"
 
 #include "structs/cutscene.h"
+#include "cutscenes/ridley_in_space.h"
 
 extern const struct CutsceneScrollingInfo sRidleyInSpaceScrollingInfo[2];
 extern const struct CutscenePageData sRidleyInSpacePageData[6];
@@ -12,7 +13,7 @@ extern const struct CutscenePaletteData sRidleyInSpacePaletteData;
 
 extern const u8 sRidleyInSpaceRedAlertPaletteRows[10];
 
-extern const struct OamArray sRidleyInSpaceCutsceneOAM[11];
+extern const struct OamArray sRidleyInSpaceCutsceneOAM[RIDLEY_IN_SPACE_OAM_ID_END];
 
 extern const u32 sRidleyInSpaceShipsGfx[1565];
 extern const u32 sRidleyInSpaceRidleySittingGfx[3848];

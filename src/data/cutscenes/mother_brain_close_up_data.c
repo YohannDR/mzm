@@ -72,7 +72,7 @@ extern const struct FrameData sMotherBrainCloseUpOam_EyeOpening[11];
 extern const struct FrameData sMotherBrainCloseUpOam_EyeOpened[4];
 extern const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4];
 
-const struct OamArray sMotherBrainCloseUpCutsceneOam[7] = {
+const struct OamArray sMotherBrainCloseUpCutsceneOam[MOTHER_BRAIN_CLOSE_UP_OAM_ID_END] = {
     [0] = {
         .pOam = sMotherBrainCloseUpOam_Bubble,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

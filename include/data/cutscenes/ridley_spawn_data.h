@@ -5,9 +5,10 @@
 #include "types.h"
 
 #include "structs/cutscene.h"
+#include "cutscenes/ridley_spawn.h"
 
 extern const struct CutscenePageData sRidleySpawnPageData[4];
-extern const struct OamArray sRidleySpawnOam[5];
+extern const struct OamArray sRidleySpawnOam[RIDLEY_SPAWN_OAM_ID_END];
 
 extern const struct FrameData sRidleySpawnOAM_Samus[2];
 

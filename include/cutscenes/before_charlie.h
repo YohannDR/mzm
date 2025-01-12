@@ -7,7 +7,7 @@
 
 #include "data/cutscenes/before_charlie_data.h"
 
-struct BeforeCharieEwramData {
+struct BeforeCharlieEwramData {
     u16 wallPal[ARRAY_SIZE(sBeforeCharlieChozoWallPal)];
 
     u8 padding_100[0x300];

@@ -4,6 +4,7 @@
 #include "macros.h"
 #include "types.h"
 
+#include "cutscenes/kraid_rising.h"
 #include "structs/cutscene.h"
 
 extern const struct CutscenePageData sKraidRisingPagesData[4];
@@ -12,7 +13,7 @@ extern const struct CutsceneScreenShakeInfo sKraidRisingScreenShakeData;
 
 extern const struct CutsceneScrollingInfo sKraidRisingScrollingInfo;
 
-extern const struct OamArray sKraidRisingCutsceneOam[5];
+extern const struct OamArray sKraidRisingCutsceneOam[KRAID_RISING_OAM_ID_END];
 
 extern const u16 sKraidRisingOam_Samus_Frame0[4];
 
