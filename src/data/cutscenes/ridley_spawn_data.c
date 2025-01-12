@@ -59,7 +59,7 @@ const struct FrameData sRidleySpawnOAM_RidleyScreaming[2] = {
     0
 };
 
-const struct OamArray sRidleySpawnOam[5] = {
+const struct OamArray sRidleySpawnOam[RIDLEY_SPAWN_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleySpawnOAM_RidleyFlyingReflection,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

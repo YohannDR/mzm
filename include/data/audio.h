@@ -1,6 +1,7 @@
 #ifndef AUDIO_DATA_H
 #define AUDIO_DATA_H
 
+#include "constants/audio.h"
 #include "structs/audio.h"
 
 extern const u16 sUnk_808cad0[128];
@@ -23,6 +24,6 @@ extern const MusicFunc_T sMusicCommandFunctionPointers[30];
 
 extern const struct TrackGroupROMData sMusicTrackDataRom[9];
 
-extern const struct SoundEntry sSoundDataEntries[708];
+extern const struct SoundEntry sSoundDataEntries[SOUND_END];
 
 #endif /* AUDIO_DATA_H */

@@ -39,7 +39,7 @@ union EwramData {
     struct PauseScreenEwramData pauseScreen;
     struct FileSelectEwramData fileSelect;
     struct KraidRisingEwramData kraidRising;
-    struct BeforeCharieEwramData beforeCharlie;
+    struct BeforeCharlieEwramData beforeCharlie;
 };
 
 extern u16 unk_02035400;

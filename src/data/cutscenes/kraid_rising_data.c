@@ -47,7 +47,7 @@ const struct CutsceneScrollingInfo sKraidRisingScrollingInfo = {
     .maxDelay = 8
 };
 
-const struct OamArray sKraidRisingCutsceneOam[5] = {
+const struct OamArray sKraidRisingCutsceneOam[KRAID_RISING_OAM_ID_END] = {
     [0] = {
         .pOam = sKraidRisingOam_Samus,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
