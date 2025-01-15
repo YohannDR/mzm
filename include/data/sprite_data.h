@@ -2,6 +2,7 @@
 #define SPRITE_DATA_H
 
 #include "types.h"
+#include "constants/sprite.h"
 
 // 2b0c94
 
@@ -33,7 +34,7 @@ extern const s16 sWorkerRobotSleepingFallingSpeed[10];
  * 7 : Super missile drop probability
  * 8 : Power bomb drop probability
  */
-extern const u16 sPrimarySpriteStats[206][9];
+extern const u16 sPrimarySpriteStats[PSPRITE_END][9];
 
 /**
  * @brief Stats of the secondary sprites
@@ -47,7 +48,7 @@ extern const u16 sPrimarySpriteStats[206][9];
  * 7 : Super missile drop probability
  * 8 : Power bomb drop probability
  */
-extern const u16 sSecondarySpriteStats[77][9];
+extern const u16 sSecondarySpriteStats[SSPRITE_END][9];
 
 
 

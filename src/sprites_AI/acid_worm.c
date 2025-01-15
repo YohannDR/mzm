@@ -214,16 +214,16 @@ void AcidWormChangeBigBlockTopCcaa(u8 caa)
 
     yPosition -= BLOCK_SIZE * 2;
 
-    SpriteDebrisInit(0, 17, yPosition - (BLOCK_SIZE + ONE_SUB_PIXEL * 2), xPosition - HALF_BLOCK_SIZE);
-    SpriteDebrisInit(0, 18, yPosition, xPosition - (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE));
+    SpriteDebrisInit(0, 0x11, yPosition - (BLOCK_SIZE + ONE_SUB_PIXEL * 2), xPosition - HALF_BLOCK_SIZE);
+    SpriteDebrisInit(0, 0x12, yPosition, xPosition - (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE));
 
-    SpriteDebrisInit(0, 19, yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE - PIXEL_SIZE), xPosition - (BLOCK_SIZE - ONE_SUB_PIXEL * 2));
+    SpriteDebrisInit(0, 0x13, yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE - PIXEL_SIZE), xPosition - (BLOCK_SIZE - ONE_SUB_PIXEL * 2));
     SpriteDebrisInit(0, 4, yPosition, xPosition - HALF_BLOCK_SIZE);
 
-    SpriteDebrisInit(0, 17, yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL * 2));
-    SpriteDebrisInit(0, 18, yPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE), xPosition + HALF_BLOCK_SIZE);
+    SpriteDebrisInit(0, 0x11, yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE + ONE_SUB_PIXEL * 2));
+    SpriteDebrisInit(0, 0x12, yPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE), xPosition + HALF_BLOCK_SIZE);
 
-    SpriteDebrisInit(0, 19, yPosition, xPosition + (BLOCK_SIZE + PIXEL_SIZE * 2));
+    SpriteDebrisInit(0, 0x13, yPosition, xPosition + (BLOCK_SIZE + PIXEL_SIZE * 2));
     SpriteDebrisInit(0, 4, yPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3 - PIXEL_SIZE), xPosition + (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE));
 }
 

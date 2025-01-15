@@ -5,6 +5,7 @@
 #include "oam.h"
 
 #define MAX_AMOUNT_OF_SPRITE_DEBRIS 8
+#define SPRITE_DEBRIS_BOUNCING 0x80
 
 struct SpriteDebris {
     const struct FrameData* pOam;
