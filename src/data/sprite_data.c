@@ -62,7 +62,7 @@ const s16 sWorkerRobotSleepingFallingSpeed[10] = {
  * 7 : Super missile drop probability
  * 8 : Power bomb drop probability
  */
-const u16 sPrimarySpriteStats[206][9] = {
+const u16 sPrimarySpriteStats[PSPRITE_END][9] = {
     [PSPRITE_UNUSED0] = {
         0,
         0,
@@ -2343,7 +2343,7 @@ const u16 sPrimarySpriteStats[206][9] = {
  * 7 : Super missile drop probability
  * 8 : Power bomb drop probability
  */
-const u16 sSecondarySpriteStats[77][9] = {
+const u16 sSecondarySpriteStats[SSPRITE_END][9] = {
     [SSPRITE_CHOZO_BALL] = {
         1,
         0,
