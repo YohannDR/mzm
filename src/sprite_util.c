@@ -953,7 +953,7 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
 }
 
 /**
- * @brief f47c | 118 | Checks the vertical collision at the position, accouts for slopes
+ * @brief f47c | 118 | Checks the vertical collision at the position, accounts for slopes
  * 
  * @param yPosition Y Position
  * @param xPosition X Position
