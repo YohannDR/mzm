@@ -781,7 +781,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
 
             // Queue brinstar and play loading jingle
             PlayMusic(MUSIC_BRINSTAR, 0);
-            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, 1);
+            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
 
             // Set samus to facing foreground
             SamusSetPose(SPOSE_FACING_THE_FOREGROUND);

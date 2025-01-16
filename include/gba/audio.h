@@ -21,11 +21,12 @@
 #define REG_SOUNDCNT_H (REG_BASE + 0x82)
 
 #define REG_SOUNDCNT_X (REG_BASE + 0x84)
-#define REG_SOUNDBIAS (REG_BASE + 0x88)
+#define REG_SOUNDBIAS  (REG_BASE + 0x88)
 
 #define REG_FIFO_A (REG_BASE + 0xA0)
 #define REG_FIFO_B (REG_BASE + 0xA4)
 
+#define SOUNDCNT_ENVELOPE_INCREASE (1 << 11)
 #define SOUNDCNT_RESTART_SOUND (1 << 15)
 
 #endif /* GBA_AUDIO_H */
