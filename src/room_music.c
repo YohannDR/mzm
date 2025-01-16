@@ -72,7 +72,7 @@ void CheckPlayLoadingJingle(void)
         if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
         {
             gDisablePause = TRUE;
-            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, 1);
+            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
         }
     }
 }

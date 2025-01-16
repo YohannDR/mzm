@@ -43,23 +43,25 @@ const u8 sUnk_808cc4d[19] = {
 
 
 const u32 sNativeSampleRate[13] = {
-    0x0, 0x1666, 0x1ECC, 0x2910,
-    0x3443, 0x3D98, 0x46ED, 0x5220,
-    0x6886, 0x7B30, 0x8DDA, 0x9CC9, 0xA440
+    0x0,
+    SAMPLES_PER_SECOND(96), SAMPLES_PER_SECOND(132), SAMPLES_PER_SECOND(176),
+    SAMPLES_PER_SECOND(224), SAMPLES_PER_SECOND(264), SAMPLES_PER_SECOND(304),
+    SAMPLES_PER_SECOND(352), SAMPLES_PER_SECOND(448), SAMPLES_PER_SECOND(528),
+    SAMPLES_PER_SECOND(608), SAMPLES_PER_SECOND(672), SAMPLES_PER_SECOND(704)
 };
 
 const u32 sMusicPitchData[13] = {
-    0x0, 0xB6DEB, 0x85002, 0x63C01,
-    0x4E5FF, 0x42801, 0x39C02, 0x31E00,
-    0x272FF, 0x21400, 0x1CE01, 0x1A1FF,
-    0x18F00
+    0x0,
+    0xB6DEB, 0x85002, 0x63C01, 0x4E5FF, 0x42801, 0x39C02,
+    0x31E00, 0x272FF, 0x21400, 0x1CE01, 0x1A1FF, 0x18F00
 };
 
-const u16 sAudio_8ccc8[13] = {
-    0x0, 0x60, 0x84, 0xB0,
-    0xE0, 0x108, 0x130, 0x160,
-    0x1C0, 0x210, 0x260, 0x2A0,
-    0x2C0
+const u16 sSamplesPerFrame[13] = {
+    0,             // unk1          // unk2
+    96, 132, 176,  // 6, 8.25, 11   // 16.00, 11.6363, 8.7272
+    224, 264, 304, // 14, 16.5, 19  // 6.8571, 5.8181, 5.0526
+    352, 448, 528, // 22, 28, 33    // 4.3636, 3.4286, 2.9090
+    608, 672, 704, // 38, 42, 44    // 2.5263, 2.2857, 2.1818
 };
 
 const u8 sArray_808cce2[512] = {

@@ -2811,7 +2811,7 @@ u8 OptionsNesMetroidSubroutine(void)
 
         case 2:
             // Sound stuff
-            unk_33dc();
+            RestartSound();
 
             // Start screen fade
             FILE_SELECT_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |

@@ -23,17 +23,17 @@ void InitializeAudio(void)
     gMusicInfo.occupied = TRUE;
 
     write16(REG_IE, read16(REG_IE) | IF_DMA2);
-    write8(REG_SOUNDCNT_X, 0x80);
-    write16(REG_SOUNDCNT_H, 0xA90E);
+    write8(REG_SOUNDCNT_X, 0x80); // Enable PSG and FIFO
+    write16(REG_SOUNDCNT_H, 0xA90E); // 100% volume, reset and enable/disable DMA sound A right/left and DMA sound B left/right
 
     write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | 0x40);
 
-    write8(REG_BASE + 0x63, 0x8);
-    write8(REG_BASE + 0x65, 0x80);
-    write8(REG_BASE + 0x69, 0x8);
-    write8(REG_BASE + 0x6D, 0x80);
-    write8(REG_BASE + 0x79, 0x8);
-    write8(REG_BASE + 0x7D, 0x80);
+    write8(REG_SOUND1CNT_H + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND1CNT_X + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
+    write8(REG_SOUND2CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND2CNT_H + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
+    write8(REG_SOUND4CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND4CNT_H + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
 
     write8(REG_SOUND3CNT_L, 0x0);
     write8(REG_SOUNDCNT_L, 0x77);
@@ -52,7 +52,7 @@ void InitializeAudio(void)
 
     gMusicInfo.unk_9 = (u8)gUnk_Audio0x64;
 
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < ARRAY_SIZE(gPsgSounds); i++)
     {
         zero = 0;
         DMA_SET(3, &zero, &gPsgSounds[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct PSGSoundData) / 2);
@@ -126,26 +126,33 @@ void DoSoundAction(u32 action)
 
     if (action & 0xF0000)
     {
+        // unk7 is an index
         gMusicInfo.unk_7 = (action & 0xF0000) >> 0x10;
         if (gMusicInfo.unk_7 != 0)
             SetupSoundTransfer();
     }
 
+    // Set PWM amplitude control
     if (action & 0xF00000)
     {
+        // Set amplitude resolution/sampling cycle to bits 28-29 of action
         write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & 0xF00000) >> 0xE);
     }
 
     control = action & 0xF000000;
     if (control)
     {
+        // Enable stereo
         if (control == 0x2000000)
         {
+            // Set sound volume to 50%, disable DMA sound A left and sound B right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & 0xE10D);
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x1);
         }
+        // Disable stereo
         else if (control == 0x1000000)
         {
+            // Set sound volume to 100% and enable DMA sound A/B left/right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & ~0x1);
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x3302);
         }
@@ -161,7 +168,7 @@ void DoSoundAction(u32 action)
 void SetupSoundTransfer(void)
 {
     u32 buffer;
-    u16 unk_0;
+    u16 samplesPerFrame;
     u16 unk_1;
     u32 unk_2;
 
@@ -176,10 +183,10 @@ void SetupSoundTransfer(void)
     gMusicInfo.maybe_frequency = sNativeSampleRate[gMusicInfo.unk_7];
     gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unk_7];
 
-    unk_0 = sAudio_8ccc8[gMusicInfo.unk_7];
-    gMusicInfo.unk_14 = unk_0;
+    samplesPerFrame = sSamplesPerFrame[gMusicInfo.unk_7];
+    gMusicInfo.unk_14 = samplesPerFrame;
 
-    unk_1 = unk_0 / 16;
+    unk_1 = samplesPerFrame / 16;
     gMusicInfo.unk_C = unk_1;
     unk_2 = 0x60 / gMusicInfo.unk_C;
     gMusicInfo.unk_D = unk_2;
@@ -187,8 +194,9 @@ void SetupSoundTransfer(void)
     gMusicInfo.sampleRate = gMusicInfo.unk_E - 1;
     gMusicInfo.unk_11 = unk_1 * 2;
 
+    // First half of raw sound data goes into FIFO A, second half into FIF0 B
     write32(REG_DMA1_SRC, (u32)&gMusicInfo.soundRawData[0]);
-    write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[1536]);
+    write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[sizeof(gMusicInfo.soundRawData) / 2]);
 
     write32(REG_DMA1_DST, (u32)REG_FIFO_A);
     write32(REG_DMA2_DST, (u32)REG_FIFO_B);
@@ -197,12 +205,13 @@ void SetupSoundTransfer(void)
     write16(REG_DMA2_CNT + 2, DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_HBLANK | DMA_START_VBLANK | DMA_32BIT | DMA_REPEAT);
 
     write16(REG_TM0CNT_H, 0);
-    write16(REG_TM0CNT_L, -(0x44940 / unk_0));
+    write16(REG_TM0CNT_L, -(FRAME_DRAW_CYCLES / samplesPerFrame)); // cycle time to play each sample
 
-    while (read8(REG_VCOUNT) == 0x9F) {}
-    while (read8(REG_VCOUNT) != 0x9F) {}
+    // Wait for VBLANK
+    while (read8(REG_VCOUNT) == (SCREEN_SIZE_Y - 1)) {}
+    while (read8(REG_VCOUNT) != (SCREEN_SIZE_Y - 1)) {}
 
-    write16(REG_TM0CNT_H, 0x80);
+    write16(REG_TM0CNT_H, 0x80); // start timer 0
 }
 
 /**

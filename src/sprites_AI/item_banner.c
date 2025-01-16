@@ -153,21 +153,21 @@ void ItemBannerPopUp(void)
 
                 // Play item jingle
                 if (msg == MESSAGE_UKNOWN_ITEM_PLASMA || msg == MESSAGE_UNKNOWN_ITEM_GRAVITY || msg == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP)
-                    InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, 0); // Unknown item
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, FALSE); // Unknown item
                 else
-                    InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0); // Normal item
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, FALSE); // Normal item
             }
             else if (msg == MESSAGE_FIRST_MISSILE_TANK || msg == MESSAGE_FIRST_SUPER_MISSILE_TANK || msg == MESSAGE_FIRST_POWER_BOMB_TANK)
             {
                 // New tank
                 gCurrentSprite.work2 = TRUE;
                 BackupTrackData2SoundChannels();
-                InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, FALSE);
             }
             else if (msg == MESSAGE_FULLY_POWERED_SUIT)
             {
                 PlayMusic(MUSIC_BRINSTAR_REMIX, 0);
-                InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, 0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, FALSE);
             }
             else if (msg != MESSAGE_SAVE_PROMPT)
             {
