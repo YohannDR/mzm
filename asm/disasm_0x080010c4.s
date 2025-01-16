@@ -3475,7 +3475,7 @@ lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
 lbl_080029f4: .4byte sNativeSampleRate
 lbl_080029f8: .4byte sMusicPitchData
-lbl_080029fc: .4byte sAudio_8ccc8
+lbl_080029fc: .4byte sSamplesPerFrame
 lbl_08002a00: .4byte 0x040000bc
 lbl_08002a04: .4byte 0x040000c0
 lbl_08002a08: .4byte 0x04000102

@@ -35,7 +35,7 @@ u8 CableLinkProcess(void)
             gIoTransferInfo.timer++;
             if (gIoTransferInfo.timer > 30)
             {
-                unk_3458();
+                ClearSoundData();
                 gIoTransferInfo.musicTrack = gMusicInfo.musicTrack;
                 gIoTransferInfo.musicPriority = gMusicInfo.priority;
                 gIoTransferInfo.timer = 0;

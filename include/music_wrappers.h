@@ -4,8 +4,8 @@
 #include "structs/audio.h"
 
 void DMA2IntrCode(void);
-void unk_33dc(void);
-void unk_3458(void);
+void RestartSound(void);
+void ClearSoundData(void);
 void unk_34ac(u8 param_1);
 void unk_35d0(u8 param_1);
 void CheckSetNewMusicTrack(u16 musicTrack);
@@ -23,7 +23,7 @@ void FadeCurrentMusicAndQueueNextMusic(u16 timer, u16 musicTrack, u8 priority);
 void FadeCurrentInsertMusicQueueCurrent(u16 timer, u16 musicTrack, u8 priority);
 void unk_3bd0(u16 musicTrack, u16 timer);
 void CheckPlayFadingMusic(u16 musicTrack, u16 timer, u8 priority);
-void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2);
+void InsertMusicAndQueueCurrent(u16 musicTrack, u8 isNotInterrupting);
 void ReplayQueuedMusic(u8 queueFlags);
 void unk_3e24(u16 timer);
 void UpdateMusicPriority(u8 priority);

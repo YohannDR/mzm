@@ -107,7 +107,7 @@ u32 EraseSramSubroutine(void)
             break;
 
         case 7:
-            unk_33dc();
+            RestartSound();
             EraseSram();
             leaving = TRUE;
     }
