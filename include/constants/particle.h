@@ -75,6 +75,6 @@ enum ParticleEffectId {
 #define PARTICLE_STATUS_LIVE_OFF_SCREEN    (1 << 4)
 #define PARTICLE_STATUS_LOW_PRIORITY       (1 << 5)
 #define PARTICLE_STATUS_ABSOLUTE_POSITION  (1 << 6)
-#define PARTICLE_STATUS_X_FLIP              (1 << 7)
+#define PARTICLE_STATUS_X_FLIP             (1 << 7)
 
 #endif /* PARTICLE_CONSTANTS_H */

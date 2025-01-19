@@ -8,10 +8,11 @@
 #include "connection.h"
 
 #include "constants/game_state.h"
+#include "constants/menus/pause_screen.h"
 
 extern const u16 sPauseScreen_3fcef0[11 * 16];
 extern const u16 sTankIconsPal[16 * 16];
-extern const u16 sPauseScreen_3fd252[5 * 16 - 1];
+extern const u16 sPauseScreen_3fd250[5 * 16];
 
 extern const u16 sMinimapAnimatedPalette[1 * 16];
 extern const u16 sSamusWireframePal[4 * 16];
@@ -96,13 +97,13 @@ extern const u16 sWorldMapTargetPositions[16][2];
 extern const u8 sBossIcons[MAX_AMOUNT_OF_AREAS - 1][5];
 extern const u16 sMapChunksToUpdate[3];
 
-extern const struct OamArray sPauseScreenMiscOam[56];
-extern const struct OamArray sPauseScreenOverlayOam[33];
-extern const struct OamArray sPauseScreenBorderArrowsOam[5];
-extern const struct OamArray sPauseScreenSamusIconOam[3];
-extern const struct OamArray sPauseScreenBossIconsOam[5];
-extern const struct OamArray sPauseScreenTargetsOam[16];
-extern const struct OamArray sPauseScreenWorldMapOam[18];
+extern const struct OamArray sPauseScreenMiscOam[MISC_OAM_ID_END];
+extern const struct OamArray sPauseScreenOverlayOam[OVERLAY_OAM_ID_END];
+extern const struct OamArray sPauseScreenBorderArrowsOam[BORDER_ARROW_OAM_ID_END];
+extern const struct OamArray sPauseScreenSamusIconOam[SAMUS_ICON_OAM_ID_END];
+extern const struct OamArray sPauseScreenBossIconsOam[BOSS_ICON_OAM_ID_END];
+extern const struct OamArray sPauseScreenTargetsOam[TARGET_OAM_END];
+extern const struct OamArray sPauseScreenWorldMapOam[WORLD_MAP_OAM_ID_END];
 
 extern const u8 sMaintainedInputDelays[8];
 

@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+#include "constants/block.h"
 #include "constants/clipdata.h"
 #include "constants/connection.h"
 #include "constants/game_state.h"
@@ -16,15 +17,15 @@ extern const struct TankList sStartingHealthAmmo;
 
 extern const struct TankList sTankIncreaseAmount[DIFF_END];
 
-extern const u16 sClipdataAffectingActionDamageTypes[MAX_AMOUNT_OF_CAA];
+extern const u16 sClipdataAffectingActionDamageTypes[CAA_COUNT];
 
 extern const struct BlockBehavior sBlockBehaviors[MAX_AMOUNT_OF_BLOCKS];
 
-extern const u16 sBlockWeaknesses[MAX_AMOUNT_OF_BLOCKS_TYPES];
+extern const u16 sBlockWeaknesses[BLOCK_TYPE_COUNT];
 
-extern const u16 sReformingBlocksTilemapValue[MAX_AMOUNT_OF_BLOCKS_TYPES];
+extern const u16 sReformingBlocksTilemapValue[BLOCK_TYPE_COUNT];
 
-extern const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13];
+extern const u8 sBrokenBlocksTimers[BLOCK_TYPE_COUNT][13];
 
 extern const struct BombChainReverseData sBombChainReverseData[8];
 

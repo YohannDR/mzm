@@ -2,7 +2,6 @@
 #include "macros.h"
 
 #include "constants/clipdata.h"
-#include "constants/room.h"
 
 const u16 sMovementClipdataValues[16] = {
     [CLIP_BEHAVIOR_NONE] = CLIPDATA_MOVEMENT_NONE,
@@ -17,7 +16,7 @@ const u16 sMovementClipdataValues[16] = {
     [CLIP_BEHAVIOR_SPACE_PIRATE_WALLJUMP_POINT] = CLIPDATA_MOVEMENT_SPACE_PIRATE_WALLJUMP_POINT
 };
 
-const u16 sHazardsDefinitions[8][2] = {
+const u16 sHazardsDefinitions[EFFECT_HAZARD_END][2] = {
     [EFFECT_NONE] = { HAZARD_TYPE_NONE, HAZARD_TYPE_NONE },
     [EFFECT_WATER] = { HAZARD_TYPE_NONE, HAZARD_TYPE_WATER },
     [EFFECT_STRONG_LAVA] = { HAZARD_TYPE_NONE, HAZARD_TYPE_STRONG_LAVA },
@@ -153,7 +152,7 @@ const u8 sScroll_Empty[11] = {
     UCHAR_MAX
 };
 
-const struct CameraScrollVelocityCaps sScrollVelocityCaps[3] = {
+const struct CameraScrollVelocityCaps sScrollVelocityCaps[SCROLL_VELOCITY_CAP_END] = {
     [SCROLL_VELOCITY_CAP_SET_DEFAULT] = {
         .leftCap = -EIGHTH_BLOCK_SIZE,
         .rightCap = EIGHTH_BLOCK_SIZE,

@@ -3,10 +3,12 @@
 
 #include "types.h"
 
-#define FADING_TYPE_IN 0
-#define FADING_TYPE_FLASH 1
-#define FADING_TYPE_OUT 2
-#define FADING_TYPE_UNK 3
+enum FadingType {
+    FADING_TYPE_IN,
+    FADING_TYPE_FLASH,
+    FADING_TYPE_OUT,
+    FADING_TYPE_UNK,
+};
 
 // Functions
 

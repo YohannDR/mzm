@@ -30,19 +30,19 @@ extern const u16 sEndingPosingPal_White4[5 * 16];
 
 extern const u16 sUnlockedOptionsPal[1 * 16];
 
-extern const struct EndingImageOam sEndingImageOam_FullLines_English[6];
+extern const struct EndingImageOam sEndingImageOam_FullLines_English[ENDING_IMAGE_LINE_END];
 extern const struct EndingImageOam sEndingImageOam_ClearTime_English[9];
 extern const struct EndingImageOam sEndingImageOam_YourRate_English[11];
 extern const struct EndingImageOam sEndingImageOam_Collecting_English[17];
-extern const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[6];
+extern const struct EndingImageOam sEndingImageOam_FullLines_Hiragana[ENDING_IMAGE_LINE_END];
 extern const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6];
 extern const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[11];
 
-extern const u32* const sEndingImagesTopGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesBottomGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesTopTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
+extern const u32* const sEndingImagesTopGfxPointers[ENDING_IMAGE_COUNT];
+extern const u32* const sEndingImagesBottomGfxPointers[ENDING_IMAGE_COUNT];
+extern const u32* const sEndingImagesTopTileTablePointers[ENDING_IMAGE_COUNT];
+extern const u32* const sEndingImagesHalfTileTablePointers[ENDING_IMAGE_COUNT];
+extern const u16* const sEndingImagesPalPointers[ENDING_IMAGE_COUNT];
 
 extern const struct CreditsEntry sCredits[240];
 

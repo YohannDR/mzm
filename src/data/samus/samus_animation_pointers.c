@@ -575,7 +575,7 @@ const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_UsingAnEleva
     }
 };
 
-const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Shinesparking[3][2] = {
+const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2] = {
     [FORCED_MOVEMENT_UPWARDS_SHINESPARK] = {
         sSamusAnim_PowerSuit_Right_Shinesparking,
         sSamusAnim_PowerSuit_Left_Shinesparking
@@ -1204,7 +1204,7 @@ const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_UsingAnEl
     }
 };
 
-const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shinesparking[3][2] = {
+const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2] = {
     [FORCED_MOVEMENT_UPWARDS_SHINESPARK] = {
         sArmCannonAnim_Suit_Right_Shinesparking,
         sArmCannonAnim_Suit_Left_Shinesparking
@@ -2054,7 +2054,7 @@ const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_UsingAnElevat
     }
 };
 
-const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Shinesparking[3][2] = {
+const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2] = {
     [FORCED_MOVEMENT_UPWARDS_SHINESPARK] = {
         sSamusAnim_FullSuit_Right_Shinesparking,
         sSamusAnim_FullSuit_Left_Shinesparking
@@ -3596,7 +3596,7 @@ const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Speedboost
     }
 };
 
-const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Shinesparking[3][2] = {
+const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Shinesparking[FORCED_MOVEMENT_SHINESPARK_END][2] = {
     [FORCED_MOVEMENT_UPWARDS_SHINESPARK] = {
         sSamusEffectAnim_Up_Shinesparking,
         sSamusEffectAnim_Up_Shinesparking
@@ -3611,7 +3611,7 @@ const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Shinespark
     }
 };
 
-const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparking[3][2] = {
+const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparking[FORCED_MOVEMENT_SHINESPARK_END][2] = {
     [FORCED_MOVEMENT_UPWARDS_SHINESPARK] = {
         sSamusEffectAnim_Up_Ballsparking,
         sSamusEffectAnim_Up_Ballsparking
@@ -3627,7 +3627,7 @@ const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparki
 };
 
 
-const s16 sSamusDrawDistanceOffsets[4][4] = {
+const s16 sSamusDrawDistanceOffsets[SAMUS_HITBOX_TYPE_END][4] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
         -28, -124, 28, 0
     },
@@ -3642,7 +3642,7 @@ const s16 sSamusDrawDistanceOffsets[4][4] = {
     }
 };
 
-const s16 sSamusHitboxData[3][3] = {
+const s16 sSamusHitboxData[SAMUS_HITBOX_TYPE_NORMAL_END][SAMUS_HITBOX_END] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
         [SAMUS_HITBOX_LEFT] = -(HALF_BLOCK_SIZE - PIXEL_SIZE),
         [SAMUS_HITBOX_RIGHT] = (HALF_BLOCK_SIZE - PIXEL_SIZE),
@@ -3660,7 +3660,7 @@ const s16 sSamusHitboxData[3][3] = {
     }
 };
 
-const s16 sSamusHitboxData_Above[3] = {
+const s16 sSamusHitboxData_Above[SAMUS_HITBOX_END] = {
     [SAMUS_HITBOX_LEFT] = -(EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2),
     [SAMUS_HITBOX_RIGHT] = (EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2),
     [SAMUS_HITBOX_TOP] = 0

@@ -11,11 +11,10 @@
 #include "data/tilesets/tilesets_set6.h"
 #include "data/tilesets/tilesets_set7.h"
 
-#include "constants/animated_graphics.h"
 #include "constants/audio.h"
 
 
-const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
+const struct AnimatedGraphicsData sAnimatedGraphicsEntries[ANIMATED_GFX_ID_END] = {
     [ANIMATED_GFX_ID_CRYSTAL] = {
         .type = ANIMATED_GFX_TYPE_NONE,
         .framesPerState = 0,
@@ -247,7 +246,7 @@ const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
 };
 
 #define GFX_ANIM_TO_3BYTES(n) n, 0, 0
-const u8 sAnimatedTilesetEntries[8][48] = {
+const u8 sAnimatedTilesetEntries[8][3*2*8] = {
     [0] = {
         GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
         GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
@@ -335,7 +334,7 @@ const struct AnimatedPaletteTiming sAnimatedPaletteTiming_Empty = {
     .row = 0
 };
 
-const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
+const struct AnimatedPaletteData sAnimatedPaletteEntries[ANIMATED_PALETTE_ID_END] = {
     [0] = {
         .type = ANIMATED_PALETTE_TYPE_NONE,
         .framesPerState = 0,
@@ -447,8 +446,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
 };
 
 
-const struct BackgroundEffectColorData sBackgroundEffectColorData[9] = {
-    [0] = {
+const struct BackgroundEffectColorData sBackgroundEffectColorData[BACKGROUND_EFFECT_END] = {
+    [BACKGROUND_EFFECT_NONE] = {
         .colorMask = COLOR_WHITE,
         .color_1 = BACKGROUND_EFFECT_NO_COLOR,
         .color_2 = BACKGROUND_EFFECT_NO_COLOR,

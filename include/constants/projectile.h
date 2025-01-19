@@ -64,7 +64,7 @@ enum ProjectileType {
 #define CHARGED_ICE_BEAM_DAMAGE 12 // Ice (Charged)
 #define CHARGED_ICE_LONG_BEAM_DAMAGE 16 // Ice | Long (Charged)
 
-// Wave beam damage
+// Wave beam
 
 #define WAVE_BEAM_DAMAGE 3 // Wave
 #define WAVE_LONG_BEAM_DAMAGE 4 // Wave | Long
