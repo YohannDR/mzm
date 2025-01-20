@@ -233,7 +233,7 @@ void RisingChozoPillar(void)
 
         case RISING_CHOZO_PILLAR_POSE_EXTENDING:
             if (MOD_AND(gCurrentSprite.scaling, 32) == 0)
-                ScreenShakeStartVertical(30, 0x80 | 1);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
             gCurrentSprite.scaling--;
             if (gCurrentSprite.scaling != 0)

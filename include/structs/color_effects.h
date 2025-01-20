@@ -13,22 +13,22 @@ typedef u8 (*ColorFadingUnkFunc_T)(void);
 struct ColorFading {
     u8 type;
     u8 stage;
-    u8 timer;
+    u8 fadeTimer;
     u8 unk_3;
     u8 status;
     u8 useSecondColorSet;
-    u16 unk_6;
+    u16 subroutineTimer;
 };
 
 struct ColorFadingData {
     u8 isWhite;
-    ColorFadingUnkFunc_T unk_4;
+    ColorFadingUnkFunc_T pUpdateSubroutine;
     u8 firstColorSet;
-    ColorFadingUnkFunc_T unk_C;
+    ColorFadingUnkFunc_T pProcessSubroutine;
     u8 secondColorSet;
     u16 bgColorMask;
     u16 objColorMask;
-    u8 unk_16;
+    u8 pFadeSubroutine;
 };
 
 struct ColorFadingColorInfo {

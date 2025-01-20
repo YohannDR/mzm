@@ -805,7 +805,7 @@ void ImagoChargeThroughWall(void)
 
     if (SpriteUtilGetCollisionAtPosition(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition - BLOCK_SIZE * 3) != COLLISION_AIR)
     {
-        ScreenShakeStartHorizontal(0x1E, 0x81);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(.5f), 0x80 | 1);
         gCurrentSprite.pose = IMAGO_POSE_DESTROY_WALL;
         gCurrentSprite.work0 = 0;
 
@@ -973,8 +973,8 @@ void ImagoDestroyWall(void)
             // Reached indestructible wall
             gCurrentSprite.pose = IMAGO_POSE_DYING;
             gCurrentSprite.work0 = 0;
-            ScreenShakeStartVertical(0x1E, 0x81);
-            ScreenShakeStartHorizontal(0x3C, 0x81);
+            ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
+            ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f), 0x80 | 1);
             FadeMusic(0x38);
             break;
     }
@@ -1596,7 +1596,7 @@ void ImagoDamagedStinger(void)
                 // Touched ground
                 gCurrentSprite.work0 = 0x3C;
                 gCurrentSprite.pose = IMAGO_DAMAGED_STINGER_POSE_DISAPPEARING;
-                ScreenShakeStartVertical(0xA, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             }
             break;
 

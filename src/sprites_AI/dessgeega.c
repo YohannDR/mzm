@@ -697,7 +697,7 @@ void DessgeegaLongBeamDetectSamus(void)
         gCurrentSprite.work3 = FALSE;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
-        ScreenShakeStartVertical(0xA, 0x81);
+        ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
@@ -761,7 +761,7 @@ void DessgeegaLongBeamSpawning(void)
         {
             // Set landing behavior
             gCurrentSprite.yPosition = topEdge;
-            ScreenShakeStartVertical(0xA, 0x81);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             DessgeegaLandingInit();
         }
     }

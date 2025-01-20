@@ -5,253 +5,253 @@
 const struct ColorFadingData sColorFadingData[COLOR_FADING_END] = {
     [0] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = NULL,
+        .pProcessSubroutine = NULL,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 0
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_EMPTY
     },
     [COLOR_FADING_FLASH] = {
         .isWhite = TRUE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 0,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_CANCEL] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 0,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_WHITE] = {
         .isWhite = TRUE,
-        .unk_4 = ColorFading_UpdateDoorTransition,
+        .pUpdateSubroutine = ColorFadingUpdate_DoorTransition,
         .firstColorSet = 1,
-        .unk_C = ColorFading_DoorTransition,
+        .pProcessSubroutine = ColorFadingProcess_DoorTransition,
         .secondColorSet = 1,
         .bgColorMask = 0xFFFD,
         .objColorMask = 0xFFC7,
-        .unk_16 = 1
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_1
     },
     [COLOR_FADING_DOOR_TRANSITION] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDoorTransition,
+        .pUpdateSubroutine = ColorFadingUpdate_DoorTransition,
         .firstColorSet = 1,
-        .unk_C = ColorFading_DoorTransition,
+        .pProcessSubroutine = ColorFadingProcess_DoorTransition,
         .secondColorSet = 1,
         .bgColorMask = 0xFFFD,
         .objColorMask = 0xFFC7,
-        .unk_16 = 1
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_1
     },
     [COLOR_FADING_FLASH2] = {
         .isWhite = TRUE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 0,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = 0xFFC7,
-        .unk_16 = 1
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_1
     },
     [COLOR_FADING_NO_TRANSITION] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 0,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = 0xFFC7,
-        .unk_16 = 1
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_1
     },
     [COLOR_FADING_FLASH_NO_TRANSITION] = {
         .isWhite = TRUE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 4,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 4,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_NO_TRANSITION_HUD_HIDE] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 4,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 4,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_SLOW_WHITE] = {
         .isWhite = TRUE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 3,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 3,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_SLOW_BLACK] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 3,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 3,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_AFTER_ENTER_MOTHER_SHIP] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_UpdateDefault,
+        .pUpdateSubroutine = ColorFadingUpdate_Default,
         .firstColorSet = 0,
-        .unk_C = ColorFading_Default,
+        .pProcessSubroutine = ColorFadingProcess_Default,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 1
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_1
     },
     [COLOR_FADING_ESCAPE_FAILED] = {
         .isWhite = TRUE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_EscapeFailed,
+        .pProcessSubroutine = ColorFadingProcess_EscapeFailed,
         .secondColorSet = 3,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_DEMO_ENDING_AUTO] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_BeforeDemoEnding,
+        .pProcessSubroutine = ColorFadingProcess_BeforeDemoEnding,
         .secondColorSet = 2,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_DEMO_ENDING_WITH_INPUT] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_BeforeDemoEnding,
+        .pProcessSubroutine = ColorFadingProcess_BeforeDemoEnding,
         .secondColorSet = 2,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_CHOZODIA_ESCAPE] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_ChozodiaEscape,
+        .pProcessSubroutine = ColorFadingProcess_ChozodiaEscape,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_TOURIAN_ESCAPE] = {
         .isWhite = TRUE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_TourianEscape,
+        .pProcessSubroutine = ColorFadingProcess_TourianEscape,
         .secondColorSet = 4,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_GETTING_FULLY_POWERED] = {
         .isWhite = TRUE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_GettingFullyPowered,
+        .pProcessSubroutine = ColorFadingProcess_GettingFullyPowered,
         .secondColorSet = 3,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_RIDLEY_SPAWN] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_BeforeRidleySpawn,
+        .pProcessSubroutine = ColorFadingProcess_BeforeRidleySpawn,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_STATUE_CUTSCENE] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_StatueOpening,
+        .pProcessSubroutine = ColorFadingProcess_StatueOpening,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_INTRO_TEXT] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_BeforeIntroText,
+        .pProcessSubroutine = ColorFadingProcess_BeforeIntroText,
         .secondColorSet = 4,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_LANDING_SHIP] = {
         .isWhite = FALSE,
-        .unk_4 = ColorFading_BeforeLandingShip,
+        .pUpdateSubroutine = ColorFadingProcess_BeforeLandingShip,
         .firstColorSet = 0,
-        .unk_C = NULL,
+        .pProcessSubroutine = NULL,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_SAMUS_IN_BLUE_SHIP] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = ColorFading_BeforeBlueShip,
+        .pProcessSubroutine = ColorFadingProcess_BeforeBlueShip,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = USHORT_MAX,
-        .unk_16 = 2
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_2
     },
     [COLOR_FADING_TO_WHITE] = {
         .isWhite = TRUE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = NULL,
+        .pProcessSubroutine = NULL,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = 0xFFFC,
-        .unk_16 = 3
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_3
     },
     [COLOR_FADING_TO_BLACK] = {
         .isWhite = FALSE,
-        .unk_4 = NULL,
+        .pUpdateSubroutine = NULL,
         .firstColorSet = 0,
-        .unk_C = NULL,
+        .pProcessSubroutine = NULL,
         .secondColorSet = 0,
         .bgColorMask = USHORT_MAX,
         .objColorMask = 0xFFFC,
-        .unk_16 = 3
+        .pFadeSubroutine = COLOR_FADING_SUBROUTINE_3
     },
 };
 
@@ -279,24 +279,24 @@ static const u8 sColorFading_345fcc[1] = {
     32
 };
 
-const struct ColorFadingColorInfo sColorFadingColorInfo[5] = {
-    [0] = {
+const struct ColorFadingColorInfo sColorFadingColorInfo[COLOR_FADING_SPEED_END] = {
+    [COLOR_FADING_SPEED_FASTER] = {
         .colorArray = sColorFading_345f58,
         .size = ARRAY_SIZE(sColorFading_345f58)
     },
-    [1] = {
+    [COLOR_FADING_SPEED_FAST] = {
         .colorArray = sColorFading_345f60,
         .size = ARRAY_SIZE(sColorFading_345f60)
     },
-    [2] = {
+    [COLOR_FADING_SPEED_NORMAL] = {
         .colorArray = sColorFading_345f70,
         .size = ARRAY_SIZE(sColorFading_345f70)
     },
-    [3] = {
+    [COLOR_FADING_SPEED_SLOW] = {
         .colorArray = sColorFading_345f90,
         .size = ARRAY_SIZE(sColorFading_345f90)
     },
-    [4] = {
+    [COLOR_FADING_SPEED_INSTANT] = {
         .colorArray = sColorFading_345fcc,
         .size = ARRAY_SIZE(sColorFading_345fcc)
     }

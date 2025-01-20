@@ -1112,7 +1112,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 2;
             CUTSCENE_DATA.unk_BE = 0;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
         case 2:
@@ -1122,7 +1122,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
             CUTSCENE_DATA.unk_BE = 4;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
         case 3:
@@ -1132,7 +1132,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
             CUTSCENE_DATA.unk_BE = 8;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
         case 5:
@@ -1142,35 +1142,35 @@ u8 CutsceneStartBackgroundFading(u8 type)
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 2;
             CUTSCENE_DATA.unk_BE = 0;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
         case 7:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 1;
             CUTSCENE_DATA.unk_BE = 4;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
         case 8:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 8;
             CUTSCENE_DATA.unk_BE = 0;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
         case 9:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 2;
             CUTSCENE_DATA.unk_BE = 0;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_UNK;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_UNK;
             break;
 
         case 10:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 1;
             CUTSCENE_DATA.unk_BE = 4;
-            CUTSCENE_DATA.fadingType = FADING_TYPE_UNK;
+            CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_UNK;
             break;
 
         default:

@@ -361,7 +361,7 @@ void RidleyPartClawIdle(u8 ramSlot)
 void RidleyTailCheckStartScreenShakeVerticalTailAttack(void)
 {
     if (gCurrentSprite.yPositionSpawn + 0x14 < RIDLEY_GROUND_POSITION && gCurrentSprite.yPosition + 0x14 > (BLOCK_SIZE * 18 - PIXEL_SIZE / 2))
-        ScreenShakeStartVertical(20, 0x80 | 1);
+        ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
 
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 }
@@ -682,7 +682,7 @@ void RidleySpawning(void)
                 }
 
                 gSubSpriteData1.yPosition = RIDLEY_GROUND_POSITION - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                ScreenShakeStartVertical(30, 0x80 | 1);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
                 gCurrentSprite.work1++;
                 gCurrentSprite.work0 = 30;
@@ -1462,7 +1462,7 @@ void RidleySmallFireballsAttack(void)
             {
                 // Reached ground
                 gSubSpriteData1.yPosition = RIDLEY_GROUND_POSITION - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                ScreenShakeStartVertical(0x1E, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
                 gCurrentSprite.work1++;
                 gCurrentSprite.work0 = 0x1E;

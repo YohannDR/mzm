@@ -3,15 +3,6 @@
 
 #include "types.h"
 
-enum FadingType {
-    FADING_TYPE_IN,
-    FADING_TYPE_FLASH,
-    FADING_TYPE_OUT,
-    FADING_TYPE_UNK,
-};
-
-// Functions
-
 void unk_5b24c(void);
 void unk_5b288(void);
 void unk_5b2c4(void);

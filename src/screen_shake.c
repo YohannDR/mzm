@@ -94,19 +94,19 @@ s32 ScreenShakeUpdateVertical(void)
     gScreenShakeY.loopCounter = 0;
 
     unk = gScreenShakeY.unk_2 & 0x7F;
-    offset = -2;
+    offset = 2 * SHAKE_UP;
     if (gScreenShakeY.direction)
     {
-        if (!unk)
+        if (unk == 0)
             offset = 0;
         else
-            offset = 2;
+            offset = 2 * SHAKE_DOWN;
     }
 
     EMPTY_DO_WHILE
 
-    gScreenShakeY.direction ^= TRUE;
-    if (gScreenShakeY.timer < 16)
+    gScreenShakeY.direction ^= SWITCH_DIRECTION;
+    if (gScreenShakeY.timer <= CONVERT_SECONDS(1.f / 4))
         offset = DIV_SHIFT(offset, 2);
 
     gScreenShakeYOffset = offset;
@@ -140,19 +140,19 @@ s32 ScreenShakeUpdateHorizontal(void)
     gScreenShakeX.loopCounter = 0;
 
     unk = gScreenShakeX.unk_2 & 0x7F;
-    offset = -2;
+    offset = 2 * SHAKE_LEFT;
     if (gScreenShakeX.direction)
     {
-        if (!unk)
+        if (unk == 0)
             offset = 0;
         else
-            offset = 2;
+            offset = 2 * SHAKE_RIGHT;
     }
 
     EMPTY_DO_WHILE
 
-    gScreenShakeX.direction ^= TRUE;
-    if (gScreenShakeX.timer < 16)
+    gScreenShakeX.direction ^= SWITCH_DIRECTION;
+    if (gScreenShakeX.timer <= CONVERT_SECONDS(1.f / 4))
         offset = DIV_SHIFT(offset, 2);
 
     gScreenShakeXOffset = offset;

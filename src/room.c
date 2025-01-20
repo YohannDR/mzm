@@ -63,8 +63,8 @@ void RoomLoad(void)
             gEquipment.suitMiscActivation &= ~SMF_VARIA_SUIT;
             SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
-            gSamusData.xPosition = BLOCK_SIZE * 10 - 8;
-            gSamusData.yPosition = BLOCK_SIZE * 8 - 1;
+            gSamusData.xPosition = BLOCK_SIZE * 10 - EIGHTH_BLOCK_SIZE;
+            gSamusData.yPosition = BLOCK_SIZE * 8 - ONE_SUB_PIXEL;
 
             gInGameCutscene.stage = 0;
             gInGameCutscene.queuedCutscene = IGC_GETTING_VARIA;
@@ -81,7 +81,7 @@ void RoomLoad(void)
         SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
         gSamusData.xPosition = BLOCK_SIZE * 24 + HALF_BLOCK_SIZE;
-        gSamusData.yPosition = BLOCK_SIZE * 31 - 1;
+        gSamusData.yPosition = BLOCK_SIZE * 31 - ONE_SUB_PIXEL;
 
         gInGameCutscene.stage = 0;
         gInGameCutscene.queuedCutscene = IGC_GETTING_FULLY_POWERED;
@@ -118,9 +118,9 @@ void RoomLoad(void)
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
-    RoomSetInitialTilemap(0x0);
-    RoomSetInitialTilemap(0x1);
-    RoomSetInitialTilemap(0x2);
+    RoomSetInitialTilemap(0);
+    RoomSetInitialTilemap(1);
+    RoomSetInitialTilemap(2);
     AnimatedGraphicsLoad();
     AnimatedGraphicsTanksAnimationReset();
     HazeSetBackgroundEffect();
@@ -128,7 +128,7 @@ void RoomLoad(void)
     MinimapCheckOnTransition();
 
     // Check using elevator
-    if (!gIsLoadingFile && gGameModeSub3 != 0x0 && gPauseScreenFlag == PAUSE_SCREEN_NONE && gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
+    if (!gIsLoadingFile && gGameModeSub3 != 0 && gPauseScreenFlag == PAUSE_SCREEN_NONE && gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
     {
         if (gSamusData.elevatorDirection == KEY_UP)
             gSamusData.yPosition += BLOCK_SIZE * 3;
@@ -177,38 +177,38 @@ void RoomLoadTileset(void)
     gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;
     gTilemapAndClipPointers.pClipBehaviors = gClipdataBehaviorTypes;
 
-    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
+    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 2 * sizeof(u16), 16);
 
     if (gCurrentArea > AREA_DEBUG_1)
     {
-        DmaTransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
-        DmaTransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+        DmaTransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 16);
+        DmaTransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
     }
     else
     {
-        DmaTransfer(3, sClipdataCollisionTypes, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
-        DmaTransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+        DmaTransfer(3, sClipdataCollisionTypes, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 16);
+        DmaTransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
     }
 
-    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 0x10);
-    DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 0x10);
-    DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 0x10);
+    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 16);
+    DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 16);
+    DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 16);
 
     CallLZ77UncompVram(entry.pTileGraphics, VRAM_BASE + 0x5800);
-    DmaTransfer(3, entry.pPalette + 0x10, PALRAM_BASE + 0x60, 0x1A0, 0x10);
+    DmaTransfer(3, entry.pPalette + 1 * PAL_ROW, PALRAM_BASE + 6 * PAL_ROW, PAL_SIZE - 6 * PAL_ROW, 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     if (gUseMotherShipDoors == TRUE)
     {
-        DmaTransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
+        DmaTransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 16);
         // Don't overwrite first color in PALRAM
-        DmaTransfer(3, sCommonTilesMotherShipPal + 1, PALRAM_BASE + 2, 0x5E, 0x10);
+        DmaTransfer(3, sCommonTilesMotherShipPal + 1, PALRAM_BASE + 2, 6 * PAL_ROW - 2, 16);
     }
     else
     {
-        DmaTransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
+        DmaTransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 16);
         // Don't overwrite first color in PALRAM
-        DmaTransfer(3, sCommonTilesPal + 1, PALRAM_BASE + 2, 0x5E, 0x10);
+        DmaTransfer(3, sCommonTilesPal + 1, PALRAM_BASE + 2, 6 * PAL_ROW - 2, 16);
     }
 
     gTilesetTransparentColor.transparentColor = *entry.pPalette;
@@ -216,7 +216,7 @@ void RoomLoadTileset(void)
 
     backgroundGfxSize = ((u8*)entry.pBackgroundGraphics)[2] << 8 | ((u8*)entry.pBackgroundGraphics)[1];
     CallLZ77UncompVram(entry.pBackgroundGraphics, VRAM_BASE + 0xfde0 - backgroundGfxSize);
-    BitFill(3, 0, VRAM_BASE + 0xFFE0, 0x20, 0x20);
+    BitFill(3, 0, VRAM_BASE + 0xFFE0, 0x20, 32);
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
@@ -225,7 +225,7 @@ void RoomLoadTileset(void)
     gCurrentRoomEntry.animatedPalette = gAnimatedGraphicsEntry.palette = entry.animatedPalette;
 
     if (gCurrentRoomEntry.Bg2Prop == BG_PROP_MOVING)
-        BitFill(3, 0x40, VRAM_BASE + 0x2000, 0x1000, 0x10);
+        BitFill(3, 0x40, VRAM_BASE + 0x2000, 0x1000, 16);
 }
 
 /**
@@ -389,10 +389,10 @@ void RoomReset(void)
     s32 temp;
     
     gColorFading.unk_3 = 0;
-    gColorFading.timer = 0;
+    gColorFading.fadeTimer = 0;
     gColorFading.status = 0;
     gColorFading.stage = 0;
-    gColorFading.unk_6 = 0;
+    gColorFading.subroutineTimer = 0;
 
     if (gCurrentPowerBomb.animationState != PB_STATE_NONE)
         gScreenShakeX = sScreenShake_Empty;
@@ -426,7 +426,7 @@ void RoomReset(void)
         SramWrite_MostRecentSaveFile();
     }
 
-    unk_5c158(); // Undefined
+    ColorFadingSetBg3Position(); // Undefined
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
@@ -1019,28 +1019,28 @@ void RoomUpdateBackgroundsPosition(void)
     yOffset = ScreenShakeUpdateVertical();
     xOffset = ScreenShakeUpdateHorizontal();
 
-    xPosition = gBg1XPosition >> 0x2 & 0x1FF;
-    yPosition = gBg1YPosition >> 0x2 & 0x1FF;
+    xPosition = MOD_AND(gBg1XPosition / PIXEL_SIZE, 0x200);
+    yPosition = MOD_AND(gBg1YPosition / PIXEL_SIZE, 0x200);
     gBackgroundPositions.bg[1].x = xPosition + xOffset;
     gBackgroundPositions.bg[1].y = yPosition + yOffset;
-    xPosition = gBg2XPosition >> 0x2 & 0x1FF;
+    xPosition = MOD_AND(gBg2XPosition / PIXEL_SIZE, 0x200);
     gBackgroundPositions.bg[2].x = xPosition + xOffset;
-    yPosition = gBg2YPosition >> 0x2 & 0x1FF;
+    yPosition = MOD_AND(gBg2YPosition / PIXEL_SIZE, 0x200);
     gBackgroundPositions.bg[2].y = yPosition + yOffset;
 
     if (gScreenShakeRelated & 0x100)
     {
-        gBackgroundPositions.bg[0].x = (gBg0XPosition >> 0x2) + gBg0Movement.xOffset & 0x1FF;
-        gBackgroundPositions.bg[0].y = (gBg0YPosition >> 0x2) + gBg0Movement.yOffset & 0x1FF;
+        gBackgroundPositions.bg[0].x = (gBg0XPosition / PIXEL_SIZE) + gBg0Movement.xOffset & 0x1FF; // MOD_AND stops matching here
+        gBackgroundPositions.bg[0].y = (gBg0YPosition / PIXEL_SIZE) + gBg0Movement.yOffset & 0x1FF;
     }
     else
     {
-        gBackgroundPositions.bg[0].x = ((gBg0XPosition >> 0x2) + gBg0Movement.xOffset & 0x1FF) + xOffset;
-        gBackgroundPositions.bg[0].y = ((gBg0YPosition >> 0x2) + gBg0Movement.yOffset & 0x1FF) + yOffset;
+        gBackgroundPositions.bg[0].x = ((gBg0XPosition / PIXEL_SIZE) + gBg0Movement.xOffset & 0x1FF) + xOffset;
+        gBackgroundPositions.bg[0].y = ((gBg0YPosition / PIXEL_SIZE) + gBg0Movement.yOffset & 0x1FF) + yOffset;
     }
 
-    bg3X = (gBg3XPosition >> 0x2) + gBg3Movement.xOffset & 0x1FF;
-    bg3Y = gBg3YPosition >> 0x2 & 0x1FF;
+    bg3X = (gBg3XPosition / PIXEL_SIZE) + gBg3Movement.xOffset & 0x1FF;
+    bg3Y = (gBg3YPosition / PIXEL_SIZE)& 0x1FF;
 
     if (gScreenShakeRelated & 0x800)
     {

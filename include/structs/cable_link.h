@@ -31,7 +31,7 @@ struct IoTransferInfo {
     u8 unk_4;
     u16 timer;
     u8 active;
-    u8 unk_9;
+    u8 stage;
     u8 unk_A;
     u8 result;
     u8 errorFlag;

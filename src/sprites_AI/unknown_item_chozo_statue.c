@@ -678,7 +678,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             if (!SpriteUtilRefillEnergy())
             {
                 gCurrentSprite.work0--;
-                gEnergyRefillAnimation = 0xD;
+                gEnergyRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1D)
@@ -689,7 +689,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillMissiles())
             {
                 gCurrentSprite.work0--;
-                gMissileRefillAnimation = 0xD;
+                gMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1C)
@@ -700,7 +700,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillSuperMissiles())
             {
                 gCurrentSprite.work0--;
-                gSuperMissileRefillAnimation = 0xD;
+                gSuperMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1B)
@@ -711,7 +711,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillPowerBombs())
             {
                 gCurrentSprite.work0--;
-                gPowerBombRefillAnimation = 0xD;
+                gPowerBombRefillAnimation = 13;
             }
         }
         else
@@ -731,13 +731,13 @@ void UnknownItemChozoStatuePartArmRefill(void)
                 if (gEquipment.maxMissiles == 0 && gEquipment.maxSuperMissiles == 0 && gEquipment.maxPowerBombs == 0)
                 {
                     // Only energy
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
                 else
                 {
                     // Energy and weapons
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
             }

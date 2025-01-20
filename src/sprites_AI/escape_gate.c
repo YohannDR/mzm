@@ -104,7 +104,7 @@ void EscapeGate(void)
             {
                 // Load graphics and spawn the black pirates
                 DMA_SET(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, (DMA_ENABLE << 16) | 0x400);
-                DMA_SET(3, sEscapeGateAndTimerPal, PALRAM_BASE + 0x3E0, (DMA_ENABLE << 16) | 0x10);
+                DMA_SET(3, sEscapeGateAndTimerPal, PALRAM_OBJ + (PAL_SIZE - 1 * PAL_ROW_SIZE), (DMA_ENABLE << 16) | 0x10);
 
                 SpriteSpawnPrimary(PSPRITE_BLACK_SPACE_PIRATE, 0x80, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition - (BLOCK_SIZE * 2), 0);
@@ -156,7 +156,7 @@ void EscapeGate(void)
             }
             else
             {
-                if (gCurrentSprite.currentAnimationFrame == 4 && gCurrentSprite.animationDurationCounter == 10)
+                if (gCurrentSprite.currentAnimationFrame == 4 && gCurrentSprite.animationDurationCounter == CONVERT_SECONDS(1.f / 6))
                     EscapeGateChangeCcaa(CAA_REMOVE_SOLID);
             }
             break;
@@ -211,7 +211,7 @@ void EscapeGate(void)
             }
 
             offset = MOD_AND(gCurrentSprite.work1, 128);
-            DMA_SET(3, &sEscapeGateFlashingPal[offset * 16], PALRAM_BASE + 0x3E0, (DMA_ENABLE << 16) | 16);
+            DMA_SET(3, &sEscapeGateFlashingPal[offset * 16], PALRAM_OBJ + (PAL_SIZE - 1 * PAL_ROW_SIZE), (DMA_ENABLE << 16) | 16);
         }
     }
 }

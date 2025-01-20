@@ -56,7 +56,7 @@ u32 InGameMainLoop(void)
 
         case SUB_GAME_MODE_DOOR_TRANSITION:
             IoWriteRegisters();
-            if (unk_5c3ac()) // Undefined
+            if (ColorFadingFinishDoorTransition()) // Undefined
                 gGameModeSub1++;
             break;
 

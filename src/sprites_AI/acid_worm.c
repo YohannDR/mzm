@@ -703,8 +703,8 @@ void AcidWormExtend(void)
             // Set effects depending on health
             if (gCurrentSprite.health <= spawnHealth / 4)
             {
-                ScreenShakeStartVertical(40, 0x80 | 1);
-                ScreenShakeStartHorizontal(40, 0x80 | 1);
+                ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
+                ScreenShakeStartHorizontal(TWO_THIRD_SECOND, 0x80 | 1);
 
                 SpriteDebrisInit(0x0, 0x11, yPosition - 0x42, xPosition - 0x20);
                 SpriteDebrisInit(0x0, 0x4, yPosition, xPosition);
@@ -718,8 +718,8 @@ void AcidWormExtend(void)
             }
             else if (gCurrentSprite.health <= spawnHealth / 2)
             {
-                ScreenShakeStartVertical(0x14, 0x81);
-                ScreenShakeStartHorizontal(0x14, 0x81);
+                ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
+                ScreenShakeStartHorizontal(ONE_THIRD_SECOND, 0x80 | 1);
                 SpriteDebrisInit(0x0, 0x11, yPosition - 0x42, xPosition - 0x20);
                 SpriteDebrisInit(0x0, 0x12, yPosition, xPosition + 0x34);
                 SpriteDebrisInit(0x0, 0x13, yPosition - 0x5C, xPosition - 0x3E);
@@ -730,8 +730,8 @@ void AcidWormExtend(void)
             }
             else
             {
-                ScreenShakeStartVertical(0xA, 0x81);
-                ScreenShakeStartHorizontal(0xA, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
+                ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
                 SpriteDebrisInit(0x0, 0x12, yPosition - 0x42, xPosition - 0x20);
                 SpriteDebrisInit(0x0, 0x4, yPosition + 0x20, xPosition + 0x20);
                 ParticleSet(yPosition + 0x20, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
@@ -978,7 +978,7 @@ void AcidWormRaiseAcid(void)
 {
     // Check start screen shake
     if (MOD_AND(gFrameCounter8Bit, 16) == 0)
-        ScreenShakeStartHorizontal(10, 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
     // Delay before starting
     if (gCurrentSprite.work0 != 0)
@@ -1009,7 +1009,7 @@ void AcidWormAcidGoDown(void)
     
     // Check start screen shake
     if (MOD_AND(gFrameCounter8Bit, 16) == 0)
-        ScreenShakeStartHorizontal(10, 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
     // Check reached min
     if (gEffectYPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 3)

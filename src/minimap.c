@@ -428,25 +428,25 @@ void MinimapCheckForUnexploredTile(void)
     samusY = gSamusData.yPosition - BLOCK_SIZE * 2;
 
     if (samusX & 0x8000)
-        samusX = 0x0;
+        samusX = 0;
     else
     {
         clipPosition = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
         clipPosition -= BLOCK_SIZE * 4;
 
         if (gSamusData.xPosition >= clipPosition)
-            samusX = clipPosition - 0x1;
+            samusX = clipPosition - 1;
     }
 
     if (samusY & 0x8000)
-        samusY = 0x0;
+        samusY = 0;
     else
     {
         clipPosition = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
         clipPosition -= BLOCK_SIZE * 4;
 
         if (gSamusData.yPosition >= clipPosition)
-            samusY = clipPosition - 0x1;
+            samusY = clipPosition - 1;
     }
 
     // Convert to block
@@ -492,8 +492,8 @@ void MinimapCheckOnTransition(void)
         MinimapSetDownloadedTiles(gAreaBeforeTransition, gDecompressedMinimapVisitedTiles);
 
         // Clear coords
-        gMinimapX = 0xFF;
-        gMinimapY = 0xFF;
+        gMinimapX = UCHAR_MAX;
+        gMinimapY = UCHAR_MAX;
     }
 
     // Check for transition tile

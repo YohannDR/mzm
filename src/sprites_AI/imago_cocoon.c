@@ -399,7 +399,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
             // Set falling after blocks
             gCurrentSprite.pose = IMAGO_COCOON_POSE_FALLING_AFTER_BLOCKS;
             gCurrentSprite.work0 = 0x0;
-            ScreenShakeStartVertical(0x28, 0x81);
+            ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
             SoundPlay(SOUND_IMAGO_COCOON_DESTROYING_BLOCKS);
         }
     }
@@ -486,7 +486,7 @@ void ImagoCocoonFallingAfterBlocks(void)
         gCurrentSprite.pose = IMAGO_COCOON_POSE_UNLOCK_PASSAGE;
         gCurrentSprite.work0 = 0x5A;
 
-        ScreenShakeStartVertical(0x28, 0x81);
+        ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
         SoundPlay(SOUND_IMAGO_COCOON_CRASHING);
 
         gCurrentSprite.scaling = Q_8_8(1.f);

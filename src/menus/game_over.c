@@ -42,8 +42,8 @@ u32 GameOverSubroutine(void)
                 gCurrentDemo.active = FALSE;
 
                 DoSoundAction(0x194F780);
-                FadeAllSounds(10);
-                FadeMusic(10);
+                FadeAllSounds(CONVERT_SECONDS(1.f / 6));
+                FadeMusic(CONVERT_SECONDS(1.f / 6));
                 gDemoState = DEMO_STATE_NONE;
                 gGameModeSub2 = 2;
                 return TRUE;
@@ -108,7 +108,7 @@ u32 GameOverSubroutine(void)
                 BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             GAME_OVER_DATA.dispcnt ^= DCNT_WIN1;
-            FadeMusic(20);
+            FadeMusic(ONE_THIRD_SECOND);
             gGameModeSub1++;
             break;
 
@@ -263,7 +263,7 @@ void GameOverInit(void)
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
-    DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 32);
+    DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x1800 - 0x1000, 32);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGfx, VRAM_BASE + 0x4000);
     LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_OBJ);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);

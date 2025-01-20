@@ -11,7 +11,11 @@
 
 #define PALRAM_BASE (void *)0x05000000
 #define PALRAM_OBJ (void *)0x05000200
-#define PALRAM_SIZE 0x400
+#define PAL_ROW (16)
+#define PAL_ROW_SIZE (PAL_ROW * 2)
+#define COLORS_IN_PAL (16 * PAL_ROW)
+#define PAL_SIZE (COLORS_IN_PAL * 2)
+#define PALRAM_SIZE (PAL_SIZE * 2)
 
 #define VRAM_BASE (void *)0x06000000
 #define VRAM_OBJ (void *)0x06010000
