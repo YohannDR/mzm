@@ -19,6 +19,7 @@
 #include "data/menus/pause_screen_map_data.h"
 
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/connection.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -173,11 +174,11 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             {
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
                 if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)
@@ -215,11 +216,11 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             {
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
                 if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)

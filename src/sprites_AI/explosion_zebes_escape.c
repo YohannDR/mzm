@@ -104,8 +104,8 @@ void ExplosionZebesEscape(void)
         }
         else
         {
-            ScreenShakeStartVertical(10, 0x80 | 1);
-            ScreenShakeStartHorizontal(10, 0x80 | 1);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
+            ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             
             if (rngParam1 > 11)
             {

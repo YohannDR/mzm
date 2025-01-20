@@ -253,7 +253,7 @@ void DragonWarning(void)
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.animationDurationCounter = 0;
 
-        gCurrentSprite.work0 = 8;
+        gCurrentSprite.work0 = CONVERT_SECONDS(.1f) + 2 * DELTA_TIME;
     }
 }
 
@@ -305,7 +305,7 @@ void DragonFireballInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.pose = DRAGON_POSE_IDLE;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 3;
     gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
@@ -379,7 +379,7 @@ void DragonFireballMove(void)
     }
 
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-    if (gPreviousCollisionCheck & 0xF0)
+    if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
         gCurrentSprite.pose = SPRITE_POSE_STOPPED;
 }
 

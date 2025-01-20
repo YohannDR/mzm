@@ -1139,7 +1139,7 @@ void CheckReplayFileSelectMusic(u16 timer)
     pHeader = sSoundDataEntries[MUSIC_FILE_SELECT].pHeader;
 
     if (pTrack->flags & 2 && pHeader == pTrack->pHeader)
-        UpdateMusicPriority(0x2);
+        UpdateMusicPriority(2);
     else
         FadeCurrentMusicAndQueueNextMusic(timer, MUSIC_FILE_SELECT, 0x2);
 }

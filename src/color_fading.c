@@ -52,26 +52,26 @@ u8 ColorFadingUpdate(void)
     color = sColorFadingColorInfo[colorType].size;
 
     // Get color stage
-    if (gColorFading.timer == 0)
+    if (gColorFading.fadeTimer == 0)
         stage = COLOR_FADING_STAGE_STARTED;
-    else if (gColorFading.timer == color)
+    else if (gColorFading.fadeTimer == color)
         stage = COLOR_FADING_STAGE_FINISHED;
-    else if (gColorFading.timer > color)
+    else if (gColorFading.fadeTimer > color)
         stage = COLOR_FADING_STAGE_AFTER_FINISHED;
     else
         stage = COLOR_FADING_STAGE_IN_PROGRESS;
 
     // Get color
     if (stage <= COLOR_FADING_STAGE_IN_PROGRESS)
-        color = sColorFadingColorInfo[colorType].colorArray[gColorFading.timer];
+        color = sColorFadingColorInfo[colorType].colorArray[gColorFading.fadeTimer];
     else
         color = 0;
 
     // Process color
-    colorType = sColorFadingData[gColorFading.type].unk_16;
+    colorType = sColorFadingData[gColorFading.type].pFadeSubroutine;
     if (sColorFadingSubroutinePointers[colorType](stage, color))
     {
-        gColorFading.timer = 0;
+        gColorFading.fadeTimer = 0;
         return TRUE;
     }
 
@@ -95,7 +95,7 @@ u8 unk_5bd58(u8 stage, u8 color)
 
         case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
             break;
 
         case COLOR_FADING_STAGE_FINISHED:
@@ -104,7 +104,7 @@ u8 unk_5bd58(u8 stage, u8 color)
                 unk_5b2c4();
                 gColorFading.status = COLOR_FADING_STATUS_ON_BG | COLOR_FADING_STATUS_ON_OBJ;
             }
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
 
         case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
@@ -130,7 +130,7 @@ u8 unk_5bdc8(u8 stage, u8 color)
 
         case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
             break;
 
         case COLOR_FADING_STAGE_FINISHED:
@@ -156,7 +156,7 @@ u8 unk_5bdc8(u8 stage, u8 color)
                 unk_5b2c4();
                 gColorFading.status = COLOR_FADING_STATUS_ON_BG | COLOR_FADING_STATUS_ON_OBJ;
             }
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
 
         case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
@@ -179,11 +179,11 @@ u8 unk_5be7c(u8 stage, u8 color)
         case COLOR_FADING_STAGE_STARTED:
         case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
             break;
 
         case COLOR_FADING_STAGE_FINISHED:
-            gColorFading.timer++;
+            gColorFading.fadeTimer++;
 
         case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
@@ -195,11 +195,11 @@ u8 unk_5be7c(u8 stage, u8 color)
 /**
  * @brief 5bec8 | 4 | Empty fading subroutine
  * 
- * @param param_1 To document
+ * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
  */
-u8 ColorFadingSubroutine_Empty(u8 param_1, u8 color)
+u8 ColorFadingSubroutine_Empty(u8 stage, u8 color)
 {
     return TRUE;
 }
@@ -214,9 +214,9 @@ void ColorFadingTransferPaletteOnTransition(void)
     s32 i;
     s32 color;
 
-    gColorFading.timer = 0;
+    gColorFading.fadeTimer = 0;
     unk_5b24c();
-    if (gPauseScreenFlag == 0)
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
         unk_5b304();
 
     if (sColorFadingData[gColorFading.type].isWhite)
@@ -227,18 +227,19 @@ void ColorFadingTransferPaletteOnTransition(void)
 
     if (sColorFadingData[gColorFading.type].bgColorMask | sColorFadingData[gColorFading.type].objColorMask)
     {
-        for (i = 0; i < 16; i++)
+        // Each color mask is a bitfield of palette rows to apply color bitfill to
+        for (i = 0; i < COLORS_IN_PAL / PAL_ROW; i++)
         {
             if ((sColorFadingData[gColorFading.type].bgColorMask >> i) & 1)
-                BitFill(3, color, PALRAM_BASE + i * 32, 32, 16);
+                BitFill(3, color, PALRAM_BASE + i * PAL_ROW * sizeof(u16), PAL_ROW * sizeof(u16), 16);
 
             if ((sColorFadingData[gColorFading.type].objColorMask >> i) & 1)
-                BitFill(3, color, PALRAM_BASE + PALRAM_SIZE / 2 + i * 32, 32, 16);
+                BitFill(3, color, PALRAM_OBJ + i * PAL_ROW * sizeof(u16), PAL_ROW * sizeof(u16), 16);
         }
     }
 
-    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, PALRAM_BASE + PALRAM_SIZE / 2, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, COLOR_DATA_BG_EWRAM, PAL_SIZE, 16);
+    DmaTransfer(3, PALRAM_OBJ, COLOR_DATA_OBJ_EWRAM, PAL_SIZE, 16);
 }
 
 /**
@@ -307,11 +308,11 @@ void ColorFadingStart(u8 type)
 {
     gColorFading.type = type;
     gColorFading.stage = 0;
-    gColorFading.timer = 0;
+    gColorFading.fadeTimer = 0;
     gColorFading.unk_3 = 0;
     gColorFading.status = 0;
     gColorFading.useSecondColorSet = FALSE;
-    gColorFading.unk_6 = 0;
+    gColorFading.subroutineTimer = 0;
 }
 
 /**
@@ -350,33 +351,33 @@ void ColorFadingHideScreenDuringLoad(void)
                 BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
         }
 
-        write16(REG_BG3CNT, 0x4604);
+        write16(REG_BG3CNT, (BGCNT_SIZE_512x256 << BGCNT_SCREEN_SIZE_SHIFT) | (6 << BGCNT_SCREEN_BASE_BLOCK_SHIFT) | (1 << BGCNT_CHAR_BASE_BLOCK_SHIFT));
         write16(REG_DISPCNT, DCNT_BG3 | DCNT_OBJ);
     }
 }
 
 /**
- * @brief 5c158 | 38 | To document
+ * @brief 5c158 | 38 | Sets BG3 position to BG3 or BG4
  * 
  */
-void unk_5c158(void)
+void ColorFadingSetBg3Position(void)
 {
-    if (sColorFadingData[gColorFading.type].unk_16 == 1)
+    if (sColorFadingData[gColorFading.type].pFadeSubroutine == 1)
         gWhichBGPositionIsWrittenToBG3OFS = 4;
     else
         gWhichBGPositionIsWrittenToBG3OFS = 3;
 }
 
 /**
- * @brief 5c190 | 90 | To document
+ * @brief 5c190 | 90 | Starts a default fade
  * 
  */
-void unk_5c190(void)
+void ColorFadingStartDefault(void)
 {
     gBackgroundPositions.doorTransition.y = gBackgroundPositions.bg[3].y;
     gBackgroundPositions.doorTransition.x = gBackgroundPositions.bg[3].x;
 
-    DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, 0x1000, 16);
+    DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, sizeof(gDecompBg3Map), 16);
 
     write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
     write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
@@ -419,18 +420,18 @@ void ColorFadingStartDoorTransition(void)
 }
 
 /**
- * @brief 5c27c | 70 | To document
+ * @brief 5c27c | 70 | Handles fading for BG2 and BG3 gradient except on delay frames
  * 
  * @param delay Delay
  */
-void unk_5c27c(u8 delay)
+void ColorFadingGradients(u8 delay)
 {
     u16 bldalpha;
 
     if (gFrameCounter8Bit & delay)
         return;
 
-    bldalpha = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
+    bldalpha = C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L);
     if (sHazeData[gCurrentRoomEntry.visualEffect][3] == 2 && bldalpha != 0)
     {
         if (gWrittenToBLDALPHA_H != 0)
@@ -439,23 +440,24 @@ void unk_5c27c(u8 delay)
         if (gWrittenToBLDALPHA_L != 0)
             gWrittenToBLDALPHA_L--;
         
-        gWrittenToBLDALPHA = gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L;
+        gWrittenToBLDALPHA = C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L);
     }
 }
 
 /**
- * @brief 5c2ec | c0 | To document
+ * @brief 5c2ec | c0 | Finishes a door fade and sets up door transition drawing
  * 
  */
-void unk_5c2ec(void)
+void ColorFadingFinishDoorFade(void)
 {
     unk_5d09c();
     SET_BACKDROP_COLOR(COLOR_BLACK);
     write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3));
     
+    // Decompress and write the door transition tilemap to BG3
     RoomRleDecompress(FALSE, sDoorTransitionTilemap, gDecompBg3Map);
-    DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, 0x1000, 16);
-    write16(REG_BG3CNT, 0x4604);
+    DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, sizeof(gDecompBg3Map), 16);
+    write16(REG_BG3CNT, (BGCNT_SIZE_512x256 << BGCNT_SCREEN_SIZE_SHIFT) | (6 << BGCNT_SCREEN_BASE_BLOCK_SHIFT) | (1 << BGCNT_CHAR_BASE_BLOCK_SHIFT));
 
     gBackgroundPositions.bg[3].y = BLOCK_SIZE;
     gBackgroundPositions.doorTransition.y = BLOCK_SIZE;
@@ -465,33 +467,33 @@ void unk_5c2ec(void)
 
     if (gUseMotherShipDoors == TRUE)
     {
-        DmaTransfer(3, sDoorTransitionMotherShipPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, sDoorTransitionMotherShipPal, (u16*)PALRAM_BASE + 1 * PAL_ROW, 2 * PAL_ROW * sizeof(u16), 16);
     }
     else
     {
-        DmaTransfer(3, sDoorTransitionPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, sDoorTransitionPal, (u16*)PALRAM_BASE + 1 * PAL_ROW, 2 * PAL_ROW * sizeof(u16), 16);
     }
 }
 
 /**
- * @brief 5c3ac | b4 | To document
+ * @brief 5c3ac | b4 | Handle door transition update and ending
  * 
- * @return u32 To document
+ * @return u32 bool, finished
  */
-u32 unk_5c3ac(void)
+u32 ColorFadingFinishDoorTransition(void)
 {
     gColorFading.useSecondColorSet = FALSE;
 
-    if (sColorFadingData[gColorFading.type].unk_4 && sColorFadingData[gColorFading.type].unk_4())
+    if (sColorFadingData[gColorFading.type].pUpdateSubroutine && sColorFadingData[gColorFading.type].pUpdateSubroutine())
     {
-        switch (sColorFadingData[gColorFading.type].unk_16)
+        switch (sColorFadingData[gColorFading.type].pFadeSubroutine)
         {
-            case 1:
+            case COLOR_FADING_SUBROUTINE_1:
                 if (!gMusicTrackInfo.unk)
                     CheckPlayTransitionMusicTrack();
                 break;
 
-            case 2:
+            case COLOR_FADING_SUBROUTINE_2:
                 if (gMusicTrackInfo.pauseScreenFlag)
                     UpdateMusicAfterPause();
                 break;
@@ -524,7 +526,7 @@ u32 ColorFadingProcess(void)
     if (gColorFading.unk_3 != UCHAR_MAX)
         gColorFading.unk_3++;
 
-    if (sColorFadingData[gColorFading.type].unk_C == NULL || !sColorFadingData[gColorFading.type].unk_C())
+    if (sColorFadingData[gColorFading.type].pProcessSubroutine == NULL || !sColorFadingData[gColorFading.type].pProcessSubroutine())
         return FALSE;
 
     gNextOamSlot = 0;
@@ -541,7 +543,7 @@ u32 ColorFadingProcess(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_DoorTransition(void)
+u8 ColorFadingProcess_DoorTransition(void)
 {
     s32 bldalphaH;
     s32 bldalphaL;
@@ -561,7 +563,7 @@ u8 ColorFading_DoorTransition(void)
                 gDisableDrawingSprites = TRUE;
                 gColorFading.stage++;
             }
-            unk_5c27c(0);
+            ColorFadingGradients(0);
             break;
 
         case 2:
@@ -571,11 +573,11 @@ u8 ColorFading_DoorTransition(void)
 
             if (gUseMotherShipDoors == TRUE)
             {
-                DmaTransfer(3, sDoorTransitionMotherShipPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, sDoorTransitionMotherShipPal, PALRAM_BASE + 2 * PAL_ROW, 2 * PAL_ROW * sizeof(u16), 16);
             }
             else
             {
-                DmaTransfer(3, sDoorTransitionPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, sDoorTransitionPal, PALRAM_BASE + 2 * PAL_ROW, 2 * PAL_ROW * sizeof(u16), 16);
             }
 
             write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG2 | DCNT_BG3 | DCNT_WIN1));
@@ -585,7 +587,7 @@ u8 ColorFading_DoorTransition(void)
 
         case 3:
             RoomRleDecompress(FALSE, sDoorTransitionTilemap, gDecompBg3Map);
-            DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, 0x1000, 16);
+            DmaTransfer(3, gDecompBg3Map, VRAM_BASE + 0x3000, sizeof(gDecompBg3Map), 16);
             
             if (gDoorPositionStart.x != 0)
                 gBackgroundPositions.doorTransition.x = BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE;
@@ -600,7 +602,7 @@ u8 ColorFading_DoorTransition(void)
 
             gWrittenToBLDCNT = BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
-            bgProp = gCurrentRoomEntry.Bg0Prop;
+            bgProp = gCurrentRoomEntry.Bg0Prop; BG_PROP_CLOSE_UP;
             if (bgProp != 0x43 && bgProp != 0x44 && bgProp != BG_PROP_DARK_ROOM)
             {
                 gWrittenToBLDALPHA_H = 16;
@@ -657,7 +659,7 @@ u8 ColorFading_DoorTransition(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_Default(void)
+u8 ColorFadingProcess_Default(void)
 {
     switch (gColorFading.stage)
     {
@@ -670,11 +672,11 @@ u8 ColorFading_Default(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(0);
+            ColorFadingGradients(0);
             break;
 
         case 2:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
             return TRUE;
     }
 
@@ -686,15 +688,15 @@ u8 ColorFading_Default(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_EscapeFailed(void)
+u8 ColorFadingProcess_EscapeFailed(void)
 {
     switch (gColorFading.stage)
     {
         case 0:
             gPauseScreenFlag = 0;
             ColorFadingStartDoorTransition();
-            FadeAllSounds(60);
-            FadeMusic(60);
+            FadeAllSounds(CONVERT_SECONDS(1.f));
+            FadeMusic(CONVERT_SECONDS(1.f));
             gColorFading.stage++;
             break;
 
@@ -706,13 +708,13 @@ u8 ColorFading_EscapeFailed(void)
         case 2:
             unk_5d09c();
             SET_BACKDROP_COLOR(COLOR_WHITE);
-            gColorFading.unk_6 = 0;
+            gColorFading.subroutineTimer = 0;
             gColorFading.stage++;
             break;
 
         case 3:
-            gColorFading.unk_6++;
-            if (gColorFading.unk_6 > 60)
+            gColorFading.subroutineTimer++;
+            if (gColorFading.subroutineTimer > CONVERT_SECONDS(1.f))
             {
                 gGameModeSub1 = 0;
                 gMainGameMode = GM_GAMEOVER;
@@ -728,7 +730,7 @@ u8 ColorFading_EscapeFailed(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_ChozodiaEscape(void)
+u8 ColorFadingProcess_ChozodiaEscape(void)
 {
     switch (gColorFading.stage)
     {
@@ -767,7 +769,7 @@ u8 ColorFading_ChozodiaEscape(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_BeforeDemoEnding(void)
+u8 ColorFadingProcess_BeforeDemoEnding(void)
 {
     switch (gColorFading.stage)
     {
@@ -786,7 +788,7 @@ u8 ColorFading_BeforeDemoEnding(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(3);
+            ColorFadingGradients(3);
             break;
 
         case 2:
@@ -803,7 +805,7 @@ u8 ColorFading_BeforeDemoEnding(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_TourianEscape(void)
+u8 ColorFadingProcess_TourianEscape(void)
 {
     switch (gColorFading.stage)
     {
@@ -816,7 +818,7 @@ u8 ColorFading_TourianEscape(void)
             if (gAnimatedGraphicsEntry.palette != 0)
                 gAnimatedGraphicsEntry.palette = 0;
 
-            gColorFading.unk_6 = 0;
+            gColorFading.subroutineTimer = 0;
             gColorFading.stage++;
             break;
 
@@ -824,11 +826,11 @@ u8 ColorFading_TourianEscape(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
             gTourianEscapeCutsceneStage = 1;
             return TRUE;
     }
@@ -841,7 +843,7 @@ u8 ColorFading_TourianEscape(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_GettingFullyPowered(void)
+u8 ColorFadingProcess_GettingFullyPowered(void)
 {
     switch (gColorFading.stage)
     {
@@ -863,11 +865,11 @@ u8 ColorFading_GettingFullyPowered(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
 
             gCurrentCutscene = CUTSCENE_GETTING_FULLY_POWERED;
             ColorFadingStart(COLOR_FADING_CANCEL);
@@ -893,7 +895,7 @@ u8 ColorFading_GettingFullyPowered(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_BeforeRidleySpawn(void)
+u8 ColorFadingProcess_BeforeRidleySpawn(void)
 {
     switch (gColorFading.stage)
     {
@@ -915,11 +917,11 @@ u8 ColorFading_BeforeRidleySpawn(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
 
             gCurrentCutscene = CUTSCENE_RIDLEY_SPAWNING;
             ColorFadingStart(COLOR_FADING_CANCEL);
@@ -934,7 +936,7 @@ u8 ColorFading_BeforeRidleySpawn(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_StatueOpening(void)
+u8 ColorFadingProcess_StatueOpening(void)
 {
     switch (gColorFading.stage)
     {
@@ -945,7 +947,7 @@ u8 ColorFading_StatueOpening(void)
 
         case 1:
             if (gCurrentArea == AREA_KRAID || gCurrentArea == AREA_RIDLEY)
-                FadeCurrentInsertMusicQueueCurrent(60, MUSIC_STATUE_ROOM_OPENED, 0);
+                FadeCurrentInsertMusicQueueCurrent(CONVERT_SECONDS(1.f), MUSIC_STATUE_ROOM_OPENED, 0);
 
             if (gAnimatedGraphicsEntry.palette != 0)
                 gAnimatedGraphicsEntry.palette = 0;
@@ -957,11 +959,11 @@ u8 ColorFading_StatueOpening(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
 
             gCurrentCutscene = CUTSCENE_STATUE_OPENING;
             ColorFadingStart(COLOR_FADING_CANCEL);
@@ -972,11 +974,11 @@ u8 ColorFading_StatueOpening(void)
 }
 
 /**
- * @brief 5cb78 | a4 | Before statue opening cutscene fade subroutine
+ * @brief 5cb78 | a4 | Before intro text cutscene fade subroutine
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_BeforeIntroText(void)
+u8 ColorFadingProcess_BeforeIntroText(void)
 {
     switch (gColorFading.stage)
     {
@@ -996,13 +998,13 @@ u8 ColorFading_BeforeIntroText(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
             gCurrentCutscene = CUTSCENE_INTRO_TEXT;
 
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
             ColorFadingStart(COLOR_FADING_CANCEL);
 
             if (gDifficulty != DIFF_NORMAL)
@@ -1030,7 +1032,7 @@ u8 ColorFading_BeforeIntroText(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_BeforeBlueShip(void)
+u8 ColorFadingProcess_BeforeBlueShip(void)
 {
     switch (gColorFading.stage)
     {
@@ -1050,11 +1052,11 @@ u8 ColorFading_BeforeBlueShip(void)
             if (ColorFadingUpdate())
                 gColorFading.stage++;
 
-            unk_5c27c(7);
+            ColorFadingGradients(7);
             break;
 
         case 3:
-            unk_5c2ec();
+            ColorFadingFinishDoorFade();
 
             gCurrentCutscene = CUTSCENE_SAMUS_IN_BLUE_SHIP;
             ColorFadingStart(COLOR_FADING_CANCEL);
@@ -1070,7 +1072,7 @@ u8 ColorFading_BeforeBlueShip(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_BeforeLandingShip(void)
+u8 ColorFadingProcess_BeforeLandingShip(void)
 {
     u8 ended;
 
@@ -1079,17 +1081,17 @@ u8 ColorFading_BeforeLandingShip(void)
     switch (gColorFading.stage)
     {
         case 0:
-            unk_5c190();
-            gColorFading.unk_6 = 0;
+            ColorFadingStartDefault();
+            gColorFading.subroutineTimer = 0;
             gColorFading.stage++;
             break;
 
         case 1:
-            gColorFading.unk_6++;
+            gColorFading.subroutineTimer++;
 
-            if (gColorFading.unk_6 > 60)
+            if (gColorFading.subroutineTimer > CONVERT_SECONDS(1.f))
             {
-                gColorFading.unk_6 = 0;
+                gColorFading.subroutineTimer = 0;
                 gColorFading.stage++;
             }
             break;
@@ -1110,7 +1112,7 @@ u8 ColorFading_BeforeLandingShip(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_UpdateDefault(void)
+u8 ColorFadingUpdate_Default(void)
 {
     u8 ended;
 
@@ -1118,7 +1120,7 @@ u8 ColorFading_UpdateDefault(void)
 
     if (gColorFading.stage == 0)
     {
-        unk_5c190();
+        ColorFadingStartDefault();
         gColorFading.stage++;
     }
     else if (gColorFading.stage == 1)
@@ -1135,7 +1137,7 @@ u8 ColorFading_UpdateDefault(void)
  * 
  * @return u8 bool, ended
  */
-u8 ColorFading_UpdateDoorTransition(void)
+u8 ColorFadingUpdate_DoorTransition(void)
 {
     if (gColorFading.unk_3 != UCHAR_MAX)
         gColorFading.unk_3++;
@@ -1251,17 +1253,17 @@ u8 ColorFading_UpdateDoorTransition(void)
  */
 void ColorFadingApplyMonochrome(void)
 {
-    if (gMonochromeBgFading == 0 || gMonochromeBgFading == UCHAR_MAX)
+    if (gMonochromeBgFading == 0 || gMonochromeBgFading == MONOCHROME_FADING_ENDED)
         return;
 
     gColorFading.useSecondColorSet = TRUE;
 
-    if (gMonochromeBgFading & 0x80)
+    if (gMonochromeBgFading & MONOCHROME_FADING_ACTIVE)
     {
         if (ColorFadingUpdate())
         {
             write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3));
-            gMonochromeBgFading = UCHAR_MAX;
+            gMonochromeBgFading = MONOCHROME_FADING_ENDED;
         }
     }
     else
@@ -1285,6 +1287,6 @@ void ColorFadingApplyMonochrome(void)
         }
 
         unk_5b340();
-        gMonochromeBgFading |= 0x80;
+        gMonochromeBgFading |= MONOCHROME_FADING_ACTIVE;
     }
 }

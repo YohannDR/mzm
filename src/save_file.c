@@ -2025,7 +2025,7 @@ void unk_7584c(u8 param_1)
     gButtonAssignments = sDefaultButtonAssignments;
     gMaxInGameTimerFlag = FALSE;
     gShipLandingFlag = FALSE;
-    gColorFading.type = 2;
+    gColorFading.type = COLOR_FADING_CANCEL;
 
     switch (param_1)
     {

@@ -23,6 +23,7 @@
 #include "cutscenes/cutscene_utils.h"
 
 #include "constants/haze.h"
+#include "constants/color_fading.h"
 
 const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END] = {
     [PROJ_TYPE_BEAM] = ProjectileProcessNormalBeam,
@@ -346,11 +347,11 @@ const BlockFunc_T sNonReformDestroyFunctionPointers[5] = {
     BlockDestroyBombChainBlock
 };
 
-const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
-    ColorFadingSubroutine_Empty,
-    unk_5bd58,
-    unk_5bdc8,
-    unk_5be7c
+const ColorFadingFunc_T sColorFadingSubroutinePointers[COLOR_FADING_SUBROUTINE_END] = {
+    [COLOR_FADING_SUBROUTINE_EMPTY] = ColorFadingSubroutine_Empty,
+    [COLOR_FADING_SUBROUTINE_1] = unk_5bd58,
+    [COLOR_FADING_SUBROUTINE_2] = unk_5bdc8,
+    [COLOR_FADING_SUBROUTINE_3] = unk_5be7c
 };
 
 /**

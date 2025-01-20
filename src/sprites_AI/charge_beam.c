@@ -145,7 +145,7 @@ void ChargeBeamIdle(void)
 void ChargeBeamFlashingAnim(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    gCurrentSprite.animationDurationCounter--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
 
     // Flicker
     if (MOD_AND(gCurrentSprite.work0, 2) == 0)

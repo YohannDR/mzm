@@ -98,7 +98,7 @@ void KraidCheckProjectilesCollidingWithBelly(void)
                 SpriteDebrisInit(0, 0x13, projY - 0x18, projX - 0x1E);
             }
 
-            ScreenShakeStartHorizontal(0xA, 0x81);
+            ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             ParticleSet(projY, projX, PE_SPRITE_EXPLOSION_SMALL);
 
             // Set particle
@@ -1183,7 +1183,7 @@ u8 KraidMoveUp(void)
 {
     KraidRandomSpriteDebrisOnCeiling(gCurrentSprite.work1);
     if (!(gSubSpriteData1.yPosition & 0xF))
-        ScreenShakeStartVertical(0xA, 0x81);
+        ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
     if (gSubSpriteData1.yPosition > gCurrentSprite.yPositionSpawn)
     {
@@ -1580,7 +1580,7 @@ void KraidDying(void)
         // Play effects
         if (!(gCurrentSprite.work1 & 0xF))
         {
-            ScreenShakeStartVertical(0x14, 0x81);
+            ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
             temp = gSpriteRng * 0x10 - 0x64;
             ParticleSet(gCurrentSprite.yPosition + temp,
                 gCurrentSprite.xPosition - 0xC8 + gCurrentSprite.work1, PE_SPRITE_EXPLOSION_HUGE);
@@ -1629,7 +1629,7 @@ void KraidBeforeDeath(void)
     {
         if (timer & 0x8)
         {
-            ScreenShakeStartVertical(0x14, 0x81);
+            ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
             ParticleSet(gCurrentSprite.yPosition - 0x64 + rng * 0x10, gCurrentSprite.xPosition - 0xA0 + timer * 0x2, PE_SPRITE_EXPLOSION_HUGE);
             yOffset = (timer * 0x2);
             ParticleSet(gCurrentSprite.yPosition + 0x8C - rng * 0x10, gCurrentSprite.xPosition + 0xC0 - yOffset, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
@@ -2458,7 +2458,7 @@ void Kraid(void)
                 else if (gSubSpriteData1.currentAnimationFrame == 5)
                 {
                     gBg2Movement.yOffset += 4;
-                    ScreenShakeStartVertical(10, 0x80 | 1);
+                    ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
                     SoundPlay(SOUND_KRAID_STOMPING_FEET);
                     if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
                     {
@@ -2492,7 +2492,7 @@ void Kraid(void)
                 else if (gSubSpriteData1.currentAnimationFrame == 5)
                 {
                     gBg2Movement.yOffset += 4;
-                    ScreenShakeStartVertical(10, 0x80 | 1);
+                    ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
                     SoundPlay(SOUND_KRAID_STOMPING_FEET);
                     if (gSubSpriteData1.pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
                     {
