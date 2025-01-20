@@ -2013,7 +2013,7 @@ void MechaRidleyPartLeftArmIdle(void)
             case 7:
                 if (gCurrentSprite.animationDurationCounter == 1)
                 {
-                    ScreenShakeStartVertical(20, 0x81);
+                    ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
                     SoundPlay(SOUND_MECHA_RIDLEY_ARM_SWIPE_HITTING_GROUND);
                 }
 

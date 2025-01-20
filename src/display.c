@@ -126,7 +126,7 @@ void IoWriteRegistersDuringTransition(void)
  */
 void IoUpdateDISPCNT(u8 operation, u16 value)
 {
-    if (value != 0x0)
+    if (value != 0)
     {
         gWrittenToDISPCNT = read16(REG_BASE);
         if (operation)
@@ -139,7 +139,7 @@ void IoUpdateDISPCNT(u8 operation, u16 value)
             if (gWrittenToDISPCNT == gIoRegistersBackup.Dispcnt_NonGameplay)
                 gWrittenToDISPCNT = gDISPCNTBackup;
             else
-                gWrittenToDISPCNT = 0x0;
+                gWrittenToDISPCNT = 0;
 
             gIoRegistersBackup.Dispcnt_NonGameplay = gDISPCNTBackup;
             gDISPCNTBackup = value;

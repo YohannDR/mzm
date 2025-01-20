@@ -15,7 +15,7 @@ struct IntroData {
     u16 charDrawerY; // 6
     u8 charDrawerPalette; // 8
 
-    u8 unk_9; // 9
+    u8 charDrawerStage; // 9
     u8 unk_A; // A
 
     u16 timer; // C

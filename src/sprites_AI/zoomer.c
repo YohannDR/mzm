@@ -34,8 +34,8 @@ u8 ZoomerCheckCollidingWithAir(void)
         }
         else
         {
-            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4) == COLLISION_AIR &&
-                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4) == COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - PIXEL_SIZE) == COLLISION_AIR)
                 colliding = TRUE;
         }
     }
@@ -43,8 +43,8 @@ u8 ZoomerCheckCollidingWithAir(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
         {
-            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR &&
-                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - PIXEL_SIZE, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
                 colliding = TRUE;
         }
         else

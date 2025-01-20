@@ -137,7 +137,7 @@ void KraidStatueInit(void)
     gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
 
     gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
-    gCurrentSprite.drawDistanceBottom = 0;
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 7);
 
     gCurrentSprite.hitboxTop = 0;
@@ -193,7 +193,7 @@ void KraidStatueCheckBackgroundLocked(void)
     u16 bgX;
     u16 distance;
 
-    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
+    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
         SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
@@ -236,7 +236,7 @@ void KraidStatueOpening(void)
     if (gSamusData.xPosition > gCurrentSprite.xPosition + (BLOCK_SIZE * 8 + HALF_BLOCK_SIZE))
         BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
 
-    if (gCurrentSprite.currentAnimationFrame == 29 && gCurrentSprite.animationDurationCounter == 1)
+    if (gCurrentSprite.currentAnimationFrame == 29 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
         KraidStatueInsideChangeCcaa(CAA_REMOVE_SOLID);
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -250,7 +250,7 @@ void KraidStatueOpening(void)
         // Check should open doors
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_KILLED) || EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))
         {
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
         }
 
@@ -259,8 +259,9 @@ void KraidStatueOpening(void)
     else if (gCurrentSprite.currentAnimationFrame > 8 && gCurrentSprite.currentAnimationFrame < 40)
     {
         gCurrentSprite.work2++;
+        // CONVERT_SECONDS(.5f) + 2 * DELTA_TIME
         if (MOD_AND(gCurrentSprite.work1++, 32) == 0)
-            ScreenShakeStartVertical(10, 0x80 | 1);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
         // Set debris
         rngParam1 = gCurrentSprite.work1;
@@ -271,31 +272,31 @@ void KraidStatueOpening(void)
 
         rngParam3 = gSpriteRng;
 
-        if (!(rngParam2 & 0x1F))
+        if (MOD_AND(rngParam2, 32) == 0)
         {
             if (rngParam2 & 0x20)
             {
-                SpriteDebrisInit(0, 0x5, yPosition, xPosition + 0x78 - rngParam3 * 0x10);
-                SpriteDebrisInit(0, 0x8, yPosition, xPosition - 0x190 + rngParam3 * 0x8);
+                SpriteDebrisInit(0, 5, yPosition, xPosition + (2 * BLOCK_SIZE - EIGHTH_BLOCK_SIZE) - rngParam3 * QUARTER_BLOCK_SIZE);
+                SpriteDebrisInit(0, 8, yPosition, xPosition - (6 * BLOCK_SIZE + QUARTER_BLOCK_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
             }
             else
             {
-                SpriteDebrisInit(0, 0x7, yPosition, xPosition - 0xA0 - rngParam3 * 0x10);
-                SpriteDebrisInit(0, 0x5, yPosition, xPosition - 0x12C + rngParam3 * 0x8);
+                SpriteDebrisInit(0, 7, yPosition, xPosition - (2 * BLOCK_SIZE + HALF_BLOCK_SIZE) - rngParam3 * QUARTER_BLOCK_SIZE);
+                SpriteDebrisInit(0, 5, yPosition, xPosition - (4 * BLOCK_SIZE + 5 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
             }
         }
 
-        if (!(rngParam1 & 0xF))
+        if (MOD_AND(rngParam1, 16) == 0)
         {
-            if (rngParam3 > 0x7)
+            if (rngParam3 > 7)
             {
-                SpriteDebrisInit(0, 0x8, yPosition, xPosition - 0x1C2 + rngParam3 * 0x20);
-                SpriteDebrisInit(0, 0x6, yPosition, xPosition + 0x24E - rngParam3 * 0x20);
+                SpriteDebrisInit(0, 8, yPosition, xPosition - (7 * BLOCK_SIZE + PIXEL_SIZE / 2) + rngParam3 * HALF_BLOCK_SIZE);
+                SpriteDebrisInit(0, 6, yPosition, xPosition + (9 * BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE / 2) - rngParam3 * HALF_BLOCK_SIZE);
             }
             else
             {
-                SpriteDebrisInit(0, 0x6, yPosition, xPosition + 0x17C - rngParam3 * 0x20);
-                SpriteDebrisInit(0, 0x8, yPosition, xPosition - 0x278 + rngParam3 * 0x8);
+                SpriteDebrisInit(0, 6, yPosition, xPosition + (6 * BLOCK_SIZE - PIXEL_SIZE) - rngParam3 * HALF_BLOCK_SIZE);
+                SpriteDebrisInit(0, 8, yPosition, xPosition - (10 * BLOCK_SIZE - EIGHTH_BLOCK_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
             }
         }
     }
@@ -419,7 +420,7 @@ void RidleyStatueCheckBackgroundLocked(void)
     u16 bgX;
     u16 distance;
 
-    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
+    if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
         SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
     spriteX = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
@@ -456,7 +457,7 @@ void RidleyStatueOpening(void)
     
     if (gCurrentSprite.work0 != 0)
     {
-        if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
+        if (gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
             SoundPlay(SOUND_BOSS_STATUES_EYE_TURNING_ON);
 
         APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
@@ -474,7 +475,7 @@ void RidleyStatueOpening(void)
     }
     else
     {
-        if (gCurrentSprite.currentAnimationFrame == 29 && gCurrentSprite.animationDurationCounter == 1)
+        if (gCurrentSprite.currentAnimationFrame == 29 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
             RidleyStatueInsideChangeCcaa(CAA_REMOVE_SOLID);
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -486,7 +487,7 @@ void RidleyStatueOpening(void)
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_STATUE_OPENED);
 
             // Unlock doors
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             BossStatusSetWallBehindSamusCollision(CAA_REMOVE_SOLID);
         }
         else if (gCurrentSprite.currentAnimationFrame > 8 && gCurrentSprite.currentAnimationFrame < 40)
@@ -494,41 +495,41 @@ void RidleyStatueOpening(void)
             // Set random debris
             gCurrentSprite.work2++;
             if (MOD_AND(gCurrentSprite.work1++, 32) == 0)
-                ScreenShakeStartVertical(10, 0x80 | 1);
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
             rngParam1 = gCurrentSprite.work1;
             rngParam2 = gCurrentSprite.work2;
 
             yPosition = gBg1YPosition - BLOCK_SIZE;
-            xPosition = gBg1XPosition + 0x190;
+            xPosition = gBg1XPosition + (6 * BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
             rngParam3 = gSpriteRng;
 
-            if (!(rngParam2 & 0x1F))
+            if (MOD_AND(rngParam2, 32) == 0)
             {
                 if (rngParam2 & 0x20)
                 {
-                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + 0x78 - rngParam3 * 0x10);
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x190 + rngParam3 * 0x8);
+                    SpriteDebrisInit(0, 5, yPosition, xPosition + (2 * BLOCK_SIZE - EIGHTH_BLOCK_SIZE) - rngParam3 * QUARTER_BLOCK_SIZE);
+                    SpriteDebrisInit(0, 8, yPosition, xPosition - (6 * BLOCK_SIZE + QUARTER_BLOCK_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
                 }
                 else
                 {
-                    SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - 0xA0 - rngParam3 * 0x10);
-                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - 0x12C + rngParam3 * 0x8);
+                    SpriteDebrisInit(0, 7, yPosition, xPosition - (2 * BLOCK_SIZE + HALF_BLOCK_SIZE) - rngParam3 * QUARTER_BLOCK_SIZE);
+                    SpriteDebrisInit(0, 5, yPosition, xPosition - (4 * BLOCK_SIZE + 5 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
                 }
             }
 
-            if (!(rngParam1 & 0xF))
+            if (MOD_AND(rngParam1, 16) == 0)
             {
-                if (rngParam3 > 0x7)
+                if (rngParam3 > 7)
                 {
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x1C2 + rngParam3 * 0x20);
-                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x24E - rngParam3 * 0x20);
+                    SpriteDebrisInit(0, 8, yPosition, xPosition - (7 * BLOCK_SIZE + PIXEL_SIZE / 2) + rngParam3 * HALF_BLOCK_SIZE);
+                    SpriteDebrisInit(0, 6, yPosition, xPosition + (9 * BLOCK_SIZE + QUARTER_BLOCK_SIZE - PIXEL_SIZE / 2) - rngParam3 * HALF_BLOCK_SIZE);
                 }
                 else
                 {
-                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x17C - rngParam3 * 0x20);
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x278 + rngParam3 * 0x8);
+                    SpriteDebrisInit(0, 6, yPosition, xPosition + (6 * BLOCK_SIZE - PIXEL_SIZE) - rngParam3 * HALF_BLOCK_SIZE);
+                    SpriteDebrisInit(0, 8, yPosition, xPosition - (10 * BLOCK_SIZE - EIGHTH_BLOCK_SIZE) + rngParam3 * EIGHTH_BLOCK_SIZE);
                 }
             }
         }

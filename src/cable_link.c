@@ -23,23 +23,23 @@ u8 CableLinkProcess(void)
     
     gIoTransferInfo.result = 0;
 
-    switch (gIoTransferInfo.unk_9)
+    switch (gIoTransferInfo.stage)
     {
         case 0:
             gIoTransferInfo.timer = 0;
-            FadeMusic(20);
-            gIoTransferInfo.unk_9++;
+            FadeMusic(ONE_THIRD_SECOND);
+            gIoTransferInfo.stage++;
             break;
 
         case 1:
             gIoTransferInfo.timer++;
-            if (gIoTransferInfo.timer > 30)
+            if (gIoTransferInfo.timer > CONVERT_SECONDS(.5f))
             {
                 ClearSoundData();
                 gIoTransferInfo.musicTrack = gMusicInfo.musicTrack;
                 gIoTransferInfo.musicPriority = gMusicInfo.priority;
                 gIoTransferInfo.timer = 0;
-                gIoTransferInfo.unk_9++;
+                gIoTransferInfo.stage++;
             }
             break;
 
@@ -48,12 +48,12 @@ u8 CableLinkProcess(void)
             CallbackSetTimer3(unk_89bd4);
 
             gDataSentPointer = sTransferData_8754bd0;
-            gDataSentSize = 0x87566c4 - (u32)sTransferData_8754bd0;
+            gDataSentSize = (u32)sTransferRom - (u32)sTransferData_8754bd0;
             gMultiBootParamData.dataSentPointer = sTransferData_8754bd0;
             gMultiBootParamData.serverType = 0;
             CableLinkResetTransfer(&gMultiBootParamData);
             gIoTransferInfo.timer = 0;
-            gIoTransferInfo.unk_9++;
+            gIoTransferInfo.stage++;
             break;
 
         case 3:
@@ -70,7 +70,7 @@ u8 CableLinkProcess(void)
 
             if (gMultiBootParamData.probeCount == 0 && gMultiBootParamData.clientBit)
             {
-                unk_89600(&gMultiBootParamData, gDataSentPointer + 0xC0, gDataSentSize - 0xC0, 4, 1);
+                unk_89600(&gMultiBootParamData, gDataSentPointer + 0xC0, gDataSentSize - 0xC0, 4, 1); // First 0xC0 bytes is header?
             }
 
             gUnk_3005874 = unk_891a0(&gMultiBootParamData);
@@ -78,65 +78,65 @@ u8 CableLinkProcess(void)
             if (unk_896b8(&gMultiBootParamData))
             {
                 gUnk_3005884 = 0;
-                gIoTransferInfo.unk_9++;
+                gIoTransferInfo.stage++;
                 break;
             }
 
             if (gMultiBootParamData.probeCount != 0xD1 && gChangedInput & KEY_B && gMultiBootParamData.probeCount < 0xE0)
             {
-                gIoTransferInfo.unk_9 = 8;
+                gIoTransferInfo.stage = 8;
                 break;
             }
 
-            if (gIoTransferInfo.timer > 180)
+            if (gIoTransferInfo.timer > CONVERT_SECONDS(3.f))
             {
-                gIoTransferInfo.unk_9 = 7;
+                gIoTransferInfo.stage = 7;
             }
             break;
 
         case 4:
             if (!unk_8980c(sTransferRom_After - sTransferRom, (const u32*)sTransferRom))
             {
-                gIoTransferInfo.unk_9++;
+                gIoTransferInfo.stage++;
                 break;
             }
 
-            gIoTransferInfo.unk_9 = 9;
+            gIoTransferInfo.stage = 9;
             break;
 
         case 5:
             switch (gUnk_3005880)
             {
                 case 0:
-                    gIoTransferInfo.unk_9++;
+                    gIoTransferInfo.stage++;
                     break;
 
                 case 1:
-                    gIoTransferInfo.unk_9 = 8;
+                    gIoTransferInfo.stage = 8;
                     break;
 
                 case 2:
-                    gIoTransferInfo.unk_9 = 9;
+                    gIoTransferInfo.stage = 9;
                     break;
             }
 
         case 6:
-            gIoTransferInfo.unk_9 = 10;
+            gIoTransferInfo.stage = 10;
             break;
 
         case 8:
             gIoTransferInfo.result = 2;
-            gIoTransferInfo.unk_9 = 11;
+            gIoTransferInfo.stage = 11;
             break;
 
         case 7:
             gIoTransferInfo.result = 3;
-            gIoTransferInfo.unk_9 = 11;
+            gIoTransferInfo.stage = 11;
             break;
 
         case 9:
             gIoTransferInfo.result = 4;
-            gIoTransferInfo.unk_9 = 11;
+            gIoTransferInfo.stage = 11;
             break;
 
         case 10:
@@ -146,7 +146,7 @@ u8 CableLinkProcess(void)
             InitializeAudio();
             FileSelectApplyStereo();
             PlayMusic(gIoTransferInfo.musicTrack, gIoTransferInfo.musicPriority);
-            gIoTransferInfo.unk_9 = 12;
+            gIoTransferInfo.stage = 12;
             break;
 
         case 12:
@@ -196,7 +196,7 @@ void CableLinkResetTransfer(struct MultiBootData* pMultiBoot)
     pMultiBoot->clientBit = 0;
     pMultiBoot->probeCount = 0;
     pMultiBoot->responseBit = 0;
-    pMultiBoot->checkWait = 15;
+    pMultiBoot->checkWait = CONVERT_SECONDS(.25f);
     pMultiBoot->sendFlag = FALSE;
     pMultiBoot->handshakeTimeout = 0;
 
@@ -2373,12 +2373,12 @@ void unk_8a7b0(void)
     u32 control;
 
     control = read32(REG_SIO);
-    gCableLinkInfo.unk_2 = control << 0x1A >> 0x1E;
+    gCableLinkInfo.unk_2 = control << 0x1A >> 0x1E; // bits 4 and 5
 
     switch (gCableLinkInfo.unk_1)
     {
         case 4:
-            if (control & 0x40)
+            if (control & 0x40) // bit 6 should (always?) be 0
                 gCableLinkInfo.hardwareErrorFlag = TRUE;
 
             unk_8a94c();

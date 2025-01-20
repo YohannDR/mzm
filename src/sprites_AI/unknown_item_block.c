@@ -120,7 +120,7 @@ void UnknownItemBlock(void)
             }
 
             // Update draw distances
-            if (gCurrentSprite.currentAnimationFrame == 0x1)
+            if (gCurrentSprite.currentAnimationFrame == 1)
             {
                 gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
                 gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);

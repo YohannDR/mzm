@@ -64,7 +64,7 @@ void AreaBannerInit(void)
  */
 void AreaBannerSpawningInit(void)
 {
-    gCurrentSprite.animationDurationCounter--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN; // Remove not drawn
     gCurrentSprite.pose = AREA_BANNER_POSE_SPAWNING;
 }
@@ -94,7 +94,7 @@ void AreaBannerSpawning(void)
             if (gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM)
             {
                 // Save and map room banners stay less time
-                gCurrentSprite.work0 = CONVERT_SECONDS(0.84f);
+                gCurrentSprite.work0 = CONVERT_SECONDS(5.f / 6);
             }
             else
             {

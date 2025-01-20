@@ -234,18 +234,18 @@ void HudUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, 
     {
         DMA_SET(3, pSrcRefill, pDst + 0x40, C_32_2_16(DMA_ENABLE, 0x50));
     }
-    else if (refillStage == 0x1)
+    else if (refillStage == 1)
     {
         DMA_SET(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, C_32_2_16(DMA_ENABLE, 0x50));
     }
-    else if (refillStage == 0x2)
+    else if (refillStage == 2)
     {
         DMA_SET(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, C_32_2_16(DMA_ENABLE, 0x50));
     }
-    else if (refillStage == 0x3)
+    else if (refillStage == 3)
     {
         DMA_SET(3, pSrcNormal + 0xA0 * nbrTanks, pDst + 0x40, C_32_2_16(DMA_ENABLE, 0x50));
-    } 
+    }
 }
 
 /**
@@ -354,7 +354,7 @@ void HudDrawEnergy(u8 fileNumber)
 
     if (needUpdate)
     {
-        if (energy < 0x1E)
+        if (energy < 30)
             gEquipment.lowHealth = TRUE;
         else
             gEquipment.lowHealth = FALSE;
@@ -417,25 +417,25 @@ void HudDrawEnergy(u8 fileNumber)
 
     if (gEnergyRefillAnimation != 0)
     {
-        if (gEnergyRefillAnimation == 0xD)
+        if (gEnergyRefillAnimation == 13)
         {
             DMA_SET(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.tens * 32], dst, C_32_2_16(DMA_ENABLE, 16));
             DMA_SET(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, C_32_2_16(DMA_ENABLE, 16));
             needUpdate = 0;
         }
-        else if (gEnergyRefillAnimation == 0xA)
+        else if (gEnergyRefillAnimation == 10)
         {
             DMA_SET(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.tens * 32], dst, C_32_2_16(DMA_ENABLE, 16));
             DMA_SET(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, C_32_2_16(DMA_ENABLE, 16));
             needUpdate = 1;
         }
-        else if (gEnergyRefillAnimation == 0x4)
+        else if (gEnergyRefillAnimation == 4)
         {
             DMA_SET(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.tens * 32], dst, C_32_2_16(DMA_ENABLE, 16));
             DMA_SET(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, C_32_2_16(DMA_ENABLE, 16));
             needUpdate = 2;
         }
-        else if (gEnergyRefillAnimation == 0x1)
+        else if (gEnergyRefillAnimation == 1)
         {
             DMA_SET(3, &sEnergyDigitsTensGfx[gEnergyDigits.tens * 32], dst, C_32_2_16(DMA_ENABLE, 16));
             DMA_SET(3, &sEnergyDigitsTensGfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, C_32_2_16(DMA_ENABLE, 16));
@@ -735,22 +735,22 @@ void HudDrawMissiles(u8 updateHighlight)
         refillStage = 352;
         
         // Update missile symbol for refill
-        if (gMissileRefillAnimation == 0xD)
+        if (gMissileRefillAnimation == 13)
         {
             missiles = 0x480;
             DMA_SET(3, sMissileHUDGfx_Refill1, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
         }
-        else if (gMissileRefillAnimation == 0xA)
+        else if (gMissileRefillAnimation == 10)
         {
             missiles = 0x600;
             DMA_SET(3, sMissileHUDGfx_Refill2, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
         }
-        else if (gMissileRefillAnimation == 0x4)
+        else if (gMissileRefillAnimation == 4)
         {
             missiles = 0x780;
             DMA_SET(3, sMissileHUDGfx_Refill3, VRAM_BASE + 0x10E00, C_32_2_16(DMA_ENABLE, 32));
         }
-        else if (gMissileRefillAnimation == 0x1)
+        else if (gMissileRefillAnimation == 1)
         {
             needUpdate = gMissileHighlightStatus;
             missiles = needUpdate * 384;

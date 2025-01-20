@@ -122,7 +122,7 @@ void MorphBallLauncherDetectBomb(void)
     if (hasBomb)
     {
         gCurrentSprite.pose = MORPH_BALL_LAUNCHER_POSE_DELAY_BEFORE_LAUNCHING;
-        gCurrentSprite.work0 = 32;
+        gCurrentSprite.work0 = CONVERT_SECONDS(.5f) + 2 * DELTA_TIME;
     }
 }
 
@@ -140,7 +140,7 @@ void MorphBallLauncherDelayBeforeLaunching(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.pose = MORPH_BALL_LAUNCHER_POSE_LAUNCHING;
-        gCurrentSprite.work0 = 60;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f);
 
         // Has launched flag
         gCurrentSprite.work1 = FALSE;
@@ -245,7 +245,7 @@ void MorphBallLauncherPart(void)
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_ENERGY;
 
                 // Lifetime
-                gCurrentSprite.work0 = 60;
+                gCurrentSprite.work0 = CONVERT_SECONDS(1.f);
             }
             else
                 gCurrentSprite.status = 0;
