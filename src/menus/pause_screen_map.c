@@ -1076,7 +1076,8 @@ void MapScreenTogglehWorldMap(u8 forceOff)
         DmaTransfer(3, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap), 16);
 
-        DmaTransfer(3, sPauseScreen_3fd252, PALRAM_BASE + 2, sizeof(sPauseScreen_3fd252), 16);
+        // Don't overwrite first color in PALRAM
+        DmaTransfer(3, sPauseScreen_3fd250 + 1, PALRAM_BASE + 2, sizeof(sPauseScreen_3fd250) - 2, 16);
 
         // Setup oam
         PauseScreenUpdateWorldMap(TRUE);

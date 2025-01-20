@@ -17,7 +17,4 @@ const u16 sAnimatedPal_0[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/0
 
 const u16 sTileset_27_Pal[14 * 16] = INCBIN_U16("data/tilesets/27.pal");
 
-const u16 sAnimatedPal_5[4 * 16 + 1] = INCBIN_U16("data/tilesets/animated_palettes/5.pal");
-
-// Need to be in this file because alignment
-const u16 sCommonTilesPal[1 * 16 - 1] = INCBIN_U16("data/common/CommonTiles.pal");
+const u16 sAnimatedPal_5[4 * 16] = INCBIN_U16("data/tilesets/animated_palettes/5.pal");

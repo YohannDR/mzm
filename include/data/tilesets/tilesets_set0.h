@@ -17,6 +17,6 @@ extern const u16 sAnimatedPal_16[8 * 16];
 extern const u16 sAnimatedPal_0[4 * 16];
 
 extern const u16 sTileset_27_Pal[14 * 16];
-extern const u16 sAnimatedPal_5[4 * 16 + 1];
+extern const u16 sAnimatedPal_5[4 * 16];
 
 #endif /* TILESETS_SET_0_DATA_H */
