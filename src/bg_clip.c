@@ -177,6 +177,7 @@ void BgClipCheckTouchingSpecialClipdata(void)
 void BgClipApplyClipdataChangingTransparency(void)
 {
     u32 clipdata;
+    u32 bldalpha;
     u32 xPosition;
     u32 yPosition;
     s32 position;
@@ -197,15 +198,15 @@ void BgClipApplyClipdataChangingTransparency(void)
         return;
 
     // Get bldalpha
-    clipdata = BgClipGetNewBldalphaValue(clipdata, clipdata);
-    if (clipdata == 0)
+    bldalpha = BgClipGetNewBldalphaValue(clipdata, clipdata);
+    if (bldalpha == 0)
         return;
     
     // Apply bldalpha
-    if (clipdata == USHORT_MAX)
+    if (bldalpha == USHORT_MAX)
         TransparencyUpdateBLDALPHA(gDefaultTransparency.evaCoef, gDefaultTransparency.evbCoef, 1, 1);
     else
-        TransparencyUpdateBLDALPHA(LOW_BYTE(clipdata), HIGH_BYTE(clipdata), 1, 1);
+        TransparencyUpdateBLDALPHA(LOW_BYTE(bldalpha), HIGH_BYTE(bldalpha), 1, 1);
 }
 
 /**
@@ -392,9 +393,9 @@ void BgClipCheckTouchingTransitionOnElevator(void)
  */
 void BgClipCheckTouchingTransitionOrTank(void)
 {
-    s32 behaviors[4];
-    s32 yPositions[3];
-    s32 xPositions[3];
+    s32 behaviors[4];  // (right, center), (left, center), (center, bottom), (center, top)
+    s32 yPositions[3]; // center, bottom, top
+    s32 xPositions[3]; // right, left, center
     s32 i;
     s32 j;
     s32 isFirstTank;
@@ -434,7 +435,7 @@ void BgClipCheckTouchingTransitionOrTank(void)
     // Get clipdata behaviors on the X axis
     for (i = 0; i < ARRAY_SIZE(xPositions) - 1; i++)
     {
-        j = gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPositions[0] + xPositions[i]];
+        j = gBgPointersAndDimensions.pClipDecomp[yPositions[0] * gBgPointersAndDimensions.clipdataWidth + xPositions[i]];
         behaviors[i] = gTilemapAndClipPointers.pClipBehaviors[j];
     }
 
@@ -460,12 +461,13 @@ void BgClipCheckTouchingTransitionOrTank(void)
     else if (behaviors[3] == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
         j = 3;
 
+    // If room transition
     if (j + 1 != 0)
     {
         // Check for door
-        if (!ConnectionCheckEnterDoor(yPositions[sHatchRelated_345cee[j][0]], xPositions[sHatchRelated_345cee[j][1]]))
+        if (!ConnectionCheckEnterDoor(yPositions[sBlockTouchOffsets[j][0]], xPositions[sBlockTouchOffsets[j][1]]))
         {
-            ConnectionCheckAreaConnection(yPositions[sHatchRelated_345cee[j][0]], xPositions[sHatchRelated_345cee[j][1]]);
+            ConnectionCheckAreaConnection(yPositions[sBlockTouchOffsets[j][0]], xPositions[sBlockTouchOffsets[j][1]]);
         }
         return;
     }
@@ -493,16 +495,16 @@ void BgClipCheckTouchingTransitionOrTank(void)
         if (i != ITEM_TYPE_NONE)
         {
             // Check the tile is explored
-            if (MinimapCheckIsTileExplored(xPositions[sHatchRelated_345cee[j][1]], yPositions[sHatchRelated_345cee[j][0]]))
+            if (MinimapCheckIsTileExplored(xPositions[sBlockTouchOffsets[j][1]], yPositions[sBlockTouchOffsets[j][0]]))
             {
                 // Set flag and stop samus
                 gCollectingTank = TRUE;
-                gPreventMovementTimer = 0x3E8;
+                gPreventMovementTimer = SAMUS_ITEM_PMT;
 
-                // Set last tankk collected data
+                // Set last tank collected data
                 gLastTankCollected.behavior = behaviors[j];
-                gLastTankCollected.xPosition = xPositions[sHatchRelated_345cee[j][1]];
-                gLastTankCollected.yPosition = yPositions[sHatchRelated_345cee[j][0]];
+                gLastTankCollected.xPosition = xPositions[sBlockTouchOffsets[j][1]];
+                gLastTankCollected.yPosition = yPositions[sBlockTouchOffsets[j][0]];
 
                 // Apply tank :
                 // Check not above max (max number of tanks * increase amount + starting) >= current max + increase
@@ -516,7 +518,7 @@ void BgClipCheckTouchingTransitionOrTank(void)
                         if (gEquipment.maxMissiles == 0)
                             isFirstTank = TRUE;
 
-                        gEquipment.maxMissiles += sTankIncreaseAmount[gDifficulty].missile;
+                        gEquipment.maxMissiles += sTankIncreaseAmount[gDifficulty].missile; AREA_CHOZODIA;
                         gEquipment.currentMissiles += sTankIncreaseAmount[gDifficulty].missile;
                     }
                 }

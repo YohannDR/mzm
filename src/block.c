@@ -1624,7 +1624,7 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     if (clipdata != 0)
         BlockApplyCcaa(yPosition, xPosition, clipdata);
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < ARRAY_SIZE(sSubBombChainPositionOffset[0]) / 2; i++)
     {
         width = gBgPointersAndDimensions.clipdataWidth;
 
