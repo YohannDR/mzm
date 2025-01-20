@@ -674,7 +674,7 @@ const u16 sHatchBehaviors[HATCH_COUNT][2] = {
     },
 };
 
-const u16 sBldalphaValuesForClipdata[11] = {
+const u16 sBldalphaValuesForClipdata[BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL4) + 1] = {
     [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_OPAQUE)] = 0x10,
     [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL1)] = 0x30D,
     [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL2)] = 0x60A,
@@ -688,26 +688,28 @@ const u16 sBldalphaValuesForClipdata[11] = {
     [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL4)] = 0x1010,
 };
 
-const s8 sSubBombChainPositionOffset[4][4] = {
-    {
+// Pairs of (x, y) coordinates
+const s8 sSubBombChainPositionOffset[SUB_BOMB_CHAIN_REQUEST_END][4] = {
+    [SUB_BOMB_CHAIN_REQUEST_HORIZONTAL_WHEN_GOING_UP] = {
         1, 1, -1, 1
     },
-    {
+    [SUB_BOMB_CHAIN_REQUEST_HORIZONTAL_WHEN_GOING_DOWN] = {
         1, -1, -1, -1
     },
-    {
+    [SUB_BOMB_CHAIN_REQUEST_VERTICAL_WHEN_GOING_LEFT] = {
         1, -1,  1, 1
     },
-    {
+    [SUB_BOMB_CHAIN_REQUEST_VERTICAL_WHEN_GOING_RIGHT] = {
         -1, -1, -1, 1
     }
 };
 
-const u8 sHatchRelated_345cee[4][2] = {
-    { 0, 0 },
-    { 0, 1 },
-    { 1, 2 },
-    { 2, 2 },
+// (y, x) Coordinates
+const u8 sBlockTouchOffsets[4][2] = {
+    { 0, 0 }, // (center, right)
+    { 0, 1 }, // (center, left)
+    { 1, 2 }, // (bottom, center)
+    { 2, 2 }, // (top, center)
 };
 
 const u16 sMotherBrainGlassBreakingBaseTilemapValues[5] = {
