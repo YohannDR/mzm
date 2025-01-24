@@ -27,7 +27,7 @@ u32 EraseSramSubroutine(void)
 
     leaving = FALSE;
 
-    ERASE_SRAM_DATA.timer++;
+    APPLY_DELTA_TIME_INC(ERASE_SRAM_DATA.timer);
     switch (gGameModeSub1)
     {
         case 0:
@@ -43,8 +43,7 @@ u32 EraseSramSubroutine(void)
             }
 
             ERASE_SRAM_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             ERASE_SRAM_DATA.bldyTarget = gWrittenToBLDY_NonGameplay;
 
@@ -65,17 +64,17 @@ u32 EraseSramSubroutine(void)
             break;
 
         case 3:
-            if (ERASE_SRAM_DATA.timer <= 40)
+            if (ERASE_SRAM_DATA.timer <= TWO_THIRD_SECOND)
                 break;
 
-            ERASE_SRAM_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ERASE_SRAM_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             ERASE_SRAM_DATA.timer = 0;
             gGameModeSub1++;
             break;
 
         case 4:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
             {
                 gWrittenToBLDY_NonGameplay++;
                 break;
@@ -86,7 +85,7 @@ u32 EraseSramSubroutine(void)
             break;
 
         case 5:
-            if (ERASE_SRAM_DATA.timer <= 40)
+            if (ERASE_SRAM_DATA.timer <= TWO_THIRD_SECOND)
                 break;
 
             ERASE_SRAM_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
@@ -96,7 +95,7 @@ u32 EraseSramSubroutine(void)
             break;
 
         case 6:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
             {
                 gWrittenToBLDY_NonGameplay++;
                 break;
@@ -209,7 +208,7 @@ u32 EraseSramCheckForInput(void)
             if (gChangedInput & KEY_RIGHT)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_YES;
-                sound = 4;
+                sound = ERASE_SRAM_SOUND_CURSOR;
                 break;
             }
 
@@ -224,14 +223,14 @@ u32 EraseSramCheckForInput(void)
             if (gChangedInput & KEY_LEFT)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_NO;
-                sound = 4;
+                sound = ERASE_SRAM_SOUND_CURSOR;
                 break;
             }
 
             if (gChangedInput & KEY_A)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_CONFIRM_NO;
-                sound = 2;
+                sound = ERASE_SRAM_SOUND_SELECT_YES;
                 ERASE_SRAM_DATA.bldyTarget = 4;
             }
             break;
@@ -240,7 +239,7 @@ u32 EraseSramCheckForInput(void)
             if (gChangedInput & KEY_RIGHT)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_CONFIRM_YES;
-                sound = 4;
+                sound = ERASE_SRAM_SOUND_CURSOR;
                 break;
             }
 
@@ -248,7 +247,7 @@ u32 EraseSramCheckForInput(void)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_NO;
                 ERASE_SRAM_DATA.bldyTarget = 0;
-                sound = 3;
+                sound = ERASE_SRAM_SOUND_REFUSE;
             }
             break;
 
@@ -256,7 +255,7 @@ u32 EraseSramCheckForInput(void)
             if (gChangedInput & KEY_LEFT)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_CONFIRM_NO;
-                sound = 4;
+                sound = ERASE_SRAM_SOUND_CURSOR;
                 break;
             }
 
@@ -270,7 +269,7 @@ u32 EraseSramCheckForInput(void)
             if (gChangedInput & KEY_B)
             {
                 ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_NO;
-                sound = 3;
+                sound = ERASE_SRAM_SOUND_REFUSE;
                 ERASE_SRAM_DATA.bldyTarget = 0;
             }
             break;
@@ -280,7 +279,7 @@ u32 EraseSramCheckForInput(void)
     {
         ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_SELECTING;
         ERASE_SRAM_DATA.oam[0].exists = OAM_ID_CHANGED_FLAG;
-        sound = 1;
+        sound = ERASE_SRAM_SOUND_CONFIRM;
     }
 
     if (sEraseSramMenuSoundsID[sound])
@@ -305,13 +304,12 @@ void EraseSramInit(void)
     
     CallbackSetVBlank(EraseSramVBlank_Empty);
 
-    write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / sizeof(u32)));
 
     ClearGfxRam();
     gNextOamSlot = 0;
@@ -321,10 +319,10 @@ void EraseSramInit(void)
     if ((u8)(ERASE_SRAM_DATA.language - 2) > LANGUAGE_SPANISH - 2)
         ERASE_SRAM_DATA.language = LANGUAGE_ENGLISH;
 
-    while ((u16)(read16(REG_VCOUNT) - 21) < 140);
+    while ((u16)(read16(REG_VCOUNT) - 21) < 140); // read16(REG_VCOUNT) <= SCREEN_SIZE_Y
 
-    DMA_SET(3, sEraseSramMenuBackgroundPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, 0xD0));
-    DMA_SET(3, sEraseSramMenuObjectsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, sizeof(sEraseSramMenuObjectsPal) / 2));
+    DMA_SET(3, sEraseSramMenuBackgroundPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, (13 * PAL_ROW_SIZE) / sizeof(u16)));
+    DMA_SET(3, sEraseSramMenuObjectsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, sizeof(sEraseSramMenuObjectsPal) / sizeof(u16)));
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     LZ77UncompVRAM(sEraseSramMenuFirstBoxGfx, VRAM_BASE + 0x1000);

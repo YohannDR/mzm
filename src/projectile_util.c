@@ -211,7 +211,7 @@ void ProjectileUpdate(void)
                 if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_CHARGED_PISTOL, PROJ_LIMIT_CHARGED_PISTOL) &&
                     ProjectileInit(PROJ_TYPE_CHARGED_PISTOL, gArmCannonY, gArmCannonX))
                 {
-                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f + 1.f / 60);
+                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = CONVERT_SECONDS(1.f / 15);
                     SoundPlay(SOUND_CHARGED_PISTOL_SHOT);
@@ -308,7 +308,7 @@ void ProjectileUpdate(void)
                 if (ProjectileCheckNumberOfProjectiles(projType, PROJ_LIMIT_CHARGED_BEAM) &&
                     ProjectileInit(projType, gArmCannonY, gArmCannonX))
                 {
-                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f + 1.f / 60);
+                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = CONVERT_SECONDS(1.f / 15);
                     SoundPlay(beamSound);
@@ -324,7 +324,7 @@ void ProjectileUpdate(void)
                 if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_PISTOL, PROJ_LIMIT_PISTOL) &&
                     ProjectileInit(PROJ_TYPE_PISTOL, gArmCannonY, gArmCannonX))
                 {
-                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f + 1.f / 60);
+                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = CONVERT_SECONDS(1.f / 15);
                     SoundPlay(SOUND_PISTOL_SHOT);
@@ -420,7 +420,7 @@ void ProjectileUpdate(void)
 
                 if (ProjectileCheckNumberOfProjectiles(projType, PROJ_LIMIT_BEAM) && ProjectileInit(projType, gArmCannonY, gArmCannonX))
                 {
-                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f + 1.f / 60);
+                    gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = CONVERT_SECONDS(1.f / 15);
                     SoundPlay(beamSound);
@@ -447,7 +447,7 @@ void ProjectileUpdate(void)
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_SUPER_MISSILE, PROJ_LIMIT_SUPER_MISSILE) &&
                 ProjectileInit(PROJ_TYPE_SUPER_MISSILE, gArmCannonY, gArmCannonX))
             {
-                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(1.f / 6 + 1.f / 60);
+                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(1.f / 6) + 1 * DELTA_TIME;
 
                 SoundPlay(SOUND_SUPER_MISSILE_SHOT);
                 SoundPlay(SOUND_SUPER_MISSILE_THRUST);
@@ -460,7 +460,7 @@ void ProjectileUpdate(void)
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_BOMB, PROJ_LIMIT_BOMB) &&
                 ProjectileInit(PROJ_TYPE_BOMB, gSamusData.yPosition, gSamusData.xPosition))
             {
-                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f + 1.f / 60);
+                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
             }
 
             gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
@@ -471,7 +471,7 @@ void ProjectileUpdate(void)
                 gCurrentPowerBomb.animationState == PB_STATE_NONE &&
                 ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition))
             {
-                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f - 1.f / 60);
+                gSamusWeaponInfo.cooldown = CONVERT_SECONDS(.1f) - 1 * DELTA_TIME;
             }
 
             gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
@@ -679,18 +679,18 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
     xPosition = pProj->xPosition;
     drawDistance = pProj->drawDistanceOffset;
 
-    bgYRange = bgY + BLOCK_SIZE * 4;
-    yDistance = yPosition + BLOCK_SIZE * 4;
+    bgYRange = bgY + (2 * SCREEN_Y_BLOCK_PADDING);
+    yDistance = yPosition + (2 * SCREEN_Y_BLOCK_PADDING);
 
     projTop = bgYRange - drawDistance;
-    offset = drawDistance + BLOCK_SIZE * 10;
+    offset = drawDistance + (SCREEN_SIZE_Y_SUB_PIXEL);
     projBottom = bgYRange + offset;
 
-    bgXRange = bgX + BLOCK_SIZE * 4;
-    xDistance = xPosition + BLOCK_SIZE * 4;
+    bgXRange = bgX + (2 * SCREEN_X_BLOCK_PADDING);
+    xDistance = xPosition + (2 * SCREEN_X_BLOCK_PADDING);
     projLeft = bgXRange - drawDistance;
 
-    drawDistance += BLOCK_SIZE * 15;
+    drawDistance += (SCREEN_SIZE_X_SUB_PIXEL);
     projRight = bgXRange + drawDistance;
 
     if (projLeft < xDistance && xDistance < projRight && projTop < yDistance && yDistance < projBottom)
@@ -701,7 +701,7 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
 
         if (pProj->type <= PROJ_TYPE_SUPER_MISSILE)
         {
-            yDistance = gSamusData.yPosition - 0x48;
+            yDistance = gSamusData.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             xDistance = gSamusData.xPosition;
 
             if (yPosition > yDistance)
@@ -714,7 +714,7 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
             else
                 xDistance = xDistance - xPosition;
 
-            if (yDistance > BLOCK_SIZE * 12 || xDistance > BLOCK_SIZE * 10)
+            if (yDistance > BLOCK_SIZE * 12 || xDistance > BLOCK_SIZE * 10) // todo: screen size?
                 pProj->status = 0;
         }
     }
@@ -731,71 +731,72 @@ void ProjectileLoadGraphics(void)
     
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DMA_SET(3, sPistolGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
-        DMA_SET(3, sPistolGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-        DMA_SET(3, sPistolGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-        DMA_SET(3, sPistolGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+        // Only transfer beam section (ignore CHARGE GAUGE)
+        DMA_SET(3, sPistolGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Top) / 2 / sizeof(u16)));
+        DMA_SET(3, sPistolGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Bottom) / sizeof(u16)));
+        DMA_SET(3, sPistolGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Charged_Top) / sizeof(u16)));
+        DMA_SET(3, sPistolGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sPistolGfx_Charged_Bottom) / sizeof(u16)));
 
         HudDrawSuitless();
-        palOffset = 16 * 5;
+        palOffset = 5 * PAL_ROW;
     }
     else
     {
         bba = gEquipment.beamBombsActivation;
         if (bba & BBF_PLASMA_BEAM)
         {
-            DMA_SET(3, sPlasmaBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sPlasmaBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sPlasmaBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sPlasmaBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            DMA_SET(3, sPlasmaBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Top) / sizeof(u16)));
+            DMA_SET(3, sPlasmaBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Bottom) / sizeof(u16)));
+            DMA_SET(3, sPlasmaBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Charged_Top) / sizeof(u16)));
+            DMA_SET(3, sPlasmaBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sPlasmaBeamGfx_Charged_Bottom) / sizeof(u16)));
 
             if (bba & BBF_ICE_BEAM)
-                palOffset = 16 * 2;
+                palOffset = 2 * PAL_ROW;
             else
-                palOffset = 16 * 4;
+                palOffset = 4 * PAL_ROW;
         }
         else if (bba & BBF_WAVE_BEAM)
         {
-            DMA_SET(3, sWaveBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sWaveBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sWaveBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sWaveBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            DMA_SET(3, sWaveBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Top) / sizeof(u16)));
+            DMA_SET(3, sWaveBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Bottom) / sizeof(u16)));
+            DMA_SET(3, sWaveBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Charged_Top) / sizeof(u16)));
+            DMA_SET(3, sWaveBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sWaveBeamGfx_Charged_Bottom) / sizeof(u16)));
 
             if (bba & BBF_ICE_BEAM)
-                palOffset = 16 * 2;
+                palOffset = 2 * PAL_ROW;
             else
-                palOffset = 16 * 3;
+                palOffset = 3 * PAL_ROW;
         }
         else if (bba & BBF_ICE_BEAM)
         {
-            DMA_SET(3, sIceBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sIceBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sIceBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sIceBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            DMA_SET(3, sIceBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Top) / sizeof(u16)));
+            DMA_SET(3, sIceBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Bottom) / sizeof(u16)));
+            DMA_SET(3, sIceBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Charged_Top) / sizeof(u16)));
+            DMA_SET(3, sIceBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sIceBeamGfx_Charged_Bottom) / sizeof(u16)));
 
-            palOffset = 16 * 2;
+            palOffset = 2 * PAL_ROW;
         }
         else if (bba & BBF_LONG_BEAM)
         {
-            DMA_SET(3, sLongBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sLongBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sLongBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sLongBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            DMA_SET(3, sLongBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Top) / sizeof(u16)));
+            DMA_SET(3, sLongBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Bottom) / sizeof(u16)));
+            DMA_SET(3, sLongBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Charged_Top) / sizeof(u16)));
+            DMA_SET(3, sLongBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sLongBeamGfx_Charged_Bottom) / sizeof(u16)));
 
-            palOffset = 16 * 1;
+            palOffset = 1 * PAL_ROW;
         }
         else
         {
-            DMA_SET(3, sNormalBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sNormalBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sNormalBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            DMA_SET(3, sNormalBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            DMA_SET(3, sNormalBeamGfx_Top, VRAM_BASE + 0x11000, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Top) / sizeof(u16)));
+            DMA_SET(3, sNormalBeamGfx_Bottom, VRAM_BASE + 0x11400, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Bottom) / sizeof(u16)));
+            DMA_SET(3, sNormalBeamGfx_Charged_Top, VRAM_BASE + 0x11800, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Charged_Top) / sizeof(u16)));
+            DMA_SET(3, sNormalBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, C_32_2_16(DMA_ENABLE, sizeof(sNormalBeamGfx_Charged_Bottom) / sizeof(u16)));
 
-            palOffset = 16 * 0;
+            palOffset = 0 * PAL_ROW;
         }
     }
     
-    DMA_SET(3, (sBeamPal + palOffset), PALRAM_BASE + 0x240, DMA_ENABLE << 16 | 6);
+    DMA_SET(3, (sBeamPal + palOffset), PALRAM_OBJ + 2 * PAL_ROW_SIZE, DMA_ENABLE << 16 | 6);
 }
 
 /**
@@ -1587,8 +1588,8 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->pose = SPRITE_POSE_DESTROYED;
         pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
     }
-
-    SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(.285f));
+    // .25f + 2 * DELTA_TIME
+    SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(17.f / 60));
     pSprite->properties |= SP_DAMAGED;
 
     return freezeTimer;
@@ -1628,8 +1629,8 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 
         isDead++;
     }
-
-    SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(.285f));
+    // .25f + 2 * DELTA_TIME
+    SPRITE_CLEAR_AND_SET_ISFT(*pSprite, CONVERT_SECONDS(17.f / 60));
     pSprite->properties |= SP_DAMAGED;
 
     return isDead;
@@ -1645,7 +1646,7 @@ struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSp
 {
     u8 isft;
 
-    isft = CONVERT_SECONDS(1.f / 30);
+    isft = CONVERT_SECONDS(1.f / 30); // 2 * DELTA_TIME
     if (SPRITE_GET_ISFT(*pSprite) < isft)
     {
         SPRITE_CLEAR_AND_SET_ISFT(*pSprite, isft);
@@ -1662,7 +1663,7 @@ struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite)
 {
     u8 isft;
 
-    isft = CONVERT_SECONDS(.05f);
+    isft = CONVERT_SECONDS(.05f); // 3 * DELTA_TIME
     if (SPRITE_GET_ISFT(*pSprite) < isft)
     {
         SPRITE_CLEAR_AND_SET_ISFT(*pSprite, isft);
@@ -1712,12 +1713,12 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
             pSprite->pose = SPRITE_POSE_DESTROYED;
             pSprite->ignoreSamusCollisionTimer = DELTA_TIME;
         }
-
-        isft = CONVERT_SECONDS(.285f);
+        // .25f + 2 * DELTA_TIME
+        isft = CONVERT_SECONDS(17.f / 60);
     }
     else
     {
-        isft = CONVERT_SECONDS(.05f);
+        isft = CONVERT_SECONDS(.05f); // 3 * DELTA_TIME
     }
 
     if (SPRITE_GET_ISFT(*pSprite) < isft)
@@ -1856,7 +1857,7 @@ void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u
     {
         if (weakness & WEAKNESS_CAN_BE_FROZEN)
         {
-            freezeFlag = weakness >> 0x8;
+            freezeFlag = weakness >> 8;
             if (!(gFrameCounter8Bit & freezeFlag))
                 freezeTimer = ProjectileIceBeamDealDamage(pSprite, damage);
             else

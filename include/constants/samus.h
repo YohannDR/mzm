@@ -300,7 +300,7 @@ enum SamusHitbox {
 #define SAMUS_BOMB_BOUNCE_X_VELOCITY (SUB_PIXEL_TO_VELOCITY(PIXEL_SIZE + PIXEL_SIZE / 2))
 #define SAMUS_BOMB_BOUNCE_Y_VELOCITY (SUB_PIXEL_TO_VELOCITY(QUARTER_BLOCK_SIZE + PIXEL_SIZE + ONE_SUB_PIXEL / 2.f))
 
-// 16.66 seconds
+// Prevent Movement Timer, time to freeze Samus after item collected, 16.66 seconds
 #define SAMUS_ITEM_PMT (CONVERT_SECONDS(16.f) + ONE_THIRD_SECOND * 2)
 
 #define SHINESPARK_TIMER_MAX (CONVERT_SECONDS(3.f))

@@ -189,7 +189,7 @@ void UnknownItemChozoStatueRegisterHint(void)
     gCurrentSprite.work3 = 0;
 
     ChozoStatueRegisterItem(gCurrentSprite.spriteId);
-    FadeMusic(0x3C);
+    FadeMusic(CONVERT_SECONDS(1.f));
 }
 
 /**

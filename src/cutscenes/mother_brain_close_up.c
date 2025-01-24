@@ -117,7 +117,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             break;
 
         case 5:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -141,19 +141,19 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
     if (pOam->actions == ELEVATOR_REFLECTION_ACTION_ACTIVE)
     {
         // Set cooldown
-        pOam->timer = 60;
+        pOam->timer = CONVERT_SECONDS(1.f);
         pOam->actions++;
         return;
     }
 
     if (pOam->timer != 0)
     {
-        pOam->timer--;
+        APPLY_DELTA_TIME_DEC(pOam->timer);
         return;
     }
 
     // Set cooldown
-    pOam->timer = 90;
+    pOam->timer = CONVERT_SECONDS(1.5f);
 
     // Set the elevator animation
     UpdateCutsceneOamDataID(pOam, MOTHER_BRAIN_CLOSE_UP_OAM_ID_ELEVATOR_ANIMATION);
@@ -265,7 +265,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
             break;
             
         case 6:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -304,7 +304,7 @@ u8 MotherBrainCloseUpTankView(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
                 // Start second fade, fully visible screen
                 CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 2, 1);
@@ -324,7 +324,7 @@ u8 MotherBrainCloseUpTankView(void)
 
         case 3:
             // Wait one second
-            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f))
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -332,7 +332,7 @@ u8 MotherBrainCloseUpTankView(void)
             break;
 
         case 4:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -348,7 +348,7 @@ u8 MotherBrainCloseUpTankView(void)
  */
 u8 MotherBrainCloseUpInit(void)
 {
-    unk_61f0c();
+    CutsceneFadeScreenToBlack();
 
     // Load tank view palette
     DmaTransfer(3, sMotherBrainCloseUpTankViewPal, PALRAM_BASE, sizeof(sMotherBrainCloseUpTankViewPal), 16);
@@ -363,7 +363,7 @@ u8 MotherBrainCloseUpInit(void)
     CutsceneReset();
 
     // Setup full screen fade in
-    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
     gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sMotherBrainCloseUpPageData[0].bg, NON_GAMEPLAY_START_BG_POS);

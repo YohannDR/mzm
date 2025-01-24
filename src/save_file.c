@@ -1736,8 +1736,8 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->environmentalEffects[3] = gSamusEnvironmentalEffects[3];
     pFile->environmentalEffects[4] = gSamusEnvironmentalEffects[4];
 
-    // 0x2037400 = gVisitedMinimapTiles
-    DmaTransfer(3, (u32*)0x2037400 + gCurrentArea * MINIMAP_SIZE, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
+    // FIXME use symbol
+    DmaTransfer(3, (u32*)0x2037400 + gCurrentArea * MINIMAP_SIZE, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16); // gVisitedMinimapTiles
     DmaTransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
 
     pFile->text[0] = 'A';
@@ -1771,9 +1771,8 @@ void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
         gLastDoorUsed = pDemo->lastDoorUsed;
         gUseMotherShipDoors = pDemo->useMotherShipDoors;
 
-        // 0x02037400 = gVisitedMinimapTiles
-        DmaTransfer(3, pDemo->visitedMinimapTiles, (u32*)0x02037400 + gCurrentArea * MINIMAP_SIZE,
-            sizeof(pDemo->visitedMinimapTiles), 16);
+        // FIXME use symbol
+        DmaTransfer(3, pDemo->visitedMinimapTiles, (u32*)0x02037400 + gCurrentArea * MINIMAP_SIZE, sizeof(pDemo->visitedMinimapTiles), 16); // gVisitedMinimapTiles
         DmaTransfer(3, pDemo->hatchesOpened, gHatchesOpened[gCurrentArea], sizeof(pDemo->hatchesOpened), 16);
     } 
     else if (loadSamusData == TRUE)

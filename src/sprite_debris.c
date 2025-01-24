@@ -38,7 +38,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
     u32 blockTop;
     s32 movement;
 
-    pDebris->frameCounter++;
+    APPLY_DELTA_TIME_INC(pDebris->frameCounter);
 
     if (pDebris->frameCounter == 0)
     {
@@ -261,7 +261,7 @@ void SpriteDebrisProcessAll(void)
             if (pDebris->exists)
             {
                 SpriteDebrisProcess(pDebris);
-                adc = pDebris->animationDurationCounter + 1;
+                adc = pDebris->animationDurationCounter + 1 * DELTA_TIME;
                 pDebris->animationDurationCounter = adc;
                 timer = pDebris->pOam[pDebris->currentAnimationFrame].timer;
                 if (timer < (u8)adc)

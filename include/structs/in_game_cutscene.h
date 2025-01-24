@@ -10,7 +10,7 @@ struct SuitFlashEffect {
     u8 right;
     u8 top;
     u8 bottom;
-    u8 timer;
+    u8 timer; // Changed but never read
 };
 
 struct InGameCutscene {

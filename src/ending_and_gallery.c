@@ -673,11 +673,11 @@ void CreditsInit(void)
 
     ENDING_DATA.unk_E = 0x80;
     ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
-    ENDING_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    ENDING_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     gWrittenToBLDALPHA_L = 16;
     gWrittenToBLDALPHA_H = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     GalleryVBlank();
     PlayMusic(MUSIC_CREDITS, 0);
@@ -1066,9 +1066,7 @@ u8 CreditsChozoWallZoom(void)
 
         case 800:
             ENDING_DATA.dispcnt = DCNT_BG1;
-            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-                BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             ENDING_DATA.unk_1++;
             break;
@@ -1104,7 +1102,7 @@ u8 CreditsChozoWallZoom(void)
     {
         if (!(ENDING_DATA.timer & 7))
         {
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
         }
     }
@@ -1177,12 +1175,12 @@ void EndScreenInit(void)
     zero = 0;
     DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
-    ENDING_DATA.endingNumber = ChozodiaEscapeGetItemCountAndEndingNumber() & 7;
+    ENDING_DATA.endingNumber = PEN_GET_ENDING(ChozodiaEscapeGetItemCountAndEndingNumber()) & 7;
     ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
 
     gWrittenToBLDALPHA_L = 16;
     gWrittenToBLDALPHA_H = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     EndScreenVBlank();
 }
@@ -1345,7 +1343,7 @@ u8 EndScreenSamusPosing(void)
             if (!(ENDING_DATA.endScreenTimer & 1))
                 break;
 
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
             else
                 ENDING_DATA.oamTypes[1]++;
@@ -1461,9 +1459,7 @@ u8 EndScreenSamusPosing(void)
 
         case 18:
             ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
-            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
             
             ENDING_DATA.oamTypes[0]++;
             ENDING_DATA.oamTypes[1]++;
@@ -1476,9 +1472,7 @@ u8 EndScreenSamusPosing(void)
 
         case 32:
             ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
-            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
@@ -1499,14 +1493,13 @@ u8 EndScreenSamusPosing(void)
 void EndingImageInit(void)
 {
     u32 zero;
-    u32 endingNumber;
+    u32 endingNbr;
     u32 energyNbr;
     u32 missilesNbr;
     u32 superMissilesNbr;
     u32 powerBombNbr;
     u32 abilityCount;
     u32 pen;
-    u32 mask;
 
     write16(REG_IME, FALSE);
     write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
@@ -1524,23 +1517,19 @@ void EndingImageInit(void)
 
     pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
-    mask = 0xFF;
-    // TODO figure out how PEN is structured
-    energyNbr = pen >> 24;
-    missilesNbr = (pen >> 16) & mask;
-
-    superMissilesNbr = (pen >> 12) & 0xF;
-    powerBombNbr = (pen >> 8) & 0xF;
-    abilityCount = (pen >> 4) & 0xF;
-
-    endingNumber = pen & 0xF;
+    energyNbr = PEN_GET_ENERGY(pen);
+    missilesNbr = PEN_GET_MISSILE(pen);
+    superMissilesNbr = PEN_GET_SUPER_MISSILE(pen);
+    powerBombNbr = PEN_GET_POWER_BOMB(pen);
+    abilityCount = PEN_GET_ABILITY(pen);
+    endingNbr = PEN_GET_ENDING(pen);
         
-    LZ77UncompVRAM(sEndingImagesTopGfxPointers[endingNumber], VRAM_BASE);
-    LZ77UncompVRAM(sEndingImagesBottomGfxPointers[endingNumber], VRAM_BASE + 0x8000);
-    LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNumber], VRAM_BASE + 0xE000);
-    LZ77UncompVRAM(sEndingImagesHalfTileTablePointers[endingNumber], VRAM_BASE + 0xF800);
+    LZ77UncompVRAM(sEndingImagesTopGfxPointers[endingNbr], VRAM_BASE);
+    LZ77UncompVRAM(sEndingImagesBottomGfxPointers[endingNbr], VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNbr], VRAM_BASE + 0xE000);
+    LZ77UncompVRAM(sEndingImagesHalfTileTablePointers[endingNbr], VRAM_BASE + 0xF800);
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 0x20);
-    DMA_SET(3, sEndingImagesPalPointers[endingNumber], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
+    DMA_SET(3, sEndingImagesPalPointers[endingNbr], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
 
     ENDING_DATA.completionPercentage = energyNbr + missilesNbr + superMissilesNbr + powerBombNbr + abilityCount;
 
@@ -1583,12 +1572,11 @@ void EndingImageInit(void)
     write16(REG_BG3VOFS, 0);
 
     ENDING_DATA.dispcnt = DCNT_OBJ | DCNT_BG0 | DCNT_BG1;
-    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     gWrittenToBLDALPHA_L = 16;
     gWrittenToBLDALPHA_H = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     GalleryVBlank();
 }
@@ -1755,7 +1743,7 @@ u8 EndingImageDisplay(void)
 
         case 1376:
             if (gChangedInput & (KEY_A | KEY_B | KEY_START))
-                FadeMusic(256);
+                FadeMusic(CONVERT_SECONDS(4.f) + CONVERT_SECONDS(4.f / 15)); // 4.25 + 1 * DELTA_TIME
             else
                 ENDING_DATA.timer--;
             break;
@@ -1841,7 +1829,7 @@ void UnlockedOptionsInit(void)
     gWrittenToBLDALPHA_L = 16;
     gWrittenToBLDALPHA_H = 0;
 
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     UnlockedOptionsVBlank();
 }
@@ -1987,7 +1975,7 @@ u32 CreditsSubroutine(void)
 
         case 7:
         case 11:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
             else
                 gGameModeSub1++;
@@ -2026,9 +2014,7 @@ u32 CreditsSubroutine(void)
                 if (gEndingFlags & (ENDING_FLAG_UNKNOWN | ENDING_FLAG_FIRST_TIME_ATTACK_CLEAR |
                     ENDING_FLAG_FIRST_HARD_MODE_CLEAR | ENDING_FLAG_FIRST_CLEAR))
                 {
-                    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+                    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
                     gWrittenToBLDY_NonGameplay = 0;
                     gGameModeSub1++;
@@ -2179,8 +2165,7 @@ void GalleryInit(void)
     ENDING_DATA.unk_8 = 0;
 
     ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
-    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET |
-        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     GalleryVBlank();
 }
@@ -2207,9 +2192,7 @@ u32 GalleryDisplay(void)
 
     if (gChangedInput & KEY_B)
     {
-        ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-            BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-            BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+        ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
         gWrittenToBLDY_NonGameplay = 0;
         ended = TRUE;
@@ -2242,9 +2225,7 @@ u32 GalleryDisplay(void)
         ENDING_DATA.endingNumber = endingNbr;
         ENDING_DATA.completionPercentage = complPercent;
 
-        ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-            BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-            BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+        ENDING_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
         gWrittenToBLDY_NonGameplay = 0;
         gGameModeSub1 = 5;
@@ -2327,7 +2308,7 @@ u32 GallerySubroutine(void)
 
         case 3:
         case 5:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
             {
                 if (ENDING_DATA.timer++ & 1)
                     gWrittenToBLDY_NonGameplay++;

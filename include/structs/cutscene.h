@@ -58,7 +58,7 @@ struct CutsceneScrollingInfo {
 };
 
 struct CutsceneInfo {
-    u8 unk_0;
+    u8 gameplayType;
     u8 playRoomMusic:4;
     u8 isElevator:2;
     u8 skippable:2;
@@ -125,8 +125,7 @@ struct CutsceneSpecialEffect {
 struct CutsceneOamData {
     s16 yPosition;
     s16 xPosition;
-    u8 unk_2;
-    u8 padding_5[3];
+    u8 padding_4[4];
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
@@ -140,27 +139,28 @@ struct CutsceneOamData {
     u8 actions;
     s16 xVelocity;
     s16 yVelocity;
-    s16 unk_12;
+    s16 unk_12; // used as timer and random number
     u16 timer;
-    u16 unk_16;
-    u16 unk_18;
-    u16 unk_1A;
+    u16 unk_16; // used for scaling and timer and random number
+    u16 unk_18; // used for timer and velocity
+    u16 unk_1A; // used as counter
     u8 padding_1C[2];
-    u8 unk_1E;
+    u8 unk_1E; // only holds the value 2 for unk_1A
 };
 
 struct CutsceneTimeInfo {
     u8 stage;
     u16 timer;
     u8 subStage;
-    u8 unk_5;
+    u8 unk_5; // unused
     u8 customTimer;
 };
 
+// Actually used in Enter_Tourian
 struct Cutscene_Unused {
     u8 unk_0;
     u8 unk_1;
-    u8 unk_2;
+    u8 unk_2; // finished scrolling?
     u8 unk_3;
 };
 
@@ -183,12 +183,12 @@ struct CutsceneData {
     struct CutsceneScreenShake horizontalScreenShake;
     struct CutsceneScreenShake verticalScreenShake;
     struct CutsceneSpecialEffect specialEffect;
-    s16 unk_B8;
+    s16 fadingDelay;
     u8 fadingStage;
     u8 fadingColor;
-    u8 unk_BC;
+    u8 fadingReady;
     u8 fadingIntensity;
-    u8 unk_BE;
+    u8 fadingMaxDelay;
     u8 fadingType;
     struct CutsceneGraphicsData graphicsData[4];
     struct CutsceneOamData oam[30];

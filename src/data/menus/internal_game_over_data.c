@@ -13,7 +13,7 @@ const u32* const sGameOverTextPromptGfxPointers[LANGUAGE_END] = {
 };
 
 const u8 sGameOverTextPaletteMaxTimers[3] = {
-    20, 20, 20
+    ONE_THIRD_SECOND, ONE_THIRD_SECOND, ONE_THIRD_SECOND
 };
 
 const s8 sGameOver_760b0f[9] = {

@@ -62,7 +62,7 @@ void EscapeShipSpacePirateSpawn(void)
  */
 void EscapeShipSpacePirateDelayBeforeJumping(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.drawOrder = 4;
@@ -109,7 +109,7 @@ void EscapeShipSpacePirate(void)
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
                 if (MOD_AND(gFrameCounter8Bit, 2))
-                    gCurrentSprite.freezeTimer--;
+                    APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
                 freezeTimer = gCurrentSprite.freezeTimer;
                 
@@ -118,6 +118,7 @@ void EscapeShipSpacePirate(void)
 
                 if (freezeTimer <= CONVERT_SECONDS(.75f))
                 {
+                    // 2 * DELTA_TIME
                     if (MOD_AND(freezeTimer, 2))
                     {
                         gCurrentSprite.paletteRow = 1;

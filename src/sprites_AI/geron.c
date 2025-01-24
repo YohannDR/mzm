@@ -165,7 +165,7 @@ void Geron(void)
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.animationDurationCounter = 0;
 
-                gCurrentSprite.work0 = 200;
+                gCurrentSprite.work0 = CONVERT_SECONDS(3.f) + ONE_THIRD_SECOND;
                 SoundPlayNotAlreadyPlaying(SOUND_GERON_BREAKING);
             }
             else
@@ -173,7 +173,8 @@ void Geron(void)
                 // Check should shake 
                 if (SPRITE_GET_ISFT(gCurrentSprite))
                 {
-                    if (SPRITE_GET_ISFT(gCurrentSprite) == 0x2)
+                    // 2 * DELTA_TIME
+                    if (SPRITE_GET_ISFT(gCurrentSprite) == 2)
                     {
                         // Set shaking
                         gCurrentSprite.pOam = sGeronOAM_Shaking;
@@ -196,7 +197,7 @@ void Geron(void)
             break;
         
         case GERON_POSE_GETTING_DESTROYED:
-            gCurrentSprite.work0--;
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;

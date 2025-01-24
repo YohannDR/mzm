@@ -452,12 +452,16 @@ void BgClipCheckTouchingTransitionOrTank(void)
 
     // Check for transition clipdata
     j = -1;
+    // If touching a horizontal door from the right
     if (behaviors[0] == CLIP_BEHAVIOR_DOOR_TRANSITION)
         j = 0;
+    // If touching a horizontal door from the left
     else if (behaviors[1] == CLIP_BEHAVIOR_DOOR_TRANSITION)
         j = 1;
+    // If touching a vertical door from the bottom
     else if (behaviors[2] == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
         j = 2;
+    // If touching a vertical door from the top
     else if (behaviors[3] == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
         j = 3;
 
@@ -518,7 +522,7 @@ void BgClipCheckTouchingTransitionOrTank(void)
                         if (gEquipment.maxMissiles == 0)
                             isFirstTank = TRUE;
 
-                        gEquipment.maxMissiles += sTankIncreaseAmount[gDifficulty].missile; AREA_CHOZODIA;
+                        gEquipment.maxMissiles += sTankIncreaseAmount[gDifficulty].missile;
                         gEquipment.currentMissiles += sTankIncreaseAmount[gDifficulty].missile;
                     }
                 }
@@ -783,6 +787,7 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
+    // FIXME use symbol
     pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo); // gItemsCollected
 
     // Find empty slot
@@ -829,6 +834,7 @@ void BgClipRemoveCollectedTanks(void)
     
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
+    // FIXME use symbol
     pItem = (struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA; // gItemsCollected
 
     for (i = 0; i < limit; i++, pItem++)
@@ -880,7 +886,7 @@ void BgClipCallMotherBrainUpdateGlass(u8 stage)
         return;
 
     // Loop on every tile of the glass
-    for (i = 0; i < 5; i++) // Y
+    for (i = 0; i < ARRAY_SIZE(sMotherBrainGlassBreakingBaseTilemapValues); i++) // Y
     {
         for (j = 0; j < 7; j++) // X
         {

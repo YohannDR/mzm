@@ -2444,8 +2444,7 @@ const struct MenuOamData sMenuOamDataEraseSram_Empty = {
 const struct CutsceneOamData sCutsceneOam_Empty = {
     .yPosition = 0,
     .xPosition = 0,
-    .unk_2 = 0,
-    .padding_5 = { 0, 0, 0 },
+    .padding_4 = { 0, 0, 0, 0 },
     .animationDurationCounter = 0,
     .currentAnimationFrame = 0,
     .oamID = 0,
@@ -2590,7 +2589,7 @@ const u8 sPauseScreen_40d0fe[4] = {
 };
 
 const u16 sPauseScreen_40d102[5] = {
-    0x1, 0xA, 0x64, 0x3E8, 0x2710
+    1, 10, 100, 1000, 10000
 };
 
 const struct PauseScreenWireframeData sSamusWireframeData[7] = {

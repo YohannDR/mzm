@@ -23,7 +23,7 @@ extern const u8 sEraseSramQuestionWindowNoSelectedOamId;
 extern const u8 sEraseSramQuestionWindowYesSelectedOamId;
 extern const u8 sEraseSramConfirmWindowNoSelectedOamId;
 extern const u8 sEraseSramConfirmWindowYesSelectedOamId;
-extern const u16 sEraseSramMenuSoundsID[5];
+extern const u16 sEraseSramMenuSoundsID[ERASE_SRAM_SOUND_END];
 extern const u16 sEraseSramMenuCursorPosition[2][2];
 extern const u16 sEraseSramMenuCursorPositionOffset[ERASE_SRAM_OPTION_END][2];
 extern const struct OamArray sEraseSramMenuOam[ERASE_SRAM_OAM_ID_END];

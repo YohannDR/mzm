@@ -21,7 +21,7 @@
 
 const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
     [CUTSCENE_NONE] = {
-        .unk_0 = 0,
+        .gameplayType = CUTSCENE_TYPE_NON_GAMEPLAY,
         .playRoomMusic = TRUE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -33,7 +33,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_INTRO_TEXT] = {
-        .unk_0 = 0,
+        .gameplayType = CUTSCENE_TYPE_NON_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -45,7 +45,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_MOTHERSHIP_MONOLOGUE] = {
-        .unk_0 = 0,
+        .gameplayType = CUTSCENE_TYPE_NON_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -57,7 +57,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_COULD_I_SURVIVE] = {
-        .unk_0 = 0,
+        .gameplayType = CUTSCENE_TYPE_NON_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -69,7 +69,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_MOTHER_BRAIN_CLOSE_UP] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = TRUE,
         .skippable = FALSE,
@@ -81,7 +81,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_ENTER_NORFAIR_DEMO_PLAYED
     },
     [CUTSCENE_KRAID_RISING] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -93,7 +93,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_STATUE_OPENING] = {
-        .unk_0 = 2,
+        .gameplayType = CUTSCENE_TYPE_IN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -105,7 +105,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_RIDLEY_IN_SPACE] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = TRUE,
         .skippable = FALSE,
@@ -117,7 +117,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_EXIT_KRAID_DEMO_PLAYED
     },
     [CUTSCENE_RIDLEY_LANDING] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = TRUE,
         .skippable = FALSE,
@@ -129,7 +129,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_ENTER_RIDLEY_DEMO_PLAYED
     },
     [CUTSCENE_RIDLEY_SPAWNING] = {
-        .unk_0 = 2,
+        .gameplayType = CUTSCENE_TYPE_IN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -141,7 +141,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE 
     },
     [CUTSCENE_ENTER_TOURIAN] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = TRUE,
         .skippable = FALSE,
@@ -153,7 +153,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_ENTER_TOURIAN_DEMO_PLAYED 
     },
     [CUTSCENE_BEFORE_CHARLIE] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = TRUE,
@@ -165,7 +165,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_GETTING_FULLY_POWERED] = {
-        .unk_0 = 2,
+        .gameplayType = CUTSCENE_TYPE_IN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -177,7 +177,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_NONE
     },
     [CUTSCENE_MECHA_RIDLEY_SEES_SAMUS] = {
-        .unk_0 = 1,
+        .gameplayType = CUTSCENE_TYPE_BETWEEN_GAMEPLAY,
         .playRoomMusic = TRUE,
         .isElevator = FALSE,
         .skippable = FALSE,
@@ -189,7 +189,7 @@ const struct CutsceneInfo sCutsceneData[CUTSCENE_END] = {
         .event = EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED
     },
     [CUTSCENE_SAMUS_IN_BLUE_SHIP] = {
-        .unk_0 = 2,
+        .gameplayType = CUTSCENE_TYPE_IN_GAMEPLAY,
         .playRoomMusic = FALSE,
         .isElevator = FALSE,
         .skippable = FALSE,

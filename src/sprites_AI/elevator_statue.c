@@ -127,7 +127,7 @@ void KraidElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.work0 = 16; // Delay before falling
+        gCurrentSprite.work0 = CONVERT_SECONDS(.25f) + 1 * DELTA_TIME; // Delay before falling
     }
 }
 
@@ -137,7 +137,7 @@ void KraidElevatorStatueCheckShouldFall(void)
  */
 void KraidElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Set falling behavior
@@ -168,7 +168,7 @@ void KraidElevatorStatueFalling(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 1:
-            if (gCurrentSprite.animationDurationCounter == 3)
+            if (gCurrentSprite.animationDurationCounter == 3 * DELTA_TIME)
             {
                 // Spawn kraid debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_KRAID,
@@ -188,7 +188,7 @@ void KraidElevatorStatueFalling(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            if (gCurrentSprite.animationDurationCounter == 2)
+            if (gCurrentSprite.animationDurationCounter == 2 * DELTA_TIME)
             {
                 // Start screen shake and spawn dust debris
                 ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
@@ -309,7 +309,7 @@ void RidleyElevatorStatueCheckShouldFall(void)
  */
 void RidleyElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Set falling behavior

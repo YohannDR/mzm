@@ -71,7 +71,7 @@ void InitializeAudio(void)
         sMusicTrackDataRom[i].pTrack->unk_1D = sMusicTrackDataRom[i].unknonw_A;
     }
 
-    DoSoundAction((u32)gUnk_Audio0x194F700);
+    DoSoundAction((u32)gUnk_Audio0x194F700); // SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(8 | 1) | SOUND_ACTION_INDEX(4) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7)
 
     for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
     {
@@ -112,45 +112,45 @@ void DoSoundAction(u32 action)
     if (action & 0x80)
         gMusicInfo.unk_4 = action + 0x80;
 
-    if (action & 0xF00)
+    if (action & SOUND_ACTION_MAX_CHANNELS_FLAG)
     {
-        gMusicInfo.maxSoundChannels = (action & 0xF00) >> 8;
+        gMusicInfo.maxSoundChannels = (action & SOUND_ACTION_MAX_CHANNELS_FLAG) >> 8;
         for (i = ARRAY_SIZE(gMusicInfo.soundChannels); i >= 0 ; i--)
         {
             gMusicInfo.soundChannels[i].unk_0 = 0;
         }
     }
 
-    if (action & 0xF000)
-        gMusicInfo.volume = (action & 0xF000) >> 0xC;
+    if (action & SOUND_ACTION_VOLUME_FLAG)
+        gMusicInfo.volume = (action & SOUND_ACTION_VOLUME_FLAG) >> 12;
 
-    if (action & 0xF0000)
+    if (action & SOUND_ACTION_INDEX_FLAG)
     {
-        // unk7 is an index
-        gMusicInfo.unk_7 = (action & 0xF0000) >> 0x10;
+        // unk7 is an index?
+        gMusicInfo.unk_7 = (action & SOUND_ACTION_INDEX_FLAG) >> 16;
         if (gMusicInfo.unk_7 != 0)
             SetupSoundTransfer();
     }
 
     // Set PWM amplitude control
-    if (action & 0xF00000)
+    if (action & SOUND_ACTION_PWM_FLAG)
     {
         // Set amplitude resolution/sampling cycle to bits 28-29 of action
-        write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & 0xF00000) >> 0xE);
+        write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & SOUND_ACTION_PWM_FLAG) >> 14);
     }
 
-    control = action & 0xF000000;
+    control = action & SOUND_ACTION_STEREO_FLAG;
     if (control)
     {
         // Enable stereo
-        if (control == 0x2000000)
+        if (control == SOUND_ACTION_ENABLE_STEREO)
         {
             // Set sound volume to 50%, disable DMA sound A left and sound B right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & 0xE10D);
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x1);
         }
         // Disable stereo
-        else if (control == 0x1000000)
+        else if (control == SOUND_ACTION_DISABLE_STEREO)
         {
             // Set sound volume to 100% and enable DMA sound A/B left/right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & ~0x1);

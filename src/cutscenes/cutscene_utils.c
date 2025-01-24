@@ -21,6 +21,9 @@
 #include "structs/display.h"
 #include "structs/game_state.h"
 
+#define PAL_TO_FADE ((void*)(sEwramPointer))
+#define PAL_WITH_FADE ((void*)sEwramPointer + PALRAM_SIZE)
+
 /**
  * @brief 60e28 | 4 | Default subroutine for cutscenes that don't have any
  * 
@@ -181,7 +184,7 @@ u8 CutsceneSubroutine(void)
             break;
 
         case CUTSCENE_STAGE_FADING_IN:
-            unk_61f60();
+            CutsceneTransferFade();
             if (CutsceneUpdateFading())
                 gSubGameModeStage++;
             break;
@@ -194,7 +197,7 @@ u8 CutsceneSubroutine(void)
             break;
             
         case CUTSCENE_STAGE_ONGOING:
-            CUTSCENE_DATA.timeInfo.timer++;
+            APPLY_DELTA_TIME_INC(CUTSCENE_DATA.timeInfo.timer);
             CutsceneUpdateSpecialEffect();
 
             result = sCutsceneData[gCurrentCutscene].pFunction();
@@ -237,7 +240,7 @@ u8 CutsceneSubroutine(void)
             // Reset stage for the next cutscene
             gSubGameModeStage = CUTSCENE_STAGE_STARTING;
 
-            if (sCutsceneData[gCurrentCutscene].unk_0 == 0)
+            if (sCutsceneData[gCurrentCutscene].gameplayType == CUTSCENE_TYPE_NON_GAMEPLAY)
                 gCurrentCutscene = CUTSCENE_NONE;
         
             return TRUE;
@@ -262,7 +265,7 @@ u8 CutsceneEndFunction(void)
  */
 void CutsceneVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | 0x100);
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, 0x100));
 
     write16(REG_BG0HOFS, CUTSCENE_DATA.bg0hofs);
     write16(REG_BG0VOFS, CUTSCENE_DATA.bg0vofs);
@@ -279,7 +282,7 @@ void CutsceneVBlank(void)
     write16(REG_BG3CNT, CUTSCENE_DATA.bgcnt[3]);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
 
     write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt);
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt);
@@ -300,10 +303,10 @@ void CutsceneLoadingVBlank(void)
  */
 void CutsceneInit(void)
 {
-    s32 unk;
+    s32 gameplayType;
 
     CallbackSetVBlank(CutsceneLoadingVBlank);
-    BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 0x20);
+    BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
     gNextOamSlot = 0;
@@ -315,14 +318,14 @@ void CutsceneInit(void)
 
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
-    unk = sCutsceneData[gCurrentCutscene].unk_0;
-    if (unk != 0)
+    gameplayType = sCutsceneData[gCurrentCutscene].gameplayType;
+    if (gameplayType != CUTSCENE_TYPE_NON_GAMEPLAY)
     {
-        if (unk == 2)
+        if (gameplayType == CUTSCENE_TYPE_IN_GAMEPLAY)
             gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
 
-        if (unk < 3)
-            DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
+        if (gameplayType < CUTSCENE_TYPE_END)
+            DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, gameplayType * 0x4000, 16);
     }
 
     if (gCutsceneToSkip != gCurrentCutscene)
@@ -330,10 +333,10 @@ void CutsceneInit(void)
 
     ClearGfxRam();
 
-    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0x800;
-    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0x800;
-    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0x800;
-    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay= 0x800;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay= NON_GAMEPLAY_START_BG_POS;
 
     CUTSCENE_DATA.timeInfo.stage = 0;
     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -478,7 +481,6 @@ u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData,
 {
     s32 nbrBackgrounds;
     s32 slot;
-    s32 var_0;
 
     nbrBackgrounds = 0;
 
@@ -615,7 +617,7 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
     {
         // Update delay
         if (pScrolling->delay > 0)
-            pScrolling->delay--;
+            APPLY_DELTA_TIME_DEC(pScrolling->delay);
         else
         {
             // Reset delay
@@ -713,14 +715,14 @@ void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
         }
     }
 
-    CUTSCENE_DATA.bg0hofs = gBg0HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg0vofs = gBg0VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg1hofs = gBg1HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg1vofs = gBg1VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg2hofs = gBg2HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg2vofs = gBg2VOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg3hofs = gBg3HOFS_NonGameplay / 4;
-    CUTSCENE_DATA.bg3vofs = gBg3VOFS_NonGameplay / 4;
+    CUTSCENE_DATA.bg0hofs = gBg0HOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg0vofs = gBg0VOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg1hofs = gBg1HOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg1vofs = gBg1VOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg2hofs = gBg2HOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg2vofs = gBg2VOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg3hofs = gBg3HOFS_NonGameplay / PIXEL_SIZE;
+    CUTSCENE_DATA.bg3vofs = gBg3VOFS_NonGameplay / PIXEL_SIZE;
 
     if (CUTSCENE_DATA.horizontalScreenShake.bg != 0)
         CutsceneUpdateScreenShake(FALSE, &CUTSCENE_DATA.horizontalScreenShake);
@@ -741,9 +743,9 @@ void CutsceneUpdateScreenShake(u8 affectVertical, struct CutsceneScreenShake* pS
     s32 size;
 
     // Update delay
-    if (pShake->delay > 1)
+    if (pShake->delay > 1 * DELTA_TIME)
     {
-        pShake->delay--;
+        APPLY_DELTA_TIME_DEC(pShake->delay);
         return;
     }
 
@@ -842,7 +844,7 @@ void CutsceneUpdateSpecialEffect(void)
         // Update timer
         if (CUTSCENE_DATA.specialEffect.s_Timer > 0)
         {
-            CUTSCENE_DATA.specialEffect.s_Timer--;
+            APPLY_DELTA_TIME_DEC(CUTSCENE_DATA.specialEffect.s_Timer);
             return;
         }
 
@@ -884,7 +886,7 @@ void CutsceneUpdateSpecialEffect(void)
         // Upate timer
         if (CUTSCENE_DATA.specialEffect.bg_Timer > 0)
         {
-            CUTSCENE_DATA.specialEffect.bg_Timer--;
+            APPLY_DELTA_TIME_DEC(CUTSCENE_DATA.specialEffect.bg_Timer);
             return;
         }
 
@@ -1037,35 +1039,35 @@ void CutsceneReset(void)
 }
 
 /**
- * @brief 61f0c | 1c | To document
+ * @brief 61f0c | 1c | Fade the screen to black
  * 
  */
-void unk_61f0c(void)
+void CutsceneFadeScreenToBlack(void)
 {
     CUTSCENE_DATA.dispcnt = 0;
     gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
-    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 }
 
 /**
- * @brief 61f28 | 1c | To document
+ * @brief 61f28 | 1c | Fade the screen to white
  * 
  */
-void unk_61f28(void)
+void CutsceneFadeScreenToWhite(void)
 {
     CUTSCENE_DATA.dispcnt = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
     CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 
 /**
- * @brief 61f44 | 40 | To document
+ * @brief 61f44 | 40 | Update palette with fade and update cutscene fading
  * 
- * @return u32 
+ * @return u32 bool, ended
  */
-u32 unk_61f44(void)
+u32 CutsceneTransferAndUpdateFade(void)
 {
-    unk_61f60();
+    CutsceneTransferFade();
     if (CutsceneUpdateFading())
         return TRUE;
 
@@ -1073,15 +1075,15 @@ u32 unk_61f44(void)
 }
 
 /**
- * @brief 61f60 | 40 | To document
+ * @brief 61f60 | 40 | Transfer faded palette to RAM when ready
  * 
  */
-void unk_61f60(void)
+void CutsceneTransferFade(void)
 {
-    if (CUTSCENE_DATA.unk_BC)
+    if (CUTSCENE_DATA.fadingReady)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x400, 0x10);
-        CUTSCENE_DATA.unk_BC = FALSE;
+        DmaTransfer(3, PAL_WITH_FADE, PALRAM_BASE, PALRAM_SIZE, 16);
+        CUTSCENE_DATA.fadingReady = FALSE;
     }
 }
 
@@ -1098,78 +1100,78 @@ u8 CutsceneStartBackgroundFading(u8 type)
     result = FALSE;
 
     CUTSCENE_DATA.fadingColor = 0;
-    CUTSCENE_DATA.unk_BC = FALSE;
-    CUTSCENE_DATA.unk_B8 = 0;
+    CUTSCENE_DATA.fadingReady = FALSE;
+    CUTSCENE_DATA.fadingDelay = 0; COLOR_FADING_END;
 
-    DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer, PALRAM_SIZE, 16);
+    DmaTransfer(3, PALRAM_BASE, PAL_TO_FADE, PALRAM_SIZE, 16);
 
     switch (type)
     {
-        case 1:
+        case COLOR_FADING_FLASH:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAL_WITH_FADE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 2;
-            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingMaxDelay = 0;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
-        case 2:
+        case COLOR_FADING_CANCEL:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAL_WITH_FADE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
-            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingMaxDelay = 4;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
-        case 3:
+        case COLOR_FADING_WHITE:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAL_WITH_FADE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
-            CUTSCENE_DATA.unk_BE = 8;
+            CUTSCENE_DATA.fadingMaxDelay = 8;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_IN;
             break;
 
-        case 5:
-            FadeMusic(20);
+        case COLOR_FADING_FLASH2:
+            FadeMusic(ONE_THIRD_SECOND);
 
-        case 6:
+        case COLOR_FADING_NO_TRANSITION:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 2;
-            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingMaxDelay = 0;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
-        case 7:
+        case COLOR_FADING_FLASH_NO_TRANSITION:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 1;
-            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingMaxDelay = 4;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
-        case 8:
+        case COLOR_FADING_NO_TRANSITION_HUD_HIDE:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 8;
-            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingMaxDelay = 0;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_OUT;
             break;
 
-        case 9:
+        case COLOR_FADING_SLOW_WHITE:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 2;
-            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingMaxDelay = 0;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_UNK;
             break;
 
-        case 10:
+        case COLOR_FADING_SLOW_BLACK:
             CUTSCENE_DATA.fadingStage = 2;
             CUTSCENE_DATA.fadingIntensity = 1;
-            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingMaxDelay = 4;
             CUTSCENE_DATA.fadingType = COLOR_FADING_TYPE_UNK;
             break;
 
@@ -1192,28 +1194,30 @@ u8 CutsceneUpdateFading(void)
     u8 ended;
 
     ended = FALSE;
-    CUTSCENE_DATA.unk_B8++;
+    CUTSCENE_DATA.fadingDelay++;
 
     switch (CUTSCENE_DATA.fadingStage)
     {
         case 0:
-            if (CUTSCENE_DATA.unk_BC)
+            if (CUTSCENE_DATA.fadingReady)
                 break;
 
-            if (CUTSCENE_DATA.unk_B8 < CUTSCENE_DATA.unk_BE)
+            if (CUTSCENE_DATA.fadingDelay < CUTSCENE_DATA.fadingMaxDelay)
                 break;
 
             if (CUTSCENE_DATA.fadingColor < 32)
             {
-                src = (void*)sEwramPointer;
-                dst = (void*)sEwramPointer + PALRAM_SIZE;
+                // Transfer base palette
+                src = PAL_TO_FADE;
+                dst = PAL_WITH_FADE;
                 ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
 
-                src = (void*)sEwramPointer + PALRAM_SIZE / 2;
-                dst = (void*)sEwramPointer + PALRAM_SIZE + PALRAM_SIZE / 2;
+                // Transfer obj palette
+                src = PAL_TO_FADE + PAL_SIZE;
+                dst = PAL_WITH_FADE + PAL_SIZE;
                 ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
 
-                CUTSCENE_DATA.unk_BC = TRUE;
+                CUTSCENE_DATA.fadingReady = TRUE;
 
                 if (CUTSCENE_DATA.fadingColor == 31)
                 {
@@ -1228,14 +1232,14 @@ u8 CutsceneUpdateFading(void)
             }
             else
             {
-                DmaTransfer(3, (void*)sEwramPointer, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
-                CUTSCENE_DATA.unk_BC = TRUE;
+                DmaTransfer(3, PAL_TO_FADE, PAL_WITH_FADE, PALRAM_SIZE, 16);
+                CUTSCENE_DATA.fadingReady = TRUE;
                 CUTSCENE_DATA.fadingStage++;
             }
             break;
 
         case 1:
-            if (!CUTSCENE_DATA.unk_BC)
+            if (!CUTSCENE_DATA.fadingReady)
             {
                 CUTSCENE_DATA.fadingColor = 0;
                 CUTSCENE_DATA.fadingStage = 0;
@@ -1244,24 +1248,26 @@ u8 CutsceneUpdateFading(void)
             break;
 
         case 2:
-            if (CUTSCENE_DATA.unk_BC)
+            if (CUTSCENE_DATA.fadingReady)
                 break;
 
-            if (CUTSCENE_DATA.unk_B8 < CUTSCENE_DATA.unk_BE)
+            if (CUTSCENE_DATA.fadingDelay < CUTSCENE_DATA.fadingMaxDelay)
                 break;
 
-            CUTSCENE_DATA.unk_B8 = 0;
+            CUTSCENE_DATA.fadingDelay = 0;
             if (CUTSCENE_DATA.fadingColor < 32)
             {
-                src = (void*)sEwramPointer;
-                dst = (void*)sEwramPointer + PALRAM_SIZE;
+                // Transfer base palette
+                src = PAL_TO_FADE;
+                dst = PAL_WITH_FADE;
                 ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
 
-                src = (void*)sEwramPointer + PALRAM_SIZE / 2;
-                dst = (void*)sEwramPointer + PALRAM_SIZE + PALRAM_SIZE / 2;
+                // Transfer obj palette
+                src = PAL_TO_FADE + PAL_SIZE;
+                dst = PAL_WITH_FADE + PAL_SIZE;
                 ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
 
-                CUTSCENE_DATA.unk_BC = TRUE;
+                CUTSCENE_DATA.fadingReady = TRUE;
 
                 if (CUTSCENE_DATA.fadingColor == 31)
                 {
@@ -1277,17 +1283,17 @@ u8 CutsceneUpdateFading(void)
             else
             {
                 if (CUTSCENE_DATA.fadingType == 3)
-                    BitFill(3, COLOR_WHITE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+                    BitFill(3, COLOR_WHITE, PAL_WITH_FADE, PALRAM_SIZE, 16);
                 else                
-                    BitFill(3, COLOR_BLACK, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+                    BitFill(3, COLOR_BLACK, PAL_WITH_FADE, PALRAM_SIZE, 16);
 
-                CUTSCENE_DATA.unk_BC = TRUE;
+                CUTSCENE_DATA.fadingReady = TRUE;
                 CUTSCENE_DATA.fadingStage = 3;
             }
             break;
 
         case 3:
-            if (!CUTSCENE_DATA.unk_BC)
+            if (!CUTSCENE_DATA.fadingReady)
             {
                 CUTSCENE_DATA.fadingColor = 0;
                 CUTSCENE_DATA.fadingStage = 0;

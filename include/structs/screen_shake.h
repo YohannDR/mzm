@@ -5,8 +5,8 @@
 
 struct ScreenShake {
     u8 timer;
-    u8 loopCounter;
-    u8 unk_2; // intensity ?
+    u8 delay;
+    u8 intensity;
     u8 direction;
 };
 
@@ -16,9 +16,9 @@ struct ScreenShake {
 #define SHAKE_LEFT -1
 #define SHAKE_RIGHT 1
 
-extern u8 gScreenShakeXOffset;
-extern u8 gScreenShakeYOffset;
-extern u16 gScreenShakeRelated;
+extern u8 gScreenShakeXOffset; // set but never read
+extern u8 gScreenShakeYOffset; // set but never read
+extern u16 gScreenShakeRelated; // set to 0 but never updated
 extern struct ScreenShake gScreenShakeY;
 extern struct ScreenShake gScreenShakeX;
 

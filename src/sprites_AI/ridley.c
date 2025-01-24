@@ -1767,7 +1767,7 @@ void RidleyDying(void)
             if (gCurrentSprite.work2 == 1)
                 StartEffectForCutscene(EFFECT_CUTSCENE_STATUE_OPENING);
             else if (gCurrentSprite.work2 == 0)
-                FadeMusic(0x96);
+                FadeMusic(CONVERT_SECONDS(2.5f));
         }
     }
 
@@ -1832,7 +1832,7 @@ void RidleyDying(void)
             // Kill sprite
             gCurrentSprite.status = 0;
             // Unlock doors
-            gDoorUnlockTimer = -0x3C;
+            gDoorUnlockTimer = -CONVERT_SECONDS(1.f);
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_KILLED);
             // Update minimap

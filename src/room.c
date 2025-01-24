@@ -177,7 +177,7 @@ void RoomLoadTileset(void)
     gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;
     gTilemapAndClipPointers.pClipBehaviors = gClipdataBehaviorTypes;
 
-    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 2 * sizeof(u16), 16);
+    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 2 * sizeof(u16), 16); // write past?
 
     if (gCurrentArea > AREA_DEBUG_1)
     {
@@ -190,25 +190,25 @@ void RoomLoadTileset(void)
         DmaTransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
     }
 
-    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 16);
+    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 16); // write past?
     DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 16);
     DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 16);
 
     CallLZ77UncompVram(entry.pTileGraphics, VRAM_BASE + 0x5800);
-    DmaTransfer(3, entry.pPalette + 1 * PAL_ROW, PALRAM_BASE + 6 * PAL_ROW, PAL_SIZE - 6 * PAL_ROW, 16);
+    DmaTransfer(3, entry.pPalette + 1 * PAL_ROW, PALRAM_BASE + 3 * PAL_ROW_SIZE, PAL_SIZE - 3 * PAL_ROW_SIZE, 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     if (gUseMotherShipDoors == TRUE)
     {
         DmaTransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 16);
         // Don't overwrite first color in PALRAM
-        DmaTransfer(3, sCommonTilesMotherShipPal + 1, PALRAM_BASE + 2, 6 * PAL_ROW - 2, 16);
+        DmaTransfer(3, sCommonTilesMotherShipPal + 1, PALRAM_BASE + 2, 3 * PAL_ROW_SIZE - 1 * sizeof(u16), 16);
     }
     else
     {
         DmaTransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 16);
         // Don't overwrite first color in PALRAM
-        DmaTransfer(3, sCommonTilesPal + 1, PALRAM_BASE + 2, 6 * PAL_ROW - 2, 16);
+        DmaTransfer(3, sCommonTilesPal + 1, PALRAM_BASE + 2, 3 * PAL_ROW_SIZE - 1 * sizeof(u16), 16);
     }
 
     gTilesetTransparentColor.transparentColor = *entry.pPalette;
@@ -254,7 +254,7 @@ void RoomLoadEntry(void)
     gCurrentRoomEntry.visualEffect = entry.effect;
     gCurrentRoomEntry.musicTrack = entry.musicTrack;
 
-    gCurrentRoomEntry.effectY = (entry.effectY != UCHAR_MAX) ? entry.effectY * 64 : USHORT_MAX;
+    gCurrentRoomEntry.effectY = (entry.effectY != UCHAR_MAX) ? entry.effectY * BLOCK_SIZE : USHORT_MAX;
 
     gSpritesetEntryUsed = 0;
     gCurrentRoomEntry.firstSpritesetEvent = entry.firstSpritesetEvent;
@@ -882,9 +882,10 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
     if (gPreventMovementTimer != 0)
         dontUpdateGraphics = TRUE;
 
+    // Always zero?
     if (gDisableAnimatedGraphicsTimer != 0)
     {
-        gDisableAnimatedGraphicsTimer--;
+        APPLY_DELTA_TIME_DEC(gDisableAnimatedGraphicsTimer);
         dontUpdateBgEffect = TRUE;
         dontUpdateGraphics = TRUE;
     }
@@ -921,32 +922,32 @@ void RoomUpdateHatchFlashingAnimation(void)
     // Update hatches that unlocked
     if (gHatchesState.unlocking)
     {
-        gHatchFlashingAnimation.unlocking_delay++;
-        if (gHatchFlashingAnimation.unlocking_delay > 7)
+        APPLY_DELTA_TIME_INC(gHatchFlashingAnimation.unlocking_delay);
+        if (gHatchFlashingAnimation.unlocking_delay >= CONVERT_SECONDS(2.f / 15))
         {
             gHatchFlashingAnimation.unlocking_delay = 0;
-            gHatchFlashingAnimation.unlocking_paletteRow++;
+            APPLY_DELTA_TIME_INC(gHatchFlashingAnimation.unlocking_paletteRow);
 
-            if (gHatchFlashingAnimation.unlocking_paletteRow > 5)
+            if (gHatchFlashingAnimation.unlocking_paletteRow >= CONVERT_SECONDS(.1f))
                 gHatchFlashingAnimation.unlocking_paletteRow = 0;
 
-            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.unlocking_paletteRow * 16 + 6], PALRAM_BASE + 0x2C, 4, 0x10);
+            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.unlocking_paletteRow * PAL_ROW + 6], PALRAM_BASE + 1 * PAL_ROW_SIZE + 6 * sizeof(u16), 2 * sizeof(u16), 16);
         }
     }
 
     // Left over code from fusion
     if (gHatchesState.navigationDoorsUnlocking)
     {
-        gHatchFlashingAnimation.navigation_delay++;
-        if (gHatchFlashingAnimation.navigation_delay > 7)
+        APPLY_DELTA_TIME_INC(gHatchFlashingAnimation.navigation_delay);
+        if (gHatchFlashingAnimation.navigation_delay >= CONVERT_SECONDS(2.f / 15))
         {
             gHatchFlashingAnimation.navigation_delay = 0;
-            gHatchFlashingAnimation.navigation_paletteRow++;
+            APPLY_DELTA_TIME_INC(gHatchFlashingAnimation.navigation_paletteRow);
 
-            if (gHatchFlashingAnimation.navigation_paletteRow > 5)
+            if (gHatchFlashingAnimation.navigation_paletteRow >= CONVERT_SECONDS(.1f))
                 gHatchFlashingAnimation.navigation_paletteRow = 0;
 
-            DMA_SET(3, &pPalette[gHatchFlashingAnimation.navigation_paletteRow * 16 + 6], PALRAM_BASE + 0x4C, DMA_ENABLE << 16 | 2);
+            DMA_SET(3, &pPalette[gHatchFlashingAnimation.navigation_paletteRow * PAL_ROW + 6], PALRAM_BASE + 2 * PAL_ROW_SIZE + 6 * sizeof(u16), C_32_2_16(DMA_ENABLE, 2));
         }
     }
 }
@@ -964,17 +965,17 @@ void RoomUpdate(void)
         gScrollCounter++;
 
         // Horizontal
-        if (gScrollCounter & 1 || gCamera.xVelocity < -28 || gCamera.xVelocity > 28)
+        if (gScrollCounter & 1 || gCamera.xVelocity < -(HALF_BLOCK_SIZE - PIXEL_SIZE) || gCamera.xVelocity > (HALF_BLOCK_SIZE - PIXEL_SIZE))
         {
-            RoomUpdateHorizontalTilemap(16);
-            RoomUpdateHorizontalTilemap(-2);
+            RoomUpdateHorizontalTilemap(QUARTER_BLOCK_SIZE);
+            RoomUpdateHorizontalTilemap(-(PIXEL_SIZE / 2));
         }
 
         // Vertical
-        if (!(gScrollCounter & 1) || gCamera.yVelocity < -28 || gCamera.yVelocity > 28)
+        if (!(gScrollCounter & 1) || gCamera.yVelocity < -(HALF_BLOCK_SIZE - PIXEL_SIZE) || gCamera.yVelocity > (HALF_BLOCK_SIZE - PIXEL_SIZE))
         {
-            RoomUpdateVerticalTilemap(11);
-            RoomUpdateVerticalTilemap(-2);
+            RoomUpdateVerticalTilemap(EIGHTH_BLOCK_SIZE + 3 * ONE_SUB_PIXEL);
+            RoomUpdateVerticalTilemap(-(PIXEL_SIZE / 2));
         }
     }
 
@@ -1028,7 +1029,7 @@ void RoomUpdateBackgroundsPosition(void)
     yPosition = MOD_AND(gBg2YPosition / PIXEL_SIZE, 0x200);
     gBackgroundPositions.bg[2].y = yPosition + yOffset;
 
-    if (gScreenShakeRelated & 0x100)
+    if (gScreenShakeRelated & 0x100) // never true?
     {
         gBackgroundPositions.bg[0].x = (gBg0XPosition / PIXEL_SIZE) + gBg0Movement.xOffset & 0x1FF; // MOD_AND stops matching here
         gBackgroundPositions.bg[0].y = (gBg0YPosition / PIXEL_SIZE) + gBg0Movement.yOffset & 0x1FF;
@@ -1040,9 +1041,9 @@ void RoomUpdateBackgroundsPosition(void)
     }
 
     bg3X = (gBg3XPosition / PIXEL_SIZE) + gBg3Movement.xOffset & 0x1FF;
-    bg3Y = (gBg3YPosition / PIXEL_SIZE)& 0x1FF;
+    bg3Y = (gBg3YPosition / PIXEL_SIZE) & 0x1FF;
 
-    if (gScreenShakeRelated & 0x800)
+    if (gScreenShakeRelated & 0x800) // never true?
     {
         gBackgroundPositions.bg[3].x = bg3X;
         gBackgroundPositions.bg[3].y = bg3Y;

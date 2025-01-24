@@ -125,7 +125,7 @@ enum ProjectileBombStage {
     BOMB_STAGE_END
 };
 
-#define BOMB_EXPLOSION_TIMER (CONVERT_SECONDS(.25f + 1.f / 60))
+#define BOMB_EXPLOSION_TIMER (CONVERT_SECONDS(.25f) + 1 * DELTA_TIME)
 
 // Power bomb
 

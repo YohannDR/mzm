@@ -28,10 +28,10 @@ void CutsceneUpdateSpecialEffect(void);
 void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u32 interval, u8 intensity);
 void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u32 interval, u8 intensity);
 void CutsceneReset(void);
-void unk_61f0c(void);
-void unk_61f28(void);
-u32 unk_61f44(void);
-void unk_61f60(void);
+void CutsceneFadeScreenToBlack(void);
+void CutsceneFadeScreenToWhite(void);
+u32 CutsceneTransferAndUpdateFade(void);
+void CutsceneTransferFade(void);
 u8 CutsceneStartBackgroundFading(u8 type);
 u8 CutsceneUpdateFading(void);
 

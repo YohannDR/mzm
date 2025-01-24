@@ -20,7 +20,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            if (unk_61f44())
+            if (CutsceneTransferAndUpdateFade())
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -28,7 +28,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
                 SoundPlay(SOUND_MECHA_SEES_SAMUS_EYE_OPENING);
                 UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], 2);
@@ -46,7 +46,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 3:
-            if (CUTSCENE_DATA.timeInfo.timer > 4)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f / 15))
             {
                 SoundPlay(SOUND_MECHA_SEES_SAMUS_EYE_FOCUSING);
                 UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 4);
@@ -64,7 +64,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 5:
-            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f))
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -72,7 +72,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 6:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             {
                 CUTSCENE_DATA.timeInfo.stage++;
                 MACRO_CUTSCENE_NEXT_STAGE();
@@ -92,9 +92,9 @@ u8 MechaRidleySeesSamusInit(void)
     u16 bg;
     u32 priority;
 
-    unk_61f0c();
+    CutsceneFadeScreenToBlack();
     DmaTransfer(3, sMechaSeesSamusPal, PALRAM_BASE, sizeof(sMechaSeesSamusPal), 16);
-    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, PALRAM_SIZE / 2, 32);
+    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, PAL_SIZE, 32);
 
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
@@ -105,7 +105,7 @@ u8 MechaRidleySeesSamusInit(void)
     CutsceneSetBgcntPageData(sMechaRidleySeesSamusPagesData[0]);
 
     bg = sMechaRidleySeesSamusPagesData[0].bg;
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, BLOCK_SIZE * 32);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, NON_GAMEPLAY_START_BG_POS);
     CutsceneReset();
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;

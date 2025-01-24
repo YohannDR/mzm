@@ -7,16 +7,16 @@
  * @brief 55344 | 34 | Starts a vertical screen shake
  * 
  * @param duration Duration
- * @param param_2 To document
- * @return u8 Screen shake timer
+ * @param intensity 
+ * @return u8 Screen shake Y timer
  */
-u8 ScreenShakeStartVertical(u8 duration, u8 param_2)
+u8 ScreenShakeStartVertical(u8 duration, u8 intensity)
 {
     if (duration != 0 && duration > gScreenShakeY.timer)
     {
         gScreenShakeY.timer = duration;
-        gScreenShakeY.loopCounter = 0;
-        gScreenShakeY.unk_2 = param_2;
+        gScreenShakeY.delay = 0;
+        gScreenShakeY.intensity = intensity;
         gScreenShakeY.direction = 0;
 
         gScreenShakeYOffset = 0;
@@ -29,16 +29,16 @@ u8 ScreenShakeStartVertical(u8 duration, u8 param_2)
  * @brief 55378 | 34 | Starts an horizontal screen shake
  * 
  * @param duration Duration
- * @param param_2 To document
- * @return u8 Screen shake timer
+ * @param intensity To document
+ * @return u8 Screen shake X timer
  */
-u8 ScreenShakeStartHorizontal(u8 duration, u8 param_2)
+u8 ScreenShakeStartHorizontal(u8 duration, u8 intensity)
 {
     if (duration != 0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loopCounter = 0;
-        gScreenShakeX.unk_2 = param_2;
+        gScreenShakeX.delay = 0;
+        gScreenShakeX.intensity = intensity;
         gScreenShakeX.direction = 0;
 
         gScreenShakeXOffset = 0;
@@ -51,15 +51,15 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 param_2)
  * @brief 553ac | 30 | Starts an horizontal screen shake, unused
  * 
  * @param duration Duration
- * @return u8 Screen shake timer
+ * @return u8 Screen shake X timer
  */
 u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 {
     if (duration != 0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loopCounter = 0;
-        gScreenShakeX.unk_2 = 0;
+        gScreenShakeX.delay = 0;
+        gScreenShakeX.intensity = 0;
         gScreenShakeX.direction = 0;
 
         gScreenShakeXOffset = 0;
@@ -76,7 +76,7 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 s32 ScreenShakeUpdateVertical(void)
 {
     s32 offset;
-    u32 unk;
+    u32 intensity;
     
     offset = 0;
     gScreenShakeYOffset = 0;
@@ -84,20 +84,20 @@ s32 ScreenShakeUpdateVertical(void)
     if (gScreenShakeY.timer == 0)
         return 0;
 
-    gScreenShakeY.timer--;
-    if (gScreenShakeY.loopCounter < 2)
+    APPLY_DELTA_TIME_DEC(gScreenShakeY.timer);
+    if (gScreenShakeY.delay < 2 * DELTA_TIME)
     {
-        gScreenShakeY.loopCounter++;
+        gScreenShakeY.delay++;
         return 0;
     }
 
-    gScreenShakeY.loopCounter = 0;
+    gScreenShakeY.delay = 0;
 
-    unk = gScreenShakeY.unk_2 & 0x7F;
+    intensity = gScreenShakeY.intensity & 0x7F;
     offset = 2 * SHAKE_UP;
     if (gScreenShakeY.direction)
     {
-        if (unk == 0)
+        if (intensity == 0)
             offset = 0;
         else
             offset = 2 * SHAKE_DOWN;
@@ -122,7 +122,7 @@ s32 ScreenShakeUpdateVertical(void)
 s32 ScreenShakeUpdateHorizontal(void)
 {
     s32 offset;
-    u32 unk;
+    u32 intensity;
     
     offset = 0;
     gScreenShakeXOffset = 0;
@@ -130,20 +130,20 @@ s32 ScreenShakeUpdateHorizontal(void)
     if (gScreenShakeX.timer == 0)
         return 0;
 
-    gScreenShakeX.timer--;
-    if (gScreenShakeX.loopCounter < 2)
+    APPLY_DELTA_TIME_DEC(gScreenShakeX.timer);
+    if (gScreenShakeX.delay < 2 * DELTA_TIME)
     {
-        gScreenShakeX.loopCounter++;
+        gScreenShakeX.delay++;
         return 0;
     }
 
-    gScreenShakeX.loopCounter = 0;
+    gScreenShakeX.delay = 0;
 
-    unk = gScreenShakeX.unk_2 & 0x7F;
+    intensity = gScreenShakeX.intensity & 0x7F;
     offset = 2 * SHAKE_LEFT;
     if (gScreenShakeX.direction)
     {
-        if (unk == 0)
+        if (intensity == 0)
             offset = 0;
         else
             offset = 2 * SHAKE_RIGHT;
