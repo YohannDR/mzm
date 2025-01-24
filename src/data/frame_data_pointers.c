@@ -165,7 +165,7 @@ const struct FrameData* const sRidleyFrameDataPointers[RIDLEY_OAM_END] = {
     [RIDLEY_OAM_FIREBALL_BIG] = sRidleyFireballOam_Big
 };
 
-
+// palette, rotation
 const u8 sAtomicDynamicPaletteData[33][2] = {
     { 0, 4 },
     { 2, 4 },

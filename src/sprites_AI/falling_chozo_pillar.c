@@ -45,7 +45,7 @@ void FallingChozoPillar(void)
             gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED;
-            gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(4.25f + 1.f / 60);
+            gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(4.25f) + 1 * DELTA_TIME;
             gCurrentSprite.work0 = 0;
             break;
 
@@ -70,7 +70,9 @@ void FallingChozoPillar(void)
         case FALLING_CHOZO_PILLAR_POSE_FALLING:
             if (gCurrentSprite.yPositionSpawn != 0)
             {
-                if (!(gCurrentSprite.work0++ & 0xF))
+                // todo: APPLY_DELTA_TIME_INC won't match here
+                // CONVERT_SECONDS(.25f) + 1 * DELTA_TIME
+                if (MOD_AND(gCurrentSprite.work0++, 16) == 0)
                 {
                     // Start screen shake/play particle
                     ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);

@@ -31,7 +31,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
     gCurrentSprite.drawOrder = 1;
 
     // Set OAM and collision
@@ -162,9 +162,10 @@ void EnemyDropIdle(void)
 
     // Update sprite based on despawn timer
     timer = gCurrentSprite.xPositionSpawn;
+    // 2 * DELTA_TIME
     if (MOD_AND(timer, 2))
     {
-        timer = --gCurrentSprite.yPositionSpawn;
+        timer = APPLY_DELTA_TIME_DEC(gCurrentSprite.yPositionSpawn);
         if (timer != 0)
         {
             if (timer < CONVERT_SECONDS(1.f) + ONE_THIRD_SECOND)
@@ -192,5 +193,5 @@ void EnemyDrop(void)
     }
 
     // Update despawn timer
-    gCurrentSprite.xPositionSpawn++;
+    APPLY_DELTA_TIME_INC(gCurrentSprite.xPositionSpawn);
 }

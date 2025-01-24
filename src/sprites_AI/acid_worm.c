@@ -375,7 +375,7 @@ void AcidWormCheckSamusOnZipline(void)
     if (SpriteUtilCheckOnZipline())
     {
         gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SPAWN;
-        FadeMusic(0x12);
+        FadeMusic(CONVERT_SECONDS(0.3f));
     }
 }
 
@@ -1445,8 +1445,8 @@ void AcidWormBodyDeath(void)
 
             // Set event and open door
             EventFunction(EVENT_ACTION_SETTING, EVENT_ACID_WORM_KILLED);
-            gDoorUnlockTimer = -20;
-            FadeMusic(0x10E);
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
+            FadeMusic(CONVERT_SECONDS(4.5f));
         }
     }
 

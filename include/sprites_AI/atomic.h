@@ -15,6 +15,10 @@
 #define ATOMIC_ELECTRICITY_POSE_EXPLODING 0x23
 #define ATOMIC_ELECTRICITY_POSE_ON_GROUND 0x25
 
+#define ATOMIC_DIRECTION_DIAGONAL   0x0
+#define ATOMIC_DIRECTION_HORIZONTAL 0x1
+#define ATOMIC_DIRECTION_VERTICAL   0x2
+
 void AtomicSmoothMovement(void);
 void AtomicUpdateDirectionToFleeSamus(void);
 void AtomicCheckShootElectricity(void);

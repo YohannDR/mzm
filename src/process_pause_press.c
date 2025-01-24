@@ -20,7 +20,7 @@ u32 ProcessPauseButtonPress(void)
     u32 fade;
 
     doingSomething = TRUE;
-    if (gPauseScreenFlag != 0)
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
     {
         if (gCurrentPowerBomb.animationState | gCurrentPowerBomb.powerBombPlaced)
             doingSomething = FALSE;

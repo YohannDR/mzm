@@ -85,7 +85,7 @@ void IntroInit(void)
 
     DMA_SET(3, sIntroTextAndShipPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPal)));
     DMA_SET(3, sIntroTextAndShipPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroTextAndShipPal)));
-    DMA_SET(3, sIntroPal_45f9d4, PALRAM_BASE + 0x1E0, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroPal_45f9d4)));
+    DMA_SET(3, sIntroPal_45f9d4, PALRAM_BASE + 15 * PAL_ROW_SIZE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sIntroPal_45f9d4)));
 
     write16(REG_BG0CNT, CREATE_BGCNT(0, 16, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
     write16(REG_BG1CNT, CREATE_BGCNT(0, 18, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
@@ -114,7 +114,7 @@ void IntroInit(void)
     UpdateMusicPriority(1);
 
     INTRO_DATA.dispcnt = DCNT_OBJ;
-    INTRO_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    INTRO_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
@@ -466,7 +466,7 @@ u8 IntroShipFlyingTowardsCamera(void)
             SoundPlay(SOUND_INTRO_SHIP_FLYING_TOWARDS_CAMERA);
             break;
 
-        case CONVERT_SECONDS(.5f + 1.f / 30):
+        case CONVERT_SECONDS(.5f) + 2 * DELTA_TIME:
             INTRO_DATA.dispcnt = 0;
             INTRO_DATA.bldcnt = 0;
             INTRO_DATA.stage++;
@@ -961,8 +961,8 @@ u32 IntroSubroutine(void)
             {
                 gGameModeSub1++;
                 gGameModeSub2 = 1;
-                FadeAllSounds(10);
-                FadeMusic(10);
+                FadeAllSounds(CONVERT_SECONDS(1.f / 6));
+                FadeMusic(CONVERT_SECONDS(1.f / 6));
             }
             else if (sIntroSubroutinesFunctionsPointer[INTRO_DATA.stage]())
             {

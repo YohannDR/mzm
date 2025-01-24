@@ -31,7 +31,7 @@ u32 GameOverSubroutine(void)
 
     ended = FALSE;
 
-    GAME_OVER_DATA.timer++;
+    APPLY_DELTA_TIME_INC(GAME_OVER_DATA.timer);
 
     switch (gGameModeSub1)
     {
@@ -41,7 +41,7 @@ u32 GameOverSubroutine(void)
                 gCurrentDemo.number++;
                 gCurrentDemo.active = FALSE;
 
-                DoSoundAction(0x194F780);
+                DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_INDEX(4) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | 0x80);
                 FadeAllSounds(CONVERT_SECONDS(1.f / 6));
                 FadeMusic(CONVERT_SECONDS(1.f / 6));
                 gDemoState = DEMO_STATE_NONE;
@@ -62,7 +62,7 @@ u32 GameOverSubroutine(void)
             }
 
             GAME_OVER_DATA.dispcnt |= DCNT_WIN1;
-            GAME_OVER_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            GAME_OVER_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
             gGameModeSub1++;
             break;
 
@@ -102,18 +102,14 @@ u32 GameOverSubroutine(void)
         case 5:
             GameOverUpdateLettersPalette();
             gWrittenToBLDY_NonGameplay = 4;
-
-            GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
-                BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
-
+            GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
             GAME_OVER_DATA.dispcnt ^= DCNT_WIN1;
             FadeMusic(ONE_THIRD_SECOND);
             gGameModeSub1++;
             break;
 
         case 6:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
             else
                 gGameModeSub1++;
@@ -138,7 +134,7 @@ u32 GameOverSubroutine(void)
             break;
 
         case 9:
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
             else
             {
@@ -240,11 +236,11 @@ void GameOverInit(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / sizeof(u32)));
 
     write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
     write16(REG_DISPCNT, 0);
 
     gNextOamSlot = 0;
@@ -306,11 +302,11 @@ void GameOverInit_Unused(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / sizeof(u32)));
 
     write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
     write16(REG_DISPCNT, GAME_OVER_DATA.dispcnt = 0);
 
     gNextOamSlot = 0;
@@ -319,7 +315,7 @@ void GameOverInit_Unused(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    DoSoundAction(0x194F780);
+    DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(8 | 1) | SOUND_ACTION_INDEX(4) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | 0x80);
     StopAllMusicsAndSounds();
 
     SET_BACKDROP_COLOR(COLOR_WHITE);
@@ -336,7 +332,7 @@ void GameOverInit_Unused(void)
     gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0;
     gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0;
 
-    GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    GAME_OVER_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
     gWrittenToBLDY_NonGameplay = 0;
     GAME_OVER_DATA.optionSelected = GAME_OVER_DATA.unk_35 = 0;
@@ -354,7 +350,7 @@ void GameOverInit_Unused(void)
  */
 void GameOverVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)))
 
     write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBg0HOFS_NonGameplay));
     write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBg0VOFS_NonGameplay));
@@ -404,9 +400,9 @@ void GameOverUpdateLettersPalette(void)
 
     if (GAME_OVER_DATA.dynamicPalette.enableFlags & 0x80)
     {
-        if (MOD_AND(GAME_OVER_DATA.dynamicPalette.enableFlags, 128) != GAME_OVER_DATA.dynamicPalette.unk_4)
+        if ((sNonGameplayRamPointer->gameOver.dynamicPalette.enableFlags & 0x7F) != GAME_OVER_DATA.dynamicPalette.unk_4)
         {
-            GAME_OVER_DATA.dynamicPalette.unk_4 = MOD_AND(GAME_OVER_DATA.dynamicPalette.enableFlags, 128);
+            GAME_OVER_DATA.dynamicPalette.unk_4 = sNonGameplayRamPointer->gameOver.dynamicPalette.enableFlags & 0x7F;
             GAME_OVER_DATA.dynamicPalette.timer = 0;
             GAME_OVER_DATA.dynamicPalette.currentPaletteRow = 0;
             GAME_OVER_DATA.dynamicPalette.unk_13 = 0;
@@ -417,7 +413,7 @@ void GameOverUpdateLettersPalette(void)
         return;
     }
 
-    GAME_OVER_DATA.dynamicPalette.timer++;
+    APPLY_DELTA_TIME_INC(GAME_OVER_DATA.dynamicPalette.timer);
     if (GAME_OVER_DATA.dynamicPalette.timerLimit > GAME_OVER_DATA.dynamicPalette.timer)
         return;
 
@@ -469,7 +465,7 @@ void GameOverUpdateLettersPalette(void)
     }
 
     GAME_OVER_DATA.dynamicPalette.timer = 0;
-    DmaTransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 8, sizeof(GAME_OVER_DATA.dynamicPalette.palette), 16);
+    DmaTransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 4 * sizeof(u16), sizeof(GAME_OVER_DATA.dynamicPalette.palette), 16);
 }
 
 /**

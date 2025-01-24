@@ -4,6 +4,8 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
+#define MAX_METROID_IDS 4
+
 u8 EnterTourianAnimation(void);
 void EnterTourianScrollBackground(void);
 void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId);

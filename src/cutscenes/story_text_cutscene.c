@@ -27,20 +27,20 @@ u8 StoryTextCutsceneInit(void)
 
     // Set message ID
     gCurrentMessage.messageID = sCutsceneData[gCurrentCutscene].storyText - 1;
-    unk_61f0c();
+    CutsceneFadeScreenToBlack();
 
     // Load palette
-    DmaTransfer(3, sStoryTextCutscenePal, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePal), 16);
+    DmaTransfer(3, sStoryTextCutscenePal, PALRAM_BASE + PAL_SIZE - 1 * PAL_ROW_SIZE, sizeof(sStoryTextCutscenePal), 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     // Load tiletable and clear graphics
     CallLZ77UncompVram(sStoryTextCutsceneTileTable, VRAM_BASE + sStoryTextCutscenePagesData[0].tiletablePage * 0x800);
-    BitFill(3, 0, VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000, 0x5000, 0x20);
+    BitFill(3, 0, VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000, 0x5000, 32);
 
     CutsceneSetBgcntPageData(sStoryTextCutscenePagesData[0]);
     
-    gWrittenToBLDY_NonGameplay = 16;
-    gWrittenToBLDALPHA_L = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
+    gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
     gWrittenToBLDALPHA_H = 0;
 
     // Check is "fullscreen" text ID
@@ -53,9 +53,9 @@ u8 StoryTextCutsceneInit(void)
             CUTSCENE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
             gWrittenToBLDALPHA_L = 0;
-            gWrittenToBLDALPHA_H = 16;
+            gWrittenToBLDALPHA_H = BLDALPHA_MAX_VALUE;
 
-            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sStoryTextCutscenePagesData[0].bg, 0x800);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sStoryTextCutscenePagesData[0].bg, NON_GAMEPLAY_START_BG_POS);
             break;
     }
 
@@ -95,7 +95,7 @@ u8 StoryTextCutsceneProcessText(void)
             if (gCurrentMessage.line > 9)
                 gCurrentMessage.line = 0;
 
-            BitFill(3, 0, dst + gCurrentMessage.line * 0x200, 0x800, 0x10);
+            BitFill(3, 0, dst + gCurrentMessage.line * 0x200, 0x800, 16);
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
@@ -153,7 +153,7 @@ u8 StoryTextCutsceneSetVerticalOffset(void)
 {
     u32 bgPosition;
 
-    bgPosition = 0x800;
+    bgPosition = NON_GAMEPLAY_START_BG_POS;
 
     // Weird maths, produces the following values (0 to 10) : 1728, 1760, 1792, 1824, 1856, 1888, 1920, 1952, 1984, 2016, 2048
     bgPosition -= (10 - gCurrentMessage.line) / 2 * 64;
@@ -183,7 +183,7 @@ u8 StoryTextCutsceneFadeIn(void)
             CUTSCENE_DATA.dispcnt |= sStoryTextCutscenePagesData[0].bg;
 
             // Start fading
-            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 16, 0, 4, 1);
+            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, BLDALPHA_MAX_VALUE, 0, 4, 1);
 
             // Check play landing sound effect (footsteps, running...)
             if (gCurrentCutscene == CUTSCENE_INTRO_TEXT)
@@ -217,7 +217,7 @@ u8 StoryTextCutsceneFadeOut(void)
     {
         case 0:
             // Start fading
-            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 0, 16, 4, 1);
+            CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 0, BLDALPHA_MAX_VALUE, 4, 1);
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
@@ -253,7 +253,7 @@ u8 StoryTextCutsceneCheckInput(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            if (CUTSCENE_DATA.timeInfo.timer > 120)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(2.f))
             {
                 if (gCurrentMessage.gfxSlot != 0)
                     subStage = 2;
@@ -299,7 +299,7 @@ u8 StoryTextCutsceneEnd(void)
 
     // Stil has some text to process, clear graphics
     dst = VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000;
-    BitFill(3, 0, dst + CUTSCENE_DATA.timeInfo.subStage * 0x1000, 0x1000, 0x20);
+    BitFill(3, 0, dst + CUTSCENE_DATA.timeInfo.subStage * 0x1000, 0x1000, 32);
 
     CUTSCENE_DATA.timeInfo.subStage++;
     if (CUTSCENE_DATA.timeInfo.subStage > 4)

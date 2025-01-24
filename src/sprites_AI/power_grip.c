@@ -79,7 +79,7 @@ void PowerGrip(void)
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
 
             // Check message banner disappeared
-            if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)
+            if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1 * DELTA_TIME)
                 gCurrentSprite.status = 0;
     }
 }

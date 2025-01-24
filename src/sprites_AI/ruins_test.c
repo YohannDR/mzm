@@ -2192,7 +2192,7 @@ void RuinsTestSamusReflectionEnd(void)
                 gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_UPDATE_PALETTE;
                 gCurrentSprite.work0 = 0x1;
                 gCurrentSprite.work1 = 0xC;
-                FadeMusic(0xC8);
+                FadeMusic(CONVERT_SECONDS(3.f) + ONE_THIRD_SECOND);
             }
             else if (gCurrentSprite.work0 == 0x1E)
             {

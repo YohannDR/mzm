@@ -19,7 +19,7 @@ u8 SamusInBlueShipPoweringUp(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            if (unk_61f44())
+            if (CutsceneTransferAndUpdateFade())
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -27,7 +27,7 @@ u8 SamusInBlueShipPoweringUp(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
                 CUTSCENE_DATA.oam[0].actions = 1;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -44,7 +44,7 @@ u8 SamusInBlueShipPoweringUp(void)
             break;
 
         case 3:
-            if (CUTSCENE_DATA.timeInfo.timer > 30)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
                 SoundPlay(SOUND_BLUE_SHIP_POWERING_UP);
                 CUTSCENE_DATA.graphicsData[0].active = TRUE;
@@ -55,7 +55,7 @@ u8 SamusInBlueShipPoweringUp(void)
             break;
 
         case 4:
-            if (CUTSCENE_DATA.timeInfo.timer > 90)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.5f))
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -63,7 +63,7 @@ u8 SamusInBlueShipPoweringUp(void)
             break;
 
         case 5:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -85,11 +85,11 @@ void SamusInBlueShipShakeScreen(struct CutsceneGraphicsData* pGraphics)
     if (!pGraphics->active)
         return;
 
-    pGraphics->timer++;
+    APPLY_DELTA_TIME_INC(pGraphics->timer);
     if (MOD_AND(pGraphics->timer, 2))
         return;
 
-    if (pGraphics->timer & 2)
+    if (MOD_BLOCK_AND(pGraphics->timer, 2))
         *CutsceneGetBgHorizontalPointer(sSamusInBlueShipPageData[0].bg) += PIXEL_SIZE;
     else
         *CutsceneGetBgHorizontalPointer(sSamusInBlueShipPageData[0].bg) -= PIXEL_SIZE;
@@ -110,7 +110,7 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
         case 1:
             UpdateCutsceneOamDataID(pOam, 2);
             SoundPlay(SOUND_BLUE_SHIP_TURNING_ON);
-            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
             gWrittenToBLDALPHA_H = 0;
             pOam->actions++;
             break;
@@ -134,12 +134,12 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
             if (pOam->unk_1A == 0)
             {
                 pOam->unk_1A = pOam->unk_1E;
-                pOam->timer++;
+                APPLY_DELTA_TIME_INC(pOam->timer);
                 if (pOam->timer >= ARRAY_SIZE(sSamusInBlueShipPanelTransparency))
                     pOam->timer = 0;
 
                 gWrittenToBLDALPHA_L = sSamusInBlueShipPanelTransparency[pOam->timer];
-                gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
+                gWrittenToBLDALPHA_H = BLDALPHA_MAX_VALUE - gWrittenToBLDALPHA_L;
             }
             else
                 pOam->unk_1A--;
@@ -154,7 +154,7 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
  */
 u8 SamusInBlueShipInit(void)
 {
-    unk_61f0c();
+    CutsceneFadeScreenToBlack();
 
     DmaTransfer(3, sSamusInBlueShipPal, PALRAM_OBJ, sizeof(sSamusInBlueShipPal), 16);
     DmaTransfer(3, sSamusInBlueShipPal, PALRAM_BASE, sizeof(sSamusInBlueShipPal), 16);
@@ -169,15 +169,15 @@ u8 SamusInBlueShipInit(void)
 
     CUTSCENE_DATA.bldcnt = BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET;
 
-    gWrittenToBLDALPHA_L = 16;
+    gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
     gWrittenToBLDALPHA_H = 0;
 
-    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sSamusInBlueShipPageData[0].bg, BLOCK_SIZE * 32);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sSamusInBlueShipPageData[0].bg, NON_GAMEPLAY_START_BG_POS);
 
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], 1);
 
-    CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 39 + HALF_BLOCK_SIZE;
-    CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 37 - PIXEL_SIZE;
+    CUTSCENE_DATA.oam[0].xPosition = NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+    CUTSCENE_DATA.oam[0].yPosition = NON_GAMEPLAY_START_BG_POS + BLOCK_SIZE * 5 - PIXEL_SIZE;
     CUTSCENE_DATA.oam[0].priority = 0;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
 

@@ -198,7 +198,7 @@ void GlassTubeCheckCrackingAnimEnded(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         // Remove collision
-        GlassTubeChangeCcaa(); HALF_BLOCK_SIZE - PIXEL_SIZE / 2;
+        GlassTubeChangeCcaa();
 
         // Play effects
         ParticleSet(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE - PIXEL_SIZE / 2), gCurrentSprite.xPosition - (5 * BLOCK_SIZE - QUARTER_BLOCK_SIZE - PIXEL_SIZE), PE_MEDIUM_DUST);

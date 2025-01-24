@@ -93,7 +93,7 @@ void PauseScreenCountTanksInArea(void)
  * @brief 6d060 | 2d4 | Draws the in game time and tanks info on the map screen
  * 
  * @param param_1 
- * @param drawTanks 
+ * @param drawTanks Draw tanks or IGT info flag
  */
 void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
 {
@@ -389,12 +389,12 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
     u32 ended;
 
     ended = FALSE;
-    PAUSE_SCREEN_DATA.downloadTimer++;
+    APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.downloadTimer);
 
     switch (PAUSE_SCREEN_DATA.downloadStage)
     {
         case 0:
-            if (PAUSE_SCREEN_DATA.downloadTimer > 8)
+            if (PAUSE_SCREEN_DATA.downloadTimer > CONVERT_SECONDS(2.f / 15))
             {
                 // Setup line
                 PAUSE_SCREEN_DATA.miscOam[2].oamID = MISC_OAM_ID_MAP_DOWNLOAD_LINE;
@@ -440,7 +440,7 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
             break;
 
         case 3:
-            if (PAUSE_SCREEN_DATA.downloadTimer >= 30)
+            if (PAUSE_SCREEN_DATA.downloadTimer >= CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.downloadTimer = 0;
                 PAUSE_SCREEN_DATA.downloadStage = 0;
@@ -462,12 +462,12 @@ u32 PauseScreenMapDownload(void)
     s32 i;
 
     ended = FALSE;
-    PAUSE_SCREEN_DATA.downloadTimer++;
+    APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.downloadTimer);
 
     switch (PAUSE_SCREEN_DATA.downloadStage)
     {
         case 0:
-            if (PAUSE_SCREEN_DATA.downloadTimer <= 8)
+            if (PAUSE_SCREEN_DATA.downloadTimer <= CONVERT_SECONDS(2.f / 15))
                 break;
 
             // Setup line
@@ -520,7 +520,7 @@ u32 PauseScreenMapDownload(void)
         case 2:
             i = TRUE;
 
-            if (PAUSE_SCREEN_DATA.downloadTimer > 7)
+            if (PAUSE_SCREEN_DATA.downloadTimer >= CONVERT_SECONDS(2.f / 15))
             {
                 if (PAUSE_SCREEN_DATA.unk_4F < 21)
                 {
@@ -616,7 +616,7 @@ u32 PauseScreenMapDownload(void)
             break;
 
         case 6:
-            if (PAUSE_SCREEN_DATA.downloadTimer >= 30)
+            if (PAUSE_SCREEN_DATA.downloadTimer >= CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.downloadTimer = 0;
                 PAUSE_SCREEN_DATA.downloadStage = 0;

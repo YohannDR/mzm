@@ -293,7 +293,7 @@ void ChozoBallFlashAnimation(void)
     if (MOD_AND(gCurrentSprite.work0, 2) == 0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         
-    if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)
+    if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1 * DELTA_TIME)
         gCurrentSprite.status = 0;
 }
 

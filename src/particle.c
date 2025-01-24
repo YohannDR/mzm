@@ -45,15 +45,16 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
         return;
     }
 
-    bgBaseY = gBg1YPosition + BLOCK_SIZE * 8;
-    particleY = pParticle->yPosition + BLOCK_SIZE * 8;
-    bgBottomBoundry = bgBaseY - BLOCK_SIZE * 2;
-    bgTopBoundry = bgBaseY + BLOCK_SIZE * 12;
+    bgBaseY = gBg1YPosition + (SCREEN_SIZE_Y_SUB_PIXEL - SCREEN_Y_BLOCK_PADDING);
+    particleY = pParticle->yPosition + (SCREEN_SIZE_Y_SUB_PIXEL - SCREEN_Y_BLOCK_PADDING);
+    bgBottomBoundry = bgBaseY - (SCREEN_Y_BLOCK_PADDING);
+    bgTopBoundry = bgBaseY + (SCREEN_SIZE_Y_SUB_PIXEL + SCREEN_Y_BLOCK_PADDING);
 
-    bgBaseX = gBg1XPosition + BLOCK_SIZE * 8;
-    particleX = pParticle->xPosition + BLOCK_SIZE * 8;
-    bgLeftBoundry = bgBaseX - BLOCK_SIZE * 2;
-    bgRightBoundry = bgBaseX + BLOCK_SIZE * 17;
+    // Why 5 block offset?
+    bgBaseX = gBg1XPosition + ((SCREEN_SIZE_X_SUB_PIXEL - SCREEN_X_BLOCK_PADDING - 5 * BLOCK_SIZE));
+    particleX = pParticle->xPosition + ((SCREEN_SIZE_X_SUB_PIXEL - SCREEN_X_BLOCK_PADDING - 5 * BLOCK_SIZE));
+    bgLeftBoundry = bgBaseX - (SCREEN_X_BLOCK_PADDING);
+    bgRightBoundry = bgBaseX + (SCREEN_SIZE_X_SUB_PIXEL + SCREEN_X_BLOCK_PADDING);
 
     if (bgLeftBoundry < particleX && particleX < bgRightBoundry &&
         bgBottomBoundry < particleY && particleY < bgTopBoundry)
@@ -1822,8 +1823,8 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
             }
 
             ParticleUpdateAnimation(pParticle, sParticleChargingBeamChargedOAM);
-
-            if (MOD_AND(pParticle->frameCounter, CONVERT_SECONDS(.25f + 1.f / 60)) == 0)
+            // CONVERT_SECONDS(.25f) + 1 * DELTA_TIME
+            if (MOD_AND(pParticle->frameCounter, 16) == 0)
                 ParticlePlayBeamFullChargedSound();
 
             APPLY_DELTA_TIME_INC(pParticle->frameCounter);
@@ -1860,7 +1861,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
             else if (gCurrentEscapeStatus == ESCAPE_STATUS_HAPPENNING && EscapeCheckHasEscaped())
             {
                 pParticle->stage = 2;
-                pParticle->frameCounter = CONVERT_SECONDS(.5f + 1.f / 30);
+                pParticle->frameCounter = CONVERT_SECONDS(.5f) + 2 * DELTA_TIME;
             }
             break;
 

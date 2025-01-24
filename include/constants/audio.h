@@ -831,4 +831,17 @@ enum Sound {
     SOUND_END
 };
 
+#define SOUND_ACTION_MAX_CHANNELS(c)   ((c) << 8)
+#define SOUND_ACTION_VOLUME(v)         ((v) << 12)
+#define SOUND_ACTION_INDEX(i)          ((i) << 16)
+#define SOUND_ACTION_PWM(a)            ((a) << 20)
+#define SOUND_ACTION_DISABLE_STEREO    (1 << 24)
+#define SOUND_ACTION_ENABLE_STEREO     (1 << 25)
+
+#define SOUND_ACTION_MAX_CHANNELS_FLAG (0xF << 8)
+#define SOUND_ACTION_VOLUME_FLAG       (0xF << 12)
+#define SOUND_ACTION_INDEX_FLAG        (0xF << 16)
+#define SOUND_ACTION_PWM_FLAG          (0xF << 20)
+#define SOUND_ACTION_STEREO_FLAG       (0xF << 24)
+
 #endif /* AUDIO_CONSTANTS_H */

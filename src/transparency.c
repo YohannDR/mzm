@@ -275,9 +275,9 @@ void TransparencySetRoomEffectsTransparency(void)
     gTransparencyRelated = sTransparencyRelated_Empty;
 
     gSuitFlashEffect.left = 0;
-    gSuitFlashEffect.right = 0xF0;
+    gSuitFlashEffect.right = SCREEN_SIZE_X;
     gSuitFlashEffect.top = 0;
-    gSuitFlashEffect.bottom = 0xA0;
+    gSuitFlashEffect.bottom = SCREEN_SIZE_Y;
     gSuitFlashEffect.timer = 0;
 
     write8(REG_WININ, 0);
@@ -835,7 +835,7 @@ void unk_55e60(void)
 }
 
 /**
- * @brief 55f68 | To document
+ * @brief 55f68 | Update animated and faded palette and music on transition
  * 
  */
 void unk_55f68(void)

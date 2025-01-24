@@ -3,7 +3,11 @@
 #include "cutscenes/cutscene_utils.h"
 #include "cutscenes/kraid_rising.h"
 
-const u16 sKraidRisingPuffData[11][4] = {
+// 0: x position
+// 1: y position
+// 2: oam id
+// 3: timer
+const u16 sKraidRisingPuffData[KRAID_RISING_PUFF_AMOUNT][4] = {
     [0] = {
         BLOCK_SIZE,
         BLOCK_SIZE * 7,
@@ -72,7 +76,7 @@ const u16 sKraidRisingPuffData[11][4] = {
     }
 };
 
-const u16 sKraidRisingDebrisSpawnXPosition[6] = {
+const u16 sKraidRisingDebrisSpawnXPosition[KRAID_RISING_DEBRIS_AMOUNT] = {
     BLOCK_SIZE + HALF_BLOCK_SIZE, BLOCK_SIZE * 3 + HALF_BLOCK_SIZE,
     BLOCK_SIZE * 5 + HALF_BLOCK_SIZE, BLOCK_SIZE * 9, BLOCK_SIZE * 11,
     BLOCK_SIZE * 13 + HALF_BLOCK_SIZE

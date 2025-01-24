@@ -43,7 +43,7 @@ void unk_7b71c(void);
 
 void OptionTimeAttackLoadRecord(u8 id);
 void unk_7b854(void);
-void OptionTimeAttackLoadPasswrod(u8 part);
+void OptionTimeAttackLoadPassword(u8 part);
 
 u8 OptionsMetroidFusionLinkSubroutine(void);
 u32 FileSelectMenuSubroutine(void);

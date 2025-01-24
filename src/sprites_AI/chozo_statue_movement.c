@@ -80,6 +80,7 @@ void ChozoStatueMovement(void)
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
 
-    if (--gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+    if (gCurrentSprite.work0 == 0)
         gCurrentSprite.status = 0;
 }

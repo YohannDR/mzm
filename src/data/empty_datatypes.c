@@ -5,6 +5,8 @@
 #include "constants/connection.h"
 #include "constants/power_bomb_explosion.h"
 
+#include "structs/screen_shake.h"
+
 // 345868
 
 const struct HatchData sHatchData_Empty = {
@@ -81,8 +83,8 @@ const struct PowerBomb sPowerBomb_Empty = {
 
 const struct ScreenShake sScreenShake_Empty = {
     .timer = 0,
-    .loopCounter = 0,
-    .unk_2 = 0,
+    .delay = 0,
+    .intensity = 0,
     .direction = 0
 };
 

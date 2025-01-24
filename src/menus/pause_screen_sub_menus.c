@@ -74,7 +74,7 @@ u32 PauseScreenEasySleepSubroutine(void)
             break;
 
         case 2:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
@@ -285,8 +285,8 @@ void ChozoStatueHintMovement(void)
             break;
 
         case 2:
-            PAUSE_SCREEN_DATA.unk_48++;
-            if (PAUSE_SCREEN_DATA.unk_48 > 60)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
+            if (PAUSE_SCREEN_DATA.unk_48 > CONVERT_SECONDS(1.f))
             {
                 PAUSE_SCREEN_DATA.unk_49 = 1;
                 PAUSE_SCREEN_DATA.unk_48 = 0;
@@ -362,8 +362,8 @@ void ChozoStatueHintMovement(void)
             break;
 
         case 4:
-            PAUSE_SCREEN_DATA.unk_48++;
-            if (PAUSE_SCREEN_DATA.unk_48 > 20)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
+            if (PAUSE_SCREEN_DATA.unk_48 > ONE_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.targetsOam[1].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = FALSE;
@@ -373,8 +373,8 @@ void ChozoStatueHintMovement(void)
             break;
 
         case 5:
-            PAUSE_SCREEN_DATA.unk_48++;
-            if (PAUSE_SCREEN_DATA.unk_48 > 20)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
+            if (PAUSE_SCREEN_DATA.unk_48 > ONE_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.unk_48 = 0;
                 PAUSE_SCREEN_DATA.unk_47 = 0;
@@ -383,8 +383,8 @@ void ChozoStatueHintMovement(void)
             break;
 
         case 6:
-            PAUSE_SCREEN_DATA.unk_48++;
-            if (PAUSE_SCREEN_DATA.unk_48 > 60)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
+            if (PAUSE_SCREEN_DATA.unk_48 > CONVERT_SECONDS(1.f))
             {
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.unk_48 = 0;
@@ -456,8 +456,8 @@ void ChozoStatueHintScrolling(void)
             break;
 
         case 2:
-            PAUSE_SCREEN_DATA.unk_4A++;
-            if (PAUSE_SCREEN_DATA.unk_4A > 20)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_4A);
+            if (PAUSE_SCREEN_DATA.unk_4A > ONE_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.unk_4A = 0;
                 PAUSE_SCREEN_DATA.unk_49++;
@@ -494,8 +494,8 @@ void ChozoStatueHintScrolling(void)
             break;
 
         case 4:
-            PAUSE_SCREEN_DATA.unk_4A++;
-            if (PAUSE_SCREEN_DATA.unk_4A > 20)
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_4A);
+            if (PAUSE_SCREEN_DATA.unk_4A > ONE_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.unk_4A = 0;
                 PAUSE_SCREEN_DATA.unk_49 = 0;
@@ -544,7 +544,7 @@ u32 ChozoStatueHintSubroutine(void)
             break;
 
         case 4:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 60)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(1.f))
             {
                 PAUSE_SCREEN_DATA.bldcnt |= (BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
@@ -585,7 +585,7 @@ u32 ChozoStatueHintSubroutine(void)
             break;
 
         case 7:
-            if (PAUSE_SCREEN_DATA.unk_68 != (gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L))
+            if (PAUSE_SCREEN_DATA.unk_68 != C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L))
             {
                 if ((PAUSE_SCREEN_DATA.unk_68 >> 8) > gWrittenToBLDALPHA_H)
                     gWrittenToBLDALPHA_H++;
@@ -603,7 +603,7 @@ u32 ChozoStatueHintSubroutine(void)
 
         case 0:
         case 8:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 40)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > TWO_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
@@ -723,7 +723,7 @@ void ChozoHintDeterminePath(u8 param_1)
     {
         if (param_1 == FALSE)
         {
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < ARRAY_SIZE(sChozoStatueTargets); i++)
             {
                 if (!((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1))
                     continue;
@@ -818,7 +818,7 @@ void ChozoHintDeterminePath(u8 param_1)
         pTarget = sChozoStatueTargetPathPointers[gCurrentArea];
         if (pTarget != NULL)
         {
-            for (i = 0; i < 15; i++)
+            for (i = 0; i < ARRAY_SIZE(sChozoStatueTargetConditions) - 1; i++)
             {
                 if (!((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1))
                     continue;

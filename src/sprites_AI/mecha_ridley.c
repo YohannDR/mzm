@@ -1272,7 +1272,7 @@ void MechaRidleySecondEyeGlow(void)
             gInGameTimerAtBosses[3] = gInGameTimer;
             
             // Unlock doors
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
 
             // Enable alarm
             gDisableAnimatedPalette = FALSE;

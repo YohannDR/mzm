@@ -886,32 +886,32 @@ void MetroidDeath(void)
     {
         case 14:
             EventFunction(EVENT_ACTION_SETTING, EVENT_FIRST_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 1:
             EventFunction(EVENT_ACTION_SETTING, EVENT_THIRD_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 2:
             EventFunction(EVENT_ACTION_SETTING, EVENT_FIFTH_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 15:
             EventFunction(EVENT_ACTION_SETTING, EVENT_SECOND_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 16:
             EventFunction(EVENT_ACTION_SETTING, EVENT_SIXTH_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
 
         case 19:
             EventFunction(EVENT_ACTION_SETTING, EVENT_FOURTH_METROID_ROOM_CLEARED);
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
             break;
     }
 }
@@ -1108,7 +1108,7 @@ void MetroidDoorLock(void)
         if (SpriteUtilCountPrimarySprites(PSPRITE_METROID) == 0 && SpriteUtilCountPrimarySprites(PSPRITE_FROZEN_METROID) == 0)
         {
             gCurrentSprite.status = 0;
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
         }
     }
 }

@@ -112,7 +112,7 @@ void CheckTransferFadedPalette(void)
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
         {
-            DmaTransfer(3, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW * sizeof(u16), 16);
+            DmaTransfer(3, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
             gColorFading.status ^= COLOR_FADING_STATUS_ON_OBJ;
         }
     }
@@ -300,7 +300,7 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
         return;
     }
     
-    if (stage >= 0x1F)
+    if (stage >= 31)
     {
         // Transition is done, simply use the monochrome
         DmaTransfer(3, srcMonochrome, dst, PAL_SIZE, 16);
@@ -365,14 +365,14 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
     if (stage == 0)
     {
-        DmaTransfer(3, srcStart, dst, 1 * PAL_ROW * sizeof(u16), 16);
+        DmaTransfer(3, srcStart, dst, 1 * PAL_ROW_SIZE, 16);
         return;
     }
 
     if (stage >= 0x1F)
     {
         do {
-        DmaTransfer(3, srcEnd, dst, 1 * PAL_ROW * sizeof(u16), 16);
+        DmaTransfer(3, srcEnd, dst, 1 * PAL_ROW_SIZE, 16);
         }while(0);
         return;
     }
@@ -440,14 +440,14 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
     if (stage == 0)
     {
-        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, PALRAM_BASE, PAL_SIZE - 1 * PAL_ROW * sizeof(u16), 16);
-        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, COLOR_DATA_BG_EWRAM2, PAL_SIZE - 1 * PAL_ROW * sizeof(u16), 16);
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, PALRAM_BASE, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, COLOR_DATA_BG_EWRAM2, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
         return;
     }
 
     src = COLOR_DATA_BG_EWRAM3;
     dst = COLOR_DATA_BG_EWRAM;
-    DmaTransfer(3, src, dst, PAL_SIZE - 1 * PAL_ROW * sizeof(u16), 16);
+    DmaTransfer(3, src, dst, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);
@@ -504,12 +504,12 @@ void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
 
     if (stage == 0)
     {
-        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW * sizeof(u16), 16);
-        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM2 + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW * sizeof(u16), 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM2 + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
         return;
     }
 
-    DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW * sizeof(u16), 16);
+    DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);

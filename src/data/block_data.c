@@ -469,13 +469,13 @@ const u8 sBrokenBlocksTimers[BLOCK_TYPE_COUNT][13] = {
         0, 0, 4, 4, 4, 4, 4, UCHAR_MAX, 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_SPEEDBOOSTER_BLOCK_REFORM] = {
-        0, 0, 4, 4, 4, 4, 4, 20, 4, 4, 4, 4, 4
+        0, 0, 4, 4, 4, 4, 4, ONE_THIRD_SECOND, 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_CRUMBLE] = {
-        0, 5, 4, 4, 4, 4, 4, 15, 4, 4, 4, 4, 4
+        0, 5, 4, 4, 4, 4, 4, CONVERT_SECONDS(.25f), 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_SLOW_CRUMBLE] = {
-        0, 60, 4, 4, 4, 4, 4, 30, 4, 4, 4, 4, 4
+        0, CONVERT_SECONDS(1.f), 4, 4, 4, 4, 4, CONVERT_SECONDS(.5f), 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_MISSILE_NEVER_REFORM] = {
         0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0
@@ -637,9 +637,9 @@ const struct TankBehavior sTankBehaviors[MAX_AMOUNT_OF_TANK_TYPES] = {
     },
 };
 
+// 0 : Weakness
+// 2 : Health
 const u16 sHatchBehaviors[HATCH_COUNT][2] = {
-    // 0 : Weakness
-    // 2 : Health
     [HATCH_NONE] = {
         CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB,
         0
@@ -704,7 +704,7 @@ const s8 sSubBombChainPositionOffset[SUB_BOMB_CHAIN_REQUEST_END][4] = {
     }
 };
 
-// (y, x) Coordinates
+// Offsets into y and x arrays
 const u8 sBlockTouchOffsets[4][2] = {
     { 0, 0 }, // (center, right)
     { 0, 1 }, // (center, left)

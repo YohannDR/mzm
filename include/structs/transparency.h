@@ -32,8 +32,8 @@ struct TransparencyRelated {
 };
 
 struct DefaultTransparency {
-    u8 unk_0;
-    u8 unk_1;
+    u8 unk_0; // player is paused
+    u8 unk_1; // changed but never read
     u8 evbCoef;
     u8 evaCoef;
     u16 bldcnt;
