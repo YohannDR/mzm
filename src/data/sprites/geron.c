@@ -4,7 +4,7 @@
 const u32 sGeronGfx[711] = INCBIN_U32("data/sprites/Geron.gfx.lz");
 const u16 sGeronPal[48] = INCBIN_U16("data/sprites/Geron.pal");
 
-const u16 sGeronOAM_Idle_Frame0[40] = {
+const u16 sGeronOAM_Idle_Frame0[OAM_DATA_SIZE(13)] = {
     0xd,
     0xef, 0x8, OBJ_SPRITE_OAM | 0x258,
     0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x278,
@@ -21,7 +21,7 @@ const u16 sGeronOAM_Idle_Frame0[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame1[43] = {
+const u16 sGeronOAM_Idle_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf0, 0x9, OBJ_SPRITE_OAM | 0x258,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -39,7 +39,7 @@ const u16 sGeronOAM_Idle_Frame1[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame2[43] = {
+const u16 sGeronOAM_Idle_Frame2[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0xa, OBJ_SPRITE_OAM | 0x278,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -57,7 +57,7 @@ const u16 sGeronOAM_Idle_Frame2[43] = {
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame3[46] = {
+const u16 sGeronOAM_Idle_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf0, 0x9, OBJ_SPRITE_OAM | 0x278,
     0xe5, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -76,7 +76,7 @@ const u16 sGeronOAM_Idle_Frame3[46] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame4[43] = {
+const u16 sGeronOAM_Idle_Frame4[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0x8, OBJ_SPRITE_OAM | 0x259,
     0xe6, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -94,7 +94,7 @@ const u16 sGeronOAM_Idle_Frame4[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_UnusedFrame[43] = {
+const u16 sGeronOAM_UnusedFrame[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x259,
     0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -112,7 +112,7 @@ const u16 sGeronOAM_UnusedFrame[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame5[46] = {
+const u16 sGeronOAM_Idle_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x259,
     0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -131,7 +131,7 @@ const u16 sGeronOAM_Idle_Frame5[46] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame6[46] = {
+const u16 sGeronOAM_Idle_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x278,
     0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x279,
@@ -150,7 +150,7 @@ const u16 sGeronOAM_Idle_Frame6[46] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame7[40] = {
+const u16 sGeronOAM_Idle_Frame7[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x258,
     0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -167,7 +167,7 @@ const u16 sGeronOAM_Idle_Frame7[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame8[43] = {
+const u16 sGeronOAM_Idle_Frame8[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x279,
     0xe4, 0x1f1, OBJ_SPRITE_OAM | 0x278,
@@ -185,7 +185,7 @@ const u16 sGeronOAM_Idle_Frame8[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Idle_Frame9[46] = {
+const u16 sGeronOAM_Idle_Frame9[OAM_DATA_SIZE(15)] = {
     0xf,
     0xcf, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x278,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x279,
@@ -204,7 +204,7 @@ const u16 sGeronOAM_Idle_Frame9[46] = {
     0xd2, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x277
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame0[43] = {
+const u16 sGeronOAM_GettingDestroyed_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0x8, OBJ_SPRITE_OAM | 0x258,
     0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x278,
@@ -222,7 +222,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame0[43] = {
     0xce, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x277
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame1[43] = {
+const u16 sGeronOAM_GettingDestroyed_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf0, 0x9, OBJ_SPRITE_OAM | 0x258,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -240,7 +240,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame1[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame2[43] = {
+const u16 sGeronOAM_GettingDestroyed_Frame2[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0xa, OBJ_SPRITE_OAM | 0x278,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -258,7 +258,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame2[43] = {
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame3[40] = {
+const u16 sGeronOAM_GettingDestroyed_Frame3[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf0, 0x9, OBJ_SPRITE_OAM | 0x1258,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x1278,
@@ -275,7 +275,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame3[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame4[31] = {
+const u16 sGeronOAM_GettingDestroyed_Frame4[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1240,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x1250,
@@ -289,7 +289,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame4[31] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame5[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame5[OAM_DATA_SIZE(11)] = {
     0xb,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x1250,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1240,
@@ -304,7 +304,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame5[34] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame6[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame6[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1240,
     OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1244,
@@ -319,7 +319,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame6[34] = {
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame7[31] = {
+const u16 sGeronOAM_GettingDestroyed_Frame7[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x1250,
@@ -333,7 +333,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame7[31] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame8[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame8[OAM_DATA_SIZE(11)] = {
     0xb,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2250,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
@@ -348,7 +348,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame8[34] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame9[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame9[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
     OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2244,
@@ -363,7 +363,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame9[34] = {
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame10[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame10[OAM_DATA_SIZE(11)] = {
     0xb,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2250,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
@@ -378,7 +378,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame10[34] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame11[31] = {
+const u16 sGeronOAM_GettingDestroyed_Frame11[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2250,
@@ -392,7 +392,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame11[31] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x125e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame12[31] = {
+const u16 sGeronOAM_GettingDestroyed_Frame12[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2280,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2290,
@@ -406,7 +406,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame12[31] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame13[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame13[OAM_DATA_SIZE(11)] = {
     0xb,
     0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2280,
     0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2290,
@@ -421,7 +421,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame13[34] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame14[34] = {
+const u16 sGeronOAM_GettingDestroyed_Frame14[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2280,
     OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2284,
@@ -436,7 +436,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame14[34] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame15[37] = {
+const u16 sGeronOAM_GettingDestroyed_Frame15[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -452,7 +452,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame15[37] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame16[40] = {
+const u16 sGeronOAM_GettingDestroyed_Frame16[OAM_DATA_SIZE(13)] = {
     0xd,
     OBJ_SHAPE_VERTICAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -469,7 +469,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame16[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame17[40] = {
+const u16 sGeronOAM_GettingDestroyed_Frame17[OAM_DATA_SIZE(13)] = {
     0xd,
     0xd0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -486,7 +486,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame17[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame18[40] = {
+const u16 sGeronOAM_GettingDestroyed_Frame18[OAM_DATA_SIZE(13)] = {
     0xd,
     0xd0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -503,7 +503,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame18[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame19[40] = {
+const u16 sGeronOAM_GettingDestroyed_Frame19[OAM_DATA_SIZE(13)] = {
     0xd,
     0xd0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -520,7 +520,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame19[40] = {
     0xea, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame20[43] = {
+const u16 sGeronOAM_GettingDestroyed_Frame20[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -538,7 +538,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame20[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame21[37] = {
+const u16 sGeronOAM_GettingDestroyed_Frame21[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -554,7 +554,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame21[37] = {
     0xec, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame22[37] = {
+const u16 sGeronOAM_GettingDestroyed_Frame22[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
@@ -570,7 +570,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame22[37] = {
     0xf8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x225e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame23[52] = {
+const u16 sGeronOAM_GettingDestroyed_Frame23[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_HORIZONTAL | 0xf3, 0x0, OBJ_SPRITE_OAM | 0x22bb,
     0xeb, 0x0, OBJ_SPRITE_OAM | 0x229b,
@@ -591,7 +591,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame23[52] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame24[46] = {
+const u16 sGeronOAM_GettingDestroyed_Frame24[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -610,7 +610,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame24[46] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2297
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame25[49] = {
+const u16 sGeronOAM_GettingDestroyed_Frame25[OAM_DATA_SIZE(16)] = {
     0x10,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x2280,
     0xf9, 0x8, OBJ_SPRITE_OAM | 0x22af,
@@ -630,7 +630,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame25[49] = {
     0xd0, 0x1f8, OBJ_SPRITE_OAM | 0x2298
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame26[58] = {
+const u16 sGeronOAM_GettingDestroyed_Frame26[OAM_DATA_SIZE(19)] = {
     0x13,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x227a,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -653,7 +653,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame26[58] = {
     0xf5, OBJ_Y_FLIP | 0x5, OBJ_SPRITE_OAM | 0x227f
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame27[49] = {
+const u16 sGeronOAM_GettingDestroyed_Frame27[OAM_DATA_SIZE(16)] = {
     0x10,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x227a,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -673,7 +673,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame27[49] = {
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x8, OBJ_SPRITE_OAM | 0x221e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame28[49] = {
+const u16 sGeronOAM_GettingDestroyed_Frame28[OAM_DATA_SIZE(16)] = {
     0x10,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x227a,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -693,7 +693,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame28[49] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x9, OBJ_SPRITE_OAM | 0x221e
 };
 
-const u16 sGeronOAM_GettingDestroyed_Frame29[43] = {
+const u16 sGeronOAM_GettingDestroyed_Frame29[OAM_DATA_SIZE(14)] = {
     0xe,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x227a,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -711,7 +711,7 @@ const u16 sGeronOAM_GettingDestroyed_Frame29[43] = {
     0xf7, 0x1fb, OBJ_SPRITE_OAM | 0x223d
 };
 
-const u16 sGeronOAM_Destroyed_Frame0[46] = {
+const u16 sGeronOAM_Destroyed_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x227a,
     0xd0, 0x8, OBJ_SPRITE_OAM | 0x227b,
@@ -730,7 +730,7 @@ const u16 sGeronOAM_Destroyed_Frame0[46] = {
     0xfc, OBJ_X_FLIP | 0x1ef, OBJ_SPRITE_OAM | 0x2234
 };
 
-const u16 sGeronOAM_Shaking_Frame1[40] = {
+const u16 sGeronOAM_Shaking_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xef, 0x8, OBJ_SPRITE_OAM | 0x258,
     0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x278,
@@ -747,7 +747,7 @@ const u16 sGeronOAM_Shaking_Frame1[40] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame2[52] = {
+const u16 sGeronOAM_Shaking_Frame2[OAM_DATA_SIZE(17)] = {
     0x11,
     0xf0, 0x9, OBJ_SPRITE_OAM | 0x258,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -768,7 +768,7 @@ const u16 sGeronOAM_Shaking_Frame2[52] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x2, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame3[43] = {
+const u16 sGeronOAM_Shaking_Frame3[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0xa, OBJ_SPRITE_OAM | 0x278,
     0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x278,
@@ -786,7 +786,7 @@ const u16 sGeronOAM_Shaking_Frame3[43] = {
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame5[43] = {
+const u16 sGeronOAM_Shaking_Frame5[OAM_DATA_SIZE(14)] = {
     0xe,
     0xef, 0x8, OBJ_SPRITE_OAM | 0x259,
     0xe6, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -804,7 +804,7 @@ const u16 sGeronOAM_Shaking_Frame5[43] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame6[46] = {
+const u16 sGeronOAM_Shaking_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x259,
     0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x258,
@@ -823,7 +823,7 @@ const u16 sGeronOAM_Shaking_Frame6[46] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame7[49] = {
+const u16 sGeronOAM_Shaking_Frame7[OAM_DATA_SIZE(16)] = {
     0x10,
     0xe4, 0x1ef, OBJ_SPRITE_OAM | 0x277,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x259,
@@ -843,7 +843,7 @@ const u16 sGeronOAM_Shaking_Frame7[49] = {
     0xe9, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x25e
 };
 
-const u16 sGeronOAM_Shaking_Frame8[46] = {
+const u16 sGeronOAM_Shaking_Frame8[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf0, 0x8, OBJ_SPRITE_OAM | 0x278,
     0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x279,
@@ -863,177 +863,329 @@ const u16 sGeronOAM_Shaking_Frame8[46] = {
 };
 
 const struct FrameData sGeronOAM_Idle[11] = {
-    sGeronOAM_Idle_Frame0,
-    0xC,
-    sGeronOAM_Idle_Frame1,
-    0xC,
-    sGeronOAM_Idle_Frame2,
-    0xC,
-    sGeronOAM_Idle_Frame3,
-    0xC,
-    sGeronOAM_Idle_Frame4,
-    0xC,
-    sGeronOAM_Idle_Frame5,
-    0xC,
-    sGeronOAM_Idle_Frame6,
-    0xC,
-    sGeronOAM_Idle_Frame7,
-    0xC,
-    sGeronOAM_Idle_Frame8,
-    0xC,
-    sGeronOAM_Idle_Frame9,
-    0xC,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sGeronOAM_Idle_Frame1,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [2] = {
+        .pFrame = sGeronOAM_Idle_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sGeronOAM_Idle_Frame3,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [4] = {
+        .pFrame = sGeronOAM_Idle_Frame4,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [5] = {
+        .pFrame = sGeronOAM_Idle_Frame5,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [6] = {
+        .pFrame = sGeronOAM_Idle_Frame6,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [7] = {
+        .pFrame = sGeronOAM_Idle_Frame7,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [8] = {
+        .pFrame = sGeronOAM_Idle_Frame8,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [9] = {
+        .pFrame = sGeronOAM_Idle_Frame9,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [10] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGeronOAM_Destroyed[2] = {
-    sGeronOAM_Destroyed_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGeronOAM_Destroyed_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGeronOAM_GettingDestroyed[32] = {
-    sGeronOAM_GettingDestroyed_Frame0,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame1,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame2,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame3,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame4,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame5,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame6,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame7,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame8,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame9,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame10,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame11,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame12,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame13,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame14,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame15,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame16,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame17,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame18,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame19,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame20,
-    0xA,
-    sGeronOAM_GettingDestroyed_Frame21,
-    0x6,
-    sGeronOAM_GettingDestroyed_Frame22,
-    0x4,
-    sGeronOAM_GettingDestroyed_Frame23,
-    0x2,
-    sGeronOAM_GettingDestroyed_Frame24,
-    0x2,
-    sGeronOAM_GettingDestroyed_Frame25,
-    0x2,
-    sGeronOAM_GettingDestroyed_Frame26,
-    0x3,
-    sGeronOAM_GettingDestroyed_Frame27,
-    0x4,
-    sGeronOAM_GettingDestroyed_Frame28,
-    0x8,
-    sGeronOAM_GettingDestroyed_Frame29,
-    0x12,
-    sGeronOAM_Destroyed_Frame0,
-    0x40,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [6] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [7] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [8] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [9] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame9,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [10] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [11] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame11,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [12] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [13] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame13,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [14] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [15] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame15,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [16] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [17] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame17,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [18] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame18,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [19] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame19,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [20] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [21] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame21,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [22] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame22,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [23] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame23,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [24] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame24,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [25] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame25,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [26] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame26,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [27] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame27,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [28] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame28,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [29] = {
+        .pFrame = sGeronOAM_GettingDestroyed_Frame29,
+        .timer = CONVERT_SECONDS(0.3f)
+    },
+    [30] = {
+        .pFrame = sGeronOAM_Destroyed_Frame0,
+        .timer = CONVERT_SECONDS(1.f) + CONVERT_SECONDS(1.f / 15)
+    },
+    [31] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGeronOAM_Shaking[37] = {
-    sGeronOAM_Idle_Frame0,
-    0x1,
-    sGeronOAM_Shaking_Frame1,
-    0x1,
-    sGeronOAM_Shaking_Frame2,
-    0x1,
-    sGeronOAM_Shaking_Frame3,
-    0x1,
-    sGeronOAM_Idle_Frame0,
-    0x1,
-    sGeronOAM_Shaking_Frame5,
-    0x1,
-    sGeronOAM_Shaking_Frame6,
-    0x1,
-    sGeronOAM_Shaking_Frame7,
-    0x1,
-    sGeronOAM_Shaking_Frame8,
-    0x1,
-    sGeronOAM_Idle_Frame0,
-    0x2,
-    sGeronOAM_Shaking_Frame1,
-    0x2,
-    sGeronOAM_Shaking_Frame2,
-    0x2,
-    sGeronOAM_Shaking_Frame3,
-    0x2,
-    sGeronOAM_Idle_Frame0,
-    0x2,
-    sGeronOAM_Shaking_Frame5,
-    0x2,
-    sGeronOAM_Shaking_Frame6,
-    0x2,
-    sGeronOAM_Shaking_Frame7,
-    0x2,
-    sGeronOAM_Shaking_Frame8,
-    0x2,
-    sGeronOAM_Idle_Frame0,
-    0x4,
-    sGeronOAM_Shaking_Frame1,
-    0x4,
-    sGeronOAM_Shaking_Frame2,
-    0x4,
-    sGeronOAM_Shaking_Frame3,
-    0x4,
-    sGeronOAM_Idle_Frame0,
-    0x4,
-    sGeronOAM_Shaking_Frame5,
-    0x4,
-    sGeronOAM_Shaking_Frame6,
-    0x4,
-    sGeronOAM_Shaking_Frame7,
-    0x4,
-    sGeronOAM_Shaking_Frame8,
-    0x4,
-    sGeronOAM_Idle_Frame0,
-    0x6,
-    sGeronOAM_Shaking_Frame1,
-    0x6,
-    sGeronOAM_Shaking_Frame2,
-    0x6,
-    sGeronOAM_Shaking_Frame3,
-    0x6,
-    sGeronOAM_Idle_Frame0,
-    0x6,
-    sGeronOAM_Shaking_Frame5,
-    0x6,
-    sGeronOAM_Shaking_Frame6,
-    0x6,
-    sGeronOAM_Shaking_Frame7,
-    0x6,
-    sGeronOAM_Shaking_Frame8,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sGeronOAM_Shaking_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sGeronOAM_Shaking_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sGeronOAM_Shaking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = {
+        .pFrame = sGeronOAM_Shaking_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sGeronOAM_Shaking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [7] = {
+        .pFrame = sGeronOAM_Shaking_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = {
+        .pFrame = sGeronOAM_Shaking_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [9] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sGeronOAM_Shaking_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sGeronOAM_Shaking_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sGeronOAM_Shaking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sGeronOAM_Shaking_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sGeronOAM_Shaking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sGeronOAM_Shaking_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [17] = {
+        .pFrame = sGeronOAM_Shaking_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [19] = {
+        .pFrame = sGeronOAM_Shaking_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [20] = {
+        .pFrame = sGeronOAM_Shaking_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [21] = {
+        .pFrame = sGeronOAM_Shaking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [22] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [23] = {
+        .pFrame = sGeronOAM_Shaking_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [24] = {
+        .pFrame = sGeronOAM_Shaking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [25] = {
+        .pFrame = sGeronOAM_Shaking_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [26] = {
+        .pFrame = sGeronOAM_Shaking_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [27] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [28] = {
+        .pFrame = sGeronOAM_Shaking_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [29] = {
+        .pFrame = sGeronOAM_Shaking_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [30] = {
+        .pFrame = sGeronOAM_Shaking_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [31] = {
+        .pFrame = sGeronOAM_Idle_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [32] = {
+        .pFrame = sGeronOAM_Shaking_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [33] = {
+        .pFrame = sGeronOAM_Shaking_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [34] = {
+        .pFrame = sGeronOAM_Shaking_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [35] = {
+        .pFrame = sGeronOAM_Shaking_Frame8,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [36] = FRAME_DATA_TERMINATOR
 };

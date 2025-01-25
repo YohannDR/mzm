@@ -20,7 +20,7 @@ const u32 sEscapeShipGfx[919] = INCBIN_U32("data/sprites/EscapeShip.gfx.lz");
 const u16 sEscapeShipPal[64] = INCBIN_U16("data/sprites/EscapeShip.pal");
 const u16 sEscapeShipFlashingPal[3 * 16] = INCBIN_U16("data/sprites/EscapeShipFlashing.pal");
 
-const u16 sEscapeShipOAM_Idle_Frame0[34] = {
+const u16 sEscapeShipOAM_Idle_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x16, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x6, OBJ_SPRITE_OAM | 0x20e,
@@ -35,7 +35,7 @@ const u16 sEscapeShipOAM_Idle_Frame0[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame0[34] = {
+const u16 sEscapeShipOAM_Opening_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x14, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x4, OBJ_SPRITE_OAM | 0x20e,
@@ -50,7 +50,7 @@ const u16 sEscapeShipOAM_Opening_Frame0[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame1[34] = {
+const u16 sEscapeShipOAM_Opening_Frame1[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x11, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x1, OBJ_SPRITE_OAM | 0x20e,
@@ -65,7 +65,7 @@ const u16 sEscapeShipOAM_Opening_Frame1[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame2[34] = {
+const u16 sEscapeShipOAM_Opening_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0xd, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x1fd, OBJ_SPRITE_OAM | 0x20e,
@@ -80,7 +80,7 @@ const u16 sEscapeShipOAM_Opening_Frame2[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame3[34] = {
+const u16 sEscapeShipOAM_Opening_Frame3[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd3, OBJ_SIZE_16x32 | 0x7, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd7, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x20e,
@@ -95,7 +95,7 @@ const u16 sEscapeShipOAM_Opening_Frame3[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame4[34] = {
+const u16 sEscapeShipOAM_Opening_Frame4[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd3, OBJ_SIZE_16x32 | 0x2, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd7, OBJ_SIZE_16x32 | 0x1f2, OBJ_SPRITE_OAM | 0x20e,
@@ -110,7 +110,7 @@ const u16 sEscapeShipOAM_Opening_Frame4[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame5[34] = {
+const u16 sEscapeShipOAM_Opening_Frame5[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd4, OBJ_SIZE_16x32 | 0x1fa, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_SIZE_16x32 | 0x1ea, OBJ_SPRITE_OAM | 0x20e,
@@ -125,7 +125,7 @@ const u16 sEscapeShipOAM_Opening_Frame5[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame6[34] = {
+const u16 sEscapeShipOAM_Opening_Frame6[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x1f3, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1e3, OBJ_SPRITE_OAM | 0x20e,
@@ -140,7 +140,7 @@ const u16 sEscapeShipOAM_Opening_Frame6[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Opening_Frame7[34] = {
+const u16 sEscapeShipOAM_Opening_Frame7[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd5, OBJ_SIZE_16x32 | 0x1f5, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd9, OBJ_SIZE_16x32 | 0x1e5, OBJ_SPRITE_OAM | 0x20e,
@@ -155,7 +155,7 @@ const u16 sEscapeShipOAM_Opening_Frame7[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_Closing_Frame7[34] = {
+const u16 sEscapeShipOAM_Closing_Frame7[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x17, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x7, OBJ_SPRITE_OAM | 0x20e,
@@ -170,7 +170,7 @@ const u16 sEscapeShipOAM_Closing_Frame7[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sEscapeShipOAM_FLying_Frame0[34] = {
+const u16 sEscapeShipOAM_FLying_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x16, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x6, OBJ_SPRITE_OAM | 0x20e,
@@ -185,7 +185,7 @@ const u16 sEscapeShipOAM_FLying_Frame0[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x28e
 };
 
-const u16 sEscapeShipOAM_FLying_Frame1[34] = {
+const u16 sEscapeShipOAM_FLying_Frame1[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x16, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x6, OBJ_SPRITE_OAM | 0x20e,
@@ -200,7 +200,7 @@ const u16 sEscapeShipOAM_FLying_Frame1[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x2ac
 };
 
-const u16 sEscapeShipOAM_FLying_Frame2[34] = {
+const u16 sEscapeShipOAM_FLying_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x16, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x6, OBJ_SPRITE_OAM | 0x20e,
@@ -215,7 +215,7 @@ const u16 sEscapeShipOAM_FLying_Frame2[34] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x38, OBJ_SPRITE_OAM | 0x2ae
 };
 
-const u16 sEscapeShipOAM_FLying_Frame3[22] = {
+const u16 sEscapeShipOAM_FLying_Frame3[OAM_DATA_SIZE(7)] = {
     0x7,
     OBJ_SHAPE_VERTICAL | 0xd2, OBJ_SIZE_16x32 | 0x16, OBJ_SPRITE_OAM | 0x210,
     OBJ_SHAPE_VERTICAL | 0xd6, OBJ_SIZE_16x32 | 0x6, OBJ_SPRITE_OAM | 0x20e,
@@ -226,24 +226,24 @@ const u16 sEscapeShipOAM_FLying_Frame3[22] = {
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x38, OBJ_SPRITE_OAM | 0x288
 };
 
-const u16 sEscapeShipPartOAM_Top_Frame0[4] = {
+const u16 sEscapeShipPartOAM_Top_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sEscapeShipPartOAM_Top_Frame1[7] = {
+const u16 sEscapeShipPartOAM_Top_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     0xd4, OBJ_SIZE_16x16 | 0x44, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x8 | 0x24, OBJ_SPRITE_OAM | 0x240
 };
 
-const u16 sEscapeShipPartOAM_Top_Frame2[7] = {
+const u16 sEscapeShipPartOAM_Top_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     0xd4, OBJ_SIZE_16x16 | 0x44, OBJ_SPRITE_OAM | 0x202,
     OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x8 | 0x24, OBJ_SPRITE_OAM | 0x260
 };
 
-const u16 sEscapeShipPartOAM_Flames_Frame0[25] = {
+const u16 sEscapeShipPartOAM_Flames_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f8, OBJ_SPRITE_OAM | 0x2290,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x18, OBJ_SPRITE_OAM | 0x2290,
@@ -255,7 +255,7 @@ const u16 sEscapeShipPartOAM_Flames_Frame0[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x48, OBJ_SPRITE_OAM | 0x2290
 };
 
-const u16 sEscapeShipPartOAM_Flames_Frame1[25] = {
+const u16 sEscapeShipPartOAM_Flames_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2294,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_32x16 | 0x10, OBJ_SPRITE_OAM | 0x2294,
@@ -267,7 +267,7 @@ const u16 sEscapeShipPartOAM_Flames_Frame1[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0x2294
 };
 
-const u16 sEscapeShipPartOAM_Tail_Frame0[52] = {
+const u16 sEscapeShipPartOAM_Tail_Frame0[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1ff, OBJ_SPRITE_OAM | 0x12d7,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
@@ -288,7 +288,7 @@ const u16 sEscapeShipPartOAM_Tail_Frame0[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame1[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame1[OAM_DATA_SIZE(16)] = {
     0x10,
     0xde, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -308,7 +308,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame1[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame2[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame2[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe5, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -328,7 +328,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame2[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame3[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame3[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdc, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe4, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -348,7 +348,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame3[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame4[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame4[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdc, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe4, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -368,7 +368,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame4[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame5[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame5[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdc, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe4, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -388,7 +388,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame5[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame6[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame6[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe5, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -408,7 +408,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame6[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame7[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame7[OAM_DATA_SIZE(16)] = {
     0x10,
     0xde, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -428,7 +428,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame7[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame8[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame8[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -448,7 +448,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame8[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame9[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame9[OAM_DATA_SIZE(16)] = {
     0x10,
     0xe0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -468,7 +468,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame9[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame10[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame10[OAM_DATA_SIZE(17)] = {
     0x11,
     0xe1, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -489,7 +489,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame10[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame11[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame11[OAM_DATA_SIZE(17)] = {
     0x11,
     0xe2, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xea, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -510,7 +510,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame11[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame12[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame12[OAM_DATA_SIZE(17)] = {
     0x11,
     0xe2, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xea, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -531,7 +531,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame12[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame13[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame13[OAM_DATA_SIZE(17)] = {
     0x11,
     0xe1, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -552,7 +552,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame13[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame14[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame14[OAM_DATA_SIZE(17)] = {
     0x11,
     0xe0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -573,7 +573,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame14[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame15[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame15[OAM_DATA_SIZE(17)] = {
     0x11,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -594,7 +594,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame15[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame16[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame16[OAM_DATA_SIZE(17)] = {
     0x11,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -615,7 +615,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame16[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame17[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame17[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -635,7 +635,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame17[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame18[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame18[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -655,7 +655,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame18[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame19[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame19[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -675,7 +675,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame19[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame20[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame20[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -695,7 +695,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame20[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame21[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame21[OAM_DATA_SIZE(17)] = {
     0x11,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -716,7 +716,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame21[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame22[52] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame22[OAM_DATA_SIZE(17)] = {
     0x11,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -737,7 +737,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame22[52] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame23[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame23[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -757,7 +757,7 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame23[49] = {
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1216
 };
 
-const u16 sEscapeShipPartOAM_TailMoving_Frame24[49] = {
+const u16 sEscapeShipPartOAM_TailMoving_Frame24[OAM_DATA_SIZE(16)] = {
     0x10,
     0xdf, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d3,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
@@ -778,149 +778,249 @@ const u16 sEscapeShipPartOAM_TailMoving_Frame24[49] = {
 };
 
 const struct FrameData sEscapeShipOAM_Idle[2] = {
-    sEscapeShipOAM_Idle_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipOAM_Idle_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipOAM_Opening[9] = {
-    sEscapeShipOAM_Opening_Frame0,
-    0x2,
-    sEscapeShipOAM_Opening_Frame1,
-    0x2,
-    sEscapeShipOAM_Opening_Frame2,
-    0x2,
-    sEscapeShipOAM_Opening_Frame3,
-    0x2,
-    sEscapeShipOAM_Opening_Frame4,
-    0x2,
-    sEscapeShipOAM_Opening_Frame5,
-    0x2,
-    sEscapeShipOAM_Opening_Frame6,
-    0x2,
-    sEscapeShipOAM_Opening_Frame7,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame7,
+        .timer = UCHAR_MAX
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipOAM_Closing[9] = {
-    sEscapeShipOAM_Opening_Frame6,
-    0x2,
-    sEscapeShipOAM_Opening_Frame5,
-    0x2,
-    sEscapeShipOAM_Opening_Frame4,
-    0x2,
-    sEscapeShipOAM_Opening_Frame3,
-    0x2,
-    sEscapeShipOAM_Opening_Frame2,
-    0x2,
-    sEscapeShipOAM_Opening_Frame1,
-    0x2,
-    sEscapeShipOAM_Opening_Frame0,
-    0x2,
-    sEscapeShipOAM_Closing_Frame7,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sEscapeShipOAM_Opening_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sEscapeShipOAM_Closing_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipOAM_Flying[5] = {
-    sEscapeShipOAM_FLying_Frame0,
-    0x4,
-    sEscapeShipOAM_FLying_Frame1,
-    0x4,
-    sEscapeShipOAM_FLying_Frame2,
-    0x4,
-    sEscapeShipOAM_FLying_Frame3,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipOAM_FLying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sEscapeShipOAM_FLying_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sEscapeShipOAM_FLying_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sEscapeShipOAM_FLying_Frame3,
+        .timer = UCHAR_MAX
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipPartOAM_Top[5] = {
-    sEscapeShipPartOAM_Top_Frame0,
-    0x10,
-    sEscapeShipPartOAM_Top_Frame1,
-    0x10,
-    sEscapeShipPartOAM_Top_Frame2,
-    0x10,
-    sEscapeShipPartOAM_Top_Frame1,
-    0x10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipPartOAM_Top_Frame0,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [1] = {
+        .pFrame = sEscapeShipPartOAM_Top_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sEscapeShipPartOAM_Top_Frame2,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [3] = {
+        .pFrame = sEscapeShipPartOAM_Top_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipPartOAM_Flames[4] = {
-    sEscapeShipPartOAM_Flames_Frame0,
-    0x2,
-    sEscapeShipPartOAM_Flames_Frame1,
-    0x2,
-    sEscapeShipPartOAM_Top_Frame0,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipPartOAM_Flames_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sEscapeShipPartOAM_Flames_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sEscapeShipPartOAM_Top_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipPartOAM_Tail[2] = {
-    sEscapeShipPartOAM_Tail_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipPartOAM_Tail_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sEscapeShipPartOAM_TailMoving[26] = {
-    sEscapeShipPartOAM_Tail_Frame0,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame1,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame2,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame3,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame4,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame5,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame6,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame7,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame8,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame9,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame10,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame11,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame12,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame13,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame14,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame15,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame16,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame17,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame18,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame19,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame20,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame21,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame22,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame23,
-    0x2,
-    sEscapeShipPartOAM_TailMoving_Frame24,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sEscapeShipPartOAM_Tail_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame9,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame11,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame13,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame15,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [17] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame17,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame18,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [19] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame19,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [20] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [21] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame21,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [22] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame22,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [23] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame23,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [24] = {
+        .pFrame = sEscapeShipPartOAM_TailMoving_Frame24,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [25] = FRAME_DATA_TERMINATOR
 };

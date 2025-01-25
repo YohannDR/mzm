@@ -301,7 +301,7 @@ const u8 sImagoDynamicPaletteData[9][2] = {
 const u32 sImagoGfx[1503] = INCBIN_U32("data/sprites/Imago.gfx.lz");
 const u16 sImagoPal[96] = INCBIN_U16("data/sprites/Imago.pal");
 
-static const u16 sImagoPartOam_BodyIdle_Frame0[55] = {
+static const u16 sImagoPartOam_BodyIdle_Frame0[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d9, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x210,
@@ -323,7 +323,7 @@ static const u16 sImagoPartOam_BodyIdle_Frame0[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xf9, OBJ_SIZE_32x8 | 0x1f2, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyIdle_Frame1[55] = {
+static const u16 sImagoPartOam_BodyIdle_Frame1[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdc, OBJ_SIZE_32x16 | 0x1d9, OBJ_SPRITE_OAM | 0x20c,
     0xdc, OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x210,
@@ -345,7 +345,7 @@ static const u16 sImagoPartOam_BodyIdle_Frame1[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfa, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyIdle_Frame2[55] = {
+static const u16 sImagoPartOam_BodyIdle_Frame2[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d8, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210,
@@ -367,7 +367,7 @@ static const u16 sImagoPartOam_BodyIdle_Frame2[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfa, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyIdle_Frame4[55] = {
+static const u16 sImagoPartOam_BodyIdle_Frame4[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d8, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210,
@@ -389,7 +389,7 @@ static const u16 sImagoPartOam_BodyIdle_Frame4[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoOam_BrokenStinger_Frame0[13] = {
+static const u16 sImagoOam_BrokenStinger_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf3, OBJ_SIZE_32x16 | 0x1f9, OBJ_SPRITE_OAM | 0x2330,
     OBJ_SHAPE_HORIZONTAL | 0x3, OBJ_SIZE_32x8 | 0x1f9, OBJ_SPRITE_OAM | 0x2370,
@@ -397,7 +397,7 @@ static const u16 sImagoOam_BrokenStinger_Frame0[13] = {
     0x8, 0x8, OBJ_SPRITE_OAM | 0x2268
 };
 
-static const u16 sImagoOam_BrokenStinger_Frame1[16] = {
+static const u16 sImagoOam_BrokenStinger_Frame1[OAM_DATA_SIZE(5)] = {
     0x5,
     0xfa, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2354,
     OBJ_SHAPE_VERTICAL | 0xfa, 0x10, OBJ_SPRITE_OAM | 0x2356,
@@ -406,7 +406,7 @@ static const u16 sImagoOam_BrokenStinger_Frame1[16] = {
     0xb, 0xb, OBJ_SPRITE_OAM | 0x2268
 };
 
-static const u16 sImagoPartOam_BodyIdle_Frame3[55] = {
+static const u16 sImagoPartOam_BodyIdle_Frame3[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d8, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210,
@@ -428,7 +428,7 @@ static const u16 sImagoPartOam_BodyIdle_Frame3[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfa, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyGrowling_Frame2[55] = {
+static const u16 sImagoPartOam_BodyGrowling_Frame2[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdc, OBJ_SIZE_32x16 | 0x1d9, OBJ_SPRITE_OAM | 0x20c,
     0xdc, OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x210,
@@ -450,7 +450,7 @@ static const u16 sImagoPartOam_BodyGrowling_Frame2[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfa, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyGrowling_Frame3[55] = {
+static const u16 sImagoPartOam_BodyGrowling_Frame3[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d8, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210,
@@ -472,7 +472,7 @@ static const u16 sImagoPartOam_BodyGrowling_Frame3[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfa, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_BodyGrowling_Frame4[55] = {
+static const u16 sImagoPartOam_BodyGrowling_Frame4[OAM_DATA_SIZE(18)] = {
     0x12,
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1d8, OBJ_SPRITE_OAM | 0x20c,
     0xdd, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210,
@@ -494,74 +494,74 @@ static const u16 sImagoPartOam_BodyGrowling_Frame4[55] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-static const u16 sImagoPartOam_LeftWingIdle_Frame0[7] = {
+static const u16 sImagoPartOam_LeftWingIdle_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf5, OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1f7, OBJ_SPRITE_OAM | 0x2d7,
     0xf5, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x17, OBJ_SPRITE_OAM | 0x2db
 };
 
-static const u16 sImagoPartOam_LeftWingIdle_Frame1[7] = {
+static const u16 sImagoPartOam_LeftWingIdle_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf2, OBJ_SIZE_32x8 | 0x1f6, OBJ_SPRITE_OAM | 0x317,
     OBJ_SHAPE_HORIZONTAL | 0xf2, 0x16, OBJ_SPRITE_OAM | 0x31b
 };
 
-static const u16 sImagoPartOam_LeftWingIdle_Frame2[7] = {
+static const u16 sImagoPartOam_LeftWingIdle_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xe9, OBJ_SIZE_32x16 | 0x1f5, OBJ_SPRITE_OAM | 0x2d7,
     0xe9, OBJ_SIZE_16x16 | 0x15, OBJ_SPRITE_OAM | 0x2db
 };
 
-static const u16 sImagoPartOam_LeftWingIdle_Frame4[10] = {
+static const u16 sImagoPartOam_LeftWingIdle_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     0xd9, OBJ_SIZE_16x16 | 0x7, OBJ_SPRITE_OAM | 0x24d,
     0xe1, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x26c,
     0xe9, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x266
 };
 
-static const u16 sImagoPartOam_LeftWingIdle_Frame3[7] = {
+static const u16 sImagoPartOam_LeftWingIdle_Frame3[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xc9, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x2dd,
     0xe9, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x35d
 };
 
-static const u16 sImagoPartOam_RightWingIdle_Frame0[7] = {
+static const u16 sImagoPartOam_RightWingIdle_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf1, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1cc, OBJ_SPRITE_OAM | 0x2d7,
     0xf1, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1bc, OBJ_SPRITE_OAM | 0x2db
 };
 
-static const u16 sImagoPartOam_RightWingIdle_Frame1[7] = {
+static const u16 sImagoPartOam_RightWingIdle_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xee, OBJ_X_FLIP | OBJ_SIZE_32x8 | 0x1ce, OBJ_SPRITE_OAM | 0x317,
     OBJ_SHAPE_HORIZONTAL | 0xee, OBJ_X_FLIP | 0x1be, OBJ_SPRITE_OAM | 0x31b
 };
 
-static const u16 sImagoPartOam_RightWingIdle_Frame2[7] = {
+static const u16 sImagoPartOam_RightWingIdle_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xe6, OBJ_X_FLIP | OBJ_SIZE_32x16 | 0x1ce, OBJ_SPRITE_OAM | 0x2d7,
     0xe6, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1be, OBJ_SPRITE_OAM | 0x2db
 };
 
-static const u16 sImagoPartOam_RightWingIdle_Frame4[10] = {
+static const u16 sImagoPartOam_RightWingIdle_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     0xd7, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1c9, OBJ_SPRITE_OAM | 0x24d,
     0xdf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1d1, OBJ_SPRITE_OAM | 0x26c,
     0xe7, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1d9, OBJ_SPRITE_OAM | 0x266
 };
 
-static const u16 sImagoPartOam_RightWingIdle_Frame3[7] = {
+static const u16 sImagoPartOam_RightWingIdle_Frame3[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xc9, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1d9, OBJ_SPRITE_OAM | 0x2dd,
     0xe9, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1d9, OBJ_SPRITE_OAM | 0x35d
 };
 
-static const u16 sImagoPartOam_Core_Frame0[4] = {
+static const u16 sImagoPartOam_Core_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xeb, OBJ_SIZE_32x32 | 0x1e6, OBJ_SPRITE_OAM | 0x12e0
 };
 
-static const u16 sImagoPartOam_Core_Frame1[25] = {
+static const u16 sImagoPartOam_Core_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     0xfb, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x1320,
     0xea, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x12e0,
@@ -573,7 +573,7 @@ static const u16 sImagoPartOam_Core_Frame1[25] = {
     0xf0, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x1301
 };
 
-static const u16 sImagoPartOam_Core_Frame2[25] = {
+static const u16 sImagoPartOam_Core_Frame2[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf9, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x1320,
     0xe8, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12e0,
@@ -585,7 +585,7 @@ static const u16 sImagoPartOam_Core_Frame2[25] = {
     0xee, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1301
 };
 
-static const u16 sImagoOam_Flying_Frame0[22] = {
+static const u16 sImagoOam_Flying_Frame0[OAM_DATA_SIZE(7)] = {
     0x7,
     0x12, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1337,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -596,7 +596,7 @@ static const u16 sImagoOam_Flying_Frame0[22] = {
     0x1, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_Flying_Frame1[22] = {
+static const u16 sImagoOam_Flying_Frame1[OAM_DATA_SIZE(7)] = {
     0x7,
     0x13, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x1337,
     0xe3, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -607,7 +607,7 @@ static const u16 sImagoOam_Flying_Frame1[22] = {
     0x1, OBJ_SIZE_32x32 | 0x1f3, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_Flying_Frame2[22] = {
+static const u16 sImagoOam_Flying_Frame2[OAM_DATA_SIZE(7)] = {
     0x7,
     0x14, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x1337,
     0xe2, OBJ_SIZE_32x32 | 0x1f2, OBJ_SPRITE_OAM | 0x12a8,
@@ -618,7 +618,7 @@ static const u16 sImagoOam_Flying_Frame2[22] = {
     0x2, OBJ_SIZE_32x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_Flying_Frame4[22] = {
+static const u16 sImagoOam_Flying_Frame4[OAM_DATA_SIZE(7)] = {
     0x7,
     0x12, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x1337,
     0xe2, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -629,7 +629,7 @@ static const u16 sImagoOam_Flying_Frame4[22] = {
     0x0, OBJ_SIZE_32x32 | 0x1f3, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_Flying_Frame3[22] = {
+static const u16 sImagoOam_Flying_Frame3[OAM_DATA_SIZE(7)] = {
     0x7,
     0x13, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1337,
     0xe5, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -640,7 +640,7 @@ static const u16 sImagoOam_Flying_Frame3[22] = {
     0x2, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_ShootingNeedles_Frame2[22] = {
+static const u16 sImagoOam_ShootingNeedles_Frame2[OAM_DATA_SIZE(7)] = {
     0x7,
     0x15, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x1337,
     0xe5, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -651,7 +651,7 @@ static const u16 sImagoOam_ShootingNeedles_Frame2[22] = {
     0x3, OBJ_SIZE_32x32 | 0x1f3, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_ShootingNeedles_Frame3[22] = {
+static const u16 sImagoOam_ShootingNeedles_Frame3[OAM_DATA_SIZE(7)] = {
     0x7,
     0x13, OBJ_SIZE_16x16 | 0x1fb, OBJ_SPRITE_OAM | 0x1339,
     0xe4, OBJ_SIZE_32x32 | 0x1f2, OBJ_SPRITE_OAM | 0x12a8,
@@ -662,7 +662,7 @@ static const u16 sImagoOam_ShootingNeedles_Frame3[22] = {
     0x2, OBJ_SIZE_32x32 | 0x1f7, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_ShootingNeedles_Frame4[22] = {
+static const u16 sImagoOam_ShootingNeedles_Frame4[OAM_DATA_SIZE(7)] = {
     0x7,
     0x11, OBJ_SIZE_16x16 | 0x1fc, OBJ_SPRITE_OAM | 0x133b,
     0xe3, OBJ_SIZE_32x32 | 0x1f4, OBJ_SPRITE_OAM | 0x12a8,
@@ -673,7 +673,7 @@ static const u16 sImagoOam_ShootingNeedles_Frame4[22] = {
     0xfe, OBJ_SIZE_32x32 | 0x1f9, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoOam_ShootingNeedles_Frame9[19] = {
+static const u16 sImagoOam_ShootingNeedles_Frame9[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
     OBJ_SHAPE_HORIZONTAL | 0x4, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x1328,
@@ -683,12 +683,12 @@ static const u16 sImagoOam_ShootingNeedles_Frame9[19] = {
     0x1, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x1304
 };
 
-static const u16 sImagoNeedleOam_Frame0[4] = {
+static const u16 sImagoNeedleOam_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d5
 };
 
-static const u16 sImagoOam_RechargingNeedles_Frame0[25] = {
+static const u16 sImagoOam_RechargingNeedles_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
     OBJ_SHAPE_HORIZONTAL | 0x4, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x1328,
@@ -700,7 +700,7 @@ static const u16 sImagoOam_RechargingNeedles_Frame0[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x11, OBJ_SIZE_32x16 | 0x1f1, OBJ_SPRITE_OAM | 0x1344
 };
 
-static const u16 sImagoOam_RechargingNeedles_Frame1[25] = {
+static const u16 sImagoOam_RechargingNeedles_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
     OBJ_SHAPE_HORIZONTAL | 0x4, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x1328,
@@ -712,7 +712,7 @@ static const u16 sImagoOam_RechargingNeedles_Frame1[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x11, OBJ_SIZE_32x16 | 0x1f1, OBJ_SPRITE_OAM | 0x1344
 };
 
-static const u16 sImagoOam_RechargingNeedles_Frame2[25] = {
+static const u16 sImagoOam_RechargingNeedles_Frame2[OAM_DATA_SIZE(8)] = {
     0x8,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
     OBJ_SHAPE_HORIZONTAL | 0x4, OBJ_SIZE_32x8 | 0x1f1, OBJ_SPRITE_OAM | 0x1328,
@@ -724,7 +724,7 @@ static const u16 sImagoOam_RechargingNeedles_Frame2[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x11, OBJ_SIZE_32x16 | 0x1f1, OBJ_SPRITE_OAM | 0x1344
 };
 
-static const u16 sImagoDamagedStingerOam_Frame0[28] = {
+static const u16 sImagoDamagedStingerOam_Frame0[OAM_DATA_SIZE(9)] = {
     0x9,
     0xe2, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x12b0,
     0xe4, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x12a8,
@@ -737,62 +737,62 @@ static const u16 sImagoDamagedStingerOam_Frame0[28] = {
     OBJ_SHAPE_HORIZONTAL | 0x11, OBJ_SIZE_32x16 | 0x1f1, OBJ_SPRITE_OAM | 0x1344
 };
 
-static const u16 sImagoEggOam_Standing_Frame0[7] = {
+static const u16 sImagoEggOam_Standing_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xe8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1277,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x12b7
 };
 
-static const u16 sImagoEggOam_Breaking_Frame1[10] = {
+static const u16 sImagoEggOam_Breaking_Frame1[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x12b7,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1f8, OBJ_SPRITE_OAM | 0x1217,
     0xe8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x1218
 };
 
-static const u16 sImagoEggOam_Breaking_Frame2[10] = {
+static const u16 sImagoEggOam_Breaking_Frame2[OAM_DATA_SIZE(3)] = {
     0x3,
     0xec, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x123e,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x12b7,
     0xea, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x1218
 };
 
-static const u16 sImagoEggOam_Breaking_Frame3[10] = {
+static const u16 sImagoEggOam_Breaking_Frame3[OAM_DATA_SIZE(3)] = {
     0x3,
     0xef, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x127e,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x12b7,
     0xeb, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x123e
 };
 
-static const u16 sImagoEggOam_Breaking_Frame4[10] = {
+static const u16 sImagoEggOam_Breaking_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x123a,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x121b,
     OBJ_SHAPE_HORIZONTAL | 0xf7, 0x1ea, OBJ_SPRITE_OAM | 0x121e
 };
 
-static const u16 sImagoEggOam_Breaking_Frame5[10] = {
+static const u16 sImagoEggOam_Breaking_Frame5[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x125a,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x121b,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1e9, OBJ_SPRITE_OAM | 0x121e
 };
 
-static const u16 sImagoEggOam_Breaking_Frame6[10] = {
+static const u16 sImagoEggOam_Breaking_Frame6[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x121b,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x127a,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1e9, OBJ_SPRITE_OAM | 0x121e
 };
 
-static const u16 sImagoEggOam_Breaking_Frame7[10] = {
+static const u16 sImagoEggOam_Breaking_Frame7[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x121b,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x129a,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1e9, OBJ_SPRITE_OAM | 0x121e
 };
 
-static const u16 sImagoEggOam_Breaking_Frame8[10] = {
+static const u16 sImagoEggOam_Breaking_Frame8[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x121b,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x12ba,
@@ -800,305 +800,501 @@ static const u16 sImagoEggOam_Breaking_Frame8[10] = {
 };
 
 const struct FrameData sImagoPartOam_BodyIdle[8] = {
-    sImagoPartOam_BodyIdle_Frame0,
-    0x1,
-    sImagoPartOam_BodyIdle_Frame1,
-    0x2,
-    sImagoPartOam_BodyIdle_Frame2,
-    0x2,
-    sImagoPartOam_BodyIdle_Frame3,
-    0x1,
-    sImagoPartOam_BodyIdle_Frame4,
-    0x1,
-    sImagoPartOam_BodyIdle_Frame2,
-    0x2,
-    sImagoPartOam_BodyIdle_Frame1,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_BodyGrowling[16] = {
-    sImagoPartOam_BodyIdle_Frame0,
-    0xC,
-    sImagoPartOam_BodyIdle_Frame3,
-    0x8,
-    sImagoPartOam_BodyGrowling_Frame2,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame3,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame4,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame3,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame4,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame3,
-    0x4,
-    sImagoPartOam_BodyGrowling_Frame4,
-    0x3,
-    sImagoPartOam_BodyGrowling_Frame3,
-    0x3,
-    sImagoPartOam_BodyGrowling_Frame4,
-    0x3,
-    sImagoPartOam_BodyGrowling_Frame3,
-    0x3,
-    sImagoPartOam_BodyGrowling_Frame2,
-    0x4,
-    sImagoPartOam_BodyIdle_Frame3,
-    0x8,
-    sImagoPartOam_BodyIdle_Frame0,
-    0xC,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = {
+        .pFrame = sImagoPartOam_BodyGrowling_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [13] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [14] = {
+        .pFrame = sImagoPartOam_BodyIdle_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [15] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoOam_BrokenStinger[3] = {
-    sImagoOam_BrokenStinger_Frame0,
-    0xC,
-    sImagoOam_BrokenStinger_Frame1,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoOam_BrokenStinger_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sImagoOam_BrokenStinger_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_LeftWingIdle[8] = {
-    sImagoPartOam_LeftWingIdle_Frame0,
-    0x2,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0x3,
-    sImagoPartOam_LeftWingIdle_Frame2,
-    0x3,
-    sImagoPartOam_LeftWingIdle_Frame3,
-    0x2,
-    sImagoPartOam_LeftWingIdle_Frame4,
-    0x2,
-    sImagoPartOam_LeftWingIdle_Frame2,
-    0x3,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_LeftWingShootingNeedles[6] = {
-    sImagoPartOam_LeftWingIdle_Frame0,
-    0x1,
-    sImagoPartOam_LeftWingIdle_Frame2,
-    0x1,
-    sImagoPartOam_LeftWingIdle_Frame3,
-    0x1,
-    sImagoPartOam_LeftWingIdle_Frame4,
-    0x1,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_LeftWingDying[7] = {
-    sImagoPartOam_LeftWingIdle_Frame0,
-    0x8,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0xC,
-    sImagoPartOam_LeftWingIdle_Frame2,
-    0x10,
-    sImagoPartOam_LeftWingIdle_Frame0,
-    0x8,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0x4,
-    sImagoPartOam_LeftWingIdle_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_LeftWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_RightWingIdle[8] = {
-    sImagoPartOam_RightWingIdle_Frame0,
-    0x2,
-    sImagoPartOam_RightWingIdle_Frame1,
-    0x2,
-    sImagoPartOam_RightWingIdle_Frame2,
-    0x3,
-    sImagoPartOam_RightWingIdle_Frame3,
-    0x3,
-    sImagoPartOam_RightWingIdle_Frame4,
-    0x2,
-    sImagoPartOam_RightWingIdle_Frame2,
-    0x3,
-    sImagoPartOam_RightWingIdle_Frame1,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_RightWingShootingNeedles[6] = {
-    sImagoPartOam_RightWingIdle_Frame0,
-    0x1,
-    sImagoPartOam_RightWingIdle_Frame2,
-    0x1,
-    sImagoPartOam_RightWingIdle_Frame3,
-    0x1,
-    sImagoPartOam_RightWingIdle_Frame4,
-    0x1,
-    sImagoPartOam_RightWingIdle_Frame1,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_RightWingDying[5] = {
-    sImagoPartOam_RightWingIdle_Frame0,
-    0x8,
-    sImagoPartOam_RightWingIdle_Frame1,
-    0x10,
-    sImagoPartOam_RightWingIdle_Frame2,
-    0xA,
-    sImagoPartOam_RightWingIdle_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_RightWingIdle_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoPartOam_Core[9] = {
-    sImagoPartOam_Core_Frame0,
-    0xC,
-    sImagoPartOam_Core_Frame1,
-    0x6,
-    sImagoPartOam_Core_Frame2,
-    0x8,
-    sImagoPartOam_Core_Frame1,
-    0x4,
-    sImagoPartOam_Core_Frame0,
-    0x16,
-    sImagoPartOam_Core_Frame1,
-    0x6,
-    sImagoPartOam_Core_Frame2,
-    0x8,
-    sImagoPartOam_Core_Frame1,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoPartOam_Core_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sImagoPartOam_Core_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sImagoPartOam_Core_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sImagoPartOam_Core_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoPartOam_Core_Frame0,
+        .timer = CONVERT_SECONDS(11.f / 30)
+    },
+    [5] = {
+        .pFrame = sImagoPartOam_Core_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sImagoPartOam_Core_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sImagoPartOam_Core_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoOam_Flying[9] = {
-    sImagoOam_Flying_Frame0,
-    0x1,
-    sImagoOam_Flying_Frame1,
-    0x1,
-    sImagoOam_Flying_Frame2,
-    0x2,
-    sImagoOam_Flying_Frame3,
-    0x2,
-    sImagoOam_Flying_Frame4,
-    0x1,
-    sImagoOam_Flying_Frame0,
-    0x1,
-    sImagoOam_Flying_Frame1,
-    0x2,
-    sImagoOam_Flying_Frame2,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sImagoOam_Flying_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sImagoOam_Flying_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sImagoOam_Flying_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sImagoOam_Flying_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoOam_ShootingNeedles[11] = {
-    sImagoOam_Flying_Frame0,
-    0x2,
-    sImagoOam_Flying_Frame3,
-    0x4,
-    sImagoOam_ShootingNeedles_Frame2,
-    0x6,
-    sImagoOam_ShootingNeedles_Frame3,
-    0x8,
-    sImagoOam_ShootingNeedles_Frame4,
-    0xA,
-    sImagoOam_ShootingNeedles_Frame3,
-    0x2,
-    sImagoOam_ShootingNeedles_Frame2,
-    0x1,
-    sImagoOam_Flying_Frame3,
-    0x1,
-    sImagoOam_Flying_Frame0,
-    0x1,
-    sImagoOam_ShootingNeedles_Frame9,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sImagoOam_Flying_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [7] = {
+        .pFrame = sImagoOam_Flying_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [9] = {
+        .pFrame = sImagoOam_ShootingNeedles_Frame9,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoOam_RechargingNeedles[4] = {
-    sImagoOam_RechargingNeedles_Frame0,
-    0xA,
-    sImagoOam_RechargingNeedles_Frame1,
-    0x8,
-    sImagoOam_RechargingNeedles_Frame2,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoOam_RechargingNeedles_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sImagoOam_RechargingNeedles_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sImagoOam_RechargingNeedles_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoDamagedStingerOam[2] = {
-    sImagoDamagedStingerOam_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoDamagedStingerOam_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoNeedleOam[2] = {
-    sImagoNeedleOam_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoNeedleOam_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoDamagedStingerOam_Unused[9] = {
-    sImagoOam_Flying_Frame0,
-    0xC,
-    sImagoOam_Flying_Frame1,
-    0x6,
-    sImagoOam_Flying_Frame2,
-    0x8,
-    sImagoOam_Flying_Frame1,
-    0x4,
-    sImagoOam_Flying_Frame0,
-    0x16,
-    sImagoOam_Flying_Frame1,
-    0x6,
-    sImagoOam_Flying_Frame2,
-    0x8,
-    sImagoOam_Flying_Frame1,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sImagoOam_Flying_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoOam_Flying_Frame0,
+        .timer = CONVERT_SECONDS(11.f / 30)
+    },
+    [5] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sImagoOam_Flying_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sImagoOam_Flying_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoEggOam_Breaking[10] = {
-    sImagoEggOam_Standing_Frame0,
-    0x2,
-    sImagoEggOam_Breaking_Frame1,
-    0x2,
-    sImagoEggOam_Breaking_Frame2,
-    0x2,
-    sImagoEggOam_Breaking_Frame3,
-    0x4,
-    sImagoEggOam_Breaking_Frame4,
-    0x6,
-    sImagoEggOam_Breaking_Frame5,
-    0x8,
-    sImagoEggOam_Breaking_Frame6,
-    0xA,
-    sImagoEggOam_Breaking_Frame7,
-    0xE,
-    sImagoEggOam_Breaking_Frame8,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoEggOam_Standing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sImagoEggOam_Breaking_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sImagoEggOam_Breaking_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sImagoEggOam_Breaking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sImagoEggOam_Breaking_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sImagoEggOam_Breaking_Frame5,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sImagoEggOam_Breaking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [7] = {
+        .pFrame = sImagoEggOam_Breaking_Frame7,
+        .timer = CONVERT_SECONDS(7.f / 30)
+    },
+    [8] = {
+        .pFrame = sImagoEggOam_Breaking_Frame8,
+        .timer = UCHAR_MAX
+    },
+    [9] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sImagoEggOam_Standing[2] = {
-    sImagoEggOam_Standing_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sImagoEggOam_Standing_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };

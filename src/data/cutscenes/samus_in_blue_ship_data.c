@@ -18,7 +18,6 @@ static const struct CutsceneScreenShakeInfo sSamusInBlueShipScreenShake = {
     .set = 0
 };
 
-extern const struct FrameData sSamusInBlueShipOam_Controls[11];
 const struct OamArray sSamusInBlueShipOam[3] = {
     [0] = {
         .pOam = sSamusInBlueShipOam_Controls,
@@ -455,28 +454,47 @@ static const u16 sSamusInBlueShipOam_Controls_Frame9[OAM_DATA_SIZE(38)] = {
 };
 
 static const struct FrameData sSamusInBlueShipOam_Controls[11] = {
-    sSamusInBlueShipOam_Controls_Frame0,
-    30,
-    sSamusInBlueShipOam_Controls_Frame1,
-    16,
-    sSamusInBlueShipOam_Controls_Frame2,
-    10,
-    sSamusInBlueShipOam_Controls_Frame3,
-    8,
-    sSamusInBlueShipOam_Controls_Frame4,
-    4,
-    sSamusInBlueShipOam_Controls_Frame5,
-    2,
-    sSamusInBlueShipOam_Controls_Frame6,
-    2,
-    sSamusInBlueShipOam_Controls_Frame7,
-    2,
-    sSamusInBlueShipOam_Controls_Frame8,
-    2,
-    sSamusInBlueShipOam_Controls_Frame9,
-    60,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame0,
+        .timer = CONVERT_SECONDS(0.5f)
+    },
+    [1] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sSamusInBlueShipOam_Controls_Frame9,
+        .timer = CONVERT_SECONDS(1.0f)
+    },
+    [10] = FRAME_DATA_TERMINATOR
 };
 
 const u16 sSamusInBlueShipPal[9 * 16] = INCBIN_U16("data/cutscenes/SamusInBlueShip/Ship.pal");

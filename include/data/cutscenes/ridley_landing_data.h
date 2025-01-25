@@ -11,6 +11,14 @@ extern const struct CutscenePageData sRidleyLandingPageData[5];
 
 extern const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3];
 
+extern const u16 sRidleyLandingOAM_ShipBottomPart_Frame0[13];
+extern const u16 sRidleyLandingOAM_ShipMiddlePart_Frame0[13];
+extern const u16 sRidleyLandingOAM_ShipTopPart_Frame0[7];
+extern const u16 sRidleyLandingOAM_Ridley_Frame0[7];
+extern const struct FrameData sRidleyLandingOAM_ShipInSpace[2];
+extern const struct FrameData sRidleyLandingOAM_SmokeParticles[7];
+extern const struct FrameData sRidleyLandingOAM_Rocks[5];
+
 extern const struct OamArray sRidleyLandingCutsceneOAM[RIDLEY_LANDING_OAM_ID_END];
 
 extern const u16 sCutscene_3a09d4_Pal[9 * 16];

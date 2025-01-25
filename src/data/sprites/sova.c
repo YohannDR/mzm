@@ -321,164 +321,261 @@ static const u16 sSovaOam_Falling_Frame5[OAM_DATA_SIZE(3)] = {
 
 
 const struct FrameData sSovaOam_OnGround[7] = {
-    sSovaOam_OnGround_Frame0,
-    6,
-    sSovaOam_OnGround_Frame1,
-    6,
-    sSovaOam_OnGround_Frame2,
-    6,
-    sSovaOam_OnGround_Frame3,
-    6,
-    sSovaOam_OnGround_Frame4,
-    6,
-    sSovaOam_OnGround_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_OnGround_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_OnGround_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_OnGround_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_OnGround_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_OnGround_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_OnGround_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_WalkingOnLeftSlope[7] = {
-    sSovaOam_WalkingOnLeftSlope_Frame0,
-    6,
-    sSovaOam_WalkingOnLeftSlope_Frame1,
-    6,
-    sSovaOam_WalkingOnLeftSlope_Frame2,
-    6,
-    sSovaOam_WalkingOnLeftSlope_Frame0,
-    6,
-    sSovaOam_WalkingOnLeftSlope_Frame4,
-    6,
-    sSovaOam_WalkingOnLeftSlope_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_WalkingOnLeftSlope_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_WalkingOnRightSlope[7] = {
-    sSovaOam_WalkingOnRightSlope_Frame0,
-    6,
-    sSovaOam_WalkingOnRightSlope_Frame1,
-    6,
-    sSovaOam_WalkingOnRightSlope_Frame2,
-    6,
-    sSovaOam_WalkingOnRightSlope_Frame0,
-    6,
-    sSovaOam_WalkingOnRightSlope_Frame4,
-    6,
-    sSovaOam_WalkingOnRightSlope_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_WalkingOnRightSlope_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_WalkingOnLeft[7] = {
-    sSovaOam_WalkingOnLeft_Frame0,
-    6,
-    sSovaOam_WalkingOnLeft_Frame1,
-    6,
-    sSovaOam_WalkingOnLeft_Frame2,
-    6,
-    sSovaOam_WalkingOnLeft_Frame3,
-    6,
-    sSovaOam_WalkingOnLeft_Frame4,
-    6,
-    sSovaOam_WalkingOnLeft_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_WalkingOnLeft_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_WalkingOnRight[7] = {
-    sSovaOam_WalkingOnRight_Frame0,
-    6,
-    sSovaOam_WalkingOnRight_Frame1,
-    6,
-    sSovaOam_WalkingOnRight_Frame2,
-    6,
-    sSovaOam_WalkingOnRight_Frame3,
-    6,
-    sSovaOam_WalkingOnRight_Frame4,
-    6,
-    sSovaOam_WalkingOnRight_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_WalkingOnRight_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_WalkingOnCeiling[7] = {
-    sSovaOam_WalkingOnCeiling_Frame0,
-    6,
-    sSovaOam_WalkingOnCeiling_Frame1,
-    6,
-    sSovaOam_WalkingOnCeiling_Frame2,
-    6,
-    sSovaOam_WalkingOnCeiling_Frame3,
-    6,
-    sSovaOam_WalkingOnCeiling_Frame4,
-    6,
-    sSovaOam_WalkingOnCeiling_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_WalkingOnCeiling_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_TurningCornerRight[4] = {
-    sSovaOam_TurningRight_Frame0,
-    6,
-    sSovaOam_TurningRight_Frame1,
-    6,
-    sSovaOam_TurningRight_Frame2,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_TurningRight_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_TurningRight_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_TurningRight_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_TurningEdgeRight[4] = {
-    sSovaOam_TurningRight_Frame2,
-    6,
-    sSovaOam_TurningRight_Frame1,
-    6,
-    sSovaOam_TurningRight_Frame0,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_TurningRight_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_TurningRight_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_TurningRight_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_TurningEdgeLeft[4] = {
-    sSovaOam_TurningEdgeLeft_Frame0,
-    6,
-    sSovaOam_TurningEdgeLeft_Frame1,
-    6,
-    sSovaOam_TurningEdgeLeft_Frame2,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_TurningEdgeLeft_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_TurningEdgeLeft_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_TurningEdgeLeft_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_TurningCornerLeft[4] = {
-    sSovaOam_TurningCornerLeft_Frame0,
-    6,
-    sSovaOam_TurningCornerLeft_Frame1,
-    6,
-    sSovaOam_TurningCornerLeft_Frame2,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_TurningCornerLeft_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_TurningCornerLeft_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_TurningCornerLeft_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSovaOam_Falling[7] = {
-    sSovaOam_OnGround_Frame0,
-    6,
-    sSovaOam_Falling_Frame1,
-    6,
-    sSovaOam_Falling_Frame2,
-    6,
-    sSovaOam_Falling_Frame3,
-    6,
-    sSovaOam_Falling_Frame4,
-    6,
-    sSovaOam_Falling_Frame5,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sSovaOam_OnGround_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSovaOam_Falling_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSovaOam_Falling_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSovaOam_Falling_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSovaOam_Falling_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSovaOam_Falling_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };

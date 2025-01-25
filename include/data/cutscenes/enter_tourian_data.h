@@ -6,6 +6,10 @@
 extern const struct CutscenePageData sEnterTourianPageData[2];
 extern const struct OamArray sEnterTourianOam[7];
 
+extern const u16 sEnterTourianOAM_SpacePirate_Frame0[16];
+
+extern const struct FrameData sEnterTourianOAM_Empty[1];
+
 extern const u16 sEnterTourianBackgroundPal[10 * 16];
 extern const u16 sEnterTourianMetroidPal[6 * 16];
 extern const u32 sEnterTourianBackgroundGfx[3110];

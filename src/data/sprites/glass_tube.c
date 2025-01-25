@@ -4,7 +4,7 @@
 const u32 sGlassTubeGfx[514] = INCBIN_U32("data/sprites/GlassTube.gfx.lz");
 const u16 sGlassTubePal[80] = INCBIN_U16("data/sprites/GlassTube.pal");
 
-const u16 sGlassTubeOAM_Intact_Frame0[37] = {
+const u16 sGlassTubeOAM_Intact_Frame0[OAM_DATA_SIZE(12)] = {
     0xc,
     0xdd, OBJ_SIZE_32x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe00,
     0xdd, OBJ_SIZE_32x32 | 0x1c0, OBJ_SPRITE_OAM | 0xe00,
@@ -20,7 +20,7 @@ const u16 sGlassTubeOAM_Intact_Frame0[37] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame1[49] = {
+const u16 sGlassTubeOAM_Cracking_Frame1[OAM_DATA_SIZE(16)] = {
     0x10,
     0x15, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0xe80,
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0xec2,
@@ -40,7 +40,7 @@ const u16 sGlassTubeOAM_Cracking_Frame1[49] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame2[55] = {
+const u16 sGlassTubeOAM_Cracking_Frame2[OAM_DATA_SIZE(18)] = {
     0x12,
     0x15, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0xe80,
     0xfd, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x10, OBJ_SPRITE_OAM | 0xe80,
@@ -62,7 +62,7 @@ const u16 sGlassTubeOAM_Cracking_Frame2[55] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame3[73] = {
+const u16 sGlassTubeOAM_Cracking_Frame3[OAM_DATA_SIZE(24)] = {
     0x18,
     0x15, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0xe80,
     OBJ_SHAPE_VERTICAL | 0x15, 0x1f8, OBJ_SPRITE_OAM | 0xec7,
@@ -90,7 +90,7 @@ const u16 sGlassTubeOAM_Cracking_Frame3[73] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame4[85] = {
+const u16 sGlassTubeOAM_Cracking_Frame4[OAM_DATA_SIZE(28)] = {
     0x1c,
     0x15, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0xe80,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
@@ -122,7 +122,7 @@ const u16 sGlassTubeOAM_Cracking_Frame4[85] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame5[106] = {
+const u16 sGlassTubeOAM_Cracking_Frame5[OAM_DATA_SIZE(35)] = {
     0x23,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
     0xfd, 0x0, OBJ_SPRITE_OAM | 0xe82,
@@ -161,7 +161,7 @@ const u16 sGlassTubeOAM_Cracking_Frame5[106] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame6[115] = {
+const u16 sGlassTubeOAM_Cracking_Frame6[OAM_DATA_SIZE(38)] = {
     0x26,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
     0xfd, 0x0, OBJ_SPRITE_OAM | 0xe82,
@@ -203,7 +203,7 @@ const u16 sGlassTubeOAM_Cracking_Frame6[115] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame7[127] = {
+const u16 sGlassTubeOAM_Cracking_Frame7[OAM_DATA_SIZE(42)] = {
     0x2a,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0xe8c,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
@@ -249,7 +249,7 @@ const u16 sGlassTubeOAM_Cracking_Frame7[127] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame8[142] = {
+const u16 sGlassTubeOAM_Cracking_Frame8[OAM_DATA_SIZE(47)] = {
     0x2f,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0xe8c,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
@@ -300,7 +300,7 @@ const u16 sGlassTubeOAM_Cracking_Frame8[142] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame9[157] = {
+const u16 sGlassTubeOAM_Cracking_Frame9[OAM_DATA_SIZE(52)] = {
     0x34,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0xe8c,
     OBJ_SHAPE_VERTICAL | 0xfd, OBJ_SIZE_16x32 | 0x10, OBJ_SPRITE_OAM | 0xe9c,
@@ -356,7 +356,7 @@ const u16 sGlassTubeOAM_Cracking_Frame9[157] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x40, OBJ_SPRITE_OAM | 0xe00
 };
 
-const u16 sGlassTubeOAM_Cracking_Frame10[172] = {
+const u16 sGlassTubeOAM_Cracking_Frame10[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -417,7 +417,7 @@ const u16 sGlassTubeOAM_Cracking_Frame10[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_Y_FLIP | 0x18, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame0[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame0[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -478,7 +478,7 @@ const u16 sGlassTubeOAM_Breaking_Frame0[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_Y_FLIP | 0x18, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame1[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame1[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -539,7 +539,7 @@ const u16 sGlassTubeOAM_Breaking_Frame1[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x26, OBJ_Y_FLIP | 0x19, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame2[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame2[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -600,7 +600,7 @@ const u16 sGlassTubeOAM_Breaking_Frame2[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x2a, OBJ_Y_FLIP | 0x1b, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame3[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame3[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -661,7 +661,7 @@ const u16 sGlassTubeOAM_Breaking_Frame3[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x36, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame4[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame4[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -722,7 +722,7 @@ const u16 sGlassTubeOAM_Breaking_Frame4[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x40, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame5[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame5[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -783,7 +783,7 @@ const u16 sGlassTubeOAM_Breaking_Frame5[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x4a, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame6[172] = {
+const u16 sGlassTubeOAM_Breaking_Frame6[OAM_DATA_SIZE(57)] = {
     0x39,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -844,7 +844,7 @@ const u16 sGlassTubeOAM_Breaking_Frame6[172] = {
     OBJ_SHAPE_HORIZONTAL | 0x54, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame7[163] = {
+const u16 sGlassTubeOAM_Breaking_Frame7[OAM_DATA_SIZE(54)] = {
     0x36,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -902,7 +902,7 @@ const u16 sGlassTubeOAM_Breaking_Frame7[163] = {
     OBJ_SHAPE_HORIZONTAL | 0x5d, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame8[157] = {
+const u16 sGlassTubeOAM_Breaking_Frame8[OAM_DATA_SIZE(52)] = {
     0x34,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -958,7 +958,7 @@ const u16 sGlassTubeOAM_Breaking_Frame8[157] = {
     OBJ_SHAPE_HORIZONTAL | 0x6b, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame9[139] = {
+const u16 sGlassTubeOAM_Breaking_Frame9[OAM_DATA_SIZE(46)] = {
     0x2e,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1008,7 +1008,7 @@ const u16 sGlassTubeOAM_Breaking_Frame9[139] = {
     OBJ_SHAPE_HORIZONTAL | 0x79, OBJ_Y_FLIP | 0x1d, OBJ_SPRITE_OAM | 0xf0f
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame10[133] = {
+const u16 sGlassTubeOAM_Breaking_Frame10[OAM_DATA_SIZE(44)] = {
     0x2c,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1056,7 +1056,7 @@ const u16 sGlassTubeOAM_Breaking_Frame10[133] = {
     OBJ_SHAPE_VERTICAL | 0x49, OBJ_SIZE_16x32 | 0x1ba, OBJ_SPRITE_OAM | 0xe55
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame11[115] = {
+const u16 sGlassTubeOAM_Breaking_Frame11[OAM_DATA_SIZE(38)] = {
     0x26,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1098,7 +1098,7 @@ const u16 sGlassTubeOAM_Breaking_Frame11[115] = {
     OBJ_SHAPE_VERTICAL | 0x61, OBJ_SIZE_16x32 | 0x1ba, OBJ_SPRITE_OAM | 0xe55
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame12[94] = {
+const u16 sGlassTubeOAM_Breaking_Frame12[OAM_DATA_SIZE(31)] = {
     0x1f,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1133,7 +1133,7 @@ const u16 sGlassTubeOAM_Breaking_Frame12[94] = {
     OBJ_SHAPE_HORIZONTAL | 0x3f, OBJ_Y_FLIP | 0x1be, OBJ_SPRITE_OAM | 0xec0
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame13[85] = {
+const u16 sGlassTubeOAM_Breaking_Frame13[OAM_DATA_SIZE(28)] = {
     0x1c,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1165,7 +1165,7 @@ const u16 sGlassTubeOAM_Breaking_Frame13[85] = {
     OBJ_SHAPE_HORIZONTAL | 0x56, OBJ_Y_FLIP | 0x1be, OBJ_SPRITE_OAM | 0xec0
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame14[70] = {
+const u16 sGlassTubeOAM_Breaking_Frame14[OAM_DATA_SIZE(23)] = {
     0x17,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1192,7 +1192,7 @@ const u16 sGlassTubeOAM_Breaking_Frame14[70] = {
     OBJ_SHAPE_HORIZONTAL | 0x74, OBJ_Y_FLIP | 0x1be, OBJ_SPRITE_OAM | 0xec0
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame15[52] = {
+const u16 sGlassTubeOAM_Breaking_Frame15[OAM_DATA_SIZE(17)] = {
     0x11,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1213,7 +1213,7 @@ const u16 sGlassTubeOAM_Breaking_Frame15[52] = {
     OBJ_SHAPE_HORIZONTAL | 0x43, OBJ_SIZE_32x16 | 0x1ae, OBJ_SPRITE_OAM | 0xf00
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame16[31] = {
+const u16 sGlassTubeOAM_Breaking_Frame16[OAM_DATA_SIZE(10)] = {
     0xa,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1227,7 +1227,7 @@ const u16 sGlassTubeOAM_Breaking_Frame16[31] = {
     OBJ_SHAPE_HORIZONTAL | 0x67, OBJ_SIZE_32x16 | 0x1ae, OBJ_SPRITE_OAM | 0xf00
 };
 
-const u16 sGlassTubeOAM_Breaking_Frame17[25] = {
+const u16 sGlassTubeOAM_Breaking_Frame17[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0xdd, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe04,
@@ -1239,7 +1239,7 @@ const u16 sGlassTubeOAM_Breaking_Frame17[25] = {
     OBJ_SHAPE_HORIZONTAL | 0x67, 0x1af, OBJ_SPRITE_OAM | 0xee2
 };
 
-const u16 sGlassTubeOAM_Broken_Frame0[19] = {
+const u16 sGlassTubeOAM_Broken_Frame0[OAM_DATA_SIZE(6)] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_SIZE_16x32 | 0x50, OBJ_SPRITE_OAM | 0xe84,
     OBJ_SHAPE_VERTICAL | 0x5, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a0, OBJ_SPRITE_OAM | 0xe84,
@@ -1250,83 +1250,141 @@ const u16 sGlassTubeOAM_Broken_Frame0[19] = {
 };
 
 const struct FrameData sGlassTubeOAM_Intact[2] = {
-    sGlassTubeOAM_Intact_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGlassTubeOAM_Intact_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGlassTubeOAM_Cracking[12] = {
-    sGlassTubeOAM_Intact_Frame0,
-    0x20,
-    sGlassTubeOAM_Cracking_Frame1,
-    0x14,
-    sGlassTubeOAM_Cracking_Frame2,
-    0xC,
-    sGlassTubeOAM_Cracking_Frame3,
-    0xA,
-    sGlassTubeOAM_Cracking_Frame4,
-    0x8,
-    sGlassTubeOAM_Cracking_Frame5,
-    0x6,
-    sGlassTubeOAM_Cracking_Frame6,
-    0x5,
-    sGlassTubeOAM_Cracking_Frame7,
-    0x4,
-    sGlassTubeOAM_Cracking_Frame8,
-    0x8,
-    sGlassTubeOAM_Cracking_Frame9,
-    0x14,
-    sGlassTubeOAM_Cracking_Frame10,
-    0x20,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGlassTubeOAM_Intact_Frame0,
+        .timer = CONVERT_SECONDS(8.f / 15)
+    },
+    [1] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame1,
+        .timer = ONE_THIRD_SECOND
+    },
+    [2] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [5] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [7] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame8,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [9] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame9,
+        .timer = ONE_THIRD_SECOND
+    },
+    [10] = {
+        .pFrame = sGlassTubeOAM_Cracking_Frame10,
+        .timer = CONVERT_SECONDS(8.f / 15)
+    },
+    [11] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGlassTubeOAM_Breaking[19] = {
-    sGlassTubeOAM_Breaking_Frame0,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame1,
-    0x4,
-    sGlassTubeOAM_Breaking_Frame2,
-    0x5,
-    sGlassTubeOAM_Breaking_Frame3,
-    0x4,
-    sGlassTubeOAM_Breaking_Frame4,
-    0x3,
-    sGlassTubeOAM_Breaking_Frame5,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame6,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame7,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame8,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame9,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame10,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame11,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame12,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame13,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame14,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame15,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame16,
-    0x2,
-    sGlassTubeOAM_Breaking_Frame17,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [3] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame9,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame11,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame13,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame15,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [17] = {
+        .pFrame = sGlassTubeOAM_Breaking_Frame17,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sGlassTubeOAM_Broken[2] = {
-    sGlassTubeOAM_Broken_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sGlassTubeOAM_Broken_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };

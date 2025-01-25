@@ -21,15 +21,12 @@ const struct CutscenePageData sEnterTourianPageData[2] = {
     }
 };
 
-extern const u16 sEnterTourianOAM_SpacePirate_Frame0[16];
-
-extern const struct FrameData sEnterTourianOAM_Empty[1];
-
 static const struct FrameData sEnterTourianOAM_SpacePirate[2] = {
-    sEnterTourianOAM_SpacePirate_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sEnterTourianOAM_SpacePirate_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct OamArray sEnterTourianOam[7] = {
@@ -63,7 +60,7 @@ const struct OamArray sEnterTourianOam[7] = {
     }
 };
 
-const u16 sEnterTourianOAM_SpacePirate_Frame0[16] = {
+const u16 sEnterTourianOAM_SpacePirate_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1d8, 0x4000,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f8, 0x4004,
@@ -73,8 +70,7 @@ const u16 sEnterTourianOAM_SpacePirate_Frame0[16] = {
 };
 
 const struct FrameData sEnterTourianOAM_Empty[1] = {
-    NULL,
-    0
+    [0] = FRAME_DATA_TERMINATOR
 };
 
 const u16 sEnterTourianBackgroundPal[10 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Background.pal");

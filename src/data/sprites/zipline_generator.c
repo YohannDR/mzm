@@ -4,7 +4,7 @@
 const u32 sZiplineGeneratorGfx[1124] = INCBIN_U32("data/sprites/ZiplineGenerator.gfx.lz");
 const u16 sZiplineGeneratorPal[64] = INCBIN_U16("data/sprites/ZiplineGenerator.pal");
 
-const u16 sZiplineGeneratorPartOam_ConductorDeactivated_Frame0[31] = {
+const u16 sZiplineGeneratorPartOam_ConductorDeactivated_Frame0[OAM_DATA_SIZE(10)] = {
     0xa,
     OBJ_SHAPE_VERTICAL | 0xa0, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x200,
     0xc0, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x280,
@@ -18,7 +18,7 @@ const u16 sZiplineGeneratorPartOam_ConductorDeactivated_Frame0[31] = {
     0xf8, 0x18, OBJ_SPRITE_OAM | 0x23f
 };
 
-const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame1[52] = {
+const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame1[OAM_DATA_SIZE(17)] = {
     0x11,
     0xae, 0x1fc, OBJ_SPRITE_OAM | 0x2ae,
     OBJ_SHAPE_VERTICAL | 0xa0, OBJ_SIZE_8x32 | 0x1e9, OBJ_SPRITE_OAM | 0x20e,
@@ -39,7 +39,7 @@ const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame1[52] = {
     0xf8, 0x18, OBJ_SPRITE_OAM | 0x23f
 };
 
-const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame2[52] = {
+const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame2[OAM_DATA_SIZE(17)] = {
     0x11,
     0xae, 0x1fc, OBJ_SPRITE_OAM | 0x2b1,
     OBJ_SHAPE_VERTICAL | 0xa0, OBJ_SIZE_8x32 | 0x1e9, OBJ_SPRITE_OAM | 0x211,
@@ -60,7 +60,7 @@ const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame2[52] = {
     0xf8, 0x18, OBJ_SPRITE_OAM | 0x23f
 };
 
-const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame3[52] = {
+const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame3[OAM_DATA_SIZE(17)] = {
     0x11,
     0xae, 0x1fc, OBJ_SPRITE_OAM | 0x2b4,
     OBJ_SHAPE_VERTICAL | 0xa0, OBJ_SIZE_8x32 | 0x1e9, OBJ_SPRITE_OAM | 0x214,
@@ -81,7 +81,7 @@ const u16 sZiplineGeneratorPartOam_ConductorActivating_Frame3[52] = {
     0xf8, 0x18, OBJ_SPRITE_OAM | 0x23f
 };
 
-const u16 sZiplineGeneratorOam_Deactivated_Frame0[19] = {
+const u16 sZiplineGeneratorOam_Deactivated_Frame0[OAM_DATA_SIZE(6)] = {
     0x6,
     0xd0, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x2c0,
     0xd0, OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x2c4,
@@ -91,7 +91,7 @@ const u16 sZiplineGeneratorOam_Deactivated_Frame0[19] = {
     0xe0, 0x8, OBJ_SPRITE_OAM | 0x22d
 };
 
-const u16 sZiplineGeneratorOam_Activating_Frame1[31] = {
+const u16 sZiplineGeneratorOam_Activating_Frame1[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x286,
     0xd0, OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x2cf,
@@ -105,7 +105,7 @@ const u16 sZiplineGeneratorOam_Activating_Frame1[31] = {
     0xe0, 0x8, OBJ_SPRITE_OAM | 0x22d
 };
 
-const u16 sZiplineGeneratorOam_Activating_Frame2[31] = {
+const u16 sZiplineGeneratorOam_Activating_Frame2[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x288,
     0xd0, OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x2d2,
@@ -119,7 +119,7 @@ const u16 sZiplineGeneratorOam_Activating_Frame2[31] = {
     0xe0, 0x8, OBJ_SPRITE_OAM | 0x22d
 };
 
-const u16 sZiplineGeneratorOam_Activating_Frame3[31] = {
+const u16 sZiplineGeneratorOam_Activating_Frame3[OAM_DATA_SIZE(10)] = {
     0xa,
     0xd0, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x28a,
     0xd0, OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x2d5,
@@ -133,27 +133,27 @@ const u16 sZiplineGeneratorOam_Activating_Frame3[31] = {
     0xe0, 0x8, OBJ_SPRITE_OAM | 0x22d
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame0[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x217
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame1[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x219
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame2[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21b
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame3[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21d
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame4[16] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame4[OAM_DATA_SIZE(5)] = {
     0x5,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x24c,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x24c,
@@ -162,7 +162,7 @@ const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame4[16] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21b
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame5[16] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame5[OAM_DATA_SIZE(5)] = {
     0x5,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x28c,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x28c,
@@ -171,67 +171,67 @@ const u16 sZiplineGeneratorPartOam_MorphSymbolActivating_Frame5[16] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x219
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame3[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x24c
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame0[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x125f
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame1[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12de
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame2[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0x1, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x125b
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame4[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame4[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_8x32 | 0x0, OBJ_SPRITE_OAM | 0x125f
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame5[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame5[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf5, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12de
 };
 
-const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame7[4] = {
+const u16 sZiplineGeneratorPartOam_ElectricityActivating_Frame7[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x125b
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame0[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1fc, OBJ_SPRITE_OAM | 0x1277
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame1[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x1278
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame2[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x1257
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame3[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x1278
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame4[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame4[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x12dc
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame5[16] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame5[OAM_DATA_SIZE(5)] = {
     0x5,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x12fa,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x24c,
@@ -240,7 +240,7 @@ const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame5[16] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x24c
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame6[16] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame6[OAM_DATA_SIZE(5)] = {
     0x5,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x12f9,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x28c,
@@ -249,154 +249,247 @@ const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame6[16] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x28c
 };
 
-const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame7[4] = {
+const u16 sZiplineGeneratorPartOam_MorphSymbolActivated_Frame7[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x12f8
 };
 
 const struct FrameData sZiplineGeneratorPartOam_ConductorDeactivated[2] = {
-    sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorOam_Deactivated[2] = {
-    sZiplineGeneratorOam_Deactivated_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorOam_Deactivated_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorPartOam_ConductorActivating[7] = {
-    sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
-    0xC,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame1,
-    0x6,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame2,
-    0x5,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame3,
-    0x5,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame2,
-    0x5,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorOam_Activating[7] = {
-    sZiplineGeneratorOam_Deactivated_Frame0,
-    0xC,
-    sZiplineGeneratorOam_Activating_Frame1,
-    0x6,
-    sZiplineGeneratorOam_Activating_Frame2,
-    0x5,
-    sZiplineGeneratorOam_Activating_Frame3,
-    0x5,
-    sZiplineGeneratorOam_Activating_Frame2,
-    0x5,
-    sZiplineGeneratorOam_Activating_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorOam_Deactivated_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorPartOam_ConductorActivated[7] = {
-    sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
-    0x10,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame1,
-    0x10,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame2,
-    0xC,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame3,
-    0xA,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame2,
-    0xC,
-    sZiplineGeneratorPartOam_ConductorActivating_Frame1,
-    0x10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorDeactivated_Frame0,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorPartOam_ConductorActivating_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorOam_Activated[7] = {
-    sZiplineGeneratorOam_Deactivated_Frame0,
-    0x10,
-    sZiplineGeneratorOam_Activating_Frame1,
-    0x10,
-    sZiplineGeneratorOam_Activating_Frame2,
-    0xC,
-    sZiplineGeneratorOam_Activating_Frame3,
-    0xA,
-    sZiplineGeneratorOam_Activating_Frame2,
-    0xC,
-    sZiplineGeneratorOam_Activating_Frame1,
-    0x10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorOam_Deactivated_Frame0,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorOam_Activating_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorPartOam_MorphSymbolActivating[7] = {
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame0,
-    0x4,
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame1,
-    0x4,
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame2,
-    0x4,
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame3,
-    0x4,
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame4,
-    0x4,
-    sZiplineGeneratorPartOam_MorphSymbolActivating_Frame5,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivating_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorPartOam_MorphSymbolActivated[9] = {
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame0,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame1,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame2,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame3,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame4,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame5,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame6,
-    0x2,
-    sZiplineGeneratorPartOam_MorphSymbolActivated_Frame7,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sZiplineGeneratorPartOam_MorphSymbolActivated_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sZiplineGeneratorPartOam_ElectricityActivating[12] = {
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame0,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame1,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame2,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
-    0xA,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame4,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame5,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
-    0xA,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame7,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
-    0xA,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame0,
-    0x3,
-    sZiplineGeneratorPartOam_ElectricityActivating_Frame4,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [7] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [9] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sZiplineGeneratorPartOam_ElectricityActivating_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = FRAME_DATA_TERMINATOR
 };
