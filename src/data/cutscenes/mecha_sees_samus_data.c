@@ -36,7 +36,7 @@ const struct OamArray sMechaSeesSamusCutsceneOam[5] = {
     },
 };
 
-const u16 sMechaSeesSamusOAM_FocusingEye_Frame0[109] = {
+const u16 sMechaSeesSamusOAM_FocusingEye_Frame0[OAM_DATA_SIZE(36)] = {
     0x24,
     0xb8, OBJ_SIZE_64x64 | 0x1b8, OBJ_SPRITE_OAM | 0x5,
     OBJ_SHAPE_VERTICAL | 0xb8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0xd,
@@ -76,7 +76,7 @@ const u16 sMechaSeesSamusOAM_FocusingEye_Frame0[109] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x10d
 };
 
-const u16 sMechaSeesSamusOAM_FocusingEye_Frame1[109] = {
+const u16 sMechaSeesSamusOAM_FocusingEye_Frame1[OAM_DATA_SIZE(36)] = {
     0x24,
     0xb8, OBJ_SIZE_64x64 | 0x1b8, OBJ_SPRITE_OAM | 0xe,
     OBJ_SHAPE_VERTICAL | 0xb8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x16,
@@ -116,7 +116,7 @@ const u16 sMechaSeesSamusOAM_FocusingEye_Frame1[109] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x116
 };
 
-const u16 sMechaSeesSamusOAM_FocusingEye_Frame2[73] = {
+const u16 sMechaSeesSamusOAM_FocusingEye_Frame2[OAM_DATA_SIZE(24)] = {
     0x18,
     0xb8, OBJ_SIZE_64x64 | 0x1b8, OBJ_SPRITE_OAM | 0x17,
     OBJ_SHAPE_VERTICAL | 0xb8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1f,
@@ -144,7 +144,7 @@ const u16 sMechaSeesSamusOAM_FocusingEye_Frame2[73] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x11f
 };
 
-const u16 sMechaSeesSamusOAM_OpeningEye_Frame0[70] = {
+const u16 sMechaSeesSamusOAM_OpeningEye_Frame0[OAM_DATA_SIZE(23)] = {
     0x17,
     0xb8, OBJ_SIZE_64x64 | 0x1d8, OBJ_SPRITE_OAM | 0x11c4,
     0xf8, OBJ_SIZE_64x64 | 0x1d8, OBJ_SPRITE_OAM | 0x12c4,
@@ -171,7 +171,7 @@ const u16 sMechaSeesSamusOAM_OpeningEye_Frame0[70] = {
     OBJ_SHAPE_VERTICAL | 0x10, OBJ_SIZE_16x32 | 0x38, OBJ_SPRITE_OAM | 0x1330
 };
 
-const u16 sMechaSeesSamusOAM_OpeningEye_Frame1[91] = {
+const u16 sMechaSeesSamusOAM_OpeningEye_Frame1[OAM_DATA_SIZE(30)] = {
     0x1e,
     0xb8, OBJ_SIZE_64x64 | 0x1c8, OBJ_SPRITE_OAM | 0x11d4,
     0xf8, OBJ_SIZE_64x64 | 0x1c8, OBJ_SPRITE_OAM | 0x12d4,
@@ -205,7 +205,7 @@ const u16 sMechaSeesSamusOAM_OpeningEye_Frame1[91] = {
     0x28, OBJ_SIZE_16x16 | 0x30, OBJ_SPRITE_OAM | 0x1134
 };
 
-const u16 sMechaSeesSamusOAM_OpeningEye_Frame2[94] = {
+const u16 sMechaSeesSamusOAM_OpeningEye_Frame2[OAM_DATA_SIZE(31)] = {
     0x1f,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x30, OBJ_SPRITE_OAM | 0x1002,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x40, OBJ_SPRITE_OAM | 0x1004,
@@ -242,25 +242,35 @@ const u16 sMechaSeesSamusOAM_OpeningEye_Frame2[94] = {
 
 
 const struct FrameData sMechaSeesSamusOAM_FocusingEye[4] = {
-    sMechaSeesSamusOAM_FocusingEye_Frame0,
-    10,
-    sMechaSeesSamusOAM_FocusingEye_Frame1,
-    8,
-    sMechaSeesSamusOAM_FocusingEye_Frame2,
-    10,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMechaSeesSamusOAM_FocusingEye_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sMechaSeesSamusOAM_FocusingEye_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sMechaSeesSamusOAM_FocusingEye_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sMechaSeesSamusOAM_OpeningEye[4] = {
-    sMechaSeesSamusOAM_OpeningEye_Frame0,
-    10,
-    sMechaSeesSamusOAM_OpeningEye_Frame1,
-    8,
-    sMechaSeesSamusOAM_OpeningEye_Frame2,
-    2,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMechaSeesSamusOAM_OpeningEye_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sMechaSeesSamusOAM_OpeningEye_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sMechaSeesSamusOAM_OpeningEye_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const u32 sMechaSeesSamusMetalGfx[2382] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.gfx.lz");

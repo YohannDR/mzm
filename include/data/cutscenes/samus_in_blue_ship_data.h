@@ -7,6 +7,9 @@
 #include "structs/cutscene.h"
 
 extern const struct CutscenePageData sSamusInBlueShipPageData[1];
+
+extern const struct FrameData sSamusInBlueShipOam_Controls[11];
+
 extern const struct OamArray sSamusInBlueShipOam[3];
 
 extern const u16 sSamusInBlueShipPal[9 * 16];

@@ -4,7 +4,7 @@
 const u32 sElevatorStatuesGfx[1122] = INCBIN_U32("data/sprites/ElevatorStatues.gfx.lz");
 const u16 sElevatorStatuesPal[64] = INCBIN_U16("data/sprites/ElevatorStatues.pal");
 
-const u16 sKraidElevatorStatueOAM_Idle_Frame0[64] = {
+const u16 sKraidElevatorStatueOAM_Idle_Frame0[OAM_DATA_SIZE(21)] = {
     0x15,
     0xa3, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2a6,
     0xa0, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2c3,
@@ -29,7 +29,7 @@ const u16 sKraidElevatorStatueOAM_Idle_Frame0[64] = {
     0xd0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21a
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame0[52] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame0[OAM_DATA_SIZE(17)] = {
     0x11,
     0xa4, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2a6,
     0xa1, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2c3,
@@ -50,7 +50,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame0[52] = {
     0xe6, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame1[52] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame1[OAM_DATA_SIZE(17)] = {
     0x11,
     0xa5, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2a6,
     0xa3, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2c3,
@@ -71,7 +71,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame1[52] = {
     0xe7, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame2[52] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame2[OAM_DATA_SIZE(17)] = {
     0x11,
     0xa9, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2a6,
     0xa9, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2c3,
@@ -92,7 +92,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame2[52] = {
     0xeb, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame3[55] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame3[OAM_DATA_SIZE(18)] = {
     0x12,
     0xae, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2a6,
     0xb0, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2c3,
@@ -114,7 +114,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame3[55] = {
     0xee, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame4[46] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame4[OAM_DATA_SIZE(15)] = {
     0xf,
     0xbc, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xbc, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -133,7 +133,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame4[46] = {
     0xf3, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame5[46] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xc1, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xc1, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -152,7 +152,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame5[46] = {
     0xf9, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame6[58] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame6[OAM_DATA_SIZE(19)] = {
     0x13,
     0xcb, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xcb, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -175,7 +175,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame6[58] = {
     0xfc, OBJ_SIZE_16x16 | 0x1e1, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame7[64] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame7[OAM_DATA_SIZE(21)] = {
     0x15,
     0xda, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -200,7 +200,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame7[64] = {
     0xe9, OBJ_SIZE_16x16 | 0x1c1, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame8[64] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame8[OAM_DATA_SIZE(21)] = {
     0x15,
     0xe7, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -225,7 +225,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame8[64] = {
     0xee, OBJ_SIZE_16x16 | 0x1be, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame9[70] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame9[OAM_DATA_SIZE(23)] = {
     0x17,
     0xf3, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xf3, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -252,7 +252,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame9[70] = {
     0xf1, OBJ_SIZE_16x16 | 0x1b8, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame10[70] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame10[OAM_DATA_SIZE(23)] = {
     0x17,
     0xf6, OBJ_SIZE_16x16 | 0x1e0, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f0, OBJ_SPRITE_OAM | 0x2a2,
@@ -279,7 +279,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame10[70] = {
     0xf1, OBJ_SIZE_16x16 | 0x1b7, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sKraidElevatorStatueOAM_Falling_Frame11[70] = {
+const u16 sKraidElevatorStatueOAM_Falling_Frame11[OAM_DATA_SIZE(23)] = {
     0x17,
     0xf4, OBJ_SIZE_16x16 | 0x1de, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x1ee, OBJ_SPRITE_OAM | 0x2a2,
@@ -306,7 +306,7 @@ const u16 sKraidElevatorStatueOAM_Falling_Frame11[70] = {
     0xf0, OBJ_SIZE_16x16 | 0x1b6, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sKraidElevatorStatueOAM_Fallen_Frame0[70] = {
+const u16 sKraidElevatorStatueOAM_Fallen_Frame0[OAM_DATA_SIZE(23)] = {
     0x17,
     0xf5, OBJ_SIZE_16x16 | 0x1dd, OBJ_SPRITE_OAM | 0x2a0,
     OBJ_SHAPE_VERTICAL | 0xf5, 0x1ed, OBJ_SPRITE_OAM | 0x2a2,
@@ -333,19 +333,19 @@ const u16 sKraidElevatorStatueOAM_Fallen_Frame0[70] = {
     0xf0, OBJ_SIZE_16x16 | 0x1b6, OBJ_SPRITE_OAM | 0x215
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame0[7] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xa8, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xb8, 0x1e4, OBJ_SPRITE_OAM | 0x2ec
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame1[7] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     0xaa, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xba, 0x1e4, OBJ_SPRITE_OAM | 0x2ec
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame2[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     0xac, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xbc, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -353,7 +353,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame2[13] = {
     OBJ_SHAPE_VERTICAL | 0xa6, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame3[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame3[OAM_DATA_SIZE(4)] = {
     0x4,
     0xb2, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xc2, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -361,7 +361,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame3[13] = {
     OBJ_SHAPE_VERTICAL | 0xa7, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame4[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xba, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xca, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -369,7 +369,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame4[13] = {
     OBJ_SHAPE_VERTICAL | 0xa8, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame5[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame5[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc3, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xd3, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -377,7 +377,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame5[13] = {
     OBJ_SHAPE_VERTICAL | 0xab, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame6[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame6[OAM_DATA_SIZE(4)] = {
     0x4,
     0xcc, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xdc, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -385,7 +385,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame6[13] = {
     OBJ_SHAPE_VERTICAL | 0xb3, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame7[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame7[OAM_DATA_SIZE(4)] = {
     0x4,
     0xde, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xee, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -393,7 +393,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame7[13] = {
     OBJ_SHAPE_VERTICAL | 0xba, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame8[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame8[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe9, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -401,7 +401,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame8[13] = {
     OBJ_SHAPE_VERTICAL | 0xc4, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame9[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame9[OAM_DATA_SIZE(4)] = {
     0x4,
     0xee, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xfe, 0x1e4, OBJ_SPRITE_OAM | 0x2ec,
@@ -409,7 +409,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame9[13] = {
     OBJ_SHAPE_VERTICAL | 0xd2, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Kraid_Frame10[13] = {
+const u16 sElevatorStatueDebrisOAM_Kraid_Frame10[OAM_DATA_SIZE(4)] = {
     0x4,
     0xee, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2ac,
     OBJ_SHAPE_HORIZONTAL | 0xfe, 0x1e3, OBJ_SPRITE_OAM | 0x2ec,
@@ -417,7 +417,7 @@ const u16 sElevatorStatueDebrisOAM_Kraid_Frame10[13] = {
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1e8, OBJ_SPRITE_OAM | 0x2ca
 };
 
-const u16 sRidleyElevatorStatueOAM_Idle_Frame0[58] = {
+const u16 sRidleyElevatorStatueOAM_Idle_Frame0[OAM_DATA_SIZE(19)] = {
     0x13,
     0xb8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc0, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -440,7 +440,7 @@ const u16 sRidleyElevatorStatueOAM_Idle_Frame0[58] = {
     0xd0, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x121a
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame0[46] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xb8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc1, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -459,7 +459,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame0[46] = {
     0xe6, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame1[46] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xba, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc2, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -478,7 +478,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame1[46] = {
     0xe7, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame2[46] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xbc, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc3, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -497,7 +497,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame2[46] = {
     0xeb, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame3[49] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame3[OAM_DATA_SIZE(16)] = {
     0x10,
     0xc0, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc6, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -517,7 +517,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame3[49] = {
     0xee, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame4[52] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame4[OAM_DATA_SIZE(17)] = {
     0x11,
     0xc6, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xc8, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -538,7 +538,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame4[52] = {
     0xf3, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame5[52] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame5[OAM_DATA_SIZE(17)] = {
     0x11,
     0xd2, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xd1, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -559,7 +559,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame5[52] = {
     0xf9, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame6[64] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame6[OAM_DATA_SIZE(21)] = {
     0x15,
     0xe1, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xdb, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -584,7 +584,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame6[64] = {
     0xfc, OBJ_SIZE_16x16 | 0x1e1, OBJ_SPRITE_OAM | 0x1253
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame7[70] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame7[OAM_DATA_SIZE(23)] = {
     0x17,
     0xed, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xe7, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -611,7 +611,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame7[70] = {
     0xe9, OBJ_SIZE_16x16 | 0x1c1, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame8[67] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame8[OAM_DATA_SIZE(22)] = {
     0x16,
     0xf8, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xed, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -637,7 +637,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame8[67] = {
     0xee, OBJ_SIZE_16x16 | 0x1be, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame9[73] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame9[OAM_DATA_SIZE(24)] = {
     0x18,
     0xf6, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1e8, OBJ_SPRITE_OAM | 0x12e6,
@@ -665,7 +665,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame9[73] = {
     0xf1, OBJ_SIZE_16x16 | 0x1b8, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame10[73] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame10[OAM_DATA_SIZE(24)] = {
     0x18,
     0xf7, OBJ_SIZE_16x16 | 0x1ed, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x1e7, OBJ_SPRITE_OAM | 0x12e6,
@@ -693,7 +693,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame10[73] = {
     0xf1, OBJ_SIZE_16x16 | 0x1b7, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sRidleyElevatorStatueOAM_Falling_Frame11[73] = {
+const u16 sRidleyElevatorStatueOAM_Falling_Frame11[OAM_DATA_SIZE(24)] = {
     0x18,
     0xf7, OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xfa, 0x1e6, OBJ_SPRITE_OAM | 0x12e6,
@@ -721,7 +721,7 @@ const u16 sRidleyElevatorStatueOAM_Falling_Frame11[73] = {
     0xf0, OBJ_SIZE_16x16 | 0x1b6, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sRidleyElevatorStatueOAM_Fallen_Frame0[73] = {
+const u16 sRidleyElevatorStatueOAM_Fallen_Frame0[OAM_DATA_SIZE(24)] = {
     0x18,
     0xf7, OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x12d2,
     OBJ_SHAPE_HORIZONTAL | 0xfa, 0x1e6, OBJ_SPRITE_OAM | 0x12e6,
@@ -749,19 +749,19 @@ const u16 sRidleyElevatorStatueOAM_Fallen_Frame0[73] = {
     0xf0, OBJ_SIZE_16x16 | 0x1b6, OBJ_SPRITE_OAM | 0x1215
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame0[7] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xa8, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xb8, 0x1e4, OBJ_SPRITE_OAM | 0x12ec
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame1[7] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     0xaa, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xba, 0x1e4, OBJ_SPRITE_OAM | 0x12ec
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame2[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     0xac, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xbc, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -769,7 +769,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame2[13] = {
     OBJ_SHAPE_VERTICAL | 0xa6, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame3[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame3[OAM_DATA_SIZE(4)] = {
     0x4,
     0xb2, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xc2, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -777,7 +777,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame3[13] = {
     OBJ_SHAPE_VERTICAL | 0xa7, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame4[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xba, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xca, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -785,7 +785,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame4[13] = {
     OBJ_SHAPE_VERTICAL | 0xa8, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame5[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame5[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc3, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xd3, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -793,7 +793,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame5[13] = {
     OBJ_SHAPE_VERTICAL | 0xab, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame6[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame6[OAM_DATA_SIZE(4)] = {
     0x4,
     0xcc, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xdc, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -801,7 +801,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame6[13] = {
     OBJ_SHAPE_VERTICAL | 0xb3, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame7[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame7[OAM_DATA_SIZE(4)] = {
     0x4,
     0xde, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xee, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -809,7 +809,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame7[13] = {
     OBJ_SHAPE_VERTICAL | 0xba, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame8[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame8[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe9, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -817,7 +817,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame8[13] = {
     OBJ_SHAPE_VERTICAL | 0xc4, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame9[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame9[OAM_DATA_SIZE(4)] = {
     0x4,
     0xee, OBJ_SIZE_16x16 | 0x1e4, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xfe, 0x1e4, OBJ_SPRITE_OAM | 0x12ec,
@@ -825,7 +825,7 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame9[13] = {
     OBJ_SHAPE_VERTICAL | 0xd2, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Ridley_Frame10[13] = {
+const u16 sElevatorStatueDebrisOAM_Ridley_Frame10[OAM_DATA_SIZE(4)] = {
     0x4,
     0xee, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x12ac,
     OBJ_SHAPE_HORIZONTAL | 0xfe, 0x1e3, OBJ_SPRITE_OAM | 0x12ec,
@@ -833,14 +833,14 @@ const u16 sElevatorStatueDebrisOAM_Ridley_Frame10[13] = {
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1e8, OBJ_SPRITE_OAM | 0x12ca
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame0[10] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame0[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x4188,
     0xf8, OBJ_SIZE_16x16 | 0x1d0, 0x4188,
     0xfc, OBJ_SIZE_16x16 | 0x1e5, 0x4188
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame2[16] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame2[OAM_DATA_SIZE(5)] = {
     0x5,
     0xf3, OBJ_SIZE_16x16 | 0x1f1, 0x4188,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, 0x418a,
@@ -849,7 +849,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame2[16] = {
     0xfc, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1e4, 0x418a
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame4[22] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame4[OAM_DATA_SIZE(7)] = {
     0x7,
     0xef, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, 0x4188,
     0xf3, OBJ_SIZE_16x16 | 0x1f3, 0x418a,
@@ -860,7 +860,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame4[22] = {
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1e2, 0x418c
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame6[34] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame6[OAM_DATA_SIZE(11)] = {
     0xb,
     0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, 0x418a,
     0xf4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f2, 0x418c,
@@ -875,7 +875,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame6[34] = {
     0xf8, OBJ_SIZE_16x16 | 0x0, 0x4188
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame8[46] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame8[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf8, OBJ_X_FLIP | 0x0, 0x418f,
     0xfc, 0x1f8, 0x418f,
@@ -894,7 +894,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame8[46] = {
     0xf1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x3, 0x418a
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame10[43] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame10[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1fd, 0x41a7,
     0x0, OBJ_X_FLIP | 0x1fb, 0x41a7,
@@ -912,7 +912,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame10[43] = {
     0xea, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x2, 0x418c
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame12[40] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame12[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf8, OBJ_Y_FLIP | 0x1f5, 0x41a7,
     0x0, 0x1f7, 0x41a7,
@@ -929,7 +929,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame12[40] = {
     0xe3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, 0x418e
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame14[40] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame14[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf3, OBJ_Y_FLIP | 0x1f5, 0x41a7,
     0xfb, 0x1f7, 0x41a7,
@@ -946,7 +946,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame14[40] = {
     0xde, 0x7, 0x418f
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame16[37] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame16[OAM_DATA_SIZE(12)] = {
     0xc,
     0xe2, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ed, 0x418f,
     0xde, OBJ_Y_FLIP | 0x1e5, 0x418f,
@@ -962,7 +962,7 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame16[37] = {
     0xe4, 0x4, 0x41a7
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame18[13] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame18[OAM_DATA_SIZE(4)] = {
     0x4,
     0xd8, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ea, 0x41a7,
     0xe0, OBJ_X_FLIP | 0x1e8, 0x41a7,
@@ -970,190 +970,319 @@ const u16 sElevatorStatueDebrisOAM_Dust_Frame18[13] = {
     0xe9, OBJ_X_FLIP | 0x1d1, 0x41a7
 };
 
-const u16 sElevatorStatueDebrisOAM_Dust_Frame1[4] = {
+const u16 sElevatorStatueDebrisOAM_Dust_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x4140
 };
 
 const struct FrameData sKraidElevatorStatueOAM_Idle[2] = {
-    sKraidElevatorStatueOAM_Idle_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sKraidElevatorStatueOAM_Idle_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sKraidElevatorStatueOAM_Falling[13] = {
-    sKraidElevatorStatueOAM_Falling_Frame0,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame1,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame2,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame3,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame4,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame5,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame6,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame7,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame8,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame9,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame10,
-    0x3,
-    sKraidElevatorStatueOAM_Falling_Frame11,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sKraidElevatorStatueOAM_Falling_Frame11,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sElevatorStatueDebrisOAM_Kraid[12] = {
-    sElevatorStatueDebrisOAM_Kraid_Frame0,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame1,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame2,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame3,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame4,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame5,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame6,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame7,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame8,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame9,
-    0x3,
-    sElevatorStatueDebrisOAM_Kraid_Frame10,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sElevatorStatueDebrisOAM_Kraid_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sKraidElevatorStatueOAM_Fallen[2] = {
-    sKraidElevatorStatueOAM_Fallen_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sKraidElevatorStatueOAM_Fallen_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyElevatorStatueOAM_Idle[2] = {
-    sRidleyElevatorStatueOAM_Idle_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRidleyElevatorStatueOAM_Idle_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyElevatorStatueOAM_Falling[13] = {
-    sRidleyElevatorStatueOAM_Falling_Frame0,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame1,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame2,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame3,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame4,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame5,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame6,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame7,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame8,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame9,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame10,
-    0x3,
-    sRidleyElevatorStatueOAM_Falling_Frame11,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sRidleyElevatorStatueOAM_Falling_Frame11,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sElevatorStatueDebrisOAM_Ridley[12] = {
-    sElevatorStatueDebrisOAM_Ridley_Frame0,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame1,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame2,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame3,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame4,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame5,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame6,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame7,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame8,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame9,
-    0x3,
-    sElevatorStatueDebrisOAM_Ridley_Frame10,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sElevatorStatueDebrisOAM_Ridley_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyElevatorStatueOAM_Fallen[2] = {
-    sRidleyElevatorStatueOAM_Fallen_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRidleyElevatorStatueOAM_Fallen_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sElevatorStatueDebrisOAM_Dust[20] = {
-    sElevatorStatueDebrisOAM_Dust_Frame0,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame2,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame4,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame6,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame8,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame10,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame12,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame14,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame16,
-    0x4,
-    sElevatorStatueDebrisOAM_Dust_Frame1,
-    0x1,
-    sElevatorStatueDebrisOAM_Dust_Frame18,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [9] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [10] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [11] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [12] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [13] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [14] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [15] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [16] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [17] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [18] = {
+        .pFrame = sElevatorStatueDebrisOAM_Dust_Frame18,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [19] = FRAME_DATA_TERMINATOR
 };

@@ -977,444 +977,663 @@ static const u16 sOptionsOam_SpeakersActive_Frame0[OAM_DATA_SIZE(2)] = {
 };
 
 const struct FrameData sFileSelectOam_SamusHeadTurningOn[5] = {
-    sFileSelectOam_SamusHeadTurningOn_Frame0,
-    15,
-    sFileSelectOam_SamusHeadTurningOn_Frame1,
-    15,
-    sFileSelectOam_SamusHeadTurningOn_Frame2,
-    15,
-    sFileSelectOam_SamusHeadTurningOn_Frame1,
-    15,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadTurningOn_Frame0,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SamusHeadTurningOn_Frame1,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SamusHeadTurningOn_Frame2,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SamusHeadTurningOn_Frame1,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_SamusHeadOff[2] = {
-    sFileSelectOam_SamusHeadOff_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadOff_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sFileSelectOam_SamusHeadTurning[11] = {
-    sFileSelectOam_SamusHeadOff_Frame0,
-    4,
-    sFileSelectOam_SamusHeadTurning_Frame1,
-    4,
-    sFileSelectOam_SamusHeadTurning_Frame2,
-    4,
-    sFileSelectOam_SamusHeadTurning_Frame3,
-    16,
-    sFileSelectOam_SamusHeadTurning_Frame4,
-    5,
-    sFileSelectOam_SamusHeadTurning_Frame5,
-    5,
-    sFileSelectOam_SamusHeadTurning_Frame6,
-    5,
-    sFileSelectOam_SamusHeadTurning_Frame5,
-    5,
-    sFileSelectOam_SamusHeadTurning_Frame4,
-    5,
-    sFileSelectOam_SamusHeadTurning_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadOff_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame3,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [5] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [6] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [7] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [8] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [9] = {
+        .pFrame = sFileSelectOam_SamusHeadTurning_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [10] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileAMarkerSelectedRed[2] = {
-    sFileSelectOam_FileAMarkerSelectedRed_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileAMarkerSelectedRed_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileBMarkerSelectedRed[2] = {
-    sFileSelectOam_FileBMarkerSelectedRed_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileBMarkerSelectedRed_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileCMarkerSelectedRed[2] = {
-    sFileSelectOam_FileCMarkerSelectedRed_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileCMarkerSelectedRed_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileAMarkerIdle[2] = {
-    sFileSelectOam_FileAMarkerIdle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileAMarkerIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileBMarkerIdle[2] = {
-    sFileSelectOam_FileBMarkerIdle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileBMarkerIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileCMarkerIdle[2] = {
-    sFileSelectOam_FileCMarkerIdle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileCMarkerIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileAMarkerSelectedGreen[2] = {
-    sFileSelectOam_FileAMarkerSelectedGreen_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileAMarkerSelectedGreen_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileBMarkerSelectedGreen[2] = {
-    sFileSelectOam_FileBMarkerSelectedGreen_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileBMarkerSelectedGreen_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_FileCMarkerSelectedGreen[2] = {
-    sFileSelectOam_FileCMarkerSelectedGreen_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_FileCMarkerSelectedGreen_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CursorSelected[2] = {
-    sFileSelectOam_CursorSelected_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CursorSelected_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_Cursor[4] = {
-    sFileSelectOam_Cursor_Frame0,
-    6,
-    sFileSelectOam_Cursor_Frame1,
-    6,
-    sFileSelectOam_Cursor_Frame2,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_Cursor_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_Cursor_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_Cursor_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_GbaIdle[2] = {
-    sOptionsOam_GbaIdle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_GbaIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_SpeakersIdle[2] = {
-    sOptionsOam_SpeakersIdle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_SpeakersIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowOneDownActive[5] = {
-    sFileSelectOam_CopyArrowOneDownActive_Frame0,
-    4,
-    sFileSelectOam_CopyArrowOneDownActive_Frame1,
-    4,
-    sFileSelectOam_CopyArrowOneDownActive_Frame2,
-    4,
-    sFileSelectOam_CopyArrowOneDownActive_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowOneDownActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_CopyArrowOneDownActive_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_CopyArrowOneDownActive_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_CopyArrowOneDownActive_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowOneDownInactive[2] = {
-    sFileSelectOam_CopyArrowOneDownActive_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowOneDownActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowTwoDownActive[5] = {
-    sFileSelectOam_CopyArrowTwoDownActive_Frame0,
-    4,
-    sFileSelectOam_CopyArrowTwoDownActive_Frame1,
-    4,
-    sFileSelectOam_CopyArrowTwoDownActive_Frame2,
-    4,
-    sFileSelectOam_CopyArrowTwoDownActive_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoDownActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoDownActive_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoDownActive_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoDownActive_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowTwoDownInactive[2] = {
-    sFileSelectOam_CopyArrowTwoDownActive_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoDownActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowOneUpActive[5] = {
-    sFileSelectOam_CopyArrowOneUpActive_Frame0,
-    4,
-    sFileSelectOam_CopyArrowOneUpActive_Frame1,
-    4,
-    sFileSelectOam_CopyArrowOneUpActive_Frame2,
-    4,
-    sFileSelectOam_CopyArrowOneUpActive_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowOneUpActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_CopyArrowOneUpActive_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_CopyArrowOneUpActive_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_CopyArrowOneUpActive_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowOneUpInactive[2] = {
-    sFileSelectOam_CopyArrowOneUpActive_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowOneUpActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowTwoUpActive[5] = {
-    sFileSelectOam_CopyArrowTwoUpActive_Frame0,
-    4,
-    sFileSelectOam_CopyArrowTwoUpActive_Frame1,
-    4,
-    sFileSelectOam_CopyArrowTwoUpActive_Frame2,
-    4,
-    sFileSelectOam_CopyArrowTwoUpActive_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoUpActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoUpActive_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoUpActive_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoUpActive_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_CopyArrowTwoUpInactive[2] = {
-    sFileSelectOam_CopyArrowTwoUpActive_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_CopyArrowTwoUpActive_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_MetroidLogo[2] = {
-    sFileSelectOam_MetroidLogo_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_MetroidLogo_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sFileSelectOam_SamusHeadSuitlessIdle[5] = {
-    sFileSelectOam_SamusHeadSuitlessIdle_Frame0,
-    120,
-    sFileSelectOam_SamusHeadSuitlessIdle_Frame1,
-    4,
-    sFileSelectOam_SamusHeadSuitlessIdle_Frame2,
-    4,
-    sFileSelectOam_SamusHeadSuitlessIdle_Frame1,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.0f)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sFileSelectOam_SamusHeadSuitlessTurning[8] = {
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame0,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame1,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame2,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame3,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame4,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame5,
-    4,
-    sFileSelectOam_SamusHeadSuitlessTurning_Frame6,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurning_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_LeftArrowIdle[3] = {
-    sOptionsOam_LeftArrowIdle_Frame0,
-    8,
-    sOptionsOam_LeftArrowIdle_Frame1,
-    8,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_LeftArrowIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sOptionsOam_LeftArrowIdle_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_LeftArrowMoving[2] = {
-    sOptionsOam_LeftArrowMoving_Frame0,
-    10,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_LeftArrowMoving_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_RightArrowIdle[3] = {
-    sOptionsOam_RightArrowIdle_Frame0,
-    8,
-    sOptionsOam_RightArrowIdle_Frame1,
-    8,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_RightArrowIdle_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sOptionsOam_RightArrowIdle_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_RightArrowMoving[2] = {
-    sOptionsOam_RightArrowMoving_Frame0,
-    10,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_RightArrowMoving_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_SoundTestId[2] = {
-    sOptionsOam_SoundTestId_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_SoundTestId_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sFileSelectOam_SamusHeadSuitlessTurningOn[6] = {
-    sFileSelectOam_SamusHeadSuitlessTurningOn_Frame0,
-    3,
-    sFileSelectOam_SamusHeadSuitlessTurningOn_Frame1,
-    3,
-    sFileSelectOam_SamusHeadSuitlessTurningOn_Frame2,
-    3,
-    sFileSelectOam_SamusHeadSuitlessTurningOn_Frame3,
-    3,
-    sFileSelectOam_SamusHeadSuitlessTurningOn_Frame4,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurningOn_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurningOn_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurningOn_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurningOn_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SamusHeadSuitlessTurningOn_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_GbaActive[6] = {
-    sOptionsOam_GbaActive_Frame0,
-    6,
-    sOptionsOam_GbaActive_Frame1,
-    6,
-    sOptionsOam_GbaActive_Frame2,
-    6,
-    sOptionsOam_GbaActive_Frame3,
-    6,
-    sOptionsOam_GbaActive_Frame4,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_GbaActive_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sOptionsOam_GbaActive_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sOptionsOam_GbaActive_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sOptionsOam_GbaActive_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sOptionsOam_GbaActive_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_SpeakersActive[6] = {
-    sOptionsOam_SpeakersActive_Frame0,
-    6,
-    sOptionsOam_SpeakersActive_Frame1,
-    6,
-    sOptionsOam_SpeakersActive_Frame2,
-    6,
-    sOptionsOam_SpeakersActive_Frame3,
-    6,
-    sOptionsOam_SpeakersActive_Frame4,
-    6,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_SpeakersActive_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sOptionsOam_SpeakersActive_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sOptionsOam_SpeakersActive_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sOptionsOam_SpeakersActive_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sOptionsOam_SpeakersActive_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_GbaLinking[44] = {
-    sOptionsOam_GbaLinking_Frame0,
-    3,
-    sOptionsOam_GbaLinking_Frame1,
-    3,
-    sOptionsOam_GbaLinking_Frame2,
-    3,
-    sOptionsOam_GbaLinking_Frame3,
-    3,
-    sOptionsOam_GbaLinking_Frame4,
-    3,
-    sOptionsOam_GbaLinking_Frame5,
-    3,
-    sOptionsOam_GbaLinking_Frame6,
-    3,
-    sOptionsOam_GbaLinking_Frame7,
-    3,
-    sOptionsOam_GbaLinking_Frame8,
-    3,
-    sOptionsOam_GbaLinking_Frame9,
-    3,
-    sOptionsOam_GbaLinking_Frame10,
-    3,
-    sOptionsOam_GbaLinking_Frame11,
-    3,
-    sOptionsOam_GbaLinking_Frame12,
-    3,
-    sOptionsOam_GbaLinking_Frame13,
-    3,
-    sOptionsOam_GbaLinking_Frame14,
-    3,
-    sOptionsOam_GbaLinking_Frame15,
-    3,
-    sOptionsOam_GbaLinking_Frame16,
-    3,
-    sOptionsOam_GbaLinking_Frame17,
-    3,
-    sOptionsOam_GbaLinking_Frame18,
-    3,
-    sOptionsOam_GbaLinking_Frame17,
-    3,
-    sOptionsOam_GbaLinking_Frame16,
-    3,
-    sOptionsOam_GbaLinking_Frame15,
-    3,
-    sOptionsOam_GbaLinking_Frame22,
-    3,
-    sOptionsOam_GbaLinking_Frame23,
-    3,
-    sOptionsOam_GbaLinking_Frame24,
-    3,
-    sOptionsOam_GbaLinking_Frame25,
-    3,
-    sOptionsOam_GbaLinking_Frame26,
-    3,
-    sOptionsOam_GbaLinking_Frame27,
-    3,
-    sOptionsOam_GbaLinking_Frame28,
-    3,
-    sOptionsOam_GbaLinking_Frame12,
-    3,
-    sOptionsOam_GbaLinking_Frame11,
-    3,
-    sOptionsOam_GbaLinking_Frame10,
-    3,
-    sOptionsOam_GbaLinking_Frame9,
-    3,
-    sOptionsOam_GbaLinking_Frame8,
-    3,
-    sOptionsOam_GbaLinking_Frame7,
-    3,
-    sOptionsOam_GbaLinking_Frame35,
-    3,
-    sOptionsOam_GbaLinking_Frame36,
-    3,
-    sOptionsOam_GbaLinking_Frame37,
-    3,
-    sOptionsOam_GbaLinking_Frame38,
-    3,
-    sOptionsOam_GbaLinking_Frame39,
-    3,
-    sOptionsOam_GbaLinking_Frame38,
-    3,
-    sOptionsOam_GbaLinking_Frame37,
-    3,
-    sOptionsOam_GbaLinking_Frame36,
-    3,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame11,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame12,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [13] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame13,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [14] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame14,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [15] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame15,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [16] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame16,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [17] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame17,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [18] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame18,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [19] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame17,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [20] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame16,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [21] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame15,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [22] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame22,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [23] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame23,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [24] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame24,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [25] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame25,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [26] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame26,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [27] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame27,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [28] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame28,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [29] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame12,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [30] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame11,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [31] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [32] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [33] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [34] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [35] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame35,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [36] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame36,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [37] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame37,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [38] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame38,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [39] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame39,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [40] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame38,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [41] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame37,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [42] = {
+        .pFrame = sOptionsOam_GbaLinking_Frame36,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [43] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_455cac[2] = {
-    sOptionsOam_455cac_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sOptionsOam_455cac_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 static const u16 sFileSelectOam_SmallPanel_Frame0[OAM_DATA_SIZE(4)] = {
@@ -1534,69 +1753,111 @@ static const u16 sOptionsOam_SmallPanel_Frame3[OAM_DATA_SIZE(4)] = {
 };
 
 static const struct FrameData sFileSelectOam_SmallPanel[6] = {
-    sFileSelectOam_SmallPanel_Frame0,
-    2,
-    sFileSelectOam_SmallPanel_Frame1,
-    2,
-    sFileSelectOam_SmallPanel_Frame2,
-    2,
-    sFileSelectOam_SmallPanel_Frame3,
-    2,
-    sFileSelectOam_SmallPanel_Frame4,
-    2,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_LargePanel[8] = {
-    sFileSelectOam_SmallPanel_Frame0,
-    1,
-    sFileSelectOam_SmallPanel_Frame1,
-    1,
-    sFileSelectOam_SmallPanel_Frame2,
-    1,
-    sFileSelectOam_SmallPanel_Frame3,
-    1,
-    sFileSelectOam_SmallPanel_Frame4,
-    2,
-    sFileSelectOam_LargePanel_Frame5,
-    2,
-    sFileSelectOam_LargePanel_Frame6,
-    2,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sFileSelectOam_LargePanel_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sFileSelectOam_LargePanel_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sFileSelectOam_MediumPanel[8] = {
-    sFileSelectOam_SmallPanel_Frame0,
-    1,
-    sFileSelectOam_SmallPanel_Frame1,
-    1,
-    sFileSelectOam_SmallPanel_Frame2,
-    1,
-    sFileSelectOam_SmallPanel_Frame3,
-    1,
-    sFileSelectOam_SmallPanel_Frame4,
-    2,
-    sFileSelectOam_LargePanel_Frame5,
-    2,
-    sFileSelectOam_MediumPanel_Frame6,
-    2,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sFileSelectOam_LargePanel_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sFileSelectOam_MediumPanel_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 static const struct FrameData sOptionsOam_SmallPanel[5] = {
-    sFileSelectOam_SmallPanel_Frame0,
-    1,
-    sFileSelectOam_SmallPanel_Frame1,
-    1,
-    sOptionsOam_SmallPanel_Frame2,
-    2,
-    sOptionsOam_SmallPanel_Frame3,
-    2,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sFileSelectOam_SmallPanel_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sOptionsOam_SmallPanel_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sOptionsOam_SmallPanel_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const u32 sFileSelectChozoBackgroundGfx[2985] = INCBIN_U32("data/menus/FileSelect/ChozoBackground.gfx.lz");

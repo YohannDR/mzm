@@ -378,7 +378,7 @@ const u32 sChozoStatueLongBeamGfx[1335] = INCBIN_U32("data/sprites/ChozoStatueLo
 const u16 sChozoStatueLongBeamPal[80] = INCBIN_U16("data/sprites/ChozoStatueLongBeam.pal");
 
 
-static const u16 sChozoStatuePartOam_LegStanding_Frame0[16] = {
+static const u16 sChozoStatuePartOam_LegStanding_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x127d,
     0xe8, OBJ_SIZE_16x16 | 0x1ee, OBJ_SPRITE_OAM | 0x129e,
@@ -387,7 +387,7 @@ static const u16 sChozoStatuePartOam_LegStanding_Frame0[16] = {
     0xd8, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x122a
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame0[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x127d,
     0xe8, OBJ_SIZE_16x16 | 0x1ee, OBJ_SPRITE_OAM | 0x129e,
@@ -396,7 +396,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame0[16] = {
     0xd9, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x122a
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame1[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame1[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x127a,
     0xe8, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x129b,
@@ -405,7 +405,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame1[16] = {
     0xdc, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x122d
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame2[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame2[OAM_DATA_SIZE(5)] = {
     0x5,
     OBJ_SHAPE_VERTICAL | 0xe1, 0x1e3, OBJ_SPRITE_OAM | 0x1277,
     0xe9, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x1298,
@@ -414,7 +414,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame2[16] = {
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f7, OBJ_SPRITE_OAM | 0x1212
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame3[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame3[OAM_DATA_SIZE(5)] = {
     0x5,
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1e3, OBJ_SPRITE_OAM | 0x1277,
     0xea, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x1298,
@@ -423,7 +423,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame3[16] = {
     OBJ_SHAPE_VERTICAL | 0xdd, 0x1f7, OBJ_SPRITE_OAM | 0x1212
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame5[13] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame5[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe0, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x1275,
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f1, OBJ_SPRITE_OAM | 0x12b6,
@@ -431,7 +431,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame5[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xdd, OBJ_SIZE_32x16 | 0x1ea, OBJ_SPRITE_OAM | 0x1213
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame6[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame6[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x1273,
     0xf0, 0x1f6, OBJ_SPRITE_OAM | 0x12b3,
@@ -440,7 +440,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame6[16] = {
     0xe6, OBJ_SIZE_16x16 | 0x4, OBJ_SPRITE_OAM | 0x1238
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame7[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame7[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe1, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x1271,
     0xf1, 0x1f7, OBJ_SPRITE_OAM | 0x12b1,
@@ -449,7 +449,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame7[16] = {
     0xeb, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x123e
 };
 
-static const u16 sChozoStatuePartOam_LegSitting_Frame8[16] = {
+static const u16 sChozoStatuePartOam_LegSitting_Frame8[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x126f,
     0xf4, 0x1f4, OBJ_SPRITE_OAM | 0x12af,
@@ -458,7 +458,7 @@ static const u16 sChozoStatuePartOam_LegSitting_Frame8[16] = {
     0xf0, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x123e
 };
 
-static const u16 sChozoStatuePartOam_LegSeated_Frame0[19] = {
+static const u16 sChozoStatuePartOam_LegSeated_Frame0[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe0, 0x1fb, OBJ_SPRITE_OAM | 0x126e,
     0xe8, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x128d,
@@ -468,7 +468,7 @@ static const u16 sChozoStatuePartOam_LegSeated_Frame0[19] = {
     0xf1, OBJ_SIZE_16x16 | 0x7, OBJ_SPRITE_OAM | 0x123b
 };
 
-static const u16 sChozoStatueOam_Idle_Frame0[13] = {
+static const u16 sChozoStatueOam_Idle_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x1200,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x8, OBJ_SPRITE_OAM | 0x1204,
@@ -476,22 +476,22 @@ static const u16 sChozoStatueOam_Idle_Frame0[13] = {
     0x8, 0x1f0, OBJ_SPRITE_OAM | 0x1281
 };
 
-static const u16 sChozoStatuePartOam_EyeClosing_Frame0[4] = {
+static const u16 sChozoStatuePartOam_EyeClosing_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fa, OBJ_SPRITE_OAM | 0x1280
 };
 
-static const u16 sChozoStatuePartOam_EyeClosing_Frame1[4] = {
+static const u16 sChozoStatuePartOam_EyeClosing_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fa, OBJ_SPRITE_OAM | 0x12a0
 };
 
-static const u16 sChozoStatuePartOam_EyeClosed_Frame0[4] = {
+static const u16 sChozoStatuePartOam_EyeClosed_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fa, OBJ_SPRITE_OAM | 0x12a1
 };
 
-static const u16 sChozoStatuePartOam_ArmIdle_Frame0[13] = {
+static const u16 sChozoStatuePartOam_ArmIdle_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -499,7 +499,7 @@ static const u16 sChozoStatuePartOam_ArmIdle_Frame0[13] = {
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f6, OBJ_SPRITE_OAM | 0x1209
 };
 
-static const u16 sChozoStatuePartOam_ArmGlow_Frame1[19] = {
+static const u16 sChozoStatuePartOam_ArmGlow_Frame1[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -509,7 +509,7 @@ static const u16 sChozoStatuePartOam_ArmGlow_Frame1[19] = {
     0xfe, 0x1f6, OBJ_SPRITE_OAM | 0x1229
 };
 
-static const u16 sChozoStatuePartOam_ArmGlow_Frame2[19] = {
+static const u16 sChozoStatuePartOam_ArmGlow_Frame2[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -519,7 +519,7 @@ static const u16 sChozoStatuePartOam_ArmGlow_Frame2[19] = {
     0xfe, 0x1f6, OBJ_SPRITE_OAM | 0x1229
 };
 
-static const u16 sChozoStatuePartOam_ArmGlow_Frame3[19] = {
+static const u16 sChozoStatuePartOam_ArmGlow_Frame3[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -529,7 +529,7 @@ static const u16 sChozoStatuePartOam_ArmGlow_Frame3[19] = {
     0xfe, 0x1f6, OBJ_SPRITE_OAM | 0x1229
 };
 
-static const u16 sChozoStatuePartOam_ArmGlow_Frame4[19] = {
+static const u16 sChozoStatuePartOam_ArmGlow_Frame4[OAM_DATA_SIZE(6)] = {
     0x6,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -539,7 +539,7 @@ static const u16 sChozoStatuePartOam_ArmGlow_Frame4[19] = {
     0xfe, 0x1f6, OBJ_SPRITE_OAM | 0x1229
 };
 
-static const u16 sChozoStatuePartOam_ArmSamusGrabbed_Frame0[13] = {
+static const u16 sChozoStatuePartOam_ArmSamusGrabbed_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe6, OBJ_SIZE_16x16 | 0x6, OBJ_SPRITE_OAM | 0x1205,
     0xf6, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x1245,
@@ -547,28 +547,28 @@ static const u16 sChozoStatuePartOam_ArmSamusGrabbed_Frame0[13] = {
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f6, OBJ_SPRITE_OAM | 0x1249
 };
 
-static const u16 sChozoBallOam_NormalClosed_Frame0[10] = {
+static const u16 sChozoBallOam_NormalClosed_Frame0[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x1307,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x1309,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1310
 };
 
-static const u16 sChozoBallOam_NormalClosed_Frame1[10] = {
+static const u16 sChozoBallOam_NormalClosed_Frame1[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130a,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130c,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1330
 };
 
-static const u16 sChozoBallOam_NormalClosed_Frame3[10] = {
+static const u16 sChozoBallOam_NormalClosed_Frame3[OAM_DATA_SIZE(3)] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130d,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130f,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1312
 };
 
-static const u16 sChozoBallOam_NormalRevealing_Frame0[16] = {
+static const u16 sChozoBallOam_NormalRevealing_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1315,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x1317,
@@ -577,7 +577,7 @@ static const u16 sChozoBallOam_NormalRevealing_Frame0[16] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284
 };
 
-static const u16 sChozoBallOam_NormalRevealing_Frame1[16] = {
+static const u16 sChozoBallOam_NormalRevealing_Frame1[OAM_DATA_SIZE(5)] = {
     0x5,
     OBJ_SHAPE_HORIZONTAL | 0xf4, 0x1f4, OBJ_SPRITE_OAM | 0x1319,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x131b,
@@ -586,7 +586,7 @@ static const u16 sChozoBallOam_NormalRevealing_Frame1[16] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284
 };
 
-static const u16 sChozoBallOam_NormalRevealing_Frame2[16] = {
+static const u16 sChozoBallOam_NormalRevealing_Frame2[OAM_DATA_SIZE(5)] = {
     0x5,
     OBJ_SHAPE_HORIZONTAL | 0xf4, 0x1f4, OBJ_SPRITE_OAM | 0x131d,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x131f,
@@ -595,25 +595,25 @@ static const u16 sChozoBallOam_NormalRevealing_Frame2[16] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284
 };
 
-static const u16 sChozoBallOam_NormalRevealed_Frame0[7] = {
+static const u16 sChozoBallOam_NormalRevealed_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284,
     0x8, 0x1f8, OBJ_SPRITE_OAM | 0x20a
 };
 
-static const u16 sChozoBallOam_NormalRevealed_Frame1[7] = {
+static const u16 sChozoBallOam_NormalRevealed_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x286,
     0x8, 0x1f8, OBJ_SPRITE_OAM | 0x24c
 };
 
-static const u16 sChozoBallOam_NormalRevealed_Frame2[7] = {
+static const u16 sChozoBallOam_NormalRevealed_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x288,
     0x8, 0x1f8, OBJ_SPRITE_OAM | 0x20d
 };
 
-static const u16 sChozoStatueRefillOam_Frame0[13] = {
+static const u16 sChozoStatueRefillOam_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12cc,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12cc,
@@ -621,7 +621,7 @@ static const u16 sChozoStatueRefillOam_Frame0[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12cc
 };
 
-static const u16 sChozoStatueRefillOam_Frame2[13] = {
+static const u16 sChozoStatueRefillOam_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12ce,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12ce,
@@ -629,7 +629,7 @@ static const u16 sChozoStatueRefillOam_Frame2[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12ce
 };
 
-static const u16 sChozoStatueRefillOam_Frame4[13] = {
+static const u16 sChozoStatueRefillOam_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d0,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d0,
@@ -637,7 +637,7 @@ static const u16 sChozoStatueRefillOam_Frame4[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d0
 };
 
-static const u16 sChozoStatueRefillOam_Frame10[13] = {
+static const u16 sChozoStatueRefillOam_Frame10[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d2,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d2,
@@ -645,7 +645,7 @@ static const u16 sChozoStatueRefillOam_Frame10[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d2
 };
 
-static const u16 sChozoStatueRefillOam_Frame12[13] = {
+static const u16 sChozoStatueRefillOam_Frame12[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d4,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d4,
@@ -653,7 +653,7 @@ static const u16 sChozoStatueRefillOam_Frame12[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d4
 };
 
-static const u16 sChozoStatueRefillOam_Frame18[13] = {
+static const u16 sChozoStatueRefillOam_Frame18[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d6,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d6,
@@ -661,7 +661,7 @@ static const u16 sChozoStatueRefillOam_Frame18[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d6
 };
 
-static const u16 sChozoStatueRefillOam_Frame20[13] = {
+static const u16 sChozoStatueRefillOam_Frame20[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12d8,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d8,
@@ -669,7 +669,7 @@ static const u16 sChozoStatueRefillOam_Frame20[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12d8
 };
 
-static const u16 sChozoStatueRefillOam_Frame26[13] = {
+static const u16 sChozoStatueRefillOam_Frame26[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12da,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12da,
@@ -677,7 +677,7 @@ static const u16 sChozoStatueRefillOam_Frame26[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12da
 };
 
-static const u16 sChozoStatueRefillOam_Frame28[13] = {
+static const u16 sChozoStatueRefillOam_Frame28[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12dc,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12dc,
@@ -685,7 +685,7 @@ static const u16 sChozoStatueRefillOam_Frame28[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12dc
 };
 
-static const u16 sChozoStatueRefillOam_Frame34[13] = {
+static const u16 sChozoStatueRefillOam_Frame34[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x12de,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12de,
@@ -693,18 +693,18 @@ static const u16 sChozoStatueRefillOam_Frame34[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x12de
 };
 
-static const u16 sChozoStatuePartOam_EyeOpened_Frame0[4] = {
+static const u16 sChozoStatuePartOam_EyeOpened_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fa, OBJ_SPRITE_OAM | 0x1314
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame0[7] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12c1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12c0
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame4[13] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12e1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12e0,
@@ -712,7 +712,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame4[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf7, 0x1f9, OBJ_SPRITE_OAM | 0x12c0
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame8[19] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame8[OAM_DATA_SIZE(6)] = {
     0x6,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12c3,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12c2,
@@ -722,7 +722,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame8[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xf6, 0x1f9, OBJ_SPRITE_OAM | 0x12c0
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame12[25] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame12[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12e3,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12e2,
@@ -734,7 +734,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame12[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1f9, OBJ_SPRITE_OAM | 0x12c8
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame16[31] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame16[OAM_DATA_SIZE(10)] = {
     0xa,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12c5,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12c4,
@@ -748,7 +748,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame16[31] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1f9, OBJ_SPRITE_OAM | 0x12c6
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame20[37] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame20[OAM_DATA_SIZE(12)] = {
     0xc,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12e5,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12e4,
@@ -764,7 +764,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame20[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1f9, OBJ_SPRITE_OAM | 0x12e6
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame24[37] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame24[OAM_DATA_SIZE(12)] = {
     0xc,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12c5,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12c4,
@@ -780,7 +780,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame24[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xee, 0x1f9, OBJ_SPRITE_OAM | 0x12e6
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame28[31] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame28[OAM_DATA_SIZE(10)] = {
     0xa,
     0xf9, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12e3,
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x1f9, OBJ_SPRITE_OAM | 0x12e2,
@@ -794,7 +794,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame28[31] = {
     OBJ_SHAPE_HORIZONTAL | 0xef, 0x1f9, OBJ_SPRITE_OAM | 0x12e6
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame32[25] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame32[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf9, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12c3,
     OBJ_SHAPE_HORIZONTAL | 0xf9, 0x1f9, OBJ_SPRITE_OAM | 0x12c2,
@@ -806,7 +806,7 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame32[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xf4, 0x1f9, OBJ_SPRITE_OAM | 0x12c6
 };
 
-static const u16 sChozoStatuePartOam_GlowIdle_Frame36[13] = {
+static const u16 sChozoStatuePartOam_GlowIdle_Frame36[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf8, OBJ_X_FLIP | 0x1f6, OBJ_SPRITE_OAM | 0x12e1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f9, OBJ_SPRITE_OAM | 0x12e0,
@@ -815,321 +815,543 @@ static const u16 sChozoStatuePartOam_GlowIdle_Frame36[13] = {
 };
 
 const struct FrameData sChozoStatuePartOam_LegStanding[2] = {
-    sChozoStatuePartOam_LegStanding_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_LegStanding_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_LegSitting[10] = {
-    sChozoStatuePartOam_LegSitting_Frame0,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame1,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame2,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame3,
-    5,
-    sChozoStatuePartOam_LegSitting_Frame2,
-    30,
-    sChozoStatuePartOam_LegSitting_Frame5,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame6,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame7,
-    10,
-    sChozoStatuePartOam_LegSitting_Frame8,
-    20,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame2,
+        .timer = CONVERT_SECONDS(0.5f)
+    },
+    [5] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [6] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [7] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [8] = {
+        .pFrame = sChozoStatuePartOam_LegSitting_Frame8,
+        .timer = ONE_THIRD_SECOND
+    },
+    [9] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_LegSeated[2] = {
-    sChozoStatuePartOam_LegSeated_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_LegSeated_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatueOam_Idle[2] = {
-    sChozoStatueOam_Idle_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatueOam_Idle_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_EyeOpened[2] = {
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    UCHAR_MAX,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_EyeClosing[3] = {
-    sChozoStatuePartOam_EyeClosing_Frame0,
-    10,
-    sChozoStatuePartOam_EyeClosing_Frame1,
-    10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_EyeClosing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_EyeClosing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_EyeOpening[3] = {
-    sChozoStatuePartOam_EyeClosing_Frame1,
-    10,
-    sChozoStatuePartOam_EyeClosing_Frame0,
-    10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_EyeClosing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_EyeClosing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_EyeClosed[2] = {
-    sChozoStatuePartOam_EyeClosed_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_EyeClosed_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_ArmIdle[2] = {
-    sChozoStatuePartOam_ArmIdle_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_ArmIdle_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_ArmGlow[9] = {
-    sChozoStatuePartOam_ArmIdle_Frame0,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame1,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame2,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame3,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame4,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame3,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame2,
-    10,
-    sChozoStatuePartOam_ArmGlow_Frame1,
-    10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_ArmIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [6] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [7] = {
+        .pFrame = sChozoStatuePartOam_ArmGlow_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_ArmSamusGrabbed[2] = {
-    sChozoStatuePartOam_ArmSamusGrabbed_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_ArmSamusGrabbed_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoBallOam_NormalClosed[5] = {
-    sChozoBallOam_NormalClosed_Frame0,
-    0xE,
-    sChozoBallOam_NormalClosed_Frame1,
-    0xE,
-    sChozoBallOam_NormalClosed_Frame0,
-    0xE,
-    sChozoBallOam_NormalClosed_Frame3,
-    0xE,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoBallOam_NormalClosed_Frame0,
+        .timer = CONVERT_SECONDS(7.f / 30)
+    },
+    [1] = {
+        .pFrame = sChozoBallOam_NormalClosed_Frame1,
+        .timer = CONVERT_SECONDS(7.f / 30)
+    },
+    [2] = {
+        .pFrame = sChozoBallOam_NormalClosed_Frame0,
+        .timer = CONVERT_SECONDS(7.f / 30)
+    },
+    [3] = {
+        .pFrame = sChozoBallOam_NormalClosed_Frame3,
+        .timer = CONVERT_SECONDS(7.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoBallOam_NormalRevealing[4] = {
-    sChozoBallOam_NormalRevealing_Frame0,
-    0x2,
-    sChozoBallOam_NormalRevealing_Frame1,
-    0x2,
-    sChozoBallOam_NormalRevealing_Frame2,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoBallOam_NormalRevealing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sChozoBallOam_NormalRevealing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sChozoBallOam_NormalRevealing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoBallOam_NormalRevealed[5] = {
-    sChozoBallOam_NormalRevealed_Frame0,
-    10,
-    sChozoBallOam_NormalRevealed_Frame1,
-    10,
-    sChozoBallOam_NormalRevealed_Frame2,
-    10,
-    sChozoBallOam_NormalRevealed_Frame1,
-    10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoBallOam_NormalRevealed_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sChozoBallOam_NormalRevealed_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = {
+        .pFrame = sChozoBallOam_NormalRevealed_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sChozoBallOam_NormalRevealed_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatueRefillOam[41] = {
-    sChozoStatueRefillOam_Frame0,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame2,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame4,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame2,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame4,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame10,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame12,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame10,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame12,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame18,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame20,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame18,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame20,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame26,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame28,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame26,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame28,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame34,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame0,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatueRefillOam_Frame34,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatueRefillOam_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sChozoStatueRefillOam_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sChozoStatueRefillOam_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sChozoStatueRefillOam_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sChozoStatueRefillOam_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sChozoStatueRefillOam_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sChozoStatueRefillOam_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sChozoStatueRefillOam_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sChozoStatueRefillOam_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [17] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = {
+        .pFrame = sChozoStatueRefillOam_Frame18,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [19] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [20] = {
+        .pFrame = sChozoStatueRefillOam_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [21] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [22] = {
+        .pFrame = sChozoStatueRefillOam_Frame18,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [23] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [24] = {
+        .pFrame = sChozoStatueRefillOam_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [25] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [26] = {
+        .pFrame = sChozoStatueRefillOam_Frame26,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [27] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [28] = {
+        .pFrame = sChozoStatueRefillOam_Frame28,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [29] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [30] = {
+        .pFrame = sChozoStatueRefillOam_Frame26,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [31] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [32] = {
+        .pFrame = sChozoStatueRefillOam_Frame28,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [33] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [34] = {
+        .pFrame = sChozoStatueRefillOam_Frame34,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [35] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [36] = {
+        .pFrame = sChozoStatueRefillOam_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [37] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [38] = {
+        .pFrame = sChozoStatueRefillOam_Frame34,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [39] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [40] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sChozoStatuePartOam_GlowIdle[41] = {
-    sChozoStatuePartOam_GlowIdle_Frame0,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame0,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame4,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame4,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame8,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame8,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame12,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame12,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame16,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame16,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame20,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame20,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame24,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame24,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame28,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame28,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame32,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame32,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame36,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    sChozoStatuePartOam_GlowIdle_Frame36,
-    0x2,
-    sChozoStatuePartOam_EyeOpened_Frame0,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [17] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame16,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [19] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [20] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [21] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [22] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame20,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [23] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [24] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame24,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [25] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [26] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame24,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [27] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [28] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame28,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [29] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [30] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame28,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [31] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [32] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame32,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [33] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [34] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame32,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [35] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [36] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame36,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [37] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [38] = {
+        .pFrame = sChozoStatuePartOam_GlowIdle_Frame36,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [39] = {
+        .pFrame = sChozoStatuePartOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [40] = FRAME_DATA_TERMINATOR
 };
 
 const u32 sChozoStatueIceBeamGfx[1335] = INCBIN_U32("data/sprites/ChozoStatueIceBeam.gfx.lz");

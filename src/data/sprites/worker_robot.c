@@ -4,7 +4,7 @@
 const u32 sWorkerRobotGfx[376] = INCBIN_U32("data/sprites/WorkerRobot.gfx.lz");
 const u16 sWorkerRobotPal[32] = INCBIN_U16("data/sprites/WorkerRobot.pal");
 
-const u16 sWorkerRobotOAM_Walking_Frame2[19] = {
+const u16 sWorkerRobotOAM_Walking_Frame2[OAM_DATA_SIZE(6)] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x20f,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x211,
@@ -14,7 +14,7 @@ const u16 sWorkerRobotOAM_Walking_Frame2[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1f7, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame3[19] = {
+const u16 sWorkerRobotOAM_Walking_Frame3[OAM_DATA_SIZE(6)] = {
     0x6,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x20c,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x20e,
@@ -24,7 +24,7 @@ const u16 sWorkerRobotOAM_Walking_Frame3[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1f2, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame4[25] = {
+const u16 sWorkerRobotOAM_Walking_Frame4[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x202,
@@ -36,7 +36,7 @@ const u16 sWorkerRobotOAM_Walking_Frame4[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f2, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame5[25] = {
+const u16 sWorkerRobotOAM_Walking_Frame5[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_HORIZONTAL | 0xf6, 0x1fe, OBJ_SPRITE_OAM | 0x25e,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x209,
@@ -48,7 +48,7 @@ const u16 sWorkerRobotOAM_Walking_Frame5[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f4, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame6[19] = {
+const u16 sWorkerRobotOAM_Walking_Frame6[OAM_DATA_SIZE(6)] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1fc, OBJ_SPRITE_OAM | 0x25e,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x206,
@@ -58,7 +58,7 @@ const u16 sWorkerRobotOAM_Walking_Frame6[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f6, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame7[13] = {
+const u16 sWorkerRobotOAM_Walking_Frame7[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf5, 0x1f8, OBJ_SPRITE_OAM | 0x25e,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x27e,
@@ -66,7 +66,7 @@ const u16 sWorkerRobotOAM_Walking_Frame7[13] = {
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x205
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame0[25] = {
+const u16 sWorkerRobotOAM_Walking_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x202,
@@ -78,7 +78,7 @@ const u16 sWorkerRobotOAM_Walking_Frame0[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_Walking_Frame1[19] = {
+const u16 sWorkerRobotOAM_Walking_Frame1[OAM_DATA_SIZE(6)] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1fa, OBJ_SPRITE_OAM | 0x25e,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x212,
@@ -88,7 +88,7 @@ const u16 sWorkerRobotOAM_Walking_Frame1[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xf6, 0x1f9, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame0[25] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x202,
@@ -100,7 +100,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame0[25] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame1[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame1[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe2, 0x1f4, OBJ_SPRITE_OAM | 0x215,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
@@ -113,7 +113,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame1[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame2[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame2[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe2, 0x1f4, OBJ_SPRITE_OAM | 0x235,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
@@ -126,7 +126,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame2[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame3[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame3[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe2, 0x1f4, OBJ_SPRITE_OAM | 0x255,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
@@ -139,7 +139,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame3[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame4[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame4[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe2, 0x1f4, OBJ_SPRITE_OAM | 0x275,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
@@ -152,7 +152,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame4[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame5[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame5[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe3, 0x1f4, OBJ_SPRITE_OAM | 0x1217,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1200,
@@ -165,7 +165,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame5[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_BackToSleep_Frame6[28] = {
+const u16 sWorkerRobotOAM_BackToSleep_Frame6[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe5, 0x1f4, OBJ_SPRITE_OAM | 0x1237,
     OBJ_SHAPE_VERTICAL | 0xdc, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x120c,
@@ -178,7 +178,7 @@ const u16 sWorkerRobotOAM_BackToSleep_Frame6[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_Sleeping_Frame0[28] = {
+const u16 sWorkerRobotOAM_Sleeping_Frame0[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe7, 0x1f4, OBJ_SPRITE_OAM | 0x1217,
     OBJ_SHAPE_VERTICAL | 0xde, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1200,
@@ -191,7 +191,7 @@ const u16 sWorkerRobotOAM_Sleeping_Frame0[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_UnusedFrame[28] = {
+const u16 sWorkerRobotOAM_UnusedFrame[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xea, 0x1f4, OBJ_SPRITE_OAM | 0x1217,
     OBJ_SHAPE_VERTICAL | 0xe1, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1200,
@@ -204,7 +204,7 @@ const u16 sWorkerRobotOAM_UnusedFrame[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_WakingUp_Frame2[28] = {
+const u16 sWorkerRobotOAM_WakingUp_Frame2[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe5, 0x1f4, OBJ_SPRITE_OAM | 0x1217,
     OBJ_SHAPE_VERTICAL | 0xdc, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1200,
@@ -217,7 +217,7 @@ const u16 sWorkerRobotOAM_WakingUp_Frame2[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_Standing_Frame1[28] = {
+const u16 sWorkerRobotOAM_Standing_Frame1[OAM_DATA_SIZE(9)] = {
     0x9,
     OBJ_SHAPE_HORIZONTAL | 0xe6, 0x1f4, OBJ_SPRITE_OAM | 0x1257,
     OBJ_SHAPE_VERTICAL | 0xde, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1212,
@@ -230,7 +230,7 @@ const u16 sWorkerRobotOAM_Standing_Frame1[28] = {
     OBJ_SHAPE_HORIZONTAL | 0xfb, 0x1f8, OBJ_SPRITE_OAM | 0x121e
 };
 
-const u16 sWorkerRobotOAM_GoingToSleep_Frame1[25] = {
+const u16 sWorkerRobotOAM_GoingToSleep_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xde, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1219,
     OBJ_SHAPE_VERTICAL | 0xde, OBJ_SIZE_8x32 | 0x4, OBJ_SPRITE_OAM | 0x121b,
@@ -243,117 +243,185 @@ const u16 sWorkerRobotOAM_GoingToSleep_Frame1[25] = {
 };
 
 const struct FrameData sWorkerRobotOAM_Walking[9] = {
-    sWorkerRobotOAM_Walking_Frame0,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame1,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame2,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame3,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame4,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame5,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame6,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame7,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [5] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame5,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame6,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame7,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_WalkingBackwards[9] = {
-    sWorkerRobotOAM_Walking_Frame0,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame7,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame6,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame5,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame4,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame3,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame2,
-    0x8,
-    sWorkerRobotOAM_Walking_Frame1,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame7,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame6,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame5,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [5] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_Standing[2] = {
-    sWorkerRobotOAM_Walking_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Walking_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_BackToSleep[9] = {
-    sWorkerRobotOAM_BackToSleep_Frame0,
-    0x2,
-    sWorkerRobotOAM_BackToSleep_Frame1,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame2,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame3,
-    0xF,
-    sWorkerRobotOAM_BackToSleep_Frame4,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame5,
-    0xF,
-    sWorkerRobotOAM_BackToSleep_Frame6,
-    0x4,
-    sWorkerRobotOAM_Sleeping_Frame0,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame3,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [4] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame5,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [6] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sWorkerRobotOAM_Sleeping_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_Sleeping[2] = {
-    sWorkerRobotOAM_Sleeping_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Sleeping_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_GoingToSleep[3] = {
-    sWorkerRobotOAM_Sleeping_Frame0,
-    0x4,
-    sWorkerRobotOAM_GoingToSleep_Frame1,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Sleeping_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_GoingToSleep_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_TurningAround[3] = {
-    sWorkerRobotOAM_GoingToSleep_Frame1,
-    0x4,
-    sWorkerRobotOAM_Sleeping_Frame0,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_GoingToSleep_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_Sleeping_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sWorkerRobotOAM_WakingUp[9] = {
-    sWorkerRobotOAM_Sleeping_Frame0,
-    0x2,
-    sWorkerRobotOAM_Standing_Frame1,
-    0x4,
-    sWorkerRobotOAM_WakingUp_Frame2,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame5,
-    0xF,
-    sWorkerRobotOAM_BackToSleep_Frame4,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame3,
-    0xF,
-    sWorkerRobotOAM_BackToSleep_Frame2,
-    0x4,
-    sWorkerRobotOAM_BackToSleep_Frame1,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sWorkerRobotOAM_Sleeping_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sWorkerRobotOAM_Standing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sWorkerRobotOAM_WakingUp_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame5,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [4] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame3,
+        .timer = CONVERT_SECONDS(0.25f)
+    },
+    [6] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sWorkerRobotOAM_BackToSleep_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
