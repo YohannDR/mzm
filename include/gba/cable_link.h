@@ -17,12 +17,23 @@
 
 #define SIO_SHIFT_INTERNAL_CLOCK_FLAG (1 << 0)
 #define SIO_SHIFT_INTERNAL_CLOCK_2MHZ (1 << 1)
-#define SIO_STATE_HIGH_OR_NONE (1 << 2)
-#define SIO_HIGH_DURING_INACTIVITY (1 << 3)
-#define SIO_START_BIT_ACTIVE (1 << 7)
-#define SIO_32BIT_TRANSFER (1 << 12)
-#define SIO_NON_NORMAL_MODE (1 << 13)
-#define SIO_IRQ_ENABLE (1 << 14)
+#define SIO_STATE_HIGH_OR_NONE        (1 << 2)
+#define SIO_HIGH_DURING_INACTIVITY    (1 << 3)
+#define SIO_START_BIT_ACTIVE          (1 << 7)
+#define SIO_32BIT_TRANSFER            (1 << 12)
+#define SIO_NON_NORMAL_MODE           (1 << 13)
+#define SIO_IRQ_ENABLE                (1 << 14)
+
+#define SIO_MP_BAUD_RATE_9600   (0 << 0)
+#define SIO_MP_BAUD_RATE_38400  (1 << 0)
+#define SIO_MP_BAUD_RATE_57600  (2 << 0)
+#define SIO_MP_BAUD_RATE_115200 (3 << 0)
+
+#define SIO_MP_PARENT_RECEIVE (0 << 2)
+#define SIO_MP_CHILD_RECEIVE  (1 << 2)
+
+#define SIO_MP_RECEIVE_ID       (1 << 2)
+#define SIO_MP_CONNECTION_READY (1 << 3)
 
 #define TIMER_CONTROL_IRQ_ENABLE (1 << 6)
 #define TIMER_CONTROL_ACTIVE (1 << 7)
