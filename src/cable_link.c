@@ -45,7 +45,7 @@ u8 CableLinkProcess(void)
 
         case 2:
             CallbackSetSerialCommunication(unk_89be4);
-            CallbackSetTimer3(unk_89bd4);
+            CallbackSetTimer3(CableLinkBeginTransferWithTimer3);
 
             gDataSentPointer = sTransferData_8754bd0;
             gDataSentSize = (u32)sTransferRom - (u32)sTransferData_8754bd0;
@@ -95,7 +95,7 @@ u8 CableLinkProcess(void)
             break;
 
         case 4:
-            if (!unk_8980c(sTransferRom_After - sTransferRom, (const u32*)sTransferRom))
+            if (unk_8980c(sTransferRom_After - sTransferRom, (const u32*)sTransferRom) == 0)
             {
                 gIoTransferInfo.stage++;
                 break;
@@ -1265,33 +1265,39 @@ u32 unk_8980c(u32 size, const u32* pData)
 
     while (TRUE)
     {
+        // bits 0-1 is gUnk_3005890.unk_3, bits 2-3 is gUnk_3005890.unk_4, bits 4-7 is gUnk_3005890.unk_5, bits 8+ is gUnk_3005890.unk_2
         gUnk_30058a8 = unk_899c8(1, size, pData, 0);
 
-        if (!(gUnk_30058a8 & 3) && gUnk_30058a8 & 0xC)
+        // if serial transfer stopped and gUnk_3005890.unk_4 != 0
+        if ((gUnk_30058a8 & 3) == 0 && (gUnk_30058a8 & (3 << 2)) != 0)
         {
             result = 0;
             break;
         }
 
-        if (gUnk_30058a8 & 0x20)
+        // gUnk_3005890.unk_5 is never 2?
+        if (gUnk_30058a8 & (1 << 5))
         {
             result = 1;
             break;
         }
 
-        if (gUnk_30058a8 & 0x10)
+        // gUnk_3005890.unk_5 == 1
+        if (gUnk_30058a8 & (1 << 4))
         {
             result = 2;
             break;
         }
 
-        if (gUnk_30058a8 & 0x40)
+        // gUnk_3005890.unk_5 == 4
+        if (gUnk_30058a8 & (1 << 6))
         {
             result = 3;
             break;
         }
 
-        if (gUnk_30058a8 & 0x80)
+        // gUnk_3005890.unk_5 == 8
+        if (gUnk_30058a8 & (1 << 7))
         {
             result = 4;
             break;
@@ -1303,8 +1309,9 @@ u32 unk_8980c(u32 size, const u32* pData)
         VBlankIntrWait();
     }
 
+    // Clear gUnk_3005890
     buffer = 0;
-    CpuSet(&buffer, &gUnk_3005890, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gUnk_3005890) / sizeof(u32));
+    CpuSet(&buffer, &gUnk_3005890, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gUnk_3005890) / sizeof(u32)));
 
     CableLinkRetrieveIoRegs();
 
@@ -1312,10 +1319,10 @@ u32 unk_8980c(u32 size, const u32* pData)
 }
 
 /**
- * @brief 898b8 | 54 | To document
+ * @brief 898b8 | 54 | Reset data for serial transfer
  * 
  */
-void unk_898b8(void)
+void CableLinkResetSerialTransfer(void)
 {
     u32 buffer;
 
@@ -1327,53 +1334,57 @@ void unk_898b8(void)
     gUnk_30058b1 = 0;
 
     buffer = 0;
-    CpuSet(&buffer, &gUnk_3005890, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gUnk_3005890) / sizeof(u32));
+    CpuSet(&buffer, &gUnk_3005890, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gUnk_3005890) / sizeof(u32)));
 }
 
 /**
- * @brief 8990c | 40 | To document
+ * @brief 8990c | 40 | Stop serial transfer and timer 3
  * 
  */
-void unk_8990c(void)
+void CableLinkStopSerialTransfer(void)
 {
+    // Disable timer 3 and serial interrupt
     write16(REG_IME, FALSE);
     write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
     write16(REG_IME, TRUE);
 
-    write16(REG_SIO, 0);
-    write16(REG_TM3CNT_H, 0);
-    write16(REG_IF, IF_TIMER3 | IF_SERIAL);
+    write16(REG_SIO, 0); // Turn off serial
+    write16(REG_TM3CNT_H, 0); // Turn off timer 3
+    write16(REG_IF, IF_TIMER3 | IF_SERIAL); // Request timer 3 and serial interrupt 
 }
 
 /**
- * @brief 8994c | 58 | To document
+ * @brief 8994c | 58 | Initialize serial transfer mode for linking with other GBA's
  * 
  */
-void unk_8994c(void)
+void CableLinkInitializeSerialTransfer(void)
 {
+    // Turn off timer 3 and serial port interrupts
     write16(REG_IME, FALSE);
     write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
     write16(REG_IME, TRUE);
 
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_NON_NORMAL_MODE);
+    write16(REG_SIO, SIO_NON_NORMAL_MODE); // Set to multiplayer mode?
 
-    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG | SIO_SHIFT_INTERNAL_CLOCK_2MHZ | SIO_IRQ_ENABLE);
+    // Baud rate = 115200 bits per second, request interrupt
+    write16(REG_SIO, read16(REG_SIO) | SIO_MP_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
 
+    // Enable serial port interrupt
     write16(REG_IME, FALSE);
     write16(REG_IE, read16(REG_IE) | IF_SERIAL);
     write16(REG_IME, TRUE);
 }
 
 /**
- * @brief 899a4 | 24 | To document
+ * @brief 899a4 | 24 | Set serial transfer to normal 32 bit transfer and set serial out to not ready
  * 
  */
-void unk_899a4(void)
+void CableLinkSetNormalSerialWait(void)
 {
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_32BIT_TRANSFER | SIO_IRQ_ENABLE);
-    write16(REG_SIO, read16(REG_SIO) | SIO_HIGH_DURING_INACTIVITY);
+    write16(REG_SIO, SIO_32BIT_TRANSFER | SIO_IRQ_ENABLE); // Bit 12 is 1 and Bit 13 is 0, so SIO is normal mode? If so, then transfer is 32 bits. Request interrupt
+    write16(REG_SIO, read16(REG_SIO) | SIO_HIGH_DURING_INACTIVITY); // Output is high during inactivity
 }
 
 /**
@@ -1389,73 +1400,77 @@ u16 unk_899c8(u32 param_1, u32 size, const u32* pData, u32 param_3)
 {
     switch (gUnk_3005890.unk_1)
     {
-        case 0:
-            unk_898b8();
-            unk_8994c();
-            gUnk_3005890.unk_3 = TRUE;
-            gUnk_3005890.unk_1 = 1;
+        case CABLE_LINK_3005890_STAGE_0:
+            // Clear and set up transfer
+            CableLinkResetSerialTransfer();
+            CableLinkInitializeSerialTransfer();
+            gUnk_3005890.unk_3 = 1;
+            gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_1;
             break;
 
-        case 1:
-            if (unk_89b3c(TRUE))
-                CableLinkSetSioCntStartBitActive();
+        case CABLE_LINK_3005890_STAGE_1:
+            if (CableLinkIsGbaParent(TRUE))
+                CableLinkStartSerialTransfer();
 
             if (gUnk_3005890.unk_5 != 0)
-                gUnk_3005890.unk_1 = 6;
+                gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_6;
 
-            gUnk_30058ae++;
-            if (gUnk_30058ae > 30)
+            APPLY_DELTA_TIME_INC(gUnk_30058ae);
+            // If more than half a second passes, fail?
+            if (gUnk_30058ae > CONVERT_SECONDS(.5f))
             {
                 gUnk_3005890.unk_5 = 4;
-                gUnk_3005890.unk_1 = 6;
+                gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_6;
             }
             break;
 
-        case 2:
-            unk_899a4();
-            unk_89b70(size, pData, param_3);
-            gUnk_3005890.unk_1 = 3;
+        case CABLE_LINK_3005890_STAGE_2:
+            // Set up transmission for size of data to transfer?
+            CableLinkSetNormalSerialWait();
+            CableLinkLoadDataAndSizeToTransfer(size, pData, param_3);
+            gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_3;
 
-        case 3:
+        case CABLE_LINK_3005890_STAGE_3:
             if (gUnk_3005890.unk_3 == 2)
                 break;
 
-            if (gUnk_3005890.unk_0 != 0)
+            if (gUnk_3005890.isParent)
             {
-                gUnk_30058ac++;
-                if (gUnk_30058ac > 9)
+                APPLY_DELTA_TIME_INC(gUnk_30058ac);
+                if (gUnk_30058ac >= CONVERT_SECONDS(1.f / 6))
                 {
-                    CableLinkSetSioCntStartBitActive();
+                    CableLinkStartSerialTransfer();
                     gUnk_3005890.unk_3 = 2;
                     break;
                 }
             }
             
-            CableLinkSetSioCntStartBitActive();
+            CableLinkStartSerialTransfer();
             gUnk_3005890.unk_3 = 2;
             break;
 
-        case 4:
-            unk_8994c();
-            gUnk_3005890.unk_1 = 5;
+        case CABLE_LINK_3005890_STAGE_4:
+            CableLinkInitializeSerialTransfer();
+            gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_5;
             break;
 
-        case 5:
-            if (gUnk_3005890.unk_0 == 1 && gUnk_30058ac > 9)
-                CableLinkSetSioCntStartBitActive();
+        case CABLE_LINK_3005890_STAGE_5:
+            if (gUnk_3005890.isParent == TRUE && gUnk_30058ac >= CONVERT_SECONDS(1.f / 6))
+                CableLinkStartSerialTransfer();
 
-            gUnk_30058ac++;
-            if (gUnk_30058ac > 30)
+            APPLY_DELTA_TIME_INC(gUnk_30058ac);
+            if (gUnk_30058ac > CONVERT_SECONDS(.5f))
             {
                 gUnk_3005890.unk_5 = 1;
-                gUnk_3005890.unk_1 = 6;
+                gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_6;
             }
             break;
 
-        case 6:
-            if (gUnk_3005890.unk_3)
+        case CABLE_LINK_3005890_STAGE_6:
+            // If data transferred?
+            if (gUnk_3005890.unk_3 != 0)
             {
-                unk_8990c();
+                CableLinkStopSerialTransfer();
                 gUnk_3005890.unk_3 = FALSE;
             }
             break;
@@ -1467,67 +1482,68 @@ u16 unk_899c8(u32 param_1, u32 size, const u32* pData, u32 param_3)
 }
 
 /**
- * @brief 89b3c | 34 | To document
+ * @brief 89b3c | 34 | Determine if all GBA's are ready and the GBA is the parent or child
  * 
- * @param param_1 To document
- * @return u16 To document
+ * @param wantParent Is parent or child GBA possibly updated
+ * @return u16 bool Is GBA parent
  */
-u16 unk_89b3c(u8 param_1)
+u16 CableLinkIsGbaParent(u8 wantParent)
 {
-    u32 result;
-
-    if ((read32(REG_SIO) & (SIO_HIGH_DURING_INACTIVITY | SIO_STATE_HIGH_OR_NONE)) == SIO_HIGH_DURING_INACTIVITY && param_1)
+    // If all GBA's are ready and is currently the parent GBA
+    if ((read32(REG_SIO) & (SIO_MP_CONNECTION_READY | SIO_MP_RECEIVE_ID)) == (SIO_MP_CONNECTION_READY | SIO_MP_PARENT_RECEIVE) && wantParent)
     {
-        gUnk_3005890.unk_0 = TRUE;
-        return gUnk_3005890.unk_0;
+        gUnk_3005890.isParent = TRUE;
+        return gUnk_3005890.isParent;
     }
     else
     {
-        gUnk_3005890.unk_0 = FALSE;
-        return gUnk_3005890.unk_0;
+        gUnk_3005890.isParent = FALSE;
+        return gUnk_3005890.isParent;
     }
 }
 
 /**
- * @brief 89b70 | 30 | To document
+ * @brief 89b70 | 30 | Initialize data to copy and load the size of the data to transmit and load timer 3
  * 
  * @param size Data size
  * @param pData Data pointer
  */
-void unk_89b70(u32 size, const u32* pData, u32 param_3)
+void CableLinkLoadDataAndSizeToTransfer(u32 size, const u32* pData, u32 param_3)
 {
-    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG);
+    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG); // shift clock is internal, indicating master
     
     gUnk_3005890.pData = pData;
-    write32(REG_SIO_MULTI, size);
+    write32(REG_SIO_MULTI, size); // transmit the size of data to transfer?
 
-    gUnk_3005890.dataSizeInt = (size / sizeof(u32)) + 1;
+    gUnk_3005890.dataSizeInt = (size / sizeof(u32)) + 1; // size of data to transfer in terms of 32 bits?
 
-    unk_89ba0();
+    CableLinkInitializeTimer3();
 }
 
 /**
- * @brief 89ba0 | 34 | To document
+ * @brief 89ba0 | 34 | Load timer 3 with -101
  * 
  */
-void unk_89ba0(void)
+void CableLinkInitializeTimer3(void)
 {
+    // Load -101 into timer 3 (what is -101?)
     write16(REG_TM3CNT_L, -101);
     write16(REG_TM3CNT_H, TIMER_CONTROL_IRQ_ENABLE);
 
+    // Enable timer 3 interrupt
     write16(REG_IME, FALSE);
     write16(REG_IE, read16(REG_IE) | IF_TIMER3);
     write16(REG_IME, TRUE);
 }
 
 /**
- * @brief 89bd4 | 10 | To document
+ * @brief 89bd4 | 10 | Initialize timer 3 and start serial transfer
  * 
  */
-void unk_89bd4(void)
+void CableLinkBeginTransferWithTimer3(void)
 {
-    unk_89d74();
-    CableLinkSetSioCntStartBitActive();
+    CableLinkStopAndReloadTimer3();
+    CableLinkStartSerialTransfer();
 }
 
 /**
@@ -1549,11 +1565,11 @@ void unk_89be4(void)
 
     switch (gUnk_3005890.unk_1)
     {
-        case 1:
-            write16(REG_SIO_DATA8, 0x7C40);
+        case CABLE_LINK_3005890_STAGE_1:
+            write16(REG_SIO_DATA8, 0x7C40); // Outgoing data
             ptr = REG_SIO_MULTI;
-            data_2 = read32(&ptr[1]);
-            data_1 = read32(&ptr[0]);
+            data_2 = read32(&ptr[1]); // SIOMULTI2 and SIOMULTI3
+            data_1 = read32(&ptr[0]); // SIOMULTI0 and SIOMULTI1
             write32(&buffer[0], data_1);
             write32(&buffer[2], data_2);
 
@@ -1563,36 +1579,45 @@ void unk_89be4(void)
 
             for (; i < ARRAY_SIZE(buffer); i++)
             {
+                // if GBA either sent or is receiving data
                 if (buffer[i] == 0x7C40)
                     var_0++;
+                // if receiving some data
                 else if (buffer[i] != USHORT_MAX)
                     var_1++;
             }
 
             gUnk_30058b0 = var_0;
-            gUnk_30058b1 = control << 0x1A >> 0x1E;
+            gUnk_30058b1 = (control << 26) >> 30; // bits 4 and 5 of REG_SIO, so multiplayer ID?
 
+            // If 0-2 GBA's detected
             if (var_0 < 3)
             {
+                // If 2 GBA's detected and both able to receive data
                 if (var_0 > 1 && var_1 == 0)
-                    gUnk_3005890.unk_1 = 2;
+                    gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_2;
             }
             else
                 gUnk_3005890.unk_5 = 8;
             break;
 
-        case 3:
-            read32(REG_SIO_MULTI);
+        case CABLE_LINK_3005890_STAGE_3:
+            read32(REG_SIO_MULTI); // why the read?
 
+            // If data still left to transfer?
             if (gUnk_3005890.dataCursor < gUnk_3005890.dataSizeInt)
             {
+                // Transfer current byte
                 write32(REG_SIO_MULTI, gUnk_3005890.pData[gUnk_3005890.dataCursor]);
                 gUnk_3005890.dataChecksum += gUnk_3005890.pData[gUnk_3005890.dataCursor];
             }
+            // If data all transferred?
             else if (gUnk_3005890.dataCursor == gUnk_3005890.dataSizeInt)
             {
+                // Transfer checksum
                 write32(REG_SIO_MULTI, gUnk_3005890.dataChecksum);
             }
+            // Sanity check to make sure more data than available not transferred?
             else
             {
                 write32(REG_SIO_MULTI, 0);
@@ -1600,42 +1625,46 @@ void unk_89be4(void)
 
             gUnk_3005890.dataCursor++;
 
+            // Continue timer if still data to transfer (extra time for each GBA active?)
             if (gUnk_3005890.dataCursor < gUnk_3005890.dataSizeInt + gUnk_30058b0)
             {
                 write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
             }
             else
             {
-                gUnk_3005890.unk_1 = 4;
+                gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_4;
                 gUnk_30058ac = 0;
             }
             break;
 
-        case 5:
+        case CABLE_LINK_3005890_STAGE_5:
             ptr = REG_SIO_MULTI;
-            data_2 = read32(&ptr[1]);
-            data_1 = read32(&ptr[0]);
+            data_2 = read32(&ptr[1]); // SIOMULTI2 and SIOMULTI3
+            data_1 = read32(&ptr[0]); // SIOMULTI0 and SIOMULTI1
             write32(&buffer[0], data_1);
             write32(&buffer[2], data_2);
 
-            i = 1;
+            i = 1; // start from GBA receiving data?
             var_0 = 1;
 
             for (i; i < gUnk_30058b0; i++)
             {
+                // if child GBA 1 correctly sends 1
                 if (buffer[i] == 1)
                     var_0++;
+                // if child GBA 2 correctly sends 2
                 else if (buffer[i] == 2)
                 {
                     gUnk_3005890.unk_4 = 2;
-                    gUnk_3005890.unk_1 = 6;
+                    gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_6;
                     break;
                 }
 
+                // Check if correct number of GBA's sent correct data
                 if (var_0 == gUnk_30058b0)
                 {
                     gUnk_3005890.unk_4 = 1;
-                    gUnk_3005890.unk_1 = 6;
+                    gUnk_3005890.unk_1 = CABLE_LINK_3005890_STAGE_6;
                 }
             }
             break;
@@ -1643,19 +1672,19 @@ void unk_89be4(void)
 }
 
 /**
- * @brief 89d64 | 10 | Sets the start bit of the SIO control register
+ * @brief 89d64 | 10 | Start a serial transfer by setting the start bit of the SIO control register
  * 
  */
-void CableLinkSetSioCntStartBitActive(void)
+void CableLinkStartSerialTransfer(void)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_START_BIT_ACTIVE);
 }
 
 /**
- * @brief 89d74 | 24 | To document
+ * @brief 89d74 | 24 | Stop and reload timer 3 with -101
  * 
  */
-void unk_89d74(void)
+void CableLinkStopAndReloadTimer3(void)
 {
     write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) & ~TIMER_CONTROL_ACTIVE);
     write16(REG_TM3CNT_L, -101);
@@ -1705,10 +1734,10 @@ u8 unk_89e30(void)
         case 0:
             ptr = &buffer;
             buffer = 0;
-            DMA_SET(3, ptr, gUnk_30058c0, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(gUnk_30058c0));
+            DMA_SET(3, ptr, gUnk_30058c0, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, ARRAY_SIZE(gUnk_30058c0))); // clear gUnk_30058c0
 
             buffer = 0;
-            DMA_SET(3, ptr, gUnk_30058c4, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | (ARRAY_SIZE(gUnk_30058c4) * ARRAY_SIZE(gUnk_30058c4[0])));
+            DMA_SET(3, ptr, gUnk_30058c4, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, ARRAY_SIZE(gUnk_30058c4) * ARRAY_SIZE(gUnk_30058c4[0]))); // clear gUnk_30058c4
 
             gErrorFlag = 0;
             gUnk_30058cc = 0;
@@ -1928,7 +1957,7 @@ void unk_8a260(void)
     write16(REG_IF, IF_TIMER3 | IF_SERIAL);
 
     buffer = 0;
-    CpuSet(&buffer, &gCableLinkInfo, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gCableLinkInfo) / sizeof(u32));
+    CpuSet(&buffer, &gCableLinkInfo, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gCableLinkInfo) / sizeof(u32)));
 }
 
 #ifdef NON_MATCHING
@@ -2200,9 +2229,11 @@ void unk_8a4f8(void)
 {
     if (gCableLinkInfo.unk_0 != 0)
     {
+        // Load -132 into timer 3 with 1/64 the normal frequency
         write16(REG_TM3CNT_L, -132);
         write16(REG_TM3CNT_H, TIMER_CONTROL_IRQ_ENABLE | 1);
 
+        // Enable timer 3 if interrupts were enabled, otherwise it will wait until the next interrupt enable
         gUnk_30058d0 = read16(REG_IME);
         write16(REG_IME, FALSE);
         write16(REG_IE, read16(REG_IE) | IF_TIMER3);
@@ -2317,7 +2348,7 @@ void unk_8a730(void)
                 if (gCableLinkInfo.hardwareErrorFlag == 0)
                     gCableLinkInfo.sioErrorFlags = 1;
                 else
-                    CableLinkSetSioCntStartBitActive_Duplicate();
+                    CableLinkStartSerialTransfer_Duplicate();
 
                 return;
             }
@@ -2325,12 +2356,12 @@ void unk_8a730(void)
             if (gCableLinkInfo.sioErrorFlags == 0)
             {
                 gCableLinkInfo.unk_D = 0;
-                CableLinkSetSioCntStartBitActive_Duplicate();
+                CableLinkStartSerialTransfer_Duplicate();
             }
             return;
         }
 
-        CableLinkSetSioCntStartBitActive_Duplicate();
+        CableLinkStartSerialTransfer_Duplicate();
         return;
     }
     
@@ -2361,7 +2392,7 @@ void unk_8a730(void)
 void unk_8a7a0(void)
 {
     unk_8aaf0();
-    CableLinkSetSioCntStartBitActive_Duplicate();
+    CableLinkStartSerialTransfer_Duplicate();
 }
 
 /**
@@ -2410,10 +2441,10 @@ void unk_8a7b0(void)
 }
 
 /**
- * @brief 8a840 | 10 | Sets the start bit of the SIO control register
+ * @brief 8a840 | 10 | Start a serial transfer by setting the start bit of the SIO control register
  * 
  */
-void CableLinkSetSioCntStartBitActive_Duplicate(void)
+void CableLinkStartSerialTransfer_Duplicate(void)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_START_BIT_ACTIVE);
 }
@@ -2604,6 +2635,7 @@ void unk_8aaf0(void)
 {
     if (gCableLinkInfo.unk_0)
     {
+        // Turn off timer 3 and load in -132
         write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) & ~TIMER_CONTROL_ACTIVE);
         write16(REG_TM3CNT_L, -132);
     }

@@ -32,7 +32,7 @@ struct IoTransferInfo {
     u16 timer;
     u8 active;
     u8 stage;
-    u8 unk_A;
+    u8 unk_A; // stage
     u8 result;
     u8 errorFlag;
     u16 unk_E;
@@ -75,16 +75,16 @@ struct CableLinkInfo {
 };
 
 struct CableLink_3005890 {
-    u8 unk_0;
-    u8 unk_1;
-    u8 unk_2;
-    u8 unk_3;
+    u8 isParent;
+    u8 unk_1; // stage?
+    u8 unk_2; // set but never read?
+    u8 unk_3; // 1 if serial transfer initialized, 2 if serial transfer started, 0 otherwise
     u8 unk_4;
-    u8 unk_5;
+    u8 unk_5; // 1 after .5s of stage 5, 4 after .5s of stage 1, 8 if more than 2 GBA's detected?
     u8 unk_6;
     u8 unk_7;
-    const u32* pData;
-    s32 dataCursor;
+    const u32* pData; // pointer to data to transfer
+    s32 dataCursor; // index into data to transfer
     s32 dataSizeInt;
     u32 dataChecksum;
 };
@@ -107,10 +107,10 @@ extern u32 gUnk_3005880;
 extern u16 gUnk_3005888[4];
 
 extern u8 gUnk_30058aa;
-extern u16 gUnk_30058ac;
-extern u8 gUnk_30058ae;
+extern u16 gUnk_30058ac; // Timer for sending data?
+extern u8 gUnk_30058ae; // Timer?
 extern u8 gUnk_30058af;
-extern u8 gUnk_30058b0;
+extern u8 gUnk_30058b0; // Number of GBA's sending/receiving data?
 extern u8 gUnk_30058b1;
 
 extern u16 gUnk_30058a8;

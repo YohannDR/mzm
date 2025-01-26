@@ -15,4 +15,16 @@
 #define CABLE_LINK_ERROR_SIO_STOP (2 << CABLE_LINK_ERROR_SHIFT_SIO)
 #define CABLE_LINK_ERROR_ID_OVER (1 << CABLE_LINK_ERROR_SHIFT_ID_OVER)
 
+enum CableLink3005890Stage {
+    CABLE_LINK_3005890_STAGE_0, // Clear and setup serial transfer
+    CABLE_LINK_3005890_STAGE_1, // Initial link to pair the GBA? Start serial transfer (or fail after half a second)
+    CABLE_LINK_3005890_STAGE_2, // Set serial transfer to wait and load the data and size of data
+    CABLE_LINK_3005890_STAGE_3, // Transfer the data
+    CABLE_LINK_3005890_STAGE_4, // Setup serial transfer
+    CABLE_LINK_3005890_STAGE_5, // Transfer the data
+    CABLE_LINK_3005890_STAGE_6, // Serial finished
+
+    CABLE_LINK_3005890_STAGE_END
+};
+
 #endif
