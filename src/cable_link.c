@@ -1401,37 +1401,37 @@ u16 CableLinkUpdateSerialTransfer(u32 param_1, u32 size, const u32* pData, u32 p
     // pData is transfer rom, size is size of transfer rom
     switch (gCableLinkSerialTransferInfo.stage)
     {
-        case CABLE_LINK_3005890_STAGE_INIT:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_INIT:
             // Clear and set up transfer
             CableLinkResetSerialTransfer();
             CableLinkInitializeSerialTransfer();
             gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_INIT_DATA;
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_SETUP_CONNECTION;
+            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION;
             break;
 
-        case CABLE_LINK_3005890_STAGE_SETUP_CONNECTION:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION:
             if (CableLinkIsGbaParent(TRUE))
                 CableLinkStartSerialTransfer();
 
             if (gCableLinkSerialTransferInfo.errorDuringTransfer != CABLE_LINK_DURING_TRANSFER_ERROR_NONE)
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION;
+                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
 
             APPLY_DELTA_TIME_INC(gSerialTransferStartupTimer);
             // If more than half a second passes, fail
             if (gSerialTransferStartupTimer > CONVERT_SECONDS(.5f))
             {
                 gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TIMEOUT;
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION;
+                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
             }
             break;
 
-        case CABLE_LINK_3005890_STAGE_SETUP_DATA:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_DATA:
             // Set up transmission for size of data to transfer?
             CableLinkSetNormalSerialWait();
             CableLinkLoadDataAndSizeToTransfer(size, pData, param_3);
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TRANSFER_DATA;
+            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA;
 
-        case CABLE_LINK_3005890_STAGE_TRANSFER_DATA:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA:
             if (gCableLinkSerialTransferInfo.dataTransferStage == CABLE_LINK_TRANSFER_STAGE_SENDING_DATA)
                 break;
 
@@ -1450,12 +1450,12 @@ u16 CableLinkUpdateSerialTransfer(u32 param_1, u32 size, const u32* pData, u32 p
             gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_SENDING_DATA;
             break;
 
-        case CABLE_LINK_3005890_STAGE_SETUP_VERIFICATION:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_VERIFICATION:
             CableLinkInitializeSerialTransfer();
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_VERIFY_DATA;
+            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA;
             break;
 
-        case CABLE_LINK_3005890_STAGE_VERIFY_DATA:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA:
             if (gCableLinkSerialTransferInfo.isParent == TRUE && gSerialTransferDataTimer >= CONVERT_SECONDS(1.f / 6))
                 CableLinkStartSerialTransfer();
 
@@ -1463,11 +1463,11 @@ u16 CableLinkUpdateSerialTransfer(u32 param_1, u32 size, const u32* pData, u32 p
             if (gSerialTransferDataTimer > CONVERT_SECONDS(.5f))
             {
                 gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_VERIFY_TIMEOUT;
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION;
+                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
             }
             break;
 
-        case CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION:
             if (gCableLinkSerialTransferInfo.dataTransferStage != CABLE_LINK_TRANSFER_STAGE_NO_DATA)
             {
                 CableLinkStopSerialTransfer();
@@ -1566,7 +1566,7 @@ void CableLinkSerialTransferExchangeData(void)
 
     switch (gCableLinkSerialTransferInfo.stage)
     {
-        case CABLE_LINK_3005890_STAGE_SETUP_CONNECTION:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION:
             write16(REG_SIO_DATA8, 0x7C40); // Outgoing data
             ptr = REG_SIO_MULTI;
             data_2 = read32(&ptr[1]); // SIOMULTI2 and SIOMULTI3
@@ -1596,13 +1596,13 @@ void CableLinkSerialTransferExchangeData(void)
             {
                 // If 2 GBA's detected and not sending anymore data
                 if (numGbaDetected >= 2 && numGbaSendingData == 0)
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_SETUP_DATA;
+                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_DATA;
             }
             else
                 gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS;
             break;
 
-        case CABLE_LINK_3005890_STAGE_TRANSFER_DATA:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA:
             read32(REG_SIO_MULTI); // why the read?
 
             // If data still left to transfer
@@ -1633,12 +1633,12 @@ void CableLinkSerialTransferExchangeData(void)
             }
             else
             {
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_SETUP_VERIFICATION;
+                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_VERIFICATION;
                 gSerialTransferDataTimer = 0;
             }
             break;
 
-        case CABLE_LINK_3005890_STAGE_VERIFY_DATA:
+        case CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA:
             ptr = REG_SIO_MULTI;
             data_2 = read32(&ptr[1]); // SIOMULTI2 and SIOMULTI3
             data_1 = read32(&ptr[0]); // SIOMULTI0 and SIOMULTI1
@@ -1657,7 +1657,7 @@ void CableLinkSerialTransferExchangeData(void)
                 else if (buffer[i] == 2)
                 {
                     gCableLinkSerialTransferInfo.verifyTransferResult = 2;
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION;
+                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
                     break;
                 }
 
@@ -1665,7 +1665,7 @@ void CableLinkSerialTransferExchangeData(void)
                 if (numGbaDetected == gSerialTransferGbaDetectedCount)
                 {
                     gCableLinkSerialTransferInfo.verifyTransferResult = 1;
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION;
+                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
                 }
             }
             break;

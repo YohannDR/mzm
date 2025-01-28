@@ -79,8 +79,8 @@ struct CableLinkSerialTransferInfo {
     u8 stage;
     u8 unk_2; // set but never read?
     u8 dataTransferStage;
-    u8 verifyTransferResult; // result of after transfer check, 1 if correct number of GBA's, 2 if more than 2 GBA's detected
-    u8 errorDuringTransfer; // result of during transfer check, 1 after .5s of stage 5, 4 after .5s of stage 1, 8 if more than 2 GBA's detected?
+    u8 verifyTransferResult; // 0 if transfer not verified yet, 1 if correct number of GBA's, 2 if more than 2 GBA's detected
+    u8 errorDuringTransfer;
     u8 unk_6; // unused
     u8 unk_7; // unused
     const u32* pData; // pointer to data to transfer
@@ -114,7 +114,7 @@ extern u8 gSerialTransferGbaDetectedCount;
 extern u8 gSerialTransferGbaId; // unused, 0 = parent, 1-3 = child 1-3 GBA
 
 extern u16 gSerialTransferUpdateResult;
-extern struct CableLinkSerialTransferInfo gCableLinkSerialTransferInfo; // holds information for serial transfer
+extern struct CableLinkSerialTransferInfo gCableLinkSerialTransferInfo;
 
 extern u32 gErrorFlag;
 extern u16 gUnk_30058c0[2];
