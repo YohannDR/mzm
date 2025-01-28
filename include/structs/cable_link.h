@@ -43,9 +43,9 @@ struct IoTransferInfo {
 };
 
 struct CableLinkInfo {
-    u8 unk_0;
+    u8 unk_0; // is parent and is ready?
     u8 unk_1;
-    u8 unk_2;
+    u8 unk_2; // multiplayer id?
     u8 unk_3;
     u16 sioIncomingData[4];
     u8 unk_C;
@@ -74,15 +74,15 @@ struct CableLinkInfo {
     u8 unk_1A2;
 };
 
-struct CableLink_3005890 {
+struct CableLinkSerialTransferInfo {
     u8 isParent;
-    u8 unk_1; // stage?
+    u8 stage;
     u8 unk_2; // set but never read?
-    u8 unk_3; // 1 if serial transfer initialized, 2 if serial transfer started, 0 otherwise
-    u8 unk_4;
-    u8 unk_5; // 1 after .5s of stage 5, 4 after .5s of stage 1, 8 if more than 2 GBA's detected?
-    u8 unk_6;
-    u8 unk_7;
+    u8 dataTransferStage;
+    u8 verifyTransferResult; // result of after transfer check, 1 if correct number of GBA's, 2 if more than 2 GBA's detected
+    u8 errorDuringTransfer; // result of during transfer check, 1 after .5s of stage 5, 4 after .5s of stage 1, 8 if more than 2 GBA's detected?
+    u8 unk_6; // unused
+    u8 unk_7; // unused
     const u32* pData; // pointer to data to transfer
     s32 dataCursor; // index into data to transfer
     s32 dataSizeInt;
@@ -106,22 +106,22 @@ extern u8 gUnk_3005884;
 extern u32 gUnk_3005880;
 extern u16 gUnk_3005888[4];
 
-extern u8 gUnk_30058aa;
-extern u16 gUnk_30058ac; // Timer for sending data?
-extern u8 gUnk_30058ae; // Timer?
-extern u8 gUnk_30058af;
-extern u8 gUnk_30058b0; // Number of GBA's sending/receiving data?
-extern u8 gUnk_30058b1;
+extern u8 gUnk_30058aa; // unused
+extern u16 gSerialTransferDataTimer;
+extern u8 gSerialTransferStartupTimer;
+extern u8 gUnk_30058af; // unused
+extern u8 gSerialTransferGbaDetectedCount;
+extern u8 gSerialTransferGbaId; // unused, 0 = parent, 1-3 = child 1-3 GBA
 
-extern u16 gUnk_30058a8;
-extern struct CableLink_3005890 gUnk_3005890;
+extern u16 gSerialTransferUpdateResult;
+extern struct CableLinkSerialTransferInfo gCableLinkSerialTransferInfo; // holds information for serial transfer
 
 extern u32 gErrorFlag;
 extern u16 gUnk_30058c0[2];
 extern CableLinkBuffer1_T gUnk_30058c4;
 
 extern struct CableLinkInfo gCableLinkInfo;
-extern u16 gUnk_30058d0;
+extern u16 gUnk_30058d0; // REG_IME temp store
 extern u8 gUnk_30058d2;
 extern u8 gUnk_30058d3;
 extern u8 gUnk_3005b54;
