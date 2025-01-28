@@ -1510,7 +1510,7 @@ u16 CableLinkIsGbaParent(u8 wantParent)
  */
 void CableLinkLoadDataAndSizeToTransfer(u32 size, const u32* pData, u32 param_3)
 {
-    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG); // shift clock is internal, indicating master
+    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG); // shift clock is internal, indicating parent
     
     gCableLinkSerialTransferInfo.pData = pData;
     write32(REG_SIO_MULTI, size); // transmit the size of data to transfer?
