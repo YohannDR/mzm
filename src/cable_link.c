@@ -1254,7 +1254,7 @@ void unk_897d0(void)
  * 
  * @param size Data size
  * @param pData Pointer to data to transfer
- * @return u32 Result of serial transfer update, 0 is finished
+ * @return u32 Result of serial transfer update, 0 is finished, otherwise failure
  */
 u32 CableLinkProcessSerialTransfer(u32 size, const u32* pData)
 {
@@ -1302,6 +1302,7 @@ u32 CableLinkProcessSerialTransfer(u32 size, const u32* pData)
             break;
         }
 
+        // Only reaches here if verifyTransferResult is 0, indicating it did not finish properly?
         if (gIoTransferInfo.pFunction)
             gIoTransferInfo.pFunction(); // always FileSelectProcessOAM?
 
