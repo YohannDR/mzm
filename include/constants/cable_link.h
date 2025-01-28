@@ -16,15 +16,27 @@
 #define CABLE_LINK_ERROR_ID_OVER (1 << CABLE_LINK_ERROR_SHIFT_ID_OVER)
 
 enum CableLink3005890Stage {
-    CABLE_LINK_3005890_STAGE_0, // Clear and setup serial transfer
-    CABLE_LINK_3005890_STAGE_1, // Initial link to pair the GBA? Start serial transfer (or fail after half a second)
-    CABLE_LINK_3005890_STAGE_2, // Set serial transfer to wait and load the data and size of data
-    CABLE_LINK_3005890_STAGE_3, // Transfer the data
-    CABLE_LINK_3005890_STAGE_4, // Setup serial transfer
-    CABLE_LINK_3005890_STAGE_5, // Transfer the data
-    CABLE_LINK_3005890_STAGE_6, // Serial finished
+    CABLE_LINK_3005890_STAGE_INIT, // Clear and setup serial transfer
+    CABLE_LINK_3005890_STAGE_SETUP_CONNECTION, // Initial link to pair the GBA? Start serial transfer (or fail after half a second)
+    CABLE_LINK_3005890_STAGE_SETUP_DATA, // Set serial transfer to wait and load the data and size of data
+    CABLE_LINK_3005890_STAGE_TRANSFER_DATA, // Transfer the size of data, then the data
+    CABLE_LINK_3005890_STAGE_SETUP_VERIFICATION, // Setup serial transfer
+    CABLE_LINK_3005890_STAGE_VERIFY_DATA, // Transfer the data and ensure data properly transferred
+    CABLE_LINK_3005890_STAGE_TERMINATE_CONNECTION, // Serial finished
 
     CABLE_LINK_3005890_STAGE_END
 };
+
+enum CableLinkTransferStage {
+    CABLE_LINK_TRANSFER_STAGE_NO_DATA,
+    CABLE_LINK_TRANSFER_STAGE_INIT_DATA,
+    CABLE_LINK_TRANSFER_STAGE_SENDING_DATA
+};
+
+#define CABLE_LINK_DURING_TRANSFER_ERROR_NONE                           (0)
+#define CABLE_LINK_DURING_TRANSFER_ERROR_VERIFY_TIMEOUT                 (1 << 0)
+#define CABLE_LINK_DURING_TRANSFER_ERROR_UNK2                           (1 << 1)
+#define CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TIMEOUT                   (1 << 2)
+#define CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS      (1 << 3)
 
 #endif
