@@ -12,6 +12,7 @@
 #define CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR 2
 #define CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED 4
 
+#define CHOZODIA_ESCAPE_OAM_TYPE_NONE 0
 #define CHOZODIA_ESCAPE_OAM_TYPE_NORMAL 1
 #define CHOZODIA_ESCAPE_OAM_TYPE_SCALING 2
 
@@ -39,9 +40,9 @@ struct ChozodiaEscapeData {
 
     u8 hblankCode[128];
     u16 explosionHazeValues[2][160];
-    u16 unk_36c;
-    u8 unk_36e;
-    u8 unk_36f;
+    u16 explosionSemiMinorAxis;
+    u8 hazeBufferWritingId;
+    u8 hazeBufferReadingId;
 
     u16 dispcnt;
     u16 bldcnt;

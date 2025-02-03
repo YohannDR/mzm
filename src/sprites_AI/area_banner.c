@@ -41,7 +41,7 @@ void AreaBannerInit(void)
         gCurrentSprite.pOam = sAreaBannerOam_SpawnBottom;
         gCurrentSprite.work1 = TRUE;
         gCurrentSprite.yPosition = SCREEN_SIZE_Y - SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 8);
-        gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
+        gCurrentSprite.xPosition = SCREEN_X_MIDDLE;
     }
     else if ((gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM) && gAlarmTimer != 0)
     {
@@ -54,7 +54,7 @@ void AreaBannerInit(void)
         gCurrentSprite.pOam = sAreaBannerOam_SpawnMiddle;
         gCurrentSprite.work1 = FALSE;
         gCurrentSprite.yPosition = SCREEN_SIZE_Y / 3 + SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
-        gCurrentSprite.xPosition = SCREEN_SIZE_X / 2;
+        gCurrentSprite.xPosition = SCREEN_X_MIDDLE;
     }
 }
 

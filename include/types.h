@@ -57,6 +57,9 @@ typedef volatile signed int vs32;
 // Height of the screen, in pixels
 #define SCREEN_SIZE_Y 160
 
+#define SCREEN_X_MIDDLE (SCREEN_SIZE_X / 2)
+#define SCREEN_Y_MIDDLE (SCREEN_SIZE_Y / 2)
+
 // Target FPS
 #define FRAMES_PER_SECOND 60
 // The amount of frames the games considers 1 second internally (used by detailed timers)

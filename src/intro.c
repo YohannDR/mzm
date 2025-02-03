@@ -74,7 +74,7 @@ void IntroInit(void)
 
     INTRO_DATA.scaling = Q_8_8(.125f);
     INTRO_DATA.charDrawerX = SCREEN_SIZE_X / 5 + 8;
-    INTRO_DATA.charDrawerY = SCREEN_SIZE_Y / 2 + 16;
+    INTRO_DATA.charDrawerY = SCREEN_Y_MIDDLE + 16;
 
     ClearGfxRam();
 
@@ -151,7 +151,7 @@ void IntroTextProcessOam(void)
     dst = (u16*)gOamData;
     i = 0;
     yPosition = SCREEN_SIZE_Y * 0.8f;
-    xPosition = SCREEN_SIZE_X / 2;
+    xPosition = SCREEN_X_MIDDLE;
 
     if (INTRO_DATA.finalCharacter != 0)
     {
@@ -363,8 +363,8 @@ u8 IntroEmergencyOrder(void)
         INTRO_DATA.timer = 0;
         INTRO_DATA.unk_42 = 0;
         INTRO_DATA.charDrawerX = SCREEN_SIZE_X / 10;
-        INTRO_DATA.charDrawerY = SCREEN_SIZE_Y / 2;
-        INTRO_DATA.shipFlyingTowardsCameraX = SCREEN_SIZE_X / 2;
+        INTRO_DATA.charDrawerY = SCREEN_Y_MIDDLE;
+        INTRO_DATA.shipFlyingTowardsCameraX = SCREEN_X_MIDDLE;
         INTRO_DATA.shipFlyingTowardsCameraY = SCREEN_SIZE_Y / 5 - 4;
     }
     else
@@ -579,7 +579,7 @@ u8 IntroExterminate(void)
         INTRO_DATA.timer = 0;
         INTRO_DATA.unk_42 = 0;
         INTRO_DATA.charDrawerX = SCREEN_SIZE_X / 10;
-        INTRO_DATA.charDrawerY = SCREEN_SIZE_Y / 2;
+        INTRO_DATA.charDrawerY = SCREEN_Y_MIDDLE;
         INTRO_DATA.dispcnt = 0;
     }
     else
@@ -614,12 +614,12 @@ void IntroViewOfZebesProcessOAM(void)
     if (MOD_AND(INTRO_DATA.unk_3d, 4) < 2)
     {
         yPosition = SCREEN_SIZE_Y * 3 / 5 - 1;
-        xPosition = SCREEN_SIZE_X / 2 + 8;
+        xPosition = SCREEN_X_MIDDLE + 8;
     }
     else
     {
         yPosition = SCREEN_SIZE_Y * 3 / 5;
-        xPosition = SCREEN_SIZE_X / 2 + 8 - 1;
+        xPosition = SCREEN_X_MIDDLE + 8 - 1;
     }
 
     src = sIntroViewOfZebesShipOAM;
@@ -642,7 +642,7 @@ void IntroViewOfZebesProcessOAM(void)
     }
 
     yPosition = SCREEN_SIZE_Y * 3 / 5;
-    xPosition = SCREEN_SIZE_X / 2 + 8;
+    xPosition = SCREEN_X_MIDDLE + 8;
 
     if (MOD_AND(INTRO_DATA.unk_3d, 8) < 4)
         src = sIntroViewOfZebesHeatOAM_2;
