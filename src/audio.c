@@ -31,13 +31,13 @@ void UpdateMusic(void)
     if (var_0 != 0)
     {
         vcount = read8(REG_VCOUNT);
-        if (vcount < 0xA0)
-            vcount += 0xE4;
+        if (vcount < SCREEN_SIZE_Y)
+            vcount += VERTICAL_LINE_COUNT;
 
         var_0 += vcount;
     }
 
-    var_8 = gMusicInfo.sampleRate;
+    var_8 = gMusicInfo.unk_10;
     var_4 = gMusicInfo.unk_11 * 16;
     var_7 = (gMusicInfo.unk_C * 2 + var_8) - 1;
     if (var_7 >= gMusicInfo.unk_E)
@@ -111,8 +111,8 @@ void UpdateMusic(void)
         if (var_0 != 0)
         {
             vcount = read8(REG_VCOUNT);
-            if (vcount < 0xA0)
-                vcount += 0xE4;
+            if (vcount < SCREEN_SIZE_Y)
+                vcount += VERTICAL_LINE_COUNT;
 
             if (var_0 <= vcount)
                 break;
@@ -539,7 +539,7 @@ void UpdatePsgSounds(void)
 
                         if (i == 2)
                         {
-                            pSound->unk_12 = sUnk_808cc3d[pSound->unk_19];
+                            pSound->unk_12 = gCgb3Vol[pSound->unk_19];
                         }
                         else
                         {
@@ -593,7 +593,7 @@ void UpdatePsgSounds(void)
             control = (u8)pSound->unk_19;
 
             if (i == 2)
-                pSound->unk_12 = sUnk_808cc3d[control];
+                pSound->unk_12 = gCgb3Vol[control];
             else
                 pSound->unk_12 |= control << 4;
 
@@ -622,7 +622,7 @@ void UpdateTrack(struct TrackData* pTrack)
 
     pTrack->occupied = TRUE;
 
-    if (!(pTrack->unk_1E & 1))
+    if (!(pTrack->unk_1E & TRUE))
     {
         if (pTrack->flags & 0xF8)
         {
@@ -711,7 +711,7 @@ void UpdateTrack(struct TrackData* pTrack)
                         if (var_0 > 0xCE)
                         {
                             pVariables->unk_0 |= 0x2;
-                            pVariables->unk_E = sDelayNoteLengthTable[var_0 - 0xCF];
+                            pVariables->unk_E = gClockTable[var_0 - 0xCF];
 
                             var_0 = *pVariables->pRawData;
 
@@ -787,7 +787,7 @@ void UpdateTrack(struct TrackData* pTrack)
                         }
                         else
                         {
-                            pVariables->delay = sDelayNoteLengthTable[var_0 - 0x80];
+                            pVariables->delay = gClockTable[var_0 - 0x80];
                             pVariables->pRawData++;
                             break;
                         }
@@ -933,7 +933,7 @@ void unk_1c3c(struct TrackVariables* pVariables)
                 frequency = Midikey2Freq(pVariables->pSample1, midiKey, pVariables->unk_18);
                 pChannel->unk_1C = frequency;
 
-                if (frequency == gMusicInfo.maybe_frequency)
+                if (frequency == gMusicInfo.sampleRate)
                     frequency = 0x4000;
                 else
                     frequency = CallGetNoteFrequency(frequency, gMusicInfo.pitch);
@@ -1023,7 +1023,7 @@ void unk_1d78(struct TrackVariables* pVariables)
         frequency = Midikey2Freq(pChannel->pSample, midiKey, pVariables->unk_18);
         pChannel->unk_1C = frequency;
 
-        if (frequency == gMusicInfo.maybe_frequency)
+        if (frequency == gMusicInfo.sampleRate)
             frequency = 0x4000;
         else
             frequency = CallGetNoteFrequency(frequency, gMusicInfo.pitch);
@@ -1309,13 +1309,13 @@ u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3)
             if (param_2 + 1 > 0x7F)
                 param_2 = 0x7F;
 
-            temp = (sUnk_808cad0[param_2 + 1] - delay) * (param_3 + 1) >>8;
+            temp = (sUnk_808cad0[param_2 + 1] - delay) * (param_3 + 1) >> 8;
             delay += temp;
         }
     }
     else
     {
-        delay = sUnk_808cc01[param_2 - 0x15] | (u8)(u32)pVariables->pSample1;
+        delay = gNoiseTable[param_2 - 0x15] | (u8)(u32)pVariables->pSample1;
     }
     
     return delay;
@@ -1744,12 +1744,12 @@ void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel)
     {
         case 0:
             write8(REG_SOUND1CNT_H + 1, 8);
-            write16(REG_SOUND1CNT_X, 0x8000);
+            write16(REG_SOUND1CNT_X, SOUNDCNT_RESTART_SOUND);
             break;
 
         case 1:
             write8(REG_SOUND2CNT_L + 1, 8);
-            write16(REG_SOUND2CNT_H, 0x8000);
+            write16(REG_SOUND2CNT_H, SOUNDCNT_RESTART_SOUND);
             break;
 
         case 2:
@@ -1758,7 +1758,7 @@ void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel)
 
         case 3:
             write8(REG_SOUND4CNT_L + 1, 8);
-            write16(REG_SOUND4CNT_H, 0x8000);
+            write16(REG_SOUND4CNT_H, SOUNDCNT_RESTART_SOUND);
             break;
     }
 }

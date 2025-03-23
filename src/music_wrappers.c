@@ -15,8 +15,8 @@
  */
 void DMA2IntrCode(void)
 {
-    gMusicInfo.sampleRate++;
-    if (gMusicInfo.sampleRate == gMusicInfo.unk_E)
+    gMusicInfo.unk_10++;
+    if (gMusicInfo.unk_10 == gMusicInfo.unk_E)
     {
         // Flush DMA 1 and 2
         write32(REG_DMA1_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
@@ -27,7 +27,7 @@ void DMA2IntrCode(void)
         write16(REG_DMA1_CNT + 2, DMA_REPEAT | DMA_32BIT | DMA_START_VBLANK | DMA_START_HBLANK | DMA_ENABLE);
         write16(REG_DMA2_CNT + 2, DMA_REPEAT | DMA_32BIT | DMA_START_VBLANK | DMA_START_HBLANK | DMA_INTR_ENABLE | DMA_ENABLE);
 
-        gMusicInfo.sampleRate = 0;
+        gMusicInfo.unk_10 = 0;
     }
 }
 
@@ -970,9 +970,9 @@ void BackupTrackData2SoundChannels(void)
     if (!pTrack->occupied)
     {
         pTrack->occupied = TRUE;
-        if (!(pTrack->unk_1E & 1) && pTrack->flags & 2)
+        if (!(pTrack->unk_1E & TRUE) && pTrack->flags & 2)
         {
-            pTrack->unk_1E = 1;
+            pTrack->unk_1E = TRUE;
 
             trackID = 0;
             pVariables  = pTrack->pVariables;
@@ -1032,9 +1032,9 @@ void RetrieveTrackData2SoundChannels(void)
     {
         pTrack->occupied = TRUE;
 
-        if (pTrack->unk_1E & 1)
+        if (pTrack->unk_1E & TRUE)
         {
-            pTrack->unk_1E &= ~1;
+            pTrack->unk_1E &= ~TRUE;
             trackID = 0;
             pVariables = pTrack->pVariables;
 
