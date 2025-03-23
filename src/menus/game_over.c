@@ -41,7 +41,7 @@ u32 GameOverSubroutine(void)
                 gCurrentDemo.number++;
                 gCurrentDemo.active = FALSE;
 
-                DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_INDEX(4) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | 0x80);
+                DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_FREQ_INDEX(SOUND_MODE_FREQ_13379) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | SOUND_ACTION_ENABLE_REVERB);
                 FadeAllSounds(CONVERT_SECONDS(1.f / 6));
                 FadeMusic(CONVERT_SECONDS(1.f / 6));
                 gDemoState = DEMO_STATE_NONE;
@@ -249,7 +249,7 @@ void GameOverInit(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    DoSoundAction(0x80);
+    DoSoundAction(SOUND_ACTION_ENABLE_REVERB);
     StopAllMusicsAndSounds();
 
     DmaTransfer(3, sGameOverMenuPal, PALRAM_BASE, sizeof(sGameOverMenuPal), 16);
@@ -315,7 +315,7 @@ void GameOverInit_Unused(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(8 | 1) | SOUND_ACTION_INDEX(4) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | 0x80);
+    DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_FREQ_INDEX(SOUND_MODE_FREQ_13379) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | SOUND_ACTION_ENABLE_REVERB);
     StopAllMusicsAndSounds();
 
     SET_BACKDROP_COLOR(COLOR_WHITE);
