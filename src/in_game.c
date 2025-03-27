@@ -380,10 +380,10 @@ void InitAndLoadGenerics(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gCurrentCutscene != 0)
-        DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_OBJ, 0x4000, 0x10);
+        DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_OBJ, 0x4000, 16);
 
     gDebugFlag = FALSE;
-    DMA_SET(3, sCommonSpritesPal, PALRAM_BASE + 0x240, DMA_ENABLE << 16 | sizeof(sCommonSpritesPal) / 2);
+    DMA_SET(3, sCommonSpritesPal, PALRAM_BASE + 0x240, C_32_2_16(DMA_ENABLE, sizeof(sCommonSpritesPal) / 2));
     SamusInit();
 
     do {
@@ -414,9 +414,9 @@ void InitAndLoadGenerics(void)
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
     {
-        DmaTransfer(3, EWRAM_BASE + 0x22000, VRAM_BASE + 0x14000, 0x4000, 0x10);
-        DmaTransfer(3, EWRAM_BASE + 0x35700, PALRAM_BASE + 0x300, 0x100, 0x10);
-        DmaTransfer(3, EWRAM_BASE + 0x35460, PALRAM_BASE + 0x60, 0x1A0, 0x10);
+        DmaTransfer(3, EWRAM_BASE + 0x22000, VRAM_BASE + 0x14000, 0x4000, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35700, PALRAM_BASE + 0x300, 0x100, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35460, PALRAM_BASE + 0x60, 0x1A0, 16);
     }
 
     unk_55f68();

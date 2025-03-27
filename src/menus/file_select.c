@@ -3590,7 +3590,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
     if (gIoTransferInfo.active == 1)
         CableLinkProcess();
     else if (gIoTransferInfo.active == 2)
-        unk_89e30();
+        FusionGalleryLinkProcess();
     else
         gIoTransferInfo.result = 0;
 
@@ -3832,7 +3832,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
 
             if (gChangedInput & (KEY_A | KEY_START))
             {
-                gIoTransferInfo.unk_4 = 0;
+                gIoTransferInfo.linkInProgress = 0;
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -4327,8 +4327,8 @@ void FileSelectInit(void)
  */
 void FileSelectVBlank(void)
 {
-    if (gIoTransferInfo.unk_4)
-        unk_8a730();
+    if (gIoTransferInfo.linkInProgress)
+        LinkVSync();
 
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)))
 

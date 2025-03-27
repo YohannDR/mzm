@@ -2,14 +2,14 @@
 
 const struct IoTransferInfo sIoTransferInfo_Empty = {
     .pFunction = NULL,
-    .unk_4 = 1,
+    .linkInProgress = 1,
     .timer = 0,
     .active = FALSE,
     .stage = 0,
-    .unk_A = 0,
+    .linkStage = 0,
     .result = 0,
     .errorFlag = 0,
-    .unk_E = 0,
+    .command = 0,
     .fusionGalleryImages = -1,
     .language = -1,
     .musicTrack = 0,
