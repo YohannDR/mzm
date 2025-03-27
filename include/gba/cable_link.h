@@ -36,6 +36,6 @@
 #define SIO_MP_CONNECTION_READY (1 << 3)
 
 #define TIMER_CONTROL_IRQ_ENABLE (1 << 6)
-#define TIMER_CONTROL_ACTIVE (1 << 7)
+#define TIMER_CONTROL_ACTIVE     (1 << 7)
 
 #endif /* GBA_CABLE_LINK_H */
