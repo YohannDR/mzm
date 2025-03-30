@@ -123,10 +123,10 @@ void CableLinkInitializeSerialTransfer(void)
     write16(REG_IME, TRUE);
 
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_NON_NORMAL_MODE); // Set to multiplayer mode?
+    write16(REG_SIO, SIO_MULTI_MODE);
 
     // Baud rate = 115200 bits per second, request interrupt upon completion
-    write16(REG_SIO, read16(REG_SIO) | SIO_MP_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
+    write16(REG_SIO, read16(REG_SIO) | SIO_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
 
     // Enable serial port interrupt
     write16(REG_IME, FALSE);
@@ -141,7 +141,7 @@ void CableLinkInitializeSerialTransfer(void)
 void CableLinkSetNormalSerialWait(void)
 {
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_32BIT_TRANSFER | SIO_IRQ_ENABLE); // Bit 12 is 1 and Bit 13 is 0, so SIO is normal mode? If so, then transfer mode is 32 bits. Request interrupt when done
+    write16(REG_SIO, SIO_32BIT_MODE | SIO_IRQ_ENABLE); // Bit 12 is 1 and Bit 13 is 0, so SIO is normal mode? If so, then transfer mode is 32 bits. Request interrupt when done
     write16(REG_SIO, read16(REG_SIO) | SIO_HIGH_DURING_INACTIVITY); // Output is high during inactivity
 }
 
@@ -249,7 +249,7 @@ u16 CableLinkIsGbaParent(u8 wantParent)
 {
     u16 isParent;
     // If all GBA's are ready and is currently the parent GBA
-    if ((read32(REG_SIO) & (SIO_MP_CONNECTION_READY | SIO_MP_RECEIVE_ID)) == (SIO_MP_CONNECTION_READY | SIO_MP_PARENT_RECEIVE) && wantParent)
+    if ((read32(REG_SIO) & (SIO_MULTI_CONNECTION_READY | SIO_MULTI_RECEIVE_ID)) == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && wantParent)
     {
         isParent = gCableLinkSerialTransferInfo.isParent = TRUE;
     }
@@ -268,7 +268,7 @@ u16 CableLinkIsGbaParent(u8 wantParent)
  */
 void CableLinkLoadDataAndSizeToTransfer(u32 size, const u32* pData, u32 param_3)
 {
-    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG); // shift clock is internal, indicating parent
+    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_CLOCK); // shift clock is internal, indicating parent
     
     gCableLinkSerialTransferInfo.pData = pData;
     write32(REG_SIO_MULTI, size); // transmit the size of data to transfer?
@@ -311,7 +311,7 @@ void CableLinkBeginTransferWithTimer3(void)
 void CableLinkSerialTransferExchangeData(void)
 {
     // Called when serial communication interrupt 
-    u16 buffer[4];
+    u16 recv[4];
     u32 control;
     u16 i;
     u16 numGbaDetected;
@@ -322,20 +322,20 @@ void CableLinkSerialTransferExchangeData(void)
     switch (gCableLinkSerialTransferInfo.stage)
     {
         case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION:
-            write16(REG_SIO_DATA8, 0x7C40); // Outgoing data
-            write64(buffer, *(vu64 *)REG_SIO_MULTI);
+            write16(REG_SIO_DATA8, TRANSFER_HANDSHAKE); // Outgoing data
+            write64(recv, *(vu64 *)REG_SIO_MULTI);
 
             i = 0;
             numGbaDetected = 0;
             numGbaSendingData = 0;
 
-            for (; i < ARRAY_SIZE(buffer); i++)
+            for (; i < ARRAY_SIZE(recv); i++)
             {
                 // if GBA either sent or is receiving data
-                if (buffer[i] == 0x7C40)
+                if (recv[i] == TRANSFER_HANDSHAKE)
                     numGbaDetected++;
                 // if receiving some data
-                else if (buffer[i] != USHORT_MAX)
+                else if (recv[i] != USHORT_MAX)
                     numGbaSendingData++;
             }
 
@@ -390,7 +390,7 @@ void CableLinkSerialTransferExchangeData(void)
             break;
 
         case CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA:
-            write64(buffer, *(vu64 *)REG_SIO_MULTI);
+            write64(recv, *(vu64 *)REG_SIO_MULTI);
 
             i = 1; // start from GBA receiving data?
             numGbaDetected = 1;
@@ -398,10 +398,10 @@ void CableLinkSerialTransferExchangeData(void)
             for (i; i < gSerialTransferGbaDetectedCount; i++)
             {
                 // if child GBA 1 correctly sends 1
-                if (buffer[i] == 1)
+                if (recv[i] == 1)
                     numGbaDetected++;
                 // if another child GBA sends 1 (this shouldn't happen?)
-                else if (buffer[i] == 2)
+                else if (recv[i] == 2)
                 {
                     gCableLinkSerialTransferInfo.verifyTransferResult = 2;
                     gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;

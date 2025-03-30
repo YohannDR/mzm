@@ -14,6 +14,7 @@
 #include "data/menus/internal_file_select_data.h"
 
 #include "constants/audio.h"
+#include "constants/cable_link.h"
 #include "constants/text.h"
 #include "constants/game_state.h"
 #include "constants/menus/file_select.h"
@@ -3587,12 +3588,12 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
 {
     APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
-    if (gIoTransferInfo.active == 1)
-        CableLinkProcess();
-    else if (gIoTransferInfo.active == 2)
+    if (gIoTransferInfo.active == ACTIVE_TRANSFER_CONNECT)
+        FusionGalleryConnectProcess();
+    else if (gIoTransferInfo.active == ACTIVE_TRANSFER_LINK)
         FusionGalleryLinkProcess();
     else
-        gIoTransferInfo.result = 0;
+        gIoTransferInfo.result = TRANSFER_RESULT_NONE;
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -3654,7 +3655,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
         case 2:
             if ((FILE_SELECT_DATA.dispcnt & (DCNT_BG0 | DCNT_BG1)) == (DCNT_BG0 | DCNT_BG1))
             {
-                gIoTransferInfo.active = 1;
+                gIoTransferInfo.active = ACTIVE_TRANSFER_CONNECT;
                 FILE_SELECT_DATA.subroutineStage++;
                 break;
             }
@@ -3685,27 +3686,27 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
         case 3:
             switch (gIoTransferInfo.result)
             {
-                case 1:
+                case TRANSFER_RESULT_SUCCESS:
                     SramWrite_FileScreenOptionsUnlocked();
                     FILE_SELECT_DATA.subroutineStage = 8;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 4:
+                case TRANSFER_RESULT_FAILURE:
                     FILE_SELECT_DATA.subroutineStage = 4;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 5:
+                case TRANSFER_RESULT_SUCCESS2:
                     FILE_SELECT_DATA.subroutineStage = 14;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 3:
+                case TRANSFER_RESULT_TIMED_OUT:
                     FILE_SELECT_DATA.subroutineStage = 18;
                     break;
 
-                case 2:
+                case TRANSFER_RESULT_BACKED_OUT:
                     FILE_SELECT_DATA.subroutineStage = 21;
                     break;
             }
@@ -3824,7 +3825,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 16:
-            if (gIoTransferInfo.result == 4)
+            if (gIoTransferInfo.result == TRANSFER_RESULT_FAILURE)
             {
                 FILE_SELECT_DATA.subroutineStage = 4;
                 break;
@@ -3838,7 +3839,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 17:
-            if (gIoTransferInfo.result == 4)
+            if (gIoTransferInfo.result == TRANSFER_RESULT_FAILURE)
                 FILE_SELECT_DATA.subroutineStage = 21;
             break;
 

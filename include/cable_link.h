@@ -6,7 +6,7 @@
 
 #define READ_SIO_MULTI(i) (*(((vu16*)REG_SIO_MULTI) + i))
 
-u8 CableLinkProcess(void);
+u8 FusionGalleryConnectProcess(void);
 void CableLinkDrawErrorStr(const u8* str, u16* dst, u8 palette);
 
 #endif /* CABLE_LINK_H */
