@@ -22,12 +22,12 @@ u8 FusionGalleryLinkProcess(void)
     u16 buffer;
     u16* ptr;
 
-    gIoTransferInfo.result = 0;
+    gIoTransferInfo.result = TRANSFER_RESULT_NONE;
     APPLY_DELTA_TIME_INC(gIoTransferInfo.timer);
 
     switch (gIoTransferInfo.linkStage)
     {
-        case 0:
+        case LINK_STAGE_INIT:
             ptr = &buffer;
             buffer = 0;
             DMA_SET(3, ptr, gSendCmd, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, CMD_LENGTH));
@@ -54,16 +54,16 @@ u8 FusionGalleryLinkProcess(void)
             gIoTransferInfo.linkStage++;
             break;
 
-        case 1:
+        case LINK_STAGE_PROCESS_CONNECTION:
             if (!gIoTransferInfo.linkInProgress)
             {
                 DisableSerial();
                 if (gIoTransferInfo.command == LINKCMD_3300)
-                    gIoTransferInfo.linkStage = 2;
+                    gIoTransferInfo.linkStage = LINK_STAGE_RECEIVED_GALLERY;
                 else if (gIoTransferInfo.errorFlag)
-                    gIoTransferInfo.linkStage = 3;
+                    gIoTransferInfo.linkStage = LINK_STAGE_ERROR0;
                 else
-                    gIoTransferInfo.linkStage = 4;
+                    gIoTransferInfo.linkStage = LINK_STAGE_ERROR1;
             }
             else
             {
@@ -75,17 +75,17 @@ u8 FusionGalleryLinkProcess(void)
             }
             break;
 
-        case 2:
+        case LINK_STAGE_RECEIVED_GALLERY:
             gFileScreenOptionsUnlocked.fusionGalleryImages = gIoTransferInfo.fusionGalleryImages;
-            gIoTransferInfo.result = 1;
+            gIoTransferInfo.result = TRANSFER_RESULT_SUCCESS;
             break;
 
-        case 3:
-        case 4:
-            gIoTransferInfo.result = 4;
+        case LINK_STAGE_ERROR0:
+        case LINK_STAGE_ERROR1:
+            gIoTransferInfo.result = TRANSFER_RESULT_FAILURE;
             break;
 
-        case 5:
+        case LINK_STAGE_UNK5:
             break;
     }
 
@@ -199,7 +199,6 @@ void BuildSendCmd(u16 command)
 
 /**
  * @brief 8a1d4 | 8c | Process commands from the receive queue
- * 
  */
 void ProcessRecvCmds(void)
 {
@@ -227,7 +226,7 @@ void ProcessRecvCmds(void)
         else
         {
             gIoTransferInfo.command = 0;
-            gIoTransferInfo.result = 5;
+            gIoTransferInfo.result = TRANSFER_RESULT_SUCCESS2;
         }
     }
 
@@ -248,7 +247,7 @@ void DisableSerial(void)
     write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
     write16(REG_IME, gLinkSavedIme);
 
-    write16(REG_SIO, SIO_NON_NORMAL_MODE);
+    write16(REG_SIO, SIO_MULTI_MODE);
     write16(REG_TM3CNT_H, 0);
     write16(REG_IF, IF_TIMER3 | IF_SERIAL);
 
@@ -271,8 +270,8 @@ void EnableSerial(void)
     write16(REG_IME, gLinkSavedIme);
 
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_NON_NORMAL_MODE);
-    write16(REG_SIO, read16(REG_SIO) | SIO_MP_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
+    write16(REG_SIO, SIO_MULTI_MODE);
+    write16(REG_SIO, read16(REG_SIO) | SIO_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
 
     // Enable Interrupts
     gLinkSavedIme = read16(REG_IME);
@@ -310,11 +309,11 @@ void ResetSerial(void)
  * @brief 8a3ac | 120 | Handle connection, sending data, and checking errors
  * 
  * @param shouldAdvanceLinkState To document
- * @param sendCmd To document
- * @param recvCmds To document
+ * @param sendCmd The commands to send
+ * @param recvCmds A queue of received commands
  * @return u32 The state of the connection
  */
-u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, CableLinkBuffer1_T recvCmds)
+u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
 {
     u32 retval;
     u32 receivedNothing;
@@ -329,14 +328,14 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, CableLinkBuffer1_T recvCm
     {
         case LINK_STATE_START0:
             DisableSerial();
-            gCableLinkInfo.state = 1;
+            gCableLinkInfo.state = LINK_STATE_START1;
             break;
 
         case LINK_STATE_START1:
             if (*shouldAdvanceLinkState == 1)
             {
                 EnableSerial();
-                gCableLinkInfo.state = 2;
+                gCableLinkInfo.state = LINK_STATE_HANDSHAKE;
             }
             break;
 
@@ -349,7 +348,7 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, CableLinkBuffer1_T recvCm
                     break;
 
                 case 2:
-                    gCableLinkInfo.state = 0;
+                    gCableLinkInfo.state = LINK_STATE_START0;
                     write16(REG_SIO_DATA8, 0);
                     break;
 
@@ -374,7 +373,7 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, CableLinkBuffer1_T recvCm
     retval = gCableLinkInfo.localId | (gCableLinkInfo.playerCount << CABLE_LINK_STAT_SHIFT_PLAYER_COUNT);
     if (gCableLinkInfo.isParent == LINK_PARENT)
     {
-        retval |= CABLE_LINK_STAT_MASTER;
+        retval |= CABLE_LINK_STAT_PARENT;
     }
 
     receivedNothing = gCableLinkInfo.recievedNothing << CABLE_LINK_STAT_SHIFT_RECEIVED_NOTHING;
@@ -421,8 +420,8 @@ void CheckParentOrChild(void)
 {
     u32 terminals;
 
-    terminals = read32(REG_SIO) & (SIO_MP_CONNECTION_READY | SIO_MP_RECEIVE_ID);
-    if (terminals == (SIO_MP_CONNECTION_READY | SIO_MP_PARENT_RECEIVE) && gCableLinkInfo.localId == 0)
+    terminals = read32(REG_SIO) & (SIO_MULTI_CONNECTION_READY | SIO_MULTI_RECEIVE_ID);
+    if (terminals == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && gCableLinkInfo.localId == 0)
     {
         gCableLinkInfo.isParent = LINK_PARENT;
     }
@@ -500,7 +499,7 @@ void EnqueueSendCmd(u16* sendCmd)
  * 
  * @param recvCmds A queue of received commands
  */
-void DequeueRecvCmds(CableLinkBuffer1_T recvCmds)
+void DequeueRecvCmds(RecvCmds_T recvCmds)
 {
     u8 i;
     u8 j;

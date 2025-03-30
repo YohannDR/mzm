@@ -7,6 +7,8 @@
 #define CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TIMEOUT                   (1 << 2)
 #define CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS      (1 << 3)
 
+#define TRANSFER_HANDSHAKE 0x7C40
+
 enum CableLinkSerialTransferStage {
     CABLE_LINK_SERIAL_TRANSFER_STAGE_INIT, // Clear and setup serial transfer
     CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION, // Initial link to pair the GBA, try to start serial transfer

@@ -3,14 +3,14 @@
 
 #include "types.h"
 
-typedef u16 (CableLinkBuffer1_T)[2][2];
+typedef u16 (RecvCmds_T)[2][2];
 
 struct IoTransferInfo {
     Func_T pFunction;
     u8 linkInProgress;
     u16 timer;
     u8 active;
-    u8 stage;
+    u8 connectStage;
     u8 linkStage;
     u8 result;
     u8 errorFlag;
@@ -65,7 +65,7 @@ extern struct CableLinkSerialTransferInfo gCableLinkSerialTransferInfo;
 
 extern u32 gErrorFlag;
 extern u16 gSendCmd[2];//CMD_LENGTH
-extern CableLinkBuffer1_T gRecvCmds;
+extern RecvCmds_T gRecvCmds;
 
 extern struct CableLinkInfo gCableLinkInfo;
 extern u16 gLinkSavedIme;
@@ -81,6 +81,6 @@ extern u8 gLastSendQueueCount;
 extern u8 gShouldAdvanceLinkState;
 extern u8 gLinkPlayerCount;
 extern u8 gLinkLocalId;
-extern u8 gLinkUnkFlag9;
+extern u8 gLinkUnkFlag9; // set but never read
 
 #endif /* CABLE_LINK_STRUCTS_H */

@@ -20,6 +20,15 @@
 #define LINKCMD_6600 0x6600 // receiving fusion gallery images
 #define LINKCMD_8800 0x8800 // unused?
 
+enum LinkStage {
+    LINK_STAGE_INIT,
+    LINK_STAGE_PROCESS_CONNECTION,
+    LINK_STAGE_RECEIVED_GALLERY,
+    LINK_STAGE_ERROR0,
+    LINK_STAGE_ERROR1,
+    LINK_STAGE_UNK5
+};
+
 enum LinkState {
     LINK_STATE_START0,
     LINK_STATE_START1,
@@ -41,9 +50,9 @@ enum LagStatus {
 };
 
 struct CableLinkInfo {
-    u8 isParent; // is parent and is ready?
+    u8 isParent;
     u8 state;
-    u8 localId; // multiplayer id?
+    u8 localId;
     u8 playerCount;
     u16 handshakeBuffer[4];
     u8 recievedNothing;

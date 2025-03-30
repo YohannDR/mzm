@@ -20,21 +20,21 @@
  * 
  * @return u8 Connection result
  */
-u8 CableLinkProcess(void)
+u8 FusionGalleryConnectProcess(void)
 {
     u8 probeCount;
     
-    gIoTransferInfo.result = 0;
+    gIoTransferInfo.result = TRANSFER_RESULT_NONE;
 
-    switch (gIoTransferInfo.stage)
+    switch (gIoTransferInfo.connectStage)
     {
-        case 0:
+        case CONNECT_STAGE_FADE_MUSIC:
             gIoTransferInfo.timer = 0;
             FadeMusic(ONE_THIRD_SECOND);
-            gIoTransferInfo.stage++;
+            gIoTransferInfo.connectStage++;
             break;
 
-        case 1:
+        case CONNECT_STAGE_WAIT_CLEAR_SOUND:
             gIoTransferInfo.timer++;
             if (gIoTransferInfo.timer > CONVERT_SECONDS(.5f))
             {
@@ -42,11 +42,11 @@ u8 CableLinkProcess(void)
                 gIoTransferInfo.musicTrack = gMusicInfo.musicTrack;
                 gIoTransferInfo.musicPriority = gMusicInfo.priority;
                 gIoTransferInfo.timer = 0;
-                gIoTransferInfo.stage++;
+                gIoTransferInfo.connectStage++;
             }
             break;
 
-        case 2:
+        case CONNECT_STAGE_MULTIBOOT_INIT:
             CallbackSetSerialCommunication(CableLinkSerialTransferExchangeData);
             CallbackSetTimer3(CableLinkBeginTransferWithTimer3);
 
@@ -56,10 +56,10 @@ u8 CableLinkProcess(void)
             gMultiBootParamData.serverType = 0;
             MultiBootInit(&gMultiBootParamData);
             gIoTransferInfo.timer = 0;
-            gIoTransferInfo.stage++;
+            gIoTransferInfo.connectStage++;
             break;
 
-        case 3:
+        case CONNECT_STAGE_MULTIBOOT_PROCESS:
             gIoTransferInfo.timer++;
             if (gMultiBootParamData.clientBit & (2 | 4 | 8))
             {
@@ -81,79 +81,79 @@ u8 CableLinkProcess(void)
             if (MultiBootCheckComplete(&gMultiBootParamData))
             {
                 gMultibootInProgress = 0;
-                gIoTransferInfo.stage++;
+                gIoTransferInfo.connectStage++;
                 break;
             }
 
-            if (gMultiBootParamData.probeCount != 0xD1 && gChangedInput & KEY_B && gMultiBootParamData.probeCount < 0xE0)
+            if (gMultiBootParamData.probeCount != 0xD1 && (gChangedInput & KEY_B) && gMultiBootParamData.probeCount < 0xE0)
             {
-                gIoTransferInfo.stage = 8;
+                gIoTransferInfo.connectStage = CONNECT_STAGE_BACKED_OUT;
                 break;
             }
 
             if (gIoTransferInfo.timer > CONVERT_SECONDS(3.f))
             {
-                gIoTransferInfo.stage = 7;
+                gIoTransferInfo.connectStage = CONNECT_STAGE_MULTIBOOT_TIMED_OUT;
             }
             break;
 
-        case 4:
+        case CONNECT_STAGE_SERIAL_TRANSFER_SEND_TRANSFER_ROM:
             if (CableLinkProcessSerialTransfer(sTransferRom_After - sTransferRom, (const u32*)sTransferRom) == 0)
             {
-                gIoTransferInfo.stage++;
+                gIoTransferInfo.connectStage++;
                 break;
             }
 
-            gIoTransferInfo.stage = 9;
+            gIoTransferInfo.connectStage = CONNECT_STAGE_SERIAL_TRANSFER_FAILURE;
             break;
 
-        case 5:
+        case CONNECT_STAGE_SERIAL_TRANSFER_COMPLETE:
             // Always 0?
             switch (gMultibootUnk_3005880)
             {
                 case 0:
-                    gIoTransferInfo.stage++;
+                    gIoTransferInfo.connectStage++;
                     break;
 
                 case 1:
-                    gIoTransferInfo.stage = 8;
+                    gIoTransferInfo.connectStage = CONNECT_STAGE_BACKED_OUT;
                     break;
 
                 case 2:
-                    gIoTransferInfo.stage = 9;
+                    gIoTransferInfo.connectStage = CONNECT_STAGE_SERIAL_TRANSFER_FAILURE;
                     break;
             }
 
-        case 6:
-            gIoTransferInfo.stage = 10;
+        case CONNECT_STAGE_SERIAL_TRANSFER_SUCCESS:
+            gIoTransferInfo.connectStage = CONNECT_STAGE_SET_ACTIVE_LINK;
             break;
 
-        case 8:
-            gIoTransferInfo.result = 2;
-            gIoTransferInfo.stage = 11;
+        case CONNECT_STAGE_BACKED_OUT:
+            gIoTransferInfo.result = TRANSFER_RESULT_BACKED_OUT;
+            gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;
 
-        case 7:
-            gIoTransferInfo.result = 3;
-            gIoTransferInfo.stage = 11;
+        case CONNECT_STAGE_MULTIBOOT_TIMED_OUT:
+            gIoTransferInfo.result = TRANSFER_RESULT_TIMED_OUT;
+            gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;
 
-        case 9:
-            gIoTransferInfo.result = 4;
-            gIoTransferInfo.stage = 11;
+        case CONNECT_STAGE_SERIAL_TRANSFER_FAILURE:
+            gIoTransferInfo.result = TRANSFER_RESULT_FAILURE;
+            gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;
 
-        case 10:
-            gIoTransferInfo.active = 2;
+        case CONNECT_STAGE_SET_ACTIVE_LINK:
+            gIoTransferInfo.active = ACTIVE_TRANSFER_LINK;
 
-        case 11:
+        case CONNECT_STAGE_RESTORE_AUDIO:
             InitializeAudio();
             FileSelectApplyStereo();
             PlayMusic(gIoTransferInfo.musicTrack, gIoTransferInfo.musicPriority);
-            gIoTransferInfo.stage = 12;
+            gIoTransferInfo.connectStage = CONNECT_STAGE_FINISH;
             break;
 
-        case 12:
+        case CONNECT_STAGE_FINISH:
             break;
     }
 
