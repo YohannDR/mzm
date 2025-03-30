@@ -928,7 +928,7 @@ void BlackSpacePirate(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             BlackSpacePirateInit();
             break;
 

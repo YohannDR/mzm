@@ -773,7 +773,7 @@ void SavePlatformChozodia(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformChozodiaInit();
             break;
 
@@ -849,7 +849,7 @@ void SavePlatformChozodiaPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformChozodiaPartInit();
             break;
 

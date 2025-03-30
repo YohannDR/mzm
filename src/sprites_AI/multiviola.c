@@ -28,7 +28,7 @@ void MultiviolaInit(void)
     gCurrentSprite.hitboxRight = 0x20;
 
     gCurrentSprite.pOam = sMultiviolaOAM_Moving;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRamSlot * 2;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
@@ -139,7 +139,7 @@ void Multiviola(void)
             SoundPlayNotAlreadyPlaying(SOUND_MULTIVIOLA_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
     {
         SpriteUtilUpdateFreezeTimer();
         SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_MULTIVIOLA_UNUSED, gCurrentSprite.primarySpriteRamSlot);
@@ -155,7 +155,7 @@ void Multiviola(void)
                 SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
                 break;
                 
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 MultiviolaInit();
                 break;
 

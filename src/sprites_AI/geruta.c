@@ -281,7 +281,7 @@ void Geruta(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 GerutaInit();
                 break;
 

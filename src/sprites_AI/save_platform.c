@@ -568,7 +568,7 @@ void SavePlatform(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformInit();
             break;
 
@@ -630,7 +630,7 @@ void SavePlatformPart(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformPartInit();
             break;
 

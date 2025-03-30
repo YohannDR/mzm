@@ -790,7 +790,7 @@ void Dessgeega(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 DessgeegaInit();
                 break;
 

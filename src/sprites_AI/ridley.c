@@ -2848,8 +2848,10 @@ void RidleyTail(void)
 
     if (gCurrentSprite.roomSlot != RIDLEY_TAIL_PART_TIP)
     {
-        if (gCurrentSprite.pose == 0)
+        if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
+        {
             RidleyTailInit();
+        }
         else if (gCurrentSprite.pose == RIDLEY_TAIL_POSE_DEAD)
         {
             if (gSpriteData[ramSlot].status & SPRITE_STATUS_NOT_DRAWN)
@@ -2870,7 +2872,7 @@ void RidleyTail(void)
     {
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 RidleyTailInit();
                 break;
 
@@ -2940,7 +2942,7 @@ void RidleyPart(void)
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     part = gCurrentSprite.roomSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         RidleyPartInit();
         return;
@@ -3021,7 +3023,7 @@ void RidleyFireball(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             RidleyFireballInit();
             break;
 

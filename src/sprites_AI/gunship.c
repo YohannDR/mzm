@@ -642,11 +642,11 @@ void GunshipSamusEnteringWhenEscaping(void)
  */
 void GunshipStartEscaping(void)
 {
-    if (--gCurrentSprite.work0 == 0x0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set taking off
         gCurrentSprite.pose = GUNSHIP_POSE_TAKING_OFF;
-        gCurrentSprite.work0 = 0x98;
+        gCurrentSprite.work0 = CONVERT_SECONDS(2.5f) + 2 * DELTA_TIME;
         gCurrentSprite.work3 = 0x0;
         gCurrentSprite.scaling = 0;
 
@@ -674,9 +674,11 @@ void GunshipTakingOff(void)
 
     GunshipFlickerFlames();
 
-    gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0x0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+    if (gCurrentSprite.work0 == 0)
+    {
         GUNSHIP_START_FLYING(CONVERT_SECONDS(2) + TWO_THIRD_SECOND);
+    }
     else
     {
         offset = gCurrentSprite.work3;
@@ -706,11 +708,13 @@ void GunshipFlying(void)
     u8 offset;
     s32 movement;
 
-    if (--gCurrentSprite.work0 == 0x0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
+    {
         gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING_ESCAPE;
+    }
     else
     {
-        if (gCurrentSprite.work0 == 0x32)
+        if (gCurrentSprite.work0 == CONVERT_SECONDS(5.f / 6))
         {
             StartEffectForCutscene(EFFECT_CUTSCENE_EXITING_ZEBES);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
@@ -1202,7 +1206,7 @@ void Gunship(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GunshipInit();
             break;
 
@@ -1324,7 +1328,7 @@ void GunshipPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GunshipPartInit();
             break;
 

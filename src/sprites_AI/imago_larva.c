@@ -894,7 +894,7 @@ void ImagoLarva(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoLarvaInit(pSub);
             break;
 
@@ -990,7 +990,7 @@ void ImagoLarvaPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoLarvaPartInit(pSub);
             break;
 

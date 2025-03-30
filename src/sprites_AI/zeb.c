@@ -27,7 +27,7 @@ void ZebInit(void)
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.work1 = DELTA_TIME;
+    gCurrentSprite.work1 = 1 * DELTA_TIME;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
@@ -69,7 +69,9 @@ void ZebIdle(void)
     if (!SpriteUtilCheckHasDrops())
     {
         if (gCurrentSprite.work1 != 0)
-            gCurrentSprite.work1--;
+        {
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work1);
+        }
         else
         {
             samusY = gSamusData.yPosition;
@@ -111,7 +113,8 @@ void ZebGoingUp(void)
     gCurrentSprite.yPosition -= EIGHTH_BLOCK_SIZE;
     if (gCurrentSprite.work0 != 0)
     {
-        if (--gCurrentSprite.work0 == 0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
@@ -166,7 +169,8 @@ void ZebMove(void)
 {
     if (gCurrentSprite.work0 != 0)
     {
-        if (--gCurrentSprite.work0 == 0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(SOUND_ZEB_MOVING);
@@ -175,7 +179,7 @@ void ZebMove(void)
     }
     else
     {
-        gCurrentSprite.work1++;
+        APPLY_DELTA_TIME_INC(gCurrentSprite.work1);
         if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should respawn
@@ -218,7 +222,9 @@ void Zeb(void)
     }
 
     if (gCurrentSprite.freezeTimer != 0)
+    {
         SpriteUtilUpdateFreezeTimer();
+    }
     else
     {
         if (SpriteUtilIsSpriteStunned())
@@ -226,7 +232,7 @@ void Zeb(void)
         
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 ZebInit();
 
             case ZEB_POSE_IDLE_INIT:

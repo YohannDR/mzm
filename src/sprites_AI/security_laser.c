@@ -212,8 +212,8 @@ void SecurityLaserCheckDespawnAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = SECURITY_LASER_POSE_SET_ALARM;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
 
         switch (gCurrentSprite.work1)
@@ -328,7 +328,7 @@ void SecurityLaser(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SecurityLaserInit();
             break;
 

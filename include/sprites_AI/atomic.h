@@ -30,7 +30,7 @@ void AtomicMaybeMoveBackToIdle(void);
 void AtomicChasingSamusInit(void);
 void AtomicChaseSamus(void);
 u8 AtomicElectricityCheckAtomicDead(u8 ramSlot);
-void AtomicElectriciytInit(void);
+void AtomicElectricityInit(void);
 void AtomicElectricitySpawn(void);
 void AtomicElectricityMove(void);
 void AtomicElectricityExploding(void);

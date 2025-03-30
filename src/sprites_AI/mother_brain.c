@@ -223,7 +223,7 @@ void MotherBrainMainLoop(void)
     if (gCurrentSprite.pOam == sMotherBrainOam_ChargingBeam)
     {
         // delay before charging
-        gCurrentSprite.work0--;
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         if (gCurrentSprite.work0 == 0)
         {
             gCurrentSprite.pOam = sMotherBrainOam_Idle;
@@ -293,7 +293,7 @@ void MotherBrainMainLoop(void)
                 gCurrentSprite.currentAnimationFrame = 0;
 
                 gCurrentSprite.work1 = 0x48;
-                gCurrentSprite.work0 = 0x48;
+                gCurrentSprite.work0 = CONVERT_SECONDS(1.2f);
                 gCurrentSprite.scaling = 0;
                 gCurrentSprite.rotation = 0;
             }
@@ -398,7 +398,7 @@ void MotherBrainDeath(void)
         gSpriteData[eyeRamSlot].status = 0;
         gSpriteData[bottomRamSlot].status = 0;
         gCurrentSprite.pose = MOTHER_BRAIN_POSE_START_ESCAPE;
-        gCurrentSprite.work0 = 0x3C;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f);
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         ParticleSet(gSubSpriteData1.yPosition + 0x46, gSubSpriteData1.xPosition - 0x3C, PE_MAIN_BOSS_DEATH);
         ParticleSet(gSubSpriteData1.yPosition + 0x3C, gSubSpriteData1.xPosition + 0x50, PE_MAIN_BOSS_DEATH);
@@ -414,7 +414,7 @@ void MotherBrainDeath(void)
  */
 void MotherBrainStartEscape(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Kill sprite
@@ -661,7 +661,7 @@ void MotherBrain(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             MotherBrainInit();
             break;
 
@@ -720,7 +720,7 @@ void MotherBrainPart(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             MotherBrainPartInit();
             MotherBrainSyncSubSpritesPosition();
             return;
@@ -779,7 +779,7 @@ void MotherBrainBeam(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= (SP_KILL_OFF_SCREEN | SP_IMMUNE_TO_PROJECTILES);
 
@@ -821,7 +821,7 @@ void MotherBrainBeam(void)
  */
 void MotherBrainBlock(void)
 {
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.drawDistanceTop = 0x10;
         gCurrentSprite.drawDistanceBottom = 0x10;
@@ -864,7 +864,7 @@ void MotherBrainGlassBreaking(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 

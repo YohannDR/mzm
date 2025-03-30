@@ -1281,7 +1281,7 @@ void Hive(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 HiveInit();
                 break;
             case 0x9:
@@ -1369,7 +1369,7 @@ void Mellow(void)
         {
             switch (pSprite->pose)
             {
-                case 0x0:
+                case SPRITE_POSE_UNINITIALIZED:
                     MellowInit(pSprite);
                     break;
                 case 0x9:
@@ -1400,10 +1400,12 @@ void MellowSwarm(void)
 
     count = 0x0;
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
+        {
             gCurrentSprite.status = 0x0;
+        }
         else
         {
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
@@ -1452,7 +1454,9 @@ void MellowSwarm(void)
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN && gCurrentSprite.yPositionSpawn != 0x0)
+        {
             gCurrentSprite.yPositionSpawn--;
+        }
         else
         {
             collision = SSC_MELLOW;
@@ -1460,11 +1464,13 @@ void MellowSwarm(void)
             while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == collision)
+                {
                     count++;
+                }
                 pSprite++;
             }
 
-            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN) == 0x0)
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN))
             {
                 if (count >= gCurrentSprite.work2)
                 {

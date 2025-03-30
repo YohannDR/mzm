@@ -53,7 +53,7 @@ void PolypIdleInit(void)
  */
 void PolypCheckSpawnProjectile(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 != 0)
         return;
 
@@ -104,7 +104,7 @@ void PolypCheckWarningEnded(void)
  */
 void PolypSpawnProjectile(void)
 {
-    if (--gCurrentSprite.work0 == 0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set after spitting behavior
         gCurrentSprite.pose = POLYP_POSE_AFTER_SPITTING;
@@ -200,7 +200,7 @@ void PolypProjectileInit(void)
  */
 void PolypProjectileSpawn(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pose = POLYP_PROJECTILE_POSE_MOVING;

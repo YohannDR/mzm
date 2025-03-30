@@ -1282,7 +1282,7 @@ void Imago(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoInit();
             break;
 
@@ -1460,7 +1460,7 @@ void ImagoPart(void)
     {
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 ImagoPartInit();
                 break;
 
@@ -1488,7 +1488,7 @@ void ImagoNeedle(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.drawDistanceTop = 0x8;
             gCurrentSprite.drawDistanceBottom = 0x8;
@@ -1545,7 +1545,7 @@ void ImagoDamagedStinger(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             gCurrentSprite.drawDistanceTop = 0x20;
@@ -1627,7 +1627,7 @@ void ImagoEgg(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             
             gCurrentSprite.drawDistanceTop = 0x18;

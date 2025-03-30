@@ -199,7 +199,7 @@ void EscapeShip(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(5 * BLOCK_SIZE + HALF_BLOCK_SIZE);

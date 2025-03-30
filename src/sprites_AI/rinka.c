@@ -55,8 +55,8 @@ void RinkaInit(void)
 void RinkaSpawningInit(void)
 {
     gCurrentSprite.pose = RINKA_POSE_SPAWNING;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     if (gCurrentSprite.spriteId == PSPRITE_RINKA_GREEN)
     {
@@ -646,7 +646,7 @@ void Rinka(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 RinkaInit();
                 
             case RINKA_POSE_SPAWNING_INIT:
@@ -701,7 +701,7 @@ void RinkaMotherBrain(void)
     }
     else
     {
-        if (gCurrentSprite.freezeTimer != 0x0)
+        if (gCurrentSprite.freezeTimer != 0)
             SpriteUtilUpdateFreezeTimer();
         else
         {
@@ -710,7 +710,7 @@ void RinkaMotherBrain(void)
 
             switch (gCurrentSprite.pose)
             {
-                case 0x0:
+                case SPRITE_POSE_UNINITIALIZED:
                     RinkaInit();
                     
                 case RINKA_POSE_SPAWNING_INIT:

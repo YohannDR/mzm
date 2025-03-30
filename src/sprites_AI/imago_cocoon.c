@@ -1344,7 +1344,7 @@ void ImagoCocoon(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoCocoonInit();
             break;
 
@@ -1383,7 +1383,7 @@ void ImagoCocoonVine(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoCocoonVineInit();
             break;
 
@@ -1420,7 +1420,7 @@ void ImagoCocoonSpore(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoCocoonSporeInit();
             break;
 
@@ -1470,7 +1470,7 @@ void WingedRipper(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             WingedRipperInit();
             break;
 
@@ -1496,7 +1496,7 @@ void WingedRipper(void)
 void DefeatedImagoCocoon(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1527,7 +1527,7 @@ void DefeatedImagoCocoon(void)
 void ImagoCocoonCeilingVine(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1558,7 +1558,7 @@ void ImagoCocoonCeilingVine(void)
  */
 void EventTriggerDiscoveredImagoPassage(void)
 {
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_TUNNEL_DISCOVERED))
         {

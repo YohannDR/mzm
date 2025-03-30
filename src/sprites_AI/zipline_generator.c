@@ -159,7 +159,7 @@ void ZiplineGeneratorActivating(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.work0 == 0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set activated
         gCurrentSprite.pOam = sZiplineGeneratorOam_Activated;
@@ -195,7 +195,7 @@ void ZiplineGeneratorActivating(void)
         else
             gCurrentSprite.status = 0;
     }
-    else if (gCurrentSprite.work0 == (CONVERT_SECONDS(.25f) + DELTA_TIME))
+    else if (gCurrentSprite.work0 == (CONVERT_SECONDS(.25f) + 1 * DELTA_TIME))
     {
         // Set morph symbol activated
         ramSlot = gCurrentSprite.work2;

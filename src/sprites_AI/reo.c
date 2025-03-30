@@ -357,8 +357,10 @@ void Reo(void)
             SoundPlayNotAlreadyPlaying(SOUND_REO_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
+    {
         SpriteUtilUpdateFreezeTimer();
+    }
     else
     {
         if (SpriteUtilIsSpriteStunned())
@@ -366,7 +368,7 @@ void Reo(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 ReoInit();
                 break;
 
