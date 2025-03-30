@@ -1349,7 +1349,7 @@ void ParasiteMultiple(void)
 
     switch (pSprite->pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ParasiteInit(pSprite);
             break;
 
@@ -1437,7 +1437,7 @@ void Parasite(void)
 
     switch (pSprite->pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ParasiteInit(pSprite);
             break;
 

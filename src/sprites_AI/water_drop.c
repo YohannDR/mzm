@@ -138,7 +138,7 @@ void WaterDrop(void)
             break;
 
         case WATER_DROP_POSE_SPAWNING:
-            gCurrentSprite.work0--;
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pOam = sWaterDropOam_Spawning;

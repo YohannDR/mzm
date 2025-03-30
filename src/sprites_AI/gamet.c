@@ -275,7 +275,7 @@ void Gamet(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 GametInit();
 
             case GAMET_POSE_IDLE_INIT:

@@ -130,7 +130,7 @@ void UnknownItemBlock(void)
                 gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
                 gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
             }
-            else if (gCurrentSprite.currentAnimationFrame == 7 && gCurrentSprite.animationDurationCounter == 2)
+            else if (gCurrentSprite.currentAnimationFrame == 7 && gCurrentSprite.animationDurationCounter == 2 * DELTA_TIME)
             {
                 // Spawn light
                 activated = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_BLOCK_LIGHT, 0, gCurrentSprite.spritesetGfxSlot,

@@ -925,8 +925,10 @@ void Sova(void)
             SoundPlayNotAlreadyPlaying(SOUND_SOVA_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
+    {
         SpriteUtilUpdateFreezeTimer();
+    }
     else
     {
         if (SpriteUtilIsSpriteStunned())
@@ -934,7 +936,7 @@ void Sova(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 SovaInit();
                 break;
 

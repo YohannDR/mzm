@@ -2589,7 +2589,7 @@ void DeoremSegment(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremSegmentInit();
             break;
 
@@ -2695,7 +2695,7 @@ void DeoremEye(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremEyeInit();
             break;
 
@@ -2727,7 +2727,7 @@ void DeoremThorn(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremThornInit();
             
         case 0x9:

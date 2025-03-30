@@ -13,6 +13,8 @@
 #include "structs/samus.h"
 #include "structs/sprite.h"
 
+#define ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY work0
+
 /**
  * @brief 2dc78 | 60 | Initializes an escape ship space pirate sprite
  * 
@@ -47,7 +49,7 @@ void EscapeShipSpacePirateInit(void)
 void EscapeShipSpacePirateSpawn(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.work0 = CONVERT_SECONDS(.1f);
+    gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY = CONVERT_SECONDS(.1f);
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING;
 
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
@@ -57,13 +59,13 @@ void EscapeShipSpacePirateSpawn(void)
 }
 
 /**
- * @brief 2dd1c | 7c | 
+ * @brief 2dd1c | 7c | Handle delay and set an escape ship space pirate to jump
  * 
  */
 void EscapeShipSpacePirateDelayBeforeJumping(void)
 {
-    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
-    if (gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY);
+    if (gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY == 0)
     {
         gCurrentSprite.drawOrder = 4;
         gCurrentSprite.pose = SPACE_PIRATE_POSE_JUMPING;
@@ -71,7 +73,7 @@ void EscapeShipSpacePirateDelayBeforeJumping(void)
         gCurrentSprite.work1 = 3;
 
         gCurrentSprite.work3 = 0;
-        gCurrentSprite.work0 = 0;
+        gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY = 0;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_DOUBLE_SIZE;
 
@@ -161,7 +163,7 @@ void EscapeShipSpacePirate(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             EscapeShipSpacePirateInit();
             break;
 

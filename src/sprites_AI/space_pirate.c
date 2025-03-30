@@ -4394,7 +4394,7 @@ void SpacePirate(void)
         }
         else
         {
-            if (gAlarmTimer != 0 && gCurrentSprite.pose != 0)
+            if (gAlarmTimer != 0 && gCurrentSprite.pose != SPRITE_POSE_UNINITIALIZED)
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
         }
 
@@ -4403,7 +4403,7 @@ void SpacePirate(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SpacePirateInit();
             break;
 
@@ -4650,7 +4650,7 @@ void SpacePirateLaser(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SpacePirateLaserInit();
             break;
 

@@ -299,7 +299,7 @@ void HoltzGoingUpMove(void)
     if (HoltzYMovement(3 * PIXEL_SIZE)) // Y movement
     {
         // Touching ceiling, set bonking behavior
-        gCurrentSprite.yPosition &= 0xFFC0; // Clear subpixel
+        gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG; // Clear subpixel
         gCurrentSprite.yPosition += HOLTZ_SIZE; // Offset with size of holtz
         gCurrentSprite.pose = HOLTZ_POSE_BACK_TO_CEILING;
         gCurrentSprite.animationDurationCounter = 0;
@@ -355,7 +355,7 @@ void Holtz(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 HoltzInit();
                 break;
 

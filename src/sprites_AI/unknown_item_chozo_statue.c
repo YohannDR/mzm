@@ -876,7 +876,7 @@ void UnknownItemChozoStatue(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             UnknownItemChozoStatueInit();
             break;
 
@@ -945,7 +945,7 @@ void UnknownItemChozoStatuePart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             UnknownItemChozoStatuePartInit();
             break;
 
@@ -1024,7 +1024,7 @@ void UnknownItemChozoStatueRefill(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -1032,14 +1032,14 @@ void UnknownItemChozoStatueRefill(void)
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawOrder = 0x1;
 
-        gCurrentSprite.drawDistanceTop = 0x10;
-        gCurrentSprite.drawDistanceBottom = 0x10;
-        gCurrentSprite.drawDistanceHorizontal = 0x10;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         
-        gCurrentSprite.hitboxTop = 0x4;
-        gCurrentSprite.hitboxBottom = 0x4;
-        gCurrentSprite.hitboxLeft = 0x4;
-        gCurrentSprite.hitboxRight = 0x4;
+        gCurrentSprite.hitboxTop = PIXEL_SIZE;
+        gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeft = PIXEL_SIZE;
+        gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
         gCurrentSprite.pose = 0x9;
 

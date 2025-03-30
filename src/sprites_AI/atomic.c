@@ -487,7 +487,7 @@ void AtomicMaybeMoveBackToIdle(void)
     }
     else
     {
-        mask = 0xFFFC; // Remove a bit of precision
+        mask = PIXEL_POSITION_FLAG; // Remove a bit of precision
         ySpawn = gCurrentSprite.yPositionSpawn;
         xSpawn = gCurrentSprite.xPositionSpawn;
         yPosition = gCurrentSprite.yPosition;
@@ -593,7 +593,7 @@ u8 AtomicElectricityCheckAtomicDead(u8 ramSlot)
  * @brief 3c180 | 7c | Initializes an atomic electricity sprite
  * 
  */
-void AtomicElectriciytInit(void)
+void AtomicElectricityInit(void)
 {
     u8 dead;
 
@@ -888,8 +888,8 @@ void AtomicElectricity(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
-            AtomicElectriciytInit();
+        case SPRITE_POSE_UNINITIALIZED:
+            AtomicElectricityInit();
             break;
 
         case ATOMIC_ELECTRICITY_POSE_SPAWN:

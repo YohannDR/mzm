@@ -357,7 +357,7 @@ void ZiplineUpdate(void)
         if (MOD_AND(gCurrentSprite.work0, 16) == 0)
             SoundPlay(SOUND_ZIPLING_MOVING);
 
-        gCurrentSprite.work0++;
+        APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
 
         if (ZiplineMoving())
         {

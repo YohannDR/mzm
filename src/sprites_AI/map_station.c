@@ -107,7 +107,7 @@ void MapStationIdle(void)
 }
 
 /**
- * @brief 1f5a4 | 3c | Check sif the grabbing animation ended
+ * @brief 1f5a4 | 3c | Checks if the grabbing animation ended
  * 
  */
 void MapStationCheckSamusGrabbedAnimEnded(void)
@@ -120,7 +120,7 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = MAP_STATION_POSE_DOWNLOADING;
-        gCurrentSprite.work0 = 60 + 60 / 6;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f) + CONVERT_SECONDS(1.f / 6);
         gSamusData.timer = 0;
     }
 }
@@ -131,7 +131,7 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
  */
 void MapStationDownloading(void)
 {
-    if (--gCurrentSprite.work0 == 0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set retracting
         gCurrentSprite.pOam = sMapStationOAM_Retracting;
@@ -139,9 +139,9 @@ void MapStationDownloading(void)
         gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = MAP_STATION_POSE_DOWNLOADED;
-        gCurrentSprite.work0 = 10;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f / 6);
     }
-    else if (gCurrentSprite.work0 == 10)
+    else if (gCurrentSprite.work0 == CONVERT_SECONDS(1.f / 6))
     {
         // Start pause screen download sequence
         gPauseScreenFlag = PAUSE_SCREEN_MAP_DOWNLOAD;
@@ -156,7 +156,7 @@ void MapStationSpawnMessage(void)
 {
     u8 text;
 
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 != 0)
         return;
 
@@ -212,7 +212,7 @@ void MapStationWaitForMessage(void)
     {
         // Message was removed, continue animation
         gCurrentSprite.pose = MAP_STATION_POSE_DELAY_BEFORE_RETRACTING;
-        gCurrentSprite.work0 = 10;
+        gCurrentSprite.work0 = CONVERT_SECONDS(1.f / 6);
     }
 }
 
@@ -222,7 +222,7 @@ void MapStationWaitForMessage(void)
  */
 void MapStationDelayBeforeRetracting(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.pose = MAP_STATION_POSE_RETRACTING;
 }

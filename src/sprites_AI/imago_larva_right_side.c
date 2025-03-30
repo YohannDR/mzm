@@ -16,7 +16,7 @@ void ImagoLarvaRightSide(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 

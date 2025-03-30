@@ -72,7 +72,7 @@ void EscapeGate(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 

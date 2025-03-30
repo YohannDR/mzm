@@ -12,6 +12,9 @@
 #define AREA_BANNER_POSE_STATIC 0x23
 #define AREA_BANNER_POSE_LEAVING 0x25
 
+#define AREA_BANNER_TIMER work0
+#define AREA_BANNER_SPAWN_AT_BOTTOM work1
+
 /**
  * @brief 3c704 | a4 | Initializes an area banner sprite
  * 
@@ -24,6 +27,7 @@ void AreaBannerInit(void)
     gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    //gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2 + HALF_BLOCK_SIZE);
 
     gCurrentSprite.hitboxTop = -PIXEL_SIZE;
     gCurrentSprite.hitboxBottom = PIXEL_SIZE;
@@ -39,7 +43,7 @@ void AreaBannerInit(void)
     {
         // Area name, spawn at bottom
         gCurrentSprite.pOam = sAreaBannerOam_SpawnBottom;
-        gCurrentSprite.work1 = TRUE;
+        gCurrentSprite.AREA_BANNER_SPAWN_AT_BOTTOM = TRUE;
         gCurrentSprite.yPosition = SCREEN_SIZE_Y - SUB_PIXEL_TO_PIXEL(PIXEL_SIZE * 8);
         gCurrentSprite.xPosition = SCREEN_X_MIDDLE;
     }
@@ -52,7 +56,7 @@ void AreaBannerInit(void)
     {
         // Spawn in middle
         gCurrentSprite.pOam = sAreaBannerOam_SpawnMiddle;
-        gCurrentSprite.work1 = FALSE;
+        gCurrentSprite.AREA_BANNER_SPAWN_AT_BOTTOM = FALSE;
         gCurrentSprite.yPosition = SCREEN_SIZE_Y / 3 + SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
         gCurrentSprite.xPosition = SCREEN_X_MIDDLE;
     }
@@ -82,10 +86,10 @@ void AreaBannerSpawning(void)
         gCurrentSprite.pose = AREA_BANNER_POSE_STATIC;
 
         // Set oam and timer for how long the message stays
-        if (gCurrentSprite.work1) // Position flag, 1 = on bottom, 0 = in middle
+        if (gCurrentSprite.AREA_BANNER_SPAWN_AT_BOTTOM) // Position flag, 1 = on bottom, 0 = in middle
         {
             gCurrentSprite.pOam = sAreaBannerOam_StaticBottom;
-            gCurrentSprite.work0 = CONVERT_SECONDS(2.f);
+            gCurrentSprite.AREA_BANNER_TIMER = CONVERT_SECONDS(2.f);
         }
         else
         {
@@ -94,11 +98,11 @@ void AreaBannerSpawning(void)
             if (gCurrentSprite.roomSlot == LT_SAVE_ROOM || gCurrentSprite.roomSlot == LT_MAP_ROOM)
             {
                 // Save and map room banners stay less time
-                gCurrentSprite.work0 = CONVERT_SECONDS(5.f / 6);
+                gCurrentSprite.AREA_BANNER_TIMER = CONVERT_SECONDS(5.f / 6);
             }
             else
             {
-                gCurrentSprite.work0 = CONVERT_SECONDS(1.5f);
+                gCurrentSprite.AREA_BANNER_TIMER = CONVERT_SECONDS(1.5f);
             }
         }
     }
@@ -110,16 +114,15 @@ void AreaBannerSpawning(void)
  */
 void AreaBannerStatic(void)
 {
-    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
-
-    if (gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.AREA_BANNER_TIMER);
+    if (gCurrentSprite.AREA_BANNER_TIMER == 0)
     {
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = AREA_BANNER_POSE_LEAVING;
 
         // Set OAM
-        if (gCurrentSprite.work1)
+        if (gCurrentSprite.AREA_BANNER_SPAWN_AT_BOTTOM)
             gCurrentSprite.pOam = sAreaBannerOam_RemovingBottom;
         else
             gCurrentSprite.pOam = sAreaBannerOam_RemovingMiddle;

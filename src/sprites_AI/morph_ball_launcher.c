@@ -132,7 +132,7 @@ void MorphBallLauncherDetectBomb(void)
  */
 void MorphBallLauncherDelayBeforeLaunching(void)
 {
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pOam = sMorphBallLauncherOam_Launching;
@@ -163,7 +163,7 @@ void MorphBallLauncherLaunchSamus(void)
         gCurrentSprite.work1 = TRUE;
     }
 
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         gCurrentSprite.pOam = sMorphBallLauncherOam_Idle;
@@ -252,7 +252,7 @@ void MorphBallLauncherPart(void)
             break;
 
         case MORPH_BALL_LAUNCHER_PART_POSE_ENERGY:
-            gCurrentSprite.work0--;
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             if (gCurrentSprite.work0 == 0)
                 gCurrentSprite.status = 0;
     }

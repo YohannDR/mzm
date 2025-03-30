@@ -26,7 +26,7 @@ void ExplosionZebesEscape(void)
 
     // Weird unused local variable, probably optimized out or its use was commented out?
     tmp = 0;
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         

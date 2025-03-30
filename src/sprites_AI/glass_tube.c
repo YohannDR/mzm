@@ -14,6 +14,8 @@
 #include "structs/clipdata.h"
 #include "structs/power_bomb_explosion.h"
 
+#define GLASS_TUBE_CRACKING_DELAY_TIMER work0
+
 /**
  * @brief 4627c | 160 | Removes the clipdata for the glass tube
  * 
@@ -160,7 +162,7 @@ void GlassTubeCheckPowerBombCollision(void)
         {
             // Set cracking behavior
             gCurrentSprite.pose = GLASS_TUBE_POSE_DELAY_BEFORE_CRACKING;
-            gCurrentSprite.work0 = CONVERT_SECONDS(2.f);
+            gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER = CONVERT_SECONDS(2.f);
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_GLASS_TUBE_BROKEN);
         }
@@ -172,7 +174,8 @@ void GlassTubeCheckPowerBombCollision(void)
 */
 void GlassTubeDelayBeforeBreaking(void)
 {
-    if (--gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER);
+    if (gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER == 0)
     {
         // Set cracking behavior
         gCurrentSprite.pose = GLASS_TUBE_POSE_CRACKING;
@@ -237,7 +240,7 @@ void GlassTube(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             GlassTubeInit();
             break;
         case GLASS_TUBE_POSE_POWER_BOMB_COLLISION:
