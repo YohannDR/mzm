@@ -45,9 +45,9 @@ void WaterDrop(void)
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
 
-            gCurrentSprite.drawDistanceTop = 0x8;
-            gCurrentSprite.drawDistanceBottom = 0x8;
-            gCurrentSprite.drawDistanceHorizontal = 0x8;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.pOam = sWaterDropOam_Spawning;
@@ -133,12 +133,12 @@ void WaterDrop(void)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-                gCurrentSprite.work0 = 100 + gSpriteRng * 8;
+                gCurrentSprite.work0 = CONVERT_SECONDS(1.f) + TWO_THIRD_SECOND + gSpriteRng * 8;
             }
             break;
 
         case WATER_DROP_POSE_SPAWNING:
-            gCurrentSprite.work0--;
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
             if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.pOam = sWaterDropOam_Spawning;

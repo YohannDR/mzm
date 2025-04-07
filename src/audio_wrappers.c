@@ -23,45 +23,45 @@ void InitializeAudio(void)
     gMusicInfo.occupied = TRUE;
 
     write16(REG_IE, read16(REG_IE) | IF_DMA2);
-    write8(REG_SOUNDCNT_X, 0x80);
-    write16(REG_SOUNDCNT_H, 0xA90E);
+    write8(REG_SOUNDCNT_X, 0x80); // Enable PSG and FIFO
+    write16(REG_SOUNDCNT_H, 0xA90E); // 100% volume, reset and enable/disable DMA sound A right/left and DMA sound B left/right
 
     write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | 0x40);
 
-    write8(REG_BASE + 0x63, 0x8);
-    write8(REG_BASE + 0x65, 0x80);
-    write8(REG_BASE + 0x69, 0x8);
-    write8(REG_BASE + 0x6D, 0x80);
-    write8(REG_BASE + 0x79, 0x8);
-    write8(REG_BASE + 0x7D, 0x80);
+    write8(REG_SOUND1CNT_H + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND1CNT_X + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
+    write8(REG_SOUND2CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND2CNT_H + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
+    write8(REG_SOUND4CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write8(REG_SOUND4CNT_H + 1, HIGH_BYTE(SOUNDCNT_RESTART_SOUND));
 
     write8(REG_SOUND3CNT_L, 0x0);
-    write8(REG_SOUNDCNT_L, 0x77);
+    write8(REG_SOUNDCNT_L, 0x77); // Sound 1-4 master volume left/right 100%
 
     gSoundCodeAPointer = (SoundCodeAFunc_T)(gSoundCodeA + 1);
-    DMA_SET(3, call_soundcode_a, gSoundCodeA, DMA_ENABLE << 16 | sizeof(gSoundCodeA) / 2);
+    DMA_SET(3, call_soundcode_a, gSoundCodeA, C_32_2_16(DMA_ENABLE, sizeof(gSoundCodeA) / 2));
 
     gSoundCodeBPointer = (SoundCodeBFunc_T)(gSoundCodeB + 1);
-    DMA_SET(3, call_soundcode_b, gSoundCodeB, DMA_ENABLE << 16 | sizeof(gSoundCodeB) / 2);
+    DMA_SET(3, call_soundcode_b, gSoundCodeB, C_32_2_16(DMA_ENABLE, sizeof(gSoundCodeB) / 2));
 
     gSoundCodeCPointer = (SoundCodeCFunc_T)(gSoundCodeC + 1);
-    DMA_SET(3, call_soundcode_c, gSoundCodeC, DMA_ENABLE << 16 | sizeof(gSoundCodeC) / 2);
+    DMA_SET(3, call_soundcode_c, gSoundCodeC, C_32_2_16(DMA_ENABLE, sizeof(gSoundCodeC) / 2));
 
     zero = 0;
-    DMA_SET(3, &zero, &gMusicInfo, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0xE);
+    DMA_SET(3, &zero, &gMusicInfo, C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), 0xE));
 
     gMusicInfo.unk_9 = (u8)gUnk_Audio0x64;
 
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < ARRAY_SIZE(gPsgSounds); i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, &gPsgSounds[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct PSGSoundData) / 2);
+        DMA_SET(3, &zero, &gPsgSounds[i], C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), sizeof(struct PSGSoundData) / 2));
     }
 
     for (i = 0; i < (u16)gNumMusicPlayers; i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, sMusicTrackDataRom[i].pTrack, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x16);
+        DMA_SET(3, &zero, sMusicTrackDataRom[i].pTrack, C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), 0x16));
     }
 
     for (i = 0; i < (u16)gNumMusicPlayers; i++)
@@ -71,24 +71,24 @@ void InitializeAudio(void)
         sMusicTrackDataRom[i].pTrack->unk_1D = sMusicTrackDataRom[i].unknonw_A;
     }
 
-    DoSoundAction((u32)gUnk_Audio0x194F700);
+    DoSoundAction((u32)gUnk_Audio0x194F700); // SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_FREQ_INDEX(SOUND_MODE_FREQ_13379) | SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7)
 
     for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, &gMusicInfo.soundChannels[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundChannel) / 2);
+        DMA_SET(3, &zero, &gMusicInfo.soundChannels[i], C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), sizeof(struct SoundChannel) / 2));
     }
 
     for (i = 0; i < ARRAY_SIZE(gSoundChannelBackup); i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, &gSoundChannelBackup[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundChannelBackup) / 2);
+        DMA_SET(3, &zero, &gSoundChannelBackup[i], C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), sizeof(struct SoundChannelBackup) / 2));
     }
 
     for (i = 0; i < (u16)gNumMusicPlayers; i++)
     {
         zero = 0;
-        DMA_SET(3, &zero, &gSoundQueue[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundQueue) / 2);
+        DMA_SET(3, &zero, &gSoundQueue[i], C_32_2_16((DMA_ENABLE | DMA_SRC_FIXED), sizeof(struct SoundQueue) / 2));
     }
 
     gMusicInfo.occupied = FALSE;
@@ -109,43 +109,49 @@ void DoSoundAction(u32 action)
 
     gMusicInfo.occupied = TRUE;
 
-    if (action & 0x80)
-        gMusicInfo.unk_4 = action + 0x80;
+    if (action & SOUND_ACTION_ENABLE_REVERB)
+        gMusicInfo.reverb = action + SOUND_ACTION_ENABLE_REVERB;
 
-    if (action & 0xF00)
+    if (action & SOUND_ACTION_MAX_CHANNELS_FLAG)
     {
-        gMusicInfo.maxSoundChannels = (action & 0xF00) >> 8;
+        gMusicInfo.maxSoundChannels = (action & SOUND_ACTION_MAX_CHANNELS_FLAG) >> SOUND_ACTION_MAX_CHANNELS_SHIFT;
         for (i = ARRAY_SIZE(gMusicInfo.soundChannels); i >= 0 ; i--)
         {
             gMusicInfo.soundChannels[i].unk_0 = 0;
         }
     }
 
-    if (action & 0xF000)
-        gMusicInfo.volume = (action & 0xF000) >> 0xC;
+    if (action & SOUND_ACTION_VOLUME_FLAG)
+        gMusicInfo.volume = (action & SOUND_ACTION_VOLUME_FLAG) >> SOUND_ACTION_VOLUME_SHIFT;
 
-    if (action & 0xF0000)
+    if (action & SOUND_ACTION_FREQ_INDEX_FLAG)
     {
-        gMusicInfo.unk_7 = (action & 0xF0000) >> 0x10;
-        if (gMusicInfo.unk_7 != 0)
+        gMusicInfo.freqIndex = (action & SOUND_ACTION_FREQ_INDEX_FLAG) >> SOUND_ACTION_FREQ_INDEX_SHIFT;
+        if (gMusicInfo.freqIndex != 0)
             SetupSoundTransfer();
     }
 
-    if (action & 0xF00000)
+    // Set PWM amplitude control
+    if (action & SOUND_ACTION_PWM_FLAG)
     {
-        write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & 0xF00000) >> 0xE);
+        // Set amplitude resolution/sampling cycle to bits 28-29 of action
+        write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & SOUND_ACTION_PWM_FLAG) >> 14);
     }
 
-    control = action & 0xF000000;
+    control = action & SOUND_ACTION_STEREO_FLAG;
     if (control)
     {
-        if (control == 0x2000000)
+        // Enable stereo
+        if (control == SOUND_ACTION_ENABLE_STEREO)
         {
+            // Set sound volume to 50%, disable DMA sound A left and sound B right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & 0xE10D);
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x1);
         }
-        else if (control == 0x1000000)
+        // Disable stereo
+        else if (control == SOUND_ACTION_DISABLE_STEREO)
         {
+            // Set sound volume to 100% and enable DMA sound A/B left/right
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & ~0x1);
             write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x3302);
         }
@@ -161,34 +167,34 @@ void DoSoundAction(u32 action)
 void SetupSoundTransfer(void)
 {
     u32 buffer;
-    u16 unk_0;
+    u16 samplesPerFrame;
     u16 unk_1;
     u32 unk_2;
 
-    write32(REG_DMA1_CNT, (DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED) << 16 | sizeof(u32));
-    write32(REG_DMA2_CNT, (DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED) << 16 | sizeof(u32));
+    write32(REG_DMA1_CNT, C_32_2_16((DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED), sizeof(u32)));
+    write32(REG_DMA2_CNT, C_32_2_16((DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED), sizeof(u32)));
     write16(REG_DMA1_CNT + 2, DMA_32BIT);
     write16(REG_DMA2_CNT + 2, DMA_32BIT);
 
     buffer = 0;
-    CpuFastSet(&buffer, gMusicInfo.soundRawData, CPU_SET_SRC_FIXED << 16 | sizeof(gMusicInfo.soundRawData) / sizeof(u32));
+    CpuFastSet(&buffer, gMusicInfo.soundRawData, C_32_2_16(CPU_SET_SRC_FIXED, sizeof(gMusicInfo.soundRawData) / sizeof(u32)));
 
-    gMusicInfo.maybe_frequency = sNativeSampleRate[gMusicInfo.unk_7];
-    gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unk_7];
+    gMusicInfo.sampleRate = sNativeSampleRate[gMusicInfo.freqIndex];
+    gMusicInfo.pitch = sMusicPitchData[gMusicInfo.freqIndex];
+    samplesPerFrame = gPcmSamplesPerVBlankTable[gMusicInfo.freqIndex];
+    gMusicInfo.unk_14 = samplesPerFrame;
 
-    unk_0 = sAudio_8ccc8[gMusicInfo.unk_7];
-    gMusicInfo.unk_14 = unk_0;
+    unk_1 = samplesPerFrame / 16;
+    gMusicInfo.unk_C = unk_1; // samplesPerFrame / 16
+    unk_2 = 96 / gMusicInfo.unk_C;
+    gMusicInfo.unk_D = unk_2;  // PCM_DMA_BUF_SIZE / samplesPerFrame, number of frames to process sample?
+    gMusicInfo.unk_E = unk_2 * unk_1;  // 96
+    gMusicInfo.unk_10 = gMusicInfo.unk_E - 1; // 95
+    gMusicInfo.unk_11 = unk_1 * 2; // (samplesPerFrame / 16) * 2
 
-    unk_1 = unk_0 / 16;
-    gMusicInfo.unk_C = unk_1;
-    unk_2 = 0x60 / gMusicInfo.unk_C;
-    gMusicInfo.unk_D = unk_2;
-    gMusicInfo.unk_E = unk_2 * unk_1;
-    gMusicInfo.sampleRate = gMusicInfo.unk_E - 1;
-    gMusicInfo.unk_11 = unk_1 * 2;
-
+    // First half of raw sound data goes into FIFO A, second half into FIF0 B
     write32(REG_DMA1_SRC, (u32)&gMusicInfo.soundRawData[0]);
-    write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[1536]);
+    write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[sizeof(gMusicInfo.soundRawData) / 2]);
 
     write32(REG_DMA1_DST, (u32)REG_FIFO_A);
     write32(REG_DMA2_DST, (u32)REG_FIFO_B);
@@ -197,12 +203,13 @@ void SetupSoundTransfer(void)
     write16(REG_DMA2_CNT + 2, DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_HBLANK | DMA_START_VBLANK | DMA_32BIT | DMA_REPEAT);
 
     write16(REG_TM0CNT_H, 0);
-    write16(REG_TM0CNT_L, -(0x44940 / unk_0));
+    write16(REG_TM0CNT_L, -(FRAME_DRAW_CYCLES / samplesPerFrame)); // cycle time to play each sample
 
-    while (read8(REG_VCOUNT) == 0x9F) {}
-    while (read8(REG_VCOUNT) != 0x9F) {}
+    // Wait for VBLANK
+    while (read8(REG_VCOUNT) == (SCREEN_SIZE_Y - 1)) {}
+    while (read8(REG_VCOUNT) != (SCREEN_SIZE_Y - 1)) {}
 
-    write16(REG_TM0CNT_H, 0x80);
+    write16(REG_TM0CNT_H, 0x80); // start timer 0
 }
 
 /**
@@ -232,7 +239,7 @@ void SoundStop(u16 sound)
  */
 void unk_2a38(struct TrackData* pTrack)
 {
-    if (!(pTrack->unk_1E & 1) && (pTrack->flags & 2)) {
+    if (!(pTrack->unk_1E & TRUE) && (pTrack->flags & 2)) {
         pTrack->flags = 1;
     }
 }
@@ -259,7 +266,7 @@ void unk_2a8c(void)
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
     {
-        if (!(sMusicTrackDataRom[i].pTrack->unk_1E & 1))
+        if (!(sMusicTrackDataRom[i].pTrack->unk_1E & TRUE))
             stop_music_or_sound(sMusicTrackDataRom[i].pTrack);
     }
 }
@@ -399,6 +406,12 @@ void SoundFade(u16 sound, u16 timer)
     StopOrFadeSound(sound, timer);
 }
 
+/**
+ * @brief 2c94 | 54 | Apply fading to music or sound
+ * 
+ * @param pTrack Track data pointer
+ * @param timer Fade timer
+*/
 void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
 {
     s32 volume;
@@ -427,6 +440,12 @@ void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
     }
 }
 
+/**
+ * @brief 2ce8 | 44 | Apply raw(?) fading to music or sound
+ * 
+ * @param pTrack Track data pointer
+ * @param timer Fade timer
+*/
 void ApplyRawMusicSoundFading(struct TrackData* pTrack, u16 timer)
 {
     s32 volume;
@@ -454,7 +473,7 @@ void ApplyRawMusicSoundFading(struct TrackData* pTrack, u16 timer)
 /**
  * @brief 2d2c | bc | To document
  * 
- * @param pTrack 
+ * @param pTrack Track data pointer
  */
 void unk_2d2c(struct TrackData* pTrack)
 {

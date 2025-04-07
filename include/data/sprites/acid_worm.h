@@ -69,7 +69,7 @@ extern const u16 sAcidWormSpitOAM_Exploding_Frame2[16];
 
 extern const u16 sAcidWormSpitOAM_Exploding_Frame3[25];
 
-extern const u16 sAcidWormSpitOAM_Exploding_Frame4[20];
+extern const u16 sAcidWormSpitOAM_Exploding_Frame4[19];
 
 extern const struct FrameData sAcidWormOam_Idle[5];
 

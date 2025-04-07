@@ -953,7 +953,7 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
 }
 
 /**
- * @brief f47c | 118 | Checks the vertical collision at the position, accouts for slopes
+ * @brief f47c | 118 | Checks the vertical collision at the position, accounts for slopes
  * 
  * @param yPosition Y Position
  * @param xPosition X Position
@@ -3735,23 +3735,23 @@ u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
  */
 u32 SpriteUtilGetFinalCompletionPercentage(void)
 {
-    u32 result;
-    u8 energy;
-    u8 missile;
-    u8 superMissile;
-    u8 powerBomb;
-    u8 ability;
+    u32 completionPercentage;
+    u8 energyNbr;
+    u8 missilesNbr;
+    u8 superMissilesNbr;
+    u8 powerBombNbr;
+    u8 abilityCount;
     u32 pen;
 
     pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
-    energy = PEN_GET_ENERGY(pen);
-    missile = PEN_GET_MISSILE(pen);
-    superMissile = PEN_GET_SUPER_MISSILE(pen);
-    powerBomb = PEN_GET_POWER_BOMB(pen);
-    ability = PEN_GET_ABILITY(pen);
+    energyNbr = PEN_GET_ENERGY(pen);
+    missilesNbr = PEN_GET_MISSILE(pen);
+    superMissilesNbr = PEN_GET_SUPER_MISSILE(pen);
+    powerBombNbr = PEN_GET_POWER_BOMB(pen);
+    abilityCount = PEN_GET_ABILITY(pen);
 
-    result = energy + missile + superMissile + powerBomb + ability;
+    completionPercentage = energyNbr + missilesNbr + superMissilesNbr + powerBombNbr + abilityCount;
 
-    return result;
+    return completionPercentage;
 }

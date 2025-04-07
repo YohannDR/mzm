@@ -18,20 +18,20 @@
  */
 void ZebboInit(void)
 {
-    gCurrentSprite.hitboxTop = -0x18;
-    gCurrentSprite.hitboxBottom = 0x18;
-    gCurrentSprite.hitboxLeft = -0x18;
-    gCurrentSprite.hitboxRight = 0x18;
+    gCurrentSprite.hitboxTop = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTop = 0x8;
-    gCurrentSprite.drawDistanceBottom = 0x8;
-    gCurrentSprite.drawDistanceHorizontal = 0x10;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.work1 = 0x1;
+    gCurrentSprite.work1 = 1 * DELTA_TIME;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-    gCurrentSprite.yPosition -= 0x20;
-    gCurrentSprite.xPosition += 0x20;
+    gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+    gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
     // Save spawn position for the respawn
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
     gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
@@ -47,11 +47,11 @@ void ZebboIdleInit(void)
     gCurrentSprite.pose = ZEBBO_POSE_IDLE;
 
     gCurrentSprite.pOam = sZebboOAM_Idle;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-    gCurrentSprite.bgPriority = 0x2;
+    gCurrentSprite.bgPriority = 2;
 }
 
 /**
@@ -74,11 +74,13 @@ void ZebboIdle(void)
         gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
     else if ((gCurrentSprite.spriteId != PSPRITE_ZEBBO_GREEN_LEADER ||
-        SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_ZEBBO_GREEN_FOLLOWER) == 0x0)
+        SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_ZEBBO_GREEN_FOLLOWER) == 0)
         && !SpriteUtilCheckHasDrops())
     {
-        if (gCurrentSprite.work1 != 0x0)
-            gCurrentSprite.work1--;
+        if (gCurrentSprite.work1 != 0)
+        {
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work1);
+        }
         else
         {
             samusY = gSamusData.yPosition;
@@ -86,10 +88,10 @@ void ZebboIdle(void)
             spriteY = gCurrentSprite.yPosition;
             spriteX = gCurrentSprite.xPosition;
 
-            if (samusY <= spriteY - 0x1E)
+            if (samusY <= spriteY - (HALF_BLOCK_SIZE - PIXEL_SIZE / 2))
             {
                 // TODO : make the ternary a macro
-                if ((spriteX > samusX ? spriteX - samusX : samusX - spriteX) <= 0x24 ||
+                if (ABS_DIFF(spriteX, samusX) <= (HALF_BLOCK_SIZE + PIXEL_SIZE) ||
                     SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
                     return;
                 else
@@ -97,7 +99,7 @@ void ZebboIdle(void)
                     // Samus in range, set going up
                     gCurrentSprite.scaling = gSamusData.yPosition;
                     gCurrentSprite.pose = ZEBBO_POSE_GOING_UP;
-                    gCurrentSprite.work0 = 0x2;
+                    gCurrentSprite.work0 = 2 * DELTA_TIME;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     
                     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -113,10 +115,10 @@ void ZebboIdle(void)
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     
-                        if (ramSlot != 0xFF)
+                        if (ramSlot != UCHAR_MAX)
                         {
                             gSpriteData[ramSlot].scaling = gCurrentSprite.scaling;
-                            gSpriteData[ramSlot].work0 = 0xA;
+                            gSpriteData[ramSlot].work0 = CONVERT_SECONDS(1.f / 6);
     
                             // Second follower
                             ramSlot = SpriteSpawnDropFollowers(PSPRITE_ZEBBO_GREEN_FOLLOWER, gCurrentSprite.roomSlot,
@@ -124,10 +126,10 @@ void ZebboIdle(void)
                                 gCurrentSprite.yPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
                                 gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     
-                            if (ramSlot != 0xFF)
+                            if (ramSlot != UCHAR_MAX)
                             {
                                 gSpriteData[ramSlot].scaling = gCurrentSprite.scaling;
-                                gSpriteData[ramSlot].work0 = 0x12;
+                                gSpriteData[ramSlot].work0 = CONVERT_SECONDS(0.3f);
                             }
                         }
                     }
@@ -143,32 +145,33 @@ void ZebboIdle(void)
  */
 void ZebboGoingUp(void)
 {
-    u16 positionRange;
+    u16 yPosition;
 
-    gCurrentSprite.yPosition -= 0x8;
-    if (gCurrentSprite.work0 != 0x0)
+    gCurrentSprite.yPosition -= EIGHTH_BLOCK_SIZE;
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
     {
-        if (gCurrentSprite.scaling < gSamusData.yPosition && gSamusData.yPosition > (s32)(gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2))
-            positionRange = gCurrentSprite.scaling;
+        if (gCurrentSprite.scaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
+            yPosition = gCurrentSprite.scaling;
         else
-            positionRange = gSamusData.yPosition;
+            yPosition = gSamusData.yPosition;
 
-        if (positionRange - 0x64 > gCurrentSprite.yPosition)
+        if (yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE) > gCurrentSprite.yPosition)
         {
             // Reached samus, set moving
             gCurrentSprite.pose = ZEBBO_POSE_MOVING;
-            gCurrentSprite.work0 = 0xA;
+            gCurrentSprite.work0 = CONVERT_SECONDS(1.f / 6);
 
             gCurrentSprite.pOam = sZebboOAM_Moving;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.bgPriority = 0x1;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
+
+            gCurrentSprite.bgPriority = 1;
         }
     }
 }
@@ -180,7 +183,7 @@ void ZebboGoingUp(void)
 void ZebboRespawn(void)
 {
     if (gCurrentSprite.spriteId == PSPRITE_ZEBBO_GREEN_FOLLOWER)
-        gCurrentSprite.status = 0x0; // Kill if not leader
+        gCurrentSprite.status = 0; // Kill if not leader
     else
     {
         // Set spawn position
@@ -189,15 +192,15 @@ void ZebboRespawn(void)
 
         ZebboIdleInit();
 
-        gCurrentSprite.work1 = 0x3C;
+        gCurrentSprite.work1 = CONVERT_SECONDS(1.f);
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-        gCurrentSprite.invincibilityStunFlashTimer = 0x0;
-        gCurrentSprite.paletteRow = 0x0;
-        gCurrentSprite.frozenPaletteRowOffset = 0x0;
-        gCurrentSprite.absolutePaletteRow = 0x0;
+        gCurrentSprite.invincibilityStunFlashTimer = 0;
+        gCurrentSprite.paletteRow = 0;
+        gCurrentSprite.frozenPaletteRowOffset = 0;
+        gCurrentSprite.absolutePaletteRow = 0;
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-        gCurrentSprite.freezeTimer = 0x0;
+        gCurrentSprite.freezeTimer = 0;
     }
 }
 
@@ -207,44 +210,43 @@ void ZebboRespawn(void)
  */
 void ZebboMove(void)
 {
-    if (gCurrentSprite.work0 != 0x0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(SOUND_ZEBBO_MOVING);
-
-            gCurrentSprite.work1 = 0x0;
+            gCurrentSprite.work1 = 0;
         }
     }
     else
     {
-        gCurrentSprite.work1++;
+        APPLY_DELTA_TIME_INC(gCurrentSprite.work1);
         if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should respawn
-            if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
+            if (gCurrentSprite.xPosition - gSamusData.xPosition > (SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE) || gCurrentSprite.xPosition & 0x8000) // xPos < 0
             {
                 ZebboRespawn();
                 return;
             }
             else
-                gCurrentSprite.xPosition += 0xC; // Move
+                gCurrentSprite.xPosition += EIGHTH_BLOCK_SIZE + 1 * PIXEL_SIZE; // Move
         }
         else
         {
             // Check should respawn
-            if (gSamusData.xPosition - gCurrentSprite.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
+            if (gSamusData.xPosition - gCurrentSprite.xPosition > (SCREEN_SIZE_X_SUB_PIXEL + BLOCK_SIZE) || gCurrentSprite.xPosition & 0x8000) // xPos < 0
             {
                 ZebboRespawn();
                 return;
             }
             else
-                gCurrentSprite.xPosition -= 0xC; // Move
+                gCurrentSprite.xPosition -= EIGHTH_BLOCK_SIZE + 1 * PIXEL_SIZE; // Move
         }
-
-        if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        // CONVERT_SECONDS(.25f) + DELTA_TIME
+        if (MOD_AND(gCurrentSprite.work1, 16) == 0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(SOUND_ZEBBO_MOVING);
     }
 }
@@ -262,8 +264,10 @@ void Zebbo(void)
             SoundPlayNotAlreadyPlaying(SOUND_ZEBBO_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
+    {
         SpriteUtilUpdateFreezeTimer();
+    }
     else
     {
         if (SpriteUtilIsSpriteStunned())
@@ -271,7 +275,7 @@ void Zebbo(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 ZebboInit();
 
             case ZEBBO_POSE_IDLE_INIT:

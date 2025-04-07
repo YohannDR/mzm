@@ -26,13 +26,13 @@ void ExplosionZebesEscape(void)
 
     // Weird unused local variable, probably optimized out or its use was commented out?
     tmp = 0;
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         
-        gCurrentSprite.drawDistanceTop = 1;
-        gCurrentSprite.drawDistanceBottom = 1;
-        gCurrentSprite.drawDistanceHorizontal = 1;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
 
         gCurrentSprite.hitboxTop = 0;
         gCurrentSprite.hitboxBottom = 0;
@@ -48,7 +48,7 @@ void ExplosionZebesEscape(void)
 
         gCurrentSprite.pose = 9;
         gCurrentSprite.work3 = 0;
-        gCurrentSprite.work2 = 7;
+        gCurrentSprite.work2 = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
 
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
@@ -61,12 +61,14 @@ void ExplosionZebesEscape(void)
     rngParam1 = gSpriteRng;
     rngParam2 = rngParam1 & 3;
 
+    // todo: APPLY_DELTA_TIME_INC won't match here
     particleTimer = gCurrentSprite.work3++;
     debrisTimer = gCurrentSprite.work2++;
 
     if (gSamusData.yPosition < yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE))
         yPosition = gSamusData.yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE + 4;
 
+    // CONVERT_SECONDS(.25f) + 1 * DELTA_TIME
     if (particleTimer % 16 == 0 && rngParam1 > 7)
     {
         if (particleTimer & 16)
@@ -104,8 +106,8 @@ void ExplosionZebesEscape(void)
         }
         else
         {
-            ScreenShakeStartVertical(10, 0x80 | 1);
-            ScreenShakeStartHorizontal(10, 0x80 | 1);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
+            ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             
             if (rngParam1 > 11)
             {
@@ -142,6 +144,7 @@ void ExplosionZebesEscape(void)
 
     yPosition = gBg1YPosition - BLOCK_SIZE;
 
+    // CONVERT_SECONDS(.5f) + 2 * DELTA_TIME
     if (debrisTimer % 32 == 0)
     {
         if (debrisTimer & 32)
@@ -157,6 +160,7 @@ void ExplosionZebesEscape(void)
         }
     }
 
+    // CONVERT_SECONDS(.25f) + 1 * DELTA_TIME
     if (particleTimer % 16 == 0)
     {
         if (rngParam1 > 7)

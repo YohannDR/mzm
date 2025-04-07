@@ -5,6 +5,7 @@
 #include "types.h"
 
 #include "structs/cutscene.h"
+#include "cutscenes/ridley_in_space.h"
 
 extern const struct CutsceneScrollingInfo sRidleyInSpaceScrollingInfo[2];
 extern const struct CutscenePageData sRidleyInSpacePageData[6];
@@ -12,7 +13,21 @@ extern const struct CutscenePaletteData sRidleyInSpacePaletteData;
 
 extern const u8 sRidleyInSpaceRedAlertPaletteRows[10];
 
-extern const struct OamArray sRidleyInSpaceCutsceneOAM[11];
+extern const u16 sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0[7];
+extern const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[13];
+extern const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[4];
+extern const u16 sRidleyInSpaceOAM_RightBlueShip_Frame0[4];
+extern const u16 sRidleyInSpaceOAM_MotherShip_Frame0[25];
+extern const u16 sRidleyInSpaceOAM_ViewOfShipParticle_Frame0[4];
+extern const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[4];
+extern const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[4];
+extern const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0[4];
+
+extern const struct FrameData sRidleyInSpaceOAM_39d7e8[2];
+extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5];
+extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5];
+
+extern const struct OamArray sRidleyInSpaceCutsceneOAM[RIDLEY_IN_SPACE_OAM_ID_END];
 
 extern const u32 sRidleyInSpaceShipsGfx[1565];
 extern const u32 sRidleyInSpaceRidleySittingGfx[3848];

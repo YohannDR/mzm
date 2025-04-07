@@ -13,6 +13,8 @@
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
+#define CHOZO_BALL_FLICKER_TIMER work0
+
 /**
  * 162b0 | 94 | Spawns an item banner depending on the chozo statue sprite ID
  * 
@@ -274,7 +276,7 @@ void ChozoBallRegisterItem(void)
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
         gCurrentSprite.pose = CHOZO_BALL_POSE_GETTING;
-        gCurrentSprite.work0 = 0;
+        gCurrentSprite.CHOZO_BALL_FLICKER_TIMER = 0;
 
         spriteId = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteId;
         ChozoStatueRegisterItem(spriteId);
@@ -289,11 +291,13 @@ void ChozoBallRegisterItem(void)
 void ChozoBallFlashAnimation(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
+    // Missing a timer increment?
 
-    if (MOD_AND(gCurrentSprite.work0, 2) == 0)
+    // 2 * DELTA_TIME
+    if (MOD_AND(gCurrentSprite.CHOZO_BALL_FLICKER_TIMER, 2) == 0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-        
-    if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)
+
+    if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1 * DELTA_TIME)
         gCurrentSprite.status = 0;
 }
 

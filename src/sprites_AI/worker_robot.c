@@ -40,10 +40,10 @@ u8 WorkerRobotCheckSamusInFront(void)
     {
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
-        spriteTop = spriteY - 0xA4;
-        spriteBottom = spriteY + 0x0;
-        spriteLeft = spriteX - 0x48;
-        spriteRight = spriteX + 0x48;
+        spriteTop = spriteY - (2 * BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE);
+        spriteBottom = spriteY + 0;
+        spriteLeft = spriteX - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+        spriteRight = spriteX + (BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
 
         samusY = gSamusData.yPosition;
         samusX = gSamusData.xPosition;
@@ -73,21 +73,21 @@ u8 WorkerRobotCheckSamusInFront(void)
 
 void WorkerRobotInit(void)
 {
-    gCurrentSprite.hitboxTop = -0x74;
-    gCurrentSprite.hitboxBottom = 0x0;
-    gCurrentSprite.hitboxLeft = -0x1C;
-    gCurrentSprite.hitboxRight = 0x1C;
+    gCurrentSprite.hitboxTop = -(BLOCK_SIZE + 3 * QUARTER_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = -(3 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxRight = 3 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE;
 
-    gCurrentSprite.drawDistanceTop = 0x28;
-    gCurrentSprite.drawDistanceBottom = 0x0;
-    gCurrentSprite.drawDistanceHorizontal = 0x10;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = 0;
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     gCurrentSprite.pOam = sWorkerRobotOAM_Sleeping;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work1 = 0;
     gCurrentSprite.samusCollision = SSC_SOLID;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
@@ -103,15 +103,15 @@ void WorkerRobotSleepingInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_SLEEPING;
     gCurrentSprite.pOam = sWorkerRobotOAM_Sleeping;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 }
 
 void WorkerRobotSleeping(void)
 {
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == COLLISION_AIR)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_SLEEPING_INIT;
-    else if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+    else if (MOD_AND(gCurrentSprite.invincibilityStunFlashTimer, 128)) // CONVERT_SECONDS(2.f + 2.f / 15)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_WAKING_UP_INIT;
 }
 
@@ -120,8 +120,8 @@ void WorkerRobotWakingUpInit(void)
     gCurrentSprite.pose = WORKER_ROBOT_POSE_WAKING_UP;
 
     gCurrentSprite.pOam = sWorkerRobotOAM_WakingUp;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_WAKING_UP);
@@ -234,13 +234,13 @@ void WorkerRobotWalkingDetectProjectile(void)
         {
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
             if (onSide)
-                gCurrentSprite.work1 = 60;
+                gCurrentSprite.work1 = CONVERT_SECONDS(1.f);
         }
         else
         {
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_MISSILE);
             if (onSide)
-                gCurrentSprite.work1 = 30;
+                gCurrentSprite.work1 = CONVERT_SECONDS(.5f);
         }
 
         pProj->status = 0;
@@ -253,23 +253,23 @@ void WorkerRobotStandingInit(void)
     gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING;
 
     gCurrentSprite.pOam = sWorkerRobotOAM_Standing;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
-    gCurrentSprite.work0 = 0x1E;
-    gCurrentSprite.work1 = 0x0;
-    gCurrentSprite.hitboxTop = -0x84;
+    gCurrentSprite.work0 = CONVERT_SECONDS(.5f);
+    gCurrentSprite.work1 = 0;
+    gCurrentSprite.hitboxTop = -(2 * BLOCK_SIZE + PIXEL_SIZE);
 }
 
 void WorkerRobotStanding(void)
 {
     WorkerRobotWalkingDetectProjectile();
-    if (gCurrentSprite.work1 != 0x0)
+    if (gCurrentSprite.work1 != 0)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_WALKING;
     else
     {
         gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        if (gCurrentSprite.work0 == 0)
             gCurrentSprite.pose = WORKER_ROBOT_POSE_WALKING_INIT;
     }
 }
@@ -278,8 +278,8 @@ void WorkerRobotWalkingInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_WALKING;
     gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 }
 
 /**
@@ -306,7 +306,7 @@ void WorkerRobotWalking(void)
                 if (gCurrentSprite.work1 == 0)
                     return;
 
-                gCurrentSprite.work1 = collision;
+                gCurrentSprite.work1 = 0;
                 if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
                 {
                     if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
@@ -328,7 +328,7 @@ void WorkerRobotWalking(void)
 
     if (gCurrentSprite.work1 != 0)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && MOD_AND(gCurrentSprite.currentAnimationFrame, 4) == 3 &&
             gCurrentSprite.animationDurationCounter == 6)
         {
             SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_FOOTSTEPS);
@@ -336,7 +336,7 @@ void WorkerRobotWalking(void)
 
         gCurrentSprite.animationDurationCounter += 4;
         movement = gCurrentSprite.work1 / 4;
-        if (movement > 8u)
+        if (movement > 8)
             movement = 8;
         else if (movement == 0)
             movement = 1;
@@ -379,7 +379,7 @@ void WorkerRobotWalking(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gPreviousVerticalCollisionCheck & 0xF0)
+        if (gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
         {
             if (gCurrentSprite.work1 == 0 &&
                 SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
@@ -403,7 +403,7 @@ void WorkerRobotWalking(void)
     }
     else
     {
-        if (gPreviousVerticalCollisionCheck & 0xF0)
+        if (gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
         {
             if (gCurrentSprite.work1 == 0 &&
                 SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR)
@@ -431,8 +431,8 @@ void WorkerRobotBackToSleepInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP;
     gCurrentSprite.pOam = sWorkerRobotOAM_BackToSleep;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(SOUND_WORKER_ROBOT_FALLING_ASLEEP);
 }
@@ -443,9 +443,9 @@ void WorkerRobotCheckBackToSleepAnimEnded(void)
     {
         gCurrentSprite.pose = WORKER_ROBOT_POSE_TURNING_AROUND;
         gCurrentSprite.pOam = sWorkerRobotOAM_GoingToSleep;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.hitboxTop = -0x74;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE + 3 * QUARTER_BLOCK_SIZE + PIXEL_SIZE);
     }
 }
 
@@ -461,8 +461,8 @@ void WorkerRobotTurningAround(void)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_CHECK_TURNING_AROUND_ENDED;
 
         gCurrentSprite.pOam = sWorkerRobotOAM_TurningAround;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 }
 
@@ -475,12 +475,12 @@ void WorkerRobotCheckTurningAroundAnimEnded(void)
 void WorkerRobotFallingInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING;
-    gCurrentSprite.work3 = 0x0;
-    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work3 = 0;
+    gCurrentSprite.work1 = 0;
 
     gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -493,7 +493,7 @@ void WorkerRobotFalling(void)
     s32 movement;
     u8 offset;
 
-    gCurrentSprite.animationDurationCounter += 2;
+    gCurrentSprite.animationDurationCounter += 2 * DELTA_TIME;
 
     blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
@@ -523,8 +523,8 @@ void WorkerRobotFalling(void)
 void WorkerRobotFallingSleepInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_SLEEPING;
-    gCurrentSprite.work3 = 0x0;
-    gCurrentSprite.work1 = 0x0;
+    gCurrentSprite.work3 = 0;
+    gCurrentSprite.work1 = 0;
 }
 
 /**
@@ -566,7 +566,7 @@ void WorkerRobot(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             WorkerRobotInit();
 
         case WORKER_ROBOT_POSE_SLEEPING_INIT:
@@ -627,6 +627,6 @@ void WorkerRobot(void)
             break;
 
         default:
-            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x46, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE - PIXEL_SIZE / 2), gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     }
 }

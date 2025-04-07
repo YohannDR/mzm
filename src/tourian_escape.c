@@ -573,9 +573,7 @@ u8 TourianEscapeZebesExploding(void)
         case 136:
         case 208:
         case 352:
-            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             TOURIAN_ESCAPE_DATA.unk_1++;
             break;
@@ -703,7 +701,7 @@ u8 TourianEscapeZebesExploding(void)
         {
             if (TOURIAN_ESCAPE_DATA.unk_5++ > 5)
             {
-                if (gWrittenToBLDY_NonGameplay < 16)
+                if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                     gWrittenToBLDY_NonGameplay++;
 
                 TOURIAN_ESCAPE_DATA.unk_5 = 0;
@@ -713,7 +711,7 @@ u8 TourianEscapeZebesExploding(void)
         {
             if (TOURIAN_ESCAPE_DATA.unk_5++ & 1)
             {
-                if (gWrittenToBLDY_NonGameplay < 16)
+                if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                     gWrittenToBLDY_NonGameplay++;
             }
         }
@@ -921,9 +919,7 @@ u8 TourianEscapeSamusInHerShip(void)
 
         case 56:
             TOURIAN_ESCAPE_DATA.dispcnt |= DCNT_WIN0;
-            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             gWrittenToBLDY_NonGameplay = 10;
 
@@ -1006,7 +1002,7 @@ u8 TourianEscapeSamusInHerShip(void)
 
         if (TOURIAN_ESCAPE_DATA.timer >= 128 && TOURIAN_ESCAPE_DATA.timer & 1)
         {
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
         }
     }
@@ -1729,9 +1725,7 @@ u8 TourianEscapeSamusGettingShot(void)
 
         case 1:
             LZ77UncompVRAM(sTourianEscapeSamusGettingShotShipGfx, VRAM_OBJ);
-            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
             gWrittenToBLDY_NonGameplay = 16;
             break;
 
@@ -2084,9 +2078,7 @@ u8 TourianEscapeSamusCrashing(void)
             TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
             TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47ab28;
             TOURIAN_ESCAPE_DATA.unk_2++;
-            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             SoundPlay(SOUND_TOURIAN_ESCAPE_SAMUS_CRASHING_COLLISION);
             break;
@@ -2099,7 +2091,7 @@ u8 TourianEscapeSamusCrashing(void)
     {
         if (TOURIAN_ESCAPE_DATA.unk_5 & 1)
         {
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
         }
 
@@ -2299,8 +2291,7 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
 
             TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
             TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                BLDCNT_BRIGHTNESS_INCREASE_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_DECREASE_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL |
                 BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
 
         case 96:

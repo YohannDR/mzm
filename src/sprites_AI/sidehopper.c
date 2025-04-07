@@ -651,8 +651,10 @@ void Sidehopper(void)
             SoundPlayNotAlreadyPlaying(SOUND_SIDEHOPPER_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
+    {
         SpriteUtilUpdateFreezeTimer();
+    }
     else
     {
         if (SpriteUtilIsSpriteStunned())
@@ -660,7 +662,7 @@ void Sidehopper(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 SidehopperInit();
                 break;
 

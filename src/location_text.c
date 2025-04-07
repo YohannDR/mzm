@@ -261,7 +261,7 @@ u8 LocationTextLoadAreaBannerGfx(void)
     }
 
     // Check if found an area banner
-    if (gfxSlot > 0x7)
+    if (gfxSlot > 7)
     {
         // Use 7 as default and load Gfx/Pal
         gfxSlot = 7;

@@ -24,7 +24,7 @@ const s16 sSpacePirate_2e1070[12] = {
 const u32 sSpacePirateGfx[810] = INCBIN_U32("data/sprites/SpacePirate.gfx.lz");
 const u16 sSpacePiratePal[48] = INCBIN_U16("data/sprites/SpacePirate.pal");
 
-const u16 sSpacePirateOAM_Crouched_Frame0[43] = {
+const u16 sSpacePirateOAM_Crouched_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe9, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -42,7 +42,7 @@ const u16 sSpacePirateOAM_Crouched_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_Crouched_Frame1[43] = {
+const u16 sSpacePirateOAM_Crouched_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe8, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -60,7 +60,7 @@ const u16 sSpacePirateOAM_Crouched_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xde, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_Crouched_Frame2[46] = {
+const u16 sSpacePirateOAM_Crouched_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -79,7 +79,7 @@ const u16 sSpacePirateOAM_Crouched_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xdd, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_Walking_Frame0[43] = {
+const u16 sSpacePirateOAM_Walking_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xed, OBJ_SIZE_16x16 | 0x5, OBJ_SPRITE_OAM | 0x218,
     OBJ_SHAPE_VERTICAL | 0xe2, 0x2, OBJ_SPRITE_OAM | 0x20f,
@@ -97,7 +97,7 @@ const u16 sSpacePirateOAM_Walking_Frame0[43] = {
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1ea, OBJ_SPRITE_OAM | 0x23c
 };
 
-const u16 sSpacePirateOAM_Walking_Frame1[43] = {
+const u16 sSpacePirateOAM_Walking_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_VERTICAL | 0xee, 0x7, OBJ_SPRITE_OAM | 0x21e,
     0xea, OBJ_SIZE_16x16 | 0x1, OBJ_SPRITE_OAM | 0x218,
@@ -115,7 +115,7 @@ const u16 sSpacePirateOAM_Walking_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1fa, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSpacePirateOAM_Walking_Frame2[43] = {
+const u16 sSpacePirateOAM_Walking_Frame2[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x21e,
     OBJ_SHAPE_VERTICAL | 0xea, 0x1ff, OBJ_SPRITE_OAM | 0x217,
@@ -133,7 +133,7 @@ const u16 sSpacePirateOAM_Walking_Frame2[43] = {
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1fe, OBJ_SPRITE_OAM | 0x20f
 };
 
-const u16 sSpacePirateOAM_Walking_Frame3[43] = {
+const u16 sSpacePirateOAM_Walking_Frame3[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_HORIZONTAL | 0xf6, 0x1f7, OBJ_SPRITE_OAM | 0x21c,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1fa, OBJ_SPRITE_OAM | 0x217,
@@ -151,7 +151,7 @@ const u16 sSpacePirateOAM_Walking_Frame3[43] = {
     OBJ_SHAPE_VERTICAL | 0xe2, 0x1ff, OBJ_SPRITE_OAM | 0x210
 };
 
-const u16 sSpacePirateOAM_Walking_Frame4[43] = {
+const u16 sSpacePirateOAM_Walking_Frame4[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe2, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x20c,
     OBJ_SHAPE_VERTICAL | 0xee, 0x1f6, OBJ_SPRITE_OAM | 0x215,
@@ -169,7 +169,7 @@ const u16 sSpacePirateOAM_Walking_Frame4[43] = {
     OBJ_SHAPE_VERTICAL | 0xf0, 0x8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sSpacePirateOAM_Walking_Frame5[43] = {
+const u16 sSpacePirateOAM_Walking_Frame5[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x23a,
     OBJ_SHAPE_VERTICAL | 0xee, 0x1fd, OBJ_SPRITE_OAM | 0x216,
@@ -187,7 +187,7 @@ const u16 sSpacePirateOAM_Walking_Frame5[43] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1fd, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSpacePirateOAM_Walking_Frame6[43] = {
+const u16 sSpacePirateOAM_Walking_Frame6[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1, OBJ_SPRITE_OAM | 0x23a,
     OBJ_SHAPE_VERTICAL | 0xee, 0x4, OBJ_SPRITE_OAM | 0x217,
@@ -205,7 +205,7 @@ const u16 sSpacePirateOAM_Walking_Frame6[43] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1fb, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSpacePirateOAM_Walking_Frame7[43] = {
+const u16 sSpacePirateOAM_Walking_Frame7[OAM_DATA_SIZE(14)] = {
     0xe,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x8, OBJ_SPRITE_OAM | 0x21c,
     0xee, OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x218,
@@ -223,7 +223,7 @@ const u16 sSpacePirateOAM_Walking_Frame7[43] = {
     0xdf, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame0[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1fa, OBJ_SPRITE_OAM | 0x245,
@@ -242,7 +242,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame0[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f8, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame1[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1f9, OBJ_SPRITE_OAM | 0x245,
@@ -261,7 +261,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame1[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f7, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame2[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe6, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1f5, OBJ_SPRITE_OAM | 0x250,
@@ -280,7 +280,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f6, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame3[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe0, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xe0, 0x1f6, OBJ_SPRITE_OAM | 0x253,
@@ -299,7 +299,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame3[46] = {
     OBJ_SHAPE_VERTICAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame4[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame4[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe1, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xe1, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -318,7 +318,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame4[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f3, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame5[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xde, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xee, 0x1f2, OBJ_SPRITE_OAM | 0x26a,
@@ -337,7 +337,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame5[46] = {
     0xdd, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_ChargingLaserForward_Frame6[46] = {
+const u16 sSpacePirateOAM_ChargingLaserForward_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x24c,
     OBJ_SHAPE_HORIZONTAL | 0xdf, 0x1f3, OBJ_SPRITE_OAM | 0x22a,
@@ -356,7 +356,7 @@ const u16 sSpacePirateOAM_ChargingLaserForward_Frame6[46] = {
     0xe4, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_ShootingForward_Frame1[46] = {
+const u16 sSpacePirateOAM_ShootingForward_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x24c,
     OBJ_SHAPE_HORIZONTAL | 0xdf, 0x1f4, OBJ_SPRITE_OAM | 0x22a,
@@ -375,7 +375,7 @@ const u16 sSpacePirateOAM_ShootingForward_Frame1[46] = {
     0xe4, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_ShootingForward_Frame2[46] = {
+const u16 sSpacePirateOAM_ShootingForward_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe8, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x24c,
     OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x22a,
@@ -394,22 +394,22 @@ const u16 sSpacePirateOAM_ShootingForward_Frame2[46] = {
     0xe4, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateLaserOAM_Forward_Frame0[4] = {
+const u16 sSpacePirateLaserOAM_Forward_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x258
 };
 
-const u16 sSpacePirateLaserOAM_Forward_Frame1[4] = {
+const u16 sSpacePirateLaserOAM_Forward_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x278
 };
 
-const u16 sSpacePirateLaserOAM_Forward_Frame2[4] = {
+const u16 sSpacePirateLaserOAM_Forward_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x25c
 };
 
-const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame0[43] = {
+const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe9, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -427,7 +427,7 @@ const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame1[46] = {
+const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe8, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x246,
     OBJ_SHAPE_VERTICAL | 0xdd, 0x0, OBJ_SPRITE_OAM | 0x207,
@@ -446,7 +446,7 @@ const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame1[46] = {
     0xe4, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame2[46] = {
+const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x2, OBJ_SPRITE_OAM | 0x207,
@@ -465,7 +465,7 @@ const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xe6, OBJ_X_FLIP | 0x3, OBJ_SPRITE_OAM | 0x20f
 };
 
-const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame3[46] = {
+const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x5, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xdc, OBJ_X_FLIP | 0x4, OBJ_SPRITE_OAM | 0x207,
@@ -484,7 +484,7 @@ const u16 sSpacePirateOAM_TurningAroundFirstPart_Frame3[46] = {
     OBJ_SHAPE_VERTICAL | 0xe5, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame0[43] = {
+const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe7, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x5, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xdc, OBJ_X_FLIP | 0x4, OBJ_SPRITE_OAM | 0x207,
@@ -502,7 +502,7 @@ const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xe5, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame1[43] = {
+const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe7, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x2, OBJ_SPRITE_OAM | 0x207,
@@ -520,7 +520,7 @@ const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xe6, OBJ_X_FLIP | 0x3, OBJ_SPRITE_OAM | 0x20f
 };
 
-const u16 sSpacePirateOAM_LookingAtCamera_Frame1[46] = {
+const u16 sSpacePirateOAM_LookingAtCamera_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_VERTICAL | 0xd4, 0x1fc, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xd4, OBJ_X_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21f,
@@ -539,7 +539,7 @@ const u16 sSpacePirateOAM_LookingAtCamera_Frame1[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame2[46] = {
+const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe8, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x246,
     OBJ_SHAPE_VERTICAL | 0xdd, 0x0, OBJ_SPRITE_OAM | 0x207,
@@ -558,7 +558,7 @@ const u16 sSpacePirateOAM_TurningAroundSecondPart_Frame2[46] = {
     0xe4, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_Landing_Frame2[46] = {
+const u16 sSpacePirateOAM_Landing_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1ff, OBJ_SPRITE_OAM | 0x245,
@@ -577,7 +577,7 @@ const u16 sSpacePirateOAM_Landing_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xdd, 0x1fa, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSpacePirateOAM_Landing_Frame1[46] = {
+const u16 sSpacePirateOAM_Landing_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xeb, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x6, OBJ_SPRITE_OAM | 0x245,
@@ -596,7 +596,7 @@ const u16 sSpacePirateOAM_Landing_Frame1[46] = {
     0xe0, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x208
 };
 
-const u16 sSpacePirateOAM_Landing_Frame0[46] = {
+const u16 sSpacePirateOAM_Landing_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe4, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xe4, 0x1f7, OBJ_SPRITE_OAM | 0x250,
@@ -615,7 +615,7 @@ const u16 sSpacePirateOAM_Landing_Frame0[46] = {
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f8, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_JumpingFromWall_Frame0[46] = {
+const u16 sSpacePirateOAM_JumpingFromWall_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdc, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f6, OBJ_SPRITE_OAM | 0x253,
@@ -634,7 +634,7 @@ const u16 sSpacePirateOAM_JumpingFromWall_Frame0[46] = {
     0xda, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_JumpingFromWall_Frame1[46] = {
+const u16 sSpacePirateOAM_JumpingFromWall_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd6, OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xe6, 0x1ec, OBJ_SPRITE_OAM | 0x26a,
@@ -653,7 +653,7 @@ const u16 sSpacePirateOAM_JumpingFromWall_Frame1[46] = {
     0xd6, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_JumpingFromWall_Frame2[46] = {
+const u16 sSpacePirateOAM_JumpingFromWall_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd6, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xe6, 0x1eb, OBJ_SPRITE_OAM | 0x26a,
@@ -672,7 +672,7 @@ const u16 sSpacePirateOAM_JumpingFromWall_Frame2[46] = {
     0xd5, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_Falling_Frame0[43] = {
+const u16 sSpacePirateOAM_Falling_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xd9, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xe9, 0x1eb, OBJ_SPRITE_OAM | 0x26a,
@@ -690,7 +690,7 @@ const u16 sSpacePirateOAM_Falling_Frame0[43] = {
     0xd8, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_LookingUpwards_Frame0[43] = {
+const u16 sSpacePirateOAM_LookingUpwards_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe9, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -708,7 +708,7 @@ const u16 sSpacePirateOAM_LookingUpwards_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_LookingUpwards_Frame1[43] = {
+const u16 sSpacePirateOAM_LookingUpwards_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe8, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -726,7 +726,7 @@ const u16 sSpacePirateOAM_LookingUpwards_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xde, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_LookingUpwards_Frame2[46] = {
+const u16 sSpacePirateOAM_LookingUpwards_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe7, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe7, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -745,7 +745,7 @@ const u16 sSpacePirateOAM_LookingUpwards_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xdd, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame0[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1fa, OBJ_SPRITE_OAM | 0x245,
@@ -764,7 +764,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame0[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f8, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame1[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1f9, OBJ_SPRITE_OAM | 0x245,
@@ -783,7 +783,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame1[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f7, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame2[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe6, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1f5, OBJ_SPRITE_OAM | 0x250,
@@ -802,7 +802,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f6, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame3[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe0, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xe0, 0x1f6, OBJ_SPRITE_OAM | 0x253,
@@ -821,7 +821,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame3[46] = {
     OBJ_SHAPE_VERTICAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame4[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame4[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe1, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xe1, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -840,7 +840,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame4[46] = {
     OBJ_SHAPE_VERTICAL | 0xdf, 0x1f3, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame5[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xde, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xee, 0x1f2, OBJ_SPRITE_OAM | 0x26a,
@@ -859,7 +859,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame5[46] = {
     0xdd, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f9, OBJ_SPRITE_OAM | 0x280,
     OBJ_SHAPE_HORIZONTAL | 0xea, 0x1f1, OBJ_SPRITE_OAM | 0x2a1,
@@ -878,7 +878,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6[46] = {
     0xdb, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame1[46] = {
+const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_VERTICAL | 0xda, 0x1fa, OBJ_SPRITE_OAM | 0x280,
     OBJ_SHAPE_HORIZONTAL | 0xea, 0x1f2, OBJ_SPRITE_OAM | 0x2a1,
@@ -897,7 +897,7 @@ const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame1[46] = {
     0xdb, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame2[46] = {
+const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1fb, OBJ_SPRITE_OAM | 0x280,
     OBJ_SHAPE_HORIZONTAL | 0xeb, 0x1f3, OBJ_SPRITE_OAM | 0x2a1,
@@ -916,7 +916,7 @@ const u16 sSpacePirateOAM_ShootingDiagonallyUp_Frame2[46] = {
     0xdc, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame0[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame0[OAM_DATA_SIZE(13)] = {
     0xd,
     0xcf, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xdf, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -933,7 +933,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame0[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame1[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xd2, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x283,
     0xca, 0x1f9, OBJ_SPRITE_OAM | 0x280,
@@ -950,7 +950,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame1[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xd3, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame2[49] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame2[OAM_DATA_SIZE(16)] = {
     0x10,
     0xcf, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x283,
     0xc7, 0x1fa, OBJ_SPRITE_OAM | 0x280,
@@ -970,7 +970,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame2[49] = {
     OBJ_SHAPE_HORIZONTAL | 0xd6, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame3[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame3[OAM_DATA_SIZE(13)] = {
     0xd,
     0xcb, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x283,
     0xc3, 0x1f9, OBJ_SPRITE_OAM | 0x280,
@@ -987,7 +987,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame3[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xda, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame4[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame4[OAM_DATA_SIZE(13)] = {
     0xd,
     0xc2, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xd2, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1004,7 +1004,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame4[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xdd, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame5[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame5[OAM_DATA_SIZE(13)] = {
     0xd,
     0xc5, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xd5, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1021,7 +1021,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame5[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xed, 0x1f3, OBJ_SPRITE_OAM | 0x21c
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame6[49] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame6[OAM_DATA_SIZE(16)] = {
     0x10,
     0xc9, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xd9, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1041,7 +1041,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame6[49] = {
     OBJ_SHAPE_HORIZONTAL | 0xef, 0x1f3, OBJ_SPRITE_OAM | 0x21c
 };
 
-const u16 sSpacePirateOAM_ClimbingUp_Frame7[40] = {
+const u16 sSpacePirateOAM_ClimbingUp_Frame7[OAM_DATA_SIZE(13)] = {
     0xd,
     0xcc, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xdc, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1058,7 +1058,7 @@ const u16 sSpacePirateOAM_ClimbingUp_Frame7[40] = {
     0xdd, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame1[37] = {
+const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame1[OAM_DATA_SIZE(12)] = {
     0xc,
     0xdf, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x246,
     0xd9, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x204,
@@ -1074,7 +1074,7 @@ const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame1[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame2[37] = {
+const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame2[OAM_DATA_SIZE(12)] = {
     0xc,
     0xe1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x3, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x206,
@@ -1090,7 +1090,7 @@ const u16 sSpacePirateOAM_TurningToAimWhileClimbing_Frame2[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_AimingWhileClimbing_Frame0[37] = {
+const u16 sSpacePirateOAM_AimingWhileClimbing_Frame0[OAM_DATA_SIZE(12)] = {
     0xc,
     0xce, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x200,
     0xe2, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x4, OBJ_SPRITE_OAM | 0x248,
@@ -1106,7 +1106,7 @@ const u16 sSpacePirateOAM_AimingWhileClimbing_Frame0[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_AimingWhileClimbing_Frame1[37] = {
+const u16 sSpacePirateOAM_AimingWhileClimbing_Frame1[OAM_DATA_SIZE(12)] = {
     0xc,
     0xce, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x200,
     0xe1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x4, OBJ_SPRITE_OAM | 0x248,
@@ -1122,7 +1122,7 @@ const u16 sSpacePirateOAM_AimingWhileClimbing_Frame1[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_AimingWhileClimbing_Frame2[37] = {
+const u16 sSpacePirateOAM_AimingWhileClimbing_Frame2[OAM_DATA_SIZE(12)] = {
     0xc,
     0xcd, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x200,
     0xe1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x4, OBJ_SPRITE_OAM | 0x248,
@@ -1138,7 +1138,7 @@ const u16 sSpacePirateOAM_AimingWhileClimbing_Frame2[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingChargingLaserForward_Frame1[40] = {
+const u16 sSpacePirateOAM_ClimbingChargingLaserForward_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xce, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x200,
     0xe4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0xf, OBJ_SPRITE_OAM | 0x243,
@@ -1155,7 +1155,7 @@ const u16 sSpacePirateOAM_ClimbingChargingLaserForward_Frame1[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_ClimbingShootingForward_Frame0[43] = {
+const u16 sSpacePirateOAM_ClimbingShootingForward_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xcf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x200,
     0xdd, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x9, OBJ_SPRITE_OAM | 0x24c,
@@ -1173,7 +1173,7 @@ const u16 sSpacePirateOAM_ClimbingShootingForward_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xcd, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1f9, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSpacePirateOAM_ClimbingShootingForward_Frame1[43] = {
+const u16 sSpacePirateOAM_ClimbingShootingForward_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xcf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x200,
     0xdd, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x24c,
@@ -1191,7 +1191,7 @@ const u16 sSpacePirateOAM_ClimbingShootingForward_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xcd, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1f9, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSpacePirateOAM_ClimbingShootingForward_Frame2[43] = {
+const u16 sSpacePirateOAM_ClimbingShootingForward_Frame2[OAM_DATA_SIZE(14)] = {
     0xe,
     0xd0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x200,
     0xde, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x7, OBJ_SPRITE_OAM | 0x24c,
@@ -1209,7 +1209,7 @@ const u16 sSpacePirateOAM_ClimbingShootingForward_Frame2[43] = {
     OBJ_SHAPE_VERTICAL | 0xcd, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1f9, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSpacePirateOAM_LaunchingFromWall_Frame1[37] = {
+const u16 sSpacePirateOAM_LaunchingFromWall_Frame1[OAM_DATA_SIZE(12)] = {
     0xc,
     0xe4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0xc, OBJ_SPRITE_OAM | 0x246,
     0xcf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fc, OBJ_SPRITE_OAM | 0x200,
@@ -1225,7 +1225,7 @@ const u16 sSpacePirateOAM_LaunchingFromWall_Frame1[37] = {
     OBJ_SHAPE_HORIZONTAL | 0xd5, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sSpacePirateOAM_LaunchingFromWall_Frame2[40] = {
+const u16 sSpacePirateOAM_LaunchingFromWall_Frame2[OAM_DATA_SIZE(13)] = {
     0xd,
     0xe2, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x12, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xe2, OBJ_X_FLIP | 0xa, OBJ_SPRITE_OAM | 0x250,
@@ -1242,7 +1242,7 @@ const u16 sSpacePirateOAM_LaunchingFromWall_Frame2[40] = {
     0xe1, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSpacePirateOAM_StartingToCrawl_Frame4[40] = {
+const u16 sSpacePirateOAM_StartingToCrawl_Frame4[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf6, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1, OBJ_SPRITE_OAM | 0x245,
@@ -1259,7 +1259,7 @@ const u16 sSpacePirateOAM_StartingToCrawl_Frame4[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xf2, 0x1ff, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame1[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf2, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x24f,
     0xf2, 0x1ea, OBJ_SPRITE_OAM | 0x24e,
@@ -1276,7 +1276,7 @@ const u16 sSpacePirateOAM_Crawling_Frame1[40] = {
     0xf0, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x211
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame2[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame2[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf1, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x24f,
     0xf1, 0x1e7, OBJ_SPRITE_OAM | 0x24e,
@@ -1293,7 +1293,7 @@ const u16 sSpacePirateOAM_Crawling_Frame2[40] = {
     OBJ_SHAPE_VERTICAL | 0xf0, 0x1, OBJ_SPRITE_OAM | 0x210
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame3[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame3[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf2, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x24f,
     0xf2, 0x1e3, OBJ_SPRITE_OAM | 0x24e,
@@ -1310,7 +1310,7 @@ const u16 sSpacePirateOAM_Crawling_Frame3[40] = {
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1fc, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame4[43] = {
+const u16 sSpacePirateOAM_Crawling_Frame4[OAM_DATA_SIZE(14)] = {
     0xe,
     0xf6, OBJ_SIZE_16x16 | 0x1e2, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f2, OBJ_SPRITE_OAM | 0x245,
@@ -1328,7 +1328,7 @@ const u16 sSpacePirateOAM_Crawling_Frame4[43] = {
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1ff, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame5[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame5[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf6, OBJ_SIZE_16x16 | 0x1e6, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f6, OBJ_SPRITE_OAM | 0x245,
@@ -1345,7 +1345,7 @@ const u16 sSpacePirateOAM_Crawling_Frame5[40] = {
     0xf2, 0x1e8, OBJ_SPRITE_OAM | 0x24e
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame6[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame6[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf6, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1fa, OBJ_SPRITE_OAM | 0x245,
@@ -1362,7 +1362,7 @@ const u16 sSpacePirateOAM_Crawling_Frame6[40] = {
     OBJ_SHAPE_VERTICAL | 0xf0, 0x1, OBJ_SPRITE_OAM | 0x210
 };
 
-const u16 sSpacePirateOAM_Crawling_Frame7[40] = {
+const u16 sSpacePirateOAM_Crawling_Frame7[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf6, OBJ_SIZE_16x16 | 0x1ee, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1fe, OBJ_SPRITE_OAM | 0x245,
@@ -1379,7 +1379,7 @@ const u16 sSpacePirateOAM_Crawling_Frame7[40] = {
     0xf2, 0x1e1, OBJ_SPRITE_OAM | 0x24e
 };
 
-const u16 sSpacePirateOAM_StartingToCrawl_Frame1[46] = {
+const u16 sSpacePirateOAM_StartingToCrawl_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf1, OBJ_SIZE_16x16 | 0x1ed, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf1, 0x1fd, OBJ_SPRITE_OAM | 0x245,
@@ -1398,7 +1398,7 @@ const u16 sSpacePirateOAM_StartingToCrawl_Frame1[46] = {
     OBJ_SHAPE_HORIZONTAL | 0xf6, 0x1fa, OBJ_SPRITE_OAM | 0x27c
 };
 
-const u16 sSpacePirateOAM_StartingToCrawl_Frame2[46] = {
+const u16 sSpacePirateOAM_StartingToCrawl_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xf3, OBJ_SIZE_16x16 | 0x1ee, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf3, 0x1fe, OBJ_SPRITE_OAM | 0x245,
@@ -1417,7 +1417,7 @@ const u16 sSpacePirateOAM_StartingToCrawl_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xec, 0x1, OBJ_SPRITE_OAM | 0x20f
 };
 
-const u16 sSpacePirateOAM_StartingToCrawl_Frame3[40] = {
+const u16 sSpacePirateOAM_StartingToCrawl_Frame3[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf5, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf5, 0x1ff, OBJ_SPRITE_OAM | 0x245,
@@ -1434,7 +1434,7 @@ const u16 sSpacePirateOAM_StartingToCrawl_Frame3[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xf2, 0x1fd, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame1[34] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame1[OAM_DATA_SIZE(11)] = {
     0xb,
     0xf2, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x246,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x1fd, OBJ_SPRITE_OAM | 0x206,
@@ -1449,7 +1449,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame1[34] = {
     OBJ_SHAPE_VERTICAL | 0xef, 0x9, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame2[34] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     0xf1, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xf2, 0x0, OBJ_SPRITE_OAM | 0x207,
@@ -1464,7 +1464,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame2[34] = {
     OBJ_SHAPE_VERTICAL | 0xee, OBJ_X_FLIP | 0x6, OBJ_SPRITE_OAM | 0x216
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame3[28] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame3[OAM_DATA_SIZE(9)] = {
     0x9,
     0xf3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x3, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xf1, 0x2, OBJ_SPRITE_OAM | 0x207,
@@ -1477,7 +1477,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame3[28] = {
     0xf8, 0x1fd, OBJ_SPRITE_OAM | 0x23b
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4[34] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4[OAM_DATA_SIZE(11)] = {
     0xb,
     0xf3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x5, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xf1, OBJ_X_FLIP | 0x4, OBJ_SPRITE_OAM | 0x207,
@@ -1492,7 +1492,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4[34] = {
     0xf8, OBJ_X_FLIP | 0x1fe, OBJ_SPRITE_OAM | 0x23b
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame1[25] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x3, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xf1, 0x2, OBJ_SPRITE_OAM | 0x207,
@@ -1504,7 +1504,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame1[25] = {
     0xf8, 0x1fd, OBJ_SPRITE_OAM | 0x23b
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame2[34] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     0xf1, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x248,
     OBJ_SHAPE_VERTICAL | 0xf2, 0x0, OBJ_SPRITE_OAM | 0x207,
@@ -1519,7 +1519,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame2[34] = {
     OBJ_SHAPE_VERTICAL | 0xee, OBJ_X_FLIP | 0x6, OBJ_SPRITE_OAM | 0x216
 };
 
-const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame3[34] = {
+const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame3[OAM_DATA_SIZE(11)] = {
     0xb,
     0xf2, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x246,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x1fd, OBJ_SPRITE_OAM | 0x206,
@@ -1534,7 +1534,7 @@ const u16 sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame3[34] = {
     OBJ_SHAPE_VERTICAL | 0xef, 0x9, OBJ_SPRITE_OAM | 0x21e
 };
 
-const u16 sSpacePirateOAM_CrawlingStopped_Frame1[40] = {
+const u16 sSpacePirateOAM_CrawlingStopped_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf6, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1, OBJ_SPRITE_OAM | 0x245,
@@ -1551,7 +1551,7 @@ const u16 sSpacePirateOAM_CrawlingStopped_Frame1[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xf2, 0x1ff, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sSpacePirateOAM_CrawlingStopped_Frame2[40] = {
+const u16 sSpacePirateOAM_CrawlingStopped_Frame2[OAM_DATA_SIZE(13)] = {
     0xd,
     0xf5, OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x244,
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f1, OBJ_SPRITE_OAM | 0x243,
@@ -1568,7 +1568,7 @@ const u16 sSpacePirateOAM_CrawlingStopped_Frame2[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xf2, 0x1ff, OBJ_SPRITE_OAM | 0x27e
 };
 
-const u16 sSpacePirateOAM_Jumping_Unused_Frame[46] = {
+const u16 sSpacePirateOAM_Jumping_Unused_Frame[OAM_DATA_SIZE(15)] = {
     0xf,
     0xd6, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xe6, 0x1eb, OBJ_SPRITE_OAM | 0x26a,
@@ -1587,7 +1587,7 @@ const u16 sSpacePirateOAM_Jumping_Unused_Frame[46] = {
     0xd5, OBJ_SIZE_16x16 | 0x1f1, OBJ_SPRITE_OAM | 0x204
 };
 
-const u16 sSpacePirateOAM_NinjaPose_Frame0[55] = {
+const u16 sSpacePirateOAM_NinjaPose_Frame0[OAM_DATA_SIZE(18)] = {
     0x12,
     0xd8, OBJ_SIZE_16x16 | 0x2, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xe8, 0x2, OBJ_SPRITE_OAM | 0x26a,
@@ -1609,7 +1609,7 @@ const u16 sSpacePirateOAM_NinjaPose_Frame0[55] = {
     OBJ_SHAPE_VERTICAL | 0xf2, 0x1e4, OBJ_SPRITE_OAM | 0x213
 };
 
-const u16 sSpacePirateOAM_StandingMotionless_Frame0[43] = {
+const u16 sSpacePirateOAM_StandingMotionless_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe6, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -1627,25 +1627,25 @@ const u16 sSpacePirateOAM_StandingMotionless_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateLaserOAM_Diagonal_Frame0[7] = {
+const u16 sSpacePirateLaserOAM_Diagonal_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x28c,
     OBJ_SHAPE_HORIZONTAL | 0x3, 0x1fc, OBJ_SPRITE_OAM | 0x2ae
 };
 
-const u16 sSpacePirateLaserOAM_Diagonal_Frame1[7] = {
+const u16 sSpacePirateLaserOAM_Diagonal_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x290,
     OBJ_SHAPE_HORIZONTAL | 0x3, 0x1fc, OBJ_SPRITE_OAM | 0x2b2
 };
 
-const u16 sSpacePirateLaserOAM_Diagonal_Frame2[7] = {
+const u16 sSpacePirateLaserOAM_Diagonal_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x294,
     OBJ_SHAPE_HORIZONTAL | 0x3, 0x1fc, OBJ_SPRITE_OAM | 0x2b6
 };
 
-const u16 sSpacePirateOAM_Standing_Frame0[43] = {
+const u16 sSpacePirateOAM_Standing_Frame0[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe5, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe5, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -1663,7 +1663,7 @@ const u16 sSpacePirateOAM_Standing_Frame0[43] = {
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_Standing_Frame1[43] = {
+const u16 sSpacePirateOAM_Standing_Frame1[OAM_DATA_SIZE(14)] = {
     0xe,
     0xe4, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe4, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -1681,7 +1681,7 @@ const u16 sSpacePirateOAM_Standing_Frame1[43] = {
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_Standing_Frame2[46] = {
+const u16 sSpacePirateOAM_Standing_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe3, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe3, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -1700,7 +1700,7 @@ const u16 sSpacePirateOAM_Standing_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xd9, 0x1f9, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame2[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xe9, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xe9, 0x1f8, OBJ_SPRITE_OAM | 0x245,
@@ -1719,7 +1719,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1f4, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame3[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xeb, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1f7, OBJ_SPRITE_OAM | 0x245,
@@ -1738,7 +1738,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame3[46] = {
     OBJ_SHAPE_VERTICAL | 0xea, 0x1f3, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame4[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame4[OAM_DATA_SIZE(15)] = {
     0xf,
     0xed, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xed, 0x1f7, OBJ_SPRITE_OAM | 0x245,
@@ -1757,7 +1757,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame4[46] = {
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1f1, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xec, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
     OBJ_SHAPE_VERTICAL | 0xec, 0x1fb, OBJ_SPRITE_OAM | 0x245,
@@ -1776,7 +1776,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5[46] = {
     OBJ_SHAPE_VERTICAL | 0xe6, 0x1ed, OBJ_SPRITE_OAM | 0x245
 };
 
-const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6[46] = {
+const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_HORIZONTAL | 0xeb, 0x1ea, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1fa, OBJ_SPRITE_OAM | 0x287,
@@ -1795,7 +1795,7 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6[46] = {
     OBJ_SHAPE_VERTICAL | 0xe1, 0x1e9, OBJ_SPRITE_OAM | 0x287
 };
 
-const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame1[46] = {
+const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_HORIZONTAL | 0xeb, 0x1eb, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1fb, OBJ_SPRITE_OAM | 0x287,
@@ -1814,7 +1814,7 @@ const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame1[46] = {
     OBJ_SHAPE_VERTICAL | 0xe1, 0x1ea, OBJ_SPRITE_OAM | 0x287
 };
 
-const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame2[46] = {
+const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     OBJ_SHAPE_HORIZONTAL | 0xea, 0x1ec, OBJ_SPRITE_OAM | 0x24e,
     OBJ_SHAPE_VERTICAL | 0xea, 0x1fc, OBJ_SPRITE_OAM | 0x287,
@@ -1833,7 +1833,7 @@ const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xe0, 0x1eb, OBJ_SPRITE_OAM | 0x287
 };
 
-const u16 sSpacePirateOAM_OnWallIdle_Frame1[40] = {
+const u16 sSpacePirateOAM_OnWallIdle_Frame1[OAM_DATA_SIZE(13)] = {
     0xd,
     0xcf, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xdf, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1850,7 +1850,7 @@ const u16 sSpacePirateOAM_OnWallIdle_Frame1[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateOAM_OnWallIdle_Frame2[40] = {
+const u16 sSpacePirateOAM_OnWallIdle_Frame2[OAM_DATA_SIZE(13)] = {
     0xd,
     0xce, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x22a,
     OBJ_SHAPE_HORIZONTAL | 0xde, 0x1f0, OBJ_SPRITE_OAM | 0x26a,
@@ -1867,29 +1867,29 @@ const u16 sSpacePirateOAM_OnWallIdle_Frame2[40] = {
     OBJ_SHAPE_HORIZONTAL | 0xd1, 0x1f0, OBJ_SPRITE_OAM | 0x26a
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame0[4] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x298
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame1[4] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x2b8
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame2[7] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x299,
     OBJ_SHAPE_VERTICAL | 0xf8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x299
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame3[7] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame3[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x29b,
     OBJ_SHAPE_VERTICAL | 0xf8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x29b
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame4[13] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x29e,
     OBJ_SHAPE_VERTICAL | 0xf4, OBJ_X_FLIP | 0x4, OBJ_SPRITE_OAM | 0x29e,
@@ -1897,7 +1897,7 @@ const u16 sSpacePirateLaserOAM_Exploding_Frame4[13] = {
     0x4, OBJ_X_FLIP | OBJ_Y_FLIP | 0x4, OBJ_SPRITE_OAM | 0x29e
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame5[25] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame5[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf3, 0x1f3, OBJ_SPRITE_OAM | 0x2bc,
     0xf3, OBJ_X_FLIP | 0x5, OBJ_SPRITE_OAM | 0x2bc,
@@ -1909,13 +1909,13 @@ const u16 sSpacePirateLaserOAM_Exploding_Frame5[25] = {
     OBJ_SHAPE_VERTICAL | 0xf8, OBJ_X_FLIP | 0x7, OBJ_SPRITE_OAM | 0x288
 };
 
-const u16 sSpacePirateLaserOAM_Exploding_Frame6[7] = {
+const u16 sSpacePirateLaserOAM_Exploding_Frame6[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xf8, 0x1f8, OBJ_SPRITE_OAM | 0x29a,
     OBJ_SHAPE_VERTICAL | 0xf8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x29a
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame0[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame0[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdc, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -1934,7 +1934,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame0[46] = {
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame1[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame1[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdc, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -1953,7 +1953,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame1[46] = {
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame2[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame2[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdb, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -1972,7 +1972,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame2[46] = {
     OBJ_SHAPE_VERTICAL | 0xd9, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame3[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame3[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdb, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -1991,7 +1991,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame3[46] = {
     OBJ_SHAPE_VERTICAL | 0xd9, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame4[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame4[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdd, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdd, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -2010,7 +2010,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame4[46] = {
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame5[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame5[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdc, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -2029,7 +2029,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame5[46] = {
     OBJ_SHAPE_VERTICAL | 0xda, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame6[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame6[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdb, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdb, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -2048,7 +2048,7 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame6[46] = {
     OBJ_SHAPE_VERTICAL | 0xd9, 0x1f3, OBJ_SPRITE_OAM | 0x253
 };
 
-const u16 sSpacePirateCarryingPowerBombOAM_Frame7[46] = {
+const u16 sSpacePirateCarryingPowerBombOAM_Frame7[OAM_DATA_SIZE(15)] = {
     0xf,
     0xdc, OBJ_SIZE_16x16 | 0x1e7, OBJ_SPRITE_OAM | 0x251,
     OBJ_SHAPE_VERTICAL | 0xdc, 0x1f7, OBJ_SPRITE_OAM | 0x253,
@@ -2068,547 +2068,865 @@ const u16 sSpacePirateCarryingPowerBombOAM_Frame7[46] = {
 };
 
 const struct FrameData sSpacePirateOAM_Crouched[5] = {
-    sSpacePirateOAM_Crouched_Frame0,
-    0xA,
-    sSpacePirateOAM_Crouched_Frame1,
-    0x5,
-    sSpacePirateOAM_Crouched_Frame2,
-    0xA,
-    sSpacePirateOAM_Crouched_Frame1,
-    0x5,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Walking[9] = {
-    sSpacePirateOAM_Walking_Frame0,
-    0x6,
-    sSpacePirateOAM_Walking_Frame1,
-    0x6,
-    sSpacePirateOAM_Walking_Frame2,
-    0x6,
-    sSpacePirateOAM_Walking_Frame3,
-    0x6,
-    sSpacePirateOAM_Walking_Frame4,
-    0x6,
-    sSpacePirateOAM_Walking_Frame5,
-    0x6,
-    sSpacePirateOAM_Walking_Frame6,
-    0x6,
-    sSpacePirateOAM_Walking_Frame7,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sSpacePirateOAM_Walking_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ChargingLaserForward[8] = {
-    sSpacePirateOAM_ChargingLaserForward_Frame0,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame1,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame2,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame3,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame4,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame5,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame6,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame6,
+        .timer = UCHAR_MAX
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateLaserOAM_Forward[4] = {
-    sSpacePirateLaserOAM_Forward_Frame0,
-    0x2,
-    sSpacePirateLaserOAM_Forward_Frame1,
-    0x2,
-    sSpacePirateLaserOAM_Forward_Frame2,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateLaserOAM_Forward_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateLaserOAM_Forward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateLaserOAM_Forward_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_TurningAroundFirstPart[5] = {
-    sSpacePirateOAM_TurningAroundFirstPart_Frame0,
-    0x2,
-    sSpacePirateOAM_TurningAroundFirstPart_Frame1,
-    0x2,
-    sSpacePirateOAM_TurningAroundFirstPart_Frame2,
-    0x2,
-    sSpacePirateOAM_TurningAroundFirstPart_Frame3,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_TurningAroundSecondPart[5] = {
-    sSpacePirateOAM_TurningAroundSecondPart_Frame0,
-    0x2,
-    sSpacePirateOAM_TurningAroundSecondPart_Frame1,
-    0x2,
-    sSpacePirateOAM_TurningAroundSecondPart_Frame2,
-    0x2,
-    sSpacePirateOAM_Crouched_Frame0,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_TurningAroundSecondPart_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningAroundSecondPart_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningAroundSecondPart_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_StandingMotionless_Unused[2] = {
-    sSpacePirateOAM_StandingMotionless_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_StandingMotionless_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ShootingForward[5] = {
-    sSpacePirateOAM_ChargingLaserForward_Frame6,
-    0xA,
-    sSpacePirateOAM_ShootingForward_Frame1,
-    0x4,
-    sSpacePirateOAM_ShootingForward_Frame2,
-    0x6,
-    sSpacePirateOAM_ShootingForward_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ShootingForward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ShootingForward_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ShootingForward_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Jumping[8] = {
-    sSpacePirateOAM_Crouched_Frame0,
-    0x2,
-    sSpacePirateOAM_Landing_Frame2,
-    0x2,
-    sSpacePirateOAM_Landing_Frame1,
-    0x2,
-    sSpacePirateOAM_Landing_Frame0,
-    0x2,
-    sSpacePirateOAM_JumpingFromWall_Frame0,
-    0x2,
-    sSpacePirateOAM_JumpingFromWall_Frame1,
-    0x2,
-    sSpacePirateOAM_JumpingFromWall_Frame2,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame2,
+        .timer = UCHAR_MAX
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyDown[8] = {
-    sSpacePirateOAM_ChargingLaserForward_Frame0,
-    0x4,
-    sSpacePirateOAM_ChargingLaserForward_Frame1,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame2,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame3,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame4,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserForward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6,
+        .timer = UCHAR_MAX
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Falling[2] = {
-    sSpacePirateOAM_Falling_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Falling_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Landing[5] = {
-    sSpacePirateOAM_Landing_Frame0,
-    0x2,
-    sSpacePirateOAM_Landing_Frame1,
-    0x2,
-    sSpacePirateOAM_Landing_Frame2,
-    0x2,
-    sSpacePirateOAM_Crouched_Frame0,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Landing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ShootingDiagonallyDown[5] = {
-    sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6,
-    0xA,
-    sSpacePirateOAM_ShootingDiagonallyDown_Frame1,
-    0x4,
-    sSpacePirateOAM_ShootingDiagonallyDown_Frame2,
-    0x6,
-    sSpacePirateOAM_ShootingDiagonallyDown_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyDown_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyDown_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyDown_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_LookingUpwards_Unused[5] = {
-    sSpacePirateOAM_LookingUpwards_Frame0,
-    0xA,
-    sSpacePirateOAM_LookingUpwards_Frame1,
-    0x5,
-    sSpacePirateOAM_LookingUpwards_Frame2,
-    0xA,
-    sSpacePirateOAM_LookingUpwards_Frame1,
-    0x5,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_LookingUpwards_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_LookingUpwards_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_LookingUpwards_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_LookingUpwards_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyUp[8] = {
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame0,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame1,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame2,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame3,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame4,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame5,
-    0x4,
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6,
+        .timer = UCHAR_MAX
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ShootingDiagonallyUp[5] = {
-    sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6,
-    0xA,
-    sSpacePirateOAM_ShootingDiagonallyUp_Frame1,
-    0x4,
-    sSpacePirateOAM_ShootingDiagonallyUp_Frame2,
-    0x6,
-    sSpacePirateOAM_ShootingDiagonallyUp_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ChargingLaserDiagonallyUp_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyUp_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyUp_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ShootingDiagonallyUp_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ClimbingUp[9] = {
-    sSpacePirateOAM_ClimbingUp_Frame0,
-    0xA,
-    sSpacePirateOAM_ClimbingUp_Frame1,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame2,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame3,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame4,
-    0xA,
-    sSpacePirateOAM_ClimbingUp_Frame5,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame6,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame7,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ClimbingDown[9] = {
-    sSpacePirateOAM_ClimbingUp_Frame0,
-    0xA,
-    sSpacePirateOAM_ClimbingUp_Frame7,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame6,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame5,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame4,
-    0xA,
-    sSpacePirateOAM_ClimbingUp_Frame3,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame2,
-    0x6,
-    sSpacePirateOAM_ClimbingUp_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_StartingToCrawl[6] = {
-    sSpacePirateOAM_Crouched_Frame0,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame1,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame2,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame3,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Crawling[9] = {
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0xA,
-    sSpacePirateOAM_Crawling_Frame1,
-    0x6,
-    sSpacePirateOAM_Crawling_Frame2,
-    0x6,
-    sSpacePirateOAM_Crawling_Frame3,
-    0x6,
-    sSpacePirateOAM_Crawling_Frame4,
-    0xA,
-    sSpacePirateOAM_Crawling_Frame5,
-    0x6,
-    sSpacePirateOAM_Crawling_Frame6,
-    0x6,
-    sSpacePirateOAM_Crawling_Frame7,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sSpacePirateOAM_Crawling_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_StandingUp[6] = {
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame3,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame2,
-    0x6,
-    sSpacePirateOAM_StartingToCrawl_Frame1,
-    0x6,
-    sSpacePirateOAM_Crouched_Frame0,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart[6] = {
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0x4,
-    sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame1,
-    0x2,
-    sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame2,
-    0x2,
-    sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame3,
-    0x2,
-    sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart[6] = {
-    sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4,
-    0x4,
-    sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame1,
-    0x2,
-    sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame2,
-    0x2,
-    sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame3,
-    0x2,
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingFirstPart_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_TurningAroundWhileCrawlingSecondPart_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_CrawlingStopped[5] = {
-    sSpacePirateOAM_StartingToCrawl_Frame4,
-    0xA,
-    sSpacePirateOAM_CrawlingStopped_Frame1,
-    0x5,
-    sSpacePirateOAM_CrawlingStopped_Frame2,
-    0xA,
-    sSpacePirateOAM_CrawlingStopped_Frame1,
-    0x5,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_StartingToCrawl_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_CrawlingStopped_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_CrawlingStopped_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_CrawlingStopped_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_TurningToAimWhileClimbing[4] = {
-    sSpacePirateOAM_ClimbingUp_Frame0,
-    0x1,
-    sSpacePirateOAM_TurningToAimWhileClimbing_Frame1,
-    0x1,
-    sSpacePirateOAM_TurningToAimWhileClimbing_Frame2,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningToAimWhileClimbing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningToAimWhileClimbing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_AimingWhileClimbing[5] = {
-    sSpacePirateOAM_AimingWhileClimbing_Frame0,
-    0x4,
-    sSpacePirateOAM_AimingWhileClimbing_Frame1,
-    0x2,
-    sSpacePirateOAM_AimingWhileClimbing_Frame2,
-    0x4,
-    sSpacePirateOAM_AimingWhileClimbing_Frame1,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ClimbingChargingLaserForward[3] = {
-    sSpacePirateOAM_AimingWhileClimbing_Frame0,
-    0x4,
-    sSpacePirateOAM_ClimbingChargingLaserForward_Frame1,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ClimbingChargingLaserForward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ClimbingShootingForward[5] = {
-    sSpacePirateOAM_ClimbingShootingForward_Frame0,
-    0xA,
-    sSpacePirateOAM_ClimbingShootingForward_Frame1,
-    0x4,
-    sSpacePirateOAM_ClimbingShootingForward_Frame2,
-    0x6,
-    sSpacePirateOAM_ClimbingShootingForward_Frame1,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ClimbingShootingForward_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_ClimbingShootingForward_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_ClimbingShootingForward_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ClimbingShootingForward_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_ClimbingRetractingAim[5] = {
-    sSpacePirateOAM_AimingWhileClimbing_Frame0,
-    0x1,
-    sSpacePirateOAM_TurningToAimWhileClimbing_Frame2,
-    0x1,
-    sSpacePirateOAM_TurningToAimWhileClimbing_Frame1,
-    0x1,
-    sSpacePirateOAM_ClimbingUp_Frame0,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_TurningToAimWhileClimbing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningToAimWhileClimbing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_LaunchingFromWall[4] = {
-    sSpacePirateOAM_AimingWhileClimbing_Frame0,
-    0x4,
-    sSpacePirateOAM_LaunchingFromWall_Frame1,
-    0x4,
-    sSpacePirateOAM_LaunchingFromWall_Frame2,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_AimingWhileClimbing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_LaunchingFromWall_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_LaunchingFromWall_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_JumpingFromWall[4] = {
-    sSpacePirateOAM_JumpingFromWall_Frame0,
-    0x8,
-    sSpacePirateOAM_JumpingFromWall_Frame1,
-    0x4,
-    sSpacePirateOAM_JumpingFromWall_Frame2,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_JumpingFromWall_Frame2,
+        .timer = UCHAR_MAX
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateLaserOAM_Diagonal[4] = {
-    sSpacePirateLaserOAM_Diagonal_Frame0,
-    0x2,
-    sSpacePirateLaserOAM_Diagonal_Frame1,
-    0x2,
-    sSpacePirateLaserOAM_Diagonal_Frame2,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateLaserOAM_Diagonal_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateLaserOAM_Diagonal_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateLaserOAM_Diagonal_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_Standing[5] = {
-    sSpacePirateOAM_Standing_Frame0,
-    0xA,
-    sSpacePirateOAM_Standing_Frame1,
-    0x5,
-    sSpacePirateOAM_Standing_Frame2,
-    0xA,
-    sSpacePirateOAM_Standing_Frame1,
-    0x5,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_StandingAlerted[5] = {
-    sSpacePirateOAM_Standing_Frame0,
-    0x6,
-    sSpacePirateOAM_Standing_Frame1,
-    0x2,
-    sSpacePirateOAM_Standing_Frame2,
-    0x6,
-    sSpacePirateOAM_Standing_Frame1,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Standing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_OnWallIdle_Unused[5] = {
-    sSpacePirateOAM_ClimbingUp_Frame0,
-    0xA,
-    sSpacePirateOAM_OnWallIdle_Frame1,
-    0x5,
-    sSpacePirateOAM_OnWallIdle_Frame2,
-    0xA,
-    sSpacePirateOAM_OnWallIdle_Frame1,
-    0x5,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_ClimbingUp_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_OnWallIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_OnWallIdle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_OnWallIdle_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateLaserOAM_Exploding[8] = {
-    sSpacePirateLaserOAM_Exploding_Frame0,
-    0x2,
-    sSpacePirateLaserOAM_Exploding_Frame1,
-    0x2,
-    sSpacePirateLaserOAM_Exploding_Frame2,
-    0x1,
-    sSpacePirateLaserOAM_Exploding_Frame3,
-    0x1,
-    sSpacePirateLaserOAM_Exploding_Frame4,
-    0x1,
-    sSpacePirateLaserOAM_Exploding_Frame5,
-    0x2,
-    sSpacePirateLaserOAM_Exploding_Frame6,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sSpacePirateLaserOAM_Exploding_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateOAM_LookingAtCamera_Unused[5] = {
-    sSpacePirateOAM_TurningAroundFirstPart_Frame0,
-    0x4,
-    sSpacePirateOAM_LookingAtCamera_Frame1,
-    0x1A,
-    sSpacePirateOAM_TurningAroundFirstPart_Frame0,
-    0x4,
-    sSpacePirateOAM_Crouched_Frame0,
-    0x10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sSpacePirateOAM_LookingAtCamera_Frame1,
+        .timer = CONVERT_SECONDS(13.f / 30)
+    },
+    [2] = {
+        .pFrame = sSpacePirateOAM_TurningAroundFirstPart_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sSpacePirateOAM_Crouched_Frame0,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sSpacePirateCarryingPowerBombOAM[9] = {
-    sSpacePirateCarryingPowerBombOAM_Frame0,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame1,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame2,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame3,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame4,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame5,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame6,
-    0x6,
-    sSpacePirateCarryingPowerBombOAM_Frame7,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sSpacePirateCarryingPowerBombOAM_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };

@@ -63,43 +63,39 @@ const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3] = {
 };
 
 
-extern const u16 sRidleyLandingOAM_ShipBottomPart_Frame0[13];
-extern const u16 sRidleyLandingOAM_ShipMiddlePart_Frame0[13];
-extern const u16 sRidleyLandingOAM_ShipTopPart_Frame0[7];
-extern const u16 sRidleyLandingOAM_Ridley_Frame0[7];
-extern const struct FrameData sRidleyLandingOAM_ShipInSpace[2];
-extern const struct FrameData sRidleyLandingOAM_SmokeParticles[7];
-extern const struct FrameData sRidleyLandingOAM_Rocks[5];
-
 const struct FrameData sRidleyLandingOAM_ShipBottomPart[2] = {
-    sRidleyLandingOAM_ShipBottomPart_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_ShipBottomPart_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyLandingOAM_ShipMiddlePart[2] = {
-    sRidleyLandingOAM_ShipMiddlePart_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_ShipMiddlePart_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyLandingOAM_ShipTopPart[2] = {
-    sRidleyLandingOAM_ShipTopPart_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_ShipTopPart_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyLandingOAM_Ridley[2] = {
-    sRidleyLandingOAM_Ridley_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_Ridley_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-const struct OamArray sRidleyLandingCutsceneOAM[11] = {
+const struct OamArray sRidleyLandingCutsceneOAM[RIDLEY_LANDING_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleyLandingOAM_ShipInSpace,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -146,7 +142,7 @@ const struct OamArray sRidleyLandingCutsceneOAM[11] = {
     },
 };
 
-const u16 sRidleyLandingOAM_ShipInSpace_Frame0[10] = {
+const u16 sRidleyLandingOAM_ShipInSpace_Frame0[OAM_DATA_SIZE(3)] = {
     0x3,
     0xd8, OBJ_SIZE_64x64 | 0x1c8, OBJ_SPRITE_OAM | 0x0,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_SIZE_32x64 | 0x8, OBJ_SPRITE_OAM | 0x8,
@@ -154,13 +150,14 @@ const u16 sRidleyLandingOAM_ShipInSpace_Frame0[10] = {
 };
 
 const struct FrameData sRidleyLandingOAM_ShipInSpace[2] = {
-    sRidleyLandingOAM_ShipInSpace_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_ShipInSpace_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-const u16 sRidleyLandingOAM_ShipBottomPart_Frame0[13] = {
+const u16 sRidleyLandingOAM_ShipBottomPart_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0x0, OBJ_SIZE_64x64 | 0x180, 0x200,
     0x0, OBJ_SIZE_64x64 | 0x1c0, 0x208,
@@ -168,7 +165,7 @@ const u16 sRidleyLandingOAM_ShipBottomPart_Frame0[13] = {
     0x0, OBJ_SIZE_64x64 | 0x40, 0x218
 };
 
-const u16 sRidleyLandingOAM_ShipMiddlePart_Frame0[13] = {
+const u16 sRidleyLandingOAM_ShipMiddlePart_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc0, OBJ_SIZE_64x64 | 0x180, 0x100,
     0xc0, OBJ_SIZE_64x64 | 0x1c0, 0x108,
@@ -176,13 +173,13 @@ const u16 sRidleyLandingOAM_ShipMiddlePart_Frame0[13] = {
     0xc0, OBJ_SIZE_64x64 | 0x40, 0x118
 };
 
-const u16 sRidleyLandingOAM_ShipTopPart_Frame0[7] = {
+const u16 sRidleyLandingOAM_ShipTopPart_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0x80, OBJ_SIZE_64x64 | 0x1c0, 0x8,
     0x80, OBJ_SIZE_64x64 | 0x0, 0x10
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame0[61] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame0[OAM_DATA_SIZE(20)] = {
     0x14,
     0xe8, OBJ_SIZE_16x16 | 0x1b0, 0x1360,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1c0, 0x1362,
@@ -206,7 +203,7 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame0[61] = {
     0xf0, OBJ_SIZE_16x16 | 0x1c0, 0x13c6
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame1[64] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame1[OAM_DATA_SIZE(21)] = {
     0x15,
     0xe8, OBJ_SIZE_16x16 | 0x1b0, 0x1363,
     OBJ_SHAPE_VERTICAL | 0xe8, 0x1c0, 0x1365,
@@ -231,7 +228,7 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame1[64] = {
     0xf8, 0x1f0, 0x1340
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame2[82] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame2[OAM_DATA_SIZE(27)] = {
     0x1b,
     0xf0, OBJ_SIZE_16x16 | 0x1c0, 0x13c0,
     0xe8, OBJ_SIZE_16x16 | 0x0, 0x1360,
@@ -262,7 +259,7 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame2[82] = {
     0xe8, OBJ_SIZE_16x16 | 0x28, 0x13c0
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame3[58] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame3[OAM_DATA_SIZE(19)] = {
     0x13,
     0xf0, OBJ_SIZE_16x16 | 0x1c0, 0x13c2,
     0xe8, OBJ_SIZE_16x16 | 0x1b0, 0x1369,
@@ -285,7 +282,7 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame3[58] = {
     0xf0, OBJ_SIZE_16x16 | 0x48, 0x13c4
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame4[28] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame4[OAM_DATA_SIZE(9)] = {
     0x9,
     0xf8, 0x1f0, 0x1343,
     0xe8, OBJ_SIZE_16x16 | 0x0, 0x1366,
@@ -298,7 +295,7 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame4[28] = {
     0xe8, OBJ_SIZE_16x16 | 0x28, 0x13c4
 };
 
-const u16 sRidleyLandingOAM_SmokeParticles_Frame5[22] = {
+const u16 sRidleyLandingOAM_SmokeParticles_Frame5[OAM_DATA_SIZE(7)] = {
     0x7,
     0xf8, 0x1f0, 0x1343,
     0xf0, OBJ_SIZE_16x16 | 0x10, 0x1360,
@@ -310,29 +307,40 @@ const u16 sRidleyLandingOAM_SmokeParticles_Frame5[22] = {
 };
 
 const struct FrameData sRidleyLandingOAM_SmokeParticles[7] = {
-    sRidleyLandingOAM_SmokeParticles_Frame0,
-    4,
-    sRidleyLandingOAM_SmokeParticles_Frame1,
-    4,
-    sRidleyLandingOAM_SmokeParticles_Frame2,
-    4,
-    sRidleyLandingOAM_SmokeParticles_Frame3,
-    4,
-    sRidleyLandingOAM_SmokeParticles_Frame4,
-    4,
-    sRidleyLandingOAM_SmokeParticles_Frame5,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRidleyLandingOAM_SmokeParticles_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
-const u16 sRidleyLandingOAM_Ridley_Frame0[7] = {
+const u16 sRidleyLandingOAM_Ridley_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xd8, OBJ_SIZE_64x64 | 0x1c8, 0x0,
     0xd8, OBJ_SIZE_64x64 | 0x8, 0x8
 };
 
-const u16 sRidleyLandingOAM_Rocks_Frame0[16] = {
+const u16 sRidleyLandingOAM_Rocks_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_64x64 | 0x1c0, 0x1070,
     0xe0, OBJ_SIZE_64x64 | 0x0, 0x1078,
@@ -341,7 +349,7 @@ const u16 sRidleyLandingOAM_Rocks_Frame0[16] = {
     0x10, OBJ_SIZE_16x16 | 0x1b0, 0x112e
 };
 
-const u16 sRidleyLandingOAM_Rocks_Frame1[16] = {
+const u16 sRidleyLandingOAM_Rocks_Frame1[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_64x64 | 0x0, 0x1308,
     0x10, OBJ_SIZE_16x16 | 0x1b0, 0x12c4,
@@ -350,7 +358,7 @@ const u16 sRidleyLandingOAM_Rocks_Frame1[16] = {
     0xe0, OBJ_SIZE_64x64 | 0x1c0, 0x1300
 };
 
-const u16 sRidleyLandingOAM_Rocks_Frame2[16] = {
+const u16 sRidleyLandingOAM_Rocks_Frame2[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_64x64 | 0x0, 0x1318,
     0xe0, OBJ_SIZE_64x64 | 0x1c0, 0x1310,
@@ -359,7 +367,7 @@ const u16 sRidleyLandingOAM_Rocks_Frame2[16] = {
     OBJ_SHAPE_HORIZONTAL | 0xd8, OBJ_SIZE_32x8 | 0x20, 0x12fc
 };
 
-const u16 sRidleyLandingOAM_Rocks_Frame3[16] = {
+const u16 sRidleyLandingOAM_Rocks_Frame3[OAM_DATA_SIZE(5)] = {
     0x5,
     0xe0, OBJ_SIZE_64x64 | 0x0, 0x11b8,
     0xe0, OBJ_SIZE_64x64 | 0x1c0, 0x11b0,
@@ -369,16 +377,23 @@ const u16 sRidleyLandingOAM_Rocks_Frame3[16] = {
 };
 
 const struct FrameData sRidleyLandingOAM_Rocks[5] = {
-    sRidleyLandingOAM_Rocks_Frame0,
-    4,
-    sRidleyLandingOAM_Rocks_Frame1,
-    4,
-    sRidleyLandingOAM_Rocks_Frame2,
-    4,
-    sRidleyLandingOAM_Rocks_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyLandingOAM_Rocks_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sRidleyLandingOAM_Rocks_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRidleyLandingOAM_Rocks_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRidleyLandingOAM_Rocks_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 

@@ -2,7 +2,8 @@
 #include "cutscenes/cutscene_utils.h"
 #include "cutscenes/enter_tourian.h"
 
-const u16 sEnterTourian_760090[9][2] = {
+// (x, y) coordinates
+const u16 sEnterTourian_760090[MAX_METROID_IDS * 2 + 1][2] = {
     [0] = {
         BLOCK_SIZE * 38 + QUARTER_BLOCK_SIZE,
         BLOCK_SIZE * 39 - QUARTER_BLOCK_SIZE
@@ -41,7 +42,8 @@ const u16 sEnterTourian_760090[9][2] = {
     }
 };
 
-const s16 sEnterTourian_7600b4[4][2] = {
+// (x, y) coordinates
+const s16 sEnterTourian_7600b4[MAX_METROID_IDS][2] = {
     [0] = {
         BLOCK_SIZE * 38 + 12,
         BLOCK_SIZE * 34 + HALF_BLOCK_SIZE

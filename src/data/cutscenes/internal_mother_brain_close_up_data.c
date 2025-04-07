@@ -3,11 +3,11 @@
 #include "cutscenes/cutscene_utils.h"
 
 const u16 sMotherBrainCloseUpLookingAtSamusTimers[2] = {
-    60 * 3 + 10, 60 * 2
+    CONVERT_SECONDS(3.f) + CONVERT_SECONDS(1.f / 6), CONVERT_SECONDS(2.f)
 };
 
 const u16 sMotherBrainCloseUpEyeOpeningTimers[4] = {
-    40, 40, 60 + 20, 60
+    TWO_THIRD_SECOND, TWO_THIRD_SECOND, CONVERT_SECONDS(1.f) + ONE_THIRD_SECOND, CONVERT_SECONDS(1.f)
 };
 
 const struct CutsceneSubroutineData sMotherBrainCloseUpSubroutineData[5] = {

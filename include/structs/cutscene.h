@@ -9,15 +9,18 @@ struct OamArray {
     u8 preAction;
 };
 
-#define OAM_ARRAY_PRE_ACTION_NONE 0
-#define OAM_ARRAY_PRE_ACTION_CHANGE_FRAME 1
-#define OAM_ARRAY_PRE_ACTION_RESET_FRAME 2
-#define OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME 3
-#define OAM_ARRAY_PRE_ACTION_KILL_AFTER_END 4
-#define OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END 5
-#define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AFTER_END 7
-#define OAM_ARRAY_PRE_ACTION_SWITCH_TO_PREVIOUS_FRAME 8
-#define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING 9
+enum OamArrayPreAction {
+    OAM_ARRAY_PRE_ACTION_NONE,
+    OAM_ARRAY_PRE_ACTION_CHANGE_FRAME,
+    OAM_ARRAY_PRE_ACTION_RESET_FRAME,
+    OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME,
+    OAM_ARRAY_PRE_ACTION_KILL_AFTER_END,
+    OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END,
+
+    OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AFTER_END = 7,
+    OAM_ARRAY_PRE_ACTION_SWITCH_TO_PREVIOUS_FRAME,
+    OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING,
+};
 
 // For some reason, 0x800 (0x200 * 4) is used as a 0 value for the backgrounds position during most of the non gameplay moments
 // The hardware value is in pixel, ranging from 0 to 0x1FF, so a value of 0x800 equals to a value of 0 (0x800 / 4 & 0x1FF)
@@ -55,7 +58,7 @@ struct CutsceneScrollingInfo {
 };
 
 struct CutsceneInfo {
-    u8 unk_0;
+    u8 gameplayType;
     u8 playRoomMusic:4;
     u8 isElevator:2;
     u8 skippable:2;
@@ -122,8 +125,7 @@ struct CutsceneSpecialEffect {
 struct CutsceneOamData {
     s16 yPosition;
     s16 xPosition;
-    u8 unk_2;
-    u8 padding_5[3];
+    u8 padding_4[4];
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
@@ -137,27 +139,28 @@ struct CutsceneOamData {
     u8 actions;
     s16 xVelocity;
     s16 yVelocity;
-    s16 unk_12;
+    s16 unk_12; // used as timer and random number
     u16 timer;
-    u16 unk_16;
-    u16 unk_18;
-    u16 unk_1A;
+    u16 unk_16; // used for scaling and timer and random number
+    u16 unk_18; // used for timer and velocity
+    u16 unk_1A; // used as counter
     u8 padding_1C[2];
-    u8 unk_1E;
+    u8 unk_1E; // only holds the value 2 for unk_1A
 };
 
 struct CutsceneTimeInfo {
     u8 stage;
     u16 timer;
     u8 subStage;
-    u8 unk_5;
+    u8 unk_5; // unused
     u8 customTimer;
 };
 
+// Actually used in Enter_Tourian
 struct Cutscene_Unused {
     u8 unk_0;
     u8 unk_1;
-    u8 unk_2;
+    u8 unk_2; // finished scrolling?
     u8 unk_3;
 };
 
@@ -180,12 +183,12 @@ struct CutsceneData {
     struct CutsceneScreenShake horizontalScreenShake;
     struct CutsceneScreenShake verticalScreenShake;
     struct CutsceneSpecialEffect specialEffect;
-    s16 unk_B8;
+    s16 fadingDelay;
     u8 fadingStage;
     u8 fadingColor;
-    u8 unk_BC;
+    u8 fadingReady;
     u8 fadingIntensity;
-    u8 unk_BE;
+    u8 fadingMaxDelay;
     u8 fadingType;
     struct CutsceneGraphicsData graphicsData[4];
     struct CutsceneOamData oam[30];

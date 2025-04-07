@@ -67,12 +67,7 @@ const struct CutsceneScreenShakeInfo sMotherBrainCloseUpScreenShakeInfo = {
     .set = 0
 };
 
-extern const struct FrameData sMotherBrainCloseUpOam_Bubble[6];
-extern const struct FrameData sMotherBrainCloseUpOam_EyeOpening[11];
-extern const struct FrameData sMotherBrainCloseUpOam_EyeOpened[4];
-extern const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4];
-
-const struct OamArray sMotherBrainCloseUpCutsceneOam[7] = {
+const struct OamArray sMotherBrainCloseUpCutsceneOam[MOTHER_BRAIN_CLOSE_UP_OAM_ID_END] = {
     [0] = {
         .pOam = sMotherBrainCloseUpOam_Bubble,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -184,43 +179,71 @@ static const u16 sMotherBrainCloseUpOam_Bubble_Frame4[OAM_DATA_SIZE(4)] = {
 };
 
 const struct FrameData sMotherBrainCloseUpOam_EyeOpening[11] = {
-    sMotherBrainCloseUpOam_EyeOpening_Frame0,
-    6,
-    sMotherBrainCloseUpOam_EyeOpening_Frame1,
-    6,
-    sMotherBrainCloseUpOam_EyeOpening_Frame2,
-    6,
-    sMotherBrainCloseUpOam_EyeOpening_Frame3,
-    16,
-    sMotherBrainCloseUpOam_EyeOpening_Frame2,
-    4,
-    sMotherBrainCloseUpOam_EyeOpening_Frame3,
-    6,
-    sMotherBrainCloseUpOam_EyeOpening_Frame2,
-    4,
-    sMotherBrainCloseUpOam_EyeOpening_Frame3,
-    5,
-    sMotherBrainCloseUpOam_EyeOpening_Frame8,
-    8,
-    sMotherBrainCloseUpOam_EyeOpening_Frame9,
-    60,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame3,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [8] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame8,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [9] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpening_Frame9,
+        .timer = CONVERT_SECONDS(1.0f)
+    },
+    [10] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sMotherBrainCloseUpOam_Bubble[6] = {
-    sMotherBrainCloseUpOam_Bubble_Frame0,
-    4,
-    sMotherBrainCloseUpOam_Bubble_Frame1,
-    4,
-    sMotherBrainCloseUpOam_Bubble_Frame2,
-    4,
-    sMotherBrainCloseUpOam_Bubble_Frame3,
-    4,
-    sMotherBrainCloseUpOam_Bubble_Frame4,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMotherBrainCloseUpOam_Bubble_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sMotherBrainCloseUpOam_Bubble_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sMotherBrainCloseUpOam_Bubble_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sMotherBrainCloseUpOam_Bubble_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sMotherBrainCloseUpOam_Bubble_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 static const u16 sMotherBrainCloseUpOam_EyeOpened_Frame0[OAM_DATA_SIZE(16)] = {
@@ -308,25 +331,35 @@ static const u16 sMotherBrainCloseUpOam_ElevatorAnimation_Frame2[OAM_DATA_SIZE(3
 };
 
 const struct FrameData sMotherBrainCloseUpOam_EyeOpened[4] = {
-    sMotherBrainCloseUpOam_EyeOpened_Frame0,
-    8,
-    sMotherBrainCloseUpOam_EyeOpened_Frame1,
-    8,
-    sMotherBrainCloseUpOam_EyeOpened_Frame2,
-    8,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpened_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpened_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sMotherBrainCloseUpOam_EyeOpened_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4] = {
-    sMotherBrainCloseUpOam_ElevatorAnimation_Frame0,
-    4,
-    sMotherBrainCloseUpOam_ElevatorAnimation_Frame1,
-    4,
-    sMotherBrainCloseUpOam_ElevatorAnimation_Frame2,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sMotherBrainCloseUpOam_ElevatorAnimation_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sMotherBrainCloseUpOam_ElevatorAnimation_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sMotherBrainCloseUpOam_ElevatorAnimation_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const u16 sMotherBrainCloseUpPal[6 * 16] = INCBIN_U16("data/cutscenes/MotherBrainCloseUp/Palette.pal");

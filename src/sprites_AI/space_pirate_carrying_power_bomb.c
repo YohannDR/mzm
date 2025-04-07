@@ -140,7 +140,7 @@ void FakePowerBomb(void)
  */
 void FakePowerBombEventTrigger(void)
 {
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_BOMB_STOLEN))
         {

@@ -31,12 +31,12 @@ u8 GerutaYMovement(u16 movement)
     }
     else
     {
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x28, gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE * 3) == COLLISION_SOLID &&
-            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x28, gCurrentSprite.xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3)) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE), gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE * 3) == COLLISION_SOLID &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE), gCurrentSprite.xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3)) == COLLISION_SOLID)
             return TRUE;
 
-        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x28, gCurrentSprite.xPosition + QUARTER_BLOCK_SIZE * 3) == COLLISION_SOLID &&
-            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x28, gCurrentSprite.xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3)) == COLLISION_SOLID)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE), gCurrentSprite.xPosition + QUARTER_BLOCK_SIZE * 3) == COLLISION_SOLID &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE), gCurrentSprite.xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3)) == COLLISION_SOLID)
             return TRUE;
 
         gCurrentSprite.yPosition -= movement;
@@ -84,22 +84,22 @@ void GerutaInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     SpriteUtilMakeSpriteFaceSamusDirection();
 
-    gCurrentSprite.drawDistanceTop = 0x18;
-    gCurrentSprite.drawDistanceBottom = 0x18;
-    gCurrentSprite.drawDistanceHorizontal = 0x18;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTop = -0x20;
-    gCurrentSprite.hitboxBottom = 0x20;
-    gCurrentSprite.hitboxLeft = -0x30;
-    gCurrentSprite.hitboxRight = 0x30;
+    gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sGerutaOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.yPosition -= 0xC;
+    gCurrentSprite.yPosition -= 3 * PIXEL_SIZE;
     gCurrentSprite.pose = GERUTA_POSE_IDLE_INIT;
 }
 
@@ -110,8 +110,8 @@ void GerutaInit(void)
 void GerutaIdleInit(void)
 {
     gCurrentSprite.pose = GERUTA_POSE_IDLE;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sGerutaOAM_Idle;
 }
 
@@ -130,7 +130,7 @@ void GerutaDetectSamus(void)
         gCurrentSprite.pose = GERUTA_POSE_WARNING_INIT;
 
     }
-    else if ((gSamusData.yPosition - 0x48) >= gCurrentSprite.yPosition)
+    else if ((gSamusData.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE)) >= gCurrentSprite.yPosition)
     {
         nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 5);
 
@@ -146,8 +146,8 @@ void GerutaDetectSamus(void)
 void GerutaWarningInit(void)
 {
     gCurrentSprite.pose = GERUTA_POSE_WARNING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sGerutaOAM_Warning;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -163,8 +163,8 @@ void GerutaCheckWarningEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = GERUTA_POSE_LAUNCHING;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sGerutaOAM_Launching;
     }
 }
@@ -178,8 +178,8 @@ void GerutaCheckLaunchingAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = GERUTA_POSE_GOING_DOWN;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sGerutaOAM_GoingDown;
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
 
@@ -198,12 +198,12 @@ void GerutaGoingDown(void)
     u16 oldY;
 
     oldY = gCurrentSprite.yPosition;
-    GerutaXMovement(0x4);
-    if (GerutaYMovement(0xC))
+    GerutaXMovement(PIXEL_SIZE);
+    if (GerutaYMovement(3 * PIXEL_SIZE))
     {
         gCurrentSprite.pose = GERUTA_POSE_BOUNCING;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sGerutaOAM_Bouncing;
     }
 
@@ -220,8 +220,8 @@ void GerutaCheckBouncingAnimEnded(void)
     {
         gCurrentSprite.pose = GERUTA_POSE_GOING_UP;
 
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sGerutaOAM_GoingUp;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
@@ -236,15 +236,15 @@ void GerutaCheckBouncingAnimEnded(void)
  */
 void GerutaGoingUp(void)
 {
-    GerutaXMovement(0x4);
-    if (GerutaYMovement(0xC))
+    GerutaXMovement(PIXEL_SIZE);
+    if (GerutaYMovement(3 * PIXEL_SIZE))
     {
         gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG);
-        gCurrentSprite.yPosition += 0x34;
+        gCurrentSprite.yPosition += HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE;
         gCurrentSprite.pose = GERUTA_POSE_BOUNCING_ON_CEILING;
 
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sGerutaOAM_BouncingOnCeiling;
     }
 }
@@ -272,7 +272,7 @@ void Geruta(void)
             SoundPlayNotAlreadyPlaying(SOUND_GERUTA_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
         SpriteUtilUpdateFreezeTimer();
     else
     {
@@ -281,7 +281,7 @@ void Geruta(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 GerutaInit();
                 break;
 

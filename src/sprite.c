@@ -801,6 +801,7 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
     if (pSprite->properties & SP_KILL_OFF_SCREEN)
     {
+        // todo: screen size
         bgYRange = bgBaseY + BLOCK_SIZE * 10;
         spriteYRange = spriteY + BLOCK_SIZE * 10;
         spriteBottom = bgYRange - BLOCK_SIZE * 9;
@@ -899,7 +900,7 @@ void SpriteLoadSpriteset(void)
         if (spriteId == PSPRITE_UNUSED0)
         {
             break;
-            do { } while (0); // Needed to produce matching ASM.
+            EMPTY_DO_WHILE // Needed to produce matching ASM.
         }
 
         gSpritesetSpritesID[i] = spriteId;
@@ -919,8 +920,7 @@ void SpriteLoadSpriteset(void)
 
         ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteId])[1];
         ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteId])[2] << 8;
-        DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_BASE + 0x300 + gfxSlot * 32,
-            C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
+        DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + gfxSlot * 32, C_32_2_16(DMA_ENABLE, (ctrl_1 | ctrl_2) / 2048 << 4));
     }
 }
 
@@ -948,7 +948,7 @@ void SpriteLoadPal(u8 spriteId, u8 row, u8 len)
 {
     spriteId = PSPRITE_OFFSET_FOR_GRAPHICS(spriteId);
 
-    DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_BASE + 0x300 + (row * 16 * sizeof(u16)), C_32_2_16(DMA_ENABLE, len * 16));
+    DMA_SET(3, sSpritesPalettePointers[spriteId], PALRAM_OBJ + 8 * PAL_ROW_SIZE + (row * 16 * sizeof(u16)), C_32_2_16(DMA_ENABLE, len * 16));
 }
 
 /**
@@ -1114,7 +1114,7 @@ u8 SpriteSpawnSecondary(u8 spriteId, u8 partNumber, u8 gfxSlot, u8 ramSlot, u16 
         pSprite->frozenPaletteRowOffset = 0;
         pSprite->absolutePaletteRow = 0;
 
-        pSprite->ignoreSamusCollisionTimer = 1;
+        pSprite->ignoreSamusCollisionTimer = 1 * DELTA_TIME;
 
         pSprite->primarySpriteRamSlot = ramSlot;
 

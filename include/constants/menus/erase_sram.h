@@ -27,4 +27,13 @@ enum EraseSramOamId {
     ERASE_SRAM_OAM_ID_END
 };
 
+enum EraseSramSound {
+    ERASE_SRAM_SOUND_CONFIRM = 1,
+    ERASE_SRAM_SOUND_SELECT_YES,
+    ERASE_SRAM_SOUND_REFUSE,
+    ERASE_SRAM_SOUND_CURSOR,
+
+    ERASE_SRAM_SOUND_END
+};
+
 #endif

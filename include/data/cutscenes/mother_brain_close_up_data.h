@@ -5,11 +5,17 @@
 #include "types.h"
 
 #include "structs/cutscene.h"
+#include "cutscenes/mother_brain_close_up.h"
 
 extern const struct CutscenePageData sMotherBrainCloseUpPageData[5];
 extern const struct CutsceneScreenShakeInfo sMotherBrainCloseUpScreenShakeInfo;
 
-extern const struct OamArray sMotherBrainCloseUpCutsceneOam[7];
+extern const struct OamArray sMotherBrainCloseUpCutsceneOam[MOTHER_BRAIN_CLOSE_UP_OAM_ID_END];
+
+extern const struct FrameData sMotherBrainCloseUpOam_Bubble[6];
+extern const struct FrameData sMotherBrainCloseUpOam_EyeOpening[11];
+extern const struct FrameData sMotherBrainCloseUpOam_EyeOpened[4];
+extern const struct FrameData sMotherBrainCloseUpOam_ElevatorAnimation[4];
 
 extern const u16 sMotherBrainCloseUpPal[6 * 16];
 extern const u16 sMotherBrainCloseUpBackgroundPal[5 * 16];

@@ -18,16 +18,16 @@
  */
 void GametInit(void)
 {
-    gCurrentSprite.hitboxTop = -0x1C;
-    gCurrentSprite.hitboxBottom = 0x1C;
-    gCurrentSprite.hitboxLeft = -0x18;
-    gCurrentSprite.hitboxRight = 0x18;
+    gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE - PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE - PIXEL_SIZE;
+    gCurrentSprite.hitboxLeft = -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTop = 0x8;
-    gCurrentSprite.drawDistanceBottom = 0x8;
-    gCurrentSprite.drawDistanceHorizontal = 0x10;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.work1 = 0x1;
+    gCurrentSprite.work1 = 1 * DELTA_TIME;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
@@ -47,11 +47,11 @@ void GametIdleInit(void)
     gCurrentSprite.pose = GAMET_POSE_IDLE;
 
     gCurrentSprite.pOam = sGametOAM_Idle;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
-    gCurrentSprite.bgPriority = 0x2;
+    gCurrentSprite.bgPriority = 2;
 }
 
 /**
@@ -74,11 +74,11 @@ void GametIdle(void)
         gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     }
     else if ((gCurrentSprite.spriteId != PSPRITE_GAMET_BLUE_LEADER ||
-        SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_GAMET_BLUE_FOLLOWER) == 0x0)
+        SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(PSPRITE_GAMET_BLUE_FOLLOWER) == 0)
         && !SpriteUtilCheckHasDrops())
     {
-        if (gCurrentSprite.work1 != 0x0)
-            gCurrentSprite.work1--;
+        if (gCurrentSprite.work1 != 0)
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work1);
         else
         {
             samusY = gSamusData.yPosition;
@@ -86,9 +86,9 @@ void GametIdle(void)
             spriteY = gCurrentSprite.yPosition;
             spriteX = gCurrentSprite.xPosition;
 
-            if (samusY <= spriteY - 0x1E)
+            if (samusY <= spriteY - (HALF_BLOCK_SIZE - PIXEL_SIZE / 2))
             {
-                if ((spriteX > samusX ? spriteX - samusX : samusX - spriteX) <= 0x24 ||
+                if (ABS_DIFF(spriteX, samusX) <= (HALF_BLOCK_SIZE + PIXEL_SIZE) ||
                     SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
                     return;
                 else
@@ -96,7 +96,7 @@ void GametIdle(void)
                     // Samus in range, set going up
                     gCurrentSprite.scaling = gSamusData.yPosition;
                     gCurrentSprite.pose = GAMET_POSE_GOING_UP;
-                    gCurrentSprite.work0 = 0x2;
+                    gCurrentSprite.work0 = 2 * DELTA_TIME;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     
                     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -112,10 +112,10 @@ void GametIdle(void)
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     
-                        if (ramSlot != 0xFF)
+                        if (ramSlot != UCHAR_MAX)
                         {
                             gSpriteData[ramSlot].scaling = gCurrentSprite.scaling;
-                            gSpriteData[ramSlot].work0 = 0xA;
+                            gSpriteData[ramSlot].work0 = CONVERT_SECONDS(1.f / 6);
     
                             // Second follower
                             ramSlot = SpriteSpawnDropFollowers(PSPRITE_GAMET_BLUE_FOLLOWER, gCurrentSprite.roomSlot,
@@ -123,10 +123,10 @@ void GametIdle(void)
                                 gCurrentSprite.yPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
                                 gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_X_FLIP);
     
-                            if (ramSlot != 0xFF)
+                            if (ramSlot != UCHAR_MAX)
                             {
                                 gSpriteData[ramSlot].scaling = gCurrentSprite.scaling;
-                                gSpriteData[ramSlot].work0 = 0x12;
+                                gSpriteData[ramSlot].work0 = CONVERT_SECONDS(.3f);
                             }
                         }
                     }
@@ -145,13 +145,13 @@ void GametGoingUp(void)
     u16 positionRange;
 
     // Move Y
-    gCurrentSprite.yPosition -= 0x8;
+    gCurrentSprite.yPosition -= EIGHTH_BLOCK_SIZE;
 
     // Damage delay
-    if (gCurrentSprite.work0 != 0x0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
@@ -161,17 +161,17 @@ void GametGoingUp(void)
         else
             positionRange = gSamusData.yPosition;
 
-        if (positionRange - 0x64 > gCurrentSprite.yPosition)
+        if (positionRange - (BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE) > gCurrentSprite.yPosition)
         {
             // Reached samus, set moving
             gCurrentSprite.pose = GAMET_POSE_MOVING;
-            gCurrentSprite.work0 = 0xA;
+            gCurrentSprite.work0 = CONVERT_SECONDS(1.f / 6);
 
             gCurrentSprite.pOam = sGametOAM_Moving;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
 
-            gCurrentSprite.bgPriority = 0x1;
+            gCurrentSprite.bgPriority = 1;
         }
     }
 }
@@ -183,7 +183,7 @@ void GametGoingUp(void)
 void GametRespawn(void)
 {
     if (gCurrentSprite.spriteId == PSPRITE_GAMET_BLUE_FOLLOWER)
-        gCurrentSprite.status = 0x0; // Kill if not leader
+        gCurrentSprite.status = 0; // Kill if not leader
     else
     {
         // Set spawn position
@@ -192,15 +192,15 @@ void GametRespawn(void)
 
         GametIdleInit();
 
-        gCurrentSprite.work1 = 0x3C;
+        gCurrentSprite.work1 = CONVERT_SECONDS(1.f);
         gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-        gCurrentSprite.invincibilityStunFlashTimer = 0x0;
-        gCurrentSprite.paletteRow = 0x0;
-        gCurrentSprite.frozenPaletteRowOffset = 0x0;
-        gCurrentSprite.absolutePaletteRow = 0x0;
+        gCurrentSprite.invincibilityStunFlashTimer = 0;
+        gCurrentSprite.paletteRow = 0;
+        gCurrentSprite.frozenPaletteRowOffset = 0;
+        gCurrentSprite.absolutePaletteRow = 0;
         gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
-        gCurrentSprite.freezeTimer = 0x0;
+        gCurrentSprite.freezeTimer = 0;
     }
 }
 
@@ -210,44 +210,45 @@ void GametRespawn(void)
  */
 void GametMove(void)
 {
-    if (gCurrentSprite.work0 != 0x0)
+    if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.work0--;
-        if (gCurrentSprite.work0 == 0x0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+        if (gCurrentSprite.work0 == 0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(SOUND_GAMET_MOVING);
 
-            gCurrentSprite.work1 = 0x0;
+            gCurrentSprite.work1 = 0;
         }
     }
     else
     {
-        gCurrentSprite.work1++;
+        APPLY_DELTA_TIME_INC(gCurrentSprite.work1);
         if (gCurrentSprite.status & SPRITE_STATUS_X_FLIP)
         {
             // Check should respawn
-            if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
+            if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000) // xPos < 0
             {
                 GametRespawn();
                 return;
             }
             else
-                gCurrentSprite.xPosition += 0xC; // Move
+                gCurrentSprite.xPosition += 3 * PIXEL_SIZE; // Move
         }
         else
         {
             // Check should respawn
-            if (gSamusData.xPosition - gCurrentSprite.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
+            if (gSamusData.xPosition - gCurrentSprite.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000) // xPos < 0
             {
                 GametRespawn();
                 return;
             }
             else
-                gCurrentSprite.xPosition -= 0xC; // Move
+                gCurrentSprite.xPosition -= 3 * PIXEL_SIZE; // Move
         }
 
-        if (!(gCurrentSprite.work1 & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        // CONVERT_SECONDS(.25f) + 1 * DELTA_TIME
+        if (MOD_AND(gCurrentSprite.work1, 16) == 0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(SOUND_GAMET_MOVING);
     }
 }
@@ -265,7 +266,7 @@ void Gamet(void)
             SoundPlayNotAlreadyPlaying(SOUND_GAMET_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
         SpriteUtilUpdateFreezeTimer();
     else
     {
@@ -274,7 +275,7 @@ void Gamet(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 GametInit();
 
             case GAMET_POSE_IDLE_INIT:

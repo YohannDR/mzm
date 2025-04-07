@@ -13,6 +13,8 @@
 #include "structs/samus.h"
 #include "structs/clipdata.h"
 
+#define ELEVATOR_STATUE_FALL_DELAY work0
+
 /**
  * @brief 47ebc | 50 | Updates the clipdata of the statue debris on the ground
  * 
@@ -127,7 +129,7 @@ void KraidElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.work0 = 16; // Delay before falling
+        gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY = CONVERT_SECONDS(.25f) + 1 * DELTA_TIME; // Delay before falling
     }
 }
 
@@ -137,8 +139,8 @@ void KraidElevatorStatueCheckShouldFall(void)
  */
 void KraidElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY);
+    if (gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sKraidElevatorStatueOAM_Falling;
@@ -154,7 +156,7 @@ void KraidElevatorStatueDelayBeforeFalling(void)
         KraidElevatorStatueChangeCAA(CAA_REMOVE_SOLID);
 
         // Play effects
-        ScreenShakeStartHorizontal(10, 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
         SoundPlay(SOUND_KRAID_ELEVATOR_STATUE_CRUMBLING);
     }
 }
@@ -168,7 +170,7 @@ void KraidElevatorStatueFalling(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 1:
-            if (gCurrentSprite.animationDurationCounter == 3)
+            if (gCurrentSprite.animationDurationCounter == 3 * DELTA_TIME)
             {
                 // Spawn kraid debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_KRAID,
@@ -188,10 +190,10 @@ void KraidElevatorStatueFalling(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            if (gCurrentSprite.animationDurationCounter == 2)
+            if (gCurrentSprite.animationDurationCounter == 2 * DELTA_TIME)
             {
                 // Start screen shake and spawn dust debris
-                ScreenShakeStartVertical(20, 0x80 | 1);
+                ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
 
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
                     0, gCurrentSprite.primarySpriteRamSlot,
@@ -299,7 +301,7 @@ void RidleyElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.work0 = 16; // Timer before falling
+        gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY = CONVERT_SECONDS(.25f) + 1 * DELTA_TIME; // Timer before falling
     }
 }
 
@@ -309,8 +311,8 @@ void RidleyElevatorStatueCheckShouldFall(void)
  */
 void RidleyElevatorStatueDelayBeforeFalling(void)
 {
-    gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY);
+    if (gCurrentSprite.ELEVATOR_STATUE_FALL_DELAY == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Falling;
@@ -326,7 +328,7 @@ void RidleyElevatorStatueDelayBeforeFalling(void)
         RidleyElevatorStatueChangeCcaa(CAA_REMOVE_SOLID);
 
         // Play effects
-        ScreenShakeStartHorizontal(10, 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
         SoundPlay(SOUND_RIDLEY_ELEVATOR_STATUE_CRUMBLING);
     }
 }
@@ -340,7 +342,7 @@ void RidleyElevatorStatueFalling(void)
     switch (gCurrentSprite.currentAnimationFrame)
     {
         case 1:
-            if (gCurrentSprite.animationDurationCounter == 3)
+            if (gCurrentSprite.animationDurationCounter == 3 * DELTA_TIME)
             {
                 // Spawn ridley debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_RIDLEY,
@@ -365,10 +367,10 @@ void RidleyElevatorStatueFalling(void)
             gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
             gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-            if (gCurrentSprite.animationDurationCounter == 2)
+            if (gCurrentSprite.animationDurationCounter == 2 * DELTA_TIME)
             {
                 // Start screen shake and spawn dust debris
-                ScreenShakeStartVertical(20, 0x80 | 1);
+                ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
 
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
                     0, gCurrentSprite.primarySpriteRamSlot,

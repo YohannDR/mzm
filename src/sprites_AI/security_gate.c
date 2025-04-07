@@ -46,8 +46,8 @@ void SecurityGateOpen(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.pOam = sSceurityGateOAM_Opened;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pose = 0x27;
     SecurityGateChangeCcaa(CAA_REMOVE_SOLID); // Remove collision
     SoundPlayNotAlreadyPlaying(SOUND_SECURITY_GATE_OPENING);
@@ -73,7 +73,7 @@ void SecurityGateStartClosing(void)
  */
 void SecurityGateDefaultOpenInit(void)
 {
-    if (gAlarmTimer != 0x0) // Check if should be closed or open
+    if (gAlarmTimer != 0) // Check if should be closed or open
     {
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
         gCurrentSprite.pose = 0x25;
@@ -108,7 +108,7 @@ void SecurityGateDefaultOpenInit(void)
  */
 void SecurityGateDefaultOpenCheckAlarm(void)
 {
-    if (gAlarmTimer != 0x0)
+    if (gAlarmTimer != 0)
         SecurityGateStartClosing();
 }
 
@@ -121,8 +121,8 @@ void SecurityGateCheckClosingAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.work0 = 0x0;
         gCurrentSprite.work3 = 0x0;
@@ -141,7 +141,7 @@ void SecurityGateDefaultOpenOpenAfterAlarm(void)
         gCurrentSprite.work0++;
     }
 
-    if (gAlarmTimer == 0x0)
+    if (gAlarmTimer == 0)
     {
         gCurrentSprite.work3++;
         if (gCurrentSprite.work3 > 0x28)
@@ -188,7 +188,7 @@ void SecurityGateDeath(void)
  */
 void SecurityGateDefaultClosedInit(void)
 {
-    if (gAlarmTimer != 0x0)
+    if (gAlarmTimer != 0)
     {
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pOam = sSecurityGateOAM_Opened;
@@ -206,11 +206,13 @@ void SecurityGateDefaultClosedInit(void)
     gCurrentSprite.hitboxBottom = 0x0;
     gCurrentSprite.hitboxLeft = -0x18;
     gCurrentSprite.hitboxRight = 0x18;
+
     gCurrentSprite.drawDistanceTop = 0x40;
     gCurrentSprite.drawDistanceBottom = 0x8;
     gCurrentSprite.drawDistanceHorizontal = 0x8;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.drawOrder = 0x3;
@@ -223,7 +225,7 @@ void SecurityGateDefaultClosedInit(void)
  */
 void SecurityGateDefaultClosedCheckAlarm(void)
 {
-    if (gAlarmTimer == 0x0)
+    if (gAlarmTimer == 0)
         SecurityGateStartClosing();
 }
 
@@ -239,7 +241,7 @@ void SecurityGateDefaultClosedCloseAfterAlarm(void)
         gCurrentSprite.work0++;
     }
 
-    if (gAlarmTimer != 0x0)
+    if (gAlarmTimer != 0)
         SecurityGateOpen();
 }
 
@@ -252,7 +254,7 @@ void SecurityGateDefaultOpen(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SecurityGateDefaultOpenInit();
             break;
         case 0x9:
@@ -281,7 +283,7 @@ void SecurityGateDefaultClosed(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SecurityGateDefaultClosedInit();
             break;
         case 0x9:

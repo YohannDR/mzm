@@ -122,7 +122,7 @@ void ZiplineGeneratorDetectSamus(void)
     {
         // Set activating
         gCurrentSprite.pose = ZIPLINE_GENERATOR_POSE_ACTIVATING;
-        gCurrentSprite.work0 = 60 * 2;
+        gCurrentSprite.work0 = CONVERT_SECONDS(2.f);
 
         gCurrentSprite.pOam = sZiplineGeneratorOam_Activating;
         gCurrentSprite.currentAnimationFrame = 0;
@@ -159,7 +159,7 @@ void ZiplineGeneratorActivating(void)
 {
     u8 ramSlot;
 
-    if (--gCurrentSprite.work0 == 0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set activated
         gCurrentSprite.pOam = sZiplineGeneratorOam_Activated;
@@ -183,7 +183,7 @@ void ZiplineGeneratorActivating(void)
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_ZIPLINES_ACTIVATED);
     }
-    else if (gCurrentSprite.work0 == 90)
+    else if (gCurrentSprite.work0 == CONVERT_SECONDS(1.5f))
     {
         // Spawn electricity
         ramSlot = SpriteSpawnSecondary(SSPRITE_ZIPLINE_GENERATOR_PART, ZIPLINE_GENERATOR_PART_ELECTRICITY,
@@ -195,7 +195,7 @@ void ZiplineGeneratorActivating(void)
         else
             gCurrentSprite.status = 0;
     }
-    else if (gCurrentSprite.work0 == 16)
+    else if (gCurrentSprite.work0 == (CONVERT_SECONDS(.25f) + 1 * DELTA_TIME))
     {
         // Set morph symbol activated
         ramSlot = gCurrentSprite.work2;

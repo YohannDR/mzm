@@ -261,12 +261,12 @@ void SavePlatformChozodiaRefill(void)
             if (!SpriteUtilRefillEnergy())
             {
                 gCurrentSprite.work0--;
-                gEnergyRefillAnimation = 0xD;
+                gEnergyRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x4)
         {
-            if (gEnergyRefillAnimation != 0x0)
+            if (gEnergyRefillAnimation != 0)
                 gEnergyRefillAnimation--;
             else
                 gCurrentSprite.work0--;
@@ -285,7 +285,7 @@ void SavePlatformChozodiaRefill(void)
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL;
             gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE,
-                0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         }
     }
     else
@@ -295,40 +295,40 @@ void SavePlatformChozodiaRefill(void)
             if (!SpriteUtilRefillEnergy())
             {
                 gCurrentSprite.work0--;
-                gEnergyRefillAnimation = 0xD;
+                gEnergyRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x4)
         {
-            if (gEnergyRefillAnimation != 0x0)
+            if (gEnergyRefillAnimation != 0)
                 gEnergyRefillAnimation--;
             else if (!SpriteUtilRefillMissiles())
             {
                 gCurrentSprite.work0--;
-                gMissileRefillAnimation = 0xD;
+                gMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x3)
         {
-            if (gMissileRefillAnimation != 0x0)
+            if (gMissileRefillAnimation != 0)
                 gMissileRefillAnimation--;
             else if (!SpriteUtilRefillSuperMissiles())
             {
                 gCurrentSprite.work0--;
-                gSuperMissileRefillAnimation = 0xD;
+                gSuperMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x2)
         {
-            if (gSuperMissileRefillAnimation != 0x0)
+            if (gSuperMissileRefillAnimation != 0)
                 gSuperMissileRefillAnimation--;
             else if (!SpriteUtilRefillPowerBombs())
             {
                 gCurrentSprite.work0--;
-                gPowerBombRefillAnimation = 0xD;
+                gPowerBombRefillAnimation = 13;
             }
         }
-        else if (gPowerBombRefillAnimation != 0x0)
+        else if (gPowerBombRefillAnimation != 0)
                 gPowerBombRefillAnimation--;
         else if (gCurrentSprite.work0 != 0x0)
         {
@@ -344,7 +344,7 @@ void SavePlatformChozodiaRefill(void)
         {
             gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL;
             gCurrentSprite.work1 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
-                0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         }
     }
 }
@@ -773,7 +773,7 @@ void SavePlatformChozodia(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformChozodiaInit();
             break;
 
@@ -849,7 +849,7 @@ void SavePlatformChozodiaPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             SavePlatformChozodiaPartInit();
             break;
 

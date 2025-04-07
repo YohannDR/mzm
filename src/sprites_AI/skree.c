@@ -134,7 +134,7 @@ void SkreeGoDown(void)
     {
         gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottom;
         gCurrentSprite.pose = SKREE_POSE_CRASHING;
-        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work0 = 0;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(SOUND_SKREE_CRASHING);
     }
@@ -193,27 +193,26 @@ void SkreeCrashGround(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    gCurrentSprite.work0++;
-
+    APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
     switch (gCurrentSprite.work0)
     {
-        case 1:
-            yPosition += 0x48;
-            SpriteDebrisInit(0, 17, yPosition - QUARTER_BLOCK_SIZE, xPosition);
-            SpriteDebrisInit(0, 18, yPosition, xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE));
+        case 1 * DELTA_TIME:
+            yPosition += BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
+            SpriteDebrisInit(0, 0x11, yPosition - QUARTER_BLOCK_SIZE, xPosition);
+            SpriteDebrisInit(0, 0x12, yPosition, xPosition + (QUARTER_BLOCK_SIZE - PIXEL_SIZE));
 
-            SpriteDebrisInit(0, 19, yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2),
+            SpriteDebrisInit(0, 0x13, yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2),
                 xPosition + (QUARTER_BLOCK_SIZE + PIXEL_SIZE));
 
             SpriteDebrisInit(0, 4, yPosition - (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE),
                 xPosition - (QUARTER_BLOCK_SIZE + (QUARTER_BLOCK_SIZE - PIXEL_SIZE) + PIXEL_SIZE / 2));
             break;
 
-        case 40:
+        case TWO_THIRD_SECOND:
             gCurrentSprite.pOam = sSkreeOAM_Crashing;
             break;
 
-        case 60:
+        case CONVERT_SECONDS(1.f):
             gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
 

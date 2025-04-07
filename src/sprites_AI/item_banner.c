@@ -17,6 +17,10 @@
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
+#define ITEM_BANNER_TIMER yPositionSpawn
+#define ITEM_BANNER_PROCESSING work0
+#define ITEM_BANNER_NEW_ITEM work2
+
 /**
  * @brief 1b6b8 | 110 | Initializes an item banner sprite
  * 
@@ -46,6 +50,7 @@ void ItemBannerInit(void)
     gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    //gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(SCREEN_SIZE_X_SUB_PIXEL / 2 + HALF_BLOCK_SIZE);
 
     gCurrentSprite.hitboxTop = -PIXEL_SIZE;
     gCurrentSprite.hitboxBottom = PIXEL_SIZE;
@@ -56,9 +61,9 @@ void ItemBannerInit(void)
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.yPositionSpawn = 9;
-    gCurrentSprite.work0 = 1;
-    gCurrentSprite.work2 = FALSE;
+    gCurrentSprite.ITEM_BANNER_TIMER = 9 * DELTA_TIME;
+    gCurrentSprite.ITEM_BANNER_PROCESSING = TRUE;
+    gCurrentSprite.ITEM_BANNER_NEW_ITEM = FALSE;
 
     // Flag if the message is the save prompt
     if (message == MESSAGE_SAVE_PROMPT)
@@ -103,13 +108,13 @@ void ItemBannerGfxInit(void)
 {
     gPreventMovementTimer = SAMUS_ITEM_PMT;
 
-    gCurrentSprite.yPositionSpawn--; // Timer (started at 0x9)
-    if (gCurrentSprite.yPositionSpawn == 7)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.ITEM_BANNER_TIMER);
+    if (gCurrentSprite.ITEM_BANNER_TIMER == 7 * DELTA_TIME)
         SpriteLoadGfx(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot); // Load Gfx
-    else if (gCurrentSprite.yPositionSpawn == 8)
+    else if (gCurrentSprite.ITEM_BANNER_TIMER == 8 * DELTA_TIME)
         SpriteLoadPal(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot, 1); // Load Pal
     
-    if (gCurrentSprite.yPositionSpawn == 0)
+    if (gCurrentSprite.ITEM_BANNER_TIMER == 0)
     {
         // Loading done, set pop up behavior
         gCurrentSprite.pose = ITEM_BANNER_POSE_POP_UP;
@@ -132,13 +137,13 @@ void ItemBannerPopUp(void)
     gPreventMovementTimer = SAMUS_ITEM_PMT;
 
     msg = gCurrentSprite.roomSlot;
-    if (gCurrentSprite.work0 != 0)
+    if (gCurrentSprite.ITEM_BANNER_PROCESSING != 0)
     {
-        gCurrentSprite.animationDurationCounter--;
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
         if (TextProcessItemBanner()) // Process text
         {
             // If done processing
-            gCurrentSprite.work0 = 0;
+            gCurrentSprite.ITEM_BANNER_PROCESSING = FALSE;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
             if (msg == MESSAGE_LONG_BEAM || msg == MESSAGE_CHARGE_BEAM || msg == MESSAGE_ICE_BEAM ||
@@ -148,26 +153,26 @@ void ItemBannerPopUp(void)
                 msg == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP || msg == MESSAGE_POWER_GRIP)
             {
                 // New item
-                gCurrentSprite.work2 = TRUE;
+                gCurrentSprite.ITEM_BANNER_NEW_ITEM = TRUE;
                 BackupTrackData2SoundChannels();
 
                 // Play item jingle
                 if (msg == MESSAGE_UKNOWN_ITEM_PLASMA || msg == MESSAGE_UNKNOWN_ITEM_GRAVITY || msg == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP)
-                    InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, 0); // Unknown item
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, FALSE); // Unknown item
                 else
-                    InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0); // Normal item
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, FALSE); // Normal item
             }
             else if (msg == MESSAGE_FIRST_MISSILE_TANK || msg == MESSAGE_FIRST_SUPER_MISSILE_TANK || msg == MESSAGE_FIRST_POWER_BOMB_TANK)
             {
                 // New tank
-                gCurrentSprite.work2 = TRUE;
+                gCurrentSprite.ITEM_BANNER_NEW_ITEM = TRUE;
                 BackupTrackData2SoundChannels();
-                InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, FALSE);
             }
             else if (msg == MESSAGE_FULLY_POWERED_SUIT)
             {
                 PlayMusic(MUSIC_BRINSTAR_REMIX, 0);
-                InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, 0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, FALSE);
             }
             else if (msg != MESSAGE_SAVE_PROMPT)
             {
@@ -181,7 +186,7 @@ void ItemBannerPopUp(void)
             }
             
             // Check is one line message (new item/ability, save complete, map text)
-            if (gCurrentSprite.work2 || msg == MESSAGE_SAVE_COMPLETE ||
+            if (gCurrentSprite.ITEM_BANNER_NEW_ITEM || msg == MESSAGE_SAVE_COMPLETE ||
                 (msg == MESSAGE_BRINSTAR_MAP_ACQUIRED || msg == MESSAGE_KRAID_MAP_ACQUIRED ||
                 msg == MESSAGE_NORFAIR_MAP_ACQUIRED || msg == MESSAGE_RIDLEY_MAP_ACQUIRED ||
                 msg == MESSAGE_MOTHER_SHIP_MAP_ACQUIRED || msg == MESSAGE_FULLY_POWERED_SUIT))
@@ -209,14 +214,14 @@ void ItemBannerPopUp(void)
             gCurrentSprite.pOam = sItemBannerOAM_OneLineStatic;
 
             if (msg == MESSAGE_FULLY_POWERED_SUIT)
-                gCurrentSprite.yPositionSpawn = 340; // Long because jingle is long
+                gCurrentSprite.ITEM_BANNER_TIMER = CONVERT_SECONDS(5) + TWO_THIRD_SECOND; // Long because jingle is long
             else
-                gCurrentSprite.yPositionSpawn = 100;
+                gCurrentSprite.ITEM_BANNER_TIMER = CONVERT_SECONDS(1) + TWO_THIRD_SECOND;
         }
         else
         {
             gCurrentSprite.pOam = sItemBannerOAM_TwoLinesStatic;
-            gCurrentSprite.yPositionSpawn = 100;
+            gCurrentSprite.ITEM_BANNER_TIMER = CONVERT_SECONDS(1) + TWO_THIRD_SECOND;
 
             if (msg == MESSAGE_SAVE_PROMPT)
             {
@@ -245,8 +250,8 @@ void ItemBannerStatic(void)
         gPreventMovementTimer = SAMUS_ITEM_PMT;
 
     // Timer
-    if (gCurrentSprite.yPositionSpawn != 0)
-        gCurrentSprite.yPositionSpawn--;
+    if (gCurrentSprite.ITEM_BANNER_TIMER != 0)
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.ITEM_BANNER_TIMER);
 
     // Check if should remove (input or demo active, ignore for save prompt)
     else if (message != MESSAGE_SAVE_PROMPT && (gButtonInput & (KEY_A | KEY_B | KEY_ALL_DIRECTIONS) || gDemoState != 0))
@@ -308,7 +313,7 @@ void ItemBannerRemovalAnimation(void)
 
         gPreventMovementTimer = 0;
 
-        if (gCurrentSprite.work2)
+        if (gCurrentSprite.ITEM_BANNER_NEW_ITEM)
             gPauseScreenFlag = PAUSE_SCREEN_ITEM_ACQUISITION;
     }
 }

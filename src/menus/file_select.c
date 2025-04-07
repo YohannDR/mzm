@@ -14,6 +14,7 @@
 #include "data/menus/internal_file_select_data.h"
 
 #include "constants/audio.h"
+#include "constants/cable_link.h"
 #include "constants/text.h"
 #include "constants/game_state.h"
 #include "constants/menus/file_select.h"
@@ -30,17 +31,17 @@
  */
 void FileSelectApplyStereo(void)
 {
-    u32 request;
+    u32 action;
 
     if (gStereoFlag >= 2)
         return;
 
     if (gStereoFlag)
-        request = 0x2000000; // Enable flag
+        action = SOUND_ACTION_ENABLE_STEREO; // Enable flag
     else
-        request = 0x1000000; // Disable flag
+        action = SOUND_ACTION_DISABLE_STEREO; // Disable flag
 
-    DoSoundAction(request);
+    DoSoundAction(action);
 }
 
 /**
@@ -615,38 +616,31 @@ void FileScreenProcessText(void)
             if (dstType == 3 || dstType == 1)
             {
                 buffer = var_0;
-                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
-                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x800);
+                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]], C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x1000 / sizeof(u16)));
             }
             else if (dstType == 2)
             {
                 buffer = var_0;
-                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
-                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]], C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x200 / sizeof(u16)));
 
                 buffer = var_0;
-                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x400,
-                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x400, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x200 / sizeof(u16)));
 
                 buffer = var_0;
-                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x600,
-                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x400);
+                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x600, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x800 / sizeof(u16)));
             }
             else
             {
                 buffer = var_0;
-                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
-                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x400);
+                DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]], C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x800 / sizeof(u16)));
 
                 if (sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][2] == 3)
                 {
                     buffer = var_0;
-                    DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x800,
-                        (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+                    DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x800, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x200 / sizeof(u16)));
 
                     buffer = var_0;
-                    DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0xC00,
-                        (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+                    DMA_SET(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0xC00, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, 0x200 / sizeof(u16)));
                 }
             }
 
@@ -1782,7 +1776,7 @@ u32 FileSelectEraseFileSubroutine(void)
 
     ended = FALSE;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
     switch (FILE_SELECT_DATA.subroutineStage)
     {
         case 0:
@@ -1892,6 +1886,7 @@ u32 FileSelectEraseFileSubroutine(void)
                 }
             }
 
+            // action never -1, so condition always true
             if (action + 1 != 0)
                 unk_7e3fc(3, action);
             break;
@@ -1974,7 +1969,7 @@ u32 FileSelectCorruptedFileSubroutine(void)
 {
     u8 done;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -2056,7 +2051,7 @@ u32 FileSelectCorruptedFileSubroutine(void)
             break;
 
         case 3:
-            if (FILE_SELECT_DATA.subroutineTimer > 30)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(.5f))
                 FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -2131,7 +2126,7 @@ u32 FileSelectCorruptedFileSubroutine(void)
             break;
 
         case 11:
-            if (FILE_SELECT_DATA.subroutineTimer > 16)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(.25f) + 1 * DELTA_TIME)
             {
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].notDrawn = FALSE;
                 FileSelectUpdateCursor(CURSOR_POSE_DEFAULT, FILE_SELECT_DATA.unk_24);
@@ -2349,7 +2344,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
     u16 bgPos;
     u32 fadeEnded;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -2362,11 +2357,11 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             break;
 
         case 1:
-            if (FILE_SELECT_DATA.subroutineTimer < 10)
+            if (FILE_SELECT_DATA.subroutineTimer < CONVERT_SECONDS(1.f / 6))
                 break;
             
             gWrittenToBLDALPHA_H = 0;
-            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
 
             FILE_SELECT_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL |
                 BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
@@ -2491,13 +2486,14 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
 
 
         case 7:
+            // todo: seconds or delta time?
             if (FILE_SELECT_DATA.subroutineTimer < 4)
                 break;
 
             BitFill(3, 0, VRAM_BASE + 0xE000, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
 
-            gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
 
             FILE_SELECT_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
                 BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
@@ -2506,8 +2502,8 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             gWrittenToBLDALPHA_H = 0;
             gWrittenToBLDALPHA_L = 16;
 
-            gBg1HOFS_NonGameplay = BLOCK_SIZE * 32;
-            gBg1VOFS_NonGameplay = BLOCK_SIZE * 32;
+            gBg1HOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+            gBg1VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
 
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
@@ -2655,7 +2651,7 @@ u8 OptionsSubroutine(void)
             break;
 
         case 1:
-            if (FILE_SELECT_DATA.timer > 16)
+            if (FILE_SELECT_DATA.timer > CONVERT_SECONDS(.25f) + 1 * DELTA_TIME)
             {
                 OptionsUpdateCursor(CURSOR_OPTIONS_POSE_MOVING);
                 FILE_SELECT_DATA.currentSubMenu = 2;
@@ -2739,12 +2735,12 @@ u8 OptionsSubroutine(void)
 
         case 4:
             FILE_SELECT_DATA.soundTestId = 0;        
-            CheckReplayFileSelectMusic(10);
+            CheckReplayFileSelectMusic(CONVERT_SECONDS(1.f / 6));
             gGameModeSub2 = 0;
             return TRUE;
 
         case 5:
-            if (FILE_SELECT_DATA.timer > 10)
+            if (FILE_SELECT_DATA.timer > CONVERT_SECONDS(1.f / 6))
                 return TRUE;
     }
 
@@ -2778,7 +2774,7 @@ u8 OptionsNesMetroidSubroutine(void)
     NesEmuFunc_T func;
     void* entryPoint;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -2791,7 +2787,7 @@ u8 OptionsNesMetroidSubroutine(void)
                 return TRUE;
             }
 
-            if (FILE_SELECT_DATA.subroutineTimer > 10)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
             {
                 FILE_SELECT_DATA.subroutineStage++;
                 FILE_SELECT_DATA.subroutineTimer = 0;
@@ -2811,12 +2807,10 @@ u8 OptionsNesMetroidSubroutine(void)
 
         case 2:
             // Sound stuff
-            unk_33dc();
+            RestartSound();
 
             // Start screen fade
-            FILE_SELECT_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
-                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            FILE_SELECT_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
             gWrittenToBLDY_NonGameplay = 0;
 
             FILE_SELECT_DATA.subroutineStage++;
@@ -2826,7 +2820,7 @@ u8 OptionsNesMetroidSubroutine(void)
         case 3:
             // Apply fade
             gWrittenToBLDY_NonGameplay += 2;
-            if (gWrittenToBLDY_NonGameplay >= 16)
+            if (gWrittenToBLDY_NonGameplay >= BLDY_MAX_VALUE)
             {
                 SET_BACKDROP_COLOR(COLOR_BLACK);
 
@@ -2862,7 +2856,7 @@ u8 OptionsNesMetroidSubroutine(void)
  */
 u8 OptionsSubMenu_Empty(void)
 {
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     if (gChangedInput && gChangedInput & KEY_B)
         return TRUE;
@@ -2877,7 +2871,7 @@ u8 OptionsSubMenu_Empty(void)
  */
 u8 unk_7abf8(void)
 {
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     if (gChangedInput & KEY_B)
     {
@@ -2886,7 +2880,7 @@ u8 unk_7abf8(void)
         return TRUE;
     }
     
-    if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > 10)
+    if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
     {
         FILE_SELECT_DATA.subroutineTimer = 0;
         FILE_SELECT_DATA.subroutineStage = 0;
@@ -2979,7 +2973,7 @@ u8 OptionsSoundTestSubroutine(void)
 {
     s32 action;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -3104,7 +3098,7 @@ u8 OptionsSoundTestSubroutine(void)
             break;
 
         case 5:
-            if (FILE_SELECT_DATA.subroutineTimer > 30)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(.5f))
                 FILE_SELECT_DATA.subroutineStage = 2;
             break;
 
@@ -3196,7 +3190,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 {
     u32 action;
 
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -3268,8 +3262,8 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
         case 2:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
             {
-                OptionTimeAttackLoadPasswrod(0);
-                OptionTimeAttackLoadPasswrod(1);
+                OptionTimeAttackLoadPassword(0|0);
+                OptionTimeAttackLoadPassword(0|1);
             }
             FILE_SELECT_DATA.subroutineStage = 4;
             break;
@@ -3281,8 +3275,8 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
         case 4:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 2)
             {
-                OptionTimeAttackLoadPasswrod(2);
-                OptionTimeAttackLoadPasswrod(3);
+                OptionTimeAttackLoadPassword(2|0);
+                OptionTimeAttackLoadPassword(2|1);
             }
             FILE_SELECT_DATA.subroutineStage = 6;
             break;
@@ -3346,7 +3340,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             break;
 
         case 8:
-            if (FILE_SELECT_DATA.subroutineTimer > 10)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
             {
                 FILE_SELECT_DATA.subroutineTimer = 0;
                 FILE_SELECT_DATA.subroutineStage++;
@@ -3424,7 +3418,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].exists)
                 break;
 
-            FILE_SELECT_DATA.subroutineTimer++;
+            APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -3544,7 +3538,7 @@ void unk_7b854(void)
  * 
  * @param part 2 bits : XY, where X is id and Y which half
  */
-void OptionTimeAttackLoadPasswrod(u8 part)
+void OptionTimeAttackLoadPassword(u8 part)
 {
     const u8* password;
     s32 i;
@@ -3592,14 +3586,14 @@ void OptionTimeAttackLoadPasswrod(u8 part)
  */
 u8 OptionsMetroidFusionLinkSubroutine(void)
 {
-    FILE_SELECT_DATA.subroutineTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.subroutineTimer);
 
-    if (gIoTransferInfo.active == 1)
-        CableLinkProcess();
-    else if (gIoTransferInfo.active == 2)
-        unk_89e30();
+    if (gIoTransferInfo.active == ACTIVE_TRANSFER_CONNECT)
+        FusionGalleryConnectProcess();
+    else if (gIoTransferInfo.active == ACTIVE_TRANSFER_LINK)
+        FusionGalleryLinkProcess();
     else
-        gIoTransferInfo.result = 0;
+        gIoTransferInfo.result = TRANSFER_RESULT_NONE;
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
@@ -3650,7 +3644,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
                 return TRUE;
             }
 
-            if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > 10)
+            if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
             {
                 FILE_SELECT_DATA.subroutineTimer = 0;
                 FILE_SELECT_DATA.subroutineStage = 0;
@@ -3661,7 +3655,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
         case 2:
             if ((FILE_SELECT_DATA.dispcnt & (DCNT_BG0 | DCNT_BG1)) == (DCNT_BG0 | DCNT_BG1))
             {
-                gIoTransferInfo.active = 1;
+                gIoTransferInfo.active = ACTIVE_TRANSFER_CONNECT;
                 FILE_SELECT_DATA.subroutineStage++;
                 break;
             }
@@ -3692,27 +3686,27 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
         case 3:
             switch (gIoTransferInfo.result)
             {
-                case 1:
+                case TRANSFER_RESULT_SUCCESS:
                     SramWrite_FileScreenOptionsUnlocked();
                     FILE_SELECT_DATA.subroutineStage = 8;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 4:
+                case TRANSFER_RESULT_FAILURE:
                     FILE_SELECT_DATA.subroutineStage = 4;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 5:
+                case TRANSFER_RESULT_SUCCESS2:
                     FILE_SELECT_DATA.subroutineStage = 14;
                     FILE_SELECT_DATA.subroutineTimer = 0;
                     break;
 
-                case 3:
+                case TRANSFER_RESULT_TIMED_OUT:
                     FILE_SELECT_DATA.subroutineStage = 18;
                     break;
 
-                case 2:
+                case TRANSFER_RESULT_BACKED_OUT:
                     FILE_SELECT_DATA.subroutineStage = 21;
                     break;
             }
@@ -3750,7 +3744,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 6:
-            if (FILE_SELECT_DATA.subroutineTimer > 30)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(.5f))
                 FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -3781,7 +3775,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 10:
-            if (FILE_SELECT_DATA.subroutineTimer > 60)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f))
                 FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -3803,7 +3797,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 13:
-            if (FILE_SELECT_DATA.subroutineTimer > 30)
+            if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(.5f))
             {
                 OptionsSetupTiletable();
                 DmaTransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
@@ -3831,7 +3825,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             break;
 
         case 16:
-            if (gIoTransferInfo.result == 4)
+            if (gIoTransferInfo.result == TRANSFER_RESULT_FAILURE)
             {
                 FILE_SELECT_DATA.subroutineStage = 4;
                 break;
@@ -3839,13 +3833,13 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
 
             if (gChangedInput & (KEY_A | KEY_START))
             {
-                gIoTransferInfo.unk_4 = 0;
+                gIoTransferInfo.linkInProgress = 0;
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
 
         case 17:
-            if (gIoTransferInfo.result == 4)
+            if (gIoTransferInfo.result == TRANSFER_RESULT_FAILURE)
                 FILE_SELECT_DATA.subroutineStage = 21;
             break;
 
@@ -3911,7 +3905,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
  */
 u32 FileSelectMenuSubroutine(void)
 {
-    FILE_SELECT_DATA.timer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.timer);
 
     switch (gGameModeSub1)
     {
@@ -3993,7 +3987,7 @@ u32 FileSelectMenuSubroutine(void)
             break;
 
         case 5:
-            if (FILE_SELECT_DATA.timer > 30)
+            if (FILE_SELECT_DATA.timer > CONVERT_SECONDS(.5f))
                 gGameModeSub1++;
             break;
 
@@ -4020,7 +4014,7 @@ u32 FileSelectFading(void)
 
     ended = FALSE;
 
-    FILE_SELECT_DATA.fadingTimer++;
+    APPLY_DELTA_TIME_INC(FILE_SELECT_DATA.fadingTimer);
 
     switch (FILE_SELECT_DATA.fadingStage)
     {
@@ -4028,6 +4022,7 @@ u32 FileSelectFading(void)
             if (FILE_SELECT_DATA.unk_E)
                 break;
 
+            // frequency always 0?
             if (FILE_SELECT_DATA.fadingTimer < FILE_SELECT_DATA.fadingFrequency)
                 break;
 
@@ -4036,6 +4031,7 @@ u32 FileSelectFading(void)
                 src = (void*)sEwramPointer + 0x000;
                 dst = (void*)sEwramPointer + 0x400;
                 ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
+
                 src = (void*)sEwramPointer + 0x200;
                 dst = (void*)sEwramPointer + 0x600;
                 ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
@@ -4198,10 +4194,8 @@ void FileSelectInit(void)
     BitFill(3, 0, &gNonGameplayRAM, sizeof(gNonGameplayRAM), 32);
 
     write16(REG_DISPCNT, FILE_SELECT_DATA.dispcnt = 0);
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
-    write16(REG_BLDCNT, FILE_SELECT_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
+    write16(REG_BLDCNT, FILE_SELECT_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT);
 
     gNextOamSlot = 0;
     ClearGfxRam();
@@ -4224,7 +4218,7 @@ void FileSelectInit(void)
     FILE_SELECT_DATA.fileSelectCursorPosition = gMostRecentSaveFile;
 
     DmaTransfer(3, sFileSelectPal, PALRAM_BASE, sizeof(sFileSelectPal), 16);
-    DmaTransfer(3, sFileSelect_4548f8, PALRAM_BASE + 0x1C0, sizeof(sFileSelect_4548f8), 16);
+    DmaTransfer(3, sFileSelect_4548f8, PALRAM_BASE + (PAL_SIZE - 2 * PAL_ROW_SIZE), sizeof(sFileSelect_4548f8), 16);
     DmaTransfer(3, sFileSelectIconsPal, PALRAM_OBJ, sizeof(sFileSelectIconsPal), 16);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
@@ -4268,10 +4262,10 @@ void FileSelectInit(void)
         }
     }
 
-    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = 0x800;
-    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = 0x800;
-    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = 0x800;
-    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = 0x800;
+    gBg0HOFS_NonGameplay = gBg0VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg1HOFS_NonGameplay = gBg1VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg2HOFS_NonGameplay = gBg2VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
+    gBg3HOFS_NonGameplay = gBg3VOFS_NonGameplay = NON_GAMEPLAY_START_BG_POS;
 
     FILE_SELECT_DATA.dispcnt = DCNT_BG1 | DCNT_BG3 | DCNT_OBJ;
     FILE_SELECT_DATA.unk_14 = 0x1F0B;
@@ -4334,23 +4328,23 @@ void FileSelectInit(void)
  */
 void FileSelectVBlank(void)
 {
-    if (gIoTransferInfo.unk_4)
-        unk_8a730();
+    if (gIoTransferInfo.linkInProgress)
+        LinkVSync();
 
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)))
 
-    write16(REG_BG0HOFS, gBg0HOFS_NonGameplay / 4);
-    write16(REG_BG0VOFS, gBg0VOFS_NonGameplay / 4);
-    write16(REG_BG1HOFS, gBg1HOFS_NonGameplay / 4);
-    write16(REG_BG1VOFS, gBg1VOFS_NonGameplay / 4);
-    write16(REG_BG2HOFS, gBg2HOFS_NonGameplay / 4);
-    write16(REG_BG2VOFS, gBg2VOFS_NonGameplay / 4);
-    write16(REG_BG3HOFS, gBg3HOFS_NonGameplay / 4);
-    write16(REG_BG3VOFS, gBg3VOFS_NonGameplay / 4);
+    write16(REG_BG0HOFS, gBg0HOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG0VOFS, gBg0VOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG1HOFS, gBg1HOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG1VOFS, gBg1VOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG2HOFS, gBg2HOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG2VOFS, gBg2VOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG3HOFS, gBg3HOFS_NonGameplay / PIXEL_SIZE);
+    write16(REG_BG3VOFS, gBg3VOFS_NonGameplay / PIXEL_SIZE);
 
     write16(REG_DISPCNT, FILE_SELECT_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
     write16(REG_BLDCNT, FILE_SELECT_DATA.bldcnt);
     write16(REG_BG0CNT, FILE_SELECT_DATA.bg0cnt);
     write16(REG_BG1CNT, FILE_SELECT_DATA.bg1cnt);
@@ -4903,7 +4897,7 @@ u8 FileSelectUpdateSubMenu(void)
                 }
                 
                 gGameModeSub2 = gSaveFilesInfo[gMostRecentSaveFile].exists ? 1 : 2;
-                FadeMusic(20);
+                FadeMusic(ONE_THIRD_SECOND);
                 return TRUE;
             }
 
@@ -4969,7 +4963,7 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
     {
         // Not inputting, update cooldown and check for first input
         if (FILE_SELECT_DATA.timeAttackInputCooldown != 0)
-            FILE_SELECT_DATA.timeAttackInputCooldown--;
+            APPLY_DELTA_TIME_DEC(FILE_SELECT_DATA.timeAttackInputCooldown);
         else
         {
             if (input == sTimeAttackButtonCode[0])
@@ -4979,7 +4973,7 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
                 FILE_SELECT_DATA.numberOfTimeAttackInputs = 1;
             }
             else if (input)
-                FILE_SELECT_DATA.timeAttackInputCooldown = 30;
+                FILE_SELECT_DATA.timeAttackInputCooldown = CONVERT_SECONDS(.5f);
         }
     }
     else
@@ -4999,7 +4993,7 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
             // Invalid input detected, reset
             FILE_SELECT_DATA.inputtingTimeAttack = FALSE;
             FILE_SELECT_DATA.numberOfTimeAttackInputs = 0;
-            FILE_SELECT_DATA.timeAttackInputCooldown = 30;
+            FILE_SELECT_DATA.timeAttackInputCooldown = CONVERT_SECONDS(.5f);
         }
     }
 

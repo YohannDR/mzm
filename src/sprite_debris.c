@@ -38,7 +38,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
     u32 blockTop;
     s32 movement;
 
-    pDebris->frameCounter++;
+    APPLY_DELTA_TIME_INC(pDebris->frameCounter);
 
     if (pDebris->frameCounter == 0)
     {
@@ -52,28 +52,30 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 
     oldY = pDebris->yPosition;
 
+    // All debris types move with convex parabolic movement vertically
+    // After a collision, it will do a bounce, which is a full arc
     switch (pDebris->debrisType)
     {
+        // Type 1 does a full arc leftwards with optional initial delay
         case 1:
-            if (pDebris->frameCounter < 9)
+            if (pDebris->frameCounter <= CONVERT_SECONDS(2.f / 15))
                 return;
-
-        case 17:
+        case 0x11:
             movement = sDebris11YVelocity[offset];
             pDebris->yPosition += movement;
-            pDebris->xPosition -= 0x1;
+            pDebris->xPosition--;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->yPosition = blockTop;
-                pDebris->debrisType = 0x81;
-                pDebris->arrayOffset = 0x0;
+                pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 1;
+                pDebris->arrayOffset = 0;
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x81:
+        case SPRITE_DEBRIS_BOUNCING | 1:
             movement = sDebrisBouncingVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition--;
@@ -81,8 +83,9 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x2:
-            if (pDebris->frameCounter < 0x6)
+        // Type 2 does a full arc rightwards with optional initial delay
+        case 2:
+            if (pDebris->frameCounter <= CONVERT_SECONDS(1.f / 12))
                 return;
         case 0x12:
             movement = sDebris12YVelocity[offset];
@@ -92,14 +95,14 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->yPosition = blockTop;
-                pDebris->debrisType = 0x82;
-                pDebris->arrayOffset = 0x0;
+                pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 2;
+                pDebris->arrayOffset = 0;
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x82:
+        case SPRITE_DEBRIS_BOUNCING | 2:
             movement = sDebrisBouncingVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
@@ -107,121 +110,127 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x3:
-            if (pDebris->frameCounter < 0x3)
+        // Type 3 does a full arc more rightwards with optional initial delay
+        case 3:
+            if (pDebris->frameCounter <= CONVERT_SECONDS(1.f / 30))
                 return;
         case 0x13:
             movement = sDebris13YVelocity[offset];
             pDebris->yPosition += movement;
-            pDebris->xPosition += 0x2;
+            pDebris->xPosition += 2;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->yPosition = blockTop;
-                pDebris->debrisType = 0x83;
-                pDebris->arrayOffset = 0x0;
+                pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 3;
+                pDebris->arrayOffset = 0;
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x83:
+        case SPRITE_DEBRIS_BOUNCING | 3:
             movement = sDebrisBouncingVelocity[offset];
             pDebris->yPosition += movement;
-            pDebris->xPosition += 0x2;
+            pDebris->xPosition += 2;
             if (SpriteUtilGetCollisionAtPosition(pDebris->yPosition, pDebris->xPosition) == COLLISION_AIR)
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x4:
+        // Type 4 does a full arc more leftwards
+        case 4:
             movement = sDebris4YVelocity[offset];
             pDebris->yPosition += movement;
-            pDebris->xPosition -= 0x2;
+            pDebris->xPosition -= 2;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->yPosition = blockTop;
-                pDebris->debrisType = 0x84;
-                pDebris->arrayOffset = 0x0;
+                pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 4;
+                pDebris->arrayOffset = 0;
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x84:
+        case SPRITE_DEBRIS_BOUNCING | 4:
             movement = sDebrisBouncingVelocity[offset];
             pDebris->yPosition += movement;
-            pDebris->xPosition -= 0x2;
+            pDebris->xPosition -= 2;
             if (SpriteUtilGetCollisionAtPosition(pDebris->yPosition, pDebris->xPosition) == COLLISION_AIR)
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x5:
+        // Type 5 does a half arc leftwards and does a type 1 bounce if it fell for 1/3 seconds
+        case 5:
             movement = sDebris5YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition--;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                if (pDebris->frameCounter > 0x13)
+                if (pDebris->frameCounter >= CONVERT_SECONDS(1.f / 3))
                 {
                     pDebris->yPosition = blockTop;
-                    pDebris->debrisType = 0x81;
-                    pDebris->arrayOffset = 0x0;
+                    pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 1;
+                    pDebris->arrayOffset = 0;
                 }
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x6:
+        // Type 6 does a half arc rightwards and does a type 2 bounce if it fell for 1/3 seconds
+        case 6:
             movement = sDebris6YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                if (pDebris->frameCounter > 0x13)
+                if (pDebris->frameCounter >= CONVERT_SECONDS(1.f / 3))
                 {
                     pDebris->yPosition = blockTop;
-                    pDebris->debrisType = 0x82;
-                    pDebris->arrayOffset = 0x0;
+                    pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 2;
+                    pDebris->arrayOffset = 0;
                 }
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x7:
+        // Type 7 does a half arc rightwards and does a type 3 bounce if it fell for 1/3 seconds
+        case 7:
             movement = sDebris7YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition++;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                if (pDebris->frameCounter > 0x13)
+                if (pDebris->frameCounter >= CONVERT_SECONDS(1.f / 3))
                 {
                     pDebris->yPosition = blockTop;
-                    pDebris->debrisType = 0x83;
-                    pDebris->arrayOffset = 0x0;
+                    pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 3;
+                    pDebris->arrayOffset = 0;
                 }
             }
             else
                 SpriteDebrisSetSplash(oldY, pDebris->yPosition, pDebris->xPosition);
             break;
 
-        case 0x8:
+        // Type 8 does a half arc leftwards and does a type 4 bounce if it fell for 1/3 seconds
+        case 8:
             movement = sDebris8YVelocity[offset];
             pDebris->yPosition += movement;
             pDebris->xPosition--;
             blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(pDebris->yPosition, pDebris->xPosition);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
-                if (pDebris->frameCounter > 0x13)
+                if (pDebris->frameCounter >= CONVERT_SECONDS(1.f / 3))
                 {
                     pDebris->yPosition = blockTop;
-                    pDebris->debrisType = 0x84;
-                    pDebris->arrayOffset = 0x0;
+                    pDebris->debrisType = SPRITE_DEBRIS_BOUNCING | 4;
+                    pDebris->arrayOffset = 0;
                 }
             }
             else
@@ -236,7 +245,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 }
 
 /**
- * 11c88 | 6c | Loops on all the sprite debris and cells SpriteDebrisProcess, also updates the animation
+ * 11c88 | 6c | Loops on all the sprite debris and calls SpriteDebrisProcess, also updates the animation
  * 
  */
 void SpriteDebrisProcessAll(void)
@@ -252,16 +261,16 @@ void SpriteDebrisProcessAll(void)
             if (pDebris->exists)
             {
                 SpriteDebrisProcess(pDebris);
-                adc = pDebris->animationDurationCounter + 0x1;
+                adc = pDebris->animationDurationCounter + 1 * DELTA_TIME;
                 pDebris->animationDurationCounter = adc;
                 timer = pDebris->pOam[pDebris->currentAnimationFrame].timer;
                 if (timer < (u8)adc)
                 {
-                    pDebris->animationDurationCounter = 0x1;
+                    pDebris->animationDurationCounter = 1;
                     pDebris->currentAnimationFrame++;
-                    if (pDebris->pOam[pDebris->currentAnimationFrame].timer == 0x0)
+                    if (pDebris->pOam[pDebris->currentAnimationFrame].timer == 0)
                     {
-                        pDebris->currentAnimationFrame = 0x0;
+                        pDebris->currentAnimationFrame = 0;
                     }
                 }
             }
@@ -299,17 +308,17 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     src = pDebris->pOam[pDebris->currentAnimationFrame].pFrame;
     partCount = *src++;
 
-    if (partCount + prevSlot < 0x80)
+    if (partCount + prevSlot < OAM_BUFFER_DATA_SIZE)
     {
         dst = (u16*)(gOamData + prevSlot);
 
-        xPosition = (pDebris->xPosition >> 2) - (gBg1XPosition >> 2);
-        yPosition = (pDebris->yPosition >> 2) - (gBg1YPosition >> 2);
+        xPosition = SUB_PIXEL_TO_PIXEL_(pDebris->xPosition) - SUB_PIXEL_TO_PIXEL_(gBg1XPosition);
+        yPosition = SUB_PIXEL_TO_PIXEL_(pDebris->yPosition) - SUB_PIXEL_TO_PIXEL_(gBg1YPosition);
 
         if (gSamusOnTopOfBackgrounds)
-            bgPriority = 0x1;
+            bgPriority = 1;
         else
-            bgPriority = 0x2;
+            bgPriority = 2;
 
         for (count = 0; count < partCount; count++)
         {
@@ -321,10 +330,10 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 
             currSlot = prevSlot + count;
             gOamData[currSlot].split.y = part1 + yPosition; // Update y position
-            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+            gOamData[currSlot].split.x = MOD_AND(part2 + xPosition, 0x200); // Update and wrap x position
             gOamData[currSlot].split.priority = bgPriority;
 
-            dst += 0x2;
+            dst += sizeof(*dst);
         }
 
         gNextOamSlot = prevSlot + partCount;
@@ -377,8 +386,10 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
 
     if (!counter)
     {
-        prev_counter = 0xFF;
-        count = 0x0;
+        prev_counter = UCHAR_MAX;
+        count = 0;
+        // If any debris sprites frame counter is above 0, then do not exit
+        // No break statement, so the last debris sprite entry will always be the one to be overwritten
         for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
         {
             counter_d = pDebris->frameCounter;
@@ -389,7 +400,7 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
             }
             count++;
         }
-        if (prev_counter == 0xFF)
+        if (prev_counter == UCHAR_MAX)
             return;
     }
 
@@ -397,9 +408,9 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
     pDebris->exists = TRUE;
     pDebris->yPosition = yPosition;
     pDebris->xPosition = xPosition;
-    pDebris->currentAnimationFrame = 0x0;
-    pDebris->animationDurationCounter = 0x0;
+    pDebris->currentAnimationFrame = 0;
+    pDebris->animationDurationCounter = 0;
     pDebris->debrisType = debrisType;
-    pDebris->frameCounter = 0x0;
-    pDebris->arrayOffset = 0x0;
+    pDebris->frameCounter = 0;
+    pDebris->arrayOffset = 0;
 }

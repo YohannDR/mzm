@@ -20,14 +20,14 @@ const u16 sRuinsTestPal_SymbolShot_Frame6[8] = INCBIN_U16("data/sprites/RuinsTes
 const u16 sRuinsTestPal_SamusReflection[15 * 16] = INCBIN_U16("data/sprites/RuinsTest_SamusReflection.pal");
 const u16 sRuinsTestPal_SamusReflectionFullSuit[15 * 16] = INCBIN_U16("data/sprites/RuinsTest_SamusReflectionFullSuit.pal");
 
-const u16 sRuinsTestSamusReflectionOAM_Frame0[10] = {
+const u16 sRuinsTestSamusReflectionOAM_Frame0[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xd8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x7214,
     OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x7218,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x721c
 };
 
-const u16 sRuinsTestGhostOam_SymbolPlaced_Frame0[4] = {
+const u16 sRuinsTestGhostOam_SymbolPlaced_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x220e
 };
@@ -112,7 +112,7 @@ const u16 sRuinsTestGhostOutline_Spawning_Frame4[37] = {
     OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_X_FLIP | 0xd, OBJ_SPRITE_OAM | 0x525a
 };
 
-const u16 sRuinsTestGhostOam_NotMoving_Frame0[76] = {
+const u16 sRuinsTestGhostOam_NotMoving_Frame0[OAM_DATA_SIZE(25)] = {
     0x19,
     OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_SIZE_32x16 | 0x1cb, OBJ_SPRITE_OAM | 0x204,
     0xf8, OBJ_SIZE_16x16 | 0x1db, OBJ_SPRITE_OAM | 0x246,
@@ -141,7 +141,7 @@ const u16 sRuinsTestGhostOam_NotMoving_Frame0[76] = {
     0xdf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2a5
 };
 
-const u16 sRuinsTestGhostOam_Moving_Frame1[58] = {
+const u16 sRuinsTestGhostOam_Moving_Frame1[OAM_DATA_SIZE(19)] = {
     0x13,
     OBJ_SHAPE_HORIZONTAL | 0xe9, OBJ_SIZE_32x16 | 0x1cb, OBJ_SPRITE_OAM | 0x204,
     0xf9, OBJ_SIZE_16x16 | 0x1db, OBJ_SPRITE_OAM | 0x246,
@@ -164,7 +164,7 @@ const u16 sRuinsTestGhostOam_Moving_Frame1[58] = {
     0xdf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2a5
 };
 
-const u16 sRuinsTestGhostOam_Moving_Frame2[76] = {
+const u16 sRuinsTestGhostOam_Moving_Frame2[OAM_DATA_SIZE(25)] = {
     0x19,
     OBJ_SHAPE_HORIZONTAL | 0xe9, OBJ_SIZE_32x16 | 0x1cc, OBJ_SPRITE_OAM | 0x204,
     0xf9, OBJ_SIZE_16x16 | 0x1dc, OBJ_SPRITE_OAM | 0x246,
@@ -193,7 +193,7 @@ const u16 sRuinsTestGhostOam_Moving_Frame2[76] = {
     0xdf, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2a5
 };
 
-const u16 sRuinsTestGhostOam_Moving_Frame3[76] = {
+const u16 sRuinsTestGhostOam_Moving_Frame3[OAM_DATA_SIZE(25)] = {
     0x19,
     OBJ_SHAPE_HORIZONTAL | 0xe9, OBJ_SIZE_32x16 | 0x1cc, OBJ_SPRITE_OAM | 0x204,
     0xf9, OBJ_SIZE_16x16 | 0x1dc, OBJ_SPRITE_OAM | 0x246,
@@ -222,7 +222,7 @@ const u16 sRuinsTestGhostOam_Moving_Frame3[76] = {
     0xe0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2a5
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame0[13] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc4, OBJ_SIZE_32x32 | 0x198, OBJ_SPRITE_OAM | 0x620e,
     0xc4, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e,
@@ -230,7 +230,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame0[13] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame1[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame1[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x1208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x1208,
@@ -246,7 +246,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame1[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame2[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame2[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x2208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x2208,
@@ -262,7 +262,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame2[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame3[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame3[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x3208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x3208,
@@ -278,7 +278,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame3[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame4[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame4[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -294,7 +294,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame4[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame5[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame5[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x5208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x5208,
@@ -310,7 +310,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame5[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame6[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame6[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x120a,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x120a,
@@ -326,7 +326,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame6[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame7[37] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame7[OAM_DATA_SIZE(12)] = {
     0xc,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x120c,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x120c,
@@ -342,7 +342,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame7[37] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame10[49] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame10[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -362,7 +362,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame10[49] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame11[61] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame11[OAM_DATA_SIZE(20)] = {
     0x14,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -386,7 +386,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame11[61] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_FourSymbols_Frame12[73] = {
+const u16 sRuinsTestSymbolOam_FourSymbols_Frame12[OAM_DATA_SIZE(24)] = {
     0x18,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -414,7 +414,7 @@ const u16 sRuinsTestSymbolOam_FourSymbols_Frame12[73] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Merging_Frame0[85] = {
+const u16 sRuinsTestSymbolOam_Merging_Frame0[OAM_DATA_SIZE(28)] = {
     0x1c,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x5208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x5208,
@@ -446,7 +446,7 @@ const u16 sRuinsTestSymbolOam_Merging_Frame0[85] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Merging_Frame1[85] = {
+const u16 sRuinsTestSymbolOam_Merging_Frame1[OAM_DATA_SIZE(28)] = {
     0x1c,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x120c,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x120c,
@@ -478,7 +478,7 @@ const u16 sRuinsTestSymbolOam_Merging_Frame1[85] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame0[73] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame0[OAM_DATA_SIZE(24)] = {
     0x18,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -506,7 +506,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame0[73] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame1[61] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame1[OAM_DATA_SIZE(20)] = {
     0x14,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -530,7 +530,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame1[61] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame2[49] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame2[OAM_DATA_SIZE(16)] = {
     0x10,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x4208,
@@ -550,7 +550,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame2[49] = {
     0x1c, OBJ_SIZE_32x32 | 0x48, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame3[25] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame3[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x3208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x3208,
@@ -562,7 +562,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0x1c, OBJ_SIZE_16x32 | 0x48, OBJ_SPRITE_OAM | 0x3208
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame4[25] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame4[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x2208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x2208,
@@ -574,7 +574,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame4[25] = {
     OBJ_SHAPE_VERTICAL | 0x1c, OBJ_SIZE_16x32 | 0x48, OBJ_SPRITE_OAM | 0x2208
 };
 
-const u16 sRuinsTestSymbolOam_Disappearing_Frame5[25] = {
+const u16 sRuinsTestSymbolOam_Disappearing_Frame5[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_SIZE_16x32 | 0x198, OBJ_SPRITE_OAM | 0x1208,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1a8, OBJ_SPRITE_OAM | 0x1208,
@@ -586,7 +586,7 @@ const u16 sRuinsTestSymbolOam_Disappearing_Frame5[25] = {
     OBJ_SHAPE_VERTICAL | 0x1c, OBJ_SIZE_16x32 | 0x48, OBJ_SPRITE_OAM | 0x1208
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame0[19] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame0[OAM_DATA_SIZE(6)] = {
     0x6,
     0xec, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x128a,
     OBJ_SHAPE_HORIZONTAL | 0xc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x130a,
@@ -596,7 +596,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame0[19] = {
     0x4, 0x10, OBJ_SPRITE_OAM | 0x1329
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame1[19] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame1[OAM_DATA_SIZE(6)] = {
     0x6,
     0xec, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x228a,
     OBJ_SHAPE_HORIZONTAL | 0xc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x230a,
@@ -606,7 +606,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame1[19] = {
     0x4, 0x10, OBJ_SPRITE_OAM | 0x2329
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame2[19] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame2[OAM_DATA_SIZE(6)] = {
     0x6,
     0xec, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x328a,
     OBJ_SHAPE_HORIZONTAL | 0xc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x330a,
@@ -616,7 +616,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame2[19] = {
     0x4, 0x10, OBJ_SPRITE_OAM | 0x3329
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame3[19] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame3[OAM_DATA_SIZE(6)] = {
     0x6,
     0xec, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x428a,
     OBJ_SHAPE_HORIZONTAL | 0xc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x430a,
@@ -626,7 +626,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame3[19] = {
     0x4, 0x10, OBJ_SPRITE_OAM | 0x4329
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame4[19] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame4[OAM_DATA_SIZE(6)] = {
     0x6,
     0xec, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x528a,
     OBJ_SHAPE_HORIZONTAL | 0xc, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x530a,
@@ -636,7 +636,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame4[19] = {
     0x4, 0x10, OBJ_SPRITE_OAM | 0x5329
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame5[40] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame5[OAM_DATA_SIZE(13)] = {
     0xd,
     0xea, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x5380,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x1f8, OBJ_SPRITE_OAM | 0x5382,
@@ -653,7 +653,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame5[40] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x53c2
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame6[40] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame6[OAM_DATA_SIZE(13)] = {
     0xd,
     0xe9, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x5380,
     OBJ_SHAPE_VERTICAL | 0xea, 0x1f8, OBJ_SPRITE_OAM | 0x5382,
@@ -670,7 +670,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame6[40] = {
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x53c2
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame7[13] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame7[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x5380,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x8, OBJ_SPRITE_OAM | 0x5380,
@@ -678,7 +678,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame7[13] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x5380
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame8[13] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame8[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x4380,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x8, OBJ_SPRITE_OAM | 0x4380,
@@ -686,7 +686,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame8[13] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x4380
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame9[13] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame9[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x3380,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x8, OBJ_SPRITE_OAM | 0x3380,
@@ -694,7 +694,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame9[13] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x3380
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame10[13] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame10[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x2380,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x8, OBJ_SPRITE_OAM | 0x2380,
@@ -702,7 +702,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame10[13] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x2380
 };
 
-const u16 sRuinsTestOam_TurningIntoReflection_Frame11[13] = {
+const u16 sRuinsTestOam_TurningIntoReflection_Frame11[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x1380,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x8, OBJ_SPRITE_OAM | 0x1380,
@@ -710,7 +710,7 @@ const u16 sRuinsTestOam_TurningIntoReflection_Frame11[13] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x1380
 };
 
-const u16 sRuinsTestReflectionCoverOAM_Frame0[16] = {
+const u16 sRuinsTestReflectionCoverOAM_Frame0[OAM_DATA_SIZE(5)] = {
     0x5,
     0xef, 0x1ef, OBJ_SPRITE_OAM | 0x1286,
     0xe8, OBJ_SIZE_32x32 | 0x1e8, OBJ_SPRITE_OAM | 0x128e,
@@ -719,12 +719,12 @@ const u16 sRuinsTestReflectionCoverOAM_Frame0[16] = {
     0x8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x8, OBJ_SPRITE_OAM | 0x130e
 };
 
-const u16 sRuinsTestReflectionCoverOAM_Frame1[4] = {
+const u16 sRuinsTestReflectionCoverOAM_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, 0x1f0, OBJ_SPRITE_OAM | 0x1286,
 };
 
-const u16 sRuinsTestOam_Symbol_Frame0[13] = {
+const u16 sRuinsTestOam_Symbol_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe0, OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x1399,
     0xe0, OBJ_X_FLIP | OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1399,
@@ -732,7 +732,7 @@ const u16 sRuinsTestOam_Symbol_Frame0[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1399
 };
 
-const u16 sRuinsTestOam_Symbol_Frame1[13] = {
+const u16 sRuinsTestOam_Symbol_Frame1[OAM_DATA_SIZE(4)] = {
     0x4,
     0xe0, OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x139c,
     0xe0, OBJ_X_FLIP | OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x139c,
@@ -740,7 +740,7 @@ const u16 sRuinsTestOam_Symbol_Frame1[13] = {
     0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x139c
 };
 
-const u16 sRuinsTestOam_Symbol_Frame2[13] = {
+const u16 sRuinsTestOam_Symbol_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     0x0, OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x1339,
     0x0, OBJ_X_FLIP | OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1339,
@@ -748,7 +748,7 @@ const u16 sRuinsTestOam_Symbol_Frame2[13] = {
     0xe0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1339
 };
 
-const u16 sRuinsTestOam_Symbol_Frame3[13] = {
+const u16 sRuinsTestOam_Symbol_Frame3[OAM_DATA_SIZE(4)] = {
     0x4,
     0x0, OBJ_SIZE_32x32 | 0x1e0, OBJ_SPRITE_OAM | 0x133c,
     0x0, OBJ_X_FLIP | OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x133c,
@@ -756,7 +756,7 @@ const u16 sRuinsTestOam_Symbol_Frame3[13] = {
     0xe0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x32 | 0x0, OBJ_SPRITE_OAM | 0x133c
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame0[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x1344,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1346,
@@ -768,7 +768,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame0[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x13c6
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame1[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame1[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x2344,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x2346,
@@ -780,7 +780,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame1[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x23c6
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame2[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame2[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x3344,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x3346,
@@ -792,7 +792,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame2[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x33c6
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame3[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame3[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x4344,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x4346,
@@ -804,7 +804,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame3[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x43c6
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame4[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame4[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x5344,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x5346,
@@ -816,7 +816,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame4[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x53c6
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame5[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame5[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x1347,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1349,
@@ -828,7 +828,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame5[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x13c9
 };
 
-const u16 sRuinsTestShootableSymbolOam_Spawning_Frame6[25] = {
+const u16 sRuinsTestShootableSymbolOam_Spawning_Frame6[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_16x32 | 0x1e8, OBJ_SPRITE_OAM | 0x134a,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_SIZE_8x32 | 0x1f8, OBJ_SPRITE_OAM | 0x134c,
@@ -840,7 +840,7 @@ const u16 sRuinsTestShootableSymbolOam_Spawning_Frame6[25] = {
     OBJ_SHAPE_VERTICAL | 0x8, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x13cc
 };
 
-const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame3[13] = {
+const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame3[OAM_DATA_SIZE(4)] = {
     0x4,
     0xec, OBJ_SIZE_32x32 | 0x1ec, OBJ_SPRITE_OAM | 0x538d,
     OBJ_SHAPE_VERTICAL | 0xec, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0xc, OBJ_SPRITE_OAM | 0x538d,
@@ -848,7 +848,7 @@ const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame3[13] = {
     0xc, OBJ_X_FLIP | OBJ_Y_FLIP | 0xc, OBJ_SPRITE_OAM | 0x538d
 };
 
-const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame4[13] = {
+const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame4[OAM_DATA_SIZE(4)] = {
     0x4,
     0xec, OBJ_SIZE_32x32 | 0x1ec, OBJ_SPRITE_OAM | 0x438d,
     OBJ_SHAPE_VERTICAL | 0xec, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0xc, OBJ_SPRITE_OAM | 0x438d,
@@ -856,122 +856,122 @@ const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame4[13] = {
     0xc, OBJ_X_FLIP | OBJ_Y_FLIP | 0xc, OBJ_SPRITE_OAM | 0x438d
 };
 
-const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5[10] = {
+const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x3208,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x3208,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6[10] = {
+const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x2208,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x2208,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7[10] = {
+const u16 sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x1208,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x1208,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestGhostOam_SymbolShot_Frame0[4] = {
+const u16 sRuinsTestGhostOam_SymbolShot_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestGhostOam_SymbolPlacing_Frame3[10] = {
+const u16 sRuinsTestGhostOam_SymbolPlacing_Frame3[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x4208,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x4208,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestGhostOam_SymbolPlacing_Frame4[10] = {
+const u16 sRuinsTestGhostOam_SymbolPlacing_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x5208,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x5208,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestGhostOam_SymbolPlacing_Frame5[10] = {
+const u16 sRuinsTestGhostOam_SymbolPlacing_Frame5[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x120a,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x120a,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestGhostOam_SymbolPlacing_Frame6[10] = {
+const u16 sRuinsTestGhostOam_SymbolPlacing_Frame6[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_16x32 | 0x1f0, OBJ_SPRITE_OAM | 0x120c,
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x0, OBJ_SPRITE_OAM | 0x120c,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x620e
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame0[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame0[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xb0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1252,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x12d2,
     0xf0, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1352
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame2[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame2[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xe4, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1254,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x12d4,
     0xb4, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1354
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame3[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame3[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xe8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x5252,
     OBJ_SHAPE_VERTICAL | 0xc8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x52d2,
     0xb8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1fc, OBJ_SPRITE_OAM | 0x5352
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame4[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xb4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x5254,
     OBJ_SHAPE_VERTICAL | 0xd4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x52d4,
     0xf4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x5354
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame6[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame6[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1252,
     OBJ_SHAPE_VERTICAL | 0xc0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x12d2,
     0xb0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1352
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame7[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame7[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xe4, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x5254,
     OBJ_SHAPE_VERTICAL | 0xc4, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x52d4,
     0xb4, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x5354
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame8[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame8[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xb8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x1252,
     OBJ_SHAPE_VERTICAL | 0xd8, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x12d2,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fc, OBJ_SPRITE_OAM | 0x1352
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame10[10] = {
+const u16 sRuinsTestLightningOam_InAir_Frame10[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xb4, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1254,
     OBJ_SHAPE_VERTICAL | 0xd4, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x12d4,
     0xf4, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1354
 };
 
-const u16 sRuinsTestLightningOam_InAir_Frame1[4] = {
+const u16 sRuinsTestLightningOam_InAir_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x139c
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame0[13] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_VERTICAL | 0xc0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1252,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x12d2,
@@ -979,13 +979,13 @@ const u16 sRuinsTestLightningOam_GoingOnGround_Frame0[13] = {
     0xf8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x13d1
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame1[7] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame1[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xc0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x1252,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_SIZE_16x32 | 0x1f4, OBJ_SPRITE_OAM | 0x12d2
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame2[13] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x52d4,
     0xd0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x5354,
@@ -993,607 +993,936 @@ const u16 sRuinsTestLightningOam_GoingOnGround_Frame2[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1ec, OBJ_SPRITE_OAM | 0x1391
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame3[7] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame3[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x52d4,
     0xd0, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x5354
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame4[10] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame4[OAM_DATA_SIZE(3)] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x5312,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1f8, OBJ_SPRITE_OAM | 0x13d1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1e8, OBJ_SPRITE_OAM | 0x13d1
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame5[4] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame5[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1fc, OBJ_SPRITE_OAM | 0x5312
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame6[10] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame6[OAM_DATA_SIZE(3)] = {
     0x3,
     0xe8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1254,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1fc, OBJ_SPRITE_OAM | 0x1391,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1e4, OBJ_SPRITE_OAM | 0x1391
 };
 
-const u16 sRuinsTestLightningOam_GoingOnGround_Frame7[4] = {
+const u16 sRuinsTestLightningOam_GoingOnGround_Frame7[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1254
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame0[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1e0, OBJ_SPRITE_OAM | 0x13d1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x0, OBJ_SPRITE_OAM | 0x13d5
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame2[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1ec, OBJ_SPRITE_OAM | 0x1391,
     0xf8, OBJ_SIZE_16x16 | 0xc, OBJ_SPRITE_OAM | 0x1395
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame4[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame4[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1e8, OBJ_SPRITE_OAM | 0x53d1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x8, OBJ_SPRITE_OAM | 0x53d5
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame6[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame6[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1ec, OBJ_SPRITE_OAM | 0x5391,
     0xf8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0xc, OBJ_SPRITE_OAM | 0x5395
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame8[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame8[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_SIZE_32x16 | 0x0, OBJ_SPRITE_OAM | 0x13d1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_SIZE_32x16 | 0x1e0, OBJ_SPRITE_OAM | 0x13d5
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame10[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame10[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_SIZE_32x16 | 0x1fc, OBJ_SPRITE_OAM | 0x1391,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x1395
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame12[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame12[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x8, OBJ_SPRITE_OAM | 0x13d1,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1e8, OBJ_SPRITE_OAM | 0x13d5
 };
 
-const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame14[7] = {
+const u16 sRuinsTestLightningOam_OnGroundHorizontal_Frame14[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_32x16 | 0x1fc, OBJ_SPRITE_OAM | 0x1391,
     0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x1395
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame0[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1256,
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x12d6
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame2[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame2[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xe4, OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1258,
     0x4, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d8
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame4[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame4[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x5256,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x52d6
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame6[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame6[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xf4, OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x5258,
     0xe4, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x52d8
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame8[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame8[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1256,
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x12d6
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame10[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame10[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xe4, OBJ_X_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1258,
     0x4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d8
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame12[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame12[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0x0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1256,
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x12d6
 };
 
-const u16 sRuinsTestLightningOam_OnGroundVertical_Frame14[7] = {
+const u16 sRuinsTestLightningOam_OnGroundVertical_Frame14[OAM_DATA_SIZE(2)] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xf4, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x32 | 0x1f8, OBJ_SPRITE_OAM | 0x1258,
     0xe4, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x12d8
 };
 
 const struct FrameData sRuinsTestSamusReflectionOAM[2] = {
-    sRuinsTestSamusReflectionOAM_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestSamusReflectionOAM_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOutlineOam_Spawning[9] = {
-    sRuinsTestGhostOutline_Spawning_Frame0,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame1,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame2,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame3,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame4,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame3,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame2,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame1,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOam_NotMoving[2] = {
-    sRuinsTestGhostOam_NotMoving_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOam_NotMoving_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOam_Moving[7] = {
-    sRuinsTestGhostOam_NotMoving_Frame0,
-    0xA,
-    sRuinsTestGhostOam_Moving_Frame1,
-    0xA,
-    sRuinsTestGhostOam_Moving_Frame2,
-    0xA,
-    sRuinsTestGhostOam_Moving_Frame3,
-    0xA,
-    sRuinsTestGhostOam_Moving_Frame2,
-    0xA,
-    sRuinsTestGhostOam_Moving_Frame1,
-    0xA,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOam_NotMoving_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sRuinsTestGhostOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [2] = {
+        .pFrame = sRuinsTestGhostOam_Moving_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [3] = {
+        .pFrame = sRuinsTestGhostOam_Moving_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [4] = {
+        .pFrame = sRuinsTestGhostOam_Moving_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sRuinsTestGhostOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOam_SymbolPlaced[2] = {
-    sRuinsTestGhostOam_SymbolPlaced_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlaced_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestSymbolOam_FourSymbols[14] = {
-    sRuinsTestSymbolOam_FourSymbols_Frame0,
-    0xFF,
-    sRuinsTestSymbolOam_FourSymbols_Frame1,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame2,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame3,
-    0x4,
-    sRuinsTestSymbolOam_FourSymbols_Frame4,
-    0x4,
-    sRuinsTestSymbolOam_FourSymbols_Frame5,
-    0x4,
-    sRuinsTestSymbolOam_FourSymbols_Frame6,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame7,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame6,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame5,
-    0x6,
-    sRuinsTestSymbolOam_FourSymbols_Frame10,
-    0x2,
-    sRuinsTestSymbolOam_FourSymbols_Frame11,
-    0x2,
-    sRuinsTestSymbolOam_FourSymbols_Frame12,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame2,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [9] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [10] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame11,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sRuinsTestSymbolOam_FourSymbols_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestSymbolOam_Merging[3] = {
-    sRuinsTestSymbolOam_Merging_Frame0,
-    0x3,
-    sRuinsTestSymbolOam_Merging_Frame1,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestSymbolOam_Merging_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sRuinsTestSymbolOam_Merging_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestSymbolOam_Disappearing[7] = {
-    sRuinsTestSymbolOam_Disappearing_Frame0,
-    0x2,
-    sRuinsTestSymbolOam_Disappearing_Frame1,
-    0x2,
-    sRuinsTestSymbolOam_Disappearing_Frame2,
-    0x2,
-    sRuinsTestSymbolOam_Disappearing_Frame3,
-    0x6,
-    sRuinsTestSymbolOam_Disappearing_Frame4,
-    0x6,
-    sRuinsTestSymbolOam_Disappearing_Frame5,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame3,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [5] = {
+        .pFrame = sRuinsTestSymbolOam_Disappearing_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestOam_TurningIntoReflection[13] = {
-    sRuinsTestOam_TurningIntoReflection_Frame0,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame1,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame2,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame3,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame4,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame5,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame6,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame7,
-    0x13,
-    sRuinsTestOam_TurningIntoReflection_Frame8,
-    0x3,
-    sRuinsTestOam_TurningIntoReflection_Frame9,
-    0x3,
-    sRuinsTestOam_TurningIntoReflection_Frame10,
-    0x3,
-    sRuinsTestOam_TurningIntoReflection_Frame11,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame7,
+        .timer = CONVERT_SECONDS(19.f / 60)
+    },
+    [8] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame8,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame9,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame10,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame11,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestReflectionCoverOAM[3] = {
-    sRuinsTestReflectionCoverOAM_Frame0,
-    0x2,
-    sRuinsTestReflectionCoverOAM_Frame1,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestReflectionCoverOAM_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestReflectionCoverOAM_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestOam_Symbol[5] = {
-    sRuinsTestOam_Symbol_Frame0,
-    0x8,
-    sRuinsTestOam_Symbol_Frame1,
-    0x8,
-    sRuinsTestOam_Symbol_Frame2,
-    0x8,
-    sRuinsTestOam_Symbol_Frame3,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestOam_Symbol_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sRuinsTestOam_Symbol_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestOam_Symbol_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestOam_Symbol_Frame3,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestShootableSymbolOam_Spawning[10] = {
-    sRuinsTestShootableSymbolOam_Spawning_Frame0,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame1,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame2,
-    0x4,
-    sRuinsTestShootableSymbolOam_Spawning_Frame3,
-    0x4,
-    sRuinsTestShootableSymbolOam_Spawning_Frame4,
-    0x4,
-    sRuinsTestShootableSymbolOam_Spawning_Frame5,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame6,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame5,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame4,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestShootableSymbolOam_Spawned[7] = {
-    sRuinsTestShootableSymbolOam_Spawning_Frame3,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame4,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame5,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame6,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame5,
-    0x2,
-    sRuinsTestShootableSymbolOam_Spawning_Frame4,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestShootableSymbolOam_Despawning[5] = {
-    sRuinsTestShootableSymbolOam_Spawning_Frame3,
-    0x4,
-    sRuinsTestShootableSymbolOam_Spawning_Frame2,
-    0x4,
-    sRuinsTestShootableSymbolOam_Spawning_Frame1,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame0,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestShootableSymbolOam_TurningIntoSymbol[9] = {
-    sRuinsTestShootableSymbolOam_Spawning_Frame6,
-    0x8,
-    sRuinsTestShootableSymbolOam_Spawning_Frame5,
-    0x6,
-    sRuinsTestShootableSymbolOam_Spawning_Frame4,
-    0x3,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame3,
-    0x3,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame4,
-    0x3,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
-    0x3,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
-    0x3,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame6,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sRuinsTestShootableSymbolOam_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOam_SymbolShot[2] = {
-    sRuinsTestGhostOam_SymbolShot_Frame0,
-    0x30,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOam_SymbolShot_Frame0,
+        .timer = CONVERT_SECONDS(0.8f)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOam_SymbolPlacing[14] = {
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
-    0x6,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
-    0x6,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
-    0x4,
-    sRuinsTestGhostOam_SymbolPlacing_Frame3,
-    0x4,
-    sRuinsTestGhostOam_SymbolPlacing_Frame4,
-    0x4,
-    sRuinsTestGhostOam_SymbolPlacing_Frame5,
-    0x6,
-    sRuinsTestGhostOam_SymbolPlacing_Frame6,
-    0x6,
-    sRuinsTestGhostOam_SymbolPlacing_Frame5,
-    0x6,
-    sRuinsTestGhostOam_SymbolPlacing_Frame4,
-    0x6,
-    sRuinsTestGhostOam_SymbolPlacing_Frame3,
-    0x4,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
-    0x4,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
-    0x6,
-    sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
-    0x6,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [6] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [7] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame5,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [8] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame4,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [9] = {
+        .pFrame = sRuinsTestGhostOam_SymbolPlacing_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [10] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [11] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame6,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [12] = {
+        .pFrame = sRuinsTestShootableSymbolOam_TurningIntoSymbol_Frame7,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [13] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestOam_Despawn[6] = {
-    sRuinsTestOam_TurningIntoReflection_Frame11,
-    0x6,
-    sRuinsTestOam_TurningIntoReflection_Frame10,
-    0x6,
-    sRuinsTestOam_TurningIntoReflection_Frame9,
-    0x6,
-    sRuinsTestOam_TurningIntoReflection_Frame8,
-    0x6,
-    sRuinsTestOam_TurningIntoReflection_Frame7,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame11,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [1] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame10,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [2] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame9,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [3] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame8,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [4] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame7,
+        .timer = UCHAR_MAX
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestOam_Unused[9] = {
-    sRuinsTestOam_TurningIntoReflection_Frame7,
-    0xFF,
-    sRuinsTestOam_TurningIntoReflection_Frame6,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame5,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame4,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame3,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame2,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame1,
-    0x4,
-    sRuinsTestOam_TurningIntoReflection_Frame0,
-    0xFF,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame7,
+        .timer = UCHAR_MAX
+    },
+    [1] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [6] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [7] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestOam_Spawning[9] = {
-    sRuinsTestOam_TurningIntoReflection_Frame0,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame1,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame2,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame3,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame4,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame3,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame2,
-    0x1,
-    sRuinsTestOam_TurningIntoReflection_Frame1,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [3] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [5] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [7] = {
+        .pFrame = sRuinsTestOam_TurningIntoReflection_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestLightningOam_InAir[12] = {
-    sRuinsTestLightningOam_InAir_Frame0,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame2,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame3,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame4,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame6,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame7,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame8,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame10,
-    0x2,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [2] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestLightningOam_GoingOnGround[9] = {
-    sRuinsTestLightningOam_GoingOnGround_Frame0,
-    0x2,
-    sRuinsTestLightningOam_GoingOnGround_Frame1,
-    0x1,
-    sRuinsTestLightningOam_GoingOnGround_Frame2,
-    0x2,
-    sRuinsTestLightningOam_GoingOnGround_Frame3,
-    0x1,
-    sRuinsTestLightningOam_GoingOnGround_Frame4,
-    0x2,
-    sRuinsTestLightningOam_GoingOnGround_Frame5,
-    0x1,
-    sRuinsTestLightningOam_GoingOnGround_Frame6,
-    0x2,
-    sRuinsTestLightningOam_GoingOnGround_Frame7,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame5,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sRuinsTestLightningOam_GoingOnGround_Frame7,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestLightningOam_OnGroundHorizontal[17] = {
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame0,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame2,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame4,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame6,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame8,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame10,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame12,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundHorizontal_Frame14,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [10] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [12] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [14] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundHorizontal_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [16] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestLightningOam_OnGroundVertical[17] = {
-    sRuinsTestLightningOam_OnGroundVertical_Frame0,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame2,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame4,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame6,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame8,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame10,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame12,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    sRuinsTestLightningOam_OnGroundVertical_Frame14,
-    0x2,
-    sRuinsTestLightningOam_InAir_Frame1,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [1] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [4] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame6,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [8] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame8,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [10] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame10,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [12] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame12,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [14] = {
+        .pFrame = sRuinsTestLightningOam_OnGroundVertical_Frame14,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [15] = {
+        .pFrame = sRuinsTestLightningOam_InAir_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [16] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRuinsTestGhostOutlineOam_ShootingGroundLightning[9] = {
-    sRuinsTestGhostOutline_Spawning_Frame4,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame0,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame4,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame0,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame4,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame0,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame4,
-    0x8,
-    sRuinsTestGhostOutline_Spawning_Frame0,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [2] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [3] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [4] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [5] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame4,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sRuinsTestGhostOutline_Spawning_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };

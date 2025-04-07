@@ -491,7 +491,7 @@ u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock)
 u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
 {
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, sBlockBehaviors[pClipBlock->blockBehavior].type);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = CLIPDATA_AIR;
     return TRUE;
 }
 
@@ -504,7 +504,7 @@ u32 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock)
 u32 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock)
 {
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, sBlockBehaviors[pClipBlock->blockBehavior].type);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = CLIPDATA_AIR;
     return TRUE;
 }
 
@@ -651,7 +651,7 @@ void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
     // Get previous behavior
     behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[position]];
 
-    // Clear clipdataand bg1
+    // Clear clipdata and bg1
     gBgPointersAndDimensions.pClipDecomp[position] = 0;
     gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
 
@@ -683,7 +683,8 @@ void BlockShiftNeverReformBlocks(void)
     s32 var_0;
     s32 i;
 
-    src = (u8*)0x2035c00 + gAreaBeforeTransition * 512;
+    // FIXME use symbol
+    src = (u8*)0x2035c00 + gAreaBeforeTransition * 512; // gNeverReformBlocks
     if (src[gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2] == UCHAR_MAX)
         return;
 
@@ -843,7 +844,7 @@ u32 BlockApplyCcaa(u16 yPosition, u16 xPosition, u16 trueClip)
     clipBlock.xPosition = xPosition;
     clipBlock.yPosition = yPosition;
     clipBlock.behavior = gTilemapAndClipPointers.pClipBehaviors[trueClip];
-    clipBlock.blockBehavior = 0x0;
+    clipBlock.blockBehavior = 0;
 
     result = FALSE;
 
@@ -943,7 +944,7 @@ u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
             if (pBlocks[--i] == (xPosition << 8 | yPosition))
             {
                 // Found in the array, remove
-                pBlocks[i] = 0x0;
+                pBlocks[i] = 0;
                 result = TRUE;
                 break;
             }
@@ -966,7 +967,7 @@ u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
         }
 
         result = FALSE;
-        if (i != 0xFF)
+        if (i != UCHAR_MAX)
         {
             if (gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPosition + xPosition] == 0)
             {
@@ -1624,7 +1625,7 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     if (clipdata != 0)
         BlockApplyCcaa(yPosition, xPosition, clipdata);
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < ARRAY_SIZE(sSubBombChainPositionOffset[0]) / 2; i++)
     {
         width = gBgPointersAndDimensions.clipdataWidth;
 

@@ -138,7 +138,7 @@ void ZiplineUpdateOAM(void)
                         gCurrentSprite.currentAnimationFrame = 0;
 
                         gCurrentSprite.work1 = ZIPLINE_ANIMATION_STATE_GRABBED;
-                        gCurrentSprite.health = 0x2;
+                        gCurrentSprite.health = ZIPLINE_HEALTH_MOVING;
                     }
                     break;
 
@@ -308,9 +308,9 @@ void ZiplineInit(void)
     gCurrentSprite.hitboxLeft = -PIXEL_SIZE;
     gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
-    gCurrentSprite.drawDistanceTop = 0x10;
-    gCurrentSprite.drawDistanceBottom = 0x8;
-    gCurrentSprite.drawDistanceHorizontal = 0x8;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
     gCurrentSprite.samusCollision = SSC_ZIPLINE;
     gCurrentSprite.health = ZIPLINE_HEALTH_NOT_MOVING;
@@ -353,10 +353,11 @@ void ZiplineUpdate(void)
     if (gCurrentSprite.health == ZIPLINE_HEALTH_MOVING)
     {
         // Move
+        // CONVERT_SECONDS(.25f) + DELTA_TIME
         if (MOD_AND(gCurrentSprite.work0, 16) == 0)
             SoundPlay(SOUND_ZIPLING_MOVING);
 
-        gCurrentSprite.work0++;
+        APPLY_DELTA_TIME_INC(gCurrentSprite.work0);
 
         if (ZiplineMoving())
         {
@@ -394,7 +395,7 @@ void ZiplineButtonInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.health = 1;
+    gCurrentSprite.health = ZIPLINE_HEALTH_NOT_MOVING;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
 
     gCurrentSprite.pose = ZIPLINE_BUTTON_POSE_BIND_ZIPLINE;

@@ -64,6 +64,7 @@
 
 #define CEIL(v) ((int)(((float)v) + .5) == (int)(v) ? ((int)(v)) : (int)(((float)v) + .5))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define ABS_DIFF(a, b) ((a) > (b) ? (a) - (b) : (b) - (a))
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 #define EMPTY_DO_WHILE {do {} while(0);}

@@ -361,7 +361,7 @@ void RidleyPartClawIdle(u8 ramSlot)
 void RidleyTailCheckStartScreenShakeVerticalTailAttack(void)
 {
     if (gCurrentSprite.yPositionSpawn + 0x14 < RIDLEY_GROUND_POSITION && gCurrentSprite.yPosition + 0x14 > (BLOCK_SIZE * 18 - PIXEL_SIZE / 2))
-        ScreenShakeStartVertical(20, 0x80 | 1);
+        ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
 
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 }
@@ -682,7 +682,7 @@ void RidleySpawning(void)
                 }
 
                 gSubSpriteData1.yPosition = RIDLEY_GROUND_POSITION - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                ScreenShakeStartVertical(30, 0x80 | 1);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
                 gCurrentSprite.work1++;
                 gCurrentSprite.work0 = 30;
@@ -1462,7 +1462,7 @@ void RidleySmallFireballsAttack(void)
             {
                 // Reached ground
                 gSubSpriteData1.yPosition = RIDLEY_GROUND_POSITION - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-                ScreenShakeStartVertical(0x1E, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
                 gCurrentSprite.work1++;
                 gCurrentSprite.work0 = 0x1E;
@@ -1767,7 +1767,7 @@ void RidleyDying(void)
             if (gCurrentSprite.work2 == 1)
                 StartEffectForCutscene(EFFECT_CUTSCENE_STATUE_OPENING);
             else if (gCurrentSprite.work2 == 0)
-                FadeMusic(0x96);
+                FadeMusic(CONVERT_SECONDS(2.5f));
         }
     }
 
@@ -1832,7 +1832,7 @@ void RidleyDying(void)
             // Kill sprite
             gCurrentSprite.status = 0;
             // Unlock doors
-            gDoorUnlockTimer = -0x3C;
+            gDoorUnlockTimer = -CONVERT_SECONDS(1.f);
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_KILLED);
             // Update minimap
@@ -2848,8 +2848,10 @@ void RidleyTail(void)
 
     if (gCurrentSprite.roomSlot != RIDLEY_TAIL_PART_TIP)
     {
-        if (gCurrentSprite.pose == 0)
+        if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
+        {
             RidleyTailInit();
+        }
         else if (gCurrentSprite.pose == RIDLEY_TAIL_POSE_DEAD)
         {
             if (gSpriteData[ramSlot].status & SPRITE_STATUS_NOT_DRAWN)
@@ -2870,7 +2872,7 @@ void RidleyTail(void)
     {
         switch (gCurrentSprite.pose)
         {
-            case 0:
+            case SPRITE_POSE_UNINITIALIZED:
                 RidleyTailInit();
                 break;
 
@@ -2940,7 +2942,7 @@ void RidleyPart(void)
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     part = gCurrentSprite.roomSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         RidleyPartInit();
         return;
@@ -3021,7 +3023,7 @@ void RidleyFireball(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             RidleyFireballInit();
             break;
 

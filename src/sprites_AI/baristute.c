@@ -221,7 +221,7 @@ void BaristuteLandingInit(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        ScreenShakeStartVertical(10, 0x80 | 1);
+        ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
         SoundPlayNotAlreadyPlaying(SOUND_BARISTUTE_LANDING);
     }
 }
@@ -273,7 +273,7 @@ void BaristuteIdle(void)
         return;
     }
 
-    // Wait for the idle animatio to end
+    // Wait for the idle animation to end
     if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
         return;
 
@@ -301,7 +301,7 @@ void BaristuteIdle(void)
         }
         else
         {
-            // Is a normal baristute, so have random behavior, 50/50 to either wlak or jump
+            // Is a normal baristute, so have random behavior, 50/50 to either walk or jump
             if (gCurrentSprite.work1 >= 2)
                 gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
             else
@@ -354,7 +354,7 @@ void BaristuteWalkingInit(void)
  */
 void BaristutePlayWalkingSound(void)
 {
-    if (gCurrentSprite.animationDurationCounter == 1 && (gCurrentSprite.currentAnimationFrame == 1 || gCurrentSprite.currentAnimationFrame == 4))
+    if (gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME && (gCurrentSprite.currentAnimationFrame == 1 || gCurrentSprite.currentAnimationFrame == 4))
     {
         if (gCurrentSprite.work2 <= WALKING_SPEED * 2)
         {

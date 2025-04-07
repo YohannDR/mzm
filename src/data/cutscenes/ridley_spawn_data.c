@@ -3,10 +3,6 @@
 #include "gba.h"
 #include "macros.h"
 
-extern const u16 sRidleySpawnOAM_RidleyFlying_Frame0[13];
-extern const u16 sRidleySpawnOAM_RidleyScreaming_Frame0[13];
-extern const u16 sRidleySpawnOAM_RidleyFlyingReflection_Frame0[23];
-
 const struct CutscenePageData sRidleySpawnPageData[4] = {
     [0] = {
         .graphicsPage = 2,
@@ -39,27 +35,30 @@ const struct CutscenePageData sRidleySpawnPageData[4] = {
 };
 
 const struct FrameData sRidleySpawnOAM_RidleyFlyingReflection[2] = {
-    sRidleySpawnOAM_RidleyFlyingReflection_Frame0,
-    0x80,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleySpawnOAM_RidleyFlyingReflection_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleySpawnOAM_RidleyFlying[2] = {
-    sRidleySpawnOAM_RidleyFlying_Frame0,
-    0x80,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleySpawnOAM_RidleyFlying_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleySpawnOAM_RidleyScreaming[2] = {
-    sRidleySpawnOAM_RidleyScreaming_Frame0,
-    0x80,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleySpawnOAM_RidleyScreaming_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-const struct OamArray sRidleySpawnOam[5] = {
+const struct OamArray sRidleySpawnOam[RIDLEY_SPAWN_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleySpawnOAM_RidleyFlyingReflection,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -82,7 +81,7 @@ const struct OamArray sRidleySpawnOam[5] = {
     }
 };
 
-const u16 sRidleySpawnOAM_Samus_Frame0[13] = {
+const u16 sRidleySpawnOAM_Samus_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xd0, OBJ_SIZE_64x64 | 0x1c0, 0x0,
     0xd0, OBJ_SIZE_64x64 | 0x0, 0x8,
@@ -90,7 +89,7 @@ const u16 sRidleySpawnOAM_Samus_Frame0[13] = {
     0x10, OBJ_SIZE_64x64 | 0x0, 0x1018
 };
 
-const u16 sRidleySpawnOAM_RidleyFlyingReflection_Frame0[23] = {
+const u16 sRidleySpawnOAM_RidleyFlyingReflection_Frame0[OAM_DATA_SIZE(7)] = {
     0x7,
     0xc0, OBJ_SIZE_64x64 | 0x1a0, 0x2100,
     0xc0, OBJ_SIZE_64x64 | 0x1e0, 0x2108,
@@ -102,13 +101,14 @@ const u16 sRidleySpawnOAM_RidleyFlyingReflection_Frame0[23] = {
 };
 
 const struct FrameData sRidleySpawnOAM_Samus[2] = {
-    sRidleySpawnOAM_Samus_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleySpawnOAM_Samus_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-const u16 sRidleySpawnOAM_RidleyFlying_Frame0[13] = {
+const u16 sRidleySpawnOAM_RidleyFlying_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc0, OBJ_SIZE_64x64 | 0x1c0, 0x0,
     0xc0, OBJ_SIZE_64x64 | 0x0, 0x8,
@@ -116,7 +116,7 @@ const u16 sRidleySpawnOAM_RidleyFlying_Frame0[13] = {
     0x0, OBJ_SIZE_64x64 | 0x0, 0x108
 };
 
-const u16 sRidleySpawnOAM_RidleyScreaming_Frame0[13] = {
+const u16 sRidleySpawnOAM_RidleyScreaming_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc0, OBJ_SIZE_64x64 | 0x1c0, 0x10,
     0xc0, OBJ_SIZE_64x64 | 0x0, 0x18,
@@ -125,12 +125,15 @@ const u16 sRidleySpawnOAM_RidleyScreaming_Frame0[13] = {
 };
 
 const struct FrameData sRidleySpawnOAM_RidleyFlyingAndScreaming_Unused[3] = {
-    sRidleySpawnOAM_RidleyFlying_Frame0,
-    50,
-    sRidleySpawnOAM_RidleyScreaming_Frame0,
-    50,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleySpawnOAM_RidleyFlying_Frame0,
+        .timer = CONVERT_SECONDS(5.f / 6)
+    },
+    [1] = {
+        .pFrame = sRidleySpawnOAM_RidleyScreaming_Frame0,
+        .timer = CONVERT_SECONDS(5.f / 6)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 

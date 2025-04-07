@@ -61,7 +61,7 @@ void TangleVineGeruta(void)
     }
 
     counter = 0;
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.drawDistanceTop = 0x40;
         gCurrentSprite.drawDistanceBottom = 0;
@@ -148,7 +148,7 @@ void TangleVineGerutaPart(void)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.pose = 0xF;
@@ -231,7 +231,7 @@ void TangleVineRedGeruta(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.drawDistanceTop = 0x48;
         gCurrentSprite.drawDistanceBottom = 0;
@@ -274,7 +274,7 @@ void TangleVineLarvaRight(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.yPosition -= QUARTER_BLOCK_SIZE;
 
@@ -318,7 +318,7 @@ void TangleVineLarvaLeft(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.xPosition -= QUARTER_BLOCK_SIZE;
 
@@ -365,7 +365,7 @@ void TangleVineTall(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
@@ -432,7 +432,7 @@ void TangleVineMedium(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
@@ -499,7 +499,7 @@ void TangleVineCurved(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {
@@ -566,7 +566,7 @@ void TangleVineShort(void)
             SoundPlayNotAlreadyPlaying(SOUND_TANGLE_VINE_DAMAGE);
     }
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) != COLLISION_AIR)
         {

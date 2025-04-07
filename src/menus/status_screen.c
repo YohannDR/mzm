@@ -39,7 +39,7 @@ void UpdateMinimapAnimatedPalette(void)
             PAUSE_SCREEN_DATA.unk_18 = 0;
             PAUSE_SCREEN_DATA.unk_1A++;
 
-            if (PAUSE_SCREEN_DATA.unk_1A > 3u)
+            if (PAUSE_SCREEN_DATA.unk_1A >= sizeof(sPauseScreen_40dcf0))
                 PAUSE_SCREEN_DATA.unk_1A = 0;
 
             value = sPauseScreen_40dcb0[PAUSE_SCREEN_DATA.unk_1A];

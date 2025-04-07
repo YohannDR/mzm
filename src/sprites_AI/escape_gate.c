@@ -68,11 +68,11 @@ void EscapeGate(void)
     u32 offset;
 
     spriteId = gCurrentSprite.spriteId;
-    delay = 16;
+    delay = CONVERT_SECONDS(.25f) + 1 * DELTA_TIME;
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
 
@@ -103,8 +103,8 @@ void EscapeGate(void)
             if (spriteId == PSPRITE_ESCAPE_GATE1)
             {
                 // Load graphics and spawn the black pirates
-                DMA_SET(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, (DMA_ENABLE << 16) | 0x400);
-                DMA_SET(3, sEscapeGateAndTimerPal, PALRAM_BASE + 0x3E0, (DMA_ENABLE << 16) | 0x10);
+                DMA_SET(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, C_32_2_16(DMA_ENABLE, 0x400));
+                DMA_SET(3, sEscapeGateAndTimerPal, PALRAM_OBJ + (PAL_SIZE - 1 * PAL_ROW_SIZE), C_32_2_16(DMA_ENABLE, 0x10));
 
                 SpriteSpawnPrimary(PSPRITE_BLACK_SPACE_PIRATE, 0x80, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition - (BLOCK_SIZE * 2), 0);
@@ -144,7 +144,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_OPENING:
-            delay = 3;
+            delay = 3 * DELTA_TIME;
 
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
@@ -156,7 +156,7 @@ void EscapeGate(void)
             }
             else
             {
-                if (gCurrentSprite.currentAnimationFrame == 4 && gCurrentSprite.animationDurationCounter == 10)
+                if (gCurrentSprite.currentAnimationFrame == 4 && gCurrentSprite.animationDurationCounter == CONVERT_SECONDS(1.f / 6))
                     EscapeGateChangeCcaa(CAA_REMOVE_SOLID);
             }
             break;
@@ -180,14 +180,14 @@ void EscapeGate(void)
                 return;
 
             if (gSubSpriteData1.workVariable3 == 2)
-                delay = 3;
+                delay = 3 * DELTA_TIME;
             break;
     }
 
     // Update animated palette
     if (spriteId == PSPRITE_ESCAPE_GATE1)
     {
-        timer = --gCurrentSprite.work2;
+        timer = APPLY_DELTA_TIME_DEC(gCurrentSprite.work2);
         if (timer == 0)
         {
             gCurrentSprite.work2 = delay;
@@ -195,10 +195,10 @@ void EscapeGate(void)
             flag = 0x80;
             if (row & flag)
             {
-                if (gCurrentSprite.work1 > 0x80)
+                if (gCurrentSprite.work1 > flag)
                     gCurrentSprite.work1--;
 
-                if (gCurrentSprite.work1 == 0x80)
+                if (gCurrentSprite.work1 == flag)
                     gCurrentSprite.work1 = timer;
             }
             else
@@ -211,7 +211,7 @@ void EscapeGate(void)
             }
 
             offset = MOD_AND(gCurrentSprite.work1, 128);
-            DMA_SET(3, &sEscapeGateFlashingPal[offset * 16], PALRAM_BASE + 0x3E0, (DMA_ENABLE << 16) | 16);
+            DMA_SET(3, &sEscapeGateFlashingPal[offset * 16], PALRAM_OBJ + (PAL_SIZE - 1 * PAL_ROW_SIZE), C_32_2_16(DMA_ENABLE, 16));
         }
     }
 }

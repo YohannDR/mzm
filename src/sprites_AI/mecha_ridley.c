@@ -423,7 +423,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
         // Set delay before crawling
-        gCurrentSprite.yPositionSpawn = 60 * 5;
+        gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(5.f);
         gCurrentSprite.work3 = gSpriteRng;
         gCurrentSprite.rotation = 0;
 
@@ -498,7 +498,7 @@ void MechaRidleyStartWalking(void)
  */
 void MechaRidleyDelayBeforeCrawling(void)
 {
-    gCurrentSprite.yPositionSpawn--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.yPositionSpawn);
     if (gCurrentSprite.yPositionSpawn == 0)
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_CRAWLING;
 }
@@ -644,7 +644,7 @@ void MechaRidleyIdle(void)
     leftArmSlot = gSubSpriteData1.workVariable5;
 
     //   Update height          Check trigger attacks (excluding fireballs for graphics conflits)     Check timer
-    if ((MechaRidleyUpdateHeight() || !MechaRidleyCheckStartFireballAttack(leftArmSlot)) && gSubSpriteData1.workVariable2 == 170)
+    if ((MechaRidleyUpdateHeight() || !MechaRidleyCheckStartFireballAttack(leftArmSlot)) && gSubSpriteData1.workVariable2 == CONVERT_SECONDS(2.f) + CONVERT_SECONDS(5.f / 6))
         gBossWork.work5 = MISSILE_LAUNCHER_STATE_MISSILE_ATTACK_INIT; // Start missile attack
 }
 
@@ -773,7 +773,7 @@ void MechaRidleyCurledUp(void)
     }
 
     // Check missile attack timer
-    if (gSubSpriteData1.workVariable2 == 170)
+    if (gSubSpriteData1.workVariable2 ==  CONVERT_SECONDS(2.f) + CONVERT_SECONDS(5.f / 6))
         gBossWork.work5 = MISSILE_LAUNCHER_STATE_MISSILE_ATTACK_INIT;
 }
 
@@ -1136,6 +1136,7 @@ void MechaRidleySpawnDrops(void)
     gCurrentSprite.work0++;
 
     // Update palette and spawn drops (10 in total)
+    // APPLY_DELTA_TIME(gCurrentSprite.yPositionSpawn);
     switch (gCurrentSprite.yPositionSpawn++)
     {
         case 1:
@@ -1189,7 +1190,7 @@ void MechaRidleySpawnDrops(void)
             break;
     }
 
-    if (gCurrentSprite.yPositionSpawn > 60 * 6)
+    if (gCurrentSprite.yPositionSpawn > CONVERT_SECONDS(6.f))
     {
         // Set first eye glow
         gCurrentSprite.work0 = 30;
@@ -1272,7 +1273,7 @@ void MechaRidleySecondEyeGlow(void)
             gInGameTimerAtBosses[3] = gInGameTimer;
             
             // Unlock doors
-            gDoorUnlockTimer = -20;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
 
             // Enable alarm
             gDisableAnimatedPalette = FALSE;
@@ -2013,7 +2014,7 @@ void MechaRidleyPartLeftArmIdle(void)
             case 7:
                 if (gCurrentSprite.animationDurationCounter == 1)
                 {
-                    ScreenShakeStartVertical(20, 0x81);
+                    ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
                     SoundPlay(SOUND_MECHA_RIDLEY_ARM_SWIPE_HITTING_GROUND);
                 }
 
@@ -2346,7 +2347,7 @@ void MechaRidley(void)
         SoundPlay(SOUND_MECHA_RIDLEY_DAMAGED);
     }
 
-    if (gCurrentSprite.pose != 0)
+    if (gCurrentSprite.pose != SPRITE_POSE_UNINITIALIZED)
     {
         samusY = gSamusData.yPosition;
         spriteY = gSubSpriteData1.yPosition - BLOCK_SIZE;
@@ -2390,7 +2391,7 @@ void MechaRidley(void)
     
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             MechaRidleyInit();
             break;
 
@@ -2498,7 +2499,7 @@ void MechaRidley(void)
 
     gCurrentSprite.work3++;
     if (gCurrentSprite.pose == MECHA_RIDLEY_POSE_IDLE || gCurrentSprite.pose == MECHA_RIDLEY_POSE_CURLED_UP)
-        gSubSpriteData1.workVariable2++; // Missile attack timer
+        APPLY_DELTA_TIME_INC(gSubSpriteData1.workVariable2); // Missile attack timer
 
     SpriteUtilUpdateSubSprite1Anim();
     MechaRidleySyncSubSprites();
@@ -2595,7 +2596,7 @@ void MechaRidleyPart(void)
         return;
     }
 
-    if (gCurrentSprite.pose != 0 && gCurrentSprite.health != 0)
+    if (gCurrentSprite.pose != SPRITE_POSE_UNINITIALIZED && gCurrentSprite.health != 0)
     {
         if (partNumber == MECHA_RIDLEY_PART_EYE)
         {
@@ -2634,7 +2635,7 @@ void MechaRidleyPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             MechaRidleyPartInit();
             MechaRidleySyncSubSprites();
             break;
@@ -2702,7 +2703,7 @@ void MechaRidleyPart(void)
  */
 void MechaRidleyLaser(void)
 {
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
@@ -2794,7 +2795,7 @@ void MechaRidleyMissile(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
 
             gCurrentSprite.drawDistanceTop = 0x10;
@@ -2898,7 +2899,7 @@ void MechaRidleyFireball(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN_80;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;

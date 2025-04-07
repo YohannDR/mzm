@@ -202,7 +202,7 @@ void MellaMovingInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sMelloOAM_Moving;
 
-    gCurrentSprite.work0 = 7;
+    gCurrentSprite.work0 = CONVERT_SECONDS(.1f) + 1 * DELTA_TIME;
 }
 
 /**
@@ -212,10 +212,12 @@ void MellaMovingInit(void)
 void MellaDelayBeforeGoingDown(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1)
+        gCurrentSprite.currentAnimationFrame == 0 && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
+    {
         SoundPlayNotAlreadyPlaying(SOUND_MELLA_MOVING);
+    }
 
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
     {
         // Set going down behavior

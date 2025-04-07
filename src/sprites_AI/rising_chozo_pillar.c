@@ -26,22 +26,22 @@ void RisingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
     switch (rng)
     {
         case 1:
-            SpriteDebrisInit(0, 17, yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE * 2), xPosition);
-            SpriteDebrisInit(0, 18, yPosition - QUARTER_BLOCK_SIZE, xPosition + (BLOCK_SIZE + PIXEL_SIZE + PIXEL_SIZE / 2));
+            SpriteDebrisInit(0, 0x11, yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE * 2), xPosition);
+            SpriteDebrisInit(0, 0x12, yPosition - QUARTER_BLOCK_SIZE, xPosition + (BLOCK_SIZE + PIXEL_SIZE + PIXEL_SIZE / 2));
             break;
 
         case 3:
-            SpriteDebrisInit(0, 19, yPosition - 0x14, xPosition - 0x5C);
+            SpriteDebrisInit(0, 0x13, yPosition - 0x14, xPosition - 0x5C);
             SpriteDebrisInit(0, 4, yPosition - 0xA, xPosition + 0x1E);
             break;
 
         case 7:
-            SpriteDebrisInit(0, 17, yPosition - 0x8, xPosition - 0x32);
-            SpriteDebrisInit(0, 18, yPosition - 0x34, xPosition + 0x78);
+            SpriteDebrisInit(0, 0x11, yPosition - 0x8, xPosition - 0x32);
+            SpriteDebrisInit(0, 0x12, yPosition - 0x34, xPosition + 0x78);
             break;
 
         case 12:
-            SpriteDebrisInit(0, 19, yPosition - HALF_BLOCK_SIZE, xPosition + 0x1E);
+            SpriteDebrisInit(0, 0x13, yPosition - HALF_BLOCK_SIZE, xPosition + 0x1E);
             SpriteDebrisInit(0, 4, yPosition - PIXEL_SIZE, xPosition - 0x6E);
     }
 }
@@ -233,7 +233,7 @@ void RisingChozoPillar(void)
 
         case RISING_CHOZO_PILLAR_POSE_EXTENDING:
             if (MOD_AND(gCurrentSprite.scaling, 32) == 0)
-                ScreenShakeStartVertical(30, 0x80 | 1);
+                ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
 
             gCurrentSprite.scaling--;
             if (gCurrentSprite.scaling != 0)
@@ -360,7 +360,7 @@ void ChozoPillarPlatformShadow(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;

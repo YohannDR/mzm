@@ -56,7 +56,7 @@ void SpawnChozoStatueMovement(u8 stage)
         gSpriteData[i].ignoreSamusCollisionTimer = 1;
         gSpriteData[i].primarySpriteRamSlot = i;
         gSpriteData[i].freezeTimer = 0;
-        gSpriteData[i].work0 = 32;
+        gSpriteData[i].work0 = CONVERT_SECONDS(.5f) + 2 * DELTA_TIME;
 
         gSpriteData[i].samusCollision = SSC_NONE;
         gSpriteData[i].pOam = gCurrentSprite.pOam;
@@ -78,9 +78,9 @@ void ChozoStatueMovement(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.animationDurationCounter--;
-    gCurrentSprite.work0--;
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
 
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
     if (gCurrentSprite.work0 == 0)
         gCurrentSprite.status = 0;
 }

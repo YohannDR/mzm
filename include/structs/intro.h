@@ -15,8 +15,8 @@ struct IntroData {
     u16 charDrawerY; // 6
     u8 charDrawerPalette; // 8
 
-    u8 unk_9; // 9
-    u8 unk_A; // A
+    u8 charDrawerStage; // 9
+    u8 unk_A; // A // charDrawerTimer?
 
     u16 timer; // C
     const u16* pTextOamFramePointer; // 10
@@ -27,11 +27,11 @@ struct IntroData {
 
     u8 padding_38_3c[5]; // 38
 
-    u8 unk_3d; // 3D
+    u8 unk_3d; // 3D // Timer/rand val for Zebes view?
     u16 shipFlyingTowardsCameraX; // 3E
     u16 shipFlyingTowardsCameraY; // 40
 
-    u8 unk_42; // 42
+    u8 unk_42; // 42 // Current line processed?
 
     u16 dispcnt; // 44
     u16 bldcnt; // 46

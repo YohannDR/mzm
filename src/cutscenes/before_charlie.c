@@ -52,12 +52,10 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 60 * 3)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(3.f))
             {
-                CutsceneStartBackgroundEffect(BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                    BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
-                    BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL,
-                    0, 16, 16, 1);
+                CutsceneStartBackgroundEffect(BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET,
+                    0, BLDALPHA_MAX_VALUE, 16, 1);
 
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -69,9 +67,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             {
                 CUTSCENE_DATA.dispcnt ^= sBeforeCharliePageData[5].bg;
 
-                CutsceneStartBackgroundEffect(BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                    BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
-                    BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL,
+                CutsceneStartBackgroundEffect(BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET,
                     0, BLDALPHA_MAX_VALUE, 1, 16);
 
                 CUTSCENE_DATA.dispcnt |= sBeforeCharliePageData[7].bg;
@@ -81,11 +77,9 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 3:
-            if (CUTSCENE_DATA.timeInfo.timer > 100)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f) + TWO_THIRD_SECOND)
             {
-                CutsceneStartBackgroundEffect(BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
-                    BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
-                    BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL,
+                CutsceneStartBackgroundEffect(BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_SCREEN_SECOND_TARGET,
                     BLDALPHA_MAX_VALUE, 0, 1, 4);
 
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -103,7 +97,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 5:
-            if (CUTSCENE_DATA.timeInfo.timer > 140)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(2.f) + ONE_THIRD_SECOND)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -111,7 +105,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 6:
-            if (unk_61f44())
+            if (CutsceneTransferAndUpdateFade())
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -119,7 +113,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 7:
-            if (CUTSCENE_DATA.timeInfo.timer > 70)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f) + CONVERT_SECONDS(1.f / 6))
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -127,7 +121,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
 
         case 8:
-            unk_61f28();
+            CutsceneFadeScreenToWhite();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -185,7 +179,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(2.f))
             {
                 CUTSCENE_DATA.graphicsData[0].active |= TRUE;
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -194,12 +188,12 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             break;
 
         case 2:
-            if (CUTSCENE_DATA.timeInfo.timer == 200 && !CUTSCENE_DATA.graphicsData[1].active)
+            if (CUTSCENE_DATA.timeInfo.timer == (CONVERT_SECONDS(3.f) + ONE_THIRD_SECOND) && !CUTSCENE_DATA.graphicsData[1].active)
             {
                 CUTSCENE_DATA.graphicsData[1].active |= TRUE;
             }
 
-            if (CUTSCENE_DATA.timeInfo.timer == 560 && !CUTSCENE_DATA.graphicsData[2].active)
+            if (CUTSCENE_DATA.timeInfo.timer == (CONVERT_SECONDS(9.f) + ONE_THIRD_SECOND) && !CUTSCENE_DATA.graphicsData[2].active)
             {
                 CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, BLDALPHA_MAX_VALUE, 0, 16, 1);
                 CUTSCENE_DATA.graphicsData[2].active |= TRUE;
@@ -218,7 +212,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             break;
 
         case 4:
-            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(1.f))
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -226,7 +220,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             break;
 
         case 5:
-            unk_61f28();
+            CutsceneFadeScreenToWhite();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -281,7 +275,7 @@ void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* p
 
     if (pGraphics->timer != 0)
     {
-        pGraphics->timer--;
+        APPLY_DELTA_TIME_DEC(pGraphics->timer);
         return;
     }
 
@@ -329,7 +323,7 @@ u8 BeforeCharlieChozoWallSides(void)
     {
         case 0:
             // Wait
-            if (CUTSCENE_DATA.timeInfo.timer > 60 * 2 + 20)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(2.f) + ONE_THIRD_SECOND)
             {
                 // Toggle viewed wall
                 CUTSCENE_DATA.dispcnt ^= sBeforeCharliePageData[0].bg;
@@ -341,7 +335,7 @@ u8 BeforeCharlieChozoWallSides(void)
 
         case 1:
             // Wait
-            if (CUTSCENE_DATA.timeInfo.timer > 60 * 2 + 20)
+            if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(2.f) + ONE_THIRD_SECOND)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -349,7 +343,7 @@ u8 BeforeCharlieChozoWallSides(void)
             break;
 
         case 2:
-            unk_61f0c();
+            CutsceneFadeScreenToBlack();
             CUTSCENE_DATA.timeInfo.stage++;
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
@@ -365,10 +359,10 @@ u8 BeforeCharlieChozoWallSides(void)
  */
 u8 BeforeCharlieInit(void)
 {
-    unk_61f0c();
+    CutsceneFadeScreenToBlack();
 
     SEND_TO_PALRAM(sBeforeCharlieChozoWallSidesPal, PALRAM_BASE);
-    BitFill(3, 0, PALRAM_OBJ, PALRAM_SIZE / 2, 32);
+    BitFill(3, 0, PALRAM_OBJ, PAL_SIZE, 32);
     SET_BACKDROP_COLOR(COLOR_BLACK);
 
     CallLZ77UncompVram(sBeforeCharlieLeftSideOfChozoWallGfx, BGCNT_TO_VRAM_CHAR_BASE(sBeforeCharliePageData[0].graphicsPage));

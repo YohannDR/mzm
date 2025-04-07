@@ -16,12 +16,12 @@
  */
 void EnemyDropInit(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 20;
+    gCurrentSprite.ignoreSamusCollisionTimer = ONE_THIRD_SECOND;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.pose = ENEMY_DROP_POSE_IDLE;
 
     // Despawn timer
-    gCurrentSprite.yPositionSpawn = 200;
+    gCurrentSprite.yPositionSpawn = CONVERT_SECONDS(3.f) + ONE_THIRD_SECOND;
     gCurrentSprite.xPositionSpawn = 0;
 
     gCurrentSprite.animationDurationCounter = 0;
@@ -31,7 +31,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
     gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
     gCurrentSprite.drawOrder = 1;
 
     // Set OAM and collision
@@ -90,7 +90,7 @@ void EnemyDropIdle(void)
 
     if (gCurrentSprite.ignoreSamusCollisionTimer != 0)
     {
-        if (gCurrentSprite.ignoreSamusCollisionTimer < 2)
+        if (gCurrentSprite.ignoreSamusCollisionTimer < 2 * DELTA_TIME)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
         return;
@@ -162,12 +162,13 @@ void EnemyDropIdle(void)
 
     // Update sprite based on despawn timer
     timer = gCurrentSprite.xPositionSpawn;
+    // 2 * DELTA_TIME
     if (MOD_AND(timer, 2))
     {
-        timer = --gCurrentSprite.yPositionSpawn;
+        timer = APPLY_DELTA_TIME_DEC(gCurrentSprite.yPositionSpawn);
         if (timer != 0)
         {
-            if (timer < 80)
+            if (timer < CONVERT_SECONDS(1.f) + ONE_THIRD_SECOND)
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         }
         else
@@ -192,5 +193,5 @@ void EnemyDrop(void)
     }
 
     // Update despawn timer
-    gCurrentSprite.xPositionSpawn++;
+    APPLY_DELTA_TIME_INC(gCurrentSprite.xPositionSpawn);
 }

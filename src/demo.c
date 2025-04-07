@@ -192,8 +192,8 @@ void DemoEnd(void)
             gCurrentDemo.number = 0;
 
         // Fade every sound and music
-        FadeAllSounds(10);
-        FadeMusicForDemo(10);
+        FadeAllSounds(CONVERT_SECONDS(1.f / 6));
+        FadeMusicForDemo(CONVERT_SECONDS(1.f / 6));
 
         // Sets to no demo
         gDemoState = DEMO_STATE_NONE;

@@ -14,6 +14,8 @@
 #include "structs/clipdata.h"
 #include "structs/power_bomb_explosion.h"
 
+#define GLASS_TUBE_CRACKING_DELAY_TIMER work0
+
 /**
  * @brief 4627c | 160 | Removes the clipdata for the glass tube
  * 
@@ -89,17 +91,17 @@ void GlassTubeChangeCcaa(void)
  */
 void GlassTubeInit(void)
 {
-    gCurrentSprite.drawDistanceTop = 0x30;
-    gCurrentSprite.drawDistanceBottom = 0x30;
-    gCurrentSprite.drawDistanceHorizontal = 0x70;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(7 * BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTop = -0x80;
-    gCurrentSprite.hitboxBottom = 0x80;
-    gCurrentSprite.hitboxLeft = -0x100;
-    gCurrentSprite.hitboxRight = 0x100;
+    gCurrentSprite.hitboxTop = -(2 * BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = 2 * BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(4 * BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = 4 * BLOCK_SIZE;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
     
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GLASS_TUBE_BROKEN))
@@ -140,7 +142,7 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 spriteRight;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED)
-        && gCurrentPowerBomb.animationState != PB_STATE_NONE && gEquipment.maxPowerBombs != 0x0)
+        && gCurrentPowerBomb.animationState != PB_STATE_NONE && gEquipment.maxPowerBombs != 0)
     {
         bombY = gCurrentPowerBomb.yPosition;
         bombX = gCurrentPowerBomb.xPosition;
@@ -160,7 +162,7 @@ void GlassTubeCheckPowerBombCollision(void)
         {
             // Set cracking behavior
             gCurrentSprite.pose = GLASS_TUBE_POSE_DELAY_BEFORE_CRACKING;
-            gCurrentSprite.work0 = 0x78;
+            gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER = CONVERT_SECONDS(2.f);
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_GLASS_TUBE_BROKEN);
         }
@@ -172,14 +174,14 @@ void GlassTubeCheckPowerBombCollision(void)
 */
 void GlassTubeDelayBeforeBreaking(void)
 {
-    gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0x0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER);
+    if (gCurrentSprite.GLASS_TUBE_CRACKING_DELAY_TIMER == 0)
     {
         // Set cracking behavior
         gCurrentSprite.pose = GLASS_TUBE_POSE_CRACKING;
         gCurrentSprite.pOam = sGlassTubeOAM_Cracking;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         SoundPlay(SOUND_GLASS_TUBE_BREAKING);
     }
 }
@@ -195,19 +197,21 @@ void GlassTubeCheckCrackingAnimEnded(void)
         // Set breaking behavior
         gCurrentSprite.pose = GLASS_TUBE_POSE_BREAKING;
         gCurrentSprite.pOam = sGlassTubeOAM_Breaking;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
 
         // Remove collision
         GlassTubeChangeCcaa();
 
         // Play effects
-        ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition - 0x12C, PE_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.yPosition + 0xA0, gCurrentSprite.xPosition - 0x140, PE_TWO_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition + 0x12C, PE_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.yPosition + 0xA0, gCurrentSprite.xPosition + 0x140, PE_TWO_MEDIUM_DUST);
-        ScreenShakeStartVertical(0x1E, 0x81);
-        ScreenShakeStartHorizontal(0x1E, 0x81);
+        ParticleSet(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE - PIXEL_SIZE / 2), gCurrentSprite.xPosition - (5 * BLOCK_SIZE - QUARTER_BLOCK_SIZE - PIXEL_SIZE), PE_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition + (2 * BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition - (5 * BLOCK_SIZE), PE_TWO_MEDIUM_DUST);
+
+        ParticleSet(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE - PIXEL_SIZE / 2), gCurrentSprite.xPosition + (5 * BLOCK_SIZE - QUARTER_BLOCK_SIZE - PIXEL_SIZE), PE_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition + (2 * BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition + (5 * BLOCK_SIZE), PE_TWO_MEDIUM_DUST);
+
+        ScreenShakeStartVertical(CONVERT_SECONDS(.5f), 0x80 | 1);
+        ScreenShakeStartHorizontal(CONVERT_SECONDS(.5f), 0x80 | 1);
     }
 }
 
@@ -222,8 +226,8 @@ void GlassTubeCheckBreakingAnimEnded(void)
         // Set broken behavior
         gCurrentSprite.pose = GLASS_TUBE_POSE_IDLE;
         gCurrentSprite.pOam = sGlassTubeOAM_Broken;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 }
 
@@ -236,7 +240,7 @@ void GlassTube(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GlassTubeInit();
             break;
         case GLASS_TUBE_POSE_POWER_BOMB_COLLISION:

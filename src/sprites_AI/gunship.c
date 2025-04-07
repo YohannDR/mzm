@@ -33,35 +33,33 @@ do {                                            \
 void GunshipFlickerFlames(void)
 {
     u32 timer;
-    u8 flag;
     u8 row;
     u8 offset;
     
     if (!(gCurrentSprite.status & SPRITE_STATUS_MOSAIC) && gCurrentSprite.work2 == 0x4)
     {
         row = gCurrentSprite.scaling;
-        flag = 0x80;
 
         // Update palette row
-        if (row & flag)
+        if (row & 0x80)
         {
             if (row > 0x80)
                 gCurrentSprite.scaling--;
 
             if (gCurrentSprite.scaling == 0x80)
-                gCurrentSprite.scaling = 0x0;
+                gCurrentSprite.scaling = 0;
         }
         else
         {
-            if (row < 0x2)
+            if (row < 2)
                 gCurrentSprite.scaling++;
 
-            if (gCurrentSprite.scaling == 0x2)
-                gCurrentSprite.scaling |= flag;
+            if (gCurrentSprite.scaling == 2)
+                gCurrentSprite.scaling |= 0x80;
         }
 
         // Transfer palette
-        offset = gCurrentSprite.scaling & 0x7F;
+        offset = MOD_AND(gCurrentSprite.scaling, 128);
         DMA_SET(3, (sGunshipFlashingPal + offset * 16),
             (PALRAM_BASE + 0x340), (DMA_ENABLE << 0x10) | 0x10);
     }
@@ -107,7 +105,7 @@ void GunshipEntranceFlashingAnim(void)
         }
 
         // Transfer palette
-        offset = gCurrentSprite.work1 & 0x7F;
+        offset = MOD_AND(gCurrentSprite.work1, 128);
         DMA_SET(3, (sGunshipFlashingPal + 0x38 + offset * 16), // Not sure
             (PALRAM_BASE + 0x330), (DMA_ENABLE << 0x10) | 0x8);
     }
@@ -125,10 +123,10 @@ u8 GunshipCheckSamusEnter(void)
     if (!SpriteUtilCheckCrouchingOrMorphed())
     {
         samusX = gSamusData.xPosition;
-        if (gCurrentSprite.xPosition - 0x30 < samusX && gCurrentSprite.xPosition + 0x30 > samusX)
+        if (gCurrentSprite.xPosition - (3 * QUARTER_BLOCK_SIZE) < samusX && gCurrentSprite.xPosition + (3 * QUARTER_BLOCK_SIZE) > samusX)
         {
             SamusSetPose(SPOSE_TURNING_FROM_FACING_THE_FOREGROUND);
-            gSamusData.timer = 0x1;
+            gSamusData.timer = 1 * DELTA_TIME;
             gSamusData.standingStatus = STANDING_ENEMY;
             gSamusData.xPosition = gCurrentSprite.xPosition;
 
@@ -154,7 +152,7 @@ void GunshipInit(void)
     introCutscene = FALSE;
 
     // Check if landing
-    if (gLastDoorUsed == 0x0)
+    if (gLastDoorUsed == 0)
     {
         introCutscene = TRUE;
         gCurrentSprite.yPosition -= BLOCK_SIZE * 6;
@@ -163,18 +161,18 @@ void GunshipInit(void)
 
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
-    gCurrentSprite.hitboxTop = -0xC4;
-    gCurrentSprite.hitboxBottom = 0x0;
-    gCurrentSprite.hitboxLeft = -0x40;
-    gCurrentSprite.hitboxRight = 0x40;
+    gCurrentSprite.hitboxTop = -(3 * BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = -BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
-    gCurrentSprite.drawDistanceTop = 0x30;
-    gCurrentSprite.drawDistanceBottom = 0x8;
-    gCurrentSprite.drawDistanceHorizontal = 0x78;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(7 * BLOCK_SIZE + HALF_BLOCK_SIZE) + 0;
 
     gCurrentSprite.pOam = sGunshipOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.work2 = 0x8;
     gCurrentSprite.work1 = 0x0;
@@ -185,9 +183,9 @@ void GunshipInit(void)
 
     // Spawn entrance
     SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT, gCurrentSprite.spritesetGfxSlot,
-        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK, gCurrentSprite.spritesetGfxSlot,
-        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
     if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
     {
@@ -196,13 +194,13 @@ void GunshipInit(void)
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_LEAVE;
         gCurrentSprite.work0 = 0x1E;
 
-        gSamusData.timer = 0x0;
-        gSamusData.lastWallTouchedMidAir = 0x1;
-        gCurrentSprite.yPositionSpawn = 0x154;
+        gSamusData.timer = 0;
+        gSamusData.lastWallTouchedMidAir = TRUE;
+        gCurrentSprite.yPositionSpawn = 5 * BLOCK_SIZE + QUARTER_BLOCK_SIZE + PIXEL_SIZE;
         gSubSpriteData1.workVariable3 = TRUE;
 
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
     else if (introCutscene)
     {
@@ -212,28 +210,28 @@ void GunshipInit(void)
         gCurrentSprite.work0 = -0x40;
 
         SamusSetPose(SPOSE_SAVING_LOADING_GAME);
-        gSamusData.timer = 0x1;
-        gSamusData.lastWallTouchedMidAir = 0x1;
+        gSamusData.timer = 1 * DELTA_TIME;
+        gSamusData.lastWallTouchedMidAir = TRUE;
 
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_VERTICAL, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
-        UpdateMusicPriority(0x0);
+        UpdateMusicPriority(0);
         gHideHud = TRUE;
     }
     else
     {
         // Idle
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0);
         
-        gCurrentSprite.yPositionSpawn = 0x0;
+        gCurrentSprite.yPositionSpawn = 0;
         gCurrentSprite.samusCollision = SSC_CAN_STAND_ON_TOP;
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
             gCurrentSprite.pose = GUNSHIP_POSE_CHECK_ESCAPE;
         else
             gCurrentSprite.pose = GUNSHIP_POSE_IDLE;
-        gCurrentSprite.drawOrder = 0xC;
+        gCurrentSprite.drawOrder = 12;
     }
 }
 
@@ -246,8 +244,8 @@ void GunshipLanding(void)
     if (gCurrentSprite.work0 != 0x0)
     {
         gCurrentSprite.work0--;
-        gCurrentSprite.yPosition += 0x2;
-        gSamusData.yPosition = gCurrentSprite.yPosition - 0x4;
+        gCurrentSprite.yPosition += PIXEL_SIZE / 2;
+        gSamusData.yPosition = gCurrentSprite.yPosition - PIXEL_SIZE;
         gSamusData.xPosition = gCurrentSprite.xPosition;
 
         if (gCurrentSprite.work0 == 0x1E)
@@ -268,12 +266,12 @@ void GunshipIdle(void)
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP)
     {
         // Check samus entering
-        gCurrentSprite.drawOrder = 0x4;
+        gCurrentSprite.drawOrder = 4;
         if (GunshipCheckSamusEnter())
             gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_ENTERING;
     }
     else
-        gCurrentSprite.drawOrder = 0xC;
+        gCurrentSprite.drawOrder = 12;
 }
 
 /**
@@ -291,19 +289,19 @@ void GunshipSamusEntering(void)
 
         // Check close entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
-        if (ramSlot != 0xFF)
+        if (ramSlot != UCHAR_MAX)
         {
             gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceFrontClosing;
-            gSpriteData[ramSlot].animationDurationCounter = 0x0;
-            gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+            gSpriteData[ramSlot].animationDurationCounter = 0;
+            gSpriteData[ramSlot].currentAnimationFrame = 0;
             gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_FRONT_OPENING_CLOSING;
 
             ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK);
-            if (ramSlot != 0xFF)
+            if (ramSlot != UCHAR_MAX)
             {
                 gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceBackClosing;
-                gSpriteData[ramSlot].animationDurationCounter = 0x0;
-                gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+                gSpriteData[ramSlot].animationDurationCounter = 0;
+                gSpriteData[ramSlot].currentAnimationFrame = 0;
                 gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_BACK_OPENING_CLOSING;
 
                 SoundPlay(SOUND_GUNSHIP_CLOSING);
@@ -312,7 +310,7 @@ void GunshipSamusEntering(void)
         }
     }
     else if (gCurrentSprite.work0 < 0x2C)
-        gSamusData.yPosition += 0x4; // move samus
+        gSamusData.yPosition += PIXEL_SIZE; // move samus
     else if (gCurrentSprite.work0 == 0x2C)
         SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
 }
@@ -329,8 +327,8 @@ void GunshipRefill(void)
         if (gCurrentSprite.work0 == 0x6)
         {
             gCurrentSprite.pOam = sGunshipOAM_Refilling;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             SoundPlay(SOUND_GUNSHIP_REFILL);
         }
     }
@@ -340,46 +338,46 @@ void GunshipRefill(void)
         if (!SpriteUtilRefillEnergy())
         {
             gCurrentSprite.work0--;
-            gEnergyRefillAnimation = 0xD;
+            gEnergyRefillAnimation = 13;
         }
     }
     else if (gCurrentSprite.work0 == 0x4)
     {
         // Refill missiles
-        if (gEnergyRefillAnimation != 0x0)
+        if (gEnergyRefillAnimation != 0)
             gEnergyRefillAnimation--;
         else if (!SpriteUtilRefillMissiles())
         {
             gCurrentSprite.work0--;
-            if (gEquipment.maxMissiles != 0x0)
-                gMissileRefillAnimation = 0xD;
+            if (gEquipment.maxMissiles != 0)
+                gMissileRefillAnimation = 13;
         }
     }
     else if (gCurrentSprite.work0 == 0x3)
     {
         // Refill super missiles
-        if (gMissileRefillAnimation != 0x0)
+        if (gMissileRefillAnimation != 0)
             gMissileRefillAnimation--;
         else if (!SpriteUtilRefillSuperMissiles())
         {
             gCurrentSprite.work0--;
-            if (gEquipment.maxSuperMissiles != 0x0)
-                gSuperMissileRefillAnimation = 0xD;
+            if (gEquipment.maxSuperMissiles != 0)
+                gSuperMissileRefillAnimation = 13;
         }
     }
     else if (gCurrentSprite.work0 == 0x2)
     {
         // Refill power bombs
-        if (gSuperMissileRefillAnimation != 0x0)
+        if (gSuperMissileRefillAnimation != 0)
             gSuperMissileRefillAnimation--;
         else if (!SpriteUtilRefillPowerBombs())
         {
             gCurrentSprite.work0--;
-            if (gEquipment.maxPowerBombs != 0x0)
-                gPowerBombRefillAnimation = 0xD;
+            if (gEquipment.maxPowerBombs != 0)
+                gPowerBombRefillAnimation = 13;
         }
     }
-    else if (gPowerBombRefillAnimation != 0x0)
+    else if (gPowerBombRefillAnimation != 0)
         gPowerBombRefillAnimation--;
     else if (gCurrentSprite.work0 != 0x0)
         gCurrentSprite.work0--;
@@ -390,7 +388,7 @@ void GunshipRefill(void)
         gCurrentSprite.work0 = 0x1E;
 
         gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED,
-            0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
         SoundFade(SOUND_GUNSHIP_REFILL, CONVERT_SECONDS(.25f));
     }
 }
@@ -413,7 +411,7 @@ void GunshipAfterRefill(void)
             {
                 // Spawn save prompt
                 gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_PROMPT,
-                    0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
         }
         else
@@ -447,7 +445,7 @@ void GunshipSaving(void)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_AFTER_SAVE;
         gCurrentSprite.rotation = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_SAVE_COMPLETE,
-            0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }
 
@@ -486,22 +484,22 @@ void GunshipSamusLeave(void)
     {
         // Check open entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
-        if (ramSlot != 0xFF)
+        if (ramSlot != UCHAR_MAX)
         {
             gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceFrontOpening;
-            gSpriteData[ramSlot].animationDurationCounter = 0x0;
-            gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+            gSpriteData[ramSlot].animationDurationCounter = 0;
+            gSpriteData[ramSlot].currentAnimationFrame = 0;
 
             ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK);
-            if (ramSlot != 0xFF)
+            if (ramSlot != UCHAR_MAX)
             {
                 gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceBackOpening;
-                gSpriteData[ramSlot].animationDurationCounter = 0x0;
-                gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+                gSpriteData[ramSlot].animationDurationCounter = 0;
+                gSpriteData[ramSlot].currentAnimationFrame = 0;
 
                 gCurrentSprite.pOam = sGunshipOAM_Idle;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
 
                 SoundPlay(SOUND_GUNSHIP_OPENING);
             }
@@ -528,7 +526,7 @@ void GunshipSamusLeaving(void)
         SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6));
     }
     else
-        gSamusData.yPosition -= 0x4;
+        gSamusData.yPosition -= PIXEL_SIZE;
 }
 
 /**
@@ -537,7 +535,7 @@ void GunshipSamusLeaving(void)
  */
 void GunshipReleaseSamus(void)
 {
-    if (gCurrentSprite.yPositionSpawn == 0x0)
+    if (gCurrentSprite.yPositionSpawn == 0)
     {
         SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_RELEASED;
@@ -565,7 +563,7 @@ void GunshipCheckSamusOnTopAfterLeaving(void)
 {
     if (!(gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP))
     {
-        gCurrentSprite.drawOrder = 0xC;
+        gCurrentSprite.drawOrder = 12;
         gCurrentSprite.pose = GUNSHIP_POSE_IDLE;
     }
 }
@@ -580,14 +578,14 @@ void GunshipCheckEscapeZebes(void)
     {
         // Samus entering ship
 
-        gCurrentSprite.drawOrder = 0x4;
+        gCurrentSprite.drawOrder = 4;
         gCurrentSprite.pose = GUNSHIP_POSE_SAMUS_ENTERING_WHEN_ESCAPING;
 
         // Set event and update minimap
         EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
         MinimapUpdateChunk(EVENT_ESCAPED_ZEBES);
         SoundFade(SOUND_ESCAPE_BEEP, CONVERT_SECONDS(1.f));
-        UpdateMusicPriority(0x0);
+        UpdateMusicPriority(0);
     }
 }
 
@@ -606,25 +604,25 @@ void GunshipSamusEnteringWhenEscaping(void)
 
         // Check close entrance
         ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT);
-        if (ramSlot != 0xFF)
+        if (ramSlot != UCHAR_MAX)
         {
             gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceFrontClosing;
-            gSpriteData[ramSlot].animationDurationCounter = 0x0;
-            gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+            gSpriteData[ramSlot].animationDurationCounter = 0;
+            gSpriteData[ramSlot].currentAnimationFrame = 0;
             gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_FRONT_OPENING_CLOSING;
 
             ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK);
-            if (ramSlot != 0xFF)
+            if (ramSlot != UCHAR_MAX)
             {
                 gSpriteData[ramSlot].pOam = sGunshipPartOAM_EntranceBackClosing;
-                gSpriteData[ramSlot].animationDurationCounter = 0x0;
-                gSpriteData[ramSlot].currentAnimationFrame = 0x0;
+                gSpriteData[ramSlot].animationDurationCounter = 0;
+                gSpriteData[ramSlot].currentAnimationFrame = 0;
                 gSpriteData[ramSlot].pose = GUNSHIP_PART_POSE_ENTRANCE_BACK_OPENING_CLOSING;
 
                 ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM);
-                if (ramSlot != 0xFF)
+                if (ramSlot != UCHAR_MAX)
                 {
-                    gSpriteData[ramSlot].status = 0x0;
+                    gSpriteData[ramSlot].status = 0;
 
                     SoundPlay(SOUND_GUNSHIP_CLOSING);
                     SoundFade(SOUND_GUNSHIP_PLATFORM_MOVING, CONVERT_SECONDS(1.f / 6));
@@ -633,7 +631,7 @@ void GunshipSamusEnteringWhenEscaping(void)
         }
     }
     else if (gCurrentSprite.work0 < 0x2C)
-        gSamusData.yPosition += 0x4;
+        gSamusData.yPosition += PIXEL_SIZE;
     else if (gCurrentSprite.work0 == 0x2C)
         SoundPlay(SOUND_GUNSHIP_PLATFORM_MOVING); 
 }
@@ -644,23 +642,23 @@ void GunshipSamusEnteringWhenEscaping(void)
  */
 void GunshipStartEscaping(void)
 {
-    if (--gCurrentSprite.work0 == 0x0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
     {
         // Set taking off
         gCurrentSprite.pose = GUNSHIP_POSE_TAKING_OFF;
-        gCurrentSprite.work0 = 0x98;
+        gCurrentSprite.work0 = CONVERT_SECONDS(2.5f) + 2 * DELTA_TIME;
         gCurrentSprite.work3 = 0x0;
-        gCurrentSprite.scaling = 0x0;
+        gCurrentSprite.scaling = 0;
 
         // Spawn flames
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_HORIZONTAL, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
     else if (gCurrentSprite.work0 == 0x4)
     {
         gCurrentSprite.pOam = sGunshipOAM_Flying;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         SoundPlay(SOUND_GUNSHIP_FLYING_OFF);
     }
 }
@@ -676,9 +674,11 @@ void GunshipTakingOff(void)
 
     GunshipFlickerFlames();
 
-    gCurrentSprite.work0--;
-    if (gCurrentSprite.work0 == 0x0)
-        GUNSHIP_START_FLYING(0xA0);
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+    if (gCurrentSprite.work0 == 0)
+    {
+        GUNSHIP_START_FLYING(CONVERT_SECONDS(2) + TWO_THIRD_SECOND);
+    }
     else
     {
         offset = gCurrentSprite.work3;
@@ -708,11 +708,13 @@ void GunshipFlying(void)
     u8 offset;
     s32 movement;
 
-    if (--gCurrentSprite.work0 == 0x0)
+    if (APPLY_DELTA_TIME_DEC(gCurrentSprite.work0) == 0)
+    {
         gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING_ESCAPE;
+    }
     else
     {
-        if (gCurrentSprite.work0 == 0x32)
+        if (gCurrentSprite.work0 == CONVERT_SECONDS(5.f / 6))
         {
             StartEffectForCutscene(EFFECT_CUTSCENE_EXITING_ZEBES);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
@@ -747,23 +749,23 @@ void GunshipPartInit(void)
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-    gCurrentSprite.hitboxTop = 0x0;
-    gCurrentSprite.hitboxBottom = 0x0;
-    gCurrentSprite.hitboxLeft = 0x0;
-    gCurrentSprite.hitboxRight = 0x0;
+    gCurrentSprite.hitboxTop = 0;
+    gCurrentSprite.hitboxBottom = 0;
+    gCurrentSprite.hitboxLeft = 0;
+    gCurrentSprite.hitboxRight = 0;
 
     switch (gCurrentSprite.roomSlot)
     {
         case GUNSHIP_PART_ENTRANCE_FRONT:
-            gCurrentSprite.drawDistanceTop = 0x38;
-            gCurrentSprite.drawDistanceBottom = 0x0;
-            gCurrentSprite.drawDistanceHorizontal = 0x28;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = 0;
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
             
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosed;
 
@@ -774,11 +776,11 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_ENTRANCE_BACK:
-            gCurrentSprite.drawDistanceTop = 0x40;
-            gCurrentSprite.drawDistanceBottom = 0x0;
-            gCurrentSprite.drawDistanceHorizontal = 0x20;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(4 * BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = 0;
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE);
 
-            gCurrentSprite.drawOrder = 0xE;
+            gCurrentSprite.drawOrder = 14;
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosed;
 
             if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
@@ -788,45 +790,45 @@ void GunshipPartInit(void)
             break;
 
         case GUNSHIP_PART_PLATFORM:
-            gCurrentSprite.drawDistanceTop = 0x0;
-            gCurrentSprite.drawDistanceBottom = 0x8;
-            gCurrentSprite.drawDistanceHorizontal = 0x10;
+            gCurrentSprite.drawDistanceTop = 0;
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.drawOrder = 0xD;
+            gCurrentSprite.drawOrder = 13;
             gCurrentSprite.pOam = sGunshipPartOAM_Platform;
 
             if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
             {
                 gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_CHECK_GO_DOWN;
-                gCurrentSprite.yPosition += -0x18;
+                gCurrentSprite.yPosition += -(QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
             }
             else
                 gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_CHECK_GO_UP;
             break;
 
         case GUNSHIP_PART_FLAMES_HORIZONTAL:
-            gCurrentSprite.drawDistanceTop = 0x18;
-            gCurrentSprite.drawDistanceBottom = 0x30;
-            gCurrentSprite.drawDistanceHorizontal = 0x60;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(6 * BLOCK_SIZE);
 
-            gCurrentSprite.drawOrder = 0xF;
+            gCurrentSprite.drawOrder = 15;
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_VERTICAL_FLAMES;
             break;
 
         case GUNSHIP_PART_FLAMES_VERTICAL:
-            gCurrentSprite.drawDistanceTop = 0x18;
-            gCurrentSprite.drawDistanceBottom = 0x30;
-            gCurrentSprite.drawDistanceHorizontal = 0x60;
+            gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(3 * BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(6 * BLOCK_SIZE);
 
-            gCurrentSprite.drawOrder = 0xF;
+            gCurrentSprite.drawOrder = 15;
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_HORIZONTAL_FLAMES;
             gCurrentSprite.work0 = 0x50;
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
@@ -843,8 +845,8 @@ void GunshipPartCheckSetVerticalFlames(void)
     if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_FLYING)
     {
         gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pose = GUNSHIP_PART_POSE_VERTICAL_FLAME_IDLE;
     }
 }
@@ -861,8 +863,8 @@ void GunshipPartCheckSetHorizontalFlames(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.work0 = 0xF;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_VERTICAL_FLAMES_BEFORE_LANDING;
@@ -882,8 +884,8 @@ void GunshipPartCheckSetVerticalFlamesBeforeLanding(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.work0 = 0xA;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_CHECK_SET_HORIZONTAL_FLAMES_BEFORE_LANDING;
         }
@@ -905,8 +907,8 @@ void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
         if (gCurrentSprite.work0 == 0x0)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
     }
 
@@ -926,7 +928,7 @@ void GunshipPartFlickFlames_Unused(void)
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.work0--;
     if (gCurrentSprite.work0 == 0x0)
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
 }
 
 /**
@@ -940,16 +942,16 @@ void GunshipPartEntranceFrontIdle(void)
         if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontClosed)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontOpening;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontOpening)
         {
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontOpened;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontClosing)
@@ -957,8 +959,8 @@ void GunshipPartEntranceFrontIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontOpening;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
         }
     }
@@ -967,16 +969,16 @@ void GunshipPartEntranceFrontIdle(void)
         if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontOpened)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosing;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontClosing)
         {
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosed;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontOpening)
@@ -984,8 +986,8 @@ void GunshipPartEntranceFrontIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosing;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }            
         }
     }
@@ -1002,8 +1004,8 @@ void GunshipPartEntranceFrontOpenClose(void)
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontClosed;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
     }
     else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceFrontOpening)
@@ -1011,8 +1013,8 @@ void GunshipPartEntranceFrontOpenClose(void)
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceFrontOpened;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_ENTRANCE_FRONT_IDLE;
         }
     }
@@ -1029,8 +1031,8 @@ void GunshipPartEntranceBackIdle(void)
         if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackClosed)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackOpening;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 SoundPlay(SOUND_GUNSHIP_OPENING);
         }
@@ -1039,8 +1041,8 @@ void GunshipPartEntranceBackIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackOpened;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackClosing)
@@ -1048,8 +1050,8 @@ void GunshipPartEntranceBackIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackOpening;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
                 SoundPlay(SOUND_GUNSHIP_OPENING);
             }
         }
@@ -1059,8 +1061,8 @@ void GunshipPartEntranceBackIdle(void)
         if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackOpened)
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosing;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             SoundPlay(SOUND_GUNSHIP_CLOSING);
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackClosing)
@@ -1068,8 +1070,8 @@ void GunshipPartEntranceBackIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosed;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
             }
         }
         else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackOpening)
@@ -1077,8 +1079,8 @@ void GunshipPartEntranceBackIdle(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosing;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
                 SoundPlay(SOUND_GUNSHIP_CLOSING);
             }
         }
@@ -1096,8 +1098,8 @@ void GunshipPartEntranceBackOpenClose(void)
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackClosed;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
     }
     else if (gCurrentSprite.pOam == sGunshipPartOAM_EntranceBackOpening)
@@ -1105,8 +1107,8 @@ void GunshipPartEntranceBackOpenClose(void)
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = sGunshipPartOAM_EntranceBackOpened;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.pose = GUNSHIP_PART_POSE_ENTRANCE_BACK_IDLE;
         }
     }
@@ -1121,7 +1123,7 @@ void GunshipPartCheckPlatformGoUp(void)
     u8 ramSlot;
 
     ramSlot = SpriteUtilFindSecondaryWithRoomSlot(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK);
-    if (ramSlot != 0xFF && gSubSpriteData1.workVariable3 == TRUE && gSpriteData[ramSlot].pOam == sGunshipPartOAM_EntranceBackOpening)
+    if (ramSlot != UCHAR_MAX && gSubSpriteData1.workVariable3 == TRUE && gSpriteData[ramSlot].pOam == sGunshipPartOAM_EntranceBackOpening)
     {
         gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_GO_UP;
         gCurrentSprite.work0 = 0x8;
@@ -1147,7 +1149,7 @@ void GunshipPartPlatformGoUp(void)
             gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_CHECK_GO_DOWN;
         }
         else
-            gCurrentSprite.yPosition -= 0x4;
+            gCurrentSprite.yPosition -= PIXEL_SIZE;
     }
 }
 
@@ -1166,11 +1168,11 @@ void GunshipPartCheckPlatformGoDown(void)
         gCurrentSprite.work0 = 0x8;
     }
     else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING && gSpriteData[ramSlot].work0 < 0x2C)
-        gCurrentSprite.yPosition += 0x4;
+        gCurrentSprite.yPosition += PIXEL_SIZE;
     else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_LEAVING && gSpriteData[ramSlot].work0 < 0x2C)
-        gCurrentSprite.yPosition -= 0x4;
+        gCurrentSprite.yPosition -= PIXEL_SIZE;
     else if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_SAMUS_ENTERING_WHEN_ESCAPING && gSpriteData[ramSlot].work0 < 0x2C)
-        gCurrentSprite.yPosition += 0x4;
+        gCurrentSprite.yPosition += PIXEL_SIZE;
 }
 
 /**
@@ -1192,7 +1194,7 @@ void GunshipPartPlatformGoDown(void)
             gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_CHECK_GO_UP;
         }
         else
-            gCurrentSprite.yPosition += 0x4;
+            gCurrentSprite.yPosition += PIXEL_SIZE;
     }
 }
 
@@ -1204,7 +1206,7 @@ void Gunship(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GunshipInit();
             break;
 
@@ -1293,10 +1295,10 @@ void Gunship(void)
 
     GunshipEntranceFlashingAnim();
 
-    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES) && gCurrentSprite.yPositionSpawn != 0x0)
+    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES) && gCurrentSprite.yPositionSpawn != 0)
     {
         gCurrentSprite.yPositionSpawn--;
-        if (gCurrentSprite.yPositionSpawn == 0x0)
+        if (gCurrentSprite.yPositionSpawn == 0)
             gDisablePause = FALSE;
     }
 }
@@ -1312,10 +1314,10 @@ void GunshipPart(void)
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.roomSlot == GUNSHIP_PART_ENTRANCE_FRONT)
     {
-        if (gSpriteData[ramSlot].drawOrder == 0x4)
-            gCurrentSprite.drawOrder = 0x3;
+        if (gSpriteData[ramSlot].drawOrder == 4)
+            gCurrentSprite.drawOrder = 3;
         else
-            gCurrentSprite.drawOrder = 0xB;
+            gCurrentSprite.drawOrder = 11;
     }
 
     if (gCurrentSprite.roomSlot != GUNSHIP_PART_PLATFORM)
@@ -1326,7 +1328,7 @@ void GunshipPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GunshipPartInit();
             break;
 

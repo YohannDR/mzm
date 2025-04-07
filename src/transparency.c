@@ -275,23 +275,23 @@ void TransparencySetRoomEffectsTransparency(void)
     gTransparencyRelated = sTransparencyRelated_Empty;
 
     gSuitFlashEffect.left = 0;
-    gSuitFlashEffect.right = 0xF0;
+    gSuitFlashEffect.right = SCREEN_SIZE_X;
     gSuitFlashEffect.top = 0;
-    gSuitFlashEffect.bottom = 0xA0;
+    gSuitFlashEffect.bottom = SCREEN_SIZE_Y;
     gSuitFlashEffect.timer = 0;
 
-    write8(0x4000048, 0);
-    write16(0x4000040, 0);
-    write16(0x4000044, 0);
+    write8(REG_WININ, 0);
+    write16(REG_WIN0H, 0);
+    write16(REG_WIN0V, 0);
 
     gIoRegistersBackup.WININ_H = 0x3F;
     gIoRegistersBackup.WINOUT_L = 0x20;
 
-    write8(0x400004a, 0x20);
-    write8(0x4000049, 0x3F);
+    write8(REG_WINOUT, 0x20);
+    write8(REG_WININ + 1, 0x3F);
 
-    write16(0x4000042, 0xF0);
-    write16(0x4000046, 0xA0);
+    write16(REG_WIN1H, 0xF0);
+    write16(REG_WIN1V, 0xA0);
 
     write16(REG_BG1CNT, bgCnt[1]);
     write16(REG_BG2CNT, bgCnt[2]);
@@ -835,7 +835,7 @@ void unk_55e60(void)
 }
 
 /**
- * @brief 55f68 | To document
+ * @brief 55f68 | Update animated and faded palette and music on transition
  * 
  */
 void unk_55f68(void)

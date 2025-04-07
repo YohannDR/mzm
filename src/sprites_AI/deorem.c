@@ -400,12 +400,12 @@ void DeoremSpawnGoingDown(void)
         {
             if (gSpriteRng == 0)
             {
-                ScreenShakeStartVertical(10, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             }
             if (!(gCurrentSprite.work0 & 0x1f))
             {
                 DeoremRandomSpriteDebris(gCurrentSprite.work0);
-                SoundPlay(400);
+                SoundPlay(SOUND_190);
             }
         }
     }
@@ -415,12 +415,12 @@ void DeoremSpawnGoingDown(void)
         {
             if (gSpriteRng == 0)
             {
-                ScreenShakeStartVertical(10, 0x81);
+                ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             }
             if (!(gCurrentSprite.work0 & 0x1f))
             {
                 DeoremRandomSpriteDebris(gCurrentSprite.work0);
-                SoundPlay(400);
+                SoundPlay(SOUND_190);
             }
         }
     }
@@ -458,7 +458,7 @@ void DeoremSpawnGoingDown(void)
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 1, gfxRow, ramSlot, yPosition, xPosition, 0);
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0, gfxRow, ramSlot, yPosition, xPosition, 0);
         
-        ScreenShakeStartVertical(0x28, 0x81);
+        ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
         SoundPlay(SOUND_DEOREM_MOVING);
         
         DeoremChangeLeftCcaa(CAA_MAKE_SOLID_GRIPPABLE);
@@ -519,7 +519,7 @@ void DeoremSpawnGoingDownAnim(void)
             gCurrentSprite.xPosition += BLOCK_SIZE * 13;
         }
 
-        ScreenShakeStartVertical(0x28, 0x81);
+        ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
         SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
@@ -551,7 +551,7 @@ void DeoremSpawnGoingUp(void)
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-        ScreenShakeStartVertical(0x28, 0x81);
+        ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
         SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
@@ -606,7 +606,7 @@ void DeoremSpawnGoingUpAnim(void)
             gCurrentSprite.xPosition -= BLOCK_SIZE * 6 + HALF_BLOCK_SIZE;
         }
 
-        ScreenShakeStartVertical(0x28, 0x81);
+        ScreenShakeStartVertical(TWO_THIRD_SECOND, 0x80 | 1);
         SoundPlay(SOUND_DEOREM_MOVING);
     }
 }
@@ -760,7 +760,7 @@ void DeoremMainLoop(void)
                     gCurrentSprite.work2 = 1;
                     gCurrentSprite.scaling = gSamusData.xPosition;
         
-                    ScreenShakeStartVertical(0x14, 0x81);
+                    ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
                 }
             }
             else if (gCurrentSprite.work0 == 0x17 && gCurrentSprite.pOam == sDeoremOam_OpenedFast)
@@ -808,7 +808,7 @@ void DeoremMainLoop(void)
                     gCurrentSprite.yPosition -= movement;
                     gCurrentSprite.work0--;
                     if (gCurrentSprite.work0 == 0)
-                        ScreenShakeStartVertical(0x14, 0x81);
+                        ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
                     return;
                 }
             }
@@ -1159,7 +1159,7 @@ void DeoremLeavingAnim(void)
     {
         if (!(gFrameCounter8Bit & 0x1F))
             DeoremRandomSpriteDebris(gFrameCounter8Bit);
-        ScreenShakeStartVertical(0x14, 0x81);
+        ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
     }
 
     if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 11)
@@ -1187,7 +1187,7 @@ void DeoremLeavingInGroundDebris(void)
     {
         if (!(gFrameCounter8Bit & 0x1F))
             DeoremRandomSpriteDebris(gFrameCounter8Bit);
-        ScreenShakeStartVertical(0x14, 0x81);
+        ScreenShakeStartVertical(ONE_THIRD_SECOND, 0x80 | 1);
     }
 
     if (--gCurrentSprite.work1 == 0)
@@ -2589,7 +2589,7 @@ void DeoremSegment(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremSegmentInit();
             break;
 
@@ -2695,7 +2695,7 @@ void DeoremEye(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremEyeInit();
             break;
 
@@ -2727,7 +2727,7 @@ void DeoremThorn(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             DeoremThornInit();
             
         case 0x9:

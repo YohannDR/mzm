@@ -46,11 +46,10 @@ void DessgeegaInit(void)
     if (spriteId == PSPRITE_DESSGEEGA_AFTER_LONG_BEAM)
     {
         // Check should kill dessgeega
-        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LONG_BEAM_DESSGEEGA_KILLED)
-            || !EventFunction(EVENT_ACTION_CHECKING, EVENT_VIEWED_STATUE_ROOM))
+        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_LONG_BEAM_DESSGEEGA_KILLED) || !EventFunction(EVENT_ACTION_CHECKING, EVENT_VIEWED_STATUE_ROOM))
         {
             // If already dead or didn't view statue room
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
 
@@ -72,29 +71,29 @@ void DessgeegaInit(void)
     }
 
     // Set hitbox and draw distances based on direction
-    gCurrentSprite.work0 = 0x0;
+    gCurrentSprite.work0 = 0;
     if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
     {
-        gCurrentSprite.drawDistanceTop = 0x8;
-        gCurrentSprite.drawDistanceBottom = 0x28;
-        gCurrentSprite.hitboxTop = 0x0;
-        gCurrentSprite.hitboxBottom = 0x58;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.hitboxTop = 0;
+        gCurrentSprite.hitboxBottom = BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
     }
     else
     {
-        gCurrentSprite.drawDistanceTop = 0x28;
-        gCurrentSprite.drawDistanceBottom = 0x8;
-        gCurrentSprite.hitboxTop = -0x58;
-        gCurrentSprite.hitboxBottom = 0x0;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.hitboxTop = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+        gCurrentSprite.hitboxBottom = 0;
     }
 
-    gCurrentSprite.drawDistanceHorizontal = 0x18;
-    gCurrentSprite.hitboxLeft = -0x40;
-    gCurrentSprite.hitboxRight = 0x40;
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxLeft = -BLOCK_SIZE;
+    gCurrentSprite.hitboxRight = BLOCK_SIZE;
 
     gCurrentSprite.pOam = sDessgeegaOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteId);
@@ -108,8 +107,8 @@ void DessgeegaInit(void)
 void DessgeegaJumpWarningInit(void)
 {
     gCurrentSprite.pose = DESSGEEGA_POSE_JUMP_WARNING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sDessgeegaOAM_JumpWarning;
 }
 
@@ -120,13 +119,13 @@ void DessgeegaJumpWarningInit(void)
 void DessgeegaJumpingInit(void)
 {
     gCurrentSprite.pose = DESSGEEGA_POSE_JUMPING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pOam = sDessgeegaOAM_Jumping;
 
     // Set high or low jump depending on RNG
-    if (gSpriteRng & 0x1)
+    if (MOD_AND(gSpriteRng, 2) != 0)
         gCurrentSprite.work2 = TRUE; // Low
     else
         gCurrentSprite.work2 = FALSE; // High
@@ -142,8 +141,8 @@ void DessgeegaJumpingInit(void)
 void DessgeegaLandingInit(void)
 {
     gCurrentSprite.pose = DESSGEEGA_POSE_LANDING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sDessgeegaOAM_Landing;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -157,18 +156,18 @@ void DessgeegaLandingInit(void)
 void DessgeegaIdleInit(void)
 {
     if (DessgeegaCheckSamusNearLeftRight())
-        DessgeegaJumpWarningInit(); // Jump if smaus near
+        DessgeegaJumpWarningInit(); // Jump if samus near
     else
     {
         // Set idle
         gCurrentSprite.pose = DESSGEEGA_POSE_IDLE;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.work0 = 0x0;
-        gCurrentSprite.work1 = gSpriteRng & 0x3;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work1 = MOD_AND(gSpriteRng, 4);
 
         // Set screaming or idle
-        if (gSpriteRng >= 0x8)
+        if (gSpriteRng >= 8)
             gCurrentSprite.pOam = sDessgeegaOAM_Idle;
         else
         {
@@ -186,9 +185,9 @@ void DessgeegaIdleInit(void)
 void DessgeegaFallingInit(void)
 {
     gCurrentSprite.pose = DESSGEEGA_POSE_FALLING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.work3 = 0;
     gCurrentSprite.pOam = sDessgeegaOAM_Jumping; // Use same animation as jumping
 }
 
@@ -239,7 +238,7 @@ void DessgeegaJumpingGround(void)
     s32 yVelocity;
     u32 topEdge;
 
-    collision = 0x0;
+    collision = 0;
     if (gCurrentSprite.work2) // Low jump flag
         yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.work3 / 4];
     else
@@ -249,39 +248,39 @@ void DessgeegaJumpingGround(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check colliding with wall on right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + PIXEL_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
-            gCurrentSprite.xPosition -= 0x6;
+            gCurrentSprite.xPosition -= PIXEL_SIZE + PIXEL_SIZE / 2;
         }
-        else if (yVelocity >= 0x1)
-            gCurrentSprite.xPosition += 0x4;
+        else if (yVelocity >= 1)
+            gCurrentSprite.xPosition += PIXEL_SIZE;
         else
-            gCurrentSprite.xPosition += 0x5;
+            gCurrentSprite.xPosition += PIXEL_SIZE + ONE_SUB_PIXEL;
     }
     else
     {
         // Check colliding with wall on left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - PIXEL_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
-            gCurrentSprite.xPosition += 0x6;
+            gCurrentSprite.xPosition += PIXEL_SIZE + PIXEL_SIZE / 2;
         }
-        else if (yVelocity >= 0x1)
-            gCurrentSprite.xPosition -= 0x4;
+        else if (yVelocity >= 1)
+            gCurrentSprite.xPosition -= PIXEL_SIZE;
         else
-            gCurrentSprite.xPosition -= 0x5;
+            gCurrentSprite.xPosition -= PIXEL_SIZE + ONE_SUB_PIXEL;
     }
 
     // Apply Y
     gCurrentSprite.yPosition += yVelocity;
 
-    if (gCurrentSprite.work3 < 0x27)
+    if (gCurrentSprite.work3 < 39)
         gCurrentSprite.work3++;
 
-    if (yVelocity >= 0x1)
+    if (yVelocity >= 1)
     {
         // Positive velocity, check if landing
 
@@ -330,7 +329,7 @@ void DessgeegaJumpingGround(void)
             {
                 // Set falling behavior
                 collision++;
-                gCurrentSprite.xPosition -= 0x6;
+                gCurrentSprite.xPosition -= PIXEL_SIZE + PIXEL_SIZE / 2;
                 DessgeegaFallingInit();
             }
         }
@@ -342,7 +341,7 @@ void DessgeegaJumpingGround(void)
             {
                 // Set falling behavior
                 collision++;
-                gCurrentSprite.xPosition += 0x6;
+                gCurrentSprite.xPosition += PIXEL_SIZE + PIXEL_SIZE / 2;
                 DessgeegaFallingInit();
             }
         }
@@ -363,7 +362,7 @@ void DessgeegaJumpingCeiling(void)
     s32 yVelocity;
     u32 topEdge;
 
-    collision = 0x0;
+    collision = 0;
     if (gCurrentSprite.work2) // Low jump flag
         yVelocity = sDessgeegaLowJumpYVelocity[gCurrentSprite.work3 / 4];
     else
@@ -373,39 +372,39 @@ void DessgeegaJumpingCeiling(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         // Check colliding with wall on right
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxRight + 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
-            gCurrentSprite.xPosition -= 0x6;
+            gCurrentSprite.xPosition -= PIXEL_SIZE + PIXEL_SIZE / 2;
         }
-        else if (yVelocity >= 0x1)
-            gCurrentSprite.xPosition += 0x4;
+        else if (yVelocity >= 1)
+            gCurrentSprite.xPosition += PIXEL_SIZE;
         else
-            gCurrentSprite.xPosition += 0x5;
+            gCurrentSprite.xPosition += PIXEL_SIZE + ONE_SUB_PIXEL;
     }
     else
     {
         // Check colliding with wall on left
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x10, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 4);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft - 4);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             collision++;
-            gCurrentSprite.xPosition += 0x6;
+            gCurrentSprite.xPosition += PIXEL_SIZE + PIXEL_SIZE / 2;
         }
-        else if (yVelocity >= 0x1)
-            gCurrentSprite.xPosition -= 0x4;
+        else if (yVelocity >= 1)
+            gCurrentSprite.xPosition -= PIXEL_SIZE;
         else
-            gCurrentSprite.xPosition -= 0x5;
+            gCurrentSprite.xPosition -= PIXEL_SIZE + ONE_SUB_PIXEL;
     }
 
     // Apply Y
     gCurrentSprite.yPosition -= yVelocity;
 
-    if (gCurrentSprite.work3 < 0x27)
+    if (gCurrentSprite.work3 < 39)
         gCurrentSprite.work3++;
 
-    if (yVelocity < 0x0)
+    if (yVelocity < 0)
     {
         // Negative velocity, check if colliding with ground to fall
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -416,7 +415,7 @@ void DessgeegaJumpingCeiling(void)
             {
                 // Set falling behavior
                 collision++;
-                gCurrentSprite.xPosition -= 0x6;
+                gCurrentSprite.xPosition -= PIXEL_SIZE + PIXEL_SIZE / 2;
                 DessgeegaFallingInit();
             }
         }
@@ -428,7 +427,7 @@ void DessgeegaJumpingCeiling(void)
             {
                 // Set falling behavior
                 collision++;
-                gCurrentSprite.xPosition += 0x6;
+                gCurrentSprite.xPosition += PIXEL_SIZE + PIXEL_SIZE / 2;
                 DessgeegaFallingInit();
             }
         }
@@ -447,7 +446,7 @@ void DessgeegaJumpingCeiling(void)
 
         // Block right below
         topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-        if (gPreviousVerticalCollisionCheck & 0xF)
+        if (gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F)
         {
             // Set landing behavior
             gCurrentSprite.yPosition = topEdge + BLOCK_SIZE;
@@ -458,12 +457,12 @@ void DessgeegaJumpingCeiling(void)
             // Block on right
             topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
                 gCurrentSprite.xPosition + gCurrentSprite.hitboxRight);
-            if (!(gPreviousVerticalCollisionCheck & 0xF))
+            if (!(gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F))
             {
                 // Block on left
                 topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
                     gCurrentSprite.xPosition + gCurrentSprite.hitboxLeft);
-                if (gPreviousVerticalCollisionCheck & 0xF)
+                if (gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F)
                     collision = TRUE;
 
                 if (!collision)
@@ -660,14 +659,14 @@ void DessgeegaDeath(void)
     u16 yPosition;
 
     if (gCurrentSprite.status & SPRITE_STATUS_Y_FLIP)
-        yPosition = gCurrentSprite.yPosition + 0x30;
+        yPosition = gCurrentSprite.yPosition + (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
     else
     {
         // Set event every time a ground dessgeega is killed instead of checking for the sprite ID ?
         EventFunction(EVENT_ACTION_SETTING, EVENT_LONG_BEAM_DESSGEEGA_KILLED);
         // Unlock doors
-        gDoorUnlockTimer = -0x14;
-        yPosition = gCurrentSprite.yPosition - 0x30;
+        gDoorUnlockTimer = -ONE_THIRD_SECOND;
+        yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
     }
 
     // Kill sprite
@@ -688,24 +687,24 @@ void DessgeegaLongBeamDetectSamus(void)
 
     // Detect samus
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 12, BLOCK_SIZE * 4 - 0x10) != NSLR_OUT_OF_RANGE)
+        SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 12, BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE) != NSLR_OUT_OF_RANGE)
     {
         gCurrentSprite.pose = DESSGEEGA_POSE_LONG_BEAM_SPAWNING;
         gCurrentSprite.pOam = sDessgeegaOAM_Jumping;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.work3 = FALSE;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
-        ScreenShakeStartVertical(0xA, 0x81);
+        ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
 
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
 
-        SpriteDebrisInit(0x0, 0x5, yPosition + 0x30, xPosition + 0x50);
-        SpriteDebrisInit(0x0, 0x7, yPosition + 0x10, xPosition + 0x1A);
-        SpriteDebrisInit(0x0, 0x8, yPosition + 0x40, xPosition - 0x5A);
-        SpriteDebrisInit(0x0, 0x6, yPosition + 0x20, xPosition - 0x10);
+        SpriteDebrisInit(0, 5, yPosition + (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+        SpriteDebrisInit(0, 7, yPosition + QUARTER_BLOCK_SIZE, xPosition + (3 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2));
+        SpriteDebrisInit(0, 8, yPosition + BLOCK_SIZE, xPosition - (BLOCK_SIZE + 3 * EIGHTH_BLOCK_SIZE + PIXEL_SIZE / 2));
+        SpriteDebrisInit(0, 6, yPosition + HALF_BLOCK_SIZE, xPosition - QUARTER_BLOCK_SIZE);
         SoundPlay(SOUND_DESSGEEGA_LONG_BEAM_SPAWNING);
     }
 }
@@ -748,25 +747,25 @@ void DessgeegaLongBeamSpawning(void)
             ClipdataProcess(yPosition, xPosition - BLOCK_SIZE);
 
             // Play effects
-            ParticleSet(yPosition - 0x8, xPosition + 0x34, PE_TWO_MEDIUM_DUST);
-            ParticleSet(yPosition + 0x8, xPosition - 0x34, PE_MEDIUM_DUST);
+            ParticleSet(yPosition - EIGHTH_BLOCK_SIZE, xPosition + (3 * QUARTER_BLOCK_SIZE + PIXEL_SIZE), PE_TWO_MEDIUM_DUST);
+            ParticleSet(yPosition + EIGHTH_BLOCK_SIZE, xPosition - (3 * QUARTER_BLOCK_SIZE + PIXEL_SIZE), PE_MEDIUM_DUST);
 
-            SpriteDebrisInit(0x0, 0x11, yPosition - 0x40, xPosition);
-            SpriteDebrisInit(0x0, 0x12, yPosition - 0x20, xPosition + 0x3E);
-            SpriteDebrisInit(0x0, 0x13, yPosition - 0x28, xPosition - 0x5C);
-            SpriteDebrisInit(0x0, 0x4, yPosition - 0x48, xPosition + 0x1E);
+            SpriteDebrisInit(0, 0x11, yPosition - BLOCK_SIZE, xPosition);
+            SpriteDebrisInit(0, 0x12, yPosition - HALF_BLOCK_SIZE, xPosition + (BLOCK_SIZE - PIXEL_SIZE / 2));
+            SpriteDebrisInit(0, 0x13, yPosition - (HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE), xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE - PIXEL_SIZE));
+            SpriteDebrisInit(0, 4, yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE), xPosition + (HALF_BLOCK_SIZE - PIXEL_SIZE / 2));
             SoundPlay(SOUND_DESSGEEGA_DESTROYING_FLOOR);
         }
         else
         {
             // Set landing behavior
             gCurrentSprite.yPosition = topEdge;
-            ScreenShakeStartVertical(0xA, 0x81);
+            ScreenShakeStartVertical(CONVERT_SECONDS(1.f / 6), 0x80 | 1);
             DessgeegaLandingInit();
         }
     }
     else
-        gCurrentSprite.yPosition += 0x18; // Go down
+        gCurrentSprite.yPosition += (QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE); // Go down
 }
 
 /**
@@ -782,7 +781,7 @@ void Dessgeega(void)
             SoundPlayNotAlreadyPlaying(SOUND_DESSGEEGA_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
         SpriteUtilUpdateFreezeTimer();
     else
     {
@@ -791,7 +790,7 @@ void Dessgeega(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 DessgeegaInit();
                 break;
 

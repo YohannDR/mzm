@@ -30,12 +30,12 @@ u8 HoltzYMovement(u16 movement)
             return TRUE;
 
         // Left block
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
         // Right block
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
@@ -47,22 +47,22 @@ u8 HoltzYMovement(u16 movement)
         // Going up
         // Check on left
         // Middle left block
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition - 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             // Far left block
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition - 0x70);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
 
         // Check on right
         // Middle right block
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition + 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition + (HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             // Far right block
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition + 0x70);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HOLTZ_SIZE, gCurrentSprite.xPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
@@ -119,23 +119,23 @@ u8 HoltzXMovement(u16 movement)
 void HoltzInit(void)
 {
     SpriteUtilMakeSpriteFaceSamusDirection();
-    gCurrentSprite.drawDistanceTop = 0xC;
-    gCurrentSprite.drawDistanceBottom = 0x18;
-    gCurrentSprite.drawDistanceHorizontal = 0x18;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTop = -0x20;
-    gCurrentSprite.hitboxBottom = 0x20;
-    gCurrentSprite.hitboxLeft = -0x28;
-    gCurrentSprite.hitboxRight = 0x28;
+    gCurrentSprite.hitboxTop = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE);
+    gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sHoltzOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.pose = HOLTZ_POSE_IDLE_INIT;
-    gCurrentSprite.work3 = 0x0;
+    gCurrentSprite.work3 = 0;
 }
 
 /**
@@ -145,11 +145,11 @@ void HoltzInit(void)
 void HoltzIdleInit(void)
 {
     gCurrentSprite.pose = HOLTZ_POSE_IDLE;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     // Set OAM based on samus position
-    if ((s32)(gSamusData.yPosition - 0x48) < gCurrentSprite.yPosition)
+    if ((s32)(gSamusData.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE)) < gCurrentSprite.yPosition)
         gCurrentSprite.pOam = sHoltzOAM_IdleAware;
     else
         gCurrentSprite.pOam = sHoltzOAM_Idle;
@@ -171,13 +171,13 @@ void HoltzIdle(void)
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
-        offset = 0x0;
+        offset = 0;
     }
-    gCurrentSprite.work3 = offset + 0x1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     // Detect samus
-    if ((gSamusData.yPosition - 0x48) >= gCurrentSprite.yPosition)
+    if ((gSamusData.yPosition - (BLOCK_SIZE + EIGHTH_BLOCK_SIZE)) >= gCurrentSprite.yPosition)
     {
         nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 8, BLOCK_SIZE * 5);
         if (nslr == NSLR_RIGHT || nslr == NSLR_LEFT)
@@ -192,8 +192,8 @@ void HoltzIdle(void)
 void HoltzWarningInit(void)
 {
     gCurrentSprite.pose = HOLTZ_POSE_WARNING;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pOam = sHoltzOAM_Warning;
 }
 
@@ -212,23 +212,23 @@ void HoltzCheckWarningAnimEnded(void)
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
-        offset = 0x0;
+        offset = 0;
     }
-    gCurrentSprite.work3 = offset + 0x1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         // Set going down behavior
         gCurrentSprite.pose = HOLTZ_POSE_GOING_DOWN;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sHoltzOAM_GoingDown;
         // Set going down flag (they could've used the facing down flag?)
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         SpriteUtilMakeSpriteFaceSamusDirection();
-        gCurrentSprite.work0 = 0x0;
-        gCurrentSprite.work2 = 0x2; // Initial X speed
+        gCurrentSprite.work0 = 0;
+        gCurrentSprite.work2 = PIXEL_SIZE / 2; // Initial X speed
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_GOING_DOWN);
     }
@@ -242,16 +242,16 @@ void HoltzGoingDownMove(void)
 {
     // Gradually increase X movement
     gCurrentSprite.work0++;
-    if (gCurrentSprite.work2 < 0xC && !(gCurrentSprite.work0 & 0x1))
-        gCurrentSprite.work2++;
+    if (gCurrentSprite.work2 < 3 * PIXEL_SIZE && MOD_AND(gCurrentSprite.work0, 2) == 0)
+        gCurrentSprite.work2 += ONE_SUB_PIXEL;
 
     HoltzXMovement(gCurrentSprite.work2);
-    if (HoltzYMovement(0xC)) // Y movement
+    if (HoltzYMovement(3 * PIXEL_SIZE)) // Y movement
     {
         // Touched ground, set sliding behavior
         gCurrentSprite.pose = HOLTZ_POSE_SLIDING;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sHoltzOAM_IdleAware;
     }
 }
@@ -268,12 +268,12 @@ void HoltzSlidingMove(void)
     {
         // Set going up behavior
         gCurrentSprite.pose = HOLTZ_POSE_GOING_UP;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sHoltzOAM_GoingUp;
         // Remove going down flag
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work0 = 0;
     }
 }
 
@@ -284,28 +284,28 @@ void HoltzSlidingMove(void)
 void HoltzGoingUpMove(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        (gCurrentSprite.currentAnimationFrame == 0x0 || gCurrentSprite.currentAnimationFrame == 0x3)
-        && gCurrentSprite.animationDurationCounter == 0x1)
+        (gCurrentSprite.currentAnimationFrame == 0 || gCurrentSprite.currentAnimationFrame == 3)
+        && gCurrentSprite.animationDurationCounter == 1 * DELTA_TIME)
     {
         SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_GOING_UP);
     }
 
     // Gradually decrease X movement
     gCurrentSprite.work0++;
-    if (gCurrentSprite.work2 > 0x2 && !(gCurrentSprite.work0 & 0x1))
-        gCurrentSprite.work2--;
+    if (gCurrentSprite.work2 > PIXEL_SIZE / 2 && MOD_AND(gCurrentSprite.work0, 2) == 0)
+        gCurrentSprite.work2 -= ONE_SUB_PIXEL;
 
     HoltzXMovement(gCurrentSprite.work2); // X movement
-    if (HoltzYMovement(0xC)) // Y movement
+    if (HoltzYMovement(3 * PIXEL_SIZE)) // Y movement
     {
         // Touching ceiling, set bonking behavior
-        gCurrentSprite.yPosition &= 0xFFC0; // Clear subpixel
+        gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG; // Clear subpixel
         gCurrentSprite.yPosition += HOLTZ_SIZE; // Offset with size of holtz
         gCurrentSprite.pose = HOLTZ_POSE_BACK_TO_CEILING;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sHoltzOAM_BonkingOnCeiling;
-        gCurrentSprite.work3 = 0x0;
+        gCurrentSprite.work3 = 0;
     }
 }
 
@@ -324,9 +324,9 @@ void HoltzBackToCeiling(void)
     if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
-        offset = 0x0;
+        offset = 0;
     }
-    gCurrentSprite.work3 = offset + 0x1;
+    gCurrentSprite.work3 = offset + 1;
     gCurrentSprite.yPosition += movement;
 
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
@@ -346,7 +346,7 @@ void Holtz(void)
             SoundPlayNotAlreadyPlaying(SOUND_HOLTZ_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
         SpriteUtilUpdateFreezeTimer();
     else
     {
@@ -355,7 +355,7 @@ void Holtz(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 HoltzInit();
                 break;
 

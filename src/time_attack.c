@@ -660,7 +660,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
     mask = 1;
     for (i = 0; i < 6; i++)
     {
-        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_7 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->missilesNbr & mask) != 0;
         mask <<= 1;
         j++;
     }
@@ -668,7 +668,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
     mask = 1;
     for (i = 0; i < 5; i++)
     {
-        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_8 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->superMissilesNbr & mask) != 0;
         mask <<= 1;
         j++;
     }
@@ -676,7 +676,7 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
     mask = 1;
     for (i = 0; i < 4; i++)
     {
-        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_9 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->powerBombNbr & mask) != 0;
         mask <<= 1;
         j++;
     }
@@ -684,17 +684,17 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
     mask = 1;
     for (i = 0; i < 4; i++)
     {
-        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_A & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->energyNbr & mask) != 0;
         mask <<= 1;
         j++;
     }
 
     mask = 1;
-    pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_B & mask) != 0;
+    pTimeAttack->passwordSeed[j] = (pTimeAttack->allAbilities & mask) != 0;
     j++;
 
     mask = 1;
-    pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_C & mask) != 0;
+    pTimeAttack->passwordSeed[j] = (pTimeAttack->validFile & mask) != 0;
     j++;
 
     mask = 1;
@@ -748,20 +748,19 @@ u8 TimeAttackCheckSetNewRecord(void)
 {
     u32 convertedIgt;
     u32 converted100RecordIgt;
-    u32 part1;
-    u32 part2;
-    u32 part3;
-    u32 part4;
-    u32 part5;
+    u32 energyNbr;
+    u32 missilesNbr;
+    u32 superMissilesNbr;
+    u32 powerBombNbr;
+    u32 abilityCount;
     u32 pen;
-    u32 mask;
     u32 completionPercentage;
     u32 records;
     u8 validFile;
     struct TimeAttackData* pTimeAttack;
     u32 igtBoss1;
     u32 igtBoss2;
-    u32 unk_b;
+    u32 allAbilities;
     u8 i;
     u32 convertedRecordIgt;
 
@@ -773,20 +772,18 @@ u8 TimeAttackCheckSetNewRecord(void)
 
     pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
-    mask = 0xFF;
-    // TODO figure out how PEN is structured
-    part1 = pen >> 0x18;
-    part2 = (pen >> 0x10) & mask;
+    energyNbr = PEN_GET_ENERGY(pen);
+    missilesNbr = PEN_GET_MISSILE(pen);
+    superMissilesNbr = PEN_GET_SUPER_MISSILE(pen);
+    powerBombNbr = PEN_GET_POWER_BOMB(pen);
+    abilityCount = PEN_GET_ABILITY(pen);
+    completionPercentage = energyNbr + missilesNbr + superMissilesNbr + powerBombNbr + abilityCount;
 
-    part3 = (pen >> 0xC) & 0xF;
-    part4 = (pen >> 0x8) & 0xF;
-    part5 = (pen >> 0x4) & 0xF;
-    completionPercentage = part1 + part2 + part3 + part4 + part5;
-
-    if (part5 > 13)
-        unk_b = 1;
+    // If player has all 14 abilities
+    if (abilityCount >= 14)
+        allAbilities = TRUE;
     else
-        unk_b = 0;
+        allAbilities = FALSE;
 
     // Check current IGT is faster than previous Any% record
     if (convertedIgt < convertedRecordIgt)
@@ -806,8 +803,11 @@ u8 TimeAttackCheckSetNewRecord(void)
     if (gFileScreenOptionsUnlocked.timeAttack & 1)
         validFile = TimeAttackCheckSaveFileValidity();
 
-    // Check didn't get more items than possible?
-    if (part1 > 12 || part2 > 50 || part3 > 15 || part4 > 9 || part5 > 14 || part5 < 8 || part2 == 0)
+    // Sanity checks to see if the player has an abnormal amount of tanks/abilites
+    // - More than the max (12 e-tanks, 50 missile tanks, 15 super missile tanks, 9 power bomb tanks, 14 abilities)
+    // - Less than the minimum (8 abilities, 0 missiles)
+    if (energyNbr > 12 || missilesNbr > 50 || superMissilesNbr > 15 || powerBombNbr > 9 ||
+        abilityCount > 14 || abilityCount < 8 || missilesNbr == 0)
         validFile = FALSE;
 
     igtBoss1 = (gInGameTimerAtBosses[0].frames & 15) << 4 | (gInGameTimerAtBosses[2].frames & 15);
@@ -821,16 +821,16 @@ u8 TimeAttackCheckSetNewRecord(void)
     pTimeAttack->igtMinutes = gInGameTimer.minutes;
     pTimeAttack->igtSeconds = gInGameTimer.seconds;
 
-    pTimeAttack->unk_7 = part2;
-    pTimeAttack->unk_8 = part3;
-    pTimeAttack->unk_9 = part4;
-    pTimeAttack->unk_A = part1;
-    pTimeAttack->unk_B = unk_b;
+    pTimeAttack->missilesNbr = missilesNbr;
+    pTimeAttack->superMissilesNbr = superMissilesNbr;
+    pTimeAttack->powerBombNbr = powerBombNbr;
+    pTimeAttack->energyNbr = energyNbr;
+    pTimeAttack->allAbilities = allAbilities;
 
-    pTimeAttack->unk_C = validFile;
+    pTimeAttack->validFile = validFile;
     pTimeAttack->igtAtBosses1 = igtBoss1;
     pTimeAttack->igtAtBosses2 = igtBoss2;
-    pTimeAttack->rng = gFrameCounter8Bit & 15;
+    pTimeAttack->rng = MOD_AND(gFrameCounter8Bit, 16);
 
     // Generate password
     TimeAttackGenerateSeed(pTimeAttack);

@@ -19,6 +19,7 @@
 #include "data/menus/pause_screen_map_data.h"
 
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/connection.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -173,11 +174,11 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             {
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
                 if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)
@@ -215,11 +216,11 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             {
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
                 dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
-                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
 
                 PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
                 if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)
@@ -2020,11 +2021,9 @@ void PauseScreenInit(void)
 {
     CallbackSetVBlank(PauseScreenVBlank_Empty);
     
-    write16(REG_BLDCNT, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT);
     
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
     write16(REG_DISPCNT, 0);
 
     gNextOamSlot = 0;
@@ -2033,9 +2032,7 @@ void PauseScreenInit(void)
     
     DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
 
-    PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    PAUSE_SCREEN_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
     PAUSE_SCREEN_DATA.dispcnt = 0;
 
     if (gCurrentCutscene == 0)
@@ -2181,9 +2178,9 @@ void PauseScreenInit(void)
         gEquipment.downloadedMapStatus |= (1 << gCurrentArea);
         PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_DOWNLOAD;
 
-        //0x2034000 = gDecompressedMinimapData
-        PauseScreenGetMinimapData(gCurrentArea, (u16*)0x2034000);
-        MinimapSetDownloadedTiles(gCurrentArea, (u16*)0x2034000);
+        // FIXME use symbol
+        PauseScreenGetMinimapData(gCurrentArea, (u16*)0x2034000); // gDecompressedMinimapData
+        MinimapSetDownloadedTiles(gCurrentArea, (u16*)0x2034000); // gDecompressedMinimapData
         PauseScreenInitMapDownload();
     }
     else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_FULLY_POWERED)
@@ -2703,7 +2700,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
             break;
 
         case 2:
-            FadeMusic(160);
+            FadeMusic(CONVERT_SECONDS(2.f) + TWO_THIRD_SECOND);
             leaving = TRUE;
             break;
 

@@ -924,7 +924,7 @@ lbl_0800176c:
     mov r1, r8
     cmp r1, #2
     bne lbl_080017a0
-    ldr r0, lbl_0800179c @ =sUnk_808cc3d
+    ldr r0, lbl_0800179c @ =gCgb3Vol
     movs r1, #0x19
     ldrsb r1, [r4, r1]
     adds r1, r1, r0
@@ -932,7 +932,7 @@ lbl_0800176c:
     strb r0, [r4, #0x12]
     b lbl_080017ae
     .align 2, 0
-lbl_0800179c: .4byte sUnk_808cc3d
+lbl_0800179c: .4byte gCgb3Vol
 lbl_080017a0:
     strb r3, [r4, #0x12]
     ldrh r1, [r4, #8]
@@ -996,12 +996,12 @@ lbl_08001808:
     mov r0, r8
     cmp r0, #2
     bne lbl_08001820
-    ldr r0, lbl_0800181c @ =sUnk_808cc3d
+    ldr r0, lbl_0800181c @ =gCgb3Vol
     adds r0, r1, r0
     ldrb r0, [r0]
     b lbl_08001826
     .align 2, 0
-lbl_0800181c: .4byte sUnk_808cc3d
+lbl_0800181c: .4byte gCgb3Vol
 lbl_08001820:
     lsls r0, r1, #4
     ldrb r1, [r4, #0x12]
@@ -1251,7 +1251,7 @@ lbl_080019dc:
     movs r0, #2
     orrs r0, r1
     strb r0, [r4]
-    ldr r1, lbl_08001a74 @ =sDelayNoteLengthTable
+    ldr r1, lbl_08001a74 @ =gClockTable
     adds r0, r2, #0
     subs r0, #0xcf
     adds r0, r0, r1
@@ -1320,7 +1320,7 @@ lbl_08001a40:
     bl sub_08001fe0
     b lbl_08001b00
     .align 2, 0
-lbl_08001a74: .4byte sDelayNoteLengthTable
+lbl_08001a74: .4byte gClockTable
 lbl_08001a78:
     adds r0, r5, #0
     adds r1, r4, #0
@@ -1380,7 +1380,7 @@ lbl_08001ad0:
     .align 2, 0
 lbl_08001ae4: .4byte sMusicCommandFunctionPointers
 lbl_08001ae8:
-    ldr r1, lbl_08001afc @ =sDelayNoteLengthTable
+    ldr r1, lbl_08001afc @ =gClockTable
     adds r0, r2, #0
     subs r0, #0x80
     adds r0, r0, r1
@@ -1391,7 +1391,7 @@ lbl_08001ae8:
     str r0, [r4, #0x24]
     b lbl_08001b08
     .align 2, 0
-lbl_08001afc: .4byte sDelayNoteLengthTable
+lbl_08001afc: .4byte gClockTable
 lbl_08001b00:
     ldrb r0, [r4, #2]
     cmp r0, #0
@@ -2262,7 +2262,7 @@ lbl_08002102:
     .align 2, 0
 lbl_0800211c: .4byte sUnk_808cad0
 lbl_08002120:
-    ldr r0, lbl_0800213c @ =sUnk_808cc01
+    ldr r0, lbl_0800213c @ =gNoiseTable
     adds r1, r4, #0
     subs r1, #0x15
     adds r1, r1, r0
@@ -2277,7 +2277,7 @@ lbl_08002132:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800213c: .4byte sUnk_808cc01
+lbl_0800213c: .4byte gNoiseTable
 
     thumb_func_start sub_08002140
 sub_08002140: @ 0x08002140
@@ -3475,7 +3475,7 @@ lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
 lbl_080029f4: .4byte sNativeSampleRate
 lbl_080029f8: .4byte sMusicPitchData
-lbl_080029fc: .4byte sAudio_8ccc8
+lbl_080029fc: .4byte gPcmSamplesPerVBlankTable
 lbl_08002a00: .4byte 0x040000bc
 lbl_08002a04: .4byte 0x040000c0
 lbl_08002a08: .4byte 0x04000102

@@ -22,39 +22,39 @@ void ViolaInit(void)
     gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Check for solid blocks around
-    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition +(HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
-    if (gPreviousCollisionCheck & 0xF0)
+    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
+    if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
     {
-        gCurrentSprite.yPosition += 0x8;
+        gCurrentSprite.yPosition += EIGHTH_BLOCK_SIZE;
         gCurrentSprite.pose = VIOLA_POSE_MOVE_RIGHT;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x24, gCurrentSprite.xPosition);
-        if (gPreviousCollisionCheck & 0xF0)
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE), gCurrentSprite.xPosition);
+        if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
         {
-            gCurrentSprite.yPosition -= 0x8;
+            gCurrentSprite.yPosition -= EIGHTH_BLOCK_SIZE;
             gCurrentSprite.pose = VIOLA_POSE_MOVE_LEFT;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x24);
-            if (gPreviousCollisionCheck & 0xF0)
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE));
+            if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
             {
-                gCurrentSprite.xPosition -= 0x8;
+                gCurrentSprite.xPosition -= EIGHTH_BLOCK_SIZE;
                 gCurrentSprite.pose = VIOLA_POSE_MOVE_DOWN;
             }
             else
             {
                 SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
-                if (gPreviousCollisionCheck & 0xF0)
+                if (gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0)
                 {
-                    gCurrentSprite.xPosition += 0x8;
+                    gCurrentSprite.xPosition += EIGHTH_BLOCK_SIZE;
                     gCurrentSprite.pose = VIOLA_POSE_MOVE_UP;
                 }
                 else
                 {
-                    gCurrentSprite.status = 0x0;
+                    gCurrentSprite.status = 0;
                     return;
                 }
             }
@@ -64,8 +64,8 @@ void ViolaInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
     gCurrentSprite.pOam = sViolaOAM_Moving;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
@@ -114,12 +114,12 @@ void ViolaMoveRight(void)
 
     // Handle slope movement
     topEdge = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - 0x4, xPosition);
-    if ((gPreviousVerticalCollisionCheck & 0xF) > 0x1)
+    if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) > 0x1)
         gCurrentSprite.yPosition = topEdge - 0x18;
     else
     {
         topEdge = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
-        if ((gPreviousVerticalCollisionCheck & 0xF) > 0x1)
+        if ((gPreviousVerticalCollisionCheck & COLLISION_FLAGS_UNKNOWN_F) > 0x1)
             gCurrentSprite.yPosition = topEdge - 0x18;
         else
         {
@@ -229,7 +229,7 @@ void ViolaMoveLeft(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - 0x18);
-        if (!(gPreviousCollisionCheck & 0xF))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + 0x18);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -255,7 +255,7 @@ void ViolaMoveLeft(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + 0x14);
-        if (!(gPreviousCollisionCheck & 0xF))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - 0x1C);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -314,7 +314,7 @@ void ViolaMoveDown(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteUtilCheckCollisionAtPosition(yPosition - 0x18, xPosition);
-        if (!(gPreviousCollisionCheck & 0xF0))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition + 0x18, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -340,7 +340,7 @@ void ViolaMoveDown(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(yPosition + 0x14, xPosition);
-        if (!(gPreviousCollisionCheck & 0xF0))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition - 0x1C, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -399,7 +399,7 @@ void ViolaMoveUp(void)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         SpriteUtilCheckCollisionAtPosition(yPosition - 0x18, xPosition);
-        if (!(gPreviousCollisionCheck & 0xF0))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition + 0x18, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -425,7 +425,7 @@ void ViolaMoveUp(void)
     else
     {
         SpriteUtilCheckCollisionAtPosition(yPosition + 0x14, xPosition);
-        if (!(gPreviousCollisionCheck & 0xF0))
+        if (!(gPreviousCollisionCheck & COLLISION_FLAGS_UNKNOWN_F0))
         {
             SpriteUtilCheckCollisionAtPosition(yPosition - 0x1C, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -507,7 +507,7 @@ void Viola(void)
             SoundPlayNotAlreadyPlaying(SOUND_VIOLA_DAMAGED);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0)
         SpriteUtilUpdateFreezeTimer();
     else
     {
@@ -516,7 +516,7 @@ void Viola(void)
 
         switch (gCurrentSprite.pose)
         {
-            case 0x0:
+            case SPRITE_POSE_UNINITIALIZED:
                 ViolaInit();
                 break;
 

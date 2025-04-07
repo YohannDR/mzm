@@ -15,7 +15,7 @@ struct IORegistersBackup {
     u16 BG1CNT;
     u16 BG2CNT;
     u16 BG3CNT;
-    u16 unk_12;
+    u16 unk_12; // Used alongside BG0CNT
 };
 
 extern u16 gWrittenToWIN1H;

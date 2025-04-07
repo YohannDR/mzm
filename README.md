@@ -2,7 +2,7 @@
 
 This is a work in progress decompilation of Metroid - Zero Mission.
 
-2704/2721 functions decompiled (99.38%, 17 left)
+2706/2721 functions decompiled (99.45%, 15 left)
 
 0x76b014/0x76b014 bytes of data not in blobs (100%, 0 left)
 
@@ -27,10 +27,15 @@ This produces the following ROMs:
 ## Setup
 
 - **WINDOWS ONLY** : Install and setup [WSL](https://docs.microsoft.com/en-us/windows/wsl/install)
-- Install the dependencies (an `apt update` might be necessary for binutils)
-- Build agbcc (run `./build.sh`)
+- Run `sudo apt update` just in case
+- Install `binutils-arm-none-eabi` by running this command : `sudo apt-get install binutils-arm-none-eabi`
+- Install `git` by running this command : `sudo apt-get install git`
+- Install `make` by running this command : `sudo apt-get install make`
+
+- Clone [agbcc](https://github.com/jiangzhengwenjz/agbcc) by running this command : `git clone https://github.com/jiangzhengwenjz/agbcc`
+- Enter the agbcc folder (run `cd agbcc`) and build it (run `./build.sh`)
 - Add agbcc to your path (`export PATH="<agbcc_path>:$PATH"`, where `<agbcc_path>` is the full path to the agbcc directory)
-- Build preproc (run `make` in tools/preproc)
+- Locate yourself in the decompilation root, and then build preproc (run `cd tools/preproc && make`)
 
 ## Build
 
@@ -40,3 +45,4 @@ This produces the following ROMs:
    * Run: `tools/c_extractor`
    * If the C version doesn't work, run the C# version `tools/extractor` (may require `chmod +x tools/extractor` first)
 - Run `make` (using the -j option is recommended to speed up the process)
+- Optionally, you can combine the commands to make it easier : `./tools/extractor && make -j`

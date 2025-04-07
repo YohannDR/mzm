@@ -37,7 +37,7 @@ extern const u16 sBldalphaValuesForClipdata[11];
 
 extern const s8 sSubBombChainPositionOffset[4][4];
 
-extern const u8 sHatchRelated_345cee[4][2];
+extern const u8 sBlockTouchOffsets[4][2];
 
 extern const u16 sMotherBrainGlassBreakingBaseTilemapValues[5];
 

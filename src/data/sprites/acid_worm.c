@@ -29,7 +29,7 @@ const s16 sAcidWormHeadRandomXVelocity[45] = {
 const u32 sAcidWormGfx[1000] = INCBIN_U32("data/sprites/AcidWorm.gfx.lz");
 const u16 sAcidWormPal[64] = INCBIN_U16("data/sprites/AcidWorm.pal");
 
-const u16 sAcidWormBodyOam_Unused2_Frame0[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame0[OAM_DATA_SIZE(17)] = {
     0x11,
     0xf7, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x206,
     0x9, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x212,
@@ -50,7 +50,7 @@ const u16 sAcidWormBodyOam_Unused2_Frame0[52] = {
     0x39, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormBodyOam_Unused2_Frame1[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame1[OAM_DATA_SIZE(17)] = {
     0x11,
     0xf6, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x206,
     0x8, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x212,
@@ -71,7 +71,7 @@ const u16 sAcidWormBodyOam_Unused2_Frame1[52] = {
     0x38, OBJ_SIZE_32x32 | 0x1f2, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormBodyOam_Unused2_Frame2[52] = {
+const u16 sAcidWormBodyOam_Unused2_Frame2[OAM_DATA_SIZE(17)] = {
     0x11,
     0xf6, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x206,
     0x7, OBJ_SIZE_32x32 | 0x1f3, OBJ_SPRITE_OAM | 0x212,
@@ -92,7 +92,7 @@ const u16 sAcidWormBodyOam_Unused2_Frame2[52] = {
     0x37, OBJ_SIZE_32x32 | 0x1f1, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormOam_Spitting_Frame4[34] = {
+const u16 sAcidWormOam_Spitting_Frame4[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0xa, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x21e,
@@ -107,7 +107,7 @@ const u16 sAcidWormOam_Spitting_Frame4[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Spitting_Frame3[34] = {
+const u16 sAcidWormOam_Spitting_Frame3[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0xa, OBJ_SPRITE_OAM | 0x25f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x25e,
@@ -122,7 +122,7 @@ const u16 sAcidWormOam_Spitting_Frame3[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Spitting_Frame2[34] = {
+const u16 sAcidWormOam_Spitting_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x9, OBJ_SPRITE_OAM | 0x29f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x29e,
@@ -137,7 +137,7 @@ const u16 sAcidWormOam_Spitting_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Spitting_Frame0[34] = {
+const u16 sAcidWormOam_Spitting_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xec, 0x8, OBJ_SPRITE_OAM | 0x29f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1, OBJ_SPRITE_OAM | 0x29e,
@@ -152,7 +152,7 @@ const u16 sAcidWormOam_Spitting_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_MouthClosed_Frame2[34] = {
+const u16 sAcidWormOam_MouthClosed_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1fc, OBJ_SPRITE_OAM | 0x2dd,
     OBJ_SHAPE_VERTICAL | 0xee, 0x1, OBJ_SPRITE_OAM | 0x2de,
@@ -167,7 +167,7 @@ const u16 sAcidWormOam_MouthClosed_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Idle_Frame0[34] = {
+const u16 sAcidWormOam_Idle_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x219,
     0xec, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x258,
@@ -182,7 +182,7 @@ const u16 sAcidWormOam_Idle_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Idle_Frame1[34] = {
+const u16 sAcidWormOam_Idle_Frame1[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x299,
     0xec, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x2d8,
@@ -197,7 +197,7 @@ const u16 sAcidWormOam_Idle_Frame1[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Idle_Frame2[34] = {
+const u16 sAcidWormOam_Idle_Frame2[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1, OBJ_SPRITE_OAM | 0x299,
     0xec, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x2d8,
@@ -212,7 +212,7 @@ const u16 sAcidWormOam_Idle_Frame2[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Moving_Frame0[34] = {
+const u16 sAcidWormOam_Moving_Frame0[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xed, 0xb, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x4, OBJ_SPRITE_OAM | 0x21e,
@@ -227,7 +227,7 @@ const u16 sAcidWormOam_Moving_Frame0[34] = {
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormOam_Moving_Frame1[34] = {
+const u16 sAcidWormOam_Moving_Frame1[OAM_DATA_SIZE(11)] = {
     0xb,
     OBJ_SHAPE_VERTICAL | 0xed, 0xc, OBJ_SPRITE_OAM | 0x21f,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x5, OBJ_SPRITE_OAM | 0x21e,
@@ -242,57 +242,57 @@ const u16 sAcidWormOam_Moving_Frame1[34] = {
     0xf1, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x201
 };
 
-const u16 sAcidWormBodyOam_AroundMouth_Frame0[4] = {
+const u16 sAcidWormBodyOam_AroundMouth_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x281
 };
 
-const u16 sAcidWormBodyOam_WeakPoint_Frame0[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x206
 };
 
-const u16 sAcidWormBodyOam_WeakPoint_Frame1[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sAcidWormBodyOam_WeakPoint_Frame2[4] = {
+const u16 sAcidWormBodyOam_WeakPoint_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sAcidWormBodyOam_BelowWeakPoint_Frame0[4] = {
+const u16 sAcidWormBodyOam_BelowWeakPoint_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x212
 };
 
-const u16 sAcidWormBodyOam_AboveSegments_Frame0[4] = {
+const u16 sAcidWormBodyOam_AboveSegments_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x28e
 };
 
-const u16 sAcidWormBodyOam_Segment_Frame0[4] = {
+const u16 sAcidWormBodyOam_Segment_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x292
 };
 
-const u16 sAcidWormSpitOAM_Moving_Frame0[4] = {
+const u16 sAcidWormSpitOAM_Moving_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x286
 };
 
-const u16 sAcidWormSpitOAM_Moving_Frame1[4] = {
+const u16 sAcidWormSpitOAM_Moving_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x288
 };
 
-const u16 sAcidWormSpitOAM_Moving_Frame2[4] = {
+const u16 sAcidWormSpitOAM_Moving_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x2c6
 };
 
-const u16 sAcidWormSpitOAM_Exploding_Frame1[13] = {
+const u16 sAcidWormSpitOAM_Exploding_Frame1[OAM_DATA_SIZE(4)] = {
     0x4,
     0xf9, 0x1f9, OBJ_SPRITE_OAM | 0x2c8,
     0x0, OBJ_X_FLIP | 0x1f8, OBJ_SPRITE_OAM | 0x2e9,
@@ -300,7 +300,7 @@ const u16 sAcidWormSpitOAM_Exploding_Frame1[13] = {
     0xfd, 0x1ff, OBJ_SPRITE_OAM | 0x2c8
 };
 
-const u16 sAcidWormSpitOAM_Exploding_Frame2[16] = {
+const u16 sAcidWormSpitOAM_Exploding_Frame2[OAM_DATA_SIZE(5)] = {
     0x5,
     0xfb, 0x1f6, OBJ_SPRITE_OAM | 0x2c8,
     0xfd, 0x3, OBJ_SPRITE_OAM | 0x2c8,
@@ -309,7 +309,7 @@ const u16 sAcidWormSpitOAM_Exploding_Frame2[16] = {
     0x0, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x2e8
 };
 
-const u16 sAcidWormSpitOAM_Exploding_Frame3[25] = {
+const u16 sAcidWormSpitOAM_Exploding_Frame3[OAM_DATA_SIZE(8)] = {
     0x8,
     0xf9, 0x1, OBJ_SPRITE_OAM | 0x2c8,
     0x2, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x2e8,
@@ -321,7 +321,7 @@ const u16 sAcidWormSpitOAM_Exploding_Frame3[25] = {
     0xf9, OBJ_Y_FLIP | 0x1f7, OBJ_SPRITE_OAM | 0x2e8
 };
 
-const u16 sAcidWormSpitOAM_Exploding_Frame4[20] = {
+const u16 sAcidWormSpitOAM_Exploding_Frame4[OAM_DATA_SIZE(6)] = {
     0x6,
     0x4, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x2e8,
     0xf6, 0x3, OBJ_SPRITE_OAM | 0x2c8,
@@ -333,252 +333,413 @@ const u16 sAcidWormSpitOAM_Exploding_Frame4[20] = {
 
 
 const struct FrameData sAcidWormOam_Idle[5] = {
-    sAcidWormOam_Idle_Frame0,
-    0xA,
-    sAcidWormOam_Idle_Frame1,
-    0x10,
-    sAcidWormOam_Idle_Frame2,
-    0x1C,
-    sAcidWormOam_Idle_Frame1,
-    0x10,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Idle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Idle_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sAcidWormOam_Idle_Frame2,
+        .timer = CONVERT_SECONDS(7.f / 15)
+    },
+    [3] = {
+        .pFrame = sAcidWormOam_Idle_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormOam_Moving[3] = {
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x3,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormOam_Spitting[15] = {
-    sAcidWormOam_Spitting_Frame0,
-    0x1,
-    sAcidWormOam_Idle_Frame1,
-    0x16,
-    sAcidWormOam_Spitting_Frame2,
-    0x3,
-    sAcidWormOam_Spitting_Frame3,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x3,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Spitting_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Idle_Frame1,
+        .timer = CONVERT_SECONDS(11.f / 30)
+    },
+    [2] = {
+        .pFrame = sAcidWormOam_Spitting_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [4] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [6] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [8] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [9] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [11] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [13] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [14] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormOam_MouthClosed[5] = {
-    sAcidWormOam_Spitting_Frame2,
-    0x5,
-    sAcidWormOam_Spitting_Frame0,
-    0x4,
-    sAcidWormOam_MouthClosed_Frame2,
-    0x3,
-    sAcidWormOam_Spitting_Frame0,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Spitting_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 12)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Spitting_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sAcidWormOam_MouthClosed_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [3] = {
+        .pFrame = sAcidWormOam_Spitting_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_AroundMouth[2] = {
-    sAcidWormBodyOam_AroundMouth_Frame0,
-    0x8,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_AroundMouth_Frame0,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_WeakPoint[9] = {
-    sAcidWormBodyOam_WeakPoint_Frame0,
-    0x14,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0x10,
-    sAcidWormBodyOam_WeakPoint_Frame2,
-    0xC,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0x10,
-    sAcidWormBodyOam_WeakPoint_Frame0,
-    0xA,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0x8,
-    sAcidWormBodyOam_WeakPoint_Frame2,
-    0x8,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0xA,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame0,
+        .timer = ONE_THIRD_SECOND
+    },
+    [1] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [2] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(4.f / 15)
+    },
+    [4] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [5] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [6] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame2,
+        .timer = CONVERT_SECONDS(2.f / 15)
+    },
+    [7] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 6)
+    },
+    [8] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_Unused[5] = {
-    sAcidWormBodyOam_WeakPoint_Frame0,
-    0x4,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0x4,
-    sAcidWormBodyOam_WeakPoint_Frame2,
-    0x4,
-    sAcidWormBodyOam_WeakPoint_Frame1,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sAcidWormBodyOam_WeakPoint_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_BelowWeakPoint[2] = {
-    sAcidWormBodyOam_BelowWeakPoint_Frame0,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_BelowWeakPoint_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_AboveSegments[2] = {
-    sAcidWormBodyOam_AboveSegments_Frame0,
-    0x4,
-    NULL,
-    0x0  
+    [0] = {
+        .pFrame = sAcidWormBodyOam_AboveSegments_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_Segment[2] = {
-    sAcidWormBodyOam_Segment_Frame0,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_Segment_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormBodyOam_Unused2[5] = {
-    sAcidWormBodyOam_Unused2_Frame0,
-    0xC,
-    sAcidWormBodyOam_Unused2_Frame1,
-    0xC,
-    sAcidWormBodyOam_Unused2_Frame2,
-    0xC,
-    sAcidWormBodyOam_Unused2_Frame1,
-    0xC,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormBodyOam_Unused2_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sAcidWormBodyOam_Unused2_Frame1,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [2] = {
+        .pFrame = sAcidWormBodyOam_Unused2_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = {
+        .pFrame = sAcidWormBodyOam_Unused2_Frame1,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormSpitOAM_Moving[4] = {
-    sAcidWormSpitOAM_Moving_Frame0,
-    0xC,
-    sAcidWormSpitOAM_Moving_Frame1,
-    0xC,
-    sAcidWormSpitOAM_Moving_Frame2,
-    0xC,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormSpitOAM_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [1] = {
+        .pFrame = sAcidWormSpitOAM_Moving_Frame1,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [2] = {
+        .pFrame = sAcidWormSpitOAM_Moving_Frame2,
+        .timer = CONVERT_SECONDS(0.2f)
+    },
+    [3] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormSpitOAM_Exploding[6] = {
-    sAcidWormSpitOAM_Moving_Frame0,
-    0x4,
-    sAcidWormSpitOAM_Exploding_Frame1,
-    0x4,
-    sAcidWormSpitOAM_Exploding_Frame2,
-    0x4,
-    sAcidWormSpitOAM_Exploding_Frame3,
-    0x4,
-    sAcidWormSpitOAM_Exploding_Frame4,
-    0x4,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormSpitOAM_Moving_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sAcidWormSpitOAM_Exploding_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sAcidWormSpitOAM_Exploding_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sAcidWormSpitOAM_Exploding_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = {
+        .pFrame = sAcidWormSpitOAM_Exploding_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [5] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormOam_Warning[14] = {
-    sAcidWormOam_Idle_Frame2,
-    0x1,
-    sAcidWormOam_Spitting_Frame2,
-    0x1,
-    sAcidWormOam_Spitting_Frame3,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x1,
-    sAcidWormOam_Spitting_Frame3,
-    0x2,
-    sAcidWormOam_Idle_Frame2,
-    0x4,
-    sAcidWormOam_Spitting_Frame2,
-    0x1,
-    sAcidWormOam_Spitting_Frame3,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x6,
-    sAcidWormOam_Spitting_Frame4,
-    3,
-    sAcidWormOam_Spitting_Frame3,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Idle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Spitting_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [2] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [5] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [6] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [7] = {
+        .pFrame = sAcidWormOam_Idle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [8] = {
+        .pFrame = sAcidWormOam_Spitting_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [9] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [10] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(0.1f)
+    },
+    [11] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [12] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [13] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sAcidWormOam_SpawnOnTop[24] = {
-    sAcidWormOam_Spitting_Frame0,
-    0x1,
-    sAcidWormOam_Spitting_Frame2,
-    0x3,
-    sAcidWormOam_Spitting_Frame3,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x3,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Moving_Frame0,
-    0x3,
-    sAcidWormOam_Moving_Frame1,
-    0x2,
-    sAcidWormOam_Spitting_Frame4,
-    0x1,
-    NULL,
-    0x0
+    [0] = {
+        .pFrame = sAcidWormOam_Spitting_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [1] = {
+        .pFrame = sAcidWormOam_Spitting_Frame2,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [2] = {
+        .pFrame = sAcidWormOam_Spitting_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [3] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [4] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [5] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [6] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [7] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [8] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [9] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [10] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [11] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [12] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [13] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [14] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [15] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [16] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [17] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [18] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [19] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [20] = {
+        .pFrame = sAcidWormOam_Moving_Frame0,
+        .timer = CONVERT_SECONDS(0.05f)
+    },
+    [21] = {
+        .pFrame = sAcidWormOam_Moving_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 30)
+    },
+    [22] = {
+        .pFrame = sAcidWormOam_Spitting_Frame4,
+        .timer = CONVERT_SECONDS(1.f / 60)
+    },
+    [23] = FRAME_DATA_TERMINATOR
 };

@@ -3,6 +3,7 @@
 #include "audio_wrappers.h"
 #include "syscalls.h"
 #include "gba.h"
+#include "macros.h"
 
 #include "data/audio.h"
 
@@ -14,27 +15,27 @@
  */
 void DMA2IntrCode(void)
 {
-    gMusicInfo.sampleRate++;
-    if (gMusicInfo.sampleRate == gMusicInfo.unk_E)
+    gMusicInfo.unk_10++;
+    if (gMusicInfo.unk_10 == gMusicInfo.unk_E)
     {
+        // Flush DMA 1 and 2
         write32(REG_DMA1_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
         write32(REG_DMA2_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
-
         write16(REG_DMA1_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
         write16(REG_DMA2_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
 
         write16(REG_DMA1_CNT + 2, DMA_REPEAT | DMA_32BIT | DMA_START_VBLANK | DMA_START_HBLANK | DMA_ENABLE);
         write16(REG_DMA2_CNT + 2, DMA_REPEAT | DMA_32BIT | DMA_START_VBLANK | DMA_START_HBLANK | DMA_INTR_ENABLE | DMA_ENABLE);
 
-        gMusicInfo.sampleRate = 0;
+        gMusicInfo.unk_10 = 0;
     }
 }
 
 /**
- * @brief 33dc | 7c | To document
+ * @brief 33dc | 7c | Restarts the sound registers
  * 
  */
-void unk_33dc(void)
+void RestartSound(void)
 {
     u32 value;
 
@@ -45,31 +46,32 @@ void unk_33dc(void)
 
     write16(REG_SOUND1CNT_X, SOUNDCNT_RESTART_SOUND);
 
-    write8(REG_SOUND2CNT_L + 1, 0x8);
-    write16(REG_SOUND2CNT_H, 0x8000);
+    write8(REG_SOUND2CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
+    write16(REG_SOUND2CNT_H, SOUNDCNT_RESTART_SOUND);
 
-    write8(REG_SOUND3CNT_L, 0);
+    write8(REG_SOUND3CNT_L, 0); // Turn off channel 3
 
-    write8(REG_SOUND4CNT_L + 1, 0x8);
+    write8(REG_SOUND4CNT_L + 1, HIGH_BYTE(SOUNDCNT_ENVELOPE_INCREASE));
     write16(REG_SOUND4CNT_H, SOUNDCNT_RESTART_SOUND);
 
-    write32(REG_DMA1_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
-    write32(REG_DMA2_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
+    // Flush DMA 1 and 2
+    write32(REG_DMA1_CNT, C_32_2_16(DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE, sizeof(u32)));
+    write32(REG_DMA2_CNT, C_32_2_16(DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE, sizeof(u32)));
     write16(REG_DMA1_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
     write16(REG_DMA2_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
 
     value = 0;
-    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_SRC_FIXED | CPU_SET_32BIT) << 16 | 0x300);
-    write8(0x4000084, 0);
+    CpuSet(&value, gMusicInfo.soundRawData, C_32_2_16(CPU_SET_SRC_FIXED | CPU_SET_32BIT, sizeof(gMusicInfo.soundRawData) / sizeof(u32)));
+    write8(REG_SOUNDCNT_X, 0); // Disable and reset sound (PSG and FIFO) registers
 
     gMusicInfo.occupied = FALSE;
 }
 
 /**
- * @brief 3458 | 54 | To document
+ * @brief 3458 | 54 | Clears the raw sound data
  * 
  */
-void unk_3458(void)
+void ClearSoundData(void)
 {
     u32 value;
 
@@ -78,13 +80,14 @@ void unk_3458(void)
 
     gMusicInfo.occupied = TRUE;
 
-    write32(REG_DMA1_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
-    write32(REG_DMA2_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
+    // Flush DMA 1 and 2
+    write32(REG_DMA1_CNT, C_32_2_16(DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE, sizeof(u32)));
+    write32(REG_DMA2_CNT, C_32_2_16(DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE, sizeof(u32)));
     write16(REG_DMA1_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
     write16(REG_DMA2_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
 
     value = 0;
-    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_SRC_FIXED | CPU_SET_32BIT) << 16 | 0x300);
+    CpuSet(&value, gMusicInfo.soundRawData, C_32_2_16(CPU_SET_SRC_FIXED | CPU_SET_32BIT, sizeof(gMusicInfo.soundRawData) / sizeof(u32)));
 
     gMusicInfo.occupied = FALSE;
 }
@@ -92,12 +95,12 @@ void unk_3458(void)
 /**
  * @brief 34ac | 124 | To document
  * 
- * @param param_1 To document
+ * @param isInterrupting bool, is the new music track interrupting (or maybe current music track is interrupted?)
  */
-void unk_34ac(u8 param_1)
+void unk_34ac(u8 isInterrupting)
 {
-    u8 i;
-    u8 start;
+    u8 track;
+    u8 startTrack;
     u8 j;
     u8 currChannel;
     struct TrackData* pTrack;
@@ -106,22 +109,26 @@ void unk_34ac(u8 param_1)
     struct SoundChannel* pChannelNext;
 
     currChannel = 0;
-    if (param_1 == FALSE)
-        start = 2;
+    if (isInterrupting == FALSE)
+        startTrack = 2;
     else
-        start = 1;
+        startTrack = 1;
 
-    for (i = start; i < (u16)gNumMusicPlayers; i++)
+    // gNumMusicPlayers = 9
+    for (track = startTrack; track < (u16)gNumMusicPlayers; track++)
     {
-        if ((i == 2 && param_1 == FALSE) || (0x14A >> i) & 1)
+        // If the 1st iteration when isInterrupting is false
+        // Or the 1st, 3rd, 6th, or 8th iteration when isInterrupting is true
+        // Or the 2nd, 5th, or 7th iteration when isInterrupting is false
+        if ((track == 2 && isInterrupting == FALSE) || (0x14A >> track) & 1)
         {
-            pTrack = sMusicTrackDataRom[i].pTrack;
+            pTrack = sMusicTrackDataRom[track].pTrack;
             if (pTrack->occupied)
                 continue;
 
             pTrack->occupied = TRUE;
 
-            if (!(pTrack->unk_1E & TRUE) && pTrack->flags & 2)
+            if (!(pTrack->unk_1E & TRUE) && (pTrack->flags & 2))
             {
                 pTrack->unk_1E = TRUE;
 
@@ -216,7 +223,7 @@ void unk_35d0(u8 param_1)
 }
 
 /**
- * @brief 36d0 | bc | Checks if r0 is a new music track
+ * @brief 36d0 | bc | Checks if musicTrack is a new music track
  * 
  * @param musicTrack Music Track
  */
@@ -676,10 +683,11 @@ void CheckPlayFadingMusic(u16 musicTrack, u16 timer, u8 priority)
  * @brief 3ca0 | ac | Queues the current music and inserts a new music track
  * 
  * @param musicTrack Music track
- * @param param_2 Unknown
+ * @param isNotInterrupting bool, is new music track not interrupting current music
  */
-void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
+void InsertMusicAndQueueCurrent(u16 musicTrack, u8 isNotInterrupting)
 {
+    // isNotInterrupting is 0 when playing item jingle, 1 when playing loading jingle
     const u8* pHeader;
     struct TrackData* pTrack;
 
@@ -695,14 +703,14 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
 
         if ((pTrack->flags & (0x2 | 0x8 | 0x10)) != 0x2 || pHeader != pTrack->pHeader)
         {
-            if (param_2 == 0)
+            if (isNotInterrupting == FALSE)
             {
                 stop_music_or_sound(sMusicTrackDataRom[3].pTrack);
                 unk_34ac(TRUE);
                 unk_2a8c();
                 pTrack->queueFlags |= 0x80;
             }
-            else if (param_2 == 1)
+            else if (isNotInterrupting == TRUE)
             {
                 unk_2a8c();
                 pTrack->queueFlags |= 0x40;
@@ -962,9 +970,9 @@ void BackupTrackData2SoundChannels(void)
     if (!pTrack->occupied)
     {
         pTrack->occupied = TRUE;
-        if (!(pTrack->unk_1E & 1) && pTrack->flags & 2)
+        if (!(pTrack->unk_1E & TRUE) && pTrack->flags & 2)
         {
-            pTrack->unk_1E = 1;
+            pTrack->unk_1E = TRUE;
 
             trackID = 0;
             pVariables  = pTrack->pVariables;
@@ -1024,9 +1032,9 @@ void RetrieveTrackData2SoundChannels(void)
     {
         pTrack->occupied = TRUE;
 
-        if (pTrack->unk_1E & 1)
+        if (pTrack->unk_1E & TRUE)
         {
-            pTrack->unk_1E &= ~1;
+            pTrack->unk_1E &= ~TRUE;
             trackID = 0;
             pVariables = pTrack->pVariables;
 
@@ -1131,7 +1139,7 @@ void CheckReplayFileSelectMusic(u16 timer)
     pHeader = sSoundDataEntries[MUSIC_FILE_SELECT].pHeader;
 
     if (pTrack->flags & 2 && pHeader == pTrack->pHeader)
-        UpdateMusicPriority(0x2);
+        UpdateMusicPriority(2);
     else
         FadeCurrentMusicAndQueueNextMusic(timer, MUSIC_FILE_SELECT, 0x2);
 }

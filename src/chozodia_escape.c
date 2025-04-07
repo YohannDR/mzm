@@ -25,22 +25,23 @@
  */
 void ChozodiaEscapeVBlank(void)
 {
-    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32));
+    DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
 
     write16(REG_DISPCNT, CHOZODIA_ESCAPE_DATA.dispcnt);
     write16(REG_BLDCNT, CHOZODIA_ESCAPE_DATA.bldcnt);
 
-    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDALPHA, C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L));
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
-    write16(REG_BG0HOFS, gBg0XPosition & 0x1FF);
-    write16(REG_BG0VOFS, gBg0YPosition & 0xFF);
-    write16(REG_BG1HOFS, gBg1XPosition & 0x1FF);
-    write16(REG_BG1VOFS, gBg1YPosition & 0xFF);
-    write16(REG_BG2HOFS, gBg2XPosition & 0x1FF);
-    write16(REG_BG2VOFS, gBg2YPosition & 0xFF);
+    write16(REG_BG0HOFS, MOD_AND(gBg0XPosition, 0x200));
+    write16(REG_BG0VOFS, MOD_AND(gBg0YPosition, 0x100));
+    write16(REG_BG1HOFS, MOD_AND(gBg1XPosition, 0x200));
+    write16(REG_BG1VOFS, MOD_AND(gBg1YPosition, 0x100));
+    write16(REG_BG2HOFS, MOD_AND(gBg2XPosition, 0x200));
+    write16(REG_BG2VOFS, MOD_AND(gBg2YPosition, 0x100));
 
-    CHOZODIA_ESCAPE_DATA.unk_36f = CHOZODIA_ESCAPE_DATA.unk_36e;
+    // Swap the buffer id for reading, it will use the buffer that was populated during this frame
+    CHOZODIA_ESCAPE_DATA.hazeBufferReadingId = CHOZODIA_ESCAPE_DATA.hazeBufferWritingId;
 }
 
 /**
@@ -56,7 +57,7 @@ void ChozodiaEscapeHBlank(void)
     // Write to the window 0 width register using the previously calculated haze values
     // Since this is h-blank code, this gets called at the end of each scanline, thus the VCOUNT register is used
     // to forward the correct value
-    write16(REG_WIN0H, CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.unk_36f][vcount]);
+    write16(REG_WIN0H, CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.hazeBufferReadingId][vcount]);
 }
 
 /**
@@ -66,7 +67,7 @@ void ChozodiaEscapeHBlank(void)
 void ChozodiaEscapeSetHBlank(void)
 {
     // Transfer code to RAM
-    DMA_SET(3, ChozodiaEscapeHBlank, CHOZODIA_ESCAPE_DATA.hblankCode, DMA_ENABLE << 16 | 0x20);
+    DMA_SET(3, ChozodiaEscapeHBlank, CHOZODIA_ESCAPE_DATA.hblankCode, C_32_2_16(DMA_ENABLE, 0x20));
     
     // Set pointer
     CallbackSetHBlank((Func_T)(CHOZODIA_ESCAPE_DATA.hblankCode + 1));
@@ -80,7 +81,7 @@ void ChozodiaEscapeSetupHBlankRegisters(void)
 {
     // Setup window 0 size (no width, max height)
     write16(REG_WIN0H, 0);
-    write16(REG_WIN0V, 160);
+    write16(REG_WIN0V, SCREEN_SIZE_Y);
     
     // Setup window 0 masks with every background and obj (BG0, BG1, BG2, BG3, OBJ)
     // Mask out color effects
@@ -107,59 +108,72 @@ void ChozodiaEscapeSetupHBlankRegisters(void)
  */
 void ChozodiaEscapeUpdateExplosionHaze(void)
 {
-    u32 slice, r5;
+    u32 semiMinorAxis;
     u32 subSlice;
     s32 left;
     s32 right;
     s32 offset;
-    s32 size;
+    s32 endY;
     const s16* src;
-    u32 res;
-    u32 var_0;
-    u32 var_1;
-    
-    slice = CHOZODIA_ESCAPE_DATA.unk_36c;
-    var_1 = slice;
-    src = sHaze_PowerBomb_WindowValuesPointers[slice];
+    u32 halfSize;
+    u32 startY;
+    u32 semiMinorAxis_;
 
-    if (slice < 4)
+    // The semi minor axis is the vertical radius of an elipse (https://en.wikipedia.org/wiki/Semi-major_and_semi-minor_axes)
+
+    semiMinorAxis = CHOZODIA_ESCAPE_DATA.explosionSemiMinorAxis;
+    semiMinorAxis_ = semiMinorAxis;
+    src = sHaze_PowerBomb_WindowValuesPointers[semiMinorAxis];
+
+    // Determine the Y bounds of the explosion
+    if (semiMinorAxis < 4)
     {
-        var_0 = 0x4C;
-        size = 0x54;
+        // Smallest possible size for the explosion, probably to make it visible even at the beginning
+        startY = SCREEN_Y_MIDDLE - 4;
+        endY = SCREEN_Y_MIDDLE + 4;
 
-        slice = 0;
+        semiMinorAxis = 0;
     }
-    else if (slice <= 80)
+    else if (semiMinorAxis <= SCREEN_Y_MIDDLE)
     {
-        var_0 = (s16)(80 - slice);
-        size = (s16)(slice + 80);
+        // Explosion is symetrical and located at the center of the screen, so take the middle as a reference point
+        // And use the semi minor axis to determine the lower and highest point
+        startY = (s16)(SCREEN_Y_MIDDLE - semiMinorAxis);
+        endY = (s16)(SCREEN_Y_MIDDLE + semiMinorAxis);
 
-        slice = 0;
+        semiMinorAxis = 0;
     }
     else
     {
-        var_0 = 0;
-        slice = size = 0xA0;
-        slice = (s16)(var_1 - 80);
+        // At this point, the explosion covers the entire screen vertically, so go from top to bottom
+        startY = 0;
+        semiMinorAxis = endY = SCREEN_SIZE_Y;
+        semiMinorAxis = (s16)(semiMinorAxis_ - SCREEN_Y_MIDDLE);
     }
 
-    CHOZODIA_ESCAPE_DATA.unk_36e = (CHOZODIA_ESCAPE_DATA.unk_36e + 1) & 1;
+    // Switch buffer
+    CHOZODIA_ESCAPE_DATA.hazeBufferWritingId = (u32)(CHOZODIA_ESCAPE_DATA.hazeBufferWritingId + 1) % 2;
 
-    offset = var_0;
-    subSlice = slice++;
-    while (offset < size)
+    offset = startY;
+    subSlice = semiMinorAxis++;
+    while (offset < endY)
     {
-        res = (src[subSlice * 2] * 12) / 10;
-        left = (s16)(120 - res);
-        right = (s16)(res + 120);
+        // Multiply by 1.2 to stretch the explosion horizontally a bit, otherwise it'd be a circle
+        halfSize = FLOAT_MUL(src[subSlice * 2], 1.2f);
 
+        // Explosion is symetrical and located at the center of the screen, so take the middle as a reference point
+        // And use the half size to compute the left and the right
+        left = (s16)(SCREEN_X_MIDDLE - halfSize);
+        right = (s16)(SCREEN_X_MIDDLE + halfSize);
+
+        // Clamp to screen size
         if (left < 0)
             left = 0;
 
-        if (right > 0xF0)
-            right = 0xF0;
+        if (right > SCREEN_SIZE_X)
+            right = SCREEN_SIZE_X;
 
-        CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.unk_36e][offset] = right | left << 8;
+        CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.hazeBufferWritingId][offset] = C_16_2_8_(left, right);
 
         offset = (s16)(offset + 1);
         subSlice++;
@@ -174,16 +188,16 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
  */
 u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 {
+    u32 difficulty;
     u32 energyNbr;
     u32 missilesNbr;
     u8 superMissilesNbr;
     u8 powerBombNbr;
-    u8 i;
-    u32 mask;
     u32 abilityCount;
-    u32 ending;
-    u32 percentage;
-    u32 difficulty;
+    u32 mask;
+    u8 i;
+    u32 completionPercentage;
+    u32 endingNbr;
 
     difficulty = gDifficulty;
 
@@ -220,41 +234,50 @@ u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
         abilityCount++;
 
     // Calculate completion percentage (sum of every item/tank)
-    percentage = abilityCount + energyNbr + missilesNbr + superMissilesNbr + powerBombNbr;
+    completionPercentage = abilityCount + energyNbr + missilesNbr + superMissilesNbr + powerBombNbr;
 
     // Determine ending
-    ending = 0;
+    endingNbr = ENDING_IMAGE_ZERO;
     if (difficulty != DIFF_EASY)
     {
-        if (percentage < 16)
+        if (completionPercentage <= 15)
         {
             // Low% ending (6 and 7)
-            ending = difficulty + 5;
+            endingNbr = difficulty + ENDING_IMAGE_SIX - DIFF_NORMAL;
         }
-        else if (percentage >= 100)
+        else if (completionPercentage >= 100)
         {
             // 100% ending
             if (gInGameTimer.hours >= 2)
-                ending = 3; // Over 2 hours
+            {
+                // Over 2 hours (3)
+                endingNbr = ENDING_IMAGE_THREE;
+            }
             else
             {
                 // Under 2 hours (4 and 5)
-                ending = difficulty + 3;
+                endingNbr = difficulty + ENDING_IMAGE_FOUR - DIFF_NORMAL;
             }
         }
         else
         {
             // Any% endings
             if (gInGameTimer.hours < 2)
-                ending = 2; // Under 2 hours
+            {
+                // Under 2 hours (2)
+                endingNbr = ENDING_IMAGE_TWO;
+            }
             else if (gInGameTimer.hours < 4)
-                ending = 1; // Under 4 hours
+            {
+                // Under 4 hours (1)
+                endingNbr = ENDING_IMAGE_ONE;
+            }
         }
     }
 
     // Final result, formatted on 32bits as follow :
     //      0 0 0 0 0 0 0 0     0 0 0 0 0 0 0 0       0 0 0 0                    0 0 0 0               0 0 0 0              0 0 0 0
-    return (energyNbr << 24) + (missilesNbr << 16) + (superMissilesNbr << 12) + (powerBombNbr << 8) + (abilityCount << 4) + ending;
+    return (energyNbr << 24) + (missilesNbr << 16) + (superMissilesNbr << 12) + (powerBombNbr << 8) + (abilityCount << 4) + endingNbr;
 }
 
 /**
@@ -279,7 +302,7 @@ void ChozodiaEscapeProcessOam_1(void)
 
     for (i = 0; i < CHOZODIA_ESCAPE_MAX_OBJECTS; i++)
     {
-        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == 0)
+        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == CHOZODIA_ESCAPE_OAM_TYPE_NONE)
             continue;
 
         previousSlot = nextSlot;
@@ -332,7 +355,7 @@ void ChozodiaEscapeProcessOam_2(void)
     nextSlot = 0;
     currSlot = 0;
 
-    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] != 0)
+    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] != CHOZODIA_ESCAPE_OAM_TYPE_NONE)
     {
         src = CHOZODIA_ESCAPE_DATA.oamPointers[CHOZODIA_ESCAPE_OAM_BLUE_SHIP];
         nextSlot = *src++;
@@ -358,7 +381,7 @@ void ChozodiaEscapeProcessOam_2(void)
 
     for (i = 1; i < CHOZODIA_ESCAPE_MAX_OBJECTS - 2; i++)
     {
-        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == 0)
+        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == CHOZODIA_ESCAPE_OAM_TYPE_NONE)
             continue;
 
         src = CHOZODIA_ESCAPE_DATA.oamPointers[i];
@@ -410,18 +433,18 @@ void ChozodiaEscapeInit(void)
 
     LZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGfx, VRAM_OBJ);
     LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGfx, VRAM_BASE);
-    LZ77UncompVRAM(sCutsceneZebesGroundGfx, VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sCutsceneZebesGroundGfx, BGCNT_TO_VRAM_CHAR_BASE(2));
     LZ77UncompVRAM(sCutsceneZebesRockyBackgroundGfx, VRAM_BASE + 0xC800);
     LZ77UncompVRAM(sCutsceneZebesGroundTileTable, VRAM_BASE + 0xA000);
     LZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + 0xA800);
     LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + 0xB000);
 
-    DMA_SET(3, sCutsceneZebesPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneZebesPal));
-    DMA_SET(3, sCutsceneMotherShipPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sCutsceneMotherShipPal));
+    DMA_SET(3, sCutsceneZebesPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sCutsceneZebesPal)));
+    DMA_SET(3, sCutsceneMotherShipPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sCutsceneMotherShipPal)));
 
-    write16(REG_BG0CNT, 0x1408);
-    write16(REG_BG1CNT, 0x1509);
-    write16(REG_BG2CNT, 0x9602);
+    write16(REG_BG0CNT, CREATE_BGCNT(2, 20, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG1CNT, CREATE_BGCNT(2, 21, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x256));
+    write16(REG_BG2CNT, CREATE_BGCNT(0, 22, BGCNT_LOW_MID_PRIORITY, BGCNT_SIZE_256x512));
 
     gBg0XPosition = 0;
     gBg0YPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
@@ -442,7 +465,7 @@ void ChozodiaEscapeInit(void)
     write16(REG_BG3VOFS, 0);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
 
     gNextOamSlot = 0;
 
@@ -482,7 +505,7 @@ void ChozodiaEscapeInit(void)
     CheckUnlockTimeAttack();
 
     // Flag new gallery image based on the ending
-    gFileScreenOptionsUnlocked.galleryImages |= 1 << (ChozodiaEscapeGetItemCountAndEndingNumber() & 0xF);
+    gFileScreenOptionsUnlocked.galleryImages |= 1 << PEN_GET_ENDING(ChozodiaEscapeGetItemCountAndEndingNumber());
 
     if (gTimeAttackFlag)
     {
@@ -502,13 +525,11 @@ void ChozodiaEscapeInit(void)
 
     CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_OBJ;
 
-    CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
-    gWrittenToBLDALPHA_L = 16;
+    gWrittenToBLDALPHA_L = BLDALPHA_MAX_VALUE;
     gWrittenToBLDALPHA_H = 0;
-    gWrittenToBLDY_NonGameplay = 16;
+    gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE;
 
     ChozodiaEscapeVBlank();
 }
@@ -530,21 +551,21 @@ u8 ChozodiaEscapeShipLeaving(void)
             SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_DOOR_OPENING);
             break;
 
-        case 160:
+        case CONVERT_SECONDS(2.f) + TWO_THIRD_SECOND:
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP]++;
             SoundPlay(SOUND_CHOZODIA_ESCAPE_BLUE_SHIP_TAKING_OFF);
             break;
 
-        case 294:
+        case CONVERT_SECONDS(4.9f):
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = CHOZODIA_ESCAPE_OAM_TYPE_SCALING;
             CHOZODIA_ESCAPE_DATA.oamPointers[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = sChozodiaEscapeOam_BlueShipAngledUp_Frame0;
-            CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
+            CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + EIGHTH_BLOCK_SIZE;
 
             CHOZODIA_ESCAPE_DATA.oamYOffset = -QUARTER_BLOCK_SIZE;
             CHOZODIA_ESCAPE_DATA.scaling = Q_8_8(1.f);
             break;
 
-        case 312:
+        case CONVERT_SECONDS(5.2f):
             ended = TRUE;
     }
 
@@ -564,7 +585,7 @@ u8 ChozodiaEscapeShipLeaving(void)
         }
 
         if (CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] > BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE)
-            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = 0;
+            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = CHOZODIA_ESCAPE_OAM_TYPE_NONE;
     }
     else if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] == CHOZODIA_ESCAPE_OAM_TYPE_SCALING)
     {
@@ -572,7 +593,7 @@ u8 ChozodiaEscapeShipLeaving(void)
         CHOZODIA_ESCAPE_DATA.oamYOffset -= 8;
     }
 
-    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP])
+    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] != CHOZODIA_ESCAPE_OAM_TYPE_NONE)
     {
         velocity = CHOZODIA_ESCAPE_DATA.oamYOffset;
         
@@ -628,26 +649,25 @@ u8 ChozodiaEscapeShipHeatingUp(void)
     switch (CHOZODIA_ESCAPE_DATA.timer++)
     {
         case 0:
-            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MOTHER_SHIP_DOOR] = 1;
-            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR] = 1;
+            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MOTHER_SHIP_DOOR] = CHOZODIA_ESCAPE_OAM_TYPE_NORMAL;
+            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR] = CHOZODIA_ESCAPE_OAM_TYPE_NORMAL;
             SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_HEATING_UP);
             break;
 
-        case 152:
+        case CONVERT_SECONDS(2.5f + 1.f / 30):
             ChozodiaEscapeSetHBlank();
             ChozodiaEscapeSetupHBlankRegisters();
-            gWrittenToBLDY_NonGameplay = 8;
+            gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE / 2;
             break;
 
-        case 160:
-            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+        case CONVERT_SECONDS(2.f) + TWO_THIRD_SECOND:
+            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
             CHOZODIA_ESCAPE_DATA.unk_1++;
             SoundPlay(SOUND_CHOZODIA_ESCAPE_MOTHER_SHIP_BLOWING_AURA);
             break;
 
-        case 224:
+        case CONVERT_SECONDS(3.7f + 1.f / 30):
+            // Disable H-blank callback
             write16(REG_IME, FALSE);
             write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
             write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
@@ -661,17 +681,18 @@ u8 ChozodiaEscapeShipHeatingUp(void)
 
     if (CHOZODIA_ESCAPE_DATA.unk_1)
     {
-        if (CHOZODIA_ESCAPE_DATA.unk_2++ > 5)
+        if (CHOZODIA_ESCAPE_DATA.unk_2++ >= CONVERT_SECONDS(.1f))
         {
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
                 gWrittenToBLDY_NonGameplay++;
 
             CHOZODIA_ESCAPE_DATA.unk_2 = 0;
         }
 
-        CHOZODIA_ESCAPE_DATA.unk_36c += 4;
-        if (CHOZODIA_ESCAPE_DATA.unk_36c > 160)
-            CHOZODIA_ESCAPE_DATA.unk_36c = 160;
+        // Increase mother ship explosion stage, the higher this value, the faster the explosion will be
+        CHOZODIA_ESCAPE_DATA.explosionSemiMinorAxis += 4;
+        if (CHOZODIA_ESCAPE_DATA.explosionSemiMinorAxis > ARRAY_SIZE(sHaze_PowerBomb_WindowValuesPointers) - 1)
+            CHOZODIA_ESCAPE_DATA.explosionSemiMinorAxis = ARRAY_SIZE(sHaze_PowerBomb_WindowValuesPointers) - 1;
     }
 
     timer = CHOZODIA_ESCAPE_DATA.timer;
@@ -681,8 +702,8 @@ u8 ChozodiaEscapeShipHeatingUp(void)
         offset = sChozodiaEscapeHeatingUpPalOffsets[tmp];
         src1 = &sChozodiaEscapeShipHeatingUpPal[offset];
         src2 = &sChozodiaEscapeGroundHeatingUpPal[offset];
-        DMA_SET(3, src1, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | 16);
-        DMA_SET(3, src2, PALRAM_BASE + 0x280, DMA_ENABLE << 16 | 16);
+        DMA_SET(3, src1, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, 16));
+        DMA_SET(3, src2, PALRAM_OBJ + 0x80, C_32_2_16(DMA_ENABLE, 16));
     }
 
     if (CHOZODIA_ESCAPE_DATA.timer > 128)
@@ -794,7 +815,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
 
         case 32:
             CHOZODIA_ESCAPE_DATA.unk_1++,
-            FadeMusic(0xF0);
+            FadeMusic(CONVERT_SECONDS(4.f));
             break;
 
         case 64:
@@ -811,9 +832,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
 
         case 176:
             CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG1 | DCNT_OBJ;
-            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             CHOZODIA_ESCAPE_DATA.unk_1++;
             gWrittenToBLDALPHA_L = 16;
@@ -840,7 +859,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
 
     if (CHOZODIA_ESCAPE_DATA.unk_1 == 2 && CHOZODIA_ESCAPE_DATA.unk_2++ > 5)
     {
-        if (gWrittenToBLDY_NonGameplay < 16)
+        if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
             gWrittenToBLDY_NonGameplay++;
 
         CHOZODIA_ESCAPE_DATA.unk_2 = 0;
@@ -861,7 +880,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
 
     for (i = 0; i < CHOZODIA_ESCAPE_MAX_OBJECTS - 1; i++)
     {
-        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == 0)
+        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == CHOZODIA_ESCAPE_OAM_TYPE_NONE)
             continue;
 
         if (i == 0 && CHOZODIA_ESCAPE_DATA.oamTypes[i] > 1)
@@ -885,7 +904,7 @@ u8 ChozodiaEscapeShipBlowingUp(void)
             {
                 if (i == 0)
                 {
-                    CHOZODIA_ESCAPE_DATA.oamTypes[i] = 2;
+                    CHOZODIA_ESCAPE_DATA.oamTypes[i] = CHOZODIA_ESCAPE_OAM_TYPE_SCALING;
                     CHOZODIA_ESCAPE_DATA.oamFrames[i] = 0;
                 }
                 else if (i == 3)
@@ -980,7 +999,7 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
             break;
 
         case 224:
-            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = 0;
+            CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_BLUE_SHIP] = CHOZODIA_ESCAPE_OAM_TYPE_NONE;
             break;
 
         case 256:
@@ -1093,13 +1112,12 @@ u8 ChozodiaEscapeMissionAccomplished(void)
             LZ77UncompVRAM(sChozodiaEscapeMissionAccomplishedLettersGfx, VRAM_OBJ);
 
             // Load the "correct" palette for samus in blue ship, makes her visible
-            DMA_SET(3, sChozodiaEscapeSamusInBlueShipPal, PALRAM_OBJ,
-                DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeSamusInBlueShipPal));
+            DMA_SET(3, sChozodiaEscapeSamusInBlueShipPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(sChozodiaEscapeSamusInBlueShipPal)));
             
             CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_OBJ;
             break;
 
-        case 48:
+        case CONVERT_SECONDS(.8f):
             // Transfer monochrome palette to PALRAM
             DmaTransfer(3, CHOZODIA_ESCAPE_DATA.monochromePalette, PALRAM_BASE, sizeof(CHOZODIA_ESCAPE_DATA.monochromePalette), 16);
 
@@ -1107,7 +1125,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
             CHOZODIA_ESCAPE_DATA.unk_1++;
             break;
 
-        case 64:
+        case CONVERT_SECONDS(1.f + 1.f / 15):
             // Setup mission accomplished OAM
             CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED]++;
             if (gLanguage == LANGUAGE_HIRAGANA)
@@ -1122,14 +1140,12 @@ u8 ChozodiaEscapeMissionAccomplished(void)
             }
 
             CHOZODIA_ESCAPE_DATA.oamFrames[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] = 1;
-            CHOZODIA_ESCAPE_DATA.oamXPositions[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] = 0x78;
-            CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] = 0x58;
+            CHOZODIA_ESCAPE_DATA.oamXPositions[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] = SCREEN_X_MIDDLE;
+            CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] = SCREEN_SIZE_Y * .55f;
             break;
 
-        case 472:
-            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
-                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
-                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+        case CONVERT_SECONDS(7.8f + 1.f / 15):
+            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT;
 
             gWrittenToBLDY_NonGameplay = 0;
             ended = TRUE + 1;
@@ -1137,10 +1153,12 @@ u8 ChozodiaEscapeMissionAccomplished(void)
     }
 
     // Update mission accomplished oam
-    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED])
+    if (CHOZODIA_ESCAPE_DATA.oamTypes[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] != CHOZODIA_ESCAPE_OAM_TYPE_NONE)
     {
-        if (CHOZODIA_ESCAPE_DATA.oamTimers[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED]++ > 3)
+        // Determines how long the wait between each letter is
+        if (CHOZODIA_ESCAPE_DATA.oamTimers[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED]++ > CONVERT_SECONDS(0.05f))
         {
+            // Gradually advance the animation
             if (CHOZODIA_ESCAPE_DATA.oamFrames[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED] < 48)
                 CHOZODIA_ESCAPE_DATA.oamFrames[CHOZODIA_ESCAPE_OAM_MISSION_ACCOMPLISHED]++;
 
@@ -1151,7 +1169,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
     ChozodiaEscapeProcessOam_1();
 
     // Handle slowly scrolling the background
-    if (!CHOZODIA_ESCAPE_DATA.unk_1 && !(CHOZODIA_ESCAPE_DATA.timer & 7))
+    if (!CHOZODIA_ESCAPE_DATA.unk_1 && !MOD_AND(CHOZODIA_ESCAPE_DATA.timer, 8))
         gBg2XPosition--;
 
     return ended;
@@ -1180,7 +1198,7 @@ u32 ChozodiaEscapeSubroutine(void)
 
         case 1:
             // Fade
-            if (gWrittenToBLDY_NonGameplay)
+            if (gWrittenToBLDY_NonGameplay != 0)
             {
                 gWrittenToBLDY_NonGameplay--;
                 break;
@@ -1207,7 +1225,7 @@ u32 ChozodiaEscapeSubroutine(void)
                 // Reset OAM info
                 for (i = 0; i < CHOZODIA_ESCAPE_MAX_OBJECTS; i++)
                 {
-                    CHOZODIA_ESCAPE_DATA.oamTypes[i] = 0;
+                    CHOZODIA_ESCAPE_DATA.oamTypes[i] = CHOZODIA_ESCAPE_OAM_TYPE_NONE;
                     CHOZODIA_ESCAPE_DATA.oamFrames[i] = 0;
                     CHOZODIA_ESCAPE_DATA.oamTimers[i] = 0;
                     CHOZODIA_ESCAPE_DATA.unk_3E[i] = 0;
@@ -1237,7 +1255,7 @@ u32 ChozodiaEscapeSubroutine(void)
 
         case 3:
             // Fade
-            if (gWrittenToBLDY_NonGameplay < 16)
+            if (gWrittenToBLDY_NonGameplay < BLDY_MAX_VALUE)
             {
                 gWrittenToBLDY_NonGameplay++;
                 break;

@@ -33,7 +33,7 @@ const u8 sStatueOpening_Padding3ed4b0[4] = {
     1, 4, 0, 0
 };
 
-const struct OamArray sStatueOpeningOam[9] = {
+const struct OamArray sStatueOpeningOam[STATUE_OPENING_OAM_ID_END] = {
     [0] = {
         .pOam = sKraidStatueOam_Idle,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE

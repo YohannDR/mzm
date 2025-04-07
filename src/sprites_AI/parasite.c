@@ -1100,7 +1100,7 @@ void ParasiteMultipleDying(struct SpriteData* pSprite)
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_BUGS_KILLED) && SpriteUtilCountPrimarySprites(PSPRITE_PARASITE_MULTIPLE) == 0x0)
         {
             EventFunction(EVENT_ACTION_SETTING, EVENT_BUGS_KILLED);
-            gDoorUnlockTimer = -0x14;
+            gDoorUnlockTimer = -ONE_THIRD_SECOND;
         }
     }
 }
@@ -1349,7 +1349,7 @@ void ParasiteMultiple(void)
 
     switch (pSprite->pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ParasiteInit(pSprite);
             break;
 
@@ -1437,7 +1437,7 @@ void Parasite(void)
 
     switch (pSprite->pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ParasiteInit(pSprite);
             break;
 

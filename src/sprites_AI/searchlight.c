@@ -1,3 +1,5 @@
+#include "macros.h"
+
 #include "sprites_AI/searchlight.h"
 #include "data/sprites/searchlight.h"
 #include "constants/clipdata.h"
@@ -15,23 +17,25 @@ void Searchlight(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
-            if (gAlarmTimer != 0x0)
+        case SPRITE_POSE_UNINITIALIZED:
+            if (gAlarmTimer != 0)
+            {
                 gCurrentSprite.status = 0x0; // Kill if alarm is active
+            }
             else
             {
-                gCurrentSprite.drawDistanceTop = 0x20;
-                gCurrentSprite.drawDistanceBottom = 0x20;
-                gCurrentSprite.drawDistanceHorizontal = 0x20;
+                gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE) + 0;
+                gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE) + 0;
+                gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE) + 0;
 
-                gCurrentSprite.hitboxTop = -0x30;
-                gCurrentSprite.hitboxBottom = 0x30;
-                gCurrentSprite.hitboxLeft = -0x30;
-                gCurrentSprite.hitboxRight = 0x30;
+                gCurrentSprite.hitboxTop = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+                gCurrentSprite.hitboxBottom = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxLeft = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+                gCurrentSprite.hitboxRight = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
 
                 gCurrentSprite.pOam = sSearchlightOAM_Moving;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
 
                 gCurrentSprite.samusCollision = SSC_CHECK_COLLIDING;
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_IDLE;
@@ -54,11 +58,11 @@ void Searchlight(void)
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
                 gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER; // Activate alarm
 
-            if (gAlarmTimer != 0x0)
+            if (gAlarmTimer != 0)
             {
                 // Alarm active, set activating behavior
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_ACTIVATING;
-                gCurrentSprite.work0 = 0xA;
+                gCurrentSprite.work0 = CONVERT_SECONDS(1.f / 6);
                 gCurrentSprite.samusCollision = SSC_NONE;
             }
             else
@@ -105,8 +109,8 @@ void Searchlight(void)
 
         case SEARCHLIGHT_POSE_ACTIVATING:
             gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.work0--;
-            if (gCurrentSprite.work0 == 0x0)
+            APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
+            if (gCurrentSprite.work0 == 0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN; // Hide
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_ACTIVATE_ALARM;

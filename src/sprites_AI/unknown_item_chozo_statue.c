@@ -189,7 +189,7 @@ void UnknownItemChozoStatueRegisterHint(void)
     gCurrentSprite.work3 = 0;
 
     ChozoStatueRegisterItem(gCurrentSprite.spriteId);
-    FadeMusic(0x3C);
+    FadeMusic(CONVERT_SECONDS(1.f));
 }
 
 /**
@@ -678,7 +678,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             if (!SpriteUtilRefillEnergy())
             {
                 gCurrentSprite.work0--;
-                gEnergyRefillAnimation = 0xD;
+                gEnergyRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1D)
@@ -689,7 +689,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillMissiles())
             {
                 gCurrentSprite.work0--;
-                gMissileRefillAnimation = 0xD;
+                gMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1C)
@@ -700,7 +700,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillSuperMissiles())
             {
                 gCurrentSprite.work0--;
-                gSuperMissileRefillAnimation = 0xD;
+                gSuperMissileRefillAnimation = 13;
             }
         }
         else if (gCurrentSprite.work0 == 0x1B)
@@ -711,7 +711,7 @@ void UnknownItemChozoStatuePartArmRefill(void)
             else if (!SpriteUtilRefillPowerBombs())
             {
                 gCurrentSprite.work0--;
-                gPowerBombRefillAnimation = 0xD;
+                gPowerBombRefillAnimation = 13;
             }
         }
         else
@@ -731,13 +731,13 @@ void UnknownItemChozoStatuePartArmRefill(void)
                 if (gEquipment.maxMissiles == 0 && gEquipment.maxSuperMissiles == 0 && gEquipment.maxPowerBombs == 0)
                 {
                     // Only energy
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
                 else
                 {
                     // Energy and weapons
-                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 0x6,
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 6,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
                 }
             }
@@ -876,7 +876,7 @@ void UnknownItemChozoStatue(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             UnknownItemChozoStatueInit();
             break;
 
@@ -945,7 +945,7 @@ void UnknownItemChozoStatuePart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             UnknownItemChozoStatuePartInit();
             break;
 
@@ -1024,7 +1024,7 @@ void UnknownItemChozoStatueRefill(void)
     gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.pose == 0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -1032,14 +1032,14 @@ void UnknownItemChozoStatueRefill(void)
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawOrder = 0x1;
 
-        gCurrentSprite.drawDistanceTop = 0x10;
-        gCurrentSprite.drawDistanceBottom = 0x10;
-        gCurrentSprite.drawDistanceHorizontal = 0x10;
+        gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
         
-        gCurrentSprite.hitboxTop = 0x4;
-        gCurrentSprite.hitboxBottom = 0x4;
-        gCurrentSprite.hitboxLeft = 0x4;
-        gCurrentSprite.hitboxRight = 0x4;
+        gCurrentSprite.hitboxTop = PIXEL_SIZE;
+        gCurrentSprite.hitboxBottom = PIXEL_SIZE;
+        gCurrentSprite.hitboxLeft = PIXEL_SIZE;
+        gCurrentSprite.hitboxRight = PIXEL_SIZE;
 
         gCurrentSprite.pose = 0x9;
 

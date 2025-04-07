@@ -11,51 +11,48 @@
 #include "structs/room.h"
 #include "structs/game_state.h"
 
-#define COLOR_DATA_BG_EWRAM ((u16*)(EWRAM_BASE + 0x35000))
-#define COLOR_DATA_OBJ_EWRAM ((u16*)(EWRAM_BASE + 0x35200))
-
 /**
- * @brief 5b24c | 3c | To document
+ * @brief 5b24c | 3c | Transfers palette RAM to color data 2 RAM
  * 
  */
 void unk_5b24c(void)
 {
-    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35400, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35600, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, COLOR_DATA_BG_EWRAM2, PAL_SIZE, 16);
+    DmaTransfer(3, PALRAM_OBJ, COLOR_DATA_OBJ_EWRAM2, PAL_SIZE, 16);
 }
 
 /**
- * @brief 5b288 | 3c | To document
+ * @brief 5b288 | 3c | Transfers palette RAM to color data 1 RAM
  * 
  */
 void unk_5b288(void)
 {
-    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, COLOR_DATA_BG_EWRAM, PAL_SIZE, 16);
+    DmaTransfer(3, PALRAM_OBJ, COLOR_DATA_OBJ_EWRAM, PAL_SIZE, 16);
 }
 
 /**
- * @brief 5b2c4 | 3c | To document
+ * @brief 5b2c4 | 3c | Transfers color data 2 RAM to color data 1 RAM
  * 
  */
 void unk_5b2c4(void)
 {
-    DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, COLOR_DATA_BG_EWRAM2, COLOR_DATA_BG_EWRAM, PAL_SIZE, 16);
+    DmaTransfer(3, COLOR_DATA_OBJ_EWRAM2, COLOR_DATA_OBJ_EWRAM, PAL_SIZE, 16);
 }
 
 /**
- * @brief 5b304 | 3c | To document
+ * @brief 5b304 | 3c | Transfers palette RAM to color data 3 RAM
  * 
  */
 void unk_5b304(void)
 {
-    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, COLOR_DATA_BG_EWRAM3, PAL_SIZE, 16);
+    DmaTransfer(3, PALRAM_OBJ, COLOR_DATA_OBJ_EWRAM3, PAL_SIZE, 16);
 }
 
 /**
- * @brief 5b340 | 10 | To document
+ * @brief 5b340 | 10 | Transfers palette RAM to color data 1 and 2 RAM
  * 
  */
 void unk_5b340(void)
@@ -65,13 +62,13 @@ void unk_5b340(void)
 }
 
 /**
- * @brief 5b350 | 3c | To document
+ * @brief 5b350 | 3c | Transfers color data 2 RAM to color data 1 RAM
  * 
  */
 void unk_5b350(void)
 {
-    DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
-    DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, COLOR_DATA_BG_EWRAM2, COLOR_DATA_BG_EWRAM3, PAL_SIZE, 16);
+    DmaTransfer(3, COLOR_DATA_OBJ_EWRAM2, COLOR_DATA_OBJ_EWRAM3, PAL_SIZE, 16);
 }
 
 /**
@@ -85,13 +82,13 @@ void CheckTransferFadedPalette_Unused(void)
 
     if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
     {
-        DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM, PALRAM_BASE, PAL_SIZE, 16);
         gColorFading.status &= ~COLOR_FADING_STATUS_ON_BG;
     }
 
     if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
     {
-        DmaTransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM, PALRAM_OBJ, PAL_SIZE, 16);
         gColorFading.status &= ~COLOR_FADING_STATUS_ON_OBJ;
     }
 }
@@ -109,13 +106,13 @@ void CheckTransferFadedPalette(void)
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
         {
-            DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, COLOR_DATA_BG_EWRAM, PALRAM_BASE, PAL_SIZE, 16);
             gColorFading.status ^= COLOR_FADING_STATUS_ON_BG;
         }
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
         {
-            DmaTransfer(3, EWRAM_BASE + 0x35200 + 16 * 4, PALRAM_OBJ + 16 * 4, PALRAM_SIZE / 2 - 16 * 4, 16);
+            DmaTransfer(3, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
             gColorFading.status ^= COLOR_FADING_STATUS_ON_OBJ;
         }
     }
@@ -126,13 +123,13 @@ void CheckTransferFadedPalette(void)
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
         {
-            DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, COLOR_DATA_BG_EWRAM, PALRAM_BASE, PAL_SIZE, 16);
             gColorFading.status &= ~COLOR_FADING_STATUS_ON_BG;
         }
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
         {
-            DmaTransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, COLOR_DATA_OBJ_EWRAM, PALRAM_OBJ, PAL_SIZE, 16);
             gColorFading.status &= ~COLOR_FADING_STATUS_ON_OBJ;
         }
     }
@@ -153,25 +150,25 @@ void CallApplySpecialBackgroundFadingColor(u8 color)
     if (sColorFadingData[gColorFading.type].isWhite)
     {
         if (!gColorFading.useSecondColorSet)
-            type = FADING_TYPE_FLASH;
+            type = COLOR_FADING_TYPE_FLASH;
         else
-            type = FADING_TYPE_UNK;
+            type = COLOR_FADING_TYPE_UNK;
     }
     else
     {
         if (!gColorFading.useSecondColorSet)
-            type = FADING_TYPE_IN;
+            type = COLOR_FADING_TYPE_IN;
         else
-            type = FADING_TYPE_OUT;
+            type = COLOR_FADING_TYPE_OUT;
     }
 
-    dst = EWRAM_BASE + 0x35000;
-    src = EWRAM_BASE + 0x35400;
+    dst = COLOR_DATA_BG_EWRAM;
+    src = COLOR_DATA_BG_EWRAM2;
     mask = sColorFadingData[gColorFading.type].bgColorMask;
     ApplySpecialBackgroundFadingColor(type, color, &src, &dst, mask);
 
-    dst = EWRAM_BASE + 0x35200;
-    src = EWRAM_BASE + 0x35600;
+    dst = COLOR_DATA_OBJ_EWRAM;
+    src = COLOR_DATA_OBJ_EWRAM2;
     mask = sColorFadingData[gColorFading.type].objColorMask;
     ApplySpecialBackgroundFadingColor(type, color, &src, &dst, mask);
 
@@ -195,24 +192,24 @@ void PowerBombYellowTint(u8 paletteRow)
     if (gAnimatedGraphicsEntry.palette == 0)
     {
         // Affect all of palram
-        length = 16 * 16;
+        length = COLORS_IN_PAL;
     }
     else
     {
         // Omit last row, where the animated palette is
-        length = 15 * 16;
+        length = COLORS_IN_PAL - 1 * PAL_ROW;
     }
 
     // Get palram
-    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, COLOR_DATA_BG_EWRAM, PAL_SIZE, 16);
 
     // Get starting position
-    pPalette = (u16*)(EWRAM_BASE + 0x35000) + paletteRow * 16;
+    pPalette = COLOR_DATA_BG_EWRAM + paletteRow * PAL_ROW;
 
-    for (i = paletteRow * 16; i < length; i++, pPalette++)
+    for (i = paletteRow * PAL_ROW; i < length; i++, pPalette++)
     {
         // Ignore first color (transparent color)
-        if (i % 16 == 0)
+        if (i % PAL_ROW == 0)
             continue;
 
         // Get components
@@ -253,7 +250,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
     u16 g;
     u16 b;
 
-    for (i = 0; i <= UCHAR_MAX; i++, src++, dst++)
+    for (i = 0; i < COLORS_IN_PAL; i++, src++, dst++)
     {
         r = RED(*src);
         g = GREEN(*src);
@@ -299,19 +296,19 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
     if (stage == 0)
     {
         // Optimization, no calculations needed
-        DmaTransfer(3, srcBase, dst, PALRAM_SIZE / 2, 0x10);
+        DmaTransfer(3, srcBase, dst, PAL_SIZE, 16);
         return;
     }
     
-    if (stage >= 0x1F)
+    if (stage >= 31)
     {
         // Transition is done, simply use the monochrome
-        DmaTransfer(3, srcMonochrome, dst, PALRAM_SIZE / 2, 0x10);
+        DmaTransfer(3, srcMonochrome, dst, PAL_SIZE, 16);
         return;
     }
     
     i = 0;
-    while (i <= UCHAR_MAX)
+    while (i < COLORS_IN_PAL)
     {
         // Get monochrome components
         color = *srcMonochrome;
@@ -368,19 +365,19 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
     if (stage == 0)
     {
-        DmaTransfer(3, srcStart, dst, 16 * 2, 16);
+        DmaTransfer(3, srcStart, dst, 1 * PAL_ROW_SIZE, 16);
         return;
     }
 
     if (stage >= 0x1F)
     {
         do {
-        DmaTransfer(3, srcEnd, dst, 16 * 2, 16);
+        DmaTransfer(3, srcEnd, dst, 1 * PAL_ROW_SIZE, 16);
         }while(0);
         return;
     }
 
-    for (i = 0; i <= 0x1F; )
+    for (i = 0; i < 2 * PAL_ROW; )
     {
         color = *srcEnd;
         endR = RED(color);
@@ -443,26 +440,26 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
     if (stage == 0)
     {
-        DmaTransfer(3, EWRAM_BASE + 0x35800, PALRAM_BASE, 0x1E0, 16);
-        DmaTransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35400, 0x1E0, 16);
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, PALRAM_BASE, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM3, COLOR_DATA_BG_EWRAM2, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
         return;
     }
 
-    src = EWRAM_BASE + 0x35800;
-    dst = EWRAM_BASE + 0x35000;
-    DmaTransfer(3, src, dst, 0x1E0, 16);
+    src = COLOR_DATA_BG_EWRAM3;
+    dst = COLOR_DATA_BG_EWRAM;
+    DmaTransfer(3, src, dst, PAL_SIZE - 1 * PAL_ROW_SIZE, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);
     baseB = BLUE(color);
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < COLORS_IN_PAL / PAL_ROW; i++)
     {
         if (!(mask >> i & 1))
             continue;
 
-        tmp = i * 16;
-        for (k = 0, j = i * 16; j < i * 16 + 16; k++, j++)
+        tmp = i * PAL_ROW;
+        for (k = 0, j = i * PAL_ROW; j < i * PAL_ROW + PAL_ROW; k++, j++)
         {
             pal = dst;
 
@@ -507,24 +504,24 @@ void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
 
     if (stage == 0)
     {
-        DmaTransfer(3, EWRAM_BASE + 0x35A40, PALRAM_OBJ + 16 * 4, 0x1C0, 16);
-        DmaTransfer(3, EWRAM_BASE + 0x35A40, EWRAM_BASE + 0x35640, 0x1C0, 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, (u16*)PALRAM_OBJ + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM2 + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
         return;
     }
 
-    DmaTransfer(3, EWRAM_BASE + 0x35A40, EWRAM_BASE + 0x35240, 0x1C0, 16);
+    DmaTransfer(3, COLOR_DATA_OBJ_EWRAM3 + 2 * PAL_ROW, COLOR_DATA_OBJ_EWRAM + 2 * PAL_ROW, PAL_SIZE - 2 * PAL_ROW_SIZE, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);
     baseB = BLUE(color);
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < COLORS_IN_PAL / PAL_ROW; i++)
     {
         if (!(mask >> i & 1))
             continue;
 
-        tmp = i * 16 + 1;
-        for (k = 0, j = tmp; j < i * 16 + 16; k++, j++)
+        tmp = i * PAL_ROW + 1;
+        for (k = 0, j = tmp; j < i * PAL_ROW + PAL_ROW; k++, j++)
         {
             pal = COLOR_DATA_OBJ_EWRAM;
 
@@ -560,16 +557,16 @@ void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppD
     s32 green;
     s32 blue;
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < COLORS_IN_PAL / PAL_ROW; i++)
     {
         if (!((mask >> i) & 1))
         {
-            *ppSrc = *ppSrc + 16;
-            *ppDst = *ppDst + 16;
+            *ppSrc = *ppSrc + PAL_ROW;
+            *ppDst = *ppDst + PAL_ROW;
             continue;
         }
 
-        for (j = 0; j < 16; j++, *ppSrc = *ppSrc + 1, *ppDst = *ppDst + 1)
+        for (j = 0; j < PAL_ROW; j++, *ppSrc = *ppSrc + 1, *ppDst = *ppDst + 1)
         {
             red = RED(**ppSrc);
             green = GREEN(**ppSrc);
@@ -577,25 +574,25 @@ void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppD
 
             switch (type)
             {
-                case FADING_TYPE_IN:
+                case COLOR_FADING_TYPE_IN:
                     red = (red * color) >> 5 & COLOR_MASK;
                     green = (green * color) >> 5 & COLOR_MASK;
                     blue = (blue * color) >> 5 & COLOR_MASK;
                     break;
 
-                case FADING_TYPE_FLASH:
+                case COLOR_FADING_TYPE_FLASH:
                     red = (COLOR_MASK - (((COLOR_MASK - red) * color) >> 5)) & COLOR_MASK;
                     green = (COLOR_MASK - (((COLOR_MASK - green) * color) >> 5)) & COLOR_MASK;
                     blue = (COLOR_MASK - (((COLOR_MASK - blue) * color) >> 5)) & COLOR_MASK;
                     break;
 
-                case FADING_TYPE_OUT:
+                case COLOR_FADING_TYPE_OUT:
                     red = (red - ((red * color) >> 5)) & COLOR_MASK;
                     green = (green - ((green * color) >> 5)) & COLOR_MASK;
                     blue = (blue - ((blue * color) >> 5)) & COLOR_MASK;
                     break;
 
-                case FADING_TYPE_UNK:
+                case COLOR_FADING_TYPE_UNK:
                     red = (red + ((color * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
                     green = (green + ((color * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
                     blue = (blue + ((color * (COLOR_MASK - blue)) >> 5)) & COLOR_MASK;
@@ -629,25 +626,25 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 
     switch (type)
     {
-        case FADING_TYPE_IN:
+        case COLOR_FADING_TYPE_IN:
             red = (red * currentColor) >> 5 & COLOR_MASK;
             green = (green * currentColor) >> 5 & COLOR_MASK;
             blue = (blue * currentColor) >> 5 & COLOR_MASK;
             break;
 
-        case FADING_TYPE_FLASH:
+        case COLOR_FADING_TYPE_FLASH:
             red = (COLOR_MASK - (((COLOR_MASK - red) * currentColor) >> 5)) & COLOR_MASK;
             green = (COLOR_MASK - (((COLOR_MASK - green) * currentColor) >> 5)) & COLOR_MASK;
             blue = (COLOR_MASK - (((COLOR_MASK - blue) * currentColor) >> 5)) & COLOR_MASK;
             break;
 
-        case FADING_TYPE_OUT:
+        case COLOR_FADING_TYPE_OUT:
             red = (red - ((red * currentColor) >> 5)) & COLOR_MASK;
             green = (green - ((green * currentColor) >> 5)) & COLOR_MASK;
             blue = (blue - ((blue * currentColor) >> 5)) & COLOR_MASK;
             break;
 
-        case FADING_TYPE_UNK:
+        case COLOR_FADING_TYPE_UNK:
             red = (red + ((currentColor * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
             green = (green + ((currentColor * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
             blue = (blue + ((currentColor * (COLOR_MASK - blue)) >> 5)) & COLOR_MASK;

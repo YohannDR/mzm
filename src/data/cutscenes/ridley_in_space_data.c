@@ -74,77 +74,71 @@ const u8 sRidleyInSpaceRedAlertPaletteRows[10] = {
     0, 1, 2, 3, 4, 5, 4, 3, 2, 1
 };
 
-extern const u16 sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0[7];
-extern const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[13];
-extern const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[4];
-extern const u16 sRidleyInSpaceOAM_RightBlueShip_Frame0[4];
-extern const u16 sRidleyInSpaceOAM_MotherShip_Frame0[25];
-extern const u16 sRidleyInSpaceOAM_ViewOfShipParticle_Frame0[4];
-extern const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[4];
-extern const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[4];
-extern const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0[4];
-
 const struct FrameData sRidleyInSpaceOAM_LeftBlueShip[2] = {
-    sRidleyInSpaceOAM_LeftBlueShip_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_LeftBlueShip_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_RightBlueShip[2] = {
-    sRidleyInSpaceOAM_RightBlueShip_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_RightBlueShip_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_MotherShip[2] = {
-    sRidleyInSpaceOAM_MotherShip_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_MotherShip_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_MotherShipLeavingBack[2] = {
-    sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_MotherShipLeavingFront[2] = {
-    sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_ViewOfShipParticle[2] = {
-    sRidleyInSpaceOAM_ViewOfShipParticle_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_ViewOfShipParticle_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_387010[2] = {
-    sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_ViewOfShipParticleSecond[2] = {
-    sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
-    128,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
+        .timer = CONVERT_SECONDS(2.f) + CONVERT_SECONDS(2.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-extern const struct FrameData sRidleyInSpaceOAM_39d7e8[2];
-extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5];
-extern const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5];
-
-const struct OamArray sRidleyInSpaceCutsceneOAM[11] = {
+const struct OamArray sRidleyInSpaceCutsceneOAM[RIDLEY_IN_SPACE_OAM_ID_END] = {
     [0] = {
         .pOam = sRidleyInSpaceOAM_39d7e8,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -200,17 +194,17 @@ const u32 sRidleyInSpaceMotherShipLeavingGfx[1497] = INCBIN_U32("data/cutscenes/
 const u32 sRidleyInSpaceSpaceBackgroundGfx[5470] = INCBIN_U32("data/cutscenes/RidleyInSpace/SpaceBackground.gfx.lz");
 
 
-const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xe8, OBJ_SIZE_64x64 | 0x1e0, 0x1180
 };
 
-const u16 sRidleyInSpaceOAM_RightBlueShip_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_RightBlueShip_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xe8, OBJ_SIZE_64x64 | 0x1e0, 0x1188
 };
 
-const u16 sRidleyInSpaceOAM_MotherShip_Frame0[25] = {
+const u16 sRidleyInSpaceOAM_MotherShip_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     0xc0, OBJ_SIZE_64x64 | 0x188, 0x2,
     0xc0, OBJ_SIZE_64x64 | 0x1c8, 0xa,
@@ -222,60 +216,61 @@ const u16 sRidleyInSpaceOAM_MotherShip_Frame0[25] = {
     0x0, OBJ_SIZE_32x32 | 0x10, 0x113
 };
 
-const u16 sRidleyInSpaceOAM_39d7a6_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7a6_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21dc
 };
 
-const u16 sRidleyInSpaceOAM_39d7ae_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7ae_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21dd
 };
 
-const u16 sRidleyInSpaceOAM_39d7b6_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7b6_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21de
 };
 
-const u16 sRidleyInSpaceOAM_39d7be_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7be_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21df
 };
 
-const u16 sRidleyInSpaceOAM_39d7c6_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7c6_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fc
 };
 
-const u16 sRidleyInSpaceOAM_39d7ce_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7ce_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fd
 };
 
-const u16 sRidleyInSpaceOAM_39d7d6_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7d6_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fe
 };
 
-const u16 sRidleyInSpaceOAM_39d7de_FrameUnused[4] = {
+const u16 sRidleyInSpaceOAM_39d7de_FrameUnused[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21ff
 };
 
 const struct FrameData sRidleyInSpaceOAM_39d7e8[2] = {
-    sRidleyInSpaceOAM_LeftBlueShip_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_LeftBlueShip_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
-const u16 sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0[7] = {
+const u16 sRidleyInSpaceOAM_MotherShipLeavingBack_Frame0[OAM_DATA_SIZE(2)] = {
     0x2,
     0xd8, OBJ_SIZE_64x64 | 0x1c0, 0x10,
     0xd8, OBJ_SIZE_64x64 | 0x0, 0x18
 };
 
-const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[13] = {
+const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xc0, OBJ_SIZE_64x64 | 0x1c0, 0x1000,
     0xc0, OBJ_SIZE_64x64 | 0x0, 0x1008,
@@ -283,70 +278,84 @@ const u16 sRidleyInSpaceOAM_MotherShipLeavingFront_Frame0[13] = {
     0x0, OBJ_SIZE_64x64 | 0x0, 0x1108
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21dc
 };
 
-const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21dd
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticle_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21de
 };
 
-const u16 sRidleyInSpaceOAM_ViewOfShipParticle_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ViewOfShipParticle_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfc, 0x1fc, 0x21df
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fc
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame1[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fd
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame2[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21fe
 };
 
-const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame3[4] = {
+const u16 sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xfb, 0x1fb, 0x21ff
 };
 
 const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticle[5] = {
-    sRidleyInSpaceOAM_ShipLeavingParticle_Frame0,
-    4,
-    sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
-    4,
-    sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
-    4,
-    sRidleyInSpaceOAM_ViewOfShipParticle_Frame0,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sRidleyInSpaceOAM_ViewOfShipParticleSecond_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticle_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRidleyInSpaceOAM_ViewOfShipParticle_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sRidleyInSpaceOAM_ShipLeavingParticleSecond[5] = {
-    sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0,
-    4,
-    sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame1,
-    4,
-    sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame2,
-    4,
-    sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sRidleyInSpaceOAM_ShipLeavingParticleSecond_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const u16 sRidleyInSpaceShipsPal[3 * 16] = INCBIN_U16("data/cutscenes/RidleyInSpace/Ships.pal");

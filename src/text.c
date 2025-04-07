@@ -50,7 +50,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
     u32 value;
     s32 i;
 
-    BitFill(3, 0, gCurrentCharacterGfx, sizeof(gCurrentCharacterGfx), 0x10);
+    BitFill(3, 0, gCurrentCharacterGfx, sizeof(gCurrentCharacterGfx), 16);
     width = TextGetCharacterWidth(charID);
 
     for (pass = 0; pass < 2; pass++)
@@ -310,15 +310,17 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
     u32 value;
     s32 i;
 
-    BitFill(3, 0, 0x2027700, sizeof(gCurrentCharacterGfx), 16);
+    // FIXME use symbol
+    BitFill(3, 0, 0x2027700, sizeof(gCurrentCharacterGfx), 16); // gCurrentCharacterGfx
     width = TextGetCharacterWidth(charID);
 
     for (pass = 0; pass < 2; pass++)
     {
+        // FIXME use symbol
         if (pass != 0)
-            dstGfx = ((u32*)0x2027700) + 16;
+            dstGfx = ((u32*)0x2027700) + 16; // gCurrentCharacterGfx
         else
-            dstGfx = ((u32*)0x2027700);
+            dstGfx = ((u32*)0x2027700); // gCurrentCharacterGfx
 
         pixelDst = charID * 0x20 + pass * 0x400;
         srcGfx = (const u32*)&sCharactersGfx[pixelDst];
@@ -634,13 +636,13 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
 {
     const u16* pText;
 
-    BitFill(3, 0xFFFF, EWRAM_BASE, 0x800, 0x10);
+    BitFill(3, 0xFFFF, EWRAM_BASE, 0x800, 16);
 
     pText = sLocationTextPointers[gLanguage][locationText];
     TextDrawLocationTextCharacters(1, &pText);
 
-    DMA_SET(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
-    DMA_SET(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
+    DMA_SET(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, C_32_2_16(DMA_ENABLE | DMA_32BIT, 0xE0));
+    DMA_SET(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, C_32_2_16(DMA_ENABLE | DMA_32BIT, 0xE0));
 }
 
 /**
@@ -865,15 +867,15 @@ u8 TextProcessStory(void)
             }
             else
             {
-                BitFill(3, 0, VRAM_BASE + 0x7000, 0x380, 0x20);
-                BitFill(3, 0, VRAM_BASE + 0x7400, 0x380, 0x20);
+                BitFill(3, 0, VRAM_BASE + 0x7000, 0x380, 32);
+                BitFill(3, 0, VRAM_BASE + 0x7400, 0x380, 32);
                 gCurrentMessage.stage = 1;
             }
             break;
 
         case 1:
-            BitFill(3, 0, VRAM_BASE + 0x7800, 0x380, 0x20);
-            BitFill(3, 0, VRAM_BASE + 0x7C00, 0x380, 0x20);
+            BitFill(3, 0, VRAM_BASE + 0x7800, 0x380, 32);
+            BitFill(3, 0, VRAM_BASE + 0x7C00, 0x380, 32);
             gCurrentMessage.stage++;
             break;
 

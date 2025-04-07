@@ -86,7 +86,7 @@ void SqueeptIdleInit(void)
     SqueeptGoingUpInit();
 
     // Timer before it checks for samus
-    gCurrentSprite.work0 = 30;
+    gCurrentSprite.work0 = CONVERT_SECONDS(.5f);
 }
 
 /**
@@ -99,7 +99,7 @@ void SqueeptIdle(void)
 
     if (gCurrentSprite.work0 != 0)
     {
-        gCurrentSprite.work0--;
+        APPLY_DELTA_TIME_DEC(gCurrentSprite.work0);
         return;
     }
 

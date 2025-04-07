@@ -463,7 +463,7 @@ void ImagoLarvaDeath(struct SubSpriteData* pSub)
         EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
 
         // Unlock doors
-        gDoorUnlockTimer = -60;
+        gDoorUnlockTimer = -CONVERT_SECONDS(1.f);
 
         PlayMusic(MUSIC_BOSS_KILLED, 0);
     }
@@ -894,7 +894,7 @@ void ImagoLarva(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoLarvaInit(pSub);
             break;
 
@@ -990,7 +990,7 @@ void ImagoLarvaPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0:
+        case SPRITE_POSE_UNINITIALIZED:
             ImagoLarvaPartInit(pSub);
             break;
 

@@ -47,7 +47,7 @@ const struct CutsceneScrollingInfo sKraidRisingScrollingInfo = {
     .maxDelay = 8
 };
 
-const struct OamArray sKraidRisingCutsceneOam[5] = {
+const struct OamArray sKraidRisingCutsceneOam[KRAID_RISING_OAM_ID_END] = {
     [0] = {
         .pOam = sKraidRisingOam_Samus,
         .preAction = OAM_ARRAY_PRE_ACTION_NONE
@@ -70,122 +70,146 @@ const struct OamArray sKraidRisingCutsceneOam[5] = {
     }
 };
 
-const u16 sKraidRisingOam_Samus_Frame0[4] = {
+const u16 sKraidRisingOam_Samus_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xd0, OBJ_SIZE_64x64 | 0x1e0, 0x0
 };
 
-const u16 sKraidRisingOam_Samus_Frame1[4] = {
+const u16 sKraidRisingOam_Samus_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xcf, OBJ_SIZE_64x64 | 0x1e0, 0x0
 };
 
-const u16 sKraidRisingOam_Debris_Frame0[4] = {
+const u16 sKraidRisingOam_Debris_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, 0x1f8, 0x1008
 };
 
-const u16 sKraidRisingOam_Debris_Frame1[4] = {
+const u16 sKraidRisingOam_Debris_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, 0x1f8, 0x1009
 };
 
-const u16 sKraidRisingOam_Debris_Frame2[4] = {
+const u16 sKraidRisingOam_Debris_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, 0x1f8, 0x100a
 };
 
-const u16 sKraidRisingOam_Debris_Frame3[4] = {
+const u16 sKraidRisingOam_Debris_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, 0x1f8, 0x100b
 };
 
-const u16 sKraidRisingOam_SmallPuff_Frame0[4] = {
+const u16 sKraidRisingOam_SmallPuff_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x1028
 };
 
-const u16 sKraidRisingOam_SmallPuff_Frame1[4] = {
+const u16 sKraidRisingOam_SmallPuff_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x102a
 };
 
-const u16 sKraidRisingOam_SmallPuff_Frame2[4] = {
+const u16 sKraidRisingOam_SmallPuff_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x102c
 };
 
-const u16 sKraidRisingOam_SmallPuff_Frame3[4] = {
+const u16 sKraidRisingOam_SmallPuff_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x102e
 };
 
-const u16 sKraidRisingOam_BigPuff_Frame0[4] = {
+const u16 sKraidRisingOam_BigPuff_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, 0x1068
 };
 
-const u16 sKraidRisingOam_BigPuff_Frame1[4] = {
+const u16 sKraidRisingOam_BigPuff_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, 0x106c
 };
 
-const u16 sKraidRisingOam_BigPuff_Frame2[4] = {
+const u16 sKraidRisingOam_BigPuff_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, 0x1070
 };
 
-const u16 sKraidRisingOam_BigPuff_Frame3[4] = {
+const u16 sKraidRisingOam_BigPuff_Frame3[OAM_DATA_SIZE(1)] = {
     0x1,
     0xf0, OBJ_SIZE_32x32 | 0x1f0, 0x1074
 };
 
 const struct FrameData sKraidRisingOam_Samus[3] = {
-    sKraidRisingOam_Samus_Frame0,
-    4,
-    sKraidRisingOam_Samus_Frame1,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sKraidRisingOam_Samus_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sKraidRisingOam_Samus_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sKraidRisingOam_Debris[5] = {
-    sKraidRisingOam_Debris_Frame0,
-    4,
-    sKraidRisingOam_Debris_Frame1,
-    4,
-    sKraidRisingOam_Debris_Frame2,
-    4,
-    sKraidRisingOam_Debris_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sKraidRisingOam_Debris_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sKraidRisingOam_Debris_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sKraidRisingOam_Debris_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sKraidRisingOam_Debris_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sKraidRisingOam_SmallPuff[5] = {
-    sKraidRisingOam_SmallPuff_Frame0,
-    4,
-    sKraidRisingOam_SmallPuff_Frame1,
-    4,
-    sKraidRisingOam_SmallPuff_Frame2,
-    4,
-    sKraidRisingOam_SmallPuff_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sKraidRisingOam_SmallPuff_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sKraidRisingOam_SmallPuff_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sKraidRisingOam_SmallPuff_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sKraidRisingOam_SmallPuff_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const struct FrameData sKraidRisingOam_BigPuff[5] = {
-    sKraidRisingOam_BigPuff_Frame0,
-    4,
-    sKraidRisingOam_BigPuff_Frame1,
-    4,
-    sKraidRisingOam_BigPuff_Frame2,
-    4,
-    sKraidRisingOam_BigPuff_Frame3,
-    4,
-    NULL,
-    0
+    [0] = {
+        .pFrame = sKraidRisingOam_BigPuff_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = {
+        .pFrame = sKraidRisingOam_BigPuff_Frame1,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [2] = {
+        .pFrame = sKraidRisingOam_BigPuff_Frame2,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [3] = {
+        .pFrame = sKraidRisingOam_BigPuff_Frame3,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [4] = FRAME_DATA_TERMINATOR
 };
 
 const u16 sKraidRisingCloseUpPal[5 * 16] = INCBIN_U16("data/cutscenes/KraidRising/CloseUp.pal");

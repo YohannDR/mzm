@@ -13,28 +13,30 @@
 #include "structs/samus.h"
 #include "structs/sprite.h"
 
+#define ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY work0
+
 /**
  * @brief 2dc78 | 60 | Initializes an escape ship space pirate sprite
  * 
  */
 void EscapeShipSpacePirateInit(void)
 {
-    gCurrentSprite.drawDistanceTop = 0x40;
-    gCurrentSprite.drawDistanceBottom = 0x8;
-    gCurrentSprite.drawDistanceHorizontal = 0x28;
+    gCurrentSprite.drawDistanceTop = SUB_PIXEL_TO_PIXEL(4 * BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottom = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTop = -0xA0;
-    gCurrentSprite.hitboxBottom = 0x0;
+    gCurrentSprite.hitboxTop = -(2 * BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottom = 0;
 
-    gCurrentSprite.health = 0x0;
+    gCurrentSprite.health = 0;
     gCurrentSprite.scaling = Q_8_8(1.f);
-    gCurrentSprite.work2 = 0x0;
-    gCurrentSprite.rotation = 0x0;
+    gCurrentSprite.work2 = 0;
+    gCurrentSprite.rotation = 0;
     gCurrentSprite.samusCollision = SSC_NONE;
 
     gCurrentSprite.pOam = sSpacePirateOAM_Jumping;
-    gCurrentSprite.currentAnimationFrame = 0x6;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 6;
+    gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_SPAWN;
     SpacePirateFlip();
@@ -47,44 +49,43 @@ void EscapeShipSpacePirateInit(void)
 void EscapeShipSpacePirateSpawn(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.work0 = 0x6;
+    gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY = CONVERT_SECONDS(.1f);
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING;
 
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteId);
 
-    gCurrentSprite.drawOrder = 0xC;
+    gCurrentSprite.drawOrder = 12;
 }
 
 /**
- * @brief 2dd1c | 7c | 
+ * @brief 2dd1c | 7c | Handle delay and set an escape ship space pirate to jump
  * 
  */
 void EscapeShipSpacePirateDelayBeforeJumping(void)
 {
-    gCurrentSprite.work0--;
-
-    if (gCurrentSprite.work0 == 0x0)
+    APPLY_DELTA_TIME_DEC(gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY);
+    if (gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY == 0)
     {
-        gCurrentSprite.drawOrder = 0x4;
+        gCurrentSprite.drawOrder = 4;
         gCurrentSprite.pose = SPACE_PIRATE_POSE_JUMPING;
 
-        gCurrentSprite.work1 = 0x3;
+        gCurrentSprite.work1 = 3;
 
-        gCurrentSprite.work3 = 0x0;
-        gCurrentSprite.work0 = 0x0;
+        gCurrentSprite.work3 = 0;
+        gCurrentSprite.ESCAPE_SHIP_SPACE_PIRATE_JUMP_DELAY = 0;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_DOUBLE_SIZE;
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
             if (gSamusData.xPosition < gCurrentSprite.xPosition)
-                gCurrentSprite.work2 = 0x0;
+                gCurrentSprite.work2 = 0;
         }
         else
         {
             if (gSamusData.xPosition > gCurrentSprite.xPosition)
-                gCurrentSprite.work2 = 0x0;
+                gCurrentSprite.work2 = 0;
         }
     }
 }
@@ -105,29 +106,30 @@ void EscapeShipSpacePirate(void)
 
     if (gCurrentSprite.pose < 0x62)
     {
-        if (gCurrentSprite.freezeTimer != 0x0)
+        if (gCurrentSprite.freezeTimer != 0)
         {
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                if (gFrameCounter8Bit & 0x1)
-                    gCurrentSprite.freezeTimer--;
+                if (MOD_AND(gFrameCounter8Bit, 2))
+                    APPLY_DELTA_TIME_DEC(gCurrentSprite.freezeTimer);
 
                 freezeTimer = gCurrentSprite.freezeTimer;
                 
-                if (freezeTimer == 0x0)
-                    gCurrentSprite.animationDurationCounter--;
+                if (freezeTimer == 0)
+                    APPLY_DELTA_TIME_DEC(gCurrentSprite.animationDurationCounter);
 
-                if (freezeTimer < 0x2E)
+                if (freezeTimer <= CONVERT_SECONDS(.75f))
                 {
-                    if (freezeTimer & 0x1)
+                    // 2 * DELTA_TIME
+                    if (MOD_AND(freezeTimer, 2))
                     {
-                        gCurrentSprite.paletteRow = 0x1;
-                        gCurrentSprite.absolutePaletteRow = 0x1;
+                        gCurrentSprite.paletteRow = 1;
+                        gCurrentSprite.absolutePaletteRow = 1;
                     }
                     else
                     {
-                        gCurrentSprite.paletteRow = 0x0;
-                        gCurrentSprite.absolutePaletteRow = 0x0;
+                        gCurrentSprite.paletteRow = 0;
+                        gCurrentSprite.absolutePaletteRow = 0;
                     }
                 }
                 gCurrentSprite.ignoreSamusCollisionTimer = DELTA_TIME;
@@ -146,12 +148,12 @@ void EscapeShipSpacePirate(void)
             {
                 if (gSpriteDrawOrder[2] == TRUE)
                     gAlarmTimer = ALARM_TIMER_ACTIVE_TIMER;
-                else if (gAlarmTimer == 0x0)
+                else if (gAlarmTimer == 0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
             }
             else
             {
-                if (gAlarmTimer != 0x0 && gCurrentSprite.pose != 0x0)
+                if (gAlarmTimer != 0 && gCurrentSprite.pose != 0)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             }
 
@@ -161,7 +163,7 @@ void EscapeShipSpacePirate(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             EscapeShipSpacePirateInit();
             break;
 

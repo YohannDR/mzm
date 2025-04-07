@@ -2,6 +2,7 @@
 #define AUDIO_STRUCT_H
 
 #include "types.h"
+#include "constants/audio.h"
 
 // Structs
 
@@ -230,22 +231,24 @@ struct MusicInfo {
     u8 occupied;
     u8 unk_2;
     u8 unk_3;
-    u8 unk_4;
+
+    u8 reverb; // unused
     u8 maxSoundChannels;
     u8 volume;
-    u8 unk_7;
+    u8 freqIndex;
+
     u8 unk_8;
     u8 unk_9;
     u8 currentSoundChannel;
     u8 volumeDownFlag;
-    u8 unk_C;
-    u8 unk_D;
-    u8 unk_E;
+    u8 unk_C; // samplesPerFrame / 16
+    u8 unk_D; // unused, number of frames to process sample?
+    u8 unk_E; // 96
     u8 unk_F;
-    u8 sampleRate;
-    u8 unk_11;
-    u16 maybe_frequency;
-    u32 unk_14;
+    u8 unk_10; // 95
+    u8 unk_11; // (samplesPerFrame / 16) * 2
+    u16 sampleRate;
+    u32 unk_14; // unused, samples per frame
     u32 pitch;
     u16 musicTrack;
     u16 unk_1E;
@@ -253,7 +256,7 @@ struct MusicInfo {
     u8 priority;
     u16 musicTrackOnTransition;
     u32 musicRawData[768];
-    u8 soundRawData[3072];
+    u8 soundRawData[PCM_DMA_BUF_SIZE * 2];
     struct SoundChannel soundChannels[11];
 };
 

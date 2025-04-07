@@ -336,37 +336,37 @@ SECTIONS {
         . = 0x00005820; gMultiBootParamData = .;
         . = 0x0000586c; gDataSentPointer = .;
         . = 0x00005870; gDataSentSize = .;
-        . = 0x00005874; gUnk_3005874 = .;
-        . = 0x00005880; gUnk_3005880 = .;
-        . = 0x00005884; gUnk_3005884 = .;
-        . = 0x00005888; gUnk_3005888 = .;
-        . = 0x00005890; gUnk_3005890 = .;
-        . = 0x000058a8; gUnk_30058a8 = .;
-        . = 0x000058aa; gUnk_30058aa = .;
-        . = 0x000058ac; gUnk_30058ac = .;
-        . = 0x000058ae; gUnk_30058ae = .;
-        . = 0x000058af; gUnk_30058af = .;
-        . = 0x000058b0; gUnk_30058b0 = .;
-        . = 0x000058b1; gUnk_30058b1 = .;
+        . = 0x00005874; gMultibootErrorFlags = .;
+        . = 0x00005880; gMultibootUnk_3005880 = .;
+        . = 0x00005884; gMultibootInProgress = .;
+        . = 0x00005888; gMultibootRequiredData = .;
+        . = 0x00005890; gCableLinkSerialTransferInfo = .;
+        . = 0x000058a8; gSerialTransferUpdateResult = .;
+        . = 0x000058aa; gCableLinkUnk_30058aa = .;
+        . = 0x000058ac; gSerialTransferDataTimer = .;
+        . = 0x000058ae; gSerialTransferStartupTimer = .;
+        . = 0x000058af; gCableLinkUnk_30058af = .;
+        . = 0x000058b0; gSerialTransferGbaDetectedCount = .;
+        . = 0x000058b1; gSerialTransferGbaId = .;
         . = 0x000058b2; gRegIme_Backup = .;
         . = 0x000058b4; gRegIe_Backup = .;
         . = 0x000058b6; gRegTm3Cnt_H_Backup = .;
         . = 0x000058b8; gRegSiocnt_Backup = .;
         . = 0x000058ba; gRegRcnt_Backup = .;
         . = 0x000058bc; gErrorFlag = .;
-        . = 0x000058c0; gUnk_30058c0 = .;
-        . = 0x000058c4; gUnk_30058c4 = .;
-        . = 0x000058cc; gUnk_30058cc = .;
-        . = 0x000058cd; gUnk_30058cd = .;
-        . = 0x000058ce; gUnk_30058ce = .;
-        . = 0x000058cf; gUnk_30058cf = .;
-        . = 0x000058d0; gUnk_30058d0 = .;
-        . = 0x000058d2; gUnk_30058d2 = .;
-        . = 0x000058d3; gUnk_30058d3 = .;
-        . = 0x000058d5; gUnk_30058d5 = .;
-        . = 0x000058d6; gUnk_30058d6 = .;
-        . = 0x000058d8; gUnk_30058d8 = .;
-        . = 0x000058da; gUnk_30058da = .;
+        . = 0x000058c0; gSendCmd = .;
+        . = 0x000058c4; gRecvCmds = .;
+        . = 0x000058cc; gShouldAdvanceLinkState = .;
+        . = 0x000058cd; gLinkPlayerCount = .;
+        . = 0x000058ce; gLinkLocalId = .;
+        . = 0x000058cf; gLinkUnkFlag9 = .;
+        . = 0x000058d0; gLinkSavedIme = .;
+        . = 0x000058d2; sNumVBlanksWithoutSerialIntr = .;
+        . = 0x000058d3; sSendBufferEmpty = .;
+        . = 0x000058d5; sHandshakePlayerCount = .;
+        . = 0x000058d6; sChecksumAvailable = .;
+        . = 0x000058d8; sSendNonzeroCheck = .;
+        . = 0x000058da; sRecvNonzeroCheck = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
@@ -380,8 +380,8 @@ SECTIONS {
         . = 0x00005AD0; gTrackData2 = .;
         . = 0x00005B10; gTrackData5 = .;
 
-        . = 0x00005b50; gUnk_3005b50 = .;
-        . = 0x00005b54; gUnk_3005b54 = .;
+        . = 0x00005b50; gLastSendQueueCount = .;
+        . = 0x00005b54; gLastRecvQueueCount = .;
         . = 0x00005b60; gCableLinkInfo = .;
 
 
@@ -392,7 +392,7 @@ SECTIONS {
         . = 0x00007ffc; intr_vector = .;
     } >iwram
 
-    rom : ALIGN(2) {
+    .text : ALIGN(2) {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
@@ -577,6 +577,9 @@ SECTIONS {
         src/ending_and_gallery.o(.text);
         src/chozodia_escape.o(.text);
         src/cable_link.o(.text);
+        src/multiboot.o(.text);
+        src/transfer.o(.text);
+        src/link.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -1429,4 +1432,35 @@ SECTIONS {
         src/data/internal_chozodia_escape_data.o(.rodata);
         src/data/nes_metroid.o(.rodata);
     } >rom
+
+    /* DWARF debug sections.
+       Symbols in the DWARF debugging sections are relative to the beginning
+       of the section so we begin them at 0.  */
+
+    /* DWARF 1 */
+    .debug          0 : { *(.debug) }
+    .line           0 : { *(.line) }
+
+    /* GNU DWARF 1 extensions */
+    .debug_srcinfo  0 : { *(.debug_srcinfo) }
+    .debug_sfnames  0 : { *(.debug_sfnames) }
+
+    /* DWARF 1.1 and DWARF 2 */
+    .debug_aranges  0 : { *(.debug_aranges) }
+    .debug_pubnames 0 : { *(.debug_pubnames) }
+
+    /* DWARF 2 */
+    .debug_info     0 : { *(.debug_info .gnu.linkonce.wi.*) }
+    .debug_abbrev   0 : { *(.debug_abbrev) }
+    .debug_line     0 : { *(.debug_line) }
+    .debug_frame    0 : { *(.debug_frame) }
+    .debug_str      0 : { *(.debug_str) }
+    .debug_loc      0 : { *(.debug_loc) }
+    .debug_macinfo  0 : { *(.debug_macinfo) }
+
+    /* Discard everything not specifically mentioned above. */
+    /DISCARD/ :
+    {
+        *(*);
+    }
 }
