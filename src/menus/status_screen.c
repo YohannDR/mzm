@@ -1058,21 +1058,23 @@ u32 StatusScreenSuitlessItems(void)
     ended = FALSE;
 
     if (PAUSE_SCREEN_DATA.subroutineInfo.stage > 5)
-        ended = gUnk_3005804 != 0;
+        ended = gPrevChangedInput != 0;
 
     if (ended)
         return ended;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
-        unk_68ec0();
+    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+    {
+        PauseScreenFadeWireframeSamus();
+    }
     else
     {
         switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
         {
             case 0:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 17)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(4.f / 15))
                     break;
-    
+
                 if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
                 {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
@@ -1096,13 +1098,13 @@ u32 StatusScreenSuitlessItems(void)
                 }
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 break;
-    
+
             case 1:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 9)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(2.f / 15))
                     break;
-    
+
                 StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_TOGGLING);
-    
+
                 switch (gCurrentItemBeingAcquired)
                 {
                     case ITEM_ACQUISITION_PLASMA_BEAM:
@@ -1111,7 +1113,7 @@ u32 StatusScreenSuitlessItems(void)
                         // Play unknown item sound
                         SoundPlay(SOUND_UNKNOWN_ITEM_ACQUISITION);
                         break;
-    
+
                     case ITEM_ACQUISITION_MISSILES:
                     case ITEM_ACQUISITION_SUPER_MISSILES:
                     case ITEM_ACQUISITION_POWER_BOMB:
@@ -1128,18 +1130,18 @@ u32 StatusScreenSuitlessItems(void)
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 break;
-    
+
             case 2:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
                     break;
-    
+
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 if (gDemoState != DEMO_STATE_NONE)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 3;
                 else
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 5;
                 break;
-    
+
             case 3:
                 if (gCurrentMessage.messageEnded)
                 {
@@ -1147,25 +1149,25 @@ u32 StatusScreenSuitlessItems(void)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                     break;
                 }
-    
+
                 TextProcessDescription();
                 break;
-    
+
             case 4:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
                     ended = TRUE;
                 break;
-    
+
             case 5:
                 TextProcessDescription();
                 if (gCurrentMessage.messageEnded)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 7;
                 break;
-    
+
             case 6:
                 TextProcessDescription();
                 break;
-    
+
             case 7:
                 break;
         }
@@ -1254,7 +1256,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
     s32 offset;
 
     ended = FALSE;
-    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer++;
+    APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer);
 
     switch (param_1)
     {
@@ -1268,7 +1270,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             offset = 0;
             if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber < 2)
             {
-                if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 3)
+                if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > CONVERT_SECONDS(.05f))
                 {
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
@@ -1282,7 +1284,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
                     offset = sStatusScreen_40df64[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
                 }
             }
-            else if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 2)
+            else if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer >= CONVERT_SECONDS(.05f))
             {
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
@@ -1304,7 +1306,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             break;
 
         case 2:
-            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 2)
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < CONVERT_SECONDS(1.f / 30))
                 break;
 
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
@@ -1320,7 +1322,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             break;
 
         case 3:
-            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 4)
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer <= CONVERT_SECONDS(.05f))
                 break;
 
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
@@ -1345,9 +1347,9 @@ u32 StatusScreenFullyPoweredItems(void)
     u32 result;
     u8 rightSlot;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
+    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
     {
-        unk_68ec0();
+        PauseScreenFadeWireframeSamus();
         return FALSE;
     }
 
@@ -1355,7 +1357,7 @@ u32 StatusScreenFullyPoweredItems(void)
     {
         case FULLY_POWERED_ITEMS_CHECK_ENABLE_SUIT:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 50)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(5.f / 6))
             {
                 // Update to suit wireframe
                 PauseScreenUpdateWireframeSamus(2);
@@ -1366,7 +1368,7 @@ u32 StatusScreenFullyPoweredItems(void)
 
         case FULLY_POWERED_ITEMS_DELAY:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
                 PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound = TRUE;
@@ -1391,7 +1393,7 @@ u32 StatusScreenFullyPoweredItems(void)
             break;
 
         case FULLY_POWERED_ITEMS_ACTIVATE_NORMAL_SLOT:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 7)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(.1f))
                 break;
             
             // Update row (enables it)
@@ -1567,7 +1569,7 @@ void StatusScreenSubroutine(void)
     // Check leaving status screen
     if (gChangedInput & (KEY_B | KEY_L | KEY_R) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 == 0)
+        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage == 0)
         {
             // Set leaving
             PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN_LEAVING;
@@ -1576,12 +1578,16 @@ void StatusScreenSubroutine(void)
             return;
         }
         else
-            unk_68ec0(); // Transition stuff?
+        {
+            PauseScreenFadeWireframeSamus();
+        }
     }
     else
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
-            unk_68ec0(); // Transition stuff?
+        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+        {
+            PauseScreenFadeWireframeSamus();
+        }
         else if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
         {
             // Check toggling item

@@ -290,8 +290,8 @@ void TransparencySetRoomEffectsTransparency(void)
     write8(REG_WINOUT, 0x20);
     write8(REG_WININ + 1, 0x3F);
 
-    write16(REG_WIN1H, 0xF0);
-    write16(REG_WIN1V, 0xA0);
+    write16(REG_WIN1H, SCREEN_SIZE_X);
+    write16(REG_WIN1V, SCREEN_SIZE_Y);
 
     write16(REG_BG1CNT, bgCnt[1]);
     write16(REG_BG2CNT, bgCnt[2]);

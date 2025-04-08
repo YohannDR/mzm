@@ -31,8 +31,8 @@ extern const u8 sTimeAttackPasswordCharacters[32];
 
 extern const u32 sTimeAttackAntiCheatTimes[4];
 
-extern const u8 sArray_45fd24[3][4];
-extern const u8 sArray_45fd30[3][4];
+extern const u8 sSpriteXHalfRadius[3][4];
+extern const u8 sSpriteYHalfRadius[3][4];
 
 extern const u8 sIntroEmergencyOrderActions[16];
 extern const u8 sIntroExterminateAllActions[52];

@@ -53,6 +53,8 @@ typedef volatile signed long long vs64;
 #define ONE_SUB_PIXEL (PIXEL_SIZE / PIXEL_SIZE)
 // Mask to filter out the sub pixel coordinates, effectively clamping to a pixel
 #define PIXEL_POSITION_FLAG ((u16)~PIXEL_SIZE + ONE_SUB_PIXEL)
+// Mask to filter out the sub pixel coordinates, effectively clamping to half of a block
+#define HALF_BLOCK_POSITION_FLAG ((u16)~HALF_BLOCK_SIZE + ONE_SUB_PIXEL)
 // Mask to filter out the sub pixel coordinates, effectively clamping to a block
 #define BLOCK_POSITION_FLAG ((u16)~BLOCK_SIZE + ONE_SUB_PIXEL)
 // Mask to filter out the block coordinates, resulting in only the sub pixels coordinates in the current block

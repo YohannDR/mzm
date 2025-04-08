@@ -576,7 +576,7 @@ u32 ChozoStatueHintSubroutine(void)
                 sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
             ChozoHintDeterminePath(TRUE);
-            unk_6db58(1);
+            PauseScreenMapSetSpawnPosition(1);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea]);
             PauseScreenUpdateBossIcons();
 
@@ -585,12 +585,12 @@ u32 ChozoStatueHintSubroutine(void)
             break;
 
         case 7:
-            if (PAUSE_SCREEN_DATA.unk_68 != C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L))
+            if (PAUSE_SCREEN_DATA.targetBldAlpha != C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L))
             {
-                if ((PAUSE_SCREEN_DATA.unk_68 >> 8) > gWrittenToBLDALPHA_H)
+                if ((PAUSE_SCREEN_DATA.targetBldAlpha >> 8) > gWrittenToBLDALPHA_H)
                     gWrittenToBLDALPHA_H++;
 
-                if ((PAUSE_SCREEN_DATA.unk_68 & 0xFF) > gWrittenToBLDALPHA_L)
+                if ((PAUSE_SCREEN_DATA.targetBldAlpha & 0xFF) > gWrittenToBLDALPHA_L)
                     gWrittenToBLDALPHA_L++;
             }
             else

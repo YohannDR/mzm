@@ -13,8 +13,8 @@ const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty = {
     .padding_1 = { 0, 0, 0 },
     .stage = 0,
     .timer = 0,
-    .unk_8 = 0,
-    .unk_A = 0
+    .fadeWireframeStage = 0,
+    .fadeWireframeTimer = 0
 };
 
 const u32* const sMapScreenAreaNamesGfxPointers[LANGUAGE_END] = {

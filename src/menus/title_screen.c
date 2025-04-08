@@ -26,6 +26,7 @@ void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageDa
 {
     u16 value;
 
+    // value = CREATE_BGCNT(pPageData->graphicsPage, pPageData->tiletablePage, pPageData->priority, pPageData->screenSize);
     value = pPageData->priority | pPageData->screenSize | pPageData->tiletablePage << BGCNT_SCREEN_BASE_BLOCK_SHIFT |
         pPageData->graphicsPage << BGCNT_CHAR_BASE_BLOCK_SHIFT;
 

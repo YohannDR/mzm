@@ -26,12 +26,12 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     
     s32 y;    
     s32 x;
-    s32 xOffset;
-    s32 yOffset;
+    s32 xOrigin;
+    s32 yOrigin;
     u8 shape;
     u8 size;
-    u8 unk_0;
-    u8 unk_1;
+    u8 xHalfRadius;
+    u8 yHalfRadius;
     s32 unk_2;
     s32 unk_3;
     s32 tmpX;
@@ -43,50 +43,53 @@ u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s1
     _doubleSize = doubleSize;
     _matrixNum = matrixNum;
 
-    xOffset = (s16)((u16)xPosition + BLOCK_SIZE);
-    yOffset = (s16)((u16)yPosition + BLOCK_SIZE);
+    xOrigin = (s16)((u16)xPosition + BLOCK_SIZE);
+    yOrigin = (s16)((u16)yPosition + BLOCK_SIZE);
 
     shape = gOamData[oamSlot].split.shape;
     size = gOamData[oamSlot].split.size;
 
-    unk_0 = sArray_45fd24[shape][size];
-    unk_1 = sArray_45fd30[shape][size];
+    xHalfRadius = sSpriteXHalfRadius[shape][size];
+    yHalfRadius = sSpriteYHalfRadius[shape][size];
 
-    x = MOD_AND((s16)(gOamData[oamSlot].split.x + xOffset), 512);
-    y = MOD_AND((s16)(gOamData[oamSlot].split.y + yOffset), 256);
+    x = MOD_AND((s16)(gOamData[oamSlot].split.x + xOrigin), 512);
+    y = MOD_AND((s16)(gOamData[oamSlot].split.y + yOrigin), 256);
 
-    tmpX = (s16)(x - xOffset + unk_0);
-    tmpY = (s16)(y - yOffset + unk_1);
+    tmpX = (s16)(x - xOrigin + xHalfRadius);
+    tmpY = (s16)(y - yOrigin + yHalfRadius);
 
+    // Scale x and y
     scaledX = (s16)(Q_24_8_TO_INT(tmpX * _scaling) - tmpX);
     scaledY = (s16)(Q_24_8_TO_INT(tmpY * _scaling) - tmpY);
 
     x = (s16)(x + scaledX);
     y = (s16)(y + scaledY);
 
-    unk_2 = (s16)(x - xOffset + unk_0);
-    unk_3 = (s16)(y - yOffset + unk_1);
+    unk_2 = (s16)(x - xOrigin + xHalfRadius);
+    unk_3 = (s16)(y - yOrigin + yHalfRadius);
 
+    // Rotate x and y
     x = Q_8_8_TO_SHORT(unk_2 * cos(rotation) - unk_3 * sin(rotation));
     y = Q_8_8_TO_SHORT(unk_2 * sin(rotation) + unk_3 * cos(rotation));
 
     if (!_doubleSize)
     {
-        gOamData[oamSlot].split.affineMode = 1;
+        gOamData[oamSlot].split.affineMode = OAM_AFFINE_MODE_AFFINE;
 
-        x = (s16)(x - unk_0);
-        y = (s16)(y - unk_1);
+        x = (s16)(x - xHalfRadius);
+        y = (s16)(y - yHalfRadius);
     }
     else
     {
-        gOamData[oamSlot].split.affineMode = 3;
+        gOamData[oamSlot].split.affineMode = OAM_AFFINE_MODE_DOUBLE_SIZED;
 
-        x = (s16)(x - unk_0 * 2);
-        y = (s16)(y - unk_1 * 2);
+        x = (s16)(x - xHalfRadius * 2);
+        y = (s16)(y - yHalfRadius * 2);
     }
 
-    gOamData[oamSlot].split.x = MOD_AND(x + xOffset - BLOCK_SIZE, 512);
-    gOamData[oamSlot].split.y = MOD_AND(y + yOffset - BLOCK_SIZE, 256);
+    // Update rotated x and y in OAM
+    gOamData[oamSlot].split.x = MOD_AND(x + xOrigin - BLOCK_SIZE, 512);
+    gOamData[oamSlot].split.y = MOD_AND(y + yOrigin - BLOCK_SIZE, 256);
 
     if (gOamData[oamSlot].split.xFlip)
     {
@@ -136,8 +139,6 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u16 oamSlot)
     s32 dy2;
     s32 dmy2;
 
-    s32 idx;
-
     negativeScaling = scaling; // Needed to produce matching ASM.
     _oamSlot = oamSlot; // Needed to produce matching ASM
     dy1 = FixedMultiplication(cos(rotation), FixedInverse(scaling));
@@ -154,8 +155,7 @@ void CalculateOamPart4(u16 rotation, s16 scaling, u16 oamSlot)
     dmy2 = FixedMultiplication(-sin(rotation), FixedInverse(negativeScaling));
 
     gOamData[_oamSlot].all.affineParam = dy1;
-    idx = _oamSlot + 1; // Needed to produce matching ASM.
-    gOamData[idx].all.affineParam = dmy1;
+    gOamData[_oamSlot + 1].all.affineParam = dmy1;
     gOamData[_oamSlot + 2].all.affineParam = dx1;
     gOamData[_oamSlot + 3].all.affineParam = dy1;
     gOamData[_oamSlot + 4].all.affineParam = dmx1;
