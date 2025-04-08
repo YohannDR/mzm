@@ -12,6 +12,7 @@
 #include "structs/menus/title_screen.h"
 #include "structs/menus/erase_sram.h"
 #include "structs/menus/file_select.h"
+#include "structs/menus/boot_debug.h"
 #include "structs/fusion_gallery.h"
 #include "structs/chozodia_escape.h"
 #include "structs/tourian_escape.h"
@@ -32,6 +33,7 @@ union NonGameplayRAM {
     struct FusionGalleryData fusionGallery;
     struct ChozodiaEscapeData chozodiaEscape;
     struct TourianEscapeData tourianEscape;
+    struct BootDebugData bootDebug;
     u8 inGame[1576];
 };
 

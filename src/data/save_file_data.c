@@ -69,9 +69,10 @@ const u8 sUnk_411520[4] = {
     8, 8, 0, 0
 };
 
-const struct StartingInfo sStartingInfo = {
-    .startingArea = AREA_CRATERIA,
-    .unk_1 = 5,
-    .unk_2 = 0,
-    .unk_3 = 0
+const struct SectionInfo sSectionInfo = {
+    .sectionIndex = AREA_CRATERIA,
+    .starIndex = AREA_CRATERIA,
+    .downloadedMaps = 0,
+    .onMapScreen = FALSE,
+    .unk_3_1 = 0
 };

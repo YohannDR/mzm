@@ -29,6 +29,8 @@ extern vu16 gVBlankRequestFlag;
 extern u8 gDisableSoftreset;
 extern u8 gDebugFlag;
 extern u8 gSramErrorFlag;
+extern u8 gDisableMusic;
+extern u8 gDisableCutscenes_Unused;
 extern s8 gDisablePause;
 extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;

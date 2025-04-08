@@ -2029,14 +2029,14 @@ void unk_7584c(u8 param_1)
     switch (param_1)
     {
         case 0:
-            gStartingInfo = sStartingInfo;
+            gSectionInfo = sSectionInfo;
             Sram_CheckLoadSaveFile();
 
             gCurrentCutscene = 0;
             break;
 
         case 1:
-            gStartingInfo = sStartingInfo;
+            gSectionInfo = sSectionInfo;
             Sram_InitSaveFile();
             gCurrentRoom = 0;
             gLastDoorUsed = 0;
@@ -2085,8 +2085,8 @@ void Sram_CheckLoadSaveFile(void)
         gColorFading.type = COLOR_FADING_LANDING_SHIP;
 
         gEquipment.downloadedMapStatus = 0;
-        gCurrentArea = gStartingInfo.startingArea;
-        gAreaBeforeTransition = gStartingInfo.startingArea;
+        gCurrentArea = gSectionInfo.sectionIndex;
+        gAreaBeforeTransition = gSectionInfo.sectionIndex;
         
         gCurrentRoom = 0;
         gLastDoorUsed = 0;

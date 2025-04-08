@@ -70,6 +70,8 @@ SECTIONS {
         . = 0x0000003c; gResetGame = .;
         . = 0x0000003D; gDisableScrolling = .;
         . = 0x0000003E; gSlowScrollingTimer = .;
+        . = 0x00000040; gDisableMusic = .;
+        . = 0x00000041; gDisableCutscenes_Unused = .;
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
@@ -189,7 +191,7 @@ SECTIONS {
         . = 0x00000c20; gUnk_3000c20 = .;
         . = 0x00000c21; gSramOperationStage = .;
         . = 0x00000c24; gSaveFilesInfo = .;
-        . = 0x00000c6c; gStartingInfo = .;
+        . = 0x00000c6c; gSectionInfo = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
