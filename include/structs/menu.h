@@ -36,6 +36,6 @@ struct MaintainedInput {
 };
 
 extern struct MaintainedInput gMaintainedInputData;
-extern u16 gUnk_3005804;
+extern u16 gPrevChangedInput;
 
 #endif /* MENU_OAM_H */

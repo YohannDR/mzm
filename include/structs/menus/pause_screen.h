@@ -36,8 +36,8 @@ struct PauseScreenWireframeData {
     u16 yPosition;
     u16 xOffset;
     u8 objMode;
-    u16 unk_A;
-    u16 unk_C;
+    u16 xPosition2; // TODO: better name
+    u16 yPosition2;
 };
 
 struct WorldMapData {
@@ -66,8 +66,8 @@ struct PauseScreenSubroutineData {
     u8 padding_1[3];
     u8 stage;
     u16 timer;
-    u8 unk_8;
-    u16 unk_A;
+    u8 fadeWireframeStage;
+    u16 fadeWireframeTimer; // set but never read
 };
 
 struct UnknownItemPalette {
@@ -93,7 +93,7 @@ struct ChozoHintRelated {
 struct MapScreenFading {
     u8 stage;
     u8 colorToApply;
-    u8 unk_2;
+    u8 paletteUpdated;
 };
 
 struct StatusScreenData {
@@ -132,7 +132,7 @@ struct PauseScreenEwramData {
     u16 unk_5000[1024];
     u16 unk_5800[1024];
     u16 unk_6000[1024];
-    u16 unk_6800[512];
+    u16 originalBackgroundPalette[512];
     u16 backgroundPalette[512];
     u16 statusScreenTilemap[1024];
     u16 unk_7800[1024];
@@ -215,7 +215,7 @@ struct PauseScreenData {
     u8 downloadStage;
     u8 unk_4F;
     u8 currentDownloadedLine;
-    u8 unk_51;
+    u8 downloadLineTrailOamOffsetIndex;
 
     u8 padding_52[4];
 
@@ -231,23 +231,25 @@ struct PauseScreenData {
     u16 bg2cnt;
     u16 bg3cnt;
     u16 bldcnt;
+    u16 targetBldAlpha;
 
-    u16 unk_68;
-    u16 unk_6A;
-    u16 unk_6C;
-    u16 unk_6E;
-    u16 unk_70;
-    u16 unk_72;
-    u16 unk_74;
-    u16 unk_76;
-    u16 unk_78;
-    u16 unk_7A;
-    u8 unk_7C;
-    u8 unk_7D;
-    u8 unk_7E;
-    s8 unk_7F;
-    u8 unk_80;
-    u8 unk_81;
+    // TODO: naming
+    u16 unk_6A; // bg0 cnt default
+    u16 unk_6C; // bg3 cnt always
+    u16 unk_6E; // bg cnt, set, never read
+    u16 unk_70; // bg0 cnt for PAUSE_SCREEN_TYPE_DOWNLOADING_MAP, bg1 cnt default
+    u16 unk_72; // bg2 cnt for !PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM or exiting status screen
+    u16 unk_74; // bg2 cnt for PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM or starting status screen
+    u16 unk_76; // bg cnt, set, never read
+    u16 unk_78; // bg2 cnt, debug?
+    u16 unk_7A; // bg cnt, set, never read, debug?
+
+    u8 isFading;
+    u8 bldAlphaStepLevel;
+    u8 bldAlphaStepTimer; // essesntially always 0
+    s8 bldAlphaStepDelayThreshold; // always 0
+    u8 targetBldAlpha_L;
+    u8 targetBldAlpha_H;
 
     u8 padding_82[10];
 

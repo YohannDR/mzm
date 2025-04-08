@@ -12,7 +12,7 @@ u32 PauseScreenMapDownloadSubroutine(void);
 u32 PauseScreenMapDownloadInstant_Unused(void);
 u32 PauseScreenMapDownloadInstantWithLine_Unused(void);
 u32 PauseScreenMapDownload(void);
-void unk_6db58(u8 param_1);
+void PauseScreenMapSetSpawnPosition(u8 spawnOption);
 void PauseScreenMapGetAbsoluteMapBordersPositions(void);
 void PauseScreenMapUpdateMapBordersForTargets(void);
 void PauseScreenGetAllMinimapData(u8 start);

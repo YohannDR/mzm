@@ -74,13 +74,14 @@ struct FileSelectData {
     u16 fadingTimer;
     u8 fadingIntensity;
     u8 fadingFrequency;
-    u16 unk_14;
-    u16 unk_16;
-    u16 unk_18;
-    u16 unk_1A;
-    u16 unk_1C;
-    u16 unk_1E;
-    u16 unk_20;
+
+    u16 unk_14; // bg3 cnt
+    u16 unk_16; // bg2 cnt
+    u16 unk_18; // bg1 cnt
+    u16 unk_1A; // bg2 cnt
+    u16 unk_1C; // bg1 cnt
+    u16 unk_1E; // bg0 cnt
+    u16 unk_20; // bg2 cnt
     u8 padding_22[2];
 
     u8 unk_24;

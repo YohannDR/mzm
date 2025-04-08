@@ -2894,11 +2894,11 @@ const u8 sUnused_40d078[16] = {
     0x4, 0, 0, 0
 };
 
-const u16 sPauseScreen_40d088[4] = {
-    [0] = 0,
-    [1] = 1,
-    [2] = 2,
-    [3] = 3
+const u16 sPauseScreen_BgCntPriority[4] = {
+    [BGCNT_HIGH_PRIORITY] = BGCNT_HIGH_PRIORITY,
+    [BGCNT_HIGH_MID_PRIORITY] = BGCNT_HIGH_MID_PRIORITY,
+    [BGCNT_LOW_MID_PRIORITY] = BGCNT_LOW_MID_PRIORITY,
+    [BGCNT_LOW_PRIORITY] = BGCNT_LOW_PRIORITY
 };
 
 const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_AREAS] = {
@@ -3012,69 +3012,69 @@ const u16 sPauseScreen_40d102[5] = {
     1, 10, 100, 1000, 10000
 };
 
-const struct PauseScreenWireframeData sSamusWireframeData[7] = {
-    [0] = {
+const struct PauseScreenWireframeData sSamusWireframeData[SAMUS_WIREFRAME_DATA_END] = {
+    [SAMUS_WIREFRAME_DATA_ENERGY] = {
         .oamId = MISC_OAM_ID_ENERGY_HEADER,
         .xPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 15,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
-        .unk_C = BLOCK_SIZE - QUARTER_BLOCK_SIZE 
+        .xPosition2 = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
+        .yPosition2 = BLOCK_SIZE - QUARTER_BLOCK_SIZE 
     },
-    [1] = {
+    [SAMUS_WIREFRAME_DATA_BEAM] = {
         .oamId = MISC_OAM_ID_BEAM_HEADER,
         .xPosition = -QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 16,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 4,
-        .unk_C = BLOCK_SIZE * 2
+        .xPosition2 = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 4,
+        .yPosition2 = BLOCK_SIZE * 2
     },
-    [2] = {
+    [SAMUS_WIREFRAME_DATA_MISSILE] = {
         .oamId = MISC_OAM_ID_MISSILE_HEADER,
         .xPosition = -QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 17,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE * 4 + 4,
-        .unk_C = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 4
+        .xPosition2 = BLOCK_SIZE * 4 + 4,
+        .yPosition2 = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 4
     },
-    [3] = {
+    [SAMUS_WIREFRAME_DATA_BOMB] = {
         .oamId = MISC_OAM_ID_BOMB_HEADER,
         .xPosition = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE * 9 + 4,
-        .unk_C = BLOCK_SIZE
+        .xPosition2 = BLOCK_SIZE * 9 + 4,
+        .yPosition2 = BLOCK_SIZE
     },
-    [4] = {
+    [SAMUS_WIREFRAME_DATA_SUIT] = {
         .oamId = MISC_OAM_ID_SUIT_HEADER,
         .xPosition = BLOCK_SIZE * 10 - QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 10 - QUARTER_BLOCK_SIZE,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE * 10 + 4,
-        .unk_C = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 4
+        .xPosition2 = BLOCK_SIZE * 10 + 4,
+        .yPosition2 = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 4
     },
-    [5] = {
+    [SAMUS_WIREFRAME_DATA_MISC] = {
         .oamId = MISC_OAM_ID_MISC_HEADER,
         .xPosition = BLOCK_SIZE * 10 - QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE,
         .xOffset = BLOCK_SIZE * 11 - QUARTER_BLOCK_SIZE,
         .objMode = 0,
-        .unk_A = BLOCK_SIZE * 10 + 4,
-        .unk_C = BLOCK_SIZE * 4 + HALF_BLOCK_SIZE + 4
+        .xPosition2 = BLOCK_SIZE * 10 + 4,
+        .yPosition2 = BLOCK_SIZE * 4 + HALF_BLOCK_SIZE + 4
     },
-    [6] = {
+    [SAMUS_WIREFRAME_DATA_SAMUS_POWER_SUIT_WIREFRAME] = {
         .oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME,
         .xPosition = BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .xOffset = 0,
         .objMode = 1,
-        .unk_A = BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE,
-        .unk_C = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE
+        .xPosition2 = BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE,
+        .yPosition2 = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE
     }
 };
 
@@ -3157,7 +3157,14 @@ const u16 sWorldMapTargetPositions[16][2] = {
     [15] = { 0, 0 }
 };
 
-const u8 sBossIcons[MAX_AMOUNT_OF_AREAS - 1][5] = {
+/**
+ * 0 : Associated event
+ * 1 : Boss icon OAM ID
+ * 2 : X position
+ * 3 : Y position
+ * 4 : X offset
+ */
+const u8 sBossIcons[AREA_NORMAL_COUNT][5] = {
     [AREA_BRINSTAR] = {
         EVENT_NONE,
         0,
@@ -3934,12 +3941,12 @@ const struct MinimapAreaName sMinimapAreaNames[10] = {
 const u8 sPauseScreen_40d6fc[80] = INCBIN_U8("data/menus/PauseScreen/40d6fc.gfx");
 const u8 sPauseScreen_40d74c[80] = INCBIN_U8("data/menus/PauseScreen/40d74c.gfx");
 
-u8* const sPauseScreen_40d79c[5] = {
-    VRAM_BASE + 0x16360,
-    VRAM_BASE + 0x16760,
-    VRAM_BASE + 0x16B60,
-    VRAM_BASE + 0x16F60,
-    VRAM_BASE + 0x17300,
+u8* const sPauseScreen_IgtAndTanksVramAddresses[IGT_AND_TANKS_VRAM_ADDRESS_END] = {
+    [IGT_AND_TANKS_VRAM_ADDRESS_ENERGY_TANKS] = VRAM_BASE + 0x16360,
+    [IGT_AND_TANKS_VRAM_ADDRESS_MISSILE_TANKS] = VRAM_BASE + 0x16760,
+    [IGT_AND_TANKS_VRAM_ADDRESS_SUPER_MISSILE_TANKS] = VRAM_BASE + 0x16B60,
+    [IGT_AND_TANKS_VRAM_ADDRESS_POWER_BOMB_TANKS] = VRAM_BASE + 0x16F60,
+    [IGT_AND_TANKS_VRAM_ADDRESS_TIME] = VRAM_BASE + 0x17300,
 };
 
 // TODO use char defines

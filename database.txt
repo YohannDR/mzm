@@ -1264,7 +1264,7 @@ menus/PauseScreen/40dcd0.pal;16;0x40dcd0;2
 
 menus/PauseScreen/sMinimapTiles.gfx;5120;0x40e0c4;1
 menus/PauseScreen/40f4c4.gfx;1792;0x40f4c4;4
-menus/PauseScreen/MapScreenAreaNamesGfx;167;0x4110c4;4
+menus/PauseScreen/MapScreenAreaNamesGfx.gfx.lz;167;0x4110c4;4
 
 menus/PauseScreen/MinimapTiles.pal;80;0x411360;2
 
