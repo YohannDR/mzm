@@ -566,7 +566,9 @@ SECTIONS {
         src/menus/pause_screen_sub_menus.o(.text);
         src/save_file.o(.text);
 
+#ifdef DEBUG
         src/menus/boot_debug.o(.text);
+#endif
 
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
@@ -1044,7 +1046,9 @@ SECTIONS {
         src/data/menus/pause_screen_map_data.o(.rodata);
         src/data/save_file_data.o(.rodata);
 
+#ifdef DEBUG
         src/data/menus/boot_debug_data.o(.rodata);
+#endif
 
         src/data/menus/erase_sram_data.o(.rodata);
         src/data/text_data.o(.rodata);

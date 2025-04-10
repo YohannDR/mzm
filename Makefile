@@ -55,6 +55,7 @@ endif
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
 DUMPS = $(BASEROM:.gba=.dump) $(TARGET:.gba=.dump)
+LD_SCRIPT = linker.ld.pp
 
 # ROM header
 MAKER_CODE = 01
@@ -135,7 +136,9 @@ clean:
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
 	$(MSG) RM data/
-	$Q$(RM) -r data	
+	$Q$(RM) -r data
+	$(MSG) RM linker.ld.pp
+	$Q$(RM) linker.ld.pp
 
 .PHONY: help
 help:
@@ -156,9 +159,13 @@ $(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) GBAFIX $@
 	$Q$(GBAFIX) $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION)
 
-$(ELF) $(MAP): $(OBJ) linker.ld
+$(ELF) $(MAP): $(OBJ) $(LD_SCRIPT)
 	$(MSG) LD $@
-	$Q$(LD) $(LDFLAGS) -n -T linker.ld -Map=$(MAP) -o $@
+	$Q$(LD) $(LDFLAGS) -n -T $(LD_SCRIPT) -Map=$(MAP) -o $@
+
+$(LD_SCRIPT): linker.ld
+	$(MSG) CPP $@
+	$Q$(CPP) $(CPPFLAGS) $< -o $@
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
