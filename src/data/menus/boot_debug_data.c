@@ -4,7 +4,7 @@
 #include "oam.h"
 #include "structs/cutscene.h"
 
-extern const u8 sEasyHardEventActions[3][2] = {
+const u8 sEasyHardEventActions[3][2] = {
     [DIFF_EASY] = {EVENT_ACTION_SETTING, EVENT_ACTION_CLEARING},
     [DIFF_NORMAL] = {EVENT_ACTION_CLEARING, EVENT_ACTION_CLEARING},
     [DIFF_HARD] = {EVENT_ACTION_CLEARING, EVENT_ACTION_SETTING}
@@ -14,32 +14,32 @@ const u16 sBootDebugBgPal[128] = INCBIN_U16("debug_data/BootDebugBg.pal");
 const u16 sBootDebugObjPal[48] = INCBIN_U16("debug_data/BootDebugObj.pal");
 const u32 sBootDebugObjGfx[222] = INCBIN_U32("debug_data/BootDebugObj.gfx.lz");
 
-const u16 sBootDebugOam_4185D8_Frame1[OAM_DATA_SIZE(1)] = {
+static const u16 sBootDebugOam_4185D8_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     0x0, 0x0, 0x1000
 };
 
-const u16 sBootDebugOam_4185B0_Frame0[OAM_DATA_SIZE(1)] = {
+static const u16 sBootDebugOam_4185B0_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0x0, 0x1f6, 0x2044
 };
 
-const u16 sBootDebugOam_4185B0_Frame1[OAM_DATA_SIZE(1)] = {
+static const u16 sBootDebugOam_4185B0_Frame1[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0x0, 0x1f7, 0x2044
 };
 
-const u16 sBootDebugOam_4185B0_Frame2[OAM_DATA_SIZE(1)] = {
+static const u16 sBootDebugOam_4185B0_Frame2[OAM_DATA_SIZE(1)] = {
     0x1,
     OBJ_SHAPE_VERTICAL | 0x0, 0x1f8, 0x2044
 };
 
-const u16 sBootDebugOam_4185D8_Frame0[OAM_DATA_SIZE(1)] = {
+static const u16 sBootDebugOam_4185D8_Frame0[OAM_DATA_SIZE(1)] = {
     0x1,
     0x3, 0x0, 0x2065
 };
 
-const u16 sBootDebugOam_4185F0_Frame0[OAM_DATA_SIZE(4)] = {
+static const u16 sBootDebugOam_4185F0_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0x0, 0x1fa, 0x2047,
     0x8, OBJ_Y_FLIP | 0x1fa, 0x2047,
@@ -47,7 +47,7 @@ const u16 sBootDebugOam_4185F0_Frame0[OAM_DATA_SIZE(4)] = {
     0x8, OBJ_X_FLIP | OBJ_Y_FLIP | 0x34, 0x2047
 };
 
-const u16 sBootDebugOam_418600_Frame0[OAM_DATA_SIZE(45)] = {
+static const u16 sBootDebugOam_418600_Frame0[OAM_DATA_SIZE(45)] = {
     0x2d,
     0x0, 0x0, 0x1031,
     0x0, 0x10, 0x1021,
@@ -96,7 +96,7 @@ const u16 sBootDebugOam_418600_Frame0[OAM_DATA_SIZE(45)] = {
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_X_FLIP | 0x1f8, 0x100c
 };
 
-const u16 sBootDebugOam_418610_Frame0[OAM_DATA_SIZE(4)] = {
+static const u16 sBootDebugOam_418610_Frame0[OAM_DATA_SIZE(4)] = {
     0x4,
     0xfc, 0x1fc, 0x2046,
     0xfc, OBJ_X_FLIP | 0x4, 0x2046,
@@ -104,7 +104,7 @@ const u16 sBootDebugOam_418610_Frame0[OAM_DATA_SIZE(4)] = {
     0x4, OBJ_X_FLIP | OBJ_Y_FLIP | 0x4, 0x2046
 };
 
-const u16 sBootDebugOam_418610_Frame1[OAM_DATA_SIZE(4)] = {
+static const u16 sBootDebugOam_418610_Frame1[OAM_DATA_SIZE(4)] = {
     0x4,
     0xfb, 0x1fb, 0x2046,
     0xfb, OBJ_X_FLIP | 0x5, 0x2046,
@@ -112,7 +112,7 @@ const u16 sBootDebugOam_418610_Frame1[OAM_DATA_SIZE(4)] = {
     0x5, OBJ_X_FLIP | OBJ_Y_FLIP | 0x5, 0x2046
 };
 
-const u16 sBootDebugOam_418610_Frame2[OAM_DATA_SIZE(4)] = {
+static const u16 sBootDebugOam_418610_Frame2[OAM_DATA_SIZE(4)] = {
     0x4,
     0xfa, 0x1fa, 0x2046,
     0xfa, OBJ_X_FLIP | 0x6, 0x2046,
@@ -120,7 +120,7 @@ const u16 sBootDebugOam_418610_Frame2[OAM_DATA_SIZE(4)] = {
     0x6, OBJ_X_FLIP | OBJ_Y_FLIP | 0x6, 0x2046
 };
 
-const struct FrameData sBootDebugOam_4185B0[5] = {
+static const struct FrameData sBootDebugOam_4185B0[5] = {
    [0] = {
        .pFrame = sBootDebugOam_4185B0_Frame0,
        .timer = CONVERT_SECONDS(0.2f)
@@ -140,7 +140,7 @@ const struct FrameData sBootDebugOam_4185B0[5] = {
    [4] = FRAME_DATA_TERMINATOR
 };
 
-const struct FrameData sBootDebugOam_4185D8[3] = {
+static const struct FrameData sBootDebugOam_4185D8[3] = {
    [0] = {
        .pFrame = sBootDebugOam_4185D8_Frame0,
        .timer = CONVERT_SECONDS(1.f / 3)
@@ -152,7 +152,7 @@ const struct FrameData sBootDebugOam_4185D8[3] = {
    [2] = FRAME_DATA_TERMINATOR
 };
 
-const struct FrameData sBootDebugOam_4185F0[2] = {
+static const struct FrameData sBootDebugOam_4185F0[2] = {
    [0] = {
        .pFrame = sBootDebugOam_4185F0_Frame0,
        .timer = CONVERT_SECONDS(1.f / 15)
@@ -160,7 +160,7 @@ const struct FrameData sBootDebugOam_4185F0[2] = {
    [1] = FRAME_DATA_TERMINATOR
 };
 
-const struct FrameData sBootDebugOam_418600[2] = {
+static const struct FrameData sBootDebugOam_418600[2] = {
    [0] = {
        .pFrame = sBootDebugOam_418600_Frame0,
        .timer = CONVERT_SECONDS(1.f)
@@ -168,7 +168,7 @@ const struct FrameData sBootDebugOam_418600[2] = {
    [1] = FRAME_DATA_TERMINATOR
 };
 
-const struct FrameData sBootDebugOam_418610[5] = {
+static const struct FrameData sBootDebugOam_418610[5] = {
    [0] = {
        .pFrame = sBootDebugOam_418610_Frame0,
        .timer = CONVERT_SECONDS(4.f / 15)
@@ -190,92 +190,92 @@ const struct FrameData sBootDebugOam_418610[5] = {
 
 const u32 sBootDebugBgGfx[771] = INCBIN_U32("debug_data/BootDebugBg.gfx.lz");
 
-const u8 sBootDebug_CutsceneB_EscapeShip_Text[8] = {0xBA, 0xB6, 0xDE, 0xC0, 0xC3, 0xB2, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_MechaRidley_Text[12] = {0xD2, 0xB6, 0x20, 0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x00, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_PoweredSuit_Text[12] = {0xCA, 0xDF, 0xDC, 0xB0, 0xC4, 0xDE, 0xBD, 0xB0, 0xC2, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_ChozoMural_Text[8] = {0xCD, 0xB7, 0xB6, 0xDE, 0x00, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_Metroids_Text[8] = {0xD2, 0xC4, 0xDB, 0xB2, 0xC4, 0xDE, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_RidleyFight_Text[8] = {0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_MotherShipLanding_Text[8] = {0xC1, 0xAC, 0xB8, 0xD8, 0xB8, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_MotherShipReturning_Text[12] = {0xCB, 0xB7, 0xB6, 0xB4, 0xBD, 0x20, 0xCE, 0xDE, 0xB6, 0xDD, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_BossStatues_Text[8] = {0xBE, 0xB7, 0xBF, 0xDE, 0xB3, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_KraidFight_Text[8] = {0xB8, 0xDA, 0xB2, 0xC4, 0xDE, 0x00, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_MotherBrain_Text[12] = {0xCF, 0xBB, 0xDE, 0xB0, 0x20, 0xCC, 0xDE, 0xDA, 0xB2, 0xDD, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_ShotDownMonologue2_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x32, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_ShotDownMonologue1_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x31, 0x00, 0x00};
-const u8 sBootDebug_CutsceneB_StartMonologue_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0x20, 0xBD, 0xC0, 0xB0, 0xC4, 0x00, 0x00, 0x00};
-const u8 sBootDebug_Cutscene_Blank_Text[12] = "---       \0\0";
-const u8 sBootDebug_CutsceneA_ShotDown_Text[8] = {0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x00, 0x00, 0x00};
-const u8 sBootDebugMenuNames_DebugConfig_Text[12] = "DEBUG CONFIG";
-const u8 sBootDebugMenuNames_Section_Text[8] = "SECTION\0";
-const u8 sBootDebugMenuNames_Mode_Text[4] = "MODE";
-const u8 sBootDebugMenuNames_Save_Text[4] = "SAVE";
-const u8 sBootDebugMenuNames_Samus_Text[8] = "SAMUS\0\0\0";
-const u8 sBootDebugMenuNames_Sound_Text[8] = "Sound\0\0\0";
-const u8 sBootDebugMenuNames_Demo_Text[4] = "DEMO";
-const u8 sBootDebugMenuNames_Etc_Text[4] = "etc\0";
-const u8 sBootDebugMenuNames_Boot_Text[4] = "boot";
-const u8 sBootDebugMenuNames_Erase_Text[8] = "ERASE\0\0\0";
-const u8 sBootDebugModeMenu_Language_Text[12] = "LANGUAGE \0\0\0";
-const u8 sBootDebugModeMenu_Difficulty_Text[12] = "LEVEL    \0\0\0";
-const u8 sBootDebugLanguage_Japanese_Text[8] = "Japanese";
-const u8 sBootDebugLanguage_Hiragana_Text[8] = "hiragana";
-const u8 sBootDebugLanguage_English_Text[8] = "English ";
-const u8 sBootDebugLanguage_German_Text[8] = "German  ";
-const u8 sBootDebugLanguage_French_Text[8] = "French  ";
-const u8 sBootDebugLanguage_Italian_Text[8] = "Italian ";
-const u8 sBootDebugLanguage_Spanish_Text[8] = "Spanish ";
-const u8 sBootDebugDifficulty_Easy_Text[8] = "EASY  \0\0";
-const u8 sBootDebugDifficulty_Normal_Text[8] = "NORMAL\0\0";
-const u8 sBootDebugDifficulty_Hard_Text[8] = "HARD  \0\0";
-const u8 sBootDebugSectionMenu_Brinstar_Text[8] = {0xCC, 0xDE, 0xD8, 0xDD, 0xBD, 0xC0, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Kraid_Text[8] = {0xB8, 0xDA, 0xB2, 0xC4, 0xDE, 0x20, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Norfair_Text[8] = {0xC9, 0xD9, 0xCC, 0xAA, 0xB1, 0x20, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Ridley_Text[8] = {0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x20, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Tourian_Text[8] = {0xC2, 0xB0, 0xD8, 0xB1, 0xDD, 0x20, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Crateria_Text[8] = {0xB8, 0xDA, 0xC3, 0xD8, 0xB1, 0x20, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Chozodia_Text[8] = {0xC5, 0xDD, 0xCA, 0xDF, 0xBE, 0xDD, 0x20, 0x20};
-const u8 sBootDebugSectionMenu_Blank_Text[8] = "        ";
-const u8 sBootDebugSectionMenu_Test1_Text[8] = "TEST 1  ";
-const u8 sBootDebugSectionMenu_Test2_Text[8] = "TEST 2  ";
-const u8 sBootDebugSectionMenu_Test3_Text[8] = "TEST 3  ";
-const u8 sBootDebugSectionMenu_Title_Text[8] = "TITLE\0\0\0";
-const u8 sBootDebugSectionMenu_SaveA_Text[8] = "SAVE(A)\0";
-const u8 sBootDebugSectionMenu_SaveB_Text[8] = "SAVE(B)\0";
-const u8 sBootDebugSectionMenu_SaveC_Text[8] = "SAVE(C)\0";
-const u8 sBootDebugSectionMenu_Select_Text[8] = "Select\0\0";
-const u8 sBootDebugSamusMenu_GetMap_Text[8] = "GetMap\0\0";
-const u8 sBootDebugSamusMenu_ArmWeapon_Text[8] = "H-SHOT\0\0";
-const u8 sBootDebugSamusMenu_DiagonalAim_Text[8] = {0xC5, 0xC5, 0xD2, 0x2D, 0x53, 0x48, 0x4F, 0x54};
-const u8 sBootDebugSamusMenu_Pause_Text[8] = "PAUSE\0\0\0";
-const u8 sBootDebugSamusMenu_SwapMissiles_Text[4] = {0xD0, 0xBB, 0xB2, 0xD9};
-const u8 sBootDebug_LButton_Text[8] = "L-Button";
-const u8 sBootDebug_RButton_Text[8] = "R-Button";
-const u8 sBootDebug_Start_Text[8] = "START \0\0";
-const u8 sBootDebug_Select_Text[8] = "SELECT\0\0";
-const u8 sBootDebugSaveMenu_GalleryImages_Text[20] = "POSTER   12345678\0\0\0";
-const u8 sBootDebugSaveMenu_DifficultiesCleared_Text[20] = "ClearLevel  e/n/h\0\0\0";
-const u8 sBootDebugSaveMenu_LinkedWithFusion_Text[16] = "Fusion   yes/no\0";
-const u8 sBootDebugSaveMenu_Id_Text[20] = "ID       --------\0\0\0";
-const u8 sBootDebugSaveMenu_Save_Text[4] = "SAVE";
-const u8 sBootDebugSoundMenu_Bgm_Text[4] = "BGM\0";
-const u8 sBootDebugSoundMenu_Test_Text[4] = "TEST";
-const u8 sBootDebugSoundMenu_Mono_Text[4] = {0xD3, 0xC9, 0xD7, 0xD9};
-const u8 sBootDebugSoundMenu_Stereo_Text[4] = {0xBD, 0xC3, 0xDA, 0xB5};
-const u8 sBootDebugDemoMenu_CutsceneSwitch_Text[8] = "DEMO SW\0";
-const u8 sBootDebugDemoMenu_CutsceneA_Text[8] = "DEMO(A)\0";
-const u8 sBootDebugDemoMenu_CutsceneB_Text[8] = "DEMO(B)\0";
-const u8 sBootDebugDemoMenu_DemoMode_Text[12] = {0xB5, 0xB0, 0xC4, 0xC3, 0xDE, 0xD3, 0x4D, 0x4F, 0x44, 0x45, 0x00, 0x00};
-const u8 sBootDebugDemoMenu_DemoNum_Text[12] = {0xB5, 0xB0, 0xC4, 0xC3, 0xDE, 0xD3, 0x4E, 0x55, 0x4D, 0x00, 0x00, 0x00};
-const u8 sBootDebugEtcMenu_Ending_Text[8] = "Ending\0\0";
-const u8 sBootDebugEtcMenu_StaffRoll_Text[12] = "STAFF ROLL\0\0";
-const u8 sBootDebugEtcMenu_MainEndObj_Text[12] = "Main-End OBJ";
-const u8 sBootDebugEtcMenu_DoorTransition_Text[8] = {0xB9, 0xDE, 0xB0, 0xC4, 0x20, 0xBA, 0xB3, 0xB6};
-const u8 sBootDebugEraseMenu_EraseSram_Text[12] = "ERASE SRAM\0\0";
-const u8 sBootDebug_On_Text[4] = "ON \0";
-const u8 sBootDebug_Off_Text[4] = "OFF\0";
-const u8 sBootDebugEraseMenu_Yes_Text[4] = "YES\0";
-const u8 sBootDebugEraseMenu_No_Text[4] = "NO \0";
+static const u8 sBootDebug_CutsceneB_EscapeShip_Text[8] = {0xBA, 0xB6, 0xDE, 0xC0, 0xC3, 0xB2, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_MechaRidley_Text[12] = {0xD2, 0xB6, 0x20, 0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x00, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_PoweredSuit_Text[12] = {0xCA, 0xDF, 0xDC, 0xB0, 0xC4, 0xDE, 0xBD, 0xB0, 0xC2, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_ChozoMural_Text[8] = {0xCD, 0xB7, 0xB6, 0xDE, 0x00, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_Metroids_Text[8] = {0xD2, 0xC4, 0xDB, 0xB2, 0xC4, 0xDE, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_RidleyFight_Text[8] = {0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_MotherShipLanding_Text[8] = {0xC1, 0xAC, 0xB8, 0xD8, 0xB8, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_MotherShipReturning_Text[12] = {0xCB, 0xB7, 0xB6, 0xB4, 0xBD, 0x20, 0xCE, 0xDE, 0xB6, 0xDD, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_BossStatues_Text[8] = {0xBE, 0xB7, 0xBF, 0xDE, 0xB3, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_KraidFight_Text[8] = {0xB8, 0xDA, 0xB2, 0xC4, 0xDE, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_MotherBrain_Text[12] = {0xCF, 0xBB, 0xDE, 0xB0, 0x20, 0xCC, 0xDE, 0xDA, 0xB2, 0xDD, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_ShotDownMonologue2_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x32, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_ShotDownMonologue1_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x31, 0x00, 0x00};
+static const u8 sBootDebug_CutsceneB_StartMonologue_Text[12] = {0x4D, 0x4F, 0x4E, 0x4F, 0x20, 0xBD, 0xC0, 0xB0, 0xC4, 0x00, 0x00, 0x00};
+static const u8 sBootDebug_Cutscene_Blank_Text[12] = "---       \0\0";
+static const u8 sBootDebug_CutsceneA_ShotDown_Text[8] = {0xB9, 0xDE, 0xB7, 0xC2, 0xB2, 0x00, 0x00, 0x00};
+static const u8 sBootDebugMenuNames_DebugConfig_Text[12] = "DEBUG CONFIG";
+static const u8 sBootDebugMenuNames_Section_Text[8] = "SECTION\0";
+static const u8 sBootDebugMenuNames_Mode_Text[4] = "MODE";
+static const u8 sBootDebugMenuNames_Save_Text[4] = "SAVE";
+static const u8 sBootDebugMenuNames_Samus_Text[8] = "SAMUS\0\0\0";
+static const u8 sBootDebugMenuNames_Sound_Text[8] = "Sound\0\0\0";
+static const u8 sBootDebugMenuNames_Demo_Text[4] = "DEMO";
+static const u8 sBootDebugMenuNames_Etc_Text[4] = "etc\0";
+static const u8 sBootDebugMenuNames_Boot_Text[4] = "boot";
+static const u8 sBootDebugMenuNames_Erase_Text[8] = "ERASE\0\0\0";
+static const u8 sBootDebugModeMenu_Language_Text[12] = "LANGUAGE \0\0\0";
+static const u8 sBootDebugModeMenu_Difficulty_Text[12] = "LEVEL    \0\0\0";
+static const u8 sBootDebugLanguage_Japanese_Text[8] = "Japanese";
+static const u8 sBootDebugLanguage_Hiragana_Text[8] = "hiragana";
+static const u8 sBootDebugLanguage_English_Text[8] = "English ";
+static const u8 sBootDebugLanguage_German_Text[8] = "German  ";
+static const u8 sBootDebugLanguage_French_Text[8] = "French  ";
+static const u8 sBootDebugLanguage_Italian_Text[8] = "Italian ";
+static const u8 sBootDebugLanguage_Spanish_Text[8] = "Spanish ";
+static const u8 sBootDebugDifficulty_Easy_Text[8] = "EASY  \0\0";
+static const u8 sBootDebugDifficulty_Normal_Text[8] = "NORMAL\0\0";
+static const u8 sBootDebugDifficulty_Hard_Text[8] = "HARD  \0\0";
+static const u8 sBootDebugSectionMenu_Brinstar_Text[8] = {0xCC, 0xDE, 0xD8, 0xDD, 0xBD, 0xC0, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Kraid_Text[8] = {0xB8, 0xDA, 0xB2, 0xC4, 0xDE, 0x20, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Norfair_Text[8] = {0xC9, 0xD9, 0xCC, 0xAA, 0xB1, 0x20, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Ridley_Text[8] = {0xD8, 0xC4, 0xDE, 0xD8, 0xB0, 0x20, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Tourian_Text[8] = {0xC2, 0xB0, 0xD8, 0xB1, 0xDD, 0x20, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Crateria_Text[8] = {0xB8, 0xDA, 0xC3, 0xD8, 0xB1, 0x20, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Chozodia_Text[8] = {0xC5, 0xDD, 0xCA, 0xDF, 0xBE, 0xDD, 0x20, 0x20};
+static const u8 sBootDebugSectionMenu_Blank_Text[8] = "        ";
+static const u8 sBootDebugSectionMenu_Test1_Text[8] = "TEST 1  ";
+static const u8 sBootDebugSectionMenu_Test2_Text[8] = "TEST 2  ";
+static const u8 sBootDebugSectionMenu_Test3_Text[8] = "TEST 3  ";
+static const u8 sBootDebugSectionMenu_Title_Text[8] = "TITLE\0\0\0";
+static const u8 sBootDebugSectionMenu_SaveA_Text[8] = "SAVE(A)\0";
+static const u8 sBootDebugSectionMenu_SaveB_Text[8] = "SAVE(B)\0";
+static const u8 sBootDebugSectionMenu_SaveC_Text[8] = "SAVE(C)\0";
+static const u8 sBootDebugSectionMenu_Select_Text[8] = "Select\0\0";
+static const u8 sBootDebugSamusMenu_GetMap_Text[8] = "GetMap\0\0";
+static const u8 sBootDebugSamusMenu_ArmWeapon_Text[8] = "H-SHOT\0\0";
+static const u8 sBootDebugSamusMenu_DiagonalAim_Text[8] = {0xC5, 0xC5, 0xD2, 0x2D, 0x53, 0x48, 0x4F, 0x54};
+static const u8 sBootDebugSamusMenu_Pause_Text[8] = "PAUSE\0\0\0";
+static const u8 sBootDebugSamusMenu_SwapMissiles_Text[4] = {0xD0, 0xBB, 0xB2, 0xD9};
+static const u8 sBootDebug_LButton_Text[8] = "L-Button";
+static const u8 sBootDebug_RButton_Text[8] = "R-Button";
+static const u8 sBootDebug_Start_Text[8] = "START \0\0";
+static const u8 sBootDebug_Select_Text[8] = "SELECT\0\0";
+static const u8 sBootDebugSaveMenu_GalleryImages_Text[20] = "POSTER   12345678\0\0\0";
+static const u8 sBootDebugSaveMenu_DifficultiesCleared_Text[20] = "ClearLevel  e/n/h\0\0\0";
+static const u8 sBootDebugSaveMenu_LinkedWithFusion_Text[16] = "Fusion   yes/no\0";
+static const u8 sBootDebugSaveMenu_Id_Text[20] = "ID       --------\0\0\0";
+static const u8 sBootDebugSaveMenu_Save_Text[4] = "SAVE";
+static const u8 sBootDebugSoundMenu_Bgm_Text[4] = "BGM\0";
+static const u8 sBootDebugSoundMenu_Test_Text[4] = "TEST";
+static const u8 sBootDebugSoundMenu_Mono_Text[4] = {0xD3, 0xC9, 0xD7, 0xD9};
+static const u8 sBootDebugSoundMenu_Stereo_Text[4] = {0xBD, 0xC3, 0xDA, 0xB5};
+static const u8 sBootDebugDemoMenu_CutsceneSwitch_Text[8] = "DEMO SW\0";
+static const u8 sBootDebugDemoMenu_CutsceneA_Text[8] = "DEMO(A)\0";
+static const u8 sBootDebugDemoMenu_CutsceneB_Text[8] = "DEMO(B)\0";
+static const u8 sBootDebugDemoMenu_DemoMode_Text[12] = {0xB5, 0xB0, 0xC4, 0xC3, 0xDE, 0xD3, 0x4D, 0x4F, 0x44, 0x45, 0x00, 0x00};
+static const u8 sBootDebugDemoMenu_DemoNum_Text[12] = {0xB5, 0xB0, 0xC4, 0xC3, 0xDE, 0xD3, 0x4E, 0x55, 0x4D, 0x00, 0x00, 0x00};
+static const u8 sBootDebugEtcMenu_Ending_Text[8] = "Ending\0\0";
+static const u8 sBootDebugEtcMenu_StaffRoll_Text[12] = "STAFF ROLL\0\0";
+static const u8 sBootDebugEtcMenu_MainEndObj_Text[12] = "Main-End OBJ";
+static const u8 sBootDebugEtcMenu_DoorTransition_Text[8] = {0xB9, 0xDE, 0xB0, 0xC4, 0x20, 0xBA, 0xB3, 0xB6};
+static const u8 sBootDebugEraseMenu_EraseSram_Text[12] = "ERASE SRAM\0\0";
+static const u8 sBootDebug_On_Text[4] = "ON \0";
+static const u8 sBootDebug_Off_Text[4] = "OFF\0";
+static const u8 sBootDebugEraseMenu_Yes_Text[4] = "YES\0";
+static const u8 sBootDebugEraseMenu_No_Text[4] = "NO \0";
 
 const struct BootDebugText sBootDebugMenuNamesText[10] = {
     [0] = {
@@ -974,11 +974,11 @@ const struct BootDebugText sBootDebugEraseMenuText[3] = {
     }
 };
 
-const u8 sBootDebug_DemoState_RomRun_Text[8] = "ROMRUN\0\0";
-const u8 sBootDebug_DemoState_RamRun_Text[8] = "RAMRUN\0\0";
-const u8 sBootDebug_DemoState_GetKey_Text[8] = "GETKEY\0\0";
-const u8 sBootDebug_DemoState_Free_Text[8] = "FREE\0\0\0\0";
-const u8 sBootDebug_DemoState_Blank_Text[7] = "      \0";
+static const u8 sBootDebug_DemoState_RomRun_Text[8] = "ROMRUN\0\0";
+static const u8 sBootDebug_DemoState_RamRun_Text[8] = "RAMRUN\0\0";
+static const u8 sBootDebug_DemoState_GetKey_Text[8] = "GETKEY\0\0";
+static const u8 sBootDebug_DemoState_Free_Text[8] = "FREE\0\0\0\0";
+static const u8 sBootDebug_DemoState_Blank_Text[7] = "      \0";
 
 const u8 sBootDebugSectionCursorMovement[BOOT_DEBUG_SECTION_COUNT][4] = {
     [BOOT_DEBUG_SECTION_BRINSTAR] = {0x08, 0x80, 0x80, 0x01},
@@ -1027,7 +1027,7 @@ const struct OamArray sBootDebugOam[6] = {
 
 const u8 sZeroSaveText[8] = "ZEROSAVE";
 
-const u8* sBootDebugCutsceneBTextPointers[15] = {
+const u8* const sBootDebugCutsceneBTextPointers[15] = {
     sBootDebug_Cutscene_Blank_Text,
     sBootDebug_CutsceneB_StartMonologue_Text,
     sBootDebug_CutsceneB_ShotDownMonologue1_Text,
@@ -1045,12 +1045,12 @@ const u8* sBootDebugCutsceneBTextPointers[15] = {
     sBootDebug_CutsceneB_EscapeShip_Text
 };
 
-const u8* sBootDebugCutsceneATextPointers[2] = {
+const u8* const sBootDebugCutsceneATextPointers[2] = {
     sBootDebug_Cutscene_Blank_Text,
     sBootDebug_CutsceneA_ShotDown_Text
 };
 
-const u8* sBootDebugDemoStateTextPointers[5] = {
+const u8* const sBootDebugDemoStateTextPointers[5] = {
     sBootDebug_DemoState_Blank_Text,
     sBootDebug_DemoState_Free_Text,
     sBootDebug_DemoState_GetKey_Text,
@@ -1058,7 +1058,8 @@ const u8* sBootDebugDemoStateTextPointers[5] = {
     sBootDebug_DemoState_RomRun_Text
 };
 
-extern u8 sBootDebugTextToggleColors[2][2] = {
+FORCE_RODATA
+u8 sBootDebugTextToggleColors[2][2] = {
     [0] = {0xF, 0xC},
     [1] = {0xC, 0xF}
 };
