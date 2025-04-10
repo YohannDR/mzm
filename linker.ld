@@ -565,6 +565,9 @@ SECTIONS {
         src/menus/status_screen.o(.text);
         src/menus/pause_screen_sub_menus.o(.text);
         src/save_file.o(.text);
+
+        src/menus/boot_debug.o(.text);
+
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         src/menus/game_over.o(.text);
@@ -1040,6 +1043,9 @@ SECTIONS {
         src/data/menus/pause_screen_sub_menus_data.o(.rodata);
         src/data/menus/pause_screen_map_data.o(.rodata);
         src/data/save_file_data.o(.rodata);
+
+        src/data/menus/boot_debug_data.o(.rodata);
+
         src/data/menus/erase_sram_data.o(.rodata);
         src/data/text_data.o(.rodata);
         src/data/menus/title_screen_data.o(.rodata);
