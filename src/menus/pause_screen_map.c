@@ -1030,7 +1030,7 @@ void MapScreenSubroutine(void)
                 PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
 
                 // Force qui world map
-                MapScreenTogglehWorldMap(TRUE);
+                MapScreenToggleWorldMap(TRUE);
             }
         }
     }
@@ -1041,7 +1041,7 @@ void MapScreenSubroutine(void)
     if (gChangedInput & (KEY_A | KEY_B))
     {
         // Switch world map
-        MapScreenTogglehWorldMap(FALSE);
+        MapScreenToggleWorldMap(FALSE);
         return;
     }
 
@@ -1058,7 +1058,7 @@ void MapScreenSubroutine(void)
  * 
  * @param forceOff bool, force closing
  */
-void MapScreenTogglehWorldMap(u8 forceOff)
+void MapScreenToggleWorldMap(u8 forceOff)
 {
     if (!forceOff)
     {
@@ -1168,7 +1168,7 @@ void MapScreenChangeMap(void)
                 VRAM_BASE + 0xE000, sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
             // Update chozo hints
-            ChozoHintDeterminePath(TRUE);
+            ChozoStatueHintDeterminePath(TRUE);
 
             // Set where to put the map position
             PauseScreenMapSetSpawnPosition(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);

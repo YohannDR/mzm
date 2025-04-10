@@ -486,7 +486,7 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
     effect = BACKGROUND_EFFECT_NONE;
 
     // Check no effect currently active
-    if (gPauseScreenFlag != 0 || gBackgroundEffect.type != 0)
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gBackgroundEffect.type != BACKGROUND_EFFECT_NONE)
         return;
 
     // Crateria, landing site with no gunship
@@ -613,7 +613,7 @@ u16 BackgroundEffectProcess(void)
 
         case BACKGROUND_EFFECT_CMD_FINISH_AND_KILL:
             // Kill
-            gBackgroundEffect.type = 0;
+            gBackgroundEffect.type = BACKGROUND_EFFECT_NONE;
 
         case BACKGROUND_EFFECT_CMD_FINISH:
             // End
@@ -623,7 +623,7 @@ u16 BackgroundEffectProcess(void)
 
         case BACKGROUND_EFFECT_CMD_FINISH_EXIT_ZEBES:
             // End
-            gBackgroundEffect.type = 0;
+            gBackgroundEffect.type = BACKGROUND_EFFECT_NONE;
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
 
@@ -634,7 +634,7 @@ u16 BackgroundEffectProcess(void)
 
         case BACKGROUND_EFFECT_CMD_FINISH_BEFORE_INTRO_TEXT:
             // End
-            gBackgroundEffect.type = 0;
+            gBackgroundEffect.type = BACKGROUND_EFFECT_NONE;
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
 
@@ -661,10 +661,11 @@ u32 BackgroundEffectStart(u8 effect)
         gBackgroundEffect.colorStage = 0;
         gBackgroundEffect.stage = 0;
         gBackgroundEffect.timer = 0;
-        gBackgroundEffect.unk_7 = 0;
+        gBackgroundEffect.unk_7 = 0; ANIMATED_GFX_EWRAM_BASE;
 
-        DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, 0x200, 16);
-        DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, 0x200, 16);
+        // TODO: verify this is the same or different EWRAM as color fading
+        DmaTransfer(3, COLOR_DATA_BG_EWRAM2, COLOR_DATA_BG_EWRAM3, PAL_SIZE, 16);
+        DmaTransfer(3, COLOR_DATA_OBJ_EWRAM2, COLOR_DATA_OBJ_EWRAM3, PAL_SIZE, 16);
         return TRUE;
     }
 
