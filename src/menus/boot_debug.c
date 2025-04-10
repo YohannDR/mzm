@@ -573,7 +573,7 @@ void BootDebugSetupMenu(void)
     write16(REG_BG3VOFS, (gBg3VOFS_NonGameplay / 4) & 0x1FF);
     write16(REG_BG3HOFS, 0);
 
-    gIoTransferInfo = *(struct IoTransferInfo*)0x85E3F60; // sIoTransferInfo_Empty
+    gIoTransferInfo = sIoTransferInfo_Empty;
     gIoTransferInfo.pFunction = BootDebugUpdateMenuOam;
     sub_BootDebug_782f0();
     BootDebugUpdateMenuOam();
