@@ -45,9 +45,18 @@ void InitializeGame(void)
     UpdateInput();
 
     if (gChangedInput == (KEY_L | KEY_R))
+    {
         gMainGameMode = GM_ERASE_SRAM;
+    }
     else
+    {
+        #ifdef DEBUG
+        BootDebugReadSram();
+        gMainGameMode = gDebugFlag ? GM_DEBUG_MENU : GM_SOFTRESET;
+        #else // !DEBUG
         gMainGameMode = GM_SOFTRESET;
+        #endif // DEBUG
+    }
 
     gButtonInput = 0;
     gPreviousButtonInput = 0;
