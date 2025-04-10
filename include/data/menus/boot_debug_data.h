@@ -6,7 +6,7 @@
 #include "structs/menus/boot_debug.h"
 #include "constants/menus/boot_debug.h"
 
-extern const u8 sEasyHardEventActions[6];
+extern const u8 sEasyHardEventActions[3][2];
 
 extern const u16 sBootDebugBgPal[128];
 extern const u16 sBootDebugObjPal[48];
@@ -153,6 +153,6 @@ extern const u8* sBootDebugCutsceneBTextPointers[15];
 extern const u8* sBootDebugCutsceneATextPointers[2];
 extern const u8* sBootDebugDemoStateTextPointers[5];
 
-extern const u8 sBootDebugTextToggleColors[2][2];
+extern u8 sBootDebugTextToggleColors[2][2];
 
 #endif

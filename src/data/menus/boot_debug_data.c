@@ -1,9 +1,14 @@
 #include "data/menus/boot_debug_data.h"
 #include "constants/game_state.h"
+#include "constants/event.h"
 #include "oam.h"
 #include "structs/cutscene.h"
 
-const u8 sEasyHardEventActions[6] = {1, 0, 0, 0, 0, 1};
+extern const u8 sEasyHardEventActions[3][2] = {
+    [DIFF_EASY] = {EVENT_ACTION_SETTING, EVENT_ACTION_CLEARING},
+    [DIFF_NORMAL] = {EVENT_ACTION_CLEARING, EVENT_ACTION_CLEARING},
+    [DIFF_HARD] = {EVENT_ACTION_CLEARING, EVENT_ACTION_SETTING}
+};
 
 const u16 sBootDebugBgPal[128] = INCBIN_U16("debug_data/BootDebugBg.pal");
 const u16 sBootDebugObjPal[48] = INCBIN_U16("debug_data/BootDebugObj.pal");
@@ -1053,7 +1058,7 @@ const u8* sBootDebugDemoStateTextPointers[5] = {
     sBootDebug_DemoState_RomRun_Text
 };
 
-extern const u8 sBootDebugTextToggleColors[2][2] = {
+extern u8 sBootDebugTextToggleColors[2][2] = {
     [0] = {0xF, 0xC},
     [1] = {0xC, 0xF}
 };
