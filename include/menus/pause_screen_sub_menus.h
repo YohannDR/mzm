@@ -5,12 +5,12 @@
 #include "structs/menus/pause_screen.h"
 
 u32 PauseScreenEasySleepSubroutine(void);
-u32 unk_72144(struct ChozoHintRelated* param_1);
+u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData);
 void ChozoStatueHintMovement(void);
 void ChozoStatueHintScrolling(void);
 u32 ChozoStatueHintSubroutine(void);
-void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const s8* param_3);
-void ChozoHintDeterminePath(u8 param_1);
+void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const s8* pTarget);
+void ChozoStatueHintDeterminePath(u8 param_1);
 s32 ChozoStatueHintCheckTargetIsActivated(u8 target);
 void PauseScreenCheckActivatedTargets(void);
 void PauseScreenCheckAreasWithTargets(void);

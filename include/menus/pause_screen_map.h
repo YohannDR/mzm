@@ -18,7 +18,7 @@ void PauseScreenMapUpdateMapBordersForTargets(void);
 void PauseScreenGetAllMinimapData(u8 start);
 void PauseScreenMapCheckExploredAreas(void);
 void MapScreenSubroutine(void);
-void MapScreenTogglehWorldMap(u8 notOpeningWorldMap);
+void MapScreenToggleWorldMap(u8 notOpeningWorldMap);
 void MapScreenChangeMap(void);
 
 #endif /* PAUSE_SCREEN_MAP_MENU_H */
