@@ -76,18 +76,31 @@ struct UnknownItemPalette {
     u8 flashingNumber;
 };
 
-struct ChozoHintRelated {
-    u16 unk_0;
-    u16 unk_2;
-    u16 unk_4;
-    u16 unk_6;
-    s16 unk_8;
-    s16 unk_A;
-    s8 unk_C;
-    s8 unk_D;
-    u16 unk_E;
-    u16 unk_10;
-    u16 unk_12;
+struct ChozoHintTarget {
+    s8 index;
+    u8 unk_41; // target path index?
+    s8 unk_42; // target area?
+    u16 activatedTargets;
+    u8 activeMovementScrollingFlag;
+    u8 movementStage;
+    u8 movementDelayTimer;
+    u8 scrollingStage;
+    u8 scrollingDelayTimer;
+    u8 unk_4B; // unused
+};
+
+struct ChozoHintMapData {
+    u16 mapYPostion;
+    u16 mapXPosition;
+    u16 hintTargetYPosition;
+    u16 hintTargetXPosition;
+    s16 distYToHintTarget;
+    s16 distXToHintTarget;
+    s8 yDirection; // 1: to the bottom, -1: to the top, 0: collinear
+    s8 xDirection; // 1: to the right, -1: to the left, 0: collinear
+    u16 absDistToHintTarget;
+    u16 unk_10; // always 1
+    u16 speedMultiplier;
 };
 
 struct MapScreenFading {
@@ -97,7 +110,7 @@ struct MapScreenFading {
 };
 
 struct StatusScreenData {
-    u8 unk_0;
+    u8 unk_0; // set and checked but does nothing
     u8 currentStatusSlot;
     u8 previousLeftStatusSlot;
     u8 previousRightStatusSlot;
@@ -108,19 +121,17 @@ struct StatusScreenData {
     u8 bombActivation[2];
     u8 missilesActivation[2];
 
-    u8 unk_15;
-    u8 unk_16;
-    u8 unk_17;
+    u8 padding_15[3];
 };
 
 struct BossFlameData {
     u16 yOffset;
     u8 moving;
     u8 oamOffset;
-    u8 unk_4;
+    u8 unk_4; // unused
     s8 movementDirection;
-    u8 unk_6;
-    u8 unk_7;
+    u8 unk_6; // unused
+    u8 unk_7; // unused
     u16 xPosition;
     u16 yPosition;
 };
@@ -152,7 +163,7 @@ struct PauseScreenEwramData {
 struct PauseScreenData {
     u16 typeFlags;
     struct PauseScreenSubroutineData subroutineInfo;
-    u8 unk_10;
+    u8 unk_10; // unused
 
     u8 onWorldMap;
     u8 currentArea;
@@ -183,8 +194,8 @@ struct PauseScreenData {
     u8 canScrollUp;
     u8 canScrollDown;
 
-    u8 unk_32;
-    u8 unk_33;
+    u8 unk_32; // unused
+    u8 unk_33; // unused
     u8 unk_34;
 
     u8 energyTankTotal;
@@ -199,16 +210,7 @@ struct PauseScreenData {
 
     u8 padding_3E[2];
 
-    s8 unk_40;
-    u8 unk_41;
-    s8 unk_42;
-    u16 activatedTargets;
-    u8 unk_46;
-    u8 unk_47;
-    u8 unk_48;
-    u8 unk_49;
-    u8 unk_4A;
-    u8 unk_4B;
+    struct ChozoHintTarget chozoHintTarget;
 
     u8 mapDownloadType;
     u8 downloadTimer;
@@ -253,7 +255,8 @@ struct PauseScreenData {
 
     u8 padding_82[10];
 
-    struct ChozoHintRelated unk_8C[2];
+    struct ChozoHintMapData chozoHintMapMovementData;
+    struct ChozoHintMapData chozoHintMapScrollingData;
 
     u8 changingMinimapStage;
     u8 padding_B5[3];

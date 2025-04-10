@@ -5,7 +5,7 @@
 #include "structs/menu.h"
 #include "structs/cutscene.h"
 
-u32 PauseScreenInitFading(u16 targetBldAlpha, u8 bldAlphaStepLevel, s8 param_3);
+u32 PauseScreenInitFading(u16 targetBldAlpha, u8 bldAlphaStepLevel, s8 bldAlphaStepDelayThreshold);
 u8 PauseScreenApplyFading(void);
 u32 PauseScreenUpdateOrStartFading(u8 stage);
 void PauseScreenCopyPalramToEwram_Unused(u8 param_1);

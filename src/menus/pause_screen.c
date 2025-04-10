@@ -384,7 +384,7 @@ void PauseScreenUpdateBossIcons(void)
             // Set oam id
             PAUSE_SCREEN_DATA.bossIconOam[0].oamID = sBossIcons[PAUSE_SCREEN_DATA.currentArea][1];
             // Flag id changed
-            status = TRUE << 1;
+            status = OAM_ID_CHANGED_FLAG;
         }
     }
 
@@ -801,7 +801,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
             pOam->priority = 2;
             pOam->exists = FALSE;
 
-            if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1 && pOam->xPosition + pOam->yPosition != 0)
+            if ((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1 && pOam->xPosition + pOam->yPosition != 0)
                 pOam->exists = TRUE;
 
             pOam->oamID = pOam->exists ? WORLD_MAP_OAM_ID_TARGET : 0;
@@ -812,7 +812,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[8];
         for (i = 0; i < 16; i++, pOam++)
         {
-            if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1)
+            if ((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1)
             {
                 pOam->oamID = WORLD_MAP_OAM_ID_TARGET;
                 pOam->exists = TRUE;
@@ -1045,7 +1045,7 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
             continue;
 
         // Second bit indicates that the oam id changed
-        if (pOam->exists == TRUE << 1)
+        if (pOam->exists == OAM_ID_CHANGED_FLAG)
         {
             // Set exist
             pOam->exists = TRUE;
@@ -1326,7 +1326,7 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
             continue;
 
         // Second bit indicates that the oam id changed
-        if (pOam->exists == TRUE << 1)
+        if (pOam->exists == OAM_ID_CHANGED_FLAG)
         {
             // Set exist
             pOam->exists = TRUE;
@@ -1624,7 +1624,7 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
             continue;
 
         // Second bit indicates that the oam id changed
-        if (pOam->exists == TRUE << 1)
+        if (pOam->exists == OAM_ID_CHANGED_FLAG)
         {
             // Set exist
             pOam->exists = TRUE;
@@ -2206,7 +2206,7 @@ void PauseScreenInit(void)
     {
     }
     StatusScreenDraw();
-    ChozoHintDeterminePath(FALSE);
+    ChozoStatueHintDeterminePath(FALSE);
     PauseScreenMapSetSpawnPosition(0);
     TextDrawYesNoEasySleep();
 
