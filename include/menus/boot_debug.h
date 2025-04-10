@@ -30,11 +30,11 @@ s32 BootDebugDemoSubroutine(void);
 s32 BootDebugEtcSubroutine(void);
 void BootDebugDrawMenuNames(void);
 void BootDebugDrawSubMenuText(void);
-void BootDebugDrawText(u8 background, u8 xPosition, u8 yPosition, u8 palette, u8 size, u8* text);
+void BootDebugDrawText(u8 background, u8 xPosition, u8 yPosition, u8 palette, u8 size, const u8* text);
 void BootDebugSectionDrawStar(u8 prevIndex);
 void BootDebugSectionSetFilesColor(void);
 void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption);
 void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color);
-void BootDebugDrawLine(u16* dst, u8* text, u8 color);
+void BootDebugDrawLine(u16* dst, const u8* text, u8 color);
 
 #endif

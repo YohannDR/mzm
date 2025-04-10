@@ -246,8 +246,8 @@ void BootDebugUpdateMapScreenPosition(void)
 {    
     s32 xOffset;
     s32 yOffset;
-    struct Door* pDoor;
-    struct RoomEntryROM* pRoom;
+    const struct Door* pDoor;
+    const struct RoomEntryROM* pRoom;
     u16 mapX;
     u16 mapY;
     //s32 flag;
@@ -359,7 +359,7 @@ void BootDebugWriteSram(u8 selectSaveFile)
     u8* dst;
 
     dst = gSram.bootDebugSave.zeroSaveText;
-    DMATransfer(3, &sZeroSaveText, dst, 8, 8);
+    DmaTransfer(3, &sZeroSaveText, dst, 8, 8);
     gSram.bootDebugSave.debugFlag = gDebugFlag;
 
     if (selectSaveFile) {
@@ -370,7 +370,7 @@ void BootDebugWriteSram(u8 selectSaveFile)
         else if (gMostRecentSaveFile == 2)
             gSram.bootDebugSave.sectionIndex = BOOT_DEBUG_SECTION_SAVE_C;
         else
-            gSram.bootDebugSave.sectionIndex = BOOT_DEBUG_SECTION_BRINSTAR;
+            gSram.bootDebugSave.sectionIndex = 0;
     }
     else
     {
@@ -485,7 +485,7 @@ s32 BootDebugSubroutine(void)
             else
             {
                 BOOT_DEBUG_DATA.dispcnt = 0x80;
-                unk_33dc();
+                RestartSound();
                 EraseSram();
                 gResetGame = TRUE;
                 write16(PALRAM_BASE, 0);
@@ -501,13 +501,13 @@ s32 BootDebugSubroutine(void)
 
 void BootDebugSetVBlankCodePtr(void)
 {
-    SetVBlankCodePtr(VBlankCodeDuringBootDebug);
+    CallbackSetVBlank(VBlankCodeDuringBootDebug);
 }
 
 void VBlankCodeDuringBootDebug(void)
 {
     if (gIoTransferInfo.linkInProgress)
-        unk_8a730();
+        LinkVSync();
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
     write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBg3VOFS_NonGameplay) & 0x1FF);
@@ -530,25 +530,25 @@ void BootDebugSetupMenu(void)
     write16(REG_BLDCNT, 0xFF);
     write16(REG_DISPCNT, 0);
 
-    StopAllMusicAndSounds();
-    sub_2988(0x194F780);
+    StopAllMusicsAndSounds();
+    DoSoundAction(0x194F780);
     UpdateMusicPriority(0);
 
     gGameModeSub2 = 0;
     gNextOamSlot = 0;
     ResetFreeOam();
-    FillBytes(3, 0, &gNonGameplayRAM, 0x628, 32);
+    BitFill(3, 0, &gNonGameplayRAM, 0x628, 32);
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
     
-    WriteFileInfo();
-    sub_BootDebug_7881c();
+    SramWrite_FileInfo();
+    BootDebugReadSram();
     gSramErrorFlag = 0;
-    sub_7584C(2);
-    LoadSoundModeFromSram();
-    ApplyStereo();
+    unk_7584c(2);
+    SramRead_SoundMode();
+    FileSelectApplyStereo();
 
-    gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.unk_05 * 0x40;
-    gBg2VOFS_NonGameplay = BOOT_DEBUG_DATA.unk_06 * 0x40 - 0x10;
+    gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.bg3vofs * 0x40;
+    gBg2VOFS_NonGameplay = BOOT_DEBUG_DATA.bg2vofs * 0x40 - 0x10;
     gBg2HOFS_NonGameplay = 0xFEA0;
     
     LZ77UncompVRAM(sBootDebugObjGfx, VRAM_OBJ);
@@ -558,10 +558,10 @@ void BootDebugSetupMenu(void)
     DMA_SET(3, sBootDebugBgPal, PALRAM_BASE + 0x100, C_32_2_16(DMA_ENABLE, 0x80));
     DMA_SET(3, sBootDebugObjPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, 0x30));
 
-    FillBytes(3, 0xD040, VRAM_BASE + 0xF000, 0x1000, 16);
-    FillBytes(3, 0x8040, VRAM_BASE + 0xE000, 0x1000, 16);
-    FillBytes(3, 0xE040, VRAM_BASE + 0xD000, 0x1000, 16);
-    FillBytes(3, 0x1140, VRAM_BASE + 0xB800, 0x1800, 16);
+    BitFill(3, 0xD040, VRAM_BASE + 0xF000, 0x1000, 16);
+    BitFill(3, 0x8040, VRAM_BASE + 0xE000, 0x1000, 16);
+    BitFill(3, 0xE040, VRAM_BASE + 0xD000, 0x1000, 16);
+    BitFill(3, 0x1140, VRAM_BASE + 0xB800, 0x1800, 16);
 
     gWrittenToBLDY_NonGameplay = 0x10;
     write16(REG_BG0VOFS, 0);
@@ -575,13 +575,13 @@ void BootDebugSetupMenu(void)
 
     gIoTransferInfo = sIoTransferInfo_Empty;
     gIoTransferInfo.pFunction = BootDebugUpdateMenuOam;
-    sub_BootDebug_782f0();
+    BootDebugSetupMenuOam();
     BootDebugUpdateMenuOam();
 
     if (BOOT_DEBUG_DATA.menuCursor == 0)
     {
         BOOT_DEBUG_DATA.menuCursor = BOOT_DEBUG_SUB_MENU_SECTION;
-        BOOT_DEBUG_DATA.subMenuOption = BOOT_DEBUG_SECTION_BRINSTAR;
+        BOOT_DEBUG_DATA.subMenuOption = 0;
         BOOT_DEBUG_DATA.optionCursor = 0;
         BOOT_DEBUG_DATA.subMenu = BOOT_DEBUG_DATA.menuCursor;
     }
@@ -601,7 +601,7 @@ void BootDebugSetupMenu(void)
 
     if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION &&
         BOOT_DEBUG_DATA.subMenuOption != BOOT_DEBUG_SECTION_BRINSTAR)
-        sub_BootDebug_SECTION_MapRelated2(0);
+        BootDebugSectionMapDrawRoomAndDoorIds(FALSE);
 
     BootDebugSetVBlankCodePtr();
     write16(REG_IE, read16(REG_IE) | 1);
@@ -620,7 +620,7 @@ s32 BootDebugHandleInput(void)
     subMenuResult = TRUE;
     tempResult = 0;
 
-    CheckSustainedInputForScrolling();
+    CheckForMaintainedInput();
 
     if (BOOT_DEBUG_DATA.menuDepth == BOOT_DEBUG_MENU_MAIN && gChangedInput & KEY_R)
     {
@@ -728,12 +728,12 @@ s32 BootDebugHandleInput(void)
             }
         }
 
-        if (BOOT_DEBUG_DATA.menuCursor - BOOT_DEBUG_DATA.unk_05 > 8)
-            BOOT_DEBUG_DATA.unk_05 = BOOT_DEBUG_DATA.menuCursor - 8;
-        else if (BOOT_DEBUG_DATA.unk_05 > BOOT_DEBUG_DATA.menuCursor - 1)
-            BOOT_DEBUG_DATA.unk_05 = BOOT_DEBUG_DATA.menuCursor - 1;
+        if (BOOT_DEBUG_DATA.menuCursor - BOOT_DEBUG_DATA.bg3vofs > 8)
+            BOOT_DEBUG_DATA.bg3vofs = BOOT_DEBUG_DATA.menuCursor - 8;
+        else if (BOOT_DEBUG_DATA.bg3vofs > BOOT_DEBUG_DATA.menuCursor - 1)
+            BOOT_DEBUG_DATA.bg3vofs = BOOT_DEBUG_DATA.menuCursor - 1;
         
-        gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.unk_05 * 0x40;
+        gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.bg3vofs * 0x40;
 
         if (tempResult != 0)
             BootDebugDrawSubMenuText();
@@ -755,11 +755,11 @@ s32 BootDebugHandleInput(void)
                 break;
             case BOOT_DEBUG_SUB_MENU_SAMUS:
                 BootDebugSamusSubroutine();
-                if (BOOT_DEBUG_DATA.subMenuOption - BOOT_DEBUG_DATA.unk_06 > 7)
-                    BOOT_DEBUG_DATA.unk_06 = BOOT_DEBUG_DATA.subMenuOption - 7;   
-                else if (BOOT_DEBUG_DATA.unk_06 > BOOT_DEBUG_DATA.subMenuOption)
-                    BOOT_DEBUG_DATA.unk_06 = BOOT_DEBUG_DATA.subMenuOption;   
-                gBg2VOFS_NonGameplay = (BOOT_DEBUG_DATA.unk_06 * 0x40) - 0x10;
+                if (BOOT_DEBUG_DATA.subMenuOption - BOOT_DEBUG_DATA.bg2vofs > 7)
+                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption - 7;   
+                else if (BOOT_DEBUG_DATA.bg2vofs > BOOT_DEBUG_DATA.subMenuOption)
+                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption;   
+                gBg2VOFS_NonGameplay = (BOOT_DEBUG_DATA.bg2vofs * 0x40) - 0x10;
                 break;
             case BOOT_DEBUG_SUB_MENU_SOUND:
                 BootDebugSoundSubroutine();
@@ -815,11 +815,11 @@ s32 BootDebugHandleInput(void)
                 }
                 else if (gIoTransferInfo.active == 1)
                 {
-                    tempResult = sub_808E490();
+                    tempResult = FusionGalleryConnectProcess();
                 }
                 else if (gIoTransferInfo.active == 2)
                 {
-                    tempResult = sub_8089E30();
+                    tempResult = FusionGalleryLinkProcess();
                 }
     
                 if (tempResult == 4 || tempResult == 2)
@@ -883,7 +883,7 @@ s32 BootDebugSectionSubroutine(void)
         {
             BOOT_DEBUG_DATA.subMenuOption++;
             BootDebugSectionMapRoomOrDoorUpdated(BOOT_DEBUG_DATA.subMenuOption - 1);
-            BootDebugSectionMapDrawRoomAndDoorIds(0);
+            BootDebugSectionMapDrawRoomAndDoorIds(FALSE);
             gSectionInfo.onMapScreen = TRUE;
             return FALSE;
         }
@@ -911,7 +911,7 @@ s32 BootDebugSectionSubroutine(void)
                 gSectionInfo.sectionIndex = index;
                 index = TRUE;
                 gSectionInfo.starIndex = gSectionInfo.sectionIndex;
-                BootDebug_SECTION_DrawStar(prevStarIndex);
+                BootDebugSectionDrawStar(prevStarIndex);
             }
         }
 
@@ -970,7 +970,7 @@ s32 BootDebugSectionSubroutine(void)
         {
             gPauseScreenFlag = 0;
             BootDebugSectionMapRoomOrDoorUpdated(BOOT_DEBUG_DATA.subMenuOption - 1);
-            BootDebugSectionMapDrawRoomAndDoorIds(1);
+            BootDebugSectionMapDrawRoomAndDoorIds(TRUE);
         }
 
         return FALSE;
@@ -982,7 +982,7 @@ void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
 {
     s32 doorCount;
     s32 highestRoomId;
-    struct Door* pDoor;
+    const struct Door* pDoor;
     s32 elevator;
     s32 doorId;
 
@@ -1072,7 +1072,7 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
 
     if (!initialized)
     {
-        CallLz77UnComp16Bit(sMinimapDataPointers[gSectionInfo.sectionIndex], VRAM_BASE + 0xB000);
+        CallLZ77UncompVram(sMinimapDataPointers[gSectionInfo.sectionIndex], VRAM_BASE + 0xB000);
         BootDebugUpdateMapScreenPosition();
         gBg0VOFS_NonGameplay = BOOT_DEBUG_DATA.bg0vofs;
         gBg0HOFS_NonGameplay = BOOT_DEBUG_DATA.bg0hofs;
@@ -1152,12 +1152,12 @@ void BootDebugModeSubroutine(void)
         }
         else if (gChangedInput & KEY_UP)
         {
-            if (BOOT_DEBUG_DATA.subMenuOption != BOOT_DEBUG_MODE_LANGUAGE)
+            if (BOOT_DEBUG_DATA.subMenuOption > 0)
                 BOOT_DEBUG_DATA.subMenuOption--;
         }
         else if (gChangedInput & KEY_DOWN)
         {
-            if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_MODE_LANGUAGE)
+            if (BOOT_DEBUG_DATA.subMenuOption < BOOT_DEBUG_MODE_COUNT - 1)
                 BOOT_DEBUG_DATA.subMenuOption++;
         }
     }
@@ -1215,7 +1215,7 @@ void BootDebugModeSubroutine(void)
     // BUG: updateTextAndEvents is only initialized when menuDepth == 2 
     if (updateTextAndEvents)
     {
-        BootDebugUpdateSingleText(BOOT_DEBUG_SUB_MENU_MODE, BOOT_DEBUG_DATA.subMenuOption);
+        BootDebugDrawSubMenuOptionText(BOOT_DEBUG_SUB_MENU_MODE, BOOT_DEBUG_DATA.subMenuOption);
         // Clear or set easy event
         EventFunction(sEasyHardEventActions[gDifficulty][0], EVENT_EASY);
         // Clear or set hard event
@@ -1245,19 +1245,19 @@ void BootDebugSaveSubroutine(void)
         }
         else if (gChangedInput & KEY_B)
         {
-            for (value = BOOT_DEBUG_SAVE_GALLERY_IMAGES; value <= BOOT_DEBUG_SAVE_SAVE; value++)
+            for (value = 0; value < BOOT_DEBUG_SAVE_COUNT; value++)
                 BootDebugSaveUpdateText(value, &gFileScreenOptionsUnlocked);
             
             BOOT_DEBUG_DATA.menuDepth--;
         }
         else if (gChangedInput & KEY_UP)
         {
-            if (BOOT_DEBUG_DATA.subMenuOption > BOOT_DEBUG_SAVE_GALLERY_IMAGES)
+            if (BOOT_DEBUG_DATA.subMenuOption > 0)
                 BOOT_DEBUG_DATA.subMenuOption--;
         }
         else if (gChangedInput & KEY_DOWN)
         {
-            if (BOOT_DEBUG_DATA.subMenuOption < BOOT_DEBUG_SAVE_SAVE)
+            if (BOOT_DEBUG_DATA.subMenuOption < BOOT_DEBUG_SAVE_COUNT - 1)
                 BOOT_DEBUG_DATA.subMenuOption++;
         }
     }
@@ -1337,7 +1337,7 @@ void BootDebugSaveSubroutine(void)
 
         if (value)
         {
-            BootDebugTimeAttackRelated(BOOT_DEBUG_DATA.subMenuOption,
+            BootDebugSaveUpdateText(BOOT_DEBUG_DATA.subMenuOption,
                 &BOOT_DEBUG_DATA.fileScreenOptions);
         }
     }
@@ -1614,12 +1614,12 @@ void BootDebugSoundSubroutine(void)
                     }
                     else if (gChangedInput & (KEY_R | KEY_A))
                     {
-                        PlaySound(BOOT_DEBUG_DATA.soundTestId);
+                        SoundPlay(BOOT_DEBUG_DATA.soundTestId);
                         BootDebugSetSoundTestIdColor();
                     }
                     else if (gChangedInput & KEY_L)
                     {
-                        StopSound(BOOT_DEBUG_DATA.soundTestId);
+                        SoundStop(BOOT_DEBUG_DATA.soundTestId);
                         updateText = TRUE;
                     }
                 }
@@ -1629,7 +1629,7 @@ void BootDebugSoundSubroutine(void)
                 {
                     updateText = TRUE;
                     gStereoFlag ^= TRUE;
-                    ApplyStereo();
+                    FileSelectApplyStereo();
                     SramWrite_SoundMode();
                 }
                 break;
@@ -1639,7 +1639,7 @@ void BootDebugSoundSubroutine(void)
     // BUG: updateText is only initialized when menuDepth == 2
     if (updateText)
     {
-        BootDebugUpdateSingleText(BOOT_DEBUG_SUB_MENU_SOUND,
+        BootDebugDrawSubMenuOptionText(BOOT_DEBUG_SUB_MENU_SOUND,
             BOOT_DEBUG_DATA.subMenuOption);
     }
 }
@@ -1889,7 +1889,7 @@ void BootDebugDrawMenuNames(void)
     if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION &&
         BOOT_DEBUG_DATA.subMenuOption != 0)
     {
-        BootDebugSectionMapDrawRoomAndDoorIds(1);
+        BootDebugSectionMapDrawRoomAndDoorIds(TRUE);
     }
 }
 
@@ -1988,7 +1988,7 @@ void BootDebugDrawSubMenuText(void)
 }
 
 void BootDebugDrawText(u8 background, u8 xPosition, u8 yPosition,
-    u8 palette, u8 size, u8 *text)
+    u8 palette, u8 size, const u8* text)
 {
     u16* dst;
     u32 tile;
@@ -2338,7 +2338,7 @@ void BootDebugDrawNumber(u16 *dst, u8 number, u8 numDigits, u8 color)
     }
 }
 
-void BootDebugDrawLine(u16 *dst, u8 *text, u8 color)
+void BootDebugDrawLine(u16 *dst, const u8* text, u8 color)
 {
     u32 tile;
     
