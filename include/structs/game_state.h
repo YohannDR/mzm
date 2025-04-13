@@ -59,4 +59,9 @@ extern u8 gHasSaved;
 extern s8 gMostRecentSaveFile;
 extern u8 gCompletedGameFlagCopy;
 
+extern s16 gUnk_030053d2;
+extern u16 gUnk_030053d4;
+extern s16 gUnk_030053d6;
+extern s16 gUnk_030053d8;
+
 #endif

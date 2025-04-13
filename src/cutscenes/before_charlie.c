@@ -127,6 +127,10 @@ u8 BeforeCharlieSamusCloseUp(void)
             break;
     }
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -231,6 +235,10 @@ u8 BeforeCharlieWallAndGreyVoice(void)
     BeforeCharlieWallAndGreyScrollCloseUp(&CUTSCENE_DATA.graphicsData[2]);
 
     *CutsceneGetBgVerticalPointer(sBeforeCharliePageData[3].bg) = *CutsceneGetBgVerticalPointer(sBeforeCharliePageData[2].bg);
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
 
     return FALSE;
 }
@@ -348,6 +356,10 @@ u8 BeforeCharlieChozoWallSides(void)
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
     }
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
 
     return FALSE;
 }

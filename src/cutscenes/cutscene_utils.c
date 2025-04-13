@@ -7,6 +7,7 @@
 #include "data/menus/pause_screen_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/engine_pointers.h"
+#include "data/block_data.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"
@@ -1438,3 +1439,24 @@ u8 CutsceneUpdateFading(void)
 
     return ended;
 }
+
+#ifdef DEBUG
+/**
+ * @brief Checks if the cutscene stage should be skipped when A is pressed
+ * 
+* @param bg Fade type (1 for black, 2 for white)
+ */
+void CutsceneCheckSkipStage(u8 fade)
+{
+    if (gSramErrorFlag != 0 && gChangedInput & KEY_A)
+    {
+        CUTSCENE_DATA.timeInfo.stage++;
+        CUTSCENE_DATA.timeInfo.timer = CUTSCENE_DATA.timeInfo.subStage = 0;
+
+        if (fade == 1)
+            CutsceneFadeScreenToBlack();
+        else if (fade == 2)
+            CutsceneFadeScreenToWhite();
+    }
+}
+#endif // DEBUG

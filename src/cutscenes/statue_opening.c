@@ -71,15 +71,28 @@ u8 StatueOpeningOpening(void)
         case 4:
             if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
-                // Set opening animation for appropriate statue
-                if (gCurrentArea == AREA_KRAID)
+                #ifdef DEBUG
+                if (gSramErrorFlag)
+                {
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
-                else if (gCurrentArea == AREA_RIDLEY)
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
-
-                SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
-                CUTSCENE_DATA.timeInfo.subStage++;
-                CUTSCENE_DATA.timeInfo.timer = 0;
+                    SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
+                    CUTSCENE_DATA.timeInfo.subStage++;
+                    CUTSCENE_DATA.timeInfo.timer = 0;
+                }
+                else
+                #endif // DEBUG
+                {
+                    // Set opening animation for appropriate statue
+                    if (gCurrentArea == AREA_KRAID)
+                        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
+                    else if (gCurrentArea == AREA_RIDLEY)
+                        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
+    
+                    SoundPlay(SOUND_STATUE_OPENING_STATUE_ACTIVATING);
+                    CUTSCENE_DATA.timeInfo.subStage++;
+                    CUTSCENE_DATA.timeInfo.timer = 0;
+                }
             }
             break;
 
@@ -100,6 +113,10 @@ u8 StatueOpeningOpening(void)
 
     *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[1].bg) = *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[0].bg);
     *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[2].bg) = *CutsceneGetBgVerticalPointer(sStatueOpeningPageData[0].bg) / 2;
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif
 
     return FALSE;
 }

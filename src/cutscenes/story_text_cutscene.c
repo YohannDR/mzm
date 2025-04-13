@@ -227,9 +227,18 @@ u8 StoryTextCutsceneFadeOut(void)
             {
                 // Check for multi page message (unused in final game)
                 if (gCurrentMessage.messageEnded)
-                    CUTSCENE_DATA.dispcnt = 0; // Message fully ended, clear sreen
+                {
+                    #ifdef DEBUG
+                    if (gSramErrorFlag == 0)
+                    #endif // DEBUG
+                    {
+                        CUTSCENE_DATA.dispcnt = 0; // Message fully ended, clear screen
+                    }
+                }
                 else
-                    CUTSCENE_DATA.dispcnt &= ~sStoryTextCutscenePagesData[0].bg; // Message hasn't ended yet, clear the text background
+                {
+                    CUTSCENE_DATA.dispcnt &= ~sStoryTextCutscenePagesData[0].bg; // Message hasn't ended yet, clear the text background   
+                }
 
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage = 0;

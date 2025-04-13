@@ -389,6 +389,11 @@ u32 SramProcessEndingSave(void)
     u32 ended;
     u32 bit;
 
+    #ifdef DEBUG
+    if (gDebugFlag)
+        return TRUE;
+    #endif
+
     ended = FALSE;
 
     switch (gSramOperationStage)

@@ -74,6 +74,10 @@ u8 RidleySpawnRidleyFlyingIn(void)
 
     RidleySpawnUpdateRidley(&CUTSCENE_DATA.oam[0]);
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -174,6 +178,10 @@ u8 RidleySpawnHelmetReflection(void)
             MACRO_CUTSCENE_NEXT_STAGE();
     }
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -217,6 +225,10 @@ u8 RidleySpawnSamusLookingUp(void)
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
     }
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(0);
+    #endif // DEBUG
 
     return FALSE;
 }

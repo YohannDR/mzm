@@ -79,6 +79,10 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             }
     }
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
