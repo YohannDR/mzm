@@ -6,6 +6,7 @@
 #include "io.h"
 #include "softreset_input.h"
 #include "types.h"
+#include "menus/boot_debug.h"
 
 #include "constants/game_state.h"
 #include "structs/audio.h"

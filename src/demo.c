@@ -161,7 +161,7 @@ void DemoEnd(void)
 {
     gCurrentDemo.active = FALSE;
 
-    if (gDemoState == DEMO_STATE_IN_CONTROL_DEBUG)
+    if (gDemoState == DEMO_STATE_RECORDING_DEBUG)
     {
         // Debug, forward demo input and duration to SRAM, and save it flash
         DMA_SET(3, gDemoInputData, gSramDemoInputData, C_32_2_16(DMA_ENABLE, DEMO_MAX_DURATION));
@@ -182,7 +182,11 @@ void DemoEnd(void)
     if (gCurrentDemo.noDemoShuffle)
     {
         gDemoState = DEMO_STATE_NONE;
+        #ifdef DEBUG
+        gGameModeSub2 = 16;
+        #else // !DEBUG
         gGameModeSub2 = 2;
+        #endif // DEBUG
     }
     else if (gCurrentDemo.endedWithInput)
     {

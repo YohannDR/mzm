@@ -72,36 +72,36 @@ void BootDebugUpdateCursorOam(void)
     {
         switch (BOOT_DEBUG_DATA.menuCursor)
         {
-            case 1:
+            case BOOT_DEBUG_SUB_MENU_SECTION:
                 xPos = sBootDebugSectionMenuText[gSectionInfo.sectionIndex].xPosition;
                 yPos = sBootDebugSectionMenuText[gSectionInfo.sectionIndex].yPosition;
                 break;
-            case 2:
-            case 3:
+            case BOOT_DEBUG_SUB_MENU_MODE:
+            case BOOT_DEBUG_SUB_MENU_SAVE:
                 xPos = sBootDebugSaveMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSaveMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
-            case 4:
+            case BOOT_DEBUG_SUB_MENU_SAMUS:
                 xPos = sBootDebugSamusMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSamusMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
-            case 5:
+            case BOOT_DEBUG_SUB_MENU_SOUND:
                 xPos = sBootDebugSoundMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSoundMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
-            case 6:
+            case BOOT_DEBUG_SUB_MENU_DEMO:
                 xPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
-            case 7:
+            case BOOT_DEBUG_SUB_MENU_ETC:
                 xPos = sBootDebugEtcMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugEtcMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
-            case 9:
+            case BOOT_DEBUG_SUB_MENU_ERASE:
                 xPos = sBootDebugEraseMenuText[BOOT_DEBUG_DATA.subMenuOption + 1].xPosition;
                 yPos = sBootDebugEraseMenuText[BOOT_DEBUG_DATA.subMenuOption + 1].yPosition;
                 break;
-            case 8:
+            case BOOT_DEBUG_SUB_MENU_BOOT:
                 xPos = 1;
                 yPos = 2;
                 break;
@@ -119,68 +119,69 @@ void BootDebugUpdateCursorOam(void)
         {
             switch (BOOT_DEBUG_DATA.menuCursor)
             {
-                case 2:
+                case BOOT_DEBUG_SUB_MENU_MODE:
                     xPos += 9;
                     break;
-                case 3:
-                    if (BOOT_DEBUG_DATA.subMenuOption == 2)
+                case BOOT_DEBUG_SUB_MENU_SAVE:
+                    if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAVE_LINKED_WITH_FUSION)
                     {
                         if (BOOT_DEBUG_DATA.optionCursor == 0)
                             xPos += 9;
                         else
                             xPos += 13;
                     }
-                    else if (BOOT_DEBUG_DATA.subMenuOption == 1)
+                    else if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAVE_DIFFICULTIES_CLEARED)
                     {
                         xPos += 12 + (BOOT_DEBUG_DATA.optionCursor * 2);
                     }
-                    else if (BOOT_DEBUG_DATA.subMenuOption == 0)
+                    else if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAVE_GALLERY_IMAGES)
                     {
                         xPos += 9 + BOOT_DEBUG_DATA.optionCursor;
                     }
                     break;
-                case 4:
-                    if (BOOT_DEBUG_DATA.subMenuOption == 0)
+                case BOOT_DEBUG_SUB_MENU_SAMUS:
+                    if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAMUS_GET_MAP)
                         xPos += 8 + BOOT_DEBUG_DATA.optionCursor;
                     else
                         xPos += 9 + BOOT_DEBUG_DATA.optionCursor;
                     break;
-                case 5:
-                    if (BOOT_DEBUG_DATA.subMenuOption == 0)
+                case BOOT_DEBUG_SUB_MENU_SOUND:
+                    if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SOUND_BGM)
                     {
                         xPos = sBootDebugBgmOnOffText[0].xPosition;
                         yPos = sBootDebugBgmOnOffText[0].yPosition;
                     }
-                    else if (BOOT_DEBUG_DATA.subMenuOption == 2)
+                    else if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SOUND_TEST)
                     {
                         xPos += 6 + BOOT_DEBUG_DATA.optionCursor;
                     }
                     break;
-                case 6:
+                case BOOT_DEBUG_SUB_MENU_DEMO:
                     xPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                     yPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
-                    if (BOOT_DEBUG_DATA.subMenuOption == 0)
+                    if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_DEMO_CUTSCENE_SWITCH)
                     {
                         xPos = sBootDebugDemoOnOffText[0].xPosition;
                         yPos = sBootDebugDemoOnOffText[0].yPosition;
                     }
                     else
                     {
-                        if (BOOT_DEBUG_DATA.subMenuOption == 1 || BOOT_DEBUG_DATA.subMenuOption == 2)
+                        if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_DEMO_CUTSCENE_A ||
+                            BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_DEMO_CUTSCENE_B)
                             xPos += 8;
-                        else if (BOOT_DEBUG_DATA.subMenuOption == 3)
+                        else if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_DEMO_DEMO_MODE)
                             xPos += 12;
                         else
                             xPos += 13;
                     }
                     break;
-                case 7:
-                    if (BOOT_DEBUG_DATA.subMenuOption == 2)
+                case BOOT_DEBUG_SUB_MENU_ETC:
+                    if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_ETC_MAIN_END_OBJ)
                     {
                         xPos = sBootDebugMainEndObjOnOffText[0].xPosition;
                         yPos = sBootDebugMainEndObjOnOffText[0].yPosition;
                     }
-                    else if (BOOT_DEBUG_DATA.subMenuOption == 3)
+                    else if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_ETC_DOOR_TRANSITION)
                     {
                         xPos = sBootDebugDoorTransitionOnOffText[0].xPosition;
                         yPos = sBootDebugDoorTransitionOnOffText[0].yPosition;
@@ -192,11 +193,9 @@ void BootDebugUpdateCursorOam(void)
             oamId = 2;
         }
 
-        if (BOOT_DEBUG_DATA.menuCursor == 1 && BOOT_DEBUG_DATA.subMenuOption != 0)
+        if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION && BOOT_DEBUG_DATA.subMenuOption != 0)
         {
-            xPos = 0;
-            if (BOOT_DEBUG_DATA.subMenuOption == 2)
-                xPos = 4;
+            xPos = BOOT_DEBUG_DATA.subMenuOption == 2 ? 4 : 0;
             xPos *= 8;
             xPos += 168;
             yPos = 64;
@@ -771,12 +770,12 @@ s32 BootDebugHandleInput(void)
                     if (tempResult == 1)
                     {
                         gGameModeSub2 = 7;
-                        gSramErrorFlag = 0x10;
+                        gSramErrorFlag = GM_DEBUG_MENU;
                     }
                     else if (tempResult == 2)
                     {
                         gGameModeSub2 = 8;
-                        gSramErrorFlag = 0x10;
+                        gSramErrorFlag = GM_DEBUG_MENU;
                     }
                     else
                     {
@@ -796,6 +795,7 @@ s32 BootDebugHandleInput(void)
                 {
                     // Written this way to produce matching code
                     sgm2 = gGameModeSub2;
+                    // 4 for ending, 5 for credits
                     sgm2 = gSramErrorFlag == 1 ? 4 : 5;
                     gGameModeSub2 = sgm2;
                     gSramErrorFlag = 1;

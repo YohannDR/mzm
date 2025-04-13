@@ -281,6 +281,10 @@ SECTIONS {
         . = 0x000053cc; gDemoInputTimer = .;
         . = 0x000053ce; gDemoInput = .;
         . = 0x000053d0; gNotPressingUp = .;
+        . = 0x000053d2; gUnk_030053d2 = .;
+        . = 0x000053d4; gUnk_030053d4 = .;
+        . = 0x000053d6; gUnk_030053d6 = .;
+        . = 0x000053d8; gUnk_030053d8 = .;
         . = 0x000053E0; gSamusPalette = .;
         . = 0x00005440; gSamusPaletteSize = .;
         . = 0x00005448; gWrittenToWIN1H = .;

@@ -1,6 +1,7 @@
 #include "softreset_input.h"
 #include "gba.h"
 #include "macros.h"
+#include "menus/boot_debug.h"
 
 #include "constants/game_state.h"
 #include "structs/audio.h"

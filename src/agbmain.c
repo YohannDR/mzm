@@ -43,8 +43,8 @@ void agbmain(void)
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_DEBUG_MENU;
-                    break;
                 }
+                else
                 #endif // DEBUG
                 if (IntroSubroutine())
                 {
@@ -61,8 +61,8 @@ void agbmain(void)
                     gPauseScreenFlag = 0;
                     gGameModeSub2 = 0;
                     gMainGameMode = GM_DEBUG_MENU;
-                    break;
                 }
+                else
                 #endif // DEBUG
                 if (TitleScreenSubroutine())
                 {
