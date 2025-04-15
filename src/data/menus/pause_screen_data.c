@@ -7,6 +7,8 @@
 #include "constants/samus.h"
 #include "constants/text.h"
 
+#include "constants/menus/status_screen.h"
+
 const u16 sPauseScreen_3fcef0[11 * 16] = INCBIN_U16("data/menus/PauseScreen/3fcef0.pal");
 const u16 sTankIconsPal[16 * 16] = INCBIN_U16("data/menus/PauseScreen/TankIcons.pal");
 const u16 sPauseScreen_3fd250[5 * 16] = INCBIN_U16("data/menus/PauseScreen/3fd250.pal");
@@ -2960,52 +2962,54 @@ const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_ARE
     }
 };
 
+// right, left, up, down?
+// borderArrowsOam_id index, oam_id, x_position, y_position
 const u16 sMapScreenArrowsData[4][4] = {
     {
-        1, 0x4, BLOCK_SIZE * 14 + 8, BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE
+        1, BORDER_ARROW_OAM_ID_RIGHT, BLOCK_SIZE * 14 + 8, BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE
     },
     {
-        0, 0x3, QUARTER_BLOCK_SIZE + 8, BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE
+        0, BORDER_ARROW_OAM_ID_LEFT, QUARTER_BLOCK_SIZE + 8, BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE
     },
     {
-        2, 0x1, BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE, BLOCK_SIZE + 8
+        2, BORDER_ARROW_OAM_ID_UP, BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE, BLOCK_SIZE + 8
     },
     {
-        3, 0x2, BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE, BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE + 8
+        3, BORDER_ARROW_OAM_ID_DOWN, BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE, BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE + 8
     }
 };
 
-const u8 sStatusScreenBeamFlagsOrder[5] = {
-    BBF_LONG_BEAM,
-    BBF_CHARGE_BEAM,
-    BBF_ICE_BEAM,
-    BBF_WAVE_BEAM,
-    BBF_PLASMA_BEAM
+const u8 sStatusScreenBeamFlagsOrder[STATUS_SCREEN_BEAM_OFFSET_END] = {
+    [STATUS_SCREEN_BEAM_OFFSET_LONG] = BBF_LONG_BEAM,
+    [STATUS_SCREEN_BEAM_OFFSET_CHARGE] = BBF_CHARGE_BEAM,
+    [STATUS_SCREEN_BEAM_OFFSET_ICE] = BBF_ICE_BEAM,
+    [STATUS_SCREEN_BEAM_OFFSET_WAVE] = BBF_WAVE_BEAM,
+    [STATUS_SCREEN_BEAM_OFFSET_PLASMA] = BBF_PLASMA_BEAM
 };
 
 const u8 sStatusScreenBombFlagsOrder[1] = {
     BBF_BOMBS
 };
 
-const u8 sStatusScreenSuitFlagsOrder[2] = {
-    SMF_VARIA_SUIT,
-    SMF_GRAVITY_SUIT
+const u8 sStatusScreenSuitFlagsOrder[STATUS_SCREEN_SUIT_OFFSET_END] = {
+    [STATUS_SCREEN_SUIT_OFFSET_VARIA] = SMF_VARIA_SUIT,
+    [STATUS_SCREEN_SUIT_OFFSET_GRAVITY] = SMF_GRAVITY_SUIT
 };
 
-const u8 sStatusScreenMiscFlagsOrder[6] = {
-    SMF_MORPH_BALL,
-    SMF_POWER_GRIP,
-    SMF_SPEEDBOOSTER,
-    SMF_HIGH_JUMP,
-    SMF_SCREW_ATTACK,
-    SMF_SPACE_JUMP
+const u8 sStatusScreenMiscFlagsOrder[STATUS_SCREEN_MISC_OFFSET_END] = {
+    [STATUS_SCREEN_MISC_OFFSET_MORPH_BALL] = SMF_MORPH_BALL,
+    [STATUS_SCREEN_MISC_OFFSET_POWER_GRIP] = SMF_POWER_GRIP,
+    [STATUS_SCREEN_MISC_OFFSET_SPEED_BOOSTER] = SMF_SPEEDBOOSTER,
+    [STATUS_SCREEN_MISC_OFFSET_HIGH_JUMP] = SMF_HIGH_JUMP,
+    [STATUS_SCREEN_MISC_OFFSET_SCREW_ATTACK] = SMF_SCREW_ATTACK,
+    [STATUS_SCREEN_MISC_OFFSET_SPACE_JUMP] = SMF_SPACE_JUMP
 };
 
-const u8 sPauseScreen_40d0fe[4] = {
-    ARRAY_SIZE(sStatusScreenBeamFlagsOrder),
-    ARRAY_SIZE(sStatusScreenBombFlagsOrder),
-    ARRAY_SIZE(sStatusScreenSuitFlagsOrder),
-    ARRAY_SIZE(sStatusScreenMiscFlagsOrder)
+const u8 sStatusScreenFlagsSize[ABILITY_GROUP_STATUS_GROUPS_END] = {
+    [ABILITY_GROUP_BEAMS] = ARRAY_SIZE(sStatusScreenBeamFlagsOrder),
+    [ABILITY_GROUP_BOMBS] = ARRAY_SIZE(sStatusScreenBombFlagsOrder),
+    [ABILITY_GROUP_SUITS] = ARRAY_SIZE(sStatusScreenSuitFlagsOrder),
+    [ABILITY_GROUP_MISC] = ARRAY_SIZE(sStatusScreenMiscFlagsOrder)
 };
 
 const u16 sPauseScreen_40d102[5] = {
@@ -4103,7 +4107,13 @@ const u8 sPauseScreen_40dcf4[16] = {
 };
 
 const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1] = {
-    0x9E, 0x9D, 0x9C, 0x9B,
-    0x9A, 0x9F, 0x99, 0x98,
-    0x97
+    [AREA_BRINSTAR] = 0x9E,
+    [AREA_KRAID] = 0x9D,
+    [AREA_NORFAIR] = 0x9C,
+    [AREA_RIDLEY] = 0x9B,
+    [AREA_TOURIAN] = 0x9A,
+    [AREA_CRATERIA] = 0x9F,
+    [AREA_CHOZODIA] = 0x99,
+    [AREA_DEBUG_1] = 0x98,
+    [MAX_AMOUNT_OF_AREAS] = 0x97
 };

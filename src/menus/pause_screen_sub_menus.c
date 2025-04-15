@@ -17,6 +17,7 @@
 #include "constants/menus/pause_screen.h"
 
 #include "structs/display.h"
+#include "structs/minimap.h"
 
 /**
  * @brief 71f70 | 1da | Easy sleep menu subroutine
@@ -139,7 +140,7 @@ u32 PauseScreenEasySleepSubroutine(void)
  * @brief 72144 | c0 | Calculates the X and Y coordiantes of the Chozo statue hint
  * 
  * @param pHintMapData Chozo statue hint map data pointer
- * @return u32 New y and x position
+ * @return u32 New position (YYXX, in bytes)
  */
 u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData)
 {
@@ -393,6 +394,7 @@ void ChozoStatueHintMovement(void)
                 PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
                 PAUSE_SCREEN_DATA.chozoHintTarget.movementStage = CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_MOVEMENT;
             }
+            break;
     }
 }
 
@@ -413,8 +415,9 @@ void ChozoStatueHintScrolling(void)
         case CHOZO_HINT_SCROLLING_STAGE_CALCULATE_SCROLLING:
             PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag |= TARGET_SCROLLING_FLAG;
 
-            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetYPosition = (0x204 - (0xA - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4;
-            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetXPosition = (0x204 - (0xF - PAUSE_SCREEN_DATA.hintTargetX) * 8) * 4;
+            // (MINIMAP_CENTER - (SCREEN_SIZE_Y_BLOCKS - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetYPosition = (0x204 - (10 - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetXPosition = (0x204 - (15 - PAUSE_SCREEN_DATA.hintTargetX) * 8) * 4;
 
             PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapYPostion = gBg3VOFS_NonGameplay;
             PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapXPosition = gBg3HOFS_NonGameplay;
