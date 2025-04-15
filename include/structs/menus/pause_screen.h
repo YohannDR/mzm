@@ -2,6 +2,7 @@
 #define MAP_SCREEN_MENU_STRUCT_H
 
 #include "types.h"
+#include "constants/menus/status_screen.h"
 #include "structs/menu.h"
 #include "structs/connection.h"
 
@@ -115,11 +116,11 @@ struct StatusScreenData {
     u8 previousLeftStatusSlot;
     u8 previousRightStatusSlot;
 
-    u8 beamActivation[5];
-    u8 suitActivation[2];
-    u8 miscActivation[6];
-    u8 bombActivation[2];
-    u8 missilesActivation[2];
+    u8 beamActivation[STATUS_SCREEN_BEAM_OFFSET_END];
+    u8 suitActivation[STATUS_SCREEN_SUIT_OFFSET_END];
+    u8 miscActivation[STATUS_SCREEN_MISC_OFFSET_END];
+    u8 bombActivation[STATUS_SCREEN_BOMB_OFFSET_END];
+    u8 missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_END];
 
     u8 padding_15[3];
 };
@@ -172,10 +173,10 @@ struct PauseScreenData {
     u8 hintTargetX;
     u8 hintTargetY;
 
-    u16 unk_18;
-    s8 unk_1A;
-    u16 unk_1C;
-    s8 unk_1E;
+    u16 unk_18; // timer?
+    s8 unk_1A; // index?
+    u16 unk_1C; // timer?
+    s8 unk_1E; // index?
 
     struct UnknownItemPalette unknownItemDynamicPalette;
     

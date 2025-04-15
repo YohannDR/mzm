@@ -1207,8 +1207,8 @@ characters_graphics.gfx;180224;0x415460;1
 
 # Pause screen
 
-menus/PauseScreen/40dd10.pal;96;0x40dd10;2
-menus/PauseScreen/40ddd0.pal;64;0x40ddd0;2
+menus/PauseScreen/MapScreenUnknownItemsFlashing.pal;96;0x40dd10;2
+menus/PauseScreen/MapScreenUnknownItemsNamesFlashing.pal;64;0x40ddd0;2
 
 menus/PauseScreen/3fcef0.pal;176;0x3fcef0;2
 menus/PauseScreen/TankIcons.pal;256;0x3fd050;2
