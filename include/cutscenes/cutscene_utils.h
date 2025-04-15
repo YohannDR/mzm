@@ -34,5 +34,8 @@ u32 CutsceneTransferAndUpdateFade(void);
 void CutsceneTransferFade(void);
 u8 CutsceneStartBackgroundFading(u8 type);
 u8 CutsceneUpdateFading(void);
+#ifdef DEBUG
+void CutsceneCheckSkipStage(u8 fade);
+#endif // DEBUG
 
-#endif
+#endif // CUTSCENE_UTILS_H

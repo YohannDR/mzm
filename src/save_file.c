@@ -14,6 +14,7 @@
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
+#include "constants/demo.h"
 
 #include "structs/audio.h"
 #include "structs/bg_clip.h"
@@ -2026,6 +2027,10 @@ void unk_757c8(u8 file)
  */
 void unk_7584c(u8 param_1)
 {
+    #ifdef DEBUG
+    u8 temp;
+    #endif // DEBUG
+
     gButtonAssignments = sDefaultButtonAssignments;
     gMaxInGameTimerFlag = FALSE;
     gShipLandingFlag = FALSE;
@@ -2047,10 +2052,37 @@ void unk_7584c(u8 param_1)
             gLastDoorUsed = 0;
             gMaxInGameTimerFlag = TRUE;
             gSkipDoorTransition = FALSE;
-            gDebugFlag = FALSE;
+            #ifdef DEBUG
+            if (gDemoState != DEMO_STATE_NONE)
+            #endif // DEBUG
+            {
+                gDebugFlag = FALSE;            
+            }
             gLanguage = LANGUAGE_ENGLISH;
 
             gCurrentCutscene = 0;
+            break;
+
+        case 2:
+            #ifdef DEBUG
+            gSectionInfo = sSectionInfo;
+            Sram_InitSaveFile();
+            // Written this way to produce matching code
+            temp = gDebugFlag;
+            if (gDebugFlag == 0)
+            {
+                gDebugFlag = 2;
+                BootDebugWriteSram(temp);
+            }
+
+            gEquipment.downloadedMapStatus = gSectionInfo.downloadedMaps;
+            gSectionInfo.sectionIndex = gCurrentArea;
+            gSectionInfo.starIndex = gCurrentArea;
+            gAreaBeforeTransition = gCurrentArea;
+            gCurrentRoom = 0;
+            gLastDoorUsed = 1;
+            SramRead_Language();
+            #endif // DEBUG
             break;
 
         case 3:
@@ -2059,9 +2091,6 @@ void unk_7584c(u8 param_1)
                 SramLoadFile();
 
             gCurrentCutscene = 0;
-            break;
-
-        case 2:
             break;
     }
 

@@ -11,6 +11,8 @@ nintendo_logo:
     .space (0xa0 - 0x04)
 game_title:
     .space 12
+
+    .global game_code
 game_code:
     .space 4
 maker_code:
@@ -23,6 +25,8 @@ device_type:
     .space 1
 reserved_1:
     .space 7
+
+    .global game_version
 game_version:
     .space 1
 complement_check:
