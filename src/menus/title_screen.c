@@ -1118,7 +1118,7 @@ void TitleScreenInit(void)
     TitleScreenLoadPageData(&sTitleScreenPageData[0]);
     TitleScreenLoadPageData(&sTitleScreenPageData[1]);
 
-    unk_777d8(2);
+    TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK);
 
     CallLZ77UncompVram(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
     CallLZ77UncompVram(sTitleScreenSpaceBackgroundGfx, VRAM_BASE + 0x4000);
@@ -1218,11 +1218,11 @@ void TitleScreenVBlank_Empty(void)
 }
 
 /**
- * @brief 777d8 | 4c | To document
+ * @brief 777d8 | 4c | Changes the copyright text
  * 
- * @param param_1 To document
+ * @param action Which new character to use
  */
-void unk_777d8(u8 param_1)
+void TitleScreenSetCopyrightText(u8 action)
 {
     s32 i;
     u32 value;
@@ -1233,10 +1233,10 @@ void unk_777d8(u8 param_1)
 
     bgOffset = sTitleScreenPageData[0].tiletablePage * 2048;
 
-    if (param_1 == 0)
+    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_NONE)
         return;
 
-    if (param_1 == 2)
+    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK)
         temp = 0x12D;
     else
         temp = 0x10D;
