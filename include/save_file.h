@@ -15,7 +15,7 @@ void SramWrite_HeaderAndGameInfo(void);
 u32 SramProcessEndingSave(void);
 void SramCheckSetNewBestCompletionTime(void);
 void SramCopy_GameCompletion(void);
-u32 SramProcessEndingSave_Unused(void);
+u32 SramProcessEndingSave_Debug(void);
 
 u32 SramSaveFile(void);
 void SramWrite_ToEwram(void);

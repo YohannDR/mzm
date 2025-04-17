@@ -3598,7 +3598,12 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
     switch (FILE_SELECT_DATA.subroutineStage)
     {
         case 0:
+            #ifdef DEBUG
+            // Holding L forces attempt to link
+            if (gFileScreenOptionsUnlocked.fusionGalleryImages && !(gButtonInput & KEY_L))
+            #else // !DEBUG
             if (gFileScreenOptionsUnlocked.fusionGalleryImages)
+            #endif // DEBUG
             {
                 FILE_SELECT_DATA.subroutineStage = 1;
             }
@@ -4226,8 +4231,13 @@ void FileSelectInit(void)
     CallLZ77UncompVram(sFileSelectChozoBackgroundGfx, VRAM_BASE + 0x8000);
     CallLZ77UncompVram(sFileSelectIconsGfx, VRAM_OBJ);
 
-    BitFill(3, 0, VRAM_BASE + 0x400, 0x800, 16);
-    CallLZ77UncompVram(sFileSelectTextGfxPointers[gLanguage - 2], VRAM_BASE + 0xC00);
+    #ifdef DEBUG
+    if (gLanguage >= LANGUAGE_ENGLISH)
+    #endif // DEBUG
+    {
+        BitFill(3, 0, VRAM_BASE + 0x400, 0x800, 16);
+        CallLZ77UncompVram(sFileSelectTextGfxPointers[gLanguage - LANGUAGE_ENGLISH], VRAM_BASE + 0xC00);
+    }
     CallLZ77UncompVram(sFileSelectChozoBackgroundTileTable, VRAM_BASE + 0xF800);
 
     CallLZ77UncompWram(sFileSelectMenuTileTable, (void*)sEwramPointer + 0x800);
@@ -4540,6 +4550,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
     }
 }
 
+// TODO: Not matching for REGION_JP || DEBUG
 /**
  * @brief 7cf98 | 118 | Displays the misc. info of a file (difficulty, area, time attack)
  * 
@@ -4576,9 +4587,25 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
     if ((pFile->exists || pFile->introPlayed) && pFile->corruptionFlag == 0)
     {
         if (i)
+        {
             tile = 0x1AF;
+            #if defined(REGION_JP) || defined(DEBUG)
+            if (pFile->language == LANGUAGE_HIRAGANA)
+                tile += 5;
+            #endif // REGION_JP || DEBUG
+        }
         else
+        {
+            #if defined(REGION_JP) || defined(DEBUG)
+            tile = pFile->difficulty * 5;
+            if (pFile->language == LANGUAGE_HIRAGANA)
+                tile += 0x13D;
+            else
+                tile += 0x1A0;
+            #else // !(REGION_JP || DEBUG)
             tile = 0x1A0 + pFile->difficulty * 5;
+            #endif // REGION_JP || DEBUG
+        }
 
         for (i = 0; i < 5; i++)
         {
@@ -4603,7 +4630,16 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 
     if ((pFile->exists || pFile->introPlayed) && i >= 0 && pFile->corruptionFlag == 0)
     {
+        #if defined(REGION_JP) || defined(DEBUG)
+        tile = i * 6;
+        if (pFile->language == LANGUAGE_HIRAGANA)
+            tile += 0x14C;
+        else
+            tile += 0x176;
+        #else // !(REGION_JP || DEBUG)
         tile = i * 6 + 0x176;
+        #endif // REGION_JP || DEBUG
+
         for (i = 0; i < 6; i++)
         {
             *dst++ = baseTile | tile++;
@@ -4797,9 +4833,61 @@ u8 FileSelectUpdateSubMenu(void)
                 else
                 {
                     if (gChangedInput & KEY_B)
+                    {
                         result = 2;
+                    }
                     else if (gChangedInput & KEY_A)
+                    {
                         result = 3;
+                    }
+                    #ifdef DEBUG
+                    else if (gButtonInput & KEY_SELECT)
+                    {
+                        if (FILE_SELECT_DATA.fileSelectCursorPosition < FILE_SELECT_CURSOR_POSITION_COPY &&
+                            (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists ||
+                            gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].introPlayed))
+                        {
+                            if (gChangedInput & KEY_RIGHT)
+                            {
+                                gDifficulty = DIFF_NORMAL;
+                                result = 1;
+                            }
+                            else if (gChangedInput & KEY_LEFT)
+                            {
+                                gDifficulty = DIFF_HARD;
+                                result = 1;
+                            }
+                            else if (gChangedInput & KEY_L)
+                            {
+                                gDifficulty = DIFF_EASY;
+                                result = 1;
+                            }
+
+                            if (result != 0)
+                            {
+                                // Mark file as completed
+                                gMostRecentSaveFile = FILE_SELECT_DATA.fileSelectCursorPosition;
+                                gLanguage = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language; 
+                                gGameCompletion.completedGame = FALSE;
+
+                                if (FILE_SELECT_DATA.fileSelectCursorPosition == 0)
+                                    result = 0xC;
+                                else if (FILE_SELECT_DATA.fileSelectCursorPosition == 1)
+                                    result = 0xD;
+                                else
+                                    result = 0xE;
+                                FILE_SELECT_DATA.fileScreenOam[result].exists = OAM_ID_CHANGED_FLAG;
+                                gSramOperationStage = 0;
+
+                                while (!SramProcessEndingSave_Debug());
+
+                                SoundPlay(SOUND_GAME_BOY_BOOT);
+                            }
+                        }
+                        
+                        result = 0;
+                    }
+                    #endif // DEBUG
                 }
             }
 
@@ -4892,6 +4980,11 @@ u8 FileSelectUpdateSubMenu(void)
                             gSaveFilesInfo[gMostRecentSaveFile].exists = FALSE;
                             gSaveFilesInfo[gMostRecentSaveFile].difficulty = FILE_SELECT_DATA.fileSelectCursors.difficulty;
                             gSaveFilesInfo[gMostRecentSaveFile].timeAttack = FILE_SELECT_DATA.fileSelectCursors.completedFileOptions == 2;
+
+                            #ifdef DEBUG
+                            if (gSaveFilesInfo[gMostRecentSaveFile].language < LANGUAGE_ENGLISH)
+                                gSaveFilesInfo[gMostRecentSaveFile].language = FILE_SELECT_DATA.fileSelectCursors.japaneseText;
+                            #endif // DEBUG
                         }
                     }
                 }

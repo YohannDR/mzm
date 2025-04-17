@@ -539,11 +539,11 @@ void SramCopy_GameCompletion(void)
 }
 
 /**
- * @brief 73a84 | 120 | Processes saving the current file during the ending (unused, doesn't account for best completion times)
+ * @brief 73a84 | 120 | Processes saving the current file as if it were completed (used by debug code)
  * 
  * @return u32 bool, ended
  */
-u32 SramProcessEndingSave_Unused(void)
+u32 SramProcessEndingSave_Debug(void)
 {
     u32 ended;
     u32 bit;

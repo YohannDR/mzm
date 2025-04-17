@@ -613,7 +613,6 @@ s32 BootDebugHandleInput(void)
     s32 subMenuResult;
     s32 tempResult;
     u8 doorId;
-    s8 sgm2;
 
     result = 0;
     subMenuResult = TRUE;
@@ -781,10 +780,7 @@ s32 BootDebugHandleInput(void)
                     {
                         gCurrentDemo.noDemoShuffle = 1;
                         DemoInit();
-                        // Written this way to produce matching code
-                        sgm2 = gGameModeSub2;
-                        sgm2 = gDemoState != 0 ? 6 : 1;
-                        gGameModeSub2 = sgm2;
+                        gGameModeSub2 = gDemoState != 0 ? 6 : 1;
                     }
                     result = 1;
                 }
@@ -793,11 +789,7 @@ s32 BootDebugHandleInput(void)
                 gSramErrorFlag = BootDebugEtcSubroutine();
                 if (gSramErrorFlag != 0)
                 {
-                    // Written this way to produce matching code
-                    sgm2 = gGameModeSub2;
-                    // 4 for ending, 5 for credits
-                    sgm2 = gSramErrorFlag == 1 ? 4 : 5;
-                    gGameModeSub2 = sgm2;
+                    gGameModeSub2 = gSramErrorFlag == 1 ? 4 : 5;
                     gSramErrorFlag = 1;
                     result = 1;
                 }
