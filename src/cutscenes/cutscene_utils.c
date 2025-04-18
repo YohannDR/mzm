@@ -53,7 +53,7 @@ u8 TourianEscapeSubroutine(void)
         gGameModeSub2 = 4;
 
         #ifdef DEBUG
-        if (gSramErrorFlag)
+        if (gBootDebugActive)
         {
             SET_BACKDROP_COLOR(COLOR_BLACK);
             write16(REG_DISPCNT, 0);
@@ -67,9 +67,9 @@ u8 TourianEscapeSubroutine(void)
     #ifdef DEBUG
     else if (gChangedInput & KEY_B)
     {
-        if (gSramErrorFlag)
+        if (gBootDebugActive)
             return TRUE;
-        if (gDebugFlag)
+        if (gDebugMode)
             ended = TRUE;
     }
     #endif // DEBUG
@@ -123,7 +123,7 @@ void CutsceneEnd(void)
     {
         case CUTSCENE_RIDLEY_LANDING:
             #ifdef DEBUG
-            if (gSramErrorFlag == 0)
+            if (gBootDebugActive == 0)
             #endif // DEBUG
             {
                 // Set the event for the ridley in space cutscene, in case it was skipped
@@ -133,7 +133,7 @@ void CutsceneEnd(void)
 
         case CUTSCENE_INTRO_TEXT:
             #ifdef DEBUG
-            if (gSramErrorFlag == 0)
+            if (gBootDebugActive == 0)
             #endif // DEBUG
             {
                 // Set spawn location
@@ -149,7 +149,7 @@ void CutsceneEnd(void)
             // Start fully powered items
             gPauseScreenFlag = PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS;
             #ifdef DEBUG
-            if (gSramErrorFlag != 0)
+            if (gBootDebugActive != 0)
             {
                 gEquipment.maxEnergy = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].energy *
                     sTankIncreaseAmount[gDifficulty].energy + sStartingHealthAmmo.energy;
@@ -178,7 +178,7 @@ void CutsceneEnd(void)
 
         case CUTSCENE_STATUE_OPENING:
             #ifdef DEBUG
-            if (gSramErrorFlag == 0)
+            if (gBootDebugActive == 0)
             #endif // DEBUG
             {
                 // Play fight music
@@ -203,7 +203,7 @@ void CutsceneEnd(void)
     if (sCutsceneData[gCurrentCutscene].event != EVENT_NONE)
     {
         #ifdef DEBUG
-        if (gSramErrorFlag == 0)
+        if (gBootDebugActive == 0)
         #endif // DEBUG
         {
             EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
@@ -213,7 +213,7 @@ void CutsceneEnd(void)
     if (sCutsceneData[gCurrentCutscene].isElevator)
     {
         #ifdef DEBUG
-        if (gSramErrorFlag == 0)
+        if (gBootDebugActive == 0)
         #endif // DEBUG
         {
             // Fade in the elevator sound
@@ -277,10 +277,10 @@ u8 CutsceneSubroutine(void)
             if (result)
             {
                 ended = TRUE;
-                if (gSramErrorFlag != 0)
+                if (gBootDebugActive != 0)
                     ended = 2;
             }
-            else if (gSramErrorFlag != 0)
+            else if (gBootDebugActive != 0)
             {
                 if (gChangedInput & KEY_B)
                     return TRUE;
@@ -348,7 +348,7 @@ u8 CutsceneSubroutine(void)
             if (sCutsceneData[gCurrentCutscene].gameplayType == CUTSCENE_TYPE_NON_GAMEPLAY)
             {
                 #ifdef DEBUG
-                if (gSramErrorFlag == 0)
+                if (gBootDebugActive == 0)
                 #endif // DEBUG
                 {
                     gCurrentCutscene = CUTSCENE_NONE;                
@@ -434,7 +434,7 @@ void CutsceneInit(void)
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
     #ifdef DEBUG
-    if (gSramErrorFlag == 0)
+    if (gBootDebugActive == 0)
     #endif // DEBUG
     {
         gameplayType = sCutsceneData[gCurrentCutscene].gameplayType;
@@ -450,7 +450,7 @@ void CutsceneInit(void)
 
     #ifdef DEBUG
     // Written this way to produce matching code
-    temp = gSramErrorFlag;
+    temp = gBootDebugActive;
     if (temp != 0)
     {
         if (gButtonInput & KEY_L)
@@ -459,7 +459,7 @@ void CutsceneInit(void)
             gEquipment.suitMiscActivation &= ~SMF_VARIA_SUIT;
     }
 
-    if (gDebugFlag)
+    if (gDebugMode)
         gCutsceneToSkip = gCurrentCutscene;
     #endif // DEBUG
 
@@ -1448,7 +1448,7 @@ u8 CutsceneUpdateFading(void)
  */
 void CutsceneCheckSkipStage(u8 fade)
 {
-    if (gSramErrorFlag != 0 && gChangedInput & KEY_A)
+    if (gBootDebugActive != 0 && gChangedInput & KEY_A)
     {
         CUTSCENE_DATA.timeInfo.stage++;
         CUTSCENE_DATA.timeInfo.timer = CUTSCENE_DATA.timeInfo.subStage = 0;

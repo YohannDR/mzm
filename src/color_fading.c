@@ -748,7 +748,7 @@ u8 ColorFadingProcess_ChozodiaEscape(void)
 
         default:
             #ifdef DEBUG
-            if (gDebugFlag)
+            if (gDebugMode)
             {
                 gDisableSoftreset = FALSE;
                 gCompletedGameFlagCopy = 0x80;

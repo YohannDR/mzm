@@ -1137,8 +1137,8 @@ void TitleScreenInit(void)
     zero = 0;
     DMA_SET(3, &zero, &gSamusPhysics, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gSamusPhysics) / sizeof(u32)));
 
-    gSramErrorFlag = FALSE;
-    gDebugFlag = FALSE;
+    gBootDebugActive = FALSE;
+    gDebugMode = FALSE;
 
     StopAllMusicsAndSounds();
 

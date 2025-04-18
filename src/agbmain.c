@@ -195,7 +195,7 @@ void agbmain(void)
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_INTRO;
                     #ifdef DEBUG
-                    if (gSramErrorFlag || gDebugFlag)
+                    if (gBootDebugActive || gDebugMode)
                         gMainGameMode = GM_DEBUG_MENU;
                     #endif // DEBUG
                 }
@@ -207,7 +207,7 @@ void agbmain(void)
                     gGameModeSub1 = 0;
                     gMainGameMode = gGameModeSub2;
                     #ifdef DEBUG
-                    if (gSramErrorFlag)
+                    if (gBootDebugActive)
                         gMainGameMode = GM_DEBUG_MENU;
                     #endif // DEBUG
                 }
@@ -226,8 +226,8 @@ void agbmain(void)
                     {
                         gMainGameMode = GM_INGAME;
                         #ifdef DEBUG
-                        if (gSramErrorFlag)
-                            gMainGameMode = gSramErrorFlag;
+                        if (gBootDebugActive)
+                            gMainGameMode = gBootDebugActive;
                         #endif // DEBUG
                     }
                 }
@@ -287,7 +287,7 @@ void agbmain(void)
                     {
                         gMainGameMode = GM_SOFTRESET;
                         #ifdef DEBUG
-                        if (gDebugFlag)
+                        if (gDebugMode)
                             gMainGameMode = GM_DEBUG_MENU;
                         #endif // DEBUG
                     }

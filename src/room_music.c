@@ -78,7 +78,7 @@ void CheckPlayLoadingJingle(void)
             }
         }
         #ifdef DEBUG
-        else if (gDebugFlag && gCurrentRoomEntry.musicTrack != 0)
+        else if (gDebugMode && gCurrentRoomEntry.musicTrack != 0)
         {
             unk_42bc(gMusicTrackInfo.currentRoomTrack);
         }

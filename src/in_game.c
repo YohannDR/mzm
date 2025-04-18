@@ -74,7 +74,7 @@ u32 InGameMainLoop(void)
 
             #ifdef DEBUG
             // Check for no-clip input
-            if (gDebugFlag && gChangedInput & KEY_START &&
+            if (gDebugMode && gChangedInput & KEY_START &&
                 (gButtonInput & (KEY_L | KEY_B)) == (KEY_L | KEY_B) && !gPreventMovementTimer)
             {
                 gGameModeSub1 = SUB_GAME_MODE_FREE_MOVEMENT;
@@ -174,7 +174,7 @@ u32 InGameMainLoop(void)
     }
 
     #ifdef DEBUG
-    if (gDebugFlag == 1)
+    if (gDebugMode == 1)
     {
         if (gUnk_030053d6 <= 0x9F)
             gOamData[0x7E].split.y = gUnk_030053d2 - gUnk_030053d6;
@@ -437,7 +437,7 @@ void InitAndLoadGenerics(void)
         DmaTransfer(3, EWRAM_BASE + 0x1E000, VRAM_OBJ, 0x4000, 16);
 
     #ifndef DEBUG
-    gDebugFlag = FALSE;
+    gDebugMode = FALSE;
     #endif // !DEBUG
     DMA_SET(3, sCommonSpritesPal, PALRAM_BASE + 0x240, C_32_2_16(DMA_ENABLE, sizeof(sCommonSpritesPal) / 2));
     SamusInit();

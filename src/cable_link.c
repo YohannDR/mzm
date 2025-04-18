@@ -171,7 +171,7 @@ void CableLinkDrawErrorStr(const u8* str, u16* dst, u8 palette)
 {
     u16 letter;
 
-    if (!gSramErrorFlag)
+    if (!gBootDebugActive)
         return;
 
     while (*str)

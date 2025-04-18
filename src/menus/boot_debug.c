@@ -341,14 +341,14 @@ void BootDebugReadSram(void)
         for (i = 0; i < 8; i++)
             pSave->zeroSaveText[i] = sZeroSaveText[i];
     
-        gDebugFlag = 2;
+        gDebugMode = 2;
         gCurrentArea = 8;
-        pSave->debugFlag = gDebugFlag;
+        pSave->debugFlag = gDebugMode;
         pSave->sectionIndex = gCurrentArea;
     }
     else
     {
-        gDebugFlag = pSave->debugFlag;
+        gDebugMode = pSave->debugFlag;
         gCurrentArea = pSave->sectionIndex;
     }
 }
@@ -359,7 +359,7 @@ void BootDebugWriteSram(u8 selectSaveFile)
 
     dst = gSram.bootDebugSave.zeroSaveText;
     DmaTransfer(3, &sZeroSaveText, dst, 8, 8);
-    gSram.bootDebugSave.debugFlag = gDebugFlag;
+    gSram.bootDebugSave.debugFlag = gDebugMode;
 
     if (selectSaveFile) {
         if (gMostRecentSaveFile == 0)
@@ -430,7 +430,7 @@ s32 BootDebugSubroutine(void)
                         case 2:
                             gCurrentCutscene = 0;
                             gTourianEscapeCutsceneStage = 0;
-                            gDebugFlag = 0;
+                            gDebugMode = 0;
                             break;
                         case 7:
                         case 8:
@@ -541,7 +541,7 @@ void BootDebugSetupMenu(void)
     
     SramWrite_FileInfo();
     BootDebugReadSram();
-    gSramErrorFlag = 0;
+    gBootDebugActive = 0;
     unk_7584c(2);
     SramRead_SoundMode();
     FileSelectApplyStereo();
@@ -769,12 +769,12 @@ s32 BootDebugHandleInput(void)
                     if (tempResult == 1)
                     {
                         gGameModeSub2 = 7;
-                        gSramErrorFlag = GM_DEBUG_MENU;
+                        gBootDebugActive = GM_DEBUG_MENU;
                     }
                     else if (tempResult == 2)
                     {
                         gGameModeSub2 = 8;
-                        gSramErrorFlag = GM_DEBUG_MENU;
+                        gBootDebugActive = GM_DEBUG_MENU;
                     }
                     else
                     {
@@ -786,17 +786,17 @@ s32 BootDebugHandleInput(void)
                 }
                 break;
             case BOOT_DEBUG_SUB_MENU_ETC:
-                gSramErrorFlag = BootDebugEtcSubroutine();
-                if (gSramErrorFlag != 0)
+                gBootDebugActive = BootDebugEtcSubroutine();
+                if (gBootDebugActive != 0)
                 {
-                    gGameModeSub2 = gSramErrorFlag == 1 ? 4 : 5;
-                    gSramErrorFlag = 1;
+                    gGameModeSub2 = gBootDebugActive == 1 ? 4 : 5;
+                    gBootDebugActive = 1;
                     result = 1;
                 }
                 break;
             case BOOT_DEBUG_SUB_MENU_BOOT:
                 subMenuResult = FALSE;
-                gSramErrorFlag = 1;
+                gBootDebugActive = 1;
                 
                 if (gIoTransferInfo.active == 0)
                 {
@@ -1817,7 +1817,7 @@ s32 BootDebugEtcSubroutine(void)
             case BOOT_DEBUG_ETC_MAIN_END_OBJ:
                 if (gChangedInput & KEY_A)
                 {
-                    gDebugFlag ^= 3;
+                    gDebugMode ^= 3;
                     updateText = TRUE;
                 }
                 break;
@@ -2272,7 +2272,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
         case BOOT_DEBUG_SUB_MENU_ETC:
             if (subMenuOption == BOOT_DEBUG_ETC_MAIN_END_OBJ)
             {
-                index = gDebugFlag - 1;
+                index = gDebugMode - 1;
                 BootDebugDrawText(sBootDebugMainEndObjOnOffText[index].background,
                     sBootDebugMainEndObjOnOffText[index].xPosition,
                     sBootDebugMainEndObjOnOffText[index].yPosition,

@@ -42,8 +42,8 @@ SECTIONS {
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
-        . = 0x00000000; gDebugFlag = .;
-        . = 0x00000001; gSramErrorFlag = .;
+        . = 0x00000000; gDebugMode = .;
+        . = 0x00000001; gBootDebugActive = .;
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
         . = 0x00000005; gSubGameModeStage = .;

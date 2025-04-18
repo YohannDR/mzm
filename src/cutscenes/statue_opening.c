@@ -72,7 +72,7 @@ u8 StatueOpeningOpening(void)
             if (CUTSCENE_DATA.timeInfo.timer > CONVERT_SECONDS(.5f))
             {
                 #ifdef DEBUG
-                if (gSramErrorFlag)
+                if (gBootDebugActive)
                 {
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
                     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);

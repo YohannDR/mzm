@@ -4208,8 +4208,8 @@ void FileSelectInit(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    gSramErrorFlag = FALSE;
-    gDebugFlag = FALSE;
+    gBootDebugActive = FALSE;
+    gDebugMode = FALSE;
 
     BitFill(3, 0, (void*)sEwramPointer + 0x1000, 0x800, 16);
     SramWrite_FileInfo();

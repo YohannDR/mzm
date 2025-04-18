@@ -391,7 +391,7 @@ u32 SramProcessEndingSave(void)
     u32 bit;
 
     #ifdef DEBUG
-    if (gDebugFlag)
+    if (gDebugMode)
         return TRUE;
     #endif
 
@@ -2056,7 +2056,7 @@ void unk_7584c(u8 param_1)
             if (gDemoState != DEMO_STATE_NONE)
             #endif // DEBUG
             {
-                gDebugFlag = FALSE;            
+                gDebugMode = FALSE;            
             }
             gLanguage = LANGUAGE_ENGLISH;
 
@@ -2068,10 +2068,10 @@ void unk_7584c(u8 param_1)
             gSectionInfo = sSectionInfo;
             Sram_InitSaveFile();
             // Written this way to produce matching code
-            temp = gDebugFlag;
-            if (gDebugFlag == 0)
+            temp = gDebugMode;
+            if (gDebugMode == 0)
             {
-                gDebugFlag = 2;
+                gDebugMode = 2;
                 BootDebugWriteSram(temp);
             }
 
@@ -2143,7 +2143,7 @@ void Sram_CheckLoadSaveFile(void)
     gGameCompletion.language = gSaveFilesInfo[gMostRecentSaveFile].language;
     gLanguage = gGameCompletion.language;
     gSkipDoorTransition = FALSE;
-    gDebugFlag = FALSE;
+    gDebugMode = FALSE;
 }
 
 #ifdef NON_MATCHING

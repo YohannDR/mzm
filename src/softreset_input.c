@@ -66,7 +66,7 @@ void Softreset(void)
 
     #ifdef DEBUG
     BootDebugReadSram();
-    gMainGameMode = gDebugFlag ? GM_DEBUG_MENU : GM_INTRO;
+    gMainGameMode = gDebugMode ? GM_DEBUG_MENU : GM_INTRO;
     #else // !DEBUG
     gMainGameMode = GM_INTRO;
     #endif // DEBUG

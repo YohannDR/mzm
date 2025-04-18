@@ -229,7 +229,7 @@ u8 StoryTextCutsceneFadeOut(void)
                 if (gCurrentMessage.messageEnded)
                 {
                     #ifdef DEBUG
-                    if (gSramErrorFlag == 0)
+                    if (gBootDebugActive == 0)
                     #endif // DEBUG
                     {
                         CUTSCENE_DATA.dispcnt = 0; // Message fully ended, clear screen

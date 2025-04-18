@@ -37,7 +37,7 @@ void InitializeGame(void)
 
     gGameModeSub1 = 0;
     gGameModeSub2 = 0;
-    gDebugFlag = FALSE;
+    gDebugMode = FALSE;
 
     gButtonInput = KEY_NONE;
     gPreviousButtonInput = KEY_NONE;
@@ -53,7 +53,7 @@ void InitializeGame(void)
     {
         #ifdef DEBUG
         BootDebugReadSram();
-        gMainGameMode = gDebugFlag ? GM_DEBUG_MENU : GM_SOFTRESET;
+        gMainGameMode = gDebugMode ? GM_DEBUG_MENU : GM_SOFTRESET;
         #else // !DEBUG
         gMainGameMode = GM_SOFTRESET;
         #endif // DEBUG

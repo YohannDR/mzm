@@ -419,7 +419,7 @@ void RoomReset(void)
         if (!gIsLoadingFile)
         {
             #ifdef DEBUG
-            if (gDebugFlag)
+            if (gDebugMode)
                 gEquipment.downloadedMapStatus = gSectionInfo.downloadedMaps;
             #endif // DEBUG
             if (gCurrentDemo.loading)
