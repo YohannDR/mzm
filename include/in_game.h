@@ -12,6 +12,6 @@ void TransferSamusAndBgGraphics(void);
 void VBlankCodeInGame(void);
 void VBlankInGame_Empty(void);
 void InitAndLoadGenerics(void);
-void UpdateFreeMovement_Debug(void);
+void UpdateNoClip_Debug(void);
 
 #endif /* IN_GAME_H */

@@ -90,7 +90,7 @@ extern struct LockScreen gLockScreen;
 extern s8 gScreenYOffset;
 extern s16 gScreenXOffset;
 
-extern u8 gFreeMovementLockCamera;
+extern u8 gNoClipLockCamera;
 extern struct CameraScrollVelocityCaps gScrollingVelocityCaps;
 extern const u8* gCurrentRoomScrollDataPointer;
 

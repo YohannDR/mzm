@@ -202,7 +202,7 @@ struct SaveTimeAttack {
 struct SaveBootDebug {
     u8 zeroSaveText[8];
     u8 unk_8[4];
-    u8 debugFlag;
+    u8 debugMode;
     u8 sectionIndex;
     u8 unk_E[2];
 };

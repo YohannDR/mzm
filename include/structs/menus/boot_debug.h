@@ -11,7 +11,7 @@ struct BootDebugText {
     u8 background;
     u8 xPosition;
     u8 yPosition;
-    u8 palette;
+    u8 color;
     u8 size;
     const u8* text;
 };

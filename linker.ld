@@ -107,7 +107,7 @@ SECTIONS {
         . = 0x0000007c; gDisableDrawingSprites = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
-        . = 0x0000007f; gFreeMovementLockCamera = .;
+        . = 0x0000007f; gNoClipLockCamera = .;
         . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIoRegistersBackup = .;
         . = 0x0000009C; gBgPointersAndDimensions = .;
@@ -281,10 +281,10 @@ SECTIONS {
         . = 0x000053cc; gDemoInputTimer = .;
         . = 0x000053ce; gDemoInput = .;
         . = 0x000053d0; gNotPressingUp = .;
-        . = 0x000053d2; gUnk_030053d2 = .;
-        . = 0x000053d4; gUnk_030053d4 = .;
-        . = 0x000053d6; gUnk_030053d6 = .;
-        . = 0x000053d8; gUnk_030053d8 = .;
+        . = 0x000053d2; gDebugVCount_InGameStart = .;
+        . = 0x000053d4; gDebugVCount_InGameEnd = .;
+        . = 0x000053d6; gDebugVCount_VBlankEnd = .;
+        . = 0x000053d8; gDebugVCount_AudioMax = .;
         . = 0x000053E0; gSamusPalette = .;
         . = 0x00005440; gSamusPaletteSize = .;
         . = 0x00005448; gWrittenToWIN1H = .;

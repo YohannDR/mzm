@@ -18,6 +18,9 @@
 #include "structs/cable_link.h"
 #include "structs/audio.h"
 
+/**
+ * @brief Updates all of the boot debug menu's OAM
+ */
 void BootDebugUpdateMenuOam(void)
 {
     BootDebugUpdateCursorOam();
@@ -29,6 +32,9 @@ void BootDebugUpdateMenuOam(void)
     ResetFreeOam();
 }
 
+/**
+ * @brief Initializes the boot debug menu OAM when the menu loads
+ */
 void BootDebugSetupMenuOam(void)
 {
     s32 i;
@@ -55,6 +61,9 @@ void BootDebugSetupMenuOam(void)
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].boundBackground = 0;   
 }
 
+/**
+ * @brief Updates the OAM of the boot debug menu cursor
+ */
 void BootDebugUpdateCursorOam(void)
 {
     u8 oamId;
@@ -223,6 +232,9 @@ void BootDebugUpdateCursorOam(void)
     }
 }
 
+/**
+ * @brief Updates the OAM of non-cursor objects in the boot debug menu
+ */
 void BootDebugUpdateNonCursorOam(void)
 {
     if (BOOT_DEBUG_DATA.menuCursor != BOOT_DEBUG_SUB_MENU_SECTION)
@@ -241,15 +253,20 @@ void BootDebugUpdateNonCursorOam(void)
         BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_R_BUTTON_TITLE].exists = OAM_ID_CHANGED_FLAG;
 }
 
+/**
+ * @brief Updates the position of the interactive area map in the boot debug menu
+ */
 void BootDebugUpdateMapScreenPosition(void)
-{    
+{
+    // TODO: Match this function
+    // https://decomp.me/scratch/9GEWC
+
     s32 xOffset;
     s32 yOffset;
     const struct Door* pDoor;
     const struct RoomEntryROM* pRoom;
     u16 mapX;
     u16 mapY;
-    //s32 flag;
     
     xOffset = 2;
     yOffset = 2;
@@ -319,6 +336,9 @@ void BootDebugUpdateMapScreenPosition(void)
     }
 }
 
+/**
+ * @brief Reads SRAM specific to the boot debug menu
+ */
 void BootDebugReadSram(void)
 {
     u8 invalid;
@@ -343,23 +363,28 @@ void BootDebugReadSram(void)
     
         gDebugMode = 2;
         gCurrentArea = 8;
-        pSave->debugFlag = gDebugMode;
+        pSave->debugMode = gDebugMode;
         pSave->sectionIndex = gCurrentArea;
     }
     else
     {
-        gDebugMode = pSave->debugFlag;
+        gDebugMode = pSave->debugMode;
         gCurrentArea = pSave->sectionIndex;
     }
 }
 
+/**
+ * @brief Writes SRAM specific to the boot debug menu
+ * 
+ * @param selectSaveFile Whether to select most recent save file or current area
+ */
 void BootDebugWriteSram(u8 selectSaveFile)
 {
     u8* dst;
 
     dst = gSram.bootDebugSave.zeroSaveText;
     DmaTransfer(3, &sZeroSaveText, dst, 8, 8);
-    gSram.bootDebugSave.debugFlag = gDebugMode;
+    gSram.bootDebugSave.debugMode = gDebugMode;
 
     if (selectSaveFile) {
         if (gMostRecentSaveFile == 0)
@@ -379,12 +404,17 @@ void BootDebugWriteSram(u8 selectSaveFile)
     DoSramOperation(SRAM_OPERATION_SAVE_BOOT_DEBUG_RAM);
 }
 
+/**
+ * @brief Main routine for the boot debug menu
+ * 
+ * @return s32 bool, changing game mode
+ */
 s32 BootDebugSubroutine(void)
 {
-    s32 result;
+    s32 changing;
     s32 inputResult;
 
-    result = FALSE;
+    changing = FALSE;
 
     switch (gGameModeSub1)
     {
@@ -437,7 +467,7 @@ s32 BootDebugSubroutine(void)
                             break;
                     }
                     
-                    BootDebugWriteSram(0);
+                    BootDebugWriteSram(FALSE);
 
                     if (gGameModeSub2 == 1)
                     {
@@ -469,7 +499,7 @@ s32 BootDebugSubroutine(void)
             else
             {
                 write16(PALRAM_BASE, 0);
-                result = TRUE;
+                changing = TRUE;
                 gGameModeSub1 = 0;
             }
             break;
@@ -488,21 +518,27 @@ s32 BootDebugSubroutine(void)
                 EraseSram();
                 gResetGame = TRUE;
                 write16(PALRAM_BASE, 0);
-                result = TRUE;
+                changing = TRUE;
                 gGameModeSub1 = 0;
             }
             break;
     }
 
     BootDebugUpdateMenuOam();
-    return result;
+    return changing;
 }
 
+/**
+ * @brief Sets the V-blank code pointer for the boot debug menu
+ */
 void BootDebugSetVBlankCodePtr(void)
 {
     CallbackSetVBlank(VBlankCodeDuringBootDebug);
 }
 
+/**
+ * @brief V-blank code for the boot debug menu
+ */
 void VBlankCodeDuringBootDebug(void)
 {
     if (gIoTransferInfo.linkInProgress)
@@ -516,9 +552,12 @@ void VBlankCodeDuringBootDebug(void)
     write16(REG_DISPCNT, BOOT_DEBUG_DATA.dispcnt);
 }
 
-// TODO: Replace numbers with constants
+/**
+ * @brief Initializes the boot debug menu when it loads
+ */
 void BootDebugSetupMenu(void)
 {
+    // TODO: Replace numbers with constants
     write16(REG_IE, read16(REG_IE) ^ 1);
     write16(REG_IME, 0);
     write16(REG_DISPSTAT, read16(REG_DISPSTAT) & 0xFFEF);
@@ -606,7 +645,11 @@ void BootDebugSetupMenu(void)
     write16(REG_IE, read16(REG_IE) | 1);
 }
 
-// Returns 1 if leaving menu, 2 if erasing SRAM, 0 otherwise
+/**
+ * @brief Handles button input for the boot debug menu
+ * 
+ * @return s32 Result (1 if leaving menu, 2 if erasing SRAM, 0 otherwise)
+ */
 s32 BootDebugHandleInput(void)
 {
     s32 result;
@@ -691,10 +734,10 @@ s32 BootDebugHandleInput(void)
             if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SAVE)
             {
                 BOOT_DEBUG_DATA.fileScreenOptions = gFileScreenOptionsUnlocked;
-                BootDebugDrawText(sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].background,
+                BootDebugDrawTextAtPosition(sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].background,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].xPosition,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].yPosition,
-                    sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].palette,
+                    sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].color,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].size,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].text);
             }
@@ -864,6 +907,11 @@ s32 BootDebugHandleInput(void)
     return result;
 }
 
+/**
+ * @brief Handles button input for the "Section" sub-menu in the boot debug menu
+ * 
+ * @return s32 bool, cursor has moved
+ */
 s32 BootDebugSectionSubroutine(void)
 {
     s32 index;
@@ -969,7 +1017,11 @@ s32 BootDebugSectionSubroutine(void)
     }
 }
 
-// roomOrDoor: -1 = loading, 0 = room, 1 = door
+/**
+ * @brief Updates the room and door ID on the interactive area map when one of them has changed
+ * 
+ * @param roomOrDoor Value updated (-1 = loading, 0 = room, 1 = door)
+ */
 void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
 {
     s32 doorCount;
@@ -1052,6 +1104,11 @@ void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
     }
 }
 
+/**
+ * @brief Draws the room and door IDs for the interactive area map
+ * 
+ * @param initialized True if the map has been initialized
+ */
 void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
 {
     u16* dst;
@@ -1128,6 +1185,9 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
     }
 }
 
+/**
+ * @brief Handles button input for the "Mode" sub-menu in the boot debug menu
+ */
 void BootDebugModeSubroutine(void)
 {
     s32 updateTextAndEvents;
@@ -1168,15 +1228,15 @@ void BootDebugModeSubroutine(void)
                 {
                     gLanguage++;
                     if (gLanguage >= LANGUAGE_END)
-                        gLanguage = LANGUAGE_JAPANESE;
+                        gLanguage = 0;
                     updateTextAndEvents = TRUE;
                 }
                 else if (gChangedInput & KEY_DOWN)
                 {
-                    if (gLanguage != LANGUAGE_JAPANESE)
+                    if (gLanguage != 0)
                         gLanguage--;
                     else
-                        gLanguage = LANGUAGE_SPANISH;
+                        gLanguage = LANGUAGE_END - 1;
                     updateTextAndEvents = TRUE;
                 }
                 break;
@@ -1215,6 +1275,9 @@ void BootDebugModeSubroutine(void)
     }
 }
 
+/**
+ * @brief Handles button input for the "Save" sub-menu in the boot debug menu
+ */
 void BootDebugSaveSubroutine(void)
 {
     s32 value;
@@ -1335,7 +1398,13 @@ void BootDebugSaveSubroutine(void)
     }
 }
 
-void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked* fileScreenOptions)
+/**
+ * @brief Updates text in the "Save" sub-menu in the boot debug menu
+ * 
+ * @param subMenuOption Sub-menu option index
+ * @param pOptions File screen options unlocked pointer
+ */
+void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked* pOptions)
 {
     u16* dst;
     s32 offset;
@@ -1353,7 +1422,7 @@ void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked*
             offset += 9;
             for (i = 0; i < 8; i++, offset++)
             {
-                index = (fileScreenOptions->galleryImages >> i) & 1;
+                index = (pOptions->galleryImages >> i) & 1;
                 dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
                 dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
             }
@@ -1362,14 +1431,14 @@ void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked*
             offset += 12;
             for (i = 0; i < 3; i++, offset += 2)
             {
-                index = (fileScreenOptions->soundTestAndOgMetroid >> i) & 1;
+                index = (pOptions->soundTestAndOgMetroid >> i) & 1;
                 dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
                 dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
             }
             break;
         case BOOT_DEBUG_SAVE_LINKED_WITH_FUSION:
             offset += 9;
-            index = fileScreenOptions->fusionGalleryImages ? 1 : 0;
+            index = pOptions->fusionGalleryImages ? 1 : 0;
             for (i = 0; i < 3; i++, offset++)
             {
                 dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
@@ -1386,18 +1455,22 @@ void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked*
             for (i = 0; i < 9; i++)
                 idText[i] = 0;
             unk_7f60c(idText);
-            BootDebugDrawLine(dst + 9 + offset, idText, 0xC);
+            BootDebugDrawTextAtAddress(dst + 9 + offset, idText, 0xC);
             break;
     }
 }
 
+/**
+ * @brief Sets the "SAVE" text color within the "Save" sub-menu in the boot debug menu
+ */
 void BootDebugSaveSetSaveTextColor(void)
 {
     s32 offset;
     u16* dst;
     s32 i;
 
-    offset = sBootDebugSaveMenuText[4].xPosition + (sBootDebugSaveMenuText[4].yPosition * 0x20);
+    offset = sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].xPosition +
+        (sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].yPosition * 0x20);
     dst = VRAM_BASE + 0xE000;
     for (i = 0; i < 4; i++, offset++)
     {
@@ -1406,6 +1479,9 @@ void BootDebugSaveSetSaveTextColor(void)
     }
 }
 
+/**
+ * @brief Handles button input for the "Samus" sub-menu in the boot debug menu
+ */
 void BootDebugSamusSubroutine(void)
 {
     s32 option;
@@ -1535,6 +1611,9 @@ void BootDebugSamusSubroutine(void)
     }
 }
 
+/**
+ * @brief Handles button input for the "Sound" sub-menu in the boot debug menu
+ */
 void BootDebugSoundSubroutine(void)
 {
     s32 updateText;
@@ -1636,6 +1715,9 @@ void BootDebugSoundSubroutine(void)
     }
 }
 
+/**
+ * @brief Sets the sound test ID color while playing a sound in the boot debug menu
+ */
 void BootDebugSetSoundTestIdColor(void)
 {
     u16* dst;
@@ -1649,6 +1731,11 @@ void BootDebugSetSoundTestIdColor(void)
     dst[offset + 2] |= 0xC000;
 }
 
+/**
+ * @brief Handles button input for the "Demo" sub-menu in the boot debug menu
+ * 
+ * @return s32 Result (1 if starting cutscene A, 2 if starting cutscene B, 3 if starting demo, 0 otherwise)
+ */
 s32 BootDebugDemoSubroutine(void)
 {
     s32 result;
@@ -1679,14 +1766,14 @@ s32 BootDebugDemoSubroutine(void)
     {
         switch (BOOT_DEBUG_DATA.subMenuOption)
         {
-            case 0:
+            case BOOT_DEBUG_DEMO_CUTSCENE_SWITCH:
                 if (gChangedInput & KEY_A)
                 {
                     gDisableCutscenes_Unused ^= TRUE;
                     updateText = TRUE;
                 }
                 break;
-            case 1:
+            case BOOT_DEBUG_DEMO_CUTSCENE_A:
                 if (gChangedInput & KEY_UP)
                 {
                     if (gTourianEscapeCutsceneStage != 0)
@@ -1709,7 +1796,7 @@ s32 BootDebugDemoSubroutine(void)
                         result = 1;
                 }
                 break;
-            case 2:
+            case BOOT_DEBUG_DEMO_CUTSCENE_B:
                 if (gChangedInput & KEY_UP)
                 {
                     if (gCurrentCutscene != 0)
@@ -1732,7 +1819,7 @@ s32 BootDebugDemoSubroutine(void)
                         result = 2;
                 }
                 break;
-            case 3:
+            case BOOT_DEBUG_DEMO_DEMO_MODE:
                 if (gChangedInput & KEY_UP)
                 {
                     if (gDemoState != 0)
@@ -1754,7 +1841,7 @@ s32 BootDebugDemoSubroutine(void)
                     result = 3;
                 }
                 break;
-            case 4:
+            case BOOT_DEBUG_DEMO_DEMO_NUM:
                 if (gChangedInput & KEY_UP)
                 {
                     if (gCurrentDemo.number != 0)
@@ -1785,6 +1872,11 @@ s32 BootDebugDemoSubroutine(void)
     return result;
 }
 
+/**
+ * @brief Handles button input for the "Etc" sub-menu in the boot debug menu
+ * 
+ * @return s32 Result (1 if playing ending, 2 if playing credits, 0 otherwise)
+ */
 s32 BootDebugEtcSubroutine(void)
 {
     s32 result;
@@ -1851,16 +1943,19 @@ s32 BootDebugEtcSubroutine(void)
     return result;
 }
 
+/**
+ * @brief Draws the menu names for the boot debug menu
+ */
 void BootDebugDrawMenuNames(void)
 {
     s32 i;
 
     for (i = 0; i < 10; i++)
     {
-        BootDebugDrawText(sBootDebugMenuNamesText[i].background,
+        BootDebugDrawTextAtPosition(sBootDebugMenuNamesText[i].background,
             sBootDebugMenuNamesText[i].xPosition,
             sBootDebugMenuNamesText[i].yPosition,
-            sBootDebugMenuNamesText[i].palette,
+            sBootDebugMenuNamesText[i].color,
             sBootDebugMenuNamesText[i].size,
             sBootDebugMenuNamesText[i].text);
     }
@@ -1868,10 +1963,10 @@ void BootDebugDrawMenuNames(void)
     if (gPauseScreenFlag == 0)
     {
         // BUG?: sBootDebugMenuNamesText only has 10 entries
-        BootDebugDrawText(sBootDebugMenuNamesText[10].background,
+        BootDebugDrawTextAtPosition(sBootDebugMenuNamesText[10].background,
             sBootDebugMenuNamesText[10].xPosition,
             sBootDebugMenuNamesText[10].yPosition,
-            sBootDebugMenuNamesText[10].palette,
+            sBootDebugMenuNamesText[10].color,
             sBootDebugMenuNamesText[10].size,
             sBootDebugMenuNamesText[10].text);
     }
@@ -1885,6 +1980,9 @@ void BootDebugDrawMenuNames(void)
     }
 }
 
+/**
+ * @brief Draws the text for the current sub-menu in the boot debug menu
+ */
 void BootDebugDrawSubMenuText(void)
 {
     u16* dst;
@@ -1900,8 +1998,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_SECTION:
             for (i = 0; i < ARRAY_SIZE(sBootDebugSectionMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugSectionMenuText[i].background, sBootDebugSectionMenuText[i].xPosition,
-                    sBootDebugSectionMenuText[i].yPosition, sBootDebugSectionMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugSectionMenuText[i].background, sBootDebugSectionMenuText[i].xPosition,
+                    sBootDebugSectionMenuText[i].yPosition, sBootDebugSectionMenuText[i].color,
                     sBootDebugSectionMenuText[i].size, sBootDebugSectionMenuText[i].text);
             }
             BootDebugSectionDrawStar(0x80);
@@ -1911,8 +2009,8 @@ void BootDebugDrawSubMenuText(void)
             // BUG: 2 extra entries are drawn
             for (i = 0; i < ARRAY_SIZE(sBootDebugModeMenuText) + 2; i++)
             {
-                BootDebugDrawText(sBootDebugModeMenuText[i].background, sBootDebugModeMenuText[i].xPosition,
-                    sBootDebugModeMenuText[i].yPosition, sBootDebugModeMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugModeMenuText[i].background, sBootDebugModeMenuText[i].xPosition,
+                    sBootDebugModeMenuText[i].yPosition, sBootDebugModeMenuText[i].color,
                     sBootDebugModeMenuText[i].size, sBootDebugModeMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_MODE_COUNT + 1; i++)
@@ -1921,8 +2019,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_SAVE:
             for (i = 0; i < ARRAY_SIZE(sBootDebugSaveMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugSaveMenuText[i].background, sBootDebugSaveMenuText[i].xPosition,
-                    sBootDebugSaveMenuText[i].yPosition, sBootDebugSaveMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugSaveMenuText[i].background, sBootDebugSaveMenuText[i].xPosition,
+                    sBootDebugSaveMenuText[i].yPosition, sBootDebugSaveMenuText[i].color,
                     sBootDebugSaveMenuText[i].size, sBootDebugSaveMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SAVE_COUNT + 1; i++)
@@ -1931,8 +2029,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_SAMUS:
             for (i = 0; i < ARRAY_SIZE(sBootDebugSamusMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugSamusMenuText[i].background, sBootDebugSamusMenuText[i].xPosition,
-                    sBootDebugSamusMenuText[i].yPosition, sBootDebugSamusMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugSamusMenuText[i].background, sBootDebugSamusMenuText[i].xPosition,
+                    sBootDebugSamusMenuText[i].yPosition, sBootDebugSamusMenuText[i].color,
                     sBootDebugSamusMenuText[i].size, sBootDebugSamusMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SAMUS_COUNT; i++)
@@ -1941,8 +2039,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_SOUND:
             for (i = 0; i < ARRAY_SIZE(sBootDebugSoundMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugSoundMenuText[i].background, sBootDebugSoundMenuText[i].xPosition,
-                    sBootDebugSoundMenuText[i].yPosition, sBootDebugSoundMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugSoundMenuText[i].background, sBootDebugSoundMenuText[i].xPosition,
+                    sBootDebugSoundMenuText[i].yPosition, sBootDebugSoundMenuText[i].color,
                     sBootDebugSoundMenuText[i].size, sBootDebugSoundMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SOUND_COUNT; i++)
@@ -1951,8 +2049,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_DEMO:
             for (i = 0; i < ARRAY_SIZE(sBootDebugDemoMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugDemoMenuText[i].background, sBootDebugDemoMenuText[i].xPosition,
-                    sBootDebugDemoMenuText[i].yPosition, sBootDebugDemoMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugDemoMenuText[i].background, sBootDebugDemoMenuText[i].xPosition,
+                    sBootDebugDemoMenuText[i].yPosition, sBootDebugDemoMenuText[i].color,
                     sBootDebugDemoMenuText[i].size, sBootDebugDemoMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_DEMO_COUNT; i++)
@@ -1961,8 +2059,8 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_ETC:
             for (i = 0; i < ARRAY_SIZE(sBootDebugEtcMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugEtcMenuText[i].background, sBootDebugEtcMenuText[i].xPosition,
-                    sBootDebugEtcMenuText[i].yPosition, sBootDebugEtcMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugEtcMenuText[i].background, sBootDebugEtcMenuText[i].xPosition,
+                    sBootDebugEtcMenuText[i].yPosition, sBootDebugEtcMenuText[i].color,
                     sBootDebugEtcMenuText[i].size, sBootDebugEtcMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_ETC_COUNT; i++)
@@ -1971,16 +2069,26 @@ void BootDebugDrawSubMenuText(void)
         case BOOT_DEBUG_SUB_MENU_ERASE:
             for (i = 0; i < ARRAY_SIZE(sBootDebugEraseMenuText); i++)
             {
-                BootDebugDrawText(sBootDebugEraseMenuText[i].background, sBootDebugEraseMenuText[i].xPosition,
-                    sBootDebugEraseMenuText[i].yPosition, sBootDebugEraseMenuText[i].palette,
+                BootDebugDrawTextAtPosition(sBootDebugEraseMenuText[i].background, sBootDebugEraseMenuText[i].xPosition,
+                    sBootDebugEraseMenuText[i].yPosition, sBootDebugEraseMenuText[i].color,
                     sBootDebugEraseMenuText[i].size, sBootDebugEraseMenuText[i].text);
             }
             break;
     }
 }
 
-void BootDebugDrawText(u8 background, u8 xPosition, u8 yPosition,
-    u8 palette, u8 size, const u8* text)
+/**
+ * @brief Draws a single string at the provided position in the boot debug menu
+ * 
+ * @param background Text background
+ * @param xPosition Text X position
+ * @param yPosition Text Y position
+ * @param color Text color
+ * @param size Number of characters in string
+ * @param pText Pointer to text data
+ */
+void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition,
+    u8 color, u8 size, const u8* pText)
 {
     u16* dst;
     u32 tile;
@@ -2002,14 +2110,19 @@ void BootDebugDrawText(u8 background, u8 xPosition, u8 yPosition,
 
     for (i = 0, j = 0; i < size; i++, j++)
     {
-        tile = *text;
-        tile = ((tile & 0xE0) << 1) | (tile & 0x1F) | (palette << 0xC);
+        tile = *pText;
+        tile = ((tile & 0xE0) << 1) | (tile & 0x1F) | (color << 0xC);
         dst[j] = tile;
         dst[j + 32] = tile + 0x20;
-        text++;
+        pText++;
     }
 }
 
+/**
+ * @brief Draws the star for the "Section" sub-menu in the boot debug menu
+ * 
+ * @param prevIndex Previous index of the star
+ */
 void BootDebugSectionDrawStar(u8 prevIndex)
 {
     s32 i;
@@ -2046,6 +2159,9 @@ void BootDebugSectionDrawStar(u8 prevIndex)
     }
 }
 
+/**
+ * @brief Sets the color of the save files in the "Section" sub-menu in the boot debug menu
+ */
 void BootDebugSectionSetFilesColor(void)
 {
     u16* dst;
@@ -2095,6 +2211,12 @@ void BootDebugSectionSetFilesColor(void)
     }
 }
 
+/**
+ * @brief Draws the text for a single option within a boot debug sub-menu
+ * 
+ * @param subMenu Sub-menu index
+ * @param subMenuOption Sub-menu option index
+ */
 void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
 {
     u16* dst;
@@ -2109,19 +2231,19 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
         case BOOT_DEBUG_SUB_MENU_MODE:
             if (subMenuOption == BOOT_DEBUG_MODE_LANGUAGE)
             {
-                BootDebugDrawText(sBootDebugLanguageText[gLanguage].background,
+                BootDebugDrawTextAtPosition(sBootDebugLanguageText[gLanguage].background,
                     sBootDebugLanguageText[gLanguage].xPosition,
                     sBootDebugLanguageText[gLanguage].yPosition,
-                    sBootDebugLanguageText[gLanguage].palette,
+                    sBootDebugLanguageText[gLanguage].color,
                     sBootDebugLanguageText[gLanguage].size,
                     sBootDebugLanguageText[gLanguage].text);
             }
             else if (subMenuOption == BOOT_DEBUG_MODE_DIFFICULTY)
             {
-                BootDebugDrawText(sBootDebugDifficultyText[gDifficulty].background,
+                BootDebugDrawTextAtPosition(sBootDebugDifficultyText[gDifficulty].background,
                     sBootDebugDifficultyText[gDifficulty].xPosition,
                     sBootDebugDifficultyText[gDifficulty].yPosition,
-                    sBootDebugDifficultyText[gDifficulty].palette,
+                    sBootDebugDifficultyText[gDifficulty].color,
                     sBootDebugDifficultyText[gDifficulty].size,
                     sBootDebugDifficultyText[gDifficulty].text);
             }
@@ -2150,40 +2272,40 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
             else if (subMenuOption == BOOT_DEBUG_SAMUS_ARM_WEAPON)
             {
                 index = gButtonAssignments.armWeapon ^ KEY_L ? 1 : 0;
-                BootDebugDrawText(sBootDebugArmWeaponButtonText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugArmWeaponButtonText[index].background,
                     sBootDebugArmWeaponButtonText[index].xPosition,
                     sBootDebugArmWeaponButtonText[index].yPosition,
-                    sBootDebugArmWeaponButtonText[index].palette,
+                    sBootDebugArmWeaponButtonText[index].color,
                     sBootDebugArmWeaponButtonText[index].size,
                     sBootDebugArmWeaponButtonText[index].text);
             }
             else if (subMenuOption == BOOT_DEBUG_SAMUS_DIAGONAL_AIM)
             {
                 index = gButtonAssignments.diagonalAim ^ KEY_L ? 1 : 0;
-                BootDebugDrawText(sBootDebugDiagonalAimButtonText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugDiagonalAimButtonText[index].background,
                     sBootDebugDiagonalAimButtonText[index].xPosition,
                     sBootDebugDiagonalAimButtonText[index].yPosition,
-                    sBootDebugDiagonalAimButtonText[index].palette,
+                    sBootDebugDiagonalAimButtonText[index].color,
                     sBootDebugDiagonalAimButtonText[index].size,
                     sBootDebugDiagonalAimButtonText[index].text);
             }
             else if (subMenuOption == BOOT_DEBUG_SAMUS_PAUSE)
             {
                 index = gButtonAssignments.pause ^ KEY_START ? 1 : 0;
-                BootDebugDrawText(sBootDebugPauseButtonText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugPauseButtonText[index].background,
                     sBootDebugPauseButtonText[index].xPosition,
                     sBootDebugPauseButtonText[index].yPosition,
-                    sBootDebugPauseButtonText[index].palette,
+                    sBootDebugPauseButtonText[index].color,
                     sBootDebugPauseButtonText[index].size,
                     sBootDebugPauseButtonText[index].text);
             }
             else if (subMenuOption == BOOT_DEBUG_SAMUS_SWAP_MISSILES)
             {
                 index = gButtonAssignments.swapMissiles ^ KEY_START ? 1 : 0;
-                BootDebugDrawText(sBootDebugSwapMissilesButtonText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugSwapMissilesButtonText[index].background,
                     sBootDebugSwapMissilesButtonText[index].xPosition,
                     sBootDebugSwapMissilesButtonText[index].yPosition,
-                    sBootDebugSwapMissilesButtonText[index].palette,
+                    sBootDebugSwapMissilesButtonText[index].color,
                     sBootDebugSwapMissilesButtonText[index].size,
                     sBootDebugSwapMissilesButtonText[index].text);
             }
@@ -2194,10 +2316,10 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 sBootDebugSoundMenuText[subMenuOption].xPosition + 6;
             if (subMenuOption == BOOT_DEBUG_SOUND_BGM)
             {
-                BootDebugDrawText(sBootDebugBgmOnOffText[gDisableMusic].background,
+                BootDebugDrawTextAtPosition(sBootDebugBgmOnOffText[gDisableMusic].background,
                     sBootDebugBgmOnOffText[gDisableMusic].xPosition,
                     sBootDebugBgmOnOffText[gDisableMusic].yPosition,
-                    sBootDebugBgmOnOffText[gDisableMusic].palette,
+                    sBootDebugBgmOnOffText[gDisableMusic].color,
                     sBootDebugBgmOnOffText[gDisableMusic].size,
                     sBootDebugBgmOnOffText[gDisableMusic].text);
             }
@@ -2241,27 +2363,27 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
             switch (subMenuOption)
             {
                 case BOOT_DEBUG_DEMO_CUTSCENE_SWITCH:
-                    BootDebugDrawText(sBootDebugDemoOnOffText[gDisableCutscenes_Unused].background,
+                    BootDebugDrawTextAtPosition(sBootDebugDemoOnOffText[gDisableCutscenes_Unused].background,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].xPosition,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].yPosition,
-                        sBootDebugDemoOnOffText[gDisableCutscenes_Unused].palette,
+                        sBootDebugDemoOnOffText[gDisableCutscenes_Unused].color,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].size,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].text);
                     break;
                 case BOOT_DEBUG_DEMO_CUTSCENE_A:
                     dst += offset + 8;
-                    BootDebugDrawLine(dst, sBootDebugCutsceneATextPointers[0], 0xC);
-                    BootDebugDrawLine(dst, sBootDebugCutsceneATextPointers[gTourianEscapeCutsceneStage], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[0], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[gTourianEscapeCutsceneStage], 0xC);
                     break;
                 case BOOT_DEBUG_DEMO_CUTSCENE_B:
                     dst += offset + 8;
-                    BootDebugDrawLine(dst, sBootDebugCutsceneBTextPointers[0], 0xC);
-                    BootDebugDrawLine(dst, sBootDebugCutsceneBTextPointers[gCurrentCutscene], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[0], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[gCurrentCutscene], 0xC);
                     break;
                 case BOOT_DEBUG_DEMO_DEMO_MODE:
                     dst += offset + 0xC;
-                    BootDebugDrawLine(dst, sBootDebugDemoStateTextPointers[0], 0xC);
-                    BootDebugDrawLine(dst, sBootDebugDemoStateTextPointers[gDemoState + 1], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[0], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[gDemoState + 1], 0xC);
                     break;
                 case BOOT_DEBUG_DEMO_DEMO_NUM:
                     dst += offset + 0x2C;
@@ -2273,20 +2395,20 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
             if (subMenuOption == BOOT_DEBUG_ETC_MAIN_END_OBJ)
             {
                 index = gDebugMode - 1;
-                BootDebugDrawText(sBootDebugMainEndObjOnOffText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugMainEndObjOnOffText[index].background,
                     sBootDebugMainEndObjOnOffText[index].xPosition,
                     sBootDebugMainEndObjOnOffText[index].yPosition,
-                    sBootDebugMainEndObjOnOffText[index].palette,
+                    sBootDebugMainEndObjOnOffText[index].color,
                     sBootDebugMainEndObjOnOffText[index].size,
                     sBootDebugMainEndObjOnOffText[index].text);
             }
             else if (subMenuOption == BOOT_DEBUG_ETC_DOOR_TRANSITION)
             {
                 index = gSkipDoorTransition ? 1 : 0;
-                BootDebugDrawText(sBootDebugDoorTransitionOnOffText[index].background,
+                BootDebugDrawTextAtPosition(sBootDebugDoorTransitionOnOffText[index].background,
                     sBootDebugDoorTransitionOnOffText[index].xPosition,
                     sBootDebugDoorTransitionOnOffText[index].yPosition,
-                    sBootDebugDoorTransitionOnOffText[index].palette,
+                    sBootDebugDoorTransitionOnOffText[index].color,
                     sBootDebugDoorTransitionOnOffText[index].size,
                     sBootDebugDoorTransitionOnOffText[index].text);
             }
@@ -2294,7 +2416,15 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
     }
 }
 
-void BootDebugDrawNumber(u16 *dst, u8 number, u8 numDigits, u8 color)
+/**
+ * @brief Draws a number in the boot debug menu
+ * 
+ * @param dst VRAM address to draw at
+ * @param number The number to draw
+ * @param numDigits Number of digits in the number
+ * @param color Text color
+ */
+void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color)
 {
     s32 value;
     s32 divisor;
@@ -2330,21 +2460,28 @@ void BootDebugDrawNumber(u16 *dst, u8 number, u8 numDigits, u8 color)
     }
 }
 
-void BootDebugDrawLine(u16 *dst, const u8* text, u8 color)
+/**
+ * @brief Draws a single string at the provided address in the boot debug menu
+ * 
+ * @param dst VRAM address to draw at
+ * @param pText Pointer to text data
+ * @param color Text color
+ */
+void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 color)
 {
     u32 tile;
     
-    while (*text != '\0')
+    while (*pText != '\0')
     {
-        if (*text == ' ')
+        if (*pText == ' ')
             tile = 0x40;
         else
-            tile = ((*text & 0xE0) << 1) | (*text & 0x1F);
+            tile = ((*pText & 0xE0) << 1) | (*pText & 0x1F);
 
         dst[0] = color << 0xC | tile;
         dst[32] = color << 0xC | (tile + 0x20);
 
         dst++;
-        text++;
+        pText++;
     }
 }

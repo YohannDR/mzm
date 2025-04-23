@@ -39,7 +39,7 @@ u32 InGameMainLoop(void)
     u32 changing;
 
     #ifdef DEBUG
-    gUnk_030053d2 = read16(REG_VCOUNT);
+    gDebugVCount_InGameStart = read16(REG_VCOUNT);
     #endif // DEBUG
 
     SetVBlankCodeInGame();
@@ -49,7 +49,7 @@ u32 InGameMainLoop(void)
     {
         case 0:
             #ifdef DEBUG
-            gUnk_030053d8 = 0;
+            gDebugVCount_MaxDifference = 0;
             #endif // DEBUG
 
             if (gGameModeSub3 == 0)
@@ -77,7 +77,7 @@ u32 InGameMainLoop(void)
             if (gDebugMode && gChangedInput & KEY_START &&
                 (gButtonInput & (KEY_L | KEY_B)) == (KEY_L | KEY_B) && !gPreventMovementTimer)
             {
-                gGameModeSub1 = SUB_GAME_MODE_FREE_MOVEMENT;
+                gGameModeSub1 = SUB_GAME_MODE_NO_CLIP;
             }
             else
             #endif // DEBUG
@@ -124,8 +124,8 @@ u32 InGameMainLoop(void)
             RoomUpdateGfxInfo();
             break;
 
-        case SUB_GAME_MODE_FREE_MOVEMENT:
-            UpdateFreeMovement_Debug();
+        case SUB_GAME_MODE_NO_CLIP:
+            UpdateNoClip_Debug();
             RoomUpdateGfxInfo();
             break;
     }
@@ -176,24 +176,24 @@ u32 InGameMainLoop(void)
     #ifdef DEBUG
     if (gDebugMode == 1)
     {
-        if (gUnk_030053d6 <= 0x9F)
-            gOamData[0x7E].split.y = gUnk_030053d2 - gUnk_030053d6;
-        else if (gUnk_030053d2 > 0xA0)
-            gOamData[0x7E].split.y = gUnk_030053d2 - gUnk_030053d6;
+        if (gDebugVCount_VBlankEnd < SCREEN_SIZE_Y)
+            gOamData[0x7E].split.y = gDebugVCount_InGameStart - gDebugVCount_VBlankEnd;
+        else if (gDebugVCount_InGameStart > SCREEN_SIZE_Y)
+            gOamData[0x7E].split.y = gDebugVCount_InGameStart - gDebugVCount_VBlankEnd;
         else
-            gOamData[0x7E].split.y = gUnk_030053d2 - (gUnk_030053d6 + 28);
+            gOamData[0x7E].split.y = gDebugVCount_InGameStart - (gDebugVCount_VBlankEnd + 28);
 
-        if (gUnk_030053d8 <= gOamData[0x7E].split.y)
-            gUnk_030053d8 = gOamData[0x7E].split.y;
+        if (gDebugVCount_AudioMax <= gOamData[0x7E].split.y)
+            gDebugVCount_AudioMax = gOamData[0x7E].split.y;
 
-        gOamData[0x7D].split.y = gUnk_030053d8;
+        gOamData[0x7D].split.y = gDebugVCount_AudioMax; 
         gOamData[0x7D].split.x = 234;
         gOamData[0x7D].split.tileNum = 0x76;
         gOamData[0x7D].split.paletteNum = 4;
         gOamData[0x7E].split.x = 234;
         gOamData[0x7E].split.tileNum = 0x77;
         gOamData[0x7E].split.paletteNum = 4;
-        gOamData[0x7F].split.y = gUnk_030053d4 = read16(REG_VCOUNT);
+        gOamData[0x7F].split.y = gDebugVCount_InGameEnd = read16(REG_VCOUNT);
         gOamData[0x7F].split.x = 0;
         gOamData[0x7F].split.tileNum = 0x78;
         gOamData[0x7F].split.paletteNum = 4;
@@ -319,7 +319,7 @@ void VBlankCodeInGameLoad(void)
     write16(REG_BG3VOFS, gBackgroundPositions.bg[gWhichBGPositionIsWrittenToBG3OFS].y);
 
     #ifdef DEBUG
-    gUnk_030053d6 = read16(REG_VCOUNT);
+    gDebugVCount_VBlankEnd = read16(REG_VCOUNT);
     #endif // DEBUG
 }
 
@@ -396,7 +396,7 @@ void VBlankCodeInGame(void)
     write16(REG_BG3VOFS, gBackgroundPositions.bg[3].y);
 
     #ifdef DEBUG
-    gUnk_030053d6 = read16(REG_VCOUNT);
+    gDebugVCount_VBlankEnd = read16(REG_VCOUNT);
     #endif // DEBUG
 }
 
@@ -497,7 +497,7 @@ void InitAndLoadGenerics(void)
     CallbackSetVBlank(VBlankCodeInGameLoad);
 }
 
-void UpdateFreeMovement_Debug(void)
+void UpdateNoClip_Debug(void)
 {
     s32 xVelocity;
     s32 yVelocity;
@@ -512,11 +512,11 @@ void UpdateFreeMovement_Debug(void)
     if (gChangedInput & (KEY_B | KEY_START))
     {
         gGameModeSub1 = SUB_GAME_MODE_PLAYING;
-        gFreeMovementLockCamera = FALSE;
+        gNoClipLockCamera = FALSE;
     }
 
     if (gChangedInput & KEY_SELECT)
-        gFreeMovementLockCamera ^= TRUE;
+        gNoClipLockCamera ^= TRUE;
 
     if (gButtonInput & KEY_RIGHT)
         xVelocity = 3 * PIXEL_SIZE;

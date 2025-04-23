@@ -987,12 +987,12 @@ void RoomUpdate(void)
     }
 
     #ifdef DEBUG
-    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
     {
         BgClipCheckTouchingSpecialClipdata();
     }
     // Check still in "playing" mode
-    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
     {
         BlockUpdateBrokenBlocks();
         BlockProcessBombChains();
