@@ -37,10 +37,10 @@ struct TitleScreenData {
     u16 type;
     u8 unk_E;
     u8 unk_F;
-    u8 unk_10;
+    u8 fadingStage;
     u8 colorToApply;
-    u8 unk_12;
-    u16 unk_14;
+    u8 paletteUpdated;
+    u16 fadingTimer;
     u8 padding_16[2];
     u16 dispcnt;
     u8 padding_1A[8];

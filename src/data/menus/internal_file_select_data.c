@@ -41,61 +41,61 @@ const struct FileSelectMenuCursors sFileSelectMenuCursors_Empty = {
     .difficulty = 1,
 };
 
-const struct FileSelectCursorOamData sFileSelectCursorOamData[6] = {
-    [0] = {
+const struct FileSelectCursorOamData sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_END] = {
+    [FILE_SELECT_CURSOR_POSITION_FILE_A] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE + 12,
-        .unk_4 = FILE_SELECT_OAM_ID_FILE_A_MARKER_IDLE,
+        .oamFileMarkerId = FILE_SELECT_OAM_ID_FILE_A_MARKER_IDLE,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_SUITLESS] = FILE_SELECT_OAM_ID_SAMUS_SUITLESS_HEAD_TURNING_ON
         }
     },
-    [1] = {
+    [FILE_SELECT_CURSOR_POSITION_FILE_B] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE + 12,
-        .unk_4 = FILE_SELECT_OAM_ID_FILE_B_MARKER_IDLE,
+        .oamFileMarkerId = FILE_SELECT_OAM_ID_FILE_B_MARKER_IDLE,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_SUITLESS] = FILE_SELECT_OAM_ID_SAMUS_SUITLESS_HEAD_TURNING_ON
         }
     },
-    [2] = {
+    [FILE_SELECT_CURSOR_POSITION_FILE_C] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE + 12,
-        .unk_4 = FILE_SELECT_OAM_ID_FILE_C_MARKER_IDLE,
+        .oamFileMarkerId = FILE_SELECT_OAM_ID_FILE_C_MARKER_IDLE,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_SAMUS_HEAD_TURNING_ON,
             [SUIT_SUITLESS] = FILE_SELECT_OAM_ID_SAMUS_SUITLESS_HEAD_TURNING_ON
         }
     },
-    [3] = {
+    [FILE_SELECT_CURSOR_POSITION_COPY] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 7 - QUARTER_BLOCK_SIZE + 8,
-        .unk_4 = 0,
+        .oamFileMarkerId = 0,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_CURSOR,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_CURSOR,
             [SUIT_SUITLESS] = FILE_SELECT_OAM_ID_CURSOR
         }
     },
-    [4] = {
+    [FILE_SELECT_CURSOR_POSITION_ERASE] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 8,
-        .unk_4 = 0,
+        .oamFileMarkerId = 0,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_CURSOR,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_CURSOR,
             [SUIT_SUITLESS] = FILE_SELECT_OAM_ID_CURSOR
         }
     },
-    [5] = {
+    [FILE_SELECT_CURSOR_POSITION_OPTIONS] = {
         .xPosition = BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE,
         .yPosition = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE + 8,
-        .unk_4 = 0,
+        .oamFileMarkerId = 0,
         .oamIds = {
             [SUIT_NORMAL] = FILE_SELECT_OAM_ID_CURSOR,
             [SUIT_FULLY_POWERED] = FILE_SELECT_OAM_ID_CURSOR,
@@ -168,6 +168,7 @@ const u16 sOptionsCursorPosition[7][2] = {
     }
 };
 
+// x_pos, y_pos, idle_id, active_id
 const u16 sStereoOamData[2][4] = {
     [FALSE] = {
         BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
@@ -246,7 +247,7 @@ const struct OptionsSubroutineInfo sOptionsSubroutineInfo[OPTION_END + 1] = {
         .gameMode = 0
     },
     [OPTION_GALLERY] = {
-        .pFunction = unk_7abf8,
+        .pFunction = OptionsGallerySubroutine,
         .gameMode = 5
     },
     [OPTION_FUSION_GALLERY] = {
