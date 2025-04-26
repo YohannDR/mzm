@@ -8,14 +8,14 @@
 
 struct GameOverDynamicPalette {
     u16 timer;
-    u8 enableFlags;
+    u8 enableFlags; // flags: 0x80: init, 0x1: enable
     u8 currentPaletteRow;
 
-    u8 unk_4;
+    u8 unk_4; // enableFlags related
 
     u16 palette[6];
     u8 timerLimit;
-    u8 unk_13;
+    u8 unk_13; // set but never read
 };
 
 struct GameOverData {
@@ -40,7 +40,7 @@ struct GameOverData {
 
     u8 padding_30_34[5]; // 30
 
-    u8 unk_35;
+    u8 unk_35; // set but never read
     
     struct MenuOamData oam[1];
 };

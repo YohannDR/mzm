@@ -400,9 +400,9 @@ void GameOverUpdateLettersPalette(void)
 
     if (GAME_OVER_DATA.dynamicPalette.enableFlags & 0x80)
     {
-        if ((sNonGameplayRamPointer->gameOver.dynamicPalette.enableFlags & 0x7F) != GAME_OVER_DATA.dynamicPalette.unk_4)
+        if ((GAME_OVER_DATA.dynamicPalette.enableFlags & 0x7F) != GAME_OVER_DATA.dynamicPalette.unk_4)
         {
-            GAME_OVER_DATA.dynamicPalette.unk_4 = sNonGameplayRamPointer->gameOver.dynamicPalette.enableFlags & 0x7F;
+            GAME_OVER_DATA.dynamicPalette.unk_4 = GAME_OVER_DATA.dynamicPalette.enableFlags & 0x7F;
             GAME_OVER_DATA.dynamicPalette.timer = 0;
             GAME_OVER_DATA.dynamicPalette.currentPaletteRow = 0;
             GAME_OVER_DATA.dynamicPalette.unk_13 = 0;
@@ -420,39 +420,40 @@ void GameOverUpdateLettersPalette(void)
     src = &sGameOverMenuPal[4];
     switch (GAME_OVER_DATA.dynamicPalette.unk_4)
     {
+        // unk_4 will never be 0 when it reaches here?
         case 0:
             GAME_OVER_DATA.dynamicPalette.currentPaletteRow++;
             if (GAME_OVER_DATA.dynamicPalette.currentPaletteRow >= ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                 GAME_OVER_DATA.dynamicPalette.currentPaletteRow = 0;
 
             row = GAME_OVER_DATA.dynamicPalette.currentPaletteRow;
-            i = 0;
-            while (i < (s32)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+            for (i = 0; i < ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette); i++, row++)
             {
-                if (row >= (s32)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+                if (row >= ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                     row = 0;
 
                 GAME_OVER_DATA.dynamicPalette.palette[i] = src[row];
-
-                i++;
-                row++;
             }
             break;
 
         case 1:
             GAME_OVER_DATA.dynamicPalette.currentPaletteRow++;
-            if (GAME_OVER_DATA.dynamicPalette.currentPaletteRow > 8)
+            if (GAME_OVER_DATA.dynamicPalette.currentPaletteRow >= ARRAY_SIZE(sGameOverTextGradientPaletteOffset))
                 GAME_OVER_DATA.dynamicPalette.currentPaletteRow = 0;
 
-            j = sGameOver_760b0f[GAME_OVER_DATA.dynamicPalette.currentPaletteRow];
+            // palette offsets create the "breathing" effect of the GAME OVER letters
+            j = sGameOverTextGradientPaletteOffset[GAME_OVER_DATA.dynamicPalette.currentPaletteRow];
             if (j >= 0)
             {
+                // Fill the first j rows with the default color
                 for (i = 0; i < j; i++)
                     GAME_OVER_DATA.dynamicPalette.palette[i] = *src;
 
+                // Fill the next 6 - i rows
                 for (k = 0; i < 6; i++, k++)
                     GAME_OVER_DATA.dynamicPalette.palette[i] = src[k];
             }
+            // palette offset is always non-negative, thus this condition is unused
             else
             {
                 for (i = 5; j < 0; j++, i--)
