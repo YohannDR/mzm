@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#define READ_SIO_MULTI(i) (*(((vu16*)REG_SIO_MULTI) + i))
+
 #define MULTIBOOT_MAX_CHILD     3
 #define MULTIBOOT_HEADER_SIZE   0xC0
 #define MULTIBOOT_SEND_SIZE_MIN 0x100
@@ -46,5 +48,7 @@ struct MultiBootData {
     u8 checkWait;
     u8 serverType;
 };
+
+extern u16 gMultiBootRequiredData[MULTIBOOT_MAX_CHILD];
 
 #endif /* MULTIBOOT_STRUCTS_H */

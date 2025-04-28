@@ -339,15 +339,15 @@ SECTIONS {
         . = 0x00005874; gMultibootErrorFlags = .;
         . = 0x00005880; gMultibootUnk_3005880 = .;
         . = 0x00005884; gMultibootInProgress = .;
-        . = 0x00005888; gMultibootRequiredData = .;
-        . = 0x00005890; gCableLinkSerialTransferInfo = .;
-        . = 0x000058a8; gSerialTransferUpdateResult = .;
-        . = 0x000058aa; gCableLinkUnk_30058aa = .;
-        . = 0x000058ac; gSerialTransferDataTimer = .;
-        . = 0x000058ae; gSerialTransferStartupTimer = .;
-        . = 0x000058af; gCableLinkUnk_30058af = .;
-        . = 0x000058b0; gSerialTransferGbaDetectedCount = .;
-        . = 0x000058b1; gSerialTransferGbaId = .;
+        . = 0x00005888; gMultiBootRequiredData = .;
+        . = 0x00005890; gTransferManager = .;
+        . = 0x000058a8; gTransferUpdateResult = .;
+        . = 0x000058aa; gTransferUnk_30058aa = .;
+        . = 0x000058ac; gTransferDataTimer = .;
+        . = 0x000058ae; gTransferStartupTimer = .;
+        . = 0x000058af; gTransferUnk_30058af = .;
+        . = 0x000058b0; gTransferGbaDetectedCount = .;
+        . = 0x000058b1; gTransferGbaId = .;
         . = 0x000058b2; gRegIme_Backup = .;
         . = 0x000058b4; gRegIe_Backup = .;
         . = 0x000058b6; gRegTm3Cnt_H_Backup = .;
@@ -361,12 +361,12 @@ SECTIONS {
         . = 0x000058ce; gLinkLocalId = .;
         . = 0x000058cf; gLinkUnkFlag9 = .;
         . = 0x000058d0; gLinkSavedIme = .;
-        . = 0x000058d2; sNumVBlanksWithoutSerialIntr = .;
-        . = 0x000058d3; sSendBufferEmpty = .;
-        . = 0x000058d5; sHandshakePlayerCount = .;
-        . = 0x000058d6; sChecksumAvailable = .;
-        . = 0x000058d8; sSendNonzeroCheck = .;
-        . = 0x000058da; sRecvNonzeroCheck = .;
+        . = 0x000058d2; gNumVBlanksWithoutSerialIntr = .;
+        . = 0x000058d3; gSendBufferEmpty = .;
+        . = 0x000058d5; gHandshakePlayerCount = .;
+        . = 0x000058d6; gChecksumAvailable = .;
+        . = 0x000058d8; gSendNonzeroCheck = .;
+        . = 0x000058da; gRecvNonzeroCheck = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
@@ -382,7 +382,7 @@ SECTIONS {
 
         . = 0x00005b50; gLastSendQueueCount = .;
         . = 0x00005b54; gLastRecvQueueCount = .;
-        . = 0x00005b60; gCableLinkInfo = .;
+        . = 0x00005b60; gLink = .;
 
 
         . = 0x00007e60; sp_sys = .;

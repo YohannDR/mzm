@@ -4,101 +4,101 @@
 #include "transfer.h"
 
 #include "constants/transfer.h"
-
+#include "structs/cable_link.h"
+#include "structs/transfer.h"
 
 /**
- * @brief 8980c | ac | Process the serial transfer and the result
+ * @brief 8980c | ac | Process the serial transfer
  * 
  * @param size Data size
  * @param pData Pointer to data to transfer
  * @return u32 Result of serial transfer update, 0 is finished, otherwise failure
  */
-u32 CableLinkProcessSerialTransfer(u32 size, const u32* pData)
+u32 TransferProcessSend(u32 size, const u32* pData)
 {
     // pData is transfer rom, size is size of transfer rom
     u32 result;
     u32 buffer;
     s32 i;
 
-    CableLinkBackupIoRegs();
+    TransferBackupIoRegs();
 
     while (TRUE)
     {
-        // bits 0-1 is gCableLinkSerialTransferInfo.dataTransferStage, bits 2-3 is gCableLinkSerialTransferInfo.verifyTransferResult
-        // bits 4-7 is gCableLinkSerialTransferInfo.errorDuringTransfer, bits 8+ is gCableLinkSerialTransferInfo.unk_2
-        gSerialTransferUpdateResult = CableLinkUpdateSerialTransfer(1, size, pData, 0);
+        // bits 0-1 is gTransferManager.dataTransferStage, bits 2-3 is gTransferManager.verifyTransferResult
+        // bits 4-7 is gTransferManager.errorDuringTransfer, bits 8+ is gTransferManager.unk_2
+        gTransferUpdateResult = TransferHandleTransfer(1, size, pData, NULL);
 
-        // if serial transfer stopped and the correct data was transferred
-        if ((gSerialTransferUpdateResult & 3) == CABLE_LINK_TRANSFER_STAGE_NO_DATA && (gSerialTransferUpdateResult & (3 << 2)) != 0)
+        // if serial transfer stopped and the data was verified
+        if ((gTransferUpdateResult & TRANSFER_DATA_STAGE_MASK) == TRANSFER_DATA_STAGE_NONE && gTransferUpdateResult & TRANSFER_VERIFY_MASK)
         {
             result = 0;
             break;
         }
 
-        if (gSerialTransferUpdateResult & (CABLE_LINK_DURING_TRANSFER_ERROR_UNK2 << 4))
+        if (gTransferUpdateResult & (TRANSFER_ERROR_UNK2 << TRANSFER_ERROR_SHIFT))
         {
             result = 1;
             break;
         }
 
-        if (gSerialTransferUpdateResult & (CABLE_LINK_DURING_TRANSFER_ERROR_VERIFY_TIMEOUT << 4))
+        if (gTransferUpdateResult & (TRANSFER_ERROR_VERIFY_TIMEOUT << TRANSFER_ERROR_SHIFT))
         {
             result = 2;
             break;
         }
 
-        if (gSerialTransferUpdateResult & (CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TIMEOUT << 4))
+        if (gTransferUpdateResult & (TRANSFER_ERROR_INIT_TIMEOUT << TRANSFER_ERROR_SHIFT))
         {
             result = 3;
             break;
         }
 
-        if (gSerialTransferUpdateResult & (CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS << 4))
+        if (gTransferUpdateResult & (TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS << TRANSFER_ERROR_SHIFT))
         {
             result = 4;
             break;
         }
 
-        // Only reaches here if verifyTransferResult is 0, indicating it did not finish properly?
+        // Only reaches here if verifyTransferResult is 0
         if (gIoTransferInfo.pFunction)
             gIoTransferInfo.pFunction(); // always FileSelectProcessOAM?
 
         VBlankIntrWait();
     }
 
-    // Clear gCableLinkSerialTransferInfo
     buffer = 0;
-    CpuSet(&buffer, &gCableLinkSerialTransferInfo, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gCableLinkSerialTransferInfo) / sizeof(u32)));
+    CpuSet(&buffer, &gTransferManager, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gTransferManager) / sizeof(u32)));
 
-    CableLinkRetrieveIoRegs();
+    TransferRetrieveIoRegs();
 
     return result;
 }
 
 /**
- * @brief 898b8 | 54 | Reset data for serial transfer
+ * @brief 898b8 | 54 | Initialize data for transfer
  * 
  */
-void CableLinkResetSerialTransfer(void)
+void TransferInit(void)
 {
     u32 buffer;
 
-    gCableLinkUnk_30058aa = 0;
-    gSerialTransferDataTimer = 0;
-    gSerialTransferStartupTimer = 0;
-    gCableLinkUnk_30058af = 0;
-    gSerialTransferGbaDetectedCount = 0;
-    gSerialTransferGbaId = 0;
+    gTransferUnk_30058aa = 0;
+    gTransferDataTimer = 0;
+    gTransferStartupTimer = 0;
+    gTransferUnk_30058af = 0;
+    gTransferGbaDetectedCount = 0;
+    gTransferGbaId = 0;
 
     buffer = 0;
-    CpuSet(&buffer, &gCableLinkSerialTransferInfo, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gCableLinkSerialTransferInfo) / sizeof(u32)));
+    CpuSet(&buffer, &gTransferManager, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gTransferManager) / sizeof(u32)));
 }
 
 /**
  * @brief 8990c | 40 | Stop serial transfer and timer 3
  * 
  */
-void CableLinkStopSerialTransfer(void)
+void TransferCloseSerial(void)
 {
     // Disable timer 3 and serial interrupt
     write16(REG_IME, FALSE);
@@ -112,10 +112,10 @@ void CableLinkStopSerialTransfer(void)
 }
 
 /**
- * @brief 8994c | 58 | Initialize serial transfer
+ * @brief 8994c | 58 | Set serial transfer to multi mode
  * 
  */
-void CableLinkInitializeSerialTransfer(void)
+void TransferOpenSerialMulti(void)
 {
     // Disable timer 3 and serial interrupt
     write16(REG_IME, FALSE);
@@ -123,9 +123,9 @@ void CableLinkInitializeSerialTransfer(void)
     write16(REG_IME, TRUE);
 
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_MULTI_MODE);
 
-    // Baud rate = 115200 bits per second, request interrupt upon completion
+    // Multi mode, baud rate = 115200 bits per second, request interrupt upon completion
+    write16(REG_SIO, SIO_MULTI_MODE);
     write16(REG_SIO, read16(REG_SIO) | SIO_BAUD_RATE_115200 | SIO_IRQ_ENABLE);
 
     // Enable serial port interrupt
@@ -135,154 +135,158 @@ void CableLinkInitializeSerialTransfer(void)
 }
 
 /**
- * @brief 899a4 | 24 | Set serial transfer to normal 32 bit transfer and set serial out to not ready
+ * @brief 899a4 | 24 | Set serial transfer to 32 bit transfer and set serial out to ready
  * 
  */
-void CableLinkSetNormalSerialWait(void)
+void TransferOpenSerial32(void)
 {
     write16(REG_RNCT, 0);
-    write16(REG_SIO, SIO_32BIT_MODE | SIO_IRQ_ENABLE); // Bit 12 is 1 and Bit 13 is 0, so SIO is normal mode? If so, then transfer mode is 32 bits. Request interrupt when done
-    write16(REG_SIO, read16(REG_SIO) | SIO_HIGH_DURING_INACTIVITY); // Output is high during inactivity
+    write16(REG_SIO, SIO_32BIT_MODE | SIO_IRQ_ENABLE);
+    write16(REG_SIO, read16(REG_SIO) | SIO_MULTI_CONNECTION_READY);
 }
 
 /**
- * @brief 899c8 | 174 | Update the serial transfer
+ * @brief 899c8 | 174 | Handle the serial transfer
  * 
- * @param param_1 Unused
+ * @param transferMode (Unused) Transfer mode, 0 is receiving, 1 is sending
  * @param Size Data size
  * @param pData Pointer to data to transfer
- * @param param_3 Unused
+ * @param recvBuffer (Unused) Pointer to data to receive
  * @return u16 Bits 0-1 is dataTransferStage, bits 2-3 is verifyTransferResult, bits 4-7 is errorDuringTransfer, bits 8+ is unk_2
  */
-u16 CableLinkUpdateSerialTransfer(u32 param_1, u32 size, const u32* pData, u32 param_3)
+u16 TransferHandleTransfer(u32 transferMode, u32 size, const u32* pData, u32* recvBuffer)
 {
     // pData is transfer rom, size is size of transfer rom
-    switch (gCableLinkSerialTransferInfo.stage)
+    switch (gTransferManager.status.stage)
     {
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_INIT:
+        case TRANSFER_STAGE_INIT:
             // Clear and set up transfer
-            CableLinkResetSerialTransfer();
-            CableLinkInitializeSerialTransfer();
-            gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_INIT_DATA;
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION;
+            TransferInit();
+            TransferOpenSerialMulti();
+            gTransferManager.status.dataTransferStage = TRANSFER_DATA_STAGE_INIT;
+            gTransferManager.status.stage = TRANSFER_STAGE_SETUP_CONNECTION;
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION:
-            if (CableLinkIsGbaParent(TRUE))
-                CableLinkStartSerialTransfer();
+        case TRANSFER_STAGE_SETUP_CONNECTION:
+            if (TransferDetermineSendRecvState(TRUE))
+                TransferStartTransfer();
 
-            if (gCableLinkSerialTransferInfo.errorDuringTransfer != CABLE_LINK_DURING_TRANSFER_ERROR_NONE)
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
+            if (gTransferManager.status.errorDuringTransfer != TRANSFER_ERROR_NONE)
+                gTransferManager.status.stage = TRANSFER_STAGE_TERMINATE_CONNECTION;
 
-            APPLY_DELTA_TIME_INC(gSerialTransferStartupTimer);
+            APPLY_DELTA_TIME_INC(gTransferStartupTimer);
             // If more than half a second passes, fail
-            if (gSerialTransferStartupTimer > CONVERT_SECONDS(.5f))
+            if (gTransferStartupTimer > CONVERT_SECONDS(.5f))
             {
-                gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TIMEOUT;
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
+                gTransferManager.status.errorDuringTransfer = TRANSFER_ERROR_INIT_TIMEOUT;
+                gTransferManager.status.stage = TRANSFER_STAGE_TERMINATE_CONNECTION;
             }
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_DATA:
+        case TRANSFER_STAGE_SETUP_DATA:
             // Set up transmission for size of data to transfer?
-            CableLinkSetNormalSerialWait();
-            CableLinkLoadDataAndSizeToTransfer(size, pData, param_3);
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA;
+            TransferOpenSerial32();
+            TransferSetUpTransferManager(size, pData, recvBuffer);
+            gTransferManager.status.stage = TRANSFER_STAGE_TRANSFER_DATA;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA:
-            if (gCableLinkSerialTransferInfo.dataTransferStage == CABLE_LINK_TRANSFER_STAGE_SENDING_DATA)
+        case TRANSFER_STAGE_TRANSFER_DATA:
+            if (gTransferManager.status.dataTransferStage == TRANSFER_DATA_STAGE_SENDING)
                 break;
 
-            if (gCableLinkSerialTransferInfo.isParent)
+            if (gTransferManager.status.isParent)
             {
-                APPLY_DELTA_TIME_INC(gSerialTransferDataTimer);
-                if (gSerialTransferDataTimer >= CONVERT_SECONDS(1.f / 6))
+                APPLY_DELTA_TIME_INC(gTransferDataTimer);
+                if (gTransferDataTimer >= CONVERT_SECONDS(1.f / 6))
                 {
-                    CableLinkStartSerialTransfer();
-                    gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_SENDING_DATA;
+                    TransferStartTransfer();
+                    gTransferManager.status.dataTransferStage = TRANSFER_DATA_STAGE_SENDING;
                     break;
                 }
             }
             
-            CableLinkStartSerialTransfer();
-            gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_SENDING_DATA;
+            TransferStartTransfer();
+            gTransferManager.status.dataTransferStage = TRANSFER_DATA_STAGE_SENDING;
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_VERIFICATION:
-            CableLinkInitializeSerialTransfer();
-            gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA;
+        case TRANSFER_STAGE_SETUP_VERIFICATION:
+            TransferOpenSerialMulti();
+            gTransferManager.status.stage = TRANSFER_STAGE_VERIFY_DATA;
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA:
-            if (gCableLinkSerialTransferInfo.isParent == TRUE && gSerialTransferDataTimer >= CONVERT_SECONDS(1.f / 6))
-                CableLinkStartSerialTransfer();
+        case TRANSFER_STAGE_VERIFY_DATA:
+            if (gTransferManager.status.isParent == TRUE && gTransferDataTimer >= CONVERT_SECONDS(1.f / 6))
+                TransferStartTransfer();
 
-            APPLY_DELTA_TIME_INC(gSerialTransferDataTimer);
-            if (gSerialTransferDataTimer > CONVERT_SECONDS(.5f))
+            APPLY_DELTA_TIME_INC(gTransferDataTimer);
+            if (gTransferDataTimer > CONVERT_SECONDS(.5f))
             {
-                gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_VERIFY_TIMEOUT;
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
+                gTransferManager.status.errorDuringTransfer = TRANSFER_ERROR_VERIFY_TIMEOUT;
+                gTransferManager.status.stage = TRANSFER_STAGE_TERMINATE_CONNECTION;
             }
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION:
-            if (gCableLinkSerialTransferInfo.dataTransferStage != CABLE_LINK_TRANSFER_STAGE_NO_DATA)
+        case TRANSFER_STAGE_TERMINATE_CONNECTION:
+            if (gTransferManager.status.dataTransferStage != TRANSFER_DATA_STAGE_NONE)
             {
-                CableLinkStopSerialTransfer();
-                gCableLinkSerialTransferInfo.dataTransferStage = CABLE_LINK_TRANSFER_STAGE_NO_DATA;
+                TransferCloseSerial();
+                gTransferManager.status.dataTransferStage = TRANSFER_DATA_STAGE_NONE;
             }
             break;
     }
 
-    gCableLinkSerialTransferInfo.unk_2 = gCableLinkSerialTransferInfo.dataCursor * 100 / gCableLinkSerialTransferInfo.dataSizeInt;
+    gTransferManager.status.unk_2 = gTransferManager.data.cursor * 100 / gTransferManager.data.sizeInt;
 
-    return gCableLinkSerialTransferInfo.dataTransferStage | gCableLinkSerialTransferInfo.verifyTransferResult << 2 | gCableLinkSerialTransferInfo.errorDuringTransfer << 4 | gCableLinkSerialTransferInfo.unk_2 << 8;
+    return gTransferManager.status.dataTransferStage << TRANSFER_DATA_STAGE_SHIFT | 
+           gTransferManager.status.verifyTransferResult << TRANSFER_VERIFY_SHIFT | 
+           gTransferManager.status.errorDuringTransfer << TRANSFER_ERROR_SHIFT | 
+           gTransferManager.status.unk_2 << 8;
 }
 
 /**
  * @brief 89b3c | 34 | Determine if all GBA's are ready and the GBA is the parent or child
  * 
- * @param wantParent Is parent or child GBA possibly updated
+ * @param transferMode Transfer mode, 0 is receiving, 1 is sending
  * @return u16 bool Is GBA parent
  */
-u16 CableLinkIsGbaParent(u8 wantParent)
+u16 TransferDetermineSendRecvState(u8 transferMode)
 {
     u16 isParent;
     // If all GBA's are ready and is currently the parent GBA
-    if ((read32(REG_SIO) & (SIO_MULTI_CONNECTION_READY | SIO_MULTI_RECEIVE_ID)) == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && wantParent)
+    if ((read32(REG_SIO) & (SIO_MULTI_CONNECTION_READY | SIO_MULTI_RECEIVE_ID)) == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && transferMode  != 0)
     {
-        isParent = gCableLinkSerialTransferInfo.isParent = TRUE;
+        isParent = gTransferManager.status.isParent = TRUE;
     }
     else
     {
-        isParent = gCableLinkSerialTransferInfo.isParent = FALSE;
+        isParent = gTransferManager.status.isParent = FALSE;
     }
     return isParent;
 }
 
 /**
- * @brief 89b70 | 30 | Initialize data to copy and load the size of the data to transmit and load timer 3
+ * @brief 89b70 | 30 | Set up the data to transfer
  * 
  * @param size Data size
- * @param pData Pointer to data to transfer
+ * @param pData Pointer to data to send
+ * @param recvBuffer (Unused) Pointer to data to receive
  */
-void CableLinkLoadDataAndSizeToTransfer(u32 size, const u32* pData, u32 param_3)
+void TransferSetUpTransferManager(u32 size, const u32* pData, u32* recvBuffer)
 {
-    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_CLOCK); // shift clock is internal, indicating parent
+    write16(REG_SIO, read16(REG_SIO) | SIO_BAUD_RATE_38400);
     
-    gCableLinkSerialTransferInfo.pData = pData;
-    write32(REG_SIO_MULTI, size); // transmit the size of data to transfer?
+    gTransferManager.data.pData = pData;
+    write32(REG_SIO_MULTI, size); // transmit the size of data to transfer
 
-    gCableLinkSerialTransferInfo.dataSizeInt = (size / sizeof(u32)) + 1; // 32740 / 4 + 1 = 8186
+    gTransferManager.data.sizeInt = (size / sizeof(u32)) + 1; // 32740 / 4 + 1 = 8186
 
-    CableLinkInitializeTimer3();
+    TransferInitTimer();
 }
 
 /**
- * @brief 89ba0 | 34 | Load timer 3 with -101
+ * @brief 89ba0 | 34 | Initialize timer 3 for transfer
  * 
  */
-void CableLinkInitializeTimer3(void)
+void TransferInitTimer(void)
 {
     // Load -101 into timer 3 (what is -101?)
     write16(REG_TM3CNT_L, -101);
@@ -295,22 +299,23 @@ void CableLinkInitializeTimer3(void)
 }
 
 /**
- * @brief 89bd4 | 10 | Initialize timer 3 and start serial transfer
+ * @brief 89bd4 | 10 | Reload timer 3 and start serial transfer
  * 
  */
-void CableLinkBeginTransferWithTimer3(void)
+void TransferReloadTransfer(void)
 {
-    CableLinkStopAndReloadTimer3();
-    CableLinkStartSerialTransfer();
+    // Called when timer 3 interrupts
+    TransferStopTimer();
+    TransferStartTransfer();
 }
 
 /**
- * @brief 89be4 | 180 | Transfer data over serial
+ * @brief 89be4 | 180 | Exchange data over serial
  * 
  */
-void CableLinkSerialTransferExchangeData(void)
+void TransferExchangeData(void)
 {
-    // Called when serial communication interrupt 
+    // Called when serial communication interrupts
     u16 recv[4];
     u32 control;
     u16 i;
@@ -319,11 +324,11 @@ void CableLinkSerialTransferExchangeData(void)
 
     control = read32(REG_SIO);
 
-    switch (gCableLinkSerialTransferInfo.stage)
+    switch (gTransferManager.status.stage)
     {
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_CONNECTION:
+        case TRANSFER_STAGE_SETUP_CONNECTION:
             write16(REG_SIO_DATA8, TRANSFER_HANDSHAKE); // Outgoing data
-            write64(recv, *(vu64 *)REG_SIO_MULTI);
+            write64(recv, read64(REG_SIO_MULTI));
 
             i = 0;
             numGbaDetected = 0;
@@ -339,35 +344,35 @@ void CableLinkSerialTransferExchangeData(void)
                     numGbaSendingData++;
             }
 
-            gSerialTransferGbaDetectedCount = numGbaDetected;
-            gSerialTransferGbaId = (control << 26) >> 30; // bits 4 and 5 of REG_SIO, which is multiplayer ID
+            gTransferGbaDetectedCount = numGbaDetected;
+            gTransferGbaId = (control << 26) >> 30; // SIO_MULTI_CONNECTION_ID_FLAG
 
             // If 0-2 GBA's detected
             if (numGbaDetected <= 2)
             {
                 // If 2 GBA's detected and not sending anymore data
                 if (numGbaDetected >= 2 && numGbaSendingData == 0)
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_DATA;
+                    gTransferManager.status.stage = TRANSFER_STAGE_SETUP_DATA;
             }
             else
-                gCableLinkSerialTransferInfo.errorDuringTransfer = CABLE_LINK_DURING_TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS;
+                gTransferManager.status.errorDuringTransfer = TRANSFER_ERROR_INIT_TOO_MANY_CONNECTIONS;
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_TRANSFER_DATA:
+        case TRANSFER_STAGE_TRANSFER_DATA:
             read32(REG_SIO_MULTI); // why the read?
 
             // If data still left to transfer
-            if (gCableLinkSerialTransferInfo.dataCursor < gCableLinkSerialTransferInfo.dataSizeInt)
+            if (gTransferManager.data.cursor < gTransferManager.data.sizeInt)
             {
                 // Transfer current byte and update checksum
-                write32(REG_SIO_MULTI, gCableLinkSerialTransferInfo.pData[gCableLinkSerialTransferInfo.dataCursor]);
-                gCableLinkSerialTransferInfo.dataChecksum += gCableLinkSerialTransferInfo.pData[gCableLinkSerialTransferInfo.dataCursor];
+                write32(REG_SIO_MULTI, gTransferManager.data.pData[gTransferManager.data.cursor]);
+                gTransferManager.data.checksum += gTransferManager.data.pData[gTransferManager.data.cursor];
             }
             // If data all transferred
-            else if (gCableLinkSerialTransferInfo.dataCursor == gCableLinkSerialTransferInfo.dataSizeInt)
+            else if (gTransferManager.data.cursor == gTransferManager.data.sizeInt)
             {
                 // Transfer checksum
-                write32(REG_SIO_MULTI, gCableLinkSerialTransferInfo.dataChecksum);
+                write32(REG_SIO_MULTI, gTransferManager.data.checksum);
             }
             // Sanity check to make sure more data than available not transferred?
             else
@@ -375,27 +380,27 @@ void CableLinkSerialTransferExchangeData(void)
                 write32(REG_SIO_MULTI, 0);
             }
 
-            gCableLinkSerialTransferInfo.dataCursor++;
+            gTransferManager.data.cursor++;
 
             // Continue timer if still data to transfer (extra time for each GBA active?)
-            if (gCableLinkSerialTransferInfo.dataCursor < gCableLinkSerialTransferInfo.dataSizeInt + gSerialTransferGbaDetectedCount)
+            if (gTransferManager.data.cursor < gTransferManager.data.sizeInt + gTransferGbaDetectedCount)
             {
                 write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
             }
             else
             {
-                gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_SETUP_VERIFICATION;
-                gSerialTransferDataTimer = 0;
+                gTransferManager.status.stage = TRANSFER_STAGE_SETUP_VERIFICATION;
+                gTransferDataTimer = 0;
             }
             break;
 
-        case CABLE_LINK_SERIAL_TRANSFER_STAGE_VERIFY_DATA:
-            write64(recv, *(vu64 *)REG_SIO_MULTI);
+        case TRANSFER_STAGE_VERIFY_DATA:
+            write64(recv, read64(REG_SIO_MULTI));
 
             i = 1; // start from GBA receiving data?
             numGbaDetected = 1;
 
-            for (i; i < gSerialTransferGbaDetectedCount; i++)
+            for (i; i < gTransferGbaDetectedCount; i++)
             {
                 // if child GBA 1 correctly sends 1
                 if (recv[i] == 1)
@@ -403,16 +408,16 @@ void CableLinkSerialTransferExchangeData(void)
                 // if another child GBA sends 1 (this shouldn't happen?)
                 else if (recv[i] == 2)
                 {
-                    gCableLinkSerialTransferInfo.verifyTransferResult = 2;
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
+                    gTransferManager.status.verifyTransferResult = TRANSFER_VERIFY_FAILURE;
+                    gTransferManager.status.stage = TRANSFER_STAGE_TERMINATE_CONNECTION;
                     break;
                 }
 
                 // Check if correct number of GBA's sent correct data
-                if (numGbaDetected == gSerialTransferGbaDetectedCount)
+                if (numGbaDetected == gTransferGbaDetectedCount)
                 {
-                    gCableLinkSerialTransferInfo.verifyTransferResult = 1;
-                    gCableLinkSerialTransferInfo.stage = CABLE_LINK_SERIAL_TRANSFER_STAGE_TERMINATE_CONNECTION;
+                    gTransferManager.status.verifyTransferResult = TRANSFER_VERIFY_SUCCESS;
+                    gTransferManager.status.stage = TRANSFER_STAGE_TERMINATE_CONNECTION;
                 }
             }
             break;
@@ -420,29 +425,29 @@ void CableLinkSerialTransferExchangeData(void)
 }
 
 /**
- * @brief 89d64 | 10 | Start a serial transfer by setting the start bit of the SIO control register
+ * @brief 89d64 | 10 | Start a serial transfer
  * 
  */
-void CableLinkStartSerialTransfer(void)
+void TransferStartTransfer(void)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_START_BIT_ACTIVE);
 }
 
 /**
- * @brief 89d74 | 24 | Stop and reload timer 3 with -101
+ * @brief 89d74 | 24 | Stop and reload timer 3
  * 
  */
-void CableLinkStopAndReloadTimer3(void)
+void TransferStopTimer(void)
 {
     write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) & ~TIMER_CONTROL_ACTIVE);
     write16(REG_TM3CNT_L, -101);
 }
 
 /**
- * @brief 89d98 | 54 | Makes a backup of the SIO related registers
+ * @brief 89d98 | 54 | Makes a backup of the registers used for transfer
  * 
  */
-void CableLinkBackupIoRegs(void)
+void TransferBackupIoRegs(void)
 {
     gRegIme_Backup = read16(REG_IME);
     gRegIe_Backup = read16(REG_IE);
@@ -452,10 +457,10 @@ void CableLinkBackupIoRegs(void)
 }
 
 /**
- * @brief 89dec | 44 | Retrieves the SIO related registers from the backups
+ * @brief 89dec | 44 | Retrieves the registers used for transfer from the backups
  * 
  */
-void CableLinkRetrieveIoRegs(void)
+void TransferRetrieveIoRegs(void)
 {
     write16(REG_IME, gRegIme_Backup);
     write16(REG_IE, gRegIe_Backup);

@@ -2,31 +2,31 @@
 #define LINK_H
 
 #include "types.h"
-#include "structs/cable_link.h"
+#include "structs/link.h"
 
 u8 FusionGalleryLinkProcess(void);
-u8* HandleLinkConnection(void);
-void BuildSendCmd(u16 command);
-void ProcessRecvCmds(void);
+u8* LinkHandleConnection(void);
+void LinkBuildSendCmd(u16 command);
+void LinkProcessRecvCmds(void);
 
-void DisableSerial(void);
-void EnableSerial(void);
-void ResetSerial(void);
-u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds);
-void CheckParentOrChild(void);
-void InitTimer(void);
-void EnqueueSendCmd(u16* sendCmd);
-void DequeueRecvCmds(RecvCmds_T recvCmds);
+void LinkDisableSerial(void);
+void LinkEnableSerial(void);
+void LinkResetSerial(void);
+u32 LinkMain(u8* shouldAdvanceLinkState, u16 sendCmd[CMD_LENGTH], u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH]);
+void LinkCheckParentOrChild(void);
+void LinkInitTimer(void);
+void LinkEnqueueSendCmd(u16 sendCmd[CMD_LENGTH]);
+void LinkDequeueRecvCmds(u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH]);
 void LinkVSync(void);
-void Timer3Intr(void);
-void SerialCB(void);
-void StartTransfer(void);
-u8 DoHandshake(void);
-void DoRecv(void);
-void DoSend(void);
-void StopTimer(void);
-void SendRecvDone(void);
-void ResetSendBuffer(void);
-void ResetRecvBuffer(void);
+void LinkReloadTransfer(void);
+void LinkCommunicate(void);
+void LinkStartTransfer(void);
+u8 LinkDoHandshake(void);
+void LinkDoRecv(void);
+void LinkDoSend(void);
+void LinkStopTimer(void);
+void LinkSendRecvDone(void);
+void LinkResetSendBuffer(void);
+void LinkResetRecvBuffer(void);
 
 #endif /* LINK_H */

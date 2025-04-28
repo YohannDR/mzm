@@ -236,7 +236,7 @@ void PowerBombYellowTint(u8 paletteRow)
 }
 
 /**
- * @brief 5b624 | 68 | Applyes a monochrome effect to a palette
+ * @brief 5b624 | 68 | Applies a monochrome effect to a palette
  * 
  * @param src Source address
  * @param dst Destination address
