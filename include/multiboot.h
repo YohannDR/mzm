@@ -2,6 +2,7 @@
 #define MULTIBOOT_H
 
 #include "types.h"
+#include "structs/multiboot.h"
 
 void MultiBootInit(struct MultiBootData* pMultiBoot);
 u32 MultiBootMain(struct MultiBootData* pMultiBoot);

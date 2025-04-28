@@ -5,18 +5,18 @@
 #include "music_wrappers.h"
 #include "multiboot.h"
 #include "link.h"
+#include "transfer.h"
 
 #include "data/cable_link_data.h"
 
 #include "constants/cable_link.h"
 
+#include "structs/cable_link.h"
 #include "structs/game_state.h"
 #include "structs/multiboot.h"
 
-#include "transfer.h"
-
 /**
- * @brief 88ea0 | 270 | Handles sending 
+ * @brief 88ea0 | 270 | Handles sending multiboot and fusion gallery transfer roms
  * 
  * @return u8 Connection result
  */
@@ -35,7 +35,7 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_WAIT_CLEAR_SOUND:
-            gIoTransferInfo.timer++;
+            APPLY_DELTA_TIME_INC(gIoTransferInfo.timer);
             if (gIoTransferInfo.timer > CONVERT_SECONDS(.5f))
             {
                 ClearSoundData();
@@ -47,8 +47,8 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_MULTIBOOT_INIT:
-            CallbackSetSerialCommunication(CableLinkSerialTransferExchangeData);
-            CallbackSetTimer3(CableLinkBeginTransferWithTimer3);
+            CallbackSetSerialCommunication(TransferExchangeData);
+            CallbackSetTimer3(TransferReloadTransfer);
 
             gDataSentPointer = sTransferData_8754bd0;
             gDataSentSize = (u32)sTransferRom - (u32)sTransferData_8754bd0;
@@ -60,20 +60,20 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_MULTIBOOT_PROCESS:
-            gIoTransferInfo.timer++;
+            APPLY_DELTA_TIME_INC(gIoTransferInfo.timer);
             if (gMultiBootParamData.clientBit & (2 | 4 | 8))
             {
                 probeCount = gMultiBootParamData.probeCount;
                 if (probeCount == 0xD1)
                     gIoTransferInfo.timer = 0;
                 
-                if (gMultiBootParamData.probeCount > 0xDF)
+                if (gMultiBootParamData.probeCount >= 0xE0)
                     gIoTransferInfo.timer = 0;
             }
 
-            if (gMultiBootParamData.probeCount == 0 && gMultiBootParamData.clientBit)
+            if (gMultiBootParamData.probeCount == 0 && gMultiBootParamData.clientBit != 0)
             {
-                MultiBootStartParent(&gMultiBootParamData, gDataSentPointer + 0xC0, gDataSentSize - 0xC0, 4, 1); // First 0xC0 bytes is header?
+                MultiBootStartParent(&gMultiBootParamData, gDataSentPointer + MULTIBOOT_HEADER_SIZE, gDataSentSize - MULTIBOOT_HEADER_SIZE, 4, 1);
             }
 
             gMultibootErrorFlags = MultiBootMain(&gMultiBootParamData);
@@ -82,32 +82,31 @@ u8 FusionGalleryConnectProcess(void)
             {
                 gMultibootInProgress = 0;
                 gIoTransferInfo.connectStage++;
-                break;
             }
 
-            if (gMultiBootParamData.probeCount != 0xD1 && (gChangedInput & KEY_B) && gMultiBootParamData.probeCount < 0xE0)
+            else if (gMultiBootParamData.probeCount != 0xD1 && (gChangedInput & KEY_B) && gMultiBootParamData.probeCount < 0xE0)
             {
                 gIoTransferInfo.connectStage = CONNECT_STAGE_BACKED_OUT;
-                break;
             }
 
-            if (gIoTransferInfo.timer > CONVERT_SECONDS(3.f))
+            else if (gIoTransferInfo.timer > CONVERT_SECONDS(3.f))
             {
                 gIoTransferInfo.connectStage = CONNECT_STAGE_MULTIBOOT_TIMED_OUT;
             }
             break;
 
-        case CONNECT_STAGE_SERIAL_TRANSFER_SEND_TRANSFER_ROM:
-            if (CableLinkProcessSerialTransfer(sTransferRom_After - sTransferRom, (const u32*)sTransferRom) == 0)
+        case CONNECT_STAGE_TRANSFER_SEND_TRANSFER_ROM:
+            if (TransferProcessSend(sTransferRom_After - sTransferRom, (const u32*)sTransferRom) == 0)
             {
                 gIoTransferInfo.connectStage++;
-                break;
             }
-
-            gIoTransferInfo.connectStage = CONNECT_STAGE_SERIAL_TRANSFER_FAILURE;
+            else
+            {
+                gIoTransferInfo.connectStage = CONNECT_STAGE_TRANSFER_FAILURE;
+            }
             break;
 
-        case CONNECT_STAGE_SERIAL_TRANSFER_COMPLETE:
+        case CONNECT_STAGE_TRANSFER_COMPLETE:
             // Always 0?
             switch (gMultibootUnk_3005880)
             {
@@ -120,11 +119,11 @@ u8 FusionGalleryConnectProcess(void)
                     break;
 
                 case 2:
-                    gIoTransferInfo.connectStage = CONNECT_STAGE_SERIAL_TRANSFER_FAILURE;
+                    gIoTransferInfo.connectStage = CONNECT_STAGE_TRANSFER_FAILURE;
                     break;
             }
 
-        case CONNECT_STAGE_SERIAL_TRANSFER_SUCCESS:
+        case CONNECT_STAGE_TRANSFER_SUCCESS:
             gIoTransferInfo.connectStage = CONNECT_STAGE_SET_ACTIVE_LINK;
             break;
 
@@ -138,7 +137,7 @@ u8 FusionGalleryConnectProcess(void)
             gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;
 
-        case CONNECT_STAGE_SERIAL_TRANSFER_FAILURE:
+        case CONNECT_STAGE_TRANSFER_FAILURE:
             gIoTransferInfo.result = TRANSFER_RESULT_FAILURE;
             gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;

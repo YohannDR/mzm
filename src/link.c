@@ -3,11 +3,11 @@
 #include "gba.h"
 #include "link.h"
 
-#include "data/cable_link_data.h"
 #include "data/io_transfer_data.h"
 
 #include "constants/cable_link.h"
 
+#include "structs/cable_link.h"
 #include "structs/game_state.h"
 #include "structs/link.h"
 
@@ -33,7 +33,7 @@ u8 FusionGalleryLinkProcess(void)
             DMA_SET(3, ptr, gSendCmd, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, CMD_LENGTH));
 
             buffer = 0;
-            DMA_SET(3, ptr, gRecvCmds, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, ARRAY_SIZE(gRecvCmds) * ARRAY_SIZE(gRecvCmds[0])));
+            DMA_SET(3, ptr, gRecvCmds, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED, MAX_LINK_PLAYERS * CMD_LENGTH));
 
             gErrorFlag = 0;
             gShouldAdvanceLinkState = 0;
@@ -41,10 +41,10 @@ u8 FusionGalleryLinkProcess(void)
             gLinkLocalId = 0;
             gLinkUnkFlag9 = 0;
 
-            CallbackSetSerialCommunication(SerialCB);
-            CallbackSetTimer3(Timer3Intr);
+            CallbackSetSerialCommunication(LinkCommunicate);
+            CallbackSetTimer3(LinkReloadTransfer);
 
-            ResetSerial();
+            LinkResetSerial();
 
             gIoTransferInfo.command = LINKCMD_5500;
             gIoTransferInfo.language = -1;
@@ -57,7 +57,7 @@ u8 FusionGalleryLinkProcess(void)
         case LINK_STAGE_PROCESS_CONNECTION:
             if (!gIoTransferInfo.linkInProgress)
             {
-                DisableSerial();
+                LinkDisableSerial();
                 if (gIoTransferInfo.command == LINKCMD_3300)
                     gIoTransferInfo.linkStage = LINK_STAGE_RECEIVED_GALLERY;
                 else if (gIoTransferInfo.errorFlag)
@@ -67,7 +67,7 @@ u8 FusionGalleryLinkProcess(void)
             }
             else
             {
-                HandleLinkConnection();
+                LinkHandleConnection();
                 if (gIoTransferInfo.command == LINKCMD_3300 || gIoTransferInfo.errorFlag != 0)
                     gIoTransferInfo.linkInProgress = 0;
                 else if (gIoTransferInfo.timer > CONVERT_SECONDS(3.f))
@@ -97,7 +97,7 @@ u8 FusionGalleryLinkProcess(void)
  * 
  * @return u8* Garbage, contains no value/undefined behavior
  */
-u8* HandleLinkConnection(void)
+u8* LinkHandleConnection(void)
 {
     vu32 c;
     u32* link_stat;
@@ -105,54 +105,54 @@ u8* HandleLinkConnection(void)
     gShouldAdvanceLinkState = gFrameCounter8Bit & 1;
     link_stat = &gErrorFlag;
     *link_stat = LinkMain(&gShouldAdvanceLinkState, gSendCmd, gRecvCmds);
-    gLinkLocalId = *link_stat & CABLE_LINK_STAT_LOCAL_ID;
-    gLinkPlayerCount = (*link_stat & (7 << CABLE_LINK_STAT_SHIFT_PLAYER_COUNT)) >> CABLE_LINK_STAT_SHIFT_PLAYER_COUNT;
-    gLinkUnkFlag9 = (*link_stat & (7 << CABLE_LINK_STAT_SHIFT_UNK_FLAG_9)) >> CABLE_LINK_STAT_SHIFT_UNK_FLAG_9;
+    gLinkLocalId = *link_stat & LINK_STAT_LOCAL_ID;
+    gLinkPlayerCount = EXTRACT_PLAYER_COUNT(*link_stat);
+    gLinkUnkFlag9 = EXTRACT_LINK_ERRORS(*link_stat);
 
-    if (*link_stat & CABLE_LINK_STAT_CONN_ESTABLISHED)
+    if (*link_stat & LINK_STAT_CONN_ESTABLISHED)
     {
         gIoTransferInfo.timer = 0;
-        BuildSendCmd(gIoTransferInfo.command);
-        ProcessRecvCmds();
+        LinkBuildSendCmd(gIoTransferInfo.command);
+        LinkProcessRecvCmds();
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_ID_OVER)
+    if (*link_stat & LINK_ERROR_ID_OVER)
     {
         gIoTransferInfo.errorFlag |= 1;
         CableLinkDrawErrorStr(sErrorString_IdOver, VRAM_BASE + 0xE304, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_CHECKSUM)
+    if (*link_stat & LINK_ERROR_CHECKSUM)
     {
         gIoTransferInfo.errorFlag |= 2;
         CableLinkDrawErrorStr(sErrorString_ChecksumError, VRAM_BASE + 0xE344, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_HARDWARE)
+    if (*link_stat & LINK_ERROR_HARDWARE)
     {
         gIoTransferInfo.errorFlag |= 4;
         CableLinkDrawErrorStr(sErrorString_HardwareError, VRAM_BASE + 0xE384, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_SEND_OVERFLOW)
+    if (*link_stat & LINK_ERROR_SEND_OVERFLOW)
     {
         gIoTransferInfo.errorFlag |= 8;
         CableLinkDrawErrorStr(sErrorString_SendOverflow, VRAM_BASE + 0xE3C4, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_RECEIVE_OVERFLOW)
+    if (*link_stat & LINK_ERROR_RECEIVE_OVERFLOW)
     {
         gIoTransferInfo.errorFlag |= 16;
         CableLinkDrawErrorStr(sErrorString_ReceiveOverflow, VRAM_BASE + 0xE404, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_SIO_INTERNAL)
+    if (*link_stat & LINK_ERROR_SIO_INTERNAL)
     {
         gIoTransferInfo.errorFlag |= 32;
         CableLinkDrawErrorStr(sErrorString_SioInternal, VRAM_BASE + 0xE444, 12);
     }
 
-    if (*link_stat & CABLE_LINK_ERROR_SIO_STOP)
+    if (*link_stat & LINK_ERROR_SIO_STOP)
     {
         gIoTransferInfo.errorFlag |= 64;
         CableLinkDrawErrorStr(sErrorString_SioStop, VRAM_BASE + 0xE484, 12);
@@ -164,7 +164,7 @@ u8* HandleLinkConnection(void)
  * 
  * @param command The command to send
  */
-void BuildSendCmd(u16 command)
+void LinkBuildSendCmd(u16 command)
 {
     u32 value;
     
@@ -199,12 +199,13 @@ void BuildSendCmd(u16 command)
 
 /**
  * @brief 8a1d4 | 8c | Process commands from the receive queue
+ * 
  */
-void ProcessRecvCmds(void)
+void LinkProcessRecvCmds(void)
 {
     u8 var;
 
-    if (gErrorFlag & CABLE_LINK_STAT_RECEIVED_NOTHING)
+    if (gErrorFlag & LINK_STAT_RECEIVED_NOTHING)
         return;
 
     if (gRecvCmds[0][1] == LINKCMD_5500)
@@ -238,10 +239,11 @@ void ProcessRecvCmds(void)
  * @brief 8a260 | 68 | Disable serial transfer
  * 
  */
-void DisableSerial(void)
+void LinkDisableSerial(void)
 {
     u32 buffer;
 
+    // Disable Interrupts
     gLinkSavedIme = read16(REG_IME);
     write16(REG_IME, FALSE);
     write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
@@ -252,13 +254,14 @@ void DisableSerial(void)
     write16(REG_IF, IF_TIMER3 | IF_SERIAL);
 
     buffer = 0;
-    CpuSet(&buffer, &gCableLinkInfo, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gCableLinkInfo) / sizeof(u32)));
+    CpuSet(&buffer, &gLink, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gLink) / sizeof(u32)));
 }
 
 /**
  * @brief 8a2c8 | D4 | Enable serial transfer
+ * 
  */
-void EnableSerial(void)
+void LinkEnableSerial(void)
 {
     u32 buffer;
     u32* ptr;
@@ -283,37 +286,37 @@ void EnableSerial(void)
     write64(REG_SIO_MULTI, 0);
 
     buffer = 0;
-    CpuSet(&buffer, &gCableLinkInfo, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gCableLinkInfo) / sizeof(u32)));
+    CpuSet(&buffer, &gLink, C_32_2_16(CPU_SET_32BIT | CPU_SET_SRC_FIXED, sizeof(gLink) / sizeof(u32)));
 
-    sNumVBlanksWithoutSerialIntr = 0;
-    sSendBufferEmpty = 0;
-    sHandshakePlayerCount = 0;
+    gNumVBlanksWithoutSerialIntr = 0;
+    gSendBufferEmpty = 0;
+    gHandshakePlayerCount = 0;
     gLastSendQueueCount = 0;
     gLastRecvQueueCount = 0;
-    sChecksumAvailable = 0;
-    sSendNonzeroCheck = 0;
-    sRecvNonzeroCheck = 0;
+    gChecksumAvailable = 0;
+    gSendNonzeroCheck = 0;
+    gRecvNonzeroCheck = 0;
 }
 
 /**
  * @brief 8a39c | 10 | Reset the state of the serial transfer
  * 
  */
-void ResetSerial(void)
+void LinkResetSerial(void)
 {
-    EnableSerial();
-    DisableSerial();
+    LinkEnableSerial();
+    LinkDisableSerial();
 }
 
 /**
  * @brief 8a3ac | 120 | Handle connection, sending data, and checking errors
  * 
- * @param shouldAdvanceLinkState To document
+ * @param shouldAdvanceLinkState Should advance link state
  * @param sendCmd The commands to send
  * @param recvCmds A queue of received commands
  * @return u32 The state of the connection
  */
-u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
+u32 LinkMain(u8* shouldAdvanceLinkState, u16 sendCmd[CMD_LENGTH], u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH])
 {
     u32 retval;
     u32 receivedNothing;
@@ -324,18 +327,18 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
     u32 errorFlag_sioInternal;
     u32 val;
 
-    switch (gCableLinkInfo.state)
+    switch (gLink.session.state)
     {
         case LINK_STATE_START0:
-            DisableSerial();
-            gCableLinkInfo.state = LINK_STATE_START1;
+            LinkDisableSerial();
+            gLink.session.state = LINK_STATE_START1;
             break;
 
         case LINK_STATE_START1:
             if (*shouldAdvanceLinkState == 1)
             {
-                EnableSerial();
-                gCableLinkInfo.state = LINK_STATE_HANDSHAKE;
+                LinkEnableSerial();
+                gLink.session.state = LINK_STATE_HANDSHAKE;
             }
             break;
 
@@ -343,49 +346,49 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
             switch (*shouldAdvanceLinkState)
             {
                 case 1:
-                    if (gCableLinkInfo.isParent != 0 && gCableLinkInfo.playerCount > 1)
-                        gCableLinkInfo.handshakeAsParent = 1;
+                    if (gLink.session.isParent != 0 && gLink.session.playerCount > 1)
+                        gLink.connection.handshakeAsParent = 1;
                     break;
 
                 case 2:
-                    gCableLinkInfo.state = LINK_STATE_START0;
+                    gLink.session.state = LINK_STATE_START0;
                     write16(REG_SIO_DATA8, 0);
                     break;
 
                 default:
-                    CheckParentOrChild();
+                    LinkCheckParentOrChild();
                     break;
             }
             break;
 
         case LINK_STATE_INIT_TIMER:
-            InitTimer();
-            gCableLinkInfo.state = LINK_STATE_CONN_ESTABLISHED;
+            LinkInitTimer();
+            gLink.session.state = LINK_STATE_CONN_ESTABLISHED;
 
         case LINK_STATE_CONN_ESTABLISHED:
-            EnqueueSendCmd(sendCmd);
-            DequeueRecvCmds(recvCmds);
+            LinkEnqueueSendCmd(sendCmd);
+            LinkDequeueRecvCmds(recvCmds);
             break;
     }
 
     *shouldAdvanceLinkState = 0;
 
-    retval = gCableLinkInfo.localId | (gCableLinkInfo.playerCount << CABLE_LINK_STAT_SHIFT_PLAYER_COUNT);
-    if (gCableLinkInfo.isParent == LINK_PARENT)
+    retval = gLink.session.localId | (gLink.session.playerCount << LINK_STAT_SHIFT_PLAYER_COUNT);
+    if (gLink.session.isParent == LINK_PARENT)
     {
-        retval |= CABLE_LINK_STAT_PARENT;
+        retval |= LINK_STAT_PARENT;
     }
 
-    receivedNothing = gCableLinkInfo.recievedNothing << CABLE_LINK_STAT_SHIFT_RECEIVED_NOTHING;
-    errorFlag_1 = gCableLinkInfo.unk_11 << CABLE_LINK_STAT_SHIFT_UNK_FLAG_9;
-    hardwareError = gCableLinkInfo.hardwareErrorFlag << CABLE_LINK_ERROR_SHIFT_HARDWARE;
-    badChecksum = gCableLinkInfo.checksumErrorFlag << CABLE_LINK_ERROR_SHIFT_CHECKSUM;
-    queueFull = gCableLinkInfo.overflowErrorFlags << CABLE_LINK_ERROR_SHIFT_OVERFLOW;
-    errorFlag_sioInternal = gCableLinkInfo.sioErrorFlags << CABLE_LINK_ERROR_SHIFT_SIO;
+    receivedNothing = gLink.session.receivedNothing << LINK_STAT_SHIFT_RECEIVED_NOTHING;
+    errorFlag_1 = gLink.connection.unk_11 << LINK_STAT_SHIFT_ERRORS;
+    hardwareError = gLink.connection.hardwareErrorFlag << LINK_ERROR_SHIFT_HARDWARE;
+    badChecksum = gLink.connection.checksumErrorFlag << LINK_ERROR_SHIFT_CHECKSUM;
+    queueFull = gLink.connection.overflowErrorFlags << LINK_ERROR_SHIFT_OVERFLOW;
+    errorFlag_sioInternal = gLink.connection.sioErrorFlags << LINK_ERROR_SHIFT_SIO;
 
-    if (gCableLinkInfo.state == LINK_STATE_CONN_ESTABLISHED)
+    if (gLink.session.state == LINK_STATE_CONN_ESTABLISHED)
     {
-        val = CABLE_LINK_STAT_CONN_ESTABLISHED;
+        val = LINK_STAT_CONN_ESTABLISHED;
         val |= receivedNothing;
         val |= retval;
         val |= errorFlag_1;
@@ -406,8 +409,8 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
     }
     retval = val;
 
-    if (gCableLinkInfo.localId >= MAX_LINK_PLAYERS)
-        retval |= CABLE_LINK_ERROR_ID_OVER;
+    if (gLink.session.localId >= MAX_LINK_PLAYERS)
+        retval |= LINK_ERROR_ID_OVER;
 
     return retval;
 }
@@ -416,18 +419,18 @@ u32 LinkMain(u8* shouldAdvanceLinkState, u16* sendCmd, RecvCmds_T recvCmds)
  * @brief 8a4cc | 2c | Check if the current connection is parent or child
  * 
  */
-void CheckParentOrChild(void)
+void LinkCheckParentOrChild(void)
 {
     u32 terminals;
 
     terminals = read32(REG_SIO) & (SIO_MULTI_CONNECTION_READY | SIO_MULTI_RECEIVE_ID);
-    if (terminals == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && gCableLinkInfo.localId == 0)
+    if (terminals == (SIO_MULTI_CONNECTION_READY | SIO_MULTI_PARENT) && gLink.session.localId == 0)
     {
-        gCableLinkInfo.isParent = LINK_PARENT;
+        gLink.session.isParent = LINK_PARENT;
     }
     else
     {
-        gCableLinkInfo.isParent = LINK_CHILD;
+        gLink.session.isParent = LINK_CHILD;
     }
 }
 
@@ -435,9 +438,9 @@ void CheckParentOrChild(void)
  * @brief 8a4f8 | 50 | Load timer 3 if all GBA's are ready
  * 
  */
-void InitTimer(void)
+void LinkInitTimer(void)
 {
-    if (gCableLinkInfo.isParent)
+    if (gLink.session.isParent)
     {
         // Load -132 into timer 3 with 1/64 the normal frequency
         write16(REG_TM3CNT_L, -132);
@@ -456,7 +459,7 @@ void InitTimer(void)
  * 
  * @param sendCmd The commands to send
  */
-void EnqueueSendCmd(u16* sendCmd)
+void LinkEnqueueSendCmd(u16 sendCmd[CMD_LENGTH])
 {
     u8 offset;
     u8 i;
@@ -464,9 +467,9 @@ void EnqueueSendCmd(u16* sendCmd)
     gLinkSavedIme = read16(REG_IME);
     write16(REG_IME, FALSE);
 
-    if (gCableLinkInfo.sendQueue_Count < QUEUE_CAPACITY)
+    if (gLink.sendQueue.count < QUEUE_CAPACITY)
     {
-        offset = gCableLinkInfo.sendQueue_Pos + gCableLinkInfo.sendQueue_Count;
+        offset = gLink.sendQueue.pos + gLink.sendQueue.count;
         if (offset >= QUEUE_CAPACITY)
         {
             offset -= QUEUE_CAPACITY;
@@ -474,24 +477,24 @@ void EnqueueSendCmd(u16* sendCmd)
 
         for (i = 0; i < CMD_LENGTH; i++)
         {
-            sSendNonzeroCheck |= *sendCmd;
-            gCableLinkInfo.sendQueue_Data[i][offset] = *sendCmd;
+            gSendNonzeroCheck |= *sendCmd;
+            gLink.sendQueue.data[i][offset] = *sendCmd;
             *sendCmd++ = 0;
         }
     }
     else
     {
-        gCableLinkInfo.overflowErrorFlags |= QUEUE_FULL_SEND;
+        gLink.connection.overflowErrorFlags |= QUEUE_FULL_SEND;
     }
 
-    if (sSendNonzeroCheck)
+    if (gSendNonzeroCheck)
     {
-        gCableLinkInfo.sendQueue_Count++;
-        sSendNonzeroCheck = 0;
+        gLink.sendQueue.count++;
+        gSendNonzeroCheck = 0;
     }
 
     write16(REG_IME, gLinkSavedIme);
-    gLastSendQueueCount = gCableLinkInfo.sendQueue_Count;
+    gLastSendQueueCount = gLink.sendQueue.count;
 }
 
 /**
@@ -499,7 +502,7 @@ void EnqueueSendCmd(u16* sendCmd)
  * 
  * @param recvCmds A queue of received commands
  */
-void DequeueRecvCmds(RecvCmds_T recvCmds)
+void LinkDequeueRecvCmds(u16 recvCmds[MAX_LINK_PLAYERS][CMD_LENGTH])
 {
     u8 i;
     u8 j;
@@ -507,37 +510,37 @@ void DequeueRecvCmds(RecvCmds_T recvCmds)
     gLinkSavedIme = read16(REG_IME);
     write16(REG_IME, FALSE);
 
-    if (gCableLinkInfo.recvQueue_Count == 0)
+    if (gLink.recvQueue.count == 0)
     {
         for (i = 0; i < CMD_LENGTH; i++)
         {
-            for (j = 0; j < gCableLinkInfo.playerCount; j++)
+            for (j = 0; j < gLink.session.playerCount; j++)
             {
                 recvCmds[i][j] = 0;
             }
         }
 
-        gCableLinkInfo.recievedNothing = TRUE;
+        gLink.session.receivedNothing = TRUE;
     }
     else
     {
         for (i = 0; i < CMD_LENGTH; i++)
         {
-            for (j = 0; j < gCableLinkInfo.playerCount; j++)
+            for (j = 0; j < gLink.session.playerCount; j++)
             {
-                recvCmds[i][j] = gCableLinkInfo.recvQueue_Data[j][i][gCableLinkInfo.recvQueue_Pos];
+                recvCmds[i][j] = gLink.recvQueue.data[j][i][gLink.recvQueue.pos];
             }
         }
 
-        gCableLinkInfo.recvQueue_Count--;
-        gCableLinkInfo.recvQueue_Pos++;
+        gLink.recvQueue.count--;
+        gLink.recvQueue.pos++;
 
-        if (gCableLinkInfo.recvQueue_Pos >= QUEUE_CAPACITY)
+        if (gLink.recvQueue.pos >= QUEUE_CAPACITY)
         {
-            gCableLinkInfo.recvQueue_Pos = 0;
+            gLink.recvQueue.pos = 0;
         }
 
-        gCableLinkInfo.recievedNothing = FALSE;
+        gLink.session.receivedNothing = FALSE;
     }
 
     write16(REG_IME, gLinkSavedIme);
@@ -549,110 +552,110 @@ void DequeueRecvCmds(RecvCmds_T recvCmds)
  */
 void LinkVSync(void)
 {
-    if (gCableLinkInfo.isParent)
+    if (gLink.session.isParent)
     {
-        switch (gCableLinkInfo.state)
+        switch (gLink.session.state)
         {
             case LINK_STATE_CONN_ESTABLISHED:
-                if (gCableLinkInfo.serialIntrCounter < 3)
+                if (gLink.session.serialIntrCounter <= CMD_LENGTH)
                 {
-                    if (gCableLinkInfo.hardwareErrorFlag == 0)
+                    if (gLink.connection.hardwareErrorFlag == 0)
                     {
-                        gCableLinkInfo.sioErrorFlags = 1;
+                        gLink.connection.sioErrorFlags = 1;
                     }
                     else
                     {
-                        StartTransfer();
+                        LinkStartTransfer();
                     }
                 }
 
-                else if (gCableLinkInfo.sioErrorFlags == 0)
+                else if (gLink.connection.sioErrorFlags == 0)
                 {
-                    gCableLinkInfo.serialIntrCounter = 0;
-                    StartTransfer();
+                    gLink.session.serialIntrCounter = 0;
+                    LinkStartTransfer();
                 }
                 break;
             
             case LINK_STATE_HANDSHAKE:
-                StartTransfer();
+                LinkStartTransfer();
                 break;
         }
     }
     
-    else if (gCableLinkInfo.state == LINK_STATE_CONN_ESTABLISHED || gCableLinkInfo.state == LINK_STATE_HANDSHAKE)
+    else if (gLink.session.state == LINK_STATE_CONN_ESTABLISHED || gLink.session.state == LINK_STATE_HANDSHAKE)
     {
-        sNumVBlanksWithoutSerialIntr++;
-        if (sNumVBlanksWithoutSerialIntr > 10)
+        gNumVBlanksWithoutSerialIntr++;
+        if (gNumVBlanksWithoutSerialIntr > 10)
         {
-            if (gCableLinkInfo.state == LINK_STATE_CONN_ESTABLISHED)
+            if (gLink.session.state == LINK_STATE_CONN_ESTABLISHED)
             {
-                gCableLinkInfo.sioErrorFlags = LAG_CHILD;
+                gLink.connection.sioErrorFlags = LAG_CHILD;
             }
             
-            if (gCableLinkInfo.state == LINK_STATE_HANDSHAKE)
+            if (gLink.session.state == LINK_STATE_HANDSHAKE)
             {
-                gCableLinkInfo.localId = 0;
-                gCableLinkInfo.playerCount = 0;
-                gCableLinkInfo.unk_11 = 0;
+                gLink.session.localId = 0;
+                gLink.session.playerCount = 0;
+                gLink.connection.unk_11 = 0;
             }
         }
     }
 }
 
 /**
- * @brief 8a7a0 | 10 | Stop the timer and begin a transfer
+ * @brief 8a7a0 | 10 | Reload timer 3 and start serial transfer
  * 
  */
-void Timer3Intr(void)
+void LinkReloadTransfer(void)
 {
-    StopTimer();
-    StartTransfer();
+    // Called when timer 3 interrupts
+    LinkStopTimer();
+    LinkStartTransfer();
 }
 
 /**
  * @brief 8a7b0 | 90 | Establish a connection and send data
  * 
  */
-void SerialCB(void)
+void LinkCommunicate(void)
 {
     u32 control;
 
     control = read32(REG_SIO);
-    gCableLinkInfo.localId = (control << 26) >> 30;
+    gLink.session.localId = (control << 26) >> 30; // SIO_MULTI_CONNECTION_ID_FLAG
 
-    switch (gCableLinkInfo.state)
+    switch (gLink.session.state)
     {
         case LINK_STATE_CONN_ESTABLISHED:
-            if (control & 0x40) // bit 6 should (always?) be 0
-                gCableLinkInfo.hardwareErrorFlag = TRUE;
+            if (control & SIO_MULTI_ERROR)
+                gLink.connection.hardwareErrorFlag = TRUE;
 
-            DoRecv();
-            DoSend();
-            SendRecvDone();
+            LinkDoRecv();
+            LinkDoSend();
+            LinkSendRecvDone();
             break;
 
         case LINK_STATE_HANDSHAKE:
-            if (DoHandshake())
+            if (LinkDoHandshake())
             {
-                if (gCableLinkInfo.isParent)
+                if (gLink.session.isParent)
                 {
-                    gCableLinkInfo.state = LINK_STATE_INIT_TIMER;
-                    gCableLinkInfo.serialIntrCounter = 2;
+                    gLink.session.state = LINK_STATE_INIT_TIMER;
+                    gLink.session.serialIntrCounter = CMD_LENGTH;
                 }
                 else
                 {
-                    gCableLinkInfo.state = LINK_STATE_CONN_ESTABLISHED;
+                    gLink.session.state = LINK_STATE_CONN_ESTABLISHED;
                 }
             }
             break;
     }
 
-    gCableLinkInfo.serialIntrCounter++;
-    sNumVBlanksWithoutSerialIntr = 0;
-
-    if (gCableLinkInfo.serialIntrCounter == CMD_LENGTH)
+    gLink.session.serialIntrCounter++;
+    gNumVBlanksWithoutSerialIntr = 0;
+    if (gLink.session.serialIntrCounter == CMD_LENGTH)
     {
-        gLastRecvQueueCount = gCableLinkInfo.recvQueue_Count;
+        gLastRecvQueueCount = gLink.recvQueue.count;
     }
 }
 
@@ -660,7 +663,7 @@ void SerialCB(void)
  * @brief 8a840 | 10 | Start a serial transfer
  * 
  */
-void StartTransfer(void)
+void LinkStartTransfer(void)
 {
     write16(REG_SIO, read16(REG_SIO) | SIO_START_BIT_ACTIVE);
 }
@@ -670,7 +673,7 @@ void StartTransfer(void)
  * 
  * @return u8 bool, handshake was successfully performed
  */
-u8 DoHandshake(void)
+u8 LinkDoHandshake(void)
 {
     u16 minRecv;
     u8 i;
@@ -679,7 +682,7 @@ u8 DoHandshake(void)
     playerCount = 0;
     minRecv = USHORT_MAX;
 
-    if (gCableLinkInfo.handshakeAsParent == TRUE)
+    if (gLink.connection.handshakeAsParent == TRUE)
     {
         write16(REG_SIO_DATA8, PARENT_HANDSHAKE);
     }
@@ -687,55 +690,55 @@ u8 DoHandshake(void)
     {
         write16(REG_SIO_DATA8, CHILD_HANDSHAKE);
     }
-    gCableLinkInfo.handshakeAsParent = FALSE;
+    gLink.connection.handshakeAsParent = FALSE;
 
-    write64(&gCableLinkInfo.handshakeBuffer, *(vu64 *)REG_SIO_MULTI);
+    write64(gLink.session.handshakeBuffer, read64(REG_SIO_MULTI));
 
     for (i = 0; i < MAX_LINK_PLAYERS; i++)
     {    
-        if ((gCableLinkInfo.handshakeBuffer[i] & ~3) == CHILD_HANDSHAKE || gCableLinkInfo.handshakeBuffer[i] == PARENT_HANDSHAKE)
+        if ((gLink.session.handshakeBuffer[i] & ~3) == CHILD_HANDSHAKE || gLink.session.handshakeBuffer[i] == PARENT_HANDSHAKE)
         {
             playerCount++;
-            if (minRecv > gCableLinkInfo.handshakeBuffer[i] && gCableLinkInfo.handshakeBuffer[i] != 0)
+            if (minRecv > gLink.session.handshakeBuffer[i] && gLink.session.handshakeBuffer[i] != 0)
             {
-                minRecv = gCableLinkInfo.handshakeBuffer[i];
+                minRecv = gLink.session.handshakeBuffer[i];
             }
         }
-        else if (gCableLinkInfo.handshakeBuffer[i] != USHORT_MAX)
+        else if (gLink.session.handshakeBuffer[i] != USHORT_MAX)
         {
             playerCount = 0;
             break;
         }
-        else if (i == gCableLinkInfo.localId)
+        else if (i == gLink.session.localId)
         {
             playerCount = 0;
         }
     }
 
-    gCableLinkInfo.playerCount = playerCount;
+    gLink.session.playerCount = playerCount;
 
-    if (gCableLinkInfo.playerCount > 1)
+    if (gLink.session.playerCount > 1)
     {
-        if (gCableLinkInfo.playerCount == sHandshakePlayerCount && gCableLinkInfo.handshakeBuffer[0] == PARENT_HANDSHAKE)
+        if (gLink.session.playerCount == gHandshakePlayerCount && gLink.session.handshakeBuffer[0] == PARENT_HANDSHAKE)
         {
             return TRUE;
         }
     
-        if (gCableLinkInfo.playerCount > 1)
+        if (gLink.session.playerCount > 1)
         {
-            gCableLinkInfo.unk_11 = (minRecv & 3) + 1;
+            gLink.connection.unk_11 = (minRecv & 3) + 1;
         }
         else
         {
-            gCableLinkInfo.unk_11 = 0;
+            gLink.connection.unk_11 = 0;
         }
     }
     else
     {
-        gCableLinkInfo.unk_11 = 0;
+        gLink.connection.unk_11 = 0;
     }
 
-    sHandshakePlayerCount = gCableLinkInfo.playerCount;
+    gHandshakePlayerCount = gLink.session.playerCount;
 
     return FALSE;
 }
@@ -744,53 +747,53 @@ u8 DoHandshake(void)
  * @brief 8a94c | 108 | Receive a command from the receive queue
  * 
  */
-void DoRecv(void)
+void LinkDoRecv(void)
 {
     u16 recv[4];
     u8 i;
     u8 offset;
 
-    write64(recv, *(vu64 *)REG_SIO_MULTI);
+    write64(recv, read64(REG_SIO_MULTI));
 
-    if (gCableLinkInfo.sendCmdIndex == 0)
+    if (gLink.connection.sendCmdIndex == 0)
     {
-        for (i = 0; i < gCableLinkInfo.playerCount; i++)
+        for (i = 0; i < gLink.session.playerCount; i++)
         {
-            if (gCableLinkInfo.checksum != recv[i] && sChecksumAvailable)
+            if (gLink.connection.checksum != recv[i] && gChecksumAvailable)
             {
-                gCableLinkInfo.checksumErrorFlag = TRUE;
+                gLink.connection.checksumErrorFlag = TRUE;
             }
         }
 
-        gCableLinkInfo.checksum = 0;
-        sChecksumAvailable = TRUE;
+        gLink.connection.checksum = 0;
+        gChecksumAvailable = TRUE;
     }
     else
     {
-        offset = gCableLinkInfo.recvQueue_Pos + gCableLinkInfo.recvQueue_Count;
+        offset = gLink.recvQueue.pos + gLink.recvQueue.count;
         if (offset >= QUEUE_CAPACITY)
             offset -= QUEUE_CAPACITY;
 
-        if (gCableLinkInfo.recvQueue_Count < QUEUE_CAPACITY)
+        if (gLink.recvQueue.count < QUEUE_CAPACITY)
         {
-            for (i = 0; i < gCableLinkInfo.playerCount; i++)
+            for (i = 0; i < gLink.session.playerCount; i++)
             {
-                gCableLinkInfo.checksum += recv[i];
-                sRecvNonzeroCheck |= recv[i];
+                gLink.connection.checksum += recv[i];
+                gRecvNonzeroCheck |= recv[i];
 
-                gCableLinkInfo.recvQueue_Data[i][gCableLinkInfo.recvCmdIndex][offset] = recv[i];
+                gLink.recvQueue.data[i][gLink.connection.recvCmdIndex][offset] = recv[i];
             }
         }
         else
         {
-            gCableLinkInfo.overflowErrorFlags |= QUEUE_FULL_RECV;
+            gLink.connection.overflowErrorFlags |= QUEUE_FULL_RECV;
         }
 
-        gCableLinkInfo.recvCmdIndex++;
-        if (gCableLinkInfo.recvCmdIndex == CMD_LENGTH && sRecvNonzeroCheck)
+        gLink.connection.recvCmdIndex++;
+        if (gLink.connection.recvCmdIndex == CMD_LENGTH && gRecvNonzeroCheck)
         {
-            gCableLinkInfo.recvQueue_Count++;
-            sRecvNonzeroCheck = 0;
+            gLink.recvQueue.count++;
+            gRecvNonzeroCheck = 0;
         }
     }
 }
@@ -799,44 +802,44 @@ void DoRecv(void)
  * @brief 8aa54 | 9c | Send a command from the send queue
  * 
  */
-void DoSend(void)
+void LinkDoSend(void)
 {
-    if (gCableLinkInfo.sendCmdIndex == CMD_LENGTH)
+    if (gLink.connection.sendCmdIndex == CMD_LENGTH)
     {
-        write16(REG_SIO_DATA8, gCableLinkInfo.checksum);
+        write16(REG_SIO_DATA8, gLink.connection.checksum);
 
-        if (!sSendBufferEmpty)
+        if (!gSendBufferEmpty)
         {
-            gCableLinkInfo.sendQueue_Count--;
-            gCableLinkInfo.sendQueue_Pos++;
+            gLink.sendQueue.count--;
+            gLink.sendQueue.pos++;
 
-            if (gCableLinkInfo.sendQueue_Pos >= QUEUE_CAPACITY)
+            if (gLink.sendQueue.pos >= QUEUE_CAPACITY)
             {
-                gCableLinkInfo.sendQueue_Pos = 0;
+                gLink.sendQueue.pos = 0;
             }
         }
         else
         {
-            sSendBufferEmpty = FALSE;
+            gSendBufferEmpty = FALSE;
         }
     }
     else
     {
-        if (gCableLinkInfo.sendCmdIndex == 0 && gCableLinkInfo.sendQueue_Count == 0)
+        if (gLink.connection.sendCmdIndex == 0 && gLink.sendQueue.count == 0)
         {
-            sSendBufferEmpty = TRUE;
+            gSendBufferEmpty = TRUE;
         }
             
-        if (sSendBufferEmpty)
+        if (gSendBufferEmpty)
         {
             write16(REG_SIO_DATA8, 0);
         }
         else
         {
-            write16(REG_SIO_DATA8, gCableLinkInfo.sendQueue_Data[gCableLinkInfo.sendCmdIndex][gCableLinkInfo.sendQueue_Pos]);
+            write16(REG_SIO_DATA8, gLink.sendQueue.data[gLink.connection.sendCmdIndex][gLink.sendQueue.pos]);
         }
 
-        gCableLinkInfo.sendCmdIndex++;
+        gLink.connection.sendCmdIndex++;
     }
 }
 
@@ -844,9 +847,9 @@ void DoSend(void)
  * @brief 8aaf0 | 34 | Stops the timer for the parent
  * 
  */
-void StopTimer(void)
+void LinkStopTimer(void)
 {
-    if (gCableLinkInfo.isParent)
+    if (gLink.session.isParent)
     {
         // Turn off timer 3 and load in -132
         write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) & ~TIMER_CONTROL_ACTIVE);
@@ -858,14 +861,14 @@ void StopTimer(void)
  * @brief 8ab24 | 30 | Send a signal that the receive command is done
  * 
  */
-void SendRecvDone(void)
+void LinkSendRecvDone(void)
 {
-    if (gCableLinkInfo.recvCmdIndex == CMD_LENGTH)
+    if (gLink.connection.recvCmdIndex == CMD_LENGTH)
     {
-        gCableLinkInfo.sendCmdIndex = 0;
-        gCableLinkInfo.recvCmdIndex = 0;
+        gLink.connection.sendCmdIndex = 0;
+        gLink.connection.recvCmdIndex = 0;
     }
-    else if (gCableLinkInfo.isParent)
+    else if (gLink.session.isParent)
     {
         write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
     }
@@ -875,19 +878,19 @@ void SendRecvDone(void)
  * @brief 8ab54 | 48 | Clear the commands in the send queue
  * 
  */
-void ResetSendBuffer(void)
+void LinkResetSendBuffer(void)
 {
     u8 i;
     u8 j;
 
-    gCableLinkInfo.sendQueue_Count = 0;
-    gCableLinkInfo.sendQueue_Pos = 0;
+    gLink.sendQueue.count = 0;
+    gLink.sendQueue.pos = 0;
 
     for (i = 0; i < CMD_LENGTH; i++)
     {
         for (j = 0; j < QUEUE_CAPACITY; j++)
         {
-            gCableLinkInfo.sendQueue_Data[i][j] = LINKCMD_NONE;
+            gLink.sendQueue.data[i][j] = LINKCMD_NONE;
         }
     }
 }
@@ -896,14 +899,14 @@ void ResetSendBuffer(void)
  * @brief 8ab9c | 5c | Clear the commands in the receive queue
  * 
  */
-void ResetRecvBuffer(void)
+void LinkResetRecvBuffer(void)
 {
     u8 i;
     u8 j;
     u8 k;
 
-    gCableLinkInfo.recvQueue_Count = 0;
-    gCableLinkInfo.recvQueue_Pos = 0;
+    gLink.recvQueue.count = 0;
+    gLink.recvQueue.pos = 0;
 
     for (i = 0; i < MAX_LINK_PLAYERS; i++)
     {
@@ -911,7 +914,7 @@ void ResetRecvBuffer(void)
         {
             for (k = 0; k < QUEUE_CAPACITY; k++)
             {
-                gCableLinkInfo.recvQueue_Data[i][j][k] = LINKCMD_NONE;
+                gLink.recvQueue.data[i][j][k] = LINKCMD_NONE;
             }
         }
     }

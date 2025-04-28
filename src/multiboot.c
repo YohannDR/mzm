@@ -1,13 +1,7 @@
-#include "cable_link.h"
+#include "types.h"
 #include "macros.h"
 #include "gba.h"
 #include "multiboot.h"
-#include "link.h"
-
-#include "data/cable_link_data.h"
-#include "data/io_transfer_data.h"
-
-#include "constants/cable_link.h"
 
 #include "structs/multiboot.h"
 
@@ -195,7 +189,7 @@ output_burst:
                      * If 2P, 0x02
                      * If not so, invalid.
                      */
-                    gMultibootRequiredData[i - 1] = value; /* During processing next time must be same value */
+                    gMultiBootRequiredData[i - 1] = value; /* During processing next time must be same value */
                     value &= 0xFF;
                     if (value == (1 << i))
                     {
@@ -225,7 +219,7 @@ output_burst:
                 if (pMultiBoot->probeTargetBit & (1 << i))
                 {
                     value = READ_SIO_MULTI(i);
-                    if (value != gMultibootRequiredData[i - 1])
+                    if (value != gMultiBootRequiredData[i - 1])
                     {
                         pMultiBoot->probeTargetBit ^= 1 << i;
                     }
@@ -257,7 +251,7 @@ output_burst:
                         return MULTIBOOT_ERROR_NO_DL_READY; /* No response saying ready to do download */
                     }
 
-                    if (value == gMultibootRequiredData[i - 1])
+                    if (value == gMultiBootRequiredData[i - 1])
                     {
                         /* CLIENT_INFO 000 0 ccc 0
                          * Was at least one machine not ready for download,
@@ -459,7 +453,7 @@ void MultiBootStartParent(struct MultiBootData* pMultiBoot, const u8* src, s32 l
     s32 paletteData;
     s32 var_2;
 
-    var_2 = (s8)palette_speed;
+    var_2 = palette_speed;
     
     if (pMultiBoot->probeCount != 0 || pMultiBoot->clientBit == 0 || pMultiBoot->checkWait != 0)
     {
@@ -643,20 +637,20 @@ void MultiBootWaitCycles(s32 cycles)
      * (If V blank interrupt is processed during this, actual wait is longer)
      */
 
-    asm("                 \n\
-        mov r2, pc        \n\
-        lsr r2, r2, #0x18 \n\
-        movs r1, #0xc     \n\
-        cmp r2, #2        \n\
-        beq lbl_080897ca  \n\
-        mov r1, #0xd      \n\
-        cmp r2, #8        \n\
-        beq lbl_080897ca  \n\
-        mov r1, #4        \n\
-    lbl_080897ca:         \n\
-        sub r0, r0, r1    \n\
-        bgt lbl_080897ca  \n\
-        bx lr             \n\
+    asm("                            \n\
+        mov r2, pc                   \n\
+        lsr r2, r2, #0x18            \n\
+        movs r1, #0xc                \n\
+        cmp r2, #2                   \n\
+        beq MultiBootWaitCyclesLoop  \n\
+        mov r1, #0xd                 \n\
+        cmp r2, #8                   \n\
+        beq MultiBootWaitCyclesLoop  \n\
+        mov r1, #4                   \n\
+    MultiBootWaitCyclesLoop:         \n\
+        sub r0, r0, r1               \n\
+        bgt MultiBootWaitCyclesLoop  \n\
+        bx lr                        \n\
     ");
 }
 
