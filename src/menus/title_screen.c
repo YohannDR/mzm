@@ -903,9 +903,9 @@ s8 TitleScreenCheckPlayEffects(void)
     if (gButtonInput & KEY_SELECT)
     {
         if (gChangedInput & KEY_RIGHT)
-            unk_777d8(1);
+            TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_REGISTERED_TRADEMARK);
         else if (gChangedInput & KEY_LEFT)
-            unk_777d8(2);
+            TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
     }
 
     if (gChangedInput & KEY_SELECT)
@@ -1154,11 +1154,11 @@ void TitleScreenInit(void)
 
     #ifdef DEBUG
     if (gLanguage >= LANGUAGE_ENGLISH)
-        TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK);
+        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
     else
-        TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_TM);
+        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_REGISTERED_TRADEMARK);
     #else // !DEBUG
-    TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK);
+    TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
     #endif // DEBUG
 
     CallLZ77UncompVram(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
@@ -1264,11 +1264,11 @@ void TitleScreenVBlank_Empty(void)
 }
 
 /**
- * @brief 777d8 | 4c | Changes the copyright text
+ * @brief 777d8 | 4c | Changes the copyright symbol
  * 
- * @param action Which new character to use
+ * @param symbol Which symbol to use
  */
-void TitleScreenSetCopyrightText(u8 action)
+void TitleScreenSetCopyrightSymbol(u8 symbol)
 {
     s32 i;
     u32 value;
@@ -1279,10 +1279,10 @@ void TitleScreenSetCopyrightText(u8 action)
 
     bgOffset = sTitleScreenPageData[0].tiletablePage * 2048;
 
-    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_NONE)
+    if (symbol == TITLE_SCREEN_COPYRIGHT_SYMBOL_NONE)
         return;
 
-    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK)
+    if (symbol == TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK)
         temp = 0x12D;
     else
         temp = 0x10D;
