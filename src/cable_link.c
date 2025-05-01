@@ -7,6 +7,8 @@
 #include "link.h"
 
 #include "data/cable_link_data.h"
+#include "data/io_transfer_data.h"
+#include "data/internal_io_transfer_data.h"
 
 #include "constants/cable_link.h"
 
