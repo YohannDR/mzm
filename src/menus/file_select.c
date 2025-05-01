@@ -5448,8 +5448,15 @@ u8 FileSelectProcessFileSelection(void)
                 break;
             }
 
-            tmp = FILE_SELECT_DATA.fileSelectCursors.completedFileOptions != 2;
-            if (tmp)
+            #ifdef DEBUG
+            action = TRUE;
+            if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language >= LANGUAGE_ENGLISH)
+            #endif // DEBUG
+            {
+                action = FILE_SELECT_DATA.fileSelectCursors.completedFileOptions != 2;
+            }
+
+            if (action)
             {
                 unk_7e3fc(6, 0x81);
                 FileSelectUpdateTilemap(0x23);
@@ -5473,7 +5480,17 @@ u8 FileSelectProcessFileSelection(void)
             break;
 
         case 21:
-            FILE_SELECT_DATA.subroutineStage = 28;
+            #ifdef DEBUG
+            if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language <= LANGUAGE_HIRAGANA)
+            {
+                FILE_SELECT_DATA.subroutineStage = 22;
+                FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_MESSAGE_OPTION);
+            }
+            else
+            #endif // DEBUG
+            {
+                FILE_SELECT_DATA.subroutineStage = 28;
+            }
 
             if (FILE_SELECT_DATA.fileSelectCursors.completedFileOptions == 2)
             {
@@ -5648,10 +5665,19 @@ u8 FileSelectProcessFileSelection(void)
         case 31:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_DIFFICULTY_DESPAWN))
             {
-                if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists)
-                    FILE_SELECT_DATA.subroutineStage = 8;
+                #ifdef DEBUG
+                if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].language <= LANGUAGE_HIRAGANA)
+                {
+                    FILE_SELECT_DATA.subroutineStage = 22;
+                }
                 else
-                    FILE_SELECT_DATA.subroutineStage = 6;
+                #endif // DEBUG
+                {
+                    if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists)
+                        FILE_SELECT_DATA.subroutineStage = 8;
+                    else
+                        FILE_SELECT_DATA.subroutineStage = 6;
+                }
             }
             break;
 
