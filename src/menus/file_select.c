@@ -4574,8 +4574,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
     else
         return;
 
-    i = pFile->timeAttack;
-    if (i)
+    if (pFile->timeAttack)
         tile = 6 << 12;
     else
         tile = 5 << 12;
@@ -4586,7 +4585,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 
     if ((pFile->exists || pFile->introPlayed) && pFile->corruptionFlag == 0)
     {
-        if (i)
+        if (pFile->timeAttack)
         {
             tile = 0x1AF;
             #if defined(REGION_JP) || defined(DEBUG)
