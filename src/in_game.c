@@ -49,7 +49,7 @@ u32 InGameMainLoop(void)
     {
         case 0:
             #ifdef DEBUG
-            gDebugVCount_MaxDifference = 0;
+            gDebugVCount_AudioMax = 0;
             #endif // DEBUG
 
             if (gGameModeSub3 == 0)

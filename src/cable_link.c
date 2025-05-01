@@ -120,7 +120,7 @@ u8 FusionGalleryConnectProcess(void)
                 }
                 else if (gMultiBootParamData.probeCount == 0)
                 {
-                    if (gSramErrorFlag)
+                    if (gBootDebugActive)
                     {
                         if (gIoTransferInfo.timer & 1)
                             string = sCableLinkDebugString_PressAButton1;
@@ -162,7 +162,7 @@ u8 FusionGalleryConnectProcess(void)
             }
 
             #ifdef DEBUG
-            if (gSramErrorFlag)
+            if (gBootDebugActive)
                 i = gChangedInput & KEY_A;
             else
                 i = TRUE;

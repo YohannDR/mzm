@@ -1082,7 +1082,7 @@ void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
                     }
                 }
 
-                // FIXME: first condition jumps to line 58
+                // FIXME: first condition jumps to if statement above
                 if (elevator >= ELEVATOR_ROUTE_COUNT || (pDoor->type & 0xF) >= DOOR_TYPE_OPEN_HATCH)
                 {
                     // No elevator to this room, or the door is a hatch

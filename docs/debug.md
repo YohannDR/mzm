@@ -82,6 +82,8 @@ This menu is for testing cutscenes and demos. The devs use "demo" to refer to cu
 - メカ リドリー - Mecha Ridley
 - コガタテイ - Small ship
 
+If you hold `L` while starting the Kraid or Ridley fight cutscene, Samus will have the Varia suit.
+
 "オートデモMODE" and "オートデモNUM" are "auto demo mode" and "auto demo number". For the demo mode, "Free" puts you at the start of the demo and lets you move freely. "GetKey" will record your inputs (until you press `Start`) and save them to RAM. "RAMRUN" will play a demo recorded to RAM if you have recorded one. "ROMRUN" will play the demo that is already on the ROM (same as the demos in the final release). The demo number lets you change which demo to play or record.
 
 ### Etc
