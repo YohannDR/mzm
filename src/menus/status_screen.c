@@ -80,7 +80,7 @@ void UpdateMinimapAnimatedPalette(void)
         if (value < 0)
             value = -value;
 
-            sBgPalramPointer[sMinimapAnimatedPaletteOffsets[PAUSE_SCREEN_DATA.currentArea]] = sMinimapAnimatedPalette[value];
+        sBgPalramPointer[sMinimapAnimatedPaletteOffsets[PAUSE_SCREEN_DATA.currentArea]] = sMinimapAnimatedPalette[value];
     }
 }
 
@@ -163,26 +163,24 @@ u32 StatusScreenDrawItems(u8 row)
     const u8 (*tmp)[3];
     u8 tmp2;
 
+    // max of 8 rows
     if (row >= 8)
         return TRUE;
 
-    for (i = 0; i < ARRAY_SIZE(sStatusScreenRowsData); i++)
+    for (i = 0; i < ARRAY_SIZE(sStatusScreenGroupsDimensions); i++)
     {
-        if (row == 0 && sStatusScreenRowsData[i][0] == ABILITY_GROUP_SUITS)
+        if (row == 0 && sStatusScreenGroupsDimensions[i][0] == ABILITY_GROUP_SUITS)
             continue;
 
         tmp2 = FALSE; // Needed to produce matching ASM.
-        position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
+        position = (sStatusScreenGroupsPositions[sStatusScreenGroupsDimensions[i][0]][0] + row) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsPositions[sStatusScreenGroupsDimensions[i][0]][2];
     
-        if (sStatusScreenRowsData[i][1] <= row)
+        if (sStatusScreenGroupsDimensions[i][1] <= row)
             continue;
 
-        for (j = 0; ; j++, position++)
+        for (j = 0; j < (tmp = sStatusScreenGroupsDimensions)[i][2]; j++, position++)
         {
-            if (j >= (tmp = sStatusScreenRowsData)[i][2])
-                break;
-
             dst = VRAM_BASE + 0xC000;
             dst[position] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
         }
@@ -199,7 +197,7 @@ u32 StatusScreenDrawItems(u8 row)
 /**
  * @brief 70020 | 160 | Gets the status slot for a new item
  * 
- * @param param_1 To document
+ * @param param_1 0: unused, 1: new item, 2: suit change
  * @param item Item
  * @return u8 Status slot
  */
@@ -214,19 +212,24 @@ u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
     if (item >= ARRAY_SIZE(sStatusScreenItemsAcquisitionData))
         return 0;
 
+    // unused
     if (param_1 == 0)
         return sStatusScreenItemsAcquisitionData[item].unk_0;
 
+    // getting new item
     if (param_1 == 1)
     {
+        // either invalid or an expansion
         if (sStatusScreenItemsAcquisitionData[item].unk_0 < 2)
-            return 0;
+            return STATUS_SLOT_0;
     }
+    // suit change (suitless to fully powered or vice versa)
+    // only expansions and bombs don't equal three
     else if (sStatusScreenItemsAcquisitionData[item].unk_0 != 3)
-        return sStatusScreenItemsAcquisitionData[item].unk_3;
+        return sStatusScreenItemsAcquisitionData[item].statusSlot;
 
     flag = 0;
-    slot = sStatusScreenItemsAcquisitionData[item].unk_3;
+    slot = sStatusScreenItemsAcquisitionData[item].statusSlot;
 
     switch (sStatusScreenItemsAcquisitionData[item].group)
     {
@@ -255,17 +258,19 @@ u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
             break;
     }
 
+    // getting new item
     if (param_1 == 1)
     {
         if (*pActivation & flag)
-            slot = 1;
+            slot = STATUS_SLOT_BEAM;
         else
-            slot = 0;
+            slot = STATUS_SLOT_0;
         *pActivation &= ~flag;
     }
+    // suit change (suitless to fully powered or vice versa)
     else
     {
-        for (i = 0; i < sPauseScreen_40d0fe[sStatusScreenItemsAcquisitionData[item].group]; i++)
+        for (i = 0; i < sStatusScreenFlagsSize[sStatusScreenItemsAcquisitionData[item].group]; i++)
         {
             if (*pStatusActivation == flag)
                 break;
@@ -288,21 +293,21 @@ void StatusScreenDraw(void)
 
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DmaTransfer(3, (void*)sEwramPointer + 0x8000, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
-        BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, PAUSE_SCREEN_EWRAM.statusScreenTilemap, sizeof(PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap), 16);
+        BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 32);
         StatusScreenSetPistolVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_MAX_ENERGY, gEquipment.maxEnergy, 11, TRUE);
         return;
     }
 
-    DmaTransfer(3, (void*)sEwramPointer + 0x7800, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
+    DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, PAUSE_SCREEN_EWRAM.statusScreenTilemap, sizeof(PAUSE_SCREEN_EWRAM.unk_7800), 16);
 
     previousSlots[0] = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
     previousSlots[1] = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
     previousSlots[2] = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
 
-    BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
+    BitFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 32);
 
     StatusScreenSetBeamsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
     StatusScreenSetSuitsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
@@ -360,12 +365,12 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 
     pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
 
-    positionStart = (sStatusScreenGroupsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
-    positionEnd = sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+    positionStart = (sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][0] + 1) * 32 + sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
+    positionEnd = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][0] * 32 + sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][2];
 
-    pActivation[0] = sStatusScreenFlagsOrderPointers[0][0];
+    pActivation[STATUS_SCREEN_BEAM_OFFSET_LONG] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][STATUS_SCREEN_BEAM_OFFSET_LONG];
 
-    size = sStatusScreenGroupsData[0][3] - sStatusScreenGroupsData[0][2];
+    size = sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
 
     for (i = 0; i <= size; i++)
     {
@@ -380,14 +385,14 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
         PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
         
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_BEAM;
 
     row++;
-    positionStart = (sStatusScreenGroupsData[0][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
-    positionEnd = (sStatusScreenUnknownItemsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+    positionStart = (sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
+    positionEnd = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][2];
 
-    size = sStatusScreenGroupsData[0][3] - sStatusScreenGroupsData[0][2];
+    size = sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
     for (i = 0; i <= size; i++)
     {
         pTilemap[positionStart + i] = pTilemap[positionEnd + i];
@@ -398,11 +403,11 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
  * @brief 70414 | 120 | Draws a single status screen tank amount
  * 
  * @param group Status screen group
- * @param amout Amount
+ * @param amount Amount
  * @param palette Palette
  * @param isMax Is the max
  */
-void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
+void StatusScreenDrawSingleTankAmount(u8 group, u16 amount, u8 palette, u8 isMax)
 {
     u16 baseTile;
     u16* pTilemap;
@@ -419,9 +424,9 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
         baseTile = 0xB08C;
 
     pTilemap = PAUSE_SCREEN_EWRAM.statusScreenTilemap;
-    position = sStatusScreenGroupsData[group][0] * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
+    position = sStatusScreenGroupsPositions[group][0] * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[group][2];
     pTilemap = &pTilemap[position];
-    var_1 = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    var_1 = sStatusScreenGroupsPositions[group][3] - sStatusScreenGroupsPositions[group][2];
     value = sPauseScreen_40d102[var_1];
     var_1++;
 
@@ -430,7 +435,7 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
 
     for (; value > 0; value /= 10, i++)
     {
-        size = amout / value % 10;
+        size = amount / value % 10;
         if (size == 0)
         {
             size = 128;
@@ -491,7 +496,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
 
     i = 0;
-    size = sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS];
+    size = sStatusScreenFlagsSize[ABILITY_GROUP_BEAMS];
     if (size)
     {
         do {
@@ -499,7 +504,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         } while (i < size);
     }
 
-    for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
+    for (i = 0, row = 0; i < sStatusScreenFlagsSize[ABILITY_GROUP_BEAMS]; i++)
     {
         j = i;
         srcPosition = 0;
@@ -511,18 +516,18 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
             srcPosition = 10;
         }
 
-        srcPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
+        srcPosition += (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][2];
 
-        tmp = sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + 1;
+        tmp = sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][0] + 1;
         dstPosition = (tmp + row) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+            sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
 
         if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i])
         {
             pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i];
 
-            for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
+            for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2]; j++)
             {
                 ptr = &gEquipment.beamBombsActivation;
                 pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
@@ -539,17 +544,17 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
             PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
 
-        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_BEAM;
 
         row++;
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+        dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2];
 
-        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
+        srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BEAMS][2];
         
-        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
+        for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BEAMS][2]; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
@@ -578,7 +583,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
 
     i = 0;
-    size = sPauseScreen_40d0fe[ABILITY_GROUP_SUITS];
+    size = sStatusScreenFlagsSize[ABILITY_GROUP_SUITS];
     if (size)
     {
         do {
@@ -586,7 +591,7 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
         } while (i < size);
     }
 
-    for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_SUITS]; i++)
+    for (i = 0, row = 0; i < sStatusScreenFlagsSize[ABILITY_GROUP_SUITS]; i++)
     {
         j = i;
 
@@ -596,18 +601,18 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
             j = 3;
         }
 
-        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][0] + j) * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
+        srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS][0] + j) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS][2];
 
-        tmp = sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + 1;
+        tmp = sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][0] + 1;
         dstPosition = (tmp + row) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
+            sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][2];
 
         if (gEquipment.suitMisc & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i])
         {
             pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i];
 
-            for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+            for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][2]; j++)
             {
                 ptr = &gEquipment.suitMiscActivation;
                 pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
@@ -625,17 +630,17 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
     if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
         PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80 | 0x2;
 
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 10;
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_SUIT;
 
     row++;
-    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + row) * HALF_BLOCK_SIZE +
-        sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
+    dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][0] + row) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][2];
 
-    srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
-        sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
+    srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsPositions[ABILITY_GROUP_SUITS][2];
     
-    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+    for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_SUITS][2]; j++)
     {
         pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
     }
@@ -655,10 +660,10 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
     u32 dstPosition;
     s32 tmp;
 
-    for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_MISC]; i++)
+    for (i = 0; i < sStatusScreenFlagsSize[ABILITY_GROUP_MISC]; i++)
         PAUSE_SCREEN_DATA.statusScreenData.miscActivation[i] = 0;
 
-    for (i = 0, j = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_MISC]; i++)
+    for (i = 0, j = 0; i < sStatusScreenFlagsSize[ABILITY_GROUP_MISC]; i++)
     {
         k = i + 1;
 
@@ -670,18 +675,18 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
                 k = -1;
         }
 
-        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][0] + k) * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][2];
+        srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][0] + k) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][2];
 
-        tmp = sStatusScreenGroupsData[ABILITY_GROUP_MISC][0] + 1;
+        tmp = sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][0] + 1;
         dstPosition = (tmp + j) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
+            sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2];
 
         if (gEquipment.suitMisc & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_MISC][i])
         {
             PAUSE_SCREEN_DATA.statusScreenData.miscActivation[j] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_MISC][i];
 
-            for (k = 0; k <= sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2]; k++)
+            for (k = 0; k <= sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2]; k++)
             {
                 pTilemap[dstPosition + k] = pTilemap[srcPosition + k];
             }
@@ -698,28 +703,28 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
     if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
         PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80 | 0x3;
 
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 12;
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_MISC;
 
-    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISC][0]) * HALF_BLOCK_SIZE +
-        sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
+    dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][0]) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2];
     
-    srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][0]) * HALF_BLOCK_SIZE +
-        sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][2];
+    srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][0]) * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][2];
 
-    for (k = 0; k <= sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2]; k++)
+    for (k = 0; k <= sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2]; k++)
     {
         pTilemap[dstPosition + k] = pTilemap[srcPosition + k];
     }
 
     j++;
-    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISC][0] + j) * HALF_BLOCK_SIZE +
-        sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
+    dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][0] + j) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2];
     
-    srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][1]) * HALF_BLOCK_SIZE +
-        sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][2];
+    srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][1]) * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISC][2];
 
-    for (k = 0; k <= sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2]; k++)
+    for (k = 0; k <= sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_MISC][2]; k++)
     {
         pTilemap[dstPosition + k] = pTilemap[srcPosition + k];
     }
@@ -742,15 +747,15 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
 
     dup = pTilemap;
 
-    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] = 0;
-    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] = 0;
+    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] = 0;
+    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] = 0;
 
     nbrToProcess = 0;
 
     if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
     {
         nbrToProcess = 2;
-        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 1;
+        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] |= BOMB_ACTIVATION_COLLECTED;
     }
 
     if (nbrToProcess == 0)
@@ -759,18 +764,18 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
     if (gEquipment.maxPowerBombs != 0)
     {
         nbrToProcess = 3;
-        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 1;
+        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= BOMB_ACTIVATION_COLLECTED;
     }
 
     for (i = 0; i < nbrToProcess; i++)
     {
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][0] + i) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2];
+        dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][2];
         
-        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][0] + sPauseScreen_7603ea[i]) * HALF_BLOCK_SIZE;
-        srcPosition += sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][2];
+        srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS][0] + sPauseScreen_7603ea[i]) * HALF_BLOCK_SIZE;
+        srcPosition += sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS][2];
 
-        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2]; j++)
+        for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][2]; j++)
         {
             pTilemap[dstPosition + j] = dup[srcPosition + j];
         }
@@ -778,40 +783,40 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
         j = 0;
         if (i == 1)
         {
-            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] & 1)
+            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] & BOMB_ACTIVATION_COLLECTED)
             {
                 if (gEquipment.beamBombsActivation & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 2;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] |= BOMB_ACTIVATION_ACTIVATED;
 
-                PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 4;
+                PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] |= BOMB_ACTIVATION_HAS_AMMO_REMAINING;
 
                 if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 8;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] |= BOMB_ACTIVATION_MORPH_ACTIVATED;
             }
 
-            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0];
+            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL];
         }
         else if (i == 2)
         {
-            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] & 1)
+            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] & BOMB_ACTIVATION_COLLECTED)
             {
                 if (gEquipment.beamBombsActivation & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 2;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= BOMB_ACTIVATION_ACTIVATED;
 
                 if (gEquipment.currentPowerBombs != 0)
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 4;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= BOMB_ACTIVATION_HAS_AMMO_REMAINING;
 
                 if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 8;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= BOMB_ACTIVATION_MORPH_ACTIVATED;
             }
 
-            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1];
+            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER];
         }
 
         if (j == 0)
             continue;
 
-        j = j == (1 | 2 | 4 | 8);
+        j = j == (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED);
 
         if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION && gCurrentItemBeingAcquired == ITEM_ACQUISITION_POWER_BOMB && i == 2)
             j = FALSE;
@@ -819,22 +824,22 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
         StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i, j, FALSE);
     }
 
-    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
-        sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2];
+    dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][2];
     
     if (nbrToProcess != 2)
         nbrToProcess++;
 
-    srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
-        sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][2];
+    srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsPositions[ABILITY_GROUP_BOMBS][2];
 
-    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2]; j++)
+    for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_BOMBS][2]; j++)
     {
         pTilemap[dstPosition + j] = dup[srcPosition + j];
     }
 
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 8;
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_BOMB;
 }
 
 /**
@@ -854,14 +859,14 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
     if (gEquipment.maxMissiles != 0)
     {
         nbrToProcess = 3;
-        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 1;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] |= MISSILE_ACTIVATION_COLLECTED;
     }
 
     if (gEquipment.maxSuperMissiles != 0)
     {
         nbrToProcess = 5;
-        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] |= 1;
-        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 1;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER] |= MISSILE_ACTIVATION_COLLECTED;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] |= MISSILE_ACTIVATION_COLLECTED;
     }
 
     if (nbrToProcess == 0)
@@ -869,13 +874,13 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
 
     for (i = 0; i < nbrToProcess; i++)
     {
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
-            sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2];
+        dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][2];
         
-        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
-            sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][2];
+        srcPosition = (sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES][2];
 
-        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2]; j++)
+        for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][2]; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
@@ -883,27 +888,27 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
         j = 0;
         if (i == 1)
         {
-            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] & 1 && gEquipment.currentMissiles != 0)
+            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] & MISSILE_ACTIVATION_COLLECTED && gEquipment.currentMissiles != 0)
             {
-                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 2;
+                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL] |= MISSILE_ACTIVATION_HAS_AMMO_REMAINING;
             }
 
-            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0];
+            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_NORMAL];
         }
         else if (i == 3)
         {
-            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] & 1 && gEquipment.currentSuperMissiles != 0)
+            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER] & MISSILE_ACTIVATION_COLLECTED && gEquipment.currentSuperMissiles != 0)
             {
-                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] |= 2;
+                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER] |= MISSILE_ACTIVATION_HAS_AMMO_REMAINING;
             }
 
-            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1];
+            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[STATUS_SCREEN_MISSILE_OFFSET_SUPER];
         }
 
         if (j == 0)
             continue;
 
-        j = j == 3;
+        j = j == (MISSILE_ACTIVATION_HAS_AMMO_REMAINING | MISSILE_ACTIVATION_COLLECTED);
 
         if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION)
         {
@@ -918,19 +923,19 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
         StatusScreenUpdateRow(ABILITY_GROUP_MISSILES, i, j, FALSE);        
     }
 
-    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][0] + nbrToProcess) * HALF_BLOCK_SIZE +
-        sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2];
+    dstPosition = (sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][2];
     
-    srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][1] * HALF_BLOCK_SIZE +
-        sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][2];
+    srcPosition = sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES][1] * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsPositions[ABILITY_GROUP_MISSILES][2];
 
-    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2]; j++)
+    for (j = 0; j <= sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsPositions[ABILITY_GROUP_MISSILES][2]; j++)
     {
         pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
     }
 
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 6;
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == STATUS_SLOT_0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_MISSILE;
 }
 
 /**
@@ -939,9 +944,9 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
  * @param group Group
  * @param row Row
  * @param isActivated Is the row activated
- * @param param_4 To document
+ * @param drawUpdate Bool, draw the updated row
  */
-void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
+void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 drawUpdate)
 {
     s32 position;
     s32 size;
@@ -950,10 +955,10 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
     u16* pTilemap;
     u16* pEwram;
 
-    position = (row + sStatusScreenGroupsData[group][0]) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
-    size = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    position = (row + sStatusScreenGroupsPositions[group][0]) * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[group][2];
+    size = sStatusScreenGroupsPositions[group][3] - sStatusScreenGroupsPositions[group][2];
 
-    baseTile = isActivated ? 11 << 12 : 12 << 12;
+    baseTile = isActivated ? (11 << 12) : (12 << 12);
     
     // Weird pointer/array access? this is just PAUSE_SCREEN_EWRAM.statusScreenTilemap[position + 1];
     pEwram = (u16*)&PAUSE_SCREEN_EWRAM;
@@ -965,7 +970,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
         *pTilemap = (*pTilemap & 0xFFF) | baseTile;
     }
 
-    if (param_4)
+    if (drawUpdate)
     {
         pTilemap = (u16*)(VRAM_BASE + 0xC002) + position;
 
@@ -994,7 +999,7 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
         case ABILITY_GROUP_BEAMS:
         case ABILITY_GROUP_SUITS:
         case ABILITY_GROUP_MISC:
-            position = (sStatusScreenUnknownItemsData[group][1] - 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[group][2];
+            position = (sStatusScreenUnknownItemsPositions[group][1] - 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsPositions[group][2];
             break;
 
         default:
@@ -1004,8 +1009,8 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
     if (position == 0)
         return;
 
-    i = (sStatusScreenGroupsData[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
-    size = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    i = (sStatusScreenGroupsPositions[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[group][2];
+    size = sStatusScreenGroupsPositions[group][3] - sStatusScreenGroupsPositions[group][2];
     
     dst = (u16*)(VRAM_BASE + 0xC002) + i;
 
@@ -1034,7 +1039,7 @@ u32 StatusScreenCheckitemToggleInput(u16 button)
  */
 void StatusScreenInitCursorAndItems(void)
 {
-    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != STATUS_SLOT_0)
     {
         StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
 
@@ -1058,22 +1063,24 @@ u32 StatusScreenSuitlessItems(void)
     ended = FALSE;
 
     if (PAUSE_SCREEN_DATA.subroutineInfo.stage > 5)
-        ended = gUnk_3005804 != 0;
+        ended = gPrevChangedInput != 0;
 
     if (ended)
         return ended;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
-        unk_68ec0();
+    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+    {
+        PauseScreenFadeWireframeSamus();
+    }
     else
     {
         switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
         {
             case 0:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 17)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(4.f / 15))
                     break;
-    
-                if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
+
+                if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != STATUS_SLOT_0)
                 {
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
                     togglingResult = StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING2);
@@ -1096,13 +1103,13 @@ u32 StatusScreenSuitlessItems(void)
                 }
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 break;
-    
+
             case 1:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 9)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(2.f / 15))
                     break;
-    
+
                 StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_TOGGLING);
-    
+
                 switch (gCurrentItemBeingAcquired)
                 {
                     case ITEM_ACQUISITION_PLASMA_BEAM:
@@ -1111,7 +1118,7 @@ u32 StatusScreenSuitlessItems(void)
                         // Play unknown item sound
                         SoundPlay(SOUND_UNKNOWN_ITEM_ACQUISITION);
                         break;
-    
+
                     case ITEM_ACQUISITION_MISSILES:
                     case ITEM_ACQUISITION_SUPER_MISSILES:
                     case ITEM_ACQUISITION_POWER_BOMB:
@@ -1128,18 +1135,18 @@ u32 StatusScreenSuitlessItems(void)
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 break;
-    
+
             case 2:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
                     break;
-    
+
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 if (gDemoState != DEMO_STATE_NONE)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 3;
                 else
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 5;
                 break;
-    
+
             case 3:
                 if (gCurrentMessage.messageEnded)
                 {
@@ -1147,25 +1154,25 @@ u32 StatusScreenSuitlessItems(void)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                     break;
                 }
-    
+
                 TextProcessDescription();
                 break;
-    
+
             case 4:
-                if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
+                if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
                     ended = TRUE;
                 break;
-    
+
             case 5:
                 TextProcessDescription();
                 if (gCurrentMessage.messageEnded)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 7;
                 break;
-    
+
             case 6:
                 TextProcessDescription();
                 break;
-    
+
             case 7:
                 break;
         }
@@ -1177,18 +1184,18 @@ u32 StatusScreenSuitlessItems(void)
 /**
  * @brief 711d0 | c0 | Navigates the current status slot until it finds an unknown item
  * 
- * @param param_1 To document
- * @return u32 To docuemnt
+ * @param wantUnknownItem Bool, want to get unknown item
+ * @return u32 Result of search, 0: invalid slot, 1: wantUnknownItem satisfied, 2: all slots searched
  */
-u32 StatusScreenFindUnknownItemSlot(u8 param_1)
+u32 StatusScreenFindUnknownItemSlot(u8 wantUnknownItem)
 {
     u8* pActivation;
     u8 item;
     u32 activated;
 
-    while (TRUE)
+    for ( ; ; PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++)
     {
-        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 18)
+        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_END)
             return 2;
         
         switch (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group)
@@ -1226,85 +1233,90 @@ u32 StatusScreenFindUnknownItemSlot(u8 param_1)
 
         if (activated)
         {
-            if (!param_1)
+            // skip unknown item
+            if (!wantUnknownItem)
             {
                 if (activated != item)
                     return 1;
             }
+            // search for unknown item
             else
             {
                 if (activated == item)
                     return 1;
             }
         }
-
-        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++;
     }
 }
 
 /**
  * @brief 71290 | 19c | Updates the unknown items animated palette
  * 
- * @param param_1 To document
+ * @param stage Stage of unknown item palette
  * @return u32 bool, ended
  */
-u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
+u32 StatusScreenUpdateUnknownItemPalette(u8 stage)
 {
     u32 ended;
     s32 offset;
 
     ended = FALSE;
-    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer++;
+    APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer);
 
-    switch (param_1)
+    switch (stage)
     {
+        // FULLY_POWERED_ITEMS_ENABLE_UNKNOWN_ITEM_INIT
         case 0:
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber = 0;
             break;
 
+        // FULLY_POWERED_ITEMS_UNKNOWN_ITEM_ACTIVATING_ANIMATION_PART1
         case 1:
             offset = 0;
+            // 2 partial flashes
             if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber < 2)
             {
-                if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 3)
+                if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > CONVERT_SECONDS(.05f))
                 {
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
 
-                    if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreen_40df64))
+                    if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreenUnknownItemsPartialFlash))
                     {
                         PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber++;
                         PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
                     }
 
-                    offset = sStatusScreen_40df64[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+                    offset = sStatusScreenUnknownItemsPartialFlash[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
                 }
             }
-            else if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 2)
+            // 1 full flash
+            else if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer >= CONVERT_SECONDS(.05f))
             {
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
                     
-                if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreen_40df6c))
+                if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreenUnknownItemsFullFlash))
                 {
-                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = ARRAY_SIZE(sStatusScreen_40df6c) - 1;
+                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = ARRAY_SIZE(sStatusScreenUnknownItemsFullFlash) - 1;
                     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber++;
                     ended = TRUE;
                 }
 
-                offset = sStatusScreen_40df6c[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+                offset = sStatusScreenUnknownItemsFullFlash[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
             }
 
             if (offset == 0)
                 break;
 
-            DmaTransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            DmaTransfer(3, &sStatusScreenUnknownItemsWhiteFlashingPal[offset], &sObjPalramPointer[12 * 16], 32, 32);
             break;
 
+        // FULLY_POWERED_ITEMS_UNKNOWN_ITEM_ACTIVATING_ANIMATION_PART2
         case 2:
-            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 2)
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < CONVERT_SECONDS(1.f / 30))
                 break;
 
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
@@ -1315,20 +1327,21 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
                 ended = TRUE;
             }
 
-            offset = sStatusScreen_40df6c[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
-            DmaTransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            offset = sStatusScreenUnknownItemsFullFlash[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+            DmaTransfer(3, &sStatusScreenUnknownItemsWhiteFlashingPal[offset], &sObjPalramPointer[12 * 16], 32, 32);
             break;
 
+        // FULLY_POWERED_ITEMS_UNKNOWN_ITEM_DESCRIPTION
         case 3:
-            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 4)
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer <= CONVERT_SECONDS(.05f))
                 break;
 
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
             PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
-            if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow > 3)
+            if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreenUnknownItemsNamesFlash))
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
 
-            DmaTransfer(3, &sStatusScreen_40ddd0[sStatusScreen_40df72[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16], &sObjPalramPointer[12 * 16], 32, 32);
+            DmaTransfer(3, &sStatusScreenUnknownItemsNamesFlashingPal[sStatusScreenUnknownItemsNamesFlash[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16], &sObjPalramPointer[12 * 16], 32, 32);
             break;
     }
 
@@ -1345,9 +1358,9 @@ u32 StatusScreenFullyPoweredItems(void)
     u32 result;
     u8 rightSlot;
 
-    if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
+    if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
     {
-        unk_68ec0();
+        PauseScreenFadeWireframeSamus();
         return FALSE;
     }
 
@@ -1355,7 +1368,7 @@ u32 StatusScreenFullyPoweredItems(void)
     {
         case FULLY_POWERED_ITEMS_CHECK_ENABLE_SUIT:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 50)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(5.f / 6))
             {
                 // Update to suit wireframe
                 PauseScreenUpdateWireframeSamus(2);
@@ -1366,9 +1379,9 @@ u32 StatusScreenFullyPoweredItems(void)
 
         case FULLY_POWERED_ITEMS_DELAY:
             // Wait
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
             {
-                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_LONG_BEAM;
                 PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound = TRUE;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
@@ -1379,19 +1392,19 @@ u32 StatusScreenFullyPoweredItems(void)
             result = StatusScreenFindUnknownItemSlot(FALSE);
             if (result == 2)
             {
-                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = STATUS_SLOT_LONG_BEAM;
                 if (!PAUSE_SCREEN_DATA.notPlayingEnablingNormalItemSound)
                     SoundFade(SOUND_ENABLING_NORMAL_ITEM, CONVERT_SECONDS(.25f));
             }
 
-            // If it found an unknown item, it'll stay on this stage, if it found a normal item it'll go to stage 3,
+            // If the slot was invalid, it'll stay on this stage, if it found a normal item it'll go to stage 3,
             // and if it reached the end of the slots, it'll go to stage 4
             PAUSE_SCREEN_DATA.subroutineInfo.stage += result;
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
         case FULLY_POWERED_ITEMS_ACTIVATE_NORMAL_SLOT:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 7)
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer <= CONVERT_SECONDS(.1f))
                 break;
             
             // Update row (enables it)
@@ -1402,7 +1415,7 @@ u32 StatusScreenFullyPoweredItems(void)
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING_DESTROY);
 
-            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
+            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_BOMB)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
             else
                 PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -1426,7 +1439,7 @@ u32 StatusScreenFullyPoweredItems(void)
             if (result == 1)
             {
                 // Found unknown item
-                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 0x10);
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
             else
@@ -1449,11 +1462,11 @@ u32 StatusScreenFullyPoweredItems(void)
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], result);
 
             // Set position (same calculations as cursor)
-            PAUSE_SCREEN_DATA.miscOam[10].yPosition = (sStatusScreenGroupsData[sStatusScreenItemsData[
+            PAUSE_SCREEN_DATA.miscOam[10].yPosition = (sStatusScreenGroupsPositions[sStatusScreenItemsData[
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group][0] + 
                 sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row) * HALF_BLOCK_SIZE;
 
-            PAUSE_SCREEN_DATA.miscOam[10].xPosition = (sStatusScreenGroupsData[sStatusScreenItemsData[
+            PAUSE_SCREEN_DATA.miscOam[10].xPosition = (sStatusScreenGroupsPositions[sStatusScreenItemsData[
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group][2] + 1) * HALF_BLOCK_SIZE;
 
             StatusScreenUpdateUnknownItemPalette(0);
@@ -1481,7 +1494,7 @@ u32 StatusScreenFullyPoweredItems(void)
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
             SoundPlay(SOUND_TOGGLING_ITEM_ON);
 
-            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
+            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= STATUS_SLOT_BOMB)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
             else
                 PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -1567,7 +1580,7 @@ void StatusScreenSubroutine(void)
     // Check leaving status screen
     if (gChangedInput & (KEY_B | KEY_L | KEY_R) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 == 0)
+        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage == 0)
         {
             // Set leaving
             PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN_LEAVING;
@@ -1576,13 +1589,17 @@ void StatusScreenSubroutine(void)
             return;
         }
         else
-            unk_68ec0(); // Transition stuff?
+        {
+            PauseScreenFadeWireframeSamus();
+        }
     }
     else
     {
-        if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
-            unk_68ec0(); // Transition stuff?
-        else if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
+        if (PAUSE_SCREEN_DATA.subroutineInfo.fadeWireframeStage != 0)
+        {
+            PauseScreenFadeWireframeSamus();
+        }
+        else if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != STATUS_SLOT_0)
         {
             // Check toggling item
             if (StatusScreenCheckitemToggleInput(KEY_SELECT))
@@ -1615,15 +1632,15 @@ void StatusScreenSubroutine(void)
  */
 u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
 {
-    u8 result;
+    u8 descriptionTextId;
     u32 activation;
     u8 slot;
 
-    result = 0x80;
+    descriptionTextId = 0x80;
 
     slot = statusSlot - 1;
     if (slot > 16)
-        return 0x80;
+        return descriptionTextId;
 
     if (gEquipment.suitType != SUIT_SUITLESS)
     {
@@ -1640,36 +1657,31 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                 // Scan every beam flag
                 if (activation & BBF_LONG_BEAM)
                 {
-                    result = DESCRIPTION_TEXT_LONG_BEAM;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_LONG_BEAM;
                 }
 
-                if (activation & BBF_CHARGE_BEAM)
+                else if (activation & BBF_CHARGE_BEAM)
                 {
-                    result = DESCRIPTION_TEXT_CHARGE_BEAM;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_CHARGE_BEAM;
                 }
 
-                if (activation & BBF_ICE_BEAM)
+                else if (activation & BBF_ICE_BEAM)
                 {
-                    result = DESCRIPTION_TEXT_ICE_BEAM;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_ICE_BEAM;
                 }
 
-                if (activation & BBF_WAVE_BEAM)
+                else if (activation & BBF_WAVE_BEAM)
                 {
-                    result = DESCRIPTION_TEXT_WAVE_BEAM;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_WAVE_BEAM;
                 }
 
-                if (activation & BBF_PLASMA_BEAM)
+                else if (activation & BBF_PLASMA_BEAM)
                 {
                     // Handle unknown item
                     if (gEquipment.suitType == SUIT_FULLY_POWERED)
-                        result = DESCRIPTION_TEXT_PLASMA_BEAM;
+                        descriptionTextId = DESCRIPTION_TEXT_PLASMA_BEAM;
                     else
-                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
-                    break;
+                        descriptionTextId = DESCRIPTION_TEXT_UNKNOWN_ITEM;
                 }
                 break;
 
@@ -1682,10 +1694,10 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                     break;
 
                 // Check which slot is currently checked for
-                if (sStatusScreenItemsData[statusSlot].abilityOffset == 0)
-                    result = DESCRIPTION_TEXT_MISSILES;
+                if (sStatusScreenItemsData[statusSlot].abilityOffset == STATUS_SCREEN_MISSILE_OFFSET_NORMAL)
+                    descriptionTextId = DESCRIPTION_TEXT_MISSILES;
                 else
-                    result = DESCRIPTION_TEXT_SUPER_MISSILES;
+                    descriptionTextId = DESCRIPTION_TEXT_SUPER_MISSILES;
                 break;
 
             case ABILITY_GROUP_BOMBS:
@@ -1697,10 +1709,10 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                     break;
 
                 // Check which slot is currently checked for
-                if (sStatusScreenItemsData[statusSlot].abilityOffset == 0)
-                    result = DESCRIPTION_TEXT_BOMBS;
+                if (sStatusScreenItemsData[statusSlot].abilityOffset == STATUS_SCREEN_BOMB_OFFSET_NORMAL)
+                    descriptionTextId = DESCRIPTION_TEXT_BOMBS;
                 else
-                    result = DESCRIPTION_TEXT_POWER_BOMBS;
+                    descriptionTextId = DESCRIPTION_TEXT_POWER_BOMBS;
                 break;
 
             case ABILITY_GROUP_SUITS:
@@ -1710,18 +1722,16 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                 
                 if (activation & SMF_VARIA_SUIT)
                 {
-                    result = DESCRIPTION_TEXT_VARIA_SUIT;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_VARIA_SUIT;
                 }
 
-                if (activation & SMF_GRAVITY_SUIT)
+                else if (activation & SMF_GRAVITY_SUIT)
                 {
                     // Handle unknown item
                     if (gEquipment.suitType == SUIT_FULLY_POWERED)
-                        result = DESCRIPTION_TEXT_GRAVITY_SUIT;
+                        descriptionTextId = DESCRIPTION_TEXT_GRAVITY_SUIT;
                     else
-                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
-                    break;
+                        descriptionTextId = DESCRIPTION_TEXT_UNKNOWN_ITEM;
                 }
                 break;
 
@@ -1736,42 +1746,36 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
                 // Scan every misc flag
                 if (activation & SMF_MORPH_BALL)
                 {
-                    result = DESCRIPTION_TEXT_MORPH_BALL;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_MORPH_BALL;
                 }
 
-                if (activation & SMF_POWER_GRIP)
+                else if (activation & SMF_POWER_GRIP)
                 {
-                    result = DESCRIPTION_TEXT_POWER_GRIP;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_POWER_GRIP;
                 }
 
-                if (activation & SMF_SPEEDBOOSTER)
+                else if (activation & SMF_SPEEDBOOSTER)
                 {
-                    result = DESCRIPTION_TEXT_SPEEDBOOSTER;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_SPEEDBOOSTER;
                 }
 
-                if (activation & SMF_HIGH_JUMP)
+                else if (activation & SMF_HIGH_JUMP)
                 {
-                    result = DESCRIPTION_TEXT_HIGH_JUMP;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_HIGH_JUMP;
                 }
 
-                if (activation & SMF_SCREW_ATTACK)
+                else if (activation & SMF_SCREW_ATTACK)
                 {
-                    result = DESCRIPTION_TEXT_SCREW_ATTACK;
-                    break;
+                    descriptionTextId = DESCRIPTION_TEXT_SCREW_ATTACK;
                 }
 
-                if (activation & SMF_SPACE_JUMP)
+                else if (activation & SMF_SPACE_JUMP)
                 {
                     // Handle unknown item
                     if (gEquipment.suitType == SUIT_FULLY_POWERED)
-                        result = DESCRIPTION_TEXT_SPACE_JUMP;
+                        descriptionTextId = DESCRIPTION_TEXT_SPACE_JUMP;
                     else
-                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
-                    break;
+                        descriptionTextId = DESCRIPTION_TEXT_UNKNOWN_ITEM;
                 }
                 break;
         }
@@ -1779,10 +1783,10 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
     else
     {
         // Is suitless, force pistol
-        result = DESCRIPTION_TEXT_PISTOL;
+        descriptionTextId = DESCRIPTION_TEXT_PISTOL;
     }
 
-    return result;
+    return descriptionTextId;
 }
 
 /**
@@ -1797,9 +1801,9 @@ u32 StatusScreenUpdateCursorPosition(u8 statusSlot)
     u16 xPosition;
 
     // Y position of group + row of item
-    yPosition = sStatusScreenGroupsData[sStatusScreenItemsData[statusSlot].group][0] + sStatusScreenItemsData[statusSlot].row;
+    yPosition = sStatusScreenGroupsPositions[sStatusScreenItemsData[statusSlot].group][0] + sStatusScreenItemsData[statusSlot].row;
     // X position of group + 1 tile
-    xPosition = sStatusScreenGroupsData[sStatusScreenItemsData[statusSlot].group][2] + 1;
+    xPosition = sStatusScreenGroupsPositions[sStatusScreenItemsData[statusSlot].group][2] + 1;
 
     // Convert position to tilemap tiles
     PAUSE_SCREEN_DATA.miscOam[0].yPosition = yPosition * HALF_BLOCK_SIZE;
@@ -1883,7 +1887,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
             break;
 
         case ABILITY_GROUP_BOMBS:
-            if (statusSlot == 8 && gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+            if (statusSlot == STATUS_SLOT_BOMB && gEquipment.suitMiscActivation & SMF_MORPH_BALL)
             {
                 if (!(gEquipment.beamBombsActivation & BBF_BOMBS))
                 {
@@ -1919,6 +1923,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
             break;
 
         case ABILITY_GROUP_MISSILES:
+            break;
     }
 
     if (!(PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_SUITLESS) && gPauseScreenFlag != PAUSE_SCREEN_ITEM_ACQUISITION)
@@ -1955,14 +1960,14 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 
                     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.statusScreenData.bombActivation); i++)
                     {
-                        if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] & 1))
+                        if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] & BOMB_ACTIVATION_COLLECTED))
                             continue;
 
-                        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] &= 7;
+                        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] &= (BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED);
                         PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] |= isActivated << 3;
 
                         subActivated = FALSE;
-                        if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] == 0xF)
+                        if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] == (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED))
                             subActivated = TRUE;
                         
                         StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i + 1, subActivated, TRUE);
@@ -1974,17 +1979,17 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
                     break;
 
                 case ABILITY_GROUP_BOMBS:
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] &= 0xD;
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= isActivated * 2;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] &= (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_COLLECTED);
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_NORMAL] |= isActivated * 2;
 
-                    if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] & 1))
+                    if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] & 1))
                         break;
 
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] &= 0xD;
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= isActivated * 2;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] &= (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_COLLECTED);
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] |= isActivated * 2;
 
                     subActivated = FALSE;
-                    if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] == 0xF)
+                    if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[STATUS_SCREEN_BOMB_OFFSET_POWER] == (BOMB_ACTIVATION_MORPH_ACTIVATED | BOMB_ACTIVATION_HAS_AMMO_REMAINING | BOMB_ACTIVATION_ACTIVATED | BOMB_ACTIVATION_COLLECTED))
                         subActivated = TRUE;
                     
                     StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, 2, subActivated, TRUE);
@@ -2038,7 +2043,9 @@ void StatusScreenMoveCursor(void)
 
     // Try get movement offset for the cursor
     if (gChangedInput & KEY_UP)
+    {
         offset = -1;
+    }
     else
     {
         if (gChangedInput & KEY_DOWN)
@@ -2093,7 +2100,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
     u8 prevSlot;
     s32 upperLimit;
     s32 lowerLimit;
-    s32 var_2;
+    s32 oldNewSlot;
     s32 off;
     s32 v;
 
@@ -2153,7 +2160,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             }
         }
 
-        var_2 = newSlot;
+        oldNewSlot = newSlot;
 
         do
         {
@@ -2167,7 +2174,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             else if (newSlot > upperLimit)
                 newSlot = lowerLimit;
             
-            if (newSlot == var_2)
+            if (newSlot == oldNewSlot)
             {
                 newSlot = prevSlot;
                 break;
@@ -2197,7 +2204,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             }
         }
 
-        var_2 = newSlot;
+        oldNewSlot = newSlot;
 
         do
         {
@@ -2208,7 +2215,7 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             else if (newSlot > upperLimit)
                 newSlot = lowerLimit;
             
-            if (newSlot == var_2)
+            if (newSlot == oldNewSlot)
             {
                 newSlot = prevSlot;
                 break;

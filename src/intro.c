@@ -917,7 +917,7 @@ u8 IntroFuzz(void)
             break;
 
         case 6:
-            DMA_SET(3, sArray_45fd30[1], INTRO_DATA.fuzzPalette, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(INTRO_DATA.fuzzPalette)));
+            DMA_SET(3, sSpriteYHalfRadius[1], INTRO_DATA.fuzzPalette, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(INTRO_DATA.fuzzPalette)));
             break;
     }
 

@@ -5,6 +5,7 @@
 #include "structs/connection.h"
 
 #define MINIMAP_SIZE 32
+#define MINIMAP_CENTER ((MINIMAP_SIZE * HALF_BLOCK_SIZE) / 2 + PIXEL_SIZE)
 
 typedef void (*MinimapFunc_T)(u32*, u16*, u8);
 

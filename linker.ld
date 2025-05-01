@@ -334,7 +334,7 @@ SECTIONS {
         . = 0x00005730; gAnimatedGraphicsData = .;
         . = 0x000057F0; gTankAnimations = .;
         . = 0x00005800; gMaintainedInputData = .;
-        . = 0x00005804; gUnk_3005804 = .;
+        . = 0x00005804; gPrevChangedInput = .;
         . = 0x00005806; gOamXOffset_NonGameplay = .;
         . = 0x00005807; gOamYOffset_NonGameplay = .;
 

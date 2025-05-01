@@ -4,6 +4,7 @@
 #include "types.h"
 
 #include "constants/samus.h"
+#include "constants/menus/file_select.h"
 
 #include "structs/menu.h"
 
@@ -25,7 +26,7 @@ struct FileSelectMenuCursors {
 struct FileSelectCursorOamData {
     u16 xPosition;
     u16 yPosition;
-    u8 unk_4;
+    u8 oamFileMarkerId;
     u8 oamIds[SUIT_END];
 };
 
@@ -70,33 +71,32 @@ struct FileSelectData {
 
     u8 fadingStage;
     u8 colorToApply;
-    u8 unk_E;
+    u8 paletteUpdated;
     u16 fadingTimer;
     u8 fadingIntensity;
     u8 fadingFrequency;
-    u16 unk_14;
-    u16 unk_16;
-    u16 unk_18;
-    u16 unk_1A;
-    u16 unk_1C;
-    u16 unk_1E;
-    u16 unk_20;
+
+    u16 unk_14; // bg3 cnt
+    u16 unk_16; // bg2 cnt
+    u16 unk_18; // bg1 cnt
+    u16 unk_1A; // bg2 cnt
+    u16 unk_1C; // bg1 cnt
+    u16 unk_1E; // bg0 cnt
+    u16 unk_20; // bg2 cnt
     u8 padding_22[2];
 
-    u8 unk_24;
-    u8 unk_25;
+    u8 unk_24; // most recent save file?
+    u8 unk_25; // set but never read
     u8 copySourceFile;
     u8 currentFile;
     u8 eraseFile;
 
     struct FileSelectMenuCursors fileSelectCursors;
-    u8 unk_34;
-    u8 unk_35;
-    u8 unk_36;
-    u8 unk_37;
-    u8 unk_38;
-    u8 unk_39;
-    u8 unk_3A;
+    u8 processTextStage;
+    u8 messageInfoIdQueue[3];
+    u8 difficultyMessage;
+    u8 continueNewMessage;
+    u8 unk_3A; // action for process file selection stage 38
     u8 enabledMenus;
     u16 timer;
     u8 currentSubMenu;
@@ -106,31 +106,28 @@ struct FileSelectData {
     u8 corruptMessageFileA;
     u8 corruptMessageFileB;
     u8 corruptMessageFileC;
-    u8 unk_47;
-    u8 unk_48;
+    u8 corruptFile;
 
-    u8 padding_49[7];
-
+    u8 timeAttackPassword[8];
     u8 timeAttackBestTimes[2][6];
-
     u8 optionsUnlocked[7];
     u8 soundTestId;
     u8 timeAttackRecordFlags;
     u8 timeAttack100Only;
-    u8 unk_66;
-    u8 unk_67;
-    u16 unk_68;
-    u16 unk_6A;
+    u8 unk_66; // unused
+    u8 unk_67; // unused
+    u16 unk_68; // set to zero but never used
+    u16 unk_6A; // set to zero but never used
     u8 inputtingTimeAttack;
     u8 numberOfTimeAttackInputs;
     u16 timeAttackInputCooldown;
     u8 inputtedTimeAttack;
 
-    struct MenuOamData fileScreenOam[15];
+    struct MenuOamData fileScreenOam[FILE_SELECT_OAM_END];
 
     u8 padding_164[80];
 
-    struct MenuOamData optionsOam[11];
+    struct MenuOamData optionsOam[OPTIONS_OAM_END];
 };
 
 extern s8 gOptionsOptionSelected;

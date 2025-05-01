@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "constants/menus/file_select.h"
+#include "constants/text.h"
 #include "structs/menu.h"
 #include "structs/cutscene.h"
 #include "structs/text.h"
@@ -33,7 +34,7 @@ extern const struct MenuOamData sFileSelectOamData_Empty[2];
 extern const struct OamArray sFileSelectOam[FILE_SELECT_OAM_ID_END];
 extern const struct OamArray sOptionsOam[OPTIONS_OAM_ID_END];
 
-extern const u8 sFileScreenMessagesInfo[33][3];
+extern const u8 sFileScreenMessagesInfo[FILE_SCREEN_MESSAGE_INFO_ID_END][3];
 extern const struct Message sFileScreenMessage_Empty;
 
 extern const u8 sNesMetroidDataCheck[18];

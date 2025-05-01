@@ -18,7 +18,7 @@ void OptionsUpdateCursor(u8 cursorPose);
 void OptionsUpdateStereoOam(u16 flags);
 
 void FileScreenProcessText(void);
-u32 unk_790cc(u8 param_1, u8 param_2);
+u32 FileScreenUpdateMessageInfoIdQueue(u8 param_1, u8 param_2);
 
 void FileSelectFileCopyChooseBaseDestinationFile(void);
 u32 FileSelectCopyFileSubroutine(void);
@@ -33,26 +33,24 @@ u8 OptionsSubroutine(void);
 void FileSelectResetIOTransferInfo(void);
 u8 OptionsNesMetroidSubroutine(void);
 u8 OptionsSubMenu_Empty(void);
-u8 unk_7abf8(void);
+u8 OptionsGallerySubroutine(void);
 u8 OptionsStereoSubroutine(void);
 u8 OptionsSoundTestSubroutine(void);
 u32 OptionsSoundTestCheckNotAlreadyPlaying(void);
 void OptionsSoundTestUpdateIdGfx(void);
 u8 OptionsTimeAttackRecordsSubroutine(void);
-void unk_7b71c(void);
-
-void OptionTimeAttackLoadRecord(u8 id);
+void OptionsTimeAttackLoadBestTimeMessage(void);
+void OptionsTimeAttackLoadRecord(u8 id);
 void unk_7b854(void);
-void OptionTimeAttackLoadPassword(u8 part);
-
+void OptionsTimeAttackLoadPassword(u8 part);
 u8 OptionsMetroidFusionLinkSubroutine(void);
+
 u32 FileSelectMenuSubroutine(void);
-u32 FileSelectFading(void);
+u32 FileSelectUpdateFading(void);
+void FileSelectInitFading(u8 fadingOut);
+void FileSelectApplyFading(void);
 
-void unk_7c4b0(u8 param_1);
-void unk_7c568(void);
-void unk_7c5a4(void);
-
+void FileSelectSetEnglishLanguage(void);
 void FileSelectInit(void);
 void FileSelectVBlank(void);
 void FileSelectVBlank_Empty(void);

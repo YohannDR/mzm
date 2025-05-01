@@ -13,6 +13,7 @@
 
 #include "constants/menus/title_screen.h"
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/demo.h"
 
 #include "structs/demo.h"
@@ -29,6 +30,7 @@ void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageDa
 {
     u16 value;
 
+    // value = CREATE_BGCNT(pPageData->graphicsPage, pPageData->tiletablePage, pPageData->priority, pPageData->screenSize);
     value = pPageData->priority | pPageData->screenSize | pPageData->tiletablePage << BGCNT_SCREEN_BASE_BLOCK_SHIFT |
         pPageData->graphicsPage << BGCNT_CHAR_BASE_BLOCK_SHIFT;
 
@@ -116,18 +118,18 @@ u32 TitleScreenFadingIn(void)
     u16* dst;
 
     ended = FALSE;
-    switch (TITLE_SCREEN_DATA.unk_10)
+    switch (TITLE_SCREEN_DATA.fadingStage)
     {
         case 0:
             TITLE_SCREEN_DATA.colorToApply = 0;
-            TITLE_SCREEN_DATA.unk_12 = FALSE;
-            TITLE_SCREEN_DATA.unk_14 = 0;
+            TITLE_SCREEN_DATA.paletteUpdated = FALSE;
+            TITLE_SCREEN_DATA.fadingTimer = 0;
 
-            TITLE_SCREEN_DATA.unk_10++;
+            TITLE_SCREEN_DATA.fadingStage++;
             break;
 
         case 1:
-            if (TITLE_SCREEN_DATA.unk_12)
+            if (TITLE_SCREEN_DATA.paletteUpdated)
                 break;
 
             if (TITLE_SCREEN_DATA.colorToApply < 32)
@@ -140,7 +142,7 @@ u32 TitleScreenFadingIn(void)
                 dst = (void*)sEwramPointer + 0x8600;
                 ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
-                TITLE_SCREEN_DATA.unk_12 = TRUE;
+                TITLE_SCREEN_DATA.paletteUpdated = TRUE;
                 if (TITLE_SCREEN_DATA.colorToApply == 31)
                 {
                     TITLE_SCREEN_DATA.colorToApply++;
@@ -156,15 +158,15 @@ u32 TitleScreenFadingIn(void)
             }
             
             DmaTransfer(3, (void*)sEwramPointer + 0x8000, (void*)sEwramPointer + 0x8400, 0x400, 16);
-            TITLE_SCREEN_DATA.unk_12 = TRUE;
-            TITLE_SCREEN_DATA.unk_10++;
+            TITLE_SCREEN_DATA.paletteUpdated = TRUE;
+            TITLE_SCREEN_DATA.fadingStage++;
             break;
 
         case 2:
-            if (!TITLE_SCREEN_DATA.unk_12)
+            if (!TITLE_SCREEN_DATA.paletteUpdated)
             {
                 TITLE_SCREEN_DATA.colorToApply = 0;
-                TITLE_SCREEN_DATA.unk_10 = 0;
+                TITLE_SCREEN_DATA.fadingStage = 0;
                 ended = TRUE;
             }
     }
@@ -186,36 +188,36 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
     u16* dst;
 
     ended = FALSE;
-    TITLE_SCREEN_DATA.unk_14++;
-    switch (TITLE_SCREEN_DATA.unk_10)
+    APPLY_DELTA_TIME_INC(TITLE_SCREEN_DATA.fadingTimer);
+    switch (TITLE_SCREEN_DATA.fadingStage)
     {
         case 0:
             TITLE_SCREEN_DATA.colorToApply = 0;
-            TITLE_SCREEN_DATA.unk_12 = FALSE;
-            TITLE_SCREEN_DATA.unk_14 = 0;
+            TITLE_SCREEN_DATA.paletteUpdated = FALSE;
+            TITLE_SCREEN_DATA.fadingTimer = 0;
 
-            TITLE_SCREEN_DATA.unk_10++;
+            TITLE_SCREEN_DATA.fadingStage++;
             break;
 
         case 1:
-            if (TITLE_SCREEN_DATA.unk_12)
+            if (TITLE_SCREEN_DATA.paletteUpdated)
                 break;
 
-            if (TITLE_SCREEN_DATA.unk_14 < delay)
+            if (TITLE_SCREEN_DATA.fadingTimer < delay)
                 break;
 
-            TITLE_SCREEN_DATA.unk_14 = 0;
+            TITLE_SCREEN_DATA.fadingTimer = 0;
             if (TITLE_SCREEN_DATA.colorToApply < 32)
             {
                 src = (void*)sEwramPointer + 0x8000;
                 dst = (void*)sEwramPointer + 0x8400;
-                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_CANCEL, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 src = (void*)sEwramPointer + 0x8200;
                 dst = (void*)sEwramPointer + 0x8600;
-                ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
+                ApplySpecialBackgroundFadingColor(COLOR_FADING_CANCEL, TITLE_SCREEN_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
-                TITLE_SCREEN_DATA.unk_12 = TRUE;
+                TITLE_SCREEN_DATA.paletteUpdated = TRUE;
                 if (TITLE_SCREEN_DATA.colorToApply == 31)
                 {
                     TITLE_SCREEN_DATA.colorToApply++;
@@ -231,15 +233,15 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
             }
             
             BitFill(3, 0, (void*)sEwramPointer + 0x8400, 0x400, 16);
-            TITLE_SCREEN_DATA.unk_12 = TRUE;
-            TITLE_SCREEN_DATA.unk_10++;
+            TITLE_SCREEN_DATA.paletteUpdated = TRUE;
+            TITLE_SCREEN_DATA.fadingStage++;
             break;
 
         case 2:
-            if (!TITLE_SCREEN_DATA.unk_12)
+            if (!TITLE_SCREEN_DATA.paletteUpdated)
             {
                 TITLE_SCREEN_DATA.colorToApply = 0;
-                TITLE_SCREEN_DATA.unk_10 = 0;
+                TITLE_SCREEN_DATA.fadingStage = 0;
                 ended = TRUE;
             }
     }
@@ -257,13 +259,13 @@ void unk_76710(u8 param_1)
     if (!param_1)
     {
         DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 16);
-        BitFill(3, 0, PALRAM_BASE, 0x400, 16);
+        BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
         DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8400, 0x400, 16);
     }
     else
         DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 16);
 
-    TITLE_SCREEN_DATA.unk_10 = 0;
+    TITLE_SCREEN_DATA.fadingStage = 0;
 }
 
 /**
@@ -272,10 +274,10 @@ void unk_76710(u8 param_1)
  */
 void unk_767a4(void)
 {
-    if (TITLE_SCREEN_DATA.unk_12)
+    if (TITLE_SCREEN_DATA.paletteUpdated)
     {
         DmaTransfer(3, (void*)sEwramPointer + 0x8400, PALRAM_BASE, 0x400, 16);
-        TITLE_SCREEN_DATA.unk_12 = FALSE;
+        TITLE_SCREEN_DATA.paletteUpdated = FALSE;
     }
 }
 
@@ -1152,11 +1154,11 @@ void TitleScreenInit(void)
 
     #ifdef DEBUG
     if (gLanguage >= LANGUAGE_ENGLISH)
-        unk_777d8(2);
+        TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK);
     else
-        unk_777d8(1);
+        TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_TM);
     #else // !DEBUG
-    unk_777d8(2);
+    TitleScreenSetCopyrightText(TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK);
     #endif // DEBUG
 
     CallLZ77UncompVram(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
@@ -1262,11 +1264,11 @@ void TitleScreenVBlank_Empty(void)
 }
 
 /**
- * @brief 777d8 | 4c | To document
+ * @brief 777d8 | 4c | Changes the copyright text
  * 
- * @param param_1 To document
+ * @param action Which new character to use
  */
-void unk_777d8(u8 param_1)
+void TitleScreenSetCopyrightText(u8 action)
 {
     s32 i;
     u32 value;
@@ -1277,10 +1279,10 @@ void unk_777d8(u8 param_1)
 
     bgOffset = sTitleScreenPageData[0].tiletablePage * 2048;
 
-    if (param_1 == 0)
+    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_NONE)
         return;
 
-    if (param_1 == 2)
+    if (action == TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK)
         temp = 0x12D;
     else
         temp = 0x10D;

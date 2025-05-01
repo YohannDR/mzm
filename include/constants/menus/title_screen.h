@@ -33,4 +33,10 @@ enum TitleScreenOamId {
     TITLE_SCREEN_OAM_ID_END
 };
 
+enum TitleScreenCopyrightAction {
+    TITLE_SCREEN_COPYRIGHT_ACTION_NONE,
+    TITLE_SCREEN_COPYRIGHT_ACTION_TM, // ™️
+    TITLE_SCREEN_COPYRIGHT_ACTION_REGISTERED_TRADEMARK // ®️
+};
+
 #endif

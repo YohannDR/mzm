@@ -1157,7 +1157,7 @@ void TextProcessDescription(void)
             PAUSE_SCREEN_DATA.currentEquipment = StatusScreenGetCurrentEquipmentSelected(PAUSE_SCREEN_DATA.currentStatusSlot);
             BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
 
-            if (PAUSE_SCREEN_DATA.currentEquipment <= DESCRIPTION_TEXT_PISTOL)
+            if (PAUSE_SCREEN_DATA.currentEquipment < DESCRIPTION_TEXT_END)
                 PAUSE_SCREEN_DATA.unk_56++;
             else
                 PAUSE_SCREEN_DATA.unk_56 = 0x80;

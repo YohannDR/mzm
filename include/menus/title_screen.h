@@ -30,7 +30,7 @@ void TitleScreenSetIdleStage(u8 stage);
 void TitleScreenInit(void);
 void TitleScreenVBlank(void);
 void TitleScreenVBlank_Empty(void);
-void unk_777d8(u8 param_1);
+void TitleScreenSetCopyrightText(u8 action);
 void TitleScreenDrawString(const u8* pString, u16* dst, u8 palette);
 #ifdef DEBUG
 void TitleScreenDrawDebugText(void);

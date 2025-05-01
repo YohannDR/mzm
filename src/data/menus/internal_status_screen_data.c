@@ -2,7 +2,8 @@
 
 #include "constants/menus/status_screen.h"
 
-const u8 sStatusScreenRowsData[6][3] = {
+// ability_group, nbr_rows, nbr_cols
+const u8 sStatusScreenGroupsDimensions[6][3] = {
     [0] = {
         [0] = ABILITY_GROUP_CURRENT_ENERGY,
         [1] = 1,
@@ -35,6 +36,7 @@ const u8 sStatusScreenRowsData[6][3] = {
     },
 };
 
+// bomb column offset?
 const u8 sPauseScreen_7603ea[6] = {
     [0] = 0,
     [1] = 1,
