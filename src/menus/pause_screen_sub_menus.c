@@ -12,10 +12,12 @@
 
 #include "constants/audio.h"
 #include "constants/connection.h"
+#include "constants/demo.h"
 #include "constants/event.h"
 #include "constants/menus/pause_screen.h"
 
 #include "structs/display.h"
+#include "structs/minimap.h"
 
 /**
  * @brief 71f70 | 1da | Easy sleep menu subroutine
@@ -30,7 +32,7 @@ u32 PauseScreenEasySleepSubroutine(void)
     action = 0;
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
-        case 0:
+        case EASY_SLEEP_MENU_STAGE_NO_OPTION:
             // On NO option
             if (gChangedInput & KEY_A)
             {
@@ -41,7 +43,7 @@ u32 PauseScreenEasySleepSubroutine(void)
             {
                 // Goto YES option
                 SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 1;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = EASY_SLEEP_MENU_STAGE_YES_OPTION;
                 PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE;
             }
             else if (gChangedInput & (KEY_B | KEY_L | KEY_R))
@@ -51,19 +53,19 @@ u32 PauseScreenEasySleepSubroutine(void)
             }
             break;
 
-        case 1:
+        case EASY_SLEEP_MENU_STAGE_YES_OPTION:
             // On YES option
             if (gChangedInput & KEY_A)
             {
                 SoundPlay(SOUND_YES_NO_CURSOR_SELECTING_YES);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 2;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = EASY_SLEEP_MENU_STAGE_SLEEP_DELAY;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             }
             else if (gChangedInput & KEY_RIGHT)
             {
                 // Goto NO option
                 SoundPlay(SOUND_YES_NO_CURSOR_MOVING);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = EASY_SLEEP_MENU_STAGE_NO_OPTION;
                 PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE;
             }
             else if (gChangedInput & (KEY_B | KEY_L | KEY_R))
@@ -73,7 +75,7 @@ u32 PauseScreenEasySleepSubroutine(void)
             }
             break;
 
-        case 2:
+        case EASY_SLEEP_MENU_STAGE_SLEEP_DELAY:
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(.5f))
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
@@ -81,13 +83,13 @@ u32 PauseScreenEasySleepSubroutine(void)
             }
             break;
 
-        case 3:
+        case EASY_SLEEP_MENU_STAGE_DISABLE_DISPLAY:
             // Hide screen
             PAUSE_SCREEN_DATA.dispcnt ^= DCNT_BLANK;
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             break;
 
-        case 4:
+        case EASY_SLEEP_MENU_STAGE_HANDLE_SLEEP_WAKE:
             // Setup key control to exit easy sleep
             write16(REG_KEY_CONTROL, KEY_CONTROL_ENABLE | KEY_CONTROL_ALL_INPUTS | KEY_SELECT | KEY_L | KEY_R);
 
@@ -116,9 +118,9 @@ u32 PauseScreenEasySleepSubroutine(void)
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             break;
 
-        case 5:
+        case EASY_SLEEP_MENU_STAGE_WAIT_FOR_NO_INPUT:
             if (gButtonInput == KEY_NONE)
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = EASY_SLEEP_MENU_STAGE_NO_OPTION;
             break;
     }
 
@@ -135,69 +137,69 @@ u32 PauseScreenEasySleepSubroutine(void)
 }
 
 /**
- * @brief 72144 | c0 | To document
+ * @brief 72144 | c0 | Calculates the X and Y coordiantes of the Chozo statue hint
  * 
- * @param param_1 Chozo hint related pointer
- * @return u32 New x and y position
+ * @param pHintMapData Chozo statue hint map data pointer
+ * @return u32 New position (YYXX, in bytes)
  */
-u32 unk_72144(struct ChozoHintRelated* param_1)
+u32 ChozoStatueHintCalculateCoordinates(struct ChozoHintMapData* pHintMapData)
 {
     s32 yPosition;
     s32 xPosition;
 
-    if (param_1->unk_D)
+    if (pHintMapData->xDirection != 0)
     {
-        if (param_1->unk_2 != param_1->unk_6)
+        if (pHintMapData->mapXPosition != pHintMapData->hintTargetXPosition)
         {
-            xPosition = (param_1->unk_A * param_1->unk_10 * param_1->unk_12 * 256) / param_1->unk_E;
-            xPosition = param_1->unk_2 + (xPosition / 256) * param_1->unk_D;
-            if (param_1->unk_D > 0)
+            xPosition = (pHintMapData->distXToHintTarget * pHintMapData->unk_10 * pHintMapData->speedMultiplier * 256) / pHintMapData->absDistToHintTarget;
+            xPosition = pHintMapData->mapXPosition + (xPosition / 256) * pHintMapData->xDirection;
+            if (pHintMapData->xDirection > 0)
             {
-                if (param_1->unk_6 < xPosition)
-                    param_1->unk_D = 0;
+                if (pHintMapData->hintTargetXPosition < xPosition)
+                    pHintMapData->xDirection = 0;
             }
             else
             {
-                if (param_1->unk_6 > xPosition)
-                    param_1->unk_D = 0;
+                if (pHintMapData->hintTargetXPosition > xPosition)
+                    pHintMapData->xDirection = 0;
             }
         }
         else
         {
-            param_1->unk_D = 0;
+            pHintMapData->xDirection = 0;
         }
     }
 
-    if (param_1->unk_C)
+    if (pHintMapData->yDirection != 0)
     {
-        if (param_1->unk_0 != param_1->unk_4)
+        if (pHintMapData->mapYPostion != pHintMapData->hintTargetYPosition)
         {
-            yPosition = (param_1->unk_8 * param_1->unk_10 * param_1->unk_12 * 256) / param_1->unk_E;
-            yPosition = param_1->unk_0 + (yPosition / 256) * param_1->unk_C;
-            if (param_1->unk_C > 0)
+            yPosition = (pHintMapData->distYToHintTarget * pHintMapData->unk_10 * pHintMapData->speedMultiplier * 256) / pHintMapData->absDistToHintTarget;
+            yPosition = pHintMapData->mapYPostion + (yPosition / 256) * pHintMapData->yDirection;
+            if (pHintMapData->yDirection > 0)
             {
-                if (param_1->unk_4 < yPosition)
-                    param_1->unk_C = 0;
+                if (pHintMapData->hintTargetYPosition < yPosition)
+                    pHintMapData->yDirection = 0;
             }
             else
             {
-                if (param_1->unk_4 > yPosition)
-                    param_1->unk_C = 0;
+                if (pHintMapData->hintTargetYPosition > yPosition)
+                    pHintMapData->yDirection = 0;
             }
         }
         else
         {
-            param_1->unk_C = 0;
+            pHintMapData->yDirection = 0;
         }
     }
 
-    if (param_1->unk_D == 0)
-        xPosition = param_1->unk_6;
+    if (pHintMapData->xDirection == 0)
+        xPosition = pHintMapData->hintTargetXPosition;
     
-    if (param_1->unk_C == 0)
-        yPosition = param_1->unk_4;
+    if (pHintMapData->yDirection == 0)
+        yPosition = pHintMapData->hintTargetYPosition;
 
-    return yPosition << 16 | xPosition;
+    return C_32_2_16(yPosition, xPosition);
 }
 
 /**
@@ -209,125 +211,125 @@ void ChozoStatueHintMovement(void)
     s32 norm;
     s32 var_2;
 
-    switch (PAUSE_SCREEN_DATA.unk_47)
+    switch (PAUSE_SCREEN_DATA.chozoHintTarget.movementStage)
     {
-        case 0:
+        case CHOZO_HINT_MOVEMENT_STAGE_FINISHED:
             break;
 
-        case 1:
-            PAUSE_SCREEN_DATA.unk_46 |= 1;
+        case CHOZO_HINT_MOVEMENT_STAGE_CALCULATE_MOVEMENT:
+            PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag |= TARGET_MOVEMENT_FLAG;
 
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_2 = PAUSE_SCREEN_DATA.mapX * HALF_BLOCK_SIZE;
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_0 = PAUSE_SCREEN_DATA.mapY * HALF_BLOCK_SIZE;
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_6 = PAUSE_SCREEN_DATA.hintTargetX * HALF_BLOCK_SIZE;
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_4 = PAUSE_SCREEN_DATA.hintTargetY * HALF_BLOCK_SIZE;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapXPosition = PAUSE_SCREEN_DATA.mapX * HALF_BLOCK_SIZE;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapYPostion = PAUSE_SCREEN_DATA.mapY * HALF_BLOCK_SIZE;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetXPosition = PAUSE_SCREEN_DATA.hintTargetX * HALF_BLOCK_SIZE;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetYPosition = PAUSE_SCREEN_DATA.hintTargetY * HALF_BLOCK_SIZE;
 
-            PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_0;
-            PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_2;
-            PAUSE_SCREEN_DATA.chozoHintOam[0].oamID = sChozoStatueTargets[PAUSE_SCREEN_DATA.unk_40].startIcon;
+            PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition = PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapYPostion;
+            PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition = PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapXPosition;
+            PAUSE_SCREEN_DATA.chozoHintOam[0].oamID = sChozoStatueTargets[PAUSE_SCREEN_DATA.chozoHintTarget.index].startIcon;
 
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_A = PAUSE_SCREEN_DATA.unk_8C[0].unk_6 - PAUSE_SCREEN_DATA.unk_8C[0].unk_2;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget = PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetXPosition - PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapXPosition;
 
-            if (PAUSE_SCREEN_DATA.unk_8C[0].unk_A == 0)
+            if (PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_C = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection = 0;
             }
             else
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_D = PAUSE_SCREEN_DATA.unk_8C[0].unk_A > 0 ? 1 : -1;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.xDirection = PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget > 0 ? 1 : -1;
 
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_A *= PAUSE_SCREEN_DATA.unk_8C[0].unk_D;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget *= PAUSE_SCREEN_DATA.chozoHintMapMovementData.xDirection;
             }
 
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_8 = PAUSE_SCREEN_DATA.unk_8C[0].unk_4 - PAUSE_SCREEN_DATA.unk_8C[0].unk_0;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget = PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetYPosition - PAUSE_SCREEN_DATA.chozoHintMapMovementData.mapYPostion;
 
-            if (PAUSE_SCREEN_DATA.unk_8C[0].unk_8 == 0)
+            if (PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_C = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection = 0;
             }
             else
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_C = PAUSE_SCREEN_DATA.unk_8C[0].unk_8 > 0 ? 1 : -1;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection = PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget > 0 ? 1 : -1;
 
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_8 *= PAUSE_SCREEN_DATA.unk_8C[0].unk_C;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget *= PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection;
             }
 
-            norm = Sqrt((PAUSE_SCREEN_DATA.unk_8C[0].unk_A * PAUSE_SCREEN_DATA.unk_8C[0].unk_A +
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_8 * PAUSE_SCREEN_DATA.unk_8C[0].unk_8) * 4) / 4;
+            norm = Sqrt((PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapMovementData.distXToHintTarget +
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapMovementData.distYToHintTarget) * 4) / 4;
 
             if (norm == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_C = PAUSE_SCREEN_DATA.unk_8C[0].unk_D = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection = PAUSE_SCREEN_DATA.chozoHintMapMovementData.xDirection = 0;
             }
 
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_E = norm;
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_10 = 1;
-            PAUSE_SCREEN_DATA.unk_8C[0].unk_12 = 0;
-            PAUSE_SCREEN_DATA.unk_48 = 0;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.absDistToHintTarget = norm;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.unk_10 = 1;
+            PAUSE_SCREEN_DATA.chozoHintMapMovementData.speedMultiplier = 0;
+            PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
 
-            if (PAUSE_SCREEN_DATA.unk_40 < MAX_AMOUNT_OF_AREAS)
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.index < TARGET_ITEM_END)
             {
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
-                PAUSE_SCREEN_DATA.unk_47++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage++;
             }
             else
             {
-                if (PAUSE_SCREEN_DATA.unk_41 == 0)
+                if (PAUSE_SCREEN_DATA.chozoHintTarget.unk_41 == 0)
                 {
-                    PAUSE_SCREEN_DATA.unk_47 = 6;
+                    PAUSE_SCREEN_DATA.chozoHintTarget.movementStage = CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_CONTINUE_MOVEMENT;
                     break;
                 }
 
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
-                PAUSE_SCREEN_DATA.unk_47++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage++;
             }
 
             break;
 
-        case 2:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
-            if (PAUSE_SCREEN_DATA.unk_48 > CONVERT_SECONDS(1.f))
+        case CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_MOVEMENT:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer > CONVERT_SECONDS(1.f))
             {
-                PAUSE_SCREEN_DATA.unk_49 = 1;
-                PAUSE_SCREEN_DATA.unk_48 = 0;
-                PAUSE_SCREEN_DATA.unk_47++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage = CHOZO_HINT_SCROLLING_STAGE_CALCULATE_SCROLLING;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage++;
             }
             break;
 
-        case 3:
-            PAUSE_SCREEN_DATA.unk_48++;
+        case CHOZO_HINT_MOVEMENT_STAGE_UPDATE_MOVEMENT:
+            PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer++;
 
-            norm = (PAUSE_SCREEN_DATA.unk_8C[0].unk_6 - PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition) * PAUSE_SCREEN_DATA.unk_8C[0].unk_D;
-            var_2 = (PAUSE_SCREEN_DATA.unk_8C[0].unk_4 - PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition) * PAUSE_SCREEN_DATA.unk_8C[0].unk_C;
+            norm = (PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetXPosition - PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition) * PAUSE_SCREEN_DATA.chozoHintMapMovementData.xDirection;
+            var_2 = (PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetYPosition - PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition) * PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection;
 
+            // Get max axis distance of hint target
             if (var_2 < norm)
                 var_2 = norm;
-
             norm = var_2 >> 2;
 
             if (norm <= 0x20)
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 2;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.speedMultiplier += 2;
             else if (norm <= 0x40)
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 3;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.speedMultiplier += 3;
             else if (norm <= 0x60)
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 4;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.speedMultiplier += 4;
             else
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 5;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.speedMultiplier += 5;
 
-            if ((PAUSE_SCREEN_DATA.unk_48 & 7) == 0)
+            if ((PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer & 7) == 0)
             {
-                norm = (PAUSE_SCREEN_DATA.unk_48 >> 3) & 3;
+                norm = (PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer >> 3) & 3;
                 norm++;
                 PAUSE_SCREEN_DATA.chozoHintOam[norm] = PAUSE_SCREEN_DATA.chozoHintOam[0];
 
-                if (PAUSE_SCREEN_DATA.unk_40 < MAX_AMOUNT_OF_AREAS)
+                if (PAUSE_SCREEN_DATA.chozoHintTarget.index < TARGET_ITEM_END)
                 {
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].oamID = 0x7;
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].exists = OAM_ID_CHANGED_FLAG;
                 }
                 else
                 {
-                    if (PAUSE_SCREEN_DATA.unk_40 == MAX_AMOUNT_OF_AREAS)
+                    if (PAUSE_SCREEN_DATA.chozoHintTarget.index == TARGET_KRAID_FLAME)
                         var_2 = 0xB;
                     else
                         var_2 = 0xF;
@@ -338,58 +340,61 @@ void ChozoStatueHintMovement(void)
                 }
             }
 
-            norm = unk_72144(&PAUSE_SCREEN_DATA.unk_8C[0]);
-            var_2 = norm >> 16;
-            norm &= 0xFFFF;
+            norm = ChozoStatueHintCalculateCoordinates(&PAUSE_SCREEN_DATA.chozoHintMapMovementData);
+            var_2 = HIGH_SHORT(norm);
+            norm = LOW_SHORT(norm);
             PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition = var_2;
             PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition = norm;
 
-            var_2 = var_2 == PAUSE_SCREEN_DATA.unk_8C[0].unk_4 ? TRUE : FALSE;
-            norm = norm == PAUSE_SCREEN_DATA.unk_8C[0].unk_6 ? TRUE : FALSE;
+            var_2 = var_2 == PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetYPosition ? TRUE : FALSE;
+            norm = norm == PAUSE_SCREEN_DATA.chozoHintMapMovementData.hintTargetXPosition ? TRUE : FALSE;
 
             if (var_2)
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_C = 0;
+            {
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.yDirection = 0;
+            }
 
             if (norm)
             {
-                PAUSE_SCREEN_DATA.unk_8C[0].unk_D = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapMovementData.xDirection = 0;
                 if (var_2)
                 {
-                    PAUSE_SCREEN_DATA.unk_48 = 0;
-                    PAUSE_SCREEN_DATA.unk_47++;
+                    PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
+                    PAUSE_SCREEN_DATA.chozoHintTarget.movementStage++;
                 }
             }
             break;
 
-        case 4:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
-            if (PAUSE_SCREEN_DATA.unk_48 > ONE_THIRD_SECOND)
+        case CHOZO_HINT_MOVEMENT_STAGE_DELAY_AFTER_MOVEMENT:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer > ONE_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.targetsOam[1].exists = OAM_ID_CHANGED_FLAG;
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = FALSE;
-                PAUSE_SCREEN_DATA.unk_48 = 0;
-                PAUSE_SCREEN_DATA.unk_47++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage++;
             }
             break;
 
-        case 5:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
-            if (PAUSE_SCREEN_DATA.unk_48 > ONE_THIRD_SECOND)
+        case CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_FINISHED:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer > ONE_THIRD_SECOND)
             {
-                PAUSE_SCREEN_DATA.unk_48 = 0;
-                PAUSE_SCREEN_DATA.unk_47 = 0;
-                PAUSE_SCREEN_DATA.unk_46 ^= 1;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage = CHOZO_HINT_MOVEMENT_STAGE_FINISHED;
+                PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag ^= TARGET_MOVEMENT_FLAG;
             }
             break;
 
-        case 6:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_48);
-            if (PAUSE_SCREEN_DATA.unk_48 > CONVERT_SECONDS(1.f))
+        case CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_CONTINUE_MOVEMENT:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer > CONVERT_SECONDS(1.f))
             {
                 PAUSE_SCREEN_DATA.chozoHintOam[0].exists = OAM_ID_CHANGED_FLAG;
-                PAUSE_SCREEN_DATA.unk_48 = 0;
-                PAUSE_SCREEN_DATA.unk_47 = 2;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.movementStage = CHOZO_HINT_MOVEMENT_STAGE_DELAY_BEFORE_MOVEMENT;
             }
+            break;
     }
 }
 
@@ -402,104 +407,105 @@ void ChozoStatueHintScrolling(void)
     s32 var_0;
     s32 var_1;
 
-    switch (PAUSE_SCREEN_DATA.unk_49)
+    switch (PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage)
     {
-        case 0:
+        case CHOZO_HINT_SCROLLING_STAGE_FINISHED:
             break;
 
-        case 1:
-            PAUSE_SCREEN_DATA.unk_46 |= 2;
+        case CHOZO_HINT_SCROLLING_STAGE_CALCULATE_SCROLLING:
+            PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag |= TARGET_SCROLLING_FLAG;
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_4 = (0x204 - (0xA - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4;
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_6 = (0x204 - (0xF - PAUSE_SCREEN_DATA.hintTargetX) * 8) * 4;
+            // (MINIMAP_CENTER - (SCREEN_SIZE_Y_BLOCKS - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetYPosition = (0x204 - (10 - PAUSE_SCREEN_DATA.hintTargetY) * 8) * 4;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetXPosition = (0x204 - (15 - PAUSE_SCREEN_DATA.hintTargetX) * 8) * 4;
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_0 = gBg3VOFS_NonGameplay;
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_2 = gBg3HOFS_NonGameplay;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapYPostion = gBg3VOFS_NonGameplay;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapXPosition = gBg3HOFS_NonGameplay;
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_A = PAUSE_SCREEN_DATA.unk_8C[1].unk_6 - PAUSE_SCREEN_DATA.unk_8C[1].unk_2;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetXPosition - PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapXPosition;
 
-            if (PAUSE_SCREEN_DATA.unk_8C[1].unk_A == 0)
+            if (PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_C = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = 0;
             }
             else
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_D = PAUSE_SCREEN_DATA.unk_8C[1].unk_A > 0 ? 1 : -1;
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_A *= PAUSE_SCREEN_DATA.unk_8C[1].unk_D;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.xDirection = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget > 0 ? 1 : -1;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget *= PAUSE_SCREEN_DATA.chozoHintMapScrollingData.xDirection;
             }
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_8 = PAUSE_SCREEN_DATA.unk_8C[1].unk_4 - PAUSE_SCREEN_DATA.unk_8C[1].unk_0;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetYPosition - PAUSE_SCREEN_DATA.chozoHintMapScrollingData.mapYPostion;
 
-            if (PAUSE_SCREEN_DATA.unk_8C[1].unk_8 == 0)
+            if (PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_C = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = 0;
             }
             else
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_C = PAUSE_SCREEN_DATA.unk_8C[1].unk_8 > 0 ? 1 : -1;
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_8 *= PAUSE_SCREEN_DATA.unk_8C[1].unk_C;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget > 0 ? 1 : -1;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget *= PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection;
             }
 
-            var_0 = Sqrt((PAUSE_SCREEN_DATA.unk_8C[1].unk_A * PAUSE_SCREEN_DATA.unk_8C[1].unk_A +
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_8 * PAUSE_SCREEN_DATA.unk_8C[1].unk_8) * 4) / 4;
+            var_0 = Sqrt((PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distXToHintTarget +
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget * PAUSE_SCREEN_DATA.chozoHintMapScrollingData.distYToHintTarget) * 4) / 4;
             
             if (var_0 == 0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_C = PAUSE_SCREEN_DATA.unk_8C[1].unk_D = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = PAUSE_SCREEN_DATA.chozoHintMapScrollingData.xDirection = 0;
             }
 
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_E = var_0;
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_10 = 1;
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_12 = 0;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.absDistToHintTarget = var_0;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.unk_10 = 1;
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.speedMultiplier = 0;
 
-            PAUSE_SCREEN_DATA.unk_49++;
+            PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage++;
             break;
 
-        case 2:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_4A);
-            if (PAUSE_SCREEN_DATA.unk_4A > ONE_THIRD_SECOND)
+        case CHOZO_HINT_SCROLLING_STAGE_DELAY_BEFORE_SCROLLING:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer > ONE_THIRD_SECOND)
             {
-                PAUSE_SCREEN_DATA.unk_4A = 0;
-                PAUSE_SCREEN_DATA.unk_49++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage++;
             }
             break;
 
-        case 3:
-            PAUSE_SCREEN_DATA.unk_8C[1].unk_12 += 4;
-            var_0 = unk_72144(&PAUSE_SCREEN_DATA.unk_8C[1]);
-            var_1 = var_0 >> 16;
-            var_0 = var_0 & 0xFFFF;
+        case CHOZO_HINT_SCROLLING_STAGE_UPDATE_SCROLLING:
+            PAUSE_SCREEN_DATA.chozoHintMapScrollingData.speedMultiplier += 4;
+            var_0 = ChozoStatueHintCalculateCoordinates(&PAUSE_SCREEN_DATA.chozoHintMapScrollingData);
+            var_1 = HIGH_SHORT(var_0);
+            var_0 = LOW_SHORT(var_0);
 
             gBg3VOFS_NonGameplay = var_1;
             gBg3HOFS_NonGameplay = var_0;
 
-            var_1 = var_1 == PAUSE_SCREEN_DATA.unk_8C[1].unk_4 ? TRUE : FALSE;
-            var_0 = var_0 == PAUSE_SCREEN_DATA.unk_8C[1].unk_6 ? TRUE : FALSE;
+            var_1 = var_1 == PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetYPosition ? TRUE : FALSE;
+            var_0 = var_0 == PAUSE_SCREEN_DATA.chozoHintMapScrollingData.hintTargetXPosition ? TRUE : FALSE;
 
             if (var_1)
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_C = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.yDirection = 0;
             }
 
             if (var_0)
             {
-                PAUSE_SCREEN_DATA.unk_8C[1].unk_D = 0;
+                PAUSE_SCREEN_DATA.chozoHintMapScrollingData.xDirection = 0;
             }
 
             if (var_1 && var_0)
             {
-                PAUSE_SCREEN_DATA.unk_4A = 0;
-                PAUSE_SCREEN_DATA.unk_49++;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage++;
             }
             break;
 
-        case 4:
-            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.unk_4A);
-            if (PAUSE_SCREEN_DATA.unk_4A > ONE_THIRD_SECOND)
+        case CHOZO_HINT_SCROLLING_STAGE_DELAY_BEFORE_FINISHED:
+            APPLY_DELTA_TIME_INC(PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer);
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer > ONE_THIRD_SECOND)
             {
-                PAUSE_SCREEN_DATA.unk_4A = 0;
-                PAUSE_SCREEN_DATA.unk_49 = 0;
-                PAUSE_SCREEN_DATA.unk_46 ^= 2;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingDelayTimer = 0;
+                PAUSE_SCREEN_DATA.chozoHintTarget.scrollingStage = CHOZO_HINT_SCROLLING_STAGE_FINISHED;
+                PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag ^= TARGET_SCROLLING_FLAG;
             }
             break;
     }
@@ -520,30 +526,38 @@ u32 ChozoStatueHintSubroutine(void)
 
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
-        case 1:
-            PAUSE_SCREEN_DATA.unk_47 = 1;
-            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
-            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
-            break;
-
-        case 2:
-            if (!(PAUSE_SCREEN_DATA.unk_46 & 3))
+        case CHOZO_HINT_SUBROUTINE_STAGE_DELAY_BEFORE_UPDATE:
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > TWO_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             }
             break;
 
-        case 3:
-            if (PAUSE_SCREEN_DATA.unk_42 >= 0)
+        case CHOZO_HINT_SUBROUTINE_STAGE_BEGIN_UPDATE:
+            PAUSE_SCREEN_DATA.chozoHintTarget.movementStage = CHOZO_HINT_MOVEMENT_STAGE_CALCULATE_MOVEMENT;
+            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            break;
+
+        case CHOZO_HINT_SUBROUTINE_STAGE_WAIT_UPDATE_FINISHED:
+            if (!(PAUSE_SCREEN_DATA.chozoHintTarget.activeMovementScrollingFlag & (TARGET_SCROLLING_FLAG | TARGET_MOVEMENT_FLAG)))
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            }
+            break;
+
+        case CHOZO_HINT_SUBROUTINE_STAGE_CHECK_FINISHED:
+            if (PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 > -1)
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             else
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 8;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = CHOZO_HINT_SUBROUTINE_STAGE_DELAY_BEFORE_FINISHED;
 
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 4:
+        case CHOZO_HINT_SUBROUTINE_STAGE_DELAY_BEFORE_FADE_OUT:
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > CONVERT_SECONDS(1.f))
             {
                 PAUSE_SCREEN_DATA.bldcnt |= (BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL);
@@ -552,7 +566,7 @@ u32 ChozoStatueHintSubroutine(void)
             }
             break;
 
-        case 5:
+        case CHOZO_HINT_SUBROUTINE_STAGE_UPDATE_FADE_OUT:
             if (gWrittenToBLDALPHA_H + gWrittenToBLDALPHA_L != 0)
             {
                 if (gWrittenToBLDALPHA_H != 0)
@@ -568,15 +582,15 @@ u32 ChozoStatueHintSubroutine(void)
             }
             break;
 
-        case 6:
-            PAUSE_SCREEN_DATA.unk_41++;
-            PAUSE_SCREEN_DATA.currentArea = PAUSE_SCREEN_DATA.unk_42;
+        case CHOZO_HINT_SUBROUTINE_STAGE_SETUP_NEXT_AREA:
+            PAUSE_SCREEN_DATA.chozoHintTarget.unk_41++;
+            PAUSE_SCREEN_DATA.currentArea = PAUSE_SCREEN_DATA.chozoHintTarget.unk_42;
 
             DmaTransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea], VRAM_BASE + 0xE000,
                 sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
-            ChozoHintDeterminePath(TRUE);
-            unk_6db58(1);
+            ChozoStatueHintDeterminePath(TRUE);
+            PauseScreenMapSetSpawnPosition(1);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea]);
             PauseScreenUpdateBossIcons();
 
@@ -584,25 +598,24 @@ u32 ChozoStatueHintSubroutine(void)
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 7:
-            if (PAUSE_SCREEN_DATA.unk_68 != C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L))
+        case CHOZO_HINT_SUBROUTINE_STAGE_UPDATE_FADE_IN:
+            if (PAUSE_SCREEN_DATA.targetBldAlpha != C_16_2_8(gWrittenToBLDALPHA_H, gWrittenToBLDALPHA_L))
             {
-                if ((PAUSE_SCREEN_DATA.unk_68 >> 8) > gWrittenToBLDALPHA_H)
+                if (HIGH_BYTE(PAUSE_SCREEN_DATA.targetBldAlpha) > gWrittenToBLDALPHA_H)
                     gWrittenToBLDALPHA_H++;
 
-                if ((PAUSE_SCREEN_DATA.unk_68 & 0xFF) > gWrittenToBLDALPHA_L)
+                if (LOW_BYTE(PAUSE_SCREEN_DATA.targetBldAlpha) > gWrittenToBLDALPHA_L)
                     gWrittenToBLDALPHA_L++;
             }
             else
             {
                 PAUSE_SCREEN_DATA.bldcnt &= ~(BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL);
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = CHOZO_HINT_SUBROUTINE_STAGE_DELAY_BEFORE_UPDATE;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             }
             break;
 
-        case 0:
-        case 8:
+        case CHOZO_HINT_SUBROUTINE_STAGE_DELAY_BEFORE_FINISHED:
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > TWO_THIRD_SECOND)
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
@@ -610,8 +623,8 @@ u32 ChozoStatueHintSubroutine(void)
             }
             break;
 
-        case 9:
-            if (gDemoState != 0)
+        case CHOZO_HINT_SUBROUTINE_STAGE_FINISHED:
+            if (gDemoState != DEMO_STATE_NONE)
                 ended = TRUE;
             else if (gChangedInput & (gButtonAssignments.pause | KEY_A))
                 ended = TRUE;
@@ -626,36 +639,36 @@ u32 ChozoStatueHintSubroutine(void)
  * @param pXPosition New X position pointer
  * @param pYPosition New Y position pointer
  * @param pOam Menu Oam data pointer
- * @param param_3 To document
+ * @param pTarget Target path pointer
  */
-void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const s8* param_3)
+void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const s8* pTarget)
 {
-    if (sElevatorRoomPairs[param_3[0]].area1 == PAUSE_SCREEN_DATA.currentArea)
+    if (sElevatorRoomPairs[pTarget[0]].area1 == PAUSE_SCREEN_DATA.currentArea)
     {
-        PAUSE_SCREEN_DATA.unk_42 = sElevatorRoomPairs[param_3[0]].area2;
+        PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = sElevatorRoomPairs[pTarget[0]].area2;
         
-        *pXPosition = sElevatorRoomPairs[param_3[0]].mapX1;
+        *pXPosition = sElevatorRoomPairs[pTarget[0]].mapX1;
         pOam->xPosition = *pXPosition * HALF_BLOCK_SIZE;
 
-        *pYPosition = sElevatorRoomPairs[param_3[0]].mapY1;
+        *pYPosition = sElevatorRoomPairs[pTarget[0]].mapY1;
         pOam->yPosition = (*pYPosition + 4) * HALF_BLOCK_SIZE;
 
-        if (param_3[1] < 0)
+        if (pTarget[1] < 0)
             pOam->oamID = TARGET_OAM_ID_UP_ARROW;
         else
             pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
     }
     else
     {
-        PAUSE_SCREEN_DATA.unk_42 = sElevatorRoomPairs[param_3[0]].area1;
+        PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = sElevatorRoomPairs[pTarget[0]].area1;
         
-        *pXPosition = sElevatorRoomPairs[param_3[0]].mapX2;
+        *pXPosition = sElevatorRoomPairs[pTarget[0]].mapX2;
         pOam->xPosition = *pXPosition * HALF_BLOCK_SIZE;
 
-        *pYPosition = sElevatorRoomPairs[param_3[0]].mapY2;
+        *pYPosition = sElevatorRoomPairs[pTarget[0]].mapY2;
         pOam->yPosition = (*pYPosition - 3) * HALF_BLOCK_SIZE;
 
-        if (param_3[1] < 0)
+        if (pTarget[1] < 0)
             pOam->oamID = TARGET_OAM_ID_UP_ARROW;
         else
             pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
@@ -667,7 +680,7 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
  * 
  * @param param_1 To document
  */
-void ChozoHintDeterminePath(u8 param_1)
+void ChozoStatueHintDeterminePath(u8 param_1)
 {
     struct MenuOamData oam;
     struct MenuOamData* pOam;
@@ -697,9 +710,9 @@ void ChozoHintDeterminePath(u8 param_1)
             DmaTransfer(3, &oam, pOam, sizeof(oam), 32);
         }
 
-        PAUSE_SCREEN_DATA.unk_41 = 0;
-        PAUSE_SCREEN_DATA.unk_40 = AREA_NONE;
-        PAUSE_SCREEN_DATA.unk_42 = -1;
+        PAUSE_SCREEN_DATA.chozoHintTarget.unk_41 = 0;
+        PAUSE_SCREEN_DATA.chozoHintTarget.index = -1;
+        PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = -1;
         PauseScreenCheckActivatedTargets();
     }
     else
@@ -725,7 +738,7 @@ void ChozoHintDeterminePath(u8 param_1)
         {
             for (i = 0; i < ARRAY_SIZE(sChozoStatueTargets); i++)
             {
-                if (!((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1))
+                if (!((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1))
                     continue;
 
                 pStatueTarget = &sChozoStatueTargets[i];
@@ -744,12 +757,12 @@ void ChozoHintDeterminePath(u8 param_1)
                 if (PAUSE_SCREEN_DATA.mapX > pStatueTarget->statueXEnd)
                     continue;
 
-                PAUSE_SCREEN_DATA.unk_40 = i;
+                PAUSE_SCREEN_DATA.chozoHintTarget.index = i;
                 break;
             }
         }
 
-        pStatueTarget = &sChozoStatueTargets[PAUSE_SCREEN_DATA.unk_40];
+        pStatueTarget = &sChozoStatueTargets[PAUSE_SCREEN_DATA.chozoHintTarget.index];
         if (pStatueTarget->statueArea == pStatueTarget->targetArea)
         {
             pOam->xPosition = PAUSE_SCREEN_DATA.mapX * HALF_BLOCK_SIZE;
@@ -780,9 +793,9 @@ void ChozoHintDeterminePath(u8 param_1)
                 ChozoStatueHintChangeArea(&PAUSE_SCREEN_DATA.hintTargetX, &PAUSE_SCREEN_DATA.hintTargetY, pOam, pTarget);
                 pOam++;
             }
-            else if (PAUSE_SCREEN_DATA.unk_42 == pStatueTarget->targetArea)
+            else if (PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 == pStatueTarget->targetArea)
             {
-                i = (PAUSE_SCREEN_DATA.unk_41 - 1) * 2;
+                i = (PAUSE_SCREEN_DATA.chozoHintTarget.unk_41 - 1) * 2;
                 ChozoStatueHintChangeArea(&PAUSE_SCREEN_DATA.mapX, &PAUSE_SCREEN_DATA.mapY, pOam, &pTarget[i]);
 
                 pOam->exists = TRUE;
@@ -796,23 +809,23 @@ void ChozoHintDeterminePath(u8 param_1)
                 pOam->oamID = pStatueTarget->endIcon;
                 pOam++;
 
-                PAUSE_SCREEN_DATA.unk_42 = AREA_NONE;
+                PAUSE_SCREEN_DATA.chozoHintTarget.unk_42 = AREA_NONE;
             }
             else
             {
-                i = (PAUSE_SCREEN_DATA.unk_41 - 1) * 2;
+                i = (PAUSE_SCREEN_DATA.chozoHintTarget.unk_41 - 1) * 2;
                 ChozoStatueHintChangeArea(&PAUSE_SCREEN_DATA.mapX, &PAUSE_SCREEN_DATA.mapY, pOam, &pTarget[i]);
 
                 pOam->exists = TRUE;
                 pOam++;
 
-                i = PAUSE_SCREEN_DATA.unk_41 * 2;
+                i = PAUSE_SCREEN_DATA.chozoHintTarget.unk_41 * 2;
                 ChozoStatueHintChangeArea(&PAUSE_SCREEN_DATA.hintTargetX, &PAUSE_SCREEN_DATA.hintTargetY, pOam, &pTarget[i]);
                 pOam++;
             }
         }
     }
-    else if (PAUSE_SCREEN_DATA.activatedTargets != 0 && gCurrentArea < AREA_CHOZODIA)
+    else if (PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets != 0 && gCurrentArea < AREA_CHOZODIA)
     {
         gCurrentArea = gCurrentArea;
         pTarget = sChozoStatueTargetPathPointers[gCurrentArea];
@@ -820,7 +833,7 @@ void ChozoHintDeterminePath(u8 param_1)
         {
             for (i = 0; i < ARRAY_SIZE(sChozoStatueTargetConditions) - 1; i++)
             {
-                if (!((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1))
+                if (!((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1))
                     continue;
 
                 ptr = sChozoStatueTargetConditions[0];
@@ -871,12 +884,12 @@ void ChozoHintDeterminePath(u8 param_1)
         }
     }
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < TARGET_END; i++)
     {
-        if (i == PAUSE_SCREEN_DATA.unk_40)
+        if (i == PAUSE_SCREEN_DATA.chozoHintTarget.index)
             continue;
 
-        if (!((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1))
+        if (!((PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets >> i) & 1))
             continue;
 
         pStatueTarget = &sChozoStatueTargets[i];
@@ -947,15 +960,15 @@ void PauseScreenCheckActivatedTargets(void)
     s32 i;
 
     // Clear
-    PAUSE_SCREEN_DATA.activatedTargets = 0;
+    PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets = 0;
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < TARGET_END; i++)
     {
         // Check
         if ((s8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
         {
             // Add to list
-            PAUSE_SCREEN_DATA.activatedTargets |= 1 << i;
+            PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets |= 1 << i;
         }
     }
 }
@@ -971,7 +984,7 @@ void PauseScreenCheckAreasWithTargets(void)
     // Clear
     PAUSE_SCREEN_DATA.areasWithHints = 0;
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < TARGET_END; i++)
     {
         // Check
         if ((s8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
@@ -997,7 +1010,7 @@ void PauseScreenDrawBossFlames(void)
         return;
 
     // Kraid flame
-    if (PAUSE_SCREEN_DATA.activatedTargets & (1 << TARGET_KRAID_FLAME))
+    if (PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets & (1 << TARGET_KRAID_FLAME))
     {
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++)
         {
@@ -1017,7 +1030,7 @@ void PauseScreenDrawBossFlames(void)
     }
 
     // Ridley flame
-    if (PAUSE_SCREEN_DATA.activatedTargets & (1 << TARGET_RIDLEY_FLAME))
+    if (PAUSE_SCREEN_DATA.chozoHintTarget.activatedTargets & (1 << TARGET_RIDLEY_FLAME))
     {
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++)
         {

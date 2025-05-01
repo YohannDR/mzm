@@ -1440,7 +1440,7 @@ void SramWrite_Language(void)
     pSave->notChecksum = ~0;
     
     i = gLanguage;
-    if ((u32)i > LANGUAGE_SPANISH)
+    if ((u32)i >= LANGUAGE_END)
         i = LANGUAGE_ENGLISH;
 
     pSave->value = i;

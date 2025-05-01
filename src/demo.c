@@ -71,7 +71,7 @@ void DemoInit(void)
     }
 
     // Load ram values
-    unk_7584c(0x1);
+    unk_7584c(1);
     SramLoad_DemoRamValues(FALSE, demoNbr);
 
     if (gDemoState == DEMO_STATE_STARTING)

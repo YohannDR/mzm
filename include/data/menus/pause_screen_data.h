@@ -9,6 +9,7 @@
 
 #include "constants/game_state.h"
 #include "constants/menus/pause_screen.h"
+#include "constants/menus/status_screen.h"
 
 extern const u16 sPauseScreen_3fcef0[11 * 16];
 extern const u16 sTankIconsPal[16 * 16];
@@ -73,7 +74,7 @@ extern const struct CutsceneOamData sCutsceneOam_Empty;
 
 extern const u8 sUnused_40d078[16];
 
-extern const u16 sPauseScreen_40d088[4];
+extern const u16 sPauseScreen_BgCntPriority[4];
 
 extern const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_AREAS];
 extern const u16 sMapScreenArrowsData[4][4];
@@ -83,10 +84,10 @@ extern const u8 sStatusScreenBombFlagsOrder[1];
 extern const u8 sStatusScreenSuitFlagsOrder[2];
 extern const u8 sStatusScreenMiscFlagsOrder[6];
 
-extern const u8 sPauseScreen_40d0fe[4];
+extern const u8 sStatusScreenFlagsSize[ABILITY_GROUP_STATUS_GROUPS_END];
 extern const u16 sPauseScreen_40d102[5];
 
-extern const struct PauseScreenWireframeData sSamusWireframeData[7];
+extern const struct PauseScreenWireframeData sSamusWireframeData[SAMUS_WIREFRAME_DATA_END];
 
 extern const u16 sChozoHintAreaNamesPosition[2];
 extern const u8 sChozoHintAreaNamesOamIds[MAX_AMOUNT_OF_AREAS];
@@ -115,7 +116,7 @@ extern const struct MinimapAreaName sMinimapAreaNames[10];
 extern const u8 sPauseScreen_40d6fc[80];
 extern const u8 sPauseScreen_40d74c[80];
 
-extern u8* const sPauseScreen_40d79c[5];
+extern u8* const sPauseScreen_IgtAndTanksVramAddresses[IGT_AND_TANKS_VRAM_ADDRESS_END];
 
 extern const u8 sCharacterWidths[1184];
 

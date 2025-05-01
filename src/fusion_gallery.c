@@ -63,8 +63,8 @@ void FusionGalleryInit(void)
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 32);
     DMA_SET(3, sFusionGalleryData[image].pPalette, PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
 
-    write16(REG_BG0CNT, 0x9C00);
-    write16(REG_BG1CNT, 0x9E09);
+    write16(REG_BG0CNT, CREATE_BGCNT(0, 28, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x512));
+    write16(REG_BG1CNT, CREATE_BGCNT(2, 30, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_256x512));
 
     gNextOamSlot = 0;
     ResetFreeOam();

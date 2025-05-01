@@ -15,6 +15,11 @@
 #define OBJ_SHAPE_HORIZONTAL      (1 << 14)
 #define OBJ_SHAPE_VERTICAL        (1 << 15)
 
+#define OAM_AFFINE_MODE_NORMAL            0
+#define OAM_AFFINE_MODE_AFFINE            1
+#define OAM_AFFINE_MODE_DISABLE_RENDERING 2
+#define OAM_AFFINE_MODE_DOUBLE_SIZED      3
+
 #define OAM_OBJ_MODE_NORMAL           0
 #define OAM_OBJ_MODE_SEMI_TRANSPARENT 1
 #define OAM_OBJ_MODE_WINDOW           2

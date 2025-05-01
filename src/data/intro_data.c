@@ -277,16 +277,46 @@ const u32 sTimeAttackAntiCheatTimes[4] = {
     0 | 0 << 8 | 22 << 16 | 0 << 24
 };
 
-const u8 sArray_45fd24[3][4] = {
-    { 4, 8, 16, 32 },
-    { 8, 16, 16, 32 },
-    { 4, 4, 8, 16 }
+const u8 sSpriteXHalfRadius[3][4] = {
+    [OAM_SHAPE_SQUARE] = {
+        [OAM_SIZE_S_8x8] = 8/2,
+        [OAM_SIZE_S_16x16] = 16/2,
+        [OAM_SIZE_S_32x32] = 32/2,
+        [OAM_SIZE_S_64x64] = 64/2
+    },
+    [OAM_SHAPE_HORIZONTAL] = {
+        [OAM_SIZE_H_16x8] = 16/2,
+        [OAM_SIZE_H_32x8] = 32/2,
+        [OAM_SIZE_H_32x16] = 32/2,
+        [OAM_SIZE_H_64x32] = 64/2
+    },
+    [OAM_SHAPE_VERTICAL] = {
+        [OAM_SIZE_V_8x16] = 8/2,
+        [OAM_SIZE_V_8x32] = 8/2,
+        [OAM_SIZE_V_16x32] = 16/2,
+        [OAM_SIZE_V_32x64] = 32/2
+    }
 };
 
-const u8 sArray_45fd30[3][4] = {
-    { 4, 8, 16, 32 },
-    { 4, 4, 8, 16 },
-    { 8, 16, 16, 32 }
+const u8 sSpriteYHalfRadius[3][4] = {
+    [OAM_SHAPE_SQUARE] = {
+        [OAM_SIZE_S_8x8] = 8/2,
+        [OAM_SIZE_S_16x16] = 16/2,
+        [OAM_SIZE_S_32x32] = 32/2,
+        [OAM_SIZE_S_64x64] = 64/2
+    },
+    [OAM_SHAPE_HORIZONTAL] = {
+        [OAM_SIZE_H_16x8] = 8/2,
+        [OAM_SIZE_H_32x8] = 8/2,
+        [OAM_SIZE_H_32x16] =16/2,
+        [OAM_SIZE_H_64x32] = 32/2
+    },
+    [OAM_SHAPE_VERTICAL] = {
+        [OAM_SIZE_V_8x16] = 16/2,
+        [OAM_SIZE_V_8x32] = 32/2,
+        [OAM_SIZE_V_16x32] = 32/2,
+        [OAM_SIZE_V_32x64] = 64/2
+    }
 };
 
 const u8 sIntroEmergencyOrderActions[16] = {
