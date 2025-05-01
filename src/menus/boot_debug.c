@@ -737,7 +737,7 @@ s32 BootDebugHandleInput(void)
                 BootDebugDrawTextAtPosition(sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].background,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].xPosition,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].yPosition,
-                    sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].color,
+                    sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].palette,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].size,
                     sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].text);
             }
@@ -1955,7 +1955,7 @@ void BootDebugDrawMenuNames(void)
         BootDebugDrawTextAtPosition(sBootDebugMenuNamesText[i].background,
             sBootDebugMenuNamesText[i].xPosition,
             sBootDebugMenuNamesText[i].yPosition,
-            sBootDebugMenuNamesText[i].color,
+            sBootDebugMenuNamesText[i].palette,
             sBootDebugMenuNamesText[i].size,
             sBootDebugMenuNamesText[i].text);
     }
@@ -1966,7 +1966,7 @@ void BootDebugDrawMenuNames(void)
         BootDebugDrawTextAtPosition(sBootDebugMenuNamesText[10].background,
             sBootDebugMenuNamesText[10].xPosition,
             sBootDebugMenuNamesText[10].yPosition,
-            sBootDebugMenuNamesText[10].color,
+            sBootDebugMenuNamesText[10].palette,
             sBootDebugMenuNamesText[10].size,
             sBootDebugMenuNamesText[10].text);
     }
@@ -1999,7 +1999,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugSectionMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugSectionMenuText[i].background, sBootDebugSectionMenuText[i].xPosition,
-                    sBootDebugSectionMenuText[i].yPosition, sBootDebugSectionMenuText[i].color,
+                    sBootDebugSectionMenuText[i].yPosition, sBootDebugSectionMenuText[i].palette,
                     sBootDebugSectionMenuText[i].size, sBootDebugSectionMenuText[i].text);
             }
             BootDebugSectionDrawStar(0x80);
@@ -2010,7 +2010,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugModeMenuText) + 2; i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugModeMenuText[i].background, sBootDebugModeMenuText[i].xPosition,
-                    sBootDebugModeMenuText[i].yPosition, sBootDebugModeMenuText[i].color,
+                    sBootDebugModeMenuText[i].yPosition, sBootDebugModeMenuText[i].palette,
                     sBootDebugModeMenuText[i].size, sBootDebugModeMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_MODE_COUNT + 1; i++)
@@ -2020,7 +2020,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugSaveMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugSaveMenuText[i].background, sBootDebugSaveMenuText[i].xPosition,
-                    sBootDebugSaveMenuText[i].yPosition, sBootDebugSaveMenuText[i].color,
+                    sBootDebugSaveMenuText[i].yPosition, sBootDebugSaveMenuText[i].palette,
                     sBootDebugSaveMenuText[i].size, sBootDebugSaveMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SAVE_COUNT + 1; i++)
@@ -2030,7 +2030,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugSamusMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugSamusMenuText[i].background, sBootDebugSamusMenuText[i].xPosition,
-                    sBootDebugSamusMenuText[i].yPosition, sBootDebugSamusMenuText[i].color,
+                    sBootDebugSamusMenuText[i].yPosition, sBootDebugSamusMenuText[i].palette,
                     sBootDebugSamusMenuText[i].size, sBootDebugSamusMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SAMUS_COUNT; i++)
@@ -2040,7 +2040,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugSoundMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugSoundMenuText[i].background, sBootDebugSoundMenuText[i].xPosition,
-                    sBootDebugSoundMenuText[i].yPosition, sBootDebugSoundMenuText[i].color,
+                    sBootDebugSoundMenuText[i].yPosition, sBootDebugSoundMenuText[i].palette,
                     sBootDebugSoundMenuText[i].size, sBootDebugSoundMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_SOUND_COUNT; i++)
@@ -2050,7 +2050,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugDemoMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugDemoMenuText[i].background, sBootDebugDemoMenuText[i].xPosition,
-                    sBootDebugDemoMenuText[i].yPosition, sBootDebugDemoMenuText[i].color,
+                    sBootDebugDemoMenuText[i].yPosition, sBootDebugDemoMenuText[i].palette,
                     sBootDebugDemoMenuText[i].size, sBootDebugDemoMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_DEMO_COUNT; i++)
@@ -2060,7 +2060,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugEtcMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugEtcMenuText[i].background, sBootDebugEtcMenuText[i].xPosition,
-                    sBootDebugEtcMenuText[i].yPosition, sBootDebugEtcMenuText[i].color,
+                    sBootDebugEtcMenuText[i].yPosition, sBootDebugEtcMenuText[i].palette,
                     sBootDebugEtcMenuText[i].size, sBootDebugEtcMenuText[i].text);
             }
             for (i = 0; i < BOOT_DEBUG_ETC_COUNT; i++)
@@ -2070,7 +2070,7 @@ void BootDebugDrawSubMenuText(void)
             for (i = 0; i < ARRAY_SIZE(sBootDebugEraseMenuText); i++)
             {
                 BootDebugDrawTextAtPosition(sBootDebugEraseMenuText[i].background, sBootDebugEraseMenuText[i].xPosition,
-                    sBootDebugEraseMenuText[i].yPosition, sBootDebugEraseMenuText[i].color,
+                    sBootDebugEraseMenuText[i].yPosition, sBootDebugEraseMenuText[i].palette,
                     sBootDebugEraseMenuText[i].size, sBootDebugEraseMenuText[i].text);
             }
             break;
@@ -2083,12 +2083,12 @@ void BootDebugDrawSubMenuText(void)
  * @param background Text background
  * @param xPosition Text X position
  * @param yPosition Text Y position
- * @param color Text color
+ * @param palette Text palette
  * @param size Number of characters in string
  * @param pText Pointer to text data
  */
 void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition,
-    u8 color, u8 size, const u8* pText)
+    u8 palette, u8 size, const u8* pText)
 {
     u16* dst;
     u32 tile;
@@ -2111,7 +2111,7 @@ void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition,
     for (i = 0, j = 0; i < size; i++, j++)
     {
         tile = *pText;
-        tile = ((tile & 0xE0) << 1) | (tile & 0x1F) | (color << 0xC);
+        tile = ((tile & 0xE0) << 1) | (tile & 0x1F) | (palette << 12);
         dst[j] = tile;
         dst[j + 32] = tile + 0x20;
         pText++;
@@ -2166,7 +2166,7 @@ void BootDebugSectionSetFilesColor(void)
 {
     u16* dst;
     s32 offset;
-    s32 color;
+    s32 palette;
     s32 i;
 
     dst = VRAM_BASE + 0xE000;
@@ -2174,31 +2174,31 @@ void BootDebugSectionSetFilesColor(void)
     // File A
     offset = sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_A].xPosition +
         sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_A].yPosition * 0x20;
-    color = gSaveFilesInfo[0].exists ? 8 : 0xF;
+    palette = gSaveFilesInfo[0].exists ? 8 : 0xF;
     for (i = 0; i < sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_A].size; i++, offset++)
     {
-        dst[offset] = (dst[offset] & 0xFFF) | (color << 12);
-        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (color << 12);
+        dst[offset] = (dst[offset] & 0xFFF) | (palette << 12);
+        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (palette << 12);
     }
 
     // File B
     offset = sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_B].xPosition +
         sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_B].yPosition * 0x20;
-    color = gSaveFilesInfo[1].exists ? 8 : 0xF;
+    palette = gSaveFilesInfo[1].exists ? 8 : 0xF;
     for (i = 0; i < sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_B].size; i++, offset++)
     {
-        dst[offset] = (dst[offset] & 0xFFF) | (color << 12);
-        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (color << 12);
+        dst[offset] = (dst[offset] & 0xFFF) | (palette << 12);
+        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (palette << 12);
     }
 
     // File C
     offset = sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_C].xPosition +
         sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_C].yPosition * 0x20;
-    color = gSaveFilesInfo[2].exists ? 8 : 0xF;
+    palette = gSaveFilesInfo[2].exists ? 8 : 0xF;
     for (i = 0; i < sBootDebugSectionMenuText[BOOT_DEBUG_SECTION_SAVE_C].size; i++, offset++)
     {
-        dst[offset] = (dst[offset] & 0xFFF) | (color << 12);
-        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (color << 12);
+        dst[offset] = (dst[offset] & 0xFFF) | (palette << 12);
+        dst[offset + 0x20] = (dst[offset + 0x20] & 0xFFF) | (palette << 12);
     }
 
     // Current area
@@ -2234,7 +2234,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugLanguageText[gLanguage].background,
                     sBootDebugLanguageText[gLanguage].xPosition,
                     sBootDebugLanguageText[gLanguage].yPosition,
-                    sBootDebugLanguageText[gLanguage].color,
+                    sBootDebugLanguageText[gLanguage].palette,
                     sBootDebugLanguageText[gLanguage].size,
                     sBootDebugLanguageText[gLanguage].text);
             }
@@ -2243,7 +2243,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugDifficultyText[gDifficulty].background,
                     sBootDebugDifficultyText[gDifficulty].xPosition,
                     sBootDebugDifficultyText[gDifficulty].yPosition,
-                    sBootDebugDifficultyText[gDifficulty].color,
+                    sBootDebugDifficultyText[gDifficulty].palette,
                     sBootDebugDifficultyText[gDifficulty].size,
                     sBootDebugDifficultyText[gDifficulty].text);
             }
@@ -2275,7 +2275,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugArmWeaponButtonText[index].background,
                     sBootDebugArmWeaponButtonText[index].xPosition,
                     sBootDebugArmWeaponButtonText[index].yPosition,
-                    sBootDebugArmWeaponButtonText[index].color,
+                    sBootDebugArmWeaponButtonText[index].palette,
                     sBootDebugArmWeaponButtonText[index].size,
                     sBootDebugArmWeaponButtonText[index].text);
             }
@@ -2285,7 +2285,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugDiagonalAimButtonText[index].background,
                     sBootDebugDiagonalAimButtonText[index].xPosition,
                     sBootDebugDiagonalAimButtonText[index].yPosition,
-                    sBootDebugDiagonalAimButtonText[index].color,
+                    sBootDebugDiagonalAimButtonText[index].palette,
                     sBootDebugDiagonalAimButtonText[index].size,
                     sBootDebugDiagonalAimButtonText[index].text);
             }
@@ -2295,7 +2295,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugPauseButtonText[index].background,
                     sBootDebugPauseButtonText[index].xPosition,
                     sBootDebugPauseButtonText[index].yPosition,
-                    sBootDebugPauseButtonText[index].color,
+                    sBootDebugPauseButtonText[index].palette,
                     sBootDebugPauseButtonText[index].size,
                     sBootDebugPauseButtonText[index].text);
             }
@@ -2305,7 +2305,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugSwapMissilesButtonText[index].background,
                     sBootDebugSwapMissilesButtonText[index].xPosition,
                     sBootDebugSwapMissilesButtonText[index].yPosition,
-                    sBootDebugSwapMissilesButtonText[index].color,
+                    sBootDebugSwapMissilesButtonText[index].palette,
                     sBootDebugSwapMissilesButtonText[index].size,
                     sBootDebugSwapMissilesButtonText[index].text);
             }
@@ -2319,7 +2319,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugBgmOnOffText[gDisableMusic].background,
                     sBootDebugBgmOnOffText[gDisableMusic].xPosition,
                     sBootDebugBgmOnOffText[gDisableMusic].yPosition,
-                    sBootDebugBgmOnOffText[gDisableMusic].color,
+                    sBootDebugBgmOnOffText[gDisableMusic].palette,
                     sBootDebugBgmOnOffText[gDisableMusic].size,
                     sBootDebugBgmOnOffText[gDisableMusic].text);
             }
@@ -2366,7 +2366,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                     BootDebugDrawTextAtPosition(sBootDebugDemoOnOffText[gDisableCutscenes_Unused].background,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].xPosition,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].yPosition,
-                        sBootDebugDemoOnOffText[gDisableCutscenes_Unused].color,
+                        sBootDebugDemoOnOffText[gDisableCutscenes_Unused].palette,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].size,
                         sBootDebugDemoOnOffText[gDisableCutscenes_Unused].text);
                     break;
@@ -2398,7 +2398,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugMainEndObjOnOffText[index].background,
                     sBootDebugMainEndObjOnOffText[index].xPosition,
                     sBootDebugMainEndObjOnOffText[index].yPosition,
-                    sBootDebugMainEndObjOnOffText[index].color,
+                    sBootDebugMainEndObjOnOffText[index].palette,
                     sBootDebugMainEndObjOnOffText[index].size,
                     sBootDebugMainEndObjOnOffText[index].text);
             }
@@ -2408,7 +2408,7 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 BootDebugDrawTextAtPosition(sBootDebugDoorTransitionOnOffText[index].background,
                     sBootDebugDoorTransitionOnOffText[index].xPosition,
                     sBootDebugDoorTransitionOnOffText[index].yPosition,
-                    sBootDebugDoorTransitionOnOffText[index].color,
+                    sBootDebugDoorTransitionOnOffText[index].palette,
                     sBootDebugDoorTransitionOnOffText[index].size,
                     sBootDebugDoorTransitionOnOffText[index].text);
             }
@@ -2422,9 +2422,9 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
  * @param dst VRAM address to draw at
  * @param number The number to draw
  * @param numDigits Number of digits in the number
- * @param color Text color
+ * @param palette Text palette
  */
-void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color)
+void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 palette)
 {
     s32 value;
     s32 divisor;
@@ -2445,13 +2445,13 @@ void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color)
         if (value == 0)
         {
             if (prevWasNonZero || (divisor == 1))
-                value = color << 0xC;
+                value = palette << 12;
             else
                 value = 0x8040; // Blank
         }
         else
         {
-            value |= color << 0xC;
+            value |= palette << 12;
             prevWasNonZero = TRUE;
         }
         *dst = value;
@@ -2465,9 +2465,9 @@ void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color)
  * 
  * @param dst VRAM address to draw at
  * @param pText Pointer to text data
- * @param color Text color
+ * @param palette Text palette
  */
-void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 color)
+void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 palette)
 {
     u32 tile;
     
@@ -2478,8 +2478,8 @@ void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 color)
         else
             tile = ((*pText & 0xE0) << 1) | (*pText & 0x1F);
 
-        dst[0] = color << 0xC | tile;
-        dst[32] = color << 0xC | (tile + 0x20);
+        dst[0] = palette << 12 | tile;
+        dst[32] = palette << 12 | (tile + 0x20);
 
         dst++;
         pText++;

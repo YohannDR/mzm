@@ -34,7 +34,7 @@ void BootDebugDrawTextAtPosition(u8 background, u8 xPosition, u8 yPosition, u8 p
 void BootDebugSectionDrawStar(u8 prevIndex);
 void BootDebugSectionSetFilesColor(void);
 void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption);
-void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 color);
-void BootDebugDrawTextAtAddress(u16* dst, const u8* text, u8 color);
+void BootDebugDrawNumber(u16* dst, u8 number, u8 numDigits, u8 palette);
+void BootDebugDrawTextAtAddress(u16* dst, const u8* text, u8 palette);
 
 #endif
