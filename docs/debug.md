@@ -14,6 +14,7 @@ Even though the final release of the game doesn't include any debug features, so
   - [Erase](#erase)
 - [Pause Debug Menu](#pause-debug-menu)
 - [Additional Debug Features](#additional-debug-features)
+  - [Title Screen](#title-screen)
   - [File Select](#file-select)
   - [No-clip Mode](#no-clip-mode)
   - [Pause Screen](#pause-screen)
@@ -21,7 +22,7 @@ Even though the final release of the game doesn't include any debug features, so
 
 ## Boot Debug Menu
 
-The boot debug menu consists of various sub-menus for changing settings or testing parts of the game. You can go to the title screen by pressing `R`. Pressing `Start` will start the game in the area selected in the Section menu.
+The boot debug menu consists of various sub-menus for changing settings or testing parts of the game. You can access the boot debug menu from the intro or title screen by pressing `R`. You can also return to the title screen by pressing `R`. Pressing `Start` will start the game in the area selected in the Section menu.
 
 ### Section
 
@@ -107,9 +108,15 @@ TODO
 
 ## Additional Debug Features
 
+### Title Screen
+
+While on the title screen, pressing `L` will start playing demos. Pressing `Select` will hide the build info text. Holding `Select` and pressing `Left` or `Right` will switch between displaying the trademark symbol (™) and registered trademark symbol (®).
+
 ### File Select
 
 While the cursor is on an existing save file, you can hold `Select` and press `L`, `Right`, or `Left` to mark the file as completed. Pressing `L` will treat it as being completed on easy mode, `Right` is normal mode, and `Left` is hard mode.
+
+If you have the Metroid Fusion gallery unlocked, holding `L` while selecting the gallery will force an attempt to link with Metroid Fusion.
 
 ### No-clip Mode
 
