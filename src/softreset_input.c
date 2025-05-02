@@ -1,6 +1,7 @@
 #include "softreset_input.h"
 #include "gba.h"
 #include "macros.h"
+#include "menus/boot_debug.h"
 
 #include "constants/game_state.h"
 #include "structs/audio.h"
@@ -63,7 +64,13 @@ void Softreset(void)
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
 
+    #ifdef DEBUG
+    BootDebugReadSram();
+    gMainGameMode = gDebugMode ? GM_DEBUG_MENU : GM_INTRO;
+    #else // !DEBUG
     gMainGameMode = GM_INTRO;
+    #endif // DEBUG
+
     gGameModeSub1 = 0;
     gGameModeSub2 = 0;
     gResetGame = 0;

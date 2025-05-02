@@ -140,6 +140,10 @@ u8 KraidRisingRising(void)
     for (i = 0; i < KRAID_RISING_DEBRIS_AMOUNT; i++)
         KraidRisingUpdateDebris(&CUTSCENE_DATA.oam[i], i);
 
+    #if DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -306,6 +310,10 @@ u8 KraidRisingOpeningEyes(void)
             MACRO_CUTSCENE_NEXT_STAGE();
             break;
     }
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
 
     return FALSE;
 }

@@ -6,6 +6,7 @@
 #include "io.h"
 #include "softreset_input.h"
 #include "types.h"
+#include "menus/boot_debug.h"
 
 #include "constants/game_state.h"
 #include "structs/audio.h"
@@ -36,7 +37,7 @@ void InitializeGame(void)
 
     gGameModeSub1 = 0;
     gGameModeSub2 = 0;
-    gDebugFlag = FALSE;
+    gDebugMode = FALSE;
 
     gButtonInput = KEY_NONE;
     gPreviousButtonInput = KEY_NONE;
@@ -45,9 +46,18 @@ void InitializeGame(void)
     UpdateInput();
 
     if (gChangedInput == (KEY_L | KEY_R))
+    {
         gMainGameMode = GM_ERASE_SRAM;
+    }
     else
+    {
+        #ifdef DEBUG
+        BootDebugReadSram();
+        gMainGameMode = gDebugMode ? GM_DEBUG_MENU : GM_SOFTRESET;
+        #else // !DEBUG
         gMainGameMode = GM_SOFTRESET;
+        #endif // DEBUG
+    }
 
     gButtonInput = 0;
     gPreviousButtonInput = 0;

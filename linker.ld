@@ -42,8 +42,8 @@ SECTIONS {
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
-        . = 0x00000000; gDebugFlag = .;
-        . = 0x00000001; gSramErrorFlag = .;
+        . = 0x00000000; gDebugMode = .;
+        . = 0x00000001; gBootDebugActive = .;
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
         . = 0x00000005; gSubGameModeStage = .;
@@ -70,6 +70,8 @@ SECTIONS {
         . = 0x0000003c; gResetGame = .;
         . = 0x0000003D; gDisableScrolling = .;
         . = 0x0000003E; gSlowScrollingTimer = .;
+        . = 0x00000040; gDisableMusic = .;
+        . = 0x00000041; gDisableCutscenes_Unused = .;
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
@@ -105,7 +107,7 @@ SECTIONS {
         . = 0x0000007c; gDisableDrawingSprites = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
-        . = 0x0000007f; gFreeMovementLockCamera = .;
+        . = 0x0000007f; gNoClipLockCamera = .;
         . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIoRegistersBackup = .;
         . = 0x0000009C; gBgPointersAndDimensions = .;
@@ -189,7 +191,7 @@ SECTIONS {
         . = 0x00000c20; gUnk_3000c20 = .;
         . = 0x00000c21; gSramOperationStage = .;
         . = 0x00000c24; gSaveFilesInfo = .;
-        . = 0x00000c6c; gStartingInfo = .;
+        . = 0x00000c6c; gSectionInfo = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
@@ -279,6 +281,10 @@ SECTIONS {
         . = 0x000053cc; gDemoInputTimer = .;
         . = 0x000053ce; gDemoInput = .;
         . = 0x000053d0; gNotPressingUp = .;
+        . = 0x000053d2; gDebugVCount_InGameStart = .;
+        . = 0x000053d4; gDebugVCount_InGameEnd = .;
+        . = 0x000053d6; gDebugVCount_VBlankEnd = .;
+        . = 0x000053d8; gDebugVCount_AudioMax = .;
         . = 0x000053E0; gSamusPalette = .;
         . = 0x00005440; gSamusPaletteSize = .;
         . = 0x00005448; gWrittenToWIN1H = .;
@@ -563,6 +569,11 @@ SECTIONS {
         src/menus/status_screen.o(.text);
         src/menus/pause_screen_sub_menus.o(.text);
         src/save_file.o(.text);
+
+#ifdef DEBUG
+        src/menus/boot_debug.o(.text);
+#endif
+
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         src/menus/game_over.o(.text);
@@ -1038,6 +1049,11 @@ SECTIONS {
         src/data/menus/pause_screen_sub_menus_data.o(.rodata);
         src/data/menus/pause_screen_map_data.o(.rodata);
         src/data/save_file_data.o(.rodata);
+
+#ifdef DEBUG
+        src/data/menus/boot_debug_data.o(.rodata);
+#endif
+
         src/data/menus/erase_sram_data.o(.rodata);
         src/data/text_data.o(.rodata);
         src/data/menus/title_screen_data.o(.rodata);
@@ -1430,6 +1446,7 @@ SECTIONS {
         src/data/internal_tourian_escape_data.o(.rodata);
         src/data/internal_ending_and_gallery_data.o(.rodata);
         src/data/internal_chozodia_escape_data.o(.rodata);
+        src/data/internal_io_transfer_data.o(.rodata);
         src/data/nes_metroid.o(.rodata);
     } >rom
 

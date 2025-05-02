@@ -416,8 +416,15 @@ void RoomReset(void)
         gLastElevatorUsed = sLastElevatorUsed_Empty;
         gRainSoundEffect = RAIN_SOUND_NONE;
 
-        if (!gIsLoadingFile && gCurrentDemo.loading)
-            unk_60cbc(FALSE);
+        if (!gIsLoadingFile)
+        {
+            #ifdef DEBUG
+            if (gDebugMode)
+                gEquipment.downloadedMapStatus = gSectionInfo.downloadedMaps;
+            #endif // DEBUG
+            if (gCurrentDemo.loading)
+                unk_60cbc(FALSE);
+        }
     
         gDoorPositionStart.x = 0;
         gDoorPositionStart.y = 0;
@@ -979,6 +986,21 @@ void RoomUpdate(void)
         }
     }
 
+    #ifdef DEBUG
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
+    {
+        BgClipCheckTouchingSpecialClipdata();
+    }
+    // Check still in "playing" mode
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING || gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
+    {
+        BlockUpdateBrokenBlocks();
+        BlockProcessBombChains();
+        InGameCutsceneProcess();
+        ConnectionCheckUnlockDoors();
+        ConnectionUpdateHatches();
+    }
+    #else // !DEBUG
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         BgClipCheckTouchingSpecialClipdata();
@@ -993,6 +1015,7 @@ void RoomUpdate(void)
             ConnectionUpdateHatches();
         }
     }
+    #endif // DEBUG
 
     if (HazeProcess())
     {

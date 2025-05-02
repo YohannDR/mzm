@@ -14,6 +14,7 @@
 *.deps.json
 *.runtimeconfig.json
 
+linker.ld.pp
 include/**/*.s
 tools/*.txt
 tools/c_extractor

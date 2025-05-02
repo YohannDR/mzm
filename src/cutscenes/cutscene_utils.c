@@ -7,6 +7,7 @@
 #include "data/menus/pause_screen_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/engine_pointers.h"
+#include "data/block_data.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"
@@ -50,8 +51,28 @@ u8 TourianEscapeSubroutine(void)
         gSubGameModeStage = 0;
         gGameModeSub1 = 0;
         gGameModeSub2 = 4;
+
+        #ifdef DEBUG
+        if (gBootDebugActive)
+        {
+            SET_BACKDROP_COLOR(COLOR_BLACK);
+            write16(REG_DISPCNT, 0);
+            StopAllMusicsAndSounds();
+            return FALSE;
+        }
+        #endif // DEBUG
+
         ended = TRUE;
     }
+    #ifdef DEBUG
+    else if (gChangedInput & KEY_B)
+    {
+        if (gBootDebugActive)
+            return TRUE;
+        if (gDebugMode)
+            ended = TRUE;
+    }
+    #endif // DEBUG
 
     if (ended)
     {
@@ -101,22 +122,52 @@ void CutsceneEnd(void)
     switch (gCurrentCutscene)
     {
         case CUTSCENE_RIDLEY_LANDING:
-            // Set the event for the ridley in space cutscene, in case it was skipped
-            EventFunction(EVENT_ACTION_SETTING, sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
+            #ifdef DEBUG
+            if (gBootDebugActive == 0)
+            #endif // DEBUG
+            {
+                // Set the event for the ridley in space cutscene, in case it was skipped
+                EventFunction(EVENT_ACTION_SETTING, sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
+            }
             break;
 
         case CUTSCENE_INTRO_TEXT:
-            // Set spawn location
-            gCurrentArea = AREA_BRINSTAR;
-            gCurrentRoom = 0;
-            gLastDoorUsed = 0;
-            gGameModeSub3 = 0;
-            gShipLandingFlag = FALSE;
+            #ifdef DEBUG
+            if (gBootDebugActive == 0)
+            #endif // DEBUG
+            {
+                // Set spawn location
+                gCurrentArea = AREA_BRINSTAR;
+                gCurrentRoom = 0;
+                gLastDoorUsed = 0;
+                gGameModeSub3 = 0;
+                gShipLandingFlag = FALSE;
+            }
             break;
 
         case CUTSCENE_GETTING_FULLY_POWERED:
             // Start fully powered items
             gPauseScreenFlag = PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS;
+            #ifdef DEBUG
+            if (gBootDebugActive != 0)
+            {
+                gEquipment.maxEnergy = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].energy *
+                    sTankIncreaseAmount[gDifficulty].energy + sStartingHealthAmmo.energy;
+                gEquipment.maxMissiles = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].missile *
+                    sTankIncreaseAmount[gDifficulty].missile + sStartingHealthAmmo.missile;
+                gEquipment.maxSuperMissiles = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].superMissile *
+                    sTankIncreaseAmount[gDifficulty].superMissile + sStartingHealthAmmo.superMissile;
+                gEquipment.maxPowerBombs = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb *
+                    sTankIncreaseAmount[gDifficulty].powerBomb + sStartingHealthAmmo.powerBomb;
+                gEquipment.currentMissiles = gEquipment.maxMissiles;
+                gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
+                gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
+                gEquipment.suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK |
+                    SMF_VARIA_SUIT | SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP;
+                gEquipment.beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_WAVE_BEAM | BBF_PLASMA_BEAM |
+                    BBF_CHARGE_BEAM | BBF_BOMBS;
+            }
+            #endif // DEBUG
             break;
 
         case CUTSCENE_COULD_I_SURVIVE:
@@ -126,17 +177,23 @@ void CutsceneEnd(void)
             break;
 
         case CUTSCENE_STATUE_OPENING:
-            // Play fight music
-            if (gCurrentArea == AREA_KRAID)
+            #ifdef DEBUG
+            if (gBootDebugActive == 0)
+            #endif // DEBUG
             {
-                SoundStop(MUSIC_STATUE_ROOM_OPENED);
-                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, CONVERT_SECONDS(1.f));
+                // Play fight music
+                if (gCurrentArea == AREA_KRAID)
+                {
+                    SoundStop(MUSIC_STATUE_ROOM_OPENED);
+                    unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, CONVERT_SECONDS(1.f));
+                }
+                else if (gCurrentArea == AREA_RIDLEY)
+                {
+                    SoundStop(MUSIC_STATUE_ROOM_OPENED);
+                    unk_3bd0(MUSIC_RIDLEY_BATTLE, CONVERT_SECONDS(1.f));
+                }
             }
-            else if (gCurrentArea == AREA_RIDLEY)
-            {
-                SoundStop(MUSIC_STATUE_ROOM_OPENED);
-                unk_3bd0(MUSIC_RIDLEY_BATTLE, CONVERT_SECONDS(1.f));
-            }
+            break;
     }
 
     // Play post cutscene bg fading
@@ -144,14 +201,26 @@ void CutsceneEnd(void)
 
     // Check should set event
     if (sCutsceneData[gCurrentCutscene].event != EVENT_NONE)
-        EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
+    {
+        #ifdef DEBUG
+        if (gBootDebugActive == 0)
+        #endif // DEBUG
+        {
+            EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
+        }
+    }
 
     if (sCutsceneData[gCurrentCutscene].isElevator)
     {
-        // Fade in the elevator sound
-        PlayFadingSound(SOUND_ELEVATOR, sCutsceneData[gCurrentCutscene].fadingTimer);
-        // Fade in the room music
-        CheckPlayFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
+        #ifdef DEBUG
+        if (gBootDebugActive == 0)
+        #endif // DEBUG
+        {
+            // Fade in the elevator sound
+            PlayFadingSound(SOUND_ELEVATOR, sCutsceneData[gCurrentCutscene].fadingTimer);
+            // Fade in the room music
+            CheckPlayFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
+        }
     }
 }
 
@@ -197,14 +266,33 @@ u8 CutsceneSubroutine(void)
             break;
             
         case CUTSCENE_STAGE_ONGOING:
+            #ifdef DEBUG
+            ended = FALSE;
+            #endif // DEBUG
             APPLY_DELTA_TIME_INC(CUTSCENE_DATA.timeInfo.timer);
             CutsceneUpdateSpecialEffect();
 
             result = sCutsceneData[gCurrentCutscene].pFunction();
+            #ifdef DEBUG
+            if (result)
+            {
+                ended = TRUE;
+                if (gBootDebugActive != 0)
+                    ended = 2;
+            }
+            else if (gBootDebugActive != 0)
+            {
+                if (gChangedInput & KEY_B)
+                    return TRUE;
+                if (gChangedInput & KEY_START)
+                    ended = 2;
+            }
+            #else // !DEBUG
             if (result)
                 ended = TRUE;
             else
                 ended = FALSE;
+            #endif // DEBUG
 
             if (gCutsceneToSkip == gCurrentCutscene && gChangedInput & KEY_B)
             {
@@ -216,6 +304,23 @@ u8 CutsceneSubroutine(void)
             {
                 CUTSCENE_DATA.dispcnt = 0;
                 gSubGameModeStage++;
+                #ifdef DEBUG
+                if (ended == 2)
+                {
+                    if ((gCurrentCutscene == CUTSCENE_COULD_I_SURVIVE ||
+                        gCurrentCutscene == CUTSCENE_GETTING_FULLY_POWERED) &&
+                        gButtonInput & (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN))
+                    {
+                        ended = FALSE;
+                    }
+                    if (ended)
+                    {
+                        StopAllMusicsAndSounds();
+                        gSubGameModeStage = 0;
+                        SET_BACKDROP_COLOR(COLOR_BLACK);
+                    }
+                }
+                #endif // DEBUG
             }
             break;
             
@@ -241,8 +346,15 @@ u8 CutsceneSubroutine(void)
             gSubGameModeStage = CUTSCENE_STAGE_STARTING;
 
             if (sCutsceneData[gCurrentCutscene].gameplayType == CUTSCENE_TYPE_NON_GAMEPLAY)
-                gCurrentCutscene = CUTSCENE_NONE;
-        
+            {
+                #ifdef DEBUG
+                if (gBootDebugActive == 0)
+                #endif // DEBUG
+                {
+                    gCurrentCutscene = CUTSCENE_NONE;                
+                }
+            }
+
             return TRUE;
     }
 
@@ -304,6 +416,9 @@ void CutsceneLoadingVBlank(void)
 void CutsceneInit(void)
 {
     s32 gameplayType;
+    #ifdef DEBUG
+    u8 temp;
+    #endif // DEBUG
 
     CallbackSetVBlank(CutsceneLoadingVBlank);
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
@@ -318,15 +433,35 @@ void CutsceneInit(void)
 
     write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
-    gameplayType = sCutsceneData[gCurrentCutscene].gameplayType;
-    if (gameplayType != CUTSCENE_TYPE_NON_GAMEPLAY)
+    #ifdef DEBUG
+    if (gBootDebugActive == 0)
+    #endif // DEBUG
     {
-        if (gameplayType == CUTSCENE_TYPE_IN_GAMEPLAY)
-            gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
-
-        if (gameplayType < CUTSCENE_TYPE_END)
-            DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, gameplayType * 0x4000, 16);
+        gameplayType = sCutsceneData[gCurrentCutscene].gameplayType;
+        if (gameplayType != CUTSCENE_TYPE_NON_GAMEPLAY)
+        {
+            if (gameplayType == CUTSCENE_TYPE_IN_GAMEPLAY)
+                gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
+    
+            if (gameplayType < CUTSCENE_TYPE_END)
+                DmaTransfer(3, VRAM_OBJ, EWRAM_BASE + 0x1E000, gameplayType * 0x4000, 16);
+        }
     }
+
+    #ifdef DEBUG
+    // Written this way to produce matching code
+    temp = gBootDebugActive;
+    if (temp != 0)
+    {
+        if (gButtonInput & KEY_L)
+            gEquipment.suitMiscActivation |= SMF_VARIA_SUIT;
+        else
+            gEquipment.suitMiscActivation &= ~SMF_VARIA_SUIT;
+    }
+
+    if (gDebugMode)
+        gCutsceneToSkip = gCurrentCutscene;
+    #endif // DEBUG
 
     if (gCutsceneToSkip != gCurrentCutscene)
         gCutsceneToSkip = CUTSCENE_NONE;
@@ -1304,3 +1439,24 @@ u8 CutsceneUpdateFading(void)
 
     return ended;
 }
+
+#ifdef DEBUG
+/**
+ * @brief Checks if the cutscene stage should be skipped when A is pressed
+ * 
+* @param bg Fade type (1 for black, 2 for white)
+ */
+void CutsceneCheckSkipStage(u8 fade)
+{
+    if (gBootDebugActive != 0 && gChangedInput & KEY_A)
+    {
+        CUTSCENE_DATA.timeInfo.stage++;
+        CUTSCENE_DATA.timeInfo.timer = CUTSCENE_DATA.timeInfo.subStage = 0;
+
+        if (fade == 1)
+            CutsceneFadeScreenToBlack();
+        else if (fade == 2)
+            CutsceneFadeScreenToWhite();
+    }
+}
+#endif // DEBUG

@@ -1,16 +1,63 @@
 # Disable built-in rules
 .SUFFIXES:
 
-TARGET = mzm_us.gba
-BASEROM = mzm_us_baserom.gba
-SHA1FILE = mzm.sha1
+REGION ?= us
+
+ifeq ($(REGION),us)
+	TARGET = mzm_us.gba
+	BASEROM = mzm_us_baserom.gba
+	SHA1FILE = mzm_us.sha1
+	GAME_TITLE = ZEROMISSIONE
+	GAME_CODE = BMXE
+	CPPFLAGS += -DREGION_US
+endif
+
+# ifeq ($(REGION),us_beta)
+# 	TARGET = mzm_us_beta.gba
+# 	BASEROM = mzm_us_beta_baserom.gba
+# 	SHA1FILE = mzm_us_beta.sha1
+# 	GAME_TITLE = ZEROMISSIONE
+# 	GAME_CODE = BMXE
+# 	CPPFLAGS += -DREGION_US_BETA
+# endif
+
+# ifeq ($(REGION),eu)
+# 	TARGET = mzm_eu.gba
+# 	BASEROM = mzm_eu_baserom.gba
+# 	SHA1FILE = mzm_eu.sha1
+# 	GAME_TITLE = ZEROMISSIONP
+# 	GAME_CODE = BMXP
+# 	CPPFLAGS += -DREGION_EU
+# endif
+
+# ifeq ($(REGION),jp)
+# 	TARGET = mzm_jp.gba
+# 	BASEROM = mzm_jp_baserom.gba
+# 	SHA1FILE = mzm_jp.sha1
+# 	GAME_TITLE = ZEROMISSIONJ
+# 	GAME_CODE = BMXJ
+# 	CPPFLAGS += -DREGION_JP
+# endif
+
+# ifeq ($(REGION),cn)
+# 	TARGET = mzm_cn.gba
+# 	BASEROM = mzm_cn_baserom.gba
+# 	SHA1FILE = mzm_cn.sha1
+# 	GAME_TITLE = ZEROMISSIONC
+# 	GAME_CODE = BMXC
+# 	CPPFLAGS += -DREGION_CN
+# endif
+
+ifeq ($(DEBUG),1)
+	CPPFLAGS += -DDEBUG
+endif
+
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
 DUMPS = $(BASEROM:.gba=.dump) $(TARGET:.gba=.dump)
+LD_SCRIPT = linker.ld.pp
 
 # ROM header
-GAME_TITLE = ZEROMISSIONE
-GAME_CODE = BMXE
 MAKER_CODE = 01
 GAME_REVISION = 00
 
@@ -40,7 +87,7 @@ PREPROC = tools/preproc/preproc
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
 CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm -f2003-patch
-CPPFLAGS = -nostdinc -Iinclude/
+CPPFLAGS += -nostdinc -Iinclude/
 PREPROCFLAGS = charmap.txt
 
 # Objects
@@ -89,7 +136,9 @@ clean:
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
 	$(MSG) RM data/
-	$Q$(RM) -r data	
+	$Q$(RM) -r data
+	$(MSG) RM linker.ld.pp
+	$Q$(RM) linker.ld.pp
 
 .PHONY: help
 help:
@@ -110,9 +159,13 @@ $(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) GBAFIX $@
 	$Q$(GBAFIX) $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION)
 
-$(ELF) $(MAP): $(OBJ) linker.ld
+$(ELF) $(MAP): $(OBJ) $(LD_SCRIPT)
 	$(MSG) LD $@
-	$Q$(LD) $(LDFLAGS) -n -T linker.ld -Map=$(MAP) -o $@
+	$Q$(LD) $(LDFLAGS) -n -T $(LD_SCRIPT) -Map=$(MAP) -o $@
+
+$(LD_SCRIPT): linker.ld
+	$(MSG) CPP $@
+	$Q$(CPP) $(CPPFLAGS) $< -o $@
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
@@ -138,3 +191,28 @@ src/sprites_AI/%.s: src/sram/%.c
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@
 	$Q$(HOSTCC) $< $(HOSTCFLAGS) $(HOSTCPPFLAGS) -o $@
+
+.PHONY: us us_debug
+# us_beta eu eu_debug jp jp_debug cn cn_debug
+
+us:
+	$(MAKE) REGION=us
+us_debug:
+	$(MAKE) REGION=us DEBUG=1
+# us_beta:
+# 	$(MAKE) REGION=us_beta DEBUG=1
+
+# eu:
+# 	$(MAKE) REGION=eu
+# eu_debug:
+# 	$(MAKE) REGION=eu DEBUG=1
+
+# jp:
+# 	$(MAKE) REGION=jp
+# jp_debug:
+# 	$(MAKE) REGION=jp DEBUG=1
+
+# cn:
+# 	$(MAKE) REGION=cn
+# cn_debug:
+# 	$(MAKE) REGION=cn DEBUG=1

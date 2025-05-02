@@ -78,6 +78,11 @@ u8 RidleyLandingRidleyFlying(void)
     }
 
     RidleyLandingUpdateRidley(&CUTSCENE_DATA.oam[1]);
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -288,6 +293,10 @@ u8 RidleyLandingShipLanding(void)
         movement = FALSE;
     CUTSCENE_DATA.oam[8].notDrawn = movement;
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
+
     return FALSE;
 }
 
@@ -385,6 +394,10 @@ u8 RidleyLandingShipInSpace(void)
 
     if (MOD_AND(gFrameCounter8Bit, 16) == 0)
         gCurrentOamScaling -= Q_8_8(.035f);
+
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(1);
+    #endif // DEBUG
 
     return FALSE;
 }

@@ -5,6 +5,7 @@
 #include "structs/menus/title_screen.h"
 
 extern const struct TitleScreenAnimatedPalette sTitleScreenAnimatedPaletteTemplates[4];
+extern const u8* const sRomInfoStringPointers[4];
 extern const u8 sTitleScreenCometsFlags[2][2];
 
 extern const u8 sTitleScreenSkyDecorationsPaletteRows[6];

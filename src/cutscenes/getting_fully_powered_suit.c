@@ -146,6 +146,10 @@ u8 GettingFullyPoweredSuitAnimation(void)
     for (i = OAM_UP_SPARKLES_START; i < OAM_UP_SPARKLES_END; i++)
         GettingFullyPoweredSuitUpdateSparkleGoingUp(&CUTSCENE_DATA.oam[i], i);
 
+    #ifdef DEBUG
+    CutsceneCheckSkipStage(2);
+    #endif // DEBUG
+
     return FALSE;
 }
 

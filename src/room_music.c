@@ -66,14 +66,23 @@ void CheckPlayLoadingJingle(void)
 {
     gMusicTrackInfo.currentRoomTrack = gCurrentRoomEntry.musicTrack;
 
-    if (!gGameModeSub3 && gDemoState == DEMO_STATE_NONE && gIsLoadingFile)
+    if (!gGameModeSub3 && gDemoState == DEMO_STATE_NONE)
     {
-        PlayCurrentMusicTrack();
-        if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
+        if (gIsLoadingFile)
         {
-            gDisablePause = TRUE;
-            InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
+            PlayCurrentMusicTrack();
+            if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
+            {
+                gDisablePause = TRUE;
+                InsertMusicAndQueueCurrent(MUSIC_LOADING_JINGLE, TRUE);
+            }
         }
+        #ifdef DEBUG
+        else if (gDebugMode && gCurrentRoomEntry.musicTrack != 0)
+        {
+            unk_42bc(gMusicTrackInfo.currentRoomTrack);
+        }
+        #endif // DEBUG
     }
 }
 

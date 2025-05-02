@@ -8,6 +8,8 @@
 #include "transfer.h"
 
 #include "data/cable_link_data.h"
+#include "data/io_transfer_data.h"
+#include "data/internal_io_transfer_data.h"
 
 #include "constants/cable_link.h"
 
@@ -23,6 +25,10 @@
 u8 FusionGalleryConnectProcess(void)
 {
     u8 probeCount;
+    #ifdef DEBUG
+    u8 i;
+    const u8* string;
+    #endif // DEBUG
     
     gIoTransferInfo.result = TRANSFER_RESULT_NONE;
 
@@ -47,6 +53,18 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_MULTIBOOT_INIT:
+            #ifdef DEBUG
+            string = sCableLinkDebugString_Blank;
+            for (i = 1; i <= 3; i++)
+            {
+                CableLinkDrawErrorStr(string, VRAM_BASE + 0xE004 + (i + 2) * 0x40, 0xC);
+                CableLinkDrawErrorStr(string, VRAM_BASE + 0xE00A + (i + 2) * 0x40, 0xC);
+            }
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE1C0, 0xC);
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE200, 0xC);
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE240, 0xC);
+            #endif // DEBUG
+
             CallbackSetSerialCommunication(TransferExchangeData);
             CallbackSetTimer3(TransferReloadTransfer);
 
@@ -61,6 +79,78 @@ u8 FusionGalleryConnectProcess(void)
 
         case CONNECT_STAGE_MULTIBOOT_PROCESS:
             APPLY_DELTA_TIME_INC(gIoTransferInfo.timer);
+
+            #ifdef DEBUG
+            for (i = 1; i <= 3; i++)
+            {
+                if ((gMultiBootParamData.responseBit >> i & 1) == 0)
+                {
+                    if (gIoTransferInfo.timer & 1)
+                        string = sCableLinkDebugString_NotConnected1;
+                    else
+                        string = sCableLinkDebugString_NotConnected2;
+                }
+                else if ((gMultiBootParamData.clientBit >> i & 1) == 0)
+                {
+                    if (gIoTransferInfo.timer & 1)
+                        string = sCableLinkDebugString_Checking1;
+                    else
+                        string = sCableLinkDebugString_Checking2;
+                }
+                else
+                {
+                    if (gIoTransferInfo.timer & 1)
+                        string = sCableLinkDebugString_Ready1;
+                    else
+                        string = sCableLinkDebugString_Ready2;
+                }
+
+                CableLinkDrawErrorStr(sPlayerNumbersStringPointers[i], VRAM_BASE + 0xE004 + (i + 2) * 0x40, 0xC);
+                CableLinkDrawErrorStr(string, VRAM_BASE + 0xE00A + (i + 2) * 0x40, 0xC);
+            }
+
+            if (gMultiBootParamData.clientBit & (2 | 4 | 8))
+            {
+                if (gMultiBootParamData.probeCount != 0 && gMultiBootParamData.probeCount != 0xD1)
+                {
+                    if (gIoTransferInfo.timer & 1)
+                        string = sCableLinkDebugString_1_Right;
+                    else
+                        string = sCableLinkDebugString_2_Right;
+                }
+                else if (gMultiBootParamData.probeCount == 0)
+                {
+                    if (gBootDebugActive)
+                    {
+                        if (gIoTransferInfo.timer & 1)
+                            string = sCableLinkDebugString_PressAButton1;
+                        else
+                            string = sCableLinkDebugString_PressAButton2;
+                    }
+                }
+                else if (gMultiBootParamData.probeCount == 0xD1)
+                {
+                    gIoTransferInfo.timer = 0;
+                    string = sCableLinkDebugString_NowSending12;
+                }
+                
+                if (gMultiBootParamData.probeCount > 0xDF)
+                {
+                    gIoTransferInfo.timer = 0;
+                    string = sCableLinkDebugString_BootChecking2;
+                }
+            }
+            else
+            {
+                if (gIoTransferInfo.timer & 1)
+                    string = sCableLinkDebugString_NoClientBit1;
+                else
+                    string = sCableLinkDebugString_NoClientBit2;
+            }
+
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE1C0, 0xC);
+            #endif // DEBUG
+
             if (gMultiBootParamData.clientBit & (2 | 4 | 8))
             {
                 probeCount = gMultiBootParamData.probeCount;
@@ -71,9 +161,27 @@ u8 FusionGalleryConnectProcess(void)
                     gIoTransferInfo.timer = 0;
             }
 
-            if (gMultiBootParamData.probeCount == 0 && gMultiBootParamData.clientBit != 0)
+            #ifdef DEBUG
+            if (gBootDebugActive)
+                i = gChangedInput & KEY_A;
+            else
+                i = TRUE;
+            // Written this way to produce matching code
+            i++; i--;
+            if (i)
+            #endif // DEBUG
             {
-                MultiBootStartParent(&gMultiBootParamData, gDataSentPointer + MULTIBOOT_HEADER_SIZE, gDataSentSize - MULTIBOOT_HEADER_SIZE, 4, 1);
+                if (gMultiBootParamData.probeCount == 0 && gMultiBootParamData.clientBit)
+                {
+                    MultiBootStartParent(&gMultiBootParamData, gDataSentPointer + MULTIBOOT_HEADER_SIZE, gDataSentSize - MULTIBOOT_HEADER_SIZE, 4, 1);
+                    #ifdef DEBUG
+                    if (gIoTransferInfo.timer & 1)
+                        string = sCableLinkDebugString_PressA1;
+                    else
+                        string = sCableLinkDebugString_PressA2;
+                    CableLinkDrawErrorStr(string, VRAM_BASE + 0xE3C0, 0xC);
+                    #endif
+                }
             }
 
             gMultibootErrorFlags = MultiBootMain(&gMultiBootParamData);
@@ -96,6 +204,11 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_TRANSFER_SEND_TRANSFER_ROM:
+            #ifdef DEBUG
+            string = sCableLinkDebugString_Sending1;
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE200, 0xC);
+            #endif // DEBUG
+
             if (TransferProcessSend(sTransferRom_After - sTransferRom, (const u32*)sTransferRom) == 0)
             {
                 gIoTransferInfo.connectStage++;
@@ -107,6 +220,23 @@ u8 FusionGalleryConnectProcess(void)
             break;
 
         case CONNECT_STAGE_TRANSFER_COMPLETE:
+            #ifdef DEBUG
+            switch (gMultibootUnk_3005880)
+            {
+                case 0:
+                    string = sCableLinkDebugString_Success;
+                    break;
+                case 1:
+                    string = sCableLinkDebugString_Retry;
+                    break;
+                case 2:
+                    string = sCableLinkDebugString_Error;
+                    break;
+            }
+
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE240, 0xC);
+            #endif // DEBUG
+
             // Always 0?
             switch (gMultibootUnk_3005880)
             {
@@ -134,6 +264,10 @@ u8 FusionGalleryConnectProcess(void)
 
         case CONNECT_STAGE_MULTIBOOT_TIMED_OUT:
             gIoTransferInfo.result = TRANSFER_RESULT_TIMED_OUT;
+            #ifdef DEBUG
+            string = sCableLinkDebugString_TimeOut;
+            CableLinkDrawErrorStr(string, VRAM_BASE + 0xE3C0, 9);
+            #endif // DEBUG
             gIoTransferInfo.connectStage = CONNECT_STAGE_RESTORE_AUDIO;
             break;
 
@@ -147,7 +281,9 @@ u8 FusionGalleryConnectProcess(void)
 
         case CONNECT_STAGE_RESTORE_AUDIO:
             InitializeAudio();
+            #ifndef DEBUG
             FileSelectApplyStereo();
+            #endif // !DEBUG
             PlayMusic(gIoTransferInfo.musicTrack, gIoTransferInfo.musicPriority);
             gIoTransferInfo.connectStage = CONNECT_STAGE_FINISH;
             break;
@@ -170,7 +306,7 @@ void CableLinkDrawErrorStr(const u8* str, u16* dst, u8 palette)
 {
     u16 letter;
 
-    if (!gSramErrorFlag)
+    if (!gBootDebugActive)
         return;
 
     while (*str)

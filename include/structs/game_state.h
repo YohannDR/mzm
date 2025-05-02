@@ -27,8 +27,10 @@ extern struct ButtonAssignments gButtonAssignments;
 extern s8 gTourianEscapeCutsceneStage;
 extern vu16 gVBlankRequestFlag;
 extern u8 gDisableSoftreset;
-extern u8 gDebugFlag;
-extern u8 gSramErrorFlag;
+extern u8 gDebugMode;
+extern u8 gBootDebugActive;
+extern u8 gDisableMusic;
+extern u8 gDisableCutscenes_Unused;
 extern s8 gDisablePause;
 extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;
@@ -56,5 +58,10 @@ extern u8 gSubGameModeStage;
 extern u8 gHasSaved;
 extern s8 gMostRecentSaveFile;
 extern u8 gCompletedGameFlagCopy;
+
+extern s16 gDebugVCount_InGameStart;
+extern u16 gDebugVCount_InGameEnd;
+extern s16 gDebugVCount_VBlankEnd;
+extern s16 gDebugVCount_AudioMax;
 
 #endif

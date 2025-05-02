@@ -21,11 +21,13 @@
 
 #define SRAM_GET_CHECKSUM_SIZE(type, iteration, checksumType) ((s32)(sizeof(type) / iteration / sizeof(checksumType)))
 
-struct StartingInfo {
-    u8 startingArea;
-    u8 unk_1;
-    u8 unk_2;
-    u8 unk_3;
+struct SectionInfo {
+    u8 sectionIndex;
+    u8 starIndex;
+    u8 downloadedMaps;
+    // 3
+    u8 onMapScreen:1;
+    u8 unk_3_1:7;
 };
 
 struct SaveFileInfo {
@@ -197,6 +199,14 @@ struct SaveTimeAttack {
     u8 padding_68[152];
 };
 
+struct SaveBootDebug {
+    u8 zeroSaveText[8];
+    u8 unk_8[4];
+    u8 debugMode;
+    u8 sectionIndex;
+    u8 unk_E[2];
+};
+
 struct Sram {
     struct SaveFileScreenOptions fileScreenOptions_fileA;
     struct SaveFileScreenOptions fileScreenOptions_fileB;
@@ -220,7 +230,7 @@ struct Sram {
 
     u8 padding_7a80[1264];
 
-    u8 unk_7f70[16];
+    struct SaveBootDebug bootDebugSave;
     u8 MetZeroSramCheck_Text[SRAM_TEXT_SIZE];
 };
 
@@ -233,7 +243,7 @@ extern struct Sram gSram;
 
 extern u8 gUnk_3000c20;
 extern struct SaveFileInfo gSaveFilesInfo[3];
-extern struct StartingInfo gStartingInfo;
+extern struct SectionInfo gSectionInfo;
 
 // Place holder symbols?
 extern u16 gSramDemoInputData[DEMO_MAX_DURATION];

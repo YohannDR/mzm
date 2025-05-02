@@ -314,10 +314,16 @@ void EraseSramInit(void)
     ResetFreeOam();
 
     ERASE_SRAM_DATA.language = gLanguage;
-    if ((u8)(ERASE_SRAM_DATA.language - 2) > LANGUAGE_SPANISH - 2)
+    #ifdef DEBUG
+    if (ERASE_SRAM_DATA.language > LANGUAGE_SPANISH)
+    #else // !DEBUG
+    if (ERASE_SRAM_DATA.language < LANGUAGE_ENGLISH || ERASE_SRAM_DATA.language > LANGUAGE_SPANISH)
+    #endif // DEBUG
+    {
         ERASE_SRAM_DATA.language = LANGUAGE_ENGLISH;
+    }
 
-    while ((u16)(read16(REG_VCOUNT) - 21) < 140); // read16(REG_VCOUNT) <= SCREEN_SIZE_Y
+    while (read16(REG_VCOUNT) >= 21 && read16(REG_VCOUNT) <= SCREEN_SIZE_Y);
 
     DMA_SET(3, sEraseSramMenuBackgroundPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, (13 * PAL_ROW_SIZE) / sizeof(u16)));
     DMA_SET(3, sEraseSramMenuObjectsPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, sizeof(sEraseSramMenuObjectsPal) / sizeof(u16)));

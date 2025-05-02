@@ -127,8 +127,8 @@ u8* DoSramOperation(u8 operation)
                 break;
 
             case 12:
-                diff = SramWriteChecked((u8*)&gSram.unk_7f70,
-                    SRAM_BASE + OFFSET_OF(struct Sram, unk_7f70), sizeof(gSram.unk_7f70));
+                diff = SramWriteChecked((u8*)&gSram.bootDebugSave,
+                    SRAM_BASE + OFFSET_OF(struct Sram, bootDebugSave), sizeof(gSram.bootDebugSave));
                 break;
 
             case SRAM_OPERATION_SAVE_DEMO_RAM:

@@ -139,9 +139,9 @@ void SpriteUpdate(void)
             }
         }
     }
-    else if (gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+    else if (gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
     {
-        // In debug free movement, update sprites normally but don't check for collision
+        // In debug no-clip, update sprites normally but don't check for collision
         for (count = 0; count < MAX_AMOUNT_OF_SPRITES; count++)
         {
             if (!(gSpriteData[count].status & SPRITE_STATUS_EXISTS))

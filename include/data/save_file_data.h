@@ -26,6 +26,6 @@ extern const struct InGameTimer sInGameTimer_Empty;
 extern const struct InGameTimer sBestCompletionTime_Empty;
 extern const u8 sUnk_411520[4];
 
-extern const struct StartingInfo sStartingInfo;
+extern const struct SectionInfo sSectionInfo;
 
 #endif /* SAVE_FILE_DATA_H */

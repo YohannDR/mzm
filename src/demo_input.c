@@ -15,7 +15,7 @@ void DemoMainLoop(void)
     if (gDemoState == DEMO_STATE_NONE)
         return;
 
-    if (gDemoState == DEMO_STATE_IN_CONTROL_DEBUG)
+    if (gDemoState == DEMO_STATE_RECORDING_DEBUG)
         RecordDemo();
     else if (gDemoState == DEMO_STATE_PLAYING)
         UpdateDemoInput();
@@ -110,7 +110,7 @@ void CopyDemoInput(void)
 void DemoResetInputAndDuration(void)
 {
     s32 i;
-    if (gDemoState == DEMO_STATE_IN_CONTROL_DEBUG)
+    if (gDemoState == DEMO_STATE_RECORDING_DEBUG)
     {
         // Clear both input and duration to leave space to record 
         for (i = 0; i < DEMO_MAX_DURATION; i++)

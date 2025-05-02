@@ -463,10 +463,10 @@ void ScrollProcessGeneral(void)
     if (!gDisableScrolling)
     {
         // Process scrolling
-        if (gFreeMovementLockCamera && gGameModeSub1 == SUB_GAME_MODE_FREE_MOVEMENT)
+        if (gNoClipLockCamera && gGameModeSub1 == SUB_GAME_MODE_NO_CLIP)
         {
             // Update camera lock movement
-            ScrollFreeMovementDebugCameraLock(&coords);
+            ScrollNoClipDebugCameraLock(&coords);
         }
         else if (gCurrentRoomEntry.scrollsFlag == ROOM_SCROLLS_FLAG_HAS_SCROLLS)
         {
@@ -1026,11 +1026,11 @@ void ScrollBg2(struct Coordinates* pCoords)
 }
 
 /**
- * @brief 59008 | a8 | Handle the free movement camera lock functionality
+ * @brief 59008 | a8 | Handle the debug no-clip camera lock functionality
  * 
  * @param pCoords Coords pointer
  */
-void ScrollFreeMovementDebugCameraLock(struct Coordinates* pCoords)
+void ScrollNoClipDebugCameraLock(struct Coordinates* pCoords)
 {
     if (pCoords->x < BLOCK_SIZE * 7 + HALF_BLOCK_SIZE)
     {

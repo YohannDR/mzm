@@ -30,7 +30,7 @@ const struct TitleScreenAnimatedPalette sTitleScreenAnimatedPaletteTemplates[4] 
     },
 };
 
-static const u8* const sRomInfoStringPointers[4] = {
+const u8* const sRomInfoStringPointers[4] = {
     sTitleScreenRomInfoTime,
     sTitleScreenRomInfoRegionJPN,
     sTitleScreenRomInfoRegionEUR,
