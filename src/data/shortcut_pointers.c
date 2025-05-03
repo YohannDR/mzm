@@ -48,7 +48,7 @@ u16* sObjPalramPointer = PALRAM_OBJ;
 FORCE_RODATA
 u32* sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
 FORCE_RODATA
-union NonGameplayRAM* sNonGameplayRamPointer = &gNonGameplayRAM;
+union NonGameplayRAM* sNonGameplayRamPointer = &gNonGameplayRam;
 FORCE_RODATA
 struct Sram* sSramEwramPointer = EWRAM_BASE + 0x38000;
 FORCE_RODATA

@@ -27,7 +27,7 @@
  * @param high High
  * @param low Low
  */
-#define C_16_2_8(high, low) ((high) << 8 | (low))
+#define C_16_2_8(high, low) ((s32)(high) << 8 | (s32)(low))
 
 /**
  * @brief Constructs an ushort from 2 bytes (low | high << 8)

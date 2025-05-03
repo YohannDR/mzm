@@ -465,7 +465,7 @@ void ChozodiaEscapeInit(void)
     write16(REG_BG3VOFS, 0);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / 4));
+    DMA_SET(3, &zero, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRam) / 4));
 
     gNextOamSlot = 0;
 

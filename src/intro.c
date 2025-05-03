@@ -70,7 +70,7 @@ void IntroInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT, sizeof(gNonGameplayRAM) / 4));
+    DMA_SET(3, &zero, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT, sizeof(gNonGameplayRam) / 4));
 
     INTRO_DATA.scaling = Q_8_8(.125f);
     INTRO_DATA.charDrawerX = SCREEN_SIZE_X / 5 + 8;

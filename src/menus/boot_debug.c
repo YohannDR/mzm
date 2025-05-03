@@ -19,6 +19,7 @@
 #include "structs/audio.h"
 
 #ifdef DEBUG
+
 /**
  * @brief Updates all of the boot debug menu's OAM
  */
@@ -26,10 +27,12 @@ void BootDebugUpdateMenuOam(void)
 {
     BootDebugUpdateCursorOam();
     BootDebugUpdateNonCursorOam();
+
     if (BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].exists)
         BootDebugUpdateMapScreenPosition();
+
     gNextOamSlot = 0;
-    ProcessMenuOam(4, BOOT_DEBUG_DATA.menuOam, sBootDebugOam);
+    ProcessMenuOam(ARRAY_SIZE(BOOT_DEBUG_DATA.menuOam), BOOT_DEBUG_DATA.menuOam, sBootDebugOam);
     ResetFreeOam();
 }
 
@@ -40,7 +43,7 @@ void BootDebugSetupMenuOam(void)
 {
     s32 i;
     
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < ARRAY_SIZE(BOOT_DEBUG_DATA.menuOam); i++)
         BOOT_DEBUG_DATA.menuOam[i] = sMenuOamData_Empty;
 
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MENU_CURSOR].exists = TRUE;
@@ -86,35 +89,43 @@ void BootDebugUpdateCursorOam(void)
                 xPos = sBootDebugSectionMenuText[gSectionInfo.sectionIndex].xPosition;
                 yPos = sBootDebugSectionMenuText[gSectionInfo.sectionIndex].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_MODE:
             case BOOT_DEBUG_SUB_MENU_SAVE:
                 xPos = sBootDebugSaveMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSaveMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_SAMUS:
                 xPos = sBootDebugSamusMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSamusMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_SOUND:
                 xPos = sBootDebugSoundMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugSoundMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_DEMO:
                 xPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_ETC:
                 xPos = sBootDebugEtcMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                 yPos = sBootDebugEtcMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_ERASE:
                 xPos = sBootDebugEraseMenuText[BOOT_DEBUG_DATA.subMenuOption + 1].xPosition;
                 yPos = sBootDebugEraseMenuText[BOOT_DEBUG_DATA.subMenuOption + 1].yPosition;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_BOOT:
                 xPos = 1;
                 yPos = 2;
                 break;
+
             default:
                 xPos = 10;
                 yPos = 10;
@@ -132,6 +143,7 @@ void BootDebugUpdateCursorOam(void)
                 case BOOT_DEBUG_SUB_MENU_MODE:
                     xPos += 9;
                     break;
+
                 case BOOT_DEBUG_SUB_MENU_SAVE:
                     if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAVE_LINKED_WITH_FUSION)
                     {
@@ -149,12 +161,14 @@ void BootDebugUpdateCursorOam(void)
                         xPos += 9 + BOOT_DEBUG_DATA.optionCursor;
                     }
                     break;
+
                 case BOOT_DEBUG_SUB_MENU_SAMUS:
                     if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SAMUS_GET_MAP)
                         xPos += 8 + BOOT_DEBUG_DATA.optionCursor;
                     else
                         xPos += 9 + BOOT_DEBUG_DATA.optionCursor;
                     break;
+
                 case BOOT_DEBUG_SUB_MENU_SOUND:
                     if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_SOUND_BGM)
                     {
@@ -166,6 +180,7 @@ void BootDebugUpdateCursorOam(void)
                         xPos += 6 + BOOT_DEBUG_DATA.optionCursor;
                     }
                     break;
+
                 case BOOT_DEBUG_SUB_MENU_DEMO:
                     xPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].xPosition;
                     yPos = sBootDebugDemoMenuText[BOOT_DEBUG_DATA.subMenuOption].yPosition;
@@ -185,6 +200,7 @@ void BootDebugUpdateCursorOam(void)
                             xPos += 13;
                     }
                     break;
+
                 case BOOT_DEBUG_SUB_MENU_ETC:
                     if (BOOT_DEBUG_DATA.subMenuOption == BOOT_DEBUG_ETC_MAIN_END_OBJ)
                     {
@@ -264,8 +280,6 @@ void BootDebugUpdateMapScreenPosition(void)
 
     s32 xOffset;
     s32 yOffset;
-    const struct Door* pDoor;
-    const struct RoomEntryROM* pRoom;
     u16 mapX;
     u16 mapY;
     
@@ -274,20 +288,17 @@ void BootDebugUpdateMapScreenPosition(void)
     
     if (gSectionInfo.sectionIndex >= BOOT_DEBUG_SECTION_TEST_1)
     {
-        pDoor = &sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed];
-        xOffset = pDoor->xExit;
+        xOffset = sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed].xExit;
         if (xOffset > 0)
             xOffset = 0;
         else if (xOffset < 0)
             xOffset = 4;
     }
 
-    pRoom = &sAreaRoomEntryPointers[gSectionInfo.sectionIndex][gCurrentRoom];
-    mapX = pRoom->mapX;
-    mapY = pRoom->mapY;
-    pDoor = &sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed];
-    mapX += (pDoor->xStart - xOffset) / 15;
-    mapY += (pDoor->yStart - yOffset) / 10;
+    mapX = sAreaRoomEntryPointers[gSectionInfo.sectionIndex][gCurrentRoom].mapX;
+    mapY = sAreaRoomEntryPointers[gSectionInfo.sectionIndex][gCurrentRoom].mapY;
+    mapX += (sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed].xStart - xOffset) / SCREEN_SIZE_X_BLOCKS;
+    mapY += (sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed].yStart - yOffset) / SCREEN_SIZE_Y_BLOCKS;
     mapX *= 0x20;
     mapY *= 0x20;
     BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].xPosition = mapX;
@@ -348,7 +359,8 @@ void BootDebugReadSram(void)
 
     pSave = &gSram.bootDebugSave;
     invalid = FALSE;
-    for (i = 0; i < 8; i++)
+
+    for (i = 0; i < ARRAY_SIZE(sZeroSaveText); i++)
     {
         if (pSave->zeroSaveText[i] != sZeroSaveText[i])
         {
@@ -359,7 +371,7 @@ void BootDebugReadSram(void)
 
     if (invalid)
     {
-        for (i = 0; i < 8; i++)
+        for (i = 0; i < ARRAY_SIZE(sZeroSaveText); i++)
             pSave->zeroSaveText[i] = sZeroSaveText[i];
     
         gDebugMode = 2;
@@ -384,10 +396,11 @@ void BootDebugWriteSram(u8 selectSaveFile)
     u8* dst;
 
     dst = gSram.bootDebugSave.zeroSaveText;
-    DmaTransfer(3, &sZeroSaveText, dst, 8, 8);
+    DmaTransfer(3, &sZeroSaveText, dst, ARRAY_SIZE(sZeroSaveText), 8);
     gSram.bootDebugSave.debugMode = gDebugMode;
 
-    if (selectSaveFile) {
+    if (selectSaveFile)
+    {
         if (gMostRecentSaveFile == 0)
             gSram.bootDebugSave.sectionIndex = BOOT_DEBUG_SECTION_SAVE_A;
         else if (gMostRecentSaveFile == 1)
@@ -423,6 +436,7 @@ s32 BootDebugSubroutine(void)
             BootDebugSetupMenu();
             gGameModeSub1++;
             break;
+
         case 1:
             if (gWrittenToBLDY_NonGameplay != 0)
             {
@@ -436,13 +450,16 @@ s32 BootDebugSubroutine(void)
                 gGameModeSub1++;
             }
             break;
+
         case 2:
             inputResult = BootDebugHandleInput();
             if (inputResult != 0)
             {
                 if (inputResult == 2)
                 {
-                    write16(REG_BLDCNT, 0xBF);
+                    write16(REG_BLDCNT, BLDCNT_BRIGHTNESS_INCREASE_EFFECT | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+                            BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+                            BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG0_FIRST_TARGET_PIXEL);
                     gGameModeSub1 = 4;
                 }
                 else
@@ -458,11 +475,13 @@ s32 BootDebugSubroutine(void)
                             gCurrentCutscene = 0;
                             gTourianEscapeCutsceneStage = 0;
                             break;
+
                         case 2:
                             gCurrentCutscene = 0;
                             gTourianEscapeCutsceneStage = 0;
                             gDebugMode = 0;
                             break;
+
                         case 7:
                         case 8:
                             break;
@@ -472,7 +491,7 @@ s32 BootDebugSubroutine(void)
 
                     if (gGameModeSub2 == 1)
                     {
-                        if (gIsLoadingFile == 1)
+                        if (gIsLoadingFile == TRUE)
                         {
                             SramLoadFile();
                             gLanguage = gGameCompletion.language;
@@ -544,12 +563,16 @@ void VBlankCodeDuringBootDebug(void)
 {
     if (gIoTransferInfo.linkInProgress)
         LinkVSync();
+
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));
+
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
+
     write16(REG_BG3VOFS, SUB_PIXEL_TO_PIXEL(gBg3VOFS_NonGameplay) & 0x1FF);
     write16(REG_BG2VOFS, SUB_PIXEL_TO_PIXEL(gBg2VOFS_NonGameplay) & 0x1FF);
     write16(REG_BG0VOFS, SUB_PIXEL_TO_PIXEL(gBg0VOFS_NonGameplay) & 0x1FF);
     write16(REG_BG0HOFS, SUB_PIXEL_TO_PIXEL(gBg0HOFS_NonGameplay) & 0x1FF);
+
     write16(REG_DISPCNT, BOOT_DEBUG_DATA.dispcnt);
 }
 
@@ -558,25 +581,27 @@ void VBlankCodeDuringBootDebug(void)
  */
 void BootDebugSetupMenu(void)
 {
-    // TODO: Replace numbers with constants
-    write16(REG_IE, read16(REG_IE) ^ 1);
-    write16(REG_IME, 0);
-    write16(REG_DISPSTAT, read16(REG_DISPSTAT) & 0xFFEF);
-    write16(REG_IE, read16(REG_IE) & 0xFFFD);
-    write16(REG_IF, 2);
-    write16(REG_IME, 1);
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 0x10);
-    write16(REG_BLDCNT, 0xFF);
+    write16(REG_IE, read16(REG_IE) ^ IF_VBLANK);
+    write16(REG_IME, FALSE);
+    write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
+
+    write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
+    write16(REG_IF, IF_HBLANK);
+    write16(REG_IME, TRUE);
+
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
+    write16(REG_BLDCNT, BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_DECREASE_EFFECT);
     write16(REG_DISPCNT, 0);
 
     StopAllMusicsAndSounds();
-    DoSoundAction(0x194F780);
+    DoSoundAction(SOUND_ACTION_DISABLE_STEREO | SOUND_ACTION_PWM(9) | SOUND_ACTION_FREQ_INDEX(SOUND_MODE_FREQ_13379) |
+        SOUND_ACTION_VOLUME(15) | SOUND_ACTION_MAX_CHANNELS(7) | SOUND_ACTION_ENABLE_REVERB);
     UpdateMusicPriority(0);
 
     gGameModeSub2 = 0;
     gNextOamSlot = 0;
     ResetFreeOam();
-    BitFill(3, 0, &gNonGameplayRAM, 0x628, 32);
+    BitFill(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam), 32);
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
     
     SramWrite_FileInfo();
@@ -586,27 +611,28 @@ void BootDebugSetupMenu(void)
     SramRead_SoundMode();
     FileSelectApplyStereo();
 
-    gBg3VOFS_NonGameplay = BOOT_DEBUG_DATA.bg3vofs * 0x40;
-    gBg2VOFS_NonGameplay = BOOT_DEBUG_DATA.bg2vofs * 0x40 - 0x10;
-    gBg2HOFS_NonGameplay = 0xFEA0;
+    gBg3VOFS_NonGameplay = BLOCK_TO_SUB_PIXEL(BOOT_DEBUG_DATA.bg3vofs);
+    gBg2VOFS_NonGameplay = BLOCK_TO_SUB_PIXEL(BOOT_DEBUG_DATA.bg2vofs) - QUARTER_BLOCK_SIZE;
+    gBg2HOFS_NonGameplay = -(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
     
     LZ77UncompVRAM(sBootDebugObjGfx, VRAM_OBJ);
     LZ77UncompVRAM(sBootDebugBgGfx, VRAM_BASE);
-    DMA_SET(3, sMinimapTilesGfx, VRAM_BASE + 0x4000, C_32_2_16(DMA_ENABLE, 0x1800));
+    DMA_SET(3, sMinimapTilesGfx, BGCNT_TO_VRAM_CHAR_BASE(1), C_32_2_16(DMA_ENABLE, 0x1800));
+
     DMA_SET(3, sMinimapTilesPal, PALRAM_BASE, C_32_2_16(DMA_ENABLE, 0x50));
     DMA_SET(3, sBootDebugBgPal, PALRAM_BASE + 0x100, C_32_2_16(DMA_ENABLE, 0x80));
     DMA_SET(3, sBootDebugObjPal, PALRAM_OBJ, C_32_2_16(DMA_ENABLE, 0x30));
 
-    BitFill(3, 0xD040, VRAM_BASE + 0xF000, 0x1000, 16);
-    BitFill(3, 0x8040, VRAM_BASE + 0xE000, 0x1000, 16);
-    BitFill(3, 0xE040, VRAM_BASE + 0xD000, 0x1000, 16);
-    BitFill(3, 0x1140, VRAM_BASE + 0xB800, 0x1800, 16);
+    BitFill(3, 0xD040, BGCNT_TO_VRAM_TILE_BASE(30), BGCNT_VRAM_TILE_SIZE * 2, 16);
+    BitFill(3, 0x8040, BGCNT_TO_VRAM_TILE_BASE(28), BGCNT_VRAM_TILE_SIZE * 2, 16);
+    BitFill(3, 0xE040, BGCNT_TO_VRAM_TILE_BASE(26), BGCNT_VRAM_TILE_SIZE * 2, 16);
+    BitFill(3, 0x1140, BGCNT_TO_VRAM_TILE_BASE(23), BGCNT_VRAM_TILE_SIZE * 3, 16);
 
     gWrittenToBLDY_NonGameplay = 0x10;
     write16(REG_BG0VOFS, 0);
     write16(REG_BG0HOFS, 0);
-    write16(REG_BG1VOFS, 0xFFF0);
-    write16(REG_BG1HOFS, 0xFF58);
+    write16(REG_BG1VOFS, -QUARTER_BLOCK_SIZE);
+    write16(REG_BG1HOFS, -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + EIGHTH_BLOCK_SIZE));
     write16(REG_BG2VOFS, (gBg2VOFS_NonGameplay / 4) & 0x1FF);
     write16(REG_BG2HOFS, (gBg2HOFS_NonGameplay / 4) & 0x1FF);
     write16(REG_BG3VOFS, (gBg3VOFS_NonGameplay / 4) & 0x1FF);
@@ -626,24 +652,28 @@ void BootDebugSetupMenu(void)
     }
 
     BootDebugDrawMenuNames();
-    write16(REG_WIN1H, 0x54EC);
-    write16(REG_WIN1V, 0x149C);
-    write16(REG_WINOUT, 0x39);
-    write8(REG_WININ + 1, 0x3D);
-    write8(REG_WININ, 0x32);
-    write16(REG_BG3CNT, 0x9E03);
-    write16(REG_BG2CNT, 0x9C02);
-    write16(REG_BG1CNT, 0x9A00);
-    write16(REG_BG0CNT, 0xF605);
-    BOOT_DEBUG_DATA.dispcnt = 0x5C00;
-    write16(REG_DISPCNT, 0x5C00);
 
-    if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION &&
-        BOOT_DEBUG_DATA.subMenuOption != BOOT_DEBUG_SECTION_BRINSTAR)
+    // Dimensions of the lighter blue square that holds the menu data
+    write16(REG_WIN1H, C_16_2_8(SCREEN_SIZE_X * .35, SCREEN_SIZE_X - 4));
+    write16(REG_WIN1V, C_16_2_8(SCREEN_SIZE_Y * .125, SCREEN_SIZE_Y * .975));
+
+    write16(REG_WINOUT, WIN0_BG0 | WIN0_BG3 | WIN0_OBJ | WIN0_COLOR_EFFECT);
+    write8(REG_WININ + 1, (WIN1_BG0 | WIN1_BG2 | WIN1_BG3 | WIN1_OBJ | WIN1_COLOR_EFFECT) >> 8);
+    write8(REG_WININ, WIN0_BG1 | WIN0_OBJ | WIN0_COLOR_EFFECT);
+
+    write16(REG_BG3CNT, CREATE_BGCNT(0, 30, BGCNT_LOW_PRIORITY, BGCNT_SIZE_256x512));
+    write16(REG_BG2CNT, CREATE_BGCNT(0, 28, BGCNT_LOW_MID_PRIORITY, BGCNT_SIZE_256x512));
+    write16(REG_BG1CNT, CREATE_BGCNT(0, 26, BGCNT_HIGH_PRIORITY, BGCNT_SIZE_256x512));
+    write16(REG_BG0CNT, CREATE_BGCNT(1, 22, BGCNT_HIGH_MID_PRIORITY, BGCNT_SIZE_512x512) | BGCNT_SCREEN_OVERFLOW);
+
+    BOOT_DEBUG_DATA.dispcnt = DCNT_BG2 | DCNT_BG3 | DCNT_OBJ | DCNT_WIN1;
+    write16(REG_DISPCNT, DCNT_BG2 | DCNT_BG3 | DCNT_OBJ | DCNT_WIN1);
+
+    if (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION && BOOT_DEBUG_DATA.subMenuOption != BOOT_DEBUG_SECTION_BRINSTAR)
         BootDebugSectionMapDrawRoomAndDoorIds(FALSE);
 
     BootDebugSetVBlankCodePtr();
-    write16(REG_IE, read16(REG_IE) | 1);
+    write16(REG_IE, read16(REG_IE) | IF_VBLANK);
 }
 
 /**
@@ -656,7 +686,6 @@ s32 BootDebugHandleInput(void)
     s32 result;
     s32 subMenuResult;
     s32 tempResult;
-    u8 doorId;
 
     result = 0;
     subMenuResult = TRUE;
@@ -670,17 +699,15 @@ s32 BootDebugHandleInput(void)
         return 1;
     }
 
-    if (gChangedInput & KEY_START ||
-       (BOOT_DEBUG_DATA.menuCursor == 1 && gChangedInput & KEY_A &&
-       BOOT_DEBUG_DATA.menuDepth != BOOT_DEBUG_MENU_MAIN))
+    if (gChangedInput & KEY_START || (BOOT_DEBUG_DATA.menuCursor == BOOT_DEBUG_SUB_MENU_SECTION &&
+        gChangedInput & KEY_A && BOOT_DEBUG_DATA.menuDepth != BOOT_DEBUG_MENU_MAIN))
     {
         if (gSectionInfo.sectionIndex == BOOT_DEBUG_SECTION_TITLE)
         {
             gGameModeSub2 = 2;
             result = 1;
         }
-        else if (gSectionInfo.sectionIndex >= BOOT_DEBUG_SECTION_SAVE_A
-            && gSectionInfo.sectionIndex <= BOOT_DEBUG_SECTION_SAVE_C)
+        else if (gSectionInfo.sectionIndex >= BOOT_DEBUG_SECTION_SAVE_A && gSectionInfo.sectionIndex <= BOOT_DEBUG_SECTION_SAVE_C)
         {
             if (gSectionInfo.sectionIndex == BOOT_DEBUG_SECTION_SAVE_C)
                 gMostRecentSaveFile = 2;
@@ -692,7 +719,7 @@ s32 BootDebugHandleInput(void)
             if (gSaveFilesInfo[gMostRecentSaveFile].exists == 1)
             {
                 gCurrentArea = gSectionInfo.sectionIndex;
-                gIsLoadingFile = 1;
+                gIsLoadingFile = TRUE;
                 gGameModeSub2 = 1;
                 result = 1;
             }
@@ -701,17 +728,12 @@ s32 BootDebugHandleInput(void)
         {
             result = 1;
             gGameModeSub2 = 1;
-            gIsLoadingFile = 0;
+            gIsLoadingFile = FALSE;
         
             if (gCurrentArea != gSectionInfo.sectionIndex && !gSectionInfo.onMapScreen)
             {
                 gCurrentRoom = 0;
-                doorId = gLastDoorUsed;
-                if (gSectionInfo.sectionIndex <= BOOT_DEBUG_SECTION_TEST_1)
-                    doorId = 1;
-                else
-                    doorId = 0;
-                gLastDoorUsed = doorId;
+                gLastDoorUsed = gSectionInfo.sectionIndex <= BOOT_DEBUG_SECTION_TEST_1;
             }
         
             gCurrentArea = gSectionInfo.sectionIndex;
@@ -787,25 +809,32 @@ s32 BootDebugHandleInput(void)
             case BOOT_DEBUG_SUB_MENU_SECTION:
                 subMenuResult = BootDebugSectionSubroutine();
                 break;
+
             case BOOT_DEBUG_SUB_MENU_MODE:
                 BootDebugModeSubroutine();
                 subMenuResult = FALSE;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_SAVE:
                 BootDebugSaveSubroutine();
                 subMenuResult = FALSE;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_SAMUS:
                 BootDebugSamusSubroutine();
+
                 if (BOOT_DEBUG_DATA.subMenuOption - BOOT_DEBUG_DATA.bg2vofs > 7)
                     BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption - 7;   
                 else if (BOOT_DEBUG_DATA.bg2vofs > BOOT_DEBUG_DATA.subMenuOption)
-                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption;   
+                    BOOT_DEBUG_DATA.bg2vofs = BOOT_DEBUG_DATA.subMenuOption;
+
                 gBg2VOFS_NonGameplay = (BOOT_DEBUG_DATA.bg2vofs * 0x40) - 0x10;
                 break;
+
             case BOOT_DEBUG_SUB_MENU_SOUND:
                 BootDebugSoundSubroutine();
                 break;
+
             case BOOT_DEBUG_SUB_MENU_DEMO:
                 tempResult = BootDebugDemoSubroutine();
                 if (tempResult != 0)
@@ -824,11 +853,12 @@ s32 BootDebugHandleInput(void)
                     {
                         gCurrentDemo.noDemoShuffle = 1;
                         DemoInit();
-                        gGameModeSub2 = gDemoState != 0 ? 6 : 1;
+                        gGameModeSub2 = gDemoState != DEMO_STATE_NONE ? 6 : 1;
                     }
                     result = 1;
                 }
                 break;
+
             case BOOT_DEBUG_SUB_MENU_ETC:
                 gBootDebugActive = BootDebugEtcSubroutine();
                 if (gBootDebugActive != 0)
@@ -838,6 +868,7 @@ s32 BootDebugHandleInput(void)
                     result = 1;
                 }
                 break;
+
             case BOOT_DEBUG_SUB_MENU_BOOT:
                 subMenuResult = FALSE;
                 gBootDebugActive = 1;
@@ -879,6 +910,7 @@ s32 BootDebugHandleInput(void)
                     BootDebugDrawSubMenuText();
                 }
                 break;
+
             case BOOT_DEBUG_SUB_MENU_ERASE:
                 if (BOOT_DEBUG_DATA.subMenuOption > 0)
                 {
@@ -968,7 +1000,7 @@ s32 BootDebugSectionSubroutine(void)
         {
             write16(REG_WIN0H, 0);
             write16(REG_WIN0V, 0);
-            BOOT_DEBUG_DATA.dispcnt ^= 0x2300;
+            BOOT_DEBUG_DATA.dispcnt ^= DCNT_BG0 | DCNT_BG1 | DCNT_WIN0;
             BOOT_DEBUG_DATA.menuOam[3].exists = 0;
             BOOT_DEBUG_DATA.subMenuOption = 0;
             gSectionInfo.onMapScreen = FALSE;
@@ -1126,9 +1158,10 @@ void BootDebugSectionMapDrawRoomAndDoorIds(u8 initialized)
         BootDebugUpdateMapScreenPosition();
         gBg0VOFS_NonGameplay = BOOT_DEBUG_DATA.bg0vofs;
         gBg0HOFS_NonGameplay = BOOT_DEBUG_DATA.bg0hofs;
-        write16(REG_WIN0H, 0x9CEC);
-        write16(REG_WIN0V, 0x1020);
-        BOOT_DEBUG_DATA.dispcnt |= 0x2300;
+        
+        write16(REG_WIN0H, C_16_2_8(SCREEN_SIZE_X * .65, SCREEN_SIZE_X - 4));
+        write16(REG_WIN0V, C_16_2_8(SCREEN_SIZE_Y * .1, SCREEN_SIZE_Y * .2));
+        BOOT_DEBUG_DATA.dispcnt |= DCNT_BG0 | DCNT_BG1 | DCNT_WIN0;
         BOOT_DEBUG_DATA.menuOam[BOOT_DEBUG_OAM_MAP_CURSOR].exists = OAM_ID_CHANGED_FLAG;
     }
 
@@ -1217,6 +1250,7 @@ void BootDebugModeSubroutine(void)
     else // menuDepth == BOOT_DEBUG_MENU_OPTION
     {
         updateTextAndEvents = FALSE;
+
         switch (BOOT_DEBUG_DATA.subMenuOption)
         {
             case BOOT_DEBUG_MODE_LANGUAGE:
@@ -1330,8 +1364,7 @@ void BootDebugSaveSubroutine(void)
                 }
                 else if (gChangedInput & KEY_A)
                 {
-                    BOOT_DEBUG_DATA.fileScreenOptions.galleryImages ^=
-                        1 << BOOT_DEBUG_DATA.optionCursor;
+                    BOOT_DEBUG_DATA.fileScreenOptions.galleryImages ^= 1 << BOOT_DEBUG_DATA.optionCursor;
                     value = TRUE;
                 }
                 else if (gChangedInput & KEY_RIGHT)
@@ -1352,8 +1385,7 @@ void BootDebugSaveSubroutine(void)
                 }
                 else if (gChangedInput & KEY_A)
                 {
-                    BOOT_DEBUG_DATA.fileScreenOptions.soundTestAndOgMetroid ^=
-                        1 << BOOT_DEBUG_DATA.optionCursor;
+                    BOOT_DEBUG_DATA.fileScreenOptions.soundTestAndOgMetroid ^= 1 << BOOT_DEBUG_DATA.optionCursor;
                     value = TRUE;
                 }
                 else if (gChangedInput & KEY_RIGHT)
@@ -1374,8 +1406,7 @@ void BootDebugSaveSubroutine(void)
                 }
                 else if (gChangedInput & KEY_A)
                 {
-                    BOOT_DEBUG_DATA.fileScreenOptions.fusionGalleryImages =
-                        BOOT_DEBUG_DATA.optionCursor ? 0 : 0x10;
+                    BOOT_DEBUG_DATA.fileScreenOptions.fusionGalleryImages = BOOT_DEBUG_DATA.optionCursor ? 0 : 1 << 4;
                     value = TRUE;
                 }
                 else if (gChangedInput & KEY_RIGHT)
@@ -1393,8 +1424,7 @@ void BootDebugSaveSubroutine(void)
 
         if (value)
         {
-            BootDebugSaveUpdateText(BOOT_DEBUG_DATA.subMenuOption,
-                &BOOT_DEBUG_DATA.fileScreenOptions);
+            BootDebugSaveUpdateText(BOOT_DEBUG_DATA.subMenuOption, &BOOT_DEBUG_DATA.fileScreenOptions);
         }
     }
 }
@@ -1410,12 +1440,11 @@ void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked*
     u16* dst;
     s32 offset;
     s32 i;
-    s32 index;
+    s32 enabled;
     u8 idText[9];
 
     dst = VRAM_BASE + 0xE000;
-    offset = sBootDebugSaveMenuText[subMenuOption].yPosition * 0x20 +
-        sBootDebugSaveMenuText[subMenuOption].xPosition;
+    offset = sBootDebugSaveMenuText[subMenuOption].yPosition * 0x20 + sBootDebugSaveMenuText[subMenuOption].xPosition;
 
     switch (subMenuOption)
     {
@@ -1423,40 +1452,44 @@ void BootDebugSaveUpdateText(u8 subMenuOption, struct FileScreenOptionsUnlocked*
             offset += 9;
             for (i = 0; i < 8; i++, offset++)
             {
-                index = (pOptions->galleryImages >> i) & 1;
-                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
-                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
+                enabled = (pOptions->galleryImages >> i) & 1;
+                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
+                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
             }
             break;
+
         case BOOT_DEBUG_SAVE_DIFFICULTIES_CLEARED:
             offset += 12;
             for (i = 0; i < 3; i++, offset += 2)
             {
-                index = (pOptions->soundTestAndOgMetroid >> i) & 1;
-                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
-                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
+                enabled = (pOptions->soundTestAndOgMetroid >> i) & 1;
+                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
+                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
             }
             break;
+
         case BOOT_DEBUG_SAVE_LINKED_WITH_FUSION:
             offset += 9;
-            index = pOptions->fusionGalleryImages ? 1 : 0;
+            enabled = pOptions->fusionGalleryImages ? TRUE : FALSE;
             for (i = 0; i < 3; i++, offset++)
             {
-                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
-                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][0] << 12);
+                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
+                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[enabled][0] << 12);
             }
             offset++;
             for (i = 0; i < 2; i++, offset++)
             {
-                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[index][1] << 12);
-                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[index][1] << 12);
+                dst[offset] = (dst[offset] & 0x3FF) | (sBootDebugTextToggleColors[enabled][1] << 12);
+                dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | (sBootDebugTextToggleColors[enabled][1] << 12);
             }
             break;
+
         case BOOT_DEBUG_SAVE_ID:
-            for (i = 0; i < 9; i++)
+            for (i = 0; i < ARRAY_SIZE(idText); i++)
                 idText[i] = 0;
+
             unk_7f60c(idText);
-            BootDebugDrawTextAtAddress(dst + 9 + offset, idText, 0xC);
+            BootDebugDrawTextAtAddress(dst + 9 + offset, idText, BOOT_DEBUG_COLOR_YELLOW);
             break;
     }
 }
@@ -1470,9 +1503,9 @@ void BootDebugSaveSetSaveTextColor(void)
     u16* dst;
     s32 i;
 
-    offset = sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].xPosition +
-        (sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].yPosition * 0x20);
+    offset = sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].xPosition + (sBootDebugSaveMenuText[BOOT_DEBUG_SAVE_SAVE].yPosition * 0x20);
     dst = VRAM_BASE + 0xE000;
+
     for (i = 0; i < 4; i++, offset++)
     {
         dst[offset] = (dst[offset] & 0x3FF) | 0x9000;
@@ -1556,8 +1589,10 @@ void BootDebugSamusSubroutine(void)
                 }
                 gSectionInfo.downloadedMaps = gEquipment.downloadedMapStatus;
                 break;
+
             case BOOT_DEBUG_SAMUS_ARM_WEAPON:
                 flagOrButton = gButtonAssignments.armWeapon;
+
                 if (gChangedInput & KEY_A)
                     gButtonAssignments.armWeapon = gButtonAssignments.armWeapon == KEY_L ? KEY_R : KEY_L;
                 else if (gChangedInput & KEY_L)
@@ -1569,6 +1604,7 @@ void BootDebugSamusSubroutine(void)
                 if (flagOrButton != gButtonAssignments.armWeapon)
                     option = 2;
                 break;
+
             case BOOT_DEBUG_SAMUS_DIAGONAL_AIM:
                 flagOrButton = gButtonAssignments.diagonalAim;
                 if (gChangedInput & KEY_A)
@@ -1582,6 +1618,7 @@ void BootDebugSamusSubroutine(void)
                 if (flagOrButton != gButtonAssignments.diagonalAim)
                     option = 3;
                 break;
+
             case BOOT_DEBUG_SAMUS_PAUSE:
                 flagOrButton = gButtonAssignments.pause;
                 if (gChangedInput & KEY_A)
@@ -1591,6 +1628,7 @@ void BootDebugSamusSubroutine(void)
                 if (flagOrButton != gButtonAssignments.pause)
                     option = 2;
                 break;
+
             case BOOT_DEBUG_SAMUS_SWAP_MISSILES:
                 flagOrButton = gButtonAssignments.swapMissiles;
                 if (gChangedInput & KEY_A)
@@ -1696,6 +1734,7 @@ void BootDebugSoundSubroutine(void)
                     }
                 }
                 break;
+
             case BOOT_DEBUG_SOUND_STEREO:
                 if (gChangedInput & KEY_A)
                 {
@@ -1725,11 +1764,10 @@ void BootDebugSetSoundTestIdColor(void)
     s32 offset;
 
     dst = VRAM_BASE + 0xE040;
-    offset = sBootDebugSoundMenuText[BOOT_DEBUG_SOUND_TEST].yPosition * 32 +
-        sBootDebugSoundMenuText[BOOT_DEBUG_SOUND_TEST].xPosition + 6;
-    dst[offset] |= 0xC000;
-    dst[offset + 1] |= 0xC000;
-    dst[offset + 2] |= 0xC000;
+    offset = sBootDebugSoundMenuText[BOOT_DEBUG_SOUND_TEST].yPosition * 32 + sBootDebugSoundMenuText[BOOT_DEBUG_SOUND_TEST].xPosition + 6;
+    dst[offset] |= BOOT_DEBUG_COLOR_YELLOW << 12;
+    dst[offset + 1] |= BOOT_DEBUG_COLOR_YELLOW << 12;
+    dst[offset + 2] |= BOOT_DEBUG_COLOR_YELLOW << 12;
 }
 
 /**
@@ -1951,7 +1989,7 @@ void BootDebugDrawMenuNames(void)
 {
     s32 i;
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < ARRAY_SIZE(sBootDebugMenuNamesText); i++)
     {
         BootDebugDrawTextAtPosition(sBootDebugMenuNamesText[i].background,
             sBootDebugMenuNamesText[i].xPosition,
@@ -2003,9 +2041,11 @@ void BootDebugDrawSubMenuText(void)
                     sBootDebugSectionMenuText[i].yPosition, sBootDebugSectionMenuText[i].palette,
                     sBootDebugSectionMenuText[i].size, sBootDebugSectionMenuText[i].text);
             }
+
             BootDebugSectionDrawStar(0x80);
             BootDebugSectionSetFilesColor();
             break;
+
         case BOOT_DEBUG_SUB_MENU_MODE:
             // BUG: 2 extra entries are drawn
             for (i = 0; i < ARRAY_SIZE(sBootDebugModeMenuText) + 2; i++)
@@ -2373,22 +2413,22 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                     break;
                 case BOOT_DEBUG_DEMO_CUTSCENE_A:
                     dst += offset + 8;
-                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[0], 0xC);
-                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[gTourianEscapeCutsceneStage], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[0], BOOT_DEBUG_COLOR_YELLOW);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneATextPointers[gTourianEscapeCutsceneStage], BOOT_DEBUG_COLOR_YELLOW);
                     break;
                 case BOOT_DEBUG_DEMO_CUTSCENE_B:
                     dst += offset + 8;
-                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[0], 0xC);
-                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[gCurrentCutscene], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[0], BOOT_DEBUG_COLOR_YELLOW);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugCutsceneBTextPointers[gCurrentCutscene], BOOT_DEBUG_COLOR_YELLOW);
                     break;
                 case BOOT_DEBUG_DEMO_DEMO_MODE:
                     dst += offset + 0xC;
-                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[0], 0xC);
-                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[gDemoState + 1], 0xC);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[0], BOOT_DEBUG_COLOR_YELLOW);
+                    BootDebugDrawTextAtAddress(dst, sBootDebugDemoStateTextPointers[gDemoState + 1], BOOT_DEBUG_COLOR_YELLOW);
                     break;
                 case BOOT_DEBUG_DEMO_DEMO_NUM:
                     dst += offset + 0x2C;
-                    BootDebugDrawNumber(dst, gCurrentDemo.number + 1, 2, 0xC);
+                    BootDebugDrawNumber(dst, gCurrentDemo.number + 1, 2, BOOT_DEBUG_COLOR_YELLOW);
                     break;
             }
             break;

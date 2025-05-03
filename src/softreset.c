@@ -54,7 +54,7 @@ void SoftresetInit(void)
     CallbackSetVBlank(SoftresetVBlank_Empty);
     
     buffer = 0;
-    DMA_SET(3, &buffer, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / sizeof(u32)));    
+    DMA_SET(3, &buffer, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRam) / sizeof(u32)));    
 
     write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt = BLDCNT_SCREEN_FIRST_TARGET | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 

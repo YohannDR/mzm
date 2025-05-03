@@ -283,7 +283,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 10,
         .yPosition = 0,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 12,
         .text = sBootDebugMenuNames_DebugConfig_Text
     },
@@ -291,7 +291,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 3,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 7,
         .text = sBootDebugMenuNames_Section_Text
     },
@@ -299,7 +299,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 5,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 4,
         .text = sBootDebugMenuNames_Mode_Text
     },
@@ -307,7 +307,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 7,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 4,
         .text = sBootDebugMenuNames_Save_Text
     },
@@ -315,7 +315,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 9,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 5,
         .text = sBootDebugMenuNames_Samus_Text
     },
@@ -323,7 +323,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 11,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 5,
         .text = sBootDebugMenuNames_Sound_Text
     },
@@ -331,7 +331,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 13,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 4,
         .text = sBootDebugMenuNames_Demo_Text
     },
@@ -339,7 +339,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 15,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 3,
         .text = sBootDebugMenuNames_Etc_Text
     },
@@ -347,7 +347,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 17,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 4,
         .text = sBootDebugMenuNames_Boot_Text
     },
@@ -355,7 +355,7 @@ const struct BootDebugText sBootDebugMenuNamesText[10] = {
         .background = 3,
         .xPosition = 2,
         .yPosition = 19,
-        .palette = 13,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE_SUB_MENU,
         .size = 5,
         .text = sBootDebugMenuNames_Erase_Text
     }
@@ -366,7 +366,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 4,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Brinstar_Text
     },
@@ -374,7 +374,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 6,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Kraid_Text
     },
@@ -382,7 +382,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 8,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Norfair_Text
     },
@@ -390,7 +390,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 10,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Ridley_Text
     },
@@ -398,7 +398,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 12,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Tourian_Text
     },
@@ -406,7 +406,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 14,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Crateria_Text
     },
@@ -414,7 +414,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 16,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Chozodia_Text
     },
@@ -422,7 +422,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 1,
         .yPosition = 18,
-        .palette = 15,
+        .palette = BOOT_DEBUG_COLOR_BLACK,
         .size = 8,
         .text = sBootDebugSectionMenu_Blank_Text
     },
@@ -430,7 +430,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 4,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Test1_Text
     },
@@ -438,7 +438,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 6,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Test2_Text
     },
@@ -446,7 +446,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 8,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSectionMenu_Test3_Text
     },
@@ -454,7 +454,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 10,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 5,
         .text = sBootDebugSectionMenu_Title_Text
     },
@@ -462,7 +462,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 12,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugSectionMenu_SaveA_Text
     },
@@ -470,7 +470,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 14,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugSectionMenu_SaveB_Text
     },
@@ -478,7 +478,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 16,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugSectionMenu_SaveC_Text
     },
@@ -486,7 +486,7 @@ const struct BootDebugText sBootDebugSectionMenuText[16] = {
         .background = 2,
         .xPosition = 11,
         .yPosition = 2,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 6,
         .text = sBootDebugSectionMenu_Select_Text
     }
@@ -497,7 +497,7 @@ const struct BootDebugText sBootDebugModeMenuText[2] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 9,
         .text = sBootDebugModeMenu_Language_Text
     },
@@ -505,7 +505,7 @@ const struct BootDebugText sBootDebugModeMenuText[2] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 9,
         .text = sBootDebugModeMenu_Difficulty_Text
     }
@@ -516,7 +516,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 8,
         .text = sBootDebugLanguage_Japanese_Text
     },
@@ -524,7 +524,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 12,
+        .palette = BOOT_DEBUG_COLOR_YELLOW,
         .size = 8,
         .text = sBootDebugLanguage_Hiragana_Text
     },
@@ -532,7 +532,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebugLanguage_English_Text
     },
@@ -540,7 +540,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebugLanguage_German_Text
     },
@@ -548,7 +548,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebugLanguage_French_Text
     },
@@ -556,7 +556,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebugLanguage_Italian_Text
     },
@@ -564,7 +564,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 3,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebugLanguage_Spanish_Text
     }
@@ -575,7 +575,7 @@ const struct BootDebugText sBootDebugDifficultyText[3] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 5,
-        .palette = 12,
+        .palette = BOOT_DEBUG_COLOR_YELLOW,
         .size = 6,
         .text = sBootDebugDifficulty_Easy_Text
     },
@@ -583,7 +583,7 @@ const struct BootDebugText sBootDebugDifficultyText[3] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 5,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 6,
         .text = sBootDebugDifficulty_Normal_Text
     },
@@ -591,7 +591,7 @@ const struct BootDebugText sBootDebugDifficultyText[3] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 5,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 6,
         .text = sBootDebugDifficulty_Hard_Text
     }
@@ -602,7 +602,7 @@ const struct BootDebugText sBootDebugSaveMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 17,
         .text = sBootDebugSaveMenu_GalleryImages_Text
     },
@@ -610,7 +610,7 @@ const struct BootDebugText sBootDebugSaveMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 17,
         .text = sBootDebugSaveMenu_DifficultiesCleared_Text
     },
@@ -618,7 +618,7 @@ const struct BootDebugText sBootDebugSaveMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 15,
         .text = sBootDebugSaveMenu_LinkedWithFusion_Text
     },
@@ -626,7 +626,7 @@ const struct BootDebugText sBootDebugSaveMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 9,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 17,
         .text = sBootDebugSaveMenu_Id_Text
     },
@@ -634,7 +634,7 @@ const struct BootDebugText sBootDebugSaveMenuText[5] = {
         .background = 2,
         .xPosition = 2,
         .yPosition = 11,
-        .palette = 15,
+        .palette = BOOT_DEBUG_COLOR_BLACK,
         .size = 4,
         .text = sBootDebugSaveMenu_Save_Text
     }
@@ -645,7 +645,7 @@ const struct BootDebugText sBootDebugSamusMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 6,
         .text = sBootDebugSamusMenu_GetMap_Text
     },
@@ -653,7 +653,7 @@ const struct BootDebugText sBootDebugSamusMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 6,
         .text = sBootDebugSamusMenu_ArmWeapon_Text
     },
@@ -661,7 +661,7 @@ const struct BootDebugText sBootDebugSamusMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugSamusMenu_DiagonalAim_Text
     },
@@ -669,7 +669,7 @@ const struct BootDebugText sBootDebugSamusMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 9,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 5,
         .text = sBootDebugSamusMenu_Pause_Text
     },
@@ -677,7 +677,7 @@ const struct BootDebugText sBootDebugSamusMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 11,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 4,
         .text = sBootDebugSamusMenu_SwapMissiles_Text
     }
@@ -688,7 +688,7 @@ const struct BootDebugText sBootDebugArmWeaponButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 5,
-        .palette = 12,
+        .palette = BOOT_DEBUG_COLOR_YELLOW,
         .size = 8,
         .text = sBootDebug_LButton_Text
     },
@@ -696,7 +696,7 @@ const struct BootDebugText sBootDebugArmWeaponButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 5,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebug_RButton_Text
     }
@@ -707,7 +707,7 @@ const struct BootDebugText sBootDebugDiagonalAimButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 7,
-        .palette = 12,
+        .palette = BOOT_DEBUG_COLOR_YELLOW,
         .size = 8,
         .text = sBootDebug_LButton_Text
     },
@@ -715,7 +715,7 @@ const struct BootDebugText sBootDebugDiagonalAimButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 7,
-        .palette = 10,
+        .palette = BOOT_DEBUG_COLOR_GREEN,
         .size = 8,
         .text = sBootDebug_RButton_Text
     }
@@ -726,7 +726,7 @@ const struct BootDebugText sBootDebugPauseButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 9,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 6,
         .text = sBootDebug_Start_Text
     },
@@ -734,7 +734,7 @@ const struct BootDebugText sBootDebugPauseButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 9,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 6,
         .text = sBootDebug_Select_Text
     }
@@ -745,7 +745,7 @@ const struct BootDebugText sBootDebugSwapMissilesButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 11,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 6,
         .text = sBootDebug_Start_Text
     },
@@ -753,7 +753,7 @@ const struct BootDebugText sBootDebugSwapMissilesButtonText[2] = {
         .background = 2,
         .xPosition = 9,
         .yPosition = 11,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 6,
         .text = sBootDebug_Select_Text
     }
@@ -764,7 +764,7 @@ const struct BootDebugText sBootDebugSoundMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 3,
         .text = sBootDebugSoundMenu_Bgm_Text
     },
@@ -772,7 +772,7 @@ const struct BootDebugText sBootDebugSoundMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 4,
         .text = sBootDebugSoundMenu_Mono_Text
     },
@@ -780,7 +780,7 @@ const struct BootDebugText sBootDebugSoundMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 4,
         .text = sBootDebugSoundMenu_Test_Text
     },
@@ -788,7 +788,7 @@ const struct BootDebugText sBootDebugSoundMenuText[4] = {
         .background = 2,
         .xPosition = 5,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 4,
         .text = sBootDebugSoundMenu_Stereo_Text
     }
@@ -799,7 +799,7 @@ const struct BootDebugText sBootDebugBgmOnOffText[2] = {
         .background = 2,
         .xPosition = 6,
         .yPosition = 3,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 3,
         .text = sBootDebug_On_Text
     },
@@ -807,7 +807,7 @@ const struct BootDebugText sBootDebugBgmOnOffText[2] = {
         .background = 2,
         .xPosition = 6,
         .yPosition = 3,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 3,
         .text = sBootDebug_Off_Text
     }
@@ -818,7 +818,7 @@ const struct BootDebugText sBootDebugDemoMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugDemoMenu_CutsceneSwitch_Text
     },
@@ -826,7 +826,7 @@ const struct BootDebugText sBootDebugDemoMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugDemoMenu_CutsceneA_Text
     },
@@ -834,7 +834,7 @@ const struct BootDebugText sBootDebugDemoMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 7,
         .text = sBootDebugDemoMenu_CutsceneB_Text
     },
@@ -842,7 +842,7 @@ const struct BootDebugText sBootDebugDemoMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 11,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 10,
         .text = sBootDebugDemoMenu_DemoMode_Text
     },
@@ -850,7 +850,7 @@ const struct BootDebugText sBootDebugDemoMenuText[5] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 13,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 9,
         .text = sBootDebugDemoMenu_DemoNum_Text
     }
@@ -861,7 +861,7 @@ const struct BootDebugText sBootDebugDemoOnOffText[2] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 3,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 3,
         .text = sBootDebug_On_Text
     },
@@ -869,7 +869,7 @@ const struct BootDebugText sBootDebugDemoOnOffText[2] = {
         .background = 2,
         .xPosition = 10,
         .yPosition = 3,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 3,
         .text = sBootDebug_Off_Text
     }
@@ -880,7 +880,7 @@ const struct BootDebugText sBootDebugEtcMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 6,
         .text = sBootDebugEtcMenu_Ending_Text
     },
@@ -888,7 +888,7 @@ const struct BootDebugText sBootDebugEtcMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 10,
         .text = sBootDebugEtcMenu_StaffRoll_Text
     },
@@ -896,7 +896,7 @@ const struct BootDebugText sBootDebugEtcMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 12,
         .text = sBootDebugEtcMenu_MainEndObj_Text
     },
@@ -904,7 +904,7 @@ const struct BootDebugText sBootDebugEtcMenuText[4] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 9,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 8,
         .text = sBootDebugEtcMenu_DoorTransition_Text
     }
@@ -915,7 +915,7 @@ const struct BootDebugText sBootDebugMainEndObjOnOffText[2] = {
         .background = 2,
         .xPosition = 14,
         .yPosition = 7,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 3,
         .text = sBootDebug_On_Text
     },
@@ -923,7 +923,7 @@ const struct BootDebugText sBootDebugMainEndObjOnOffText[2] = {
         .background = 2,
         .xPosition = 14,
         .yPosition = 7,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 3,
         .text = sBootDebug_Off_Text
     }
@@ -934,7 +934,7 @@ const struct BootDebugText sBootDebugDoorTransitionOnOffText[2] = {
         .background = 2,
         .xPosition = 14,
         .yPosition = 9,
-        .palette = 9,
+        .palette = BOOT_DEBUG_COLOR_RED,
         .size = 3,
         .text = sBootDebug_On_Text
     },
@@ -942,7 +942,7 @@ const struct BootDebugText sBootDebugDoorTransitionOnOffText[2] = {
         .background = 2,
         .xPosition = 14,
         .yPosition = 9,
-        .palette = 11,
+        .palette = BOOT_DEBUG_COLOR_BLUE,
         .size = 3,
         .text = sBootDebug_Off_Text
     }
@@ -953,7 +953,7 @@ const struct BootDebugText sBootDebugEraseMenuText[3] = {
         .background = 2,
         .xPosition = 0,
         .yPosition = 3,
-        .palette = 12,
+        .palette = BOOT_DEBUG_COLOR_YELLOW,
         .size = 10,
         .text = sBootDebugEraseMenu_EraseSram_Text
     },
@@ -961,7 +961,7 @@ const struct BootDebugText sBootDebugEraseMenuText[3] = {
         .background = 2,
         .xPosition = 2,
         .yPosition = 5,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 3,
         .text = sBootDebugEraseMenu_No_Text
     },
@@ -969,7 +969,7 @@ const struct BootDebugText sBootDebugEraseMenuText[3] = {
         .background = 2,
         .xPosition = 2,
         .yPosition = 7,
-        .palette = 8,
+        .palette = BOOT_DEBUG_COLOR_AZURE_WHITE,
         .size = 3,
         .text = sBootDebugEraseMenu_Yes_Text
     }
@@ -1061,8 +1061,8 @@ const u8* const sBootDebugDemoStateTextPointers[5] = {
 
 FORCE_RODATA
 u8 sBootDebugTextToggleColors[2][2] = {
-    [0] = {0xF, 0xC},
-    [1] = {0xC, 0xF}
+    [FALSE] = { BOOT_DEBUG_COLOR_BLACK, BOOT_DEBUG_COLOR_YELLOW },
+    [TRUE] = { BOOT_DEBUG_COLOR_YELLOW, BOOT_DEBUG_COLOR_BLACK }
 };
 
 #endif /* DEBUG */

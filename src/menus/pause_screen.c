@@ -2035,7 +2035,7 @@ void PauseScreenInit(void)
     write16(REG_DISPCNT, 0);
 
     gNextOamSlot = 0;
-    BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
+    BitFill(3, 0, &gNonGameplayRam, sizeof(union NonGameplayRAM), 32);
     ResetFreeOam();
     
     DMA_SET(3, gOamData, OAM_BASE, C_32_2_16(DMA_ENABLE | DMA_32BIT, OAM_SIZE / sizeof(u32)));

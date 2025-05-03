@@ -4194,7 +4194,7 @@ void FileSelectInit(void)
 {
     CallbackSetVBlank(FileSelectVBlank_Empty);
 
-    BitFill(3, 0, &gNonGameplayRAM, sizeof(gNonGameplayRAM), 32);
+    BitFill(3, 0, &gNonGameplayRam, sizeof(gNonGameplayRam), 32);
 
     write16(REG_DISPCNT, FILE_SELECT_DATA.dispcnt = 0);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);

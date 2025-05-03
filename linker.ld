@@ -245,7 +245,7 @@ SECTIONS {
         . = 0x0000160c; gTimeAttackData = .;
         . = 0x0000168C; gButtonAssignments = .;
         . = 0x00001694; gTimeAttackRecord = .;
-        . = 0x000016C4; gNonGameplayRAM = .;
+        . = 0x000016C4; gNonGameplayRam = .;
         . = 0x00001cec; gVBlankCallback = .;
         . = 0x00001cf0; gHBlankCallback = .;
         . = 0x00001cf4; gVCountCallback = .;

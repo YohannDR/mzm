@@ -307,7 +307,7 @@ void EraseSramInit(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = BLDY_MAX_VALUE);
 
     zero = 0;
-    DMA_SET(3, &zero, &gNonGameplayRAM, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRAM) / sizeof(u32)));
+    DMA_SET(3, &zero, &gNonGameplayRam, C_32_2_16(DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED, sizeof(gNonGameplayRam) / sizeof(u32)));
 
     ClearGfxRam();
     gNextOamSlot = 0;
