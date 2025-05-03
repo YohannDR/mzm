@@ -18,6 +18,7 @@
 #include "structs/cable_link.h"
 #include "structs/audio.h"
 
+#ifdef DEBUG
 /**
  * @brief Updates all of the boot debug menu's OAM
  */
@@ -2485,3 +2486,5 @@ void BootDebugDrawTextAtAddress(u16* dst, const u8* pText, u8 palette)
         pText++;
     }
 }
+
+#endif /* DEBUG */

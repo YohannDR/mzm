@@ -224,6 +224,7 @@
 
 
 #define INCTEXT(x)  {0}
+#define SHIFT_JIS(x) {0}
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN

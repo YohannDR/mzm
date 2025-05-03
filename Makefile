@@ -4,9 +4,7 @@
 REGION ?= us
 
 ifeq ($(REGION),us)
-	TARGET = mzm_us.gba
-	BASEROM = mzm_us_baserom.gba
-	SHA1FILE = mzm_us.sha1
+	TARGET = mzm_us
 	GAME_TITLE = ZEROMISSIONE
 	GAME_CODE = BMXE
 	CPPFLAGS += -DREGION_US
@@ -14,8 +12,6 @@ endif
 
 # ifeq ($(REGION),us_beta)
 # 	TARGET = mzm_us_beta.gba
-# 	BASEROM = mzm_us_beta_baserom.gba
-# 	SHA1FILE = mzm_us_beta.sha1
 # 	GAME_TITLE = ZEROMISSIONE
 # 	GAME_CODE = BMXE
 # 	CPPFLAGS += -DREGION_US_BETA
@@ -23,8 +19,6 @@ endif
 
 # ifeq ($(REGION),eu)
 # 	TARGET = mzm_eu.gba
-# 	BASEROM = mzm_eu_baserom.gba
-# 	SHA1FILE = mzm_eu.sha1
 # 	GAME_TITLE = ZEROMISSIONP
 # 	GAME_CODE = BMXP
 # 	CPPFLAGS += -DREGION_EU
@@ -32,8 +26,6 @@ endif
 
 # ifeq ($(REGION),jp)
 # 	TARGET = mzm_jp.gba
-# 	BASEROM = mzm_jp_baserom.gba
-# 	SHA1FILE = mzm_jp.sha1
 # 	GAME_TITLE = ZEROMISSIONJ
 # 	GAME_CODE = BMXJ
 # 	CPPFLAGS += -DREGION_JP
@@ -41,8 +33,6 @@ endif
 
 # ifeq ($(REGION),cn)
 # 	TARGET = mzm_cn.gba
-# 	BASEROM = mzm_cn_baserom.gba
-# 	SHA1FILE = mzm_cn.sha1
 # 	GAME_TITLE = ZEROMISSIONC
 # 	GAME_CODE = BMXC
 # 	CPPFLAGS += -DREGION_CN
@@ -50,10 +40,15 @@ endif
 
 ifeq ($(DEBUG),1)
 	CPPFLAGS += -DDEBUG
+	TARGET := $(TARGET)_debug
 endif
+
+BASEROM := $(TARGET)_baserom.gba
+TARGET := $(TARGET).gba
 
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
+SHA1FILE = $(TARGET:.gba=.sha1)
 DUMPS = $(BASEROM:.gba=.dump) $(TARGET:.gba=.dump)
 LD_SCRIPT = linker.ld.pp
 

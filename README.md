@@ -11,6 +11,7 @@ Progress can be seen here : https://docs.google.com/spreadsheets/d/1X8XarD5evY8Z
 This produces the following ROMs:
 
 - mzm_us.gba: `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`
+- mzm_us_debug.gba: `sha1: 58986c4d6f2e5ccdc04936cc8b7c9d378570710c` **Not yet matching**
 
 **Discords**: 
 - https://discord.gg/2MGB9Xbr9y MAGret

@@ -30,6 +30,7 @@ class StringParser
 public:
     StringParser(char* buffer, long size) : m_buffer(buffer), m_size(size), m_pos(0) {}
     int ParseString(long srcPos, unsigned short* dest, int &destLength);
+    int ParseShiftJis(long srcPos, unsigned short* dest, int &destLength);
 
 private:
     struct Integer

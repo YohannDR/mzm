@@ -3,10 +3,17 @@
 
 #include "types.h"
 #include "macros.h"
-#include "structs/menus/boot_debug.h"
-#include "constants/menus/boot_debug.h"
 
-extern const u8 sEasyHardEventActions[3][2];
+#include "structs/menus/boot_debug.h"
+
+#include "constants/menus/boot_debug.h"
+#include "constants/game_state.h"
+#include "constants/cutscene.h"
+#include "constants/demo.h"
+
+#ifdef DEBUG
+
+extern const u8 sEasyHardEventActions[DIFF_END][2];
 
 extern const u16 sBootDebugBgPal[128];
 extern const u16 sBootDebugObjPal[48];
@@ -40,10 +47,12 @@ extern const struct OamArray sBootDebugOam[6];
 
 extern const u8 sZeroSaveText[8];
 
-extern const u8* const sBootDebugCutsceneBTextPointers[15];
+extern const u8* const sBootDebugCutsceneBTextPointers[CUTSCENE_END];
 extern const u8* const sBootDebugCutsceneATextPointers[2];
 extern const u8* const sBootDebugDemoStateTextPointers[5];
 
 extern u8 sBootDebugTextToggleColors[2][2];
 
-#endif
+#endif /* DEBUG */
+
+#endif /* BOOT_DEBUG_DATA_H */
