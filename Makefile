@@ -116,6 +116,11 @@ diff: $(DUMPS)
 	$(MSG) DIFF $^
 	$Q$(DIFF) $^
 
+.PHONY: extract
+extract:
+	$(MSG) Extracting
+	$Q ./tools/extractor mzm_us_baserom.gba database.txt
+
 .PHONY: clean
 clean:
 	$(MSG) RM roms
