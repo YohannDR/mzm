@@ -13,6 +13,10 @@
 #define MISSILE_ACTIVATION_COLLECTED          (1 << 0)
 #define MISSILE_ACTIVATION_HAS_AMMO_REMAINING (1 << 1)
 
+#ifdef DEBUG
+#define PAUSE_DEBUG_EVENTS_PER_SCREEN 20
+#endif // DEBUG
+
 enum AbilityGroup {
     ABILITY_GROUP_BEAMS,
     ABILITY_GROUP_BOMBS,
@@ -129,6 +133,7 @@ enum StatusScreenMiscAbilityOffset {
     STATUS_SCREEN_MISC_OFFSET_END
 };
 
+#ifdef DEBUG
 enum PauseDebugGroup {
     PAUSE_DEBUG_GROUP_BEAM,
     PAUSE_DEBUG_GROUP_BOMB,
@@ -155,5 +160,6 @@ enum PauseDebugGroup {
 
     PAUSE_DEBUG_GROUP_END
 };
+#endif // DEBUG
 
 #endif

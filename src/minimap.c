@@ -18,6 +18,51 @@
 #include "structs/samus.h"
 #include "structs/room.h"
 
+#ifdef DEBUG
+
+/**
+ * @brief Draws room ID and coordinates on the minimap
+ * 
+ */
+void MinimapDrawRoomInfo(void)
+{
+    MinimapDrawNumber(gCurrentRoom, VRAM_OBJ + 0x12E0);
+    MinimapDrawNumber(gMinimapX, VRAM_OBJ + 0x1340);
+    MinimapDrawNumber(gMinimapY, VRAM_OBJ + 0x13A0);
+}
+
+/**
+ * @brief Draws a number on the minimap
+ * 
+ */
+void MinimapDrawNumber(u8 value, void* dst)
+{
+    s32 zeroTile;
+    s32 divisor;
+    s32 tile;
+
+    zeroTile = 10;
+    divisor = 100;
+
+    while (divisor > 0)
+    {
+        if (divisor == 1)
+            zeroTile = 0;
+
+        tile = ((value + 1) / divisor) % 10;
+        if (tile == 0)
+            tile = zeroTile;
+        else
+            zeroTile = 0;
+
+        DmaTransfer(3, VRAM_OBJ + 0x7EA0 + (tile * 32), dst, 32, 32);
+        divisor /= 10;
+        dst += 0x20;
+    }
+}
+
+#endif // DEBUG
+
 /**
  * @brief 6c154 | 24 | Updates the minimap
  * 

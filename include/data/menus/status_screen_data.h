@@ -21,7 +21,7 @@ extern const u8 sPauseDebugLanguagePosition[2];
 extern const u8 sPauseDebugSaveHightlightPosition[2];
 extern const struct StatusScreenGroupPositions sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_END];
 extern const u8 sEasyHardEventActions[DIFF_END][2];
-extern const struct PauseDebugHealthAmmoInfo sPauseDebugHealthAmmoInfo[8];
+extern const struct PauseDebugEnergyAmmoInfo sPauseDebugEnergyAmmoInfo[8];
 
 extern const u8** sPauseDebugEventNamePointers[EVENT_COUNT];
 
