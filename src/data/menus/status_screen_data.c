@@ -1,14 +1,10 @@
 #include "data/menus/status_screen_data.h"
-#include "constants/connection.h"
-#include "constants/event.h"
-#include "constants/game_state.h"
-#include "constants/menus/status_screen.h"
 #include "constants/menus/pause_screen.h"
 #include "macros.h"
 
 #ifdef DEBUG
 
-const u8 sPauseDebugEventListBgPalette[2 * 16] = INCBIN_U16("data/menus/PauseScreen/PauseDebugEventListBg.pal");
+const u16 sPauseDebugEventListBgPalette[2 * 16] = INCBIN_U16("data/menus/PauseScreen/PauseDebugEventListBg.pal");
 const u32 sPauseDebugEventListTextGfx[336] = INCBIN_U32("data/menus/PauseScreen/PauseDebugEventListText.gfx.lz");
 
 static const u8 sPauseDebug_Event4E_Text[32] = SHIFT_JIS("END         エンド            ");
@@ -125,8 +121,8 @@ const u8 sPauseDebug_Area_Text[AREA_COUNT][3] = {
 const u8 sPauseDebug_Difficulty_Text[DIFF_END + 1][6] = {
     [DIFF_EASY] = "EASY@@",
     [DIFF_NORMAL] = "NORMAL",
-    [DIFF_HARD] = "HARD@@@",
-    [DIFF_END] = "NG@@@"
+    [DIFF_HARD] = "HARD@@",
+    [DIFF_END] = "@NG@@@"
 };
 
 const u8 sPauseDebug_ShutOpen_Text[2][4] = {
@@ -372,7 +368,7 @@ const struct PauseDebugEnergyAmmoInfo sPauseDebugEnergyAmmoInfo[8] = {
     }
 };
 
-const u8** sPauseDebugEventNamePointers[EVENT_COUNT] = {
+const u8* const sPauseDebugEventNamePointers[EVENT_COUNT] = {
     [EVENT_NONE] = sPauseDebug_Event00_Text,
     [EVENT_EASY] = sPauseDebug_Event01_Text,
     [EVENT_HARD] = sPauseDebug_Event02_Text,

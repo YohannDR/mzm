@@ -5,6 +5,7 @@
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
 #include "data/menus/internal_pause_screen_data.h"
+#include "data/menus/status_screen_data.h"
 #include "data/engine_pointers.h"
 #include "data/io_transfer_data.h"
 #include "data/clipdata_data.h"

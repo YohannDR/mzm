@@ -405,9 +405,14 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
 
     cantDraw = FALSE;
 
-    // Draw if already completed game
-    if (!gGameCompletion.completedGame)
-        cantDraw = TRUE;
+    #ifdef DEBUG
+    if (!gDebugMode)
+    #endif // DEBUG
+    {
+        // Draw if already completed game
+        if (!gGameCompletion.completedGame)
+            cantDraw = TRUE;
+    }
 
     // Draw if on map screen
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
@@ -897,7 +902,16 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         PAUSE_SCREEN_DATA.bossIconOam[0].priority = 3;
     }
 
+    #ifdef DEBUG
+    if (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine == PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN)
+    {
+        if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+            PauseDebugInitCursor();
+    }
+    else
+    #else // !DEBUG
     if (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine != PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN)
+    #endif // DEBUG
     {
         PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
         PAUSE_SCREEN_DATA.miscOam[0].yPosition = 0;
@@ -961,6 +975,10 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].yPosition = sMapScreenArrowsData[i][3];
         PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].priority = 3;
     }
+
+    #ifdef DEBUG
+    PAUSE_SCREEN_DATA.unk_418[0] = sUnused_40d078;
+    #endif
 }
 
 /**
@@ -970,6 +988,11 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 void PauseScreenProcessOam(void)
 {
     gNextOamSlot = 0;
+
+    #ifdef DEBUG
+    if (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine == 0 && PAUSE_SCREEN_DATA.currentArea == gCurrentArea)
+        ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.unk_418), PAUSE_SCREEN_DATA.unk_418, sPauseScreenMiscOam);
+    #endif // DEBUG
 
     // Always process area name oam
     ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.overlayOam), PAUSE_SCREEN_DATA.overlayOam, sPauseScreenOverlayOam);
@@ -1931,6 +1954,10 @@ u32 PauseScreenSubroutine(void)
         case 4:
             gSubGameModeStage = 0;
             gGameModeSub2 = 4;
+            #ifdef DEBUG
+            if ((gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS) && gBootDebugActive)
+                gGameModeSub2 = 10;
+            #endif // DEBUG
             leaving = TRUE;
             break;
 
@@ -2053,6 +2080,16 @@ void PauseScreenInit(void)
     PAUSE_SCREEN_DATA.mapY = gMinimapY;
     PAUSE_SCREEN_DATA.typeFlags = 0;
 
+    #ifdef DEBUG
+    if (gDebugMode && gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
+    {
+        if ((gButtonInput & (KEY_L | KEY_SELECT)) == (KEY_L | KEY_SELECT))
+            gPauseScreenFlag = PAUSE_SCREEN_MAP_DOWNLOAD;
+        else if (!(gButtonInput & KEY_SELECT))
+            PAUSE_SCREEN_DATA.typeFlags = PAUSE_SCREEN_TYPE_DEBUG;
+    }
+    #endif // DEBUG
+
     switch (gPauseScreenFlag)
     {
         case PAUSE_SCREEN_CHOZO_HINT:
@@ -2060,7 +2097,7 @@ void PauseScreenInit(void)
             break;
 
         case PAUSE_SCREEN_UNKNOWN_3:
-            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_UNKNOWN;
+            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_UNKNOWN_8;
             break;
 
         case PAUSE_SCREEN_MAP_DOWNLOAD:
@@ -2202,8 +2239,11 @@ void PauseScreenInit(void)
     }
 
     PauseScreenGetAllMinimapData(UCHAR_MAX);
-    if (PAUSE_SCREEN_DATA.typeFlags)
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
     {
+        #ifdef DEBUG
+        PauseDebugDrawEventList();
+        #endif // DEBUG
     }
     StatusScreenDraw();
     ChozoStatueHintDeterminePath(FALSE);
@@ -2232,6 +2272,10 @@ void PauseScreenInit(void)
         gBg1HOFS_NonGameplay = QUARTER_BLOCK_SIZE;
         gBg1VOFS_NonGameplay = QUARTER_BLOCK_SIZE;
     }
+
+    #ifdef DEBUG
+    MinimapDrawRoomInfo();
+    #endif // DEBUG
 
     gWrittenToBLDY_NonGameplay = gWrittenToBLDALPHA_H = 0;
     gWrittenToBLDALPHA_L = 16;
@@ -2698,7 +2742,11 @@ u32 PauseScreenCallCurrentSubroutine(void)
                 if (!PAUSE_SCREEN_DATA.debugOnEventList)
                     PauseScreenMoveDebugCursor(TRUE);
 
+                #ifdef DEBUG
+                leaving = PauseDebugSubroutine();
+                #else // !DEBUG
                 leaving = FALSE;
+                #endif
             }
             else
             {
@@ -2832,6 +2880,9 @@ u32 PauseScreenCallCurrentSubroutine(void)
                     PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP;
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
                     PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                    #ifdef DEBUG
+                    PAUSE_SCREEN_DATA.unk_418[0].notDrawn ^= TRUE;
+                    #endif // DEBUG
                 }
             }
             break;
@@ -3164,8 +3215,34 @@ s32 PauseScreenStatusScreenInit(void)
         case 1:
             // Update top overlay
             PauseScreenUpdateTopVisorOverlay(OVERLAY_OAM_ID_R_PROMPT_PRESSED);
-            stage = UCHAR_MAX + 1;
-            SoundPlay(SOUND_OPENING_STATUS_SCREEN);
+            #ifdef DEBUG
+            if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+            {
+                if (gButtonInput & KEY_SELECT)
+                {
+                    PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_UNKNOWN_40;
+                    PAUSE_SCREEN_DATA.typeFlags ^= PAUSE_SCREEN_TYPE_DEBUG;
+                }
+
+                if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+                {
+                    PAUSE_SCREEN_DATA.overlayOam[1].exists = FALSE;
+                    PauseDebugDrawAllGroups();
+                    stage = 9;
+                }
+                else
+                {
+                    StatusScreenDraw();
+                    stage = UCHAR_MAX + 1;
+                }
+            }
+            else
+            #endif // DEBUG
+            {
+                stage = UCHAR_MAX + 1;
+            }
+            if (stage & (UCHAR_MAX + 1))
+                SoundPlay(SOUND_OPENING_STATUS_SCREEN);
             break;
 
         case 2:
@@ -3228,6 +3305,9 @@ s32 PauseScreenStatusScreenInit(void)
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_78;
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG1;
             PAUSE_SCREEN_DATA.overlayOam[0].exists = FALSE;
+            #ifdef DEBUG
+            PauseDebugInitCursor();
+            #endif // DEBUG
             stage = -1;
     }
 
@@ -3268,7 +3348,23 @@ s32 PauseScreenQuitStatusScreen(void)
             SoundPlay(SOUND_LEAVING_STATUS_SCREEN);
             PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
             PauseScreenUpdateTopVisorOverlay(0);
+            #ifdef DEBUG
+            if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+            {
+                stage = 5;
+            }
+            else
+            {
+                stage = UCHAR_MAX + 1;
+                if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_UNKNOWN_40)
+                {
+                    PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_DEBUG;
+                    PAUSE_SCREEN_DATA.typeFlags ^= PAUSE_SCREEN_TYPE_UNKNOWN_40;
+                }
+            }
+            #else // !DEBUG
             stage = UCHAR_MAX + 1;
+            #endif // DEBUG
             break;
 
         case 1:

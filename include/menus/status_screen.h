@@ -6,6 +6,30 @@
 void UpdateMinimapAnimatedPalette(void);
 void LoadPauseScreenBgPalette(void);
 void UpdateSuitType(u8 newSuit);
+
+#ifdef DEBUG
+
+void PauseDebugUpdateMapOverlay(u8 param_0, u8 area);
+void PauseDebugActivateAbilities(void);
+s32 PauseDebugSubroutine(void);
+void PauseDebugToggleAbility(u8 isActivation, u8 group, u8 abilityNum);
+void PauseDebugStatusScreen(void);
+void PauseDebugDrawAbilityGroup(u8 group);
+void PauseDebugDrawAffectedGroups(u32 groups);
+void PauseDebugDrawStaticInfo(void);
+s32 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group);
+void PauseDebugDrawEnergyAmmoGroup(u8 group);
+void PauseDebugDrawEnergyAmmoNumber(u16 number, u8 group);
+void PauseDebugEquipTank(u8 tankOrEquip);
+void PauseDebugDrawAllGroups(void);
+void PauseDebugInitCursor(void);
+void PauseDebugDrawEventList(void);
+void PauseDebugEventList(void);
+void PauseDebugEventListInput(void);
+void PauseDebugDrawEventName(u16 event, u16* dst);
+
+#endif
+
 u32 StatusScreenDrawItems(u8 row);
 u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item);
 void StatusScreenDraw(void);

@@ -26,9 +26,10 @@ enum PauseScreenSubroutine {
 #define PAUSE_SCREEN_TYPE_NONE                  0
 #define PAUSE_SCREEN_TYPE_DEBUG                 (1 << 0)
 #define PAUSE_SCREEN_TYPE_ON_MAP_SCREEN         (1 << 1)
-#define PAUSE_SCREEN_TYPE_UNKNOWN               (1 << 3)
+#define PAUSE_SCREEN_TYPE_UNKNOWN_8             (1 << 3)
 #define PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT     (1 << 4)
 #define PAUSE_SCREEN_TYPE_DOWNLOADING_MAP       (1 << 5)
+#define PAUSE_SCREEN_TYPE_UNKNOWN_40            (1 << 6)
 #define PAUSE_SCREEN_TYPE_ON_STATUS_SCREEN      (1 << 7)
 #define PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM      (1 << 8)
 #define PAUSE_SCREEN_TYPE_GETTING_SUITLESS      (1 << 9)
