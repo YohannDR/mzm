@@ -2889,11 +2889,24 @@ const struct CutsceneOamData sCutsceneOam_Empty = {
     .unk_1E = 0
 };
 
-const u8 sUnused_40d078[16] = {
-    0x20, 0, 0x50, 0x3,
-    0, 0, 0, 0,
-    0, 0, 0x37, 0x60,
-    0x4, 0, 0, 0
+const struct MenuOamData sUnused_40d078 = {
+    .yPosition = 0x20,
+    .xPosition = 0x350,
+    .unk_4 = 0,
+    .unk_5 = 0,
+    .unk_6 = 0,
+    .unk_7 = 0,
+    .animationDurationCounter = 0,
+    .currentAnimationFrame = 0,
+    .oamID = 0x37,
+    .priority = 0,
+    .objMode = 0,
+    .ended = FALSE,
+    .notDrawn = TRUE,
+    .exists = TRUE,
+    .boundBackground = 4,
+    .rotationScaling = FALSE,
+    .unk_E = 0
 };
 
 const u16 sPauseScreen_BgCntPriority[4] = {

@@ -50,7 +50,7 @@ static constexpr std::array<ShiftJisData, 86> kShiftJisMap = {
     ShiftJisData("ェ", { 0xAA, 0x00 }),
     ShiftJisData("ォ", { 0xAB, 0x00 }),
     ShiftJisData("ャ", { 0xAC, 0x00 }),
-    ShiftJisData("ユ", { 0xAD, 0x00 }),
+    ShiftJisData("ュ", { 0xAD, 0x00 }),
     ShiftJisData("ョ", { 0xAE, 0x00 }),
     ShiftJisData("ッ", { 0xAF, 0x00 }),
     ShiftJisData("ー", { 0xB0, 0x00 }),
@@ -99,6 +99,7 @@ static constexpr std::array<ShiftJisData, 86> kShiftJisMap = {
     ShiftJisData("ロ", { 0xDB, 0x00 }),
     ShiftJisData("ワ", { 0xDC, 0x00 }),
     ShiftJisData("ン", { 0xDD, 0x00 }),
+    // Katakana with dakuten and handakuten
     ShiftJisData("ガ", { 0xB6, 0xDE }),
     ShiftJisData("ギ", { 0xB7, 0xDE }),
     ShiftJisData("グ", { 0xB8, 0xDE }),

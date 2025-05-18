@@ -2,6 +2,10 @@
 #define STATUS_SCREEN_MENU_DATA_H
 
 #include "types.h"
+#include "constants/menus/status_screen.h"
+#include "constants/game_state.h"
+#include "constants/event.h"
+#include "constants/connection.h"
 #include "structs/menus/status_screen.h"
 
 #ifdef DEBUG
@@ -23,15 +27,15 @@ extern const struct StatusScreenGroupPositions sPauseDebugGroupsPositions[PAUSE_
 extern const u8 sEasyHardEventActions[DIFF_END][2];
 extern const struct PauseDebugEnergyAmmoInfo sPauseDebugEnergyAmmoInfo[8];
 
-extern const u8** sPauseDebugEventNamePointers[EVENT_COUNT];
+extern const u8* const sPauseDebugEventNamePointers[EVENT_COUNT];
 
 #endif // DEBUG
 
 extern const u16 sStatusScreenUnknownItemsWhiteFlashingPal[6 * 16];
 extern const u16 sStatusScreenUnknownItemsNamesFlashingPal[4 * 16];
 
-extern const u8 sStatusScreenGroupsPositions[13][5];
-extern const u8 sStatusScreenUnknownItemsPositions[10][5];
+extern const struct StatusScreenGroupPositions sStatusScreenGroupsPositions[13];
+extern const struct StatusScreenGroupPositions sStatusScreenUnknownItemsPositions[10];
 extern const struct StatusScreenItemData sStatusScreenItemsData[18];
 extern const struct StatusScreenItemAcquisitionData sStatusScreenItemsAcquisitionData[22];
 
