@@ -2695,7 +2695,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
         case PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN:
             if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
             {
-                if (!PAUSE_SCREEN_DATA.disableDebugMenu)
+                if (!PAUSE_SCREEN_DATA.debugOnEventList)
                     PauseScreenMoveDebugCursor(TRUE);
 
                 leaving = FALSE;

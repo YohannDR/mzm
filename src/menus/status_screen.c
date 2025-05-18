@@ -148,6 +148,10 @@ void UpdateSuitType(u8 newSuit)
     }
 }
 
+#ifdef DEBUG
+
+#endif // DEBUG
+
 /**
  * @brief 6ff4c | d4 | Draws the status screen row provided
  * 
@@ -427,7 +431,7 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amount, u8 palette, u8 isMax
     position = sStatusScreenGroupsPositions[group][0] * HALF_BLOCK_SIZE + sStatusScreenGroupsPositions[group][2];
     pTilemap = &pTilemap[position];
     var_1 = sStatusScreenGroupsPositions[group][3] - sStatusScreenGroupsPositions[group][2];
-    value = sPauseScreen_40d102[var_1];
+    value = sPowersOfTen[var_1];
     var_1++;
 
     var_0 = FALSE;

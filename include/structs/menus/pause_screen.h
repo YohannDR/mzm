@@ -270,9 +270,17 @@ struct PauseScreenData {
     struct MapScreenFading mapScreenFading;
     struct StatusScreenData statusScreenData;
 
-    u8 disableDebugMenu;
+    u8 debugOnEventList;
+    u8 debug_unk_D9; // debugStage?
+    u16 debugTopEvent;
+    u16 debug_unk_DC; // event list OAM X?
+    u16 debugSelectedEvent;
+    u16 debugPreviousChangedEvent;
+    u8 debugPreviousEventWasSet;
+    u8 debug_unk_E3; // padding?
+    u16 debug_unk_E4; // debugDispcnt?
 
-    u8 padding_D9[16];
+    u8 padding_E6[3];
 
     s8 easySleepTextState;
     u8 notPlayingEnablingNormalItemSound;
@@ -287,7 +295,7 @@ struct PauseScreenData {
     struct MenuOamData chozoHintOam[5];
     struct MenuOamData samusIconOam[1];
     struct MenuOamData bossIconOam[1];
-    struct MenuOamData unk_418[1];
+    struct MenuOamData unk_418[1]; // debug related
     struct MenuOamData overlayOam[4];
     struct MenuOamData borderArrowsOam[4];
     struct MenuOamData worldMapOam[24];

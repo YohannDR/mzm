@@ -13,10 +13,8 @@
 
 #ifdef DEBUG
 
-extern const u8 sEasyHardEventActions[DIFF_END][2];
-
-extern const u16 sBootDebugBgPal[128];
-extern const u16 sBootDebugObjPal[48];
+extern const u16 sBootDebugBgPal[8 * 16];
+extern const u16 sBootDebugObjPal[3 * 16];
 extern const u32 sBootDebugObjGfx[222];
 
 extern const u32 sBootDebugBgGfx[771];
@@ -24,8 +22,8 @@ extern const u32 sBootDebugBgGfx[771];
 extern const struct BootDebugText sBootDebugMenuNamesText[10];
 extern const struct BootDebugText sBootDebugSectionMenuText[16];
 extern const struct BootDebugText sBootDebugModeMenuText[2];
-extern const struct BootDebugText sBootDebugLanguageText[7];
-extern const struct BootDebugText sBootDebugDifficultyText[3];
+extern const struct BootDebugText sBootDebugLanguageText[LANGUAGE_END];
+extern const struct BootDebugText sBootDebugDifficultyText[DIFF_END];
 extern const struct BootDebugText sBootDebugSaveMenuText[5];
 extern const struct BootDebugText sBootDebugSamusMenuText[5];
 extern const struct BootDebugText sBootDebugArmWeaponButtonText[2];
