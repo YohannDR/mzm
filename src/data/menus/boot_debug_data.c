@@ -5,14 +5,8 @@
 
 #ifdef DEBUG
 
-const u8 sEasyHardEventActions[DIFF_END][2] = {
-    [DIFF_EASY] = { EVENT_ACTION_SETTING, EVENT_ACTION_CLEARING },
-    [DIFF_NORMAL] = { EVENT_ACTION_CLEARING, EVENT_ACTION_CLEARING },
-    [DIFF_HARD] = { EVENT_ACTION_CLEARING, EVENT_ACTION_SETTING }
-};
-
-const u16 sBootDebugBgPal[128] = INCBIN_U16("data/menus/BootDebug/Background.pal");
-const u16 sBootDebugObjPal[48] = INCBIN_U16("data/menus/BootDebug/Objects.pal");
+const u16 sBootDebugBgPal[8 * 16] = INCBIN_U16("data/menus/BootDebug/Background.pal");
+const u16 sBootDebugObjPal[3 * 16] = INCBIN_U16("data/menus/BootDebug/Objects.pal");
 const u32 sBootDebugObjGfx[222] = INCBIN_U32("data/menus/BootDebug/Objects.gfx.lz");
 
 static const u16 sBootDebugOam_4185D8_Frame1[OAM_DATA_SIZE(1)] = {
@@ -511,7 +505,7 @@ const struct BootDebugText sBootDebugModeMenuText[2] = {
     }
 };
 
-const struct BootDebugText sBootDebugLanguageText[7] = {
+const struct BootDebugText sBootDebugLanguageText[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = {
         .background = 2,
         .xPosition = 9,
@@ -570,7 +564,7 @@ const struct BootDebugText sBootDebugLanguageText[7] = {
     }
 };
 
-const struct BootDebugText sBootDebugDifficultyText[3] = {
+const struct BootDebugText sBootDebugDifficultyText[DIFF_END] = {
     [DIFF_EASY] = {
         .background = 2,
         .xPosition = 9,

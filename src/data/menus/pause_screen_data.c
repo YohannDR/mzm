@@ -3012,7 +3012,7 @@ const u8 sStatusScreenFlagsSize[ABILITY_GROUP_STATUS_GROUPS_END] = {
     [ABILITY_GROUP_MISC] = ARRAY_SIZE(sStatusScreenMiscFlagsOrder)
 };
 
-const u16 sPauseScreen_40d102[5] = {
+const u16 sPowersOfTen[5] = {
     1, 10, 100, 1000, 10000
 };
 

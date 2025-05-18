@@ -85,7 +85,7 @@ extern const u8 sStatusScreenSuitFlagsOrder[2];
 extern const u8 sStatusScreenMiscFlagsOrder[6];
 
 extern const u8 sStatusScreenFlagsSize[ABILITY_GROUP_STATUS_GROUPS_END];
-extern const u16 sPauseScreen_40d102[5];
+extern const u16 sPowersOfTen[5];
 
 extern const struct PauseScreenWireframeData sSamusWireframeData[SAMUS_WIREFRAME_DATA_END];
 

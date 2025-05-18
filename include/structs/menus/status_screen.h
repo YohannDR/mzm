@@ -17,4 +17,19 @@ struct StatusScreenItemAcquisitionData {
     u8 statusSlot;
 };
 
+struct __attribute__((packed)) StatusScreenGroupPositions {
+    u8 top;
+    u8 bottom;
+    u8 left;
+    u8 right;
+    u8 group;
+};
+
+struct PauseDebugHealthAmmoInfo {
+    u8 type;
+    u8 is16bit;
+    u8 isMax;
+    u8 lastDigit;
+};
+
 #endif /* STATUS_SCREEN_MENU_STRUCT_H */
