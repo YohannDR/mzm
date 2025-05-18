@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+#ifdef DEBUG
+void MinimapDrawRoomInfo(void);
+void MinimapDrawNumber(u8 value, void* dst);
+#endif // DEBUG
+
 void MinimapUpdate(void);
 void MinimapSetTileAsExplored(void);
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition);

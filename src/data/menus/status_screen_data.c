@@ -321,7 +321,7 @@ const u8 sEasyHardEventActions[DIFF_END][2] = {
     [DIFF_HARD] = { EVENT_ACTION_CLEARING, EVENT_ACTION_SETTING }
 };
 
-const struct PauseDebugHealthAmmoInfo sPauseDebugHealthAmmoInfo[8] = {
+const struct PauseDebugEnergyAmmoInfo sPauseDebugEnergyAmmoInfo[8] = {
     [PAUSE_DEBUG_GROUP_CURRENT_ENERGY - PAUSE_DEBUG_GROUP_CURRENT_ENERGY] = {
         .type = 0,
         .is16bit = TRUE,

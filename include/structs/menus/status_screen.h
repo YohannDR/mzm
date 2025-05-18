@@ -25,11 +25,13 @@ struct __attribute__((packed)) StatusScreenGroupPositions {
     u8 group;
 };
 
-struct PauseDebugHealthAmmoInfo {
+#ifdef DEBUG
+struct PauseDebugEnergyAmmoInfo {
     u8 type;
     u8 is16bit;
     u8 isMax;
     u8 lastDigit;
 };
+#endif // DEBUG
 
 #endif /* STATUS_SCREEN_MENU_STRUCT_H */
