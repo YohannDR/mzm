@@ -72,7 +72,7 @@ extern const struct MenuOamData sMenuOamDataChozoHint_Empty;
 extern const struct MenuOamData sMenuOamDataEraseSram_Empty;
 extern const struct CutsceneOamData sCutsceneOam_Empty;
 
-extern const struct MenuOamData sUnused_40d078;
+extern const struct MenuOamData sMenuOamDataMinimapRoomInfo;
 
 extern const u16 sPauseScreen_BgCntPriority[4];
 

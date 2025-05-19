@@ -14,7 +14,7 @@ endif
 # 	TARGET = mzm_us_beta.gba
 # 	GAME_TITLE = ZEROMISSIONE
 # 	GAME_CODE = BMXE
-# 	CPPFLAGS += -DREGION_US_BETA
+# 	CPPFLAGS += -DREGION_US_BETA -DDEBUG
 # endif
 
 # ifeq ($(REGION),eu)

@@ -232,7 +232,7 @@ s32 PauseDebugSubroutine(void)
         else if (gChangedInput & KEY_SELECT && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
         {
             PAUSE_SCREEN_DATA.debugOnEventList = TRUE;
-            PAUSE_SCREEN_DATA.debug_unk_D9 = 0;
+            PAUSE_SCREEN_DATA.debugEventListStage = 0;
         }
         else
         {
@@ -1408,42 +1408,42 @@ void PauseDebugDrawEventList(void)
  */
 void PauseDebugEventList(void)
 {
-    switch (PAUSE_SCREEN_DATA.debug_unk_D9)
+    switch (PAUSE_SCREEN_DATA.debugEventListStage)
     {
         case 0:
-            PAUSE_SCREEN_DATA.debug_unk_E4 = PAUSE_SCREEN_DATA.dispcnt;
+            PAUSE_SCREEN_DATA.debugDispcntBackup = PAUSE_SCREEN_DATA.dispcnt;
             PAUSE_SCREEN_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ);
-            PAUSE_SCREEN_DATA.debug_unk_D9++;
+            PAUSE_SCREEN_DATA.debugEventListStage++;
             break;
 
         case 1:
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0xB);
-            PAUSE_SCREEN_DATA.debug_unk_DC = 15;
+            PAUSE_SCREEN_DATA.debugEventCursorX = 15;
             DmaTransfer(3, VRAM_BASE + 0xB000, (void*)sEwramPointer + 0xC800, 0x800, 16);
             DmaTransfer(3, (void*)sEwramPointer + 0xD000, VRAM_BASE + 0xB000, 0x800, 16);
             CallLZ77UncompVram(sPauseDebugEventListTextGfx, VRAM_BASE + 0x8000);
             DMA_SET(3, sPauseDebugEventListBgPalette, PALRAM_BASE + 0x1C0, C_32_2_16(DMA_ENABLE, 0x20));
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_7A;
             PauseDebugEventListInput();
-            PAUSE_SCREEN_DATA.debug_unk_D9++;
+            PAUSE_SCREEN_DATA.debugEventListStage++;
             break;
 
         case 2:
-            PAUSE_SCREEN_DATA.dispcnt = PAUSE_SCREEN_DATA.debug_unk_E4;
-            PAUSE_SCREEN_DATA.debug_unk_D9++;
+            PAUSE_SCREEN_DATA.dispcnt = PAUSE_SCREEN_DATA.debugDispcntBackup;
+            PAUSE_SCREEN_DATA.debugEventListStage++;
             break;
 
         case 3:
             if (gChangedInput & (KEY_B | KEY_SELECT) && PAUSE_SCREEN_DATA.subroutineInfo.stage == 0)
-                PAUSE_SCREEN_DATA.debug_unk_D9++;
+                PAUSE_SCREEN_DATA.debugEventListStage++;
             else
                 PauseDebugEventListInput();
             break;
 
         case 4:
-            PAUSE_SCREEN_DATA.debug_unk_E4 = PAUSE_SCREEN_DATA.dispcnt;
+            PAUSE_SCREEN_DATA.debugDispcntBackup = PAUSE_SCREEN_DATA.dispcnt;
             PAUSE_SCREEN_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ);
-            PAUSE_SCREEN_DATA.debug_unk_D9++;
+            PAUSE_SCREEN_DATA.debugEventListStage++;
             break;
 
         case 5:
@@ -1454,13 +1454,13 @@ void PauseDebugEventList(void)
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_78;
             DmaTransfer(3, sPauseScreen_3fcef0 + PAL_ROW * 9, PALRAM_BASE + PAL_ROW_SIZE * 14, PAL_ROW_SIZE * 2, 16);
             gBg2VOFS_NonGameplay = 0;
-            PAUSE_SCREEN_DATA.debug_unk_D9++;
+            PAUSE_SCREEN_DATA.debugEventListStage++;
             break;
 
         case 6:
-            PAUSE_SCREEN_DATA.dispcnt = PAUSE_SCREEN_DATA.debug_unk_E4;
+            PAUSE_SCREEN_DATA.dispcnt = PAUSE_SCREEN_DATA.debugDispcntBackup;
             PAUSE_SCREEN_DATA.debugOnEventList = FALSE;
-            PAUSE_SCREEN_DATA.debug_unk_D9 = 0;
+            PAUSE_SCREEN_DATA.debugEventListStage = 0;
             break;
     }
 }
@@ -1564,7 +1564,7 @@ void PauseDebugEventListInput(void)
     }
 
     // Update cursor position
-    PAUSE_SCREEN_DATA.miscOam[0].xPosition = (PAUSE_SCREEN_DATA.debug_unk_DC & 31) * 32;
+    PAUSE_SCREEN_DATA.miscOam[0].xPosition = (PAUSE_SCREEN_DATA.debugEventCursorX & 31) * 32;
     PAUSE_SCREEN_DATA.miscOam[0].yPosition = ((PAUSE_SCREEN_DATA.debugSelectedEvent - PAUSE_SCREEN_DATA.debugTopEvent) & 31) * 32 + 12;
     
     if (move == 2)
