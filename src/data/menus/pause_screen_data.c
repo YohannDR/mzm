@@ -2889,7 +2889,7 @@ const struct CutsceneOamData sCutsceneOam_Empty = {
     .unk_1E = 0
 };
 
-const struct MenuOamData sUnused_40d078 = {
+const struct MenuOamData sMenuOamDataMinimapRoomInfo = {
     .yPosition = 0x20,
     .xPosition = 0x350,
     .unk_4 = 0,

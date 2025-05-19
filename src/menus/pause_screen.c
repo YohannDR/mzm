@@ -977,7 +977,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     }
 
     #ifdef DEBUG
-    PAUSE_SCREEN_DATA.unk_418[0] = sUnused_40d078;
+    PAUSE_SCREEN_DATA.minimapRoomInfoOam[0] = sMenuOamDataMinimapRoomInfo;
     #endif
 }
 
@@ -991,7 +991,7 @@ void PauseScreenProcessOam(void)
 
     #ifdef DEBUG
     if (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine == 0 && PAUSE_SCREEN_DATA.currentArea == gCurrentArea)
-        ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.unk_418), PAUSE_SCREEN_DATA.unk_418, sPauseScreenMiscOam);
+        ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.minimapRoomInfoOam), PAUSE_SCREEN_DATA.minimapRoomInfoOam, sPauseScreenMiscOam);
     #endif // DEBUG
 
     // Always process area name oam
@@ -2881,7 +2881,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
                     PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
                     PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                     #ifdef DEBUG
-                    PAUSE_SCREEN_DATA.unk_418[0].notDrawn ^= TRUE;
+                    PAUSE_SCREEN_DATA.minimapRoomInfoOam[0].notDrawn ^= TRUE;
                     #endif // DEBUG
                 }
             }
