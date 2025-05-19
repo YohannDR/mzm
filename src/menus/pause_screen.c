@@ -759,7 +759,7 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
 {
     // Prevent overflow
     if (area >= MAX_AMOUNT_OF_AREAS - 1)
-        area = AREA_DEBUG_1;
+        area = AREA_TEST;
 
     // Update area name at the top
     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
@@ -929,10 +929,10 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     }
     else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
     {
-        if (gCurrentArea < AREA_DEBUG_1)
+        if (gCurrentArea < AREA_TEST)
             i = gCurrentArea;
         else
-            i = AREA_DEBUG_1;
+            i = AREA_TEST;
 
         UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[i].nameOamId);
         PAUSE_SCREEN_DATA.overlayOam[0].yPosition = 12;

@@ -22,9 +22,9 @@ extern const ProjFunc_T sProcessProjectileFunctionPointers[PROJ_TYPE_END];
 
 extern const ParticleFunc_T sProcessParticleFunctionPointers[PE_END];
 
-extern const struct Door* const sAreaDoorsPointers[AREA_NORMAL_COUNT];
+extern const struct Door* const sAreaDoorsPointers[AREA_ENTRY_COUNT];
 
-extern const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_NORMAL_COUNT];
+extern const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_ENTRY_COUNT];
 
 // More...
 

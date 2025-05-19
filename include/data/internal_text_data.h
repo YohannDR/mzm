@@ -3,12 +3,16 @@
 
 #include "types.h"
 #include "constants/game_state.h"
+#include "constants/event.h"
 
 extern const u16* const * const sDescriptionTextPointers[LANGUAGE_END];
 
 extern u32 sArray_7602f0[9];
 extern u32 sArray_760314[9];
 extern u32 sArray_760338[8];
+#ifdef DEBUG
+extern const u8* const sPauseDebugEventNamePointers[EVENT_COUNT];
+#endif // DEBUG
 extern u32 sArray_760398[8];
 extern u32 sArray_7603b8[8];
 

@@ -839,5 +839,5 @@ const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_TOURIAN] = 0,
     [AREA_CRATERIA] = ARRAY_SIZE(sHatchLockEventsCrateria),
     [AREA_CHOZODIA] = ARRAY_SIZE(sHatchLockEventsChozodia),
-    [AREA_DEBUG_1] = 0
+    [AREA_TEST] = 0
 };

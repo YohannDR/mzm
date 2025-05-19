@@ -8,6 +8,7 @@
 #include "data/menus/pause_screen_map_data.h"
 #include "data/menus/internal_pause_screen_data.h"
 #include "data/menus/internal_status_screen_data.h"
+#include "data/internal_text_data.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"
@@ -109,7 +110,7 @@ void LoadPauseScreenBgPalette(void)
     if (gCurrentArea < MAX_AMOUNT_OF_AREAS)
         PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[gCurrentArea]] = sMinimapAnimatedPalette[0];
 
-    PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[AREA_DEBUG_1]] = 0;
+    PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[AREA_TEST]] = 0;
     PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]] = 0;
 
     DmaTransfer(3, &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],

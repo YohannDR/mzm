@@ -28,20 +28,18 @@ extern const u8 sDebug_4_Clipdata[314];
 extern const u8 sDebug_4_Bg2[14];
 extern const u8 sDebug_4_Bg1[330];
 
-extern const u8 sDebug_0_SpriteData[2 * 3];
-
-extern const u8 sDebug_1_SpriteData[3 * 3];
-
-extern const u8 sDebug_2_SpriteData[2 * 3];
-extern const u8 sDebug_3_SpriteData[2 * 3];
+extern const u8 sDebug1_0_SpriteData[2 * 3];
+extern const u8 sDebug1_1_SpriteData[3 * 3];
+extern const u8 sDebug1_2_SpriteData[2 * 3];
+extern const u8 sDebug1_3_SpriteData[2 * 3];
 extern const u8 sDebug_4_SpriteData[1 * 3];
-extern const u8 sDebug_5_SpriteData[2 * 3];
-extern const u8 sDebug_6_SpriteData[1 * 3];
-extern const u8 sDebug_7_SpriteData[1 * 3];
-extern const u8 sDebug_8_SpriteData[2 * 3];
-extern const u8 sDebug_9_SpriteData[7 * 3];
-extern const u8 sDebug_10_SpriteData[1 * 3];
-extern const u8 sDebug_11_SpriteData[1 * 3];
-extern const u8 sDebug_12_SpriteData[3 * 3];
+extern const u8 sDebug2_0_SpriteData[2 * 3];
+extern const u8 sDebug2_1_SpriteData[1 * 3];
+extern const u8 sDebug2_2_SpriteData[1 * 3];
+extern const u8 sDebug2_3_SpriteData[2 * 3];
+extern const u8 sDebug3_0_SpriteData[7 * 3];
+extern const u8 sDebug3_1_SpriteData[1 * 3];
+extern const u8 sDebug3_2_SpriteData[1 * 3];
+extern const u8 sDebug3_3_SpriteData[3 * 3];
 
 #endif /* DEBUG_ROOMS_DATA_H */

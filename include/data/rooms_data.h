@@ -22,7 +22,9 @@ extern const struct Door sCrateriaDoors[53];
 
 extern const struct Door sChozodiaDoors[246];
 
-extern const struct Door sDebugDoors[26];
+extern const struct Door sDebug123Doors[24];
+
+extern const struct Door sTestDoors[2];
 
 extern const struct RoomEntryROM sBrinstarRoomEntries[42];
 
@@ -38,6 +40,12 @@ extern const struct RoomEntryROM sCrateriaRoomEntries[22];
 
 extern const struct RoomEntryROM sChozodiaRoomEntries[99];
 
-extern const struct RoomEntryROM sDebugRoomEntries[16];
+extern const struct RoomEntryROM sDebug1RoomEntries[5];
+
+extern const struct RoomEntryROM sDebug2RoomEntries[5];
+
+extern const struct RoomEntryROM sDebug3RoomEntries[5];
+
+extern const struct RoomEntryROM sTestRoomEntries[1];
 
 #endif /* DOORS_DATA_H */
