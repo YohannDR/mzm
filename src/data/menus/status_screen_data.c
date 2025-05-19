@@ -113,9 +113,9 @@ const u8 sPauseDebug_Area_Text[AREA_COUNT][3] = {
     [AREA_CRATERIA] = "CRT",
     [AREA_CHOZODIA] = "SHP",
     [AREA_TEST] = "TST",
-    [AREA_DEBUG_1] = "TN1",
-    [AREA_DEBUG_2] = "TN2",
-    [AREA_DEBUG_3] = "TN3"
+    [AREA_TEST_1] = "TN1",
+    [AREA_TEST_2] = "TN2",
+    [AREA_TEST_3] = "TN3"
 };
 
 const u8 sPauseDebug_Difficulty_Text[DIFF_END + 1][6] = {

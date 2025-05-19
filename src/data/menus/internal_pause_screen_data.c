@@ -119,9 +119,9 @@ const u32* const sMinimapDataPointers[AREA_COUNT] = {
     [AREA_CRATERIA] = sCrateriaMinimap,
     [AREA_CHOZODIA] = sChozodiaMinimap,
     [AREA_TEST] = sBrinstarMinimap,
-    [AREA_DEBUG_1] = sTestMinimap,
-    [AREA_DEBUG_2] = sTestMinimap,
-    [AREA_DEBUG_3] = sTestMinimap
+    [AREA_TEST_1] = sTestMinimap,
+    [AREA_TEST_2] = sTestMinimap,
+    [AREA_TEST_3] = sTestMinimap
 };
 
 const u32 sExploredMinimapBitFlags[32] = {

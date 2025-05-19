@@ -181,8 +181,8 @@ void RoomLoadTileset(void)
 
     if (gCurrentArea > AREA_TEST)
     {
-        DmaTransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 16);
-        DmaTransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
+        DmaTransfer(3, sClipdataCollisionTypes_Test, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 16);
+        DmaTransfer(3, sClipdataBehaviorTypes_Test, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 16);
     }
     else
     {
