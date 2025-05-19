@@ -118,9 +118,9 @@ const struct Door* const sAreaDoorsPointers[AREA_ENTRY_COUNT] = {
     [AREA_CHOZODIA] = sChozodiaDoors,
     #ifdef DEBUG
     [AREA_TEST] = sTestDoors,
-    [AREA_DEBUG_1] = sDebugDoors,
-    [AREA_DEBUG_2] = sDebugDoors,
-    [AREA_DEBUG_3] = sDebugDoors
+    [AREA_TEST_1] = sTest123Doors,
+    [AREA_TEST_2] = sTest123Doors,
+    [AREA_TEST_3] = sTest123Doors
     #endif // DEBUG
 };
 
@@ -134,9 +134,9 @@ const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_ENTRY_COUNT] = {
     [AREA_CHOZODIA] = sChozodiaRoomEntries,
     #ifdef DEBUG
     [AREA_TEST] = sTestRoomEntries,
-    [AREA_DEBUG_1] = sDebug1RoomEntries,
-    [AREA_DEBUG_2] = sDebug2RoomEntries,
-    [AREA_DEBUG_3] = sDebug3RoomEntries
+    [AREA_TEST_1] = sTest1RoomEntries,
+    [AREA_TEST_2] = sTest2RoomEntries,
+    [AREA_TEST_3] = sTest3RoomEntries
     #endif // DEBUG
 };
 
@@ -319,9 +319,9 @@ const u8* const * const sAreaScrollPointers[AREA_COUNT] = {
     [AREA_CRATERIA] = sCrateriaScrolls,
     [AREA_CHOZODIA] = sChozodiaScrolls,
     [AREA_TEST] = sScrollPointer_Empty,
-    [AREA_DEBUG_1] = sScrollPointer_Empty,
-    [AREA_DEBUG_2] = sScrollPointer_Empty,
-    [AREA_DEBUG_3] = sScrollPointer_Empty
+    [AREA_TEST_1] = sScrollPointer_Empty,
+    [AREA_TEST_2] = sScrollPointer_Empty,
+    [AREA_TEST_3] = sScrollPointer_Empty
 };
 
 const s8 sWaterLoopCounterArray[8][2] = {

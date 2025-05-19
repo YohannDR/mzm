@@ -1234,7 +1234,7 @@ menus/PauseScreen/RidleyMinimap.tt;120;0x406f98;4
 menus/PauseScreen/TourianMinimap.tt;91;0x407178;4
 menus/PauseScreen/CrateriaMinimap.tt;114;0x4072e4;4
 menus/PauseScreen/ChozodiaMinimap.tt;194;0x4074ac;4
-menus/PauseScreen/DebugMinimap.tt;78;0x4077b4;4
+menus/PauseScreen/TestMinimap.tt;78;0x4077b4;4
 
 menus/PauseScreen/DebugMenuTileParts.tt;175;0x4078ec;4
 menus/PauseScreen/MapScreenVisorOverlay.tt;122;0x407ba8;4
@@ -1273,42 +1273,42 @@ menus/PauseScreen/MinimapTiles.pal;80;0x411360;2
 ## Default background data
 
 rooms/Tileset0_Background.gfx.lz;949;0x363cf8;4
-rooms/Debug_Bg3.gfx.lz;896;0x364bcc;1
+rooms/Test_Bg3.gfx.lz;896;0x364bcc;1
 rooms/Background_Empty.bin;52;0x364f4c;1
 rooms/DoorTransition.tm;184;0x364f80;1
 rooms/Bg3_Empty.gfx.lz;256;0x365038;1
-rooms/Debug_Bg0_0.gfx.lz;504;0x365138;1
+rooms/Test_Bg0_0.gfx.lz;504;0x365138;1
 
 ## Misc
 
 rooms/Water_Bg0.rle;548;0x5e22e4;1
 rooms/SaveRoom_Bg3.rle;1132;0x5e2508;1
 
-## Debug rooms
+## Test rooms
 
-rooms/debug/Tileset0_Tiles.gfx.lz;445;0x365e00;4
-rooms/debug/Tileset0.tm;1410;0x3664f4;1
-rooms/debug/Tileset0.pal;224;0x366a76;2
+rooms/test/Tileset0_Tiles.gfx.lz;445;0x365e00;4
+rooms/test/Tileset0.tm;1410;0x3664f4;1
+rooms/test/Tileset0.pal;224;0x366a76;2
 
-rooms/debug/Debug_0_Clipdata.rle;306;0x366c36;1
-rooms/debug/Debug_0_Bg2.rle;14;0x366d68;1
-rooms/debug/Debug_0_Bg1.rle;369;0x366d76;1
+rooms/test/Test_0_Clipdata.rle;306;0x366c36;1
+rooms/test/Test_0_Bg2.rle;14;0x366d68;1
+rooms/test/Test_0_Bg1.rle;369;0x366d76;1
 
-rooms/debug/Debug_1_Clipdata.rle;446;0x366ee7;1
-rooms/debug/Debug_1_Bg2.rle;14;0x3670a5;1
-rooms/debug/Debug_1_Bg1.rle;485;0x3670b3;1
+rooms/test/Test_1_Clipdata.rle;446;0x366ee7;1
+rooms/test/Test_1_Bg2.rle;14;0x3670a5;1
+rooms/test/Test_1_Bg1.rle;485;0x3670b3;1
 
-rooms/debug/Debug_2_Clipdata.rle;280;0x367298;1
-rooms/debug/Debug_2_Bg2.rle;116;0x3673b0;1
-rooms/debug/Debug_2_Bg1.rle;209;0x367424;1
+rooms/test/Test_2_Clipdata.rle;280;0x367298;1
+rooms/test/Test_2_Bg2.rle;116;0x3673b0;1
+rooms/test/Test_2_Bg1.rle;209;0x367424;1
 
-rooms/debug/Debug_3_Clipdata.rle;156;0x3674f5;1
-rooms/debug/Debug_3_Bg2.rle;14;0x367591;1
-rooms/debug/Debug_3_Bg1.rle;159;0x36759f;1
+rooms/test/Test_3_Clipdata.rle;156;0x3674f5;1
+rooms/test/Test_3_Bg2.rle;14;0x367591;1
+rooms/test/Test_3_Bg1.rle;159;0x36759f;1
 
-rooms/debug/Debug_4_Clipdata.rle;314;0x36763e;1
-rooms/debug/Debug_4_Bg2.rle;14;0x367778;1
-rooms/debug/Debug_4_Bg1.rle;330;0x367786;1
+rooms/test/Test_4_Clipdata.rle;314;0x36763e;1
+rooms/test/Test_4_Bg2.rle;14;0x367778;1
+rooms/test/Test_4_Bg1.rle;330;0x367786;1
 
 ## Brinstar rooms
 

@@ -13,9 +13,9 @@ enum Area {
     AREA_NORMAL_COUNT,
 
     AREA_TEST = AREA_NORMAL_COUNT,
-    AREA_DEBUG_1,
-    AREA_DEBUG_2,
-    AREA_DEBUG_3,
+    AREA_TEST_1,
+    AREA_TEST_2,
+    AREA_TEST_3,
 
     AREA_COUNT,
 };

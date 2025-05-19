@@ -2782,7 +2782,7 @@ const u32 sRidleyMinimap[120] = INCBIN_U32("data/menus/PauseScreen/RidleyMinimap
 const u32 sTourianMinimap[91] = INCBIN_U32("data/menus/PauseScreen/TourianMinimap.tt");
 const u32 sCrateriaMinimap[114] = INCBIN_U32("data/menus/PauseScreen/CrateriaMinimap.tt");
 const u32 sChozodiaMinimap[194] = INCBIN_U32("data/menus/PauseScreen/ChozodiaMinimap.tt");
-const u32 sDebugMinimap[78] = INCBIN_U32("data/menus/PauseScreen/DebugMinimap.tt");
+const u32 sTestMinimap[78] = INCBIN_U32("data/menus/PauseScreen/TestMinimap.tt");
 
 const u32 sDebugMenuTileParts[175] = INCBIN_U32("data/menus/PauseScreen/DebugMenuTileParts.tt");
 const u32 sMapScreenVisorOverlayTilemap[122] = INCBIN_U32("data/menus/PauseScreen/MapScreenVisorOverlay.tt");

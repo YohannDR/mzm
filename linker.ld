@@ -1028,7 +1028,7 @@ SECTIONS {
         src/data/demo_data.o(.rodata);
         src/data/default_background_data.o(.rodata);
         src/data/clipdata_types_tilemap.o(.rodata);
-        src/data/rooms/debug_rooms_data.o(.rodata);
+        src/data/rooms/test_rooms_data.o(.rodata);
 
         src/data/samus_close_up_data.o(.rodata);
         src/data/cutscenes/cutscenes_data.o(.rodata);
