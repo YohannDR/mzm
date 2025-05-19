@@ -2782,7 +2782,7 @@ const u32 sRidleyMinimap[120] = INCBIN_U32("data/menus/PauseScreen/RidleyMinimap
 const u32 sTourianMinimap[91] = INCBIN_U32("data/menus/PauseScreen/TourianMinimap.tt");
 const u32 sCrateriaMinimap[114] = INCBIN_U32("data/menus/PauseScreen/CrateriaMinimap.tt");
 const u32 sChozodiaMinimap[194] = INCBIN_U32("data/menus/PauseScreen/ChozodiaMinimap.tt");
-const u32 sExtraMinimap[78] = INCBIN_U32("data/menus/PauseScreen/Extra2Minimap.tt");
+const u32 sDebugMinimap[78] = INCBIN_U32("data/menus/PauseScreen/DebugMinimap.tt");
 
 const u32 sDebugMenuTileParts[175] = INCBIN_U32("data/menus/PauseScreen/DebugMenuTileParts.tt");
 const u32 sMapScreenVisorOverlayTilemap[122] = INCBIN_U32("data/menus/PauseScreen/MapScreenVisorOverlay.tt");
@@ -2966,7 +2966,7 @@ const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_ARE
         .xPosition = BLOCK_SIZE * 13 + HALF_BLOCK_SIZE + 4,
         .yPosition = BLOCK_SIZE * 6 + HALF_BLOCK_SIZE + 4
     },
-    [AREA_DEBUG_1] = {
+    [AREA_TEST] = {
         .nameOamId = 0,
         .nameSpawningOamId = 0,
         .outlineOamId = 0,
@@ -3107,7 +3107,7 @@ const u8 sChozoHintAreaNamesOamIds[MAX_AMOUNT_OF_AREAS] = {
     [AREA_TOURIAN] = OVERLAY_OAM_ID_CHOZO_HINT_TOURIAN,
     [AREA_CRATERIA] = OVERLAY_OAM_ID_CHOZO_HINT_CRATERIA,
     [AREA_CHOZODIA] = OVERLAY_OAM_ID_CHOZO_HINT_CHOZODIA,
-    [AREA_DEBUG_1] = 0
+    [AREA_TEST] = 0
 };
 
 const struct WorldMapData sWorldMapData[MAX_AMOUNT_OF_AREAS - 1] = {
@@ -4127,6 +4127,6 @@ const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1] = {
     [AREA_TOURIAN] = 0x9A,
     [AREA_CRATERIA] = 0x9F,
     [AREA_CHOZODIA] = 0x99,
-    [AREA_DEBUG_1] = 0x98,
+    [AREA_TEST] = 0x98,
     [MAX_AMOUNT_OF_AREAS] = 0x97
 };

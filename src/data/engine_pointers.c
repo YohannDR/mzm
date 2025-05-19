@@ -108,17 +108,23 @@ const ParticleFunc_T sProcessParticleFunctionPointers[PE_END] = {
     [PE_ESCAPE] = ParticleEscape,
 };
 
-const struct Door* const sAreaDoorsPointers[AREA_NORMAL_COUNT] = {
+const struct Door* const sAreaDoorsPointers[AREA_ENTRY_COUNT] = {
     [AREA_BRINSTAR] = sBrinstarDoors,
     [AREA_KRAID] = sKraidDoors,
     [AREA_NORFAIR] = sNorfairDoors,
     [AREA_RIDLEY] = sRidleyDoors,
     [AREA_TOURIAN] = sTourianDoors,
     [AREA_CRATERIA] = sCrateriaDoors,
-    [AREA_CHOZODIA] = sChozodiaDoors
+    [AREA_CHOZODIA] = sChozodiaDoors,
+    #ifdef DEBUG
+    [AREA_TEST] = sTestDoors,
+    [AREA_DEBUG_1] = sDebugDoors,
+    [AREA_DEBUG_2] = sDebugDoors,
+    [AREA_DEBUG_3] = sDebugDoors
+    #endif // DEBUG
 };
 
-const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_NORMAL_COUNT] = {
+const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_ENTRY_COUNT] = {
     [AREA_BRINSTAR] = sBrinstarRoomEntries,
     [AREA_KRAID] = sKraidRoomEntries,
     [AREA_NORFAIR] = sNorfairRoomEntries,
@@ -126,6 +132,12 @@ const struct RoomEntryROM* const sAreaRoomEntryPointers[AREA_NORMAL_COUNT] = {
     [AREA_TOURIAN] = sTourianRoomEntries,
     [AREA_CRATERIA] = sCrateriaRoomEntries,
     [AREA_CHOZODIA] = sChozodiaRoomEntries,
+    #ifdef DEBUG
+    [AREA_TEST] = sTestRoomEntries,
+    [AREA_DEBUG_1] = sDebug1RoomEntries,
+    [AREA_DEBUG_2] = sDebug2RoomEntries,
+    [AREA_DEBUG_3] = sDebug3RoomEntries
+    #endif // DEBUG
 };
 
 static const u8* const sScrollPointer_Empty[] = {
@@ -306,10 +318,10 @@ const u8* const * const sAreaScrollPointers[AREA_COUNT] = {
     [AREA_TOURIAN] = sTourianScrolls,
     [AREA_CRATERIA] = sCrateriaScrolls,
     [AREA_CHOZODIA] = sChozodiaScrolls,
+    [AREA_TEST] = sScrollPointer_Empty,
     [AREA_DEBUG_1] = sScrollPointer_Empty,
     [AREA_DEBUG_2] = sScrollPointer_Empty,
-    [AREA_DEBUG_3] = sScrollPointer_Empty,
-    [AREA_DEBUG_4] = sScrollPointer_Empty
+    [AREA_DEBUG_3] = sScrollPointer_Empty
 };
 
 const s8 sWaterLoopCounterArray[8][2] = {

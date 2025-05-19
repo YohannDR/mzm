@@ -42,7 +42,7 @@ extern const u32 sRidleyMinimap[120];
 extern const u32 sTourianMinimap[91];
 extern const u32 sCrateriaMinimap[114];
 extern const u32 sChozodiaMinimap[194];
-extern const u32 sExtraMinimap[78];
+extern const u32 sDebugMinimap[78];
 
 extern const u32 sDebugMenuTileParts[175];
 extern const u32 sMapScreenVisorOverlayTilemap[122];
