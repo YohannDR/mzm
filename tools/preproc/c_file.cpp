@@ -293,7 +293,14 @@ std::unique_ptr<unsigned char[]> CFile::ReadWholeFile(const std::string& path, i
     FILE* fp = std::fopen(path.c_str(), "rb");
 
     if (fp == nullptr)
-        RaiseError("Failed to open \"%s\" for reading.\n", path.c_str());
+    {
+        // Some instances of INCBIN can be within #ifdef regions where the condition is not met,
+        // so it's reasonable that the file may not exist. Only raise a warning and return an empty
+        // file to continue parsing.
+        RaiseWarning("Failed to open \"%s\" for reading.\n", path.c_str());
+        size = 0;
+        return {};
+    }
 
     std::fseek(fp, 0, SEEK_END);
 
