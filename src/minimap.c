@@ -34,6 +34,8 @@ void MinimapDrawRoomInfo(void)
 /**
  * @brief Draws a number on the minimap
  * 
+ * @param value Number to draw
+ * @param dst Destination address
  */
 void MinimapDrawNumber(u8 value, void* dst)
 {

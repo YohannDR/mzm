@@ -271,7 +271,7 @@ void PauseDebugToggleAbility(u8 isActivation, u8 group, u8 abilityNum)
     flag = sStatusScreenFlagsOrderPointers[group - start][abilityNum];
     toggle = TRUE;
     
-    if (group - start < start)
+    if (group < start)
         return;
 
     if (group - start <= PAUSE_DEBUG_GROUP_BOMB - start)
@@ -333,10 +333,8 @@ void PauseDebugStatusScreen(void)
 
     for (i = 0; i < PAUSE_DEBUG_GROUP_END; i++)
     {
-        if (sPauseDebugGroupsPositions[i].top <= yPos &&
-            sPauseDebugGroupsPositions[i].bottom >= yPos &&
-            sPauseDebugGroupsPositions[i].left <= xPos &&
-            sPauseDebugGroupsPositions[i].right >= xPos)
+        if (sPauseDebugGroupsPositions[i].top <= yPos && sPauseDebugGroupsPositions[i].bottom >= yPos &&
+            sPauseDebugGroupsPositions[i].left <= xPos && sPauseDebugGroupsPositions[i].right >= xPos)
         {
             work1 = TRUE;
             break;
@@ -495,21 +493,21 @@ void PauseDebugStatusScreen(void)
             if (gChangedInput & KEY_DOWN)
             {
                 work3 = TRUE;
-                if (xPos - 6 < 2u)
+                if (xPos - 6 >= 0 && xPos - 6 < 2)
                 {
                     if (gInGameTimer.hours + sPowersOfTen[xPos - 6] > 99)
                         gInGameTimer.hours = 99;
                     else
                         gInGameTimer.hours += sPowersOfTen[xPos - 6];
                 }
-                else if (xPos - 3 < 2u)
+                else if (xPos - 3 >= 0 && xPos - 3 < 2)
                 {
                     if (gInGameTimer.minutes + sPowersOfTen[xPos - 3] > 59)
                         gInGameTimer.minutes = 59;
                     else
                         gInGameTimer.minutes += sPowersOfTen[xPos - 3];
                 }
-                else if (xPos < 2u)
+                else if (xPos >= 0 && xPos < 2)
                 {
                     if (gInGameTimer.seconds + sPowersOfTen[xPos] > 59)
                         gInGameTimer.seconds = 59;
@@ -524,21 +522,21 @@ void PauseDebugStatusScreen(void)
             else if (gChangedInput & KEY_UP)
             {
                 work3 = TRUE;
-                if (xPos - 6 < 2u)
+                if (xPos - 6 >= 0 && xPos - 6 < 2)
                 {
                     if (gInGameTimer.hours - sPowersOfTen[xPos - 6] < 0)
                         gInGameTimer.hours = 0;
                     else
                         gInGameTimer.hours -= sPowersOfTen[xPos - 6];
                 }
-                else if (xPos - 3 < 2u)
+                else if (xPos - 3 >= 0 && xPos - 3 < 2)
                 {
                     if (gInGameTimer.minutes - sPowersOfTen[xPos - 3] < 0)
                         gInGameTimer.minutes = 0;
                     else
                         gInGameTimer.minutes -= sPowersOfTen[xPos - 3];
                 }
-                else if (xPos < 2u)
+                else if (xPos >= 0 && xPos < 2)
                 {
                     if (gInGameTimer.seconds - sPowersOfTen[xPos] < 0)
                         gInGameTimer.seconds = 0;
@@ -615,7 +613,7 @@ void PauseDebugStatusScreen(void)
                     else if (gChangedInput & KEY_DOWN)
                         work3 = 1;
                 }
-                if (gLanguage + work3 > 6u)
+                if (gLanguage + work3 < 0 || gLanguage + work3 >= LANGUAGE_END)
                     work3 = 0;
                 if (work3 != 0)
                 {
@@ -645,7 +643,7 @@ void PauseDebugStatusScreen(void)
                     else if (gChangedInput & KEY_DOWN)
                         work3 = 1;
                 }
-                if (gDifficulty + work3 > 2u)
+                if (gDifficulty + work3 < 0 || gDifficulty + work3 >= DIFF_END)
                     work3 = 0;
                 if (work3 != 0)
                 {
@@ -767,12 +765,15 @@ void PauseDebugDrawAbilityGroup(u8 group)
  */
 void PauseDebugDrawAffectedGroups(u32 groups)
 {
-    s32 i; // r5
-    s32 j; // r2
-    u16* dst; // r4
-    u16 palette; // r0 / r3
+    // TODO: Match this function
+    // https://decomp.me/scratch/EbAPJ
+
+    s32 i;
+    s32 j;
+    u16* dst;
+    u16 palette;
     u16 mapPal;
-    s32 divisor; // r5
+    s32 divisor;
     s32 tmp;
 
     if (groups & (1 << PAUSE_DEBUG_GROUP_BEAM))
@@ -813,8 +814,8 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_GET_MAP))
     {
-        i = 0; // r5
-        dst = VRAM_BASE + 0xB000; // r4
+        i = 0;
+        dst = VRAM_BASE + 0xB000;
         while (i < 11)
         {
             if (i > 5)
@@ -829,7 +830,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
             }
 
             if ((gEquipment.downloadedMapStatus >> i) & 1)
-                mapPal = 9; // r0 / r3
+                mapPal = 9;
             else
                 mapPal = 11;
 
@@ -849,10 +850,10 @@ void PauseDebugDrawAffectedGroups(u32 groups)
             sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_TIME].top * 64 +
             sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_TIME].left * 2;
         // Hours
-        divisor = 10; // r5
+        divisor = 10;
         while (divisor > 0)
         {
-            j = (gInGameTimer.hours / divisor) % 10; // r2
+            j = (gInGameTimer.hours / divisor) % 10;
             if (divisor != 100)
                 *dst++ = j + 0xB080;
             else if (j == 0)
@@ -863,16 +864,16 @@ void PauseDebugDrawAffectedGroups(u32 groups)
         }
         // Minutes
         dst++;
-        divisor = 10; // r5
+        divisor = 10;
         while (divisor > 0)
         {
-            j = (gInGameTimer.minutes / divisor) % 10; // r2
+            j = (gInGameTimer.minutes / divisor) % 10;
             *dst++ = j + 0xB080;
             divisor /= 10;
         }
         // Seconds
         dst++;
-        divisor = 10; // r5
+        divisor = 10;
         while (divisor > 0)
         {
             j = (gInGameTimer.seconds / divisor) % 10;
@@ -883,13 +884,11 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_SAVE))
     {
-        dst = VRAM_BASE + 0xB000; // r4
+        dst = VRAM_BASE + 0xB000;
         dst += sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_SAVE].top * 32 +
             sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_SAVE].left;
         for (j = 4; j > 0; j--, dst++)
-        {
             *dst = (*dst & 0xFFF) | 0x9000;
-        }
     }
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_DOOR_UNLOCK))
@@ -897,7 +896,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
         if (gDoorUnlockTimer != 0 || gHatchesState.unlocking != 0)
         {
             if (gDoorUnlockTimer < 0)
-                i = 1; // r5
+                i = 1;
             else if (gDoorUnlockTimer != 0)
                 i = 0;
             else if (gHatchesState.unlocking != 0)
@@ -910,7 +909,7 @@ void PauseDebugDrawAffectedGroups(u32 groups)
                 dst = VRAM_BASE + 0xB000;
                 dst += sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_DOOR_UNLOCK].top * 32 +
                     sPauseDebugGroupsPositions[PAUSE_DEBUG_GROUP_DOOR_UNLOCK].left;
-                for (j = 0; j < ARRAY_SIZE(sPauseDebug_ShutOpen_Text[0]); j++) // r2
+                for (j = 0; j < ARRAY_SIZE(sPauseDebug_ShutOpen_Text[0]); j++)
                     *dst++ = (sPauseDebug_ShutOpen_Text[i][j] + 0x360) | 0xB000;
             }
         }
@@ -919,20 +918,20 @@ void PauseDebugDrawAffectedGroups(u32 groups)
     if (groups & (1 << PAUSE_DEBUG_GROUP_LANGUAGE))
     {
         if (gLanguage < LANGUAGE_END)
-            i = gLanguage; // r5
+            i = gLanguage;
         else
             i = LANGUAGE_END;
 
         dst = VRAM_BASE + 0xB000;
         dst += sPauseDebugLanguagePosition[0] * 32 + sPauseDebugLanguagePosition[1];
-        for (j = 0; j < ARRAY_SIZE(sPauseDebug_Language_Text[0]); j++) // r2
+        for (j = 0; j < ARRAY_SIZE(sPauseDebug_Language_Text[0]); j++)
             *dst++ = (sPauseDebug_Language_Text[i][j] + 0x360) | 0xB000;
     }
     
     if (groups & (1 << PAUSE_DEBUG_GROUP_DIFFICULTY))
     {
         if (gDifficulty < DIFF_END)
-            i = gDifficulty; // r5
+            i = gDifficulty;
         else
             i = DIFF_END;
 
