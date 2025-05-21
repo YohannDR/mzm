@@ -13,11 +13,13 @@ Even though the final release of the game doesn't include any debug features, so
   - [Boot](#boot)
   - [Erase](#erase)
 - [Pause Debug Menu](#pause-debug-menu)
+  - [Equipment](#equipment)
+  - [Miscellaneous](#miscellaneous)
+  - [Event List](#event-list)
 - [Additional Debug Features](#additional-debug-features)
   - [Title Screen](#title-screen)
   - [File Select](#file-select)
   - [No-clip Mode](#no-clip-mode)
-  - [Pause Screen](#pause-screen)
 
 
 ## Boot Debug Menu
@@ -68,8 +70,8 @@ This menu is for testing cutscenes and demos. The devs use "demo" to refer to cu
 "DEMO SW" likely means "demo switch", and seems to be an unused setting that would have disabled cutscenes. The following two options let you preview all the cutscenes in the game. While playing cutscenes, pressing `A` skips to the next part of the cutscene, pressing `Start` restarts the cutscene, and pressing `B` returns to the debug menu. "DEMO(A)" only has a single cutscene, while all others are part of "DEMO(B)". These are the cutscene names:
 - ゲキツイ - Shooting down
 - MONO スタート - Monologue start
-- MONO ゲキツイ 1 - Monologue shooting down 1
-- MONO ゲキツイ 2 - Monologue shooting down 2
+- MONOゲキツイ1 - Monologue shooting down 1
+- MONOゲキツイ2 - Monologue shooting down 2
 - マザー ブレイン - Mother Brain
 - クレイド - Kraid
 - セキゾウ - Stone statue
@@ -105,7 +107,39 @@ This menu lets you erase all SRAM, which does the same thing as the menu you get
 
 ## Pause Debug Menu
 
-TODO
+The pause debug menu lets you change Samus's equipment, triggered events, and a few other options. You can access the pause debug menu from the status screen while the game is paused. The game must be launched from the boot debug menu, otherwise the pause debug menu won't be enabled. Holding `Select` while loading the status screen will load the normal status screen. Similary, holding `Select` while pausing will disable the debug menu until you pause again. Holding `L` + `Select` while pausing will download the map for the current area.
+
+The top of the debug status screen shows the current area, room ID ("HEYA"), and door ID ("GATE"). Pressing `Select` on this screen will load the [event list](#event-list).
+
+### Equipment
+
+Abilities can be toggled on or off. Selecting the left side of the item will give you the ability, while selecting anything to the right will activate the ability. "KADO" is power grip (角 - "corner" or "edge"). Under the "STATUS" section, you can change whether Samus's suit type is normal, fully powered, or suitless ("NAKED"). Changing the suit type will automatically update the activated abilities.
+
+"SEVENT" is an unused leftover from the Fusion debug menu.
+
+Selecting "EQUIP" and pressing `L` or `Select` will remove all abilities. Pressing `R` or `Start` will set all abilities and activate them based on the suit type. Selecting "TANK" and pressing `L` or `Select` will set all energy and ammo to their starting values. Pressing `R` or `Start` will set them all to their maximum values based on the current difficulty.
+
+### Miscellaneous
+
+"GET_MAP" lets you toggle area maps as downloaded. The test area maps cannot be toggled.
+
+Selecting "SAVE" will immediately save the game. Reloading the file will skip the normal loading animation.
+
+The four dashes below "SAVE" will display "SHUT" if the doors are locked. Selecting it will change the text to "OPEN" and unlock the doors.
+
+"TIME" displays the current in-game timer as hours, minutes, and seconds. These can be changed to any value between 00:00:00 and 99:59:59.
+
+"LANG" displays the current language and the game's region. The JP and US ROMs only contain Japanese and English, so changing the language to anything else won't actually change the language.
+
+"LEVEL" displays the difficulty, which you can change to easy, normal, or hard.
+
+Pressing `A` on the very top-right corner of the screen will display a "z" and play the Game Boy boot sound. This actually saves the RAM that demos use, but there's no in-game way to use this RAM.
+
+### Event List
+
+Pressing `Select` while on the debug status screen will bring up the event list, where you can toggle any event in the game on or off. Pressing `Left` or `Right` will move the cursor up or down by 10. When testing event changes, you may need to reload the room to see any differences.
+
+The event names in this list can be difficult to figure out without knowing Japanese. You can look at the [Event enum](../include/constants/event.h) for some names that are easier to understand.
 
 
 ## Additional Debug Features
@@ -123,9 +157,3 @@ If you have the Metroid Fusion gallery unlocked, holding `L` while selecting the
 ### No-clip Mode
 
 While in-game, holding `L` + `B` and pressing `Start` will enable no-clip mode. In this mode, you can freely move around a room without interacting with collision. Holding `L` or `R` will let you move twice as fast. Pressing `Select` will switch the camera to be unaffected by scrolls and room boundaries. Pressing `Start` will turn off no-clip mode.
-
-### Pause Screen
-
-While in-game, holding `Select` while pressing `Start` will load the pause screen without the debug menu. This lets you view the normal status screen.
-
-Holding `L` + `Select` while pressing `Start` will download the map for the current area.
