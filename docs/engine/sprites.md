@@ -31,7 +31,7 @@ Note :
 
 | Name    | Full name   | Type | Explanation |
 |---------|-------------|------|-------------|
-| **status** | Status | `u16` | A collection of bit flags that affect the behavior of sprite, or provide information on its current state. For more detail on each flag, view the [sprite status](#status) section.
+| **status** | Status | `u16` | A collection of bit flags that affect the behavior of a sprite, or provide information on its current state. For more detail on each flag, view the [sprite status](#status) section.
 | **yPosition** | Y Position | `u16` | Current Y position of the sprite.
 | **xPosition** | X Position | `u16` | Current X position of the sprite.
 | *yPositionSpawn* | Y Position Spawn | `u16` | The Y position of the sprite when it spawned.
@@ -172,19 +172,21 @@ The main purpose of the secondary sprites is to complement a primary sprite, the
 
 # Creating a new sprite
 
-In order to create a new sprite, 3 components are necessary :
+In order to create a new sprite, 4 components are necessary :
 
-- A main AI, which should be have a signature like this : `void MySprite(void)`
+- A main AI, which should be have a signature like this : `void MySprite(void)`.
 - Graphics, LZ77 compressed.
 - Palette, raw 16-bit gba colors.
+- Stats, which determine health, weakness, damage and drop spawn rate.
 
 It's also necessary to create a sprite id, simply adding an entry to the already existing enum ([PrimarySprite](../../include/constants/sprite.h#L30) or [SecondaySprite](../../include/constants/sprite.h#L241)) works, though there is an upper limit of 255 due to sprite id being stored in an `u8`.
 
-Once created, the 3 components simply need to be added to their respective arrays, namely :
+Once created, the 4 components simply need to be added to their respective arrays, namely :
 
-- [sPrimarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#237) or [sSecondarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#832)
-- [sSpritesGraphicsPointers](../../src/data/samus_sprites_pointers.c#446)
-- [sSpritesPalettePointers](../../src/data/samus_sprites_pointers.c#639)
+- [sPrimarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#237) or [sSecondarySpritesAIPointers](../../src/data/samus_sprites_pointers.c#832),
+- [sSpritesGraphicsPointers](../../src/data/samus_sprites_pointers.c#446),
+- [sSpritesPalettePointers](../../src/data/samus_sprites_pointers.c#639),
+- [sPrimarySpriteStats](../../src/data/sprite_data.c#65) or [sPrimarySpriteStats](../../src/data/sprite_data.c#2346)
 
 # Spawning a new sprite
 
