@@ -10,11 +10,9 @@ track_333_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte W04
-	.byte N05
-	.byte Fn2, Gs4
+	.byte N05, Fn2, v080
 	.byte W05
-	.byte N15
-	.byte Cn3, Cn3
+	.byte N15, Cn3, v060
 	.byte W06
 	.byte BEND, c_v-8
 	.byte W05
@@ -23,9 +21,8 @@ track_333_0:
 	.byte W02
 	.byte VOL, 9
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

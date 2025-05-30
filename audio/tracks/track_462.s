@@ -9,13 +9,11 @@ track_462_0:
 	.byte VOL, 108
 	.byte PAN, c_v-20
 	.byte W28
-	.byte TIE
-	.byte Cn3, Cn8
+	.byte TIE, Cn3, v120
 	.byte W68
 	.byte W80
 	.byte W02
-	.byte EOT
-
+	.byte EOT @ Cn3, v120
 	.byte FINE
 
 .align 2

@@ -10,31 +10,29 @@ track_336_0:
 	.byte PAN, c_v
 	.byte BENDR, 24
 	.byte BEND, c_v-63
-	.byte N12
-	.byte Cn3, Cn3
+	.byte N12, Cn3, v060
 	.byte W02
 	.byte BEND, c_v-61
 	.byte W01
-	.byte FnM2
+	.byte c_v-59 @ BEND
 	.byte W01
-	.byte GsM2
+	.byte c_v-56 @ BEND
 	.byte W01
-	.byte BnM2
+	.byte c_v-53 @ BEND
 	.byte W01
-	.byte DsM1
+	.byte c_v-49 @ BEND
 	.byte W01
-	.byte Gn0
+	.byte c_v-33 @ BEND
 	.byte W01
-	.byte An1
+	.byte c_v-19 @ BEND
 	.byte W01
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W01
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W01
-	.byte Cs3
+	.byte c_v-3 @ BEND
 	.byte W01
-	.byte En3
-
+	.byte c_v @ BEND
 	.byte FINE
 
 .align 2

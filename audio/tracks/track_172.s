@@ -9,20 +9,18 @@ track_172_0:
 	.byte VOL, 70
 	.byte PAN, c_v+16
 	.byte PRIO, 1
-	.byte N04
-	.byte Cn2, Cn8
+	.byte N04, Cn2, v120
 	.byte W05
-	.byte Dn2, En6
+	.byte Dn2, v100 @ N04
 	.byte W04
-	.byte Cn2, Gs4
+	.byte Cn2, v080 @ N04
 	.byte W05
-	.byte Bn1, Cn3
+	.byte Bn1, v060 @ N04
 	.byte W04
-	.byte Cn2, En1
+	.byte Cn2, v040 @ N04
 	.byte W05
-	.byte Dn2, GsM1
+	.byte Dn2, v020 @ N04
 	.byte W04
-
 	.byte FINE
 
 track_172_1:
@@ -31,38 +29,36 @@ track_172_1:
 	.byte VOL, 70
 	.byte PAN, c_v+16
 	.byte W12
-	.byte N32
-	.byte An2, Gs4, DnM2
+	.byte N32, An2, v080, 2
 	.byte W20
 	.byte VOL, 70
 	.byte W01
-	.byte An2
+	.byte 57 @ VOL
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W01
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W01
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte EnM1
+	.byte 16 @ VOL
 	.byte W01
-	.byte CnM1
+	.byte 12 @ VOL
 	.byte W01
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W01
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 track_172_2:
@@ -74,66 +70,60 @@ track_172_2:
 	.byte PRIO, 62
 	.byte BEND, c_v-32
 	.byte W01
-	.byte N05
-	.byte Fn3, Cn3
+	.byte N05, Fn3, v060
 	.byte W01
 	.byte BEND, c_v+21
 	.byte W01
-	.byte Bn6
+	.byte c_v+43 @ BEND
 	.byte W01
-	.byte Cn8
+	.byte c_v+56 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W01
-	.byte Gs0
-	.byte N05
-	.byte Gn3, Gs4
-	.byte W01
-	.byte BEND, c_v-8
-	.byte W01
-	.byte Gn4
-	.byte W01
-	.byte Gn6
-	.byte W01
-	.byte Gn8
-	.byte W01
-	.byte Gs0
-	.byte N05
-	.byte Fn3, Cn3
+	.byte c_v-32 @ BEND
+	.byte N05, Gn3, v080
 	.byte W01
 	.byte BEND, c_v-8
 	.byte W01
-	.byte Gn4
+	.byte c_v+15 @ BEND
 	.byte W01
-	.byte Gn6
+	.byte c_v+39 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W01
-	.byte Gs0
-	.byte N05
-	.byte Gn3, Gs4
-	.byte W01
-	.byte BEND, c_v-8
-	.byte W01
-	.byte Gn4
-	.byte W01
-	.byte Gn6
-	.byte W01
-	.byte Gn8
-	.byte W01
-	.byte Gs0
-	.byte N05
-	.byte Fn3, Cn3
+	.byte c_v-32 @ BEND
+	.byte N05, Fn3, v060
 	.byte W01
 	.byte BEND, c_v-8
 	.byte W01
-	.byte Gn4
+	.byte c_v+15 @ BEND
 	.byte W01
-	.byte Gn6
+	.byte c_v+39 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W01
-
+	.byte c_v-32 @ BEND
+	.byte N05, Gn3, v080
+	.byte W01
+	.byte BEND, c_v-8
+	.byte W01
+	.byte c_v+15 @ BEND
+	.byte W01
+	.byte c_v+39 @ BEND
+	.byte W01
+	.byte c_v+63 @ BEND
+	.byte W01
+	.byte c_v-32 @ BEND
+	.byte N05, Fn3, v060
+	.byte W01
+	.byte BEND, c_v-8
+	.byte W01
+	.byte c_v+15 @ BEND
+	.byte W01
+	.byte c_v+39 @ BEND
+	.byte W01
+	.byte c_v+63 @ BEND
+	.byte W01
 	.byte FINE
 
 .align 2

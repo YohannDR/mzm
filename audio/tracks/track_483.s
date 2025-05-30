@@ -10,20 +10,18 @@ track_483_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte BEND, c_v
-	.byte N09
-	.byte Cn3, Gs4
+	.byte N09, Cn3, v080
 	.byte W04
 	.byte BEND, c_v+63
 	.byte W01
 	.byte VOL, 41
 	.byte W01
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte W01
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

@@ -9,10 +9,8 @@ track_249_0:
 	.byte VOL, 56
 	.byte PAN, c_v
 	.byte W06
-	.byte N30
-	.byte Cn3, Gs4
+	.byte N30, Cn3, v080
 	.byte W30
-
 	.byte FINE
 
 .align 2

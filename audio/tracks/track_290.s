@@ -8,28 +8,27 @@ track_290_0:
 	.byte VOICE, 19
 	.byte VOL, 0
 	.byte PAN, c_v
-	.byte TIE
-	.byte En2, Gs4
+	.byte TIE, En2, v080
 	.byte W03
 	.byte VOL, 0
 	.byte W03
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W03
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W03
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W03
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W03
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W03
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W03
-	.byte CsM1
+	.byte 13 @ VOL
 	.byte W03
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W03
-	.byte Cs2
+	.byte 49 @ VOL
 	.byte W01
 track_290_lbl_20e653:
 	.byte W64
@@ -37,8 +36,7 @@ track_290_lbl_20e653:
 	.byte GOTO
 		.word track_290_lbl_20e653
 	.byte W01
-	.byte EOT, En2
-
+	.byte EOT, En2 @ v080
 	.byte FINE
 
 .align 2

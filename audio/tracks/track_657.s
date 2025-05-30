@@ -9,26 +9,22 @@ track_657_0:
 	.byte VOICE, 14
 	.byte VOL, 44
 	.byte BEND, c_v
-	.byte N10
-	.byte An2, En6
+	.byte N10, An2, v100
 	.byte W01
 	.byte VOL, 45
 	.byte W01
-	.byte Cn2
+	.byte 48 @ VOL
 	.byte W01
-	.byte Ds2
+	.byte 51 @ VOL
 	.byte W01
-	.byte Gn2
+	.byte 55 @ VOL
 	.byte W06
-	.byte N10
-	.byte An2, Cn3
+	.byte N10, An2, v060
 	.byte W10
-	.byte An2, Gs0
+	.byte An2, v032 @ N10
 	.byte W10
-	.byte N21
-	.byte An2, CnM1
+	.byte N21, An2, v012
 	.byte W21
-
 	.byte FINE
 
 track_657_1:
@@ -37,190 +33,184 @@ track_657_1:
 	.byte VOICE, 14
 	.byte VOL, 33
 	.byte BEND, c_v
-	.byte N10
-	.byte Cn3, En6
+	.byte N10, Cn3, v100
 	.byte W01
 	.byte VOL, 34
 	.byte W01
-	.byte Cn1
+	.byte 36 @ VOL
 	.byte W01
-	.byte En1
+	.byte 40 @ VOL
 	.byte W01
-	.byte Gs1
+	.byte 44 @ VOL
 	.byte W06
-	.byte N10
-	.byte Cn3, Cn3
+	.byte N10, Cn3, v060
 	.byte W10
-	.byte Cn3, Gs0
+	.byte Cn3, v032 @ N10
 	.byte W10
-	.byte N21
-	.byte Cn3, CnM1
+	.byte N21, Cn3, v012
 	.byte W21
-
 	.byte FINE
 
 track_657_2:
 	.byte KEYSH, 0
 	.byte VOL, 18
 	.byte W01
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W04
 	.byte VOICE, 15
 	.byte PAN, c_v
 	.byte BENDR, 8
 	.byte BEND, c_v
-	.byte N60
-	.byte Cn1, Cn4, CsM2
+	.byte N60, Cn1, v072, 1
 	.byte W01
 	.byte VOL, 22
 	.byte W01
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W01
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte BEND, c_v-1
 	.byte W01
 	.byte VOL, 26
 	.byte W01
-	.byte En0
+	.byte 28 @ VOL
 	.byte W01
-	.byte Fn0
+	.byte 29 @ VOL
 	.byte BEND, c_v-2
 	.byte W01
 	.byte VOL, 31
 	.byte W01
-	.byte An0
+	.byte 33 @ VOL
 	.byte W01
-	.byte As0
+	.byte 34 @ VOL
 	.byte BEND, c_v-3
 	.byte W01
 	.byte VOL, 36
 	.byte W01
-	.byte Ds1
+	.byte 39 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte BEND, c_v-5
 	.byte W01
 	.byte VOL, 45
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte En2
+	.byte 52 @ VOL
 	.byte BEND, c_v-6
 	.byte W01
 	.byte VOL, 55
 	.byte W01
-	.byte Dn3
+	.byte 62 @ VOL
 	.byte W01
-	.byte Fn3
+	.byte 65 @ VOL
 	.byte BEND, c_v-7
 	.byte W01
 	.byte VOL, 68
 	.byte W01
-	.byte As3
+	.byte 70 @ VOL
 	.byte W01
 	.byte BEND, c_v-8
 	.byte W01
 	.byte VOL, 68
 	.byte W01
-	.byte Fs3
+	.byte 66 @ VOL
 	.byte W01
-	.byte Ds3
+	.byte 63 @ VOL
 	.byte BEND, c_v-9
 	.byte W01
 	.byte VOL, 60
 	.byte W02
-	.byte Fn2
+	.byte 53 @ VOL
 	.byte BEND, c_v-10
 	.byte W01
 	.byte VOL, 51
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte As1
+	.byte 46 @ VOL
 	.byte BEND, c_v-11
 	.byte W01
 	.byte VOL, 44
 	.byte W01
-	.byte Gn1
+	.byte 43 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte BEND, c_v-13
 	.byte W01
 	.byte VOL, 42
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W01
-	.byte Gn1
+	.byte 43 @ VOL
 	.byte BEND, c_v-14
 	.byte W02
 	.byte VOL, 44
 	.byte W01
-	.byte An1
+	.byte 45 @ VOL
 	.byte BEND, c_v-15
 	.byte W01
 	.byte VOL, 46
 	.byte W01
-	.byte Cs2
+	.byte 49 @ VOL
 	.byte W01
-	.byte Dn2
+	.byte 50 @ VOL
 	.byte BEND, c_v-16
 	.byte W01
 	.byte VOL, 51
 	.byte W01
-	.byte En2
+	.byte 52 @ VOL
 	.byte W01
-	.byte En2
+	.byte 52 @ VOL
 	.byte BEND, c_v-17
 	.byte W01
 	.byte VOL, 52
 	.byte W02
-	.byte Dn2
+	.byte 50 @ VOL
 	.byte BEND, c_v-18
 	.byte W01
 	.byte VOL, 47
 	.byte W01
-	.byte An1
+	.byte 45 @ VOL
 	.byte W01
-	.byte Cn1
+	.byte 36 @ VOL
 	.byte BEND, c_v-20
 	.byte W01
 	.byte VOL, 31
 	.byte W01
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W01
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte BEND, c_v-21
 	.byte W01
 	.byte VOL, 20
 	.byte W01
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W01
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte BEND, c_v-22
 	.byte W01
 	.byte VOL, 12
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte BEND, c_v-23
 	.byte W01
 	.byte VOL, 7
 	.byte W01
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W01
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

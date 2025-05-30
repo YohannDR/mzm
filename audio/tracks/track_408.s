@@ -8,10 +8,8 @@ track_408_0:
 	.byte VOICE, 5
 	.byte VOL, 60
 	.byte PAN, c_v
-	.byte N14
-	.byte Bn2, Gs5
+	.byte N14, Bn2, v092
 	.byte W14
-
 	.byte FINE
 
 .align 2

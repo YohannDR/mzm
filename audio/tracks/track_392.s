@@ -9,24 +9,20 @@ track_392_0:
 	.byte VOL, 44
 	.byte PAN, c_v
 	.byte W04
-	.byte N06
-	.byte An2, Gs4
+	.byte N06, An2, v080
 	.byte W06
-	.byte N10
-	.byte Fs3
+	.byte N10, Fs3 @ v080
 	.byte W10
-	.byte N07
-	.byte Dn3
+	.byte N07, Dn3 @ v080
 	.byte W03
 	.byte VOL, 33
 	.byte W01
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte W01
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

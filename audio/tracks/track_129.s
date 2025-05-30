@@ -12,8 +12,7 @@ track_129_0:
 	.byte BENDR, 12
 	.byte LFOS, 127
 	.byte BEND, c_v-47
-	.byte N30
-	.byte En3, Gs5, CsM2
+	.byte N30, En3, v092, 1
 	.byte W02
 	.byte VOL, 14
 	.byte BEND, c_v-42
@@ -60,7 +59,6 @@ track_129_0:
 	.byte VOL, 0
 	.byte BEND, c_v+32
 	.byte W01
-
 	.byte FINE
 
 .align 2

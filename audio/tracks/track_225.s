@@ -10,10 +10,8 @@ track_225_0:
 	.byte PAN, c_v
 	.byte BENDR, 8
 	.byte BEND, c_v+44
-	.byte N16
-	.byte Cn3, Gs4
+	.byte N16, Cn3, v080
 	.byte W16
-
 	.byte FINE
 
 .align 2

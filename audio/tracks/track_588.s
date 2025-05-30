@@ -9,36 +9,34 @@ track_588_0:
 	.byte VOL, 90
 	.byte PAN, c_v
 	.byte PRIO, 1
-	.byte N64
-	.byte Cn3, Gn8, CsM2
+	.byte N64, Cn3, v127, 1
 	.byte W66
-	.byte Cn3, EnM1, CsM2
+	.byte Cn3, v016, 1 @ N64
 	.byte W30
 	.byte W24
 	.byte VOL, 90
 	.byte W01
-	.byte Gn2
+	.byte 55 @ VOL
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W01
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 track_588_1:
@@ -47,11 +45,9 @@ track_588_1:
 	.byte VOL, 90
 	.byte PAN, c_v
 	.byte W36
-	.byte N64
-	.byte Cn3, Cn1, CsM2
+	.byte N64, Cn3, v036, 1
 	.byte W60
 	.byte W05
-
 	.byte FINE
 
 .align 2

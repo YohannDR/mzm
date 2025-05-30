@@ -13,12 +13,11 @@ track_697_0:
 	.byte W06
 	.byte VOL, 0
 	.byte BEND, c_v-47
-	.byte N16
-	.byte Cn3, Cn7
+	.byte N16, Cn3, v108
 	.byte W01
 	.byte VOL, 28
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte BEND, c_v-45
 	.byte W01
 	.byte VOL, 48
@@ -51,7 +50,7 @@ track_697_0:
 	.byte VOL, 23
 	.byte BEND, c_v-8
 	.byte W01
-	.byte Gn3
+	.byte c_v+3 @ BEND
 	.byte W01
 	.byte VOL, 9
 	.byte BEND, c_v+15
@@ -59,7 +58,6 @@ track_697_0:
 	.byte VOL, 0
 	.byte BEND, c_v+32
 	.byte W01
-
 	.byte FINE
 
 track_697_1:
@@ -71,12 +69,11 @@ track_697_1:
 	.byte W06
 	.byte VOL, 0
 	.byte BEND, c_v-47
-	.byte N16
-	.byte Fn3, Cn7
+	.byte N16, Fn3, v108
 	.byte W01
 	.byte VOL, 28
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte BEND, c_v-45
 	.byte W01
 	.byte VOL, 48
@@ -109,7 +106,7 @@ track_697_1:
 	.byte VOL, 23
 	.byte BEND, c_v-8
 	.byte W01
-	.byte Gn3
+	.byte c_v+3 @ BEND
 	.byte W01
 	.byte VOL, 9
 	.byte BEND, c_v+15
@@ -117,7 +114,6 @@ track_697_1:
 	.byte VOL, 0
 	.byte BEND, c_v+32
 	.byte W01
-
 	.byte FINE
 
 .align 2

@@ -8,24 +8,22 @@ track_382_0:
 	.byte VOICE, 8
 	.byte VOL, 40
 	.byte PAN, c_v
-	.byte N13
-	.byte Fn1, Cn4
+	.byte N13, Fn1, v072
 	.byte W06
 	.byte VOL, 40
 	.byte W01
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte W01
-	.byte CsM1
+	.byte 13 @ VOL
 	.byte W01
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W12
-
 	.byte FINE
 
 track_382_1:
@@ -33,10 +31,8 @@ track_382_1:
 	.byte VOICE, 40
 	.byte VOL, 40
 	.byte PAN, c_v
-	.byte N05
-	.byte Bn2, Gs4
+	.byte N05, Bn2, v080
 	.byte W24
-
 	.byte FINE
 
 .align 2

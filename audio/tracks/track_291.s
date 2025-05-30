@@ -9,109 +9,104 @@ track_291_0:
 	.byte VOL, 37
 	.byte PAN, c_v-4
 	.byte W04
-	.byte N32
-	.byte As3, En1
+	.byte N32, As3, v040
 	.byte W32
 	.byte VOICE, 20
-	.byte N02
-	.byte Bn3
+	.byte N02, Bn3 @ v040
 	.byte W02
-	.byte Cn4
+	.byte Cn4 @ N02, v040
 	.byte W22
 	.byte VOICE, 17
 	.byte VOL, 28
-	.byte N05
-	.byte Cn3, GsM1
+	.byte N05, Cn3, v020
 	.byte W05
-	.byte En3, Gs0
+	.byte En3, v032 @ N05
 	.byte W05
-	.byte As3, En1
+	.byte As3, v040 @ N05
 	.byte W05
-	.byte Dn3, En2
+	.byte Dn3, v052 @ N05
 	.byte W05
-	.byte Gs3, Cn3
+	.byte Gs3, v060 @ N05
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
 track_291_lbl_20e698:
-	.byte N05
-	.byte Cn3, Cn3
+	.byte N05, Cn3, v060
 	.byte W05
-	.byte En3
+	.byte En3 @ N05, v060
 	.byte W01
 	.byte W04
-	.byte As3
+	.byte As3 @ N05, v060
 	.byte W05
-	.byte Dn3
+	.byte Dn3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
-	.byte Dn3
+	.byte Dn3 @ N05, v060
 	.byte W05
-	.byte As3
+	.byte As3 @ N05, v060
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
-	.byte Cn3
+	.byte Cn3 @ N05, v060
 	.byte W05
-	.byte En3
+	.byte En3 @ N05, v060
 	.byte W05
-	.byte As3
+	.byte As3 @ N05, v060
 	.byte W05
-	.byte Dn3
+	.byte Dn3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte As3
+	.byte As3 @ N05, v060
 	.byte W02
 	.byte W03
-	.byte Dn3
+	.byte Dn3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
-	.byte Cn3
+	.byte Cn3 @ N05, v060
 	.byte W05
-	.byte En3
+	.byte En3 @ N05, v060
 	.byte W05
-	.byte As3
+	.byte As3 @ N05, v060
 	.byte W05
-	.byte Dn3
+	.byte Dn3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
-	.byte Cn3
+	.byte Cn3 @ N05, v060
 	.byte W05
-	.byte Fs3
+	.byte Fs3 @ N05, v060
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v060
 	.byte W05
-	.byte En3
+	.byte En3 @ N05, v060
 	.byte W05
-	.byte Cn4
+	.byte Cn4 @ N05, v060
 	.byte W05
 	.byte GOTO
 		.word track_291_lbl_20e698
-
 	.byte FINE
 
 track_291_1:
@@ -124,14 +119,12 @@ track_291_1:
 	.byte VOL, 50
 	.byte PAN, c_v
 	.byte LFOS, 120
-	.byte TIE
-	.byte Cn2, Cn3
+	.byte TIE, Cn2, v060
 	.byte W02
 	.byte W96
 	.byte W60
 	.byte W02
-	.byte EOT
-
+	.byte EOT @ Cn2, v060
 	.byte FINE
 
 .align 2

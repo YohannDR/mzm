@@ -10,8 +10,7 @@ track_591_0:
 	.byte PAN, c_v
 	.byte BENDR, 4
 	.byte BEND, c_v
-	.byte N13
-	.byte Fn4, Gs4
+	.byte N13, Fn4, v080
 	.byte W01
 	.byte VOL, 2
 	.byte BEND, c_v-12
@@ -51,12 +50,10 @@ track_591_0:
 	.byte W01
 	.byte VOICE, 20
 	.byte BEND, c_v
-	.byte N02
-	.byte Bn3, Cn3
+	.byte N02, Bn3, v060
 	.byte W02
-	.byte Cn4
+	.byte Cn4 @ N02, v060
 	.byte W02
-
 	.byte FINE
 
 .align 2

@@ -10,42 +10,40 @@ track_350_0:
 	.byte VOL, 37
 	.byte PAN, c_v
 	.byte LFOS, 127
-	.byte N32
-	.byte An3, Gs4
+	.byte N32, An3, v080
 	.byte W02
 	.byte VOL, 25
 	.byte W02
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W02
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W02
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W02
-	.byte An0
+	.byte 33 @ VOL
 	.byte W02
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W02
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W02
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W02
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte W02
-	.byte Fn0
+	.byte 29 @ VOL
 	.byte W02
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W01
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte W02
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte W02
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W02
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W02
-
 	.byte FINE
 
 .align 2

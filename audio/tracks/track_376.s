@@ -9,16 +9,14 @@ track_376_0:
 	.byte VOL, 37
 	.byte PAN, c_v
 	.byte W04
-	.byte N05
-	.byte Bn2, Gs4
+	.byte N05, Bn2, v080
 	.byte W07
-	.byte En3, Cn3
+	.byte En3, v060 @ N05
 	.byte W07
-	.byte En3, Gs0
+	.byte En3, v032 @ N05
 	.byte W07
-	.byte En3, CnM1
+	.byte En3, v012 @ N05
 	.byte W05
-
 	.byte FINE
 
 .align 2

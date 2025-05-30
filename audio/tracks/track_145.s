@@ -8,44 +8,40 @@ track_145_0:
 	.byte VOICE, 38
 	.byte VOL, 44
 	.byte PAN, c_v
-	.byte N08
-	.byte En2, Gs4
+	.byte N08, En2, v080
 	.byte W08
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N08
 	.byte W08
-	.byte N09
-	.byte Gn2, Gs4
+	.byte N09, Gn2, v080
 	.byte W09
-	.byte N36
-	.byte An2, En3, DnM2
+	.byte N36, An2, v064, 2
 	.byte W03
 	.byte VOL, 52
 	.byte W03
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W03
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W03
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W03
-	.byte CnM1
+	.byte 12 @ VOL
 	.byte W03
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W03
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W03
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W03
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W03
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W03
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W03
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

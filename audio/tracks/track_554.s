@@ -10,10 +10,8 @@ track_554_0:
 	.byte PAN, c_v-24
 	.byte BENDR, 12
 	.byte BEND, c_v-19
-	.byte TIE
-	.byte Cn3, Cn4
-	.byte TIE
-	.byte Gn3, Cn3
+	.byte TIE, Cn3, v072
+	.byte TIE, Gn3, v060
 	.byte W03
 	.byte VOL, 24
 	.byte BEND, c_v-19
@@ -23,16 +21,16 @@ track_554_0:
 	.byte W03
 	.byte VOL, 51
 	.byte W03
-	.byte Gn2
+	.byte 55 @ VOL
 	.byte W03
-	.byte As2
+	.byte 58 @ VOL
 	.byte W03
-	.byte Cn3
+	.byte 60 @ VOL
 	.byte BEND, c_v-17
 	.byte W03
 	.byte VOL, 58
 	.byte W03
-	.byte Gn2
+	.byte 55 @ VOL
 	.byte W01
 	.byte BEND, c_v-17
 	.byte W01
@@ -66,7 +64,7 @@ track_554_0:
 	.byte W01
 	.byte VOL, 27
 	.byte W01
-	.byte As0
+	.byte 34 @ VOL
 	.byte W01
 	.byte BEND, c_v-26
 	.byte W02
@@ -86,7 +84,7 @@ track_554_0:
 	.byte W01
 	.byte BEND, c_v-13
 	.byte W03
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W02
 	.byte VOL, 57
 	.byte W01
@@ -112,11 +110,11 @@ track_554_0:
 	.byte W02
 	.byte BEND, c_v-19
 	.byte W03
-	.byte Fs1
+	.byte c_v-22 @ BEND
 	.byte W01
 	.byte VOL, 18
 	.byte W03
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W02
 	.byte BEND, c_v-21
 	.byte W01
@@ -131,7 +129,7 @@ track_554_0:
 	.byte W01
 	.byte VOL, 33
 	.byte W01
-	.byte As0
+	.byte 34 @ VOL
 	.byte W01
 	.byte BEND, c_v-7
 	.byte W02
@@ -153,7 +151,7 @@ track_554_0:
 	.byte W02
 	.byte VOL, 44
 	.byte W03
-	.byte Fn1
+	.byte 41 @ VOL
 	.byte W01
 	.byte BEND, c_v-19
 	.byte W02
@@ -169,7 +167,7 @@ track_554_0:
 	.byte W01
 	.byte BEND, c_v-1
 	.byte W03
-	.byte An1
+	.byte c_v-19 @ BEND
 	.byte W02
 	.byte VOL, 19
 	.byte W01
@@ -177,15 +175,15 @@ track_554_0:
 	.byte W02
 	.byte VOL, 23
 	.byte W03
-	.byte Fn0
+	.byte 29 @ VOL
 	.byte W03
-	.byte Cn1
+	.byte 36 @ VOL
 	.byte W01
 	.byte BEND, c_v-14
 	.byte W02
 	.byte VOL, 43
 	.byte W01
-	.byte As1
+	.byte 46 @ VOL
 	.byte BEND, c_v-13
 	.byte W03
 	.byte VOL, 49
@@ -212,7 +210,7 @@ track_554_0:
 	.byte W02
 	.byte VOL, 27
 	.byte W03
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte W01
 	.byte BEND, c_v-19
 	.byte W02
@@ -222,11 +220,9 @@ track_554_0:
 	.byte W02
 	.byte VOL, 12
 	.byte W03
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W01
-	.byte EOT, Cn3
-	.byte Gn3
-
+	.byte EOT, Cn3, v067
 	.byte FINE
 
 .align 2

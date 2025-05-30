@@ -12,30 +12,28 @@ track_377_0:
 	.byte BENDR, 4
 	.byte LFOS, 100
 	.byte BEND, c_v
-	.byte N96
-	.byte Cn3, Cn3
+	.byte N96, Cn3, v060
 	.byte W01
 	.byte BEND, c_v+1
 	.byte W01
 	.byte VOL, 14
 	.byte BEND, c_v+3
 	.byte W01
-	.byte Bn3
+	.byte c_v+7 @ BEND
 	.byte W01
 	.byte VOL, 17
 	.byte BEND, c_v+12
 	.byte W01
-	.byte Gn5
+	.byte c_v+27 @ BEND
 	.byte W01
 	.byte VOL, 20
 	.byte BEND, c_v+63
 	.byte W02
 	.byte VOL, 27
 	.byte W02
-	.byte Cs1
+	.byte 37 @ VOL
 	.byte W84
 	.byte W02
-
 	.byte FINE
 
 .align 2

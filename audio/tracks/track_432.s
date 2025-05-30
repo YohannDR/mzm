@@ -10,68 +10,67 @@ track_432_0:
 	.byte PAN, c_v
 	.byte BENDR, 16
 	.byte BEND, c_v
-	.byte N36
-	.byte Bn2, Gs5, CsM2
+	.byte N36, Bn2, v092, 1
 	.byte W01
 	.byte BEND, c_v-2
 	.byte W01
-	.byte Cn3
+	.byte c_v-4 @ BEND
 	.byte W01
-	.byte As2
+	.byte c_v-6 @ BEND
 	.byte W01
-	.byte Gs2
+	.byte c_v-8 @ BEND
 	.byte W01
-	.byte Fs2
+	.byte c_v-10 @ BEND
 	.byte W01
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W01
-	.byte Ds2
+	.byte c_v-13 @ BEND
 	.byte W01
-	.byte Cs2
+	.byte c_v-15 @ BEND
 	.byte W01
-	.byte Bn1
+	.byte c_v-17 @ BEND
 	.byte W01
-	.byte An1
+	.byte c_v-19 @ BEND
 	.byte W01
-	.byte Gs1
+	.byte c_v-20 @ BEND
 	.byte W01
-	.byte Fs1
+	.byte c_v-22 @ BEND
 	.byte W01
-	.byte En1
+	.byte c_v-24 @ BEND
 	.byte W01
-	.byte Dn1
+	.byte c_v-26 @ BEND
 	.byte W01
-	.byte Cn1
+	.byte c_v-28 @ BEND
 	.byte W01
-	.byte Bn0
+	.byte c_v-29 @ BEND
 	.byte W01
-	.byte An0
+	.byte c_v-31 @ BEND
 	.byte W01
-	.byte Gn0
+	.byte c_v-33 @ BEND
 	.byte W01
-	.byte Fn0
+	.byte c_v-35 @ BEND
 	.byte W01
-	.byte Ds0
+	.byte c_v-37 @ BEND
 	.byte W01
-	.byte Dn0
+	.byte c_v-38 @ BEND
 	.byte W01
-	.byte Cn0
+	.byte c_v-40 @ BEND
 	.byte W01
-	.byte AsM1
+	.byte c_v-42 @ BEND
 	.byte W01
-	.byte GsM1
+	.byte c_v-44 @ BEND
 	.byte W01
-	.byte FsM1
+	.byte c_v-46 @ BEND
 	.byte W01
-	.byte FnM1
+	.byte c_v-47 @ BEND
 	.byte W01
-	.byte DsM1
+	.byte c_v-49 @ BEND
 	.byte W01
-	.byte CsM1
+	.byte c_v-51 @ BEND
 	.byte W01
-	.byte BnM2
+	.byte c_v-53 @ BEND
 	.byte W01
-	.byte AnM2
+	.byte c_v-55 @ BEND
 	.byte W01
 	.byte VOL, 42
 	.byte BEND, c_v-56
@@ -90,7 +89,6 @@ track_432_0:
 	.byte W01
 	.byte VOL, 0
 	.byte W01
-
 	.byte FINE
 
 .align 2

@@ -9,10 +9,8 @@ track_482_0:
 	.byte VOL, 78
 	.byte PAN, c_v
 	.byte W02
-	.byte N12
-	.byte En3, En6
+	.byte N12, En3, v100
 	.byte W12
-
 	.byte FINE
 
 .align 2

@@ -8,32 +8,29 @@ track_456_0:
 	.byte VOICE, 0
 	.byte VOL, 70
 	.byte PAN, c_v-20
-	.byte N03
-	.byte Cn3, Gs4
+	.byte N03, Cn3, v080
 	.byte W03
 	.byte VOICE, 13
-	.byte N12
-	.byte Cn2, Gs5
+	.byte N12, Cn2, v092
 	.byte W04
 	.byte VOL, 70
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte W01
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W24
-
 	.byte FINE
 
 track_456_1:
@@ -43,11 +40,9 @@ track_456_1:
 	.byte PAN, c_v-20
 	.byte PRIO, 72
 	.byte W10
-	.byte N06
-	.byte An4, Gs4
+	.byte N06, An4, v080
 	.byte W28
 	.byte W01
-
 	.byte FINE
 
 .align 2

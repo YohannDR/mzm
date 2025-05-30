@@ -12,53 +12,51 @@ track_596_0:
 	.byte LFOS, 100
 	.byte PRIO, 25
 	.byte W01
-	.byte N05
-	.byte Gn2, Gs4
+	.byte N05, Gn2, v080
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W09
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W05
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W06
-	.byte N05
+	.byte N05 @ Gn2, v080
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W05
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W09
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W05
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W05
-	.byte N05
+	.byte N05 @ Gn2, v080
 	.byte W06
-	.byte En2, En6
+	.byte En2, v100 @ N05
 	.byte W08
-	.byte Fn2, Gs5
+	.byte Fn2, v092 @ N05
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W07
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W07
-	.byte N05
+	.byte N05 @ Gn2, v080
 	.byte W03
 	.byte W02
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W09
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W05
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N05
 	.byte W06
-	.byte N05
+	.byte N05 @ Gn2, v080
 	.byte W05
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W05
-
 	.byte FINE
 
 .align 2

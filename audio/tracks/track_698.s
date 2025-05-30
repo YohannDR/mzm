@@ -12,14 +12,13 @@ track_698_0:
 	.byte PRIO, 1
 	.byte W02
 	.byte BEND, c_v+32
-	.byte N16
-	.byte Cn3, Gs5
+	.byte N16, Cn3, v092
 	.byte W01
 	.byte VOL, 7
 	.byte W01
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W01
-	.byte Ds1
+	.byte 39 @ VOL
 	.byte BEND, c_v+25
 	.byte W01
 	.byte VOL, 44
@@ -57,7 +56,6 @@ track_698_0:
 	.byte W01
 	.byte VOL, 0
 	.byte W01
-
 	.byte FINE
 
 track_698_1:
@@ -68,14 +66,13 @@ track_698_1:
 	.byte BENDR, 18
 	.byte W02
 	.byte BEND, c_v+32
-	.byte N16
-	.byte Fn3, En6
+	.byte N16, Fn3, v100
 	.byte W01
 	.byte VOL, 7
 	.byte W01
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W01
-	.byte Ds1
+	.byte 39 @ VOL
 	.byte BEND, c_v+25
 	.byte W01
 	.byte VOL, 44
@@ -113,7 +110,6 @@ track_698_1:
 	.byte W01
 	.byte VOL, 0
 	.byte W01
-
 	.byte FINE
 
 .align 2

@@ -8,13 +8,10 @@ track_403_0:
 	.byte VOICE, 13
 	.byte VOL, 110
 	.byte PAN, c_v
-	.byte N12
-	.byte An2, Gn8
+	.byte N12, An2, v127
 	.byte W12
-	.byte N19
-	.byte Cn3, Gs3
+	.byte N19, Cn3, v068
 	.byte W19
-
 	.byte FINE
 
 .align 2

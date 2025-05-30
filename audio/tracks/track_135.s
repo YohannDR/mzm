@@ -10,21 +10,18 @@ track_135_0:
 	.byte PAN, c_v
 	.byte BENDR, 4
 	.byte BEND, c_v
-	.byte N09
-	.byte Cn3, Gs4
+	.byte N09, Cn3, v080
 	.byte W09
-	.byte Cn3, Gs0
+	.byte Cn3, v032 @ N09
 	.byte W01
 	.byte BEND, c_v-1
 	.byte W03
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W03
-	.byte Gs2
+	.byte c_v-8 @ BEND
 	.byte W02
-	.byte N09
-	.byte Cn3, EnM1
+	.byte N09, Cn3, v016
 	.byte W09
-
 	.byte FINE
 
 .align 2

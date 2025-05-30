@@ -8,18 +8,15 @@ track_250_0:
 	.byte VOICE, 11
 	.byte VOL, 95
 	.byte PAN, c_v
-	.byte N02
-	.byte Cn3, Gn8
+	.byte N02, Cn3, v127
 	.byte W02
 	.byte VOICE, 12
-	.byte N14
+	.byte N14 @ Cn3, v127
 	.byte W14
-	.byte Cn3, Gs0
+	.byte Cn3, v032 @ N14
 	.byte W14
-	.byte N18
-	.byte Cn3, CnM1
+	.byte N18, Cn3, v012
 	.byte W19
-
 	.byte FINE
 
 track_250_1:
@@ -29,13 +26,10 @@ track_250_1:
 	.byte PAN, c_v
 	.byte PRIO, 54
 	.byte W08
-	.byte N05
-	.byte Gs2, Gs4
+	.byte N05, Gs2, v080
 	.byte W05
-	.byte N03
-	.byte Gs2, En7
+	.byte N03, Gs2, v112
 	.byte W36
-
 	.byte FINE
 
 .align 2

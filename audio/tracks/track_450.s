@@ -11,38 +11,37 @@ track_450_0:
 	.byte BENDR, 14
 	.byte W06
 	.byte BEND, c_v-47
-	.byte N19
-	.byte Cn3, En7
+	.byte N19, Cn3, v112
 	.byte W01
 	.byte BEND, c_v-42
 	.byte W01
-	.byte Ds0
+	.byte c_v-37 @ BEND
 	.byte W01
-	.byte An0
+	.byte c_v-31 @ BEND
 	.byte W01
-	.byte Dn1
+	.byte c_v-26 @ BEND
 	.byte W01
-	.byte Gn1
+	.byte c_v-21 @ BEND
 	.byte W01
-	.byte Cn2
+	.byte c_v-16 @ BEND
 	.byte W01
-	.byte Fs2
+	.byte c_v-10 @ BEND
 	.byte W01
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W01
-	.byte En3
+	.byte c_v @ BEND
 	.byte W01
-	.byte An3
+	.byte c_v+5 @ BEND
 	.byte W01
-	.byte Dn4
+	.byte c_v+10 @ BEND
 	.byte W01
-	.byte Gs4
+	.byte c_v+16 @ BEND
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
-	.byte Fs5
+	.byte c_v+26 @ BEND
 	.byte W01
-	.byte Bn5
+	.byte c_v+31 @ BEND
 	.byte W01
 	.byte VOL, 29
 	.byte BEND, c_v+37
@@ -53,7 +52,6 @@ track_450_0:
 	.byte VOL, 0
 	.byte BEND, c_v+47
 	.byte W01
-
 	.byte FINE
 
 .align 2

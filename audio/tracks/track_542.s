@@ -10,8 +10,7 @@ track_542_0:
 	.byte VOL, 33
 	.byte PAN, c_v
 	.byte LFOS, 127
-	.byte TIE
-	.byte Cn4, Cn3
+	.byte TIE, Cn4, v060
 	.byte W01
 track_542_lbl_20f41e:
 	.byte W92
@@ -19,8 +18,7 @@ track_542_lbl_20f41e:
 	.byte GOTO
 		.word track_542_lbl_20f41e
 	.byte W01
-	.byte EOT, Cn4
-
+	.byte EOT, Cn4 @ v060
 	.byte FINE
 
 .align 2

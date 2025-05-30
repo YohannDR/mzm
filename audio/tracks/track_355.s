@@ -12,10 +12,8 @@ track_355_0:
 	.byte BENDR, 2
 	.byte LFOS, 110
 	.byte BEND, c_v+63
-	.byte N16
-	.byte En3, Cn3
+	.byte N16, En3, v060
 	.byte W16
-
 	.byte FINE
 
 .align 2

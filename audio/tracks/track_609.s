@@ -10,8 +10,7 @@ track_609_0:
 	.byte PAN, c_v
 	.byte BENDR, 36
 	.byte BEND, c_v+63
-	.byte N16
-	.byte Cn4, Gs4
+	.byte N16, Cn4, v080
 	.byte W01
 	.byte VOL, 43
 	.byte BEND, c_v+58
@@ -22,21 +21,21 @@ track_609_0:
 	.byte VOL, 66
 	.byte BEND, c_v+50
 	.byte W01
-	.byte Dn7
+	.byte c_v+46 @ BEND
 	.byte W01
-	.byte As6
+	.byte c_v+42 @ BEND
 	.byte W01
-	.byte Fn6
+	.byte c_v+37 @ BEND
 	.byte W01
-	.byte Cs6
+	.byte c_v+33 @ BEND
 	.byte W01
-	.byte An5
+	.byte c_v+29 @ BEND
 	.byte W01
-	.byte Fn5
+	.byte c_v+25 @ BEND
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
-	.byte Gs4
+	.byte c_v+16 @ BEND
 	.byte W01
 	.byte VOL, 66
 	.byte BEND, c_v+12
@@ -51,7 +50,6 @@ track_609_0:
 	.byte BEND, c_v
 	.byte W01
 	.byte VOL, 1
-
 	.byte FINE
 
 .align 2

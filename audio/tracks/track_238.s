@@ -9,12 +9,10 @@ track_238_0:
 	.byte VOL, 0
 	.byte PAN, c_v
 	.byte W07
-	.byte N18
-	.byte Cn3, En2
+	.byte N18, Cn3, v052
 	.byte W03
 	.byte VOL, 26
 	.byte W15
-
 	.byte FINE
 
 track_238_1:
@@ -22,20 +20,16 @@ track_238_1:
 	.byte VOICE, 14
 	.byte VOL, 66
 	.byte PAN, c_v
-	.byte N10
-	.byte Cn3, Gs4
+	.byte N10, Cn3, v080
 	.byte W10
 	.byte VOICE, 24
 	.byte VOL, 40
-	.byte N07
-	.byte Cn3, Cn4
+	.byte N07, Cn3, v072
 	.byte W07
-	.byte Bn2, En0
+	.byte Bn2, v028 @ N07
 	.byte W07
-	.byte N05
-	.byte An2, CnM1
+	.byte N05, An2, v012
 	.byte W05
-
 	.byte FINE
 
 .align 2

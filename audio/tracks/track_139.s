@@ -8,8 +8,7 @@ track_139_0:
 	.byte VOICE, 16
 	.byte VOL, 74
 	.byte PAN, c_v
-	.byte TIE
-	.byte Cn3, En6
+	.byte TIE, Cn3, v100
 	.byte W30
 	.byte W01
 track_139_lbl_20bbdb:
@@ -18,8 +17,7 @@ track_139_lbl_20bbdb:
 	.byte GOTO
 		.word track_139_lbl_20bbdb
 	.byte W01
-	.byte EOT
-
+	.byte EOT @ Cn3, v100
 	.byte FINE
 
 track_139_1:
@@ -31,58 +29,56 @@ track_139_1:
 	.byte PRIO, 26
 	.byte BEND, c_v-47
 	.byte W28
-	.byte Gn0
-	.byte N24
-	.byte Gn3, Gn8
+	.byte c_v-33 @ BEND
+	.byte N24, Gn3, v127
 	.byte W01
 	.byte BEND, c_v-30
 	.byte W01
-	.byte Cs1
+	.byte c_v-27 @ BEND
 	.byte W01
-	.byte En1
+	.byte c_v-24 @ BEND
 	.byte W01
-	.byte Gn1
+	.byte c_v-21 @ BEND
 	.byte W01
-	.byte An1
+	.byte c_v-19 @ BEND
 	.byte W01
-	.byte Cn2
+	.byte c_v-16 @ BEND
 	.byte W01
-	.byte Ds2
+	.byte c_v-13 @ BEND
 	.byte W01
-	.byte Fs2
+	.byte c_v-10 @ BEND
 	.byte W01
-	.byte An2
+	.byte c_v-7 @ BEND
 	.byte W01
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W01
-	.byte Cn3
+	.byte c_v-4 @ BEND
 	.byte W01
-	.byte Cs3
+	.byte c_v-3 @ BEND
 	.byte W01
-	.byte Ds3
+	.byte c_v-1 @ BEND
 	.byte W01
-	.byte Fs3
+	.byte c_v+2 @ BEND
 	.byte W01
-	.byte Gs3
+	.byte c_v+4 @ BEND
 	.byte W01
-	.byte Bn3
+	.byte c_v+7 @ BEND
 	.byte W01
-	.byte Dn4
+	.byte c_v+10 @ BEND
 	.byte W01
-	.byte Fn4
+	.byte c_v+13 @ BEND
 	.byte W01
-	.byte An4
+	.byte c_v+17 @ BEND
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
-	.byte Fn5
+	.byte c_v+25 @ BEND
 	.byte W01
-	.byte An5
+	.byte c_v+29 @ BEND
 	.byte W01
-	.byte Ds6
+	.byte c_v+35 @ BEND
 	.byte W44
 	.byte W01
-
 	.byte FINE
 
 .align 2

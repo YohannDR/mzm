@@ -11,8 +11,7 @@ track_386_0:
 	.byte BENDR, 12
 	.byte BEND, c_v
 	.byte W04
-	.byte N24
-	.byte En2, En3, CsM2
+	.byte N24, En2, v064, 1
 	.byte W05
 	.byte VOL, 50
 	.byte BEND, c_v+30
@@ -22,13 +21,12 @@ track_386_0:
 	.byte W06
 	.byte VOL, 30
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

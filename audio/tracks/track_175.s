@@ -12,8 +12,7 @@ track_175_0:
 	.byte BENDR, 6
 	.byte PRIO, 1
 	.byte BEND, c_v+63
-	.byte N30
-	.byte Cn3, Gs4
+	.byte N30, Cn3, v080
 	.byte W02
 	.byte VOL, 81
 	.byte BEND, c_v+50
@@ -58,7 +57,6 @@ track_175_0:
 	.byte BEND, c_v+30
 	.byte W02
 	.byte VOL, 0
-
 	.byte FINE
 
 track_175_1:
@@ -67,26 +65,24 @@ track_175_1:
 	.byte VOL, 55
 	.byte PAN, c_v-14
 	.byte PRIO, 1
-	.byte N04
-	.byte Cn2, Cn8
+	.byte N04, Cn2, v120
 	.byte W04
-	.byte Dn2, En6
+	.byte Dn2, v100 @ N04
 	.byte W04
-	.byte Cn2, Cn8
+	.byte Cn2, v120 @ N04
 	.byte W04
-	.byte Bn1, En6
+	.byte Bn1, v100 @ N04
 	.byte W04
-	.byte Cn2, Cn8
+	.byte Cn2, v120 @ N04
 	.byte W04
-	.byte Dn2, En6
+	.byte Dn2, v100 @ N04
 	.byte W04
-	.byte Cn2, Cn8
+	.byte Cn2, v120 @ N04
 	.byte W04
-	.byte Bn1, En6
+	.byte Bn1, v100 @ N04
 	.byte W04
-	.byte Cn2, Cn8
+	.byte Cn2, v120 @ N04
 	.byte W04
-
 	.byte FINE
 
 .align 2

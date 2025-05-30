@@ -14,8 +14,7 @@ track_617_0:
 	.byte BENDR, 10
 	.byte LFOS, 40
 	.byte BEND, c_v-49
-	.byte N48
-	.byte Gs2, Gn8
+	.byte N48, Gs2, v127
 	.byte W02
 	.byte VOL, 12
 	.byte BEND, c_v-42
@@ -46,31 +45,31 @@ track_617_0:
 	.byte W02
 	.byte VOL, 23
 	.byte W02
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte BEND, c_v-10
 	.byte W02
 	.byte VOL, 15
 	.byte W02
-	.byte CnM1
+	.byte 12 @ VOL
 	.byte BEND, c_v-11
 	.byte W02
 	.byte VOL, 10
 	.byte W02
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W02
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W02
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte BEND, c_v-13
 	.byte W02
 	.byte VOL, 4
 	.byte W02
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte BEND, c_v-15
 	.byte W02
 	.byte VOL, 2
 	.byte W02
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte BEND, c_v-17
 	.byte W02
 	.byte VOL, 1
@@ -78,10 +77,9 @@ track_617_0:
 	.byte W02
 	.byte VOL, 0
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte BEND, c_v-19
 	.byte W01
-
 	.byte FINE
 
 .align 2

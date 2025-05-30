@@ -32,8 +32,7 @@ track_63_0:
 	.byte W15
 	.byte VOL, 14
 	.byte LFOS, 70
-	.byte TIE
-	.byte Fs5, GsM1
+	.byte TIE, Fs5, v020
 	.byte W09
 	.byte VOL, 16
 	.byte LFOS, 72
@@ -44,12 +43,12 @@ track_63_0:
 	.byte W03
 	.byte VOL, 18
 	.byte W06
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte LFOS, 76
 	.byte W06
 	.byte VOL, 21
 	.byte W06
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte LFOS, 78
 	.byte W06
 	.byte VOL, 23
@@ -58,12 +57,12 @@ track_63_0:
 	.byte W06
 	.byte VOL, 25
 	.byte W06
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte LFOS, 82
 	.byte W06
 	.byte VOL, 27
 	.byte W06
-	.byte En0
+	.byte 28 @ VOL
 	.byte LFOS, 84
 	.byte W06
 	.byte VOL, 30
@@ -72,13 +71,13 @@ track_63_0:
 	.byte W06
 	.byte VOL, 31
 	.byte W06
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte LFOS, 88
 	.byte W06
 	.byte VOL, 34
 	.byte W03
 	.byte W03
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte LFOS, 90
 	.byte W06
 	.byte VOL, 36
@@ -88,7 +87,7 @@ track_63_0:
 	.byte VOL, 37
 	.byte LFOS, 90
 	.byte W06
-	.byte En5
+	.byte 88 @ VOL
 	.byte VOL, 35
 	.byte W03
 	.byte LFOS, 86
@@ -97,14 +96,14 @@ track_63_0:
 	.byte W03
 	.byte LFOS, 84
 	.byte W06
-	.byte As4
+	.byte 82 @ VOL
 	.byte VOL, 32
 	.byte W06
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W03
 	.byte LFOS, 78
 	.byte W06
-	.byte En4
+	.byte 76 @ VOL
 	.byte VOL, 30
 	.byte W06
 	.byte LFOS, 74
@@ -112,7 +111,7 @@ track_63_0:
 	.byte W03
 	.byte LFOS, 72
 	.byte W06
-	.byte As3
+	.byte 70 @ VOL
 	.byte VOL, 27
 	.byte W06
 	.byte LFOS, 68
@@ -128,22 +127,22 @@ track_63_0:
 	.byte W03
 	.byte LFOS, 60
 	.byte W03
-	.byte As2
+	.byte 58 @ VOL
 	.byte VOL, 22
 	.byte W06
 	.byte LFOS, 56
 	.byte W03
-	.byte Dn2
+	.byte 50 @ VOL
 	.byte VOL, 21
 	.byte W03
 	.byte LFOS, 48
 	.byte W03
-	.byte As1
+	.byte 46 @ VOL
 	.byte VOL, 20
 	.byte W03
 	.byte LFOS, 44
 	.byte W06
-	.byte Fn1
+	.byte 41 @ VOL
 	.byte VOL, 18
 	.byte W03
 	.byte LFOS, 39
@@ -152,19 +151,19 @@ track_63_0:
 	.byte W03
 	.byte LFOS, 35
 	.byte W03
-	.byte An0
+	.byte 33 @ VOL
 	.byte W03
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte VOL, 16
 	.byte W03
 	.byte LFOS, 29
 	.byte W03
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte VOL, 15
 	.byte W03
 	.byte LFOS, 25
 	.byte W06
-	.byte EOT
+	.byte EOT @ Fs5, v020
 	.byte W21
 	.byte VOL, 10
 	.byte W68
@@ -173,9 +172,9 @@ track_63_0:
 	.byte W24
 	.byte W96
 	.byte W15
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte LFOS, 80
-	.byte TIE
+	.byte TIE @ Fs5, v020
 	.byte W09
 track_63_lbl_222b31:
 	.byte VOL, 16
@@ -187,12 +186,12 @@ track_63_lbl_222b31:
 	.byte W03
 	.byte VOL, 18
 	.byte W06
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte LFOS, 76
 	.byte W06
 	.byte VOL, 21
 	.byte W06
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte LFOS, 78
 	.byte W06
 	.byte VOL, 23
@@ -201,12 +200,12 @@ track_63_lbl_222b31:
 	.byte W06
 	.byte VOL, 25
 	.byte W06
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte LFOS, 82
 	.byte W06
 	.byte VOL, 27
 	.byte W06
-	.byte En0
+	.byte 28 @ VOL
 	.byte LFOS, 84
 	.byte W06
 	.byte VOL, 30
@@ -215,12 +214,12 @@ track_63_lbl_222b31:
 	.byte W06
 	.byte VOL, 31
 	.byte W06
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte LFOS, 88
 	.byte W06
 	.byte VOL, 34
 	.byte W06
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte LFOS, 90
 	.byte W06
 	.byte VOL, 36
@@ -230,7 +229,7 @@ track_63_lbl_222b31:
 	.byte VOL, 37
 	.byte LFOS, 90
 	.byte W06
-	.byte En5
+	.byte 88 @ VOL
 	.byte VOL, 35
 	.byte W03
 	.byte PEND
@@ -241,14 +240,14 @@ track_63_lbl_222b82:
 	.byte W03
 	.byte LFOS, 84
 	.byte W06
-	.byte As4
+	.byte 82 @ VOL
 	.byte VOL, 32
 	.byte W06
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W03
 	.byte LFOS, 78
 	.byte W06
-	.byte En4
+	.byte 76 @ VOL
 	.byte VOL, 30
 	.byte W06
 	.byte LFOS, 74
@@ -256,7 +255,7 @@ track_63_lbl_222b82:
 	.byte W03
 	.byte LFOS, 72
 	.byte W06
-	.byte As3
+	.byte 70 @ VOL
 	.byte VOL, 27
 	.byte W06
 	.byte LFOS, 68
@@ -272,22 +271,22 @@ track_63_lbl_222b82:
 	.byte W03
 	.byte LFOS, 60
 	.byte W03
-	.byte As2
+	.byte 58 @ VOL
 	.byte VOL, 22
 	.byte W06
 	.byte LFOS, 56
 	.byte W03
-	.byte Dn2
+	.byte 50 @ VOL
 	.byte VOL, 21
 	.byte W03
 	.byte LFOS, 48
 	.byte W03
-	.byte As1
+	.byte 46 @ VOL
 	.byte VOL, 20
 	.byte W03
 	.byte LFOS, 44
 	.byte W06
-	.byte Fn1
+	.byte 41 @ VOL
 	.byte VOL, 18
 	.byte W03
 	.byte LFOS, 39
@@ -296,20 +295,20 @@ track_63_lbl_222b82:
 	.byte W03
 	.byte LFOS, 35
 	.byte W03
-	.byte An0
+	.byte 33 @ VOL
 	.byte W03
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte VOL, 16
 	.byte W03
 	.byte LFOS, 29
 	.byte W03
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte VOL, 15
 	.byte W03
 	.byte PEND
 	.byte LFOS, 25
 	.byte W06
-	.byte EOT, Fs5
+	.byte EOT, Fs5 @ v020
 	.byte W21
 	.byte VOL, 10
 	.byte W92
@@ -341,8 +340,7 @@ track_63_lbl_222bf4:
 	.byte W15
 	.byte VOL, 14
 	.byte LFOS, 80
-	.byte TIE
-	.byte Fs5, GsM1
+	.byte TIE, Fs5, v020
 	.byte W09
 	.byte PATT
 		.word track_63_lbl_222b31
@@ -350,7 +348,7 @@ track_63_lbl_222bf4:
 		.word track_63_lbl_222b82
 	.byte LFOS, 25
 	.byte W06
-	.byte EOT, Fs5
+	.byte EOT, Fs5 @ v020
 	.byte W21
 	.byte VOL, 10
 	.byte W92
@@ -363,7 +361,6 @@ track_63_lbl_222bf4:
 	.byte W24
 	.byte GOTO
 		.word track_63_lbl_222bf4
-
 	.byte FINE
 
 track_63_1:
@@ -406,68 +403,63 @@ track_63_1:
 track_63_lbl_222c5a:
 	.byte VOICE, 27
 	.byte VOL, 12
-	.byte TIE
-	.byte En4, En1
+	.byte TIE, En4, v040
 	.byte W11
 	.byte VOL, 15
 	.byte W09
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W09
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W10
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte W09
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W09
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W09
-	.byte Fs0
+	.byte 30 @ VOL
 	.byte W10
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte W04
-	.byte As0
+	.byte 34 @ VOL
 	.byte W40
 	.byte W96
-	.byte EOT
-	.byte N48
-	.byte Fs4, En2
+	.byte EOT @ En4, v040
+	.byte N48, Fs4, v052
 	.byte W24
 	.byte W24
-	.byte TIE
-	.byte Fn4
+	.byte TIE, Fn4 @ v052
 	.byte W96
 	.byte W48
-	.byte EOT
-	.byte TIE
-	.byte En4
+	.byte EOT @ Fn4, v052
+	.byte TIE, En4 @ v052
 	.byte W72
 	.byte W72
-	.byte EOT
-	.byte TIE
-	.byte Ds4, En1
+	.byte EOT @ En4, v052
+	.byte TIE, Ds4, v040
 	.byte W48
 	.byte W80
 	.byte VOL, 31
 	.byte W24
 	.byte W01
-	.byte En0
+	.byte 28 @ VOL
 	.byte W15
 	.byte W11
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W24
 	.byte W02
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W24
 	.byte W01
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W24
 	.byte W02
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W24
 	.byte W02
-	.byte EnM1
+	.byte 16 @ VOL
 	.byte W06
-	.byte EOT
+	.byte EOT @ Ds4, v040
 	.byte W96
 	.byte W24
 	.byte W96
@@ -488,7 +480,6 @@ track_63_lbl_222c5a:
 	.byte W24
 	.byte GOTO
 		.word track_63_lbl_222c5a
-
 	.byte FINE
 
 track_63_2:
@@ -499,107 +490,99 @@ track_63_2:
 	.byte W96
 	.byte W24
 track_63_lbl_222cc3:
-	.byte N24
-	.byte An3, Gs0
+	.byte N24, An3, v032
 	.byte W24
-	.byte Dn4, Cn1
+	.byte Dn4, v036 @ N24
 	.byte W24
-	.byte Gn4, En1
+	.byte Gn4, v040 @ N24
 	.byte W24
-	.byte Fs4, Gs1
+	.byte Fs4, v044 @ N24
 	.byte W24
-	.byte Fn4, Cn2
+	.byte Fn4, v048 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222cd4:
-	.byte N24
-	.byte En4, En2
+	.byte N24, En4, v052
 	.byte W24
-	.byte Gn3, Gs2
+	.byte Gn3, v056 @ N24
 	.byte W24
-	.byte Ds4, Cn3
+	.byte Ds4, v060 @ N24
 	.byte W24
-	.byte Dn4, En3
+	.byte Dn4, v064 @ N24
 	.byte W24
-	.byte Cs4, Gs3
+	.byte Cs4, v068 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222ce5:
-	.byte N24
-	.byte An3, Cn4
+	.byte N24, An3, v072
 	.byte W24
-	.byte Dn4, En4
+	.byte Dn4, v076 @ N24
 	.byte W24
-	.byte Gn4, Gs4
+	.byte Gn4, v080 @ N24
 	.byte W24
-	.byte Fs4, Cn5
+	.byte Fs4, v084 @ N24
 	.byte W24
-	.byte Fn4, En5
+	.byte Fn4, v088 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222cf6:
-	.byte N24
-	.byte En4, Gs5
+	.byte N24, En4, v092
 	.byte W24
-	.byte Gn3
+	.byte Gn3 @ N24, v092
 	.byte W24
-	.byte Ds4
+	.byte Ds4 @ N24, v092
 	.byte W24
-	.byte Dn4
+	.byte Dn4 @ N24, v092
 	.byte W24
-	.byte Cs4
+	.byte Cs4 @ N24, v092
 	.byte W24
 	.byte PEND
 track_63_lbl_222d03:
-	.byte N24
-	.byte An3, Gs5
+	.byte N24, An3, v092
 	.byte W24
-	.byte Dn4
+	.byte Dn4 @ N24, v092
 	.byte W24
-	.byte Gn4
+	.byte Gn4 @ N24, v092
 	.byte W24
-	.byte Fs4
+	.byte Fs4 @ N24, v092
 	.byte W24
-	.byte Fn4
+	.byte Fn4 @ N24, v092
 	.byte W24
 	.byte PEND
 track_63_lbl_222d10:
-	.byte N24
-	.byte En4, Gs5
+	.byte N24, En4, v092
 	.byte W24
-	.byte Gn3, En5
+	.byte Gn3, v088 @ N24
 	.byte W24
-	.byte Ds4, Cn5
+	.byte Ds4, v084 @ N24
 	.byte W24
-	.byte Dn4, Gs4
+	.byte Dn4, v080 @ N24
 	.byte W24
-	.byte Cs4, En4
+	.byte Cs4, v076 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222d21:
-	.byte N24
-	.byte An3, Cn4
+	.byte N24, An3, v072
 	.byte W24
-	.byte Dn4, Gs3
+	.byte Dn4, v068 @ N24
 	.byte W24
-	.byte Gn4, En3
+	.byte Gn4, v064 @ N24
 	.byte W24
-	.byte Fs4, Cn3
+	.byte Fs4, v060 @ N24
 	.byte W24
-	.byte Fn4, Gs2
+	.byte Fn4, v056 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222d32:
-	.byte N24
-	.byte En4, En2
+	.byte N24, En4, v052
 	.byte W24
-	.byte Gn3, Cn2
+	.byte Gn3, v048 @ N24
 	.byte W24
-	.byte Ds4, Gs1
+	.byte Ds4, v044 @ N24
 	.byte W24
-	.byte Dn4, En1
+	.byte Dn4, v040 @ N24
 	.byte W24
-	.byte Cs4, Cn1
+	.byte Cs4, v036 @ N24
 	.byte W24
 	.byte PEND
 	.byte PATT
@@ -620,114 +603,106 @@ track_63_lbl_222d32:
 		.word track_63_lbl_222d32
 track_63_lbl_222d6b:
 	.byte PAN, c_v+10
-	.byte N24
-	.byte An3, Gs0
+	.byte N24, An3, v032
 	.byte W24
-	.byte Dn4, Cn1
+	.byte Dn4, v036 @ N24
 	.byte W24
-	.byte Gn4, En1
+	.byte Gn4, v040 @ N24
 	.byte W24
-	.byte Fs4, Gs1
+	.byte Fs4, v044 @ N24
 	.byte W24
-	.byte Fn4, Cn2
+	.byte Fn4, v048 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222d7e:
 	.byte PAN, c_v+20
-	.byte N24
-	.byte En4, En2
+	.byte N24, En4, v052
 	.byte W24
-	.byte Gn3, Gs2
+	.byte Gn3, v056 @ N24
 	.byte W24
-	.byte Ds4, Cn3
+	.byte Ds4, v060 @ N24
 	.byte W24
-	.byte Dn4, En3
+	.byte Dn4, v064 @ N24
 	.byte W24
-	.byte Cs4, Gs3
+	.byte Cs4, v068 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222d91:
 	.byte PAN, c_v+10
-	.byte N24
-	.byte An3, Cn4
+	.byte N24, An3, v072
 	.byte W24
-	.byte Dn4, En4
+	.byte Dn4, v076 @ N24
 	.byte W24
-	.byte Gn4, Gs4
+	.byte Gn4, v080 @ N24
 	.byte W24
-	.byte Fs4, Cn5
+	.byte Fs4, v084 @ N24
 	.byte W24
-	.byte Fn4, En5
+	.byte Fn4, v088 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222da4:
 	.byte PAN, c_v
-	.byte N24
-	.byte En4, Gs5
+	.byte N24, En4, v092
 	.byte W24
-	.byte Gn3
+	.byte Gn3 @ N24, v092
 	.byte W24
-	.byte Ds4
+	.byte Ds4 @ N24, v092
 	.byte W24
-	.byte Dn4
+	.byte Dn4 @ N24, v092
 	.byte W24
-	.byte Cs4
+	.byte Cs4 @ N24, v092
 	.byte W24
 	.byte PEND
 track_63_lbl_222db3:
 	.byte PAN, c_v-10
-	.byte N24
-	.byte An3, Gs5
+	.byte N24, An3, v092
 	.byte W24
-	.byte Dn4
+	.byte Dn4 @ N24, v092
 	.byte W24
-	.byte Gn4
+	.byte Gn4 @ N24, v092
 	.byte W24
-	.byte Fs4
+	.byte Fs4 @ N24, v092
 	.byte W24
-	.byte Fn4
+	.byte Fn4 @ N24, v092
 	.byte W24
 	.byte PEND
 track_63_lbl_222dc2:
 	.byte PAN, c_v-20
-	.byte N24
-	.byte En4, Gs5
+	.byte N24, En4, v092
 	.byte W24
-	.byte Gn3, En5
+	.byte Gn3, v088 @ N24
 	.byte W24
-	.byte Ds4, Cn5
+	.byte Ds4, v084 @ N24
 	.byte W24
-	.byte Dn4, Gs4
+	.byte Dn4, v080 @ N24
 	.byte W24
-	.byte Cs4, En4
+	.byte Cs4, v076 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222dd5:
 	.byte PAN, c_v-10
-	.byte N24
-	.byte An3, Cn4
+	.byte N24, An3, v072
 	.byte W24
-	.byte Dn4, Gs3
+	.byte Dn4, v068 @ N24
 	.byte W24
-	.byte Gn4, En3
+	.byte Gn4, v064 @ N24
 	.byte W24
-	.byte Fs4, Cn3
+	.byte Fs4, v060 @ N24
 	.byte W24
-	.byte Fn4, Gs2
+	.byte Fn4, v056 @ N24
 	.byte W24
 	.byte PEND
 track_63_lbl_222de8:
 	.byte PAN, c_v
-	.byte N24
-	.byte En4, En2
+	.byte N24, En4, v052
 	.byte W24
-	.byte Gn3, Cn2
+	.byte Gn3, v048 @ N24
 	.byte W24
-	.byte Ds4, Gs1
+	.byte Ds4, v044 @ N24
 	.byte W24
-	.byte Dn4, En1
+	.byte Dn4, v040 @ N24
 	.byte W24
-	.byte Cs4, Cn1
+	.byte Cs4, v036 @ N24
 	.byte W24
 	.byte PEND
 	.byte PATT
@@ -748,7 +723,6 @@ track_63_lbl_222de8:
 		.word track_63_lbl_222de8
 	.byte GOTO
 		.word track_63_lbl_222d6b
-
 	.byte FINE
 
 track_63_3:
@@ -759,133 +733,126 @@ track_63_3:
 	.byte W96
 	.byte W24
 	.byte W12
-	.byte N24
-	.byte Fs5, Gs0
+	.byte N24, Fs5, v032
 	.byte W24
-	.byte Gs5, Cn1
+	.byte Gs5, v036 @ N24
 	.byte W24
-	.byte Gn5, En1
+	.byte Gn5, v040 @ N24
 	.byte W24
-	.byte As5, Gs1
+	.byte As5, v044 @ N24
 	.byte W24
-	.byte Fs5, Cn2
+	.byte Fs5, v048 @ N24
 	.byte W12
 	.byte W12
-	.byte Gs5, En2
+	.byte Gs5, v052 @ N24
 	.byte W24
-	.byte Gn5, Gs2
+	.byte Gn5, v056 @ N24
 	.byte W24
-	.byte As5, Cn3
+	.byte As5, v060 @ N24
 	.byte W24
-	.byte Fs5, En3
+	.byte Fs5, v064 @ N24
 	.byte W24
-	.byte Gs5, Gs3
+	.byte Gs5, v068 @ N24
 	.byte W12
 track_63_lbl_222e54:
 	.byte W12
-	.byte N24
-	.byte Gn5, Gs1
+	.byte N24, Gn5, v044
 	.byte W24
-	.byte As5, En1
+	.byte As5, v040 @ N24
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5, Gs0
+	.byte Gs5, v032 @ N24
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v032
 	.byte W12
 	.byte PEND
 track_63_lbl_222e65:
 	.byte W12
-	.byte N24
-	.byte As5, Gs0
+	.byte N24, As5, v032
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v036
 	.byte W24
-	.byte Gn5, En1
+	.byte Gn5, v040 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v040
 	.byte W12
 	.byte PEND
 track_63_lbl_222e75:
 	.byte W12
-	.byte N24
-	.byte Fs5, Gs1
+	.byte N24, Fs5, v044
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v044
 	.byte W24
-	.byte Gn5, Cn2
+	.byte Gn5, v048 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v048
 	.byte W24
-	.byte Fs5, En2
+	.byte Fs5, v052 @ N24
 	.byte W12
 	.byte PEND
 track_63_lbl_222e85:
 	.byte W12
-	.byte N24
-	.byte Gs5, En2
+	.byte N24, Gs5, v052
 	.byte W24
-	.byte Gn5, Gs2
+	.byte Gn5, v056 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v056
 	.byte W24
-	.byte Fs5, Cn3
+	.byte Fs5, v060 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v060
 	.byte W12
 	.byte PEND
 track_63_lbl_222e95:
 	.byte W12
-	.byte N24
-	.byte Gn5, En3
+	.byte N24, Gn5, v064
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v064
 	.byte W24
-	.byte Fs5, Gs3
+	.byte Fs5, v068 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v068
 	.byte W24
-	.byte Gn5, Cn4
+	.byte Gn5, v072 @ N24
 	.byte W12
 	.byte PEND
 track_63_lbl_222ea5:
 	.byte W12
-	.byte N24
-	.byte As5, Cn4
+	.byte N24, As5, v072
 	.byte W24
-	.byte Fs5
+	.byte Fs5 @ N24, v072
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v072
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v072
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v072
 	.byte W12
 	.byte PEND
 	.byte W12
-	.byte Fs5
+	.byte Fs5 @ N24, v072
 	.byte W24
-	.byte Gs5, Gs3
+	.byte Gs5, v068 @ N24
 	.byte W24
-	.byte Gn5, En3
+	.byte Gn5, v064 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v064
 	.byte W24
-	.byte Fs5, Cn3
+	.byte Fs5, v060 @ N24
 	.byte W12
 	.byte W12
-	.byte Gs5, Gs2
+	.byte Gs5, v056 @ N24
 	.byte W24
-	.byte Gn5, En2
+	.byte Gn5, v052 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v052
 	.byte W24
-	.byte Fs5, Cn2
+	.byte Fs5, v048 @ N24
 	.byte W24
-	.byte Gs5, Gs1
+	.byte Gs5, v044 @ N24
 	.byte W12
 	.byte PATT
 		.word track_63_lbl_222e54
@@ -902,170 +869,157 @@ track_63_lbl_222ea5:
 track_63_lbl_222eee:
 	.byte PAN, c_v-10
 	.byte W12
-	.byte N24
-	.byte Fs5, Cn4
+	.byte N24, Fs5, v072
 	.byte W24
-	.byte Gs5, Gs3
+	.byte Gs5, v068 @ N24
 	.byte W24
-	.byte Gn5, En3
+	.byte Gn5, v064 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v064
 	.byte W24
-	.byte Fs5, Cn3
+	.byte Fs5, v060 @ N24
 	.byte W12
 	.byte PEND
 	.byte W24
 	.byte VOICE, 27
 	.byte VOL, 34
-	.byte TIE
-	.byte Ds4, Cn2
+	.byte TIE, Ds4, v048
 	.byte W96
 	.byte W96
 	.byte W24
 	.byte W48
-	.byte EOT
-	.byte TIE
-	.byte Cn4, En2
+	.byte EOT @ Ds4, v048
+	.byte TIE, Cn4, v052
 	.byte W72
 	.byte W72
-	.byte EOT
-	.byte TIE
-	.byte Cs4, En1
+	.byte EOT @ Cn4, v052
+	.byte TIE, Cs4, v040
 	.byte W48
 	.byte W80
 	.byte VOL, 31
 	.byte W24
 	.byte W01
-	.byte En0
+	.byte 28 @ VOL
 	.byte W15
 	.byte W11
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W24
 	.byte W02
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W24
 	.byte W01
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W24
 	.byte W02
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W24
 	.byte W02
-	.byte EnM1
+	.byte 16 @ VOL
 	.byte W06
-	.byte EOT
+	.byte EOT @ Cs4, v040
 	.byte VOICE, 47
 	.byte VOL, 25
 	.byte PAN, c_v
 	.byte W12
-	.byte N24
-	.byte As5, Cn4
+	.byte N24, As5, v072
 	.byte W24
-	.byte Fs5
+	.byte Fs5 @ N24, v072
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v072
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v072
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v072
 	.byte W12
 	.byte PATT
 		.word track_63_lbl_222eee
 	.byte PAN, c_v-20
 	.byte W12
-	.byte N24
-	.byte Gs5, Gs2
+	.byte N24, Gs5, v056
 	.byte W24
-	.byte Gn5, En2
+	.byte Gn5, v052 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v052
 	.byte W24
-	.byte Fs5, Cn2
+	.byte Fs5, v048 @ N24
 	.byte W24
-	.byte Gs5, Gs1
+	.byte Gs5, v044 @ N24
 	.byte W12
 	.byte PAN, c_v-10
 	.byte W12
-	.byte N24
-	.byte Gn5
+	.byte N24, Gn5 @ v044
 	.byte W24
-	.byte As5, En1
+	.byte As5, v040 @ N24
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5, Gs0
+	.byte Gs5, v032 @ N24
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v032
 	.byte W12
 	.byte PAN, c_v
 	.byte W12
-	.byte N24
-	.byte As5
+	.byte N24, As5 @ v032
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v036
 	.byte W24
-	.byte Gn5, En1
+	.byte Gn5, v040 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v040
 	.byte W12
 	.byte PAN, c_v+10
 	.byte W12
-	.byte N24
-	.byte Fs5, Gs1
+	.byte N24, Fs5, v044
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v044
 	.byte W24
-	.byte Gn5, Cn2
+	.byte Gn5, v048 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v048
 	.byte W24
-	.byte Fs5, En2
+	.byte Fs5, v052 @ N24
 	.byte W12
 	.byte PAN, c_v+20
 	.byte W12
-	.byte N24
-	.byte Gs5
+	.byte N24, Gs5 @ v052
 	.byte W24
-	.byte Gn5, Gs2
+	.byte Gn5, v056 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v056
 	.byte W24
-	.byte Fs5, Cn3
+	.byte Fs5, v060 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v060
 	.byte W12
 	.byte PAN, c_v+10
 	.byte W12
-	.byte N24
-	.byte Gn5, En3
+	.byte N24, Gn5, v064
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v064
 	.byte W24
-	.byte Fs5, Gs3
+	.byte Fs5, v068 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v068
 	.byte W24
-	.byte Gn5, Cn4
+	.byte Gn5, v072 @ N24
 	.byte W12
 	.byte PAN, c_v
 	.byte W12
-	.byte N24
-	.byte As5
+	.byte N24, As5 @ v072
 	.byte W24
-	.byte Fs5
+	.byte Fs5 @ N24, v072
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v072
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v072
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v072
 	.byte W12
 	.byte GOTO
 		.word track_63_lbl_222eee
 	.byte W12
-
 	.byte FINE
 
 track_63_4:
@@ -1112,81 +1066,75 @@ track_63_lbl_222fe7:
 	.byte VOL, 25
 	.byte PAN, c_v-20
 	.byte W12
-	.byte N24
-	.byte Gs5, Gs2
+	.byte N24, Gs5, v056
 	.byte W24
-	.byte Gn5, En2
+	.byte Gn5, v052 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v052
 	.byte W24
-	.byte Fs5, Cn2
+	.byte Fs5, v048 @ N24
 	.byte W24
-	.byte Gs5, Gs1
+	.byte Gs5, v044 @ N24
 	.byte W12
 	.byte PAN, c_v-10
 	.byte W12
-	.byte N24
-	.byte Gn5
+	.byte N24, Gn5 @ v044
 	.byte W24
-	.byte As5, En1
+	.byte As5, v040 @ N24
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5, Gs0
+	.byte Gs5, v032 @ N24
 	.byte W24
-	.byte Gn5
+	.byte Gn5 @ N24, v032
 	.byte W12
 	.byte PAN, c_v
 	.byte W12
-	.byte N24
-	.byte As5
+	.byte N24, As5 @ v032
 	.byte W24
-	.byte Fs5, Cn1
+	.byte Fs5, v036 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v036
 	.byte W24
-	.byte Gn5, En1
+	.byte Gn5, v040 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v040
 	.byte W12
 	.byte PAN, c_v+10
 	.byte W12
-	.byte N24
-	.byte Fs5, Gs1
+	.byte N24, Fs5, v044
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v044
 	.byte W24
-	.byte Gn5, Cn2
+	.byte Gn5, v048 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v048
 	.byte W24
-	.byte Fs5, En2
+	.byte Fs5, v052 @ N24
 	.byte W12
 	.byte PAN, c_v+20
 	.byte W12
-	.byte N24
-	.byte Gs5
+	.byte N24, Gs5 @ v052
 	.byte W24
-	.byte Gn5, Gs2
+	.byte Gn5, v056 @ N24
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v056
 	.byte W24
-	.byte Fs5, Cn3
+	.byte Fs5, v060 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v060
 	.byte W12
 	.byte PAN, c_v+10
 	.byte W12
-	.byte N24
-	.byte Gn5, En3
+	.byte N24, Gn5, v064
 	.byte W24
-	.byte As5
+	.byte As5 @ N24, v064
 	.byte W24
-	.byte Fs5, Gs3
+	.byte Fs5, v068 @ N24
 	.byte W24
-	.byte Gs5
+	.byte Gs5 @ N24, v068
 	.byte W24
-	.byte Gn5, Cn4
+	.byte Gn5, v072 @ N24
 	.byte W12
 	.byte PAN, c_v
 	.byte W96
@@ -1209,7 +1157,6 @@ track_63_lbl_222fe7:
 	.byte W24
 	.byte GOTO
 		.word track_63_lbl_222fe7
-
 	.byte FINE
 
 track_63_5:
@@ -1217,26 +1164,22 @@ track_63_5:
 	.byte VOICE, 45
 	.byte PRIO, 29
 	.byte VOL, 18
-	.byte N32
-	.byte Cn3, EnM1, DsM2
+	.byte N32, Cn3, v016, 3
 	.byte W36
-	.byte Cn3, Cn0, DsM2
+	.byte Cn3, v024, 3 @ N32
 	.byte W36
-	.byte N23
-	.byte Cn3, Cn1
+	.byte N23, Cn3, v036
 	.byte W24
-	.byte Cn3, Gs1
+	.byte Cn3, v044 @ N23
 	.byte W24
 track_63_lbl_223084:
-	.byte N32
-	.byte Cn3, Gs1, DsM2
+	.byte N32, Cn3, v044, 3
 	.byte W36
-	.byte Cn3, Cn1, DsM2
+	.byte Cn3, v036, 3 @ N32
 	.byte W36
-	.byte N23
-	.byte Cn3, Gs1
+	.byte N23, Cn3, v044
 	.byte W24
-	.byte Cn3, Cn1
+	.byte Cn3, v036 @ N23
 	.byte W24
 	.byte PEND
 	.byte PATT
@@ -1304,7 +1247,6 @@ track_63_lbl_2230e0:
 		.word track_63_lbl_223084
 	.byte GOTO
 		.word track_63_lbl_2230e0
-
 	.byte FINE
 
 .align 2

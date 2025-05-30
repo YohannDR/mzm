@@ -10,8 +10,7 @@ track_571_0:
 	.byte VOL, 0
 	.byte LFOS, 4
 	.byte PAN, c_v+30
-	.byte TIE
-	.byte Fn2, Cn8
+	.byte TIE, Fn2, v120
 	.byte W03
 	.byte VOL, 1
 	.byte PAN, c_v+27
@@ -52,8 +51,7 @@ track_571_0:
 	.byte W96
 	.byte W96
 	.byte W72
-	.byte EOT
-
+	.byte EOT @ Fn2, v120
 	.byte FINE
 
 track_571_1:
@@ -64,8 +62,7 @@ track_571_1:
 	.byte LFOS, 10
 	.byte MODT, mod_tre
 	.byte PAN, c_v+30
-	.byte TIE
-	.byte Gn2, Gs4
+	.byte TIE, Gn2, v080
 	.byte W03
 	.byte VOL, 1
 	.byte PAN, c_v+27
@@ -106,8 +103,7 @@ track_571_1:
 	.byte W96
 	.byte W96
 	.byte W72
-	.byte EOT
-
+	.byte EOT @ Gn2, v080
 	.byte FINE
 
 .align 2
