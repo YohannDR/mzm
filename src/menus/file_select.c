@@ -3192,7 +3192,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 
     switch (FILE_SELECT_DATA.subroutineStage)
     {
-        case 0:
+        case OPTIONS_TIME_ATTACK_STAGE_0:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
                 FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD);
             
@@ -3219,6 +3219,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
 
+            #ifndef REGION_US_BETA
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 1 && FILE_SELECT_DATA.timeAttackRecordFlags & 2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW], OPTIONS_OAM_ID_LEFT_ARROW_IDLE);
@@ -3241,12 +3242,13 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+            #endif // !REGION_US_BETA
 
             FILE_SELECT_DATA.subroutineStage++;
             FILE_SELECT_DATA.subroutineTimer = 0;
             break;
 
-        case 1:
+        case OPTIONS_TIME_ATTACK_STAGE_1:
             if (!FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_ID_PASSWORD))
                 break;
             
@@ -3257,42 +3259,58 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
-        case 2:
+        case OPTIONS_TIME_ATTACK_STAGE_2:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
             {
                 OptionsTimeAttackLoadPassword(0|0);
                 OptionsTimeAttackLoadPassword(0|1);
             }
-            FILE_SELECT_DATA.subroutineStage = 4;
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_4;
             break;
 
-        case 3:
+        case OPTIONS_TIME_ATTACK_STAGE_3:
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
-        case 4:
+        case OPTIONS_TIME_ATTACK_STAGE_4:
             if (FILE_SELECT_DATA.timeAttackRecordFlags & 2)
             {
                 OptionsTimeAttackLoadPassword(2|0);
                 OptionsTimeAttackLoadPassword(2|1);
             }
-            FILE_SELECT_DATA.subroutineStage = 6;
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_6;
             break;
 
-        case 5:
+        case OPTIONS_TIME_ATTACK_STAGE_5:
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
-        case 6:
+        case OPTIONS_TIME_ATTACK_STAGE_6:
+            #ifndef REGION_US_BETA
             OptionsTimeAttackLoadBestTimeMessage();
+            #endif // !REGION_US_BETA
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL], OPTIONS_OAM_ID_HUGE_PANEL);
             UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
 
             SoundPlay(SOUND_OPEN_SUB_MENU);
-            FILE_SELECT_DATA.subroutineStage = 7;
+            #ifdef REGION_US_BETA
+            FILE_SELECT_DATA.subroutineStage++;
+            #else // !REGION_US_BETA
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_7;
+            #endif // REGION_US_BETA
             break;
+        
+        #ifdef REGION_US_BETA
+        case OPTIONS_TIME_ATTACK_STAGE_6B:
+            if (FILE_SELECT_DATA.timeAttack100Only)
+                FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME_100);
+            else
+                FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+        #endif // REGION_US_BETA
 
-        case 7:
+        case OPTIONS_TIME_ATTACK_STAGE_7:
             action = FALSE;
 
             if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].ended &&
@@ -3319,6 +3337,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             if (!action)
                 break;
 
+            #ifndef REGION_US_BETA
             if (FILE_SELECT_DATA.timeAttack100Only)
             {
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = FALSE;
@@ -3329,15 +3348,16 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = FALSE;
             }
+            #endif // !REGION_US_BETA
 
             OptionsTimeAttackLoadRecord(FILE_SELECT_DATA.timeAttack100Only);
 
             FILE_SELECT_DATA.dispcnt |= (DCNT_BG0 | DCNT_BG1);
             FILE_SELECT_DATA.subroutineTimer = 0;
-            FILE_SELECT_DATA.subroutineStage = 8;
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_8;
             break;
 
-        case 8:
+        case OPTIONS_TIME_ATTACK_STAGE_8:
             if (FILE_SELECT_DATA.subroutineTimer > CONVERT_SECONDS(1.f / 6))
             {
                 FILE_SELECT_DATA.subroutineTimer = 0;
@@ -3345,16 +3365,16 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             }
 
             if (gChangedInput & KEY_B)
-                FILE_SELECT_DATA.subroutineStage = 10;
+                FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_10;
             break;
 
-        case 9:
+        case OPTIONS_TIME_ATTACK_STAGE_9:
             if (!gChangedInput)
                 break;
 
             if (gChangedInput & KEY_B)
             {
-                FILE_SELECT_DATA.subroutineStage = 10;
+                FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_10;
                 break;
             }
             
@@ -3364,6 +3384,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             if (!(gChangedInput & (KEY_LEFT | KEY_RIGHT)))
                 break;
 
+            #ifndef REGION_US_BETA
             action = FALSE;
 
             if (FILE_SELECT_DATA.timeAttack100Only)
@@ -3390,18 +3411,29 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+            #endif // !REGION_US_BETA
 
             SoundPlay(SOUND_CHANGE_TIME_ATTACK_PANEL);
 
+            #ifdef REGION_US_BETA
+            FILE_SELECT_DATA.timeAttack100Only ^= TRUE;
+            #endif // REGION_US_BETA
+
             FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
-            FILE_SELECT_DATA.subroutineStage = 7;
+            #ifdef REGION_US_BETA
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_6B;
+            #else // !REGION_US_BETA
+            FILE_SELECT_DATA.subroutineStage = OPTIONS_TIME_ATTACK_STAGE_7;
+            #endif // REGION_US_BETA
             break;
 
-        case 10:
+        case OPTIONS_TIME_ATTACK_STAGE_10:
             SoundPlay(SOUND_CLOSE_SUB_MENU);
 
+            #ifndef REGION_US_BETA
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+            #endif // !REGION_US_BETA
 
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID++;
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
@@ -3411,7 +3443,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
-        case 11:
+        case OPTIONS_TIME_ATTACK_STAGE_11:
             if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].exists |
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].exists)
                 break;
@@ -3420,7 +3452,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.subroutineStage++;
             break;
 
-        case 12:
+        case OPTIONS_TIME_ATTACK_STAGE_12:
             FILE_SELECT_DATA.subroutineTimer = 0;
             FILE_SELECT_DATA.subroutineStage = 0;
             return TRUE;
@@ -3429,6 +3461,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
     return FALSE;
 }
 
+#ifndef REGION_US_BETA
 /**
  * @brief 7b71c | 28 | Adds best time or best time 100 message to queue
  * 
@@ -3440,6 +3473,7 @@ void OptionsTimeAttackLoadBestTimeMessage(void)
     else
         FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME);
 }
+#endif // !REGION_US_BETA
 
 /**
  * @brief 7b744 | 110 | Loads a time attack record into VRAM
@@ -3549,11 +3583,19 @@ void OptionsTimeAttackLoadPassword(u8 part)
     {
         i = 0x78C0;
         password = gTimeAttackRecord.password100;
+        #ifdef REGION_US_BETA
+        if (password[0] == UCHAR_MAX)
+            password = sFileSelectBlank100Password;
+        #endif // REGION_US_BETA
     }
     else
     {
         i = 0x68C0;
         password = gTimeAttackRecord.password;
+        #ifdef REGION_US_BETA
+        if (password[0] == UCHAR_MAX)
+            password = sFileSelectBlankPassword;
+        #endif // REGION_US_BETA
     }
 
     if (part & 1)

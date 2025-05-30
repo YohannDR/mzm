@@ -1,3 +1,4 @@
+#include "event.h"
 #include "menus/status_screen.h"
 #include "menus/pause_screen.h"
 
@@ -117,41 +118,6 @@ void LoadPauseScreenBgPalette(void)
         PALRAM_BASE + sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS] * sizeof(u16), 16 + 2, 16);
 }
 
-/**
- * @brief 6fee4 | 68 | Updates the current suit type
- * 
- * @param newSuit New suit type
- */
-void UpdateSuitType(u8 newSuit)
-{
-    if (gEquipment.suitType != newSuit)
-        gEquipment.suitType = newSuit;
-
-    switch (gEquipment.suitType)
-    {
-        case SUIT_NORMAL:
-            gEquipment.currentEnergy = gEquipment.maxEnergy;
-            gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
-            gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
-            break;
-
-        case SUIT_FULLY_POWERED:
-            gEquipment.currentEnergy = gEquipment.maxEnergy;
-            gEquipment.currentMissiles = gEquipment.maxMissiles;
-            gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
-            gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
-
-            gEquipment.beamBombsActivation = 0;
-            gEquipment.suitMiscActivation = 0;
-            break;
-
-        case SUIT_SUITLESS:
-            gEquipment.currentEnergy = 99;
-            gEquipment.suitMiscActivation = SMF_POWER_GRIP;
-            gEquipment.beamBombsActivation = BBF_LONG_BEAM | BBF_CHARGE_BEAM;
-    }
-}
-
 #ifdef DEBUG
 
 /**
@@ -212,9 +178,9 @@ void PauseDebugActivateAbilities(void)
 /**
  * @brief Main function for pause debug menu
  * 
- * @return s32 Leaving
+ * @return u32 Leaving
  */
-s32 PauseDebugSubroutine(void)
+u32 PauseDebugSubroutine(void)
 {
     if (!PAUSE_SCREEN_DATA.debugOnEventList)
     {
@@ -765,9 +731,6 @@ void PauseDebugDrawAbilityGroup(u8 group)
  */
 void PauseDebugDrawAffectedGroups(u32 groups)
 {
-    // TODO: Match this function
-    // https://decomp.me/scratch/EbAPJ
-
     s32 i;
     s32 j;
     u16* dst;
@@ -840,7 +803,9 @@ void PauseDebugDrawAffectedGroups(u32 groups)
 
             if (i > 7)
                 break;
-            dst = VRAM_BASE + 0xB000;
+
+            palette = 0xB000;
+            dst = VRAM_BASE + palette;
         }
     }
     
@@ -1019,12 +984,12 @@ void PauseDebugDrawStaticInfo(void)
  * 
  * @param xOffset X offset from right edge of group
  * @param group Pause debug group
- * @return s32 Value changed
+ * @return u8 Value changed
  */
-s32 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group)
+u8 PauseDebugEnergyAmmoInput(u8 xOffset, u8 group)
 {
     u8 ammoGroup;
-    s32 valueChanged;
+    u8 valueChanged;
     u16* changeValue16;
     u16* otherValue16;
     u8* changeValue8;
@@ -1650,6 +1615,41 @@ void PauseDebugDrawEventName(u16 event, u16* dst)
 }
 
 #endif // DEBUG
+
+/**
+ * @brief 6fee4 | 68 | Updates the current suit type
+ * 
+ * @param newSuit New suit type
+ */
+void UpdateSuitType(u8 newSuit)
+{
+    if (gEquipment.suitType != newSuit)
+        gEquipment.suitType = newSuit;
+
+    switch (gEquipment.suitType)
+    {
+        case SUIT_NORMAL:
+            gEquipment.currentEnergy = gEquipment.maxEnergy;
+            gEquipment.beamBombsActivation = gEquipment.beamBombs & ~BBF_PLASMA_BEAM;
+            gEquipment.suitMiscActivation = gEquipment.suitMisc & ~(SMF_SPACE_JUMP | SMF_GRAVITY_SUIT);
+            break;
+
+        case SUIT_FULLY_POWERED:
+            gEquipment.currentEnergy = gEquipment.maxEnergy;
+            gEquipment.currentMissiles = gEquipment.maxMissiles;
+            gEquipment.currentSuperMissiles = gEquipment.maxSuperMissiles;
+            gEquipment.currentPowerBombs = gEquipment.maxPowerBombs;
+
+            gEquipment.beamBombsActivation = 0;
+            gEquipment.suitMiscActivation = 0;
+            break;
+
+        case SUIT_SUITLESS:
+            gEquipment.currentEnergy = 99;
+            gEquipment.suitMiscActivation = SMF_POWER_GRIP;
+            gEquipment.beamBombsActivation = BBF_LONG_BEAM | BBF_CHARGE_BEAM;
+    }
+}
 
 /**
  * @brief 6ff4c | d4 | Draws the status screen row provided

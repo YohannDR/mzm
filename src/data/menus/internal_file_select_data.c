@@ -269,6 +269,10 @@ const struct OptionsSubroutineInfo sOptionsSubroutineInfo[OPTION_END + 1] = {
 };
 
 const u8 sFileSelectDefaultPassword[8] = "--------";
+#ifdef REGION_US_BETA
+const u8 sFileSelectBlankPassword[20] = "--------------------";
+const u8 sFileSelectBlank100Password[20] = "====================";
+#endif // REGION_US_BETA
 
 const u16 sMenuSounds[MENU_SOUND_REQUEST_END] = {
     [MENU_SOUND_REQUEST_SUB_MENU_CURSOR] = SOUND_SUB_MENU_CURSOR,

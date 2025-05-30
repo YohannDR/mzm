@@ -2498,8 +2498,12 @@ void MechaRidley(void)
     }
 
     gCurrentSprite.work3++;
+    #ifndef REGION_US_BETA
     if (gCurrentSprite.pose == MECHA_RIDLEY_POSE_IDLE || gCurrentSprite.pose == MECHA_RIDLEY_POSE_CURLED_UP)
+    #endif // !REGION_US_BETA
+    {
         APPLY_DELTA_TIME_INC(gSubSpriteData1.workVariable2); // Missile attack timer
+    }
 
     SpriteUtilUpdateSubSprite1Anim();
     MechaRidleySyncSubSprites();

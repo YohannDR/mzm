@@ -2067,7 +2067,7 @@ void unk_7584c(u8 param_1)
             #ifdef DEBUG
             gSectionInfo = sSectionInfo;
             Sram_InitSaveFile();
-            // Written this way to produce matching code
+            // Written this way to produce matching ASM
             temp = gDebugMode;
             if (gDebugMode == 0)
             {

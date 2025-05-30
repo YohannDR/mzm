@@ -3119,8 +3119,10 @@ u8 SpriteUtilDetermineEnemyDrop(void)
     rng = (gFrameCounter8Bit + gFrameCounter16Bit + rng);
     rng = rng % SPRITE_DROP_MAX_PROB;
 
+    #ifndef REGION_US_BETA
     if (rng == 0)
         rng = 1;
+    #endif // !REGION_US_BETA
 
     spriteId = gCurrentSprite.spriteId;
 

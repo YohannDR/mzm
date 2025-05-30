@@ -276,9 +276,6 @@ void BootDebugUpdateNonCursorOam(void)
  */
 void BootDebugUpdateMapScreenPosition(void)
 {
-    // TODO: Match this function
-    // https://decomp.me/scratch/9GEWC
-
     s32 xOffset;
     s32 yOffset;
     u16 mapX;
@@ -296,6 +293,8 @@ void BootDebugUpdateMapScreenPosition(void)
             xOffset = 4;
     }
 
+    // Written this way to produce matching ASM
+    gLastDoorUsed = gLastDoorUsed;
     mapX = sAreaRoomEntryPointers[gSectionInfo.sectionIndex][gCurrentRoom].mapX;
     mapY = sAreaRoomEntryPointers[gSectionInfo.sectionIndex][gCurrentRoom].mapY;
     mapX += (sAreaDoorsPointers[gSectionInfo.sectionIndex][gLastDoorUsed].xStart - xOffset) / SCREEN_SIZE_X_BLOCKS;
@@ -1056,6 +1055,7 @@ s32 BootDebugSectionSubroutine(void)
  * 
  * @param roomOrDoor Value updated (-1 = loading, 0 = room, 1 = door)
  */
+#ifdef NON_MATCHING
 void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
 {
     s32 doorCount;
@@ -1137,6 +1137,171 @@ void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
         gCurrentRoom = pDoor->sourceRoom;
     }
 }
+#else // !NON_MATCHING
+NAKED_FUNCTION
+void BootDebugSectionMapRoomOrDoorUpdated(u8 roomOrDoor)
+{
+    asm(" \n\
+    push    {r4-r7,r14} \n\
+    mov     r7,r10 \n\
+    mov     r6,r9 \n\
+    mov     r5,r8 \n\
+    push    {r5-r7} \n\
+    lsl     r0,r0,#0x18 \n\
+    lsr     r7,r0,#0x18 \n\
+    ldr     r1,=sAreaDoorsPointers \n\
+    ldr     r2,=gSectionInfo \n\
+    ldrb    r0,[r2] \n\
+    lsl     r0,r0,#2 \n\
+    add     r0,r0,r1 \n\
+    ldr     r4,[r0] \n\
+    mov     r5,#0 \n\
+    mov     r3,#0 \n\
+    ldrb    r0,[r4] \n\
+    mov     r9,r1 \n\
+    ldr     r1,=gCurrentRoom \n\
+    mov     r10,r1 \n\
+    ldr     r1,=gLastDoorUsed \n\
+    mov     r8,r1 \n\
+    cmp     r0,#0 \n\
+    beq     lbl_080795f4 \n\
+lbl_080795e2: \n\
+    ldrb    r0,[r4,#1] \n\
+    cmp     r3,r0 \n\
+    bgt     lbl_080795ea \n\
+    mov     r3,r0 \n\
+lbl_080795ea: \n\
+    add     r5,#1 \n\
+    add     r4,#0xC \n\
+    ldrb    r0,[r4] \n\
+    cmp     r0,#0 \n\
+    bne     lbl_080795e2 \n\
+lbl_080795f4: \n\
+    mov     r6,r10 \n\
+    ldrb    r0,[r6] \n\
+    cmp     r0,r3 \n\
+    ble     lbl_08079604 \n\
+    strb    r3,[r6] \n\
+    ldr     r1,=gPauseScreenFlag \n\
+    mov     r0,#0 \n\
+    strb    r0,[r1] \n\
+lbl_08079604: \n\
+    mov     r3,r8 \n\
+    ldrb    r0,[r3] \n\
+    sub     r1,r5,#1 \n\
+    cmp     r0,r1 \n\
+    ble     lbl_08079616 \n\
+    strb    r1,[r3] \n\
+    ldr     r1,=gPauseScreenFlag \n\
+    mov     r0,#0 \n\
+    strb    r0,[r1] \n\
+lbl_08079616: \n\
+    cmp     r7,#0 \n\
+    bne     lbl_080796c6 \n\
+    ldrb    r0,[r2] \n\
+    lsl     r0,r0,#2 \n\
+    add     r0,r9 \n\
+    ldr     r4,[r0] \n\
+    mov     r7,#0 \n\
+    ldrb    r0,[r4] \n\
+    cmp     r0,#0 \n\
+    beq     lbl_080796e0 \n\
+    mov     r12,r6 \n\
+    ldrb    r5,[r6] \n\
+    mov     r10,r5 \n\
+    mov     r8,r2 \n\
+    mov     r9,r3 \n\
+lbl_08079634: \n\
+    ldrb    r3,[r4,#1] \n\
+    cmp     r3,r10 \n\
+    bne     lbl_080796ba \n\
+    mov     r2,#1 \n\
+    ldr     r0,=sElevatorRoomPairs \n\
+    ldrb    r1,[r0,#8] \n\
+    mov     r6,r0 \n\
+    mov     r0,r8 \n\
+    ldrb    r0,[r0] \n\
+    cmp     r1,r0 \n\
+    bne     lbl_08079652 \n\
+    ldr     r1,=sElevatorRoomPairs+0x8 \n\
+    ldrb    r0,[r1,#1] \n\
+    cmp     r0,r3 \n\
+    beq     lbl_08079684 \n\
+lbl_08079652: \n\
+    lsl     r0,r2,#3 \n\
+    add     r1,r0,r6 \n\
+    ldrb    r0,[r1,#4] \n\
+    mov     r5,r8 \n\
+    ldrb    r3,[r5] \n\
+    cmp     r0,r3 \n\
+    bne     lbl_0807966a \n\
+    ldrb    r0,[r1,#5] \n\
+    mov     r1,r12 \n\
+    ldrb    r1,[r1] \n\
+    cmp     r0,r1 \n\
+    beq     lbl_08079684 \n\
+lbl_0807966a: \n\
+    add     r2,#1 \n\
+    cmp     r2,#8 \n\
+    bgt     lbl_080796b4 \n\
+    lsl     r0,r2,#3 \n\
+    add     r1,r0,r6 \n\
+    ldrb    r0,[r1] \n\
+    cmp     r0,r3 \n\
+    bne     lbl_08079652 \n\
+    ldrb    r0,[r1,#1] \n\
+    mov     r3,r12 \n\
+    ldrb    r3,[r3] \n\
+    cmp     r0,r3 \n\
+    bne     lbl_08079652 \n\
+lbl_08079684: \n\
+    cmp     r2,#8 \n\
+    bgt     lbl_080796b4 \n\
+    ldrb    r1,[r4] \n\
+    mov     r0,#0xF \n\
+    and     r0,r1 \n\
+    cmp     r0,#2 \n\
+    bls     lbl_080796ba \n\
+    mov     r5,r9 \n\
+    strb    r7,[r5] \n\
+    b       lbl_080796e0 \n\
+    .pool \n\
+lbl_080796b4: \n\
+    mov     r0,r9 \n\
+    strb    r7,[r0] \n\
+    b       lbl_080796e0 \n\
+lbl_080796ba: \n\
+    add     r4,#0xC \n\
+    add     r7,#1 \n\
+    ldrb    r0,[r4] \n\
+    cmp     r0,#0 \n\
+    bne     lbl_08079634 \n\
+    b       lbl_080796e0 \n\
+lbl_080796c6: \n\
+    ldrb    r0,[r2] \n\
+    lsl     r0,r0,#2 \n\
+    add     r0,r9 \n\
+    ldr     r4,[r0] \n\
+    mov     r3,r8 \n\
+    ldrb    r1,[r3] \n\
+    lsl     r0,r1,#1 \n\
+    add     r0,r0,r1 \n\
+    lsl     r0,r0,#2 \n\
+    add     r4,r4,r0 \n\
+    ldrb    r0,[r4,#1] \n\
+    mov     r5,r10 \n\
+    strb    r0,[r5] \n\
+lbl_080796e0: \n\
+    pop     {r3-r5} \n\
+    mov     r8,r3 \n\
+    mov     r9,r4 \n\
+    mov     r10,r5 \n\
+    pop     {r4-r7} \n\
+    pop     {r0} \n\
+    bx      r0 \n\
+    ");
+}
+#endif // NON_MATCHING
 
 /**
  * @brief Draws the room and door IDs for the interactive area map
@@ -2265,8 +2430,9 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
     s32 offset;
     s32 flag;
     s32 i;
-    s32 tile;
+    s32 tmp;
     s32 index;
+    s32 digit;
 
     switch (subMenu)
     {
@@ -2302,11 +2468,11 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
                 for (i = 0; i < 7; i++)
                 {
                     if (gEquipment.downloadedMapStatus & flag)
-                        index = 0xC0CF;
+                        tmp = 0xC0CF;
                     else
-                        index = 0xC04D;
-                    dst[offset] = index;
-                    dst[offset + 0x20] = index + 0x20;
+                        tmp = 0xC04D;
+                    dst[offset] = tmp;
+                    dst[offset + 0x20] = tmp + 0x20;
                     flag <<= 1;
                     offset--;
                 }
@@ -2367,32 +2533,32 @@ void BootDebugDrawSubMenuOptionText(u8 subMenu, u8 subMenuOption)
             }
             else if (subMenuOption == BOOT_DEBUG_SOUND_TEST)
             {
-                tile = (BOOT_DEBUG_DATA.soundTestId / 100) % 10;
-                dst[offset + 0x20] = 0x8000 | tile;
-                tile = (BOOT_DEBUG_DATA.soundTestId / 10) % 10;
-                dst[offset + 0x21] = 0x8000 | tile;
-                tile = BOOT_DEBUG_DATA.soundTestId % 10;
-                dst[offset + 0x22] = 0x8000 | tile;
+                digit = (BOOT_DEBUG_DATA.soundTestId / 100) % 10;
+                dst[offset + 0x20] = 0x8000 | digit;
+                digit = (BOOT_DEBUG_DATA.soundTestId / 10) % 10;
+                dst[offset + 0x21] = 0x8000 | digit;
+                digit = BOOT_DEBUG_DATA.soundTestId % 10;
+                dst[offset + 0x22] = 0x8000 | digit;
             }
             else if (subMenuOption == BOOT_DEBUG_SOUND_STEREO)
             {
                 offset -= 6;
                 // Set mono text color
-                tile = gStereoFlag ? 0xF000 : 0x8000;
+                index = gStereoFlag ? 0xF000 : 0x8000;
                 i = 0;
                 while (i < 4)
                 {
-                    dst[offset] = (dst[offset] & 0x3FF) | tile;
-                    dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | tile;
+                    dst[offset] = (dst[offset] & 0x3FF) | index;
+                    dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | index;
                     i++;
                     offset++;
                 }
                 // Set stereo text color
-                tile = !gStereoFlag ? 0xF000 : 0x8000;
+                index = !gStereoFlag ? 0xF000 : 0x8000;
                 while (i < 9)
                 {
-                    dst[offset] = (dst[offset] & 0x3FF) | tile;
-                    dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | tile;
+                    dst[offset] = (dst[offset] & 0x3FF) | index;
+                    dst[offset + 0x20] = (dst[offset + 0x20] & 0x3FF) | index;
                     i++;
                     offset++;
                 }
