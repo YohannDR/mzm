@@ -113,7 +113,7 @@ u8 HoltzXMovement(u16 movement)
 }
 
 /**
- * @brief 38518 | 70 | Initializes a holtz sprite
+ * @brief 38464 | 70 | Initializes a holtz sprite
  * 
  */
 void HoltzInit(void)
