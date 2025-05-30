@@ -449,7 +449,7 @@ void CutsceneInit(void)
     }
 
     #ifdef DEBUG
-    // Written this way to produce matching code
+    // Written this way to produce matching ASM
     temp = gBootDebugActive;
     if (temp != 0)
     {

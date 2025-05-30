@@ -277,6 +277,27 @@ void BaristuteIdle(void)
     if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
         return;
 
+    #ifdef REGION_US_BETA
+    if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_UPPER)
+    {
+        // The upper kraid baristute can't jump, so always walk
+        gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
+    }
+    else if (gCurrentSprite.spriteId == PSPRITE_BARISTUTE_KRAID_LOWER)
+    {
+        // The upper kraid baristute can't walk, so always jump
+        gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
+    }
+    else
+    {
+        // Is a normal baristute, so have random behavior, 50/50 to either walk or jump
+        if (gCurrentSprite.work1 >= 2)
+            gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
+        else
+            gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
+    }
+    #endif // REGION_US_BETA
+
     // Face samus
     SpriteUtilMakeSpriteFaceSamusDirection();
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -284,6 +305,7 @@ void BaristuteIdle(void)
     else
         gCurrentSprite.status &= ~SPRITE_STATUS_X_FLIP;
 
+    #ifndef REGION_US_BETA
     // Check should walk or jump, get the collision in front of the baristute
     if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
         ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRight + QUARTER_BLOCK_SIZE)
@@ -308,6 +330,7 @@ void BaristuteIdle(void)
                 gCurrentSprite.pose = BARISTUTE_POSE_JUMP_WARNING_INIT;
         }
     }
+    #endif // !REGION_US_BETA
 }
 
 /**

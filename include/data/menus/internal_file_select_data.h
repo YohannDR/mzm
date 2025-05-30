@@ -23,6 +23,10 @@ extern const u16 sOptionsOptionsTilemapOffsets[OPTION_END];
 extern const struct OptionsSubroutineInfo sOptionsSubroutineInfo[OPTION_END + 1];
 
 extern const u8 sFileSelectDefaultPassword[8];
+#ifdef REGION_US_BETA
+extern const u8 sFileSelectBlankPassword[20];
+extern const u8 sFileSelectBlank100Password[20];
+#endif // REGION_US_BETA
 extern const u16 sMenuSounds[MENU_SOUND_REQUEST_END];
 
 #endif /* INTERNAL_FILE_SELECT_MENU_DATA_H */

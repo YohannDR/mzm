@@ -166,7 +166,7 @@ u8 FusionGalleryConnectProcess(void)
                 i = gChangedInput & KEY_A;
             else
                 i = TRUE;
-            // Written this way to produce matching code
+            // Written this way to produce matching ASM
             i++; i--;
             if (i)
             #endif // DEBUG

@@ -148,8 +148,13 @@ void UnknownItemBlock(void)
                     gSpriteData[activated].hitboxLeft = 0;
                     gSpriteData[activated].hitboxRight = 0;
 
+                    #ifdef REGION_US_BETA
+                    gSpriteData[activated].drawDistanceTop = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+                    gSpriteData[activated].drawDistanceBottom = SUB_PIXEL_TO_PIXEL(0);
+                    #else // !REGION_US_BETA
                     gSpriteData[activated].drawDistanceTop = SUB_PIXEL_TO_PIXEL(0);
                     gSpriteData[activated].drawDistanceBottom = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+                    #endif // REGION_US_BETA
                     gSpriteData[activated].drawDistanceHorizontal = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
 
                     gSpriteData[activated].pOam = sUnknownItemBlockLightOam_Idle;

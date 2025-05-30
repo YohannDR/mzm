@@ -14,6 +14,7 @@
 #include "constants/demo.h"
 #include "constants/game_over.h"
 #include "constants/menus/file_select.h"
+#include "constants/menus/boot_debug.h"
 
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -49,9 +50,19 @@ u32 GameOverSubroutine(void)
                 return TRUE;
             }
 
-            GameOverInit();
-            GAME_OVER_DATA.timer = 0;
-            gGameModeSub1++;
+            #ifdef DEBUG
+            if (gDebugMode && gSectionInfo.sectionIndex < BOOT_DEBUG_SECTION_SAVE_A)
+            {
+                GameOverInit_Debug();
+                gGameModeSub1 = 9;
+            }
+            else
+            #endif // DEBUG
+            {
+                GameOverInit();
+                GAME_OVER_DATA.timer = 0;
+                gGameModeSub1++;
+            }
             break;
 
         case 1:
@@ -118,7 +129,11 @@ u32 GameOverSubroutine(void)
         case 7:
             if (GAME_OVER_DATA.optionSelected == 1)
             {
+                #ifdef DEBUG
+                gGameModeSub2 = !gDebugMode ? 1 : 16;
+                #else // !DEBUG
                 gGameModeSub2 = 1;
+                #endif
                 ended = TRUE;
                 break;
             }
@@ -128,8 +143,17 @@ u32 GameOverSubroutine(void)
             break;
 
         case 8:
-            unk_75c04(0);
-            gLanguage = gGameCompletion.language;
+            #ifdef DEBUG
+            if (gDebugMode)
+            {
+                unk_75c04(3);
+            }
+            else
+            #endif // DEBUG
+            {
+                unk_75c04(0);
+                gLanguage = gGameCompletion.language;
+            }
             ended = TRUE;
             break;
 
@@ -293,10 +317,10 @@ void GameOverInit(void)
 }
 
 /**
- * @brief 77dd8 | 134 | Unused game over init function
+ * @brief 77dd8 | 134 | Initializes the game over menu for debug
  * 
  */
-void GameOverInit_Unused(void)
+void GameOverInit_Debug(void)
 {
     u32 zero;
 

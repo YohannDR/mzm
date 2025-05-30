@@ -39,7 +39,9 @@ u8 OptionsSoundTestSubroutine(void);
 u32 OptionsSoundTestCheckNotAlreadyPlaying(void);
 void OptionsSoundTestUpdateIdGfx(void);
 u8 OptionsTimeAttackRecordsSubroutine(void);
+#ifndef REGION_US_BETA
 void OptionsTimeAttackLoadBestTimeMessage(void);
+#endif // !REGION_US_BETA
 void OptionsTimeAttackLoadRecord(u8 id);
 void unk_7b854(void);
 void OptionsTimeAttackLoadPassword(u8 part);
