@@ -8,10 +8,8 @@ track_360_0:
 	.byte VOICE, 26
 	.byte VOL, 47
 	.byte PAN, c_v
-	.byte N30
-	.byte Cn3, En6
+	.byte N30, Cn3, v100
 	.byte W30
-
 	.byte FINE
 
 .align 2

@@ -9,22 +9,20 @@ track_274_0:
 	.byte VOICE, 5
 	.byte VOL, 27
 	.byte PAN, c_v
-	.byte N16
-	.byte Fs2, Gs4
+	.byte N16, Fs2, v080
 	.byte W10
 	.byte VOL, 27
 	.byte W01
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

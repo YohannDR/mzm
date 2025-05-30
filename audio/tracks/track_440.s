@@ -8,14 +8,12 @@ track_440_0:
 	.byte VOICE, 16
 	.byte VOL, 70
 	.byte PAN, c_v
-	.byte N07
-	.byte Bn2, Gs4
+	.byte N07, Bn2, v080
 	.byte W07
-	.byte An2, Gs0
+	.byte An2, v032 @ N07
 	.byte W07
-	.byte Gn2, GsM2
+	.byte Gn2, v008 @ N07
 	.byte W07
-
 	.byte FINE
 
 .align 2

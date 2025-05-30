@@ -13,24 +13,20 @@ track_356_0:
 	.byte LFOS, 100
 	.byte BEND, c_v-63
 	.byte W04
-	.byte N09
-	.byte Fn2, Gs3
+	.byte N09, Fn2, v068
 	.byte W02
 	.byte BEND, c_v-47
 	.byte W02
-	.byte An0
+	.byte c_v-31 @ BEND
 	.byte W02
-	.byte Cn2
+	.byte c_v-16 @ BEND
 	.byte W02
-	.byte En3
+	.byte c_v @ BEND
 	.byte W01
-	.byte N04
-	.byte Gn2, Cn2
+	.byte N04, Gn2, v048
 	.byte W04
-	.byte N03
-	.byte Fn2, En0
+	.byte N03, Fn2, v028
 	.byte W03
-
 	.byte FINE
 
 .align 2

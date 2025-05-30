@@ -9,16 +9,14 @@ track_694_0:
 	.byte VOL, 94
 	.byte PAN, c_v-14
 	.byte W04
-	.byte N05
-	.byte Cn3, Cn4
+	.byte N05, Cn3, v072
 	.byte W05
-	.byte En3
+	.byte En3 @ N05, v072
 	.byte W05
-	.byte Gn3, Cn3
+	.byte Gn3, v060 @ N05
 	.byte W05
-	.byte Gn3, GsM1
+	.byte Gn3, v020 @ N05
 	.byte W05
-
 	.byte FINE
 
 track_694_1:
@@ -27,16 +25,14 @@ track_694_1:
 	.byte VOL, 120
 	.byte PAN, c_v-14
 	.byte W04
-	.byte N05
-	.byte Gn3, Cn8
+	.byte N05, Gn3, v120
 	.byte W05
-	.byte Gs3
+	.byte Gs3 @ N05, v120
 	.byte W05
-	.byte An3, Gs4
+	.byte An3, v080 @ N05
 	.byte W05
-	.byte An3, Cn1
+	.byte An3, v036 @ N05
 	.byte W05
-
 	.byte FINE
 
 .align 2

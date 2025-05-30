@@ -10,8 +10,7 @@ track_390_0:
 	.byte PAN, c_v
 	.byte BENDR, 26
 	.byte BEND, c_v
-	.byte N20
-	.byte En3, Gs4
+	.byte N20, En3, v080
 	.byte W01
 	.byte VOL, 3
 	.byte BEND, c_v-15
@@ -33,7 +32,7 @@ track_390_0:
 	.byte W01
 	.byte VOL, 36
 	.byte W01
-	.byte Cs1
+	.byte 37 @ VOL
 	.byte W01
 	.byte BEND, c_v-45
 	.byte W01
@@ -67,7 +66,6 @@ track_390_0:
 	.byte VOL, 0
 	.byte BEND, c_v-16
 	.byte W01
-
 	.byte FINE
 
 .align 2

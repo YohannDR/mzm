@@ -10,34 +10,32 @@ track_634_0:
 	.byte PAN, c_v
 	.byte BEND, c_v
 	.byte W32
-	.byte N05
-	.byte Cn3, En6
+	.byte N05, Cn3, v100
 	.byte W19
-	.byte Cn3, Gs4
+	.byte Cn3, v080 @ N05
 	.byte W13
-	.byte N05
+	.byte N05 @ Cn3, v080
 	.byte W10
-	.byte N05
+	.byte N05 @ Cn3, v080
 	.byte W08
-	.byte Dn3
+	.byte Dn3 @ N05, v080
 	.byte W06
-	.byte Fn3
+	.byte Fn3 @ N05, v080
 	.byte W05
-	.byte Gn3
+	.byte Gn3 @ N05, v080
 	.byte W03
 	.byte W01
-	.byte An3
+	.byte An3 @ N05, v080
 	.byte W08
-	.byte Bn3
+	.byte Bn3 @ N05, v080
 	.byte W20
-	.byte Cn4
+	.byte Cn4 @ N05, v080
 	.byte W36
 	.byte W01
 	.byte VOICE, 44
 	.byte VOL, 110
 	.byte BENDR, 10
-	.byte N54
-	.byte An2, Gn8
+	.byte N54, An2, v127
 	.byte W09
 	.byte BEND, c_v
 	.byte W01
@@ -53,7 +51,7 @@ track_634_0:
 	.byte VOL, 101
 	.byte BEND, c_v-1
 	.byte W01
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
 	.byte VOL, 99
 	.byte BEND, c_v-2
@@ -171,8 +169,7 @@ track_634_0:
 	.byte W01
 	.byte VOL, 0
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 track_634_1:
@@ -181,33 +178,31 @@ track_634_1:
 	.byte VOL, 69
 	.byte PAN, c_v
 	.byte W32
-	.byte N05
-	.byte Gn3, Cn8
+	.byte N05, Gn3, v120
 	.byte W19
-	.byte Gn3, En6
+	.byte Gn3, v100 @ N05
 	.byte W13
-	.byte N05
+	.byte N05 @ Gn3, v100
 	.byte W10
-	.byte N05
+	.byte N05 @ Gn3, v100
 	.byte W08
-	.byte Gs3
+	.byte Gs3 @ N05, v100
 	.byte W06
-	.byte An3
+	.byte An3 @ N05, v100
 	.byte W05
-	.byte As3
+	.byte As3 @ N05, v100
 	.byte W03
 	.byte W01
-	.byte Bn3
+	.byte Bn3 @ N05, v100
 	.byte W08
-	.byte Cn4
+	.byte Cn4 @ N05, v100
 	.byte W20
-	.byte Cs4
+	.byte Cs4 @ N05, v100
 	.byte W40
 	.byte VOICE, 44
 	.byte VOL, 0
 	.byte BENDR, 10
-	.byte N54
-	.byte Cn3, Gn8
+	.byte N54, Cn3, v127
 	.byte W09
 	.byte BEND, c_v
 	.byte W01
@@ -223,7 +218,7 @@ track_634_1:
 	.byte VOL, 101
 	.byte BEND, c_v-1
 	.byte W01
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
 	.byte VOL, 99
 	.byte BEND, c_v-2
@@ -341,8 +336,7 @@ track_634_1:
 	.byte W01
 	.byte VOL, 0
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

@@ -10,8 +10,7 @@ track_270_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte BEND, c_v-16
-	.byte TIE
-	.byte An2, En6
+	.byte TIE, An2, v100
 	.byte W01
 	.byte VOL, 38
 	.byte BEND, c_v-14
@@ -43,8 +42,7 @@ track_270_lbl_20dbf6:
 	.byte GOTO
 		.word track_270_lbl_20dbf6
 	.byte W01
-	.byte EOT, An2
-
+	.byte EOT, An2 @ v100
 	.byte FINE
 
 .align 2

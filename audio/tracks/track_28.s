@@ -10,14 +10,13 @@ track_28_lbl_23201e:
 	.byte VOL, 75
 	.byte PAN, c_v
 	.byte PRIO, 120
-	.byte N96
-	.byte An1, Gn8
+	.byte N96, An1, v127
 	.byte W96
-	.byte Cn2
+	.byte Cn2 @ N96, v127
 	.byte W96
-	.byte Bn1
+	.byte Bn1 @ N96, v127
 	.byte W96
-	.byte En1
+	.byte En1 @ N96, v127
 	.byte W96
 	.byte W96
 	.byte W96
@@ -31,7 +30,6 @@ track_28_lbl_23201e:
 	.byte W96
 	.byte GOTO
 		.word track_28_lbl_23201e
-
 	.byte FINE
 
 track_28_1:
@@ -41,14 +39,13 @@ track_28_lbl_232044:
 	.byte VOL, 62
 	.byte PAN, c_v
 	.byte PRIO, 119
-	.byte N12
-	.byte Gs2, Gn8
+	.byte N12, Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
 	.byte W96
 	.byte W96
@@ -62,7 +59,6 @@ track_28_lbl_232044:
 	.byte W96
 	.byte GOTO
 		.word track_28_lbl_232044
-
 	.byte FINE
 
 track_28_2:
@@ -72,14 +68,13 @@ track_28_lbl_232068:
 	.byte VOL, 44
 	.byte PAN, c_v-17
 	.byte PRIO, 30
-	.byte N96
-	.byte Bn1, En6
+	.byte N96, Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
 	.byte W96
 	.byte W96
@@ -93,7 +88,6 @@ track_28_lbl_232068:
 	.byte W96
 	.byte GOTO
 		.word track_28_lbl_232068
-
 	.byte FINE
 
 track_28_3:
@@ -103,14 +97,13 @@ track_28_lbl_23208c:
 	.byte VOL, 44
 	.byte PAN, c_v+15
 	.byte PRIO, 118
-	.byte N96
-	.byte Bn1, En6
+	.byte N96, Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
-	.byte N96
+	.byte N96 @ Bn1, v100
 	.byte W96
 	.byte W96
 	.byte W96
@@ -124,7 +117,6 @@ track_28_lbl_23208c:
 	.byte W96
 	.byte GOTO
 		.word track_28_lbl_23208c
-
 	.byte FINE
 
 .align 2

@@ -10,17 +10,14 @@ track_344_0:
 	.byte VOL, 44
 	.byte PAN, c_v
 	.byte LFOS, 127
-	.byte N08
-	.byte Fn3, Gs4
+	.byte N08, Fn3, v080
 	.byte W08
-	.byte N10
+	.byte N10 @ Fn3, v080
 	.byte W10
-	.byte N06
+	.byte N06 @ Fn3, v080
 	.byte W06
-	.byte N08
-	.byte Fn3, Gs2
+	.byte N08, Fn3, v056
 	.byte W08
-
 	.byte FINE
 
 .align 2

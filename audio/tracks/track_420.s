@@ -9,10 +9,8 @@ track_420_0:
 	.byte VOL, 94
 	.byte PAN, c_v
 	.byte W06
-	.byte N18
-	.byte Cn3, Gs4
+	.byte N18, Cn3, v080
 	.byte W60
-
 	.byte FINE
 
 track_420_1:
@@ -20,13 +18,10 @@ track_420_1:
 	.byte VOICE, 14
 	.byte VOL, 94
 	.byte PAN, c_v
-	.byte N12
-	.byte Cn3, Cn8
+	.byte N12, Cn3, v120
 	.byte W12
-	.byte N18
-	.byte Cn3, GsM1
+	.byte N18, Cn3, v020
 	.byte W54
-
 	.byte FINE
 
 track_420_2:
@@ -35,14 +30,11 @@ track_420_2:
 	.byte VOL, 94
 	.byte PAN, c_v
 	.byte W03
-	.byte N05
-	.byte Gn2, En6
+	.byte N05, Gn2, v100
 	.byte W05
-	.byte N04
-	.byte Fn2
+	.byte N04, Fn2 @ v100
 	.byte W56
 	.byte W02
-
 	.byte FINE
 
 .align 2

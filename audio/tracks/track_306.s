@@ -8,27 +8,24 @@ track_306_0:
 	.byte VOICE, 11
 	.byte VOL, 70
 	.byte PAN, c_v
-	.byte N03
-	.byte Cn3, Gs4
+	.byte N03, Cn3, v080
 	.byte W03
 	.byte VOICE, 19
 	.byte MOD, 90
 	.byte LFOS, 40
-	.byte N06
+	.byte N06 @ Cn3, v080
 	.byte W05
 	.byte LFOS, 60
 	.byte W01
-	.byte N21
-	.byte Dn3, Cn3
+	.byte N21, Dn3, v060
 	.byte W04
 	.byte LFOS, 80
 	.byte W05
-	.byte En6
+	.byte En6 @ N21, v060
 	.byte W05
-	.byte Cn8
+	.byte Cn8 @ N21, v060
 	.byte W36
 	.byte W01
-
 	.byte FINE
 
 track_306_1:
@@ -39,8 +36,7 @@ track_306_1:
 	.byte BENDR, 36
 	.byte W01
 	.byte BEND, c_v-63
-	.byte N10
-	.byte Cn2, Gs5
+	.byte N10, Cn2, v092
 	.byte W01
 	.byte VOL, 10
 	.byte BEND, c_v-56
@@ -54,9 +50,9 @@ track_306_1:
 	.byte VOL, 70
 	.byte BEND, c_v-35
 	.byte W01
-	.byte Cn1
+	.byte c_v-28 @ BEND
 	.byte W01
-	.byte Gn1
+	.byte c_v-21 @ BEND
 	.byte W01
 	.byte VOL, 42
 	.byte BEND, c_v-14
@@ -64,15 +60,13 @@ track_306_1:
 	.byte VOL, 28
 	.byte BEND, c_v-7
 	.byte W01
-	.byte En3
+	.byte c_v @ BEND
 	.byte W01
 	.byte VOICE, 2
 	.byte VOL, 77
-	.byte N04
-	.byte Fn2, En7
+	.byte N04, Fn2, v112
 	.byte W48
 	.byte W01
-
 	.byte FINE
 
 .align 2

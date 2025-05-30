@@ -10,22 +10,20 @@ track_275_0:
 	.byte W01
 	.byte VOL, 9
 	.byte W01
-	.byte N16
-	.byte Fs2, Gs4
+	.byte N16, Fs2, v080
 	.byte W01
 	.byte VOL, 11
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W10
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

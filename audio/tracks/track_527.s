@@ -10,14 +10,12 @@ track_527_0:
 	.byte VOICE, 14
 	.byte VOL, 56
 	.byte PAN, c_v
-	.byte N07
-	.byte Fs3, Gs4
+	.byte N07, Fs3, v080
 	.byte W11
-	.byte N07
+	.byte N07 @ Fs3, v080
 	.byte W11
-	.byte N07
+	.byte N07 @ Fs3, v080
 	.byte W07
-
 	.byte FINE
 
 track_527_1:
@@ -27,22 +25,19 @@ track_527_1:
 	.byte PAN, c_v
 	.byte BENDR, 2
 	.byte BEND, c_v
-	.byte N04
-	.byte Gn2, Gs4
+	.byte N04, Gn2, v080
 	.byte W04
 	.byte BEND, c_v+5
-	.byte N04
-	.byte Bn2
+	.byte N04, Bn2 @ v080
 	.byte W05
-	.byte N04
+	.byte N04 @ Bn2, v080
 	.byte W05
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W05
-	.byte Bn2, En1
+	.byte Bn2, v040 @ N04
 	.byte W05
-	.byte Bn2, CnM1
+	.byte Bn2, v012 @ N04
 	.byte W04
-
 	.byte FINE
 
 .align 2

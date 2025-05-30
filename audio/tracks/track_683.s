@@ -8,10 +8,8 @@ track_683_0:
 	.byte VOICE, 3
 	.byte VOL, 70
 	.byte PAN, c_v+6
-	.byte N12
-	.byte Cn3, En6
+	.byte N12, Cn3, v100
 	.byte W12
-
 	.byte FINE
 
 .align 2

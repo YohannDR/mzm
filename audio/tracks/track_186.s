@@ -10,10 +10,8 @@ track_186_0:
 	.byte VOL, 100
 	.byte PAN, c_v-34
 	.byte LFOS, 90
-	.byte N08
-	.byte Fs2, Gn8
+	.byte N08, Fs2, v127
 	.byte W16
-
 	.byte FINE
 
 .align 2

@@ -8,11 +8,9 @@ track_255_0:
 	.byte VOICE, 12
 	.byte VOL, 78
 	.byte PAN, c_v
-	.byte N18
-	.byte Cn3, Gn8
+	.byte N18, Cn3, v127
 	.byte W44
 	.byte W02
-
 	.byte FINE
 
 track_255_1:
@@ -21,11 +19,9 @@ track_255_1:
 	.byte VOL, 100
 	.byte PAN, c_v
 	.byte W08
-	.byte N14
-	.byte Gs2, Gs4
+	.byte N14, Gs2, v080
 	.byte W36
 	.byte W02
-
 	.byte FINE
 
 .align 2

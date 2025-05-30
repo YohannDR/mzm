@@ -8,22 +8,19 @@ track_398_0:
 	.byte VOICE, 45
 	.byte VOL, 70
 	.byte PAN, c_v
-	.byte N10
-	.byte Cn3, Gs4
+	.byte N10, Cn3, v080
 	.byte W10
-	.byte N12
-	.byte Cn3, Gs0
+	.byte N12, Cn3, v032
 	.byte W08
 	.byte VOL, 70
 	.byte W01
-	.byte Cs1
+	.byte 37 @ VOL
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

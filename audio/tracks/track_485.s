@@ -10,12 +10,11 @@ track_485_0:
 	.byte PAN, c_v
 	.byte BENDR, 4
 	.byte BEND, c_v
-	.byte N30
-	.byte Cn3, Cn8
+	.byte N30, Cn3, v120
 	.byte W04
 	.byte VOL, 15
 	.byte W02
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W01
 	.byte BEND, c_v-1
 	.byte W01
@@ -45,17 +44,16 @@ track_485_0:
 	.byte VOL, 17
 	.byte BEND, c_v-7
 	.byte W01
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W01
 	.byte VOL, 10
 	.byte W02
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W02
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

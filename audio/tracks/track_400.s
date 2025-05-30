@@ -10,10 +10,8 @@ track_400_0:
 	.byte VOL, 78
 	.byte PAN, c_v
 	.byte LFOS, 80
-	.byte N32
-	.byte Fs0, Cn8
+	.byte N32, Fs0, v120
 	.byte W32
-
 	.byte FINE
 
 track_400_1:
@@ -24,16 +22,14 @@ track_400_1:
 	.byte PAN, c_v
 	.byte LFOS, 10
 	.byte PRIO, 23
-	.byte N08
-	.byte Gn2, En6
+	.byte N08, Gn2, v100
 	.byte W08
-	.byte Dn2
+	.byte Dn2 @ N08, v100
 	.byte W08
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N08
 	.byte W08
-	.byte Dn2, Cn3
+	.byte Dn2, v060 @ N08
 	.byte W08
-
 	.byte FINE
 
 .align 2

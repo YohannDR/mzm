@@ -8,12 +8,10 @@ track_51_lbl_21fbd6:
 	.byte TEMPO, 60
 	.byte VOICE, 2
 	.byte VOL, 6
-	.byte N24
-	.byte Cn3, CnM1
+	.byte N24, Cn3, v012
 	.byte W96
 	.byte GOTO
 		.word track_51_lbl_21fbd6
-
 	.byte FINE
 
 .align 2

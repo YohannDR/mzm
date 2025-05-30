@@ -8,11 +8,9 @@ track_491_0:
 	.byte VOICE, 8
 	.byte VOL, 94
 	.byte PAN, c_v
-	.byte N24
-	.byte En3, En6, DnM2
+	.byte N24, En3, v100, 2
 	.byte W24
 	.byte W02
-
 	.byte FINE
 
 track_491_1:
@@ -21,11 +19,9 @@ track_491_1:
 	.byte VOICE, 8
 	.byte VOL, 94
 	.byte PAN, c_v
-	.byte N24
-	.byte En3, Gs0, DnM2
+	.byte N24, En3, v032, 2
 	.byte W24
 	.byte W02
-
 	.byte FINE
 
 .align 2

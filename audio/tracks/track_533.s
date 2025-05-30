@@ -8,38 +8,36 @@ track_533_0:
 	.byte VOICE, 2
 	.byte VOL, 62
 	.byte PAN, c_v
-	.byte N04
-	.byte Gn2, Gs4
+	.byte N04, Gn2, v080
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W04
-
 	.byte FINE
 
 track_533_1:
@@ -48,39 +46,37 @@ track_533_1:
 	.byte VOICE, 2
 	.byte VOL, 47
 	.byte PAN, c_v
-	.byte N04
-	.byte Gn2, Gs4
+	.byte N04, Gn2, v080
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W08
 	.byte W08
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W04
-
 	.byte FINE
 
 track_533_2:
@@ -89,32 +85,30 @@ track_533_2:
 	.byte VOL, 31
 	.byte PAN, c_v
 	.byte W16
-	.byte N04
-	.byte Gn2, Gs4
+	.byte N04, Gn2, v080
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W16
-	.byte Gn2, Gs4
+	.byte Gn2, v080 @ N04
 	.byte W04
-	.byte Bn2, Cn3
+	.byte Bn2, v060 @ N04
 	.byte W04
-	.byte Fs3, En1
+	.byte Fs3, v040 @ N04
 	.byte W04
-
 	.byte FINE
 
 .align 2

@@ -8,24 +8,22 @@ track_443_0:
 	.byte VOICE, 5
 	.byte VOL, 56
 	.byte PAN, c_v
-	.byte N56
-	.byte Cn3, Gs4, DsM2
+	.byte N56, Cn3, v080, 3
 	.byte W05
 	.byte VOL, 43
 	.byte W01
-	.byte Cn1
+	.byte 36 @ VOL
 	.byte W01
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte W01
-	.byte Fn0
+	.byte 29 @ VOL
 	.byte W01
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W01
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W01
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W48
-
 	.byte FINE
 
 .align 2

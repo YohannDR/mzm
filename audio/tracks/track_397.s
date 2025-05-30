@@ -8,18 +8,16 @@ track_397_0:
 	.byte VOICE, 45
 	.byte VOL, 50
 	.byte PAN, c_v
-	.byte N03
-	.byte Gn3, Cn3
+	.byte N03, Gn3, v060
 	.byte W03
 	.byte VOICE, 19
 	.byte BENDR, 12
 	.byte BEND, c_v-63
-	.byte N09
-	.byte Fn2, Gs4
+	.byte N09, Fn2, v080
 	.byte W01
 	.byte BEND, c_v-44
 	.byte W01
-	.byte Ds1
+	.byte c_v-25 @ BEND
 	.byte W01
 	.byte VOL, 50
 	.byte BEND, c_v-6
@@ -32,11 +30,10 @@ track_397_0:
 	.byte W01
 	.byte VOL, 10
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

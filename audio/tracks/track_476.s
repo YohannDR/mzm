@@ -8,58 +8,56 @@ track_476_0:
 	.byte VOICE, 4
 	.byte VOL, 120
 	.byte PAN, c_v
-	.byte N60
-	.byte Cn3, Cn8
+	.byte N60, Cn3, v120
 	.byte W09
 	.byte VOL, 100
 	.byte W02
-	.byte Ds6
+	.byte 99 @ VOL
 	.byte W04
-	.byte Cs6
+	.byte 97 @ VOL
 	.byte W04
-	.byte Bn5
+	.byte 95 @ VOL
 	.byte W02
-	.byte An5
+	.byte 93 @ VOL
 	.byte W02
-	.byte Gn5
+	.byte 91 @ VOL
 	.byte W02
-	.byte Fn5
+	.byte 89 @ VOL
 	.byte W02
-	.byte Ds5
+	.byte 87 @ VOL
 	.byte W02
-	.byte Cn5
+	.byte 84 @ VOL
 	.byte W02
-	.byte Gn4
+	.byte 79 @ VOL
 	.byte W02
-	.byte Ds4
+	.byte 75 @ VOL
 	.byte W02
-	.byte An3
+	.byte 69 @ VOL
 	.byte W02
-	.byte Cs3
+	.byte 61 @ VOL
 	.byte W03
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W02
-	.byte Ds1
+	.byte 39 @ VOL
 	.byte W02
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte W02
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W02
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W02
-	.byte EnM1
+	.byte 16 @ VOL
 	.byte W02
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W02
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W02
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W02
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

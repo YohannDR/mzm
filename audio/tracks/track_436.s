@@ -10,10 +10,8 @@ track_436_0:
 	.byte VOL, 56
 	.byte PAN, c_v
 	.byte LFOS, 40
-	.byte N32
-	.byte Cn3, Gs4
+	.byte N32, Cn3, v080
 	.byte W32
-
 	.byte FINE
 
 .align 2

@@ -8,12 +8,10 @@ track_82_lbl_22b8de:
 	.byte TEMPO, 60
 	.byte VOICE, 2
 	.byte VOL, 0
-	.byte N24
-	.byte Cn3, CnM1
+	.byte N24, Cn3, v012
 	.byte W96
 	.byte GOTO
 		.word track_82_lbl_22b8de
-
 	.byte FINE
 
 .align 2

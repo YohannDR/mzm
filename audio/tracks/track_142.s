@@ -10,38 +10,36 @@ track_142_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte BEND, c_v
-	.byte N30
-	.byte Cn3, Cn3
+	.byte N30, Cn3, v060
 	.byte W02
 	.byte BEND, c_v+2
 	.byte W02
-	.byte An3
+	.byte c_v+5 @ BEND
 	.byte W02
-	.byte Cn4
+	.byte c_v+8 @ BEND
 	.byte W02
-	.byte Dn4
+	.byte c_v+10 @ BEND
 	.byte W02
-	.byte Fn4
+	.byte c_v+13 @ BEND
 	.byte W02
-	.byte Gs4
+	.byte c_v+16 @ BEND
 	.byte W02
-	.byte As4
+	.byte c_v+18 @ BEND
 	.byte W02
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W02
-	.byte En5
+	.byte c_v+24 @ BEND
 	.byte W02
-	.byte Fs5
+	.byte c_v+26 @ BEND
 	.byte W02
-	.byte An5
+	.byte c_v+29 @ BEND
 	.byte W02
-	.byte Cn6
+	.byte c_v+32 @ BEND
 	.byte W06
 	.byte VOICE, 17
 	.byte VOL, 74
 	.byte BEND, c_v
-	.byte TIE
-	.byte Cn3, En6
+	.byte TIE, Cn3, v100
 	.byte W01
 track_142_lbl_20bcf5:
 	.byte W64
@@ -50,8 +48,7 @@ track_142_lbl_20bcf5:
 	.byte GOTO
 		.word track_142_lbl_20bcf5
 	.byte W01
-	.byte EOT, Cn3
-
+	.byte EOT, Cn3 @ v100
 	.byte FINE
 
 .align 2

@@ -8,20 +8,18 @@ track_265_0:
 	.byte VOICE, 38
 	.byte VOL, 40
 	.byte PAN, c_v
-	.byte N21
-	.byte Dn3, Cn3
+	.byte N21, Dn3, v060
 	.byte W16
 	.byte VOL, 33
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2
