@@ -39,7 +39,7 @@ sprites/ZebBlue.pal;16;0x2cc9e0;2
 sprites/SkreeGreen.gfx.lz;264;0x2cca8c;4
 sprites/SkreeGreen.pal;16;0x2cceac;2
 
-sprites/SkreeBlue.gfx.lz;264;0x2cca8c;4
+sprites/SkreeBlue.gfx.lz;264;0x2ccecc;4
 sprites/SkreeBlue.pal;16;0x2cd2ec;2
 
 # Morph ball
