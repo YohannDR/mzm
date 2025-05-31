@@ -10,23 +10,20 @@ track_295_0:
 	.byte PAN, c_v
 	.byte BENDR, 2
 	.byte W03
-	.byte N12
-	.byte Fs2, Gs4
+	.byte N12, Fs2, v080
 	.byte W01
 	.byte VOL, 27
 	.byte W01
-	.byte Fs0
+	.byte 30 @ VOL
 	.byte W01
-	.byte An0
+	.byte 33 @ VOL
 	.byte W09
 	.byte VOICE, 7
 	.byte VOL, 33
-	.byte N02
-	.byte Cn4, Cn3
+	.byte N02, Cn4, v060
 	.byte W02
-	.byte Cn4, GsM1
+	.byte Cn4, v020 @ N02
 	.byte W02
-
 	.byte FINE
 
 .align 2

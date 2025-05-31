@@ -10,12 +10,10 @@ track_288_0:
 	.byte PAN, c_v
 	.byte W01
 track_288_lbl_20e5ef:
-	.byte N07
-	.byte Cn3, Gs4
+	.byte N07, Cn3, v080
 	.byte W14
 	.byte GOTO
 		.word track_288_lbl_20e5ef
-
 	.byte FINE
 
 .align 2

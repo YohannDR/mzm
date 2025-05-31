@@ -9,15 +9,13 @@ track_246_0:
 	.byte VOL, 0
 	.byte PAN, c_v
 	.byte W07
-	.byte N18
-	.byte Cn3, En2
+	.byte N18, Cn3, v052
 	.byte W03
 	.byte MOD, 60
 	.byte VOL, 41
 	.byte LFOS, 120
 	.byte MODT, mod_tre
 	.byte W15
-
 	.byte FINE
 
 track_246_1:
@@ -25,29 +23,24 @@ track_246_1:
 	.byte VOICE, 29
 	.byte VOL, 75
 	.byte PAN, c_v
-	.byte N10
-	.byte Cn3, Gs4
+	.byte N10, Cn3, v080
 	.byte W10
 	.byte VOICE, 24
 	.byte VOL, 21
-	.byte N07
-	.byte Cn3, Gs5
+	.byte N07, Cn3, v092
 	.byte W01
 	.byte VOL, 30
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W01
-	.byte As1
+	.byte 46 @ VOL
 	.byte W01
-	.byte Fs2
+	.byte 54 @ VOL
 	.byte W03
-	.byte N07
-	.byte Bn2, En2
+	.byte N07, Bn2, v052
 	.byte W07
-	.byte N05
-	.byte An2, GsM1
+	.byte N05, An2, v020
 	.byte W05
-
 	.byte FINE
 
 .align 2

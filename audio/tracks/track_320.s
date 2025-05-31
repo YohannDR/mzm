@@ -8,11 +8,9 @@ track_320_0:
 	.byte VOICE, 23
 	.byte VOL, 56
 	.byte PAN, c_v
-	.byte N36
-	.byte Cn3, Gn8
+	.byte N36, Cn3, v127
 	.byte W36
 	.byte W02
-
 	.byte FINE
 
 .align 2

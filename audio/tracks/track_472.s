@@ -8,8 +8,7 @@ track_472_0:
 	.byte VOICE, 7
 	.byte VOL, 62
 	.byte PAN, c_v
-	.byte TIE
-	.byte Cn3, En3
+	.byte TIE, Cn3, v064
 	.byte W32
 	.byte W02
 	.byte MOD, 20
@@ -22,8 +21,7 @@ track_472_lbl_2153e2:
 	.byte GOTO
 		.word track_472_lbl_2153e2
 	.byte W01
-	.byte EOT, Cn3
-
+	.byte EOT, Cn3 @ v064
 	.byte FINE
 
 .align 2

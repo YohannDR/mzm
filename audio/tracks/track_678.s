@@ -10,10 +10,8 @@ track_678_0:
 	.byte PAN, c_v
 	.byte W24
 	.byte W01
-	.byte N12
-	.byte Cn3, En6
+	.byte N12, Cn3, v100
 	.byte W12
-
 	.byte FINE
 
 .align 2

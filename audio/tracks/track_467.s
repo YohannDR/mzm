@@ -11,8 +11,7 @@ track_467_0:
 	.byte PAN, c_v
 	.byte BENDR, 20
 	.byte BEND, c_v-63
-	.byte N60
-	.byte An3, Cn5
+	.byte N60, An3, v084
 	.byte W02
 	.byte VOL, 21
 	.byte BEND, c_v-59
@@ -53,41 +52,40 @@ track_467_0:
 	.byte VOL, 62
 	.byte BEND, c_v-8
 	.byte W02
-	.byte Cn3
+	.byte c_v-4 @ BEND
 	.byte W02
-	.byte En3
+	.byte c_v @ BEND
 	.byte W02
 	.byte VOL, 60
 	.byte W02
-	.byte Bn2
+	.byte 59 @ VOL
 	.byte W02
-	.byte Gn2
+	.byte 55 @ VOL
 	.byte W02
-	.byte Gs1
+	.byte 44 @ VOL
 	.byte W02
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte W02
-	.byte Ds0
+	.byte 27 @ VOL
 	.byte W02
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte W02
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W02
-	.byte CsM1
+	.byte 13 @ VOL
 	.byte W02
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W02
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W02
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W02
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W02
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 track_467_1:
@@ -97,54 +95,52 @@ track_467_1:
 	.byte VOL, 0
 	.byte PAN, c_v
 	.byte BENDR, 12
-	.byte N60
-	.byte Fn2, Gs5
+	.byte N60, Fn2, v092
 	.byte W02
 	.byte VOL, 2
 	.byte W02
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W02
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W02
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W02
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte W02
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte W02
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W02
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte W02
-	.byte Cn2
+	.byte 48 @ VOL
 	.byte W02
-	.byte Dn3
+	.byte 62 @ VOL
 	.byte W18
-	.byte En2
+	.byte 52 @ VOL
 	.byte W02
-	.byte Gs1
+	.byte 44 @ VOL
 	.byte W02
-	.byte Cs1
+	.byte 37 @ VOL
 	.byte W02
-	.byte Fn0
+	.byte 29 @ VOL
 	.byte W02
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte W02
-	.byte GnM1
+	.byte 19 @ VOL
 	.byte W02
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte W02
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W02
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W02
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W02
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

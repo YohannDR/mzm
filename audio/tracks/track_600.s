@@ -8,10 +8,8 @@ track_600_0:
 	.byte VOICE, 13
 	.byte VOL, 44
 	.byte PAN, c_v
-	.byte N04
-	.byte Cn4, Gs4
+	.byte N04, Cn4, v080
 	.byte W04
-
 	.byte FINE
 
 .align 2

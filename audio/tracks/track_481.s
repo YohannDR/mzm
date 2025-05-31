@@ -9,10 +9,8 @@ track_481_0:
 	.byte VOL, 78
 	.byte PAN, c_v
 	.byte W08
-	.byte N15
-	.byte Cn3, En6
+	.byte N15, Cn3, v100
 	.byte W15
-
 	.byte FINE
 
 .align 2

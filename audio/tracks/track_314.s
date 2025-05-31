@@ -8,14 +8,11 @@ track_314_0:
 	.byte VOICE, 19
 	.byte VOL, 78
 	.byte PAN, c_v
-	.byte N10
-	.byte Cn3, En6
+	.byte N10, Cn3, v100
 	.byte W10
 	.byte VOICE, 18
-	.byte N19
-	.byte Cn3, Gs4
+	.byte N19, Cn3, v080
 	.byte W56
-
 	.byte FINE
 
 track_314_1:
@@ -25,12 +22,10 @@ track_314_1:
 	.byte PAN, c_v
 	.byte PRIO, 55
 	.byte W02
-	.byte N04
-	.byte Fn2, En7
+	.byte N04, Fn2, v112
 	.byte W08
-	.byte N04
+	.byte N04 @ Fn2, v112
 	.byte W56
-
 	.byte FINE
 
 .align 2

@@ -8,11 +8,9 @@ track_699_0:
 	.byte VOICE, 17
 	.byte VOL, 75
 	.byte PAN, c_v-14
-	.byte N32
-	.byte Gn2, Cn8, DnM2
+	.byte N32, Gn2, v120, 2
 	.byte W32
 	.byte W02
-
 	.byte FINE
 
 .align 2

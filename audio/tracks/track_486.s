@@ -8,15 +8,12 @@ track_486_0:
 	.byte VOICE, 4
 	.byte VOL, 80
 	.byte PAN, c_v
-	.byte N13
-	.byte Cn3, Gs4
+	.byte N13, Cn3, v080
 	.byte W13
-	.byte N10
-	.byte Cn3, Gs0
+	.byte N10, Cn3, v032
 	.byte W10
-	.byte Cn3, CnM1
+	.byte Cn3, v012 @ N10
 	.byte W10
-
 	.byte FINE
 
 .align 2

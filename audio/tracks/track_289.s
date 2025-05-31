@@ -9,8 +9,7 @@ track_289_0:
 	.byte VOL, 55
 	.byte PAN, c_v
 	.byte W05
-	.byte TIE
-	.byte Cn3, En6
+	.byte TIE, Cn3, v100
 	.byte W01
 track_289_lbl_20e617:
 	.byte W90
@@ -18,8 +17,7 @@ track_289_lbl_20e617:
 	.byte GOTO
 		.word track_289_lbl_20e617
 	.byte W01
-	.byte EOT, Cn3
-
+	.byte EOT, Cn3 @ v100
 	.byte FINE
 
 .align 2

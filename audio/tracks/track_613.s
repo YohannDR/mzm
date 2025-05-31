@@ -9,14 +9,12 @@ track_613_0:
 	.byte VOL, 89
 	.byte PAN, c_v
 	.byte W04
-	.byte N10
-	.byte En3, En6
+	.byte N10, En3, v100
 	.byte W10
-	.byte En3, En2
+	.byte En3, v052 @ N10
 	.byte W10
-	.byte En3, GsM1
+	.byte En3, v020 @ N10
 	.byte W10
-
 	.byte FINE
 
 .align 2

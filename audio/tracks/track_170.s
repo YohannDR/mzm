@@ -9,11 +9,9 @@ track_170_0:
 	.byte VOL, 62
 	.byte PAN, c_v+16
 	.byte W05
-	.byte N05
-	.byte Gn4, En6
+	.byte N05, Gn4, v100
 	.byte W32
 	.byte W02
-
 	.byte FINE
 
 track_170_1:
@@ -23,24 +21,22 @@ track_170_1:
 	.byte PAN, c_v+16
 	.byte BENDR, 12
 	.byte BEND, c_v
-	.byte N18
-	.byte Cn4, En2
+	.byte N18, Cn4, v052
 	.byte W12
 	.byte BEND, c_v
 	.byte W01
-	.byte Bn1
+	.byte c_v-17 @ BEND
 	.byte W01
-	.byte Bn0
+	.byte c_v-29 @ BEND
 	.byte W01
-	.byte En0
+	.byte c_v-36 @ BEND
 	.byte W01
-	.byte AsM1
+	.byte c_v-42 @ BEND
 	.byte W01
-	.byte FnM1
+	.byte c_v-47 @ BEND
 	.byte W01
-	.byte DnM1
+	.byte c_v-50 @ BEND
 	.byte W21
-
 	.byte FINE
 
 track_170_2:
@@ -51,22 +47,21 @@ track_170_2:
 	.byte BENDR, 12
 	.byte PRIO, 1
 	.byte BEND, c_v-47
-	.byte N24
-	.byte Fn2, Gs4
+	.byte N24, Fn2, v080
 	.byte W01
 	.byte BEND, c_v-23
 	.byte W01
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W01
-	.byte Bn3
+	.byte c_v+7 @ BEND
 	.byte W01
-	.byte Fn4
+	.byte c_v+13 @ BEND
 	.byte W01
-	.byte Gn4
+	.byte c_v+15 @ BEND
 	.byte W01
-	.byte Fs4
+	.byte c_v+14 @ BEND
 	.byte W01
-	.byte Ds4
+	.byte c_v+11 @ BEND
 	.byte W01
 	.byte VOL, 62
 	.byte BEND, c_v+5
@@ -100,7 +95,7 @@ track_170_2:
 	.byte W01
 	.byte VOL, 10
 	.byte W01
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte BEND, c_v+5
 	.byte W01
 	.byte VOL, 5
@@ -115,9 +110,8 @@ track_170_2:
 	.byte VOL, 0
 	.byte BEND, c_v-33
 	.byte W01
-	.byte DsM1
+	.byte c_v-49 @ BEND
 	.byte W15
-
 	.byte FINE
 
 .align 2

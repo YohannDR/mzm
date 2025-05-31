@@ -9,13 +9,10 @@ track_437_0:
 	.byte VOL, 28
 	.byte PAN, c_v
 	.byte PRIO, 1
-	.byte N12
-	.byte Cn2, Cn3
+	.byte N12, Cn2, v060
 	.byte W12
-	.byte N18
-	.byte En2
+	.byte N18, En2 @ v060
 	.byte W18
-
 	.byte FINE
 
 track_437_1:
@@ -23,81 +20,78 @@ track_437_1:
 	.byte VOICE, 9
 	.byte VOL, 0
 	.byte PAN, c_v
-	.byte N18
-	.byte An3, Cn8
+	.byte N18, An3, v120
 	.byte W01
 	.byte VOL, 2
 	.byte W01
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
-	.byte AnM2
+	.byte 9 @ VOL
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte As1
+	.byte 46 @ VOL
 	.byte W01
-	.byte An1
+	.byte 45 @ VOL
 	.byte W01
-	.byte Gn1
+	.byte 43 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W01
-	.byte En1
+	.byte 40 @ VOL
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W01
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte W01
-	.byte Fs0
+	.byte 30 @ VOL
 	.byte W01
-	.byte Cn0
+	.byte 24 @ VOL
 	.byte W01
-	.byte DnM1
+	.byte 14 @ VOL
 	.byte W02
-	.byte Bn1
-	.byte N18
-	.byte Cn4, Cn3
+	.byte 47 @ VOL
+	.byte N18, Cn4, v060
 	.byte W01
 	.byte VOL, 46
 	.byte W01
-	.byte An1
+	.byte 45 @ VOL
 	.byte W01
-	.byte Gs1
+	.byte 44 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W01
-	.byte En1
+	.byte 40 @ VOL
 	.byte W01
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W01
-	.byte Cn1
+	.byte 36 @ VOL
 	.byte W01
-	.byte As0
+	.byte 34 @ VOL
 	.byte W01
-	.byte Gs0
+	.byte 32 @ VOL
 	.byte W01
-	.byte AsM1
+	.byte 22 @ VOL
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W01
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

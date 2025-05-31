@@ -9,14 +9,12 @@ track_453_0:
 	.byte VOL, 62
 	.byte PAN, c_v-20
 	.byte W02
-	.byte N11
-	.byte An2, Gs4
+	.byte N11, An2, v080
 	.byte W11
-	.byte An2, EnM1
+	.byte An2, v016 @ N11
 	.byte W11
-	.byte An2, GsM2
+	.byte An2, v008 @ N11
 	.byte W11
-
 	.byte FINE
 
 track_453_1:
@@ -24,10 +22,8 @@ track_453_1:
 	.byte VOICE, 11
 	.byte VOL, 78
 	.byte PAN, c_v-20
-	.byte N08
-	.byte Cn3, Gs4
+	.byte N08, Cn3, v080
 	.byte W08
-
 	.byte FINE
 
 .align 2

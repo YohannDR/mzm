@@ -9,17 +9,15 @@ track_590_0:
 	.byte VOL, 56
 	.byte PAN, c_v
 	.byte BEND, c_v
-	.byte N03
-	.byte Gn4, Cn5
+	.byte N03, Gn4, v084
 	.byte W03
 	.byte VOICE, 24
 	.byte BENDR, 4
-	.byte N36
-	.byte Fn4, Gs3
+	.byte N36, Fn4, v068
 	.byte W03
 	.byte VOL, 62
 	.byte W01
-	.byte Bn2
+	.byte 59 @ VOL
 	.byte BEND, c_v
 	.byte W01
 	.byte VOL, 55
@@ -72,35 +70,34 @@ track_590_0:
 	.byte W01
 	.byte VOL, 13
 	.byte W01
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte BEND, c_v-61
 	.byte W01
 	.byte VOL, 11
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte BEND, c_v-63
 	.byte W01
 	.byte VOL, 8
 	.byte W01
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W01
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W01
-	.byte EnM2
+	.byte 4 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte DnM2
+	.byte 2 @ VOL
 	.byte W02
-	.byte CsM2
+	.byte 1 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

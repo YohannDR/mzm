@@ -9,32 +9,30 @@ track_3_lbl_22c9be:
 	.byte VOICE, 21
 	.byte VOL, 18
 	.byte PAN, c_v
-	.byte N06
-	.byte As5, En1
+	.byte N06, As5, v040
 	.byte W24
-	.byte Fn5
+	.byte Fn5 @ N06, v040
 	.byte W24
-	.byte An5
+	.byte An5 @ N06, v040
 	.byte W24
-	.byte Cs5
+	.byte Cs5 @ N06, v040
 	.byte W24
 	.byte W36
-	.byte Cn5
+	.byte Cn5 @ N06, v040
 	.byte W24
-	.byte Fs5
+	.byte Fs5 @ N06, v040
 	.byte W24
-	.byte Bn5
+	.byte Bn5 @ N06, v040
 	.byte W12
 	.byte W36
-	.byte Fn6
+	.byte Fn6 @ N06, v040
 	.byte W24
-	.byte Dn6
+	.byte Dn6 @ N06, v040
 	.byte W36
 	.byte W96
 	.byte W72
 	.byte GOTO
 		.word track_3_lbl_22c9be
-
 	.byte FINE
 
 track_3_1:
@@ -44,32 +42,30 @@ track_3_lbl_22c9e6:
 	.byte VOL, 18
 	.byte PAN, c_v
 	.byte W06
-	.byte N03
-	.byte As5, Gs0
+	.byte N03, As5, v032
 	.byte W24
-	.byte Fn5
+	.byte Fn5 @ N03, v032
 	.byte W24
-	.byte An5
+	.byte An5 @ N03, v032
 	.byte W24
-	.byte Cs5
+	.byte Cs5 @ N03, v032
 	.byte W18
 	.byte W42
-	.byte Cn5
+	.byte Cn5 @ N03, v032
 	.byte W24
-	.byte Fs5
+	.byte Fs5 @ N03, v032
 	.byte W24
-	.byte Bn5
+	.byte Bn5 @ N03, v032
 	.byte W06
 	.byte W42
-	.byte Fn6
+	.byte Fn6 @ N03, v032
 	.byte W24
-	.byte Dn6
+	.byte Dn6 @ N03, v032
 	.byte W30
 	.byte W96
 	.byte W72
 	.byte GOTO
 		.word track_3_lbl_22c9e6
-
 	.byte FINE
 
 track_3_2:
@@ -78,22 +74,20 @@ track_3_lbl_22ca0d:
 	.byte VOICE, 14
 	.byte VOL, 75
 	.byte PAN, c_v-14
-	.byte N96
-	.byte Dn3, En6
+	.byte N96, Dn3, v100
 	.byte W96
 	.byte W36
-	.byte N96
+	.byte N96 @ Dn3, v100
 	.byte W60
 	.byte W96
 	.byte W12
-	.byte TIE
+	.byte TIE @ Dn3, v100
 	.byte W84
 	.byte W36
-	.byte EOT
+	.byte EOT @ Dn3, v100
 	.byte W36
 	.byte GOTO
 		.word track_3_lbl_22ca0d
-
 	.byte FINE
 
 track_3_3:
@@ -102,22 +96,20 @@ track_3_lbl_22ca29:
 	.byte VOICE, 19
 	.byte VOL, 37
 	.byte PAN, c_v+14
-	.byte N96
-	.byte AsM1, Gs5
+	.byte N96, AsM1, v092
 	.byte W96
 	.byte W36
-	.byte N96
+	.byte N96 @ AsM1, v092
 	.byte W60
 	.byte W96
 	.byte W12
-	.byte TIE
+	.byte TIE @ AsM1, v092
 	.byte W84
 	.byte W36
-	.byte EOT
+	.byte EOT @ AsM1, v092
 	.byte W36
 	.byte GOTO
 		.word track_3_lbl_22ca29
-
 	.byte FINE
 
 track_3_4:
@@ -126,32 +118,30 @@ track_3_lbl_22ca45:
 	.byte VOICE, 14
 	.byte VOL, 25
 	.byte PAN, c_v
-	.byte N06
-	.byte As3, Gs4
+	.byte N06, As3, v080
 	.byte W24
-	.byte Fn3
+	.byte Fn3 @ N06, v080
 	.byte W24
-	.byte An3
+	.byte An3 @ N06, v080
 	.byte W24
-	.byte Cs3
+	.byte Cs3 @ N06, v080
 	.byte W24
 	.byte W36
-	.byte Cn3
+	.byte Cn3 @ N06, v080
 	.byte W24
-	.byte Fs3
+	.byte Fs3 @ N06, v080
 	.byte W24
-	.byte Bn3
+	.byte Bn3 @ N06, v080
 	.byte W12
 	.byte W36
-	.byte Fn3
+	.byte Fn3 @ N06, v080
 	.byte W24
-	.byte Dn3
+	.byte Dn3 @ N06, v080
 	.byte W36
 	.byte W96
 	.byte W72
 	.byte GOTO
 		.word track_3_lbl_22ca45
-
 	.byte FINE
 
 .align 2

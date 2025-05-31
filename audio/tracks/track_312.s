@@ -8,35 +8,31 @@ track_312_0:
 	.byte VOICE, 11
 	.byte VOL, 78
 	.byte PAN, c_v
-	.byte N03
-	.byte Cn3, Cn6
+	.byte N03, Cn3, v096
 	.byte W03
 	.byte VOICE, 20
-	.byte N08
-	.byte Cn3, En6
+	.byte N08, Cn3, v100
 	.byte W08
-	.byte An2
+	.byte An2 @ N08, v100
 	.byte W08
 	.byte VOICE, 19
-	.byte N15
-	.byte Cn3, Gs5
+	.byte N15, Cn3, v092
 	.byte W08
 	.byte VOL, 62
 	.byte W01
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W01
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W32
 	.byte W03
-
 	.byte FINE
 
 track_312_1:
@@ -45,16 +41,13 @@ track_312_1:
 	.byte VOL, 94
 	.byte PAN, c_v
 	.byte PRIO, 55
-	.byte N02
-	.byte An4, Gs4
+	.byte N02, An4, v080
 	.byte W03
-	.byte N05
-	.byte An2, En7
+	.byte N05, An2, v112
 	.byte W07
-	.byte Fn2, En6
+	.byte Fn2, v100 @ N05
 	.byte W56
 	.byte W02
-
 	.byte FINE
 
 .align 2

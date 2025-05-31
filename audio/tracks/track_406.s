@@ -8,10 +8,8 @@ track_406_0:
 	.byte VOICE, 0
 	.byte VOL, 56
 	.byte PAN, c_v
-	.byte N16
-	.byte Cn3, Gs4
+	.byte N16, Cn3, v080
 	.byte W16
-
 	.byte FINE
 
 track_406_1:
@@ -19,21 +17,18 @@ track_406_1:
 	.byte VOICE, 2
 	.byte VOL, 70
 	.byte PAN, c_v
-	.byte N02
-	.byte Bn3, Gs4
+	.byte N02, Bn3, v080
 	.byte W03
-	.byte Cn4, Cn3
+	.byte Cn4, v060 @ N02
 	.byte W03
-	.byte Bn3, Gs4
+	.byte Bn3, v080 @ N02
 	.byte W03
-	.byte Cn4, Cn3
+	.byte Cn4, v060 @ N02
 	.byte W03
-	.byte Bn3, Gs4
+	.byte Bn3, v080 @ N02
 	.byte W03
-	.byte N01
-	.byte Cn4, Cn3
+	.byte N01, Cn4, v060
 	.byte W01
-
 	.byte FINE
 
 .align 2

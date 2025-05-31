@@ -8,11 +8,9 @@ track_22_0:
 	.byte VOICE, 27
 	.byte VOL, 75
 	.byte PAN, c_v
-	.byte N12
-	.byte Gn1, En7
+	.byte N12, Gn1, v112
 	.byte W72
 	.byte VOICE, 28
-
 	.byte FINE
 
 track_22_1:
@@ -20,10 +18,8 @@ track_22_1:
 	.byte VOICE, 14
 	.byte VOL, 75
 	.byte PAN, c_v
-	.byte N12
-	.byte Gn3, En7
+	.byte N12, Gn3, v112
 	.byte W12
-
 	.byte FINE
 
 .align 2

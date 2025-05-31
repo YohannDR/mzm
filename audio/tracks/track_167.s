@@ -8,18 +8,14 @@ track_167_0:
 	.byte VOICE, 39
 	.byte VOL, 59
 	.byte PAN, c_v
-	.byte N10
-	.byte Cn3, En7
+	.byte N10, Cn3, v112
 	.byte W10
 	.byte VOICE, 10
-	.byte N15
-	.byte Cn3, Gs5
+	.byte N15, Cn3, v092
 	.byte W15
-	.byte N19
-	.byte Cn3, En1
+	.byte N19, Cn3, v040
 	.byte W32
 	.byte W01
-
 	.byte FINE
 
 track_167_1:
@@ -27,14 +23,11 @@ track_167_1:
 	.byte VOICE, 25
 	.byte VOL, 75
 	.byte PAN, c_v
-	.byte N02
-	.byte An2, En6
+	.byte N02, An2, v100
 	.byte W05
-	.byte N05
-	.byte Fn2, Gn8
+	.byte N05, Fn2, v127
 	.byte W52
 	.byte W01
-
 	.byte FINE
 
 .align 2

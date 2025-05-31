@@ -16,11 +16,10 @@ track_10_lbl_22e99e:
 	.byte W96
 	.byte VOICE, 97
 	.byte PAN, c_v+15
-	.byte TIE
-	.byte En2, En1
+	.byte TIE, En2, v040
 	.byte W96
 	.byte W48
-	.byte EOT
+	.byte EOT @ En2, v040
 	.byte W48
 	.byte W96
 	.byte W96
@@ -28,15 +27,13 @@ track_10_lbl_22e99e:
 	.byte W96
 	.byte W96
 	.byte PAN, c_v
-	.byte TIE
-	.byte Cn2
+	.byte TIE, Cn2 @ v040
 	.byte W96
 	.byte W48
-	.byte EOT
+	.byte EOT @ Cn2, v040
 	.byte W48
 	.byte GOTO
 		.word track_10_lbl_22e99e
-
 	.byte FINE
 
 track_10_1:
@@ -46,31 +43,29 @@ track_10_lbl_22e9cb:
 	.byte VOL, 62
 	.byte PAN, c_v-17
 	.byte PRIO, 27
-	.byte N96
-	.byte Cn2, Gn8
+	.byte N96, Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
 	.byte GOTO
 		.word track_10_lbl_22e9cb
-
 	.byte FINE
 
 track_10_2:
@@ -81,30 +76,28 @@ track_10_lbl_22e9f2:
 	.byte PAN, c_v+15
 	.byte PRIO, 29
 	.byte W96
-	.byte N96
-	.byte Cn2, Gn8
+	.byte N96, Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte W96
-	.byte N96
+	.byte N96 @ Cn2, v127
 	.byte W96
 	.byte GOTO
 		.word track_10_lbl_22e9f2
-
 	.byte FINE
 
 track_10_3:
@@ -115,36 +108,31 @@ track_10_lbl_22ea19:
 	.byte PAN, c_v
 	.byte PRIO, 120
 	.byte W96
-	.byte N96
-	.byte An1, En7
+	.byte N96, An1, v112
 	.byte W96
-	.byte Cn2
+	.byte Cn2 @ N96, v112
 	.byte W96
-	.byte Bn1
+	.byte Bn1 @ N96, v112
 	.byte W96
-	.byte TIE
-	.byte En1, En6
+	.byte TIE, En1, v100
 	.byte W96
 	.byte W48
-	.byte EOT
+	.byte EOT @ En1, v100
 	.byte W48
 	.byte W96
-	.byte N96
-	.byte An1, En7
+	.byte N96, An1, v112
 	.byte W96
-	.byte Cn2
+	.byte Cn2 @ N96, v112
 	.byte W96
-	.byte Bn1
+	.byte Bn1 @ N96, v112
 	.byte W96
-	.byte N90
-	.byte En2, Cn4
+	.byte N90, En2, v072
 	.byte W96
 	.byte W96
 	.byte W96
 	.byte W96
 	.byte GOTO
 		.word track_10_lbl_22ea19
-
 	.byte FINE
 
 track_10_4:
@@ -154,38 +142,36 @@ track_10_lbl_22ea49:
 	.byte VOL, 62
 	.byte PAN, c_v
 	.byte PRIO, 30
-	.byte N12
-	.byte Gs2, Gs7
+	.byte N12, Gs2, v116
 	.byte W96
-	.byte Gs2, Gn8
+	.byte Gs2, v127 @ N12
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
-	.byte N12
+	.byte N12 @ Gs2, v127
 	.byte W96
 	.byte GOTO
 		.word track_10_lbl_22ea49
-
 	.byte FINE
 
 track_10_5:
@@ -196,52 +182,50 @@ track_10_lbl_22ea78:
 	.byte VOL, 44
 	.byte PAN, c_v+15
 	.byte PRIO, 118
-	.byte N96
-	.byte Bn1, Gs4
+	.byte N96, Bn1, v080
 	.byte W48
 	.byte W48
-	.byte Bn1, Cn4
+	.byte Bn1, v072 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs5
+	.byte Bn1, v092 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs4
+	.byte Bn1, v080 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Cn4
+	.byte Bn1, v072 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs5
+	.byte Bn1, v092 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Cn4
+	.byte Bn1, v072 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs4
+	.byte Bn1, v080 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Cn4
+	.byte Bn1, v072 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Cn3
+	.byte Bn1, v060 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs4
+	.byte Bn1, v080 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs5
+	.byte Bn1, v092 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs4
+	.byte Bn1, v080 @ N96
 	.byte W48
 	.byte W48
-	.byte Bn1, Gs5
+	.byte Bn1, v092 @ N96
 	.byte W48
 	.byte GOTO
 		.word track_10_lbl_22ea78
 	.byte W48
-
 	.byte FINE
 
 .align 2

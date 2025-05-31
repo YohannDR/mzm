@@ -10,35 +10,33 @@ track_463_0:
 	.byte PAN, c_v-20
 	.byte BENDR, 24
 	.byte BEND, c_v
-	.byte N44
-	.byte An2, En6, DnM2
+	.byte N44, An2, v100, 2
 	.byte W06
 	.byte BEND, c_v+31
 	.byte W06
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W24
 	.byte W01
 	.byte VOL, 80
 	.byte W01
-	.byte Gs2
+	.byte 56 @ VOL
 	.byte W01
-	.byte Fs1
+	.byte 42 @ VOL
 	.byte W01
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W01
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W01
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W01
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W01
-	.byte GnM2
+	.byte 7 @ VOL
 	.byte W01
-	.byte DsM2
+	.byte 3 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W01
-
 	.byte FINE
 
 .align 2

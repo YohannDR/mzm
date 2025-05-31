@@ -12,54 +12,52 @@ track_405_0:
 	.byte BENDR, 8
 	.byte LFOS, 40
 	.byte BEND, c_v-63
-	.byte N44
-	.byte Cn3, En6
+	.byte N44, Cn3, v100
 	.byte W02
 	.byte BEND, c_v-61
 	.byte W02
-	.byte FsM2
+	.byte c_v-58 @ BEND
 	.byte W02
-	.byte AnM2
+	.byte c_v-55 @ BEND
 	.byte W02
-	.byte CnM1
+	.byte c_v-52 @ BEND
 	.byte W02
-	.byte DsM1
+	.byte c_v-49 @ BEND
 	.byte W02
-	.byte FsM1
+	.byte c_v-46 @ BEND
 	.byte W02
-	.byte AnM1
+	.byte c_v-43 @ BEND
 	.byte W02
-	.byte Cn0
+	.byte c_v-40 @ BEND
 	.byte W02
-	.byte Ds0
+	.byte c_v-37 @ BEND
 	.byte W02
-	.byte Fs0
+	.byte c_v-34 @ BEND
 	.byte W02
-	.byte An0
+	.byte c_v-31 @ BEND
 	.byte W02
-	.byte Cn1
+	.byte c_v-28 @ BEND
 	.byte W02
-	.byte Ds1
+	.byte c_v-25 @ BEND
 	.byte W02
-	.byte Fn1
+	.byte c_v-23 @ BEND
 	.byte W02
-	.byte Gs1
+	.byte c_v-20 @ BEND
 	.byte W02
-	.byte Bn1
+	.byte c_v-17 @ BEND
 	.byte W02
-	.byte Dn2
+	.byte c_v-14 @ BEND
 	.byte W02
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W02
-	.byte Gs2
+	.byte c_v-8 @ BEND
 	.byte W02
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W02
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
-	.byte En3
+	.byte c_v @ BEND
 	.byte W01
-
 	.byte FINE
 
 track_405_1:
@@ -71,55 +69,53 @@ track_405_1:
 	.byte BENDR, 6
 	.byte LFOS, 120
 	.byte BEND, c_v-63
-	.byte N24
-	.byte Fn2, En6
+	.byte N24, Fn2, v100
 	.byte W02
 	.byte BEND, c_v-61
 	.byte W02
-	.byte FsM2
+	.byte c_v-58 @ BEND
 	.byte W02
-	.byte AnM2
+	.byte c_v-55 @ BEND
 	.byte W02
-	.byte CnM1
+	.byte c_v-52 @ BEND
 	.byte W02
-	.byte DsM1
+	.byte c_v-49 @ BEND
 	.byte W02
-	.byte FsM1
+	.byte c_v-46 @ BEND
 	.byte W02
-	.byte AnM1
+	.byte c_v-43 @ BEND
 	.byte W02
-	.byte Cn0
+	.byte c_v-40 @ BEND
 	.byte W02
-	.byte Ds0
+	.byte c_v-37 @ BEND
 	.byte W02
-	.byte Fs0
+	.byte c_v-34 @ BEND
 	.byte W02
-	.byte An0
+	.byte c_v-31 @ BEND
 	.byte W02
-	.byte Cn1
-	.byte N20
+	.byte c_v-28 @ BEND
+	.byte N20 @ Fn2, v100
 	.byte W02
 	.byte BEND, c_v-25
 	.byte W02
-	.byte Fn1
+	.byte c_v-23 @ BEND
 	.byte W02
-	.byte Gs1
+	.byte c_v-20 @ BEND
 	.byte W02
-	.byte Bn1
+	.byte c_v-17 @ BEND
 	.byte W02
-	.byte Dn2
+	.byte c_v-14 @ BEND
 	.byte W02
-	.byte Fn2
+	.byte c_v-11 @ BEND
 	.byte W02
-	.byte Gs2
+	.byte c_v-8 @ BEND
 	.byte W02
-	.byte Bn2
+	.byte c_v-5 @ BEND
 	.byte W02
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
-	.byte En3
+	.byte c_v @ BEND
 	.byte W01
-
 	.byte FINE
 
 .align 2

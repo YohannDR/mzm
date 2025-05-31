@@ -10,45 +10,43 @@ track_83_lbl_22b8fe:
 	.byte PAN, c_v
 	.byte PRIO, 120
 	.byte VOL, 5
-	.byte N92
-	.byte Cn2, Cn8, DsM2
+	.byte N92, Cn2, v120, 3
 	.byte W03
 	.byte VOL, 7
 	.byte W03
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W03
-	.byte CnM1
+	.byte 12 @ VOL
 	.byte W03
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W03
-	.byte FnM1
+	.byte 17 @ VOL
 	.byte W03
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W03
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W03
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W36
 	.byte W03
-	.byte BnM1
+	.byte 23 @ VOL
 	.byte W04
-	.byte AnM1
+	.byte 21 @ VOL
 	.byte W05
-	.byte FsM1
+	.byte 18 @ VOL
 	.byte W05
-	.byte EnM1
+	.byte 16 @ VOL
 	.byte W05
-	.byte CsM1
+	.byte 13 @ VOL
 	.byte W05
-	.byte BnM2
+	.byte 11 @ VOL
 	.byte W05
-	.byte GsM2
+	.byte 8 @ VOL
 	.byte W03
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
 	.byte GOTO
 		.word track_83_lbl_22b8fe
-
 	.byte FINE
 
 .align 2

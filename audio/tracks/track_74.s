@@ -8,69 +8,65 @@ track_74_0:
 	.byte VOICE, 86
 	.byte VOL, 78
 	.byte PAN, c_v+20
-	.byte N24
-	.byte Cn5, Gs4
+	.byte N24, Cn5, v080
 	.byte W24
-	.byte An4, Gs7
+	.byte An4, v116 @ N24
 	.byte W04
 	.byte VOL, 75
 	.byte W03
-	.byte Cn4
+	.byte 72 @ VOL
 	.byte W02
-	.byte As3
+	.byte 70 @ VOL
 	.byte W03
-	.byte Fs3
+	.byte 66 @ VOL
 	.byte W03
-	.byte Dn3
+	.byte 62 @ VOL
 	.byte W03
-	.byte Bn2
+	.byte 59 @ VOL
 	.byte W03
-	.byte Gs2
+	.byte 56 @ VOL
 	.byte W03
 	.byte TEMPO, 40
-	.byte Fs4
-	.byte N12
-	.byte Gn4, En7
+	.byte 78 @ VOL
+	.byte N12, Gn4, v112
 	.byte W12
-	.byte En4
+	.byte En4 @ N12, v112
 	.byte W12
-	.byte Cn4, Cn8
+	.byte Cn4, v120 @ N12
 	.byte W12
-	.byte En4, En7
+	.byte En4, v112 @ N12
 	.byte W12
 	.byte TEMPO, 33
-	.byte Dn5, Cn6
+	.byte Dn5, v096 @ N12
 	.byte W12
-	.byte As4
+	.byte As4 @ N12, v096
 	.byte W12
-	.byte Gn4, Cn5
+	.byte Gn4, v084 @ N12
 	.byte W13
-	.byte N17
-	.byte Ds4
+	.byte N17, Ds4 @ v084
 	.byte W11
 	.byte W05
-	.byte N48
-	.byte Fs4, Gs4, CsM2
+	.byte N48, Fs4, v080, 1
 	.byte W22
 	.byte VOL, 75
 	.byte W04
-	.byte Cn4
+	.byte 72 @ VOL
 	.byte W04
-	.byte An3
+	.byte 69 @ VOL
 	.byte W04
-	.byte Fs3
+	.byte 66 @ VOL
 	.byte W05
-	.byte Dn3
+	.byte 62 @ VOL
 	.byte W04
-	.byte Bn2
+	.byte 59 @ VOL
 	.byte W04
-	.byte Gs2
+	.byte 56 @ VOL
 	.byte W04
-	.byte Fn2
+	.byte 53 @ VOL
 	.byte W04
-	.byte Dn2
+	.byte 50 @ VOL
 	.byte W04
-	.byte Bn1
+	.byte 47 @ VOL
 	.byte W32
 	.byte 0xB6
 
@@ -80,41 +76,35 @@ track_74_1:
 	.byte VOL, 62
 	.byte PAN, c_v
 	.byte W01
-	.byte N12
-	.byte Fn3, En4
+	.byte N12, Fn3, v076
 	.byte W12
-	.byte As3, Gs4
+	.byte As3, v080 @ N12
 	.byte W12
-	.byte Cn4, En4
+	.byte Cn4, v076 @ N12
 	.byte W12
-	.byte Dn4
+	.byte Dn4 @ N12, v076
 	.byte W11
 	.byte W01
-	.byte En4
+	.byte En4 @ N12, v076
 	.byte W12
-	.byte Cn4
+	.byte Cn4 @ N12, v076
 	.byte W12
-	.byte Gn3, En5
+	.byte Gn3, v088 @ N12
 	.byte W12
-	.byte Cn4, En4
+	.byte Cn4, v076 @ N12
 	.byte W11
 	.byte W01
-	.byte N11
-	.byte Fn4
+	.byte N11, Fn4 @ v076
 	.byte W12
-	.byte N12
-	.byte Dn4, Gs3
+	.byte N12, Dn4, v068
 	.byte W11
 	.byte W01
-	.byte N13
-	.byte As3, En4
+	.byte N13, As3, v076
 	.byte W13
-	.byte N16
-	.byte Gn3, Gs4
+	.byte N16, Gn3, v080
 	.byte W10
 	.byte W06
-	.byte N44
-	.byte An3, En3, DsM2
+	.byte N44, An3, v064, 3
 	.byte W90
 	.byte 0xB6
 
@@ -123,42 +113,38 @@ track_74_2:
 	.byte VOICE, 67
 	.byte VOL, 55
 	.byte PAN, c_v-20
-	.byte N48
-	.byte Fn5, Cn1, CsM2
+	.byte N48, Fn5, v036, 1
 	.byte W48
 	.byte W01
-	.byte N44
-	.byte En5, Gs0, DsM2
+	.byte N44, En5, v032, 3
 	.byte W44
 	.byte W03
-	.byte N52
-	.byte Gn5, Cn1, CsM2
+	.byte N52, Gn5, v036, 1
 	.byte W24
 	.byte W24
 	.byte W05
-	.byte N48
-	.byte An5, Gs1
+	.byte N48, An5, v044
 	.byte W32
 	.byte W03
 	.byte VOL, 51
 	.byte W02
-	.byte Cn2
+	.byte 48 @ VOL
 	.byte W02
-	.byte Gs1
+	.byte 44 @ VOL
 	.byte W02
-	.byte Fn1
+	.byte 41 @ VOL
 	.byte W02
-	.byte Dn1
+	.byte 38 @ VOL
 	.byte W02
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte W01
-	.byte An0
+	.byte 33 @ VOL
 	.byte W01
-	.byte Gn0
+	.byte 31 @ VOL
 	.byte W02
-	.byte En0
+	.byte 28 @ VOL
 	.byte W01
-	.byte Dn0
+	.byte 26 @ VOL
 	.byte W40
 	.byte W01
 	.byte 0xB6
@@ -170,24 +156,21 @@ track_74_3:
 	.byte VOL, 78
 	.byte PAN, c_v+26
 	.byte BEND, c_v-10
-	.byte N48
-	.byte Fs2, En3
+	.byte N48, Fs2, v064
 	.byte W44
 	.byte W03
 	.byte W01
-	.byte Fn2
+	.byte Fn2 @ N48, v064
 	.byte W44
 	.byte W03
 	.byte W01
 	.byte BEND, c_v-13
-	.byte N52
-	.byte Gs2, Cn3, CsM2
+	.byte N52, Gs2, v060, 1
 	.byte W23
 	.byte W24
 	.byte W06
 	.byte BEND, c_v+14
-	.byte N44
-	.byte An2, En2, DsM2
+	.byte N44, An2, v052, 3
 	.byte W90
 	.byte 0xB6
 
@@ -196,21 +179,17 @@ track_74_4:
 	.byte VOICE, 69
 	.byte VOL, 86
 	.byte PAN, c_v-10
-	.byte N48
-	.byte As2, Cn4, CsM2
+	.byte N48, As2, v072, 1
 	.byte W48
 	.byte W01
-	.byte N44
-	.byte An2, Gs4, DsM2
+	.byte N44, An2, v080, 3
 	.byte W44
 	.byte W03
-	.byte N54
-	.byte Ds2, Gs7, CsM2
+	.byte N54, Ds2, v116, 1
 	.byte W24
 	.byte W24
 	.byte W07
-	.byte N48
-	.byte Dn2, Cn7, CsM2
+	.byte N48, Dn2, v108, 1
 	.byte W88
 	.byte W01
 	.byte 0xB6

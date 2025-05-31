@@ -10,17 +10,15 @@ track_601_0:
 	.byte PAN, c_v
 	.byte BENDR, 20
 	.byte BEND, c_v-16
-	.byte N22
-	.byte Fn1, Gs4
+	.byte N22, Fn1, v080
 	.byte W05
 	.byte BEND, c_v
 	.byte W15
 	.byte VOL, 18
 	.byte W01
-	.byte FsM2
+	.byte 6 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

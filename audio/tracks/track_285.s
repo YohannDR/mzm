@@ -11,36 +11,32 @@ track_285_0:
 	.byte BENDR, 10
 	.byte BEND, c_v-63
 	.byte W02
-	.byte N04
-	.byte Cn7, Gs4
+	.byte N04, Cn7, v080
 	.byte W01
 	.byte BEND, c_v-21
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W02
-	.byte CsM2
-	.byte N04
-	.byte Cn7, Gs0
+	.byte c_v-63 @ BEND
+	.byte N04, Cn7, v032
 	.byte W01
 	.byte BEND, c_v-21
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W02
-	.byte CsM2
-	.byte N04
-	.byte Cn7, CnM1
+	.byte c_v-63 @ BEND
+	.byte N04, Cn7, v012
 	.byte W01
 	.byte BEND, c_v-21
 	.byte W01
-	.byte Cn5
+	.byte c_v+20 @ BEND
 	.byte W01
-	.byte Gn8
+	.byte c_v+63 @ BEND
 	.byte W01
-
 	.byte FINE
 
 track_285_1:
@@ -48,14 +44,12 @@ track_285_1:
 	.byte VOICE, 18
 	.byte VOL, 55
 	.byte PAN, c_v
-	.byte N04
-	.byte Cn4, Gs4
+	.byte N04, Cn4, v080
 	.byte W04
-	.byte Cn4, Gs0
+	.byte Cn4, v032 @ N04
 	.byte W04
-	.byte Cn4, CnM1
+	.byte Cn4, v012 @ N04
 	.byte W04
-
 	.byte FINE
 
 .align 2

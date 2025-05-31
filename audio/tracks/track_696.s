@@ -9,8 +9,7 @@ track_696_0:
 	.byte VOL, 127
 	.byte PAN, c_v-14
 	.byte BENDR, 10
-	.byte N54
-	.byte Cn3, Gn8
+	.byte N54, Cn3, v127
 	.byte W09
 	.byte BEND, c_v
 	.byte W01
@@ -26,7 +25,7 @@ track_696_0:
 	.byte VOL, 117
 	.byte BEND, c_v-1
 	.byte W01
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
 	.byte VOL, 115
 	.byte BEND, c_v-2
@@ -144,8 +143,7 @@ track_696_0:
 	.byte W01
 	.byte VOL, 1
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 track_696_1:
@@ -155,8 +153,7 @@ track_696_1:
 	.byte VOICE, 44
 	.byte VOL, 0
 	.byte BENDR, 10
-	.byte N54
-	.byte En3, Gn8
+	.byte N54, En3, v127
 	.byte W09
 	.byte BEND, c_v
 	.byte W01
@@ -172,7 +169,7 @@ track_696_1:
 	.byte VOL, 117
 	.byte BEND, c_v-1
 	.byte W01
-	.byte Dn3
+	.byte c_v-2 @ BEND
 	.byte W01
 	.byte VOL, 115
 	.byte BEND, c_v-2
@@ -290,8 +287,7 @@ track_696_1:
 	.byte W01
 	.byte VOL, 1
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

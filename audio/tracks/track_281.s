@@ -10,8 +10,7 @@ track_281_0:
 	.byte BENDR, 6
 	.byte VOL, 12
 	.byte BEND, c_v+63
-	.byte N22
-	.byte Cn2, Cn4
+	.byte N22, Cn2, v072
 	.byte W01
 	.byte VOL, 15
 	.byte BEND, c_v+57
@@ -31,7 +30,7 @@ track_281_0:
 	.byte VOL, 62
 	.byte BEND, c_v+27
 	.byte W01
-	.byte Cs5
+	.byte c_v+21 @ BEND
 	.byte W01
 	.byte VOL, 53
 	.byte BEND, c_v+15
@@ -78,32 +77,27 @@ track_281_0:
 	.byte VOICE, 7
 	.byte VOL, 37
 	.byte BEND, c_v
-	.byte N03
-	.byte Gn4, Cn1
+	.byte N03, Gn4, v036
 	.byte W03
-
 	.byte FINE
 
 track_281_1:
 	.byte KEYSH, 0
 	.byte VOICE, 4
 	.byte VOL, 50
-	.byte N10
-	.byte Cn2, Cn3
+	.byte N10, Cn2, v060
 	.byte W06
 	.byte VOL, 37
 	.byte W01
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W01
-	.byte CnM1
+	.byte 12 @ VOL
 	.byte W01
-	.byte CnM2
+	.byte 0 @ VOL
 	.byte W19
-	.byte Cs1
-	.byte N13
-	.byte Fn2
+	.byte 37 @ VOL
+	.byte N13, Fn2 @ v060
 	.byte W13
-
 	.byte FINE
 
 .align 2

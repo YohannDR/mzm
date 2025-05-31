@@ -10,31 +10,29 @@ track_337_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte W04
-	.byte N24
-	.byte Fn1, Gs4
+	.byte N24, Fn1, v080
 	.byte W04
 	.byte BEND, c_v+28
 	.byte W05
-	.byte Gs2
+	.byte c_v-8 @ BEND
 	.byte W07
 	.byte VOL, 40
 	.byte W01
-	.byte Bn0
+	.byte 35 @ VOL
 	.byte W01
-	.byte Fs0
+	.byte 30 @ VOL
 	.byte W01
-	.byte Cs0
+	.byte 25 @ VOL
 	.byte W01
-	.byte GsM1
+	.byte 20 @ VOL
 	.byte W01
-	.byte DsM1
+	.byte 15 @ VOL
 	.byte W01
-	.byte AsM2
+	.byte 10 @ VOL
 	.byte W01
-	.byte FnM2
+	.byte 5 @ VOL
 	.byte W01
-	.byte CnM2
-
+	.byte 0 @ VOL
 	.byte FINE
 
 .align 2

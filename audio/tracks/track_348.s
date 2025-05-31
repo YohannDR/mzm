@@ -9,19 +9,16 @@ track_348_0:
 	.byte VOL, 23
 	.byte PAN, c_v
 	.byte W08
-	.byte N06
-	.byte An1, En6
+	.byte N06, An1, v100
 	.byte W06
-	.byte N03
-	.byte En2, Gs4
+	.byte N03, En2, v080
 	.byte W03
-	.byte Dn2, Cn3
+	.byte Dn2, v060 @ N03
 	.byte W10
-	.byte Fn2
+	.byte Fn2 @ N03, v060
 	.byte W03
-	.byte As2
+	.byte As2 @ N03, v060
 	.byte W03
-
 	.byte FINE
 
 .align 2

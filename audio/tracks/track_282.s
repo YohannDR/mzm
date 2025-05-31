@@ -10,8 +10,7 @@ track_282_0:
 	.byte PAN, c_v
 	.byte BENDR, 12
 	.byte BEND, c_v-16
-	.byte TIE
-	.byte Cn4, En3
+	.byte TIE, Cn4, v064
 	.byte W01
 	.byte VOL, 25
 	.byte BEND, c_v-14
@@ -43,8 +42,7 @@ track_282_lbl_20e12a:
 	.byte GOTO
 		.word track_282_lbl_20e12a
 	.byte W01
-	.byte EOT, Cn4
-
+	.byte EOT, Cn4 @ v064
 	.byte FINE
 
 .align 2

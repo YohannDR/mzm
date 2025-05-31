@@ -8,16 +8,14 @@ track_136_0:
 	.byte VOICE, 27
 	.byte VOL, 59
 	.byte PAN, c_v
-	.byte N02
-	.byte Cn3, Gs4
+	.byte N02, Cn3, v080
 	.byte W04
-	.byte N02
+	.byte N02 @ Cn3, v080
 	.byte W04
-	.byte Cn3, Cn3
+	.byte Cn3, v060 @ N02
 	.byte W04
-	.byte Cn3, En1
+	.byte Cn3, v040 @ N02
 	.byte W02
-
 	.byte FINE
 
 .align 2

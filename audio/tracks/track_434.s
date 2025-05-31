@@ -8,13 +8,10 @@ track_434_0:
 	.byte VOICE, 4
 	.byte VOL, 78
 	.byte PAN, c_v
-	.byte N14
-	.byte Cn3, En6
+	.byte N14, Cn3, v100
 	.byte W14
-	.byte N18
-	.byte Cn3, Gs0
+	.byte N18, Cn3, v032
 	.byte W18
-
 	.byte FINE
 
 track_434_1:
@@ -22,26 +19,23 @@ track_434_1:
 	.byte VOICE, 7
 	.byte VOL, 78
 	.byte PAN, c_v
-	.byte N04
-	.byte Fn3, Gs4
+	.byte N04, Fn3, v080
 	.byte W05
-	.byte Dn3
+	.byte Dn3 @ N04, v080
 	.byte W05
-	.byte Bn2
+	.byte Bn2 @ N04, v080
 	.byte W06
-	.byte Bn2, Gs0
+	.byte Bn2, v032 @ N04
 	.byte W06
-	.byte Bn2, CnM1
+	.byte Bn2, v012 @ N04
 	.byte W04
 	.byte VOL, 62
-	.byte N04
-	.byte Gn3, Gs0
+	.byte N04, Gn3, v032
 	.byte W04
-	.byte Fn3, CnM1
+	.byte Fn3, v012 @ N04
 	.byte W04
-	.byte En3, GsM2
+	.byte En3, v008 @ N04
 	.byte W04
-
 	.byte FINE
 
 .align 2
