@@ -1,0 +1,50 @@
+[
+  {
+    "path": "menus/BootDebug/Background.gfx.lz",
+    "count": 771,
+    "addr": {
+      "us_beta": 4294200
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/BootDebug/Background.pal",
+    "count": 128,
+    "addr": {
+      "us_beta": 4292408
+    },
+    "size": 2
+  },
+  {
+    "path": "menus/BootDebug/Objects.gfx.lz",
+    "count": 222,
+    "addr": {
+      "us_beta": 4292760
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/BootDebug/Objects.pal",
+    "count": 48,
+    "addr": {
+      "us_beta": 4292664
+    },
+    "size": 2
+  },
+  {
+    "path": "menus/PauseScreen/PauseDebugEventListBg.pal",
+    "count": 32,
+    "addr": {
+      "us_beta": 4273604
+    },
+    "size": 2
+  },
+  {
+    "path": "menus/PauseScreen/PauseDebugEventListText.gfx.lz",
+    "count": 336,
+    "addr": {
+      "us_beta": 4273668
+    },
+    "size": 4
+  }
+]

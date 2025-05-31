@@ -8,38 +8,44 @@ ifeq ($(REGION),us)
 	GAME_TITLE = ZEROMISSIONE
 	GAME_CODE = BMXE
 	CPPFLAGS += -DREGION_US
+	ASFLAGS += --defsym REGION_US=1
 endif
 
-# ifeq ($(REGION),us_beta)
-# 	TARGET = mzm_us_beta.gba
-# 	GAME_TITLE = ZEROMISSIONE
-# 	GAME_CODE = BMXE
-# 	CPPFLAGS += -DREGION_US_BETA -DDEBUG
-# endif
+ifeq ($(REGION),us_beta)
+	TARGET = mzm_us_beta
+	GAME_TITLE = ZEROMISSIONE
+	GAME_CODE = BMXE
+	CPPFLAGS += -DREGION_US_BETA -DDEBUG
+	ASFLAGS += --defsym REGION_US_BETA=1 --defsym DEBUG=1
+endif
 
 # ifeq ($(REGION),eu)
-# 	TARGET = mzm_eu.gba
+# 	TARGET = mzm_eu
 # 	GAME_TITLE = ZEROMISSIONP
 # 	GAME_CODE = BMXP
 # 	CPPFLAGS += -DREGION_EU
+#	ASFLAGS += --defsym REGION_EU=1
 # endif
 
 # ifeq ($(REGION),jp)
-# 	TARGET = mzm_jp.gba
+# 	TARGET = mzm_jp
 # 	GAME_TITLE = ZEROMISSIONJ
 # 	GAME_CODE = BMXJ
 # 	CPPFLAGS += -DREGION_JP
+#	ASFLAGS += --defsym REGION_JP=1
 # endif
 
 # ifeq ($(REGION),cn)
-# 	TARGET = mzm_cn.gba
+# 	TARGET = mzm_cn
 # 	GAME_TITLE = ZEROMISSIONC
 # 	GAME_CODE = BMXC
 # 	CPPFLAGS += -DREGION_CN
+#	ASFLAGS += --defsym REGION_CN=1
 # endif
 
 ifeq ($(DEBUG),1)
 	CPPFLAGS += -DDEBUG
+	ASFLAGS += --defsym DEBUG=1
 	TARGET := $(TARGET)_debug
 endif
 
@@ -80,7 +86,7 @@ EXTRACTOR = tools/extractor.py
 PREPROC = tools/preproc/preproc
 
 # Flags
-ASFLAGS = -mcpu=arm7tdmi
+ASFLAGS += -mcpu=arm7tdmi
 CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm -f2003-patch
 CPPFLAGS += -nostdinc -Iinclude/
 PREPROCFLAGS = charmap.txt
@@ -119,7 +125,7 @@ diff: $(DUMPS)
 .PHONY: extract
 extract:
 	$(MSG) Extracting
-	$Q ./tools/extractor mzm_us_baserom.gba database.txt
+	$Q python3 tools/extractor.py -r $(REGION)
 
 .PHONY: clean
 clean:
@@ -202,15 +208,15 @@ tools/%: tools/%.c
 	$(MSG) HOSTCC $@
 	$Q$(HOSTCC) $< $(HOSTCFLAGS) $(HOSTCPPFLAGS) -o $@
 
-.PHONY: us us_debug
-# us_beta eu eu_debug jp jp_debug cn cn_debug
+.PHONY: us us_debug us_beta
+# eu eu_debug jp jp_debug cn cn_debug
 
 us:
 	$(MAKE) REGION=us
 us_debug:
 	$(MAKE) REGION=us DEBUG=1
-# us_beta:
-# 	$(MAKE) REGION=us_beta DEBUG=1
+us_beta:
+	$(MAKE) REGION=us_beta
 
 # eu:
 # 	$(MAKE) REGION=eu
