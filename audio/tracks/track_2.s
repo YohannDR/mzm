@@ -6,7 +6,11 @@ track_2_0:
 	.byte KEYSH, 0
 	.byte TEMPO, 62
 	.byte VOICE, 48
+.ifdef REGION_US_BETA
+	.byte VOL, 70
+.else
 	.byte VOL, 55
+.endif
 	.byte PAN, c_v-17
 	.byte N90, Fs3, v080
 	.byte W96
@@ -18,7 +22,11 @@ track_2_0:
 	.byte W96
 track_2_lbl_22c273:
 	.byte VOICE, 56
+.ifdef REGION_US_BETA
+	.byte VOL, 81
+.else
 	.byte VOL, 63
+.endif
 	.byte N24, Fs2, v080
 	.byte W24
 	.byte Gn2, v092 @ N24
@@ -99,7 +107,11 @@ track_2_lbl_22c273:
 	.byte W96
 	.byte TEMPO, 62
 	.byte VOICE, 13
+.ifdef REGION_US_BETA
+	.byte VOL, 56
+.else
 	.byte VOL, 44
+.endif
 	.byte N36, En4, v116
 	.byte W36
 	.byte Fs4, v127 @ N36
@@ -162,7 +174,11 @@ track_2_lbl_22c273:
 	.byte W96
 	.byte W96
 	.byte VOICE, 48
+.ifdef REGION_US_BETA
+	.byte VOL, 56
+.else
 	.byte VOL, 44
+.endif
 	.byte N90, Dn3, v080
 	.byte W96
 	.byte Cn4, v092 @ N90
@@ -192,7 +208,11 @@ track_2_1:
 	.byte W96
 track_2_lbl_22c388:
 	.byte VOICE, 14
+.ifdef REGION_US_BETA
+	.byte VOL, 77
+.else
 	.byte VOL, 60
+.endif
 	.byte N66, Fs3, v060
 	.byte N66, An3 @ v060
 	.byte W96
@@ -242,7 +262,11 @@ track_2_lbl_22c388:
 	.byte N64, Dn4 @ v072
 	.byte W96
 	.byte VOICE, 51
+.ifdef REGION_US_BETA
+	.byte VOL, 56
+.else
 	.byte VOL, 44
+.endif
 	.byte N36, En3, v092
 	.byte W36
 	.byte Fs3, v100 @ N36
@@ -322,7 +346,11 @@ track_2_2:
 	.byte W96
 track_2_lbl_22c446:
 	.byte VOICE, 14
+.ifdef REGION_US_BETA
+	.byte VOL, 63
+.else
 	.byte VOL, 49
+.endif
 	.byte W96
 	.byte W96
 	.byte W96
@@ -358,7 +386,11 @@ track_2_lbl_22c446:
 	.byte W72
 	.byte W72
 	.byte VOICE, 18
+.ifdef REGION_US_BETA
+	.byte VOL, 68
+.else
 	.byte VOL, 53
+.endif
 	.byte N72, Dn1, v080
 	.byte W96
 	.byte Dn1, v092 @ N72
@@ -410,7 +442,11 @@ track_2_lbl_22c446:
 track_2_3:
 	.byte KEYSH, 0
 	.byte VOICE, 49
+.ifdef REGION_US_BETA
+	.byte VOL, 56
+.else
 	.byte VOL, 44
+.endif
 	.byte PAN, c_v+20
 	.byte N12, An5, v100
 	.byte W48
@@ -497,7 +533,11 @@ track_2_lbl_22c4eb:
 	.byte W72
 	.byte W72
 	.byte VOICE, 19
+.ifdef REGION_US_BETA
+	.byte VOL, 61
+.else
 	.byte VOL, 47
+.endif
 	.byte N80, An1, v044
 	.byte W96
 	.byte An1, v056 @ N80
@@ -535,7 +575,11 @@ track_2_lbl_22c4eb:
 	.byte An1, v076 @ N80
 	.byte W96
 	.byte VOICE, 49
+.ifdef REGION_US_BETA
+	.byte VOL, 90
+.else
 	.byte VOL, 70
+.endif
 	.byte N12, An5, v092
 	.byte W48
 	.byte Gn5, v084 @ N12
@@ -547,7 +591,11 @@ track_2_lbl_22c4eb:
 	.byte PATT
 		.word track_2_lbl_22c4d3
 	.byte VOICE, 49
+.ifdef REGION_US_BETA
+	.byte VOL, 61
+.else
 	.byte VOL, 47
+.endif
 	.byte N12, An5, v092
 	.byte W48
 	.byte Gn5, v084 @ N12
@@ -565,7 +613,11 @@ track_2_lbl_22c4eb:
 track_2_4:
 	.byte KEYSH, 0
 	.byte VOICE, 20
+.ifdef REGION_US_BETA
+	.byte VOL, 28
+.else
 	.byte VOL, 22
+.endif
 	.byte PAN, c_v-22
 	.byte W24
 	.byte N12, An4, v092
@@ -710,7 +762,11 @@ track_2_lbl_22c623:
 	.byte W72
 	.byte W72
 	.byte VOICE, 20
+.ifdef REGION_US_BETA
+	.byte VOL, 28
+.else
 	.byte VOL, 22
+.endif
 	.byte W96
 	.byte W96
 track_2_lbl_22c695:
@@ -767,7 +823,11 @@ track_2_lbl_22c6bc:
 	.byte W96
 track_2_lbl_22c6ed:
 	.byte VOICE, 20
+.ifdef REGION_US_BETA
+	.byte VOL, 35
+.else
 	.byte VOL, 27
+.endif
 	.byte W24
 	.byte N12, An4, v100
 	.byte W16
@@ -822,7 +882,11 @@ track_2_lbl_22c732:
 	.byte W96
 	.byte W96
 	.byte VOICE, 53
+.ifdef REGION_US_BETA
+	.byte VOL, 90
+.else
 	.byte VOL, 70
+.endif
 	.byte W12
 	.byte N06, An4, v036
 	.byte W18
@@ -955,7 +1019,11 @@ track_2_lbl_22c7d8:
 	.byte W96
 	.byte W96
 	.byte VOICE, 53
+.ifdef REGION_US_BETA
+	.byte VOL, 90
+.else
 	.byte VOL, 70
+.endif
 	.byte N06, Dn4, v088
 	.byte W24
 	.byte N06 @ Dn4, v088
@@ -1095,7 +1163,11 @@ track_2_lbl_22c883:
 	.byte W96
 	.byte W96
 	.byte VOICE, 53
+.ifdef REGION_US_BETA
+	.byte VOL, 90
+.else
 	.byte VOL, 70
+.endif
 	.byte W18
 	.byte N06, An3, v088
 	.byte W18
@@ -1176,7 +1248,11 @@ track_2_8:
 	.byte W96
 track_2_lbl_22c8f3:
 	.byte VOICE, 47
+.ifdef REGION_US_BETA
+	.byte VOL, 90
+.else
 	.byte VOL, 70
+.endif
 	.byte N96, Dn1, v072
 	.byte W96
 	.byte Fs1 @ N96, v072
@@ -1210,7 +1286,11 @@ track_2_lbl_22c8f3:
 	.byte N96 @ Gn1, v072
 	.byte W96
 	.byte VOICE, 55
+.ifdef REGION_US_BETA
+	.byte VOL, 42
+.else
 	.byte VOL, 33
+.endif
 	.byte N18, Dn2, v080
 	.byte W24
 	.byte N10, An2 @ v080
