@@ -1,6 +1,7 @@
 #include "menus/boot_debug.h"
 
 #include "data/menus/boot_debug_data.h"
+#include "data/menus/internal_boot_debug_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
