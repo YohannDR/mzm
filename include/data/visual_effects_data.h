@@ -2,6 +2,7 @@
 #define VISUAL_EFFECTS_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 extern const struct FrameData sEnvEffectOam_RunningOnDustyGround[6];
@@ -32,6 +33,6 @@ extern const struct FrameData sParticleSpriteSplashAcidHugeOam[10];
 extern const struct FrameData sParticleSpriteSplashAcidSmallOam[7];
 
 extern const u8 sEscapeTimerDigitsGfx[1024 * 2];
-extern const u16 sParticleEscapeOam[34];
+extern const u16 sParticleEscapeOam_Frame0[OAM_DATA_SIZE(8)];
 
 #endif /* VISUAL_EFFECTS_DATA_H */

@@ -105,7 +105,7 @@ void EscapeStart(void)
     DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_OBJ + 0x7C00, C_32_2_16(DMA_ENABLE, 0xB0));
 
     // Setup oam
-    DMA_SET(3, sParticleEscapeOam, gParticleEscapeOamFrames, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(gParticleEscapeOamFrames)));
+    DMA_SET(3, sParticleEscapeOam_Frame0, gParticleEscapeOamFrames, C_32_2_16(DMA_ENABLE, ARRAY_SIZE(gParticleEscapeOamFrames)));
 
     // Escape timer uses absolute position, which isn't converted to pixel coordinates when drawing,
     // hence pixel coordinates are used when creating it
