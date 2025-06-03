@@ -1436,6 +1436,11 @@ SECTIONS {
         src/data/menus/internal_status_screen_data.o(.rodata);
         src/data/menus/internal_pause_screen_sub_menus_data.o(.rodata);
         src/data/internal_save_file_data.o(.rodata);
+
+#ifdef DEBUG
+        src/data/menus/internal_boot_debug_data.o(.rodata);
+#endif
+
         src/data/menus/internal_erase_sram_data.o(.rodata)
         src/data/text_pointers.o(.rodata);
         src/data/menus/internal_title_screen_data.o(.rodata)
