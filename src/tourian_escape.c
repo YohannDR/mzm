@@ -128,7 +128,7 @@ void TourianEscapeProcessOam(void)
     
     if (TOURIAN_ESCAPE_DATA.unk_BE > 2)
     {
-        src = sTourianEscape_375cc4;
+        src = sTourianEscapeOam_375d10_Frame0;
         part = *src++;
         nextSlot += part & 0xFF;
 
