@@ -6,9 +6,17 @@ track_4_0:
 	.byte KEYSH, 0
 	.byte TEMPO, 77
 	.byte VOICE, 24
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v+20
+.ifdef REGION_US_BETA
+	.byte PRIO, 29
+.else
 	.byte PRIO, 30
+.endif
 	.byte N96, An3, v092
 	.byte W96
 	.byte Gs3, v100 @ N96
@@ -34,9 +42,17 @@ track_4_0:
 track_4_1:
 	.byte KEYSH, 0
 	.byte VOICE, 24
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v+20
+.ifdef REGION_US_BETA
+	.byte PRIO, 30
+.else
 	.byte PRIO, 29
+.endif
 	.byte N96, Fs3, v092
 	.byte W96
 	.byte Fs3, v100 @ N96
@@ -61,9 +77,17 @@ track_4_1:
 track_4_2:
 	.byte KEYSH, 0
 	.byte VOICE, 24
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v-22
+.ifdef REGION_US_BETA
+	.byte PRIO, 18
+.else
 	.byte PRIO, 28
+.endif
 	.byte N96, Ds3, v092
 	.byte W96
 	.byte Ds3, v100 @ N96
@@ -89,21 +113,40 @@ track_4_2:
 track_4_3:
 	.byte KEYSH, 0
 	.byte VOICE, 85
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v-17
+.ifdef REGION_US_BETA
+	.byte PRIO, 119
+.else
 	.byte PRIO, 117
+.endif
 	.byte N84, Cn2, v092
 	.byte W96
 	.byte Cn2, v100 @ N84
 	.byte W96
 	.byte Cn2, v112 @ N84
 	.byte W96
+.ifdef REGION_US_BETA
+	.byte N96, Cn2, v120
+	.byte W96
+	.byte TIE, Cn2, v080
+	.byte W96
+	.byte W92
+	.byte W02
+	.byte EOT @ Cn2, v080
+	.byte W02
+.else
 	.byte N84 @ Cn2, v112
 	.byte W96
 	.byte Cn2, v080 @ N84
 	.byte W96
 	.byte N84 @ Cn2, v080
 	.byte W96
+.endif
 	.byte N18, Cn2, v100
 	.byte W24
 	.byte Cn2, v108 @ N18
@@ -157,7 +200,11 @@ track_4_3:
 track_4_4:
 	.byte KEYSH, 0
 	.byte VOICE, 26
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v
 	.byte PRIO, 120
 	.byte N08, Dn3, v127
@@ -253,9 +300,17 @@ track_4_lbl_22cb9c:
 track_4_5:
 	.byte KEYSH, 0
 	.byte VOICE, 25
+.ifdef REGION_US_BETA
+	.byte VOL, 80
+.else
 	.byte VOL, 75
+.endif
 	.byte PAN, c_v+15
+.ifdef REGION_US_BETA
+	.byte PRIO, 17
+.else
 	.byte PRIO, 119
+.endif
 	.byte N54, Cn3, v127
 	.byte W96
 	.byte W96
@@ -283,7 +338,11 @@ track_4_5:
 track_4_6:
 	.byte KEYSH, 0
 	.byte VOICE, 24
+.ifdef REGION_US_BETA
+	.byte VOL, 56
+.else
 	.byte VOL, 53
+.endif
 	.byte PAN, c_v
 	.byte PRIO, 118
 	.byte N08, Gn5, v032

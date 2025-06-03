@@ -302,7 +302,11 @@ track_551_3:
 track_551:
 	.byte 4
 	.byte 0
+.ifdef REGION_US_BETA
+	.byte 251
+.else
 	.byte 229
+.endif
 	.byte 128
 	.word voice_group17
 	.word track_551_0
