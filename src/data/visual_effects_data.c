@@ -2376,7 +2376,7 @@ const struct FrameData sParticleSpriteSplashAcidSmallOam[7] = {
 
 const u8 sEscapeTimerDigitsGfx[1024 * 2] = INCBIN_U8("data/EscapeTimerDigits.gfx");
 
-const u16 sParticleEscapeOam[34] = {
+const u16 sParticleEscapeOam_Frame0[OAM_DATA_SIZE(8)] = {
     0x8,
     OBJ_SHAPE_VERTICAL | 0x0, 0x0, 0x33c0,
     OBJ_SHAPE_VERTICAL | 0x0, 0x8, 0x33c0,
@@ -2386,7 +2386,12 @@ const u16 sParticleEscapeOam[34] = {
     OBJ_SHAPE_VERTICAL | 0x0, 0x28, 0x33ca,
     OBJ_SHAPE_VERTICAL | 0x0, 0x30, 0x33c0,
     OBJ_SHAPE_VERTICAL | 0x0, 0x38, 0x33c0,
-    0x0, 0xdf94, 0x833,
-    0xff, 0x0, 0x0,
-    0x0, 0x0, 0x0
+};
+
+static const struct FrameData sParticleEscapeOam[2] = {
+    [0] = {
+        .pFrame = sParticleEscapeOam_Frame0,
+        .timer = UCHAR_MAX
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };

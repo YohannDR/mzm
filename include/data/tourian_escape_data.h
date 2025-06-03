@@ -7,7 +7,8 @@
 
 #include "structs/tourian_escape.h"
 
-extern const u16 sTourianEscape_375cc4[OAM_DATA_SIZE(12)];
+// Defined in mother_brain_close_up_data.c
+extern const u16 sTourianEscapeOam_375d10_Frame0[OAM_DATA_SIZE(12)];
 
 extern const u16 sTourianEscapeExplodingPal[9 * 16];
 extern const u16 sMotherShipBlowingUpExplosionsPal[6 * 16];

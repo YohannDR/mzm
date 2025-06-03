@@ -3,7 +3,7 @@
 #include "gba.h"
 #include "macros.h"
 
-const u16 sTourianEscape_375cc4[OAM_DATA_SIZE(12)] = {
+const u16 sTourianEscapeOam_375d10_Frame0[OAM_DATA_SIZE(12)] = {
     0xc,
     0xc0, OBJ_SIZE_64x64 | 0x190, OBJ_SPRITE_OAM | 0x7180,
     0xc0, OBJ_SIZE_64x64 | 0x1d0, OBJ_SPRITE_OAM | 0x7188,
@@ -19,8 +19,12 @@ const u16 sTourianEscape_375cc4[OAM_DATA_SIZE(12)] = {
     0x0, OBJ_SIZE_64x64 | 0x190, OBJ_SPRITE_OAM | 0x7280
 };
 
-static const u8 sPadding_375d0e[18] = {
-    0, 0, 196, 92, 55, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+static const struct FrameData sTourianEscapeOam_375d10[2] = {
+    [0] = {
+        .pFrame = sTourianEscapeOam_375d10_Frame0,
+        .timer = CONVERT_SECONDS(1.f / 15)
+    },
+    [1] = FRAME_DATA_TERMINATOR
 };
 
 const struct CutscenePageData sMotherBrainCloseUpPageData[5] = {
