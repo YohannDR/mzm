@@ -1447,8 +1447,10 @@ SECTIONS {
         src/data/internal_ending_and_gallery_data.o(.rodata);
         src/data/internal_chozodia_escape_data.o(.rodata);
         src/data/internal_io_transfer_data.o(.rodata);
+
+        . = 0x7d8000 - SIZEOF(.text);
         src/data/nes_metroid.o(.rodata);
-    } >rom
+    } >rom =0xff
 
     /* DWARF debug sections.
        Symbols in the DWARF debugging sections are relative to the beginning
