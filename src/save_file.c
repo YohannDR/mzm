@@ -2146,20 +2146,21 @@ void Sram_CheckLoadSaveFile(void)
     gDebugMode = FALSE;
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 75a94 | 164 | To document
+ * 
+ */
 void Sram_InitSaveFile(void)
 {
-    // https://decomp.me/scratch/8cG3f
-
     s32 i;
     s32 j;
     u32 flags;
     u32 flag;
     
-    BitFill(3, 0, gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
+    BitFill(3, 0, gVisitedMinimapTiles, 2 * sizeof(gVisitedMinimapTiles), 16);
     BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
     BitFill(3, USHORT_MAX, gItemsCollected, sizeof(gItemsCollected), 16);
-    BitFill(3, USHORT_MAX, gHatchesOpened, sizeof(gHatchesOpened), 16);
+    BitFill(3, USHORT_MAX, gHatchesOpened, 2 * sizeof(gHatchesOpened), 16);
     BitFill(3, 0, gEventsTriggered, sizeof(gEventsTriggered), 16);
     BitFill(3, 0, gMinimapTilesWithObtainedItems, sizeof(gMinimapTilesWithObtainedItems), 16);
 
@@ -2191,176 +2192,17 @@ void Sram_InitSaveFile(void)
         gInGameCutscenesTriggered[i] = flags;
     }
 
+    do {
     gDisableDrawingSamusAndScrolling = FALSE;
     gDifficulty = DIFF_NORMAL;
+    } while(0);
+    gDifficulty = DIFF_NORMAL;
 
-    gIsLoadingFile = gTimeAttackFlag = FALSE;
+    gTimeAttackFlag = FALSE;
+    do {
+    gIsLoadingFile = FALSE;
+    } while(0);
 }
-#else
-NAKED_FUNCTION
-void Sram_InitSaveFile(void)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, sl \n\
-    mov r6, sb \n\
-    mov r5, r8 \n\
-    push {r5, r6, r7} \n\
-    sub sp, #4 \n\
-    ldr r2, lbl_08075ba8 @ =0x02037400 \n\
-    movs r6, #0x80 \n\
-    lsl r6, r6, #4 \n\
-    movs r5, #0x10 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    movs r1, #0 \n\
-    add r3, r6, #0 \n\
-    bl BitFill \n\
-    ldr r4, lbl_08075bac @ =0x0000ffff \n\
-    ldr r2, lbl_08075bb0 @ =0x02035c00 \n\
-    movs r3, #0x80 \n\
-    lsl r3, r3, #5 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    add r1, r4, #0 \n\
-    bl BitFill \n\
-    ldr r2, lbl_08075bb4 @ =0x02036c00 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    add r1, r4, #0 \n\
-    add r3, r6, #0 \n\
-    bl BitFill \n\
-    ldr r2, lbl_08075bb8 @ =0x02037c00 \n\
-    movs r3, #0x80 \n\
-    lsl r3, r3, #2 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    add r1, r4, #0 \n\
-    bl BitFill \n\
-    ldr r2, lbl_08075bbc @ =0x02037e00 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    movs r1, #0 \n\
-    movs r3, #0x20 \n\
-    bl BitFill \n\
-    ldr r2, lbl_08075bc0 @ =0x02033800 \n\
-    str r5, [sp] \n\
-    movs r0, #3 \n\
-    movs r1, #0 \n\
-    add r3, r6, #0 \n\
-    bl BitFill \n\
-    movs r1, #0 \n\
-    ldr r4, lbl_08075bc4 @ =gNumberOfNeverReformBlocks \n\
-    movs r2, #0 \n\
-    ldr r3, lbl_08075bc8 @ =gNumberOfItemsCollected \n\
-lbl_08075b08: \n\
-    add r0, r1, r4 \n\
-    strb r2, [r0] \n\
-    add r0, r1, r3 \n\
-    strb r2, [r0] \n\
-    add r1, #1 \n\
-    cmp r1, #7 \n\
-    ble lbl_08075b08 \n\
-    ldr r1, lbl_08075bcc @ =gInGameTimer \n\
-    ldr r0, lbl_08075bd0 @ =sInGameTimer_Empty \n\
-    ldr r0, [r0] \n\
-    str r0, [r1] \n\
-    ldr r0, lbl_08075bd4 @ =gDisableDrawingSamusAndScrolling \n\
-    mov r8, r0 \n\
-    ldr r1, lbl_08075bd8 @ =gDifficulty \n\
-    mov sl, r1 \n\
-    ldr r2, lbl_08075bdc @ =gIsLoadingFile \n\
-    mov sb, r2 \n\
-    ldr r2, lbl_08075be0 @ =gBestCompletionTimes \n\
-    ldr r0, lbl_08075be4 @ =sBestCompletionTime_Empty \n\
-    ldr r0, [r0] \n\
-    add r1, r2, #0 \n\
-    add r1, #0x2c \n\
-lbl_08075b34: \n\
-    str r0, [r1] \n\
-    sub r1, #4 \n\
-    cmp r1, r2 \n\
-    bge lbl_08075b34 \n\
-    ldr r2, lbl_08075be8 @ =gInGameTimerAtBosses \n\
-    ldr r0, lbl_08075bd0 @ =sInGameTimer_Empty \n\
-    ldr r0, [r0] \n\
-    add r1, r2, #0 \n\
-    add r1, #0x10 \n\
-lbl_08075b46: \n\
-    str r0, [r1] \n\
-    sub r1, #4 \n\
-    cmp r1, r2 \n\
-    bge lbl_08075b46 \n\
-    movs r1, #0 \n\
-    ldr r0, lbl_08075bec @ =sInGameCutsceneData \n\
-    mov ip, r0 \n\
-    ldr r7, lbl_08075bf0 @ =gInGameCutscenesTriggered \n\
-lbl_08075b56: \n\
-    movs r3, #0 \n\
-    movs r4, #0 \n\
-    add r6, r1, #1 \n\
-    lsl r5, r1, #2 \n\
-    lsl r0, r1, #8 \n\
-    mov r1, ip \n\
-    add r2, r0, r1 \n\
-lbl_08075b64: \n\
-    ldrb r1, [r2] \n\
-    neg r0, r1 \n\
-    orr r0, r1 \n\
-    lsr r0, r0, #0x1f \n\
-    lsl r0, r3 \n\
-    orr r4, r0 \n\
-    add r2, #8 \n\
-    add r3, #1 \n\
-    cmp r3, #0x1f \n\
-    ble lbl_08075b64 \n\
-    add r0, r5, r7 \n\
-    str r4, [r0] \n\
-    add r1, r6, #0 \n\
-    cmp r1, #0 \n\
-    ble lbl_08075b56 \n\
-    movs r1, #0 \n\
-    mov r2, r8 \n\
-    strb r1, [r2] \n\
-    movs r0, #1 \n\
-    mov r2, sl \n\
-    strb r0, [r2] \n\
-    ldr r0, lbl_08075bf4 @ =gTimeAttackFlag \n\
-    strb r1, [r0] \n\
-    mov r2, sb \n\
-    strb r1, [r2] \n\
-    add sp, #4 \n\
-    pop {r3, r4, r5} \n\
-    mov r8, r3 \n\
-    mov sb, r4 \n\
-    mov sl, r5 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_08075ba8: .4byte 0x02037400 \n\
-lbl_08075bac: .4byte 0x0000ffff \n\
-lbl_08075bb0: .4byte 0x02035c00 \n\
-lbl_08075bb4: .4byte 0x02036c00 \n\
-lbl_08075bb8: .4byte 0x02037c00 \n\
-lbl_08075bbc: .4byte 0x02037e00 \n\
-lbl_08075bc0: .4byte 0x02033800 \n\
-lbl_08075bc4: .4byte gNumberOfNeverReformBlocks \n\
-lbl_08075bc8: .4byte gNumberOfItemsCollected \n\
-lbl_08075bcc: .4byte gInGameTimer \n\
-lbl_08075bd0: .4byte sInGameTimer_Empty \n\
-lbl_08075bd4: .4byte gDisableDrawingSamusAndScrolling \n\
-lbl_08075bd8: .4byte gDifficulty \n\
-lbl_08075bdc: .4byte gIsLoadingFile \n\
-lbl_08075be0: .4byte gBestCompletionTimes \n\
-lbl_08075be4: .4byte sBestCompletionTime_Empty \n\
-lbl_08075be8: .4byte gInGameTimerAtBosses \n\
-lbl_08075bec: .4byte sInGameCutsceneData \n\
-lbl_08075bf0: .4byte gInGameCutscenesTriggered \n\
-lbl_08075bf4: .4byte gTimeAttackFlag \n\
-    ");
-}
-#endif
 
 /**
  * @brief 75bf8 | c | Empty V-blank code for SRAM
