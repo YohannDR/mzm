@@ -755,7 +755,7 @@ u8 TimeAttackCheckSetNewRecord(void)
     u32 abilityCount;
     u32 pen;
     u32 completionPercentage;
-    u32 records;
+    u8 records;
     u8 validFile;
     struct TimeAttackData* pTimeAttack;
     u32 igtBoss1;
@@ -793,7 +793,13 @@ u8 TimeAttackCheckSetNewRecord(void)
 
     // Check current IGT is faster than previous 100% record
     if (completionPercentage >= 100 && convertedIgt < converted100RecordIgt)
+    {
+        #ifdef REGION_US_BETA
+        records += 2;
+        #else // !REGION_US_BETA
         records |= 2;
+        #endif // REGION_US_BETA
+    }
 
     // No records set, abort
     if (records == 0)
@@ -848,7 +854,11 @@ u8 TimeAttackCheckSetNewRecord(void)
     }
 
     // Update 100% record
+    #ifdef REGION_US_BETA
+    if (records & 0x20)
+    #else // !REGION_US_BETA
     if (records & 2)
+    #endif // REGION_US_BETA
     {
         for (i = 0; i < sizeof(gTimeAttackRecord.password100); i++)
             gTimeAttackRecord.password100[i] = pTimeAttack->password[i];

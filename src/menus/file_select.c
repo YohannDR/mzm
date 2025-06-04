@@ -3303,9 +3303,9 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
         #ifdef REGION_US_BETA
         case OPTIONS_TIME_ATTACK_STAGE_6B:
             if (FILE_SELECT_DATA.timeAttack100Only)
-                FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME_100);
+                FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME_100);
             else
-                FileScreenUpdateMessageInfoIdQueue(1, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME);
+                FileScreenUpdateMessageInfoIdQueue(0, FILE_SCREEN_MESSAGE_INFO_ID_BEST_TIME);
             FILE_SELECT_DATA.subroutineStage++;
             break;
         #endif // REGION_US_BETA
@@ -4592,7 +4592,6 @@ void FileSelectDisplaySaveFileTimer(u8 file)
     }
 }
 
-// TODO: Not matching for REGION_JP || DEBUG
 /**
  * @brief 7cf98 | 118 | Displays the misc. info of a file (difficulty, area, time attack)
  * 
@@ -4601,8 +4600,9 @@ void FileSelectDisplaySaveFileTimer(u8 file)
  */
 void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 {
-    u16 baseTile;
     s32 offset;
+    s32 temp;
+    s32 palette;
     u16* dst;
     u16 tile;
     s32 i;
@@ -4617,10 +4617,10 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
         return;
 
     if (pFile->timeAttack)
-        tile = 6 << 12;
+        temp = 6 << 12;
     else
-        tile = 5 << 12;
-    baseTile = tile;
+        temp = 5 << 12;
+    palette = temp;
 
     dst = FILE_SELECT_EWRAM.menuTilemap;
     dst = &dst[offset + 102];
@@ -4650,7 +4650,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 
         for (i = 0; i < 5; i++)
         {
-            *dst++ = baseTile | tile++;
+            *dst++ = palette | tile++;
         }
     }
     else
@@ -4683,7 +4683,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 
         for (i = 0; i < 6; i++)
         {
-            *dst++ = baseTile | tile++;
+            *dst++ = palette | tile++;
         }
     }
     else
