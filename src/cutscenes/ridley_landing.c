@@ -378,7 +378,12 @@ u8 RidleyLandingShipInSpace(void)
     }
 
     if (CUTSCENE_DATA.timeInfo.subStage >= 3)
+    {
+        #ifdef DEBUG
+        CutsceneCheckSkipStage(1);
+        #endif // DEBUG
         return FALSE;
+    }
 
     if (MOD_AND(gFrameCounter8Bit, 8) == 6)
         (*CutsceneGetBgHorizontalPointer(sRidleyLandingPageData[0].bg))++;
@@ -386,6 +391,9 @@ u8 RidleyLandingShipInSpace(void)
     if (MOD_AND(gFrameCounter8Bit, 2) != 0)
     {
         CUTSCENE_DATA.oam[0].xPosition++;
+        #ifdef DEBUG
+        CutsceneCheckSkipStage(1);
+        #endif // DEBUG
         return FALSE;
     }
 

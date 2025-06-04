@@ -55,15 +55,27 @@ extern const u32 sMapScreenTextBg0TileTable[92];
 extern const u32 sChozoHintBackgroundTileTable[577];
 
 extern const u32 sEquipmentNamesHiraganaGfx[411];
-extern const u32 sEquipmentNamesEnglishGfx[1900];
+extern const u32 sEquipmentNamesEnglishGfx[380];
+extern const u32 sEquipmentNamesGermanGfx[380];
+extern const u32 sEquipmentNamesFrenchGfx[380];
+extern const u32 sEquipmentNamesItalianGfx[380];
+extern const u32 sEquipmentNamesSpanishGfx[380];
 
 extern const u32 sMapScreenAreaNamesHiraganaGfx[198];
 
 extern const u32 sMenuNamesHiraganaGfx[113];
-extern const u32 sMenuNamesEnglishGfx[468];
+extern const u32 sMenuNamesEnglishGfx[92];
+extern const u32 sMenuNamesGermanGfx[97];
+extern const u32 sMenuNamesFrenchGfx[91];
+extern const u32 sMenuNamesItalianGfx[92];
+extern const u32 sMenuNamesSpanishGfx[96];
 
 extern const u32 sMapScreenUnknownItemsNamesHiraganaGfx[76];
-extern const u32 sMapScreenUnknownItemsNamesEnglishGfx[337];
+extern const u32 sMapScreenUnknownItemsNamesEnglishGfx[65];
+extern const u32 sMapScreenUnknownItemsNamesGermanGfx[68];
+extern const u32 sMapScreenUnknownItemsNamesFrenchGfx[68];
+extern const u32 sMapScreenUnknownItemsNamesItalianGfx[67];
+extern const u32 sMapScreenUnknownItemsNamesSpanishGfx[69];
 
 extern const u32 sMapScreenChozoStatueAreaNamesHiraganaGfx[154];
 

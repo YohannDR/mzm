@@ -9,7 +9,11 @@
 const u16 sGameOverMenuPal[16 * 5] = INCBIN_U16("data/menus/GameOver/Palette.pal");
 const u32 sGameOverTextAndBackgroundGfx[2738] = INCBIN_U32("data/menus/GameOver/TextAndBackground.gfx.lz");
 const u32 sGameOverTextPromptEnglishGfx[333] = INCBIN_U32("data/menus/GameOver/TextPromptEnglish.gfx.lz");
-const u32 sGameOverTextPromptHiragnaGfx[1780] = INCBIN_U32("data/menus/GameOver/TextPromptHiragna.gfx.lz");
+const u32 sGameOverTextPromptHiraganaGfx[428] = INCBIN_U32("data/menus/GameOver/TextPromptHiragana.gfx.lz");
+const u32 sGameOverTextPromptGermanGfx[338] = INCBIN_U32("data/menus/GameOver/TextPromptGerman.gfx.lz");
+const u32 sGameOverTextPromptFrenchGfx[337] = INCBIN_U32("data/menus/GameOver/TextPromptFrench.gfx.lz");
+const u32 sGameOverTextPromptItalianGfx[338] = INCBIN_U32("data/menus/GameOver/TextPromptItalian.gfx.lz");
+const u32 sGameOverTextPromptSpanishGfx[339] = INCBIN_U32("data/menus/GameOver/TextPromptSpanish.gfx.lz");
 const u32 sGameOverBackgroundTileTable[370] = INCBIN_U32("data/menus/GameOver/Background.tt");
 const u32 sGameOverTextTileTable[116] = INCBIN_U32("data/menus/GameOver/Text.tt");
 const u32 sGameOver_454520[160] = INCBIN_U32("data/menus/GameOver/454520.tt");

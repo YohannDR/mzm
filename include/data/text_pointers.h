@@ -32,4 +32,20 @@ extern const u16* const sEnglishTextPointers_Description[DESCRIPTION_TEXT_END];
 extern const u16* const sEnglishTextPointers_Story[STORY_TEXT_END];
 extern const u16* const sEnglishTextPointers_FileScreen[FILE_SCREEN_TEXT_END];
 
+#ifdef REGION_US_BETA
+
+extern const u16* const sGermanTextPointers_Description[DESCRIPTION_TEXT_END - 1];
+extern const u16* const sGermanTextPointers_Story[3];
+
+extern const u16* const sFrenchTextPointers_Description[DESCRIPTION_TEXT_END - 1];
+extern const u16* const sFrenchTextPointers_Story[3];
+
+extern const u16* const sItalianTextPointers_Description[DESCRIPTION_TEXT_END - 1];
+extern const u16* const sItalianTextPointers_Story[3];
+
+extern const u16* const sSpanishTextPointers_Description[DESCRIPTION_TEXT_END - 1];
+extern const u16* const sSpanishTextPointers_Story[3];
+
+#endif // REGION_US_BETA
+
 #endif /* TEXT_POINTERS_DATA_H */

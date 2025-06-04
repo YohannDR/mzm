@@ -5,7 +5,6 @@
 
 #include "constants/audio.h"
 #include "constants/connection.h"
-#include "constants/game_state.h"
 #include "constants/samus.h"
 
 const s8 sSaveFileAreasId[12] = {
@@ -23,12 +22,19 @@ const s8 sSaveFileAreasId[12] = {
     [11] = AREA_BRINSTAR,
 };
 
-const u32* const sFileSelectTextGfxPointers[5] = {
-    [LANGUAGE_ENGLISH - 2] = sFileSelectTextGfx,
-    [LANGUAGE_GERMAN - 2] = sFileSelectTextGfx,
-    [LANGUAGE_FRENCH - 2] = sFileSelectTextGfx,
-    [LANGUAGE_ITALIAN - 2] = sFileSelectTextGfx,
-    [LANGUAGE_SPANISH - 2] = sFileSelectTextGfx
+const u32* const sFileSelectTextGfxPointers[LANGUAGE_END - 2] = {
+    [LANGUAGE_ENGLISH - 2] = sFileSelectTextEnglishGfx,
+    #ifdef REGION_US_BETA
+    [LANGUAGE_GERMAN - 2] = sFileSelectTextGermanGfx,
+    [LANGUAGE_FRENCH - 2] = sFileSelectTextFrenchGfx,
+    [LANGUAGE_ITALIAN - 2] = sFileSelectTextItalianGfx,
+    [LANGUAGE_SPANISH - 2] = sFileSelectTextSpanishGfx
+    #else // !REGION_US_BETA
+    [LANGUAGE_GERMAN - 2] = sFileSelectTextEnglishGfx,
+    [LANGUAGE_FRENCH - 2] = sFileSelectTextEnglishGfx,
+    [LANGUAGE_ITALIAN - 2] = sFileSelectTextEnglishGfx,
+    [LANGUAGE_SPANISH - 2] = sFileSelectTextEnglishGfx
+    #endif // REGION_US_BETA
 };
 
 const struct FileSelectMenuCursors sFileSelectMenuCursors_Empty = {

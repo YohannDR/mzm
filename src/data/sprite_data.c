@@ -1681,7 +1681,11 @@ const u16 sPrimarySpriteStats[PSPRITE_END][9] = {
         0
     },
     [PSPRITE_BARISTUTE] = {
+        #ifdef REGION_US_BETA
+        400,
+        #else // !REGION_US_BETA
         200,
+        #endif // REGION_US_BETA
         58,
         WEAKNESS_BEAM_BOMBS | WEAKNESS_MISSILES | WEAKNESS_POWER_BOMB | WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK,
         0,
@@ -2209,7 +2213,11 @@ const u16 sPrimarySpriteStats[PSPRITE_END][9] = {
         0
     },
     [PSPRITE_BARISTUTE_KRAID_UPPER] = {
+        #ifdef REGION_US_BETA
+        400,
+        #else // !REGION_US_BETA
         200,
+        #endif // REGION_US_BETA
         58,
         WEAKNESS_BEAM_BOMBS | WEAKNESS_MISSILES | WEAKNESS_POWER_BOMB | WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK,
         0,
@@ -2264,7 +2272,11 @@ const u16 sPrimarySpriteStats[PSPRITE_END][9] = {
         0
     },
     [PSPRITE_BARISTUTE_KRAID_LOWER] = {
+        #ifdef REGION_US_BETA
+        400,
+        #else // !REGION_US_BETA
         200,
+        #endif // REGION_US_BETA
         58,
         WEAKNESS_BEAM_BOMBS | WEAKNESS_MISSILES | WEAKNESS_POWER_BOMB | WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK,
         0,

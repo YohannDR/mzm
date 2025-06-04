@@ -403,4 +403,112 @@ extern const u16 sEnglishText_FileScreen_TimeAttackRecordUnlock[];
 extern const u16 sEnglishText_FileScreen_SoundTestUnlock[];
 extern const u16 sEnglishText_FileScreen_NesMetroidUnlock[];
 
+#ifdef REGION_US_BETA
+
+extern const u16 sGermanText_Description_LongBeam[];
+extern const u16 sGermanText_Description_ChargeBeam[];
+extern const u16 sGermanText_Description_IceBeam[];
+extern const u16 sGermanText_Description_WaveBeam[];
+extern const u16 sGermanText_Description_PlasmaBeam[];
+extern const u16 sGermanText_Description_Missiles[];
+extern const u16 sGermanText_Description_SuperMissiles[];
+extern const u16 sGermanText_Description_Bombs[];
+extern const u16 sGermanText_Description_PowerBombs[];
+extern const u16 sGermanText_Description_VariaSuit[];
+extern const u16 sGermanText_Description_GravitySuit[];
+extern const u16 sGermanText_Description_MorphBall[];
+extern const u16 sGermanText_Description_PowerGrip[];
+extern const u16 sGermanText_Description_Speedbooster[];
+extern const u16 sGermanText_Description_HighJump[];
+extern const u16 sGermanText_Description_ScrewAttack[];
+extern const u16 sGermanText_Description_SpaceJump[];
+extern const u16 sGermanText_Description_UnknownItem[];
+
+extern const u16 sGermanText_Story_PlanetZebes[];
+extern const u16 sGermanText_Story_TheTiming[];
+extern const u16 sGermanText_Story_CouldISurvive[];
+extern const u16 sGermanText_Story_Emergency[];
+extern const u16 sGermanText_Story_Exterminate[];
+extern const u16 sGermanText_Story_Defeat[];
+
+extern const u16 sFrenchText_Description_LongBeam[];
+extern const u16 sFrenchText_Description_ChargeBeam[];
+extern const u16 sFrenchText_Description_IceBeam[];
+extern const u16 sFrenchText_Description_WaveBeam[];
+extern const u16 sFrenchText_Description_PlasmaBeam[];
+extern const u16 sFrenchText_Description_Missiles[];
+extern const u16 sFrenchText_Description_SuperMissiles[];
+extern const u16 sFrenchText_Description_Bombs[];
+extern const u16 sFrenchText_Description_PowerBombs[];
+extern const u16 sFrenchText_Description_VariaSuit[];
+extern const u16 sFrenchText_Description_GravitySuit[];
+extern const u16 sFrenchText_Description_MorphBall[];
+extern const u16 sFrenchText_Description_PowerGrip[];
+extern const u16 sFrenchText_Description_Speedbooster[];
+extern const u16 sFrenchText_Description_HighJump[];
+extern const u16 sFrenchText_Description_ScrewAttack[];
+extern const u16 sFrenchText_Description_SpaceJump[];
+extern const u16 sFrenchText_Description_UnknownItem[];
+
+extern const u16 sFrenchText_Story_PlanetZebes[];
+extern const u16 sFrenchText_Story_TheTiming[];
+extern const u16 sFrenchText_Story_CouldISurvive[];
+extern const u16 sFrenchText_Story_Emergency[];
+extern const u16 sFrenchText_Story_Exterminate[];
+extern const u16 sFrenchText_Story_Defeat[];
+
+extern const u16 sItalianText_Description_LongBeam[];
+extern const u16 sItalianText_Description_ChargeBeam[];
+extern const u16 sItalianText_Description_IceBeam[];
+extern const u16 sItalianText_Description_WaveBeam[];
+extern const u16 sItalianText_Description_PlasmaBeam[];
+extern const u16 sItalianText_Description_Missiles[];
+extern const u16 sItalianText_Description_SuperMissiles[];
+extern const u16 sItalianText_Description_Bombs[];
+extern const u16 sItalianText_Description_PowerBombs[];
+extern const u16 sItalianText_Description_VariaSuit[];
+extern const u16 sItalianText_Description_GravitySuit[];
+extern const u16 sItalianText_Description_MorphBall[];
+extern const u16 sItalianText_Description_PowerGrip[];
+extern const u16 sItalianText_Description_Speedbooster[];
+extern const u16 sItalianText_Description_HighJump[];
+extern const u16 sItalianText_Description_ScrewAttack[];
+extern const u16 sItalianText_Description_SpaceJump[];
+extern const u16 sItalianText_Description_UnknownItem[];
+
+extern const u16 sItalianText_Story_PlanetZebes[];
+extern const u16 sItalianText_Story_TheTiming[];
+extern const u16 sItalianText_Story_CouldISurvive[];
+extern const u16 sItalianText_Story_Emergency[];
+extern const u16 sItalianText_Story_Exterminate[];
+extern const u16 sItalianText_Story_Defeat[];
+
+extern const u16 sSpanishText_Description_LongBeam[];
+extern const u16 sSpanishText_Description_ChargeBeam[];
+extern const u16 sSpanishText_Description_IceBeam[];
+extern const u16 sSpanishText_Description_WaveBeam[];
+extern const u16 sSpanishText_Description_PlasmaBeam[];
+extern const u16 sSpanishText_Description_Missiles[];
+extern const u16 sSpanishText_Description_SuperMissiles[];
+extern const u16 sSpanishText_Description_Bombs[];
+extern const u16 sSpanishText_Description_PowerBombs[];
+extern const u16 sSpanishText_Description_VariaSuit[];
+extern const u16 sSpanishText_Description_GravitySuit[];
+extern const u16 sSpanishText_Description_MorphBall[];
+extern const u16 sSpanishText_Description_PowerGrip[];
+extern const u16 sSpanishText_Description_Speedbooster[];
+extern const u16 sSpanishText_Description_HighJump[];
+extern const u16 sSpanishText_Description_ScrewAttack[];
+extern const u16 sSpanishText_Description_SpaceJump[];
+extern const u16 sSpanishText_Description_UnknownItem[];
+
+extern const u16 sSpanishText_Story_PlanetZebes[];
+extern const u16 sSpanishText_Story_TheTiming[];
+extern const u16 sSpanishText_Story_CouldISurvive[];
+extern const u16 sSpanishText_Story_Emergency[];
+extern const u16 sSpanishText_Story_Exterminate[];
+extern const u16 sSpanishText_Story_Defeat[];
+
+#endif // REGION_US_BETA
+
 #endif /* TEXT_DATA_H */

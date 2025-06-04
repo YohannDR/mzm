@@ -5,6 +5,7 @@
 
 #ifdef DEBUG
 
+const u16 sBootDebug_417e38[8 * 16] = INCBIN_U16("data/menus/BootDebug/BootDebug_417e38.pal");
 const u16 sBootDebugBgPal[8 * 16] = INCBIN_U16("data/menus/BootDebug/Background.pal");
 const u16 sBootDebugObjPal[3 * 16] = INCBIN_U16("data/menus/BootDebug/Objects.pal");
 const u32 sBootDebugObjGfx[222] = INCBIN_U32("data/menus/BootDebug/Objects.gfx.lz");
@@ -185,22 +186,23 @@ static const struct FrameData sBootDebugOam_418610[5] = {
 
 const u32 sBootDebugBgGfx[771] = INCBIN_U32("data/menus/BootDebug/Background.gfx.lz");
 
-static const u8 sBootDebug_CutsceneB_EscapeShip_Text[8] = SHIFT_JIS("コガタテイ");
-static const u8 sBootDebug_CutsceneB_MechaRidley_Text[12] = SHIFT_JIS("メカ リドリー");
-static const u8 sBootDebug_CutsceneB_PoweredSuit_Text[12] = SHIFT_JIS("パワードスーツ");
-static const u8 sBootDebug_CutsceneB_ChozoMural_Text[8] = SHIFT_JIS("ヘキガ");
-static const u8 sBootDebug_CutsceneB_Metroids_Text[8] = SHIFT_JIS("メトロイド");
-static const u8 sBootDebug_CutsceneB_RidleyFight_Text[8] = SHIFT_JIS("リドリー");
-static const u8 sBootDebug_CutsceneB_MotherShipLanding_Text[8] = SHIFT_JIS("チャクリク");
-static const u8 sBootDebug_CutsceneB_MotherShipReturning_Text[12] = SHIFT_JIS("ヒキカエス ボカン");
-static const u8 sBootDebug_CutsceneB_BossStatues_Text[8] = SHIFT_JIS("セキゾウ");
-static const u8 sBootDebug_CutsceneB_KraidFight_Text[8] = SHIFT_JIS("クレイド");
-static const u8 sBootDebug_CutsceneB_MotherBrain_Text[12] = SHIFT_JIS("マザー ブレイン");
-static const u8 sBootDebug_CutsceneB_ShotDownMonologue2_Text[12] = SHIFT_JIS("MONOゲキツイ2");
-static const u8 sBootDebug_CutsceneB_ShotDownMonologue1_Text[12] = SHIFT_JIS("MONOゲキツイ1");
-static const u8 sBootDebug_CutsceneB_StartMonologue_Text[12] = SHIFT_JIS("MONO スタート");
-static const u8 sBootDebug_Cutscene_Blank_Text[12] = SHIFT_JIS("---       ");
-static const u8 sBootDebug_CutsceneA_ShotDown_Text[8] = SHIFT_JIS("ゲキツイ");
+const u8 sBootDebug_CutsceneB_EscapeShip_Text[8] = SHIFT_JIS("コガタテイ");
+const u8 sBootDebug_CutsceneB_MechaRidley_Text[12] = SHIFT_JIS("メカ リドリー");
+const u8 sBootDebug_CutsceneB_PoweredSuit_Text[12] = SHIFT_JIS("パワードスーツ");
+const u8 sBootDebug_CutsceneB_ChozoMural_Text[8] = SHIFT_JIS("ヘキガ");
+const u8 sBootDebug_CutsceneB_Metroids_Text[8] = SHIFT_JIS("メトロイド");
+const u8 sBootDebug_CutsceneB_RidleyFight_Text[8] = SHIFT_JIS("リドリー");
+const u8 sBootDebug_CutsceneB_MotherShipLanding_Text[8] = SHIFT_JIS("チャクリク");
+const u8 sBootDebug_CutsceneB_MotherShipReturning_Text[12] = SHIFT_JIS("ヒキカエス ボカン");
+const u8 sBootDebug_CutsceneB_BossStatues_Text[8] = SHIFT_JIS("セキゾウ");
+const u8 sBootDebug_CutsceneB_KraidFight_Text[8] = SHIFT_JIS("クレイド");
+const u8 sBootDebug_CutsceneB_MotherBrain_Text[12] = SHIFT_JIS("マザー ブレイン");
+const u8 sBootDebug_CutsceneB_ShotDownMonologue2_Text[12] = SHIFT_JIS("MONOゲキツイ2");
+const u8 sBootDebug_CutsceneB_ShotDownMonologue1_Text[12] = SHIFT_JIS("MONOゲキツイ1");
+const u8 sBootDebug_CutsceneB_StartMonologue_Text[12] = SHIFT_JIS("MONO スタート");
+const u8 sBootDebug_Cutscene_Blank_Text[12] = SHIFT_JIS("---       ");
+const u8 sBootDebug_CutsceneA_ShotDown_Text[8] = SHIFT_JIS("ゲキツイ");
+
 static const u8 sBootDebugMenuNames_DebugConfig_Text[12] = SHIFT_JIS("DEBUG CONFIG");
 static const u8 sBootDebugMenuNames_Section_Text[8] = SHIFT_JIS("SECTION");
 static const u8 sBootDebugMenuNames_Mode_Text[4] = SHIFT_JIS("MODE");
@@ -969,11 +971,11 @@ const struct BootDebugText sBootDebugEraseMenuText[3] = {
     }
 };
 
-static const u8 sBootDebug_DemoState_RomRun_Text[8] = SHIFT_JIS("ROMRUN");
-static const u8 sBootDebug_DemoState_RamRun_Text[8] = SHIFT_JIS("RAMRUN");
-static const u8 sBootDebug_DemoState_GetKey_Text[8] = SHIFT_JIS("GETKEY");
-static const u8 sBootDebug_DemoState_Free_Text[8] = SHIFT_JIS("FREE");
-static const u8 sBootDebug_DemoState_Blank_Text[7] = SHIFT_JIS("      ");
+const u8 sBootDebug_DemoState_RomRun_Text[8] = SHIFT_JIS("ROMRUN");
+const u8 sBootDebug_DemoState_RamRun_Text[8] = SHIFT_JIS("RAMRUN");
+const u8 sBootDebug_DemoState_GetKey_Text[8] = SHIFT_JIS("GETKEY");
+const u8 sBootDebug_DemoState_Free_Text[8] = SHIFT_JIS("FREE");
+const u8 sBootDebug_DemoState_Blank_Text[7] = SHIFT_JIS("      ");
 
 const u8 sBootDebugSectionCursorMovement[BOOT_DEBUG_SECTION_COUNT][4] = {
     [BOOT_DEBUG_SECTION_BRINSTAR] = {0x08, 0x80, 0x80, 0x01},
@@ -1021,42 +1023,5 @@ const struct OamArray sBootDebugOam[6] = {
 };
 
 const u8 sZeroSaveText[8] = "ZEROSAVE";
-
-const u8* const sBootDebugCutsceneBTextPointers[CUTSCENE_END] = {
-    [CUTSCENE_NONE] =                    sBootDebug_Cutscene_Blank_Text,
-    [CUTSCENE_INTRO_TEXT] =              sBootDebug_CutsceneB_StartMonologue_Text,
-    [CUTSCENE_MOTHERSHIP_MONOLOGUE] =    sBootDebug_CutsceneB_ShotDownMonologue1_Text,
-    [CUTSCENE_COULD_I_SURVIVE] =         sBootDebug_CutsceneB_ShotDownMonologue2_Text,
-    [CUTSCENE_MOTHER_BRAIN_CLOSE_UP] =   sBootDebug_CutsceneB_MotherBrain_Text,
-    [CUTSCENE_KRAID_RISING] =            sBootDebug_CutsceneB_KraidFight_Text,
-    [CUTSCENE_STATUE_OPENING] =          sBootDebug_CutsceneB_BossStatues_Text,
-    [CUTSCENE_RIDLEY_IN_SPACE] =         sBootDebug_CutsceneB_MotherShipReturning_Text,
-    [CUTSCENE_RIDLEY_LANDING] =          sBootDebug_CutsceneB_MotherShipLanding_Text,
-    [CUTSCENE_RIDLEY_SPAWNING] =         sBootDebug_CutsceneB_RidleyFight_Text,
-    [CUTSCENE_ENTER_TOURIAN] =           sBootDebug_CutsceneB_Metroids_Text,
-    [CUTSCENE_BEFORE_CHARLIE] =          sBootDebug_CutsceneB_ChozoMural_Text,
-    [CUTSCENE_GETTING_FULLY_POWERED] =   sBootDebug_CutsceneB_PoweredSuit_Text,
-    [CUTSCENE_MECHA_RIDLEY_SEES_SAMUS] = sBootDebug_CutsceneB_MechaRidley_Text,
-    [CUTSCENE_SAMUS_IN_BLUE_SHIP] =      sBootDebug_CutsceneB_EscapeShip_Text
-};
-
-const u8* const sBootDebugCutsceneATextPointers[2] = {
-    sBootDebug_Cutscene_Blank_Text,
-    sBootDebug_CutsceneA_ShotDown_Text
-};
-
-const u8* const sBootDebugDemoStateTextPointers[5] = {
-    sBootDebug_DemoState_Blank_Text,
-    sBootDebug_DemoState_Free_Text,
-    sBootDebug_DemoState_GetKey_Text,
-    sBootDebug_DemoState_RamRun_Text,
-    sBootDebug_DemoState_RomRun_Text
-};
-
-FORCE_RODATA
-u8 sBootDebugTextToggleColors[2][2] = {
-    [FALSE] = { BOOT_DEBUG_COLOR_BLACK, BOOT_DEBUG_COLOR_YELLOW },
-    [TRUE] = { BOOT_DEBUG_COLOR_YELLOW, BOOT_DEBUG_COLOR_BLACK }
-};
 
 #endif /* DEBUG */

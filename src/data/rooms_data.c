@@ -16659,7 +16659,11 @@ const struct RoomEntryROM sChozodiaRoomEntries[99] = {
 		.mapX = 8,
 		.mapY = 12,
 		.effect = EFFECT_NONE,
+		#ifdef REGION_US_BETA
+		.effectY = 11,
+		#else // !REGION_US_BETA
 		.effectY = UCHAR_MAX,
+		#endif
 		.musicTrack = MUSIC_BRINSTAR_REMIX
 	},
 	[55] = {

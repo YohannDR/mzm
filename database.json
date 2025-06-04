@@ -3571,6 +3571,14 @@
     "size": 2
   },
   {
+    "path": "menus/BootDebug/BootDebug_417e38.pal",
+    "count": 128,
+    "addr": {
+      "us_beta": 4292152
+    },
+    "size": 2
+  },
+  {
     "path": "menus/BootDebug/Objects.gfx.lz",
     "count": 222,
     "addr": {
@@ -3615,10 +3623,37 @@
   },
   {
     "path": "menus/EraseSram/ConfirmEnglish.gfx.lz",
-    "count": 1027,
+    "count": 191,
     "addr": {
       "us": 4270212,
       "us_beta": 4304092
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/ConfirmFrench.gfx.lz",
+    "count": 209,
+    "addr": {
+      "us": 4270976,
+      "us_beta": 4304856
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/ConfirmGerman.gfx.lz",
+    "count": 222,
+    "addr": {
+      "us": 4271812,
+      "us_beta": 4305692
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/ConfirmItalian.gfx.lz",
+    "count": 201,
+    "addr": {
+      "us": 4272700,
+      "us_beta": 4306580
     },
     "size": 4
   },
@@ -3628,6 +3663,15 @@
     "addr": {
       "us": 4269232,
       "us_beta": 4303112
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/ConfirmSpanish.gfx.lz",
+    "count": 204,
+    "addr": {
+      "us": 4273504,
+      "us_beta": 4307384
     },
     "size": 4
   },
@@ -3660,10 +3704,37 @@
   },
   {
     "path": "menus/EraseSram/QuestionEnglish.gfx.lz",
-    "count": 1006,
+    "count": 185,
     "addr": {
       "us": 4275300,
       "us_beta": 4309180
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/QuestionFrench.gfx.lz",
+    "count": 187,
+    "addr": {
+      "us": 4276040,
+      "us_beta": 4309920
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/QuestionGerman.gfx.lz",
+    "count": 205,
+    "addr": {
+      "us": 4276788,
+      "us_beta": 4310668
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/QuestionItalian.gfx.lz",
+    "count": 221,
+    "addr": {
+      "us": 4277608,
+      "us_beta": 4311488
     },
     "size": 4
   },
@@ -3673,6 +3744,15 @@
     "addr": {
       "us": 4274320,
       "us_beta": 4308200
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/EraseSram/QuestionSpanish.gfx.lz",
+    "count": 208,
+    "addr": {
+      "us": 4278492,
+      "us_beta": 4312372
     },
     "size": 4
   },
@@ -3785,11 +3865,47 @@
     "size": 2
   },
   {
-    "path": "menus/FileSelect/Text.gfx.lz",
-    "count": 1725,
+    "path": "menus/FileSelect/TextEnglish.gfx.lz",
+    "count": 345,
     "addr": {
       "us": 4564480,
       "us_beta": 4609044
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/FileSelect/TextFrench.gfx.lz",
+    "count": 345,
+    "addr": {
+      "us": 4567240,
+      "us_beta": 4611804
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/FileSelect/TextGerman.gfx.lz",
+    "count": 345,
+    "addr": {
+      "us": 4565860,
+      "us_beta": 4610424
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/FileSelect/TextItalian.gfx.lz",
+    "count": 345,
+    "addr": {
+      "us": 4568620,
+      "us_beta": 4613184
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/FileSelect/TextSpanish.gfx.lz",
+    "count": 345,
+    "addr": {
+      "us": 4570000,
+      "us_beta": 4614564
     },
     "size": 4
   },
@@ -3848,11 +3964,47 @@
     "size": 4
   },
   {
-    "path": "menus/GameOver/TextPromptHiragna.gfx.lz",
-    "count": 1780,
+    "path": "menus/GameOver/TextPromptFrench.gfx.lz",
+    "count": 337,
+    "addr": {
+      "us": 4533680,
+      "us_beta": 4578244
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/GameOver/TextPromptGerman.gfx.lz",
+    "count": 338,
+    "addr": {
+      "us": 4532328,
+      "us_beta": 4576892
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/GameOver/TextPromptHiragana.gfx.lz",
+    "count": 428,
     "addr": {
       "us": 4530616,
       "us_beta": 4575180
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/GameOver/TextPromptItalian.gfx.lz",
+    "count": 338,
+    "addr": {
+      "us": 4535028,
+      "us_beta": 4579592
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/GameOver/TextPromptSpanish.gfx.lz",
+    "count": 339,
+    "addr": {
+      "us": 4536380,
+      "us_beta": 4580944
     },
     "size": 4
   },
@@ -3993,10 +4145,28 @@
   },
   {
     "path": "menus/PauseScreen/EquipmentNamesEnglish.gfx.lz",
-    "count": 1900,
+    "count": 380,
     "addr": {
       "us": 4234608,
       "us_beta": 4257316
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/EquipmentNamesFrench.gfx.lz",
+    "count": 380,
+    "addr": {
+      "us": 4237648,
+      "us_beta": 4260356
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/EquipmentNamesGerman.gfx.lz",
+    "count": 380,
+    "addr": {
+      "us": 4236128,
+      "us_beta": 4258836
     },
     "size": 4
   },
@@ -4010,11 +4180,29 @@
     "size": 4
   },
   {
+    "path": "menus/PauseScreen/EquipmentNamesItalian.gfx.lz",
+    "count": 380,
+    "addr": {
+      "us": 4239168,
+      "us_beta": 4261876
+    },
+    "size": 4
+  },
+  {
     "path": "menus/PauseScreen/EquipmentNamesJapanese.gfx.lz",
     "count": 384,
     "addr": {
       "us": 4196360,
       "us_beta": 4219068
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/EquipmentNamesSpanish.gfx.lz",
+    "count": 380,
+    "addr": {
+      "us": 4240688,
+      "us_beta": 4263396
     },
     "size": 4
   },
@@ -4101,7 +4289,7 @@
   },
   {
     "path": "menus/PauseScreen/MapScreenUnknownItemsNamesEnglish.gfx.lz",
-    "count": 337,
+    "count": 65,
     "addr": {
       "us": 4245628,
       "us_beta": 4268336
@@ -4118,6 +4306,24 @@
     "size": 2
   },
   {
+    "path": "menus/PauseScreen/MapScreenUnknownItemsNamesFrench.gfx.lz",
+    "count": 68,
+    "addr": {
+      "us": 4246160,
+      "us_beta": 4268868
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MapScreenUnknownItemsNamesGerman.gfx.lz",
+    "count": 68,
+    "addr": {
+      "us": 4245888,
+      "us_beta": 4268596
+    },
+    "size": 4
+  },
+  {
     "path": "menus/PauseScreen/MapScreenUnknownItemsNamesHiragana.gfx.lz",
     "count": 76,
     "addr": {
@@ -4127,11 +4333,29 @@
     "size": 4
   },
   {
+    "path": "menus/PauseScreen/MapScreenUnknownItemsNamesItalian.gfx.lz",
+    "count": 67,
+    "addr": {
+      "us": 4246432,
+      "us_beta": 4269140
+    },
+    "size": 4
+  },
+  {
     "path": "menus/PauseScreen/MapScreenUnknownItemsNamesJapanese.gfx.lz",
     "count": 65,
     "addr": {
       "us": 4205904,
       "us_beta": 4228612
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MapScreenUnknownItemsNamesSpanish.gfx.lz",
+    "count": 69,
+    "addr": {
+      "us": 4246700,
+      "us_beta": 4269408
     },
     "size": 4
   },
@@ -4146,10 +4370,28 @@
   },
   {
     "path": "menus/PauseScreen/MenuNamesEnglish.gfx.lz",
-    "count": 468,
+    "count": 92,
     "addr": {
       "us": 4243452,
       "us_beta": 4266160
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MenuNamesFrench.gfx.lz",
+    "count": 91,
+    "addr": {
+      "us": 4244208,
+      "us_beta": 4266916
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MenuNamesGerman.gfx.lz",
+    "count": 97,
+    "addr": {
+      "us": 4243820,
+      "us_beta": 4266528
     },
     "size": 4
   },
@@ -4163,11 +4405,29 @@
     "size": 4
   },
   {
+    "path": "menus/PauseScreen/MenuNamesItalian.gfx.lz",
+    "count": 92,
+    "addr": {
+      "us": 4244572,
+      "us_beta": 4267280
+    },
+    "size": 4
+  },
+  {
     "path": "menus/PauseScreen/MenuNamesJapanese.gfx.lz",
     "count": 92,
     "addr": {
       "us": 4195992,
       "us_beta": 4218700
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MenuNamesSpanish.gfx.lz",
+    "count": 96,
+    "addr": {
+      "us": 4244940,
+      "us_beta": 4267648
     },
     "size": 4
   },
@@ -4414,7 +4674,10 @@
   },
   {
     "path": "nes_metroid.bin",
-    "count": 128642,
+    "count": {
+      "us": 128642,
+      "us_beta": 128662
+    },
     "addr": {
       "us": 8224946,
       "us_beta": 8224946

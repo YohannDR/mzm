@@ -20,7 +20,11 @@ extern const struct FrameData sFileSelectOam_SamusHeadSuitlessTurning[8];
 
 extern const u32 sFileSelectChozoBackgroundGfx[2985];
 extern const u32 sFileSelectCharactersGfx[1531];
-extern const u32 sFileSelectTextGfx[1725];
+extern const u32 sFileSelectTextEnglishGfx[345];
+extern const u32 sFileSelectTextGermanGfx[345];
+extern const u32 sFileSelectTextFrenchGfx[345];
+extern const u32 sFileSelectTextItalianGfx[345];
+extern const u32 sFileSelectTextSpanishGfx[345];
 extern const u32 sFileSelectIconsGfx[1722];
 extern const u32 sFileSelectChozoBackgroundTileTable[368];
 extern const u32 sFileSelectMenuTileTable[148];
