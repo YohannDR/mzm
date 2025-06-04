@@ -16,6 +16,14 @@
     "size": 2
   },
   {
+    "path": "menus/BootDebug/BootDebug_417e38.pal",
+    "count": 128,
+    "addr": {
+      "us_beta": 4292152
+    },
+    "size": 2
+  },
+  {
     "path": "menus/BootDebug/Objects.gfx.lz",
     "count": 222,
     "addr": {

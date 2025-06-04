@@ -533,7 +533,7 @@ void PauseDebugStatusScreen(void)
             break;
 
         case PAUSE_DEBUG_GROUP_SAVE:
-            if (gBootDebugActive == 0 && gChangedInput & KEY_A)
+            if (gSramCorruptFlag == 0 && gChangedInput & KEY_A)
             {
                 while (!SramSaveFile());
                 PauseDebugDrawAffectedGroups(1 << PAUSE_DEBUG_GROUP_SAVE);

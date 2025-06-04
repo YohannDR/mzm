@@ -4,12 +4,19 @@
 
 const u32* const sGameOverTextPromptGfxPointers[LANGUAGE_END] = {
     [LANGUAGE_JAPANESE] = sGameOverTextPromptEnglishGfx,
-    [LANGUAGE_HIRAGANA] = sGameOverTextPromptHiragnaGfx,
+    [LANGUAGE_HIRAGANA] = sGameOverTextPromptHiraganaGfx,
     [LANGUAGE_ENGLISH] = sGameOverTextPromptEnglishGfx,
+    #ifdef REGION_US_BETA
+    [LANGUAGE_GERMAN] = sGameOverTextPromptGermanGfx,
+    [LANGUAGE_FRENCH] = sGameOverTextPromptFrenchGfx,
+    [LANGUAGE_ITALIAN] = sGameOverTextPromptItalianGfx,
+    [LANGUAGE_SPANISH] = sGameOverTextPromptSpanishGfx
+    #else // !REGION_US_BETA
     [LANGUAGE_GERMAN] = sGameOverTextPromptEnglishGfx,
     [LANGUAGE_FRENCH] = sGameOverTextPromptEnglishGfx,
     [LANGUAGE_ITALIAN] = sGameOverTextPromptEnglishGfx,
     [LANGUAGE_SPANISH] = sGameOverTextPromptEnglishGfx
+    #endif // REGION_US_BETA
 };
 
 const u8 sGameOverTextPaletteMaxTimers[3] = {

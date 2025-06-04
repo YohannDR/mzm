@@ -396,8 +396,13 @@ const u16 sEnglishText_FileScreen_TurnOffConfirmLink[] = INCTEXT("Turn the syste
 const u16 sEnglishText_FileScreen_DoNotTurnPowerOff[] = INCTEXT("Do not turn the\nPOWER OFF.");
 const u16 sEnglishText_FileScreen_DataUploadComplete[] = INCTEXT("Data upload\ncomplete.");
 const u16 sEnglishText_FileScreen_LinkComplete[] = INCTEXT("Link complete. You may turn POWER OFF.");
+#ifdef REGION_US_BETA
+const u16 sEnglishText_FileScreen_BestTime[] = INCTEXT("Best Time");
+const u16 sEnglishText_FileScreen_BestTime100[] = INCTEXT("Best Time (100%)");
+#else // !REGION_US_BETA
 const u16 sEnglishText_FileScreen_BestTime[] = INCTEXT("{WIDTH(23)}Best Time");
 const u16 sEnglishText_FileScreen_BestTime100[] = INCTEXT("{WIDTH(1)}Best Time (100%)");
+#endif // REGION_US_BETA
 const u16 sEnglishText_FileScreen_IdPassword[] = INCTEXT("ID\nPassword");
 const u16 sEnglishText_FileScreen_CantCopyTimeAttack[] = INCTEXT("You can't copy\nTime Attack data.");
 const u16 sEnglishText_FileScreen_LinkingErrorTryAgain[] = INCTEXT("Linking error. Try again.");
@@ -406,3 +411,125 @@ const u16 sEnglishText_FileScreen_GalleryUnlock[] = INCTEXT("{COLOR(5)}Gallery{C
 const u16 sEnglishText_FileScreen_TimeAttackRecordUnlock[] = INCTEXT("{COLOR(5)}Time Attack Records{COLOR(0)}\nhas been added to\nthe {COLOR(6)}OPTIONS{COLOR(0)} screen.");
 const u16 sEnglishText_FileScreen_SoundTestUnlock[] = INCTEXT("{COLOR(5)}Sound Test{COLOR(0)} has\nbeen added to the\n{COLOR(6)}OPTIONS{COLOR(0)} screen.");
 const u16 sEnglishText_FileScreen_NesMetroidUnlock[] = INCTEXT("{COLOR(5)}Original Metroid{COLOR(0)} has\nbeen added to the\n{COLOR(6)}OPTIONS{COLOR(0)} screen.");
+
+#ifdef REGION_US_BETA
+
+const u16 sGermanText_Description_LongBeam[] = INCTEXT("射程距離の長いビーム");
+const u16 sGermanText_Description_ChargeBeam[] = INCTEXT("<{B_button_left}を押しつづけ{SPACE_JP}パワーをため、はなすと発射>\nチャージアタック……パワーをためた状態で回転ジャンプ");
+const u16 sGermanText_Description_IceBeam[] = INCTEXT("敵を凍らせることができるビーム\n凍らせた敵には{SPACE_JP}乗ることができる");
+const u16 sGermanText_Description_WaveBeam[] = INCTEXT("波動状のビームで、障害物を貫通する");
+const u16 sGermanText_Description_PlasmaBeam[] = INCTEXT("複数の敵を貫くビーム");
+const u16 sGermanText_Description_Missiles[] = INCTEXT("<{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(6)}レッドゲート{COLOR(0)}を開けることができる");
+const u16 sGermanText_Description_SuperMissiles[] = INCTEXT("<{Select_button}でミサイルと切りかえ、{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(8)}グリーンゲート{COLOR(0)}を開けることができる");
+const u16 sGermanText_Description_Bombs[] = INCTEXT("<ボールになったまま{B_button_left}で設置>");
+const u16 sGermanText_Description_PowerBombs[] = INCTEXT("<ボールになり{R_button_left}{PLUS_JP}{B_button_left}で設置>\n{COLOR(5)}イエローゲート{COLOR(0)}を開けることができる");
+const u16 sGermanText_Description_VariaSuit[] = INCTEXT("敵からのダメージを軽減し、高温からダメージを受けない\nまた、熱砂のダメージを受けない");
+const u16 sGermanText_Description_GravitySuit[] = INCTEXT("敵からのダメージを軽減し、水中でも自由に動ける\nまた、溶岩のダメージを受けない");
+const u16 sGermanText_Description_MorphBall[] = INCTEXT("<{Down_button_left}を{NUMBER_2_JP}回押す>\nせまい通路を通ることができる");
+const u16 sGermanText_Description_PowerGrip[] = INCTEXT("角につかまることができる");
+const u16 sGermanText_Description_Speedbooster[] = INCTEXT("走り続けると、高速ダッシュする\n最高速で体当たりすると{SPACE_JP}敵にダメージを与える");
+const u16 sGermanText_Description_HighJump[] = INCTEXT("ジャンプ力がアップする\nまた、ボールのままでもジャンプができる");
+const u16 sGermanText_Description_ScrewAttack[] = INCTEXT("回転ジャンプで、体当たりすることでダメージを与える");
+const u16 sGermanText_Description_SpaceJump[] = INCTEXT("回転ジャンプ中に再びジャンプできる\n<回転ジャンプ中にもう一度{A_button_left}>");
+const u16 sGermanText_Description_UnknownItem[] = INCTEXT("Analysis is impossible.");
+
+static const u16 sAlign_3 = 0;
+
+const u16 sGermanText_Story_PlanetZebes[] = INCTEXT("スターシップのコンピュータが、通称「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」、\n\n「{UPPER_B_JP}{UPPER_I_JP}{UPPER_O_JP}{UPPER_L_JP}{UPPER_O_JP}{UPPER_G_JP}{UPPER_I_JP}{UPPER_C_JP}宇宙生物研究所」への接近を告げた。\n\n調査隊が{SPACE_JP}今回捕獲した生物は全て、\n\n私の手桁中に、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと運び込まれていた。\n\nやがて意識を取り戻した私は、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」で起きた\n\n原因不明の爆発事故を、知ることとなった。\n\nその事故の報せに、言い知れぬ不安を覚えた私は今、\n\n状況調査のため、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと向かっているのだ。{AWAIT_INPUT}{NEW_PAGE}その「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」における、私の行動は全て\n\nこのスターシップのコンピュータが、管理するようだ。\n\nこの無愛想な司令官に従うことを条件に、\n\n連邦は新しいスターシップを、提供してくれたのだ。\n\n他人に行動を指示されることを好まない私ではあるが、\n\n司令官の下での任務は、これが{NUMBER_2_JP}度目である。\n\nそのことに気付き、私はふと・・・\n\nある人物の名前を、思い出した・・・{AWAIT_INPUT}\n");
+const u16 sGermanText_Story_TheTiming[] = INCTEXT("{DEL}");
+const u16 sGermanText_Story_CouldISurvive[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sGermanText_Story_Emergency[] = INCTEXT("{DEL}");
+const u16 sGermanText_Story_Exterminate[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sGermanText_Story_Defeat[] = INCTEXT("{DEL}");
+
+static const u16 sAlign_4 = 0;
+
+const u16 sFrenchText_Description_LongBeam[] = INCTEXT("射程距離の長いビーム");
+const u16 sFrenchText_Description_ChargeBeam[] = INCTEXT("<{B_button_left}を押しつづけ{SPACE_JP}パワーをため、はなすと発射>\nチャージアタック……パワーをためた状態で回転ジャンプ");
+const u16 sFrenchText_Description_IceBeam[] = INCTEXT("敵を凍らせることができるビーム\n凍らせた敵には{SPACE_JP}乗ることができる");
+const u16 sFrenchText_Description_WaveBeam[] = INCTEXT("波動状のビームで、障害物を貫通する");
+const u16 sFrenchText_Description_PlasmaBeam[] = INCTEXT("複数の敵を貫くビーム");
+const u16 sFrenchText_Description_Missiles[] = INCTEXT("<{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(6)}レッドゲート{COLOR(0)}を開けることができる");
+const u16 sFrenchText_Description_SuperMissiles[] = INCTEXT("<{Select_button}でミサイルと切りかえ、{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(8)}グリーンゲート{COLOR(0)}を開けることができる");
+const u16 sFrenchText_Description_Bombs[] = INCTEXT("<ボールになったまま{B_button_left}で設置>");
+const u16 sFrenchText_Description_PowerBombs[] = INCTEXT("<ボールになり{R_button_left}{PLUS_JP}{B_button_left}で設置>\n{COLOR(5)}イエローゲート{COLOR(0)}を開けることができる");
+const u16 sFrenchText_Description_VariaSuit[] = INCTEXT("敵からのダメージを軽減し、高温からダメージを受けない\nまた、熱砂のダメージを受けない");
+const u16 sFrenchText_Description_GravitySuit[] = INCTEXT("敵からのダメージを軽減し、水中でも自由に動ける\nまた、溶岩のダメージを受けない");
+const u16 sFrenchText_Description_MorphBall[] = INCTEXT("<{Down_button_left}を{NUMBER_2_JP}回押す>\nせまい通路を通ることができる");
+const u16 sFrenchText_Description_PowerGrip[] = INCTEXT("角につかまることができる");
+const u16 sFrenchText_Description_Speedbooster[] = INCTEXT("走り続けると、高速ダッシュする\n最高速で体当たりすると{SPACE_JP}敵にダメージを与える");
+const u16 sFrenchText_Description_HighJump[] = INCTEXT("ジャンプ力がアップする\nまた、ボールのままでもジャンプができる");
+const u16 sFrenchText_Description_ScrewAttack[] = INCTEXT("回転ジャンプで、体当たりすることでダメージを与える");
+const u16 sFrenchText_Description_SpaceJump[] = INCTEXT("回転ジャンプ中に再びジャンプできる\n<回転ジャンプ中にもう一度{A_button_left}>");
+const u16 sFrenchText_Description_UnknownItem[] = INCTEXT("Analysis is impossible.");
+
+static const u16 sAlign_5 = 0;
+
+const u16 sFrenchText_Story_PlanetZebes[] = INCTEXT("スターシップのコンピュータが、通称「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」、\n\n「{UPPER_B_JP}{UPPER_I_JP}{UPPER_O_JP}{UPPER_L_JP}{UPPER_O_JP}{UPPER_G_JP}{UPPER_I_JP}{UPPER_C_JP}宇宙生物研究所」への接近を告げた。\n\n調査隊が{SPACE_JP}今回捕獲した生物は全て、\n\n私の手桁中に、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと運び込まれていた。\n\nやがて意識を取り戻した私は、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」で起きた\n\n原因不明の爆発事故を、知ることとなった。\n\nその事故の報せに、言い知れぬ不安を覚えた私は今、\n\n状況調査のため、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと向かっているのだ。{AWAIT_INPUT}{NEW_PAGE}その「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」における、私の行動は全て\n\nこのスターシップのコンピュータが、管理するようだ。\n\nこの無愛想な司令官に従うことを条件に、\n\n連邦は新しいスターシップを、提供してくれたのだ。\n\n他人に行動を指示されることを好まない私ではあるが、\n\n司令官の下での任務は、これが{NUMBER_2_JP}度目である。\n\nそのことに気付き、私はふと・・・\n\nある人物の名前を、思い出した・・・{AWAIT_INPUT}\n");
+const u16 sFrenchText_Story_TheTiming[] = INCTEXT("{DEL}");
+const u16 sFrenchText_Story_CouldISurvive[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sFrenchText_Story_Emergency[] = INCTEXT("{DEL}");
+const u16 sFrenchText_Story_Exterminate[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sFrenchText_Story_Defeat[] = INCTEXT("{DEL}");
+
+static const u16 sAlign_6 = 0;
+
+const u16 sItalianText_Description_LongBeam[] = INCTEXT("射程距離の長いビーム");
+const u16 sItalianText_Description_ChargeBeam[] = INCTEXT("<{B_button_left}を押しつづけ{SPACE_JP}パワーをため、はなすと発射>\nチャージアタック……パワーをためた状態で回転ジャンプ");
+const u16 sItalianText_Description_IceBeam[] = INCTEXT("敵を凍らせることができるビーム\n凍らせた敵には{SPACE_JP}乗ることができる");
+const u16 sItalianText_Description_WaveBeam[] = INCTEXT("波動状のビームで、障害物を貫通する");
+const u16 sItalianText_Description_PlasmaBeam[] = INCTEXT("複数の敵を貫くビーム");
+const u16 sItalianText_Description_Missiles[] = INCTEXT("<{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(6)}レッドゲート{COLOR(0)}を開けることができる");
+const u16 sItalianText_Description_SuperMissiles[] = INCTEXT("<{Select_button}でミサイルと切りかえ、{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(8)}グリーンゲート{COLOR(0)}を開けることができる");
+const u16 sItalianText_Description_Bombs[] = INCTEXT("<ボールになったまま{B_button_left}で設置>");
+const u16 sItalianText_Description_PowerBombs[] = INCTEXT("<ボールになり{R_button_left}{PLUS_JP}{B_button_left}で設置>\n{COLOR(5)}イエローゲート{COLOR(0)}を開けることができる");
+const u16 sItalianText_Description_VariaSuit[] = INCTEXT("敵からのダメージを軽減し、高温からダメージを受けない\nまた、熱砂のダメージを受けない");
+const u16 sItalianText_Description_GravitySuit[] = INCTEXT("敵からのダメージを軽減し、水中でも自由に動ける\nまた、溶岩のダメージを受けない");
+const u16 sItalianText_Description_MorphBall[] = INCTEXT("<{Down_button_left}を{NUMBER_2_JP}回押す>\nせまい通路を通ることができる");
+const u16 sItalianText_Description_PowerGrip[] = INCTEXT("角につかまることができる");
+const u16 sItalianText_Description_Speedbooster[] = INCTEXT("走り続けると、高速ダッシュする\n最高速で体当たりすると{SPACE_JP}敵にダメージを与える");
+const u16 sItalianText_Description_HighJump[] = INCTEXT("ジャンプ力がアップする\nまた、ボールのままでもジャンプができる");
+const u16 sItalianText_Description_ScrewAttack[] = INCTEXT("回転ジャンプで、体当たりすることでダメージを与える");
+const u16 sItalianText_Description_SpaceJump[] = INCTEXT("回転ジャンプ中に再びジャンプできる\n<回転ジャンプ中にもう一度{A_button_left}>");
+const u16 sItalianText_Description_UnknownItem[] = INCTEXT("Analysis is impossible.");
+
+static const u16 sAlign_7 = 0;
+
+const u16 sItalianText_Story_PlanetZebes[] = INCTEXT("スターシップのコンピュータが、通称「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」、\n\n「{UPPER_B_JP}{UPPER_I_JP}{UPPER_O_JP}{UPPER_L_JP}{UPPER_O_JP}{UPPER_G_JP}{UPPER_I_JP}{UPPER_C_JP}宇宙生物研究所」への接近を告げた。\n\n調査隊が{SPACE_JP}今回捕獲した生物は全て、\n\n私の手桁中に、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと運び込まれていた。\n\nやがて意識を取り戻した私は、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」で起きた\n\n原因不明の爆発事故を、知ることとなった。\n\nその事故の報せに、言い知れぬ不安を覚えた私は今、\n\n状況調査のため、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと向かっているのだ。{AWAIT_INPUT}{NEW_PAGE}その「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」における、私の行動は全て\n\nこのスターシップのコンピュータが、管理するようだ。\n\nこの無愛想な司令官に従うことを条件に、\n\n連邦は新しいスターシップを、提供してくれたのだ。\n\n他人に行動を指示されることを好まない私ではあるが、\n\n司令官の下での任務は、これが{NUMBER_2_JP}度目である。\n\nそのことに気付き、私はふと・・・\n\nある人物の名前を、思い出した・・・{AWAIT_INPUT}\n");
+const u16 sItalianText_Story_TheTiming[] = INCTEXT("{DEL}");
+const u16 sItalianText_Story_CouldISurvive[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sItalianText_Story_Emergency[] = INCTEXT("{DEL}");
+const u16 sItalianText_Story_Exterminate[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sItalianText_Story_Defeat[] = INCTEXT("{DEL}");
+
+static const u16 sAlign_8 = 0;
+
+const u16 sSpanishText_Description_LongBeam[] = INCTEXT("射程距離の長いビーム");
+const u16 sSpanishText_Description_ChargeBeam[] = INCTEXT("<{B_button_left}を押しつづけ{SPACE_JP}パワーをため、はなすと発射>\nチャージアタック……パワーをためた状態で回転ジャンプ");
+const u16 sSpanishText_Description_IceBeam[] = INCTEXT("敵を凍らせることができるビーム\n凍らせた敵には{SPACE_JP}乗ることができる");
+const u16 sSpanishText_Description_WaveBeam[] = INCTEXT("波動状のビームで、障害物を貫通する");
+const u16 sSpanishText_Description_PlasmaBeam[] = INCTEXT("複数の敵を貫くビーム");
+const u16 sSpanishText_Description_Missiles[] = INCTEXT("<{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(6)}レッドゲート{COLOR(0)}を開けることができる");
+const u16 sSpanishText_Description_SuperMissiles[] = INCTEXT("<{Select_button}でミサイルと切りかえ、{R_button_left}{PLUS_JP}{B_button_left}で発射>\n{COLOR(8)}グリーンゲート{COLOR(0)}を開けることができる");
+const u16 sSpanishText_Description_Bombs[] = INCTEXT("<ボールになったまま{B_button_left}で設置>");
+const u16 sSpanishText_Description_PowerBombs[] = INCTEXT("<ボールになり{R_button_left}{PLUS_JP}{B_button_left}で設置>\n{COLOR(5)}イエローゲート{COLOR(0)}を開けることができる");
+const u16 sSpanishText_Description_VariaSuit[] = INCTEXT("敵からのダメージを軽減し、高温からダメージを受けない\nまた、熱砂のダメージを受けない");
+const u16 sSpanishText_Description_GravitySuit[] = INCTEXT("敵からのダメージを軽減し、水中でも自由に動ける\nまた、溶岩のダメージを受けない");
+const u16 sSpanishText_Description_MorphBall[] = INCTEXT("<{Down_button_left}を{NUMBER_2_JP}回押す>\nせまい通路を通ることができる");
+const u16 sSpanishText_Description_PowerGrip[] = INCTEXT("角につかまることができる");
+const u16 sSpanishText_Description_Speedbooster[] = INCTEXT("走り続けると、高速ダッシュする\n最高速で体当たりすると{SPACE_JP}敵にダメージを与える");
+const u16 sSpanishText_Description_HighJump[] = INCTEXT("ジャンプ力がアップする\nまた、ボールのままでもジャンプができる");
+const u16 sSpanishText_Description_ScrewAttack[] = INCTEXT("回転ジャンプで、体当たりすることでダメージを与える");
+const u16 sSpanishText_Description_SpaceJump[] = INCTEXT("回転ジャンプ中に再びジャンプできる\n<回転ジャンプ中にもう一度{A_button_left}>");
+const u16 sSpanishText_Description_UnknownItem[] = INCTEXT("Analysis is impossible.");
+
+static const u16 sAlign_9 = 0;
+
+const u16 sSpanishText_Story_PlanetZebes[] = INCTEXT("スターシップのコンピュータが、通称「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」、\n\n「{UPPER_B_JP}{UPPER_I_JP}{UPPER_O_JP}{UPPER_L_JP}{UPPER_O_JP}{UPPER_G_JP}{UPPER_I_JP}{UPPER_C_JP}宇宙生物研究所」への接近を告げた。\n\n調査隊が{SPACE_JP}今回捕獲した生物は全て、\n\n私の手桁中に、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと運び込まれていた。\n\nやがて意識を取り戻した私は、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」で起きた\n\n原因不明の爆発事故を、知ることとなった。\n\nその事故の報せに、言い知れぬ不安を覚えた私は今、\n\n状況調査のため、「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」へと向かっているのだ。{AWAIT_INPUT}{NEW_PAGE}その「{UPPER_B_JP}{PERIOD_JP}{UPPER_S_JP}{PERIOD_JP}{UPPER_L_JP}」における、私の行動は全て\n\nこのスターシップのコンピュータが、管理するようだ。\n\nこの無愛想な司令官に従うことを条件に、\n\n連邦は新しいスターシップを、提供してくれたのだ。\n\n他人に行動を指示されることを好まない私ではあるが、\n\n司令官の下での任務は、これが{NUMBER_2_JP}度目である。\n\nそのことに気付き、私はふと・・・\n\nある人物の名前を、思い出した・・・{AWAIT_INPUT}\n");
+const u16 sSpanishText_Story_TheTiming[] = INCTEXT("{DEL}");
+const u16 sSpanishText_Story_CouldISurvive[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sSpanishText_Story_Emergency[] = INCTEXT("{DEL}");
+const u16 sSpanishText_Story_Exterminate[] = INCTEXT("{DELAY(16)}コンピュータの口調は、私にある人物を連想させた。\n\n「アダム・マルコビッチ」。連邦軍の優秀な司令官\n\nであった彼の下で、私は任務についた経験がある。\n\n冷徹なまでに任務に忠実な彼の判断は、常にすばやく、\n\nそして正しかった。ややデリカシーに乏しく、時折私を\n\n「レディー」と呼び、神経を逆なですることもあったが・・\n\n私は、大いなる敬意と、ささやかな皮肉を込め、\n\nあのコンピュータを「アダム」と呼ぶことにした。{AWAIT_INPUT}");
+const u16 sSpanishText_Story_Defeat[] = INCTEXT("{DEL}");
+
+#endif // REGION_BETA

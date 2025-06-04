@@ -1862,7 +1862,11 @@ static const struct FrameData sOptionsOam_SmallPanel[5] = {
 
 const u32 sFileSelectChozoBackgroundGfx[2985] = INCBIN_U32("data/menus/FileSelect/ChozoBackground.gfx.lz");
 const u32 sFileSelectCharactersGfx[1531] = INCBIN_U32("data/menus/FileSelect/Characters.gfx.lz");
-const u32 sFileSelectTextGfx[1725] = INCBIN_U32("data/menus/FileSelect/Text.gfx.lz");
+const u32 sFileSelectTextEnglishGfx[345] = INCBIN_U32("data/menus/FileSelect/TextEnglish.gfx.lz");
+const u32 sFileSelectTextGermanGfx[345] = INCBIN_U32("data/menus/FileSelect/TextGerman.gfx.lz");
+const u32 sFileSelectTextFrenchGfx[345] = INCBIN_U32("data/menus/FileSelect/TextFrench.gfx.lz");
+const u32 sFileSelectTextItalianGfx[345] = INCBIN_U32("data/menus/FileSelect/TextItalian.gfx.lz");
+const u32 sFileSelectTextSpanishGfx[345] = INCBIN_U32("data/menus/FileSelect/TextSpanish.gfx.lz");
 const u32 sFileSelectIconsGfx[1722] = INCBIN_U32("data/menus/FileSelect/Icons.gfx.lz");
 const u32 sFileSelectChozoBackgroundTileTable[368] = INCBIN_U32("data/menus/FileSelect/ChozoBackground.tt");
 const u32 sFileSelectMenuTileTable[148] = INCBIN_U32("data/menus/FileSelect/Menu.tt");

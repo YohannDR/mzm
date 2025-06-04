@@ -461,3 +461,115 @@ const u16* const sEnglishTextPointers_FileScreen[FILE_SCREEN_TEXT_END] = {
     [FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK] = sEnglishText_FileScreen_SoundTestUnlock,
     [FILE_SCREEN_TEXT_NES_METROID_UNLOCK] = sEnglishText_FileScreen_NesMetroidUnlock,
 };
+
+#ifdef REGION_US_BETA
+
+const u16* const sGermanTextPointers_Description[DESCRIPTION_TEXT_END - 1] = {
+    [DESCRIPTION_TEXT_LONG_BEAM] = sGermanText_Description_LongBeam,
+    [DESCRIPTION_TEXT_CHARGE_BEAM] = sGermanText_Description_ChargeBeam,
+    [DESCRIPTION_TEXT_ICE_BEAM] = sGermanText_Description_IceBeam,
+    [DESCRIPTION_TEXT_WAVE_BEAM] = sGermanText_Description_WaveBeam,
+    [DESCRIPTION_TEXT_PLASMA_BEAM] = sGermanText_Description_PlasmaBeam,
+    [DESCRIPTION_TEXT_MISSILES] = sGermanText_Description_Missiles,
+    [DESCRIPTION_TEXT_SUPER_MISSILES] = sGermanText_Description_SuperMissiles,
+    [DESCRIPTION_TEXT_BOMBS] = sGermanText_Description_Bombs,
+    [DESCRIPTION_TEXT_POWER_BOMBS] = sGermanText_Description_PowerBombs,
+    [DESCRIPTION_TEXT_VARIA_SUIT] = sGermanText_Description_VariaSuit,
+    [DESCRIPTION_TEXT_GRAVITY_SUIT] = sGermanText_Description_GravitySuit,
+    [DESCRIPTION_TEXT_MORPH_BALL] = sGermanText_Description_MorphBall,
+    [DESCRIPTION_TEXT_POWER_GRIP] = sGermanText_Description_PowerGrip,
+    [DESCRIPTION_TEXT_SPEEDBOOSTER] = sGermanText_Description_Speedbooster,
+    [DESCRIPTION_TEXT_HIGH_JUMP] = sGermanText_Description_HighJump,
+    [DESCRIPTION_TEXT_SCREW_ATTACK] = sGermanText_Description_ScrewAttack,
+    [DESCRIPTION_TEXT_SPACE_JUMP] = sGermanText_Description_SpaceJump,
+    [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sGermanText_Description_UnknownItem
+};
+
+const u16* const sGermanTextPointers_Story[3] = {
+    [0] = sGermanText_Story_PlanetZebes,
+    [1] = sGermanText_Story_CouldISurvive,
+    [2] = sGermanText_Story_Exterminate,
+};
+
+const u16* const sFrenchTextPointers_Description[DESCRIPTION_TEXT_END - 1] = {
+    [DESCRIPTION_TEXT_LONG_BEAM] = sFrenchText_Description_LongBeam,
+    [DESCRIPTION_TEXT_CHARGE_BEAM] = sFrenchText_Description_ChargeBeam,
+    [DESCRIPTION_TEXT_ICE_BEAM] = sFrenchText_Description_IceBeam,
+    [DESCRIPTION_TEXT_WAVE_BEAM] = sFrenchText_Description_WaveBeam,
+    [DESCRIPTION_TEXT_PLASMA_BEAM] = sFrenchText_Description_PlasmaBeam,
+    [DESCRIPTION_TEXT_MISSILES] = sFrenchText_Description_Missiles,
+    [DESCRIPTION_TEXT_SUPER_MISSILES] = sFrenchText_Description_SuperMissiles,
+    [DESCRIPTION_TEXT_BOMBS] = sFrenchText_Description_Bombs,
+    [DESCRIPTION_TEXT_POWER_BOMBS] = sFrenchText_Description_PowerBombs,
+    [DESCRIPTION_TEXT_VARIA_SUIT] = sFrenchText_Description_VariaSuit,
+    [DESCRIPTION_TEXT_GRAVITY_SUIT] = sFrenchText_Description_GravitySuit,
+    [DESCRIPTION_TEXT_MORPH_BALL] = sFrenchText_Description_MorphBall,
+    [DESCRIPTION_TEXT_POWER_GRIP] = sFrenchText_Description_PowerGrip,
+    [DESCRIPTION_TEXT_SPEEDBOOSTER] = sFrenchText_Description_Speedbooster,
+    [DESCRIPTION_TEXT_HIGH_JUMP] = sFrenchText_Description_HighJump,
+    [DESCRIPTION_TEXT_SCREW_ATTACK] = sFrenchText_Description_ScrewAttack,
+    [DESCRIPTION_TEXT_SPACE_JUMP] = sFrenchText_Description_SpaceJump,
+    [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sFrenchText_Description_UnknownItem
+};
+
+const u16* const sFrenchTextPointers_Story[3] = {
+    [0] = sFrenchText_Story_PlanetZebes,
+    [1] = sFrenchText_Story_CouldISurvive,
+    [2] = sFrenchText_Story_Exterminate,
+};
+
+const u16* const sItalianTextPointers_Description[DESCRIPTION_TEXT_END - 1] = {
+    [DESCRIPTION_TEXT_LONG_BEAM] = sItalianText_Description_LongBeam,
+    [DESCRIPTION_TEXT_CHARGE_BEAM] = sItalianText_Description_ChargeBeam,
+    [DESCRIPTION_TEXT_ICE_BEAM] = sItalianText_Description_IceBeam,
+    [DESCRIPTION_TEXT_WAVE_BEAM] = sItalianText_Description_WaveBeam,
+    [DESCRIPTION_TEXT_PLASMA_BEAM] = sItalianText_Description_PlasmaBeam,
+    [DESCRIPTION_TEXT_MISSILES] = sItalianText_Description_Missiles,
+    [DESCRIPTION_TEXT_SUPER_MISSILES] = sItalianText_Description_SuperMissiles,
+    [DESCRIPTION_TEXT_BOMBS] = sItalianText_Description_Bombs,
+    [DESCRIPTION_TEXT_POWER_BOMBS] = sItalianText_Description_PowerBombs,
+    [DESCRIPTION_TEXT_VARIA_SUIT] = sItalianText_Description_VariaSuit,
+    [DESCRIPTION_TEXT_GRAVITY_SUIT] = sItalianText_Description_GravitySuit,
+    [DESCRIPTION_TEXT_MORPH_BALL] = sItalianText_Description_MorphBall,
+    [DESCRIPTION_TEXT_POWER_GRIP] = sItalianText_Description_PowerGrip,
+    [DESCRIPTION_TEXT_SPEEDBOOSTER] = sItalianText_Description_Speedbooster,
+    [DESCRIPTION_TEXT_HIGH_JUMP] = sItalianText_Description_HighJump,
+    [DESCRIPTION_TEXT_SCREW_ATTACK] = sItalianText_Description_ScrewAttack,
+    [DESCRIPTION_TEXT_SPACE_JUMP] = sItalianText_Description_SpaceJump,
+    [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sItalianText_Description_UnknownItem
+};
+
+const u16* const sItalianTextPointers_Story[3] = {
+    [0] = sItalianText_Story_PlanetZebes,
+    [1] = sItalianText_Story_CouldISurvive,
+    [2] = sItalianText_Story_Exterminate,
+};
+
+const u16* const sSpanishTextPointers_Description[DESCRIPTION_TEXT_END - 1] = {
+    [DESCRIPTION_TEXT_LONG_BEAM] = sSpanishText_Description_LongBeam,
+    [DESCRIPTION_TEXT_CHARGE_BEAM] = sSpanishText_Description_ChargeBeam,
+    [DESCRIPTION_TEXT_ICE_BEAM] = sSpanishText_Description_IceBeam,
+    [DESCRIPTION_TEXT_WAVE_BEAM] = sSpanishText_Description_WaveBeam,
+    [DESCRIPTION_TEXT_PLASMA_BEAM] = sSpanishText_Description_PlasmaBeam,
+    [DESCRIPTION_TEXT_MISSILES] = sSpanishText_Description_Missiles,
+    [DESCRIPTION_TEXT_SUPER_MISSILES] = sSpanishText_Description_SuperMissiles,
+    [DESCRIPTION_TEXT_BOMBS] = sSpanishText_Description_Bombs,
+    [DESCRIPTION_TEXT_POWER_BOMBS] = sSpanishText_Description_PowerBombs,
+    [DESCRIPTION_TEXT_VARIA_SUIT] = sSpanishText_Description_VariaSuit,
+    [DESCRIPTION_TEXT_GRAVITY_SUIT] = sSpanishText_Description_GravitySuit,
+    [DESCRIPTION_TEXT_MORPH_BALL] = sSpanishText_Description_MorphBall,
+    [DESCRIPTION_TEXT_POWER_GRIP] = sSpanishText_Description_PowerGrip,
+    [DESCRIPTION_TEXT_SPEEDBOOSTER] = sSpanishText_Description_Speedbooster,
+    [DESCRIPTION_TEXT_HIGH_JUMP] = sSpanishText_Description_HighJump,
+    [DESCRIPTION_TEXT_SCREW_ATTACK] = sSpanishText_Description_ScrewAttack,
+    [DESCRIPTION_TEXT_SPACE_JUMP] = sSpanishText_Description_SpaceJump,
+    [DESCRIPTION_TEXT_UNKNOWN_ITEM] = sSpanishText_Description_UnknownItem
+};
+
+const u16* const sSpanishTextPointers_Story[3] = {
+    [0] = sSpanishText_Story_PlanetZebes,
+    [1] = sSpanishText_Story_CouldISurvive,
+    [2] = sSpanishText_Story_Exterminate,
+};
+
+#endif // REGION_US_BETA

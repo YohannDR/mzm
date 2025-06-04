@@ -8,10 +8,17 @@ const u16* const * const sStoryTextPointers[7] = {
     [LANGUAGE_JAPANESE] = sJapaneseTextPointers_Story,
     [LANGUAGE_HIRAGANA] = sHiraganaTextPointers_Story,
     [LANGUAGE_ENGLISH] = sEnglishTextPointers_Story,
+    #ifdef REGION_US_BETA
+    [LANGUAGE_GERMAN] = sGermanTextPointers_Story,
+    [LANGUAGE_FRENCH] = sFrenchTextPointers_Story,
+    [LANGUAGE_ITALIAN] = sItalianTextPointers_Story,
+    [LANGUAGE_SPANISH] = sSpanishTextPointers_Story
+    #else // !REGION_US_BETA
     [LANGUAGE_GERMAN] = sEnglishTextPointers_Story,
     [LANGUAGE_FRENCH] = sEnglishTextPointers_Story,
     [LANGUAGE_ITALIAN] = sEnglishTextPointers_Story,
     [LANGUAGE_SPANISH] = sEnglishTextPointers_Story
+    #endif // REGION_US_BETA
 };
 
 const struct CutsceneSubroutineData sStoryTextCutsceneSubroutineData[7] = {

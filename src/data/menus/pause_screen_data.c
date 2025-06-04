@@ -2795,12 +2795,28 @@ const u32 sMapScreenTextBg0TileTable[92] = INCBIN_U32("data/menus/PauseScreen/Ma
 const u32 sChozoHintBackgroundTileTable[577] = INCBIN_U32("data/menus/PauseScreen/ChozoHintBackground.tt");
 
 const u32 sEquipmentNamesHiraganaGfx[411] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesHiragana.gfx.lz");
-const u32 sEquipmentNamesEnglishGfx[1900] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesEnglish.gfx.lz");
+const u32 sEquipmentNamesEnglishGfx[380] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesEnglish.gfx.lz");
+const u32 sEquipmentNamesGermanGfx[380] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesGerman.gfx.lz");
+const u32 sEquipmentNamesFrenchGfx[380] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesFrench.gfx.lz");
+const u32 sEquipmentNamesItalianGfx[380] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesItalian.gfx.lz");
+const u32 sEquipmentNamesSpanishGfx[380] = INCBIN_U32("data/menus/PauseScreen/EquipmentNamesSpanish.gfx.lz");
+
+
 const u32 sMapScreenAreaNamesHiraganaGfx[198] = INCBIN_U32("data/menus/PauseScreen/MapScreenAreaNamesHiragana.gfx.lz");
+
 const u32 sMenuNamesHiraganaGfx[113] = INCBIN_U32("data/menus/PauseScreen/MenuNamesHiragana.gfx.lz");
-const u32 sMenuNamesEnglishGfx[468] = INCBIN_U32("data/menus/PauseScreen/MenuNamesEnglish.gfx.lz");
+const u32 sMenuNamesEnglishGfx[92] = INCBIN_U32("data/menus/PauseScreen/MenuNamesEnglish.gfx.lz");
+const u32 sMenuNamesGermanGfx[97] = INCBIN_U32("data/menus/PauseScreen/MenuNamesGerman.gfx.lz");
+const u32 sMenuNamesFrenchGfx[91] = INCBIN_U32("data/menus/PauseScreen/MenuNamesFrench.gfx.lz");
+const u32 sMenuNamesItalianGfx[92] = INCBIN_U32("data/menus/PauseScreen/MenuNamesItalian.gfx.lz");
+const u32 sMenuNamesSpanishGfx[96] = INCBIN_U32("data/menus/PauseScreen/MenuNamesSpanish.gfx.lz");
+
 const u32 sMapScreenUnknownItemsNamesHiraganaGfx[76] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesHiragana.gfx.lz");
-const u32 sMapScreenUnknownItemsNamesEnglishGfx[337] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesEnglish.gfx.lz");
+const u32 sMapScreenUnknownItemsNamesEnglishGfx[65] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesEnglish.gfx.lz");
+const u32 sMapScreenUnknownItemsNamesGermanGfx[68] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesGerman.gfx.lz");
+const u32 sMapScreenUnknownItemsNamesFrenchGfx[68] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesFrench.gfx.lz");
+const u32 sMapScreenUnknownItemsNamesItalianGfx[67] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesItalian.gfx.lz");
+const u32 sMapScreenUnknownItemsNamesSpanishGfx[69] = INCBIN_U32("data/menus/PauseScreen/MapScreenUnknownItemsNamesSpanish.gfx.lz");
 const u32 sMapScreenChozoStatueAreaNamesHiraganaGfx[154] = INCBIN_U32("data/menus/PauseScreen/MapScreenChozoStatueAreaNamesHiragana.gfx.lz");
 
 const struct MenuOamData sMenuOamData_Empty = {

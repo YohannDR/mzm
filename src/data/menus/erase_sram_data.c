@@ -331,10 +331,21 @@ static const struct FrameData sEraseSramOam_ConfirmWindowYesSelected[2] = {
 
 const u32 sEraseSramMenuObjectsGfx[477] = INCBIN_U32("data/menus/EraseSram/Objects.gfx.lz");
 const u32 sEraseSramMenuFirstBoxGfx[118] = INCBIN_U32("data/menus/EraseSram/FirstBox.gfx.lz");
+
 const u32 sEraseSramMenuConfirmJapanseGfx[245] = INCBIN_U32("data/menus/EraseSram/ConfirmJapanse.gfx.lz");
-const u32 sEraseSramMenuConfirmEnglishGfx[1027] = INCBIN_U32("data/menus/EraseSram/ConfirmEnglish.gfx.lz");
+const u32 sEraseSramMenuConfirmEnglishGfx[191] = INCBIN_U32("data/menus/EraseSram/ConfirmEnglish.gfx.lz");
+const u32 sEraseSramMenuConfirmFrenchGfx[209] = INCBIN_U32("data/menus/EraseSram/ConfirmFrench.gfx.lz");
+const u32 sEraseSramMenuConfirmGermanGfx[222] = INCBIN_U32("data/menus/EraseSram/ConfirmGerman.gfx.lz");
+const u32 sEraseSramMenuConfirmItalianGfx[201] = INCBIN_U32("data/menus/EraseSram/ConfirmItalian.gfx.lz");
+const u32 sEraseSramMenuConfirmSpanishGfx[204] = INCBIN_U32("data/menus/EraseSram/ConfirmSpanish.gfx.lz");
+
 const u32 sEraseSramMenuQuestionJapaneseGfx[245] = INCBIN_U32("data/menus/EraseSram/QuestionJapanese.gfx.lz");
-const u32 sEraseSramMenuQuestionEnglishGfx[1006] = INCBIN_U32("data/menus/EraseSram/QuestionEnglish.gfx.lz");
+const u32 sEraseSramMenuQuestionEnglishGfx[185] = INCBIN_U32("data/menus/EraseSram/QuestionEnglish.gfx.lz");
+const u32 sEraseSramMenuQuestionFrenchGfx[187] = INCBIN_U32("data/menus/EraseSram/QuestionFrench.gfx.lz");
+const u32 sEraseSramMenuQuestionGermanGfx[205] = INCBIN_U32("data/menus/EraseSram/QuestionGerman.gfx.lz");
+const u32 sEraseSramMenuQuestionItalianGfx[221] = INCBIN_U32("data/menus/EraseSram/QuestionItalian.gfx.lz");
+const u32 sEraseSramMenuQuestionSpanishGfx[208] = INCBIN_U32("data/menus/EraseSram/QuestionSpanish.gfx.lz");
+
 const u32 sEraseSramMenuBoxTileTable[137] = INCBIN_U32("data/menus/EraseSram/Box.tt");
 const u32 sEraseSramMenuBackgroundTileTable[368] = INCBIN_U32("data/menus/EraseSram/Background.tt");
 

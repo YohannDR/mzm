@@ -4,10 +4,11 @@
 #include "types.h"
 
 #include "constants/menus/file_select.h"
+#include "constants/game_state.h"
 #include "structs/menus/file_select.h"
 
 extern const s8 sSaveFileAreasId[12];
-extern const u32* const sFileSelectTextGfxPointers[5];
+extern const u32* const sFileSelectTextGfxPointers[LANGUAGE_END - 2];
 extern const struct FileSelectMenuCursors sFileSelectMenuCursors_Empty;
 extern const struct FileSelectCursorOamData sFileSelectCursorOamData[6];
 extern const u8 sFileSelectCopyFileArrowsOamIds[3][3];

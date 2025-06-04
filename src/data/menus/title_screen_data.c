@@ -151,7 +151,11 @@ const u8 sTitleScreenRomInfoPosition[4] = {
     BLOCK_SIZE * 2 + 8, BLOCK_SIZE + QUARTER_BLOCK_SIZE, 'P', 'x'
 };
 
+#ifdef REGION_US_BETA
+const u8 sTitleScreenRomInfoTime[12] = "12/02 22:00";
+#else // !REGION_US_BETA
 const u8 sTitleScreenRomInfoTime[12] = "12/04 22:00";
+#endif // REGION_US_BETA
 const u8 sTitleScreenRomInfoRegionUSA[4] = "USA";
 const u8 sTitleScreenRomInfoRegionEUR[4] = "EUR";
 const u8 sTitleScreenRomInfoRegionJPN[4] = "JPN";

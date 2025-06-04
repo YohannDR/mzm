@@ -10,7 +10,11 @@
 extern const u16 sGameOverMenuPal[16 * 5];
 extern const u32 sGameOverTextAndBackgroundGfx[2738];
 extern const u32 sGameOverTextPromptEnglishGfx[333];
-extern const u32 sGameOverTextPromptHiragnaGfx[1780];
+extern const u32 sGameOverTextPromptHiraganaGfx[428];
+extern const u32 sGameOverTextPromptGermanGfx[338];
+extern const u32 sGameOverTextPromptFrenchGfx[337];
+extern const u32 sGameOverTextPromptItalianGfx[338];
+extern const u32 sGameOverTextPromptSpanishGfx[339];
 extern const u32 sGameOverBackgroundTileTable[370];
 extern const u32 sGameOverTextTileTable[116];
 extern const u32 sGameOver_454520[160];
