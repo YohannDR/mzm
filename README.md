@@ -10,17 +10,18 @@ Progress can be seen here : https://docs.google.com/spreadsheets/d/1X8XarD5evY8Z
 
 This repository can be used to build multiple ROMs :
 
-The roms are named like this : `mzm_{region}_{debug}.gba`
+The ROMs are named like this : `mzm_{region}.gba` (or `mzm_{region}_debug.gba`)
 
-Region indicates which region the rom targets, there are 4 of them :
-- us : USA, North America
+Region indicates which region the ROM targets :
+- us : USA, North America `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`
 - eu : Europe **(Not yet supported)**
 - jp : Japan **(Not yet supported)**
 - cn : China **(Not yet supported)**
+- us_beta : USA beta version `sha1: 58986c4d6f2e5ccdc04936cc8b7c9d378570710c`
 
-Debug simply indicates whether the rom contains the debug features, it is optional.
+Debug simply indicates whether the ROM contains the debug features, it is optional.
 
-The default built ROM is mzm_us.gba : `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`
+The default built ROM is mzm_us.gba
 
 **Discords**: 
 - https://discord.gg/2MGB9Xbr9y MAGret
@@ -30,7 +31,7 @@ The default built ROM is mzm_us.gba : `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa
 
 - [agbcc](https://github.com/jiangzhengwenjz/agbcc)
 - `binutils-arm-none-eabi`
-- A baserom for each rom desired to be built (i.e.`mzm_us_baserom.gba` (`sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`) if you wish to build `mzm_us.gba`).
+- A baserom for each ROM desired to be built (i.e.`mzm_us_baserom.gba` if you wish to build `mzm_us.gba`).
 - `python3`
 - `g++`
 
@@ -50,12 +51,12 @@ The default built ROM is mzm_us.gba : `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa
 ## Build
 
 - Run `make clean` if necessary
-- Run the data extractor if necessary:
-   * Compile: `cd tools && . compile_c_extractor.sh && cd ..`
-   * Run: `tools/c_extractor`
-   * If the C version doesn't work, run the C# version `tools/extractor` (may require `chmod +x tools/extractor` first)
-- Run `make` (using the -j option is recommended to speed up the process)
-- To build another version of the ROM you can either of the following :
-  - Specify it directly (i.e. `make us_debug` for the us ROM with debug features)
-  - Specify the flags, REGION (takes the 2 letters region name, defaults to us) and DEBUG (takes 0 or 1, defaults to 0)
-- Optionally, you can combine the commands to make it easier : `./tools/extractor && make -j`
+  - Use `make clean DATA=1` to remove data as well
+- Run the data extractor if necessary : `python3 tools/extractor.py`
+  - Use the `-r` flag to specify a region other than `us` (ex: `-r jp`)
+  - Use the `-d` flag to extract only debug data from the US beta ROM (required for building a ROM with debug features)
+- Run `make` (using the `-j` option is recommended to speed up the process)
+- To build another version of the ROM you can do either of the following :
+  - Specify it directly (ex: `make us_debug` for the US ROM with debug features)
+  - Specify the flags, REGION (takes the region name, defaults to `us`) and DEBUG (takes 0 or 1, defaults to 0)
+- Optionally, you can combine the commands to make it easier : `python3 tools/extractor.py && make -j`
