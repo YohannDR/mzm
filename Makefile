@@ -2,6 +2,7 @@
 .SUFFIXES:
 
 REGION ?= us
+PAD_TO = 0x08800000
 
 ifeq ($(REGION),us)
 	TARGET = mzm_us
@@ -17,6 +18,7 @@ ifeq ($(REGION),us_beta)
 	GAME_CODE = BMXE
 	CPPFLAGS += -DREGION_US_BETA -DDEBUG
 	ASFLAGS += --defsym REGION_US_BETA=1 --defsym DEBUG=1
+	PAD_TO = 0x09000000
 endif
 
 # ifeq ($(REGION),eu)
@@ -171,7 +173,7 @@ help:
 
 $(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) OBJCOPY $@
-	$Q$(OBJCOPY) -O binary --gap-fill 0xff --pad-to 0x08800000 $< $@
+	$Q$(OBJCOPY) -O binary --gap-fill 0xff --pad-to $(PAD_TO) $< $@
 	$(MSG) GBAFIX $@
 	$Q$(GBAFIX) $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION)
 
