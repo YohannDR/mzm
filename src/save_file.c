@@ -2058,7 +2058,13 @@ void unk_7584c(u8 param_1)
             {
                 gDebugMode = FALSE;            
             }
-            gLanguage = LANGUAGE_ENGLISH;
+
+            #ifdef REGION_JP
+            if (gLanguage > LANGUAGE_HIRAGANA)
+            #endif // REGION_JP
+            {
+                gLanguage = LANGUAGE_DEFAULT;
+            }
 
             gCurrentCutscene = 0;
             break;

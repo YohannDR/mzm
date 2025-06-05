@@ -314,13 +314,17 @@ void EraseSramInit(void)
     ResetFreeOam();
 
     ERASE_SRAM_DATA.language = gLanguage;
-    #ifdef DEBUG
-    if (ERASE_SRAM_DATA.language > LANGUAGE_SPANISH)
-    #else // !DEBUG
-    if (ERASE_SRAM_DATA.language < LANGUAGE_ENGLISH || ERASE_SRAM_DATA.language > LANGUAGE_SPANISH)
-    #endif // DEBUG
+    // This code sets the language to the region's default if the language is invalid for that region.
+    // Debug allows any language, US allows any European language, and JP allows Japanese or hiragana.
+    #if defined(DEBUG)
+    if (ERASE_SRAM_DATA.language >= LANGUAGE_END)
+    #elif defined(REGION_JP)
+    if (ERASE_SRAM_DATA.language > LANGUAGE_HIRAGANA)
+    #else // !(DEBUG || REGION_JP)
+    if (ERASE_SRAM_DATA.language < LANGUAGE_ENGLISH || ERASE_SRAM_DATA.language >= LANGUAGE_END)
+    #endif
     {
-        ERASE_SRAM_DATA.language = LANGUAGE_ENGLISH;
+        ERASE_SRAM_DATA.language = LANGUAGE_DEFAULT;
     }
 
     while (read16(REG_VCOUNT) >= 21 && read16(REG_VCOUNT) <= SCREEN_SIZE_Y);

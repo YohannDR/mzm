@@ -41,6 +41,12 @@ enum Language {
     LANGUAGE_END
 };
 
+#ifdef REGION_JP
+#define LANGUAGE_DEFAULT LANGUAGE_JAPANESE
+#else // !REGION_JP
+#define LANGUAGE_DEFAULT LANGUAGE_ENGLISH
+#endif // REGION_JP
+
 enum PauseScreenFlag {
     PAUSE_SCREEN_NONE,
     PAUSE_SCREEN_UNKNOWN_1,
