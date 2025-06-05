@@ -2132,7 +2132,12 @@ void PauseScreenInit(void)
     sBgPalramPointer[0] = 0;
 
     DmaTransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x3000, 16);
+    #ifdef REGION_JP
+    if (gLanguage == LANGUAGE_HIRAGANA)
+        DmaTransfer(3, VRAM_BASE + 0xAC20, VRAM_BASE + 0xA820, 0x3E0, 32);
+    #else // !REGION_JP
     DmaTransfer(3, VRAM_BASE + 0xA820, VRAM_BASE + 0xAC20, 0x3E0, 32);
+    #endif // REGION_JP
 
     CallLZ77UncompVram(sTankIconsGfx, VRAM_BASE + 0x13000);
     CallLZ77UncompVram(sMapScreenAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x10800);
@@ -2142,7 +2147,16 @@ void PauseScreenInit(void)
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
         CallLZ77UncompVram(sChozoHintBackgroundGfx, VRAM_BASE);
-        CallLZ77UncompVram(sMapScreenAreaNamesGfx, VRAM_BASE + 0xA800);
+        #ifdef REGION_JP
+        if (gLanguage == LANGUAGE_HIRAGANA)
+        {
+            CallLZ77UncompVram(sMinimapTilesAreaNamesHiraganaGfx, VRAM_BASE + 0xA800);
+        }
+        else
+        #endif // REGION_JP
+        {
+            CallLZ77UncompVram(sMinimapTilesAreaNamesEnglishGfx, VRAM_BASE + 0xA800);
+        }
     }
     else
     {

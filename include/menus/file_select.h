@@ -52,7 +52,7 @@ u32 FileSelectUpdateFading(void);
 void FileSelectInitFading(u8 fadingOut);
 void FileSelectApplyFading(void);
 
-void FileSelectSetEnglishLanguage(void);
+void FileSelectSetLanguage(void);
 void FileSelectInit(void);
 void FileSelectVBlank(void);
 void FileSelectVBlank_Empty(void);

@@ -4225,15 +4225,6 @@
     "size": 4
   },
   {
-    "path": "menus/PauseScreen/MapScreenAreaNamesGfx.gfx.lz",
-    "count": 167,
-    "addr": {
-      "us": 4264132,
-      "us_beta": 4291028
-    },
-    "size": 4
-  },
-  {
     "path": "menus/PauseScreen/MapScreenAreaNamesHiragana.gfx.lz",
     "count": 198,
     "addr": {
@@ -4457,6 +4448,24 @@
       "us_beta": 4291696
     },
     "size": 2
+  },
+  {
+    "path": "menus/PauseScreen/MinimapTilesAreaNamesEnglish.gfx.lz",
+    "count": 79,
+    "addr": {
+      "us": 4264132,
+      "us_beta": 4291028
+    },
+    "size": 4
+  },
+  {
+    "path": "menus/PauseScreen/MinimapTilesAreaNamesHiragana.gfx.lz",
+    "count": 88,
+    "addr": {
+      "us": 4264448,
+      "us_beta": 4291344
+    },
+    "size": 4
   },
   {
     "path": "menus/PauseScreen/MotifBehindWireframeSamus.gfx.lz",
