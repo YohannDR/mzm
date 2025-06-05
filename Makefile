@@ -29,13 +29,13 @@ endif
 #	ASFLAGS += --defsym REGION_EU=1
 # endif
 
-# ifeq ($(REGION),jp)
-# 	TARGET = mzm_jp
-# 	GAME_TITLE = ZEROMISSIONJ
-# 	GAME_CODE = BMXJ
-# 	CPPFLAGS += -DREGION_JP
-#	ASFLAGS += --defsym REGION_JP=1
-# endif
+ifeq ($(REGION),jp)
+	TARGET = mzm_jp
+	GAME_TITLE = ZEROMISSIONJ
+	GAME_CODE = BMXJ
+	CPPFLAGS += -DREGION_JP
+	ASFLAGS += --defsym REGION_JP=1
+endif
 
 # ifeq ($(REGION),cn)
 # 	TARGET = mzm_cn
@@ -210,8 +210,8 @@ tools/%: tools/%.c
 	$(MSG) HOSTCC $@
 	$Q$(HOSTCC) $< $(HOSTCFLAGS) $(HOSTCPPFLAGS) -o $@
 
-.PHONY: us us_debug us_beta
-# eu eu_debug jp jp_debug cn cn_debug
+.PHONY: us us_debug us_beta jp jp_debug
+# eu eu_debug cn cn_debug
 
 us:
 	$(MAKE) REGION=us
@@ -225,10 +225,10 @@ us_beta:
 # eu_debug:
 # 	$(MAKE) REGION=eu DEBUG=1
 
-# jp:
-# 	$(MAKE) REGION=jp
-# jp_debug:
-# 	$(MAKE) REGION=jp DEBUG=1
+jp:
+	$(MAKE) REGION=jp
+jp_debug:
+	$(MAKE) REGION=jp DEBUG=1
 
 # cn:
 # 	$(MAKE) REGION=cn
