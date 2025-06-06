@@ -5061,7 +5061,7 @@ u8 FileSelectUpdateSubMenu(void)
                             {
                                 gSaveFilesInfo[gMostRecentSaveFile].language = FILE_SELECT_DATA.fileSelectCursors.japaneseText;
                             }
-                            #endif // !(DEBUG || REGION_JP)
+                            #endif // DEBUG || REGION_JP
                         }
                     }
                 }
@@ -5585,7 +5585,7 @@ u8 FileSelectProcessFileSelection(void)
             {
                 FILE_SELECT_DATA.subroutineStage = 28;
             }
-            #endif // DEBUG || REGION_JP
+            #endif // DEBUG || !REGION_JP
 
             if (FILE_SELECT_DATA.fileSelectCursors.completedFileOptions == 2)
             {
