@@ -1152,14 +1152,24 @@ void TitleScreenInit(void)
     TitleScreenLoadPageData(&sTitleScreenPageData[0]);
     TitleScreenLoadPageData(&sTitleScreenPageData[1]);
 
-    #ifdef DEBUG
+    // JP uses the registered trademark symbol, while non-JP uses the trademark symbol.
+    // Debug allows any language, so it checks the language to decide which to use.
+    #if defined(DEBUG) || !defined(REGION_JP)
+    #if defined(DEBUG)
     if (gLanguage >= LANGUAGE_ENGLISH)
-        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
-    else
-        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_REGISTERED_TRADEMARK);
-    #else // !DEBUG
-    TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
     #endif // DEBUG
+    {
+        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_TRADEMARK);
+    }
+    #endif // DEBUG || !REGION_JP
+    #if defined(DEBUG) || defined(REGION_JP)
+    #if defined(DEBUG)
+    else
+    #endif // DEBUG
+    {
+        TitleScreenSetCopyrightSymbol(TITLE_SCREEN_COPYRIGHT_SYMBOL_REGISTERED_TRADEMARK);
+    }
+    #endif // DEBUG || REGION_JP
 
     CallLZ77UncompVram(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
     CallLZ77UncompVram(sTitleScreenSpaceBackgroundGfx, VRAM_BASE + 0x4000);

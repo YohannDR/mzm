@@ -13,6 +13,14 @@ extern const u8 sJpnVer_Text[20];
 extern const u8 sEurVer_Text[20];
 extern const u8 sUsaVer_Text[20];
 
+#if defined(REGION_EU)
+#define SAVE_FILE_GAME_VER_TEXT sEurVer_Text
+#elif defined(REGION_JP)
+#define SAVE_FILE_GAME_VER_TEXT sJpnVer_Text
+#else // Default to US
+#define SAVE_FILE_GAME_VER_TEXT sUsaVer_Text
+#endif
+
 extern const struct FileScreenOptionsUnlocked sFileScreenOptionsUnlocked_Empty;
 
 extern const u8 sMostRecentFileSave_Text[2][SRAM_TEXT_SIZE];
