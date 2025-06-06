@@ -44,7 +44,11 @@ extern const u32* const sEndingImagesTopTileTablePointers[ENDING_IMAGE_COUNT];
 extern const u32* const sEndingImagesHalfTileTablePointers[ENDING_IMAGE_COUNT];
 extern const u16* const sEndingImagesPalPointers[ENDING_IMAGE_COUNT];
 
+#ifdef REGION_JP
+extern const struct CreditsEntry sCredits[245];
+#else // !REGION_JP
 extern const struct CreditsEntry sCredits[240];
+#endif // REGION_JP
 
 extern const u16* const sEndingWhitePalPointers[4];
 

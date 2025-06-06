@@ -42,8 +42,8 @@ def extract_data(region: str, debug: bool, quiet: bool = False) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
-    # TODO: add "eu", "jp", "cn"
-    group.add_argument("-r", "--region", type=str, choices=["us", "us_beta"],
+    # TODO: add "eu", "cn"
+    group.add_argument("-r", "--region", type=str, choices=["us", "jp", "us_beta"],
         default="us", help="The region of the rom to extract from")
     group.add_argument("-d", "--debug", action="store_true",
         help="Extract debug data from the US beta rom")

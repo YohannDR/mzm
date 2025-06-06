@@ -1098,6 +1098,993 @@ const u16* const sEndingImagesPalPointers[ENDING_IMAGE_COUNT] = {
     [ENDING_IMAGE_SEVEN] = sEndingImage_Palette_7
 };
 
+#ifdef REGION_JP
+
+const struct CreditsEntry sCredits[245] = {
+    [0] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [1] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [2] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [3] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [4] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [5] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [6] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [7] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "STAFF CREDITS"
+    },
+    [8] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [9] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [10] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [11] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [12] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [13] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [14] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [15] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [16] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [17] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "PRODUCER"
+    },
+    [18] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [19] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [20] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Izushi Takehiro"
+    },
+    [21] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [22] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [23] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [24] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [25] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [26] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [27] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [28] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "DIRECTOR"
+    },
+    [29] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [30] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [31] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Sakamoto Yoshio"
+    },
+    [32] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [33] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [34] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [35] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [36] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [37] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [38] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [39] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "SAMUS DESIGN"
+    },
+    [40] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [41] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [42] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Kiyotake Hiroji"
+    },
+    [43] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [44] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [45] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [46] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [47] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [48] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [49] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [50] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "COURSE DESIGN"
+    },
+    [51] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [52] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [53] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Ueda Masani"
+    },
+    [54] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [55] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Hosokawa Takehiko"
+    },
+    [56] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [57] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Nakada Ryuichi"
+    },
+    [58] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [59] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [60] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [61] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [62] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [63] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [64] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [65] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "GRAPHIC DESIGN"
+    },
+    [66] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [67] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [68] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Morisawa Takayasu"
+    },
+    [69] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [70] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Matsushita Tadashi"
+    },
+    [71] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [72] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Miyamoto Fumiko"
+    },
+    [73] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [74] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Sakiyama Chiharu"
+    },
+    [75] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [76] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Furuta Norikatsu"
+    },
+    [77] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [78] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Momose Hiroshi"
+    },
+    [79] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [80] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [81] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [82] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [83] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [84] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [85] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [86] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "PROGRAMMING"
+    },
+    [87] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [88] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [89] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Yamano Katsuya"
+    },
+    [90] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [91] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Katsuki Yoshinori"
+    },
+    [92] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [93] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Ozaki Nobuhiro"
+    },
+    [94] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [95] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Kawase Tomohiro"
+    },
+    [96] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [97] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Shimizu Hideaki"
+    },
+    [98] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [99] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [100] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [101] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [102] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [103] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [104] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [105] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "MUSIC COMPOSITION"
+    },
+    [106] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [107] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [108] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Yamamoto Kenji"
+    },
+    [109] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [110] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Hamano Minako"
+    },
+    [111] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [112] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [113] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [114] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [115] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [116] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [117] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [118] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "SOUND EFFECT & PROGRAMMING"
+    },
+    [119] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [120] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [121] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Fujii Takaya"
+    },
+    [122] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [123] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [124] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [125] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [126] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [127] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [128] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [129] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "PACKAGE & MANUAL DESIGN"
+    },
+    [130] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [131] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [132] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Inoue Yasuo"
+    },
+    [133] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [134] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Nakamichi Sachiko"
+    },
+    [135] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [136] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Takahashi Yasuko"
+    },
+    [137] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [138] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [139] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [140] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [141] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [142] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [143] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [144] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "COORDINATION"
+    },
+    [145] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [146] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [147] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Harada Takahiro"
+    },
+    [148] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [149] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [150] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [151] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [152] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [153] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [154] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [155] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "DEBUG"
+    },
+    [156] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [157] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [158] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "SUPER MARIO CLUB"
+    },
+    [159] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [160] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "M. Manabu"
+    },
+    [161] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [162] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "    Maeda N.  Fukushima H."
+    },
+    [163] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [164] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "   Miyake K.  Inaba H.    "
+    },
+    [165] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [166] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = " Maruyama Y.  Ueno T.     "
+    },
+    [167] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [168] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "Matsumoto N.  Takami N.   "
+    },
+    [169] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [170] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "     S. Aiko  Homma Y.    "
+    },
+    [171] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [172] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "     Kato T.  Naitou K.   "
+    },
+    [173] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [174] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = " Takeuchi A.  Fukakushi M."
+    },
+    [175] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [176] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "    Nakai J.  Maeda K.    "
+    },
+    [177] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [178] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "   Fujiki A.  Otani R.    "
+    },
+    [179] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [180] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "   Tanaka R.  Kuninobu M. "
+    },
+    [181] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [182] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "Higashino K.  S. Junya    "
+    },
+    [183] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [184] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "   Yamaji M.  Uchiyama Y. "
+    },
+    [185] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [186] = {
+        .type = CREDIT_LINE_TYPE_WHITE_SMALL,
+        .text = "Okazaki A."
+    },
+    [187] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [188] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [189] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [190] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [191] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [192] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [193] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [194] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "SPECIAL THANKS"
+    },
+    [195] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [196] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [197] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Fukui Kota"
+    },
+    [198] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [199] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Nishimura Kentaro"
+    },
+    [200] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [201] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Nakano Takao"
+    },
+    [202] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [203] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Osawa Kazuyoshi"
+    },
+    [204] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [205] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Furuta Takeshi"
+    },
+    [206] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [207] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Saeki Naoko"
+    },
+    [208] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [209] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Tanaka Hirokazu"
+    },
+    [210] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [211] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [212] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [213] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [214] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [215] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [216] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [217] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [218] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "EXECUTIVE PRODUCER"
+    },
+    [219] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [220] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [221] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "Iwata Satoru"
+    },
+    [222] = {
+        .type = CREDIT_LINE_TYPE_BLUE,
+        .text = "               "
+    },
+    [223] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [224] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [225] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [226] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [227] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [228] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [229] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [230] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = ""
+    },
+    [231] = {
+        .type = CREDIT_LINE_TYPE_WHITE_BIG,
+        .text = "               "
+    },
+    [232] = {
+        .type = CREDIT_LINE_TYPE_ALL_RIGHTS,
+        .text = ""
+    },
+    [233] = {
+        .type = CREDIT_LINE_TYPE_THE_COPYRIGHT,
+        .text = ""
+    },
+    [234] = {
+        .type = CREDIT_LINE_TYPE_SCENARIO,
+        .text = ""
+    },
+    [235] = {
+        .type = CREDIT_LINE_TYPE_RESERVED,
+        .text = ""
+    },
+    [236] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [237] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [238] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [239] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [240] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [241] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [242] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [243] = {
+        .type = CREDIT_LINE_TYPE_BLANK,
+        .text = ""
+    },
+    [244] = {
+        .type = CREDIT_LINE_TYPE_END,
+        .text = ""
+    },
+};
+
+#else // !REGION_JP
+
 const struct CreditsEntry sCredits[240] = {
     [0] = {
         .type = CREDIT_LINE_TYPE_WHITE_BIG,
@@ -1120,11 +2107,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = ""
     },
     [5] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [6] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [7] = {
@@ -1132,7 +2119,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "STAFF CREDITS"
     },
     [8] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [9] = {
@@ -1168,11 +2155,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "PRODUCER"
     },
     [17] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [18] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [19] = {
@@ -1180,7 +2167,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Izushi Takehiro"
     },
     [20] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [21] = {
@@ -1200,11 +2187,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "DIRECTOR"
     },
     [25] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [26] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [27] = {
@@ -1212,7 +2199,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Sakamoto Yoshio"
     },
     [28] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [29] = {
@@ -1232,11 +2219,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "SAMUS DESIGN"
     },
     [33] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [34] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [35] = {
@@ -1244,7 +2231,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Kiyotake Hiroji"
     },
     [36] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [37] = {
@@ -1264,11 +2251,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "COURSE DESIGN"
     },
     [41] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [42] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [43] = {
@@ -1276,7 +2263,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Ueda Masani"
     },
     [44] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [45] = {
@@ -1284,7 +2271,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Hosokawa Takehiko"
     },
     [46] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [47] = {
@@ -1292,7 +2279,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Nakada Ryuichi"
     },
     [48] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [49] = {
@@ -1312,11 +2299,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "GRAPHIC DESIGN"
     },
     [53] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [54] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [55] = {
@@ -1324,7 +2311,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Morisawa Takayasu"
     },
     [56] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [57] = {
@@ -1332,7 +2319,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Matsushita Tadashi"
     },
     [58] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [59] = {
@@ -1340,7 +2327,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Miyamoto Fumiko"
     },
     [60] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [61] = {
@@ -1348,7 +2335,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Sakiyama Chiharu"
     },
     [62] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [63] = {
@@ -1356,7 +2343,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Furuta Norikatsu"
     },
     [64] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [65] = {
@@ -1364,7 +2351,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Momose Hiroshi"
     },
     [66] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [67] = {
@@ -1384,11 +2371,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "PROGRAMMING"
     },
     [71] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [72] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [73] = {
@@ -1396,7 +2383,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Yamano Katsuya"
     },
     [74] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [75] = {
@@ -1404,7 +2391,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Katsuki Yoshinori"
     },
     [76] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [77] = {
@@ -1412,7 +2399,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Ozaki Nobuhiro"
     },
     [78] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [79] = {
@@ -1420,7 +2407,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Kawase Tomohiro"
     },
     [80] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [81] = {
@@ -1428,7 +2415,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Shimizu Hideaki"
     },
     [82] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [83] = {
@@ -1448,11 +2435,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "MUSIC COMPOSITION"
     },
     [87] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [88] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [89] = {
@@ -1460,7 +2447,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Yamamoto Kenji"
     },
     [90] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [91] = {
@@ -1468,7 +2455,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Hamano Minako"
     },
     [92] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [93] = {
@@ -1488,11 +2475,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "SOUND EFFECT & PROGRAMMING"
     },
     [97] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [98] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [99] = {
@@ -1500,7 +2487,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Fujii Takaya"
     },
     [100] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [101] = {
@@ -1520,11 +2507,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "PACKAGE & MANUAL DESIGN"
     },
     [105] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [106] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [107] = {
@@ -1532,7 +2519,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Inoue Yasuo"
     },
     [108] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [109] = {
@@ -1540,7 +2527,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Nakamichi Sachiko"
     },
     [110] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [111] = {
@@ -1548,7 +2535,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Takahashi Yasuko"
     },
     [112] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [113] = {
@@ -1568,11 +2555,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "COORDINATION"
     },
     [117] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [118] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [119] = {
@@ -1580,7 +2567,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Harada Takahiro"
     },
     [120] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [121] = {
@@ -1600,11 +2587,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "DEBUG"
     },
     [125] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [126] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [127] = {
@@ -1612,11 +2599,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "SUPER MARIO CLUB"
     },
     [128] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [129] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [130] = {
@@ -1636,11 +2623,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "SPECIAL THANKS"
     },
     [134] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [135] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [136] = {
@@ -1648,7 +2635,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Fukui Kota"
     },
     [137] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [138] = {
@@ -1656,7 +2643,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Nishimura Kentaro"
     },
     [139] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [140] = {
@@ -1664,7 +2651,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Nakano Takao"
     },
     [141] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [142] = {
@@ -1672,7 +2659,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Osawa Kazuyoshi"
     },
     [143] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [144] = {
@@ -1680,7 +2667,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Furuta Takeshi"
     },
     [145] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [146] = {
@@ -1688,7 +2675,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Saeki Naoko"
     },
     [147] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [148] = {
@@ -1696,7 +2683,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Tanaka Hirokazu"
     },
     [149] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [150] = {
@@ -1720,11 +2707,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "NORTH AMERICAN LOCALIZATION"
     },
     [155] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [156] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [157] = {
@@ -1732,7 +2719,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Nate Bihldorff"
     },
     [158] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [159] = {
@@ -1740,7 +2727,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Bill Trinen"
     },
     [160] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [161] = {
@@ -1760,11 +2747,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "LOCALIZATION MANAGEMENT"
     },
     [165] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [166] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [167] = {
@@ -1772,7 +2759,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Jeff Miller"
     },
     [168] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [169] = {
@@ -1780,7 +2767,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Leslie Swan"
     },
     [170] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [171] = {
@@ -1800,11 +2787,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "NOA PRODUCT TESTING DEPARTMENT"
     },
     [175] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [176] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [177] = {
@@ -1812,7 +2799,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Yoshinobu Mantani"
     },
     [178] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [179] = {
@@ -1820,7 +2807,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Kyle Hudson"
     },
     [180] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [181] = {
@@ -1828,7 +2815,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Eric Bush"
     },
     [182] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [183] = {
@@ -1836,7 +2823,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Randy Shoemake"
     },
     [184] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [185] = {
@@ -1844,7 +2831,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Rich Richardson"
     },
     [186] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [187] = {
@@ -1852,7 +2839,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Thomas Hertzog"
     },
     [188] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [189] = {
@@ -1860,7 +2847,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Michael Leslie"
     },
     [190] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [191] = {
@@ -1868,7 +2855,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Kathy Huguenard"
     },
     [192] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [193] = {
@@ -1876,7 +2863,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "David Hunziker"
     },
     [194] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [195] = {
@@ -1884,7 +2871,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Chris Needham"
     },
     [196] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [197] = {
@@ -1892,7 +2879,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Mika Kurosawa"
     },
     [198] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [199] = {
@@ -1912,7 +2899,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "SPECIAL THANKS"
     },
     [203] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [204] = {
@@ -1920,7 +2907,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Mike Fukuda"
     },
     [205] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [206] = {
@@ -1928,7 +2915,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "Tatsumi Kimishima"
     },
     [207] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [208] = {
@@ -1948,7 +2935,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = ""
     },
     [212] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [213] = {
@@ -1956,11 +2943,11 @@ const struct CreditsEntry sCredits[240] = {
         .text = "EXECUTIVE PRODUCER"
     },
     [214] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [215] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [216] = {
@@ -1972,7 +2959,7 @@ const struct CreditsEntry sCredits[240] = {
         .text = "               "
     },
     [218] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = "               "
     },
     [219] = {
@@ -2024,35 +3011,35 @@ const struct CreditsEntry sCredits[240] = {
         .text = ""
     },
     [231] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [232] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [233] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [234] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [235] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [236] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [237] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [238] = {
-        .type = CREDIT_LINE_TYPE_UNK_5,
+        .type = CREDIT_LINE_TYPE_BLANK,
         .text = ""
     },
     [239] = {
@@ -2060,6 +3047,8 @@ const struct CreditsEntry sCredits[240] = {
         .text = ""
     }
 };
+
+#endif // REGION_JP
 
 const u16* const sEndingWhitePalPointers[4] = {
     [0] = sEndingPosingPal_White1,
