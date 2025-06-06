@@ -15,7 +15,7 @@ The ROMs are named like this : `mzm_{region}.gba` (or `mzm_{region}_debug.gba`)
 Region indicates which region the ROM targets :
 - us : USA, North America `sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`
 - eu : Europe **(Not yet supported)**
-- jp : Japan **(Not yet supported)**
+- jp : Japan `sha1: 096f07685a3dc9286e71aa0b761f233b5efa2fcd`
 - cn : China **(Not yet supported)**
 - us_beta : USA beta version `sha1: 58986c4d6f2e5ccdc04936cc8b7c9d378570710c`
 
