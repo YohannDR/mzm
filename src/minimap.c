@@ -602,11 +602,12 @@ void MinimapUpdateForExploredTiles(void)
     }
 }
 
-#ifdef NON_MATCHING
+/**
+ * @brief 6c5b4 | 100 | To document
+ * 
+ */
 void MinimapDraw(void)
 {
-    // https://decomp.me/scratch/EaJoP
-
     s32 yOffset;
     s32 xOffset;
     s32 xPosition;
@@ -618,13 +619,16 @@ void MinimapDraw(void)
     u8 palette;
     u32 flip;
     u16* src;
-    u32 offset;
+    u16* tmp;
+    u16 tmp1;
+    u16 tmp2;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
         return;
-    
-    src = (u16*)0x2034000;
-    dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24;
+
+    // FIXME use symbols
+    src = (u16*)0x2034000; // gDecompressedMinimapVisitedTiles
+    dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24; // gMinimapTilesGfx
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
         yOffset = 1;
@@ -656,156 +660,29 @@ void MinimapDraw(void)
             yPosition = limit;
         }
 
-        offset = yPosition * MINIMAP_SIZE + xPosition;
-        flip = (src[offset] & 0xC00) >> 0xA;
-        palette = src[offset] >> 0xC;
-        tile = src[offset] & 0x3ff;
+        tmp = &src[yPosition * MINIMAP_SIZE + xPosition];
+
+        // BUG: uses uninitalized variables
+        tmp1 = tmp2 & 0xC00;
+        do {
+        flip = (*tmp & 0xC00) >> 0xA;
+        } while(0);
+
+        do {
+        palette = *tmp >> 0xC;
+        } while(0);
+
+        do {
+        tile = *tmp & 0x3ff;
+        } while(0);
         
         if (gLanguage == LANGUAGE_HIRAGANA && tile > MINIMAP_TILE_BACKGROUND)
             tile += 0x20;
 
-        tile <<= 0x5;
+        tile <<= 5;
         sMinimapTilesCopyGfxFunctionPointers[flip](dst, &tile, palette);
     }
 }
-#else
-NAKED_FUNCTION
-void MinimapDraw(void)
-{
-    asm(" \n\
-    push {r4, r5, r6, r7, lr} \n\
-    mov r7, sb \n\
-    mov r6, r8 \n\
-    push {r6, r7} \n\
-    sub sp, #4 \n\
-    ldr r3, lbl_0806c5e4 @ =gUpdateMinimapFlag \n\
-    ldrb r0, [r3] \n\
-    cmp r0, #0 \n\
-    beq lbl_0806c690 \n\
-    ldr r0, lbl_0806c5e8 @ =0x02034000 \n\
-    mov r8, r0 \n\
-    ldrb r2, [r3] \n\
-    sub r1, r2, #1 \n\
-    lsl r0, r1, #1 \n\
-    add r0, r0, r1 \n\
-    lsl r0, r0, #5 \n\
-    ldr r1, lbl_0806c5ec @ =0x02037e20 \n\
-    add r6, r0, r1 \n\
-    cmp r2, #3 \n\
-    bne lbl_0806c5f0 \n\
-    movs r7, #1 \n\
-    mov sb, r7 \n\
-    b lbl_0806c60a \n\
-    .align 2, 0 \n\
-lbl_0806c5e4: .4byte gUpdateMinimapFlag \n\
-lbl_0806c5e8: .4byte 0x02034000 \n\
-lbl_0806c5ec: .4byte 0x02037e20 \n\
-lbl_0806c5f0: \n\
-    cmp r2, #2 \n\
-    bne lbl_0806c5fa \n\
-    movs r0, #0 \n\
-    mov sb, r0 \n\
-    b lbl_0806c60a \n\
-lbl_0806c5fa: \n\
-    cmp r2, #1 \n\
-    beq lbl_0806c604 \n\
-    movs r0, #0 \n\
-    strb r0, [r3] \n\
-    b lbl_0806c690 \n\
-lbl_0806c604: \n\
-    movs r1, #1 \n\
-    neg r1, r1 \n\
-    mov sb, r1 \n\
-lbl_0806c60a: \n\
-    movs r5, #1 \n\
-    neg r5, r5 \n\
-    mov r4, sp \n\
-lbl_0806c610: \n\
-    ldr r0, lbl_0806c6a0 @ =gMinimapX \n\
-    ldrb r0, [r0] \n\
-    add r1, r0, r5 \n\
-    cmp r1, #0x1f \n\
-    bls lbl_0806c61e \n\
-    movs r1, #1 \n\
-    neg r1, r1 \n\
-lbl_0806c61e: \n\
-    ldr r0, lbl_0806c6a4 @ =gMinimapY \n\
-    ldrb r0, [r0] \n\
-    add r0, sb \n\
-    cmp r0, #0x1f \n\
-    bls lbl_0806c62c \n\
-    movs r0, #1 \n\
-    neg r0, r0 \n\
-lbl_0806c62c: \n\
-    cmp r0, #0 \n\
-    blt lbl_0806c634 \n\
-    cmp r1, #0 \n\
-    bge lbl_0806c638 \n\
-lbl_0806c634: \n\
-    movs r1, #0x1f \n\
-    movs r0, #0x1f \n\
-lbl_0806c638: \n\
-    lsl r0, r0, #5 \n\
-    add r0, r0, r1 \n\
-    lsl r0, r0, #1 \n\
-    add r0, r8 \n\
-    movs r7, #0xc0 \n\
-    lsl r7, r7, #4 \n\
-    add r2, r7, #0 \n\
-    ldrh r1, [r0] \n\
-    add r0, r1, #0 \n\
-    and r0, r2 \n\
-    lsr r3, r0, #0xa \n\
-    lsr r2, r1, #0xc \n\
-    ldr r7, lbl_0806c6a8 @ =0x000003ff \n\
-    add r0, r7, #0 \n\
-    and r1, r0 \n\
-    strh r1, [r4] \n\
-    ldr r0, lbl_0806c6ac @ =gLanguage \n\
-    ldrb r0, [r0] \n\
-    lsl r0, r0, #0x18 \n\
-    asr r0, r0, #0x18 \n\
-    cmp r0, #1 \n\
-    bne lbl_0806c672 \n\
-    movs r0, #0xa0 \n\
-    lsl r0, r0, #1 \n\
-    cmp r1, r0 \n\
-    bls lbl_0806c672 \n\
-    add r0, r1, #0 \n\
-    add r0, #0x20 \n\
-    strh r0, [r4] \n\
-lbl_0806c672: \n\
-    ldrh r0, [r4] \n\
-    lsl r0, r0, #5 \n\
-    strh r0, [r4] \n\
-    ldr r1, lbl_0806c6b0 @ =sMinimapTilesCopyGfxFunctionPointers \n\
-    lsl r0, r3, #2 \n\
-    add r0, r0, r1 \n\
-    ldr r3, [r0] \n\
-    add r0, r6, #0 \n\
-    mov r1, sp \n\
-    bl _call_via_r3 \n\
-    add r5, #1 \n\
-    add r6, #0x20 \n\
-    cmp r5, #1 \n\
-    ble lbl_0806c610 \n\
-lbl_0806c690: \n\
-    add sp, #4 \n\
-    pop {r3, r4} \n\
-    mov r8, r3 \n\
-    mov sb, r4 \n\
-    pop {r4, r5, r6, r7} \n\
-    pop {r0} \n\
-    bx r0 \n\
-    .align 2, 0 \n\
-lbl_0806c6a0: .4byte gMinimapX \n\
-lbl_0806c6a4: .4byte gMinimapY \n\
-lbl_0806c6a8: .4byte 0x000003ff \n\
-lbl_0806c6ac: .4byte gLanguage \n\
-lbl_0806c6b0: .4byte sMinimapTilesCopyGfxFunctionPointers \n\
-    ");
-}
-#endif
 
 /**
  * @brief 6c6b4 | d8 | Copies the graphics of a map tile
