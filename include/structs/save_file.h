@@ -157,7 +157,7 @@ struct SaveFileScreenOptions {
     u16 galleryImages;
     u8 soundTestAndOriginalMetroid;
 
-    u8 unk_F;
+    u8 language;
     u8 unk_10;
     u8 unk_11;
     u8 unk_12;
@@ -165,7 +165,7 @@ struct SaveFileScreenOptions {
     u16 fusionGalleryImages;
 
     u32 timeAttack;
-    u8 ZeroMissionUSA_Text[20];
+    u8 ZeroMissionVer_Text[20];
 
     u8 padding_2A[16];
 };

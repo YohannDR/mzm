@@ -60,7 +60,7 @@ void SramRead_All(void)
 
     if (SramRead_Language())
     {
-        gLanguage = LANGUAGE_ENGLISH;
+        gLanguage = LANGUAGE_DEFAULT;
         SramWrite_Language();
     }
 }
@@ -84,7 +84,7 @@ void SramWrite_FileScreenOptionsUnlocked(void)
     pOptions->counter++;
     pOptions->galleryImages = gFileScreenOptionsUnlocked.galleryImages;
     pOptions->soundTestAndOriginalMetroid = gFileScreenOptionsUnlocked.soundTestAndOgMetroid;
-    pOptions->unk_F = 0x2;
+    pOptions->language = LANGUAGE_DEFAULT;
     pOptions->unk_10 = 0x34;
     pOptions->unk_11 = gFileScreenOptionsUnlocked.unk_5;
     pOptions->unk_12 = gFileScreenOptionsUnlocked.unk_6;
@@ -92,8 +92,8 @@ void SramWrite_FileScreenOptionsUnlocked(void)
     pOptions->fusionGalleryImages = gFileScreenOptionsUnlocked.fusionGalleryImages;
     pOptions->timeAttack = gFileScreenOptionsUnlocked.timeAttack;
 
-    for (i = 0; i < ARRAY_SIZE(pOptions->ZeroMissionUSA_Text); i++)
-        pOptions->ZeroMissionUSA_Text[i] = sUsaVer_Text[i];
+    for (i = 0; i < ARRAY_SIZE(pOptions->ZeroMissionVer_Text); i++)
+        pOptions->ZeroMissionVer_Text[i] = SAVE_FILE_GAME_VER_TEXT[i];
 
     // Reset checksum
     pOptions->checksum = 0;
@@ -236,9 +236,9 @@ u32 SramCheck_FileScreenOptionsUnlocked(u8 fileNumber)
     if (pOptions->checksum != checksum)
         flags |= 1;
 
-    for (i = 0; i < ARRAY_SIZE(pOptions->ZeroMissionUSA_Text); i++)
+    for (i = 0; i < ARRAY_SIZE(pOptions->ZeroMissionVer_Text); i++)
     {
-        if (pOptions->ZeroMissionUSA_Text[i] != sUsaVer_Text[i])
+        if (pOptions->ZeroMissionVer_Text[i] != SAVE_FILE_GAME_VER_TEXT[i])
             flags |= 2;
     }
 
@@ -1447,7 +1447,7 @@ void SramWrite_Language(void)
     
     i = gLanguage;
     if ((u32)i >= LANGUAGE_END)
-        i = LANGUAGE_ENGLISH;
+        i = LANGUAGE_DEFAULT;
 
     pSave->value = i;
 

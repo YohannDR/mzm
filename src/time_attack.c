@@ -5,6 +5,7 @@
 #include "data/time_attack_data.h"
 
 #include "constants/ending_and_gallery.h"
+#include "constants/game_state.h"
 
 #include "structs/in_game_timer.h"
 #include "structs/game_state.h"
@@ -292,13 +293,13 @@ void CheckUnlockTimeAttack(void)
     u32 superMissilesNbr;
     u32 powerBombNbr;
     u32 abilityCount;
-    u8 tmp1;
+    u8 language;
 
     // Already unlocked or save file invalid
     if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
         return;
 
-    tmp1 = 2;
+    language = LANGUAGE_DEFAULT;
 
     // Get each item count
     value = ChozodiaEscapeGetItemCountAndEndingNumber();
@@ -361,8 +362,8 @@ void CheckUnlockTimeAttack(void)
     flags[26] = (igt[1] >> 6) & 1;
     flags[27] = (igt[0] >> 4) & 1;
     flags[28] = (igt[1] >> 5) & 1;
-    flags[29] = (tmp1 >> 1) & 1;
-    flags[30] = (tmp1 >> 0) & 1;
+    flags[29] = (language >> 1) & 1;
+    flags[30] = (language >> 0) & 1;
     flags[31] = 1;
 
     // Weird maths
