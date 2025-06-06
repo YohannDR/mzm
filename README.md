@@ -60,3 +60,7 @@ The default built ROM is mzm_us.gba
   - Specify it directly (ex: `make us_debug` for the US ROM with debug features)
   - Specify the flags, REGION (takes the region name, defaults to `us`) and DEBUG (takes 0 or 1, defaults to 0)
 - Optionally, you can combine the commands to make it easier : `python3 tools/extractor.py && make -j`
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
