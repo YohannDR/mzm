@@ -517,7 +517,7 @@ void unk_3a6c(void)
     else
         pTrack = sMusicTrackDataRom[1].pTrack;
 
-    stop_music_or_sound(pTrack);
+    StopMusicOrSound(pTrack);
 }
 
 /**
@@ -540,7 +540,7 @@ void FadeMusic(u16 timer)
         if (timer != 0)
             ApplyMusicSoundFading(pTrack, timer);
         else
-            stop_music_or_sound(pTrack);
+            StopMusicOrSound(pTrack);
     }
 
     gMusicInfo.occupied = FALSE;
@@ -566,7 +566,7 @@ void FadeMusicForDemo(u16 timer)
         if (timer != 0)
             ApplyMusicSoundFading(pTrack, timer);
         else
-            stop_music_or_sound(pTrack);
+            StopMusicOrSound(pTrack);
     }
 
     gMusicInfo.occupied = FALSE;
@@ -705,7 +705,7 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 isNotInterrupting)
         {
             if (isNotInterrupting == FALSE)
             {
-                stop_music_or_sound(sMusicTrackDataRom[3].pTrack);
+                StopMusicOrSound(sMusicTrackDataRom[3].pTrack);
                 unk_34ac(TRUE);
                 unk_2a8c();
                 pTrack->queueFlags |= 0x80;
@@ -787,7 +787,7 @@ void unk_3e24(u16 timer)
     if (timer != 0)
         ApplyMusicSoundFading(pTrack, timer);
     else
-        stop_music_or_sound(pTrack);
+        StopMusicOrSound(pTrack);
 }
 
 /**
@@ -926,7 +926,7 @@ void StopOrFadeSound(u16 sound, u16 timer)
         if (pHeader == pTrack->pHeader)
         {
             if (timer == 0)
-                stop_music_or_sound(pTrack);
+                StopMusicOrSound(pTrack);
             else
                 ApplyMusicSoundFading(pTrack, timer);
         }
@@ -1108,7 +1108,7 @@ void PlaySoundTest(u16 musicTrack)
     if (musicTrack != gMusicInfo.musicTrack)
     {
         pTrack = sMusicTrackDataRom[0].pTrack;
-        stop_music_or_sound(pTrack);
+        StopMusicOrSound(pTrack);
         PlayMusic(musicTrack, 0x8);
         DelayMusicStart(pTrack, 30);
     }

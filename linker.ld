@@ -412,9 +412,9 @@ SECTIONS {
         src/callbacks.o(.text);
         src/sram_misc.o(.text);
 
-        asm/disasm_0x080010c4.o(.text);
-        asm/disasm_0x08002a58.o(.text);
-
+        src/audio.o(.text);
+        src/audio_wrappers.o(.text);
+        asm/disasm_0x080031e4.o(.text);
         src/music_wrappers.o(.text);
 
         asm/audio_internal.o(.text);

@@ -2,11 +2,13 @@
 #include "macros.h"
 #include "gba.h"
 #include "syscalls.h"
+#include "audio/track_internal.h"
 
 #include "data/audio.h"
 
 #include "constants/audio_engine.h"
 
+#ifdef NON_MATCHING
 void UpdateMusic(void)
 {
     // https://decomp.me/scratch/bxTYQ
@@ -244,17 +246,502 @@ void UpdateMusic(void)
         gSoundCodeCPointer((u32*)gMusicInfo.soundRawData, (u32*)buffer, var_3 * 4);
     }
 }
+#else
+NAKED_FUNCTION
+void UpdateMusic(void)
+{
+    asm("\n\
+    push {r4, r5, r6, r7, lr} \n\
+    mov r7, sl \n\
+    mov r6, sb \n\
+    mov r5, r8 \n\
+    push {r5, r6, r7} \n\
+    sub sp, #8 \n\
+    ldr r0, lbl_08001134 @ =gMusicInfo \n\
+    ldrb r1, [r0, #9] \n\
+    str r1, [sp] \n\
+    add r2, r0, #0 \n\
+    cmp r1, #0 \n\
+    beq lbl_080010ea \n\
+    ldr r0, lbl_08001138 @ =0x04000006 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x9f \n\
+    bhi lbl_080010e6 \n\
+    add r0, #0xe4 \n\
+lbl_080010e6: \n\
+    add r1, r0, r1 \n\
+    str r1, [sp] \n\
+lbl_080010ea: \n\
+    ldrb r1, [r2, #0x10] \n\
+    ldrb r3, [r2, #0x11] \n\
+    lsl r0, r3, #4 \n\
+    mov sl, r0 \n\
+    ldrb r0, [r2, #0xc] \n\
+    lsl r0, r0, #1 \n\
+    add r0, r1, r0 \n\
+    sub r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r4, r0, #0x18 \n\
+    ldrb r0, [r2, #0xe] \n\
+    cmp r4, r0 \n\
+    blo lbl_0800110a \n\
+    sub r0, r4, r0 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r4, r0, #0x18 \n\
+lbl_0800110a: \n\
+    movs r0, #0 \n\
+    mov sb, r0 \n\
+    cmp r1, r4 \n\
+    bhi lbl_0800113c \n\
+    cmp r4, r3 \n\
+    bhi lbl_0800113c \n\
+    ldrb r1, [r2, #0xc] \n\
+    sub r0, r4, r1 \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x14 \n\
+    lsr r0, r0, #0x10 \n\
+    mov sl, r0 \n\
+    add r7, r1, #0 \n\
+    add r0, r4, #1 \n\
+    ldrb r1, [r2, #0xe] \n\
+    cmp r0, r1 \n\
+    bne lbl_0800112e \n\
+    mov r0, sb \n\
+lbl_0800112e: \n\
+    strb r0, [r2, #0x11] \n\
+    b lbl_080011b4 \n\
+    .align 2, 0 \n\
+lbl_08001134: .4byte gMusicInfo \n\
+lbl_08001138: .4byte 0x04000006 \n\
+lbl_0800113c: \n\
+    ldrb r0, [r2, #0x11] \n\
+    cmp r0, r1 \n\
+    bhi lbl_08001160 \n\
+    cmp r1, r4 \n\
+    bhi lbl_08001160 \n\
+    ldrb r1, [r2, #0xc] \n\
+    sub r0, r4, r1 \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x14 \n\
+    lsr r0, r0, #0x10 \n\
+    mov sl, r0 \n\
+    add r7, r1, #0 \n\
+    add r0, r4, #1 \n\
+    ldrb r1, [r2, #0xe] \n\
+    cmp r0, r1 \n\
+    bne lbl_0800112e \n\
+    movs r0, #0 \n\
+    b lbl_0800112e \n\
+lbl_08001160: \n\
+    ldrb r0, [r2, #0x11] \n\
+    cmp r4, r0 \n\
+    bhi lbl_08001170 \n\
+    cmp r0, r1 \n\
+    bhi lbl_08001170 \n\
+    movs r0, #0 \n\
+    mov sl, r0 \n\
+    b lbl_080011ac \n\
+lbl_08001170: \n\
+    add r3, r2, #0 \n\
+    ldrb r1, [r3, #0x11] \n\
+    add r0, r1, #0 \n\
+    cmp r0, r4 \n\
+    bhs lbl_08001190 \n\
+    sub r0, r4, r1 \n\
+    add r0, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r7, r0, #0x18 \n\
+    add r0, r4, #1 \n\
+    ldrb r1, [r3, #0xe] \n\
+    cmp r0, r1 \n\
+    bne lbl_0800118c \n\
+    movs r0, #0 \n\
+lbl_0800118c: \n\
+    strb r0, [r3, #0x11] \n\
+    b lbl_080011b4 \n\
+lbl_08001190: \n\
+    cmp r0, r4 \n\
+    bls lbl_080011a8 \n\
+    ldrb r0, [r3, #0xe] \n\
+    sub r0, r0, r1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r7, r0, #0x18 \n\
+    add r0, r4, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    mov sb, r0 \n\
+    mov r0, sb \n\
+    b lbl_0800118c \n\
+lbl_080011a8: \n\
+    movs r1, #0 \n\
+    mov sl, r1 \n\
+lbl_080011ac: \n\
+    add r0, r4, #1 \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r7, r0, #0x18 \n\
+    strb r7, [r2, #0x11] \n\
+lbl_080011b4: \n\
+    cmp r7, #0 \n\
+    bne lbl_080011ba \n\
+    b lbl_08001430 \n\
+lbl_080011ba: \n\
+    ldr r6, lbl_08001204 @ =gMusicInfo+0xC24 \n\
+    mov r0, sl \n\
+    add r1, r0, r6 \n\
+    ldr r0, lbl_08001208 @ =0xfffff400 \n\
+    add r5, r6, r0 \n\
+    ldr r0, lbl_0800120c @ =gSoundCodeBPointer \n\
+    mov r8, r0 \n\
+    lsl r3, r7, #0x1b \n\
+    lsr r3, r3, #0x18 \n\
+    ldr r4, [r0] \n\
+    add r0, r1, #0 \n\
+    add r2, r5, #0 \n\
+    bl _call_via_r4 \n\
+    add r5, r0, #0 \n\
+    mov r1, sb \n\
+    cmp r1, #0 \n\
+    beq lbl_080011f2 \n\
+    add r1, r6, #0 \n\
+    mov r0, sb \n\
+    lsl r3, r0, #0x1b \n\
+    lsr r3, r3, #0x18 \n\
+    mov r0, r8 \n\
+    ldr r4, [r0] \n\
+    add r0, r1, #0 \n\
+    add r2, r5, #0 \n\
+    bl _call_via_r4 \n\
+lbl_080011f2: \n\
+    ldr r0, lbl_08001210 @ =0xfffff3dc \n\
+    add r1, r6, r0 \n\
+    movs r0, #0 \n\
+    strb r0, [r1, #0xa] \n\
+    movs r2, #0 \n\
+    lsl r1, r7, #0x1a \n\
+    str r1, [sp, #4] \n\
+    b lbl_080013da \n\
+    .align 2, 0 \n\
+lbl_08001204: .4byte gMusicInfo+0xC24 \n\
+lbl_08001208: .4byte 0xfffff400 \n\
+lbl_0800120c: .4byte gSoundCodeBPointer \n\
+lbl_08001210: .4byte 0xfffff3dc \n\
+lbl_08001214: \n\
+    movs r0, #0x34 \n\
+    mul r0, r2, r0 \n\
+    ldr r1, lbl_08001254 @ =gMusicInfo+0x1824 \n\
+    add r4, r0, r1 \n\
+    ldrb r0, [r4] \n\
+    add r2, #1 \n\
+    mov r8, r2 \n\
+    cmp r0, #0 \n\
+    bne lbl_08001228 \n\
+    b lbl_080013d4 \n\
+lbl_08001228: \n\
+    ldr r0, lbl_08001258 @ =0xffffe7dc \n\
+    add r1, r1, r0 \n\
+    ldrb r0, [r1, #0xa] \n\
+    add r0, #1 \n\
+    strb r0, [r1, #0xa] \n\
+    ldr r5, [r4, #0x28] \n\
+    ldrb r1, [r4, #0x13] \n\
+    cmp r1, #0 \n\
+    beq lbl_080012bc \n\
+    movs r6, #0 \n\
+lbl_0800123c: \n\
+    movs r0, #2 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0800126e \n\
+    ldrb r0, [r4, #1] \n\
+    cmp r0, #0x20 \n\
+    bne lbl_0800125c \n\
+    ldr r0, [r4, #0x20] \n\
+    ldr r0, [r0, #0xc] \n\
+    lsl r0, r0, #0xe \n\
+    str r0, [r4, #0x18] \n\
+    b lbl_0800125e \n\
+    .align 2, 0 \n\
+lbl_08001254: .4byte gMusicInfo+0x1824 \n\
+lbl_08001258: .4byte 0xffffe7dc \n\
+lbl_0800125c: \n\
+    str r6, [r4, #0x18] \n\
+lbl_0800125e: \n\
+    strb r6, [r4, #0x10] \n\
+    ldrb r0, [r4, #0x13] \n\
+    movs r1, #0xfd \n\
+    and r1, r0 \n\
+    movs r0, #0x10 \n\
+    orr r1, r0 \n\
+    strb r1, [r4, #0x13] \n\
+    b lbl_080012b6 \n\
+lbl_0800126e: \n\
+    movs r0, #4 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_0800127a \n\
+    movs r0, #0xfb \n\
+    b lbl_080012b2 \n\
+lbl_0800127a: \n\
+    movs r0, #0x10 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_080012b6 \n\
+    ldrb r1, [r5] \n\
+    movs r0, #0x80 \n\
+    and r0, r1 \n\
+    cmp r0, #0 \n\
+    beq lbl_08001296 \n\
+    ldrb r0, [r4, #3] \n\
+    strb r0, [r5, #6] \n\
+    add r0, r5, #0 \n\
+    bl unk_4f10 \n\
+lbl_08001296: \n\
+    ldrb r1, [r5, #8] \n\
+    ldrb r0, [r4, #0xf] \n\
+    add r0, #1 \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #7 \n\
+    strb r0, [r4, #4] \n\
+    ldrb r1, [r5, #9] \n\
+    ldrb r0, [r4, #0xf] \n\
+    add r0, #1 \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #7 \n\
+    strb r0, [r4, #5] \n\
+    ldrb r1, [r4, #0x13] \n\
+    movs r0, #0xef \n\
+lbl_080012b2: \n\
+    and r0, r1 \n\
+    strb r0, [r4, #0x13] \n\
+lbl_080012b6: \n\
+    ldrb r1, [r4, #0x13] \n\
+    cmp r1, #0 \n\
+    bne lbl_0800123c \n\
+lbl_080012bc: \n\
+    ldrb r5, [r4, #0x10] \n\
+    ldrb r0, [r4] \n\
+    movs r1, #0xf \n\
+    and r1, r0 \n\
+    cmp r1, #0xa \n\
+    bne lbl_080012ce \n\
+    movs r0, #0 \n\
+    strb r0, [r4] \n\
+    b lbl_080013d4 \n\
+lbl_080012ce: \n\
+    cmp r1, #1 \n\
+    bne lbl_080012da \n\
+    ldrb r0, [r4, #8] \n\
+    cmp r0, #0xff \n\
+    bne lbl_0800130c \n\
+    b lbl_08001320 \n\
+lbl_080012da: \n\
+    sub r0, r1, #2 \n\
+    cmp r0, #6 \n\
+    bhi lbl_0800139a \n\
+    lsl r0, r0, #2 \n\
+    ldr r1, lbl_080012ec @ =lbl_080012f0 \n\
+    add r0, r0, r1 \n\
+    ldr r0, [r0] \n\
+    mov pc, r0 \n\
+    .align 2, 0 \n\
+lbl_080012ec: .4byte lbl_080012f0 \n\
+lbl_080012f0: @ jump table \n\
+    .4byte lbl_08001312 @ case 0 \n\
+    .4byte lbl_0800132e @ case 1 \n\
+    .4byte lbl_0800139a @ case 2 \n\
+    .4byte lbl_08001350 @ case 3 \n\
+    .4byte lbl_08001354 @ case 4 \n\
+    .4byte lbl_0800139a @ case 5 \n\
+    .4byte lbl_08001384 @ case 6 \n\
+lbl_0800130c: \n\
+    movs r5, #0 \n\
+    movs r0, #2 \n\
+    strb r0, [r4] \n\
+lbl_08001312: \n\
+    ldrb r0, [r4, #8] \n\
+    add r0, r0, r5 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r5, r0, #0x10 \n\
+    asr r0, r0, #0x10 \n\
+    cmp r0, #0xfe \n\
+    ble lbl_0800139a \n\
+lbl_08001320: \n\
+    ldrb r0, [r4, #9] \n\
+    ldrb r1, [r4, #0xa] \n\
+    cmp r0, #0 \n\
+    beq lbl_08001348 \n\
+    movs r5, #0xff \n\
+    movs r0, #3 \n\
+    strb r0, [r4] \n\
+lbl_0800132e: \n\
+    lsl r0, r5, #0x10 \n\
+    asr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #9] \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #8 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r5, r0, #0x10 \n\
+    asr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #0xa] \n\
+    cmp r0, r1 \n\
+    bgt lbl_0800139a \n\
+    cmp r1, #0 \n\
+    beq lbl_08001350 \n\
+lbl_08001348: \n\
+    add r5, r1, #0 \n\
+    movs r0, #4 \n\
+    strb r0, [r4] \n\
+    b lbl_0800139a \n\
+lbl_08001350: \n\
+    movs r0, #6 \n\
+    strb r0, [r4] \n\
+lbl_08001354: \n\
+    lsl r0, r5, #0x10 \n\
+    asr r0, r0, #0x10 \n\
+    ldrb r1, [r4, #0xb] \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #8 \n\
+    lsl r0, r0, #0x10 \n\
+    lsr r5, r0, #0x10 \n\
+    cmp r0, #0 \n\
+    bgt lbl_0800139a \n\
+    movs r0, #0 \n\
+    strb r0, [r4] \n\
+    ldrb r0, [r4, #0xc] \n\
+    cmp r0, #0 \n\
+    beq lbl_0800137c \n\
+    ldrb r0, [r4, #0xd] \n\
+    cmp r0, #0 \n\
+    beq lbl_0800137c \n\
+    movs r0, #8 \n\
+    strb r0, [r4] \n\
+    b lbl_080013d4 \n\
+lbl_0800137c: \n\
+    add r0, r4, #0 \n\
+    bl unk_20a4 \n\
+    b lbl_080013d4 \n\
+lbl_08001384: \n\
+    ldrb r0, [r4, #0xd] \n\
+    sub r0, #1 \n\
+    strb r0, [r4, #0xd] \n\
+    lsl r0, r0, #0x18 \n\
+    lsr r0, r0, #0x18 \n\
+    cmp r0, #0 \n\
+    bne lbl_0800139a \n\
+    strb r0, [r4] \n\
+    add r0, r4, #0 \n\
+    bl unk_20a4 \n\
+lbl_0800139a: \n\
+    strb r5, [r4, #0x10] \n\
+    lsl r1, r5, #0x10 \n\
+    asr r1, r1, #0x10 \n\
+    ldr r2, lbl_08001440 @ =gMusicInfo \n\
+    ldrb r0, [r2, #6] \n\
+    add r0, #1 \n\
+    mul r1, r0, r1 \n\
+    lsl r1, r1, #0xc \n\
+    asr r1, r1, #0x10 \n\
+    ldrb r0, [r4, #4] \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #8 \n\
+    strb r0, [r4, #0x11] \n\
+    ldrb r0, [r4, #5] \n\
+    mul r0, r1, r0 \n\
+    asr r0, r0, #8 \n\
+    strb r0, [r4, #0x12] \n\
+    add r5, r2, #0 \n\
+    add r5, #0x24 \n\
+    ldr r0, lbl_08001444 @ =gSoundCodeAPointer \n\
+    mov r1, sb \n\
+    add r2, r7, r1 \n\
+    lsl r2, r2, #0x1a \n\
+    lsr r2, r2, #0x18 \n\
+    ldr r3, [r0] \n\
+    add r0, r4, #0 \n\
+    add r1, r5, #0 \n\
+    bl _call_via_r3 \n\
+lbl_080013d4: \n\
+    mov r1, r8 \n\
+    lsl r0, r1, #0x10 \n\
+    lsr r2, r0, #0x10 \n\
+lbl_080013da: \n\
+    ldr r0, lbl_08001440 @ =gMusicInfo \n\
+    ldrb r0, [r0, #5] \n\
+    cmp r2, r0 \n\
+    bhs lbl_080013fc \n\
+    ldr r0, [sp] \n\
+    cmp r0, #0 \n\
+    bne lbl_080013ea \n\
+    b lbl_08001214 \n\
+lbl_080013ea: \n\
+    ldr r0, lbl_08001448 @ =0x04000006 \n\
+    ldrb r0, [r0] \n\
+    cmp r0, #0x9f \n\
+    bhi lbl_080013f4 \n\
+    add r0, #0xe4 \n\
+lbl_080013f4: \n\
+    ldr r1, [sp] \n\
+    cmp r0, r1 \n\
+    bhs lbl_080013fc \n\
+    b lbl_08001214 \n\
+lbl_080013fc: \n\
+    ldr r4, lbl_0800144c @ =gMusicInfo+0xC24 \n\
+    mov r0, sl \n\
+    add r1, r0, r4 \n\
+    ldr r0, lbl_08001450 @ =0xfffff400 \n\
+    add r5, r4, r0 \n\
+    ldr r6, lbl_08001454 @ =gSoundCodeCPointer \n\
+    ldr r0, [sp, #4] \n\
+    lsr r2, r0, #0x18 \n\
+    ldr r3, [r6] \n\
+    add r0, r1, #0 \n\
+    add r1, r5, #0 \n\
+    bl _call_via_r3 \n\
+    add r5, r0, #0 \n\
+    mov r1, sb \n\
+    cmp r1, #0 \n\
+    beq lbl_08001430 \n\
+    add r1, r4, #0 \n\
+    mov r0, sb \n\
+    lsl r2, r0, #0x1a \n\
+    lsr r2, r2, #0x18 \n\
+    ldr r3, [r6] \n\
+    add r0, r1, #0 \n\
+    add r1, r5, #0 \n\
+    bl _call_via_r3 \n\
+lbl_08001430: \n\
+    add sp, #8 \n\
+    pop {r3, r4, r5} \n\
+    mov r8, r3 \n\
+    mov sb, r4 \n\
+    mov sl, r5 \n\
+    pop {r4, r5, r6, r7} \n\
+    pop {r0} \n\
+    bx r0 \n\
+    .align 2, 0 \n\
+lbl_08001440: .4byte gMusicInfo \n\
+lbl_08001444: .4byte gSoundCodeAPointer \n\
+lbl_08001448: .4byte 0x04000006 \n\
+lbl_0800144c: .4byte gMusicInfo+0xC24 \n\
+lbl_08001450: .4byte 0xfffff400 \n\
+lbl_08001454: .4byte gSoundCodeCPointer \n\
+        ");
+}
+#endif
 
+/**
+ * @brief 1458 | 3f8 | To document
+ * 
+ */
 void UpdatePsgSounds(void)
 {
-    // https://decomp.me/scratch/1qI1m
-
     s16 var_0;
     u8 control;
     u8 i;
     u8* ptr;
     struct PSGSoundData* pSound;
     struct TrackVariables* pVariables;
+    u32 tmp;
 
     var_0 = FALSE;
 
@@ -384,7 +871,8 @@ void UpdatePsgSounds(void)
             else
                 pSound->unk_11 = 0;
 
-            pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+            tmp = 0;
+            pSound->unk_14 = pSound->maybe_noteDelay | tmp | 0x8000;
 
             if (pSound->unk_1D != 0)
             {
@@ -397,7 +885,14 @@ void UpdatePsgSounds(void)
             }
             else
             {
-                goto lbl_3;
+                if (pSound->envelope.decay == 0)
+                {
+                    goto lbl_1;
+                }
+                else
+                {
+                    goto lbl_2;
+                }
             }
         }
 
@@ -689,7 +1184,7 @@ void UpdateTrack(struct TrackData* pTrack)
                                         if (var_2 != (s8)pVariables->unk_13)
                                         {
                                             pVariables->unk_13 = (var_2 * (pVariables->modulationDepth + 1)) >> 7;
-                                            unk_1c3c(pVariables);
+                                            unk_1ccc(pVariables, var_2);
                                         }
                                     }
                                 }
@@ -960,7 +1455,7 @@ void unk_1ccc(struct TrackVariables* pVariables, s16 param_2)
     if (pVariables->modulationType == 1)
     {
         unk_4f10(pVariables);
-        pSound->unk_12 = (pSound->unk_19 + (s32)pVariables->unk_13 / sUnk_808cc4d[param_2]) * 16;
+        pSound->unk_12 = ((u8)pSound->unk_19 + (s32)pVariables->unk_13 / sUnk_808cc4d[param_2]) * 16;
         pSound->unk_F |= 0x20;
     }
     else if (pVariables->modulationType == 0)

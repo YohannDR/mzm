@@ -203,7 +203,7 @@ void SetupSoundTransfer(void)
     write16(REG_DMA2_CNT + 2, DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_HBLANK | DMA_START_VBLANK | DMA_32BIT | DMA_REPEAT);
 
     write16(REG_TM0CNT_H, 0);
-    write16(REG_TM0CNT_L, -(FRAME_DRAW_CYCLES / samplesPerFrame)); // cycle time to play each sample
+    write16(REG_TM0CNT_L, -((u32)FRAME_DRAW_CYCLES / samplesPerFrame)); // cycle time to play each sample
 
     // Wait for VBLANK
     while (read8(REG_VCOUNT) == (SCREEN_SIZE_Y - 1)) {}
@@ -253,7 +253,7 @@ void StopAllMusicsAndSounds(void)
     s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
-        stop_music_or_sound(sMusicTrackDataRom[i].pTrack);
+        StopMusicOrSound(sMusicTrackDataRom[i].pTrack);
 }
 
 /**
@@ -267,7 +267,7 @@ void unk_2a8c(void)
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
     {
         if (!(sMusicTrackDataRom[i].pTrack->unk_1E & TRUE))
-            stop_music_or_sound(sMusicTrackDataRom[i].pTrack);
+            StopMusicOrSound(sMusicTrackDataRom[i].pTrack);
     }
 }
 
@@ -417,7 +417,7 @@ void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
     s32 volume;
 
     if (timer == 0)
-        stop_music_or_sound(pTrack); // Undefined
+        StopMusicOrSound(pTrack); // Undefined
     else if (!pTrack->occupied)
     {
         pTrack->occupied = TRUE;
@@ -425,7 +425,7 @@ void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
         if (pTrack->flags & 2)
         {
             if (pTrack->flags & 0xF8)
-                reset_track(pTrack); // Undefined
+                ResetTrack(pTrack); // Undefined
             else
             {
                 pTrack->flags |= 8;
@@ -512,7 +512,7 @@ void unk_2d2c(struct TrackData* pTrack)
     }
     else
     {
-        reset_track(pTrack);
+        ResetTrack(pTrack);
 
         if (pTrack->flags & 8)
             pTrack->flags = 0;
@@ -673,7 +673,7 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
         
                 // Amount of tracks
                 if (pHeader[0] == 0)
-                    reset_track(pTrack1);
+                    ResetTrack(pTrack1);
                 else
                 {
                     if (pTrack1->flags & 2)
@@ -688,7 +688,7 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
                         }
                         else
                         {
-                            reset_track(pTrack1);
+                            ResetTrack(pTrack1);
                             var_0 = TRUE;
                         }
                     }
