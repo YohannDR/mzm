@@ -555,8 +555,8 @@ lbl_08004ab0:
     ldmia sp!, {r4, r5, r6, r7}
     bx lr
 
-    thumb_func_start sub_08004abc
-sub_08004abc: @ 0x08004abc
+    thumb_func_start CallGetNoteFrequency
+CallGetNoteFrequency: @ 0x08004abc
     add r2, pc, #0x0 @ =sub_08004ac0
     bx r2
 
@@ -627,7 +627,7 @@ InitTrack: @ 0x08004b50
     lsls r2, r6, #0x18
     lsrs r2, r2, #0x18
     bne lbl_08004b7c
-    bl reset_track
+    bl ResetTrack
     movs r2, #0
     strb r2, [r4]
     b lbl_08004c00
@@ -650,7 +650,7 @@ lbl_08004b7c:
     b lbl_08004c0e
 lbl_08004b9c:
     adds r0, r4, #0
-    bl reset_track
+    bl ResetTrack
 lbl_08004ba2:
     movs r3, #2
     lsls r2, r6, #8
@@ -718,8 +718,8 @@ lbl_08004c0e:
     pop {r1}
     bx r1
 
-    thumb_func_start stop_music_or_sound
-stop_music_or_sound: @ 0x08004c1c
+    thumb_func_start StopMusicOrSound
+StopMusicOrSound: @ 0x08004c1c
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     ldrb r6, [r7, #0x1c]
@@ -787,8 +787,8 @@ lbl_08004c8c:
     bx r0
     .align 2, 0
 
-    thumb_func_start reset_track
-reset_track: @ 0x08004c94
+    thumb_func_start ResetTrack
+ResetTrack: @ 0x08004c94
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     ldrb r6, [r7, #0x1e]
@@ -847,8 +847,8 @@ lbl_08004cf6:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08004cfc
-sub_08004cfc: @ 0x08004cfc
+    thumb_func_start unk_4cfc
+unk_4cfc: @ 0x08004cfc
     adds r3, r0, #0
     ldr r0, [r3, #0xc]
     lsls r1, r0, #0x10
@@ -868,8 +868,8 @@ lbl_08004d16:
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_08004d1c
-sub_08004d1c: @ 0x08004d1c
+    thumb_func_start unk_4d1c
+unk_4d1c: @ 0x08004d1c
     ldr r2, [r1, #0x24]
     ldrb r3, [r2, #1]
     adds r2, #2
@@ -957,7 +957,7 @@ lbl_08004da8:
     movs r1, #2
     ands r3, r1
     beq lbl_08004da0
-    bl sub_08001850
+    bl UpdateTrack
     b lbl_08004da0
 lbl_08004dbc:
     movs r0, #0x20
@@ -973,15 +973,15 @@ lbl_08004dc8:
     movs r1, #2
     ands r3, r1
     beq lbl_08004dd8
-    bl sub_08001850
+    bl UpdateTrack
 lbl_08004dd8:
     ldrb r5, [r6, #1]
     cmp r5, #0
     bne lbl_08004dea
     movs r5, #1
     strb r5, [r6, #1]
-    bl sub_08001458
-    bl sub_080010c4
+    bl UpdatePsgSounds
+    bl UpdateMusic
 lbl_08004dea:
     movs r0, #0
     strb r0, [r6, #1]
@@ -997,8 +997,8 @@ lbl_08004e04: .4byte gMusicInfo
 lbl_08004e08: .4byte gNumMusicPlayers
 lbl_08004e0c: .4byte gNumMusicPlayers
 
-    thumb_func_start sub_08004e10
-sub_08004e10: @ 0x08004e10
+    thumb_func_start unk_4e10
+unk_4e10: @ 0x08004e10
     push {r4, r5, lr}
     ldr r1, [r0, #0x40]
     ldrb r2, [r0, #1]
@@ -1071,7 +1071,7 @@ lbl_08004e88:
     adds r4, r0, #0
     adds r5, r1, #0
     ldr r0, [r5, #4]
-    bl sub_080050d0
+    bl UploadSampleToWaveRAM
     adds r0, r4, #0
     adds r1, r5, #0
     b lbl_08004eaa
@@ -1091,8 +1091,8 @@ lbl_08004eaa:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08004eb4
-sub_08004eb4: @ 0x08004eb4
+    thumb_func_start unk_4eb4
+unk_4eb4: @ 0x08004eb4
     movs r1, #0x19
     ldrsb r1, [r0, r1]
     cmp r1, #0
@@ -1142,8 +1142,8 @@ lbl_08004f06:
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_08004f10
-sub_08004f10: @ 0x08004f10
+    thumb_func_start unk_4f10
+unk_4f10: @ 0x08004f10
     push {r4}
     ldr r1, [r0, #4]
     lsls r2, r1, #0x18
@@ -1212,8 +1212,8 @@ lbl_08004f74:
     pop {r4}
     bx lr
 
-    thumb_func_start sub_08004f8c
-sub_08004f8c: @ 0x08004f8c
+    thumb_func_start unk_4f8c
+unk_4f8c: @ 0x08004f8c
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -1291,7 +1291,7 @@ lbl_0800500a:
     b lbl_08005024
 lbl_0800501e:
     ldr r1, [r1, #0x18]
-    bl sub_08004abc
+    bl CallGetNoteFrequency
 lbl_08005024:
     str r0, [r4, #0x1c]
     pop {r4, r5, r6}
@@ -1394,8 +1394,8 @@ lbl_080050cc:
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_080050d0
-sub_080050d0: @ 0x080050d0
+    thumb_func_start UploadSampleToWaveRAM
+UploadSampleToWaveRAM: @ 0x080050d0
     ldr r3, lbl_080050fc @ =0x04000070
     movs r2, #0x40
     strb r2, [r3]
@@ -1421,8 +1421,8 @@ sub_080050d0: @ 0x080050d0
 lbl_080050fc: .4byte 0x04000070
 lbl_08005100: .4byte 0x04000090
 
-    thumb_func_start sub_08005104
-sub_08005104: @ 0x08005104
+    thumb_func_start unk_5104
+unk_5104: @ 0x08005104
     push {r4, r5}
     ldr r4, [r0, #0x10]
     ldrh r5, [r0, #0x14]
