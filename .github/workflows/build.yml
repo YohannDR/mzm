@@ -33,8 +33,7 @@ jobs:
               with:
                 path: baseroms
                 repository: YohannDR/Roms
-                ssh-private-key: |
-                    ${{ secrets.ROMS_PATH }}
+                token: ${{ secrets.ROMS_REPO }}
             
             - name: Move roms
               run: |
