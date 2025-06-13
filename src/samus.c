@@ -2348,7 +2348,7 @@ void SamusSetPose(u8 pose)
     struct SamusData* pCopy;
 
     pData = &gSamusData;
-    pCopy = &gSamusDataCopy;
+    pCopy = &gSamusData;
     pWeapon = &gSamusWeaponInfo;
 
     if (pose == SPOSE_KNOCKBACK_REQUEST || pose == SPOSE_HURT_REQUEST)
