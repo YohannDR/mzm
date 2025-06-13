@@ -30,11 +30,12 @@ jobs:
               working-directory: agbcc
 
             - name: Get roms
-              uses: actions/checkout@main
+              uses: actions/checkout@master
               with:
+                ref: main
                 path: baseroms
                 repository: YohannDR/Roms
-                token: ${{ secrets.ROMS_REPO }}
+                ssh-key: ${{ secrets.ROMS_REPO }}
             
             - name: Move roms
               run: |
