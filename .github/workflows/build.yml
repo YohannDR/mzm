@@ -1,0 +1,33 @@
+name: Ci
+
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@master
+
+            - name: Checkout agbcc
+              uses: actions/checkout@master
+              with:
+                path: agbcc
+                repository: pret/agbcc
+
+            - name: Install binutils
+              run: |
+               sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi
+
+            - name: Install agbcc
+              run: |
+                ./build.sh
+                ./install.sh ../
+              working-directory: agbcc
+
+            - name: Check
+              run: |
+                ./check_roms.sh
