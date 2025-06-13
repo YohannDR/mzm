@@ -27,7 +27,13 @@ jobs:
               run: |
                 ./build.sh
                 ./install.sh ../
+                export $env:GITHUB_PATH=agbcc:$env:GITHUB_PATH
               working-directory: agbcc
+
+            - name: Build preproc
+              run: |
+                make
+              working-directory: tools/preproc
 
             - name: Get roms
               uses: actions/checkout@master
