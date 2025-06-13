@@ -28,6 +28,18 @@ jobs:
                 ./install.sh ../
               working-directory: agbcc
 
+            - name: Get roms
+              uses: actions/checkout@main
+              with:
+                path: baseroms
+                repository: YohannDR/Roms
+                ssh-private-key: |
+                    ${{ secrets.ROMS_PATH }}
+            
+            - name: Move roms
+              run: |
+                - cp /baseroms/* .
+
             - name: Check
               run: |
                 chmod +x check_roms.sh
