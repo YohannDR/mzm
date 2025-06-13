@@ -39,7 +39,7 @@ jobs:
             
             - name: Move roms
               run: |
-                cp /baseroms/* .
+                cp baseroms/ .
 
             - name: Check
               run: |
