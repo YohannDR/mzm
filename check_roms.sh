@@ -10,8 +10,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# regions=("us" "jp" "us_beta")
-regions=("us" "jp")
+regions=("us" "jp" "us_beta")
 
 for region in "${regions[@]}"; do
     echo "---- Building for REGION=$region ----"
