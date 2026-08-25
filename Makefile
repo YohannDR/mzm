@@ -207,6 +207,8 @@ ifeq ($(DATA),1)
 endif
 	$(MSG) RM linker.ld.pp
 	$Q$(RM) linker.ld.pp
+	$(MSG) RM docs/doxygen/
+	$Q$(RM) -r docs/doxygen
 
 .PHONY: help
 help:
@@ -282,3 +284,29 @@ jp_debug:
 # 	$(MAKE) REGION=cn
 # cn_debug:
 # 	$(MAKE) REGION=cn DEBUG=1
+
+.PHONY: docs
+docs:
+	doxygen
+
+.PHONY: serve
+serve:
+	python -m http.server 8080 -d docs/doxygen/html
+
+# Run the built target with mgba-qt.
+#
+# If host-spawn is available, this assumes to be in a build sandbox without
+# mgba-qt and use it to access mgba-qt out of the sandbox. Use mgba-qt if it is
+# available, otherwise try to run its Flatpak.
+.PHONY: run
+HOST_SPAWN := $(shell which host-spawn)
+run: $(TARGET)
+ifeq (, $(shell  $(HOST_SPAWN) which mgba-qt))
+ifeq (, $(shell  $(HOST_SPAWN) which flatpak))
+	$(error "No mgba-qt nor flatpak in $(PATH)")
+else
+	 $(HOST_SPAWN) flatpak run io.mgba.mGBA $<
+endif
+else
+	 $(HOST_SPAWN) mgba-qt $<
+endif

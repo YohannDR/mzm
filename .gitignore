@@ -1,3 +1,4 @@
+/docs/doxygen/*
 /src/**/*.s
 /data/*
 /sound/direct_sound_samples/*
