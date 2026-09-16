@@ -11,15 +11,15 @@ from lz import *
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("emulator_path", type=str, help="Path to emulator binary")
+    parser.add_argument("output_path", type=str, help="Path to output binary")
     
     args = parser.parse_args()
-    emulator_path = args.emulator_path
     
-    with open(emulator_path, "rb") as f:
+    with open(args.emulator_path, "rb") as f:
         decomp_bytes = f.read()
     
     comp_bytes = comp_lz_custom(decomp_bytes)
     
-    with open(emulator_path + ".lz", "wb") as f:
+    with open(args.output_path, "wb") as f:
         f.write(comp_bytes)
     

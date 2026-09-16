@@ -202,11 +202,13 @@ emulator/emulator_$(REGION).gba:
 emulator/emulator_$(REGION)_part6.gba:
 	$(MAKE) -C emulator -f Makefile_part6.mk -r $(REGION)
 
-emulator/emulator_$(REGION).gba.lz: emulator/emulator_$(REGION).gba emulator/emulator_$(REGION)_part6.gba
-	$(PYTHON) $(TOOLS_DIR)/nes_metroid/emulatorPart6Combiner.py $< $(<:.gba=.map) $(<:.gba=_part6.gba)
-	$(PYTHON) $(TOOLS_DIR)/nes_metroid/emulatorCompressor.py $<
+emulator/emulator_$(REGION)_combined.gba: emulator/emulator_$(REGION).gba emulator/emulator_$(REGION)_part6.gba
+	$(PYTHON) $(TOOLS_DIR)/nes_metroid/emulatorPart6Combiner.py $< $(<:.gba=.map) $(<:.gba=_part6.gba) $@
 
-emulator/emulatorUnused_$(REGION).gba: emulator/emulator_$(REGION).gba
+emulator/emulator_$(REGION).gba.lz: emulator/emulator_$(REGION)_combined.gba
+	$(PYTHON) $(TOOLS_DIR)/nes_metroid/emulatorCompressor.py $< $@
+
+emulator/emulatorUnused_$(REGION).gba: emulator/emulator_$(REGION)_combined.gba
 	$(PYTHON) $(TOOLS_DIR)/nes_metroid/emulatorUnusedExtractor.py $< $@
 
 payload/payload_$(REGION).gba:

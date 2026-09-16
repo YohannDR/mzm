@@ -11,11 +11,11 @@ if __name__ == "__main__":
     parser.add_argument("emulator_path", type=str, help="Path to emulator binary")
     parser.add_argument("emulator_map_path", type=str, help="Path to emulator symbol file")
     parser.add_argument("emulator_part6_path", type=str, help="Path to emulator part6 binary")
+    parser.add_argument("output_path", type=str, help="Path to output binary")
     
     args = parser.parse_args()
-    emulator_path = args.emulator_path
     
-    with open(emulator_path, "rb") as f:
+    with open(args.emulator_path, "rb") as f:
         emulator_bytes = f.read()
     with open(args.emulator_part6_path, "rb") as f:
         emulator_part6_bytes = f.read()
@@ -35,6 +35,6 @@ if __name__ == "__main__":
     # assumes part 6 is the last thing in emulator
     emulator_bytes = emulator_bytes[:load_address] + emulator_part6_bytes
     
-    with open(emulator_path, "wb") as f:
+    with open(args.output_path, "wb") as f:
         f.write(emulator_bytes)
     
