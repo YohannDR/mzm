@@ -23,7 +23,7 @@ track_168:
 	.byte 0
 	.byte 255
 	.byte 0
-	.word voicegroup019
+	.word voicegroup018
 	.word track_168_0
 
 .align 2
