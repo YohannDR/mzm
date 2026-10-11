@@ -1,11 +1,11 @@
-    .include "asm/constants.inc"
-    .include "asm/macros.inc"
+	.include "asm/constants.inc"
+	.include "asm/macros.inc"
 
 	@ regs:
 	@ r0 = 0x087D8150 (Data to read from)
 	@ r4 = 0x040000D4 (DMA3)
 	@ r5 = 0x13850021 (???)
-    .syntax unified
+	.syntax unified
 
 	arm_func_start start_code
 start_code: @ 0x03007400
@@ -38,7 +38,12 @@ CheckNextBit: @ 0x0300742C
 	bne ReadNextByte  @ else, goto CheckNextBit
 	.align 2, 0
 _03007450: .4byte 0x01300014
-_03007454: .4byte 0x06006558
+_03007454:
+.ifdef REGION_JP
+	.4byte 0x06006778
+.else
+	.4byte 0x06006558
+.endif
 
 @ This routine is called when the emulator decompression is finished
 	arm_func_start _03007458
@@ -236,13 +241,23 @@ _03007574: .4byte _030075AC
 _03007578: .4byte 0x03005A4C
 _0300757C: .4byte 0x85000166
 
-_03007580: .4byte 0x060012C0
+_03007580:
+.ifdef REGION_JP
+	.4byte 0x060012E0
+.else
+	.4byte 0x060012C0
+.endif
 _03007584: .4byte 0x03000000
 _03007588: .4byte 0x84001693
 
 _0300758C: .4byte 0x06000080
 _03007590: .4byte 0x06006000
-_03007594: .4byte 0x84000490
+_03007594:
+.ifdef REGION_JP
+	.4byte 0x84000498
+.else
+	.4byte 0x84000490
+.endif
 
 _03007598: .4byte _030075AC
 _0300759C: .4byte 0x06000080
@@ -252,15 +267,30 @@ _030075A4: .4byte 0x06000000
 _030075A8: .4byte 0x0600B800
 _030075AC: .4byte 0x00000000
 
-_030075B0: .4byte 0x06006D0C
+_030075B0:
+.ifdef REGION_JP
+	.4byte 0x06006D2C
+.else
+	.4byte 0x06006D0C
+.endif
 _030075B4: .4byte 0x0600B000
 _030075B8: .4byte 0x84000054
 
-_030075BC: .4byte 0x06006E5C
+_030075BC:
+.ifdef REGION_JP
+	.4byte 0x06006E7C
+.else
+	.4byte 0x06006E5C
+.endif
 _030075C0: .4byte 0x0600C000
 _030075C4: .4byte 0x84000018
 
-_030075C8: .4byte 0x06006EBC
+_030075C8:
+.ifdef REGION_JP
+	.4byte 0x06006EDC
+.else
+	.4byte 0x06006EBC
+.endif
 _030075CC: .4byte 0x0600E000
 _030075D0: .4byte 0x84000362
 
@@ -268,9 +298,19 @@ _030075D4: .4byte _030075AC
 _030075D8: .4byte 0x06010000
 _030075DC: .4byte 0x85002000
 
-_030075E0: .4byte 0x06007C44
+_030075E0:
+.ifdef REGION_JP
+	.4byte 0x06007C64
+.else
+	.4byte 0x06007C44
+.endif
 _030075E4: .4byte 0x0203E000
-_030075E8: .4byte 0x84000238
+_030075E8:
+.ifdef REGION_JP
+	.4byte 0x84000244
+.else
+	.4byte 0x84000238
+.endif
 
 _030075EC: .4byte _030075AC
 _030075F0: .4byte 0x05000000
@@ -281,7 +321,12 @@ _030075FC: .4byte 0x07000000
 _03007600: .4byte 0x85000100
 
 _03007604: .4byte 0x06000000
-_03007608: .4byte 0x06008524
+_03007608:
+.ifdef REGION_JP
+	.4byte 0x06008574
+.else
+	.4byte 0x06008524
+.endif
 _0300760C: .4byte _03007458
 
 _03007610: .4byte 0x03000100

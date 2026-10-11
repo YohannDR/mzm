@@ -3206,7 +3206,7 @@ static u8 OptionsNesMetroidHandler(void)
             // Verify data integrity
             for (i = 0; i < ARRAY_SIZE(sNesMetroidDataCheck); i++)
             {
-                if (sNesMetroidData_Text[i] != sNesMetroidDataCheck[i])
+                if (((struct NesMetroid *)&sNesMetroid)->data_Text[i] != sNesMetroidDataCheck[i])
                     return TRUE;
             }
             FILE_SELECT_DATA.subMenuStage++;
@@ -3249,7 +3249,7 @@ static u8 OptionsNesMetroidHandler(void)
             // Give control to some sort of bootloader?
             // Signature : void Func_T(void*)
             entryPoint = ROM_BASE;
-            func = (NesEmuFunc_T)&sNesEmuBootLoader;
+            func = (NesEmuFunc_T)&((struct NesMetroid *)&sNesMetroid)->emuBootLoader;
             func(entryPoint);
             break;
     }

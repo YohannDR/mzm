@@ -962,7 +962,11 @@ _0600EAB8:
 	cmp r1, r3
 	ldreq r4, _0600EB00 @ =0x11840183
 	ldrne r4, [pc, #0x12] @ WARNING: disassembler fails to produce this instruction
+.ifdef REGION_JP
+	strh r4, [r12, #6]
+.else
 	strh r4, [r12, #4]
+.endif
 	sub r2, r2, #0x80
 	subs r3, r3, #1
 	bhs _0600EAA8

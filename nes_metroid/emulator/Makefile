@@ -2,54 +2,39 @@
 .SUFFIXES:
 
 REGION ?= us
-PAD_TO = 0x08800000
 
 ifeq ($(REGION),us)
-	TARGET = mzm_us
-	GAME_TITLE = "NES METROID"
-	GAME_CODE = "    "
+	TARGET = emulator_us
 	CPPFLAGS += -DREGION_US
 	ASFLAGS += --defsym REGION_US=1
 endif
 
-# ifeq ($(REGION),us_beta)
-# 	TARGET = mzm_us_beta
-# 	GAME_TITLE = NES METROID
-# 	GAME_CODE = BMXE
-# 	CPPFLAGS += -DREGION_US -DREGION_US_BETA -DDEBUG
-# 	ASFLAGS += --defsym REGION_US=1 --defsym REGION_US_BETA=1 --defsym DEBUG=1
-# 	PAD_TO = 0x09000000
-# endif
+ifeq ($(REGION),us_beta)
+	TARGET = emulator_us_beta
+	CPPFLAGS += -DREGION_US -DREGION_US_BETA -DDEBUG
+	ASFLAGS += --defsym REGION_US=1 --defsym REGION_US_BETA=1 --defsym DEBUG=1
+endif
 
-# ifeq ($(REGION),eu)
-# 	TARGET = mzm_eu
-# 	GAME_TITLE = NES METROID
-# 	GAME_CODE = BMXP
-# 	CPPFLAGS += -DREGION_EU
-# 	ASFLAGS += --defsym REGION_EU=1
-# endif
+ifeq ($(REGION),eu)
+	TARGET = emulator_eu
+	CPPFLAGS += -DREGION_EU
+	ASFLAGS += --defsym REGION_EU=1
+endif
 
-# ifeq ($(REGION),eu_beta)
-# 	TARGET = mzm_eu_beta
-# 	GAME_TITLE = NES METROID
-# 	GAME_CODE = BMXP
-# 	CPPFLAGS += -DREGION_EU -DREGION_EU_BETA -DDEBUG
-# 	ASFLAGS += --defsym REGION_EU=1 --defsym REGION_EU_BETA=1 --defsym DEBUG=1
-# 	PAD_TO = 0x09000000
-# endif
+ifeq ($(REGION),eu_beta)
+	TARGET = emulator_eu_beta
+	CPPFLAGS += -DREGION_EU -DREGION_EU_BETA -DDEBUG
+	ASFLAGS += --defsym REGION_EU=1 --defsym REGION_EU_BETA=1 --defsym DEBUG=1
+endif
 
-# ifeq ($(REGION),jp)
-# 	TARGET = mzm_jp
-# 	GAME_TITLE = NES METROID
-# 	GAME_CODE = BMXJ
-# 	CPPFLAGS += -DREGION_JP
-# 	ASFLAGS += --defsym REGION_JP=1
-# endif
+ifeq ($(REGION),jp)
+	TARGET = emulator_jp
+	CPPFLAGS += -DREGION_JP
+	ASFLAGS += --defsym REGION_JP=1
+endif
 
 # ifeq ($(REGION),cn)
-# 	TARGET = mzm_cn
-# 	GAME_TITLE = NES METROID
-# 	GAME_CODE = BMXC
+# 	TARGET = emulator_cn
 # 	CPPFLAGS += -DREGION_CN
 #	ASFLAGS += --defsym REGION_CN=1
 # endif
@@ -91,10 +76,11 @@ SHA1SUM = sha1sum
 TAIL = tail
 
 # Tools
-GBAFIX = ../../tools/gbafix/gbafix
+TOOLS_DIR := ../../tools
+GBAFIX = $(TOOLS_DIR)/gbafix/gbafix
 PYTHON = python3
-EXTRACTOR = ../../tools/extractor.py
-PREPROC = ../../tools/preproc/preproc
+EXTRACTOR = $(PYTHON) $(TOOLS_DIR)/extractor.py
+PREPROC = $(PYTHON) $(TOOLS_DIR)/preproc.py
 
 # Flags
 ASFLAGS += -mcpu=arm7tdmi
@@ -144,7 +130,7 @@ diff: $(DUMPS)
 # .PHONY: extract
 # extract:
 # 	$(MSG) Extracting
-# 	$Q python3 ../tools/extractor.py -r $(REGION)
+# 	$Q python3 $(TOOLS_DIR)/extractor.py -r $(REGION)
 
 .PHONY: clean
 clean:
@@ -170,8 +156,8 @@ ifeq ($(DATA),1)
 	$(MSG) RM data/
 	$Q$(RM) -r data
 endif
-	$(MSG) RM linker.ld.pp
-	$Q$(RM) linker.ld.pp
+	$(MSG) RM $(LD_SCRIPT)
+	$Q$(RM) $(LD_SCRIPT)
 
 .PHONY: help
 help:
@@ -192,14 +178,12 @@ help:
 $(TARGET): $(ELF)
 	$(MSG) OBJCOPY $@
 	$Q$(OBJCOPY) -O binary --gap-fill 0xff $< $@
-# 	$(MSG) GBAFIX $@
-# 	$Q$(GBAFIX) $@ -t$(GAME_TITLE)  -m$(MAKER_CODE) -r$(GAME_REVISION)
 
 $(ELF) $(MAP): $(OBJ) $(LD_SCRIPT)
 	$(MSG) LD $@
 	$Q$(LD) $(LDFLAGS) -n -T $(LD_SCRIPT) -Map=$(MAP) $(LIBS) -o $@
 
-$(LD_SCRIPT): linker.ld
+$(LD_SCRIPT): $(basename $(LD_SCRIPT))
 	$(MSG) CPP $@
 	$Q$(CPP) $(CPPFLAGS) $< -o $@
 
@@ -221,7 +205,7 @@ $(LD_SCRIPT): linker.ld
 src/sram/%.s: CFLAGS = -Werror -O1 -mthumb-interwork -fhex-asm -f2003-patch
 src/sram/%.s: src/sram/%.c
 
-../../tools/%: ../../tools/%.c
+$(TOOLS_DIR)/%: $(TOOLS_DIR)/%.c
 	$(MSG) HOSTCC $@
 	$Q$(HOSTCC) $< $(HOSTCFLAGS) $(HOSTCPPFLAGS) -o $@
 

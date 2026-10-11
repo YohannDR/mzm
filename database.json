@@ -47496,23 +47496,5 @@
       "eu_beta": "0x772EFC"
     },
     "size": 1
-  },
-  {
-    "path": "nes_metroid.bin",
-    "count": {
-      "us": "0x1F682",
-      "eu": "0x1F682",
-      "jp": "0x1F8E2",
-      "us_beta": "0x1F682",
-      "eu_beta": "0x1F682"
-    },
-    "addr": {
-      "us": "0x7D80B2",
-      "eu": "0x7D80B2",
-      "jp": "0x7D80B2",
-      "us_beta": "0x7D80B2",
-      "eu_beta": "0x7D80B2"
-    },
-    "size": 1
   }
 ]
