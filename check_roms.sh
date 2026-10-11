@@ -22,8 +22,8 @@ for region in "${regions[@]}"; do
         exit 1
     fi
 
-    echo "* Running: python3 tools/extractor.py -r $region"
-    if ! python3 tools/extractor.py -r "$region" > /dev/null 2>err.log; then
+    echo "* Running: make extract REGION=$region"
+    if ! make extract REGION="$region" > /dev/null 2>err.log; then
         echo "extractor failed for REGION=$region"
         cat err.log
         exit 1
