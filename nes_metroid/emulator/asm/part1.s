@@ -55,8 +55,8 @@ _06006064:
 	orr r5, r5, #0x6000000 @ r5 = 0x06007C00
 	mov r4, #0xc000
 	orr r4, r4, #0x6000000 @ r4 = 0x0600C000
-	add r3, pc, #0x78 @ =_06006110
-	add r2, r3, #0x120
+	adr r3, _06006110
+	add r2, r3, _06006230-_06006110 @ #0x120
 _06006098:
 	ldrb r0, [r3], #1
 	ldr r0, [r5, r0, lsl #2]
@@ -67,7 +67,7 @@ _06006098:
 	@ Copy 0xE0 bytes of _06006230 using the 0x06007C00 LUT to 0x0600C480
 	@ Each byte is ORed with itself left shifted by 1 (possibly for thickness?)
 	@ This seems to be lowercase alphabet tiles, as well as ? and -
-	add r2, r3, #0xe0
+	add r2, r3, _06006310-_06006230  @ #0xe0
 _060060B0:
 	ldrb r0, [r3], #1
 	ldr r0, [r5, r0, lsl #2]
@@ -90,8 +90,8 @@ _060060D8:
 	@ Each byte is shifted by 1 (why?)
 	@ This seems to be 0-9 tiles
 	ldr r4, _0600610C @ =0x06011400
-	add r3, pc, #0x20 @ =_06006110
-	add r2, r3, #0x50
+	adr r3, _06006110
+	add r2, r3, _06006160-_06006110 @ #0x50
 _060060F0:
 	ldrb r0, [r3], #1
 	ldr r0, [r5, r0, lsl #2]
@@ -109,6 +109,7 @@ _06006110:
 	.byte 0x1C, 0x3C, 0x6C, 0xCC, 0xFE, 0x0C, 0x0C, 0x00, 0xFC, 0xC0, 0xFC, 0x06, 0x06, 0xC6, 0x7C, 0x00
 	.byte 0x3C, 0x60, 0xC0, 0xFC, 0xC6, 0xC6, 0x7C, 0x00, 0xFE, 0xC6, 0x0C, 0x18, 0x30, 0x30, 0x30, 0x00
 	.byte 0x7C, 0xC6, 0xC6, 0x7C, 0xC6, 0xC6, 0x7C, 0x00, 0x7C, 0xC6, 0xC6, 0x7E, 0x06, 0x0C, 0x78, 0x00
+_06006160:
 	.byte 0x38, 0x6C, 0xC6, 0xC6, 0xFE, 0xC6, 0xC6, 0x00, 0xFC, 0xC6, 0xC6, 0xFC, 0xC6, 0xC6, 0xFC, 0x00
 	.byte 0x3C, 0x66, 0xC0, 0xC0, 0xC0, 0x66, 0x3C, 0x00, 0xF8, 0xCC, 0xC6, 0xC6, 0xC6, 0xCC, 0xF8, 0x00
 	.byte 0xFE, 0xC0, 0xC0, 0xFC, 0xC0, 0xC0, 0xFE, 0x00, 0xFE, 0xC0, 0xC0, 0xFC, 0xC0, 0xC0, 0xC0, 0x00
@@ -250,15 +251,16 @@ _06006548:
     .4byte 0x060038CC
 .endif
 _0600654C:
-	.byte 0x00, 0x00, 0x00, 0x00
-	.byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+	.byte 0x00, 0x00
+_0600654E:
+	.byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 
 	arm_func_start sub_06006558
 sub_06006558: @ 0x06006558
 	@ Copy 0x40 bytes from _06006310 to 0x06003040
 	ldr r5, _0600699C @ =_06006310
 	ldr r4, _060069A0 @ =0x06003040
-	add r6, r5, #0x40
+	add r6, r5, _06006350-_06006310 @ #0x40
 _06006564:
 	ldm r5!, {r1, r2, r3, r11}
 	stm r4!, {r1, r2, r3, r11}
@@ -293,14 +295,14 @@ _060065BC:
 	cmp r4, r5
 	blo _060065BC
 
-	@ Copy 24 bytes _06006530 to 0x05000008 (transfer 12 colors to first entry of PALRAM)
+	@ Copy 24 bytes _06006530 to 0x05000008 (transfer 12 (15?) colors to first entry of PALRAM)
 	mov r4, #0x5000000
 	add r4, r4, #8
-	sub r1, pc, #0xa8
+	adr r1, _06006530
 _060065D4:
 	ldr r11, [r1], #4
 	str r11, [r4], #4
-	tst r4, #0x1e
+	tst r4, _0600654E-_06006530 @ #0x1e
 	bne _060065D4
 
 	@ Write following color pattern to PALRAM, where B is black, and X is the color:
@@ -460,7 +462,7 @@ _0600666C:
 	str r1, [sp, #SP_968] @ SP_968 = 0x0F0E0D0C
 
 	@ Set SP_8C4 to SP_8E3 to 0x1E
-	add r1, sp, #0x20
+	add r1, sp, SP_8E4-SP_8C4 @ #0x20
 	mov r0, #0x1e
 _06006824:
 	sub r1, r1, #1
@@ -470,7 +472,7 @@ _06006824:
 
 	@ Set SP_94C to SP_96B to 0xFF
 	mvn r0, #0
-	add r1, sp, #0xf
+	add r1, sp, ((SP_96C-SP_94C)/2)-1 @ #0xf
 _0600683C:
 	strb r0, [r1, #SP_94C]
 	strb r0, [r1, #SP_95C]
@@ -561,7 +563,7 @@ _0600694C:
 	ldr r3, _06006948 @ =0x0600A000
 	stm r4, {r0, r3, r5} @ DMA(src=SP_854, dst=0x0600A000, cnt=r5(always Enable, 32bit, 0x800 bytes?))
 	@ r0 = EmulatorSaveToPasswordBytes(SP_854) (returns input as output)
-	add lr, pc, #0x4 @ =_06006964
+	adr lr, _06006964
 	ldr r12, _060069EC @ =EmulatorSaveToPasswordBytes
 	bx r12
 
@@ -639,46 +641,46 @@ _06006E18:
 _06006E24:
 	tst r0, #0x40
 	bic r0, r0, #0xc0
-	add r5, pc, #0x11C @ =_06006F50
+	adr r5, _06006F50
 	bne _06006ED0
 	cmp r0, #3
 	cmpne r0, #4
-	add r5, pc, #0x114 @ =_06006F58
+	adr r5, _06006F58
 	beq _06006ED0
 	cmp r0, #6
-	add r5, pc, #0x110 @ =_06006F60
+	adr r5, _06006F60
 	beq _06006ED0
 	cmp r0, #7
-	add r5, pc, #0x10C @ =_06006F68
+	adr r5, _06006F68
 	beq _06006ED0
 	cmp r0, #8
-	add r5, pc, #0x108 @ =_06006F70
+	adr r5, _06006F70
 	beq _06006ED0
 	cmp r0, #0xa
-	add r5, pc, #0x10C @ =_06006F80
+	adr r5, _06006F80
 	beq _06006ED0
 	cmp r0, #0x17
-	add r5, pc, #0x108 @ =_06006F88
+	adr r5, _06006F88
 	cmpne r0, #5
 	beq _06006ED0
 	cmp r0, #0xe
 	cmpne r0, #0xf
-	add r5, pc, #0x104 @ =_06006F98
+	adr r5, _06006F98
 	beq _06006ED0
 	cmp r0, #0x10
-	add r5, pc, #0x100 @ =_06006FA0
+	adr r5, _06006FA0
 	beq _06006ED0
 	cmp r0, #0x19
 	cmpne r0, #0x20
-	add r5, pc, #0xF8 @ =_06006FA8
+	adr r5, _06006FA8
 	beq _06006ED0
 	cmp r0, #0xb
-	add r5, pc, #0xD4 @ =_06006F90
+	adr r5, _06006F90
 	cmpne r0, #0xc
 	cmpne r0, #0xd
 	beq _06006ED0
 	cmp r0, #9
-	add r5, pc, #0xA8 @ =_06006F78
+	adr r5, _06006F78
 	bne _06006EF8
 
 	@ r5 is pointer to data
@@ -1065,7 +1067,7 @@ _060071A0:
 	ldrb r0, [sp, #SP_A43]
 	cmp r0, #0
 	beq _060071F0
-	add lr, pc, #0x8 @ =_060071C4
+	adr lr, _060071C4
 	ldr r12, _06007234 @ =sub_0203E3AC
 	mov r0, sp
 	bx r12

@@ -7,10 +7,10 @@
 _start: @ 0x087d80d4
 	mov r12, r0 @ r12 = r0 = 0x08000000
 	@ r11 = 0x087d8124
-	add r11, pc, #0x44 @ =_087d8124
+	adr r11, _087d8124
 
 	@ r0 = 0x087D8114
-	add r0, pc, #0x30 @ =_087D8114
+	adr r0, _087D8114
 	@ r1 = 0x00000012
 	@ r2 = 0x03007FA0 (sp_irq)
 	@ r3 = 0x00000013
@@ -27,7 +27,7 @@ _start: @ 0x087d80d4
 	sub sp, r2, #0xa0 @ sp = 0x03007FA0 - 0xA0 = 0x03007F00 (sp_usr)
 
 	@ r0 = 0x087D8148
-	add r0, pc, #0x44  @ =_087D8148
+	adr r0, _087D8148
 	sub r1, sp, #0xb00 @ r1 = 0x03007F00 - 0xB00 = 0x03007400
 	@ r4 = 0x040000D4 (DMA3SAD - DMA 3 Source Address)
 	@ r5 = 0x13850021 (???)
