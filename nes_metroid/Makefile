@@ -199,7 +199,7 @@ asm/data.o: emulator/emulator_$(REGION).gba.lz emulator/emulatorUnused_$(REGION)
 emulator/emulator_$(REGION).gba:
 	$(MAKE) -C emulator -r $(REGION)
 
-emulator/emulator_$(REGION)_part6.gba:
+emulator/emulator_$(REGION)_part6.gba: | emulator/emulator_$(REGION).gba
 	$(MAKE) -C emulator -f Makefile_part6.mk -r $(REGION)
 
 emulator/emulator_$(REGION)_combined.gba: emulator/emulator_$(REGION).gba emulator/emulator_$(REGION)_part6.gba
