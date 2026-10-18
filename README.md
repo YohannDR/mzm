@@ -47,16 +47,16 @@ The default built ROM is mzm_us.gba
 
 ## Build
 
-- Run `make clean` if necessary
-  - Use `make clean DATA=1` to remove data as well
-- Run the data extractor if necessary: `python3 tools/extractor.py`
-  - Use the `-r` flag to specify a region other than `us` (ex: `-r jp`)
-  - Use the `-d` flag to extract only debug data from the US beta ROM (required for building a ROM with debug features)
+- Run `make tidy` if necessary
+  - Use `make tidy DATA=1` to remove data as well
+- Run the data extractor if necessary: `make extract`
+  - For regions other than `us`, specify it using `REGION` (ex: `REGION=jp`)
+  - Also run `python3 tools/extractor.py -d` if you want to build a ROM with debug features
 - Run `make` (using the `-j` option is recommended to speed up the process)
 - To build another version of the ROM you can do either of the following:
   - Specify it directly (ex: `make us_debug` for the US ROM with debug features)
-  - Specify the flags, REGION (takes the region name, defaults to `us`) and DEBUG (takes 0 or 1, defaults to 0)
-- Optionally, you can combine the commands to make it easier: `python3 tools/extractor.py && make -j`
+  - Specify the flags, `REGION` (takes the region name, defaults to `us`) and `DEBUG` (takes 0 or 1, defaults to 0)
+- Optionally, you can combine the commands to make it easier: `make extract && make -j`
 
 ## Contributing
 
