@@ -648,7 +648,7 @@ _03002F2C:
 _03002F34:
 	str r0, [sp, #SP_93C]
 	str lr, [sp, #SP_938]
-	add lr, pc, #0x4 @ =_03002F48
+	adr lr, _03002F48
 	ldr r2, _030031C8 @ =EmulatorAudio_GetActiveChannels
 	bx r2
 _03002F48:
@@ -1088,7 +1088,7 @@ sub_030034A8: @ 0x030034A8
 	str r3, [sp, #SP_884]
 	@ Call SP_9B4 (EmulatorAudio_WriteToApu(apuRegister=r0, value=r1))
 	ldr r3, [sp, #SP_9B4]
-	add lr, pc, #0x0 @ =_030034B8
+	adr lr, _030034B8
 	bx r3
 _030034B8:
 	ldr r3, [sp, #SP_884]
@@ -1190,7 +1190,7 @@ Opcode_LDA_Absolute: @ 0x030035D8
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030035F4
+	adr lr, _030035F4
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
 _030035F4:
@@ -1204,9 +1204,10 @@ Opcode_LDX_Absolute: @ 0x03003608
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003624
+	adr lr, _03003624
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003624:
 	and r8, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1217,9 +1218,10 @@ Opcode_LDY_Absolute: @ 0x03003638
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003654
+	adr lr, _03003654
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003654:
 	and r9, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1231,9 +1233,10 @@ Opcode_LDA_AbsoluteX: @ 0x03003668
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003688
+	adr lr, _03003688
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003688:
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1245,9 +1248,10 @@ Opcode_LDA_AbsoluteY: @ 0x0300369C
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030036BC
+	adr lr, _030036BC
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030036BC:
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1259,9 +1263,10 @@ Opcode_LDX_AbsoluteY: @ 0x030036D0
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030036F0
+	adr lr, _030036F0
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030036F0:
 	and r8, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1273,9 +1278,10 @@ Opcode_LDY_AbsoluteX: @ 0x03003704
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003724
+	adr lr, _03003724
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003724:
 	and r9, r3, #0xff
 	adds r4, r4, #0x4000000
 	ldrblt r1, [r5], #1
@@ -1288,9 +1294,10 @@ Opcode_LDA_IndirectY: @ 0x03003738
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x0300375C
+	adr lr, _0300375C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_0300375C:
 	and r7, r3, #0xff
 	adds r4, r4, #0x5000000
 	ldrblt r1, [r5], #1
@@ -1304,9 +1311,10 @@ Opcode_LDA_IndirectX: @ 0x03003770
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003798
+	adr lr, _03003798
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003798:
 	and r7, r3, #0xff
 	adds r4, r4, #0x6000000
 	ldrblt r1, [r5], #1
@@ -1594,9 +1602,10 @@ Opcode_CMP_Absolute: @ 0x03003B8C
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003BA8
+	adr lr, _03003BA8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003BA8:
 	subs r3, r7, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1609,9 +1618,10 @@ Opcode_CPX_Absolute: @ 0x03003BC4
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003BE0
+	adr lr, _03003BE0
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003BE0:
 	subs r3, r8, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1624,9 +1634,10 @@ Opcode_CPY_Absolute: @ 0x03003BFC
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003C18
+	adr lr, _03003C18
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003C18:
 	subs r3, r9, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1640,9 +1651,10 @@ Opcode_CMP_AbsoluteX: @ 0x03003C34
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003C54
+	adr lr, _03003C54
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003C54:
 	subs r3, r7, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1656,9 +1668,10 @@ Opcode_CMP_AbsoluteY: @ 0x03003C70
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003C90
+	adr lr, _03003C90
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003C90:
 	subs r3, r7, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1674,9 +1687,10 @@ Opcode_CMP_IndirectX: @ 0x03003CAC
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003CD4
+	adr lr, _03003CD4
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003CD4:
 	subs r3, r7, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1691,9 +1705,10 @@ Opcode_CMP_IndirectY: @ 0x03003CF0
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003D14
+	adr lr, _03003D14
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003D14:
 	subs r3, r7, r3
 	rrx r10, r10
 	and r3, r3, #0xff
@@ -1755,9 +1770,10 @@ Opcode_ADC_Absolute: @ 0x03003DE8
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003E04
+	adr lr, _03003E04
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003E04:
 	lsr r10, r10, #8
 	orr r7, r10, r7, lsl #24
 	orr r3, r10, r3, lsl #24
@@ -1777,9 +1793,10 @@ Opcode_ADC_AbsoluteX: @ 0x03003E38
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003E58
+	adr lr, _03003E58
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003E58:
 	lsr r10, r10, #8
 	orr r7, r10, r7, lsl #24
 	orr r3, r10, r3, lsl #24
@@ -1799,9 +1816,10 @@ Opcode_ADC_AbsoluteY: @ 0x03003E8C
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003EAC
+	adr lr, _03003EAC
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003EAC:
 	lsr r10, r10, #8
 	orr r7, r10, r7, lsl #24
 	orr r3, r10, r3, lsl #24
@@ -1822,9 +1840,10 @@ Opcode_ADC_IndirectY: @ 0x03003EE0
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003F04
+	adr lr, _03003F04
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003F04:
 	lsr r10, r10, #8
 	orr r7, r10, r7, lsl #24
 	orr r3, r10, r3, lsl #24
@@ -1846,9 +1865,10 @@ Opcode_ADC_IndirectX: @ 0x03003F38
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003F60
+	adr lr, _03003F60
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003F60:
 	lsr r10, r10, #8
 	orr r7, r10, r7, lsl #24
 	orr r3, r10, r3, lsl #24
@@ -1870,9 +1890,10 @@ Opcode_SBC_IndirectX: @ 0x03003F94
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03003FBC
+	adr lr, _03003FBC
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03003FBC:
 	lsls r10, r10, #1
 	lsl r7, r7, #0x18
 	sbcs r3, r7, r3, lsl #24
@@ -1936,9 +1957,10 @@ Opcode_SBC_Absolute: @ 0x03004098
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030040B4
+	adr lr, _030040B4
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030040B4:
 	lsls r10, r10, #1
 	lsl r7, r7, #0x18
 	sbcs r3, r7, r3, lsl #24
@@ -1957,9 +1979,10 @@ Opcode_SBC_AbsoluteX: @ 0x030040E4
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004104
+	adr lr, _03004104
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004104:
 	lsls r10, r10, #1
 	lsl r7, r7, #0x18
 	sbcs r3, r7, r3, lsl #24
@@ -1978,9 +2001,10 @@ Opcode_SBC_AbsoluteY: @ 0x03004134
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004154
+	adr lr, _03004154
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004154:
 	lsls r10, r10, #1
 	lsl r7, r7, #0x18
 	sbcs r3, r7, r3, lsl #24
@@ -2000,9 +2024,10 @@ Opcode_SBC_IndirectY: @ 0x03004184
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030041A8
+	adr lr, _030041A8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030041A8:
 	lsls r10, r10, #1
 	lsl r7, r7, #0x18
 	sbcs r3, r7, r3, lsl #24
@@ -2023,9 +2048,10 @@ Opcode_ORA_IndirectX: @ 0x030041D8
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004200
+	adr lr, _03004200
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004200:
 	orr r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x6000000
@@ -2065,9 +2091,10 @@ Opcode_ORA_Absolute: @ 0x0300427C
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004298
+	adr lr, _03004298
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004298:
 	orr r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2080,9 +2107,10 @@ Opcode_ORA_AbsoluteX: @ 0x030042B0
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030042D0
+	adr lr, _030042D0
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030042D0:
 	orr r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2095,9 +2123,10 @@ Opcode_ORA_AbsoluteY: @ 0x030042E8
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004308
+	adr lr, _03004308
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004308:
 	orr r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2111,9 +2140,10 @@ Opcode_ORA_IndirectY: @ 0x03004320
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004344
+	adr lr, _03004344
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004344:
 	orr r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x5000000
@@ -2153,9 +2183,10 @@ Opcode_AND_Absolute: @ 0x030043C0
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030043DC
+	adr lr, _030043DC
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030043DC:
 	and r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2170,9 +2201,10 @@ Opcode_AND_IndirectX: @ 0x030043F4
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x0300441C
+	adr lr, _0300441C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_0300441C:
 	and r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x6000000
@@ -2185,9 +2217,10 @@ Opcode_AND_AbsoluteX: @ 0x03004434
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004454
+	adr lr, _03004454
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004454:
 	and r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2200,9 +2233,10 @@ Opcode_AND_AbsoluteY: @ 0x0300446C
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x0300448C
+	adr lr, _0300448C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_0300448C:
 	and r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2216,9 +2250,10 @@ Opcode_AND_IndirectY: @ 0x030044A4
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030044C8
+	adr lr, _030044C8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030044C8:
 	and r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x5000000
@@ -2244,9 +2279,10 @@ Opcode_BIT_Absolute: @ 0x03004514
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004530
+	adr lr, _03004530
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004530:
 	bic sp, sp, #0x200000
 	tst r3, #0x40
 	orrne sp, sp, #0x200000
@@ -2291,9 +2327,10 @@ Opcode_EOR_Absolute: @ 0x030045C0
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030045DC
+	adr lr, _030045DC
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030045DC:
 	eor r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2306,9 +2343,10 @@ Opcode_EOR_AbsoluteX: @ 0x030045F4
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x03004614
+	adr lr, _03004614
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_03004614:
 	eor r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2321,9 +2359,10 @@ Opcode_EOR_AbsoluteY: @ 0x0300462C
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x0300464C
+	adr lr, _0300464C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_0300464C:
 	eor r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x4000000
@@ -2338,9 +2377,10 @@ Opcode_EOR_IndirectX: @ 0x03004664
 	ldrb r0, [r0, #1]
 	orr r0, r1, r0, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x0300468C
+	adr lr, _0300468C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_0300468C:
 	eor r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x6000000
@@ -2354,9 +2394,10 @@ Opcode_EOR_IndirectY: @ 0x030046A4
 	orr r0, r1, r0, lsl #8
 	add r0, r0, r9
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x4 @ =0x030046C8
+	adr lr, _030046C8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [sp, r0]
+_030046C8:
 	eor r3, r7, r3
 	and r7, r3, #0xff
 	adds r4, r4, #0x5000000
@@ -2388,7 +2429,7 @@ Opcode_INC_Absolute: @ 0x03004728
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x1C @ =_0300475C
+	adr lr, _0300475C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	add r3, r3, #1
@@ -2409,7 +2450,7 @@ Opcode_INC_AbsoluteX: @ 0x03004770
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x1C @ =_030047A8
+	adr lr, _030047A8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	add r3, r3, #1
@@ -2449,7 +2490,7 @@ Opcode_DEC_Absolute: @ 0x03004804
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x1C @ =_03004838
+	adr lr, _03004838
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	sub r3, r3, #1
@@ -2470,7 +2511,7 @@ Opcode_DEC_AbsoluteX: @ 0x0300484C
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x1C @ =_03004884
+	adr lr, _03004884
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	sub r3, r3, #1
@@ -2508,7 +2549,7 @@ Opcode_ASL_Absolute: @ 0x030048D8
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x20 @ =_03004910
+	adr lr, _03004910
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r3, r3, #1
@@ -2531,7 +2572,7 @@ Opcode_ASL_AbsoluteX: @ 0x03004928
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x20 @ =_03004964
+	adr lr, _03004964
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r3, r3, #1
@@ -2595,7 +2636,7 @@ Opcode_LSR_Absolute: @ 0x03004A14
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x20 @ =_03004A4C
+	adr lr, _03004A4C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r10, r3, #0x1f
@@ -2618,7 +2659,7 @@ Opcode_LSR_AbsoluteX: @ 0x03004A64
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x20 @ =_03004AA0
+	adr lr, _03004AA0
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r10, r3, #0x1f
@@ -2673,7 +2714,7 @@ Opcode_ROL_Absolute: @ 0x03004B30
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x24 @ =_03004B6C
+	adr lr, _03004B6C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r3, r3, #1
@@ -2698,7 +2739,7 @@ Opcode_ROL_AbsoluteX: @ 0x03004B88
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x24 @ =_03004BC8
+	adr lr, _03004BC8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	lsl r3, r3, #1
@@ -2758,7 +2799,7 @@ Opcode_ROR_Absolute: @ 0x03004C68
 	ldrb r1, [r5], #1
 	orr r0, r0, r1, lsl #8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x28 @ =_03004CA8
+	adr lr, _03004CA8
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	tst r10, #-0x80000000
@@ -2785,7 +2826,7 @@ Opcode_ROR_AbsoluteX: @ 0x03004CC8
 	orr r0, r0, r1, lsl #8
 	add r0, r0, r8
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x28 @ =_03004D0C
+	adr lr, _03004D0C
 	ldrne pc, [r11, -r2, lsl #2]
 	ldrb r3, [r0, sp]!
 	tst r10, #-0x80000000
@@ -2965,13 +3006,13 @@ Opcode_JMP_Indirect: @ 0x03004F24
 	b _03005398
 _03004F64:
 	str r3, [sp, #SP_884]
-	add lr, pc, #0x0 @ =_03004F70
+	adr lr, _03004F70
 	ldr pc, [r11, -r2, lsl #2]
 _03004F70:
 	strb r3, [sp, #SP_A3E]
 	add r0, r0, #1
 	lsrs r2, r0, #0xd
-	add lr, pc, #0x0 @ =_03004F84
+	adr lr, _03004F84
 	ldr pc, [r11, -r2, lsl #2]
 _03004F84:
 	ldrb r0, [sp, #SP_A3E]
@@ -3401,7 +3442,7 @@ sub_03005568: @ 0x03005568
 	lsr r1, r0, #2 @ r1 = r0 >> 2
 	add r0, r0, #1 @ r0 += 1
 	strb r0, [sp, #SP_A46] @ SP_A46 = r0
-	sub r0, pc, #0x30 @ r0 = &_03005558
+	adr r0, _03005558 @ r0 = &_03005558
 	ldm r0, {r2, r3, r4, r5}
 	add r3, r3, r1, lsl #5
 	stm r2, {r3, r4, r5} @ DMA3(src=sUnk_0203E634+(r1<<5), dst=0x06003060, cnt=Enable, 16bit, 0x20 bytes)
@@ -3732,7 +3773,7 @@ _030059AC:
 	orrne r11, r11, #0xc0000
 	strne lr, [sp, #SP_8E8]
 _030059F8:
-	add r1, pc, #0x3C @ =_03005A3C
+	adr r1, _03005A3C
 	and r0, r0, #3
 	ldr r0, [r1, r0, lsl #2]
 	str r0, [sp, #SP_8B0]

@@ -15,7 +15,7 @@ start_code: @ 0x03007400
 
 	and r6, r5, #0xff @ r6 = (0x13850021 & 0xFF) = 0x21
 	add r6, r0, r6, lsl #4 @ r6 = 0x087D8150 + (0x21 << 4) = 0x087D8360 (source)
-	add r5, pc, #0x1E8 @ =_03007604
+	adr r5, _03007604
 
 ResetDstAddr: @ 0x03007418
 	ldr r7, _03007610 @ =0x03000100 (destination)
@@ -79,7 +79,7 @@ _03007458: @ 0x03007458
 	stmne r4, {r1, r2, r3}          @ DMA(src=r1, dst=r2, cnt=r3)
 	cmp r3, #0
 	bne _03007458               @ goto @@_3007458 (read from pool and try DMA)
-	add r5, pc, #0xEC @ =_03007564
+	adr r5, _03007564
 	ldr r1, [r5], #4        @ r1 = 0x087D814C, r5 += 4 (_03007568)
 	ldrh r6, [r1, #2]       @ r6 = [r1 + 2] = 0x1385
 	add r6, r1, r6, lsl #2  @ r6 = r1 + r6*4 = 0x87DCF60
@@ -192,7 +192,7 @@ _030074F8: @ 0x030074F8
 	strh r3, [r2], #2        @ [r2] = r3, r2 += 2
 	teq r1, r6               @ if r1 ^ r6 != 0
 	bne _030074F8                @ goto _030074F8
-	sub r5, pc, #0xc4        @ r5 = _0300744C
+	adr r5, _03007450-4        @ r5 = _03007450-4 (0x0300744C)
 
 JumpR15: @ 0x0300750C
 	ldm r5!, {r9, r10, pc}

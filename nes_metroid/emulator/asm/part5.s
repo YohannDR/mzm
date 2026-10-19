@@ -255,14 +255,14 @@ sub_0600E1C4: @ 0x0600E1C4
 	strh r1, [r5] @ REG_IME = 1 (enable interrupts)
 	@ EmulatorAudio_Initialize()
 	ldr r4, _0600E234 @ =EmulatorAudio_Initialize
-	add lr, pc, #0x0 @ =_0600E224
+	adr lr, _0600E224
 	bx r4
 _0600E224:
 	@ sub_03000368(SP_91C)
 	@ goto _0600E23C
 	ldr r4, _0600E238 @ =sub_03000368
 	ldr r0, [sp, #SP_91C]
-	add lr, pc, #0x8 @ =_0600E23C
+	adr lr, _0600E23C
 	bx r4
 	.align 2, 0
 _0600E234: .4byte EmulatorAudio_Initialize
@@ -270,7 +270,7 @@ _0600E238: .4byte sub_03000368
 _0600E23C:
 	bl sub_0600EBF8
 _0600E240:
-	add lr, pc, #0x9C @ =sub_0600E2E4
+	adr lr, sub_0600E2E4
 	str lr, [sp, #SP_940] @ SP_940 = &sub_0600E2E4
 _0600E248:
 	ldrb r0, [sp, #SP_A30]
@@ -278,7 +278,7 @@ _0600E248:
 	beq _0600E274     @ goto _0600E274
 
 	@ r0 = sub_0203E38C(SP, 0x0600A010) (always 0)
-	add lr, pc, #0x14 @ =_0600E270
+	adr lr, _0600E270
 	mov r0, sp
 	ldr r1, _0600E268 @ =0x0600A010
 	ldr r12, _0600E26C @ =sub_0203E38C
@@ -296,7 +296,7 @@ _0600E274:
 	mov r2, #0
 	str r2, [sp, #SP_9B8] @ SP_9B8 = 0
 	@ sub_030030E8() with r1 = SP_9B8
-	add lr, pc, #0x0 @ =_0600E290
+	adr lr, _0600E290
 	ldr pc, _0600E2BC @ =sub_030030E8
 
 _0600E290:
@@ -340,7 +340,7 @@ _0600E2E0:
 	arm_func_start sub_0600E2E4
 sub_0600E2E4: @ 0x0600E2E4
 	@ EmulatorReplaceCopyrightYear()
-	add lr, pc, #0x8 @ =sub_0600E2F4
+	adr lr, sub_0600E2F4
 	ldr r12, _0600E2F0 @ =EmulatorReplaceCopyrightYear
 	bx r12
 	.align 2, 0
@@ -350,7 +350,7 @@ _0600E2F0: .4byte EmulatorReplaceCopyrightYear
 sub_0600E2F4: @ 0x0600E2F4
 	@ EmulatorFillPasswordWithSaved(sp)
 	mov r0, sp
-	add lr, pc, #0x8 @ =sub_0600E308
+	adr lr, sub_0600E308
 	ldr r12, _0600E304 @ =EmulatorFillPasswordWithSaved
 	bx r12
 	.align 2, 0
@@ -360,7 +360,7 @@ _0600E304: .4byte EmulatorFillPasswordWithSaved
 sub_0600E308: @ 0x0600E308
 	@ r0 = EmulatorRetrieveGameOverPassword(sp)
 	mov r0, sp
-	add lr, pc, #0x8 @ =sub_0600E31C
+	adr lr, sub_0600E31C
 	ldr r12, _0600E318 @ =EmulatorRetrieveGameOverPassword
 	bx r12
 	.align 2, 0
@@ -395,14 +395,14 @@ _0600E34C:
 	strb r1, [sp, #SP_A2C]
 	cmp r0, #0x300
 	beq _0600E3B8
-	add lr, pc, #0x4 @ =sub_0600E38C
+	adr lr, sub_0600E38C
 	ldr pc, _0600E388 @ =sub_03002FAC
 	.align 2, 0
 _0600E388: .4byte sub_03002FAC
 
 	arm_func_start sub_0600E38C
 sub_0600E38C: @ 0x0600E38C
-	add lr, pc, #0xC @ =sub_0600E3A0
+	adr lr, sub_0600E3A0
 	mov r0, #0x4000
 	orr r0, r0, #0x15
 	ldr r1, _0600E574 @ =EmulatorAudio_GetActiveChannels
@@ -423,7 +423,7 @@ _0600E3B8:
 	strb r0, [sp, #SP_A45]
 	strb r0, [sp, #SP_A43]
 	bl sub_0600EB0C
-	add lr, pc, #0x24 @ =sub_0600E3FC
+	adr lr, sub_0600E3FC
 _0600E3D4:
 	str lr, [sp, #SP_940] @ SP_940 = lr
 _0600E3D8:
@@ -453,7 +453,7 @@ sub_0600E3FC: @ 0x0600E3FC
 	strh r1, [r12, #0x50]
 	mov r0, #1
 	strbhs r0, [sp, #SP_A44]
-	add lr, pc, #0x3C @ =sub_0600E474
+	adr lr, sub_0600E474
 	strhs lr, [sp, #SP_940]
 	bl sub_0600EB18 @ sub_0600EB18() (Enable emulator text display)
 	b _0600E3D8
@@ -467,12 +467,12 @@ sub_0600E440: @ 0x0600E440
 	blo _0600E468
 	strb r0, [sp, #SP_A2D]
 	bne _0600E3D8
-	add lr, pc, #0x4 @ =_0600E468
+	adr lr, _0600E468
 	ldr r2, _0600E578 @ =EmulatorAudio_Reset
 	bx r2
 _0600E468:
 	bl sub_0600EB04
-	sub lr, pc, #0x190
+	adr lr, sub_0600E2E4
 	b _0600E3D4
 
 	@ Handle main menu
@@ -491,7 +491,7 @@ sub_0600E474: @ 0x0600E474
 _0600E49C:
 	mov r1, #0
 	strb r1, [sp, #SP_A43] @ SP_A43 = 0
-	sub lr, pc, #0x6c
+	adr lr, sub_0600E440
 	str lr, [sp, #SP_940] @ SP_940 = sub_0600E474
 	b _0600EA9C
 _0600E4B0:
@@ -511,7 +511,7 @@ sub_0600E4D0: @ 0x0600E4D0
 	@ r0 = EmulatorLoadFromSram(src=r0, dst=SP_854, arg2=SP)
 	ldr r1, [sp, #SP_854]
 	mov r2, sp
-	add lr, pc, #0x4 @ =_0600E4E8
+	adr lr, _0600E4E8
 	ldr r12, _0600E57C @ =EmulatorLoadFromSram
 	bx r12
 _0600E4E8:
@@ -553,8 +553,9 @@ sub_0600E534: @ 0x0600E534
 _0600E548:
 	@ sub_03002DF0() with r8, r10, r9 parameters
 	ldr r9, [r2], #4
-	add lr, pc, #0x0 @ =0x0600E554
+	adr lr, _0600E554
 	ldr pc, _0600E580 @ =sub_03002DF0
+_0600E554:
 	cmp r2, r11
 	blo _0600E548
 
@@ -673,7 +674,7 @@ sub_0600E6DC: @ 0x0600E6DC
 	str r1, [sp, #SP_944]
 	mov r0, #0x10
 	bl sub_06006E08 @ sub_06006E08(0x10) (No text)
-	add lr, pc, #0x4 @ =sub_0600E700
+	adr lr, sub_0600E700
 	ldr r12, _0600E7B0 @ =sub_0203E390
 	bx r12
 
@@ -697,7 +698,7 @@ sub_0600E700: @ 0x0600E700
 	bl sub_0600E754
 	add r1, r0, #0x10
 	mov r0, sp
-	add lr, pc, #0x68 @ =sub_0600E7B8
+	adr lr, sub_0600E7B8
 	ldr r12, _0600E7B4 @ =EmulatorLoadFromPasswordBytes
 	bx r12
 
@@ -775,7 +776,7 @@ _0600E810:
 	stm r4, {r1, r2, r5}
 	movs r2, r6
 	ldrne r2, _0600E858 @ =0x0E007FD8
-	add lr, pc, #0xC @ =sub_0600E860
+	adr lr, sub_0600E860
 	ldr r12, _0600E85C @ =EmulatorSaveToSram
 	bx r12
 	.align 2, 0
@@ -852,7 +853,7 @@ sub_0600E93C: @ 0x0600E93C
 	strh r0, [r12] @ REG_DISPCNT = 0x60 (Screen off, OBJ VRAM 1D, OAM H-Blank)
 	mov r0, #1
 	strb r0, [sp, #SP_A48] @ SP_A48 = 1
-	add lr, pc, #0x4 @ =sub_0600E960
+	adr lr, sub_0600E960
 	str lr, [sp, #SP_940] @ SP_940 = &sub_0600E960
 	b sub_0600E2C4
 
@@ -1096,7 +1097,7 @@ sub_0600EC4C: @ 0x0600EC4C
 	bne _0600EC80
 	mov r0, sp
 	ldr r1, _0600EC88 @ =0x0600A010
-	add lr, pc, #0x4 @ =_0600EC70
+	adr lr, _0600EC70
 	ldr r12, _0600EC8C @ =EmulatorLoadFromPasswordBytes
 	bx r12
 _0600EC70:
@@ -1143,7 +1144,7 @@ _0600ECE8:
 	ldr lr, _0600ED0C @ =sub_0600E440
 	b _0600E3D4
 _0600ECFC:
-	add lr, pc, #0x0 @ =_0600ED04
+	adr lr, _0600ED04
 	ldr pc, _0600ED10 @ =sub_0600ED14
 _0600ED04:
 	ldr sp, [sp, #SP_920] @ SP = SP_920 (original sp (0x03007EF8))

@@ -56,7 +56,6 @@ SECTIONS {
     .text : ALIGN(2) {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
-        asm/intr_main.o(.text);
         src/agbmain.o(.text);
         src/init_game.o(.text);
         src/soft_reset_input.o(.text);
