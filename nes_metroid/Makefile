@@ -106,10 +106,17 @@ CSRC = $(wildcard src/**.c) $(wildcard src/**/**.c) $(wildcard src/**/**/**.c) $
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o)
 
-# Dynamically find agbcc path and its lib folder
-AGBCC_BIN := $(shell which agbcc)
-AGBCC_DIR := $(dir $(AGBCC_BIN))/
-AGBCC_LIB := $(abspath $(AGBCC_DIR))
+# Detect if agbcc was installed into the project
+ifneq (,$(wildcard ../tools/agbcc))
+	AGBCC_BIN := ../tools/agbcc/bin/agbcc
+	AGBCC_LIB := ../tools/agbcc/lib
+	CC = $(AGBCC_BIN)
+else
+	# Dynamically find agbcc path and its lib folder
+	AGBCC_BIN := $(shell which agbcc)
+	AGBCC_DIR := $(dir $(AGBCC_BIN))/
+	AGBCC_LIB := $(abspath $(AGBCC_DIR))
+endif
 
 LIBS := $(AGBCC_LIB)/libgcc.a $(AGBCC_LIB)/libc.a
 
