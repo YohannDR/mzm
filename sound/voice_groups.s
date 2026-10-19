@@ -1,3 +1,4 @@
+.include "sound/m_play_def.s"
 .include "asm/music_voice.inc"
 .section .rodata
 

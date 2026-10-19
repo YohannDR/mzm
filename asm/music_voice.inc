@@ -111,8 +111,8 @@
 	.4byte \keysplit_table_pointer
 	.endm
 
-	.macro voice_keysplit_all voice_group_pointer
+	.macro voice_keysplit_all voice_group_pointer, base_midi_key
 	.byte 0x80, 0, 0, 0
-	.4byte \voice_group_pointer
+	.4byte (\voice_group_pointer - \base_midi_key * 12)
 	.int 0
 	.endm
